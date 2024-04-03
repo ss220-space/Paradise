@@ -75,7 +75,7 @@
 		return
 
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
 		return
 
@@ -147,7 +147,7 @@
 				user.canmove = FALSE
 				user.density = 0
 				for(var/mob/living/M in T.contents)
-					if(!M.lying)
+					if(!M.lying_angle)
 						var/turf/target = get_turf(get_step(user,cur_dir))
 						hit = 1
 						playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
@@ -169,7 +169,7 @@
 				for(var/mob/living/M in T.contents)
 					playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
 					M.Weaken(4 SECONDS)
-			if(user.lying)
+			if(user.lying_angle)
 				break
 			if(hit)
 				break
@@ -234,7 +234,7 @@
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
@@ -421,7 +421,7 @@
 
 
 /obj/effect/proc_holder/spell/hulk_mill/cast(list/targets,mob/user = user)
-	if (user.lying || user.incapacitated())
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	for(var/i in 1 to 45)

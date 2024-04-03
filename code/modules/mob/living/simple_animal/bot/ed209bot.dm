@@ -258,7 +258,7 @@
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.stat || C.lying)
+		if(C.stat || C.lying_angle)
 			continue
 		threatlevel = C.assess_threat(src, lasercolor)
 		//speak(C.real_name + text(": threat: []", threatlevel))
@@ -272,7 +272,7 @@
 		targets += C
 	if(length(targets))
 		var/mob/living/carbon/t = pick(targets)
-		if(t.stat != DEAD && !t.lying && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && !t.lying_angle && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 
 	switch(mode)
@@ -425,7 +425,7 @@
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	Sa.add_overlay(image('icons/obj/aibots.dmi', "hs_hole"))
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 

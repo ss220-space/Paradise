@@ -81,14 +81,8 @@
 			var/obj/item/projectile/P = AM
 			if(P.original != parent)
 				return
-	if(ismob(AM))
-		var/mob/M = AM
-		if(M.flying)
-			return
-		if(isliving(AM))
-			var/mob/living/L = M
-			if(L.floating)
-				return
+	if(AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return
 	var/atom/current_parent = parent
 	if(isturf(current_parent?.loc))
 		play_squeak()

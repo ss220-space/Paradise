@@ -2,7 +2,7 @@
 #define PHEROMONES_MAX 3
 
 /datum/species/kidan
-	name = "Kidan"
+	name = SPECIES_KIDAN
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'

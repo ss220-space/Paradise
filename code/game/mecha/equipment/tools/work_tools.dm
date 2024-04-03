@@ -594,7 +594,7 @@
 		occupant_message(span_notice("You use [src] to deactivate [H]."))
 		qdel(H)
 	else
-		if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+		if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 			if(holocreator_busy)
 				occupant_message(span_notice("[src] is busy creating a hologram."))
 				return FALSE
@@ -611,7 +611,7 @@
 					holocreator_busy = FALSE
 					if(length(barriers) >= max_barriers)
 						return
-					if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+					if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 						return
 				H = new /obj/structure/holosign/barrier/atmos(T, src)
 				chassis.use_power(energy_drain)

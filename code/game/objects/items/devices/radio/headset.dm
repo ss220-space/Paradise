@@ -6,18 +6,18 @@
 	item_state = "headset"
 	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/ears.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/ears.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/ears.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/ears.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/ears.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ears.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
 	) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_FLAG_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -402,6 +402,7 @@
 /obj/item/radio/headset/all_channels // Its only feature is all channels.
 	ks1type = /obj/item/encryptionkey/admin
 
+/* Currently unusable due to language refactoring
 /obj/item/radio/headset/event_1
 	desc = "A headset linked to special long range alpha frequency in this sector."
 	icon_state = "headset"
@@ -428,6 +429,7 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 	freqlock = TRUE
+*/
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))

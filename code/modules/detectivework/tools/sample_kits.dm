@@ -20,9 +20,10 @@
 		icon_state = "fingerprint1"
 
 /obj/item/sample/proc/copy_evidence(atom/supplied)
-	if(supplied.suit_fibers && supplied.suit_fibers.len)
-		evidence = supplied.suit_fibers.Copy()
+	if(supplied.time_of_touch && supplied.time_of_touch.len)
+		evidence = supplied.time_of_touch.Copy()
 		supplied.suit_fibers.Cut()
+		supplied.time_of_touch.Cut()
 
 /obj/item/sample/proc/merge_evidence(obj/item/sample/supplied, mob/user)
 	if(!supplied.evidence || !supplied.evidence.len)
@@ -98,7 +99,7 @@
 		to_chat(user, "<span class='warning'>\The [H] is wearing gloves.</span>")
 		return 1
 
-	if(user != H && H.a_intent != INTENT_HELP && !H.lying)
+	if(user != H && H.a_intent != INTENT_HELP && !H.lying_angle)
 		user.visible_message("<span class='danger'>\The [user] tries to take prints from \the [H], but they move away.</span>")
 		return 1
 
@@ -124,10 +125,10 @@
 	return 0
 
 /obj/item/sample/print/copy_evidence(atom/supplied)
-	if(supplied.fingerprints && supplied.fingerprints.len)
-		for(var/print in supplied.fingerprints)
-			evidence[print] = supplied.fingerprints[print]
+	if(supplied.fingerprints_time && supplied.fingerprints_time.len)
+		evidence = supplied.fingerprints_time.Copy()
 		supplied.fingerprints.Cut()
+		supplied.fingerprints_time.Cut()
 
 /obj/item/forensics
 

@@ -68,7 +68,8 @@
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
+/mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	return TRUE
 
 
@@ -305,8 +306,7 @@
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/I in getline(src, get_turf(H)))
-					var/turf/T = I
+				for(var/turf/T as anything in get_line(src, get_turf(H)))
 					for(var/obj/structure/O in T)
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O

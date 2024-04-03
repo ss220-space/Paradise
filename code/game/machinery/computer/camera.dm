@@ -120,10 +120,15 @@
 	if(..())
 		return
 
+	. = TRUE
+
 	if(action == "switch_camera")
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		if(isnull(C))
+			to_chat(usr, span_warning("ERROR. [c_tag] camera was not found."))
+			return
 		active_camera?.computers_watched_by -= src
 		active_camera = C
 		active_camera.computers_watched_by += src
@@ -132,11 +137,11 @@
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())
 			show_camera_static()
-			return TRUE
+			return
 
 		update_camera_view()
 
-		return TRUE
+		return
 
 /obj/machinery/computer/security/proc/update_camera_view()
 	if(!active_camera || !active_camera.can_use())
@@ -302,3 +307,15 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldframe"
+	icon_state = "frame-sec"
+	icon_keyboard = "kb15"
+
+/obj/machinery/computer/security/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldcomp"
+	icon_state = "oldcomp"
+	icon_keyboard = null

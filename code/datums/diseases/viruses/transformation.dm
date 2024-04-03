@@ -57,7 +57,7 @@
 		affected_mob.notransform = 1
 		affected_mob.canmove = FALSE
 		affected_mob.icon = null
-		affected_mob.overlays.Cut()
+		affected_mob.cut_overlays()
 		affected_mob.invisibility = INVISIBILITY_ABSTRACT
 
 		for(var/obj/item/W in affected_mob)

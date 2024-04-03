@@ -82,7 +82,7 @@
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
-		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
+		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
 	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)

@@ -334,12 +334,12 @@
 			//Place is colder than we are
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+				adjust_bodytemperature(max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX))
 		else
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
+				adjust_bodytemperature(min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX))
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > dna.species.heat_level_1)
@@ -377,6 +377,7 @@
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
 			if(mult>0)
+				add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((dna.species.cold_level_1 - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 				if(bodytemperature < dna.species.cold_level_2 && prob(0.3))
 					var/datum/disease/virus/cold/D = new
 					D.Contract(src)
@@ -402,6 +403,7 @@
 				else
 					clear_alert("temp")
 	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 		clear_alert("temp")
 
 	// Account for massive pressure differences.  Done by Polymorph
@@ -444,9 +446,9 @@
 	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		return
 	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-		bodytemperature += 11
+		adjust_bodytemperature(11)
 	else
-		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		adjust_bodytemperature(BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 		var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp && !vamp.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			vamp.bloodusable = max(vamp.bloodusable - 5, 0)
@@ -472,9 +474,9 @@
 	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
 	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		bodytemperature += max(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		adjust_bodytemperature(max(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM))
 	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
-		bodytemperature += min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+		adjust_bodytemperature(min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM))	//We're dealing with negative numbers
 
 	// simple thermal regulation when the body temperature is OK for our species
 	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
@@ -484,11 +486,11 @@
 		if(dna.species.body_temperature < bodytemperature)
 			// body temperature is HIGHER than that of our species, we are cooling
 			var/clothing_factor = 2 - get_heat_protection(loc_temp) // thermal clothing with heat protection slows down recovery
-			bodytemperature += max(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX)
+			adjust_bodytemperature(max(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX))
 		else
 			// body temperature is LOWER than that of our species, we are heating
 			var/clothing_factor = 2 - get_cold_protection(loc_temp) // thermal clothing with cold protection slows down recovery
-			bodytemperature += min(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX)
+			adjust_bodytemperature(min(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX))
 
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
@@ -808,11 +810,10 @@
 		if(healthdoll)
 			if(stat == DEAD)
 				healthdoll.icon_state = "healthdoll_DEAD"
-				if(healthdoll.overlays.len)
-					healthdoll.overlays.Cut()
+				healthdoll.cut_overlays()
 				var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 				if(bodypart_tail?.dna?.species?.tail)
-					healthdoll.overlays += "[bodypart_tail.dna.species.tail]_DEAD"
+					healthdoll.add_overlay("[bodypart_tail.dna.species.tail]_DEAD")
 			else
 				var/list/new_overlays = list()
 				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
@@ -839,8 +840,8 @@
 						new_overlays += "[bodypart.dna.species.wing][icon_num]"
 					else
 						new_overlays += "[bodypart.limb_zone][icon_num]"
-				healthdoll.overlays += (new_overlays - cached_overlays)
-				healthdoll.overlays -= (cached_overlays - new_overlays)
+				healthdoll.add_overlay(new_overlays - cached_overlays)
+				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 #undef BODYPART_PAIN_REDUCTION
@@ -879,7 +880,7 @@
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 1, 0, 1)
+				vomit(20, 0, 8 SECONDS, 0, 1)
 				adjustToxLoss(-3)
 				lastpuke = 0
 
@@ -970,7 +971,10 @@
 	if(!isturf(loc))
 		return
 
-	for(var/mob/living/carbon/human/H in range(decaylevel, src))
+	for(var/mob/living/carbon/human/H in view(decaylevel, src) - src)
+		if(prob(0.3 * decaylevel))
+			var/datum/disease/virus/cadaver/D = new()
+			D.Contract(H, CONTACT, need_protection_check = TRUE)
 		if(prob(2))
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
@@ -978,7 +982,7 @@
 			if(NO_BREATHE in H.dna.species.species_traits)
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
+			if(H.mind && (H.mind.assigned_role == JOB_TITLE_DETECTIVE || H.mind.assigned_role == JOB_TITLE_CORONER))
 				continue //too cool for puke
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()

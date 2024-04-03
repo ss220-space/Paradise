@@ -22,11 +22,11 @@
 
 /datum/component/persistent_overlay/proc/remove_persistent_overlay(datum/source)
 	var/atom/movable/our_target = target ? target : parent
-	our_target.cut_overlay(persistent_overlay, priority = TRUE)
+	our_target.cut_overlay(persistent_overlay)
 	qdel(src)
 
 
 /datum/component/persistent_overlay/proc/add_persistent_overlay(datum/source)
 	var/atom/movable/our_target = target ? target : parent
-	our_target.add_overlay(persistent_overlay, priority = TRUE)
+	our_target.add_overlay(persistent_overlay)
 

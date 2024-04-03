@@ -111,11 +111,6 @@
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
-	go_out()
-
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
 	set category = null
@@ -250,6 +245,7 @@
 	if(default_deconstruction_crowbar(user, I))
 		for(var/obj/thing in contents) // in case there is something in the scanner
 			thing.forceMove(loc)
+		return TRUE
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)

@@ -118,8 +118,8 @@
 	. = ..()
 	density = FALSE
 	icon_state = icon_down
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_x = M.get_standard_pixel_x_offset(M.lying_angle)
+	M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"

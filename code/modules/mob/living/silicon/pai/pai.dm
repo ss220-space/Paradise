@@ -3,7 +3,6 @@
 	icon = 'icons/mob/pai.dmi'
 	icon_state = "repairbot"
 
-	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
@@ -83,13 +82,13 @@
 
 	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
 	var/obj/machinery/computer/secure_data/integrated_records
+	var/obj/item/gps/internal/pai_gps/pai_internal_gps
 
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
-	var/slowdown = 0
 
 	/// max chemicals and cooldown recovery for chemicals module
 	var/chemicals = 30
@@ -152,6 +151,9 @@
 	integrated_records.parent = src
 	integrated_records.req_access = list()
 
+	pai_internal_gps = new(src)
+	pai_internal_gps.parent = src
+
 	reset_software()
 
 /mob/living/silicon/pai/proc/reset_software(var/extra_memory = 0)
@@ -174,11 +176,6 @@
 /mob/living/silicon/pai/can_buckle()
 	return FALSE
 
-/mob/living/silicon/pai/movement_delay()
-	. = ..()
-	. += slowdown
-	. += 1 //A bit slower than humans, so they're easier to smash
-	. += CONFIG_GET(number/robot_delay)
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -199,9 +196,6 @@
 	if(client.statpanel == "Status")
 		show_silenced()
 
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
@@ -436,7 +430,7 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -454,7 +448,7 @@
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONNIGHTVISION)
-		see_in_dark = 8
+		nightvision = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
@@ -635,8 +629,8 @@
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
-	set_light(0)
-	card.set_light(0)
+	set_light_on(FALSE)
+	card.set_light_on(FALSE)
 
 /datum/action/innate/pai_soft
 	name = "Pai Sowtware"

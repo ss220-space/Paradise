@@ -332,7 +332,7 @@
 	. = ..()
 
 /obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
-	return istype(target) && target.stat != DEAD
+	return istype(target) && target.stat != DEAD && !ismachineperson(target)
 
 /obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user)
 	var/mob/living/carbon/human/target = targets[1]
@@ -809,7 +809,7 @@
 		messages.Add(span_notice("Вы - Мозговой Червь!"))
 		messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
 		messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
-		messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя ':bo'.")
+		messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
 		GrantBorerSpells()
 		hide_borer()

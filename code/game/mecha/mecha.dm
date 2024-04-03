@@ -341,7 +341,7 @@
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
@@ -1349,7 +1349,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			SEND_SOUND(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
 		return TRUE
 	else

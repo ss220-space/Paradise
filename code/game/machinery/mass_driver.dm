@@ -13,12 +13,11 @@
 	var/id_tag = "default"
 	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
 
-/obj/machinery/mass_driver/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/mass_driver(src)
+	multitool_menu_type = /datum/multitool_menu/idtag/mass_driver
 
 /obj/machinery/mass_driver/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

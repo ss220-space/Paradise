@@ -7,7 +7,7 @@
 	force = 10
 	flags = CONDUCT
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
@@ -134,8 +134,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun-short"
 	item_state = "gun"			//phil235 is it different with different skin?
-	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
-	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+	slot_flags &= ~SLOT_FLAG_BACK    //you can't sling it on your back
+	slot_flags |= SLOT_FLAG_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
 	update_icon()
@@ -177,8 +177,8 @@
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
-	slot_flags &= ~SLOT_BELT
-	slot_flags |= SLOT_BACK
+	slot_flags &= ~SLOT_FLAG_BELT
+	slot_flags |= SLOT_FLAG_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
 	update_icon()
@@ -209,7 +209,7 @@
 	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	slot_flags = 0 //no SLOT_BACK sprite, alas
+	slot_flags = 0 //no SLOT_FLAG_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
 	bolt_open = FALSE

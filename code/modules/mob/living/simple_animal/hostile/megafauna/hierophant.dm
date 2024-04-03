@@ -88,6 +88,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	spawned_beacon = new(loc)
 	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 
@@ -142,7 +144,7 @@ Difficulty: Hard
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		target_slowness += L.movement_delay()
+		target_slowness += L.cached_multiplicative_slowdown
 	if(client)
 		target_slowness += 1
 
@@ -412,11 +414,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original, spread_speed)
 	hierophant_burst(src, original, burst_range, spread_speed)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/float(on) //we don't want this guy to float, messes up his animations
-	if(throwing)
-		return
-	floating = on
-
 /mob/living/simple_animal/hostile/megafauna/hierophant/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!enraged) //We do not want it to animate attacking as that breaks the cool animation. If it is not enraged, it can do it. However this only happens if admin controlled
 		..()
@@ -586,18 +583,22 @@ Difficulty: Hard
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
+
+/obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(QDELETED(caster))
 		return FALSE
 	if(mover == caster.pulledby)
-		return TRUE
-	if(istype(mover, /obj/item/projectile))
+		return .
+	if(isprojectile(mover))
 		var/obj/item/projectile/P = mover
 		if(P.firer == caster)
-			return TRUE
-	if(mover == caster)
-		return TRUE
-	return FALSE
+			return .
+	if(mover != caster)
+		return FALSE
+
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98

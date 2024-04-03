@@ -26,10 +26,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A window."
 	icon_state = "window"
 	density = TRUE
+	pass_flags_self = PASSGLASS
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
 	flags = ON_BORDER
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -86,6 +88,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/shards = 1
 	if(fulltile)
+		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
 		shards++
 		setDir()
 
@@ -136,32 +139,29 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		..(FULLTILE_WINDOW_DIR)
 
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+/obj/structure/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
-	if(dir == FULLTILE_WINDOW_DIR)	// full tile window, you can't move into it!
+
+	if(fulltile || border_dir == dir)
 		return FALSE
-	if(dir == get_dir(loc, target))
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
 	return TRUE
 
 
-/obj/structure/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return TRUE
-	if(dir == get_dir(loc, target))
-		return FALSE
-	return TRUE
+/obj/structure/window/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
 
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
@@ -343,13 +343,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	..()
 
+
 /obj/structure/window/proc/can_be_reached(mob/user)
-	if(!fulltile)
-		if(get_dir(user, src) & dir)
-			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
-					return 0
-	return 1
+	if(fulltile || dir == FULLTILE_WINDOW_DIR)
+		return TRUE
+	var/checking_dir = get_dir(user, src)
+	if(!(checking_dir & dir))
+		return TRUE // Only windows on the other side may be blocked by other things.
+	checking_dir = REVERSE_DIR(checking_dir)
+	for(var/obj/blocker in loc)
+		if(!blocker.CanPass(user, checking_dir))
+			return FALSE
+	return TRUE
+
 
 /obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -400,7 +406,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return FALSE
 
 	var/target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, is_fulltile = fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -424,7 +430,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/target_dir = turn(dir, 270)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -447,11 +453,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
 
-	var/target_dir = turn(dir, 270)
+	var/target_dir = turn(dir, 90)
 
-	if(!valid_window_location(loc, target_dir))
-		target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
 		return FALSE
 
@@ -528,7 +532,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		C.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 
 /obj/structure/window/GetExplosionBlock()

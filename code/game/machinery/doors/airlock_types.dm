@@ -729,6 +729,11 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
 	paintable = FALSE
 
+/obj/machinery/door/airlock/syndicate/build_access_electronics()
+	access_electronics = new /obj/item/access_control/syndicate(src)
+	access_electronics.selected_accesses = req_access
+	access_electronics.one_access = check_one_access
+
 /obj/machinery/door/airlock/syndicate/security
 	name = "evil looking security airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
@@ -872,8 +877,8 @@
 	paintable = FALSE
 
 // Добавлено потому, что с помощью флагов не пройти через двойные двери
-/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover as mob|obj)
-	if(!src.CanPass(mover, mover.loc, 1))
+/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover)
+	if(!CanPass(mover, get_dir(src, mover)))
 		mover.Bump(src, TRUE)
 		return FALSE
 	return TRUE

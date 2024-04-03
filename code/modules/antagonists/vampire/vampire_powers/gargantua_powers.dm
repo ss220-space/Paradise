@@ -226,7 +226,7 @@
 
 /obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(L.lying || L.resting)
+	if(L.lying_angle || L.resting)
 		return FALSE
 	return ..()
 

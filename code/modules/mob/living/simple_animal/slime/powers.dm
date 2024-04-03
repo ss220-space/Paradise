@@ -195,9 +195,6 @@
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
 
-			if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
-				return
-
 			force_split(TRUE)
 		else
 			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
@@ -207,6 +204,9 @@
 /mob/living/simple_animal/slime/proc/force_split(can_mutate = TRUE)
 	if(age_state.age == SLIME_BABY)
 		return FALSE
+
+	if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
+		return
 
 	//Определяем модификатор количества детей от количества накопленных нутриентов
 	var/baby_mod = 0.1

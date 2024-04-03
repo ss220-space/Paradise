@@ -19,11 +19,22 @@
 	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
+	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
+	var/generic_canpass = TRUE
+
 	var/inertia_dir = NONE
 	var/atom/inertia_last_loc
 	var/inertia_moving = FALSE
 	var/inertia_next_move = 0
 	var/inertia_move_delay = 5
+
+	/**
+	  * In case you have multiple types, you automatically use the most useful one.
+	  * IE: Skating on ice, flippers on water, flying over chasm/space, etc.
+	  * I reccomend you use the movetype_handler system and not modify this directly, especially for living mobs.
+	  */
+	var/movement_type = GROUND
+
 	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
 	var/moving_diagonally = NONE
 	var/list/client_mobs_in_contents
@@ -32,6 +43,12 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
+
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
@@ -48,15 +65,43 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
-			gen_emissive_blocker.color = EM_BLOCK_COLOR
-			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags |= appearance_flags
-			AddComponent(/datum/component/emissive_blocker, gen_emissive_blocker)
+			var/static/mutable_appearance/emissive_blocker/blocker = new
+			blocker.icon = icon
+			blocker.icon_state = icon_state
+			blocker.dir = dir
+			blocker.alpha = alpha
+			blocker.appearance_flags |= appearance_flags
+			// Ok so this is really cursed, but I want to set with this blocker cheaply while
+			// still allowing it to be removed from the overlays list later.
+			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
+			// I'm sorry!
+			var/mutable_appearance/flat = blocker.appearance
+			overlays += flat
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += flat
+				else
+					managed_overlays = list(managed_overlays, flat)
+			else
+				managed_overlays = flat
+
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
-			em_block = new(src, render_target)
-			add_overlay(list(em_block))
+			em_block = new(null, src)
+			overlays += em_block
+			if(managed_overlays)
+				if(islist(managed_overlays))
+					managed_overlays += em_block
+				else
+					managed_overlays = list(managed_overlays, em_block)
+			else
+				managed_overlays = em_block
+
+	switch(light_system)
+		if(MOVABLE_LIGHT)
+			AddComponent(/datum/component/overlay_lighting)
+		if(MOVABLE_LIGHT_DIRECTIONAL)
+			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 
 /atom/movable/Destroy()
@@ -76,11 +121,15 @@
 		stop_orbit()
 
 
-/atom/movable/proc/update_emissive_block()
-	if(!em_block && !QDELETED(src))
-		render_target = ref(src)
-		em_block = new(src, render_target)
-	add_overlay(list(em_block))
+/atom/movable/get_emissive_block()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			return fast_emissive_blocker(src)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			if(!em_block && !QDELETED(src))
+				render_target = ref(src)
+				em_block = new(null, src)
+			return em_block
 
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
@@ -276,11 +325,8 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
+	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		light.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement
@@ -450,7 +496,7 @@
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
-		var/user_momentum = thrower.movement_delay()
+		var/user_momentum = thrower.cached_multiplicative_slowdown
 		if(!user_momentum) // no movement_delay, this means they move once per byond tick, let's calculate from that instead
 			user_momentum = world.tick_lag
 
@@ -471,17 +517,7 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/TT = new()
-	TT.thrownthing = src
-	TT.target = target
-	TT.target_turf = get_turf(target)
-	TT.init_dir = get_dir(src, target)
-	TT.maxrange = range
-	TT.speed = speed
-	TT.thrower = thrower
-	TT.diagonals_first = diagonals_first
-	TT.callback = callback
-	TT.dodgeable = dodgeable
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, istype(thrower) ? thrower.zone_selected : FALSE, dodgeable)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -489,7 +525,7 @@
 	var/dy = (target.y > src.y) ? NORTH : SOUTH
 
 	if(dist_x == dist_y)
-		TT.pure_diagonal = 1
+		thrown_thing.pure_diagonal = TRUE
 
 	else if(dist_x <= dist_y)
 		var/olddist_x = dist_x
@@ -498,23 +534,23 @@
 		dist_y = olddist_x
 		dx = dy
 		dy = olddx
-	TT.dist_x = dist_x
-	TT.dist_y = dist_y
-	TT.dx = dx
-	TT.dy = dy
-	TT.diagonal_error = dist_x / 2 - dist_y
-	TT.start_time = world.time
+	thrown_thing.dist_x = dist_x
+	thrown_thing.dist_y = dist_y
+	thrown_thing.dx = dx
+	thrown_thing.dy = dy
+	thrown_thing.diagonal_error = dist_x/2 - dist_y
+	thrown_thing.start_time = world.time
 
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	throwing = TT
+	throwing = thrown_thing
 	if(spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
-	SSthrowing.processing[src] = TT
-	TT.tick()
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, thrown_thing, spin)
+	SSthrowing.processing[src] = thrown_thing
+	thrown_thing.tick()
 
 	return TRUE
 
@@ -566,31 +602,28 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
+
+/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(mover in buckled_mobs)
 		return TRUE
-	return ..()
 
-/atom/movable/proc/get_spacemove_backup()
-	var/atom/movable/dense_object_backup
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+
+/atom/movable/proc/get_spacemove_backup(moving_direction)
+	for(var/checked_range in orange(1, get_turf(src)))
+		if(isarea(checked_range))
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
+		if(isturf(checked_range))
+			var/turf/turf = checked_range
 			if(!turf.density)
 				continue
 			return turf
-		else
-			var/atom/movable/AM = A
-			if(!AM.CanPass(src) || AM.density)
-				if(AM.anchored)
-					return AM
-				dense_object_backup = AM
-				break
-	. = dense_object_backup
+		var/atom/movable/checked_atom = checked_range
+		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
+			//if(checked_atom.last_pushoff == world.time)
+			//	continue
+			return checked_atom
+
 
 /atom/movable/proc/transfer_prints_to(atom/movable/target = null, overwrite = FALSE)
 	if(!target)
@@ -603,74 +636,88 @@
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
 
-/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!no_effect && (visual_effect_icon || used_item))
-		do_item_attack_animation(A, visual_effect_icon, used_item)
 
-	if(A == src)
+/atom/movable/proc/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect)
+	if(!no_effect && (visual_effect_icon || used_item))
+		do_item_attack_animation(attacked_atom, visual_effect_icon, used_item)
+
+	if(attacked_atom == src)
 		return //don't do an animation if attacking self
+
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/turn_dir = 1
 
-	var/direction = get_dir(src, A)
+	var/direction = get_dir(src, attacked_atom)
 	if(direction & NORTH)
 		pixel_y_diff = 8
+		turn_dir = prob(50) ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
+		turn_dir = prob(50) ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8
 	else if(direction & WEST)
 		pixel_x_diff = -8
+		turn_dir = -1
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(15 * turn_dir)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 0.1 SECONDS, easing = (BACK_EASING|EASE_IN), flags = ANIMATION_PARALLEL)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = initial_transform, time = 0.2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 
-/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
-	var/image/I
+
+/atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
+	var/image/attack_image
 	if(visual_effect_icon)
-		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
+		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
 	else if(used_item)
-		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
-		I.plane = GAME_PLANE
+		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
+		attack_image.plane = GAME_PLANE
 
 		// Scale the icon.
-		I.transform *= 0.75
+		attack_image.transform *= 0.4
 		// The icon should not rotate.
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		attack_image.appearance_flags = APPEARANCE_UI
 
 		// Set the direction of the icon animation.
-		var/direction = get_dir(src, A)
+		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			I.pixel_y = -16
+			attack_image.pixel_y = -16
 		else if(direction & SOUTH)
-			I.pixel_y = 16
+			attack_image.pixel_y = 16
 
 		if(direction & EAST)
-			I.pixel_x = -16
+			attack_image.pixel_x = -16
 		else if(direction & WEST)
-			I.pixel_x = 16
+			attack_image.pixel_x = 16
 
 		if(!direction) // Attacked self?!
-			I.pixel_z = 16
+			attack_image.pixel_y = 12
+			attack_image.pixel_x = 5 * (prob(50) ? 1 : -1)
 
-	if(!I)
+	if(!attack_image)
 		return
 
 	// Who can see the attack?
 	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
-			viewing |= M.client
+	for(var/mob/viewer in viewers(attacked_atom))
+		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
+			viewing |= viewer.client
 
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+	flick_overlay(attack_image, viewing, 0.7 SECONDS)
+	var/matrix/initial_transform = matrix(transform)
+	var/image_color = "#ffffff"
+	if(ismob(src) && ismob(attacked_atom) && !used_item)
+		var/mob/attacker = src
+		image_color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 
 	// And animate the attack!
-	var/t_color = "#ffffff"
-	if(ismob(src) &&  ismob(A) && (!used_item))
-		var/mob/M = src
-		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS, color = image_color)
+	animate(time = 0.1 SECONDS)
+	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
+
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
@@ -680,3 +727,11 @@
 
 /atom/movable/proc/get_pull_push_speed_modifier(current_delay)
 	return pull_push_speed_modifier
+
+
+/// Returns true or false to allow src to move through the blocker, mover has final say
+/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return blocker_opinion
+

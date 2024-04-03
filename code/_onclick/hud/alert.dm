@@ -55,7 +55,7 @@
 		var/old_plane = new_master.plane
 		new_master.layer = FLOAT_LAYER
 		new_master.plane = FLOAT_PLANE
-		alert.overlays += new_master
+		alert.add_overlay(new_master)
 		new_master.layer = old_layer
 		new_master.plane = old_plane
 		alert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
@@ -568,7 +568,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE
-	overlays += I
+	add_overlay(I)
 
 
 /obj/screen/alert/ghost/Click()
@@ -603,7 +603,7 @@ so as to remain in compliance with the most up-to-date laws."
 			return PROCESS_KILL
 
 		if(time_left_overlay)
-			overlays -= time_left_overlay
+			cut_overlay(time_left_overlay)
 
 		var/obj/O = new
 		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
@@ -615,7 +615,7 @@ so as to remain in compliance with the most up-to-date laws."
 		var/image/I = image(O)
 		I.layer = FLOAT_LAYER
 		I.plane = FLOAT_PLANE + 1
-		overlays += I
+		add_overlay(I)
 
 		time_left_overlay = I
 		qdel(O)
@@ -625,7 +625,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/notify_action/Destroy()
 	target = null
 	if(signed_up_overlay)
-		overlays -= signed_up_overlay
+		cut_overlay(signed_up_overlay)
 		qdel(signed_up_overlay)
 	return ..()
 
@@ -677,9 +677,9 @@ so as to remain in compliance with the most up-to-date laws."
 		signed_up_overlay.layer = FLOAT_LAYER
 		signed_up_overlay.plane = FLOAT_PLANE + 2
 	if(usr in poll.signed_up)
-		overlays += signed_up_overlay
+		add_overlay(signed_up_overlay)
 	else
-		overlays -= signed_up_overlay
+		cut_overlay(signed_up_overlay)
 
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
@@ -696,7 +696,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/image/I = image(O)
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE + 1
-	overlays += I
+	add_overlay(I)
 
 	qdel(O)
 

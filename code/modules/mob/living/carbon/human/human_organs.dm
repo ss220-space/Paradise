@@ -22,7 +22,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.process()
 
-		if(!lying && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
+		if(!lying_angle && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
@@ -33,43 +33,20 @@
 	handle_stance()
 
 
+// temporary solution till traits system are fully implemented
 /mob/living/carbon/human/proc/handle_stance()
-	// Don't need to process any of this if they aren't standing anyways
-	// unless their stance is damaged, and we want to check if they should stay down
-	if(!stance_damage && (lying || resting) && (life_tick % 4) == 0)
+	set waitfor = FALSE
+
+	if(usable_legs || buckled || !isturf(loc) || lying_angle || resting)
 		return
 
-	stance_damage = 0
-
-	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
-	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
+	if(!(life_tick % (4 + usable_hands)))
 		return
 
-	for(var/limb_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
-		if(!bodypart || bodypart.is_dead() || bodypart.is_malfunctioning())
-			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
-		else if(bodypart.is_traumatized() || !bodypart.is_usable())
-			stance_damage += 1
+	if(has_pain())
+		emote("scream")
 
-	// Canes and crutches help you stand (if the latter is ever added)
-	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	if(l_hand && l_hand.is_crutch())
-		stance_damage -= 2
-	if(r_hand && r_hand.is_crutch())
-		stance_damage -= 2
-
-	if(stance_damage < 0)
-		stance_damage = 0
-
-	// standing is poor
-	if(stance_damage >= 8)
-		if(!(lying || resting))
-			if(has_pain())
-				emote("scream")
-			emote("collapses", ignore_cooldowns = TRUE)
+	emote("collapses", ignore_cooldowns = TRUE)
 
 
 /mob/living/carbon/human/proc/handle_grasp()
@@ -123,11 +100,22 @@
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!"))
 	mutations.Remove(FAT)
+	update_obesity_slowdown()
 
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, span_alert("[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!"))
 	mutations.Add(FAT)
+	update_obesity_slowdown()
+
+
+/mob/living/carbon/human/proc/update_obesity_slowdown()
+	if(FAT in mutations)
+		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		add_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		remove_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 
 
 /**

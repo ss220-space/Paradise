@@ -101,10 +101,10 @@
 
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(usr))
+	if(!isliving(usr))
 		return FALSE
 
-	var/mob/living/carbon/human/user = usr
+	var/mob/living/user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated(FALSE, TRUE, TRUE))
@@ -179,7 +179,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYADDOR(mobs_viewing, user)
+	LAZYOR(mobs_viewing, user)
 
 /obj/item/storage/proc/hide_from(mob/user)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too

@@ -73,8 +73,8 @@ Made by Xhuis
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 2
-	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -127,7 +127,7 @@ Made by Xhuis
 /datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
 	var/list/messages = list()
 	messages.Add("<b>Currently, you are disguised as an employee aboard [world.name].</b>")
-	messages.Add("<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
+	messages.Add("<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'.</b>")
 	messages.Add("<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
 	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Shadowling\">Тенеморф</a></b><br>")
 	return messages
@@ -149,7 +149,7 @@ Made by Xhuis
 	spawn(0)
 		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
-		if(shadow_mind.assigned_role == "Clown")
+		if(shadow_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(S, "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>")
 			S.mutations.Remove(CLUMSY)
 
@@ -166,12 +166,12 @@ Made by Xhuis
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
 		var/list/messages = list()
-		messages.Add("<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
-		messages.Add("<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
-		messages.Add("<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
-		messages.Add("<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>")
-		messages.Add("<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>")
-		messages.Add("<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
+		messages.Add(span_shadowling("><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b>"))
+		messages.Add(span_shadowling("<b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals."))
+		messages.Add(span_shadowling("You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls."))
+		messages.Add(span_shadowling("Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask."))
+		messages.Add(span_shadowling("Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab."))
+		messages.Add(span_shadowling("You may communicate with your allies by speaking in the Shadowling Hivemind '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'."))
 		to_chat(new_thrall_mind.current, chat_box_red(messages.Join("<br>")))
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
@@ -245,8 +245,8 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
-	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
-		ling_mind.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
+		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")

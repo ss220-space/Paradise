@@ -104,7 +104,7 @@
 	U.SetSleeping(0)
 	U.SetConfused(0)
 	U.adjustStaminaLoss(-100)
-	U.lying = FALSE
+	U.lying_angle = 0
 	U.resting = FALSE
 	U.update_canmove()
 	to_chat(user, span_notice("You instill your body with clean blood and remove any incapacitating effects."))
@@ -253,7 +253,7 @@
 
 	for(var/mob/living/target as anything in targets)
 		var/deviation
-		if(user.lying || user.resting)
+		if(user.lying_angle || user.resting)
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)

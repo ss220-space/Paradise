@@ -106,4 +106,4 @@ Bonus
 	level = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)
-	M.vomit(6,0,1,5,1)
+	M.vomit(6,0,8 SECONDS,5,1)

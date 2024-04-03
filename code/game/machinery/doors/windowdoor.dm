@@ -8,12 +8,14 @@
 	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
+	pass_flags_self = PASSGLASS
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
 	var/cancolor = TRUE
@@ -106,23 +108,25 @@
 			return
 		do_animate("deny")
 
-/obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+/obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+
+	if(border_dir == dir)
 		return FALSE
-	else
-		return 1
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
+	return TRUE
+
 
 /obj/machinery/door/window/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -135,13 +139,11 @@
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/window/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 
 /obj/machinery/door/window/update_icon_state()
@@ -209,21 +211,22 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
-		var/obj/item/airlock_electronics/ae
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
+			electronics = new(loc)
 			if(!req_access)
 				check_access()
-			ae.selected_accesses = req_access
-			ae.one_access = check_one_access
+			electronics.selected_accesses = req_access
+			electronics.one_access = check_one_access
 		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+			electronics.forceMove(loc)
+		if(emagged)
+			electronics.emag_act()
+		electronics = null
 
 	qdel(src)
 
@@ -331,24 +334,19 @@
 				WA.update_icon()
 				WA.created_name = name
 
-				if(emagged)
-					to_chat(user, span_warning("You discard the damaged electronics."))
-					qdel(src)
-					return
-
 				to_chat(user, span_notice("You remove the airlock electronics."))
 
-				var/obj/item/airlock_electronics/ae
 				if(!electronics)
-					ae = new/obj/item/airlock_electronics(loc)
+					electronics = new(loc)
 					if(!req_access)
 						check_access()
-					ae.selected_accesses = req_access
-					ae.one_access = check_one_access
+					electronics.selected_accesses = req_access
+					electronics.one_access = check_one_access
 				else
-					ae = electronics
-					electronics = null
-					ae.forceMove(loc)
+					electronics.forceMove(loc)
+				if(emagged)
+					electronics.emag_act()
+				electronics = null
 
 				qdel(src)
 	else

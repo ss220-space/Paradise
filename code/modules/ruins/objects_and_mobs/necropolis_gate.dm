@@ -56,15 +56,18 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
 
-/obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
-	if(get_dir(O.loc, target) == dir)
-		return !density
-	return 1
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(border_dir != dir)
+		return TRUE
+
+
+/obj/structure/necropolis_gate/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover)
+
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -289,7 +292,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		L = AM
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.flying) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
+			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
 				collapse()
 		if(UNIQUE_EFFECT)
 			crossed_effect(AM)

@@ -68,7 +68,7 @@
 		return
 
 	mobloc = get_turf(target.loc)
-	if(is_blocked_turf(mobloc, TRUE))
+	if(mobloc.is_blocked_turf(exclude_mobs = TRUE))
 		for(var/turf/T in orange(7))
 			if(isspaceturf(T))
 				continue

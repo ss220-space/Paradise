@@ -24,13 +24,10 @@
 	species_type = /datum/species/nucleation
 	name = "luminescent eyes"
 	icon_state = "crystal-eyes"
-	light_color = "#1C1C00"
-
-
-/obj/item/organ/internal/eyes/luminescent_crystal/New()
-	set_light(2)
-	..()
-
+	light_color = "#f7f792"
+	light_system = MOVABLE_LIGHT
+	light_power = 1
+	light_range = 2
 
 /obj/item/organ/internal/brain/crystal
 	species_type = /datum/species/nucleation

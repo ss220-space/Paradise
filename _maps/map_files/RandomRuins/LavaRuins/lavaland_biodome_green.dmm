@@ -73,10 +73,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "hW" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -116,9 +113,6 @@
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
-/area/ruin/powered/green_bio)
-"iZ" = (
-/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "jG" = (
 /turf/simulated/floor/plasteel{
@@ -173,10 +167,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "mP" = (
 /obj/structure/table,
@@ -277,12 +268,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
-"tj" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
-/area/ruin/powered/green_bio)
 "tM" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -343,10 +328,7 @@
 	pixel_y = 12
 	},
 /obj/item/reagent_containers/food/drinks/bottle/wine,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "zf" = (
 /obj/structure/fans/tiny,
@@ -370,19 +352,11 @@
 	icon_state = "white"
 	},
 /area/ruin/powered/green_bio)
-"Bb" = (
-/turf/simulated/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/ruin/powered/green_bio)
 "Bn" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Bq" = (
 /obj/structure/railing/wooden{
@@ -403,10 +377,7 @@
 /area/ruin/powered/green_bio)
 "BT" = (
 /obj/structure/bookcase,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Ci" = (
 /obj/structure/sink{
@@ -422,10 +393,7 @@
 /area/ruin/powered/green_bio)
 "Cs" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "CL" = (
 /turf/simulated/floor/pod,
@@ -502,10 +470,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -3
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet12-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "GD" = (
 /obj/effect/turf_decal/siding/green,
@@ -601,10 +566,7 @@
 /area/ruin/powered/green_bio)
 "Lh" = (
 /obj/structure/chair/sofa/right,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Mc" = (
 /obj/structure/railing/wooden{
@@ -616,10 +578,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "MD" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/powered/green_bio)
 "Ne" = (
 /obj/structure/window/reinforced{
@@ -662,12 +621,6 @@
 	},
 /obj/structure/railing/wooden/cornerr,
 /turf/simulated/floor/wood,
-/area/ruin/powered/green_bio)
-"Qt" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
 /area/ruin/powered/green_bio)
 "QM" = (
 /obj/machinery/door/airlock/wood/glass,
@@ -722,10 +675,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "WB" = (
 /turf/simulated/floor/pod/light,
@@ -748,10 +698,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "Xs" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Xt" = (
 /obj/structure/chair/sofa/pew/right{
@@ -1046,8 +993,8 @@ KN
 ol
 Sn
 oX
-iZ
-iZ
+Xs
+Xs
 zU
 gm
 ol
@@ -1411,7 +1358,7 @@ wV
 Xs
 Cl
 QM
-Bb
+Xs
 Cl
 KN
 ol
@@ -1445,7 +1392,7 @@ ol
 lT
 gm
 nK
-Qt
+Xs
 US
 gm
 Oy
@@ -1704,7 +1651,7 @@ ao
 ol
 gm
 BT
-tj
+Xs
 Cl
 iL
 gm
@@ -1853,7 +1800,7 @@ dB
 FN
 tM
 fN
-Bb
+Xs
 bF
 gm
 gm

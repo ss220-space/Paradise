@@ -184,6 +184,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
+	/client/proc/cmd_display_overlay_log,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -280,10 +281,14 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_proccall
 		if(holder.rights == R_HOST)
 			verbs += /client/proc/view_pingstat
+			verbs += /client/proc/profiler_start
+			verbs += /client/proc/profiler_stop
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
 			verbs += /client/proc/ss_breakdown
 			verbs += /client/proc/toggle_mctabs
+			verbs += /client/proc/debug_variables
+			verbs += /client/proc/toggledebuglogs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -301,6 +306,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
 		/client/proc/view_pingstat,
+		/client/proc/profiler_start,
+		/client/proc/profiler_stop,
 		GLOB.admin_verbs_rejuv,
 		GLOB.admin_verbs_sounds,
 		GLOB.admin_verbs_spawn,
@@ -571,9 +578,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/logmsg = null
 	switch(blessing)
 		if("Spawn Cookie")
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
 			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
@@ -760,7 +767,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.bitesize = 100
 			evilcookie.flags = NODROP | DROPDEL
 			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 			logmsg = "a mutagen cookie."
 		if("Hellwater Cookie")
 			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -769,7 +776,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.bitesize = 100
 			evilcookie.flags = NODROP | DROPDEL
 			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+			H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 			logmsg = "a hellwater cookie."
 		if("Hunter")
 			H.mutations |= NOCLONE
@@ -815,7 +822,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(H.head)
 				H.drop_item_ground(H.head, force = TRUE)
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-			H.equip_to_slot_or_del(S, slot_head)
+			H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
 			logmsg = "shamebrero"
 		if("Dust")
 			H.dust()
@@ -841,12 +848,12 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 					pdelay = strenght[1]
 					oxy_dmg = strenght[2]
 				H.curse_high_rp(pdelay*10, oxy_dmg)
-				H.mind.curses += "high_rp"
+				LAZYADD(H.mind.curses, "high_rp")
 				logmsg = "high rp([pdelay] - [oxy_dmg])"
 			else
 				hrp_tumor.remove(H)
 				qdel(hrp_tumor)
-				H.mind.curses -= "high_rp"
+				LAZYREMOVE(H.mind.curses, "high_rp")
 				logmsg = "high rp(cure)"
 
 	if(logmsg)
@@ -983,7 +990,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(length(splitline) != 2) // Always 'ckey - rank'
 				continue
 			if(lowertext(splitline[1]) == ckey)
-				rank = ckeyEx(splitline[2])
+				rank = splitline[2]
 				break
 			continue
 
@@ -1002,7 +1009,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return FALSE
 
 		while(rank_read.NextRow())
-			rank = ckeyEx(rank_read.item[1])
+			rank = rank_read.item[1]
 
 		qdel(rank_read)
 	if(!D)
@@ -1285,7 +1292,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set name = "Toggle Debug Log Messages"
 	set category = "Preferences"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
 	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS

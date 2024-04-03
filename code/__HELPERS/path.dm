@@ -41,24 +41,6 @@
 	return path
 
 
-/proc/is_path_exist(atom/source, atom/target, pass_flags = PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
-	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= pass_flags
-	dummy.density = TRUE
-	for(var/turf/turf in getline(source, target))
-		if(!turf.CanPass(dummy, turf, 1))
-			qdel(dummy)
-			return FALSE
-		for(var/atom/movable/AM in turf)
-			if(AM == source || AM == dummy)
-				continue
-			if(!AM.CanPass(dummy, turf, 1))
-				qdel(dummy)
-				return FALSE
-	qdel(dummy)
-	return TRUE
-
-
 /**
  * A helper macro to see if it's possible to step from the first turf into the second one, minding things like door access and directional windows.
  * Note that this can only be used inside the [datum/pathfind][pathfind datum] since it uses variables from said datum.
@@ -460,3 +442,37 @@
 
 #undef CAN_STEP
 #undef STEP_NOT_HERE_BUT_THERE
+
+
+/**
+ * Checks line path from source to target, using dummy with passed flags.
+ * Returns `TRUE` if path exist, `FALSE` otherwise.
+ *
+ * Arguments:
+ * * source - path start loc.
+ * * target - path end loc.
+ * * flags - additional pass_flags, used to determine passability on each step.
+ */
+/proc/is_path_exist(atom/source, atom/target, flags, include_source_loc = FALSE)
+	if(!source || !target)
+		return FALSE
+	var/list/path_turfs = get_line(source, target)
+	if(!length(path_turfs))
+		return TRUE
+	var/turf/start_turf = path_turfs[1]
+	if(!include_source_loc)
+		path_turfs.Cut(1, 2)
+	if(!length(path_turfs))
+		return TRUE
+	var/obj/dummy = new(start_turf)
+	dummy.density = TRUE
+	if(flags)
+		dummy.pass_flags |= flags
+	for(var/turf/turf as anything in path_turfs)
+		if(turf.is_blocked_turf(source_atom = dummy))
+			qdel(dummy)
+			return FALSE
+		dummy.loc = turf
+	qdel(dummy)
+	return TRUE
+

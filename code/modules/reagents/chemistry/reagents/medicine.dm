@@ -126,6 +126,24 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 
+/datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
+
+			if(V.spread_flags < BLOOD)
+				continue
+
+			if(method == REAGENT_TOUCH)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
+
+	if(method == REAGENT_INGEST && iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.get_blood_id() == id)
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.reagents.del_reagent(id)
+
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscarbon(M) && M.bodytemperature < TCRYO)
@@ -493,8 +511,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
-	if(M.bodytemperature > 310.15)
-		M.bodytemperature = max(310.15, M.bodytemperature - 10)
+	if(M.bodytemperature > BODYTEMP_NORMAL)
+		M.adjust_bodytemperature(-10)
 	return ..() | update_flags
 
 /datum/reagent/medicine/menthol
@@ -511,7 +529,7 @@
 	if(prob(55))
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(M.bodytemperature > 280)
-		M.bodytemperature = max(280, M.bodytemperature - 10)
+		M.adjust_bodytemperature(-10)
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -640,6 +658,18 @@
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
+
+
+/datum/reagent/medicine/morphine/on_mob_add(mob/living/M)
+	. = ..()
+	if(isslime(M))
+		M.add_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
+
+
+/datum/reagent/medicine/morphine/on_mob_delete(mob/living/M)
+	. = ..()
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/slime_morphine_mod)
+
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -955,22 +985,31 @@
 	harmless = FALSE
 	can_synth = FALSE
 
-/datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
+/datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	if(M.health < 50 && M.health > 0)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustBruteLoss(-2, FALSE)
-		update_flags |= M.adjustFireLoss(-2, FALSE)
-	M.AdjustParalysis(-6 SECONDS)
-	M.AdjustStunned(-6 SECONDS)
-	M.AdjustWeakened(-6 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-7.5, FALSE)
+	if(user.health < 50 && user.health > 0)
+		update_flags |= user.adjustOxyLoss(-2, FALSE)
+		update_flags |= user.adjustBruteLoss(-2, FALSE)
+		update_flags |= user.adjustFireLoss(-2, FALSE)
+	user.AdjustParalysis(-6 SECONDS)
+	user.AdjustStunned(-6 SECONDS)
+	user.AdjustWeakened(-6 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-7.5, FALSE)
+	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
-/datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	..()
+
+/datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
+	. = ..()
+	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
+
+
+/datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
+
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1043,9 +1082,9 @@
 
 /datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(-(40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(M.bodytemperature < 311)
-		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/medicine/haloperidol
@@ -1425,7 +1464,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isplasmaman(M))
 		if(M.bodytemperature < 310)
-			M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+			M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
 		update_flags |= M.adjustFireLoss(-0.25, FALSE)
 	else

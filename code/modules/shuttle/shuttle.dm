@@ -935,6 +935,10 @@
 	shuttleId = "ruins_transport_shuttle"
 	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame"
+	icon_keyboard = "kb6"
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
 	name = "Regular Civilian Shuttle Console"
@@ -1033,10 +1037,11 @@
 		var/obj/O
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
-			O.underlays.Add(T)
+			O.underlays += T
 		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
-			T.underlays = O.underlays
+			T.underlays.Cut()
+			T.underlays += O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
 	if(T.icon != icon)

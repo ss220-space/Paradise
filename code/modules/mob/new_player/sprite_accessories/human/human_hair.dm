@@ -89,7 +89,7 @@
 	name = "Pompadour"
 	icon_state = "pompadour"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/quiff
@@ -114,19 +114,19 @@
 	name = "Beehive"
 	icon_state = "beehive"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bobcurl
 	name = "Bobcurl"
 	icon_state = "bobcurl"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bob
 	name = "Bob"
 	icon_state = "bobcut"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bowl
 	name = "Bowl"
@@ -148,7 +148,7 @@
 	name = "Buzzcut"
 	icon_state = "buzzcut"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/crew
@@ -217,7 +217,7 @@
 /datum/sprite_accessory/hair/mohawk
 	name = "Mohawk"
 	icon_state = "mohawk"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/jensen
@@ -252,7 +252,7 @@
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
 	icon_state = "spikey"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/kusanagi
@@ -755,7 +755,7 @@
 /datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
 	name = "Sasook Hair"
 	icon_state = "psalad_fluff_hair"
-	species_allowed = list("Slime People")
+	species_allowed = list(SPECIES_SLIMEPERSON)
 
 ///BAY12 Hairsyles///
 

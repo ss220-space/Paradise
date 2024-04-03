@@ -450,21 +450,21 @@
 			used += used_environ
 		if(TOTAL)
 			used += used_light + used_equip + used_environ
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			used += static_equip
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			used += static_light
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			used += static_environ
 	return used
 
 /area/proc/addStaticPower(value, powerchannel)
 	switch(powerchannel)
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			static_equip += value
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			static_light += value
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			static_environ += value
 
 /area/proc/clear_usage()

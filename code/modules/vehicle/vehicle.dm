@@ -4,8 +4,9 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
+	density = TRUE
 	anchored = FALSE
+	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -32,12 +33,6 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
-// So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
-	if(istype(mover) && mover.checkpass(PASSMOB))
-		return TRUE
-	else
-		return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -164,7 +159,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
+		last_vehicle_move = get_config_multiplicative_speed_by_path(/mob/living/carbon/human) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally

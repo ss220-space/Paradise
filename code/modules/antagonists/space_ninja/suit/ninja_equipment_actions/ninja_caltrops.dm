@@ -2,7 +2,7 @@
 
 	name = "Energy Caltrops"
 	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 1 SECONDS
 	use_itemicon = FALSE
@@ -86,7 +86,7 @@
 
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		add_attack_logs(L, src, "Stepped on Caltrop")
 		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE)

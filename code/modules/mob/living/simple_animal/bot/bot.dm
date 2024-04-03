@@ -15,12 +15,15 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
+	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
 	tts_seed = null
 	friendly = "boops"
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
+
+	light_system = MOVABLE_LIGHT
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -173,7 +176,7 @@
 	if(disabling_timer_id || stat)
 		return FALSE
 	on = TRUE
-	set_light(initial(light_range))
+	set_light_on(TRUE)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -182,7 +185,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
@@ -291,7 +294,8 @@
 		return
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		add_attack_logs(user, src, "emagged")
+		if(user)
+			add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!
@@ -1352,13 +1356,13 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /obj/effect/proc_holder/spell/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
-		bot.speed = 0.1
+		bot.set_varspeed(0.1)
 		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)
 
 
 /mob/living/simple_animal/bot/proc/reset_speed()
 	if(QDELETED(src))
 		return
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	to_chat(src, span_notice("Now you are moving at your normal speed."))
 

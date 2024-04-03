@@ -234,9 +234,10 @@ GLOBAL_LIST_INIT(lawlorify, list (
 /datum/devilinfo/proc/increase_blood_lizard()
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
-		var/list/language_temp = H.languages.Copy()
+		var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
 		H.set_species(/datum/species/unathi)
-		H.languages = language_temp
+		if(language_temp)
+			H.languages = language_temp
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
@@ -320,10 +321,9 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	form = ARCH_DEVIL
 
 /datum/devilinfo/proc/remove_spells()
-	for(var/X in owner.spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(!is_type_in_typecache(S, dont_remove_spells))
-			owner.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
+		if(!is_type_in_typecache(spell, dont_remove_spells))
+			owner.RemoveSpell(spell)
 
 /datum/devilinfo/proc/give_summon_contract()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/summon_contract(null))

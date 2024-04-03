@@ -19,7 +19,7 @@
 					visible_message("<span class='danger'>[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] ударить [src.name]!</span>")
 
 			if(INTENT_DISARM)
-				if(!lying)
+				if(!lying_angle)
 					if(prob(5))//Very small chance to push an alien down.
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)

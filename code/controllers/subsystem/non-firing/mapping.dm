@@ -13,6 +13,31 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
+	///List of areas that exist on the station this shift
+	var/list/existing_station_areas
+
+	var/list/areas_in_z = list()
+	/// List of z level (as number) -> plane offset of that z level
+	/// Used to maintain the plane cube
+	var/list/z_level_to_plane_offset = list()
+	/// List of z level (as number) -> The lowest plane offset in that z stack
+	var/list/z_level_to_lowest_plane_offset = list()
+	// This pair allows for easy conversion between an offset plane, and its true representation
+	// Both are in the form "input plane" -> output plane(s)
+	/// Assoc list of string plane values to their true, non offset representation
+	var/list/plane_offset_to_true
+	/// Assoc list of true string plane values to a list of all potential offset planess
+	var/list/true_to_offset_planes
+	/// Assoc list of string plane to the plane's offset value
+	var/list/plane_to_offset
+	/// List of planes that do not allow for offsetting
+	var/list/plane_offset_blacklist
+	/// List of render targets that do not allow for offsetting
+	var/list/render_offset_blacklist
+	/// List of plane masters that are of critical priority
+	var/list/critical_planes
+	/// The largest plane offset we've generated so far
+	var/max_plane_offset = 0
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -87,25 +112,48 @@ SUBSYSTEM_DEF(mapping)
 
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
-	for(var/area/AR in world)
+
+	var/list/all_areas = list()
+	for(var/area/areas in world)
+		all_areas += areas
+
+	for(var/area/AR as anything in all_areas)
 		if(AR.no_teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
-	for(var/area/AR in world)
+	for(var/area/AR as anything in all_areas)
 		if(GLOB.ghostteleportlocs[AR.name])
 			continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		if(length(pickable_turfs))
 			GLOB.ghostteleportlocs[AR.name] = AR
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+
+	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
+	existing_station_areas = list()
+	for(var/area/AR as anything in all_areas)
+		var/list/pickable_turfs = list()
+		for(var/turf/turfs in AR)
+			pickable_turfs += turfs
+			break
+		var/turf/picked = safepick(pickable_turfs)
+		if(picked && is_station_level(picked.z))
+			existing_station_areas += AR
 
 	// World name
 	if(config && CONFIG_GET(string/servername))

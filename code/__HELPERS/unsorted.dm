@@ -171,45 +171,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/**
- * Gets the turfs which are between the two given atoms. Including their positions
- * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
- * Arguments:
- * * M - The source atom
- * * N - The target atom
- */
-/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
-	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
-		return list()
-	var/px=M.x		//starting x
-	var/py=M.y
-	var/line[] = list(locate(px,py,M.z))
-	var/dx=N.x-px	//x distance
-	var/dy=N.y-py
-	var/dxabs=abs(dx)//Absolute value of x distance
-	var/dyabs=abs(dy)
-	var/sdx=SIGN(dx)	//Sign of x distance (+ or -)
-	var/sdy=SIGN(dy)
-	var/x=dxabs>>1	//Counters for steps taken, setting to distance/2
-	var/y=dyabs>>1	//Bit-shifting makes me l33t.  It also makes getline() unnessecarrily fast.
-	var/j			//Generic integer for counting
-	if(dxabs>=dyabs)	//x distance is greater than y
-		for(j=0;j<dxabs;j++)//It'll take dxabs steps to get there
-			y+=dyabs
-			if(y>=dxabs)	//Every dyabs steps, step once in y direction
-				y-=dxabs
-				py+=sdy
-			px+=sdx		//Step on in x direction
-			line+=locate(px,py,M.z)//Add the turf to the list
-	else
-		for(j=0;j<dyabs;j++)
-			x+=dxabs
-			if(x>=dyabs)
-				x-=dyabs
-				px+=sdx
-			py+=sdy
-			line+=locate(px,py,M.z)
-	return line
 
 //Same as the thing below just for density and without support for atoms.
 /proc/can_line(atom/source, atom/target, length = 5)
@@ -548,49 +509,6 @@ Returns 1 if the chain up to the area contains the given typepath
 			steps++
 
 	return 1
-
-
-/proc/is_blocked_turf(turf/target_turf, exclude_mobs)
-	if(target_turf.density)
-		return TRUE
-
-	if(locate(/mob/living/silicon/ai) in target_turf) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
-		return TRUE
-
-	for(var/atom/target in target_turf)
-		if(target.density && (!exclude_mobs || !ismob(target)))
-			return TRUE
-
-	return FALSE
-
-
-/proc/get_step_towards2(var/atom/ref , var/atom/trg)
-	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
-	var/turf/temp = get_step_towards(ref,trg)
-
-	if(is_blocked_turf(temp))
-		var/dir_alt1 = turn(base_dir, 90)
-		var/dir_alt2 = turn(base_dir, -90)
-		var/turf/turf_last1 = temp
-		var/turf/turf_last2 = temp
-		var/free_tile = null
-		var/breakpoint = 0
-
-		while(!free_tile && breakpoint < 10)
-			if(!is_blocked_turf(turf_last1))
-				free_tile = turf_last1
-				break
-			if(!is_blocked_turf(turf_last2))
-				free_tile = turf_last2
-				break
-			turf_last1 = get_step(turf_last1,dir_alt1)
-			turf_last2 = get_step(turf_last2,dir_alt2)
-			breakpoint++
-
-		if(!free_tile) return get_step(ref, base_dir)
-		else return get_step_towards(ref,free_tile)
-
-	else return get_step(ref, base_dir)
 
 
 //Returns: all the areas in the world
@@ -1272,7 +1190,7 @@ Standard way to write links -Sayu
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.lying)
+	if(!ismob(target) || target.lying_angle)
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -1364,7 +1282,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	simulated = 0
 	canmove = FALSE
-	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 	SHOULD_CALL_PARENT(FALSE)
@@ -1382,22 +1299,30 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
-//can a window be here, or is there a window blocking it?
-/proc/valid_window_location(turf/T, dir_to_check)
-	if(!T)
+
+/**
+ * Checks whether the target turf is in a valid state to accept a directional construction
+ * such as windows or railings.
+ *
+ * Returns FALSE if the target turf cannot accept a directional construction.
+ * Returns TRUE otherwise.
+ *
+ * Arguments:
+ * * dest_turf - The destination turf to check for existing directional constructions
+ * * test_dir - The prospective dir of some atom you'd like to put on this turf.
+ * * is_fulltile - Whether the thing you're attempting to move to this turf takes up the entire tile or whether it supports multiple movable atoms on its tile.
+ */
+/proc/valid_build_direction(turf/dest_turf, test_dir, is_fulltile = FALSE)
+	if(!dest_turf)
 		return FALSE
-	for(var/obj/O in T)
-		if(istype(O, /obj/machinery/door/window) && (O.dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR))
-			return FALSE
-		if(istype(O, /obj/structure/windoor_assembly))
-			var/obj/structure/windoor_assembly/W = O
-			if(W.ini_dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR)
+	for(var/obj/turf_content in dest_turf)
+		if(turf_content.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			if(is_fulltile)  // for making it so fulltile things can't be built over directional things--a special case
 				return FALSE
-		if(istype(O, /obj/structure/window))
-			var/obj/structure/window/W = O
-			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
+			if(turf_content.dir == test_dir)
 				return FALSE
 	return TRUE
+
 
 //datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
@@ -1435,7 +1360,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return 0
 	if(isliving(A))
 		var/mob/living/LA = A
-		if(LA.lying)
+		if(LA.lying_angle)
 			return 0
 	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
@@ -1950,13 +1875,26 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return shift
 
-//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
-/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
+/**
+  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+  *
+  * Arguments:
+  * * loc - The atom to look in.
+  * * type - The type to look for.
+  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
+  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
+  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
+  */
+/proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
 	. = list()
-	if(here)
-		for(var/atom/thing in here)
-			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
-				. += thing
+	if(!loc)
+		return
+	for(var/atom/A as anything in loc)
+		if(!istype(A, type))
+			continue
+		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
+			continue
+		. += A
 
 //gives us the stack trace from CRASH() without ending the current proc.
 /proc/stack_trace(msg)
@@ -2105,3 +2043,29 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
+/proc/slot_bitfield_to_slot(input_slot_flags) //Doesn't work with ears or pockets
+	switch(input_slot_flags)
+		if(SLOT_FLAG_OCLOTHING)
+			return SLOT_HUD_OUTER_SUIT
+		if(SLOT_FLAG_ICLOTHING)
+			return SLOT_HUD_JUMPSUIT
+		if(SLOT_FLAG_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(SLOT_FLAG_EYES)
+			return SLOT_HUD_GLASSES
+		if(SLOT_FLAG_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(SLOT_FLAG_HEAD)
+			return SLOT_HUD_HEAD
+		if(SLOT_FLAG_FEET)
+			return SLOT_HUD_SHOES
+		if(SLOT_FLAG_ID)
+			return SLOT_HUD_WEAR_ID
+		if(SLOT_FLAG_BELT)
+			return SLOT_HUD_BELT
+		if(SLOT_FLAG_BACK)
+			return SLOT_HUD_BACK
+		if(SLOT_FLAG_PDA)
+			return SLOT_HUD_WEAR_PDA
+		if(SLOT_FLAG_TIE)
+			return SLOT_HUD_TIE

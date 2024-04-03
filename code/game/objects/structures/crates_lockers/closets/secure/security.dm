@@ -310,7 +310,7 @@
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/clothing/accessory/head_strip/lawyers_badge(src)
 	new /obj/item/radio/headset/heads/magistrate/alt(src)	//added here deleted on maps
 	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/magistrate(src)

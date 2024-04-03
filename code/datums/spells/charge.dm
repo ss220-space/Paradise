@@ -23,12 +23,12 @@
 
 		if(L.pulling && (isliving(L.pulling)))
 			var/mob/living/M =	L.pulling
-			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
-				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
-					S.cooldown_handler.revert_cast()
+			if(LAZYLEN(M.mob_spell_list) || (M.mind && LAZYLEN(M.mind.spell_list)))
+				for(var/obj/effect/proc_holder/spell/spell as anything in M.mob_spell_list)
+					spell.cooldown_handler.revert_cast()
 				if(M.mind)
-					for(var/obj/effect/proc_holder/spell/S in M.mind.spell_list)
-						S.cooldown_handler.revert_cast()
+					for(var/obj/effect/proc_holder/spell/spell as anything in M.mind.spell_list)
+						spell.cooldown_handler.revert_cast()
 				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
 			else
 				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")
@@ -50,6 +50,17 @@
 					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
 					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
 					burnt_out = TRUE
+
+			else if(istype(item, /obj/item/book/granter))
+				var/obj/item/book/granter/I = item
+				if(prob(80))
+					L.visible_message("<span class='warning'>[I] catches fire!</span>")
+					qdel(I)
+				else
+					I.uses += 1
+					charged_item = I
+					break
+
 			else if(istype(item, /obj/item/gun/magic))
 				var/obj/item/gun/magic/I = item
 				if(prob(80) && !I.can_charge)
@@ -63,6 +74,7 @@
 					W.icon_state = initial(W.icon_state)
 				charged_item = I
 				break
+
 			else if(istype(item, /obj/item/stock_parts/cell/))
 				var/obj/item/stock_parts/cell/C = item
 				if(!C.self_recharge)
@@ -74,6 +86,7 @@
 				C.charge = C.maxcharge
 				charged_item = C
 				break
+
 			else if(item.contents)
 				var/obj/I = null
 				for(I in item.contents)

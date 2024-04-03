@@ -30,7 +30,7 @@
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
@@ -70,9 +70,7 @@
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
-		cancel_call_proc(usr)
-	else
-		return
+		SSshuttle.emergency.cancel()
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -181,7 +179,7 @@
 	//Morph is weaker initially when disguised
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	speed = MORPHED_SPEED
+	set_varspeed(MORPHED_SPEED)
 	ambush_spell.updateButtonIcon()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
@@ -194,7 +192,7 @@
 	//Baseline stats
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()

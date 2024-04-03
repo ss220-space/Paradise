@@ -17,7 +17,7 @@
 	tts_seed = "Anubarak"
 	speak_chance = 5
 	turns_per_move = 5
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"

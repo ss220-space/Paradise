@@ -14,10 +14,9 @@
 	speak_chance = 0
 	maxHealth = 15
 	health = 15
-	see_in_dark = 100
+	nightvision = 100
 	friendly = "nudges"
 	density = 0
-	flying = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
@@ -25,6 +24,12 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/moth
 	tts_seed = "Tychus"
+
+
+/mob/living/simple_animal/moth/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/mothroach
 	name = "mothroach"
@@ -42,7 +47,7 @@
 	faction = list("neutral")
 	maxHealth = 15
 	health = 15
-	see_in_dark = 30
+	nightvision = 30
 	turns_per_move = 10
 	emote_see = list("flutters")
 	response_help = "shoos"

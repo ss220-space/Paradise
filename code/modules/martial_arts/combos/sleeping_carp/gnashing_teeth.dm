@@ -1,5 +1,5 @@
 /datum/martial_combo/sleeping_carp/gnashing_teeth
-	name = "Скрежешущие зубы"
+	name = "Скрежещущие зубы"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Каждый второй последовательный удар наносит 20 урона, который может отрубить конечность и вы кричите боевые фразы, вселяющие страх в сердца врагов."
 

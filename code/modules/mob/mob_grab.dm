@@ -48,7 +48,7 @@
 		qdel(src)
 		return
 
-	affecting.grabbed_by += src
+	LAZYADD(affecting.grabbed_by, src)
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -209,7 +209,7 @@
 		return
 	if(affecting.buckled)
 		return
-	if(affecting.lying && state != GRAB_KILL)
+	if(affecting.lying_angle && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
@@ -264,7 +264,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying)
+	if(!assailant.canmove || assailant.lying_angle)
 		qdel(src)
 		return
 
@@ -365,7 +365,7 @@
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
 					if(last_hit_zone == BODY_ZONE_HEAD) //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying)
+						if(affecting.lying_angle)
 							return
 						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
 						var/damage = 5
@@ -482,7 +482,7 @@
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
 			assailant.bump_priority = BUMP_PRIORITY_NORMAL
-		affecting.grabbed_by -= src
+		LAZYREMOVE(affecting.grabbed_by, src)
 		affecting = null
 	if(assailant)
 		if(assailant.client)

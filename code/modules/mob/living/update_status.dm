@@ -76,7 +76,7 @@
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsWeakened))
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsStunned))
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying_angle) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
@@ -87,16 +87,16 @@
 		drop_r_hand()
 		drop_l_hand()
 	else
-		lying = 0
+		lying_angle = 0
 		canmove = TRUE
 	if(buckled)
-		lying = 90 * buckle_lying
-	else if((fall_over || resting) && !lying)
+		lying_angle = 90 * buckle_lying
+	else if((fall_over || resting) && !lying_angle)
 		fall(fall_over)
 
 	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	density = !lying
-	if(lying)
+	density = !lying_angle
+	if(lying_angle)
 		if(layer == initial(layer))
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	else

@@ -533,9 +533,9 @@
 		return	// do default setting/reset of stat NOPOWER bit
 	update()	// update icon
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 
 
 // called when holder is expelled from a disposal
@@ -560,22 +560,16 @@
 		qdel(H)
 
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
-		if(prob(75) && can_be_inserted(I, TRUE))
-			I.forceMove(src)
-			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] lands in \the [src].", 3)
+/obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
+		if(prob(75) && can_be_inserted(mover, TRUE))
+			mover.forceMove(src)
+			visible_message("[mover] lands in [src].")
 			update()
 		else
-			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
+			visible_message("[mover] bounces off of [src]'s rim!")
 		return FALSE
-	else
-		return ..(mover, target, height)
 
 
 /obj/machinery/disposal/singularity_pull(S, current_size)
@@ -923,7 +917,7 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			H.forceMove(loc)
 		else
 			H.forceMove(T)

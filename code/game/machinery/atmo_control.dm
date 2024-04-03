@@ -15,13 +15,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	name = "gas sensor"
 
 	anchored = TRUE
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/air_sensor
+	frequency = ATMOS_TANKS_FREQ
+	on = TRUE
+
 	var/state = NONE
 	var/bolts = TRUE
-
 	var/id_tag
-	frequency = ATMOS_TANKS_FREQ
-
-	on = TRUE
 	var/output = SENSOR_PRESSURE|SENSOR_TEMPERATURE
 	//Flags: (see lines 3-9)
 	// 1 for pressure
@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+
 
 
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
@@ -55,7 +56,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/atmospherics/air_sensor/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -124,9 +125,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/air_sensor/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/air_sensor(src)
-
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "tank"
@@ -141,6 +139,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	var/list/sensors
 	var/list/sensor_information
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control
+
 /obj/machinery/computer/general_air_control/Initialize()
 	. = ..()
 	if(!sensors)
@@ -148,9 +148,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(!sensor_information)
 		sensor_information = list()
 	set_frequency(frequency)
-
-/obj/machinery/computer/general_air_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control(src)
 
 /obj/machinery/computer/general_air_control/Destroy()
 	if(SSradio)
@@ -177,7 +174,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption) return
@@ -282,6 +279,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
+
 /obj/machinery/computer/general_air_control/large_tank_control/Initialize()
 	. = ..()
 	input_linkable = list(
@@ -292,12 +291,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		/obj/machinery/atmospherics/unary/vent_pump,
 	)
 
-/obj/machinery/computer/general_air_control/large_tank_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control(src)
-
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/can_link_to_input(obj/device_to_link)
 	if(is_type_in_list(device_to_link, input_linkable))

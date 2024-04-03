@@ -179,33 +179,36 @@
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
-	overlays.Cut()
+	cut_overlays()
 
 	if(has_paint)
 		var/image/to_add
 		if(!isnull(pod_paint_effect[POD_LIGHT]))
 			to_add = pod_paint_effect[POD_LIGHT]
 			to_add.color = colors[POD_LIGHT]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[WINDOW]))
 			to_add = pod_paint_effect[WINDOW]
 			to_add.color = colors[WINDOW]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[RIM]))
 			to_add = pod_paint_effect[RIM]
 			to_add.color = colors[RIM]
-			overlays += to_add
+			add_overlay(to_add)
 		if(!isnull(pod_paint_effect[PAINT]))
 			to_add = pod_paint_effect[PAINT]
 			to_add.color = colors[PAINT]
-			overlays += to_add
+			add_overlay(to_add)
 	if(health <= round(initial(health)/2))
-		overlays += pod_overlays[DAMAGE]
+		add_overlay(pod_overlays[DAMAGE])
 		if(health <= round(initial(health)/4))
-			overlays += pod_overlays[FIRE_OLAY]
+			add_overlay(pod_overlays[FIRE_OLAY])
 
 
 	light_color = icon_light_color[src.icon_state]
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /obj/spacepod/bullet_act(var/obj/item/projectile/P)
 	. = P.on_hit(src)
@@ -984,9 +987,9 @@
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
 	if(lights)
-		set_light(lights_power)
+		set_light(lights_power, l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

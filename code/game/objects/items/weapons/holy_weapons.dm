@@ -157,7 +157,7 @@
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	block_chance = 50
 
 /obj/item/nullrod/staff/blue
@@ -171,7 +171,7 @@
 	item_state = "claymore"
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK|SLOT_BELT
+	slot_flags = SLOT_FLAG_BACK|SLOT_FLAG_BELT
 	block_chance = 30
 	sharp = TRUE
 	embed_chance = 20
@@ -189,7 +189,7 @@
 	icon_state = "cultblade"
 	item_state = "cultblade"
 	desc = "Spread the glory of the dark gods!"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/shield/riot/templar
@@ -201,7 +201,7 @@
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -210,21 +210,21 @@
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /obj/item/nullrod/claymore/katana
 	name = "hanzo steel"
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
 	desc = "Once the harbringer of a interdimensional war, now a dormant souvenir. Still sharp though."
 	icon_state = "multiverse"
 	item_state = "multiverse"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
@@ -232,7 +232,7 @@
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy blade"
@@ -251,7 +251,7 @@
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -264,7 +264,7 @@
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -336,7 +336,7 @@
 	icon_state = "hammeron"
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
 
@@ -368,7 +368,7 @@
 	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
 
@@ -391,7 +391,7 @@
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
 	icon_state = "fedora"
 	item_state = "fedora"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
 	throw_speed = 4
@@ -432,7 +432,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	block_chance = 40
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -465,6 +465,10 @@
 
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
+	if(iscarbon(loc))
+		var/mob/living/carbon/wielder = loc
+		if(wielder.is_in_hands(src))
+			wielder.update_equipment_speed_mods()
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -604,7 +608,7 @@
 		//would like to make the holder mime if they have it in on thier person in general
 		if(src == holder.l_hand || src == holder.r_hand)
 			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind?.assigned_role == "Clown")
+				if(H.mind?.assigned_role == JOB_TITLE_CLOWN)
 					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
@@ -621,7 +625,7 @@
 	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	block_chance = 50
 
 	var/team_color = "red"
@@ -704,7 +708,7 @@
 		faith -= 75
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
 		return
-	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
+	else if(target.mind.assigned_role == JOB_TITLE_PSYCHIATRIST || target.mind.assigned_role == JOB_TITLE_LIBRARIAN)		//fancy book lernin helps counter religion (day 0 job love, what madness!)
 		if(prob(35))	//35% chance to fail
 			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
 			faith -=50		//lose half your faith to the book-readers
@@ -712,7 +716,7 @@
 		else
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
-	else if(target.mind.assigned_role == "Civilian")
+	else if(target.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50

@@ -29,11 +29,11 @@
 	else if(iscarbon(speaker)) // Nonhuman carbon mob
 		jobname = "No ID"
 	else if(isAI(speaker))
-		jobname = "AI"
+		jobname = JOB_TITLE_AI
 	else if(iscogscarab(speaker))
 		jobname = "Unknown"
 	else if(isrobot(speaker))
-		jobname = "Cyborg"
+		jobname = JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
 	else if(isAutoAnnouncer(speaker))

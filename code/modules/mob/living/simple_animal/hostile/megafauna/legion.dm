@@ -56,9 +56,12 @@ Difficulty: Medium
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
 
+
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
 	transform *= 2
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
@@ -119,7 +122,7 @@ Difficulty: Medium
 			retreat_distance = 0
 			minimum_distance = 0
 			move_to_delay = 2
-			speed = 0
+			set_varspeed(0)
 			charging = 1
 			ranged_cooldown = world.time + 3 SECONDS
 			SLEEP_CHECK_DEATH(3 SECONDS)
@@ -186,7 +189,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
 	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
 	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
-	for(var/turf/t in getline(src, location))
+	for(var/turf/t as anything in get_line(src, location))
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.attempt_drill(src)

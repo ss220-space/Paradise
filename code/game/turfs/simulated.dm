@@ -42,7 +42,7 @@
 	wet = wet_setting
 	if(wet_setting != TURF_DRY)
 		if(wet_overlay)
-			overlays -= wet_overlay
+			cut_overlay(wet_overlay)
 			wet_overlay = null
 		var/turf/simulated/floor/F = src
 		if(istype(F))
@@ -56,7 +56,7 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		wet_overlay.plane = FLOOR_OVERLAY_PLANE
-		overlays += wet_overlay
+		add_overlay(wet_overlay)
 	if(time == INFINITY)
 		return
 	if(!time)
@@ -68,17 +68,17 @@
 		return
 	wet = TURF_DRY
 	if(wet_overlay)
-		overlays -= wet_overlay
+		cut_overlay(wet_overlay)
 
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
 	if(!ignoreRest)
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
-			if(M.lying)
+			if(M.lying_angle)
 				return 1
 
-			if(M.flying)
+			if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 				return ..()
 
 			switch(src.wet)
@@ -105,10 +105,10 @@
 					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
-		if(!Hulk.lying)
+		if(!Hulk.lying_angle)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-		if(!Hulk.lying)
+		if(!Hulk.lying_angle)
 			playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)

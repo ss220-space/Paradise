@@ -59,6 +59,7 @@
 /obj/screen/plane_master/lighting/Initialize()
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("object_lighting", 2, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
 /*
 /obj/screen/plane_master/point
@@ -122,3 +123,12 @@
 	render_target = GRAVITY_PULSE_RENDER_TARGET
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 
+/// This will not work through multiz, because of a byond bug with BLEND_MULTIPLY
+/// Bug report is up, waiting on a fix
+/obj/screen/plane_master/o_light_visual
+	name = "Overlight light visual"
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	blend_mode = BLEND_MULTIPLY

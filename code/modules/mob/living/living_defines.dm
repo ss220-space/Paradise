@@ -34,7 +34,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
@@ -42,7 +41,7 @@
 	var/holder = null //The holder for blood crawling
 
 	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
-	var/list/icon/pipes_shown = list()
+	var/list/icon/pipes_shown
 	var/last_played_vent
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
@@ -61,8 +60,9 @@
 
 	var/tesla_ignore = FALSE
 
-	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
-	var/list/emote_log = list() //like say_log but for emotes
+	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
+	var/list/say_log
+
 	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has
@@ -82,3 +82,22 @@
 	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE
 	var/bump_priority = BUMP_PRIORITY_NORMAL
+
+	///what multiplicative slowdown we get from turfs currently.
+	var/current_turf_slowdown = 0
+
+	/// Flags that determine the potential of a mob to perform certain actions. Do not change this directly.
+	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
+
+	/// Whether living is resting currently.
+	var/resting = FALSE
+
+	/// Variable to track the body position of a mob, regardgless of the actual angle of rotation (usually matching it, but not necessarily).
+	var/body_position = STANDING_UP
+	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
+	var/lying_angle = 0
+	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
+	var/lying_prev = 0
+	/// Does the mob rotate when lying
+	var/rotate_on_lying = FALSE
+

@@ -1,13 +1,13 @@
 //Cargo
 /datum/job/qm
-	title = "Quartermaster"
-	flag = JOB_QUARTERMASTER
+	title = JOB_TITLE_QUARTERMASTER
+	flag = JOB_FLAG_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#9f8545"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -37,14 +37,14 @@
 
 
 /datum/job/cargo_tech
-	title = "Cargo Technician"
-	flag = JOB_CARGOTECH
+	title = JOB_TITLE_CARGOTECH
+	flag = JOB_FLAG_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
@@ -64,14 +64,14 @@
 
 
 /datum/job/mining
-	title = "Shaft Miner"
-	flag = JOB_MINER
+	title = JOB_TITLE_MINER
+	flag = JOB_FLAG_MINER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -110,7 +110,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = slot_s_store
+	internals_slot = SLOT_HUD_SUIT_STORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/kitchen/knife/combat/survival = 1,
@@ -127,14 +127,14 @@
 
 //Food
 /datum/job/bartender
-	title = "Bartender"
-	flag = JOB_BARTENDER
+	title = JOB_TITLE_BARTENDER
+	flag = JOB_FLAG_BARTENDER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
@@ -170,14 +170,14 @@
 
 
 /datum/job/chef
-	title = "Chef"
-	flag = JOB_CHEF
+	title = JOB_TITLE_CHEF
+	flag = JOB_FLAG_CHEF
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_KITCHEN)
@@ -219,14 +219,14 @@
 
 
 /datum/job/hydro
-	title = "Botanist"
-	flag = JOB_BOTANIST
+	title = JOB_TITLE_BOTANIST
+	flag = JOB_FLAG_BOTANIST
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
@@ -255,14 +255,14 @@
 //Griff //BS12 EDIT
 
 /datum/job/clown
-	title = "Clown"
-	flag = JOB_CLOWN
+	title = JOB_TITLE_CLOWN
+	flag = JOB_FLAG_CLOWN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
@@ -346,14 +346,14 @@
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
-	title = "Mime"
-	flag = JOB_MIME
+	title = JOB_TITLE_MIME
+	flag = JOB_FLAG_MIME
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
@@ -401,14 +401,14 @@
 
 
 /datum/job/janitor
-	title = "Janitor"
-	flag = JOB_JANITOR
+	title = JOB_TITLE_JANITOR
+	flag = JOB_FLAG_JANITOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
@@ -428,14 +428,14 @@
 
 //More or less assistants
 /datum/job/librarian
-	title = "Librarian"
-	flag = JOB_LIBRARIAN
+	title = JOB_TITLE_LIBRARIAN
+	flag = JOB_FLAG_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_LIBRARY)
 	minimal_access = list(ACCESS_LIBRARY)
@@ -458,14 +458,14 @@
 		/obj/item/videocam = 1)
 
 /datum/job/barber
-	title = "Barber"
-	flag = JOB_BARBER
+	title = JOB_TITLE_BARBER
+	flag = JOB_FLAG_BARBER
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list()
@@ -486,13 +486,13 @@
 	)
 
 /datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
+	title = JOB_TITLE_EXPLORER
+	flag = JOB_FLAG_EXPLORER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)

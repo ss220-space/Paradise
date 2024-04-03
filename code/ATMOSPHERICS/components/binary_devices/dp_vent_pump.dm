@@ -29,6 +29,8 @@
 	//2: Do not pass input_pressure_min
 	//4: Do not pass output_pressure_max
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/dp_vent_pump
+
 /obj/machinery/atmospherics/binary/dp_vent_pump/New()
 	..()
 	if(!id_tag)
@@ -41,9 +43,6 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
-
-/obj/machinery/atmospherics/binary/dp_vent_pump/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/dp_vent_pump(src)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/atmos_init()
 	..()
@@ -228,4 +227,4 @@
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)

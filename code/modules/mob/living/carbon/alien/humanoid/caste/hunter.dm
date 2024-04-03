@@ -58,7 +58,7 @@
 	if(leaping) //Leap while you leap, so you can leap while you leap
 		return
 
-	if(lying)
+	if(lying_angle)
 		return
 
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
@@ -97,7 +97,7 @@
 				Weaken(4 SECONDS, TRUE)
 
 			toggle_leap(0)
-		else if(A.density && !A.CanPass(src))
+		else if(A.density && !A.CanPass(src, get_dir(A, src)))
 			visible_message(span_danger("[src] smashes into [A]!"), span_alertalien("[src] smashes into [A]!"))
 			Weaken(0.5 SECONDS, TRUE)
 
@@ -106,8 +106,3 @@
 			update_icons()
 			update_canmove()
 
-
-/mob/living/carbon/alien/humanoid/float(on)
-	if(leaping)
-		return
-	..()

@@ -531,19 +531,17 @@
 /obj/structure/holohoop/has_prints()
 	return FALSE
 
-/obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
 		if(prob(50))
-			I.loc = src.loc
-			visible_message(span_notice("Swish! \the [I] lands in \the [src]."))
+			mover.forceMove(loc)
+			visible_message(span_notice("Swish! [mover] lands in [src]."))
 		else
-			visible_message(span_alert("\The [I] bounces off of \the [src]'s rim!"))
-		return 0
-	else
-		return ..(mover, target, height)
+			visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+		return FALSE
+
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !istype(AM,/obj/item/projectile))

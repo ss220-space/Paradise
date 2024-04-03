@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -203,7 +203,8 @@
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
 	var/on = FALSE
-	var/brightness_on = 2
+	light_range = 2
+	light_power = 1
 	light_color = LIGHT_COLOR_RED
 	armour_penetration = 20
 	var/backstab_sound = 'sound/items/unsheath.ogg'
@@ -247,7 +248,7 @@
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] can now be concealed."))
-		set_light(0)
+		set_light_on(FALSE)
 	else
 		on = TRUE
 		force = 18
@@ -260,7 +261,7 @@
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] is now active."))
-		set_light(brightness_on, 1)
+		set_light_on(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 

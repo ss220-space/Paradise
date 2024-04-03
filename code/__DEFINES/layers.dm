@@ -1,6 +1,9 @@
 //Defines for atom layers and planes
 //KEEP THESE IN A NICE ACSCENDING ORDER, PLEASE
 
+//NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
+#define LOWEST_EVER_PLANE -100
+
 #define CLICKCATCHER_PLANE -99
 
 #define GRAVITY_PULSE_PLANE -96 //Needs to be behind space, otherwise it blocks space, lol
@@ -110,41 +113,68 @@
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
-#define ABOVE_LIGHTING_PLANE 16
-#define ABOVE_LIGHTING_LAYER 16
 
-#define FLOOR_OPENSPACE_PLANE 17
-#define OPENSPACE_LAYER 17
+///Lighting objects that are "free floating"
+#define O_LIGHTING_VISUAL_PLANE 16
+#define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
-#define BYOND_LIGHTING_PLANE 18
-#define BYOND_LIGHTING_LAYER 18
 
-#define CAMERA_STATIC_PLANE 19
-#define CAMERA_STATIC_LAYER 19
+#define ABOVE_LIGHTING_PLANE 17
+#define ABOVE_LIGHTING_LAYER 17
+
+#define FLOOR_OPENSPACE_PLANE 18
+#define OPENSPACE_LAYER 18
+
+#define BYOND_LIGHTING_PLANE 19
+#define BYOND_LIGHTING_LAYER 19
+
+#define CAMERA_STATIC_PLANE 20
+#define CAMERA_STATIC_LAYER 20
 
 //HUD layer defines
 
-#define FULLSCREEN_PLANE 20
-#define FLASH_LAYER 20
-#define FULLSCREEN_LAYER 20.1
-#define UI_DAMAGE_LAYER 20.2
-#define BLIND_LAYER 20.3
-#define CRIT_LAYER 20.4
-#define CURSE_LAYER 20.5
+#define FULLSCREEN_PLANE 30
+#define FLASH_LAYER 30
+#define FULLSCREEN_LAYER 30.1
+#define UI_DAMAGE_LAYER 30.2
+#define BLIND_LAYER 30.3
+#define CRIT_LAYER 30.4
+#define CURSE_LAYER 30.5
 
-#define HUD_PLANE 21
-#define HUD_LAYER 21
-#define ABOVE_HUD_PLANE 22
-#define ABOVE_HUD_LAYER 22
+#define HUD_PLANE 31
+#define HUD_LAYER 31
+#define ABOVE_HUD_PLANE 32
+#define ABOVE_HUD_LAYER 32
 
-#define SPLASHSCREEN_LAYER 23
-#define SPLASHSCREEN_PLANE 23
+#define SPLASHSCREEN_LAYER 33
+#define SPLASHSCREEN_PLANE 33
 
-#define HUD_PLANE_BUILDMODE 30
+#define HUD_PLANE_BUILDMODE 40
 
 // This should always be on top. No exceptions.
-#define HUD_PLANE_DEBUGVIEW 40
+#define HUD_PLANE_DEBUGVIEW 50
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+
+// The largest plane here must still be less than RENDER_PLANE_GAME
+
+//-------------------- Rendering ---------------------
+#define RENDER_PLANE_GAME 100
+#define RENDER_PLANE_NON_GAME 101
+
+// Only VERY special planes should be here, as they are above not just the game, but the UI planes as well.
+
+/// Plane related to the menu when pressing Escape.
+/// Needed so that we can apply a blur effect to EVERYTHING, and guarantee we are above all UI.
+#define ESCAPE_MENU_PLANE 105
+
+#define RENDER_PLANE_MASTER 110
+
+// Lummox I swear to god I will find you
+// NOTE! You can only ever have planes greater then -10000, if you add too many with large offsets you will brick multiz
+// Same can be said for large multiz maps. Tread carefully mappers
+#define HIGHEST_EVER_PLANE RENDER_PLANE_MASTER
+/// The range unique planes can be in
+#define PLANE_RANGE (HIGHEST_EVER_PLANE - LOWEST_EVER_PLANE)
 

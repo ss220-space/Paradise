@@ -161,7 +161,7 @@
 		M.notransform = TRUE
 		M.canmove = FALSE
 		M.icon = null
-		M.overlays.Cut()
+		M.cut_overlays()
 		M.invisibility = INVISIBILITY_ABSTRACT
 
 		if(isrobot(M))
@@ -201,7 +201,7 @@
 					только как последний аргумент, чтобы сохранить свою СВОБОДУ. Вы не являетесь антагонистом."
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
-				new_mob.job = "Cyborg"
+				new_mob.job = JOB_TITLE_CYBORG
 				var/mob/living/silicon/robot/Robot = new_mob
 				if(ishuman(M))
 					Robot.mmi = new /obj/item/mmi(new_mob)
@@ -209,7 +209,7 @@
 				else
 					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
 					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
-					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.brainmob.set_stat(CONSCIOUS)
 					Robot.mmi.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()

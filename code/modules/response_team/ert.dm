@@ -76,7 +76,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
-		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
+		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.cannot_send_team()
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
-	if(role == "Cyborg")
+	if(role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 

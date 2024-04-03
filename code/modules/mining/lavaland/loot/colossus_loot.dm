@@ -93,7 +93,7 @@
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.drop_item_ground(W)
-		var/datum/job/clown/C = SSjobs.GetJob("Clown")
+		var/datum/job/clown/C = SSjobs.GetJob(JOB_TITLE_CLOWN)
 		C.equip(H)
 		affected_targets.Add(H)
 
@@ -154,7 +154,7 @@
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O))
+						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -262,7 +262,6 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = 0
-	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
@@ -275,7 +274,6 @@
 	universal_understand = 1
 	del_on_death = 1
 	unsuitable_atmos_damage = 0
-	flying = 1
 	minbodytemp = 0
 	maxbodytemp = 1500
 	environment_smash = 0
@@ -283,8 +281,10 @@
 	stop_automated_movement = 1
 	var/heal_power = 5
 
-/mob/living/simple_animal/hostile/lightgeist/New()
-	..()
+/mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]

@@ -34,7 +34,7 @@
 
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	if(light_range)
-		set_light(0)
+		set_light_on(FALSE)
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
@@ -89,7 +89,8 @@
 	if(stat & BROKEN)
 		. += "[icon_state]_broken"
 	else
-		. += "[icon_screen]"
+		if(icon_screen)
+			. += "[icon_screen]"
 		if(light)
 			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
@@ -104,9 +105,9 @@
 /obj/machinery/computer/power_change(forced = FALSE)
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon()
 
@@ -127,7 +128,7 @@
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 			stat |= BROKEN
 			update_icon()
-			set_light(0)
+			set_light_on(FALSE)
 
 /obj/machinery/computer/emp_act(severity)
 	..()
@@ -204,3 +205,51 @@
 		self_hurt = TRUE
 	return ..()
 
+///////// Decorative frames
+
+/obj/machinery/computer/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "common_computerframe"
+
+/obj/machinery/computer/old_frame/engineering
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb14"
+
+/obj/machinery/computer/old_frame/medical
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb4"
+
+/obj/machinery/computer/old_frame/big
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "left"
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/big/alert
+	icon_state = "leftb"
+
+/obj/machinery/computer/old_frame/big/right
+	icon_state = "right-closed"
+
+/obj/machinery/computer/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "stock_computer"
+	icon_state = "oldcomp"
+
+/obj/machinery/computer/old_frame/server
+	icon_screen = "command"
+	icon_state = "serverframe"
+
+/obj/machinery/computer/old_frame/server/rackframe
+	name = "rackframe"
+	icon_state = "rackframe"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/locator
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "tdoppler"
+
+/obj/machinery/computer/old_frame/thick
+	icon_state = "thick"

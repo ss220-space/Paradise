@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/s_colour = "#000000"			//Skin color
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
-	var/species = "Human"
+	var/species = SPECIES_HUMAN
 	var/language = "None"		//Secondary language for choise.
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
@@ -233,6 +233,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//Gear stuff
 	var/list/loadout_gear = list()
+	var/list/choosen_gears = list()
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
@@ -251,6 +252,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	/// Minigames notification about their end, start and etc.
 	var/minigames_notifications = TRUE
+
+	///TRUE when a player declines to be included for the selection process of game mode antagonists.
+	var/skip_antag = FALSE
 
 
 /datum/preferences/New(client/C)
@@ -336,11 +340,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
-			if(species == "Vox")
+			if(species == SPECIES_VOX)
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
-			if(species == "Grey")
+			if(species == SPECIES_GREY)
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
+			if(species == SPECIES_MACNINEPERSON)
+				dat += "<b>Synthetic Shell:</b> <a href='?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
@@ -356,7 +362,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
 				var/headaccessoryname = "Head Accessory: "
-				if(species == "Unathi")
+				if(species == SPECIES_UNATHI)
 					headaccessoryname = "Horns: "
 				dat += "<b>[headaccessoryname]</b>"
 				dat += "<a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
@@ -432,7 +438,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Alternate Head:</b> "
 				dat += "<a href='?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
 			dat += "<b>Limbs and Parts:</b> <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
-			if(species != "Slime People" && species != "Machine")
+			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
 				dat += "<b>Internal Organs:</b> <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 			//display limbs below
@@ -492,8 +498,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						dat += "\tAmputated [organ_name]"
 					if("cybernetic")
 						dat += "\tCybernetic [organ_name]"
-			if(!ind)	dat += "\[...\]<br>"
-			else		dat += "<br>"
+			if(!ind)
+				dat += "\[...\]<br>"
+			else
+				dat += "<br>"
 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
@@ -602,12 +610,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/fcolor =  "#3366CC"
 			if(total_cost < max_gear_slots)
 				fcolor = "#E67300"
-			dat += "<table align='center' width='100%'>"
+			dat += "<table align='center' width='100%' border='4px solid' >"
 			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
+			var/list/own_categories = GLOB.loadout_categories.Copy()
+			var/datum/loadout_category/choosen = new("Selected")
+			choosen.gear = choosen_gears
+			own_categories[choosen.category] = choosen
+			for(var/category in own_categories)
 				if(firstcat)
 					firstcat = 0
 				else
@@ -615,33 +627,29 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
 				else
-					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+					dat += " <a style=[category == choosen.category ? "'background: steelblue'" : "''"] href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
 
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
+			var/datum/loadout_category/LC = own_categories[gear_tab]
 			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in loadout_gear)
+				var/datum/gear/ticked = choosen_gears[G.display_name]
 				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[G.base64icon] class='loadoutPreview'></td>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=20% align='center' style='vertical-align:middle'><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[G.base64icon] class='loadoutPreview'></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
+					dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+				if(ticked)
+					for(var/datum/gear_tweak/tweak in ticked.gear_tweaks)
+						dat += "<br/><a href='?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
+				dat += "</td><td width = 5% align='center' style='vertical-align:middle'><b>[G.cost]</b></td><td style='vertical-align:middle'>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
 				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td><font size=2>[donor_info]<i>[G.description]</i></font></td></tr>"
-				if(ticked)
-					. += "<tr><td colspan=4>"
-					for(var/datum/gear_tweak/tweak in G.gear_tweaks)
-						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
-					. += "</td></tr>"
+				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -733,9 +741,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
+	tweak.update_gear_intro(new_metadata)
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Research Director", "Magistrate"), widthPerColumn = 400, height = 700)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list(JOB_TITLE_RD, JOB_TITLE_JUDGE), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
@@ -799,7 +808,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
 				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
 			if(!is_job_whitelisted(user, job.title))
@@ -822,11 +831,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!job.character_old_enough(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></span></td></tr>"
 				continue
-			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
 				html += "<span class='[color]'>[rank]</span>"
-			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
 				html += "</td><td></td></tr>"
 				continue
 
@@ -862,7 +871,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			html += "<a class='nobg' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 			if(job.title == "Civilian")//Civilian is special
-				if(job_support_low & JOB_CIVILIAN)
+				if(job_support_low & JOB_FLAG_CIVILIAN)
 					html += " <span class='btn btn-sm btn-primary text-light border border-secondary' style='padding: 0px 4px;'>Да</span></a>"
 				else
 					html += " <span class='btn btn-sm btn-outline-secondary' style='padding: 0px 4px; background-color: #f8f9fa;' onmouseover=\"this.style.backgroundColor='#6c757d';\" onmouseout=\"this.style.backgroundColor='#f8f9fa';\">Нет</span></a>"
@@ -1399,6 +1408,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
 			if(TG.display_name in loadout_gear)
 				loadout_gear -= TG.display_name
+				choosen_gears -= TG.display_name
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
 					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
@@ -1416,9 +1426,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if((total_cost + TG.cost) <= max_gear_slots)
 					loadout_gear += TG.display_name
-
+					choosen_gears[TG.display_name] += new TG.type
 		else if(href_list["gear"] && href_list["tweak"])
-			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
+			var/datum/gear/gear = choosen_gears[href_list["gear"]]
 			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
 			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
 				return
@@ -1430,6 +1440,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
 			loadout_gear.Cut()
+			choosen_gears.Cut()
 
 		ShowChoices(user)
 		return
@@ -1449,18 +1460,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						h_sec_colour = rand_hex_color()
 				if("h_style")
 					h_style = random_hair_style(gender, species, robohead)
 				if("facial")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						f_sec_colour = rand_hex_color()
 				if("f_style")
 					f_style = random_facial_hair_style(gender, species, robohead)
@@ -1530,7 +1541,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
+					var/list/new_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1673,14 +1684,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", h_colour) as color|null
 						if(new_hair)
 							h_colour = new_hair
 
 				if("secondary_hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", h_sec_colour) as color|null
@@ -1705,7 +1716,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if((species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 								valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 							else
-								if(!robohead.is_monitor && ("Human" in SA.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+								if(!robohead.is_monitor && (SPECIES_HUMAN in SA.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																							But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 									valid_hairstyles += hairstyle
 						else //If the user is not a species who can have robotic heads, use the default handling.
@@ -1902,13 +1913,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 				if("facial")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", f_colour) as color|null
 						if(new_facial)
 							f_colour = new_facial
 
 				if("secondary_facial")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", f_sec_colour) as color|null
@@ -1937,7 +1948,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if((species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 								valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 							else
-								if(!robohead.is_monitor && ("Human" in SA.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+								if(!robohead.is_monitor && (SPECIES_HUMAN in SA.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																							But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 									valid_facial_hairstyles += facialhairstyle
 						else //If the user is not a species who can have robotic heads, use the default handling.
@@ -2063,6 +2074,40 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 						flavor_text = msg
 
+				if("ipcloadouts")
+					var/choice
+					var/datum/robolimb/R
+					var/static/robolimb_companies = list()
+					var/rparts = list(BODY_ZONE_CHEST,
+						BODY_ZONE_PRECISE_GROIN,
+						BODY_ZONE_HEAD, BODY_ZONE_L_ARM,
+						BODY_ZONE_PRECISE_L_HAND,
+						BODY_ZONE_R_ARM,
+						BODY_ZONE_PRECISE_R_HAND,
+						BODY_ZONE_R_LEG,
+						BODY_ZONE_PRECISE_R_FOOT,
+						BODY_ZONE_L_LEG,
+						BODY_ZONE_PRECISE_L_FOOT)
+					if(!length(robolimb_companies))
+						for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
+							R = new comp()
+							if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
+								robolimb_companies[R.company] = R
+					R = new() //Re-initialize R.
+					choice = tgui_input_list(user, "Which manufacturer model would you like to use?", "Character Preference",  robolimb_companies)
+					if(!choice)
+						return
+					R.company = choice
+					for(var/limb in rparts)
+						if(limb == BODY_ZONE_HEAD)
+							ha_style = "None"
+							alt_head = null
+							h_style = GLOB.hair_styles_public_list["Bald"]
+							f_style = GLOB.facial_hair_styles_list["Shaved"]
+							m_styles["head"] = "None"
+						rlimb_data[limb] = choice
+						organ_data[limb] = "cyborg"
+
 				if("uplink_pref")
 					var/new_uplink_pref = tgui_input_list(user, "Choose your preferred uplink location:", "Character Preference", list("pda", "headset"))
 					if(new_uplink_pref)
@@ -2088,8 +2133,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states = list("Normal", "Amputated", "Prosthesis")
-					var/no_amputate = 0
+					var/valid_limb_states = list("Normal", "Prosthesis")
+					var/no_amputate = FALSE
 
 					switch(limb_name)
 						if("Torso")
@@ -2131,6 +2176,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_ARM
 
+					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
+						valid_limb_states += "Amputated"
+
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
 
@@ -2146,12 +2194,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
 						if("Amputated")
-							if(!no_amputate)
-								organ_data[limb] = "amputated"
-								rlimb_data[limb] = null
-								if(second_limb)
-									organ_data[second_limb] = "amputated"
-									rlimb_data[second_limb] = null
+							organ_data[limb] = "amputated"
+							rlimb_data[limb] = null
+							if(second_limb)
+								organ_data[second_limb] = "amputated"
+								rlimb_data[second_limb] = null
 						if("Prosthesis")
 							var/choice
 							var/subchoice
@@ -2161,7 +2208,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
 								R = new limb_type()
 								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
-									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+									if(species in R.species_allowed)
+										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
@@ -2237,7 +2285,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						version_message = "\nYou need to be using byond version [MINIMUM_FPS_VERSION] or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
 					if(world.byond_version < MINIMUM_FPS_VERSION)
 						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n30 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(world.byond_version >= MINIMUM_FPS_VERSION && user.client && user.client.byond_version >= MINIMUM_FPS_VERSION)

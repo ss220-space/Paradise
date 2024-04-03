@@ -174,7 +174,8 @@
 		on_fire = TRUE
 		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] загора[pluralize_ru(src.gender,"ется","ются")]!</span>", \
 						"<span class='userdanger'>[pluralize_ru(src.gender,"Ты загораешься","Вы загораетесь")]!</span>")
-		set_light(light_range + 3,l_color = "#ED9200")
+		set_light_range(light_range + 3)
+		set_light_color("#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
@@ -186,7 +187,8 @@
 	if(on_fire)
 		on_fire = FALSE
 		fire_stacks = 0
-		set_light(max(0,light_range - 3))
+		set_light_range(max(0,light_range - 3))
+		set_light_color(initial(light_color))
 		clear_alert("fire")
 		update_fire()
 
