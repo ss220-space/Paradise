@@ -41622,6 +41622,9 @@
 	pixel_x = 5;
 	pixel_y = 10
 	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -5
 	},
@@ -55520,7 +55523,10 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/masks,
-/obj/item/reagent_containers/spray/cleaner/medical,
+/obj/item/reagent_containers/spray/cleaner/medical{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
