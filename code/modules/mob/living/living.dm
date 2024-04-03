@@ -980,6 +980,8 @@
 	. = usable_legs
 	usable_legs = new_value
 
+	update_limbless_slowdown()
+
 	/*
 	if(new_value > .) // Gained leg usage.
 		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
@@ -990,20 +992,6 @@
 			if(!usable_hands)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	*/
-
-	if(usable_legs < default_num_legs)
-		if(ishuman(src))
-			var/mob/living/carbon/human/human_user = src
-			human_user.handle_stance(forced = TRUE)
-		var/limbless_slowdown = 2 * stance_damage
-		/*
-		var/limbless_slowdown = (default_num_legs - usable_legs) * 3
-		if(!usable_legs && usable_hands < default_num_hands)
-			limbless_slowdown += (default_num_hands - usable_hands) * 3
-		*/
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
 ///Proc to modify the value of num_hands and hook behavior associated to this event.
@@ -1021,12 +1009,25 @@
 	. = usable_hands
 	usable_hands = new_value
 
+	if(!usable_legs)
+		update_limbless_slowdown()	// in case we got new hand but have no legs
+
 	/*
 	if(new_value > .) // Gained hand usage.
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(!(movement_type & (FLYING|FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	*/
+
+
+/mob/living/proc/update_limbless_slowdown()
+	if(usable_legs < default_num_legs)
+		var/limbless_slowdown = (default_num_legs - usable_legs) * 4 - get_crutches()
+		if(!usable_legs && usable_hands < default_num_hands)
+			limbless_slowdown += (default_num_hands - usable_hands) * 4
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
 /mob/living/proc/can_use_vents()

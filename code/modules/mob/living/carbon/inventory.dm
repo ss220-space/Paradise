@@ -482,3 +482,9 @@
 	if(head)
 		items += head
 	return items
+
+
+/mob/living/carbon/update_equipment_speed_mods()
+	. = ..()
+	update_limbless_slowdown()	// in case we get crutches
+

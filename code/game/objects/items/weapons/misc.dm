@@ -34,7 +34,7 @@
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
 /obj/item/cane/is_crutch()
-	return 1
+	return 2
 
 /obj/item/c_tube
 	name = "cardboard tube"
