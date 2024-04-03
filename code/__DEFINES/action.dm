@@ -1,10 +1,19 @@
 //Action availability flags
-#define AB_CHECK_RESTRAINED (1<<0)
-#define AB_CHECK_STUNNED (1<<1)
+///Action button checks if hands are unusable
+#define AB_CHECK_HANDS_BLOCKED (1<<0)
+///Action button checks if user is immobile
+#define AB_CHECK_IMMOBILE (1<<1)
+///Action button checks if user is resting
 #define AB_CHECK_LYING (1<<2)
+///Action button checks if user is conscious
 #define AB_CHECK_CONSCIOUS (1<<3)
-#define AB_TRANSFER_MIND (1<<4)
+///Action button checks if user is incapacitated
+#define AB_CHECK_INCAPACITATED (1<<4)
+///Action button checks if user is currently in turf contents
 #define AB_CHECK_TURF (1<<5)
+///Action button checks if it should be given to new mob, after mind transfer
+#define AB_TRANSFER_MIND (1<<6)
+
 
 //Advanced action types
 //Those actions have cooldown, and unavailable until it ends

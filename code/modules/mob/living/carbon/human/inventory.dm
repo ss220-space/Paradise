@@ -635,8 +635,3 @@
 		if(!thing.is_speedslimepotioned)
 			. += thing.slowdown
 
-
-/mob/living/carbon/human/update_equipment_speed_mods()
-	. = ..()
-	handle_stance(forced = TRUE)	// in case we get crutches
-

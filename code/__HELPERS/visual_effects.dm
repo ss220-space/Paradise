@@ -25,7 +25,7 @@
 	}; \
 	if(isliving(target)) { \
 		var/mob/living/living_target = target; \
-		final_pixel_y = living_target.get_standard_pixel_y_offset(living_target.lying); \
+		final_pixel_y = living_target.get_standard_pixel_y_offset(living_target.lying_angle); \
 	}; \
 	animate(target, pixel_y = final_pixel_y, time = 1 SECONDS)
 

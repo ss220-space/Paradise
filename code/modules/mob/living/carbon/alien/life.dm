@@ -3,7 +3,7 @@
 		var/points_to_add = 1
 		if(locate(/obj/structure/alien/weeds) in loc)
 			points_to_add *= 2
-		if(lying)
+		if(lying_angle)
 			points_to_add *= 2
 		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
 		update_icons()

@@ -30,7 +30,7 @@
 	ninja.SetParalysis(0)
 	ninja.SetSleeping(0)
 	ninja.adjustStaminaLoss(-75)
-	ninja.lying = 0
+	ninja.lying_angle = 0
 	ninja.update_canmove()
 	ninja.SetStuttering(0)
 	ninja.reagents.add_reagent("synaptizine", 20)

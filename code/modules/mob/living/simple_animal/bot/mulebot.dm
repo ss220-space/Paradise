@@ -378,7 +378,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
-	if(!istype(AM) || user.incapacitated() || user.lying || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated() || !in_range(user, src))
 		return FALSE
 
 	load(AM)

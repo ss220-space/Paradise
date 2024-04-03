@@ -62,8 +62,6 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/exploit_record = ""
-	var/lying = 0
-	var/lying_prev = 0
 	var/lastpuke = 0
 	var/can_strip = 1
 	/// For speaking/listening.
@@ -202,8 +200,6 @@
 	var/player_ghosted = 0
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-
-	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
 	var/list/active_genes
 

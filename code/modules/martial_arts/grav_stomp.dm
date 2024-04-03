@@ -7,7 +7,7 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = "kicks"
 	var/bonus_damage = 10
-	if(D.IsWeakened() ||  D.resting || D.lying)
+	if(D.IsWeakened() ||  D.resting || D.lying_angle)
 		bonus_damage = 15
 		picked_hit_type = "stomps on"
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)

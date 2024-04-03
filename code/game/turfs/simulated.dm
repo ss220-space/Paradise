@@ -75,7 +75,7 @@
 	if(!ignoreRest)
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
-			if(M.lying)
+			if(M.lying_angle)
 				return 1
 
 			if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
@@ -105,10 +105,10 @@
 					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
-		if(!Hulk.lying)
+		if(!Hulk.lying_angle)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-		if(!Hulk.lying)
+		if(!Hulk.lying_angle)
 			playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
