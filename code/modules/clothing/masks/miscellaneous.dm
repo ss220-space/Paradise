@@ -482,7 +482,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
-/obj/item/clothing/mask/gas/pennywise
+/obj/item/clothing/mask/gas/clown_hat/pennywise
 	name = "Pennywise Mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
@@ -493,7 +493,7 @@
 
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
-/obj/item/clothing/mask/gas/rockso
+/obj/item/clothing/mask/gas/clown_hat/rockso
 	name = "Rockso Mask"
 	desc = "THE ROCK AND ROLL CLOWN!"
 	icon_state = "rocksomask"
