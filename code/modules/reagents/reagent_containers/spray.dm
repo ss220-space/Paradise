@@ -118,7 +118,7 @@
     list_reagents = list()
 
 /obj/item/reagent_containers/spray/cleaner/janitor
-    name = "janitoral deluxe cleaner"
+    name = "janitorial deluxe cleaner"
     desc = "A stylish spray for the most productive station worker!"
     icon_state = "cleaner_janitor"
     item_state = "cleaner_jan"
