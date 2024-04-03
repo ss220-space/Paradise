@@ -203,8 +203,6 @@
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
 
-	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
-
 	var/list/active_genes
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.

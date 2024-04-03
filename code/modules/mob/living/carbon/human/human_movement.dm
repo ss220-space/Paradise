@@ -138,7 +138,8 @@
 	if(old_movement_type & (FLYING|FLOATING) && !(movement_type & (FLYING|FLOATING)))
 		update_obesity_slowdown()
 		update_hunger_slowdown()
-		handle_stance(forced = TRUE)
+		update_limbless_slowdown()
+
 		/*
 		var/limbless_slowdown = 0
 		if(usable_legs < default_num_legs)

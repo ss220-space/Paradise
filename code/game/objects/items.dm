@@ -974,7 +974,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 
-/obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+/// Returns an effectiveness of an item as a crunch, which allow mobs to stand if they are missing a leg/foot?
+/obj/item/proc/is_crutch()
 	return 0
 
 
