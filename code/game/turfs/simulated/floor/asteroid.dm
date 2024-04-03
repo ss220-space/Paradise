@@ -42,8 +42,7 @@
 	icon_plating = initial(icon_plating)
 	icon_state =  initial(icon_state)
 	if(prob(floor_variance))
-		icon_state = "[base_icon_state][rand(0,12)]"
-	update_appearance()
+		icon_state = "[environment_type][rand(0,12)]"
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
