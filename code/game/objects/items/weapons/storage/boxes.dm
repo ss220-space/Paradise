@@ -1120,7 +1120,7 @@
 	desc = "Contains essential advertising agent kit for Mr. Cheng"
 	icon_state = "box_mr_chang"
 
-/obj/item/storage/box/crayfish_bucket/populate_contents()
+/obj/item/storage/box/mr_cheng/populate_contents()
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
