@@ -557,7 +557,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat || H.lying)
+		if(H.stat || H.lying_angle)
 			continue
 		clone = H
 		break

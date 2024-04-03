@@ -2446,7 +2446,7 @@
 			M.SetJitter(0)
 			M.SetDizzy(0)
 			M.SetDruggy(0)
-			M.lying = 0
+			M.lying_angle = 0
 			M.update_canmove() // wakey wakey
 			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
 			M.reagents.remove_reagent("restart",restart_amount)

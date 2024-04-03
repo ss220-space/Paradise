@@ -65,7 +65,7 @@
 	set category = "Object"
 	set src in range(1)
 
-	if(usr.stat || usr.restrained() || !usr.incapacitated() || usr.lying)
+	if(usr.incapacitated())
 		return
 
 	if(!paperamount)

@@ -61,7 +61,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 13
-	if(D.IsWeakened() || D.resting || D.lying)
+	if(D.IsWeakened() || D.resting || D.lying_angle)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 

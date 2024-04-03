@@ -58,7 +58,7 @@
 /obj/item/gripper/proc/try_shake_up(mob/living/user, atom/target)
 	if(!gripped_item && Adjacent(user, target) && target && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.lying)
+		if(H.lying_angle)
 			H.AdjustSleeping(-10 SECONDS)
 			if(!H.IsSleeping())
 				H.StopResting()

@@ -165,7 +165,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 

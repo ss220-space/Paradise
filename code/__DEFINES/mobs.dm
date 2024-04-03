@@ -358,3 +358,14 @@
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
 #define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
+
+
+// Body position defines.
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
+

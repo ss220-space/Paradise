@@ -44,7 +44,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!lying && !buckled && !throwing)
+		if(!lying_angle && !buckled && !throwing)
 			update_splints()
 		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
 			if(prob(dna.species.fragile_bones_chance))
@@ -64,7 +64,7 @@
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && !lying && loc == NewLoc)
+	if(S && !lying_angle && loc == NewLoc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints

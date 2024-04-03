@@ -383,7 +383,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
-	if(user.stat || user.lying || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.incapacitated() || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	. = TRUE
 	var/mob/living/target = A

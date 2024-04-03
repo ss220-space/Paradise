@@ -176,7 +176,8 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(M.lying_angle)
+			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")

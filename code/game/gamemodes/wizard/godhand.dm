@@ -46,7 +46,7 @@
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
 		return
-	if(user.lying || user.handcuffed)
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	..()
@@ -71,7 +71,7 @@
 
 
 /obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated()) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
 	do_sparks(4, 0, M.loc) //no idea what the 0 is
@@ -91,7 +91,7 @@
 /obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user)) //getting hard after touching yourself would also be bad
 		return
-	if(user.lying || user.handcuffed)
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	var/mob/living/L = target
@@ -111,7 +111,7 @@
 
 
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //not exploding after touching yourself would be bad
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated()) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, 0, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
@@ -128,7 +128,7 @@
 
 
 /obj/item/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed) //clowning around after touching yourself would unsurprisingly, be bad
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated()) //clowning around after touching yourself would unsurprisingly, be bad
 		return
 
 	if(iswizard(target))
