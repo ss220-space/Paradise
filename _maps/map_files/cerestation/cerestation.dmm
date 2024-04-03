@@ -57816,6 +57816,7 @@
 /area/maintenance/starboard)
 "mOD" = (
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -60152,9 +60153,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = 28
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74332,6 +74330,9 @@
 	icon_state = "pipe-j2s";
 	name = "research";
 	sortType = 12
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
