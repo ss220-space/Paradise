@@ -225,7 +225,7 @@
 			inserted_id.mining_points -= prize.cost
 			var/obj/created = new prize.equipment_path(loc)
 			if(Adjacent(usr))
-				usr.put_in_hands(created)
+				usr.put_in_hands(created, ignore_anim = FALSE)
 		else
 			return FALSE
 	add_fingerprint()
@@ -456,13 +456,15 @@
 		return
 
 	var/obj/item/card/id/I = AM
-	I.access |= ACCESS_MAILSORTING
-	I.access |= ACCESS_CARGO
-	I.access |= ACCESS_CARGO_BOT
-	I.access |= ACCESS_MINT
-	I.access |= ACCESS_MINING
-	I.access |= ACCESS_MINING_STATION
-	I.access |= ACCESS_MINERAL_STOREROOM
+	I.access |= list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BOT,
+		ACCESS_MINT,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MINERAL_STOREROOM,
+	)
 	to_chat(user, "You upgrade [I] with mining access.")
 	qdel(src)
 
