@@ -75863,7 +75863,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
 "kPe" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
