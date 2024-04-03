@@ -26,10 +26,10 @@
 
 /obj/item/resonator/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate only after you hit one with it.</span>")
+		to_chat(user, span_info("You set the resonator's fields to detonate only after you hit one with it."))
 		mode = RESONATOR_MODE_MANUAL
 	else
-		to_chat(user, "<span class='info'>You set the resonator's fields to automatically detonate after 2 seconds.</span>")
+		to_chat(user, span_info("You set the resonator's fields to automatically detonate after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 /obj/item/resonator/proc/create_resonance(target, mob/user)
@@ -55,7 +55,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = ABOVE_ALL_MOB_LAYER
-	duration = 60 SECONDS
+	duration = 50 SECONDS
 	/// the amount of damage living beings will take whilst inside the field during its burst
 	var/resonance_damage = 20
 	/// the modifier to resonance_damage; affected by the quick_burst_mod from the resonator
@@ -115,7 +115,7 @@
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
 		if(isancientturf(src_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = src_turf
 			M.attempt_drill(creator)
@@ -124,7 +124,7 @@
 	for(var/mob/living/L in src_turf)
 		if(creator)
 			add_attack_logs(creator, L, "Resonance field'ed")
-		to_chat(L, "<span class='userdanger'>[src] ruptured with you in it!</span>")
+		to_chat(L, span_userdanger("[src] ruptured with you in it!"))
 		L.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)
@@ -159,13 +159,13 @@
 
 /obj/item/resonator/upgraded/attack_self(mob/user)
 	if(mode == RESONATOR_MODE_AUTO)
-		to_chat(user, "<span class='info'>You set the resonator's fields to detonate only after you hit one with it.</span>")
+		to_chat(user, span_info("You set the resonator's fields to detonate only after you hit one with it."))
 		mode = RESONATOR_MODE_MANUAL
 	else if(mode == RESONATOR_MODE_MANUAL)
-		to_chat(user, "<span class='info'>You set the resonator's fields to work as matrix traps.</span>")
+		to_chat(user, span_info("You set the resonator's fields to work as matrix traps."))
 		mode = RESONATOR_MODE_MATRIX
 	else
-		to_chat(user, "<span class='info'>You set the resonator's fields to automatically detonate after 2 seconds.</span>")
+		to_chat(user,  span_info("You set the resonator's fields to automatically detonate after 2 seconds."))
 		mode = RESONATOR_MODE_AUTO
 
 #undef RESONATOR_MODE_AUTO
