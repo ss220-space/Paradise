@@ -358,3 +358,4 @@
 	display_name = "track suit (blue)"
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
+
