@@ -50,7 +50,6 @@
 
 	L.AdjustSilence(20 SECONDS)
 	L.adjustStaminaLoss(39)
-	L.attack_animal(src)
 	if(!poisonable)
 		return TRUE
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
