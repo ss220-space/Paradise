@@ -1,4 +1,5 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
@@ -49,6 +50,7 @@
 	var/flashing_lights = FALSE
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
+	var/speak_cooldown = FALSE
 
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -317,7 +319,10 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		if(!speak_cooldown)
+			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),
 					span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
 
@@ -531,5 +536,6 @@
 	req_access = list(ACCESS_SECURITY)
 
 
-#undef BATON_COOLDOWN
 
+#undef SPEAK_COOLDOWN
+#undef BATON_COOLDOWN
