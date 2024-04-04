@@ -110,10 +110,10 @@
 	opened = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_warning("Вы видите бипки."))
-	sleep(30)
+	sleep(3 SECONDS)
 	user.drop_item_ground(src, force = TRUE)
 	user.dust()
-	sleep(40)
+	sleep(4 SECONDS)
 	opened = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
