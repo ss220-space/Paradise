@@ -571,7 +571,7 @@
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	set_bodytemperature(310)
+	set_bodytemperature(dna ? dna.species.body_temperature : BODYTEMP_NORMAL)
 	CureBlind()
 	CureNearsighted()
 	CureMute()
