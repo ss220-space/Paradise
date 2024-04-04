@@ -19,7 +19,7 @@
 
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/access_control) && !access_electronics)
-		if(!user.drop_transfer_item_to_loc(I, src)) 
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		access_electronics = I
 		update_icon(UPDATE_OVERLAYS)
@@ -29,7 +29,7 @@
 /obj/item/airlock_electronics/screwdriver_act(mob/living/user, obj/item/I)
 	if(!access_electronics)
 		return FALSE
-	access_electronics.forceMove(drop_location(src))
+	access_electronics.forceMove_turf()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		carbon_user.put_in_hands(access_electronics, ignore_anim = FALSE)
