@@ -200,12 +200,12 @@
 
 	underlays.Cut()
 
-	if(panel_overlay && panel_open)
-		. += panel_overlay
-
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(broken_overlay && (stat & BROKEN))
 			. += broken_overlay
+
+		if(panel_overlay && panel_open)
+			. += panel_overlay
 		return
 
 	if(stat & BROKEN)
@@ -213,25 +213,31 @@
 			. += broken_overlay
 		if(broken_lightmask_overlay)
 			underlays += emissive_appearance(icon, broken_lightmask_overlay)
-	else
-		if(screen_overlay)
-			. += screen_overlay
+		if(panel_overlay && panel_open)
+			. += panel_overlay
+		return
 
-		var/lightmask_used = FALSE
-		if(vend_overlay && (flick_sequence & FLICK_VEND))
-			. += vend_overlay
-			if(vend_lightmask)
-				lightmask_used = TRUE
-				. += vend_lightmask
+	if(screen_overlay)
+		. += screen_overlay
 
-		else if(deny_overlay && (flick_sequence & FLICK_DENY))
-			. +=  deny_overlay
-			if(deny_lightmask)
-				lightmask_used = TRUE
-				. += deny_lightmask
+	var/lightmask_used = FALSE
+	if(vend_overlay && (flick_sequence & FLICK_VEND))
+		. += vend_overlay
+		if(vend_lightmask)
+			lightmask_used = TRUE
+			. += vend_lightmask
 
-		if(!lightmask_used && lightmask_overlay)
-			underlays += emissive_appearance(icon, lightmask_overlay)
+	else if(deny_overlay && (flick_sequence & FLICK_DENY))
+		. +=  deny_overlay
+		if(deny_lightmask)
+			lightmask_used = TRUE
+			. += deny_lightmask
+
+	if(!lightmask_used && lightmask_overlay)
+		underlays += emissive_appearance(icon, lightmask_overlay)
+
+	if(panel_overlay && panel_open)
+		. += panel_overlay
 
 
 /obj/machinery/vending/power_change(forced = FALSE)
