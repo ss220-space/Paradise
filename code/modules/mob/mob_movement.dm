@@ -308,6 +308,8 @@
 
 
 /mob/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admeme override, WATCH OUT!
+		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()
 
 

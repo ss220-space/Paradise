@@ -537,10 +537,7 @@
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
 
-/area/proc/gravitychange(gravitystate = FALSE)
-	if(has_gravity == gravitystate)
-		return
-	has_gravity = gravitystate
+/area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
 		var/prev_gravity = user.gravity_state
 		user.refresh_gravity()

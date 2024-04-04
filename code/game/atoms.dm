@@ -1439,6 +1439,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * otherwise no gravity
  */
 /atom/proc/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admeme override, WATCH OUT!
+		return GLOB.gravity_is_on
+
 	if(!isturf(gravity_turf))
 		gravity_turf = get_turf(src)
 
