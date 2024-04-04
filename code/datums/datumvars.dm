@@ -1003,7 +1003,7 @@
 		message_admins("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].")
 
 	if(href_list["removecomponent"])
-		if(!check_rights(NONE))
+		if(!check_rights(R_DEBUG|R_EVENT))
 			return
 		var/list/components = list()
 		var/atom/target = locateUID(href_list["removecomponent"])
