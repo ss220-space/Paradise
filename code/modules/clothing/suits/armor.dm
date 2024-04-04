@@ -691,5 +691,6 @@
 	icon_state = "streetjudgearmor"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
