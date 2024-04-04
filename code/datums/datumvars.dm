@@ -988,6 +988,9 @@
 		var/list/lst = get_callproc_args()
 		if(!lst)
 			return
+		if(QDELETED(target))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
 		var/datumname = "error"
 		lst.Insert(1, result)
 		if(result in componentsubtypes)
@@ -1031,6 +1034,9 @@
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
 			if(ispath(path, /datum/element))
 				var/list/lst = get_callproc_args()
+				if(QDELETED(target_to_remove_from))
+					to_chat(usr, "That thing doesn't exist anymore!")
+					continue
 				if(!lst)
 					lst = list()
 				lst.Insert(1, path)
