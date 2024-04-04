@@ -1044,8 +1044,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_usable()
 	if((is_robotic() && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return FALSE
-	if(!properly_attached)
-		return FALSE
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 

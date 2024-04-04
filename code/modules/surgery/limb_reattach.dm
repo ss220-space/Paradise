@@ -268,12 +268,6 @@
 		span_notice("You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].")
 	)
 	E.properly_attached = TRUE
-	if(E.is_usable())
-		switch(E.limb_zone)
-			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				target.set_usable_legs(target.usable_legs + 1)
-			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
-				target.set_usable_hands(target.usable_hands + 1)
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
