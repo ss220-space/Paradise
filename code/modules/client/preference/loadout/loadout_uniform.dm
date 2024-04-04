@@ -42,6 +42,10 @@
 	display_name = "USSP uniform"
 	path = /obj/item/clothing/under/soviet
 
+/datum/gear/uniform/suit/federal
+	display_name = "Solar Federation uniform"
+	path = /obj/item/clothing/under/solgov/civ
+
 /datum/gear/uniform/suit/kilt
 	display_name = "a kilt"
 	path = /obj/item/clothing/under/kilt

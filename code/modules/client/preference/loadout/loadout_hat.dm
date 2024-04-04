@@ -23,6 +23,10 @@
 	display_name = "flat cap"
 	path = /obj/item/clothing/head/flatcap
 
+/datum/gear/hat/ushanka
+	display_name = "ushanka"
+	path = /obj/item/clothing/head/ushanka
+
 /datum/gear/hat/witch
 	display_name = "witch hat"
 	path = /obj/item/clothing/head/wizard/marisa/fake
