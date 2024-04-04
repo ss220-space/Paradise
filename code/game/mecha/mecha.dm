@@ -900,9 +900,12 @@
 
 		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
 
+		if(P.new_prefix)
+			initial_icon = "[P.new_prefix][initial_icon]"
+		else
+			initial_icon = P.new_icon
 		name = P.new_name
 		desc = P.new_desc
-		initial_icon = P.new_icon
 		update_icon(UPDATE_ICON_STATE)
 
 		user.temporarily_remove_item_from_inventory(P)
