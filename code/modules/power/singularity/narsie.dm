@@ -2,7 +2,8 @@
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
-	var/soul_devoured = 0 //How many humans got killed by it. For now used only for /proc/apocalypse and only for Nar'Sie.
+	/// How many humans got killed by it. For now used only for /proc/apocalypse and only for Nar'Sie.
+	var/soul_devoured = 0
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
