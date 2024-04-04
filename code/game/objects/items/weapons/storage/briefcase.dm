@@ -111,7 +111,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_warning("Вы видите бипки."))
 	sleep(30)
-	user.drop_from_hands()
+	user.drop_item_ground(src, force = TRUE)
 	user.dust()
 	sleep(40)
 	opened = FALSE
@@ -122,5 +122,5 @@
 
 /obj/item/case_with_bipki/examine(mob/user)
 	. = ..()
-	if(opened == TRUE)
+	if(opened)
 		. += span_warning("Яркий свет не позволяет вам увидеть содержимое кейса.")
