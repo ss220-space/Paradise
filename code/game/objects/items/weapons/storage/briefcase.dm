@@ -108,18 +108,19 @@
 /obj/item/case_with_bipki/attack_self(mob/user)
 	. = ..()
 	opened = TRUE
-	icon_state = "briefcase_bipki_o"
-	update_icon()
-	to_chat(user, "<span class='warning'>Вы видите бипки.</span>")
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_warning("Вы видите бипки."))
 	sleep(30)
 	user.drop_from_hands()
 	user.dust()
 	sleep(40)
 	opened = FALSE
-	icon_state = "briefcase_bipki"
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/case_with_bipki/update_icon_state()
+	icon_state = "briefcase_bipki[opened ? "_o" : ""]"
 
 /obj/item/case_with_bipki/examine(mob/user)
 	. = ..()
 	if(opened == TRUE)
-		. += "<span class='warning'>Яркий свет не позволяет вам увидеть содержимое кейса.</span>"
+		. += span_warning("Яркий свет не позволяет вам увидеть содержимое кейса.")
