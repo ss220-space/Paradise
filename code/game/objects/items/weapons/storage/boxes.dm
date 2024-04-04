@@ -1115,6 +1115,15 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
