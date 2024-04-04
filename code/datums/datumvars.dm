@@ -63,6 +63,7 @@
 	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
 	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Add Component/Element"] = "?_src_=vars;addcomponent=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -964,6 +965,38 @@
 
 		if(T)
 			callproc_datum(T)
+
+	if(href_list["addcomponent"])
+		if(!check_rights(R_DEBUG|R_EVENT))
+			return
+		var/list/names = list()
+		var/list/componentsubtypes = sort_list(subtypesof(/datum/component), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		names += "---Components---"
+		names += componentsubtypes
+		names += "---Elements---"
+		names += sort_list(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
+		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
+		if(isnull(result))
+			return
+		if(!usr || result == "---Components---" || result == "---Elements---")
+			return
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
+		var/list/lst = get_callproc_args()
+		if(!lst)
+			return
+		var/datumname = "error"
+		lst.Insert(1, result)
+		var/atom/target = locateUID(href_list["addcomponent"])
+		if(result in componentsubtypes)
+			datumname = "component"
+			target._AddComponent(lst)
+		else
+			datumname = "element"
+			target._AddElement(lst)
+		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
+		message_admins("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].")
 
 	else if(href_list["jump_to"])
 		if(!check_rights(R_ADMIN))
