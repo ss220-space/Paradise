@@ -242,6 +242,8 @@
 		door.check_one_access = access_electronics.one_access
 		access_electronics.forceMove(door)
 		access_electronics = null
+	else
+		door.has_access_electronics = FALSE
 
 	qdel(src)
 	update_icon(UPDATE_OVERLAYS)
