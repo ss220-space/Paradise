@@ -171,24 +171,3 @@
 	icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
 
-
-// shitspawn to test full auto component
-/obj/item/gun/energy/minigun
-	name = "laser gatling gun"
-	desc = "An advanced laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
-	icon_state = "lasergun"
-	item_state = null
-	slot_flags = null
-	w_class = WEIGHT_CLASS_HUGE
-	weapon_weight = WEAPON_HEAVY
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
-	cell_type = /obj/item/stock_parts/cell/infinite
-	flags = HANDSLOW
-	slowdown = 1
-	can_charge = FALSE
-
-
-/obj/item/gun/energy/minigun/Initialize(mapload)
-	AddComponent(/datum/component/automatic_fire, 0.1 SECONDS)
-	return ..()
-
