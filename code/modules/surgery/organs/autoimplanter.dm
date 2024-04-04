@@ -66,6 +66,10 @@
 		qdel(src)
 	. = ..()
 
+/obj/item/autoimplanter/oneuse/meson
+	name = "autoimplanter(meson scanner implant)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/meson
+
 /obj/item/autoimplanter/oneuse/mantisblade
 	name = "autoimplanter (mantis blade right)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/horlex
