@@ -75,6 +75,12 @@
 						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
 	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
+	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что она не продержится больше двух часов.", "Hivemind", FALSE) as num
+
+	if(!time || time > 120)
+		to_chat(user, span_danger("Вы отказались от идеи связать ваши разумы."))
+		return
+
 	for(var/mob/ling in GLOB.mob_list)
 		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))
 			to_chat(ling, span_changeling("We can sense a foreign presence in the hivemind..."))
@@ -84,7 +90,7 @@
 	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'AAAAARRRRGGGGGHHHHH!!")
 	target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
 
-	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), 3 MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), time MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 
