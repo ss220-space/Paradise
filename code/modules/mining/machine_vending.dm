@@ -223,7 +223,9 @@
 				return
 
 			inserted_id.mining_points -= prize.cost
-			new prize.equipment_path(loc)
+			var/obj/created = new prize.equipment_path(loc)
+			if(Adjacent(usr))
+				usr.put_in_hands(created, ignore_anim = FALSE)
 		else
 			return FALSE
 	add_fingerprint()
@@ -277,21 +279,20 @@
 		if("Resonator Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/resonator(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
 		if("Minebot Kit")
-			new /obj/item/mining_drone_cube(drop_location)
-			new /obj/item/weldingtool/hugetank(drop_location)
-			new /obj/item/clothing/head/welding(drop_location)
+			new /obj/item/storage/backpack/duffel/minebot_kit(drop_location)
 		if("Extraction and Rescue Kit")
-			new /obj/item/extraction_pack(drop_location)
-			new /obj/item/fulton_core(drop_location)
-			new /obj/item/stack/marker_beacon/thirty(drop_location)
+			new /obj/item/storage/backpack/duffel/vendor_ext(drop_location)
 		if("Plasma Cutter Kit")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
+			new /obj/item/t_scanner/adv_mining_scanner/lesser(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
 		if("Mining Explosives Kit")
 			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
+			new /obj/item/storage/box/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
@@ -441,6 +442,30 @@
 	new /obj/item/organ/internal/cyberimp/leg/jumpboots(src)
 	new /obj/item/organ/internal/cyberimp/leg/jumpboots/l(src)
 
+/*********************mining access card********************/
+/obj/item/card/mining_access_card
+	name = "mining access card"
+	desc = "A small card, that when used on any ID, will add mining access."
+	icon_state = "data"
+
+/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
+	if(!istype(AM, /obj/item/card/id))
+		return
+
+	if(!proximity)
+		return
+
+	var/obj/item/card/id/I = AM
+	I.access |= list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BOT,
+		ACCESS_MINT,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MINERAL_STOREROOM,
+	)
+	to_chat(user, "You upgrade [I] with mining access.")
+	qdel(src)
 
 #undef EQUIPMENT
-
