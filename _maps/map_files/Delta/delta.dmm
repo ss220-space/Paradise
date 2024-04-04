@@ -8248,18 +8248,20 @@
 /area/janitor)
 "bgn" = (
 /obj/structure/table/reinforced,
-/obj/item/restraints/legcuffs/beartrap,
+/obj/machinery/vending/wallmed{
+	pixel_y = -30
+	},
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
-/obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/vending/wallmed{
-	pixel_y = -30
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
