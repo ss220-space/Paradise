@@ -65,6 +65,7 @@
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	if(H.health <= HEALTH_THRESHOLD_DEAD || !H.surgeries.len) // Needed to prevent brain gib on surgery debrain
 		death_explosion(H)
+		return
 	H.adjustBruteLoss(15)
 	H.do_jitter_animation(1000, 8)
 
