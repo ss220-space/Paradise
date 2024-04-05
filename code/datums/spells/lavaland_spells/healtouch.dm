@@ -26,7 +26,7 @@
 	var/heal_self = FALSE
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.incapacitated())
 		return
 	var/mob/living/M = target
 	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")

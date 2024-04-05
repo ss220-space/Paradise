@@ -156,7 +156,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)
-	user.lying = FALSE
+	user.lying_angle = 0
 	user.resting = FALSE
 	user.update_canmove()
 	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))

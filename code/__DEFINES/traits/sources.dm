@@ -43,6 +43,11 @@
 /// Trait given by your current speed
 #define SPEED_TRAIT "speed_trait"
 
+/// Trait associated to being cuffed
+#define HANDCUFFED_TRAIT "handcuffed_trait"
+/// Trait associated to wearing a suit
+#define SUIT_TRAIT "suit_trait"
+
 #define NO_GRAVITY_TRAIT "no-gravity"
 
 /// trait associated to being buckled

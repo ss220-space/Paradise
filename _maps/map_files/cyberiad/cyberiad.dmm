@@ -14792,19 +14792,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "aNH" = (
-/obj/structure/grille,
-/obj/structure/window/basic,
-/obj/structure/window/basic{
-	dir = 1
-	},
-/obj/structure/window/basic{
-	dir = 8
-	},
-/obj/structure/window/basic{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
+/turf/simulated/floor/plating/airless,
+/area/maintenance/asmaint)
 "aNI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -15284,20 +15273,6 @@
 /obj/item/toy/figure/wizard,
 /turf/space,
 /area/space)
-"aOY" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "aOZ" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -19142,7 +19117,6 @@
 	},
 /area/security/checkpoint/south)
 "aZb" = (
-/obj/item/radio,
 /obj/item/radio/intercom/department/security{
 	name = "south station intercom (Security)";
 	pixel_y = -28
@@ -19195,6 +19169,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/radio/sec,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -23552,7 +23527,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/maintenance/asmaint)
 "bjm" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/carpet/black,
@@ -45944,10 +45919,18 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "cmb" = (
@@ -67588,9 +67571,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
-"dng" = (
-/turf/space,
-/area/maintenance/asmaint)
 "dni" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -73262,7 +73242,7 @@
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -74659,7 +74639,7 @@
 	pixel_y = -4
 	},
 /obj/item/crowbar,
-/obj/item/radio,
+/obj/item/radio/sec,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"
@@ -75863,7 +75843,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
 "kPe" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -81521,11 +81501,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "qXF" = (
-/obj/structure/closet/jcloset{
-	icon_state = "open";
-	initialized = 1;
-	opened = 1
-	},
 /obj/effect/decal/cleanable/dust,
 /obj/item/cartridge/janitor,
 /obj/item/flashlight,
@@ -81533,6 +81508,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/melee/flyswatter,
 /obj/item/storage/box/lights/mixed,
+/obj/structure/closet/jcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "qYo" = (
@@ -85368,11 +85344,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "vre" = (
-/obj/structure/closet/emcloset{
-	icon_state = "emergencyopen";
-	initialized = 1;
-	opened = 1
-	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "vrq" = (
@@ -85510,13 +85482,12 @@
 	},
 /area/maintenance/fpmaint)
 "vwC" = (
-/obj/effect/spawner/window/reinforced/plasma,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
-	icon_state = "pdoor0";
+	icon_state = "open";
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell";
 	opacity = 0
@@ -85525,6 +85496,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "vxf" = (
@@ -104703,7 +104675,7 @@ aLu
 aLr
 aMA
 aMA
-aOY
+aQg
 aMA
 aMA
 aRB
@@ -105473,7 +105445,7 @@ aQl
 aLx
 aQl
 aQl
-aNH
+aQg
 aMA
 aMA
 aMA
@@ -128703,7 +128675,7 @@ dlA
 dfM
 cjb
 cBQ
-afO
+aNH
 uTI
 uTI
 uTI
@@ -128961,7 +128933,7 @@ dlN
 cYi
 dmN
 dmF
-dng
+uTI
 uTI
 uTI
 uTI

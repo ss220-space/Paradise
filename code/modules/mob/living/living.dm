@@ -284,9 +284,9 @@
 	if(.)
 		return TRUE
 	if(isprojectile(mover))
-		return !density || lying
+		return !density || lying_angle
 	if(mover.throwing)
-		return !density || lying || (mover.throwing.thrower == src && !ismob(mover))
+		return !density || lying_angle || (mover.throwing.thrower == src && !ismob(mover))
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
@@ -295,7 +295,7 @@
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return !mover.density || lying
+	return !mover.density || lying_angle
 
 
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
@@ -571,7 +571,7 @@
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	set_bodytemperature(310)
+	set_bodytemperature(dna ? dna.species.body_temperature : BODYTEMP_NORMAL)
 	CureBlind()
 	CureNearsighted()
 	CureMute()
@@ -700,11 +700,11 @@
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			if(isliving(pulling))
 				var/mob/living/M = pulling
-				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+				if(M.lying_angle && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					if(!H.lying)
+					if(!H.lying_angle)
 						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
@@ -980,6 +980,8 @@
 	. = usable_legs
 	usable_legs = new_value
 
+	update_limbless_slowdown()
+
 	/*
 	if(new_value > .) // Gained leg usage.
 		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
@@ -990,20 +992,6 @@
 			if(!usable_hands)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	*/
-
-	if(usable_legs < default_num_legs)
-		if(ishuman(src))
-			var/mob/living/carbon/human/human_user = src
-			human_user.handle_stance(forced = TRUE)
-		var/limbless_slowdown = 2 * stance_damage
-		/*
-		var/limbless_slowdown = (default_num_legs - usable_legs) * 3
-		if(!usable_legs && usable_hands < default_num_hands)
-			limbless_slowdown += (default_num_hands - usable_hands) * 3
-		*/
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
 ///Proc to modify the value of num_hands and hook behavior associated to this event.
@@ -1021,12 +1009,25 @@
 	. = usable_hands
 	usable_hands = new_value
 
+	if(!usable_legs)
+		update_limbless_slowdown()	// in case we got new hand but have no legs
+
 	/*
 	if(new_value > .) // Gained hand usage.
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(!(movement_type & (FLYING|FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	*/
+
+
+/mob/living/proc/update_limbless_slowdown()
+	if(usable_legs < default_num_legs)
+		var/limbless_slowdown = (default_num_legs - usable_legs) * 4 - get_crutches()
+		if(!usable_legs && usable_hands < default_num_hands)
+			limbless_slowdown += (default_num_hands - usable_hands) * 4
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
 /mob/living/proc/can_use_vents()
@@ -1512,3 +1513,44 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 	return FALSE
+
+/**
+  * Sets the mob's direction lock towards a given atom.
+  *
+  * Arguments:
+  * * a - The atom to face towards.
+  * * track - If TRUE, updates our direction relative to the atom when moving.
+  */
+/mob/living/proc/set_forced_look(atom/A, track = FALSE)
+	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
+	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+
+/**
+  * Clears the mob's direction lock if enabled.
+  *
+  * Arguments:
+  * * quiet - Whether to display a chat message.
+  */
+/mob/living/proc/clear_forced_look(quiet = FALSE)
+	if(!forced_look)
+		return
+	forced_look = null
+	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	if(!quiet)
+		to_chat(src, span_notice("Cancelled direction lock."))
+	clear_alert("direction_lock")
+
+/mob/living/setDir(new_dir)
+	var/old_dir = dir
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
+		return
+	return ..()

@@ -246,6 +246,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_phase_shift(null))
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/ascendant_storm(null))
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_transmit(null))
+			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant(null))
 
 			if(ascendant.real_name)
 				ascendant.real_name = user.real_name

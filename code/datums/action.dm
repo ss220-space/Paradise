@@ -99,23 +99,20 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained())
-			return FALSE
-	if(check_flags & AB_CHECK_STUNNED)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(L.IsStunned() || L.IsWeakened())
-				return FALSE
-	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
-	if(check_flags & AB_CHECK_TURF)
-		if(!isturf(owner.loc))
-			return FALSE
+	var/owner_is_living = isliving(owner)
+	var/mob/living/living_owner = owner
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && owner.restrained())
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && owner_is_living && (living_owner.IsStunned() || living_owner.IsWeakened()))
+		return FALSE
+	if((check_flags & AB_CHECK_LYING) && owner_is_living && living_owner.lying_angle)
+		return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
+		return FALSE
+	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
+		return FALSE
 	return TRUE
 
 /datum/action/proc/IsMayActive()
@@ -171,7 +168,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	/// Whether action trigger should call attack self proc.
 	var/attack_self = TRUE
 	var/use_itemicon = TRUE
@@ -512,7 +509,7 @@
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	desc = "Use the instrument specified."
 
 /datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
@@ -588,7 +585,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
@@ -614,7 +611,7 @@
 
 /datum/action/item_action/accessory/herald
 	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it"
+	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action

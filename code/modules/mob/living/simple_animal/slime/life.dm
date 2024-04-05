@@ -79,7 +79,7 @@
 						if(Target.Adjacent(src))
 							Target.attack_slime(src)
 					break
-				if(!Target.lying && prob(80))
+				if(!Target.lying_angle && prob(80))
 
 					if(Target.client && Target.health >= 20)
 						if(!Atkcool)

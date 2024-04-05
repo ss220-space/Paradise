@@ -42,6 +42,10 @@
 	display_name = "USSP uniform"
 	path = /obj/item/clothing/under/soviet
 
+/datum/gear/uniform/suit/federal
+	display_name = "Solar Federation uniform"
+	path = /obj/item/clothing/under/solgov/civ
+
 /datum/gear/uniform/suit/kilt
 	display_name = "a kilt"
 	path = /obj/item/clothing/under/kilt
@@ -358,3 +362,4 @@
 	display_name = "track suit (blue)"
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
+

@@ -64,7 +64,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -114,7 +114,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
@@ -175,7 +175,7 @@
 	spawn_positions = 7
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -240,7 +240,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
@@ -277,7 +277,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)

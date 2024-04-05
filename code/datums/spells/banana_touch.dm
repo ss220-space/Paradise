@@ -22,7 +22,7 @@
 
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new

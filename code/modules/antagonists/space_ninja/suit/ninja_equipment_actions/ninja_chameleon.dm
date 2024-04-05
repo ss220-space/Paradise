@@ -5,7 +5,7 @@
 /datum/action/item_action/advanced/ninja/ninja_chameleon
 	name = "Chameleon Disguise"
 	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'

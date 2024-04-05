@@ -7,6 +7,7 @@
 	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
 	speak_emote = list("telepathically thunders", "telepathically booms")
 	force_threshold = INFINITY //Can't die by normal means
+	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	health = 100000
 	maxHealth = 100000
 	speed = 0

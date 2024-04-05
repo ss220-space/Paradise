@@ -14,7 +14,7 @@
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /datum/element/waddling/proc/LivingWaddle(mob/living/target)
-	if(target.incapacitated() || target.lying)
+	if(target.incapacitated())
 		return
 	Waddle(target)
 

@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(O.loc == user)
 		return
-	if(user.restrained() || user.stat || user.IsWeakened() || user.IsStunned() || user.IsParalyzed() || user.lying)
+	if(user.incapacitated())
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return

@@ -213,7 +213,7 @@
 	allow_gender_pick = FALSE
 	allow_name_pick = FALSE
 	allow_tts_pick = TRUE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA)
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE

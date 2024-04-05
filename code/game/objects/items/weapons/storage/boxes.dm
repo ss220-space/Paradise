@@ -1042,6 +1042,12 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Dominator kit"
@@ -1115,6 +1121,15 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

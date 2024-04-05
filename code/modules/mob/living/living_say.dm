@@ -1,9 +1,12 @@
 GLOBAL_LIST_INIT(department_radio_keys, list(
 /*
-	Busy letters by languages:
-	un ta vu sk vo di tr ki sl gr dr ni
-	xm db wr xh ts ch hs sh ab gl bo bi dt
-	sw gc sc tb gt cl nr mo ne st fa wo
+	Busy letters for language:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
+
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
 
 
 	Busy letters by radio(eng):
@@ -15,7 +18,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy symbols by radio:
-	~ , $ _ - + * 1 2 3
+	~ , $ _ - + *
 
 	CAUTION!	The key must not repeat the key of the languages (language.dm)
 				and must not contain prohibited characters!
