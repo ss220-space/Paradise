@@ -13,38 +13,6 @@
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
 	var/alert_admins_on_craft = FALSE
 
-/datum/crafting_recipe/brig_cleaner
-	name = "Brig cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/brig/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	pathtools = list(/obj/item/toy/crayon/red = 1)
-	time = 15
-	category = CAT_MISC
-
-/datum/crafting_recipe/chemical_cleaner
-	name = "Chemical cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/chemical/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	pathtools = list(/obj/item/toy/crayon/orange = 1)
-	time = 15
-	category = CAT_MISC
-
-/datum/crafting_recipe/janitor_cleaner
-	name = "Janitor cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/janitor/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	pathtools = list(/obj/item/toy/crayon/purple = 1)
-	time = 15
-	category = CAT_MISC
-
-/datum/crafting_recipe/medical_cleaner
-	name = "Medical cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/medical/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	pathtools = list(/obj/item/toy/crayon/white = 1)
-	time = 15
-	category = CAT_MISC
-
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
