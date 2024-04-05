@@ -76,6 +76,10 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/civ
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
