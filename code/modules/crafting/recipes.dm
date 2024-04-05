@@ -20,6 +20,7 @@
 	pathtools = list(/obj/item/toy/crayon/red = 1)
 	time = 15
 	category = CAT_MISC
+
 /datum/crafting_recipe/chemical_cleaner
 	name = "Chemical cleaner"
 	result = /obj/item/reagent_containers/spray/cleaner/chemical/empty
@@ -27,6 +28,7 @@
 	pathtools = list(/obj/item/toy/crayon/orange = 1)
 	time = 15
 	category = CAT_MISC
+
 /datum/crafting_recipe/janitor_cleaner
 	name = "Janitor cleaner"
 	result = /obj/item/reagent_containers/spray/cleaner/janitor/empty
@@ -34,6 +36,7 @@
 	pathtools = list(/obj/item/toy/crayon/purple = 1)
 	time = 15
 	category = CAT_MISC
+
 /datum/crafting_recipe/medical_cleaner
 	name = "Medical cleaner"
 	result = /obj/item/reagent_containers/spray/cleaner/medical/empty
