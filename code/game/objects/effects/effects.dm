@@ -94,6 +94,9 @@
 /obj/effect/abstract/fire_act()
 	return
 
+/obj/effect/abstract/has_gravity(turf/gravity_turf)
+	return FALSE
+
 /obj/effect/decal
 	plane = FLOOR_PLANE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF

@@ -348,7 +348,7 @@
 /area/ruin/space/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/ancientstation/powered
 	name = "Powered Tile"
@@ -364,7 +364,6 @@
 /area/ruin/space/ancientstation/atmos
 	name = "Beta Station Atmospherics"
 	icon_state = "atmos"
-	has_gravity = TRUE
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/betanorth

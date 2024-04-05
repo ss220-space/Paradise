@@ -33,5 +33,5 @@
 
 /mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	. = ..()
-	if(prob(50) && (has_gravity(src) || grav_ignore))
+	if(prob(50) && (has_gravity() || grav_ignore))
 		drop_item_ground(shoes, force = TRUE)

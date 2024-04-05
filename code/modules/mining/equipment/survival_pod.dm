@@ -2,7 +2,7 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /obj/item/survivalcapsule

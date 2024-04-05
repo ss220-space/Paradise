@@ -307,11 +307,17 @@
 		return rebound
 
 
-/mob/proc/mob_has_gravity(turf/T)
-	return has_gravity(src, T)
+/mob/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admeme override, WATCH OUT!
+		return GLOB.gravity_is_on
+	return mob_negates_gravity() || ..()
 
+
+/**
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return 0
+	return FALSE
 
 
 /mob/proc/Move_Pulled(atom/target)
@@ -339,9 +345,6 @@
 				return
 	pulling.Move(get_step(pulling.loc, pull_dir), pull_dir, glide_size)
 
-
-/mob/proc/update_gravity(has_gravity)
-	return
 
 /client/proc/check_has_body_select()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)

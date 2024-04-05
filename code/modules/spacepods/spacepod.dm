@@ -139,7 +139,7 @@
 			oldposition = get_step(get_step(src, EAST), EAST)
 			oldloc = get_step(oldposition, NORTH)
 
-	if(!has_gravity(T))
+	if(!T.has_gravity(T))
 		new /obj/effect/particle_effect/ion_trails(oldposition, dir)
 		new /obj/effect/particle_effect/ion_trails(oldloc, dir)
 
@@ -881,7 +881,7 @@
 		user.forceMove(get_turf(src))
 		passengers -= user
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
-	user.update_gravity(user.mob_has_gravity())
+
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"

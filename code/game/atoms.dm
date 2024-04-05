@@ -615,7 +615,7 @@
 
 /atom/proc/unemag()
 	return
-	
+
 /atom/proc/cmag_act(mob/user)
 	return
 
@@ -1416,4 +1416,52 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	return TRUE
+
+
+/**
+ * Returns `TRUE` if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
+ * HEY JACKASS, LISTEN
+ * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
+ * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
+ * for them to use. If you add more to it, make sure you do that, or things will behave strangely
+ *
+ * Gravity situations:
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admeme override, WATCH OUT!
+		return GLOB.gravity_is_on
+
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)//no gravity in nullspace
+			return FALSE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
+	var/area/turf_area = gravity_turf.loc
+
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || length(GLOB.gravity_generators["[gravity_turf.z]"]))
 
