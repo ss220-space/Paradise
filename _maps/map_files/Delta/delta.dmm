@@ -48651,7 +48651,7 @@
 	pixel_x = -1;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/brig{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -50657,6 +50657,7 @@
 /obj/item/pen{
 	pixel_x = 8
 	},
+/obj/item/reagent_containers/spray/cleaner/chemical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -76422,9 +76423,9 @@
 	},
 /area/medical/medbay2)
 "mkj" = (
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2;
-	pixel_y = 12
+/obj/item/reagent_containers/spray/cleaner/medical{
+	pixel_y = 12;
+	pixel_x = 2
 	},
 /obj/item/folder/white,
 /obj/item/pen/red,
@@ -76981,9 +76982,9 @@
 	pixel_x = 1;
 	pixel_y = -9
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 4;
-	pixel_y = 7
+/obj/item/reagent_containers/spray/cleaner/brig{
+	pixel_y = 7;
+	pixel_x = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -93732,7 +93733,7 @@
 	amount = 5
 	},
 /obj/effect/decal/warning_stripes/east,
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -2;
 	pixel_y = 12
 	},
@@ -121665,6 +121666,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/item/reagent_containers/spray/cleaner/chemical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"

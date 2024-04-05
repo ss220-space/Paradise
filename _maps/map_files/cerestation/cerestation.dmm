@@ -27880,7 +27880,7 @@
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/brig{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -33176,6 +33176,10 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/item/reagent_containers/spray/cleaner/brig{
+	pixel_x = 10;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plating,
 /area/security/processing)
@@ -45689,6 +45693,7 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/key/janitor,
+/obj/item/reagent_containers/spray/cleaner/janitor,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "jpU" = (
@@ -71002,6 +71007,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/item/reagent_containers/spray/cleaner/chemical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
