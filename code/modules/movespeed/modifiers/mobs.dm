@@ -80,6 +80,12 @@
 	//flags = IGNORE_NOSLOW
 
 
+/datum/movespeed_modifier/fractures
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)
+
+
 /datum/movespeed_modifier/forced_look
 	multiplicative_slowdown = 3
 	flags = IGNORE_NOSLOW
