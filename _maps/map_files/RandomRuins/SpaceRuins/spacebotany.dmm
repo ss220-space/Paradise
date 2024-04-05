@@ -788,12 +788,6 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
-"iO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/GardenMaint)
 "iW" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1247,10 +1241,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
 "oK" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1560,25 +1550,6 @@
 	icon_state = "greencorner"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"tF" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	cell_type = 0;
-	dir = 8;
-	name = "west bump";
-	pixel_x = -26
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/Garden)
 "tG" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -1654,16 +1625,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/Garden)
-"uJ" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/Garden)
@@ -1959,18 +1920,6 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Med)
-"yG" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/GardenMaint)
 "yQ" = (
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
@@ -2258,6 +2207,16 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
+"Ct" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "CB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
@@ -2586,6 +2545,25 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Med)
+"Hl" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	cell_type = 0;
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
 "Ho" = (
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass,
@@ -2954,11 +2932,15 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
 "MA" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/space,
-/area/ruin/space/spacebotany/Chem)
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
 "ME" = (
 /obj/machinery/light{
 	dir = 8
@@ -3669,6 +3651,18 @@
 /obj/structure/lattice,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
+"UB" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "UE" = (
 /obj/effect/decal/ants,
 /obj/structure/cable{
@@ -5537,7 +5531,7 @@ aN
 Cc
 aN
 Qt
-tF
+Hl
 rH
 AA
 AA
@@ -5915,7 +5909,7 @@ XL
 hT
 Iu
 Iu
-oK
+Ct
 Iu
 Iu
 Iu
@@ -6063,7 +6057,7 @@ XL
 hT
 qZ
 vw
-iO
+oK
 vw
 bp
 vw
@@ -6205,13 +6199,13 @@ qz
 qz
 qz
 kc
-uJ
-uJ
+MA
+MA
 OJ
 hT
 qw
 vw
-yG
+UB
 qZ
 bp
 qZ
@@ -6961,7 +6955,7 @@ Uz
 HJ
 jf
 Ja
-MA
+Ja
 Os
 Os
 ZG
@@ -7554,7 +7548,7 @@ Os
 Os
 Os
 TG
-FQ
+DE
 Os
 Os
 DE
