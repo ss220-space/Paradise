@@ -2147,6 +2147,18 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Garden)
+"BC" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "BH" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/spacebotany/Chem)
@@ -2207,16 +2219,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"Ct" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/GardenMaint)
 "CB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
@@ -2460,10 +2462,24 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
 "FQ" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	cell_type = 0;
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
 "FS" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
@@ -2545,25 +2561,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Med)
-"Hl" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	cell_type = 0;
-	dir = 8;
-	name = "west bump";
-	pixel_x = -26
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/Garden)
 "Ho" = (
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass,
@@ -2649,10 +2646,15 @@
 	},
 /area/ruin/space/spacebotany/Hydro)
 "Ja" = (
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/space,
-/area/ruin/space/spacebotany/Chem)
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "Jd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3651,18 +3653,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
-"UB" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/GardenMaint)
 "UE" = (
 /obj/effect/decal/ants,
 /obj/structure/cable{
@@ -5531,7 +5521,7 @@ aN
 Cc
 aN
 Qt
-Hl
+FQ
 rH
 AA
 AA
@@ -5909,7 +5899,7 @@ XL
 hT
 Iu
 Iu
-Ct
+Ja
 Iu
 Iu
 Iu
@@ -6205,7 +6195,7 @@ OJ
 hT
 qw
 vw
-UB
+BC
 qZ
 bp
 qZ
@@ -6954,8 +6944,8 @@ qu
 Uz
 HJ
 jf
-Ja
-Ja
+cM
+cM
 Os
 Os
 ZG
@@ -7557,7 +7547,7 @@ Os
 Os
 Os
 Os
-FQ
+DE
 Os
 Os
 Os
