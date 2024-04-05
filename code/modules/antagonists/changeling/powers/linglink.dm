@@ -53,11 +53,13 @@
 	var/mob/living/carbon/human/target = grab.affecting
 	cling.is_linking = TRUE
 
-	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE) as num
+	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE) as num|null
 
-	if(!time || time > 120)
+	if(isnull(time) || time == 0)
 		to_chat(user, span_danger("Вы отказались от идеи связать ваши разумы."))
 		return
+
+	time = clamp(time, 1, 120)
 
 	for(var/stage in 1 to 3)
 		switch(stage)
