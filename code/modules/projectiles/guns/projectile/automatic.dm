@@ -336,6 +336,13 @@
 	actions_types = null
 
 
+/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
+	name = "\improper 'Mastiff' Shotgun"
+	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
+	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
+	color = COLOR_ASSEMBLY_BROWN
+
+
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 

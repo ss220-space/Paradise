@@ -1,137 +1,16 @@
-/obj/item/storage/box/syndicate
-	var/static/list/spy = list( // 37TC + one 0TC
-		/obj/item/clothing/under/chameleon, // 2TC
-		/obj/item/clothing/mask/chameleon, // 0TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/camera_bug, // 1TC
-		/obj/item/multitool/ai_detect, // 1TC
-		/obj/item/encryptionkey/syndicate, // 2TC
-		/obj/item/twohanded/garrote, // 10TC
-		/obj/item/pinpointer/advpinpointer, // 4TC
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
-		/obj/item/flashlight/emp, // 2TC
-		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-		/obj/item/chameleon) // 7TC
-
-	var/static/list/thief = list( // 39TC
-		/obj/item/gun/energy/kinetic_accelerator/crossbow, // 12TC
-		/obj/item/chameleon, // 7TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/clothing/gloves/color/black/thief, // 6TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/storage/backpack/satchel_flat, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/bond = list( // 33TC + three 0TC
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/suppressor, // 1TC
-		/obj/item/ammo_box/magazine/m10mm/hp,  // 3TC
-		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-		/obj/item/encryptionkey/syndicate, // 2TC
-		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/dnascrambler, // 4TC
-		/obj/item/storage/box/syndie_kit/emp, // 2TC
-		/obj/item/CQC_manual) // 13TC
-
-	var/static/list/sabotage = list( // 41TC + two 0TC
-		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/camera_bug, // 1TC
-		/obj/item/powersink, // 10TC
-		/obj/item/cartridge/syndicate, // 6TC
-		/obj/item/rcd/preloaded, // 0TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/clothing/gloves/color/yellow, // 0TC
-		/obj/item/grenade/syndieminibomb, // 6TC
-		/obj/item/grenade/clusterbuster/n2o, // 4TC
-		/obj/item/storage/box/syndie_kit/space, // 4TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/payday = list( // 35TC + four 0TC
-		/obj/item/gun/projectile/revolver, // 13TC
-		/obj/item/ammo_box/speedloader/a357, // 3TC
-		/obj/item/ammo_box/speedloader/a357, // 3TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/jammer, // 5TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, //0TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, //0TC
-		/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
-		/obj/item/clothing/mask/gas/clown_hat, // 0TC
-		/obj/item/thermal_drill/diamond_drill, // 1TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/implant = list( // 39TC + ten free TC
-		/obj/item/implanter/freedom, // 5TC
-		/obj/item/implanter/uplink, // 14TC (ten free TC)
-		/obj/item/implanter/emp, // 0TC
-		/obj/item/implanter/adrenalin, // 8TC
-		/obj/item/implanter/explosive, // 2TC
-		/obj/item/implanter/storage, // 8TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/hacker = list( // 37TC + two 0TC
-		/obj/item/aiModule/syndicate, // 12TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/encryptionkey/syndicate, // 2TC
-		/obj/item/encryptionkey/binary, // 5TC
-		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/storage/belt/military/traitor/hacker, // 3TC
-		/obj/item/clothing/gloves/combat, // 0TC
-		/obj/item/multitool/ai_detect, // 1TC
-		/obj/item/flashlight/emp) // 2TC
-
-	var/static/list/darklord = list( // 24TC + two 0TC
-		/obj/item/melee/energy/sword/saber/red, // 8TC
-		/obj/item/melee/energy/sword/saber/red, // 8TC
-		/obj/item/dnainjector/telemut/darkbundle, // 0TC
-		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
-		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/clothing/mask/chameleon, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/professional = list( // 34TC + two 0TC
-		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
-		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator, // 5TC
-		/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific, // 3TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/clothing/gloves/combat, // 0 TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-		/obj/item/pen/edagger, // 2TC
-		/obj/item/encryptionkey/syndicate) // 2TC
-
-	var/static/list/secoff = list( // 20 TC + many non-uplink items
-		/obj/item/encryptionkey/syndicate, // 2 TC
-		/obj/item/card/id/syndicate, // 2 TC
-		/obj/item/clothing/glasses/hud/security/chameleon, // 2 TC
-		/obj/item/clothing/mask/chameleon,  // In 2 TC bundle (chameleon)
-		/obj/item/clothing/accessory/holster,  // 0 TC
-		/obj/item/storage/belt/military/traitor/sec,  // 0 TC
-		/obj/item/pinpointer/advpinpointer,  // 4 TC
-		/obj/item/gun/projectile/automatic/pistol,  // 4 TC
-		/obj/item/ammo_box/magazine/m10mm, // 1 TC
-		/obj/item/ammo_box/magazine/m10mm/ap,  // 1 TC
-		/obj/item/ammo_box/magazine/m10mm/fire,  // 1 TC
-		/obj/item/ammo_box/magazine/m10mm/hp,  // 1 TC
-		/obj/item/storage/box/sec,  // 0 TC
-		/obj/item/restraints/handcuffs,  // 0 TC
-		/obj/item/flash, // 0 TC
-		/obj/item/implanter/mindshield, //0 TC
-		/obj/item/clothing/suit/armor/vest/security, //0 TC
-		)
-
-/obj/item/storage/box/syndicate/populate_contents()
-	var/list/bundle = pick(spy, thief, bond, sabotage, payday, implant, hacker, darklord, professional, secoff)
-	for(var/item in bundle)
-		new item(src)
+/obj/item/storage/box/syndicate/Initialize(mapload, list/bundle)
+	. = ..()
+	if(bundle)
+		for(var/index in bundle)
+			switch(index)
+				if("Name")
+					name = bundle[index]
+				if("Desc")
+					desc = bundle[index]
+				else
+					var/number = bundle[index]
+					for(var/i in 1 to number)
+						new index(src)
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"

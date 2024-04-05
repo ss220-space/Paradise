@@ -1620,12 +1620,19 @@
 	refund_path = /obj/item/paicard_upgrade/unused
 	can_discount = FALSE
 
-/datum/uplink_item/device_tools/diamond_drill
-	name = "Diamond Tipped Thermal Safe Drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
-	item = /obj/item/thermal_drill/diamond_drill
+/datum/uplink_item/device_tools/thermal_drill
+	name = "Amplifying Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
+	item = /obj/item/thermal_drill/syndicate
 	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/dthermal_drill
+	name = "Amplifying Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
+	item = /obj/item/thermal_drill/diamond_drill/syndicate
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/jackhammer
 	name = "Jackhammer"
@@ -2055,9 +2062,10 @@
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals, but you do not know which specialisation you will receive."
-	item = /obj/item/storage/box/syndicate
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
+	item = /obj/item/radio/beacon/syndicate/bundle
 	cost = 100
+	refundable = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/surplus_crate

@@ -382,16 +382,17 @@
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
 
+
 /obj/item/storage/fancy/rollingpapers/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
 
-/obj/item/storage/fancy/crayons/update_icon_state()
+/obj/item/storage/fancy/rollingpapers/update_icon_state()
 	return
 
 
-/obj/item/storage/fancy/rollingpapers/update_icon_state()
+/obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
 	if(!length(contents))
 		. += "[icon_state]_empty"

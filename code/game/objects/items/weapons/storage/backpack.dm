@@ -510,7 +510,8 @@
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
 
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()
-	new /obj/item/pickaxe(src)
+	new /obj/item/pickaxe/mini(src)
+	new /obj/item/card/mining_access_card(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/mining_scanner(src)
 	new /obj/item/storage/bag/ore(src)
@@ -522,7 +523,29 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/storage/bag/gem(src)
+	new /obj/item/wormhole_jaunter(src)
 
+/obj/item/storage/backpack/duffel/minebot_kit
+	name = "minebot Kit"
+	desc = "A kit containing everything to set up your new minebot friend."
+
+/obj/item/storage/backpack/duffel/minebot_kit/populate_contents()
+	new /obj/item/mining_drone_cube(src)
+	new /obj/item/borg/upgrade/modkit/minebot_passthrough(src)
+	new /obj/item/slimepotion/sentience/mining(src)
+	new /obj/item/weldingtool/hugetank(src)
+	new /obj/item/clothing/head/welding(src)
+
+/obj/item/storage/backpack/duffel/vendor_ext
+	name = "extraction and rescue kit"
+	desc = "A kit containing everything to save your fellow miners from imminent death."
+
+/obj/item/storage/backpack/duffel/vendor_ext/populate_contents()
+	new /obj/item/extraction_pack(src)
+	new /obj/item/radio/weather_monitor(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/stack/marker_beacon/thirty(src)
+	new /obj/item/storage/box/minertracker(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	desc = "A large duffel bag, packed to the brim with C-20r magazines."
