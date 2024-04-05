@@ -1024,21 +1024,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 
-/obj/item/organ/external/proc/update_usable_status(make_usable)
-	if(make_usable)
-		switch(limb_zone)
-			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				owner.set_usable_legs(owner.usable_legs + 1)
-			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
-				owner.set_usable_hands(owner.usable_hands + 1)
-	else
-		switch(limb_zone)
-			if(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				owner.set_usable_legs(owner.usable_legs - 1)
-			if(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
-				owner.set_usable_hands(owner.usable_hands - 1)
-
-
 /obj/item/organ/external/proc/is_malfunctioning()
 	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
