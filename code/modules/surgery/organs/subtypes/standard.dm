@@ -85,6 +85,45 @@
 	amputation_point = "left hip"
 	convertable_children = list(/obj/item/organ/external/foot)
 
+
+/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
@@ -121,6 +160,86 @@
 	icon_position = LEFT
 	parent_organ_zone = BODY_ZONE_L_LEG
 	amputation_point = "left ankle"
+
+
+/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_legs(owner.num_legs + 1)
+	if(is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_legs(user.num_legs - 1)
+	if(is_usable())
+		user.set_usable_legs(user.usable_legs - 1)
+	user.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+
+/obj/item/organ/external/foot/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
 
 
 /obj/item/organ/external/foot/emp_act(severity)
@@ -164,6 +283,57 @@
 	parent_organ_zone = BODY_ZONE_L_ARM
 	amputation_point = "left wrist"
 	can_grasp = TRUE
+
+
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_hands(owner.num_hands + 1)
+	if(is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_hands(user.num_hands - 1)
+	if(is_usable())
+		user.set_usable_hands(user.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
