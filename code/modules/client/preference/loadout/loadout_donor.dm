@@ -195,6 +195,7 @@
 							"silver" = /obj/item/clothing/under/night_dress/silver,
 							"white" = /obj/item/clothing/under/night_dress/white,)
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
+	
 /datum/gear/donor/strip/cheese_badge
 	display_name = "great fellow's badge"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
