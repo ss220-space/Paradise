@@ -147,7 +147,7 @@
 /obj/item/clothing/shoes/jackboots/armored
 	name = "armored shoes"
 	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
-	can_cut_open = FALSE
+	can_cut_open = TRUE
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
