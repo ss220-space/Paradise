@@ -14,7 +14,7 @@
 /datum/design/blue_pshikalka
 	name = "Bluespace Cleaner"
 	desc = "An technological cleaner with a large internal capacity for holding various chemicals."
-	id = "blue_pshikalka"
+	id = "bluespace_cleaner"
 	req_tech = list("materials" = 5, "bluespace" = 5,"plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_PLASMA = 1300, MAT_GLASS = 1400, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
