@@ -11,7 +11,7 @@
 	build_path = /obj/item/mop/advanced
 	category = list("Janitorial")
 
-/datum/design/blue_pshikalka
+/datum/design/bluespace_cleaner
 	name = "Bluespace Cleaner"
 	desc = "An technological cleaner with a large internal capacity for holding various chemicals."
 	id = "bluespace_cleaner"
