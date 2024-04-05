@@ -8,6 +8,11 @@
 /area/ruin/space/spacebotany/Vault
 /area/ruin/space/spacebotany/Dorm
 /area/ruin/space/spacebotany/Hydro
+/area/ruin/space/spacebotany/EastGarden
+/area/ruin/space/spacebotany/WestGarden
+/area/ruin/space/spacebotany/Garden
+/area/ruin/space/spacebotany/GardenMaint
+/area/ruin/space/spacebotany/Maint
 
 /obj/item/paper/spacebotany/report
 	name = "Отчёт о работе обьекта. №23-BG"
