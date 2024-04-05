@@ -468,7 +468,7 @@
 			dat += "<font color=grey>Right (Empty)</font>"
 		dat += "</A></td></tr>"
 		dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_ID]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
-		dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_PDA]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? wear_pda : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_PDA]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? "Full" : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(istype(w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/U = w_uniform
@@ -2140,3 +2140,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			meatleft--
 		visible_message(span_notice("[user] butchers [src]."))
 		gib()
+
+
+/mob/living/carbon/human/proc/update_fractures_slowdown()
+	var/static/list/possible_limbs = list(
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+
+	var/modifier = 0
+	for(var/zone in possible_limbs)
+		var/obj/item/organ/external/bodypart = bodyparts_by_name[zone]
+		if(isnull(bodypart) || !bodypart.has_fracture() || bodypart.is_splinted())
+			continue
+		modifier += 2
+
+	if(modifier)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
+

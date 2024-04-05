@@ -97,6 +97,7 @@
 	. = ..()
 	if(isnull(.))
 		return .
+	update_fractures_slowdown()
 	/*
 	if(. == 0)
 		if(usable_legs != 0) //From having no usable legs to having some.
@@ -129,6 +130,7 @@
 	. = ..()
 	if(movement_type & (FLYING|FLOATING) && !(old_movement_type & (FLYING|FLOATING)))
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
 		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 		update_obesity_slowdown()
 
@@ -139,6 +141,7 @@
 		update_obesity_slowdown()
 		update_hunger_slowdown()
 		update_limbless_slowdown()
+		update_fractures_slowdown()
 
 		/*
 		var/limbless_slowdown = 0
