@@ -265,3 +265,4 @@
 	item_state = "plantbgone"
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
+
