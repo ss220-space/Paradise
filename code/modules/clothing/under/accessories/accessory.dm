@@ -1040,12 +1040,17 @@
 
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"
-	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой!🙂"
+	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой!"
 	icon_state = "smile"
 	item_color = "smile"
 	materials = list(MAT_METAL = 300, MAT_GOLD = 200)
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/clothing/accessory/medal/smile/attack_self(mob/user)
 	..()
-	if(prob(1))
+	if(prob(5))
 		user.emote("smile")
+
+/obj/item/clothing/accessory/medal/smile/examine(mob/user)
+	. = ..()
+	user.emote("smile")
