@@ -16,12 +16,12 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/hardhat/attack_self()
@@ -110,11 +110,11 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)

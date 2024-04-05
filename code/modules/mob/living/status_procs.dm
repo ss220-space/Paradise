@@ -91,14 +91,6 @@
 #define IS_WEAKEN_IMMUNE(source, ignore_canweaken) ((source.status_flags & GODMODE) || (!ignore_canweaken && !(source.status_flags & CANWEAKEN)))
 #define IS_PARALYZE_IMMUNE(source, ignore_canparalyse) ((source.status_flags & GODMODE) || (!ignore_canparalyse && !(source.status_flags & CANPARALYSE)))
 
-/mob/living
-
-	// Booleans
-	var/resting = FALSE
-
-	/*
-	STATUS EFFECTS
-	*/
 
 // RESTING
 

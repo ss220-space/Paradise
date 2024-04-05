@@ -411,12 +411,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/m12g_slugs
 	name = "Syndicate Bulldog - 12g Slug Magazine Crate"
-	contains = list(/obj/item/ammo_box/magazine/m12g,
-					/obj/item/ammo_box/magazine/m12g,
-					/obj/item/ammo_box/magazine/m12g,
-					/obj/item/ammo_box/magazine/m12g,
-					/obj/item/ammo_box/magazine/m12g,
-					/obj/item/ammo_box/magazine/m12g)
+	contains = list(/obj/item/ammo_box/magazine/m12g/slug,
+					/obj/item/ammo_box/magazine/m12g/slug,
+					/obj/item/ammo_box/magazine/m12g/slug,
+					/obj/item/ammo_box/magazine/m12g/slug,
+					/obj/item/ammo_box/magazine/m12g/slug,
+					/obj/item/ammo_box/magazine/m12g/slug)
 	cost = 1000
 	containername = "Bulldog - 12g Slug Magazine crate"
 
@@ -2103,157 +2103,263 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "special ops crate"
 
+
 /datum/syndie_supply_packs/syndicate_special/bloody_spy
 	name = "Syndicate 'Bloody Spy' Bundle"
-	contains = list(/obj/item/clothing/under/chameleon, // 2TC
-					/obj/item/clothing/mask/chameleon, // 0TC
-					/obj/item/card/id/syndicate, // 2TC
-					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-					/obj/item/camera_bug, // 1TC
-					/obj/item/multitool/ai_detect, // 1TC
-					/obj/item/encryptionkey/syndicate, // 2TC
-					/obj/item/twohanded/garrote, // 10TC
-					/obj/item/pinpointer/advpinpointer, // 4TC
-					/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
-					/obj/item/flashlight/emp, // 2TC
-					/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-					/obj/item/chameleon // 7TC
-					)
+	contains = list(
+		/obj/item/storage/box/syndie_kit/chameleon,
+		/obj/item/door_remote/omni/access_tuner,
+		/obj/item/implanter/storage,
+		/obj/item/pen/edagger,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/shoes/chameleon/noslip,
+		/obj/item/camera_bug,
+		/obj/item/multitool/ai_detect,
+		/obj/item/encryptionkey/syndicate,
+		/obj/item/twohanded/garrote,
+		/obj/item/pinpointer/advpinpointer,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+		/obj/item/flashlight/emp,
+		/obj/item/clothing/glasses/hud/security/chameleon,
+		/obj/item/chameleon
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
 
 /datum/syndie_supply_packs/syndicate_special/thief
 	name = "Syndicate 'Thief' Bundle"
-	contains = list(/obj/item/gun/energy/kinetic_accelerator/crossbow, // 12TC
-					/obj/item/chameleon, // 7TC
-					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-					/obj/item/clothing/gloves/color/black/thief, // 6TC
-					/obj/item/card/id/syndicate, // 2TC
-					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-					/obj/item/storage/backpack/satchel_flat, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
-					)
+	contains = list(
+		/obj/item/storage/box/syndie_kit/counterfeiter_bundle,
+		/obj/item/gun/energy/kinetic_accelerator/crossbow,
+		/obj/item/chameleon,
+		/obj/item/clothing/glasses/chameleon/thermal,
+		/obj/item/clothing/gloves/color/black/thief,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/shoes/chameleon/noslip,
+		/obj/item/storage/backpack/satchel_flat,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
+
 /datum/syndie_supply_packs/syndicate_special/bond
-	name = "Syndicate 'Bond' Bundle"
-	contains = list(/obj/item/gun/projectile/automatic/pistol, // 4TC
-					/obj/item/suppressor, // 1TC
-					/obj/item/ammo_box/magazine/m10mm/hp , // 3TC
-					/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
-					/obj/item/clothing/under/suit_jacket/really_black, // 0TC
-					/obj/item/card/id/syndicate, // 2TC
-					/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-					/obj/item/encryptionkey/syndicate, // 2TC
-					/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-					/obj/item/dnascrambler, // 4TC
-					/obj/item/storage/box/syndie_kit/emp, // 2TC
-					/obj/item/CQC_manual // 13TC
-					)
+	name = "Syndicate 'Agent 007' Bundle"
+	contains = list(
+		/obj/item/clothing/glasses/hud/security/chameleon,
+		/obj/item/pen/fancy/bomb,
+		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/suppressor,
+		/obj/item/ammo_box/magazine/m10mm,
+		/obj/item/ammo_box/magazine/m10mm/hp,
+		/obj/item/ammo_box/magazine/m10mm/ap,
+		/obj/item/ammo_box/magazine/m10mm/ap,
+		/obj/item/clothing/under/suit_jacket/really_black,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
+		/obj/item/encryptionkey/syndicate,
+		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,
+		/obj/item/storage/box/syndie_kit/emp,
+		/obj/item/CQC_manual
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
 
 /datum/syndie_supply_packs/syndicate_special/sabotage
 	name = "Syndicate 'Sabotage' Bundle"
-	contains = list(/obj/item/grenade/plastic/c4, // 1TC
-					/obj/item/grenade/plastic/c4, // 1TC
-					/obj/item/camera_bug, // 1TC
-					/obj/item/powersink, // 10TC
-					/obj/item/cartridge/syndicate, // 6TC
-					/obj/item/rcd/preloaded, // 0TC
-					/obj/item/card/emag, // 6TC
-					/obj/item/clothing/gloves/color/yellow, // 0TC
-					/obj/item/grenade/syndieminibomb, // 6TC
-					/obj/item/grenade/clusterbuster/n2o, // 4TC
-					/obj/item/storage/box/syndie_kit/space, // 4TC
-					/obj/item/encryptionkey/syndicate
-					)
+	contains = list(
+		/obj/item/grenade/plastic/c4,
+		/obj/item/grenade/plastic/c4,
+		/obj/item/camera_bug,
+		/obj/item/powersink,
+		/obj/item/cartridge/syndicate,
+		/obj/item/rcd/preloaded,
+		/obj/item/card/emag,
+		/obj/item/clothing/gloves/color/yellow,
+		/obj/item/grenade/syndieminibomb,
+		/obj/item/grenade/clusterbuster/n2o,
+		/obj/item/storage/box/syndie_kit/space,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
 
 /datum/syndie_supply_packs/syndicate_special/payday
 	name = "Syndicate 'PayDay' Bundle"
-	contains = list(/obj/item/gun/projectile/revolver, // 13TC
-					/obj/item/ammo_box/speedloader/a357, // 3TC
-					/obj/item/ammo_box/speedloader/a357, // 3TC
-					/obj/item/card/emag, // 6TC
-					/obj/item/jammer, // 5TC
-					/obj/item/card/id/syndicate, // 2TC
-					/obj/item/clothing/under/suit_jacket/really_black, //0TC
-					/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, //0TC
-					/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
-					/obj/item/clothing/mask/gas/clown_hat, // 0TC
-					/obj/item/thermal_drill/diamond_drill, // 1TC
-					/obj/item/encryptionkey/syndicate// 2TC
-					)
+	contains = list(
+		/obj/item/implanter/freedom/prototype,
+		/obj/item/gun/projectile/revolver,
+		/obj/item/ammo_box/speedloader/a357,
+		/obj/item/ammo_box/speedloader/a357,
+		/obj/item/card/emag,
+		/obj/item/jammer,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/under/suit_jacket/really_black,
+		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
+		/obj/item/clothing/gloves/color/latex/nitrile,
+		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/thermal_drill/diamond_drill/syndicate,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
+
 /datum/syndie_supply_packs/syndicate_special/implanter
-	name = "Syndicate 'Implanter' Bundle"
-	contains = list(/obj/item/implanter/freedom, // 5TC
-					/obj/item/autoimplanter, // Никаких аплинков синдибазе, это в качестве компенсации.
-					/obj/item/organ/internal/cyberimp/arm/esword, // Никаких аплинков синдибазе, это в качестве компенсации.
-					/obj/item/implanter/emp, // 0TC
-					/obj/item/implanter/adrenalin, // 8TC
-					/obj/item/implanter/explosive, // 2TC
-					/obj/item/implanter/storage, // 8TC
-					/obj/item/encryptionkey/syndicate // 2TC
-					)
+	name = "Syndicate 'Bio-chip' Bundle"
+	contains = list(
+		/obj/item/implanter/stealth,
+		/obj/item/implanter/freedom,
+		/obj/item/implanter/emp,
+		/obj/item/implanter/adrenalin,
+		/obj/item/implanter/explosive,
+		/obj/item/implanter/storage,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
 
 /datum/syndie_supply_packs/syndicate_special/hacker
 	name = "Syndicate 'Hacker' Bundle"
-	contains = list(/obj/item/aiModule/syndicate, // 12TC
-					/obj/item/card/emag, // 6TC
-					/obj/item/encryptionkey/syndicate, // 2TC
-					/obj/item/encryptionkey/binary, // 5TC
-					/obj/item/aiModule/toyAI, // 0TC
-					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-					/obj/item/storage/belt/military/traitor/hacker, // 3TC
-					/obj/item/clothing/gloves/combat, // 0TC
-					/obj/item/multitool/ai_detect, // 1TC
-					/obj/item/flashlight/emp // 2TC
-					)
+	contains = list(
+		/obj/item/melee/energy/sword/saber,
+		/obj/item/card/id/syndicate,
+		/obj/item/storage/box/syndie_kit/emp,
+		/obj/item/camera_bug,
+		/obj/item/door_remote/omni/access_tuner,
+		/obj/item/implanter/freedom/prototype,
+		/obj/item/aiModule/syndicate,
+		/obj/item/card/emag,
+		/obj/item/encryptionkey/syndicate,
+		/obj/item/encryptionkey/binary,
+		/obj/item/aiModule/toyAI,
+		/obj/item/storage/belt/military/traitor/hacker,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/flashlight/emp
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
 
 /datum/syndie_supply_packs/syndicate_special/darklord
 	name = "Syndicate 'Darklord' Bundle"
-	contains = list(/obj/item/melee/energy/sword/saber/red, // 8TC
-					/obj/item/melee/energy/sword/saber/red, // 8TC
-					/obj/item/dnainjector/telemut/darkbundle, // 0TC
-					/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
-					/obj/item/card/id/syndicate, // 2TC
-					/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-					/obj/item/clothing/mask/chameleon, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
-					)
+	contains = list(
+		/obj/item/melee/energy/sword/saber/red,
+		/obj/item/melee/energy/sword/saber/red,
+		/obj/item/dnainjector/telemut/darkbundle,
+		/obj/item/clothing/suit/hooded/chaplain_hoodie,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/shoes/chameleon/noslip,
+		/obj/item/clothing/mask/chameleon,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
 
+
 /datum/syndie_supply_packs/syndicate_special/professional
 	name = "Syndicate 'Professional' Bundle"
-	contains = list(/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
-					/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator, // 5TC
-					/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific, // 3TC
-					/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-					/obj/item/clothing/gloves/combat, // 0 TC
-					/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
-					/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-					/obj/item/pen/edagger, // 2TC
-					/obj/item/encryptionkey/syndicate // 2TC
-					)
+	contains = list(
+		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
+		/obj/item/ammo_box/magazine/sniper_rounds/compact,
+		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator,
+		/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator,
+		/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific,
+		/obj/item/clothing/glasses/chameleon/thermal,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/under/suit_jacket/really_black,
+		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
+		/obj/item/pen/edagger,
+		/obj/item/encryptionkey/syndicate
+	)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/officer
+	name = "Syndicate 'Officer' Bundle"
+	contains = list(
+		/obj/item/encryptionkey/syndicate,
+		/obj/item/card/id/syndicate,
+		/obj/item/clothing/glasses/hud/security/chameleon,
+		/obj/item/clothing/mask/chameleon,
+		/obj/item/storage/belt/military/traitor/sec,
+		/obj/item/pinpointer/advpinpointer,
+		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/ammo_box/magazine/m10mm,
+		/obj/item/ammo_box/magazine/m10mm/ap,
+		/obj/item/ammo_box/magazine/m10mm/fire,
+		/obj/item/ammo_box/magazine/m10mm/hp,
+		/obj/item/storage/box/sec
+	)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/operative
+	name = "Syndicate 'MetaOps' Bundle"
+	contains = list(
+		/obj/item/clothing/suit/space/hardsuit/syndi/elite,
+		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/implanter/explosive,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+		/obj/item/grenade/plastic/c4,
+		/obj/item/grenade/plastic/c4,
+		/obj/item/card/emag,
+		/obj/item/encryptionkey/syndicate
+	)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/infiltrator
+	name = "Syndicate 'Infiltrator' Bundle"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/teleporter,
+		/obj/item/clothing/gloves/color/black/krav_maga,
+		/obj/item/clothing/glasses/thermal,
+		/obj/item/pinpointer/advpinpointer,
+		/obj/item/rcd/preloaded,
+		/obj/item/storage/box/syndie_kit/space,
+		/obj/item/autoimplanter/oneuse/meson,
+		/obj/item/encryptionkey/syndicate
+	)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/grenadier
+	name = "Syndicate 'Grenadier' Bundle"
+	contains = list(
+		/obj/item/storage/belt/grenade/demolitionist,
+		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/ammo_box/magazine/m10mm,
+		/obj/item/ammo_box/magazine/m10mm,
+		/obj/item/ammo_box/magazine/m10mm/fire,
+		/obj/item/ammo_box/magazine/m10mm/fire,
+		/obj/item/clothing/shoes/chameleon/noslip,
+		/obj/item/storage/box/syndie_kit/hardsuit,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/card/id/syndicate,
+		/obj/item/encryptionkey/syndicate
+	)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"

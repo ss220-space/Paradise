@@ -150,7 +150,7 @@
 	allowed_roles = list(JOB_TITLE_CMO)
 
 /datum/gear/donor/strip/hop
-	display_name = "strip, Head of Personal"
+	display_name = "strip, Head of Personnel"
 	path = /obj/item/clothing/accessory/head_strip/hop
 	donator_tier = 2
 	cost = 1
@@ -179,3 +179,19 @@
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/donor/night_dress
+	display_name = "night dress, select"
+	description = "A classic night dress."
+	cost = 1
+	donator_tier = 3
+	path = /obj/item/clothing/under/night_dress
+
+/datum/gear/donor/night_dress/New()
+	..()
+	var/list/skirts = list("black" = /obj/item/clothing/under/night_dress,
+							"darkred" = /obj/item/clothing/under/night_dress/darkred,
+							"red" = /obj/item/clothing/under/night_dress/red,
+							"silver" = /obj/item/clothing/under/night_dress/silver,
+							"white" = /obj/item/clothing/under/night_dress/white,)
+	gear_tweaks += new /datum/gear_tweak/path(skirts, src)

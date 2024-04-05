@@ -76,6 +76,10 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/civ
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
@@ -135,15 +139,15 @@
 	item_state = "navy_goldf"
 	item_color = "navy_goldf"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/rank/centcom/captain
@@ -324,9 +328,9 @@
 	item_state = "r_suit"
 	item_color = "red_suitf"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/suit_jacket/navy
@@ -478,7 +482,7 @@
 	item_state = "shamanrags"
 	item_color = "shamanrags"
 	has_sensor = FALSE
-	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
 //dress
 
@@ -538,7 +542,7 @@
 	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
-	name = "head of personal dress uniform"
+	name = "head of personnel dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
@@ -782,12 +786,12 @@
 	item_color = "rocksouniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
-		"Wryn" = 'icons/mob/clothing/species/wryn/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi'
 	)
 
 /obj/item/clothing/under/assistantformal
@@ -1044,15 +1048,15 @@
 	item_color = "colorize_skirt"
 	var/colour = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
@@ -1110,3 +1114,31 @@
 	item_state = "ussptracksuit_white"
 	item_color = "ussptracksuit_white"
 
+/obj/item/clothing/under/night_dress
+	name = "night dress"
+	desc = "A classic night dress."
+	displays_id = FALSE
+	over_shoes = TRUE
+	icon_state = "night_dress"
+	item_state = "night_dress"
+	item_color = "night_dress"
+
+/obj/item/clothing/under/night_dress/darkred
+	icon_state = "night_dress_darkred"
+	item_state = "night_dress_darkred"
+	item_color = "night_dress_darkred"
+
+/obj/item/clothing/under/night_dress/red
+	icon_state = "night_dress_red"
+	item_state = "night_dress_red"
+	item_color = "night_dress_red"
+
+/obj/item/clothing/under/night_dress/silver
+	icon_state = "night_dress_silver"
+	item_state = "night_dress_silver"
+	item_color = "night_dress_silver"
+
+/obj/item/clothing/under/night_dress/white
+	icon_state = "night_dress_white"
+	item_state = "night_dress_white"
+	item_color = "night_dress_white"

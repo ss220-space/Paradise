@@ -1,0 +1,60 @@
+'2024-04-01':
+  ArtemDerp:
+  - del: old weird language keys are back (#4766)
+  Aziz Chynaliev:
+  - server: bump byond version 515.1633 -> 515.1634
+  Den109G:
+  - bugfix: a few typos (#4763)
+  Etrnlmelancholy:
+  - bugfix: you CAN wear lily and geranium on your head (#4757)
+  Ksaikok46:
+  - bugfix: armblade description correct cost (#4743)
+  - bugfix: fireblossom growing sprite (#4744)
+  NightDawnFox:
+  - add: '[April Fools] New announcer voice (#4758)'
+  ROPY28:
+  - imageadd: rainbow gloves (#4741)
+  ROdenFL:
+  - add: '[April Fools] clown supremacy (#4759)'
+  Rerik007:
+  - bugfix: now the exotic blood is handled just like the regular one (#4734)
+  SAAD:
+  - bugfix: Delta captain's glass door (#4707)
+  Vladisvell:
+  - add: '[April Fools] Light now randomizes every round (#4749)'
+  - add: '[April Fools] Vodka Absolut, part Ы (#4753)'
+  - bugfix: Allowed robots interactions with chem dispensers. (#4764)
+  - bugfix: temperatures are handled correctly with water (#4768)
+  Zwei:
+  - bugfix: Usable Bodyparts Fix (#4776)
+  aeternaclose:
+  - bugfix: Cere Mass_driver pipe fix (#4765)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4723)
+'2024-04-02':
+  Aziz Chynaliev:
+  - del: '[April Fools] Light now randomizes every round (#4749)"'
+  - del: '[April Fools] clown supremacy (#4759)"'
+  - del: '[April Fools] Vodka Absolut, part Ы (#4753)"'
+  - del: '[April Fools] New announcer voice (#4758)"'
+  - server: bump rustg version 3.0.0-ss220 -> 3.1.0-ss220
+  Den109G:
+  - refactor: Species defines in masses (#4771)
+  Honker9999999:
+  - add: lesser slowdown for paramed EVA (#4767)
+  - bugfix: you can make clothesmate now (#4775)
+  - add: xray for ascendant shadowling (#4747)
+  Mindfri:
+  - add: Lavaland spell books (#4742)
+'2024-04-03':
+  Honker9999999:
+  - bugfix: equal clown masks (#4772)
+  NightDawnFox:
+  - add: new IPC types and skins (#4588)
+  Valtor:
+  - bugfix: tail implants bugfix bugfix (#4781)
+  Zwei:
+  - bugfix: Temporal Stance Solution (#4787)
+  - add: Trait Prerequisites And Variables Renaming (#4777)
+  aeternaclose:
+  - add: Pai vending to Cerestation & Cyberiad (#4786)

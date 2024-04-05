@@ -340,13 +340,18 @@
   - bugfix: Central Command Turf Fixes (#4657)
   - bugfix: All Smooth Turfs Fixed (#4731)
 '2024-03-31':
+  Aziz Chynaliev:
+  - server: add tutorial branch to CI checks
   Rerik007:
   - qol: added connect discord account button to player setup menu (#4729)
   - bugfix: (i think) fixes highpop slots opening after round has started (#4718)
   - bugfix: (i think) No more cluwnes in crew manifest (#4702)
   - bugfix: fix martial dirslash issue (#4716)
+  - bugfix: rename lazyaddor -> lazyor (stealth conflict) (#4735)
+  - bugfix: I forgot to change my highpop value (#4738)
   SergoFangorum:
   - tweak: Need both hands to shoot AS-12 Minotaur (#4733)
   Zwei:
   - refactor: Movement Types Refactor (#4249)
   - refactor: Variables Cleanup (#4446)
+  - bugfix: Stamina Damage Modifiers Removal Fix (#4739)

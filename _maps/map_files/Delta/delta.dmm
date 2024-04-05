@@ -8248,18 +8248,20 @@
 /area/janitor)
 "bgn" = (
 /obj/structure/table/reinforced,
-/obj/item/restraints/legcuffs/beartrap,
+/obj/machinery/vending/wallmed{
+	pixel_y = -30
+	},
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
-/obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/vending/wallmed{
-	pixel_y = -30
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -25395,7 +25397,7 @@
 "cIx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/clothing/mask/gas/pennywise,
+/obj/item/clothing/mask/gas/clown_hat/pennywise,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -68881,14 +68883,14 @@
 	},
 /area/maintenance/kitchen)
 "kqK" = (
-/obj/machinery/door/window{
-	req_access = list(63)
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/window{
+	req_access = list(20)
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
@@ -81115,7 +81117,7 @@
 /obj/item/toy/figure/captain,
 /obj/machinery/door/window{
 	dir = 1;
-	req_access = list(63)
+	req_access = list(20)
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)

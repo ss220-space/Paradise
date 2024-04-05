@@ -4,6 +4,7 @@
 	invocation = "ONI DRAKT'CEHOR!"
 	invocation_type = "shout"
 	base_cooldown = 3 SECONDS
+	clothes_req = FALSE
 	action_icon_state = "watcher_normal"
 	action_background_icon_state = ""
 	need_active_overlay = TRUE

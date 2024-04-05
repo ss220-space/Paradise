@@ -269,19 +269,6 @@
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/setDir(new_dir)
-	var/old_dir = dir
-	if(forced_look)
-		if(isnum(forced_look))
-			dir = forced_look
-		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
-		return
-	. = ..()
-
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><table>

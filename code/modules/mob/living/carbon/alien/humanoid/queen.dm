@@ -76,7 +76,7 @@
 
 	if(stat == DEAD)
 		icon_state = "queen_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || lying_angle || resting)
 		icon_state = "queen_sleep"
 	else
 		icon_state = "queen_s"

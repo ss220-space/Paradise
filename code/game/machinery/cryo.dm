@@ -440,14 +440,14 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.set_bodytemperature(261)
+	var/turf/drop_loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(drop_loc)
+	occupant.set_bodytemperature(occupant.dna ? occupant.dna.species.body_temperature : BODYTEMP_NORMAL)
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
+	for(var/atom/movable/thing in (contents - component_parts - beaker))
+		thing.forceMove(drop_loc)
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()

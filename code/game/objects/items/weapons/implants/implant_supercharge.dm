@@ -17,7 +17,7 @@
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-100)
-	imp_in.lying = 0
+	imp_in.lying_angle = 0
 	imp_in.update_canmove()
 
 	imp_in.reagents.add_reagent("surge_plus", 10)

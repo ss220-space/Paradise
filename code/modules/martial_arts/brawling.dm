@@ -43,7 +43,7 @@
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.Weaken(6 SECONDS)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(D.lying_angle)
 			D.forcesay(GLOB.hit_appends)
 	return 1
 
@@ -105,6 +105,6 @@
 			D.Paralyse(10 SECONDS)
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
+		else if(D.lying_angle)
 			D.forcesay(GLOB.hit_appends)
 	return 1

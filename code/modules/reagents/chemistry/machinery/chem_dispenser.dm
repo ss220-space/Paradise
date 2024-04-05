@@ -251,9 +251,6 @@
 		SStgui.update_uis(src)
 		return
 
-	if(isrobot(user))
-		return
-
 	if(beaker)
 		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
 		return

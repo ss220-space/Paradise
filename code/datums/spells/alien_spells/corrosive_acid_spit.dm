@@ -48,7 +48,7 @@
 	if(target == user)
 		return ..()
 
-	if(!proximity || isalien(target) || !iscarbon(user) || user.lying || user.handcuffed) // Don't want xenos ditching out of cuffs
+	if(!proximity || isalien(target) || !iscarbon(user) || user.incapacitated()) // Don't want xenos ditching out of cuffs
 		return
 
 	if(!plasma_check(plasma_cost, user))

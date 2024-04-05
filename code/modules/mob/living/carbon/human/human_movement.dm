@@ -44,7 +44,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!lying && !buckled && !throwing)
+		if(!lying_angle && !buckled && !throwing)
 			update_splints()
 		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
 			if(prob(dna.species.fragile_bones_chance))
@@ -64,7 +64,7 @@
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && !lying && loc == NewLoc)
+	if(S && !lying_angle && loc == NewLoc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints
@@ -97,6 +97,7 @@
 	. = ..()
 	if(isnull(.))
 		return .
+	update_fractures_slowdown()
 	/*
 	if(. == 0)
 		if(usable_legs != 0) //From having no usable legs to having some.
@@ -129,6 +130,7 @@
 	. = ..()
 	if(movement_type & (FLYING|FLOATING) && !(old_movement_type & (FLYING|FLOATING)))
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
 		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 		update_obesity_slowdown()
 
@@ -138,7 +140,9 @@
 	if(old_movement_type & (FLYING|FLOATING) && !(movement_type & (FLYING|FLOATING)))
 		update_obesity_slowdown()
 		update_hunger_slowdown()
-		handle_stance(forced = TRUE)
+		update_limbless_slowdown()
+		update_fractures_slowdown()
+
 		/*
 		var/limbless_slowdown = 0
 		if(usable_legs < default_num_legs)

@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "hos_laser"
 	name = "the head of security's X-01 multiphase energy gun"
 	typepath = /obj/item/gun/energy/gun/hos
-	protected_jobs = list("Head Of Security")
+	protected_jobs = list(JOB_TITLE_HOS)
 
 /datum/theft_objective/highrisk/hand_tele
 	id = "hand_tele"

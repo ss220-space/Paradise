@@ -341,7 +341,7 @@
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 
-	if(lying && !(I.flags & ABSTRACT))
+	if(lying_angle && !(I.flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == "HAND_LEFT" && !has_left_hand())
@@ -482,3 +482,9 @@
 	if(head)
 		items += head
 	return items
+
+
+/mob/living/carbon/update_equipment_speed_mods()
+	. = ..()
+	update_limbless_slowdown()	// in case we get crutches
+

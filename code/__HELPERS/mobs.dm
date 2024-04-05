@@ -281,7 +281,7 @@
 	update_all_mob_security_hud()
 	return 1
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
+/proc/do_mob(mob/living/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -317,7 +317,7 @@
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	else
 		health_description = "This mob type has no health to speak of."
 
-	//Gener
+	//Gender
 	switch(M.gender)
 		if(MALE, FEMALE)
 			gender_description = "[M.gender]"

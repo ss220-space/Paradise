@@ -654,6 +654,8 @@
 	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
+	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
+	var/ignore_prer = FALSE
 
 
 /obj/effect/proc_holder/spell/shadowling_revive_thrall/create_new_targeting()
@@ -690,7 +692,7 @@
 			if(isshadowlinglesser(h_mob))
 				empowered_thralls++
 
-		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT)
+		if(empowered_thralls >= EMPOWERED_THRALL_LIMIT && !ignore_prer)
 			to_chat(user, "<span class='warning'>You cannot spare this much energy. There are too many empowered thralls.</span>")
 			revert_cast(user)
 			return
@@ -890,6 +892,11 @@
 	target.gib()
 
 
+/obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant
+	name = "Black will"
+	desc = "Empower your faithful thrall or revives"
+	base_cooldown = 0
+	ignore_prer = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"
