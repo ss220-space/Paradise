@@ -2143,10 +2143,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/proc/update_fractures_slowdown()
-	if(!usable_legs)
-		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
-		return
-
 	var/static/list/possible_limbs = list(
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
