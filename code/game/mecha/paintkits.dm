@@ -355,4 +355,4 @@
 
 	new_name = "Ashed Mech"
 	new_prefix = "ashed"
-	allowed_types = list("durand", "ripley", "firefighter", "gygax", "phazon", "lockermech")
+	allowed_types = list("durand", "ripley", "gygax", "phazon", "lockermech")
