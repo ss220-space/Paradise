@@ -3344,7 +3344,6 @@
 "Uc" = (
 /mob/living/simple_animal/hostile/carp,
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
 "Ui" = (
