@@ -103,3 +103,10 @@
 #define MATERIAL_CLASS_CLOTH    1
 #define MATERIAL_CLASS_TECH		2
 #define MATERIAL_CLASS_SOAP		3
+
+
+/// Wrapper for adding clothing based traits
+#define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
+/// Wrapper for removing clothing based traits
+#define REMOVE_CLOTHING_TRAIT(mob, cloth, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
+

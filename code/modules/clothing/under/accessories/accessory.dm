@@ -1024,3 +1024,33 @@
 	..()
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
+
+/obj/item/clothing/accessory/head_strip/cheese_badge
+	name = "great fellow's badge"
+	desc = "Плотно сшитая круглая нашивка из желто-оранжевого бархата, по центру красуется то ли корона, то ли головка сыра. Слегка отдает запахом Монтерей Джека."
+	icon_state = "cheesebadge"
+	item_state = "cheesebadge"
+	item_color = "cheesebadge"
+	strip_bubble_icon = "cheese"
+
+/obj/item/clothing/accessory/head_strip/cheese_badge/attack_self(mob/user)
+	..()
+	if(prob(1))
+		user.say("CHEE-EE-EE-EE-EE-EESE!")
+
+/obj/item/clothing/accessory/medal/smile
+	name = "smiling pin"
+	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой!"
+	icon_state = "smile"
+	item_color = "smile"
+	materials = list(MAT_METAL = 300, MAT_GOLD = 200)
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/accessory/medal/smile/attack_self(mob/user)
+	..()
+	if(prob(5))
+		user.emote("smile")
+
+/obj/item/clothing/accessory/medal/smile/examine(mob/user)
+	. = ..()
+	user.emote("smile")

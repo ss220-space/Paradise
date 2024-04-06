@@ -36,6 +36,8 @@
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
+#define isgun(A) (istype(A, /obj/item/gun))
+
 #define is_pen(W) (istype(W, /obj/item/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))
@@ -124,4 +126,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Misc
 #define isclient(A) istype(A, /client)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
+
+
+GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
+	/turf/space,
+	/turf/simulated/floor/chasm,
+)))
+
+#define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
 

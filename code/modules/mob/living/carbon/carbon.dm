@@ -666,7 +666,7 @@
 			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
 			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
 				return FALSE
-		if(!has_gravity(H) && !grav_ignore)
+		if(!H.has_gravity() && !grav_ignore)
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
 				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
 				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))

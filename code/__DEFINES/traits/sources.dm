@@ -49,6 +49,10 @@
 #define SUIT_TRAIT "suit_trait"
 
 #define NO_GRAVITY_TRAIT "no-gravity"
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"

@@ -13,6 +13,9 @@
 	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
 	var/nightvision = 0
 
+	/// Contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
+	var/list/alerts
+
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 

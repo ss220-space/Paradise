@@ -31,7 +31,8 @@
 	var/static_light = 0
 	var/static_environ = 0
 
-	var/has_gravity = TRUE
+	/// Whether this area has a gravity by default.
+	var/has_gravity = FALSE
 	var/list/apc = list()
 	var/no_air = null
 
@@ -517,12 +518,6 @@
 		return
 
 	var/mob/living/arrived_living = arrived
-	if(!arrived_living.ckey)
-		return
-
-	if(!oldarea.has_gravity && newarea.has_gravity && arrived_living.m_intent == MOVE_INTENT_RUN) // Being ready when you change areas gives you a chance to avoid falling all together.
-		thunk(arrived_living)
-
 	if(!arrived_living.client)
 		return
 
@@ -541,54 +536,13 @@
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
-/area/proc/gravitychange(gravitystate = 0, area/our_area)
-	our_area.has_gravity = gravitystate
 
-	if(gravitystate)
-		for(var/mob/living/carbon/human/user in our_area)
-			thunk(user)
-
-
-/area/proc/thunk(mob/living/carbon/human/user)
-	if(!istype(user)) // Rather not have non-humans get hit with a THUNK
-		return
-
-	if(istype(user.shoes, /obj/item/clothing/shoes/magboots) && (user.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
-		return
-
-	if(user.dna.species.spec_thunk(user)) //Species level thunk overrides
-		return
-
-	if(user.buckled) //Can't fall down if you are buckled
-		return
-
-	if(isspaceturf(get_turf(user))) // Can't fall onto nothing.
-		return
-
-	if(user.m_intent == MOVE_INTENT_RUN)
-		user.Weaken(10 SECONDS)
-	else
-		user.Weaken(4 SECONDS)
-
-	to_chat(user, "Gravity!")
-
-
-/proc/has_gravity(atom/our_atom, turf/our_turf)
-	if(!our_turf)
-		our_turf = get_turf(our_atom)
-
-	var/area/our_area = get_area(our_turf)
-
-	if(isspaceturf(our_turf)) // Turf never has gravity
-		return FALSE
-	else if(our_area?.has_gravity) // Areas which always has gravity
-		return TRUE
-	else
-		// There's a gravity generator on our z level
-		// This would do well when integrated with the z level manager
-		if(our_turf && GLOB.gravity_generators["[our_turf.z]"] && length(GLOB.gravity_generators["[our_turf.z]"]))
-			return TRUE
-	return FALSE
+/area/proc/gravitychange()
+	for(var/mob/living/carbon/human/user in src)
+		var/prev_gravity = user.gravity_state
+		user.refresh_gravity()
+		if(!prev_gravity && user.gravity_state)
+			user.thunk()
 
 
 /area/proc/prison_break()

@@ -60,8 +60,6 @@
 	if(vamp)
 		vamp.handle_vampire()
 
-	update_gravity(mob_has_gravity())
-
 	if(pulling)
 		update_pulling()
 
@@ -94,6 +92,8 @@
 
 	if(machine)
 		machine.check_eye(src)
+
+	handle_gravity(seconds, times_fired)
 
 	if(stat != DEAD)
 		return TRUE
@@ -244,3 +244,24 @@
 		overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
+
+
+/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+	if(gravity_state > STANDARD_GRAVITY)
+		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+
+
+/mob/living/proc/gravity_animate()
+	if(!get_filter("gravity"))
+		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
+	animate(y = 0, time = 10)
+
+
+/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		return
+
+	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+

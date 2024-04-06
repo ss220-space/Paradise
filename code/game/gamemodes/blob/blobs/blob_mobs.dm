@@ -199,9 +199,6 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/mob_negates_gravity()
 	return magpulse
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/mob_has_gravity()
-	return ..() || mob_negates_gravity()
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/experience_pressure_difference(pressure_difference, direction)
 	if(!magpulse)
 		return ..()

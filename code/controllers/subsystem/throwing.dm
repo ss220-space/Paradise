@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(throwing)
 		if(!AM.throwing)	// datum was nullified on finalize, our job is done
 			return
 
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
 			if(!hitcheck())
 				finalize()
 			return
