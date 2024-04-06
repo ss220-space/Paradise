@@ -417,6 +417,7 @@
 #include "code\datums\components\emissive_blocker.dm"
 #include "code\datums\components\examine_override.dm"
 #include "code\datums\components\footstep.dm"
+#include "code\datums\components\fullauto.dm"
 #include "code\datums\components\jackboots.dm"
 #include "code\datums\components\label.dm"
 #include "code\datums\components\material_container.dm"
