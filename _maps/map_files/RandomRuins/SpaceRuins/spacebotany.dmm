@@ -254,7 +254,6 @@
 	},
 /area/ruin/space/spacebotany/Med)
 "dT" = (
-/obj/structure/lattice,
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/space,
 /area/space)
@@ -341,6 +340,11 @@
 	icon_state = "asteroid"
 	},
 /area/ruin/space/spacebotany/EastGarden)
+"fc" = (
+/obj/item/shard,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "fd" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/flour,
@@ -639,11 +643,6 @@
 /obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
-"in" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/space,
-/area/ruin/space/spacebotany/Chem)
 "ir" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/ants,
@@ -912,11 +911,6 @@
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
-"mk" = (
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/space,
-/area/ruin/space/spacebotany/Chem)
 "mo" = (
 /obj/machinery/light/small,
 /obj/structure/spacevine,
@@ -1071,7 +1065,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
 "nY" = (
-/obj/structure/lattice,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
@@ -1299,6 +1292,7 @@
 /area/ruin/space/spacebotany/Chem)
 "rF" = (
 /obj/random/tool,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "rH" = (
@@ -1340,7 +1334,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "sa" = (
-/obj/structure/lattice,
 /obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
@@ -1670,6 +1663,11 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/Hydro)
+"wS" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "wT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1787,11 +1785,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
-"zn" = (
-/obj/structure/lattice,
-/obj/effect/decal/cleanable/ash,
-/turf/space,
-/area/space)
 "zy" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/structure/disposalpipe/segment{
@@ -2071,7 +2064,6 @@
 	},
 /area/ruin/space/spacebotany/EastGarden)
 "CK" = (
-/obj/structure/lattice,
 /obj/item/paper,
 /turf/space,
 /area/space)
@@ -2094,12 +2086,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Hydro)
 "Db" = (
-/obj/structure/lattice,
 /obj/item/stack/rods,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
 "Dh" = (
-/obj/structure/lattice,
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /obj/structure/disposalpipe/segment,
 /turf/space,
@@ -2144,6 +2134,7 @@
 "DU" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/glass,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "DW" = (
@@ -3197,7 +3188,6 @@
 /turf/space,
 /area/space)
 "RR" = (
-/obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
 /area/space)
@@ -3349,8 +3339,8 @@
 	},
 /area/ruin/space/spacebotany/Garden)
 "TG" = (
-/obj/structure/lattice,
 /obj/effect/spawner/random_spawners/grille_maybe,
+/obj/structure/lattice,
 /turf/space,
 /area/space)
 "TJ" = (
@@ -3413,9 +3403,10 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
 "Uz" = (
+/obj/effect/decal/cleanable/glass,
 /obj/structure/lattice,
 /turf/space,
-/area/ruin/space/spacebotany/Chem)
+/area/space)
 "UE" = (
 /obj/effect/decal/ants,
 /obj/structure/cable{
@@ -3700,7 +3691,6 @@
 	},
 /area/ruin/space/spacebotany/Hydro)
 "Yr" = (
-/obj/structure/lattice,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/ash,
 /turf/space,
@@ -4058,7 +4048,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 Os
 Os
@@ -4365,7 +4355,7 @@ Os
 Os
 Os
 Os
-TG
+rg
 Os
 Os
 Os
@@ -4439,8 +4429,8 @@ Os
 Os
 Os
 Os
-TG
-TG
+rg
+rg
 DE
 pE
 SC
@@ -4513,7 +4503,7 @@ Os
 Os
 Os
 Os
-TG
+rg
 Os
 Os
 pE
@@ -4599,26 +4589,26 @@ DE
 DE
 DE
 DE
-RR
-RR
-RR
+Ph
+Ph
+Ph
 TG
 TG
-RR
-RR
-RR
+Ph
+Ph
+Ph
 DE
-RR
-RR
-RR
+Ph
+Ph
+Ph
 DE
-RR
-RR
-RR
+Ph
+Ph
+Ph
 TG
 TG
 TG
-RR
+Ph
 DE
 "}
 (11,1,1) = {"
@@ -4669,7 +4659,7 @@ wb
 IP
 jQ
 pE
-DE
+Os
 Os
 Os
 Os
@@ -4678,7 +4668,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 Os
 Os
@@ -4735,7 +4725,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 iM
 ki
@@ -4743,7 +4733,6 @@ tG
 tG
 jQ
 pE
-DE
 Os
 Os
 Os
@@ -4752,7 +4741,8 @@ Os
 Os
 Os
 Os
-DE
+Os
+Os
 Os
 Os
 Os
@@ -4767,7 +4757,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (13,1,1) = {"
 Os
@@ -4809,7 +4799,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 iM
 xh
@@ -4817,7 +4807,6 @@ wb
 xh
 xx
 pE
-DE
 Os
 Os
 Os
@@ -4826,7 +4815,8 @@ Os
 Os
 Os
 Os
-DE
+Os
+Os
 Os
 Os
 Os
@@ -4834,14 +4824,14 @@ TG
 Os
 Os
 Os
-RR
+Ph
 Os
 Os
 Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (14,1,1) = {"
 Os
@@ -4883,7 +4873,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 HO
 xh
@@ -4904,18 +4894,18 @@ pE
 Os
 Os
 Os
-RR
+Ph
 Os
 Os
 Os
-RR
+Ph
 Os
 Os
 Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (15,1,1) = {"
 Os
@@ -4957,7 +4947,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 HO
 wb
@@ -4978,7 +4968,7 @@ pE
 Os
 Os
 Os
-RR
+Ph
 Os
 Os
 Os
@@ -4989,7 +4979,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (16,1,1) = {"
 Os
@@ -5031,7 +5021,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 pE
 PG
@@ -5063,7 +5053,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (17,1,1) = {"
 Os
@@ -5105,7 +5095,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 Iu
 oi
@@ -5197,18 +5187,18 @@ AB
 Re
 ol
 pE
-DE
-DE
-DE
+Os
+Os
+Os
 az
 az
 az
 az
 az
 DE
-RR
-RR
-RR
+Ph
+Ph
+Ph
 TG
 TG
 TG
@@ -5253,7 +5243,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 VK
 oI
@@ -5327,7 +5317,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 VK
 pZ
@@ -5359,7 +5349,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (21,1,1) = {"
 Os
@@ -5433,7 +5423,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (22,1,1) = {"
 Os
@@ -5507,7 +5497,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (23,1,1) = {"
 Os
@@ -5803,7 +5793,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (27,1,1) = {"
 Os
@@ -5877,7 +5867,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (28,1,1) = {"
 Os
@@ -5951,7 +5941,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (29,1,1) = {"
 Os
@@ -6013,19 +6003,19 @@ ZG
 An
 VR
 ox
-DE
-DE
+Os
+Os
 ji
 ji
 Uk
 ji
 ji
 DE
-RR
+Ph
 DE
 TG
 TG
-RR
+Ph
 "}
 (30,1,1) = {"
 Os
@@ -6099,7 +6089,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (31,1,1) = {"
 Os
@@ -6173,7 +6163,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (32,1,1) = {"
 Os
@@ -6395,7 +6385,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (35,1,1) = {"
 Os
@@ -6457,7 +6447,7 @@ ZG
 Bc
 Da
 ZG
-DE
+Os
 KD
 KD
 KD
@@ -6469,7 +6459,7 @@ DE
 TG
 TG
 TG
-RR
+Ph
 "}
 (36,1,1) = {"
 Os
@@ -6543,7 +6533,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (37,1,1) = {"
 Os
@@ -6587,8 +6577,8 @@ vZ
 NC
 Dh
 hd
-Uz
-Uz
+gg
+gg
 Ez
 gg
 gg
@@ -6661,9 +6651,9 @@ ES
 vJ
 NP
 ra
-Uz
+gg
 qu
-Uz
+gg
 HJ
 jf
 cM
@@ -6712,10 +6702,10 @@ Os
 Os
 Os
 TG
-Os
-Os
-Os
-Os
+DE
+DE
+DE
+DE
 vJ
 IK
 IK
@@ -6736,8 +6726,8 @@ Os
 NP
 HJ
 sa
-Uz
-Uz
+gg
+gg
 rw
 gg
 nY
@@ -6753,7 +6743,7 @@ iA
 WD
 VS
 ZG
-DE
+Os
 KD
 KD
 KD
@@ -6765,7 +6755,7 @@ TG
 TG
 TG
 TG
-RR
+Ph
 "}
 (40,1,1) = {"
 Os
@@ -6810,8 +6800,8 @@ Os
 cM
 gg
 Ez
-mk
-mk
+Mj
+Mj
 Ez
 gg
 Db
@@ -6839,7 +6829,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (41,1,1) = {"
 Os
@@ -6881,11 +6871,11 @@ Os
 Os
 Os
 Os
-DE
-Uz
-in
+Os
+gg
+nS
 Mj
-Uz
+gg
 QF
 nS
 vt
@@ -6904,7 +6894,7 @@ ox
 Os
 Os
 Os
-DE
+Os
 Os
 DE
 Os
@@ -6955,11 +6945,11 @@ Os
 Os
 Os
 Os
-DE
-DE
+Os
+Os
 CK
 Os
-zn
+RP
 RP
 mO
 Os
@@ -6978,7 +6968,7 @@ ox
 Os
 Os
 Os
-DE
+Os
 Os
 DE
 Os
@@ -7027,19 +7017,19 @@ DE
 DE
 DE
 TG
-RR
+Ph
 TG
 DU
-Os
+DE
 rF
-mO
-Os
-cx
-Os
-Xl
+fc
+DE
+Uz
+DE
+wS
 TG
-Os
-Os
+DE
+DE
 ox
 ox
 Jh
@@ -7049,19 +7039,19 @@ PO
 Uo
 ox
 ox
-DE
-DE
-DE
-DE
-DE
+Os
+Os
+Os
+Os
+Os
 TG
-DE
-DE
-DE
+Os
+Os
+Os
 RR
 RR
-DE
-RR
+Os
+Ph
 "}
 (44,1,1) = {"
 Os
@@ -7097,7 +7087,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 DE
 Os
 Os
@@ -7126,7 +7116,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 TG
 Os
@@ -7135,7 +7125,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (45,1,1) = {"
 Os
@@ -7167,17 +7157,17 @@ Os
 Os
 Os
 DE
-DE
-DE
 Os
-Os
-Os
-DE
 Os
 Os
 Os
 Os
 DE
+Os
+Os
+Os
+Os
+Os
 xr
 Os
 cx
@@ -7188,7 +7178,7 @@ Os
 cx
 Os
 Os
-TG
+rg
 Os
 Os
 Os
@@ -7200,7 +7190,7 @@ Os
 Os
 Os
 Os
-DE
+Os
 Os
 TG
 Os
@@ -7209,7 +7199,7 @@ Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (46,1,1) = {"
 Os
@@ -7259,31 +7249,31 @@ Os
 Os
 Os
 Os
+rg
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
 TG
-DE
-Os
-Os
-DE
-Os
-Os
-Os
-Os
-Os
-DE
-Os
-Os
-Os
-Os
-DE
-Os
-TG
 Os
 Os
 Os
 Os
 Os
 Os
-RR
+Ph
 "}
 (47,1,1) = {"
 Os
@@ -7328,7 +7318,7 @@ Os
 Os
 Os
 Os
-TG
+rg
 Os
 Os
 Os
@@ -7336,19 +7326,19 @@ Os
 dT
 Os
 Os
-DE
 Os
 Os
 Os
 Os
 Os
 Os
-RR
+Os
+Ph
 Os
 Os
 Os
 Os
-DE
+Os
 Os
 TG
 Os
@@ -7400,7 +7390,7 @@ DE
 DE
 DE
 TG
-RR
+Ph
 TG
 TG
 TG
@@ -7415,21 +7405,21 @@ Ph
 DE
 DE
 DE
-RR
+Ph
 DE
-RR
-DE
-DE
+Ph
 DE
 DE
-RR
-RR
+DE
+DE
+Ph
+Ph
 TG
 DE
-RR
-RR
-RR
-RR
+Ph
+DE
+DE
+DE
 DE
 DE
 "}
