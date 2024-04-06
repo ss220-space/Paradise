@@ -39,6 +39,10 @@
 ///Refills the previously dug tile
 /turf/simulated/floor/plating/asteroid/proc/refill_dug()
 	dug = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/turf/simulated/floor/plating/asteroid/update_icon_state()
+	. = ..()
 	icon_plating = initial(icon_plating)
 	icon_state =  initial(icon_state)
 	if(prob(floor_variance))
