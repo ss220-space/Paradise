@@ -208,7 +208,6 @@
 	donator_tier = 4
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
-	allowed_roles = list("Quartermaster")
 
 /datum/gear/donor/backpack_hiking
 	donator_tier = 3
