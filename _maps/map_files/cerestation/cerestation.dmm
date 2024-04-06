@@ -67363,7 +67363,7 @@
 /obj/machinery/photocopier,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Quartermaster's Desk"";
+	department = "Quartermaster's Desk";
 	departmentType = 5;
 	name = "Quartermaster Requests Console";
 	pixel_x = 30
