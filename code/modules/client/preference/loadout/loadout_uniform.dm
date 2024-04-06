@@ -105,6 +105,10 @@
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit_jacket/really_black
 
+/datum/gear/uniform/suit/amish_suit
+	display_name = "amish suit"
+	path = /obj/item/clothing/under/sl_suit
+
 /datum/gear/uniform/chaps
 	subtype_path = /datum/gear/uniform/chaps
 
