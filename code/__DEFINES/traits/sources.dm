@@ -37,6 +37,8 @@
 
 #define CLOTHING_TRAIT "clothing"
 
+#define DNA_TRAIT "dna_trait"
+
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 

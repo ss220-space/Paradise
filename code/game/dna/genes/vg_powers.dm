@@ -197,18 +197,20 @@
 	block = GLOB.remotetalkblock
 
 
-/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
-	..()
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, connected, flags)
+	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-	M.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
-	hud.manage_hud(M, THOUGHTS_HUD_PRECISE)
+	mutant.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
+	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
 
-/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/user)
-	..()
+
+/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant)
+	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-	for(var/obj/effect/proc_holder/spell/mindscan/spell in user.mob_spell_list)
-		user.RemoveSpell(spell)
-	hud.manage_hud(user, THOUGHTS_HUD_DISPERSE)
+	for(var/obj/effect/proc_holder/spell/mindscan/spell in mutant.mob_spell_list)
+		mutant.RemoveSpell(spell)
+	hud.manage_hud(mutant, THOUGHTS_HUD_DISPERSE)
+
 
 /obj/effect/proc_holder/spell/remotetalk
 	name = "Project Mind"

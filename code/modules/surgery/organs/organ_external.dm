@@ -599,7 +599,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	// Let people make limbs become fun things when removed
-	var/atom/movable/dropped_part = remove(ignore_children = ignore_children)
+	var/atom/movable/dropped_part = remove(victim, ignore_children = ignore_children)
 
 	if(!QDELETED(src) && parent)
 		LAZYREMOVE(parent.children, src)
