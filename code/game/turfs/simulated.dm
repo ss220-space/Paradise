@@ -83,16 +83,16 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = TRUE)))
 						M.inertia_dir = NONE
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 4 SECONDS, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 4 SECONDS, tilesSlipped = 3, walkSafely = FALSE, lube_slip = TRUE)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = 0))
+					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = FALSE))
 						M.inertia_dir = NONE
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ(BODY_ZONE_HEAD)
@@ -102,7 +102,7 @@
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = FALSE, lube_slip = TRUE)
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
 		if(!Hulk.lying_angle)

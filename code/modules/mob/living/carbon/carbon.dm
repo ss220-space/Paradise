@@ -650,29 +650,21 @@
 			stat(null, "Wax: [glands.wax]")
 
 
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	if((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, grav_ignore = FALSE, slipVerb = "поскользнулись")
+	if(!magic_slip && ((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK)))
 		return FALSE
 
 	if(lying_angle && !tilesSlipped)
 		return FALSE
 
-	if(ishuman(src))
+	if(ishuman(src) && !magic_slip)
 		var/mob/living/carbon/human/H = src
-		var/turf/simulated/T = get_turf(H)
-		if(!slipAny && HAS_TRAIT(H, TRAIT_NOSLIP))
+		if(HAS_TRAIT(H, TRAIT_NOSLIP))
 			return FALSE
-		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
-			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-			if(((T.wet == TURF_WET_LUBE) || (T.wet == TURF_WET_PERMAFROST)) && humanmagboots.magpulse && humanmagboots.lubeprotection)
-				return FALSE
-		if(!H.has_gravity() && !grav_ignore)
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
-				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-				if(!(((T.wet == TURF_WET_LUBE) || (T.wet == TURF_WET_PERMAFROST)) && humanmagboots.magpulse))
-					return FALSE
-			else
-				return FALSE
+		if(lube_slip && HAS_TRAIT(H, TRAIT_IGNORE_LUBE))
+			return FALSE
+		if(!H.has_gravity() && !grav_ignore && !(HAS_TRAIT(H, TRAIT_NEGATES_GRAVITY) && lube_slip))
+			return FALSE
 
 	if(tilesSlipped)
 		for(var/i in 1 to tilesSlipped)

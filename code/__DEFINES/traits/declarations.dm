@@ -60,6 +60,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESTRAINED "restrained"
 /// Prevents from slipping on wet floors, in space etc
 #define TRAIT_NOSLIP "noslip"
+/// Prevents from slipping on lube floors, anything
+#define TRAIT_IGNORE_LUBE "ignore_lube"
 
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"

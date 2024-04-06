@@ -18,25 +18,28 @@
 	var/slip_tiles
 	/// TRUE If this slip can be avoided by walking.
 	var/walking_is_safe
-	/// FALSE if you want no slip shoes to make you immune to the slip
-	var/slip_always
+	/// TRUE if you want slip shoes to make you immune to the slip
+	var/magic_slip
+	/// TRUE if it is a lube slip
+	var/lube_slip
 	/// FALSE if you want no slip without gravity
 	var/gravi_ignore
 	/// The verb that players will see when someone slips on the parent. In the form of "You [slip_verb]ped on".
 	var/slip_verb
 
-/datum/component/slippery/Initialize(_description, _weaken = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _slip_always = FALSE, _gravi_ignore = FALSE, _slip_verb = "slip")
+/datum/component/slippery/Initialize(description, weaken = 0, slip_chance = 100, slip_tiles = 0, walking_is_safe = TRUE, magic_slip = FALSE, lube_slip = FALSE, gravi_ignore = FALSE, slip_verb = "slip")
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	description = _description
-	weaken = max(0, _weaken)
-	slip_chance = max(0, _slip_chance)
-	slip_tiles = max(0, _slip_tiles)
-	walking_is_safe = _walking_is_safe
-	slip_always = _slip_always
-	gravi_ignore = _gravi_ignore
-	slip_verb = _slip_verb
+	src.description = description
+	src.weaken = max(0, weaken)
+	src.slip_chance = max(0, slip_chance)
+	src.slip_tiles = max(0, slip_tiles)
+	src.walking_is_safe = walking_is_safe
+	src.magic_slip = magic_slip
+	src.lube_slip = lube_slip
+	src.gravi_ignore = gravi_ignore
+	src.slip_verb = slip_verb
 
 /datum/component/slippery/RegisterWithParent()
 	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
@@ -51,6 +54,6 @@
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
 /datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
-	if(istype(victim) && !(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && prob(slip_chance) && victim.slip(description, weaken, slip_tiles, walking_is_safe, slip_always, gravi_ignore, slip_verb))
+	if(istype(victim) && !(!magic_slip && victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && prob(slip_chance) && victim.slip(description, weaken, slip_tiles, walking_is_safe, magic_slip, lube_slip, gravi_ignore, slip_verb))
 		var/atom/movable/owner = parent
 		owner.after_slip(victim)

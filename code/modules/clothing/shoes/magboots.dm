@@ -20,8 +20,6 @@
 	var/slowdown_active = 2
 	/// This is for unsafe_unwrenching protection
 	var/gustprotection = FALSE
-	/// This is for lube protection when magpulse
-	var/lubeprotection = FALSE
 	/// A list of traits we apply when we get activated
 	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NOSLIP)
 
@@ -101,7 +99,7 @@
 	icon_state = "advsyndiemag0"
 	base_icon_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
-	lubeprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NOSLIP, TRAIT_IGNORE_LUBE)
 
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
