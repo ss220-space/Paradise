@@ -15,10 +15,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"af" = (
-/obj/machinery/hydroponics/soil,
-/turf/simulated/floor/grass,
-/area/space)
 "at" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel{
@@ -26,11 +22,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"aw" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/item/seeds/ambrosia/cruciatus,
-/turf/simulated/floor/grass,
-/area/space)
 "ax" = (
 /obj/structure/sign/radiation,
 /turf/simulated/wall,
@@ -192,12 +183,6 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Med)
-"cV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space)
 "da" = (
 /obj/machinery/door/airlock/wood,
 /turf/simulated/floor/plasteel{
@@ -249,13 +234,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
-"dA" = (
-/obj/effect/decal/ants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "greencorner"
-	},
-/area/space)
 "dE" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/ants,
@@ -295,13 +273,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"dX" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
-	},
-/area/space)
 "ec" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/grille,
@@ -334,14 +305,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
-"ey" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/killertomato/spacebotany,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
-/area/space)
 "eE" = (
 /obj/effect/decal/cleanable/insectguts,
 /turf/simulated/floor/plasteel/dark,
@@ -378,12 +341,6 @@
 	icon_state = "asteroid"
 	},
 /area/ruin/space/spacebotany/EastGarden)
-"fc" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "ramptop"
-	},
-/area/space)
 "fd" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/flour,
@@ -400,12 +357,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
-"ff" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "greencorner"
-	},
-/area/space)
 "fg" = (
 /obj/structure/closet/toolcloset,
 /turf/simulated/floor/plating,
@@ -448,10 +399,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/EastGarden)
-"fE" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/simulated/floor/grass,
-/area/space)
 "fL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -484,11 +431,6 @@
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
-"gv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet/hydroponics,
-/turf/simulated/floor/plasteel,
-/area/space)
 "gw" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light,
@@ -618,12 +560,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
-"hG" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/space)
 "hJ" = (
 /obj/machinery/door/airlock/glass,
 /obj/structure/cable{
@@ -736,12 +672,6 @@
 	icon_state = "arrival"
 	},
 /area/ruin/space/spacebotany/Dorm)
-"is" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "iw" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -768,12 +698,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
-"iG" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "ramptop"
-	},
-/area/space)
 "iM" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/grille,
@@ -816,11 +740,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Med)
-"jq" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space)
 "jC" = (
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
@@ -829,13 +748,6 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"jK" = (
-/obj/machinery/door/airlock/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "jM" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/grille,
@@ -900,11 +812,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"kG" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
-/area/space)
 "kI" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 4
@@ -966,10 +873,6 @@
 /obj/structure/computerframe,
 /turf/space,
 /area/space)
-"lr" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/space)
 "lv" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -981,11 +884,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"lE" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass,
-/area/space)
 "lF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1019,11 +917,6 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
-"mm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plasteel,
-/area/space)
 "mo" = (
 /obj/machinery/light/small,
 /obj/structure/spacevine,
@@ -1340,10 +1233,6 @@
 	icon_state = "asteroid"
 	},
 /area/ruin/space/spacebotany/EastGarden)
-"pY" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/turf/simulated/floor/grass,
-/area/space)
 "pZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1487,10 +1376,6 @@
 /obj/item/storage/box/monkeycubes,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
-"sR" = (
-/obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/grass,
-/area/space)
 "sU" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -1563,10 +1448,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
-"tM" = (
-/obj/structure/sign/poster/official/help_others,
-/turf/simulated/wall,
-/area/space)
 "tP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/fungus_probably,
@@ -1736,11 +1617,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/space)
-"wa" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
-	},
-/area/space)
 "wb" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
@@ -1783,9 +1659,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Med)
-"wL" = (
-/turf/simulated/wall,
-/area/space)
 "wQ" = (
 /obj/machinery/light{
 	dir = 1
@@ -1797,11 +1670,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"wS" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/ambrosia/cruciatus,
-/turf/simulated/floor/grass,
-/area/space)
 "wT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1816,12 +1684,6 @@
 	icon_state = "greencorner"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"wV" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
-	},
-/area/space)
 "xh" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
@@ -1885,15 +1747,6 @@
 /obj/item/slimepotion/sentience,
 /obj/item/lazarus_injector,
 /turf/simulated/floor/plating,
-/area/space)
-"xN" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
 /area/space)
 "xU" = (
 /turf/simulated/floor/plating,
@@ -1975,9 +1828,6 @@
 "zU" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
-"zZ" = (
-/turf/simulated/floor/grass,
-/area/space)
 "Ac" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -1987,14 +1837,6 @@
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
-"Ae" = (
-/obj/machinery/hydroponics/soil,
-/obj/structure/flora/ausbushes/genericbush,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/grass,
-/area/space)
 "Am" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2219,13 +2061,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"CB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "CI" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -2269,12 +2104,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
-"Dn" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
-/area/space)
 "DB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -2293,9 +2122,6 @@
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/GardenMaint)
-"DI" = (
-/turf/simulated/floor/plasteel,
-/area/space)
 "DL" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel{
@@ -2525,24 +2351,10 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/spacebotany/Dorm)
-"Gn" = (
-/obj/machinery/hydroponics/soil,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/seeds/tea,
-/turf/simulated/floor/grass,
-/area/space)
 "Gy" = (
 /obj/item/paper/spacebotany/report,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/spacebotany/Vault)
-"GH" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/ambrosia/cruciatus,
-/obj/effect/decal/ants,
-/turf/simulated/floor/grass,
-/area/space)
 "GR" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
@@ -2561,10 +2373,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Med)
-"Ho" = (
-/obj/structure/flora/ausbushes/genericbush,
-/turf/simulated/floor/grass,
-/area/space)
 "HD" = (
 /obj/structure/flora/ausbushes/hell,
 /turf/simulated/floor/grass,
@@ -2805,12 +2613,6 @@
 	tag = "icon-whitegreen (EAST)"
 	},
 /area/ruin/space/spacebotany/Chem)
-"Ld" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/grass,
-/area/space)
 "Le" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
@@ -2907,10 +2709,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/EastGarden)
-"Mg" = (
-/obj/item/seeds/aloe,
-/turf/simulated/floor/grass,
-/area/space)
 "Mi" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/disposalpipe/segment{
@@ -3005,14 +2803,6 @@
 "NC" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/space)
-"NH" = (
-/obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/seeds/ambrosia/cruciatus,
-/turf/simulated/floor/grass,
 /area/space)
 "NL" = (
 /obj/machinery/light/small{
@@ -3251,12 +3041,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
-"QE" = (
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
-	},
-/area/space)
 "QF" = (
 /obj/effect/decal/cleanable/glass,
 /turf/space,
@@ -3368,12 +3152,6 @@
 /obj/machinery/door/window/southleft,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"Rr" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "greencorner"
-	},
-/area/space)
 "Rt" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -3435,17 +3213,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"Sp" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
 "SC" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
@@ -3482,10 +3249,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"SW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/space)
 "SX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -3715,20 +3478,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"Vu" = (
-/obj/structure/sign/poster/official/cleanliness,
-/turf/simulated/wall,
-/area/space)
-"Vw" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
-/area/space)
 "Vx" = (
 /obj/machinery/plantgenes,
 /turf/simulated/floor/plasteel{
@@ -3748,13 +3497,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
-"VN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "VO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3940,13 +3682,6 @@
 /obj/structure/sign/poster/contraband/cc64k_ad,
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
-"Yh" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
-	},
-/area/space)
 "Yp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3964,15 +3699,6 @@
 	icon_state = "greencorner"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"Yq" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/space)
 "Yr" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dust,
@@ -4043,10 +3769,6 @@
 /obj/item/rollingpaper,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Chem)
-"Zb" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel,
-/area/space)
 "Zc" = (
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/plasteel{
@@ -4658,7 +4380,7 @@ Os
 Os
 Os
 Os
-nh
+Os
 Os
 Os
 Os
@@ -4731,7 +4453,7 @@ Os
 Os
 Os
 Os
-Os
+nh
 Os
 Os
 Os
@@ -4753,16 +4475,16 @@ Os
 "}
 (9,1,1) = {"
 Os
-DE
-DE
-DE
-DE
-DE
-DE
-DE
-DE
-TG
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -4827,16 +4549,16 @@ Os
 "}
 (10,1,1) = {"
 Os
-DE
 Os
 Os
-wL
-lr
-cV
-cV
-lr
-wL
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -4901,16 +4623,16 @@ DE
 "}
 (11,1,1) = {"
 Os
-DE
 Os
-jq
-jq
-Gn
-fE
-af
-NH
-Yh
-DI
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -4975,16 +4697,16 @@ DE
 "}
 (12,1,1) = {"
 Os
-DE
-jq
-jq
-dX
-sR
-af
-Mg
-af
-Yh
-DI
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5049,16 +4771,16 @@ RR
 "}
 (13,1,1) = {"
 Os
-DE
-jq
-SW
-dX
-wS
-Ho
-af
-pY
-Yh
-DI
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5123,16 +4845,16 @@ RR
 "}
 (14,1,1) = {"
 Os
-wL
-jq
-DI
-Rr
-Vw
-ey
-xN
-Dn
-dA
-mm
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5197,16 +4919,16 @@ RR
 "}
 (15,1,1) = {"
 Os
-wL
-wL
-tM
-jq
-wL
-iG
-wL
-jq
-jq
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5271,16 +4993,16 @@ RR
 "}
 (16,1,1) = {"
 Os
-jq
-jq
-gv
-SW
-CB
-DI
-Sp
-is
-VN
-jK
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5345,16 +5067,16 @@ RR
 "}
 (17,1,1) = {"
 Os
-wL
-wL
-Vu
-jq
-wL
-fc
-wL
-jq
-jq
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5419,18 +5141,18 @@ TG
 "}
 (18,1,1) = {"
 Os
-wL
-jq
-DI
-wa
-Yq
-hG
-Yq
-hG
-ff
-Zb
 Os
-RR
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5493,18 +5215,18 @@ TG
 "}
 (19,1,1) = {"
 Os
-DE
-jq
-DI
-kG
-GH
-pY
-lE
-Mg
-wV
-DI
 Os
-RR
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5567,16 +5289,16 @@ TG
 "}
 (20,1,1) = {"
 Os
-DE
-jq
-jq
-QE
-fE
-af
-aw
-af
-wV
-DI
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5641,16 +5363,16 @@ RR
 "}
 (21,1,1) = {"
 Os
-DE
 Os
-jq
-jq
-Ae
-zZ
-af
-Ld
-wV
-DI
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5715,16 +5437,16 @@ RR
 "}
 (22,1,1) = {"
 Os
-RR
 Os
 Os
-wL
-wL
-jq
-jq
-wL
-wL
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
@@ -5789,16 +5511,16 @@ RR
 "}
 (23,1,1) = {"
 Os
-RR
-DE
-DE
-DE
-RR
-DE
-DE
-DE
-DE
-wL
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
 Os
 Os
 Os
