@@ -236,7 +236,7 @@
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
 		if(prob(50))
-			F.MakeSlippery(TURF_WET_WATER)
+			F.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if(prob(50))
 			visible_message(span_warning("Something flies out of [src]! It seems to be acting oddly."))
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))

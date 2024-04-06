@@ -173,3 +173,14 @@
 	Weaken(4 SECONDS)
 	to_chat(src, "Gravity!")
 
+/mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & GALOSHES_DONT_HELP))
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & (SLIDE_ICE|SLIDE)))
+		return FALSE
+
+	return ..()

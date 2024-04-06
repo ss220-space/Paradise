@@ -46,7 +46,7 @@
 	icon_state = "shadowling_shoes"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT|DROPDEL
-	clothing_traits = list(TRAIT_NOSLIP)
+	clothing_traits = list(TRAIT_NO_SLIP_ALL)
 
 /obj/item/clothing/shoes/shadowling/Initialize(mapload)
 	. = ..()

@@ -496,7 +496,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())

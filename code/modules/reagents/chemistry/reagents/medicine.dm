@@ -1221,8 +1221,7 @@
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		if(T.wet)
-			T.MakeDry(TURF_WET_LUBE)
+		T.MakeDry(TURF_WET_LUBE)
 
 //Liquid Solder: Mannitol
 /datum/reagent/medicine/liquid_solder

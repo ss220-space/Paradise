@@ -438,6 +438,9 @@
 ///From base of mob/update_movespeed():area
 #define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"
 
+/// from /mob/proc/slip(): (weaken, obj/slipped_on, lube_flags [mobs.dm], tilesSlipped)
+#define COMSIG_MOB_SLIPPED "mob_slipped"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -544,6 +547,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/toggle_throw_mode()
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+///When a carbon slips. Called on /turf/simulated/handle_slip()
+#define COMSIG_ON_CARBON_SLIP "carbon_slip"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
@@ -1004,3 +1009,5 @@
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
 
+///called when a plant with slippery skin is slipped on (mob/victim)
+#define COMSIG_PLANT_ON_SLIP "plant_on_slip"

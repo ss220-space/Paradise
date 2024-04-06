@@ -21,7 +21,7 @@
 	/// This is for unsafe_unwrenching protection
 	var/gustprotection = FALSE
 	/// A list of traits we apply when we get activated
-	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NOSLIP)
+	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
@@ -99,7 +99,7 @@
 	icon_state = "advsyndiemag0"
 	base_icon_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
-	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NOSLIP, TRAIT_IGNORE_LUBE)
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."

@@ -419,10 +419,6 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
-// Defined here to avoid runtimes
-/turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
-	return
-
 /turf/proc/burn_down()
 	return
 

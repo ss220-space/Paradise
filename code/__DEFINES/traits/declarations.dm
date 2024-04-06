@@ -13,6 +13,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TURF_COVERED "turf_covered"
 ///Turf slowdown will be ignored when this trait is added to a turf.
 #define TRAIT_TURF_IGNORE_SLOWDOWN "turf_ignore_slowdown"
+///Mobs won't slip on a wet turf while it has this trait
+#define TRAIT_TURF_IGNORE_SLIPPERY "turf_ignore_slippery"
 
 //mob traits
 #define TRAIT_PACIFISM "pacifism"
@@ -58,10 +60,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PULL_BLOCKED "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
-/// Prevents from slipping on wet floors, in space etc
-#define TRAIT_NOSLIP "noslip"
-/// Prevents from slipping on lube floors, anything
-#define TRAIT_IGNORE_LUBE "ignore_lube"
+/// Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [GALOSHES_DONT_HELP] set
+#define TRAIT_NO_SLIP_WATER "noslip_water"
+/// Stops the mob from slipping on permafrost ice (not any other ice) (but anything with [SLIDE_ICE] set)
+#define TRAIT_NO_SLIP_ICE "noslip_ice"
+/// Stop the mob from sliding around from being slipped, but not the slip part.
+/// DOES NOT include ice slips.
+#define TRAIT_NO_SLIP_SLIDE "noslip_slide"
+/// Stops all slipping and sliding from ocurring
+#define TRAIT_NO_SLIP_ALL "noslip_all"
+
 
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"

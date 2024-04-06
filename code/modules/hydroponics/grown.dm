@@ -156,12 +156,6 @@
 				T.on_consume(src, M)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
-	if(!seed)
-		return
-	for(var/datum/plant_gene/trait/T in seed.genes)
-		T.on_slip(src, H)
-
 // Glow gene procs
 /obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
 	if(trash && ispath(trash, /obj/item/grown))

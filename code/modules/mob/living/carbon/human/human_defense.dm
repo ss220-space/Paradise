@@ -764,7 +764,7 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(HAS_TRAIT(src, TRAIT_NOSLIP))
+	if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return FALSE
 	return ..()
 

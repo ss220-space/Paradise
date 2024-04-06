@@ -92,7 +92,7 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 4, 0, FALSE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, 4, SLIDE)
 
 /obj/item/card/cmag/attack()
 	return

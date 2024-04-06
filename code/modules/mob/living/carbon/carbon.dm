@@ -649,35 +649,11 @@
 		if(glands)
 			stat(null, "Wax: [glands.wax]")
 
-
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, slipVerb = "поскользнулись")
-	if(!magic_slip && ((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK)))
+/mob/living/carbon/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
+	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-
-	if(lying_angle && !tilesSlipped)
-		return FALSE
-
-	if(ishuman(src) && !magic_slip)
-		var/mob/living/carbon/human/H = src
-		if(HAS_TRAIT(H, TRAIT_NOSLIP))
-			return FALSE
-		if(lube_slip && HAS_TRAIT(H, TRAIT_IGNORE_LUBE))
-			return FALSE
-		if(!H.has_gravity() && !(HAS_TRAIT(H, TRAIT_NEGATES_GRAVITY) && lube_slip))
-			return FALSE
-
-	if(tilesSlipped)
-		for(var/i in 1 to tilesSlipped)
-			spawn(i)
-				step(src, dir)
-
-	stop_pulling()
-	to_chat(src, "<span class='notice'>Вы [slipVerb] на [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	// Something something don't run with scissors
-	moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-	Weaken(weaken)
-	return TRUE
+	..()
+	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
 /mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)

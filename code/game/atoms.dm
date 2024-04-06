@@ -682,15 +682,8 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-/**
-	Base proc, intended to be overriden.
-
-	This should only be called from one place: inside the slippery component.
-	Called after a human mob slips on this atom.
-
-	If you want the person who slipped to have something special done to them, put it here.
-*/
-/atom/proc/after_slip(mob/living/carbon/human/H)
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M)

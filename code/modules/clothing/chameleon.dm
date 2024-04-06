@@ -507,7 +507,7 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
-	clothing_traits = list(TRAIT_NOSLIP)
+	clothing_traits = list(TRAIT_NO_SLIP_WATER)
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
 	. = ..()
