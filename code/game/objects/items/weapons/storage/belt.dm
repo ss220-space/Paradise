@@ -65,7 +65,6 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
-	new /obj/item/multitool(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
