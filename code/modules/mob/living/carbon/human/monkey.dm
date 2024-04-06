@@ -7,6 +7,11 @@
 	icon = null
 	. = ..(mapload, species)
 
+/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species)
+	. = ..()
+	dna.SetSEState(GLOB.monkeyblock, TRUE)
+	LAZYOR(active_genes, /datum/dna/gene/monkey)
+
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	tts_seed = "Sniper"

@@ -90,29 +90,32 @@
 /datum/dna/gene/basic/grant_spell
 	var/obj/effect/proc_holder/spell/spelltype
 
-/datum/dna/gene/basic/grant_spell/activate(mob/M, connected, flags)
-	M.AddSpell(new spelltype(null))
-	..()
-	return TRUE
 
-/datum/dna/gene/basic/grant_spell/deactivate(mob/M, connected, flags)
-	for(var/obj/effect/proc_holder/spell/S as anything in M.mob_spell_list)
-		if(istype(S, spelltype))
-			M.RemoveSpell(S)
-	..()
-	return TRUE
+/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.AddSpell(new spelltype(null))
+
+
+/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	for(var/obj/effect/proc_holder/spell/spell as anything in mutant.mob_spell_list)
+		if(istype(spell, spelltype))
+			mutant.RemoveSpell(spell)
+
 
 /datum/dna/gene/basic/grant_verb
 	var/verbtype
 
-/datum/dna/gene/basic/grant_verb/activate(mob/M, connected, flags)
-	..()
-	M.verbs += verbtype
-	return TRUE
 
-/datum/dna/gene/basic/grant_verb/deactivate(mob/M, connected, flags)
-	..()
-	M.verbs -= verbtype
+/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.verbs |= verbtype
+
+
+/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.verbs -= verbtype
+
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
@@ -589,18 +592,22 @@
 	..()
 	block = GLOB.strongblock
 
-/datum/dna/gene/basic/strong/can_activate(mob/M, flags)
-	if(WEAK in M.mutations)
+
+/datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
+	if(WEAK in mutant.mutations)
 		return FALSE
 	return ..()
 
-/datum/dna/gene/basic/strong/activate(mob/living/M, connected, flags)
-	..()
-	change_strength(M, 1)
 
-/datum/dna/gene/basic/strong/deactivate(mob/living/M, connected, flags)
-	..()
-	change_strength(M, -1)
+/datum/dna/gene/basic/strong/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	change_strength(mutant, 1)
+
+
+/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	change_strength(mutant, -1)
+
 
 /datum/dna/gene/basic/strong/proc/change_strength(mob/living/M, modifier)
 	if(ishuman(M))
