@@ -660,16 +660,16 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		var/turf/simulated/T = get_turf(H)
-		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
+		if(!slipAny && HAS_TRAIT(H, TRAIT_NOSLIP))
 			return FALSE
 		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
 			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+			if(((T.wet == TURF_WET_LUBE) || (T.wet == TURF_WET_PERMAFROST)) && humanmagboots.magpulse && humanmagboots.lubeprotection)
 				return FALSE
 		if(!H.has_gravity() && !grav_ignore)
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
 				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+				if(!(((T.wet == TURF_WET_LUBE) || (T.wet == TURF_WET_PERMAFROST)) && humanmagboots.magpulse))
 					return FALSE
 			else
 				return FALSE

@@ -45,8 +45,8 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_shoes"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|DROPDEL|NOSLIP
-
+	flags = ABSTRACT|DROPDEL
+	clothing_traits = list(TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/shadowling/Initialize(mapload)
 	. = ..()

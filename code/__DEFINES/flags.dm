@@ -18,8 +18,6 @@
 
 #define EARBANGPROTECT			(1<<9)
 
-#define NOSLIP					(1<<10) 	//prevents from slipping on wet floors, in space etc
-
 #define NOPICKUP				(1<<11)		// This flags makes it so an item cannot be picked in hands
 
 #define HEADBANGPROTECT			(1<<12)

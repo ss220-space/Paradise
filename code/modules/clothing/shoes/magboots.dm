@@ -23,7 +23,7 @@
 	/// This is for lube protection when magpulse
 	var/lubeprotection = FALSE
 	/// A list of traits we apply when we get activated
-	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY)
+	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
@@ -62,12 +62,10 @@
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		attach_clothing_traits(active_traits)
-		flags |= NOSLIP
 		slowdown = slowdown_active
 	else
 		STOP_PROCESSING(SSobj, src)
 		detach_clothing_traits(active_traits)
-		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
