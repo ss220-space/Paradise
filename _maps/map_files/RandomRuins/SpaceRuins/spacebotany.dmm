@@ -3343,8 +3343,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "Uc" = (
 /mob/living/simple_animal/hostile/carp,
-/obj/structure/lattice/catwalk,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/space)
 "Ui" = (
 /obj/item/paper,
