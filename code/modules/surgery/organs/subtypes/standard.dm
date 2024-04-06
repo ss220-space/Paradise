@@ -176,6 +176,7 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1)
 	user.update_fractures_slowdown()
+	user.drop_item_ground(user.shoes, force = TRUE)
 
 
 /obj/item/organ/external/foot/fracture(silent = FALSE)
@@ -258,10 +259,6 @@
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
 
-/obj/item/organ/external/foot/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner?.shoes)
-		owner.drop_item_ground(owner.shoes, force = TRUE)
-	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_zone = BODY_ZONE_PRECISE_R_FOOT
@@ -297,6 +294,9 @@
 	user.set_num_hands(user.num_hands - 1)
 	if(is_usable())
 		user.set_usable_hands(user.usable_hands - 1)
+	user.drop_item_ground(user.gloves, force = TRUE)
+	user.drop_item_ground(user.l_hand, force = TRUE)
+	user.drop_item_ground(user.r_hand, force = TRUE)
 
 
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
@@ -345,16 +345,6 @@
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
-/obj/item/organ/external/hand/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
-		if(owner.gloves)
-			owner.drop_item_ground(owner.gloves, force = TRUE)
-		if(owner.l_hand)
-			owner.drop_item_ground(owner.l_hand, force = TRUE)
-		if(owner.r_hand)
-			owner.drop_item_ground(owner.r_hand, force = TRUE)
-
-	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_zone = BODY_ZONE_PRECISE_R_HAND

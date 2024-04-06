@@ -21,9 +21,9 @@
 /mob/living/carbon/AIize()
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	notransform = 1
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -67,10 +67,10 @@
 /mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 
-	notransform = 1
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -132,10 +132,9 @@
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	regenerate_icons()
-	notransform = 1
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -156,11 +155,10 @@
 
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 
-	regenerate_icons()
-	notransform = 1
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -195,9 +193,8 @@
 /mob/living/carbon/human/proc/paize(name, bespai)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	regenerate_icons()
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 	notransform = TRUE
 	canmove = FALSE
 	icon = null
@@ -228,7 +225,7 @@
 	if(stat == DEAD)
 		return
 
-	for(var/obj/item/check in get_all_slots())
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 
 	notransform = TRUE
