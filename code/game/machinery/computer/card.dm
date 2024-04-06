@@ -772,6 +772,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
+/obj/machinery/computer/card/minor/qm
+	name = "supply management console"
+	target_dept = TARGET_DEPT_SUP
+	icon_screen = "idqm"
+	light_color = COLOR_BROWN_ORANGE
+	req_access = list(ACCESS_QM)
+	circuit = /obj/item/circuitboard/card/minor/qm
+
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"
 	target_dept = TARGET_DEPT_MED
