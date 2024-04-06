@@ -68095,6 +68095,9 @@
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/fulton_core,
+/obj/item/extraction_pack,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

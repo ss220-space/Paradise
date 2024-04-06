@@ -38298,6 +38298,9 @@
 /obj/item/cartridge/quartermaster{
 	pixel_x = -3
 	},
+/obj/item/extraction_pack,
+/obj/item/fulton_core,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -45957,8 +45960,7 @@
 	dir = 4
 	},
 /obj/item/lighter/zippo/qm{
-	pixel_x = -12;
-	pixel_y = 0
+	pixel_x = -12
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)

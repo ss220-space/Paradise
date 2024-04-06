@@ -77809,6 +77809,9 @@
 /area/maintenance/apmaint)
 "mSV" = (
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/extraction_pack,
+/obj/item/fulton_core,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
