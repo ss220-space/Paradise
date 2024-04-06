@@ -43,6 +43,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/cyborg,
 		/datum/job/captain,
 		/datum/job/hop,
+		/datum/job/qm,
 		/datum/job/hos,
 		/datum/job/chief_engineer,
 		/datum/job/rd,
