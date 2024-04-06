@@ -195,7 +195,7 @@
 							"silver" = /obj/item/clothing/under/night_dress/silver,
 							"white" = /obj/item/clothing/under/night_dress/white,)
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
-	
+
 /datum/gear/donor/strip/cheese_badge
 	display_name = "great fellow's badge"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
@@ -208,3 +208,15 @@
 	donator_tier = 4
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
+
+/datum/gear/donor/hazardbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+
+/datum/gear/donor/atmosbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
