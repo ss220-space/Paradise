@@ -60,6 +60,12 @@
 	pixel_x = 30
 	},
 /mob/living/simple_animal/pet/sloth/paperwork,
+/obj/machinery/requests_console{
+	pixel_y = -30;
+	departmentType = 5;
+	department = "Quartermaster's Desk";
+	name = "Quartermaster Requests Console"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -32606,6 +32612,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/reagent_containers/food/drinks/mug/serv,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -32688,9 +32697,7 @@
 	},
 /area/quartermaster/office)
 "dmQ" = (
-/obj/machinery/computer/supplycomp{
-	dir = 8
-	},
+/obj/machinery/computer/card/minor/qm,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -51312,10 +51319,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "gfk" = (
-/obj/item/paper_bin,
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/reagent_containers/food/drinks/mug/serv,
+/obj/machinery/computer/supplycomp{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -68098,6 +68104,7 @@
 /obj/item/fulton_core,
 /obj/item/extraction_pack,
 /obj/item/flash,
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -112959,14 +112966,22 @@
 /area/maintenance/engineering)
 "uvF" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/folder/yellow{
+	pixel_y = 10;
+	pixel_x = 8
+	},
+/obj/item/stamp/qm{
+	pixel_y = 10;
+	pixel_x = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/item/qm_quest_tablet{
 	pixel_y = -11
 	},
+/obj/machinery/keycard_auth,
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
