@@ -251,12 +251,12 @@
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
 
-/mob/living/carbon/human/ex_act(severity)
+/mob/living/carbon/human/ex_act(severity, turf/epicenter)
 	var/bruteloss = 0
 	var/burnloss = 0
 
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
 
 	var/armor = getarmor(null, "bomb")	//Average bomb protection
 	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
@@ -266,14 +266,11 @@
 		if(1)
 			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
-				return 0
+				return FALSE
 			else
 				bruteloss += 500
 				limbs_affected = pick(2,3,4)
-				var/throw_distance = ex_armor_reduction(200, armor)
-				var/throw_speed = ex_armor_reduction(4, armor)
-				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
-				throw_at(target, throw_distance, throw_speed)
+
 		if(2)
 			bruteloss += 60
 			burnloss += 60
@@ -285,8 +282,6 @@
 				if(istype(ears))
 					ears.receive_damage(ex_armor_reduction(30, armor))
 
-			Paralyse(ex_armor_reduction(20 SECONDS, armor))
-
 		if(3)
 			bruteloss += 30
 			limbs_affected = pick(0, 1)
@@ -294,15 +289,24 @@
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustDeaf(ex_armor_reduction(60 SECONDS, armor))
 
-			Paralyse(ex_armor_reduction(20 SECONDS, armor))
-
 	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
+	if(epicenter)
+		var/throw_distance = round(4 - severity + ex_armor_reduction(4 - severity, armor))
+		var/throw_speed = 14 - severity * 4 + ex_armor_reduction(4 - severity, armor)
+		var/dir_if_centered = epicenter == get_turf(src) ? rand(0, 10) : null
+		var/turf/turf_to_land
+		if(!dir_if_centered)
+			turf_to_land = get_turf_in_angle(get_angle(epicenter, src), get_turf(src), throw_distance)
+		else
+			turf_to_land = get_turf_in_angle(get_angle(epicenter, get_step(src, dir_if_centered)), get_turf(src), throw_distance)
+
+		throw_at(turf_to_land, throw_distance, throw_speed)
 
 	if(limbs_affected > 0)
 		process_dismember(limbs_affected)
 	bruteloss = ex_armor_reduction(bruteloss, armor)
 	burnloss = ex_armor_reduction(burnloss, armor)
-	take_overall_damage(bruteloss,burnloss, TRUE, used_weapon = "Explosive Blast")
+	take_overall_damage(bruteloss, burnloss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
