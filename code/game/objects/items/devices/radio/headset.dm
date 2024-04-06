@@ -291,7 +291,7 @@
 	ks2type = /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/heads/qm
-	name = "Quartermaster's headset"
+	name = "quartermaster's headset"
 	desc = "Smelling of tobacco and gunpowder, this headset has likely seen many backroom deals."
 	icon_state = "com_headset"
 	item_state = "headset"
