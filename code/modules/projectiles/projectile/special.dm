@@ -103,7 +103,7 @@
 
 	if(ishuman(target))
 		var/temp_diff = temperature - target.bodytemperature
-		if(target.bodytemperature < temperature)
+		if(temperature < target.bodytemperature)
 			// This returns a 0 - 1 value, which corresponds to the percentage of protection
 			// based on what you're wearing and what you're exposed to
 			var/thermal_protection = target.get_cold_protection(temperature)
