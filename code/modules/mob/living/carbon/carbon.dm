@@ -650,7 +650,7 @@
 			stat(null, "Wax: [glands.wax]")
 
 
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, grav_ignore = FALSE, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, slipVerb = "поскользнулись")
 	if(!magic_slip && ((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK)))
 		return FALSE
 
@@ -663,7 +663,7 @@
 			return FALSE
 		if(lube_slip && HAS_TRAIT(H, TRAIT_IGNORE_LUBE))
 			return FALSE
-		if(!H.has_gravity() && !grav_ignore && !(HAS_TRAIT(H, TRAIT_NEGATES_GRAVITY) && lube_slip))
+		if(!H.has_gravity() && !(HAS_TRAIT(H, TRAIT_NEGATES_GRAVITY) && lube_slip))
 			return FALSE
 
 	if(tilesSlipped)

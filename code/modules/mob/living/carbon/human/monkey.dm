@@ -36,7 +36,7 @@
 	tts_seed = "Witchdoctor"
 	//holder_type = /obj/item/holder/stok
 
-/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, grav_ignore = FALSE, slipVerb = "поскользнулись")
+/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, magic_slip = FALSE, lube_slip = FALSE, slipVerb = "поскользнулись")
 	. = ..()
-	if(prob(50) && (has_gravity() || grav_ignore))
+	if(prob(50) && has_gravity())
 		drop_item_ground(shoes, force = TRUE)
