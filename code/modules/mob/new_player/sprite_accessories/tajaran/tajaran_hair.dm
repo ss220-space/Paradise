@@ -79,3 +79,17 @@
 	name = "Tajara Finger Curls"
 	icon_state = "fingerwave"
 	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_marmalade
+	name = "Tajara Marmalade"
+	icon_state = "marmalade"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_shy
+	name = "Tajara Shy"
+	icon_state = "shy"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_metal
+	name = "Tajara Metal"
+	icon_state = "metal"

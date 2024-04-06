@@ -102,3 +102,41 @@
 	name = "Big Leaf"
 	icon_state = "bigleaf"
 	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/diona_vines
+	name = "Vines"
+	icon_state = "vines"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/diona_vines_large
+	name = "Large Vines"
+	icon_state = "vinel"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/diona_palm
+	name = "Palm"
+	icon_state = "palm"
+
+/datum/sprite_accessory/hair/diona/diona_ficus
+	name = "Ficus"
+	icon_state = "ficus"
+
+/datum/sprite_accessory/hair/diona/diona_shrub
+	name = "Shrub"
+	icon_state = "shrub"
+
+/datum/sprite_accessory/hair/diona/diona_garland
+	name = "Garland"
+	icon_state = "garland"
+
+/datum/sprite_accessory/hair/diona/diona_king
+	name = "King"
+	icon_state = "king"
+
+/datum/sprite_accessory/hair/diona/diona_bloom
+	name = "Bloom"
+	icon_state = "bloom"
+
+/datum/sprite_accessory/hair/diona/diona_rosealt
+	name = "Rose alt"
+	icon_state = "rose"
