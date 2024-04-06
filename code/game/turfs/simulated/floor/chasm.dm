@@ -117,7 +117,7 @@
 							 span_notice("You hear the sound of a fishing rod."))
 		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
 		if(do_after(user, 6 SECONDS, target = src))
-			if(!rod.wielded)
+			if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 				return
 			var/list/fishing_contents = list()
 			for(var/turf/simulated/floor/chasm/chasm in range(4, src))
