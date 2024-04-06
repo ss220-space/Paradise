@@ -8574,7 +8574,7 @@
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/brig,
 /obj/machinery/light,
 /obj/machinery/camera/motion{
 	c_tag = "Prison Lobby";
@@ -17652,10 +17652,7 @@
 "aVy" = (
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
+/obj/item/reagent_containers/spray/cleaner/chemical,
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "imnotmakingyoulubepissoff";
@@ -33219,7 +33216,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/item/folder/white,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -37552,7 +37549,7 @@
 	},
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/medical{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
@@ -39233,7 +39230,7 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
@@ -40014,7 +40011,7 @@
 "bYk" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/machinery/light_switch{
 	name = "east light switch";
 	pixel_x = 24
@@ -42139,7 +42136,7 @@
 /obj/structure/table/glass,
 /obj/item/storage/toolbox/emergency,
 /obj/machinery/light,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/item/radio/intercom{
 	name = "south station intercom (General)";
 	pixel_y = -28
@@ -42326,11 +42323,12 @@
 /area/medical/genetics)
 "ccR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/janitor,
 /obj/item/key/janitor,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
+/obj/item/reagent_containers/spray/cleaner/janitor,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ccS" = (
@@ -46211,7 +46209,7 @@
 	},
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/effect/decal/warning_stripes/southeastcorner,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -47163,7 +47161,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/masks,
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/medical{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
@@ -48799,7 +48797,7 @@
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper/precision,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -51966,14 +51964,8 @@
 /obj/structure/table,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
+/obj/item/reagent_containers/spray/cleaner/chemical,
+/obj/item/reagent_containers/spray/cleaner/chemical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78306,7 +78298,7 @@
 "ntv" = (
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/medical,
 /obj/machinery/door_control{
 	id = "durka1";
 	name = "Privacy Shutters Control";
@@ -81505,7 +81497,7 @@
 /obj/item/cartridge/janitor,
 /obj/item/flashlight,
 /obj/item/storage/bag/trash,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/janitor,
 /obj/item/melee/flyswatter,
 /obj/item/storage/box/lights/mixed,
 /obj/structure/closet/jcloset,
@@ -84790,7 +84782,7 @@
 	pixel_x = -1;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/brig{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -85297,7 +85289,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/masks,
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/medical{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
@@ -87296,7 +87288,7 @@
 	pixel_x = 4;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/spray/cleaner{
+/obj/item/reagent_containers/spray/cleaner/brig{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner"
 	},
