@@ -62,9 +62,10 @@
 /mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/requests_console{
 	pixel_y = -30;
-	departmentType = 5;
+	announcementConsole = 1;
 	department = "Quartermaster's Desk";
-	name = "Quartermaster Requests Console"
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
