@@ -559,7 +559,7 @@
 	trashtype = /obj/item/restraints/handcuffs/energy/used
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, silent = FALSE)
+/obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 	"<span class='userdanger'>Your [name] shatter in a discharge of dark magic!</span>")
 	. = ..()

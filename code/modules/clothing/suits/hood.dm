@@ -47,7 +47,7 @@
 	RemoveHood(user)
 
 
-/obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/hooded/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	RemoveHood(user)
 
@@ -113,22 +113,31 @@
 	return ..()
 
 
-/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
-	. = ..()
-	if(!suit)
-		qdel(src)
-		return FALSE
-	if(slot != SLOT_HUD_HEAD || user.wear_suit != suit)
-		user.drop_item_ground(src, force = TRUE, silent = TRUE)
-		return FALSE
-
-
-/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
-	. = ..()
+/obj/item/clothing/head/hooded/attack_hand(mob/user, pickupfireoverride = FALSE)
 	if(suit)
 		suit.RemoveHood(user)
-	else if(!QDELETED(src))
+	else
 		qdel(src)
+		stack_trace("Investigate suit hood attackhand of type: [type]")
+
+
+/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
+	. = ..()
+	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate suit hood equip of type: [type]")
+		return FALSE
+
+
+/obj/item/clothing/head/hooded/dropped(mob/living/carbon/user, slot, silent = FALSE)
+	. = ..()
+	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate suit hood drop of type: [type]")
+		return FALSE
+	suit.RemoveHood(user)
 
 
 /obj/item/clothing/head/hooded/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
@@ -136,4 +145,5 @@
 		suit.RemoveHood(usr)
 	else
 		qdel(src)
+		stack_trace("Investigate suit hood mousedrop of type: [type]")
 

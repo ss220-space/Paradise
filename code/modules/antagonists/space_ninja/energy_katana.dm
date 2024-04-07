@@ -78,7 +78,7 @@
 			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 
-/obj/item/melee/energy_katana/dropped(mob/user, silent = FALSE)
+/obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user && user.client)
 		jaunt.Remove(user)

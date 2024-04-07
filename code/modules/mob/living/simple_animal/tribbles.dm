@@ -102,7 +102,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
-/obj/item/toy/tribble/dropped(mob/user, silent = FALSE) //now you can't item form them to get rid of them all so easily
+/obj/item/toy/tribble/dropped(mob/user, slot, silent = FALSE) //now you can't item form them to get rid of them all so easily
 	new /mob/living/simple_animal/tribble(user.loc)
 	for(var/mob/living/simple_animal/tribble/T in user.loc)
 		T.icon_state = src.icon_state

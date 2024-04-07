@@ -620,7 +620,7 @@
 	return I
 
 
-/obj/item/cardhand/dropped(mob/user, silent = FALSE)
+/obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user)
 		direction = user.dir
