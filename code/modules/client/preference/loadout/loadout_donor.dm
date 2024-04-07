@@ -238,3 +238,9 @@
 	cost = 1
 	display_name = "backpack, Military Satchel"
 	path = /obj/item/storage/backpack/fluff/syndiesatchel
+
+/datum/gear/donor/spacecloak
+	donator_tier = 3
+	cost = 1
+	display_name = "Space cloak"
+	path = /obj/item/clothing/neck/spacecloak
