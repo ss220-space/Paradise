@@ -264,6 +264,9 @@
 
 	return organs
 
+/datum/surgery_step/internal/manipulate_organs
+	time = 6.4 SECONDS
+
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"
 	allowed_tools = list(

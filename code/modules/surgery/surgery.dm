@@ -129,8 +129,8 @@
 /**
  * Get the current surgery step we're on
  */
-/datum/surgery/proc/get_surgery_step()
-	var/step_type = steps[step_number]
+/datum/surgery/proc/get_surgery_step(add_number = 0)
+	var/step_type = steps[clamp(step_number + add_number, 1, length(steps))]
 	return new step_type
 
 /**

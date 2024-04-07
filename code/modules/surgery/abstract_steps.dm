@@ -217,10 +217,9 @@
 		following_steps = next_surgery_steps.Copy()
 		following_steps.Cut(1, 2)
 
-	running_surgery.step_number++
-
-	var/datum/surgery_step/next_step = running_surgery.get_surgery_step()
+	var/datum/surgery_step/next_step = running_surgery.get_surgery_step(add_number = 1)
 	var/step_status = next_step.try_op(user, target, target_zone, tool, running_surgery)
+	running_surgery.step_number++ /// after for operation comp correct update
 
 	if(step_status != SURGERY_INITIATE_SUCCESS)
 		// always add ourselves after a failure so someone can make a different choice.
@@ -230,7 +229,7 @@
 		// Since we've already bumped up the step count, if we tried the main branch in the surgery and failed it, we need to add both
 		// the proxy step and the main step to keep them both as options.
 		if(readd_step_on_fail)
-			running_surgery.steps.Insert(running_surgery.step_number + 2, next_step.type)
+			running_surgery.steps.Insert(running_surgery.step_number + 1, next_step.type)
 
 	else
 		// Insert the steps in our intermediate surgery into the current surgery.
@@ -278,7 +277,7 @@
 		return TRUE
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 	// It's alright for intermediate surgeries, though, since they never get called like that.
-	to_chat(user, span_warning("The veins in [target]'s [parse_zone(affected)] seem to be in perfect condition, they don't need mending."))
+	to_chat(user, span_warning("The veins in [target]'s [affected] seem to be in perfect condition, they don't need mending."))
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
@@ -320,7 +319,7 @@
 	if(affected.has_fracture())
 		return TRUE
 	else
-		to_chat(user, span_warning("The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending."))
+		to_chat(user, span_warning("The bones in [target]'s [affected] look fully intact, they don't need mending."))
 	return FALSE
 
 /// Proxy surgery step to allow healing bleeding and mending bones.
