@@ -785,6 +785,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/ce,
 		/obj/item/encryptionkey/heads/cmo,
 		/obj/item/encryptionkey/heads/hop,
+		/obj/item/encryptionkey/heads/qm,
 		/obj/item/encryptionkey/heads/ntrep,
 		/obj/item/encryptionkey/heads/magistrate,
 		/obj/item/encryptionkey/heads/blueshield,

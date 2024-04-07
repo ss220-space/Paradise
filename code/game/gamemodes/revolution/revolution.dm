@@ -12,7 +12,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
+	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -336,7 +336,7 @@
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
 		if(player.stat == DEAD && player.mind?.assigned_role)
-			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CHIEF, JOB_TITLE_RD))
+			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				scoreboard.score_dead_command++
 
 
@@ -367,7 +367,7 @@
 		var/mob/living/carbon/human/player = thing
 		if(player.mind)
 			var/role = player.mind.assigned_role
-			if(role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CHIEF, JOB_TITLE_RD))
+			if(role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				if(player.stat != DEAD)
 					comcount++
 			else
