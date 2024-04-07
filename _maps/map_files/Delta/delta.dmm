@@ -65,7 +65,7 @@
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
 	departmentType = 5;
-	name = "Quartermaster Requests Console";
+	name = "Quartermaster Requests Console"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8412,10 +8412,16 @@
 /area/hallway/secondary/entry)
 "bgT" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/toy/figure/qm,
+/obj/item/folder/yellow{
+	pixel_y = 1
+	},
 /obj/item/lighter/zippo/qm{
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 4
+	},
+/obj/item/toy/figure/qm{
+	pixel_y = 2;
+	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14691,21 +14697,8 @@
 /area/bridge)
 "bLH" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/item/gps{
-	desc = "A positioning system designed to keep an eye on your fellow workers.";
-	gpstag = "CARG0";
-	icon_state = "gps-m"
+/obj/item/qm_quest_tablet{
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -32609,13 +32602,16 @@
 /area/medical/reception)
 "dmI" = (
 /obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 13
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/reagent_containers/food/drinks/mug/serv,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/item/reagent_containers/food/drinks/mug/serv{
+	pixel_x = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -68106,6 +68102,23 @@
 /obj/item/extraction_pack,
 /obj/item/flash,
 /obj/item/megaphone,
+/obj/item/gps{
+	desc = "A positioning system designed to keep an eye on your fellow workers.";
+	gpstag = "CARG0";
+	icon_state = "gps-m"
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -3
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/clipboard,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -112967,10 +112980,6 @@
 /area/maintenance/engineering)
 "uvF" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow{
-	pixel_y = 10;
-	pixel_x = 8
-	},
 /obj/item/stamp/qm{
 	pixel_y = 10;
 	pixel_x = 8
@@ -112978,11 +112987,16 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/item/qm_quest_tablet{
-	pixel_y = -11
+/obj/machinery/keycard_auth,
+/obj/machinery/keycard_auth,
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = -10
 	},
-/obj/machinery/keycard_auth,
-/obj/machinery/keycard_auth,
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = -10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},

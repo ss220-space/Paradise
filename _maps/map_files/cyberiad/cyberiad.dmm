@@ -72078,7 +72078,14 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/item/megaphone,
+/obj/item/pen{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/obj/item/pen/red{
+	pixel_x = -1;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -72339,21 +72346,6 @@
 /area/maintenance/server)
 "gRy" = (
 /obj/structure/table,
-/obj/item/folder/yellow{
-	pixel_y = 8;
-	pixel_x = 8
-	},
-/obj/item/pen{
-	pixel_x = 10;
-	pixel_y = 8
-	},
-/obj/item/pen/red{
-	pixel_x = 10;
-	pixel_y = 8
-	},
-/obj/item/lighter/zippo/qm{
-	pixel_x = -9
-	},
 /obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -77808,6 +77800,23 @@
 /obj/item/extraction_pack,
 /obj/item/fulton_core,
 /obj/item/flash,
+/obj/item/clipboard,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/megaphone{
+	pixel_x = 7
+	},
+/obj/item/stamp/qm{
+	pixel_x = 7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -78656,19 +78665,20 @@
 /area/security/warden)
 "nRV" = (
 /obj/structure/table,
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/toy/figure/qm,
+/obj/item/folder/yellow{
+	pixel_y = -4
+	},
+/obj/item/toy/figure/qm{
+	pixel_y = 3;
+	pixel_x = 8
+	},
+/obj/item/lighter/zippo/qm{
+	pixel_x = -8;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -84932,12 +84942,10 @@
 /area/civilian/vacantoffice)
 "uWw" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/stamp/qm,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/qm_quest_tablet{
 	pixel_x = 1;
-	pixel_y = 12
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
