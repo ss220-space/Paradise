@@ -1502,10 +1502,6 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	cut_overlays()
-	update_mutantrace()
-	regenerate_icons()
-
 	if(dna.species)
 		return TRUE
 	else
