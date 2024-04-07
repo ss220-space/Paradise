@@ -62,7 +62,7 @@
 	if(wearer)
 		shield_icon = "broken"
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
-		wearer.update_appearance(UPDATE_ICON)
+		wearer.regenerate_icons()
 		wearer = null
 	on_hit_effects = null
 	return ..()
@@ -105,7 +105,7 @@
 /datum/component/shielded/proc/adjust_charge(change)
 	current_charges = clamp(current_charges + change, 0, max_charges)
 	if(wearer)
-		wearer.update_appearance(UPDATE_ICON)
+		apply_shield_overlay()
 
 /// Check if we've been equipped to a valid slot to shield
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
@@ -121,21 +121,21 @@
 	SIGNAL_HANDLER
 
 	if(wearer)
-		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(wearer, list(COMSIG_HUMAN_REGENERATE_ICONS, COMSIG_PARENT_QDELETING))
 		wearer.cut_overlay(shield)
-		wearer.update_appearance(UPDATE_ICON)
+		wearer.regenerate_icons()
 		wearer = null
 
 /datum/component/shielded/proc/set_wearer(mob/user)
 	wearer = user
-	RegisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	RegisterSignal(wearer, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(apply_shield_overlay))
 	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
 	if(current_charges)
-		wearer.update_appearance(UPDATE_ICON)
+		apply_shield_overlay()
 
 /// Used to draw the shield overlay on the wearer
-/datum/component/shielded/proc/on_update_overlays(atom/parent_atom)
-	SIGNAL_HANDLER
+/datum/component/shielded/proc/apply_shield_overlay()
+	SIGNAL_HANDLER //COMSIG_HUMAN_REGENERATE_ICONS
 	wearer.cut_overlay(shield)
 	var/mutable_appearance/shield_appearance = mutable_appearance(shield_icon_file, (current_charges > 0 ? shield_icon : "broken"), MOB_LAYER + 0.01)
 	if(show_charge_as_alpha)
@@ -185,6 +185,6 @@
 /// Default on_hit proc, since cult robes are stupid and have different descriptions/sparks
 /datum/component/shielded/proc/default_run_hit_callback(mob/living/owner, attack_text, current_charges)
 	do_sparks(2, TRUE, owner)
-	owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+	owner.visible_message(span_danger("[owner]'s shields deflect [attack_text] in a shower of sparks!"))
 	if(current_charges <= 0)
-		owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
+		owner.visible_message(span_warning("[owner]'s shield overloads!"))

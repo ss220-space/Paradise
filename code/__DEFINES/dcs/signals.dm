@@ -738,6 +738,8 @@
 #define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+///From mob/living/carbon/human/regenerate_icons()
+#define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
