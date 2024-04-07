@@ -59,7 +59,7 @@
 	req_tech = list("biotech" = 6, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000, MAT_SILVER = 600)
-	build_path = obj/item/bodyanalyzer/rnd
+	build_path = /obj/item/bodyanalyzer/rnd
 	category = list("Medical")
 
 /datum/design/handheld_defib
