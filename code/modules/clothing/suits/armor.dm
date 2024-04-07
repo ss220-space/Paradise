@@ -689,4 +689,8 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		)
+
