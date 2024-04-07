@@ -109,7 +109,7 @@
 				new /obj/structure/lattice/catwalk/fireproof(src)
 	if(istype(C, /obj/item/twohanded/fishingrod))
 		var/obj/item/twohanded/fishingrod/rod = C
-		if(!rod.wielded)
+		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("You need to wield the rod in both hands before you can fish in the chasm!"))
 			return
 		user.visible_message(span_warning("[user] throws a fishing rod into the chasm and tries to catch something!"),
