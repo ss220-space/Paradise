@@ -238,3 +238,9 @@
 	cost = 1
 	display_name = "backpack, Military Satchel"
 	path = /obj/item/storage/backpack/fluff/syndiesatchel
+
+/datum/gear/donor/golden_wheelchair
+	donator_tier = 4
+	cost = 1
+	display_name = "Golden wheelchair paintkit"
+	path = /obj/item/fluff/rapid_wheelchair_kit
