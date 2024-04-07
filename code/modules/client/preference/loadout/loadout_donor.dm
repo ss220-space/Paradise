@@ -238,3 +238,15 @@
 	cost = 1
 	display_name = "backpack, Military Satchel"
 	path = /obj/item/storage/backpack/fluff/syndiesatchel
+
+/datum/gear/donor/hazardbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+
+/datum/gear/donor/atmosbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)

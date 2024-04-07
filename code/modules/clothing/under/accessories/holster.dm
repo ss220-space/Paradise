@@ -157,6 +157,30 @@
 	icon_state = "holster"
 	item_color = "holster_low"
 
+/obj/item/clothing/accessory/holster/leg
+	name = "leg holster"
+	desc = "A handgun holster. This one for spies."
+	icon_state = "leg_holster"
+	item_color = "leg_holster"
+
+/obj/item/clothing/accessory/holster/leg/black
+	name = "black leg holster"
+	desc = "A handgun holster. This one for spies. Comes in stealthy black."
+	icon_state = "leg_holster_black"
+	item_color = "leg_holster_black"
+
+/obj/item/clothing/accessory/holster/belt
+	name = "belt holster"
+	desc = "A handgun holster. This one for security officers to remind some good ol' times."
+	icon_state = "belt_holster"
+	item_color = "belt_holster"
+
+/obj/item/clothing/accessory/holster/belt/black
+	name = "black belt holster"
+	desc = "A handgun holster. This one for security officers to remind some good ol' times. Comes in black, just like in the America!"
+	icon_state = "belt_holster_black"
+	item_color = "belt_holster_black"
+
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"
 	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
