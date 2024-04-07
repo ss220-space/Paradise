@@ -19,8 +19,7 @@
 /obj/item/clothing/suit/hooded/proc/MakeHood()
 	item_color = initial(icon_state)
 	if(!hood)
-		var/obj/item/clothing/head/hooded/new_hood = new hoodtype(src)
-		new_hood.suit = src
+		var/obj/item/clothing/head/hooded/new_hood = new hoodtype(src, src)
 		hood = new_hood
 
 
@@ -58,7 +57,10 @@
 
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood(mob/living/carbon/human/user)
-	if(!ishuman(user) || !hood)
+	if(!ishuman(user))
+		return
+	if(!hood)
+		to_chat(user, span_warning("[src] has no head gear anymore!"))
 		return
 	if(suit_adjusted)
 		RemoveHood(user)
@@ -89,8 +91,6 @@
 	if(!hood)
 		return FALSE
 	if(!suit_adjusted)
-		if(hood.loc != src)	// in case hood was dropped on equip and suit is already adjusted
-			hood.forceMove(src)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
@@ -108,8 +108,19 @@
 	var/obj/item/clothing/suit/hooded/suit
 
 
+/obj/item/clothing/head/hooded/Initialize(mapload, obj/item/clothing/suit/hooded/parent)
+	. = ..()
+	if(istype(parent))
+		suit = parent
+	else
+		stack_trace("Investigate suit hood ([type]). Initialized without proper suit.")
+
+
 /obj/item/clothing/head/hooded/Destroy()
-	suit = null
+	if(suit)
+		suit.RemoveHood(loc)
+		suit.hood = null
+		suit = null
 	return ..()
 
 

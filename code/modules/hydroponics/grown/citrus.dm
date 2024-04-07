@@ -189,14 +189,14 @@
 
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/equipped(mob/user, slot, initial = FALSE)
-	big_icon = TRUE
+	big_icon = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	big_icon = FALSE
+	big_icon = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 

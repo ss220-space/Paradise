@@ -40,8 +40,19 @@
 		)
 
 
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
+	. = ..()
+	if(istype(parent))
+		suit = parent
+	else
+		stack_trace("Investigate hardsuit helmet ([type]). Initialized without proper suit.")
+
+
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	suit = null
+	if(suit)
+		suit.RemoveHelmet(loc)
+		suit.helmet = null
+		suit = null
 	return ..()
 
 
@@ -166,8 +177,7 @@
 	if(!helmettype || helmet)
 		return
 
-	var/obj/item/clothing/head/helmet/space/hardsuit/new_helmet = new helmettype(src)
-	new_helmet.suit = src
+	var/obj/item/clothing/head/helmet/space/hardsuit/new_helmet = new helmettype(src, src)
 	helmet = new_helmet
 	helmet.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -202,7 +212,10 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(mob/living/carbon/human/user)
-	if(!helmet || !ishuman(user))
+	if(!ishuman(user))
+		return
+	if(!helmet)
+		to_chat(user, span_warning("[src] has no helmet anymore!"))
 		return
 	if(taser_proof?.ert_mindshield_locked)
 		if(isertmindshielded(user))
