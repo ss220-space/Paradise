@@ -177,7 +177,7 @@
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
 		return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & GALOSHES_DONT_HELP))
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
 		return FALSE
 
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & (SLIDE_ICE|SLIDE)))

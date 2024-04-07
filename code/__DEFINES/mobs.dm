@@ -380,7 +380,7 @@
 /// where you slip on ice until you reach a non-slippable tile (ice puzzles)
 #define SLIDE_ICE (1<<2)
 /// [TRAIT_NO_SLIP_WATER] does not work on this slip. ONLY [TRAIT_NO_SLIP_ALL] will
-#define GALOSHES_DONT_HELP (1<<3)
+#define SLIP_IGNORE_NO_SLIP_WATER (1<<3)
 /// Slip works even if you're already on the ground
 ///#define SLIP_WHEN_CRAWLING (1<<4)
 /// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.

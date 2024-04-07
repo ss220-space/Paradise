@@ -156,7 +156,7 @@
 
 	var/obj/buckled_obj
 	if(slipper.buckled)
-		if(!(lube & GALOSHES_DONT_HELP)) //can't slip while buckled unless it's lube.
+		if(!(lube & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
