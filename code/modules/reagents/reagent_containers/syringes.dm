@@ -167,7 +167,7 @@
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)
 			if(SYRINGE_DRAW)

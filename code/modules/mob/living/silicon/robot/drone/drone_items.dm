@@ -199,7 +199,7 @@
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold) && Adjacent(user, I)) // Make sure the item is something the gripper can hold
 			to_chat(user, span_notice("You collect [I]."))
-			I.forceMove(user)	//So procs orienting on ismob(loc) will work correctly
+			I.forceMove(src)
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
@@ -229,7 +229,7 @@
 	if(gripped_item)
 		alpha = 128
 		var/mutable_appearance/item_preview = mutable_appearance(gripped_item.icon, gripped_item.icon_state, appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM)
-		item_preview.add_overlay(gripped_item.overlays.Copy())
+		item_preview.copy_overlays(gripped_item)
 		. += item_preview
 	else
 		alpha = initial(alpha)
