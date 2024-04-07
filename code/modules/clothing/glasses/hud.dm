@@ -12,19 +12,21 @@
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
+	if(!istype(user) || !HUDType || (slot != SLOT_HUD_GLASSES && slot != SLOT_HUD_HEAD))
+		return .
 
-	if(HUDType && slot == SLOT_HUD_GLASSES)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(user)
-	if(HUDType && slot == SLOT_HUD_HEAD)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(user)
+	var/datum/atom_hud/hud = GLOB.huds[HUDType]
+	hud.add_hud_to(user)
 
-/obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, silent = FALSE)
-	..()
-	if(HUDType && istype(user) && user.glasses == src)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(user)
+
+/obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!istype(user) || !HUDType || (slot != SLOT_HUD_GLASSES && slot != SLOT_HUD_HEAD))
+		return .
+
+	var/datum/atom_hud/hud = GLOB.huds[HUDType]
+	hud.remove_hud_from(user)
+
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	if(!emagged)

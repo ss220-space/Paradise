@@ -87,9 +87,10 @@
 	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user.RemoveElement(/datum/element/waddling)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))

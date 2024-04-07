@@ -43,7 +43,7 @@
 	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
 
 
-/obj/item/gun/projectile/bow/dropped(mob/user, silent = FALSE)
+/obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE

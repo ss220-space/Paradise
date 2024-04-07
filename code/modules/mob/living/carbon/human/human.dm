@@ -686,12 +686,12 @@
 					if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
 						if(drop_item_ground(pocket_item))
 							if(thief_mode)
-								usr.put_in_hands(pocket_item)
+								usr.put_in_hands(pocket_item, silent = TRUE)
 							add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
-						usr.drop_item_ground(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, disable_warning = TRUE)
+						usr.drop_item_ground(place_item, silent = thief_mode)
+						equip_to_slot_if_possible(place_item, pocket_id, disable_warning = TRUE, initial = thief_mode)
 						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
@@ -731,7 +731,7 @@
 						if(!thief_mode)
 							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
 												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-						A.on_removed(usr)
+						A.on_removed(usr, thief_mode)
 						U.accessories -= A
 						update_inv_w_uniform()
 
@@ -1311,15 +1311,25 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, SLOT_HUD_SHOES, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND, SLOT_HUD_NECK)
-	var/list/kept_items = list()
-	var/list/item_flags = list()
-	for(var/thing in thing_to_check)
-		var/obj/item/I = get_item_by_slot(thing)
-		if(I)
-			kept_items[I] = thing
-			item_flags[I] = I.flags
-			I.flags = NONE // Temporary set the flags to NONE
+	var/list/slots_to_check = list(
+		"[SLOT_HUD_WEAR_MASK]",
+		"[SLOT_HUD_HEAD]",
+		"[SLOT_HUD_SHOES]",
+		"[SLOT_HUD_GLOVES]",
+		"[SLOT_HUD_LEFT_EAR]",
+		"[SLOT_HUD_RIGHT_EAR]",
+		"[SLOT_HUD_GLASSES]",
+		"[SLOT_HUD_LEFT_HAND]",
+		"[SLOT_HUD_RIGHT_HAND]",
+		"[SLOT_HUD_NECK]",
+	)
+	for(var/slot in slots_to_check)
+		var/obj/item/item = get_item_by_slot(text2num(slot))
+		if(item)
+			var/has_drop_del = item.flags & DROPDEL
+			slots_to_check[slot] = list(item, has_drop_del)
+			if(has_drop_del)			// we are interested only in dropdel flag
+				item.flags &= ~DROPDEL	// to prevent items deletion on limbs regrowth
 
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
@@ -1419,15 +1429,18 @@
 	else
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
-	for(var/obj/item/thing in kept_items)
-		var/equipped = equip_to_slot(thing, kept_items[thing], initial = TRUE)	// we can skip [mob_can_equip()] checks here
-		thing.flags = item_flags[thing] // Reset the flags to the original ones
-		if(!equipped)
-			thing.dropped() // Ensures items know they are dropped. Using their original flags
+	for(var/slot in slots_to_check)
+		var/list/item_params = slots_to_check[slot]
+		if(!item_params)
+			continue
+		var/obj/item/item = item_params[1]
+		if(item_params[2])	// has dropdel flag previously
+			item.flags |= DROPDEL
+		equip_to_slot_if_possible(item, text2num(slot), drop_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE, initial = TRUE)
 
 	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
-	if(save_appearance && old_bodyparts)
+	if(H && save_appearance && old_bodyparts)
 		var/obj/item/organ/external/head/old_head = old_bodyparts[BODY_ZONE_HEAD]
 		if(istype(old_head))
 			if(old_head.h_style)
@@ -1443,7 +1456,7 @@
 			if(old_head.headacc_colour)
 				H.headacc_colour = old_head.headacc_colour
 
-	else if(istype(H))
+	else if(H)
 		if(dna.species.default_hair)
 			H.h_style = dna.species.default_hair
 		else

@@ -273,15 +273,18 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/back
 
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial)
-	. = ..()
 
+/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial = FALSE)
+	. = ..()
 	if(slot == SLOT_HUD_OUTER_SUIT)
 		disguise(user)
 
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user, silent = FALSE)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
+
+/obj/item/clothing/suit/cardborg/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
+	if(slot == SLOT_HUD_OUTER_SUIT)
+		user.remove_alt_appearance("standard_borg_disguise")
+
 
 /obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
 	if(istype(H))

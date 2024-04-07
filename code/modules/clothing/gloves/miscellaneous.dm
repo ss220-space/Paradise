@@ -185,7 +185,7 @@
 		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	. = ..()
 
-/obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, silent)
+/obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
 	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
 	. = ..()

@@ -588,7 +588,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "energy discharge"
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, silent = FALSE)
+/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
 							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
 	do_sparks(4, 0, user.loc)

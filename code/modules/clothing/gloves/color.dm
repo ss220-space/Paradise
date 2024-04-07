@@ -19,33 +19,34 @@
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
 
-/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(slot == SLOT_HUD_GLOVES)
-		if(H.middleClickOverride)
-			old_mclick_override = H.middleClickOverride
-		H.middleClickOverride = mclick_override
-		if(!unlimited_power)
-			to_chat(H, "<span class='notice'>You feel electricity begin to build up in [src].</span>")
-		else
-			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
+	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+		return .
 
-/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, silent = FALSE)
+	if(user.middleClickOverride)
+		old_mclick_override = user.middleClickOverride
+	user.middleClickOverride = mclick_override
+	if(!unlimited_power)
+		to_chat(user, span_notice("You feel electricity begin to build up in [src]."))
+	else
+		to_chat(user, span_dangerbigger("You feel like you have UNLIMITED POWER!!!"))
+
+
+/obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src && H.middleClickOverride == mclick_override)
-		if(old_mclick_override)
-			H.middleClickOverride = old_mclick_override
-			old_mclick_override = null
-		else
-			H.middleClickOverride = null
+	if(!ishuman(user) || slot != SLOT_HUD_GLOVES || user.middleClickOverride != mclick_override)
+		return .
+
+	if(old_mclick_override)
+		user.middleClickOverride = old_mclick_override
+		old_mclick_override = null
+	else
+		user.middleClickOverride = null
+
 
 /obj/item/clothing/gloves/color/yellow/power/unlimited
 	name = "UNLIMITED POWER gloves"

@@ -65,14 +65,14 @@
 	return I.equipped(src, slot, initial)
 
 
-/mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	switch(slot)
 		if(SLOT_HUD_LEFT_HAND)
 			if(l_hand)
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(incapacitated())
+			if(!bypass_incapacitated && incapacitated())
 				return FALSE
 			return TRUE
 
@@ -81,7 +81,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(incapacitated())
+			if(!bypass_incapacitated && incapacitated())
 				return FALSE
 			return TRUE
 
