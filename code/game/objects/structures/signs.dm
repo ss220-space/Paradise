@@ -14,7 +14,6 @@
 	. = ..()
 	if(does_emissive)
 		update_icon(UPDATE_OVERLAYS)
-		set_light(1, LIGHTING_MINIMUM_POWER)
 
 
 /obj/structure/sign/update_overlays()

@@ -41,8 +41,7 @@
 
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
-	update_icon(update_state())
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	update_state()
 
 
 /obj/structure/morgue/Destroy()
@@ -106,7 +105,7 @@
 			return update_icon(UPDATE_OVERLAYS)
 
 	status = UNREVIVABLE
-	update_icon(UPDATE_OVERLAYS)
+	return update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/morgue/update_overlays()
@@ -397,11 +396,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(cremating)
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
-	else
-		set_light_on(FALSE)
 
 	if(connected)
 		return
@@ -410,6 +404,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
+		underlays += emissive_appearance(icon, "crema_active_lightmask")
 		return
 
 	if(length(contents))

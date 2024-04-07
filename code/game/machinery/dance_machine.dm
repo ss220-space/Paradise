@@ -46,7 +46,7 @@
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
 
-/obj/machinery/disco/New()
+/obj/machinery/disco/Initialize(mapload)
 	. = ..()
 	selection = songs[1]
 
@@ -137,7 +137,6 @@
 					return
 				active = TRUE
 				update_icon()
-				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()
@@ -491,7 +490,6 @@
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
-		set_light_on(FALSE)
 		stop = world.time + 100
 
 

@@ -33,7 +33,7 @@
 	return TRUE
 
 /obj/machinery/computer/extinguish_light(force = FALSE)
-	if(light_range)
+	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
@@ -91,7 +91,7 @@
 	else
 		if(icon_screen)
 			. += "[icon_screen]"
-		if(light)
+		if(light_on)
 			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard && abductor)

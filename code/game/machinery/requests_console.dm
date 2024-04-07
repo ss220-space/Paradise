@@ -125,13 +125,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 
 /obj/machinery/requests_console/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-	update_icon(UPDATE_OVERLAYS)
+	. = ..()
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/requests_console/update_overlays()

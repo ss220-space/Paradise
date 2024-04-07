@@ -602,5 +602,5 @@ Class Procs:
 
 
 /obj/machinery/extinguish_light(force = FALSE)
-	if(light_range)
-		remove_light()
+	if(light_on)
+		set_light_on(FALSE)

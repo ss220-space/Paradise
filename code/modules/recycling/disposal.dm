@@ -529,13 +529,9 @@
 
 // called when area power changes
 /obj/machinery/disposal/power_change(forced = FALSE)
-	if(!..())
-		return	// do default setting/reset of stat NOPOWER bit
-	update()	// update icon
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
+	. = ..()
+	if(.)
+		update()	// do default setting/reset of stat NOPOWER bit
 
 
 // called when holder is expelled from a disposal

@@ -39,13 +39,9 @@
 
 
 /obj/machinery/flasher/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/flasher/update_icon_state()

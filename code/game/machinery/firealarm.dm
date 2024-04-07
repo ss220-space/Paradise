@@ -23,10 +23,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
-	light_power = LIGHTING_MINIMUM_POWER
-	light_range = 7
-	light_color = "#ff3232"
-
 	var/buildstage = FIRE_ALARM_READY
 	var/wiresexposed = FALSE
 	var/detecting = TRUE
@@ -52,7 +48,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
-	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
+	update_fire_light()
 	update_icon()
 
 
@@ -256,27 +252,27 @@ GLOBAL_LIST_EMPTY(firealarms)
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/proc/update_fire_light(fire)
+
+/obj/machinery/firealarm/proc/update_fire_light()
 	if(stat & NOPOWER)
 		set_light_on(FALSE)
 		return
-	else if(GLOB.security_level == SEC_LEVEL_EPSILON)
-		set_light(2, 1, COLOR_WHITE)
-		return
-	else if(fire == !!light_power || fire == !!(light_power - 0.1))
-		return  // do nothing if we're already active
 
-	if(fire)
-		set_light(l_power = 0.8)
+	if(GLOB.security_level == SEC_LEVEL_EPSILON)
+		set_light(2, 1, COLOR_WHITE, TRUE)
+		return
+
+	if(myArea?.fire)
+		set_light(3, 1, "#ff3232", TRUE)
 	else
-		set_light(l_power = LIGHTING_MINIMUM_POWER)
+		set_light_on(FALSE)
 
 
-/obj/machinery/firealarm/power_change()
-	if(!..())
-		return
-	update_fire_light()
-	update_icon()
+/obj/machinery/firealarm/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_fire_light()
+		update_icon()
 
 
 /obj/machinery/firealarm/attack_hand(mob/user)
