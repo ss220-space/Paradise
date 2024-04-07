@@ -26,9 +26,8 @@
 
 /turf/simulated/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
-	icon_plating = "[environment_type]_dug"
-	icon_state = "[environment_type]_dug"
 	dug = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 /turf/simulated/floor/plating/asteroid/proc/can_dig(mob/user)
 	if(!dug)
@@ -43,10 +42,15 @@
 
 /turf/simulated/floor/plating/asteroid/update_icon_state()
 	. = ..()
-	icon_plating = initial(icon_plating)
-	icon_state =  initial(icon_state)
-	if(prob(floor_variance))
-		icon_state = "[environment_type][rand(0,12)]"
+	if(dug)
+		icon_plating = "[environment_type]_dug"
+		icon_state = "[environment_type]_dug"
+	else
+		icon_plating = initial(icon_plating)
+		icon_state =  initial(icon_state)
+		if(prob(floor_variance))
+			icon_state = "[environment_type][rand(0,12)]"
+
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
