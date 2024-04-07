@@ -829,7 +829,7 @@ REAGENT SCANNER
 	var/scan_cd = 60 SECONDS //how long before we can scan again
 
 /obj/item/bodyanalyzer/rnd
-	icon_state = "portable_bodyscan_0"
+	icon_state = "bodyscan_0"
 	item_state = "portable_bodyscan"
 	base_icon_state = "bodyscan"
 
