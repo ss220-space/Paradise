@@ -243,4 +243,4 @@
 	donator_tier = 3
 	cost = 1
 	display_name = "Space cloak"
-	path = /obj/item/clothing/neck/spacecloak
+	path = /obj/item/clothing/neck/cloak/spacecloak
