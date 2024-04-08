@@ -304,8 +304,8 @@
 	I.override = 1
 	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
-/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, silent = FALSE)
-	..()
+/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/required/kirbyplants/dead

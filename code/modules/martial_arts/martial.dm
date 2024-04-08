@@ -280,23 +280,20 @@
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+		return .
+	style.teach(user, TRUE)
 
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_GLOVES)
-		var/mob/living/carbon/human/H = user
-		style.teach(H, TRUE)
 
-/obj/item/clothing/gloves/boxing/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+		return .
+	style.remove(user)
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
-		style.remove(H)
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -306,28 +303,25 @@
 	name = "Пояс Истинного Чемпиона"
 	desc = "Вы - лучший! и Вы это знаете!"
 
-/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial)
+
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+		return .
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
+		return .
+	style.teach(user, TRUE)
+	to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab."))
 
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_BELT)
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
-			return
-		style.teach(H, TRUE)
-		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
-/obj/item/storage/belt/champion/wrestling/dropped(mob/user, silent = FALSE)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+		return .
+	style.remove(user)
+	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
-		style.remove(H)
-		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"

@@ -119,7 +119,7 @@
 	..()
 	has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
 
-/obj/item/clothing/accessory/holster/on_removed(mob/user)
+/obj/item/clothing/accessory/holster/on_removed(mob/user, silent = FALSE)
 	has_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
 	..()
 

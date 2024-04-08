@@ -23,7 +23,7 @@
 	update_equipped_item()
 
 
-/obj/item/clothing/head/soft/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/head/soft/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(flipped)
 		flipped = FALSE

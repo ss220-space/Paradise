@@ -500,9 +500,9 @@
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
-/obj/item/gun/dropped(mob/user, silent = FALSE)
-	..()
-	zoom(user,FALSE)
+/obj/item/gun/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
 

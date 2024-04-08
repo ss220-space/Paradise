@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
-/obj/item/clothing/accessory/proc/on_removed(mob/user)
+/obj/item/clothing/accessory/proc/on_removed(mob/user, silent = FALSE)
 	if(!has_suit)
 		return
 	has_suit.cut_overlay(inv_overlay)
@@ -68,8 +68,9 @@
 
 	has_suit = null
 	if(user)
-		user.put_in_hands(src)
-		add_fingerprint(user)
+		forceMove_turf()
+		user.put_in_hands(src, ignore_anim = !silent, silent = silent)
+
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
@@ -413,7 +414,7 @@
 	. = ..()
 	has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
 
-/obj/item/clothing/accessory/holobadge/on_removed(mob/user as mob)
+/obj/item/clothing/accessory/holobadge/on_removed(mob/user, silent = FALSE)
 	has_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
 	. = ..()
 
@@ -877,13 +878,13 @@
 	if(access_id)
 		. += "<span class='notice'>There is [bicon(access_id)] \a [access_id] clipped onto it.</span>"
 
-/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user, slot, initial = FALSE)
 	. = ..()
 
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, silent = FALSE)
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, slot, silent = FALSE)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
@@ -958,7 +959,7 @@
 		cached_bubble_icon = M.bubble_icon
 		M.bubble_icon = strip_bubble_icon
 
-/obj/item/clothing/accessory/head_strip/on_removed(mob/user)
+/obj/item/clothing/accessory/head_strip/on_removed(mob/user, silent = FALSE)
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		M.bubble_icon = cached_bubble_icon

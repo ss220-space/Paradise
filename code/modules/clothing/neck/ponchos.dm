@@ -49,8 +49,8 @@
 		return
 	flip(user)
 
-/obj/item/clothing/neck/poncho/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/clothing/neck/poncho/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	if(flipped)
 		flipped = FALSE
 		update_icon(UPDATE_ICON_STATE)

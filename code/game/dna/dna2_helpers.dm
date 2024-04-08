@@ -127,72 +127,80 @@
 // Use mob.UpdateAppearance() instead.
 
 // Simpler. Don't specify UI in order for the mob to use its own.
-/mob/proc/UpdateAppearance(list/UI = null)
-	if(istype(src, /mob/living/carbon/human)) // WHY?!
-		if(UI!=null)
-			dna.UI = UI
-			dna.UpdateUI()
-		dna.check_integrity()
-		var/mob/living/carbon/human/H = src
-		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(istype(head_organ))
-			dna.write_head_attributes(head_organ)
-		if(istype(eye_organ))
-			dna.write_eyes_attributes(eye_organ)
-		H.update_eyes()
-
-		H.skin_colour = rgb(dna.GetUIValueRange(DNA_UI_SKIN_R, 255), dna.GetUIValueRange(DNA_UI_SKIN_G, 255), dna.GetUIValueRange(DNA_UI_SKIN_B, 255))
-
-		H.m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
-		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
-		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
-
-		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
-
-		switch(dna.GetUITriState(DNA_UI_GENDER))
-			if(DNA_GENDER_FEMALE)
-				H.change_gender(FEMALE, FALSE)
-			if(DNA_GENDER_MALE)
-				H.change_gender(MALE, FALSE)
-			if(DNA_GENDER_PLURAL)
-				H.change_gender(PLURAL, FALSE)
-
-		//Head Markings
-		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((head_marks > 0) && (head_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["head"] = GLOB.marking_styles_list[head_marks]
-		//Body Markings
-		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((body_marks > 0) && (body_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
-		//Body Accessory
-		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, GLOB.body_accessory_by_name.len)
-		if((bodyacc > 0) && (bodyacc <= GLOB.body_accessory_by_name.len))
-			var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
-			var/obj/item/organ/external/tail/bodypart_tail = H.get_organ(BODY_ZONE_TAIL)
-			var/obj/item/organ/external/wing/bodypart_wing = H.get_organ(BODY_ZONE_WING)
-			if(!body_acc)
-				H.body_accessory = null
-				bodypart_tail?.body_accessory = null
-				bodypart_wing?.body_accessory = null
-			else if(H.dna.species.name in body_acc.allowed_species)
-				H.body_accessory = body_acc
-				bodypart_tail?.body_accessory = body_acc
-				bodypart_wing?.body_accessory = body_acc
-		//Tail Markings
-		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
-		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
-			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+/mob/proc/UpdateAppearance(list/UI)
+	. = FALSE
 
 
-		H.regenerate_icons()
+/mob/living/carbon/human/UpdateAppearance(list/UI)
+	. = TRUE
+	if(!isnull(UI))
+		dna.UI = UI
+		dna.UpdateUI()
 
-		return TRUE
-	else
-		return FALSE
+	dna.check_integrity()
+
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	var/obj/item/organ/internal/eyes/eye_organ = get_int_organ(/obj/item/organ/internal/eyes)
+
+	if(istype(head_organ))
+		dna.write_head_attributes(head_organ)
+
+	if(istype(eye_organ))
+		dna.write_eyes_attributes(eye_organ)
+
+	skin_colour = rgb(dna.GetUIValueRange(DNA_UI_SKIN_R, 255), dna.GetUIValueRange(DNA_UI_SKIN_G, 255), dna.GetUIValueRange(DNA_UI_SKIN_B, 255))
+
+	m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
+
+	m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
+
+	m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
+
+	s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+
+	switch(dna.GetUITriState(DNA_UI_GENDER))
+		if(DNA_GENDER_FEMALE)
+			change_gender(FEMALE, FALSE)
+		if(DNA_GENDER_MALE)
+			change_gender(MALE, FALSE)
+		if(DNA_GENDER_PLURAL)
+			change_gender(PLURAL, FALSE)
+
+	//Head Markings
+	var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_list)))
+		m_styles["head"] = GLOB.marking_styles_list[head_marks]
+
+	//Body Markings
+	var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_list)))
+		m_styles["body"] = GLOB.marking_styles_list[body_marks]
+
+	//Body Accessory
+	var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
+	if((bodyacc > 0) && (bodyacc <= length(GLOB.body_accessory_by_name)))
+		var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+		var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
+		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
+		if(!body_acc)
+			body_accessory = null
+			bodypart_tail?.body_accessory = null
+			bodypart_wing?.body_accessory = null
+		else if(dna.species.name in body_acc.allowed_species)
+			body_accessory = body_acc
+			bodypart_tail?.body_accessory = body_acc
+			bodypart_wing?.body_accessory = body_acc
+
+	//Tail Markings
+	var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_list)))
+		m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+
+	if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
+		body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+
+	regenerate_icons()
+
 
 /*
 	ORGAN WRITING PROCS

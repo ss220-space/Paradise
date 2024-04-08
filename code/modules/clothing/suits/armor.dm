@@ -646,14 +646,14 @@
 	magical = TRUE
 
 //mob_size using for crusher mark
-/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user) && slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_LARGE
 
-/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user)&& slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone

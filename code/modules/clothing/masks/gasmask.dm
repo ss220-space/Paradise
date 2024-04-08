@@ -238,10 +238,10 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak/mask)
 
 
-/obj/item/clothing/mask/gas/mime/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!user?.mind)
+	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
@@ -314,6 +314,7 @@
 	item_state = "sechailer"
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
+	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
@@ -341,14 +342,6 @@
 								"dredd"			= "I am, the LAW!"
 								)
 
-/obj/item/clothing/mask/gas/sechailer/equipped(mob/user, slot, initial)
-	. = ..()
-	if(slot == SLOT_HUD_WEAR_MASK && !HAS_TRAIT(user, TRAIT_SECDEATH))
-		ADD_TRAIT(user, TRAIT_SECDEATH, src)
-
-/obj/item/clothing/mask/gas/sechailer/dropped(mob/user, silent = FALSE)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_SECDEATH, src)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
