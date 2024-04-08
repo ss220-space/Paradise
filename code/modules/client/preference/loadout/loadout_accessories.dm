@@ -168,3 +168,4 @@
 							/obj/item/clothing/accessory/holster/belt/black,
 							)
 	gear_tweaks += new /datum/gear_tweak/path(holsters, src, TRUE)
+
