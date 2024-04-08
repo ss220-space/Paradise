@@ -140,14 +140,16 @@
 /turf/simulated/zAirOut(direction, turf/source)
 	return (!blocks_air && (direction == UP))
 
-/turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
+/turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube_flags, tilesSlipped)
 	if(slipper.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if(!has_gravity(src))
+	if(!has_gravity(src) && !lube_flags)
 		return FALSE
 
-	var/slide_distance = tilesSlipped || 1
-	if(lube & SLIDE_ICE)
+	var/slide_distance = tilesSlipped
+	if(lube_flags & SLIDE)
+		slide_distance = 4
+	if(lube_flags & SLIDE_ICE)
 		// Ice slides only go 1 tile, this is so you will slip across ice until you reach a non-slip tile
 		slide_distance = 1
 	else if(HAS_TRAIT(slipper, TRAIT_NO_SLIP_SLIDE))
@@ -156,21 +158,33 @@
 
 	var/obj/buckled_obj
 	if(slipper.buckled)
-		if(!(lube & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
+		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
-		if(slipper.m_intent == MOVE_INTENT_WALK && (lube & NO_SLIP_WHEN_WALKING))
+		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
 			return FALSE
 
+	if(buckled_obj)
+		buckled_obj.unbuckle_mob(slipper)
+		// This is added onto the end so they slip "out of their chair" (one tile)
+		lube_flags |= SLIDE_ICE
+		slide_distance = 1
+
 	if(slide_distance)
+		slipper.slide_distance = slide_distance
 		for(var/i in 1 to slide_distance)
 			spawn(i)
+				if(slipper.slide_distance < 0)
+					return
+				slipper.slide_distance--
 				step(slipper, slipper.dir)
 
-	if(!(lube & SLIDE_ICE))
+
+
+	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
-		to_chat(slipper, span_notice("You slipped[ slippable ? " on the [slippable.name]" : ""]!"))
+		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
 		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
@@ -178,11 +192,5 @@
 	slipper.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
 	slipper.Weaken(weaken_amount)
 	slipper.stop_pulling()
-
-	if(buckled_obj)
-		buckled_obj.unbuckle_mob(slipper)
-		// This is added onto the end so they slip "out of their chair" (one tile)
-		lube |= SLIDE_ICE
-		slide_distance = 1
 
 	return TRUE

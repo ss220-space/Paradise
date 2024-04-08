@@ -92,7 +92,7 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, 4 SECONDS, 4, SLIDE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
 
 /obj/item/card/cmag/attack()
 	return
