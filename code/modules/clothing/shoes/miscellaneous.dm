@@ -163,7 +163,7 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/workboots
