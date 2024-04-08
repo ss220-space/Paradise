@@ -1,7 +1,7 @@
 /*
 /datum/map/event
 	name = "Station Name"
-	map_path = "_maps/map_files/Events/Station/yourstation.dmm"
+	map_path = "_maps/map_files/event/Station/yourstation.dmm"
 	Lavaland_path = "_maps/map_files/delta/Lavaland.dmm"
 
 	station_name = "Ingame Station name"
