@@ -170,6 +170,20 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
+/datum/gear/donor/strip/bs
+	display_name = "strip, Blueshield"
+	path = /obj/item/clothing/accessory/head_strip/bs
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_BLUESHIELD)
+
+/datum/gear/donor/strip/ntr
+	display_name = "strip, NanoTrasen Representative"
+	path = /obj/item/clothing/accessory/head_strip/ntr
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
+
 /datum/gear/donor/heartglasses
 	display_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart
