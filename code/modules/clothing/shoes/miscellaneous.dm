@@ -153,17 +153,17 @@
 	item_state = "armored_shoes"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		)
 
 /obj/item/clothing/shoes/workboots
