@@ -1013,6 +1013,22 @@
 	item_color = "qmstrip"
 	strip_bubble_icon = "QM"
 
+/obj/item/clothing/accessory/head_strip/bs
+	name = "Blueshield's strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с темно-синей окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи при службе на корпорацию."
+	icon_state = "bsstrip"
+	item_state = "bsstrip"
+	item_color = "bsstrip"
+	strip_bubble_icon = "BS"
+
+/obj/item/clothing/accessory/head_strip/ntr
+	name = "NanoTrasen Representative's strip"
+	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся заслуги при службе на корпорацию."
+	icon_state = "ntrstrip"
+	item_state = "ntrstrip"
+	item_color = "ntrstrip"
+	strip_bubble_icon = "NTR"
+
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
