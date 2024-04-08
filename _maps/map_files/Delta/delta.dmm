@@ -112984,8 +112984,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/keycard_auth,
-/obj/machinery/keycard_auth,
 /obj/item/paper_bin{
 	pixel_x = 4;
 	pixel_y = -10
@@ -112994,6 +112992,7 @@
 	pixel_x = 4;
 	pixel_y = -10
 	},
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
