@@ -865,17 +865,17 @@
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
+
+/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
+	if(slot == SLOT_HUD_JUMPSUIT && !user.ventcrawler)
+		user.ventcrawler = 1
 
-	if(slot == SLOT_HUD_JUMPSUIT)
-		if(!user.ventcrawler)
-			user.ventcrawler = 1
 
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, silent = FALSE)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
+/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	if(slot == SLOT_HUD_JUMPSUIT && !user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
-	..()
+	. = ..()
 
 
 /obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)

@@ -731,7 +731,7 @@
 
 /obj/machinery/door/airlock/syndicate/build_access_electronics()
 	access_electronics = new /obj/item/access_control/syndicate(src)
-	access_electronics.selected_accesses = req_access
+	access_electronics.selected_accesses = length(req_access) ? req_access : list()
 	access_electronics.one_access = check_one_access
 
 /obj/machinery/door/airlock/syndicate/security

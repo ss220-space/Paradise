@@ -80,7 +80,7 @@
 	host = null
 	return ..()
 
-/obj/item/tk_grab/dropped(mob/user, silent = FALSE)
+/obj/item/tk_grab/dropped(mob/user, slot, silent = FALSE)
 	if(focus && user && loc != user && loc != user.loc) // drop_from_active_hand() gets called when you tk-attack a table/closet with an item
 		if(focus.Adjacent(loc))
 			focus.forceMove(loc)

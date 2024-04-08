@@ -77,7 +77,7 @@
 		time = 10
 
 
-/obj/item/assembly/prox_sensor/dropped(mob/user, silent = FALSE)
+/obj/item/assembly/prox_sensor/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(sense), user)
 

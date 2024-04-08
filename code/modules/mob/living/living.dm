@@ -1114,7 +1114,7 @@
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
 			if(!who.drop_item_ground(what, silent = silent))
 				return
-			if(silent)
+			if(silent && !QDELETED(what) && isturf(what.loc))
 				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 

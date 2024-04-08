@@ -66,7 +66,7 @@
 		return TRUE
 	if(. || mover.throwing || isprojectile(mover) || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
-	if(border_dir == dir)
+	if(dir & border_dir)
 		return !density
 	return TRUE
 
@@ -93,7 +93,7 @@
 		return TRUE
 	if(currently_climbed)
 		return TRUE
-	if(dir == moving_direction)
+	if(dir & moving_direction)
 		return FALSE
 
 

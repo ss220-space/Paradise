@@ -130,22 +130,22 @@ Difficulty: Medium
 		user.Slowed(20 SECONDS)
 		user.Dizzy(20 SECONDS)
 
-/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial)
-	. = ..()
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_OUTER_SUIT)
-		LAZYADD(user.mob_spell_list, blood_spell)
-		blood_spell.action.Grant(user)
 
-/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_OUTER_SUIT)
+		return .
+	LAZYADD(user.mob_spell_list, blood_spell)
+	blood_spell.action.Grant(user)
 
-	if(!ishuman(user))
-		return
-	if(user.get_item_by_slot(SLOT_HUD_OUTER_SUIT) == src)
-		LAZYREMOVE(user.mob_spell_list, blood_spell)
-		blood_spell.action.Remove(user)
+
+/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_OUTER_SUIT)
+		return .
+	LAZYREMOVE(user.mob_spell_list, blood_spell)
+	blood_spell.action.Remove(user)
+
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()

@@ -226,9 +226,9 @@
 
 
 //In case they somehow come off while enabled.
-/obj/item/clothing/shoes/magboots/vox/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/magboots/vox/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(magpulse)
+	if(slot == SLOT_HUD_SHOES && magpulse)
 		if(!silent)
 			user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
 		toggle_magpulse(user, silent = TRUE)

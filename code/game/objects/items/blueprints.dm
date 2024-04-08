@@ -192,8 +192,8 @@
 	if(message)
 		to_chat(user, message)
 
-/obj/item/areaeditor/blueprints/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/areaeditor/blueprints/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	clear_viewer()
 
 /obj/item/areaeditor/proc/get_area_type(area/A)

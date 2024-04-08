@@ -94,7 +94,7 @@
 	return FALSE
 
 
-/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -106,7 +106,7 @@
 		return FALSE
 
 
-/obj/item/clothing/dropped(mob/living/user, silent = FALSE)
+/obj/item/clothing/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	if(!istype(user))
 		return
@@ -548,7 +548,7 @@ BLIND     // can't see anything
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-			M.dropped()
+			user.drop_item_ground(I)
 		return
 
 	if(I.tool_behaviour == TOOL_WIRECUTTER)
@@ -773,7 +773,7 @@ BLIND     // can't see anything
 			action.Grant(user)
 
 
-/obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(jetpack)
 		for(var/datum/action/action as anything in jetpack.actions)
@@ -850,23 +850,24 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/under/dropped(mob/user, silent = FALSE)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_unequip()
+/obj/item/clothing/under/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_JUMPSUIT)
+		return .
+
+	for(var/obj/item/clothing/accessory/accessory in accessories)
+		accessory.attached_unequip()
+
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_JUMPSUIT)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_equip()
+	if(!ishuman(user) || slot != SLOT_HUD_JUMPSUIT)
+		return .
+
+	for(var/obj/item/clothing/accessory/accessory in accessories)
+		accessory.attached_equip()
+
 
 /*
   * # can_attach_accessory

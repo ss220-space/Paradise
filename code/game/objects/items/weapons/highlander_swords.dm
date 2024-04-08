@@ -42,7 +42,7 @@
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
 			sword.style.teach(H, 1)
 
-/obj/item/claymore/highlander/dropped(mob/user, silent = FALSE)
+/obj/item/claymore/highlander/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

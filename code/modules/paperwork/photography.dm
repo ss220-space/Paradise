@@ -611,11 +611,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	camera_state(user)
 
 
-/obj/item/videocam/dropped(mob/user, silent = FALSE)
+/obj/item/videocam/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!on)
-		return
-	camera_state()
+	if(on)
+		camera_state()
 
 
 /obj/item/videocam/examine(mob/user)
