@@ -69,8 +69,8 @@
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
-	icon_state = "bulletproof"
-	item_state = "bulletproof"
+	icon_state = "bullethelmet"
+	item_state = "bullethelmet"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
 	flags_inv = HIDEHEADSETS | HIDEGLASSES | HIDEMASK
