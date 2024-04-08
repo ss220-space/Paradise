@@ -105,8 +105,8 @@
 		return 1
 	return 0
 
-/obj/item/twohanded/rcl/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/twohanded/rcl/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	active = 0
 	last = null
 

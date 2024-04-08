@@ -518,7 +518,7 @@
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user)
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || !slave)
 		return

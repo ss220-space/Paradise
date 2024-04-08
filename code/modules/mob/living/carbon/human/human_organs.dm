@@ -5,11 +5,12 @@
 	var/list/bodyparts_by_name = list()
 
 
-/mob/living/carbon/human/proc/update_eyes()
+/mob/living/carbon/human/proc/update_eyes(update_body = TRUE)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		eyes.update_colour()
-		update_body()
+		if(update_body)
+			update_body()
 
 
 // Takes care of organ related updates, such as broken and missing limbs

@@ -144,8 +144,8 @@
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	update_body()
 	update_mutantrace()
+	update_body()
 
 
 /mob/living/carbon/human/proc/ChangeToHusk()
@@ -167,8 +167,8 @@
 	update_hair()
 
 	mutations.Add(HUSK)
-	update_body()
 	update_mutantrace()
+	update_body()
 
 
 /mob/living/carbon/human/proc/Drain()

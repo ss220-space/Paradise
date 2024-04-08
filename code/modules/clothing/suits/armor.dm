@@ -646,14 +646,14 @@
 	magical = TRUE
 
 //mob_size using for crusher mark
-/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user) && slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_LARGE
 
-/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user)&& slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone
@@ -689,4 +689,8 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		)
+

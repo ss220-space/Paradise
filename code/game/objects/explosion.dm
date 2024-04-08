@@ -191,17 +191,17 @@
 							var/atom/AM = atom
 							if(!QDELETED(AM) && AM.simulated)
 								if(AM.level >= affecting_level)
-									AM.ex_act(dist)
+									AM.ex_act(dist, epicenter)
 					else
 						for(var/atom in T.contents)	//see above
 							var/atom/AM = atom
 							if(!QDELETED(AM) && AM.simulated)
-								AM.ex_act(dist)
+								AM.ex_act(dist, epicenter)
 							CHECK_TICK
 					if(breach)
-						T.ex_act(dist)
+						T.ex_act(dist, epicenter)
 					else
-						T.ex_act(3)
+						T.ex_act(3, epicenter)
 
 			CHECK_TICK
 
@@ -225,7 +225,7 @@
 
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(2)
+		tile.ex_act(2, epicenter)
 
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"

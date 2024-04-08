@@ -2848,8 +2848,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
-	character.force_update_limbs()
-	character.update_eyes()
 	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)

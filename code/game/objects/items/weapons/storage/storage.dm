@@ -421,7 +421,6 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
-		W.dropped(usr)
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
@@ -449,22 +448,14 @@
 	if(!istype(W))
 		return FALSE
 
-	if(istype(src, /obj/item/storage/fancy))
-		var/obj/item/storage/fancy/F = src
-		F.update_icon()
-
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen -= W
 
 	if(new_location)
-		var/is_on_mob = get(loc, /mob)
-		if(is_on_mob)
-			W.dropped(usr)
-
 		if(ismob(new_location) || get(new_location, /mob))
-			if(usr && !is_on_mob && CONFIG_GET(flag/item_animations_enabled))
+			if(usr && !get(loc, /mob) && CONFIG_GET(flag/item_animations_enabled))
 				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
 				W.pixel_x = pixel_x
 				W.pixel_y = pixel_y
@@ -476,6 +467,9 @@
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
+			W.mouse_opacity = initial(W.mouse_opacity)
+			W.in_inventory = FALSE
+			W.remove_outline()
 
 		W.forceMove(new_location)
 
