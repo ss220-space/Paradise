@@ -348,6 +348,31 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+/obj/item/clothing/suit/storage/hazardvest/beltdonor
+	name = "hazard belt"
+	desc = "A high-visibility webbing used in work zones. This one comes with premial quality materials."
+	icon_state = "hazard_belt"
+	item_state = "hazard_belt"
+
+	sprite_sheets = list(
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
+		)
+
+
+/obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
+	name = "atmospherics hazard belt"
+	icon_state = "atmos_belt"
+	item_state = "atmos_belt"
 
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer

@@ -264,3 +264,15 @@
 	cost = 1
 	display_name = "Golden wheelchair paintkit"
 	path = /obj/item/fluff/rapid_wheelchair_kit
+
+/datum/gear/donor/hazardbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+
+/datum/gear/donor/atmosbelt
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
