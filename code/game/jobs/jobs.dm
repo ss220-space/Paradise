@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	JOB_TITLE_MINER
 ))
 
-GLOBAL_LIST_INIT(service_positions, (list(JOB_TITLE_HOP) + (support_positions - supply_positions)))
+GLOBAL_LIST_INIT(service_positions, (support_positions - supply_positions))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
 	JOB_TITLE_CIVILIAN
