@@ -20,7 +20,6 @@
 	new /obj/item/reagent_containers/food/condiment/rice(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
 
-
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
 
@@ -76,3 +75,8 @@
 		new /obj/item/stack/spacecash/c500(src)
 	for(var/i in 1 to 6)
 		new /obj/item/stack/spacecash/c200(src)
+
+/obj/structure/closet/secure_closet/freezer/empty
+	name = "refrigerator"
+	icon_state = "fridge"
+	req_access = list()

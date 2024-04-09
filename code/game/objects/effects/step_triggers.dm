@@ -4,21 +4,26 @@
 	var/affect_ghosts = FALSE
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
+	var/client_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
 	anchored = TRUE
 
-/obj/effect/step_trigger/proc/Trigger(var/atom/movable/A)
+/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
 
-/obj/effect/step_trigger/Crossed(var/H, oldloc)
+/obj/effect/step_trigger/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!H)
+	if(!AM)
 		return
-	if(isobserver(H) && !affect_ghosts)
+	if(isobserver(AM) && !affect_ghosts)
 		return
-	if(!ismob(H) && mobs_only)
+	if(!ismob(AM) && mobs_only)
 		return
-	Trigger(H)
+	if(mobs_only && client_only)
+		var/mob/crossed_mob = AM
+		if(!crossed_mob.client)
+			return
+	Trigger(AM)
 
 /obj/effect/step_trigger/singularity_act()
 	return
@@ -169,6 +174,8 @@
 /* Simple sound player, Mapper friendly! */
 
 /obj/effect/step_trigger/sound_effect
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "sound"
 	var/list/sound //eg. path to the sound, inside '' eg: 'growl.ogg'
 	var/volume = 100
 	var/freq_vary = 1 //Should the frequency of the sound vary?
@@ -193,7 +200,89 @@
 		qdel(src)
 
 /obj/effect/step_trigger/sound_effect/explosion_far
+	mobs_only = TRUE
 	sound = list('sound/effects/explosionfar.ogg', 'sound/effects/explosioncreak2.ogg', 'sound/effects/explosioncreak1.ogg', 'sound/effects/explosion_distant.ogg')
 	volume = 200
 	happens_once = 1
 	extra_range = 4
+
+/obj/effect/step_trigger/sound_effect/scary_moan
+	mobs_only = TRUE
+	client_only = TRUE
+	happens_once = 1
+	sound = list('sound/ambience/spooky/moan1.ogg')
+
+/obj/effect/step_trigger/sound_effect/scream_female
+	mobs_only = TRUE
+	client_only = TRUE
+	happens_once = 1
+	triggerer_only = 1
+	sound = list('sound/ambience/spooky/scream1.ogg')
+
+/obj/effect/step_trigger/sound_effect/scary_breath
+	mobs_only = TRUE
+	client_only = TRUE
+	happens_once = 1
+	triggerer_only = 1
+	sound = list('sound/ambience/spooky/scared_breathing1.ogg', 'sound/ambience/spooky/scared_breathing2.ogg', 'sound/ambience/spooky/scared_sob1.ogg', 'sound/ambience/spooky/scared_sob2.ogg')
+
+
+///////////////////////
+////////////// GROUP TRIGGERS
+///////////////////////
+
+GLOBAL_LIST_EMPTY(group_triggers)
+/obj/effect/step_trigger/group_triggers
+	name = "group trigger"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "not_for_map"
+	var/id = 1 //// must be tied with step_trigger_spawner id
+
+/obj/effect/step_trigger/group_triggers/Initialize(mapload)
+	. = ..()
+	GLOB.group_triggers += src
+
+/obj/effect/step_trigger/group_triggers/Destroy()
+	GLOB.group_triggers -= src
+	..()
+
+/obj/effect/step_trigger/group_triggers/Trigger()
+	for(var/obj/effect/step_trigger/group_triggers/trigger as anything in GLOB.group_triggers)
+		if(trigger.id == id)
+			qdel(trigger)
+
+//// Spawners for group triggers
+
+/// How it works? Use receivers whith the same id (if you want a large group) or just one (anyway better to change id), if one of receivers is triggered,
+/// than step_trigger_spawner spawns anything from spawn_list and all that group of effects deletes itself
+/obj/effect/step_trigger/group_triggers/receiver
+	icon_state = "alert"
+	mobs_only = TRUE
+	client_only = TRUE
+
+/obj/effect/step_trigger/group_triggers/receiver/Trigger(atom/movable/A)
+	for(var/obj/effect/spawner/step_trigger_spawner/step_spawner as anything in GLOB.step_trigger_spawners)
+		if(step_spawner.id == id)
+			step_spawner.trigger()
+	..()
+
+GLOBAL_LIST_EMPTY(step_trigger_spawners)
+/obj/effect/spawner/step_trigger_spawner
+	name = "step trigger spawner"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "yellow"
+	invisibility = INVISIBILITY_ABSTRACT
+	var/id = 1  //// must be tied with group_triggers id
+	var/list/spawn_list
+
+/obj/effect/spawner/step_trigger_spawner/Initialize(mapload)
+	. = ..()
+	GLOB.step_trigger_spawners += src
+
+/obj/effect/spawner/step_trigger_spawner/Destroy()
+	GLOB.step_trigger_spawners -= src
+	..()
+
+/obj/effect/spawner/step_trigger_spawner/proc/trigger()
+	for(var/path in spawn_list)
+		new path(loc)

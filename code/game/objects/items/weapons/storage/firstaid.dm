@@ -422,3 +422,46 @@
 /obj/item/storage/pill_bottle/fakedeath/populate_contents()
 	for(var/I in 1 to 3)
 		new /obj/item/reagent_containers/food/pill/fakedeath(src)
+
+//////// Compact first aid
+
+/obj/item/storage/compact_firstaid
+	name = "first-aid kit"
+	desc = "It's an emergency medical kit for those who left for dead."
+	icon_state = "compact_aid"
+	item_state = "compact_aid"
+	w_class = WEIGHT_CLASS_SMALL
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 4
+	max_combined_w_class = 8
+	resistance_flags = FLAMMABLE
+	throw_speed = 2
+	throw_range = 9
+	can_hold = list(/obj/item/reagent_containers/hypospray/autoinjector,
+					/obj/item/reagent_containers/food/pill,
+					/obj/item/stack/medical,
+					/obj/item/storage/pill_bottle,
+					/obj/item/reagent_containers/applicator,
+					/obj/item/reagent_containers/glass/bottle,
+					/obj/item/reagent_containers/syringe,
+					/obj/item/clothing/mask/surgical,
+					/obj/item/stack/nanopaste,
+					/obj/item/scalpel,
+					/obj/item/hemostat,
+					/obj/item/bonegel,
+					/obj/item/FixOVein,
+					/obj/item/photo,
+					/obj/item/paper,
+					/obj/item/pen,
+					/obj/item/encryptionkey,
+					/obj/item/flashlight/pen,
+					/obj/item/lighter,
+
+	)
+
+/obj/item/storage/compact_firstaid/populate_contents()
+	new /obj/item/storage/pill_bottle/painkillers(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/stack/medical/splint(src)
+	new /obj/item/stack/medical/bruise_pack(src)

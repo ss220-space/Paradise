@@ -1435,7 +1435,7 @@
 	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 
-	icon_state = "syndimed_off"
+	icon_state = "wallmed_off"
 	panel_overlay = "wallmed_panel"
 	screen_overlay = "syndimed"
 	lightmask_overlay = "wallmed_lightmask"

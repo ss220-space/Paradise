@@ -867,3 +867,106 @@
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()
+
+//Object Sampo
+
+/obj/effect/mob_spawn/human/corpse/specops
+	mob_type = /mob/living/carbon/human
+	name = "Specops corpse"
+	icon = 'icons/mob/clothing/uniform.dmi'
+	icon_state = "specops_uniform_s"
+	mob_name = "Unknown"
+	random = TRUE
+	death = TRUE
+	disable_sensors = TRUE
+	outfit = /datum/outfit/corpse_specops
+
+/datum/outfit/corpse_specops
+	name = "Specops corpse"
+
+	head = null
+	uniform = /obj/item/clothing/under/syndicate/specops
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = null
+	r_pocket = null
+	l_pocket = /obj/item/radio/off
+	suit = null
+	id = null
+
+/datum/outfit/corpse_specops/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	head = pick(
+				65; null,
+				35; /obj/item/clothing/head/helmet/lightweighthelmet
+	)
+
+	r_pocket = pick(
+				95; null,
+				5; /obj/item/gun/projectile/automatic/pistol/sp8/rusted
+	)
+
+	l_pocket = pick(
+				95; /obj/item/radio/off,
+				5; /obj/item/ammo_box/magazine/sp8
+	)
+
+	suit = pick(
+				65; null,
+				35; /obj/item/clothing/suit/armor/vest/combat
+	)
+
+	id = pick(
+				90; null,
+				10; /obj/item/card/id/gorky17/marine
+	)
+
+	gloves = pick(
+				60; null,
+				40; /obj/item/clothing/gloves/color/black
+	)
+
+/obj/effect/mob_spawn/human/corpse/specops/Initialize()
+	brute_damage = rand(100, 400)
+	return ..()
+
+/obj/effect/mob_spawn/human/corpse/hazard_worker
+	mob_type = /mob/living/carbon/human
+	name = "Hazard worker corpse"
+	icon = 'icons/mob/clothing/uniform.dmi'
+	icon_state = "green_workingsuit_s"
+	mob_name = "Unknown"
+	random = TRUE
+	death = TRUE
+	disable_sensors = TRUE
+	outfit = /datum/outfit/corpse_hazard_worker
+
+/datum/outfit/corpse_hazard_worker
+	name = "Specops corpse"
+
+	uniform = /obj/item/clothing/under/workingsuit
+	shoes = /obj/item/clothing/shoes/jackboots
+	gloves = null
+	r_pocket = /obj/item/radio/off
+	mask = null
+	id = null
+
+/datum/outfit/corpse_hazard_worker/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	mask = pick(
+				90; null,
+				10; /obj/item/clothing/mask/gas/transparent
+	)
+
+	id = pick(
+				85; null,
+				15; /obj/item/card/id/gorky17/soldier
+	)
+
+	gloves = pick(
+				70; null,
+				30; /obj/item/clothing/gloves/color/latex
+	)
+
+/obj/effect/mob_spawn/human/corpse/hazard_worker/Initialize()
+	brute_damage = rand(100, 400)
+	return ..()

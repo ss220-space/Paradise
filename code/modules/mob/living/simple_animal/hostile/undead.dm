@@ -247,3 +247,30 @@
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
 	)
+
+/mob/living/simple_animal/hostile/zombie/flesh_mutant
+	name = "fleshy mutant"
+	desc = "The living flesh mess. It's good time to RUN!"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "livingflesh_mutant"
+	icon_living = "livingflesh_mutant"
+	icon_dead = "livingflesh_mutant"
+	faction = list("undead", "hostile")
+	speak_chance = 0
+	turns_per_move = 10
+	response_help = "gently prods"
+	response_disarm = "shoves"
+	response_harm = "hits"
+	speed = -1
+	maxHealth = 100
+	health = 100
+	death_sound = 'sound/goonstation/effects/gib.ogg'
+
+	harm_intent_damage = 10
+	melee_damage_lower = 10
+	melee_damage_upper = 15
+	loot = list(
+		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
+		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
+	)

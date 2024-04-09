@@ -559,20 +559,11 @@
 	range_light = 45
 	range_flame = 30
 	admin_log = TRUE
+	special_deletes = TRUE
+	ignorecap = TRUE
 
-/obj/item/bombcore/sdg17/detonate()
-	if(adminlog)
-		message_admins(adminlog)
-		add_game_logs(adminlog)
-	var/center = get_turf(src)
-	explosion(center, range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, ignorecap = 1, cause = fingerprintslast)
-	delete_unnecessary(center)
-	if(loc && istype(loc, /obj/machinery/syndicatebomb))
-		qdel(loc)
-	qdel(src)
-
-/obj/item/bombcore/sdg17/proc/delete_unnecessary(center)
-	for(var/atom/A in range(35, center))
+/obj/item/bombcore/sdg17/delete_unnecessary(center)
+	for(var/atom/A as anything in range(35, center))
 		if(isliving(A))
 			var/mob/living/mob = A
 			mob.gib()
@@ -584,7 +575,7 @@
 			qdel(A)
 
 /obj/item/bombcore/sdg17/defuse()
-	var/obj/item/bombcore/sdg17/C = loc
+	var/obj/machinery/syndicatebomb/gorky17/C = loc
 	new /obj/effect/decal/cleanable/ash(get_turf(loc))
 	new /obj/effect/particle_effect/smoke(get_turf(loc))
 	playsound(src, 'sound/effects/empulse.ogg', 80)

@@ -126,6 +126,14 @@
 /obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click()
 	toggle_gunlight()
 
+/obj/item/gun/projectile/automatic/pistol/sp8/rusted
+	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон 40N&R. На корпусе видны небольшие следы ржавчины."
+	rusted_weapon = 1
+	malf_low_bound = 12
+	malf_high_bound = 20
+
+/obj/item/gun/projectile/automatic/pistol/sp8/rusted/update_gun_skins()
+	return
 
 /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	name = "SP-8-T"

@@ -36,10 +36,15 @@
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white
 	icon_state = "white"
+
 /turf/simulated/floor/plasteel/white/side
 	icon_state = "whitehall"
+
 /turf/simulated/floor/plasteel/white/corner
 	icon_state = "whitecorner"
+
+/turf/simulated/floor/plasteel/white/square
+	icon_state = "whitehall_square"
 
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
@@ -63,5 +68,70 @@
 /turf/simulated/floor/plasteel/stairs/old
 	icon_state = "stairs-old"
 
+/turf/simulated/floor/plasteel/stairs/ramp
+	icon_state = "ramptop"
+
+/turf/simulated/floor/plasteel/stairs/ramp/down
+	icon_state = "rampbottom"
+
 /turf/simulated/floor/plasteel/grimy
 	icon_state = "grimy"
+
+/turf/simulated/floor/plasteel/dirty
+	icon_state = "floorgrime"
+
+/turf/simulated/floor/plasteel/darkgrey
+	icon_state = "darkgrey"
+
+/turf/simulated/floor/plasteel/black
+	icon_state = "dark"
+
+/turf/simulated/floor/plasteel/black/marked
+	icon_state = "darkmarked_square"
+
+/turf/simulated/floor/plasteel/black/marked/left
+	icon_state = "darkmarked_left"
+
+/turf/simulated/floor/plasteel/black/marked/right
+	icon_state = "darkmarked_right"
+
+/turf/simulated/floor/plasteel/red_white
+	icon_state = "stage_bleft"
+
+/turf/simulated/floor/plasteel/red_white/white_red
+	icon_state = "stage_left"
+/turf/simulated/floor/plasteel/darkred
+	icon_state = "darkredfull"
+
+/turf/simulated/floor/plasteel/darkred/side
+	icon_state = "darkred"
+
+/turf/simulated/floor/plasteel/darkred/corner
+	icon_state = "darkredcorner"
+
+/turf/simulated/floor/plasteel/darkred/square
+	icon_state = "darkredsquare"
+
+/turf/simulated/floor/plasteel/darkred/line
+	icon_state = "darkredalt"
+
+/turf/simulated/floor/plasteel/darkred/line/corner
+	icon_state = "darkredaltcorner"
+
+/turf/simulated/floor/plasteel/darkred/line/square
+	icon_state = "darkredaltsquare"
+
+/turf/simulated/floor/plasteel/darkred/line/strip
+	icon_state = "darkredaltstrip"
+
+/turf/simulated/floor/plasteel/darkblue
+	icon_state = "darkbluefull"
+
+/turf/simulated/floor/plasteel/darkblue/side
+	icon_state = "darkblue"
+
+/turf/simulated/floor/plasteel/darkblue/corner
+	icon_state = "darkbluecorner"
+
+/turf/simulated/floor/plasteel/darkblue/square
+	icon_state = "darkbluesquare"

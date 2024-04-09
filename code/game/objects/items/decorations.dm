@@ -287,6 +287,14 @@
 	desc = "Praise be to lady Tesla!"
 	icon_state = "tesla_monument"
 
+/obj/structure/decorative_structures/metal/repeater
+	name = "broken machine"
+	desc = "Похоже именно этот аппарат и создаёт помехи. Он безвозвратно сломан."
+	icon = 'icons/obj/machines/repeater.dmi'
+	icon_state = "repeater-broken"
+	anchored = TRUE
+	max_integrity = 200
+
 
 /obj/structure/decorative_structures/flammable
 	resistance_flags = FLAMMABLE
@@ -315,11 +323,14 @@
 	icon_state = "deadbody2"
 	density = 0
 	max_integrity = 5
-	var/bloodtiles = 8  // number of tiles with blood while pulling
+	/// number of tiles with blood while pulling
+	var/bloodtiles = 8
+	/// special checker type for virus dead_corpse_structure/Crossed
+	var/field_checker_type = /obj/effect/abstract/proximity_checker/dead_corpse_structure/cadaver
 
 /obj/structure/decorative_structures/corpse/Initialize()
-	START_PROCESSING(SSobj, src)
-	..()
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor/dead_corpse_structure, _radius = 4, field_checker_type = src.field_checker_type)
 
 /obj/structure/decorative_structures/corpse/Destroy()
 	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
@@ -330,7 +341,6 @@
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
-	STOP_PROCESSING(SSobj, src)
 	..()
 
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
@@ -350,16 +360,39 @@
 	if(bloodtiles >= 0 && prob(40))
 		new /obj/effect/decal/cleanable/blood(get_turf(src))
 
-/obj/structure/decorative_structures/corpse/process()
-	for(var/mob/living/carbon/human/H in range(4, src))
-		if(prob(15))
-			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags_cover & MASKCOVERSMOUTH))
-				continue
-			if(NO_BREATHE in H.dna.species.species_traits)
-				continue //no puking if you can't smell!
-			to_chat(H, "<span class='warning'>You smell something foul...</span>")
-			H.fakevomit()
+/datum/component/proximity_monitor/dead_corpse_structure
+	field_checker_type = /obj/effect/abstract/proximity_checker/dead_corpse_structure
+
+/datum/component/proximity_monitor/dead_corpse_structure/Initialize(_radius, _always_active, field_checker_type)
+	if(!ispath(field_checker_type, /obj/effect/abstract/proximity_checker/dead_corpse_structure))
+		return COMPONENT_INCOMPATIBLE
+	src.field_checker_type = field_checker_type
+	. = ..()
+
+/obj/effect/abstract/proximity_checker/dead_corpse_structure
+	var/virus_type = /datum/disease/virus/cadaver
+
+/obj/effect/abstract/proximity_checker/dead_corpse_structure/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!ishuman(AM))
+		return
+	var/mob/living/carbon/human/cross_human = AM
+	if(prob(5))
+		var/obj/item/clothing/mask/M = cross_human.wear_mask
+		if(M && (M.flags_cover & MASKCOVERSMOUTH))
+			return
+		if(NO_BREATHE in cross_human.dna.species.species_traits)
+			return //no puking if you can't smell!
+		to_chat(cross_human, span_warning("You smell something foul..."))
+		cross_human.fakevomit()
+		return
+
+	if(prob(1))
+		var/datum/disease/virus/D = new virus_type()
+		D.Contract(cross_human, CONTACT|AIRBORNE, need_protection_check = TRUE)
+
+/obj/effect/abstract/proximity_checker/dead_corpse_structure/cadaver
+	virus_type = /datum/disease/virus/cadaver
 
 ///// jumping meat for body explotion effect
 
@@ -378,12 +411,15 @@
 		for(var/mob/living/carbon/M in range(2,src))
 			smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_from_active_hand()
-		M.vomit()
-		M.emote("cough")
-		return 1
+/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/carbon_mob)
+	. = ..()
+	if(!.)
+		return
+	carbon_mob.drop_from_active_hand()
+	carbon_mob.vomit()
+	carbon_mob.emote("cough")
+	return TRUE
+
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
 
@@ -462,3 +498,71 @@
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	density = 0
+
+/obj/item/decorations/distillator
+	max_integrity = 20
+	name = "distillator"
+	desc = "Some chemical equipment seems to be missing something."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "distill"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/decorations/distillator/Destroy()
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, FALSE)
+	new /obj/effect/decal/cleanable/glass(get_turf(src))
+	new /obj/item/shard(get_turf(src))
+	..()
+
+/obj/item/decorations/distillator/full
+	name = "distillator"
+	desc = "Some chemical equipment looks like something was evaporated through it. It's better not to smell it."
+	icon_state = "distill_nocol"
+
+/obj/structure/decorative_structures/centrifuge
+	name = "centrifuge"
+	desc = "Broken centrifuge. It's better not to touch it, who knows what was mixed inside it."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "centrifuge"
+	max_integrity = 50
+	anchored = 1
+	density = 0
+
+/obj/structure/decorative_structures/centrifuge/Destroy()
+	new /obj/item/stack/sheet/metal(get_turf(src), 5)
+	new /obj/item/stack/cable_coil/random(get_turf(src), 5)
+	new /obj/item/shard(get_turf(src))
+	..()
+
+/obj/structure/decorative_structures/chemanalyzer
+	name = "chemical analyzer"
+	desc = "A chemical analyzer capable of recognizing the smallest atoms."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "mixer1"
+	max_integrity = 150
+	anchored = 1
+	density = 0
+
+/obj/structure/decorative_structures/chemanalyzer/broken
+	icon_state = "mixer1_b"
+
+/obj/structure/decorative_structures/chemanalyzer/Destroy()
+	new /obj/effect/decal/cleanable/glass(get_turf(src))
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	new /obj/item/shard(get_turf(src))
+	..()
+
+/obj/structure/decorative_structures/broken_cell
+	name = "broken cell"
+	icon = 'icons/obj/machines/cryogenics.dmi'
+	icon_state = "cell-broken2"
+	max_integrity = 200
+	anchored = TRUE
+	var/goo_color = "#752424"
+
+/obj/structure/decorative_structures/broken_cell/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, icon_state = "goo2", appearance_flags = RESET_COLOR, color = goo_color)
+
+/obj/structure/decorative_structures/broken_cell/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)

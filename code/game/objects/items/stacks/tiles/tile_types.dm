@@ -110,6 +110,19 @@
 	icon_state = "tile-wood-fancy-light"
 	turf_type = /turf/simulated/floor/wood/fancy/light
 
+/obj/item/stack/tile/wood/fancy/parquet
+	name = "oak parquet floor tiles"
+	singular_name = "oak parquet floor tile"
+	icon_state = "tile-wood-parquet"
+	turf_type = /turf/simulated/floor/wood/fancy/parquet
+
+/obj/item/stack/tile/wood/fancy/parquet_square
+	name = "square oak parquet floor tiles"
+	singular_name = "square oak parquet floor tile"
+	icon_state = "tile-wood-parquet-square"
+	turf_type = /turf/simulated/floor/wood/fancy/parquet_square
+
+
 /obj/item/stack/tile/wood/cyborg
 	is_cyborg = 1
 

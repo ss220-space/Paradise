@@ -239,6 +239,9 @@
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
 	container_type = OPENCONTAINER
 
+/obj/item/reagent_containers/glass/beaker/large/meatocreatadone
+	list_reagents = list("meatocreatadone" = 100) //// object_sampo.dmm for syntiflesh2
+
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
 	desc = "A small glass vial, often used by virologists of the 25th century."
@@ -250,6 +253,10 @@
 	possible_transfer_amounts = list(5,10,15,25)
 	container_type = OPENCONTAINER
 	can_assembly = 0
+
+/obj/item/reagent_containers/glass/beaker/vial/mutagen
+	list_reagents = list("mutagen" = 25)
+	icon_state = "vial-green"
 
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"

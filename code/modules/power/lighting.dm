@@ -254,12 +254,50 @@
 	brightness_range = 12
 	brightness_power = 4
 
+/obj/machinery/light/built
+	icon_state = "tube-empty"
+
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
 	..()
 
+/obj/machinery/light/small/built
+	icon_state = "bulb-empty"
+
 /obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
+	..()
+
+////// Broken
+
+/obj/machinery/light/broken
+	icon_state = "tube-broken"
+
+/obj/machinery/light/broken/Initialize(mapload)
+	status = LIGHT_BROKEN
+	..()
+
+/obj/machinery/light/small/broken
+	icon_state = "bulb-broken"
+
+/obj/machinery/light/small/broken/Initialize(mapload)
+	status = LIGHT_BROKEN
+	..()
+
+////// Burned
+
+/obj/machinery/light/burned
+	icon_state = "tube-burned"
+
+/obj/machinery/light/burned/Initialize(mapload)
+	status = LIGHT_BURNED
+	..()
+
+/obj/machinery/light/small/burned
+	icon_state = "bulb-burned"
+
+/obj/machinery/light/small/burned/Initialize(mapload)
+	status = LIGHT_BURNED
 	..()
 
 // create a new lighting fixture

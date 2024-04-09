@@ -390,7 +390,10 @@
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/shuttle, /obj/structure/falsewall/titanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/shuttle, /obj/structure/falsewall/titanium, /obj/structure/falsewall/titanium/gray, /turf/simulated/wall/shuttle/ricochet, /turf/simulated/wall/shuttle/ricochet/gray, /turf/simulated/wall/shuttle/ricochet/gray/can_exlode)
+
+/obj/structure/falsewall/titanium/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."

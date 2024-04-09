@@ -18,6 +18,9 @@
 		var/mob/living/L = user
 		L.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
+/obj/structure/punching_bag/floor
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "punchingbag"
 /obj/structure/weightmachine
 	name = "weight machine"
 	desc = "Just looking at this thing makes you feel tired."
