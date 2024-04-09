@@ -55,6 +55,7 @@
 	var/uid
 
 	var/list/ambientsounds = GENERIC_SOUNDS
+	var/white_noise = 'sound/ambience/shipambience.ogg'  // looping white noise sound
 
 	var/list/firedoors
 	var/list/cameras
@@ -527,7 +528,7 @@
 	if(!our_client.ambience_playing && (our_client.prefs.sound & SOUND_BUZZ))
 		our_client.ambience_playing = TRUE
 		var/amb_volume = 35 * our_client.prefs.get_channel_volume(CHANNEL_BUZZ)
-		SEND_SOUND(arrived_living, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
+		SEND_SOUND(arrived_living, sound(white_noise, repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
 
 	else if(!(our_client.prefs.sound & SOUND_BUZZ))
 		our_client.ambience_playing = FALSE

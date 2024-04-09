@@ -1142,3 +1142,21 @@
 	icon_state = "night_dress_white"
 	item_state = "night_dress_white"
 	item_color = "night_dress_white"
+
+/obj/item/clothing/under/workingsuit
+	name = "working suit"
+	desc = "A standard-issue, hazmat-tested and antistatic-protected working suit."
+	icon_state = "green_workingsuit"
+	item_state = "green_workingsuit"
+	item_color = "green_workingsuit"
+	siemens_coefficient = 0.7
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 5, "bomb" = 0, "bio" = 5, "rad" = 5, "fire" = 20, "acid" = 10)
+
+/obj/item/clothing/under/mercenary
+	name = "mercenary suit"
+	desc = "A standard issued turtleneck colored red, you feel as if you can face the world and all it has to bring against you."
+	icon_state = "alpha_merc"
+	item_state = "alpha_merc"
+	item_color = "alpha_merc"
+	has_sensor = FALSE
+	armor = list("melee" = 5, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 15, "acid" = 10)

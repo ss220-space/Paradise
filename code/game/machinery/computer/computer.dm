@@ -20,6 +20,8 @@
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
+	/// For fat broken overlay
+	var/big_broken_overlay
 
 
 /obj/machinery/computer/Initialize(mapload)
@@ -88,6 +90,9 @@
 
 	if(stat & BROKEN)
 		. += "[icon_state]_broken"
+		if(big_broken_overlay)
+			. += "[icon_state][big_broken_overlay]"
+			return
 	else
 		if(icon_screen)
 			. += "[icon_screen]"
@@ -210,46 +215,157 @@
 /obj/machinery/computer/old_frame
 	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "common_computerframe"
+	name = "computer"
 
 /obj/machinery/computer/old_frame/engineering
+	name = "computer"
 	icon_screen = "common2_oldframe"
 	icon_state = "frame-eng"
 	icon_keyboard = "kb14"
 
 /obj/machinery/computer/old_frame/medical
+	name = "computer"
 	icon_screen = "common2_oldframe"
 	icon_state = "frame-med"
 	icon_keyboard = "kb4"
 
 /obj/machinery/computer/old_frame/big
+	name = "computer"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "left"
 	icon_keyboard = null
 
 /obj/machinery/computer/old_frame/big/alert
+	name = "computer"
 	icon_state = "leftb"
 
 /obj/machinery/computer/old_frame/big/right
+	name = "computer"
 	icon_state = "right-closed"
 
 /obj/machinery/computer/old_frame/macintosh
+	name = "macintosh"
 	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "stock_computer"
 	icon_state = "oldcomp"
 
+/obj/machinery/computer/old_frame/macintosh/ibm
+	name = "ibm"
+	icon_screen = "ibm_on"
+	icon_keyboard = null
+	icon_state = "ibm"
+
 /obj/machinery/computer/old_frame/server
+	name = "server computer"
 	icon_screen = "command"
 	icon_state = "serverframe"
 
 /obj/machinery/computer/old_frame/server/rackframe
+	name = "rackframe"
 	name = "rackframe"
 	icon_state = "rackframe"
 	icon_screen = null
 	icon_keyboard = null
 
 /obj/machinery/computer/old_frame/locator
+	name = "locator"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "tdoppler"
 
 /obj/machinery/computer/old_frame/thick
+	name = "computer"
 	icon_state = "thick"
+
+/obj/machinery/computer/old_frame/alldir
+	name = "computer"
+	icon_screen = "generic"
+	icon_keyboard = "generic_key"
+	icon = 'icons/obj/machines/computer2.dmi'
+
+/obj/machinery/computer/old_frame/alldir/broken
+	name = "computer"
+	icon_state = "computer_broken"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/alldir/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/computer/old_frame/alldir/wide
+	name = "computer"
+	icon_state = "computer_L_R"
+	icon_screen = "comm_monitor"
+
+/obj/machinery/computer/old_frame/alldir/wide/left
+	name = "computer"
+	icon_state = "computer_L"
+	icon_screen = "comm_logs"
+
+/obj/machinery/computer/old_frame/alldir/wide/right
+	name = "computer"
+	icon_state = "computer_R"
+	icon_screen = "generic"
+
+/obj/machinery/computer/old_frame/alldir/wide/broken
+	name = "computer"
+	icon_state = "computer_L_R_broken"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/alldir/wide/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/computer/old_frame/alldir/wide/broken/left
+	name = "computer"
+	icon_state = "computer_L_broken"
+
+/obj/machinery/computer/old_frame/alldir/wide/broken/right
+	name = "computer"
+	icon_state = "computer_R_broken"
+
+/obj/machinery/computer/old_frame/alldir/wide_thick
+	name = "computer"
+	icon_state = "adv_helm"
+	icon_screen = "adv_helm_screen"
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/left
+	name = "computer"
+	icon_state = "adv_engines"
+	icon_screen = "adv_engines_screen"
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/right
+	name = "computer"
+	icon_state = "adv_sensors"
+	icon_screen = "adv_sensors_screen"
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/broken
+	name = "computer"
+	icon_state = "adv_helm_broken"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/broken/left
+	name = "computer"
+	icon_state = "adv_engines_broken"
+
+/obj/machinery/computer/old_frame/alldir/wide_thick/broken/right
+	name = "computer"
+	icon_state = "adv_sensors_broken"
+
+
+///////// RETRO FAT 4 DIR FRAME
+/obj/machinery/computer/retro
+	name = "computer"
+	icon = 'icons/obj/machines/computer5.dmi'
+	icon_state = "computer-retro"
+	abductor = FALSE //there's no abductor's icon
+	big_broken_overlay = "_bigbroken"

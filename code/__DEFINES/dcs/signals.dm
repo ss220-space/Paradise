@@ -981,3 +981,6 @@
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
 
+
+/// Organs signals
+#define COMSIG_EXTERNAL_ORGAN_REMOVED "external_organ_removed"

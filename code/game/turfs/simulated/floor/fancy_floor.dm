@@ -10,11 +10,6 @@
 /turf/simulated/floor/wood/broken_states()
 	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
-/turf/simulated/floor/wood/airless
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
-
 /turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -43,7 +38,30 @@
 				to_chat(user, span_warning("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating(make_tile, user)
 
+/turf/simulated/floor/wood/broken
+	icon_state = "wood-broken"
+	broken = TRUE
+
+/turf/simulated/floor/wood/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
+
+/turf/simulated/floor/wood/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/wood/cold
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+
+/turf/simulated/floor/wood/broken/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/wood/broken/cold
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
@@ -55,12 +73,28 @@
 /turf/simulated/floor/wood/oak/broken_states()
 	return list("wood-oak-broken", "wood-oak-broken2", "wood-oak-broken3", "wood-oak-broken4", "wood-oak-broken5", "wood-oak-broken6", "wood-oak-broken7")
 
+/turf/simulated/floor/wood/oak/broken
+	broken = TRUE
+	icon_state = "wood-oak-broken"
+
+/turf/simulated/floor/wood/oak/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-oak-broken", "wood-oak-broken2", "wood-oak-broken3", "wood-oak-broken4", "wood-oak-broken5", "wood-oak-broken6", "wood-oak-broken7")
+
 /turf/simulated/floor/wood/birch
 	icon_state = "wood-birch"
 	floor_tile = /obj/item/stack/tile/wood/birch
 
 /turf/simulated/floor/wood/birch/broken_states()
 	return list("wood-birch-broken", "wood-birch-broken2", "wood-birch-broken3", "wood-birch-broken4", "wood-birch-broken5", "wood-birch-broken6", "wood-birch-broken7")
+
+/turf/simulated/floor/wood/birch/broken
+	broken = TRUE
+	icon_state = "wood-birch-broken"
+
+/turf/simulated/floor/wood/birch/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-birch-broken", "wood-birch-broken2", "wood-birch-broken3", "wood-birch-broken4", "wood-birch-broken5", "wood-birch-broken6", "wood-birch-broken7")
 
 /turf/simulated/floor/wood/cherry
 	icon_state = "wood-cherry"
@@ -69,12 +103,28 @@
 /turf/simulated/floor/wood/cherry/broken_states()
 	return list("wood-cherry-broken", "wood-cherry-broken2", "wood-cherry-broken3", "wood-cherry-broken4", "wood-cherry-broken5", "wood-cherry-broken6", "wood-cherry-broken7")
 
+/turf/simulated/floor/wood/cherry/broken
+	broken = TRUE
+	icon_state = "wood-cherry-broken"
+
+/turf/simulated/floor/wood/cherry/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-cherry-broken", "wood-cherry-broken2", "wood-cherry-broken3", "wood-cherry-broken4", "wood-cherry-broken5", "wood-cherry-broken6", "wood-cherry-broken7")
+
 /turf/simulated/floor/wood/fancy/oak
 	icon_state = "fancy-wood-oak"
 	floor_tile = /obj/item/stack/tile/wood/fancy/oak
 
 /turf/simulated/floor/wood/fancy/oak/broken_states()
 	return list("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7")
+
+/turf/simulated/floor/wood/fancy/oak/broken
+	broken = TRUE
+	icon_state = "fancy-wood-oak-broken"
+
+/turf/simulated/floor/wood/fancy/oak/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7")
 
 /turf/simulated/floor/wood/fancy/birch
 	icon_state = "fancy-wood-birch"
@@ -83,6 +133,14 @@
 /turf/simulated/floor/wood/fancy/birch/broken_states()
 	return list("fancy-wood-birch-broken", "fancy-wood-birch-broken2", "fancy-wood-birch-broken3", "fancy-wood-birch-broken4", "fancy-wood-birch-broken5", "fancy-wood-birch-broken6", "fancy-wood-birch-broken7")
 
+/turf/simulated/floor/wood/fancy/birch/broken
+	broken = TRUE
+	icon_state = "fancy-wood-birch-broken"
+
+/turf/simulated/floor/wood/fancy/birch/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("fancy-wood-birch-broken", "fancy-wood-birch-broken2", "fancy-wood-birch-broken3", "fancy-wood-birch-broken4", "fancy-wood-birch-broken5", "fancy-wood-birch-broken6", "fancy-wood-birch-broken7")
+
 /turf/simulated/floor/wood/fancy/cherry
 	icon_state = "fancy-wood-cherry"
 	floor_tile = /obj/item/stack/tile/wood/fancy/cherry
@@ -90,12 +148,58 @@
 /turf/simulated/floor/wood/fancy/cherry/broken_states()
 	return list("fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3", "fancy-wood-cherry-broken4", "fancy-wood-cherry-broken5", "fancy-wood-cherry-broken6", "fancy-wood-cherry-broken7")
 
+/turf/simulated/floor/wood/fancy/cherry/broken
+	broken = TRUE
+	icon_state = "fancy-wood-cherry-broken"
+
+/turf/simulated/floor/wood/fancy/cherry/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3", "fancy-wood-cherry-broken4", "fancy-wood-cherry-broken5", "fancy-wood-cherry-broken6", "fancy-wood-cherry-broken7")
+
 /turf/simulated/floor/wood/fancy/light
 	icon_state = "light-fancy-wood"
 	floor_tile = /obj/item/stack/tile/wood/fancy/light
 
 /turf/simulated/floor/wood/fancy/light/broken_states()
 	return list("light-fancy-wood-broken", "light-fancy-wood-broken2", "light-fancy-wood-broken3", "light-fancy-wood-broken4", "light-fancy-wood-broken5", "light-fancy-wood-broken6", "light-fancy-wood-broken7")
+
+/turf/simulated/floor/wood/fancy/light/broken
+	broken = TRUE
+	icon_state = "light-fancy-wood-broken"
+
+/turf/simulated/floor/wood/fancy/light/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("light-fancy-wood-broken", "light-fancy-wood-broken2", "light-fancy-wood-broken3", "light-fancy-wood-broken4", "light-fancy-wood-broken5", "light-fancy-wood-broken6", "light-fancy-wood-broken7")
+
+/turf/simulated/floor/wood/fancy/parquet
+	icon_state = "wood-parquet"
+	floor_tile = /obj/item/stack/tile/wood/fancy/parquet
+
+/turf/simulated/floor/wood/fancy/parquet/broken_states()
+	return list("wood-parquet-broken", "wood-parquet-broken2", "wood-parquet-broken3", "wood-parquet-broken4", "wood-parquet-broken5", "wood-parquet-broken6", "wood-parquet-broken7")
+
+/turf/simulated/floor/wood/fancy/parquet/broken
+	broken = TRUE
+	icon_state = "wood-parquet-broken"
+
+/turf/simulated/floor/wood/fancy/parquet/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-parquet-broken", "wood-parquet-broken2", "wood-parquet-broken3", "wood-parquet-broken4", "wood-parquet-broken5", "wood-parquet-broken6", "wood-parquet-broken7")
+
+/turf/simulated/floor/wood/fancy/parquet_square
+	icon_state = "wood-parquet-square"
+	floor_tile = /obj/item/stack/tile/wood/fancy/parquet_square
+
+/turf/simulated/floor/wood/fancy/parquet_square/broken_states()
+	return list("wood-parquet-square-broken", "wood-parquet-square-broken2", "wood-parquet-square-broken3", "wood-parquet-square-broken4")
+
+/turf/simulated/floor/wood/fancy/parquet_square/broken
+	broken = TRUE
+	icon_state = "wood-parquet-square-broken"
+
+/turf/simulated/floor/wood/fancy/parquet_square/broken/Initialize(mapload)
+	. = ..()
+	icon_state = pick("wood-parquet-square-broken", "wood-parquet-square-broken2", "wood-parquet-square-broken3", "wood-parquet-square-broken4")
 
 // GRASS
 /turf/simulated/floor/grass

@@ -14,6 +14,29 @@
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
+/turf/simulated/wall/shuttle/ricochet
+	flags_2 = CHECK_RICOCHET_2
+
+/turf/simulated/wall/shuttle/ricochet/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+
+/turf/simulated/wall/shuttle/ricochet/gray/can_exlode/ex_act(severity)
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			ChangeTurf(baseturf)
+			return
+		if(EXPLODE_HEAVY)
+			if(prob(50))
+				take_damage(rand(150, 250))
+			else
+				dismantle_wall(1, 1)
+		if(EXPLODE_LIGHT)
+			take_damage(rand(0, 250))
+
+/turf/simulated/wall/shuttle/ricochet/gray/can_exlode/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "shuttle_nd"
+
 /turf/simulated/wall/shuttle/dismantle_wall(devastated = 0, explode = 0)
 	return
 
@@ -105,6 +128,42 @@
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
+///// Ricochet walls
+/turf/simulated/wall/shuttle/ricochet/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "shuttle_nd"
+
+/turf/simulated/wall/shuttle/ricochet/nodiagonal/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth
+	icon_state = "shuttle_ns"
+	smooth = SMOOTH_FALSE
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+
+/turf/simulated/wall/shuttle/ricochet/onlyselfsmooth
+	icon_state = "shuttle_ss"
+	canSmoothWith = list(/turf/simulated/wall/shuttle/ricochet)
+
+/turf/simulated/wall/shuttle/ricochet/onlyselfsmooth/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	canSmoothWith = list(/turf/simulated/wall/shuttle/ricochet/gray)
+
+/turf/simulated/wall/shuttle/ricochet/onlyselfsmooth/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "shuttle_ndss"
+
+/turf/simulated/wall/shuttle/ricochet/onlyselfsmooth/nodiagonal/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+
+/turf/simulated/wall/shuttle/ricochet/overspace
+	icon_state = "overspace"
+	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/shuttle/ricochet/overspace/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 
 // sub-type to be used for interior shuttle walls
 // won't get an underlay of the destination turf on shuttle move
@@ -122,6 +181,39 @@
 		underlays.Add(floor_underlay)
 
 /turf/simulated/wall/shuttle/nosmooth/interior/copyTurf(turf/T)
+	if(T.type != type)
+		T.ChangeTurf(type)
+		if(underlays.len)
+			T.underlays = underlays
+	if(T.icon_state != icon_state)
+		T.icon_state = icon_state
+	if(T.icon != icon)
+		T.icon = icon
+	if(T.color != color)
+		T.color = color
+	if(T.dir != dir)
+		T.setDir(dir)
+	T.transform = transform
+	return T
+
+///// Ricochet walls
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth/interior
+	var/underlay_floor_icon = null
+	var/underlay_floor_icon_state = null
+	var/underlay_floor_dir = 2
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth/interior/gray
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth/interior/Initialize()
+	..()
+	if(underlay_floor_icon && underlay_floor_icon_state)
+		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
+		underlays.Cut()
+		underlays.Add(floor_underlay)
+
+/turf/simulated/wall/shuttle/ricochet/nosmooth/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
 		if(underlays.len)

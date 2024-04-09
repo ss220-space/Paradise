@@ -778,7 +778,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(!iscarbon(src))
 		return FALSE
 
-	if(NO_BREATHE in src.dna?.species?.species_traits)
+	if(NO_BREATHE in dna?.species?.species_traits)
+		return FALSE
+
+	if(stat == DEAD)
 		return FALSE
 
 	if(!wear_mask)

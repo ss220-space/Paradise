@@ -47,3 +47,11 @@
 	item_state = "bops"
 	item_color = "bops"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/under/syndicate/specops
+	name = "specops turtleneck"
+	desc = "A specialised turtleneck issued to special operation units"
+	icon_state = "specops_uniform"
+	item_state = "specops_uniform"
+	has_sensor = FALSE
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)

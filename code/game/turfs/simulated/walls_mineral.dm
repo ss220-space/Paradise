@@ -207,7 +207,7 @@
 	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium, /turf/simulated/wall/shuttle)
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
 	smooth = SMOOTH_MORE

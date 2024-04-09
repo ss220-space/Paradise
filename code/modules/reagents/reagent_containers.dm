@@ -4,17 +4,28 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
+	/// The maximum amount of reagents per transfer that will be moved out of this reagent container.
 	var/amount_per_transfer_from_this = 5
+	/// If TRUE, it will show how much the container transfer
 	var/visible_transfer_rate = TRUE
-	var/possible_transfer_amounts = list(5,10,15,25,30)
+	/// The different possible amounts of reagent to transfer out of the container
+	var/list/possible_transfer_amounts = list(5,10,15,25,30)
+	/// The maximum amount of reagents this container can hold
 	var/volume = 30
+	/// A list of what initial reagents this container should spawn with
 	var/list/list_reagents = null
+	/// If this container should spawn with a disease type inside of it
 	var/spawned_disease = null
+	/// How much of a disease specified in spawned_disease should this container spawn with
 	var/disease_amount = 20
-	var/has_lid = FALSE // Used for containers where we want to put lids on and off
-	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
+	/// Used for containers where we want to put lids on and off
+	var/has_lid = FALSE
+	/// To limit the temperature of a reagent container can atain when exposed to cold
+	var/temperature_min = 0
+	/// To limit the temperature of a reagent container can atain when exposed to heat
 	var/temperature_max = 10000
-	var/pass_open_check = FALSE // Pass open check in empty verb
+	/// If TRUE pass open check in empty verb
+	var/pass_open_check = FALSE
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"

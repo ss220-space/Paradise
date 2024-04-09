@@ -303,6 +303,15 @@
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
+/obj/item/clothing/mask/gas/transparent
+	name = "transparent gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. Filters harmful gases from the air."
+	icon_state = "gas_tgmc"
+	item_state = "gas_tgmc"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 5, "fire" = 5, "acid" = 5)
+	flags_inv = HIDEGLASSES
+	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+
 // ********************************************************************
 
 // **** Security gas mask ****

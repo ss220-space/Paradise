@@ -168,6 +168,7 @@
 		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 	owner.bodyparts_by_name[limb_zone] = src
 	owner.bodyparts |= src
+	owner.updatehealth()
 
 	for(var/atom/movable/thing in src)
 		thing.attempt_become_organ(src, owner)
@@ -206,6 +207,8 @@
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
 	organ_owner.bodyparts_by_name[limb_zone] = null	// Remove from owner's vars.
+
+	SEND_SIGNAL(src, COMSIG_EXTERNAL_ORGAN_REMOVED, src, organ_owner)
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)

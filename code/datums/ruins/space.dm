@@ -393,3 +393,13 @@
 	description = "Its old space USSP Banya.... She looks very abandoned."
 	cost = 2
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/object_sampo
+	id = "object_sampo"
+	suffix = "object_sampo.dmm"
+	name = "Object Sampo"
+	description = "..."
+	cost = 0  ////5
+	never_spawn_with = list(/datum/map_template/ruin/space/USSP_gorky17_collapsed)
+	allow_duplicates = FALSE
+	always_place = TRUE

@@ -121,6 +121,8 @@
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
+	/// If TRUE mob attacks will be sharp
+	var/sharp_attack = FALSE
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()

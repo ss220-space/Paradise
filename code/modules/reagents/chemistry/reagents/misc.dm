@@ -718,3 +718,43 @@
 	if(volume > 4)
 		M.add_language(LANGUAGE_MONKEY_HUMAN)
 	return ..()
+
+////// object_sampo.dmm
+
+/datum/reagent/meatocreatadone
+	data = list("diseases" = null)
+	name = "Meatocreatadone"
+	id = "meatocreatadone"
+	description = "Вязкая тянучая масса с едким и тошнотворным запахом. Если все же принюхаться, то можно уловить нотки тухлого мяса."
+	reagent_state = LIQUID
+	color = "#4e0303"
+	taste_description = "bitterness"
+	can_synth = FALSE
+	heart_rate_increase = 1
+
+/datum/chemical_reaction/syntiflesh2
+	name = "Syntiflesh 2.0"
+	id = "syntiflesh2"
+	result = null
+	required_reagents = list("blood" = 5, "meatocreatadone" = 5)
+	result_amount = 1
+
+/datum/chemical_reaction/syntiflesh2/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/reagent_containers/food/snacks/meat/syntiflesh(location)
+
+/datum/chemical_reaction/livingflesh
+	name = "Living flesh"
+	id = "livingflesh"
+	min_temp = 1000
+	result = null
+	required_reagents = list("mutagen" = 25, "meatocreatadone" = 25)
+	result_amount = 1
+
+/datum/chemical_reaction/livingflesh/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /mob/living/simple_animal/hostile/living_limb_flesh(location)
+
+///////////////////////

@@ -340,6 +340,11 @@
 	var/range_light = 17
 	var/range_flame = 17
 	var/admin_log = TRUE
+	/// If TRUE your explosion will ignore server bomb cap
+	var/ignorecap = FALSE
+	/// If TRUE you can run special actions in /delete_unnecessary proc
+	var/special_deletes = FALSE
+
 
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
 	detonate()
@@ -353,10 +358,16 @@
 	if(adminlog)
 		message_admins(adminlog)
 		add_game_logs(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
+	var/center = get_turf(src)
+	explosion(center, range_heavy, range_medium, range_light, flame_range = range_flame, ignorecap = ignorecap, adminlog = admin_log, cause = fingerprintslast)
+	if(special_deletes)
+		INVOKE_ASYNC(src, PROC_REF(delete_unnecessary), center)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
+
+/obj/item/bombcore/proc/delete_unnecessary(center)
+	return
 
 /obj/item/bombcore/proc/defuse()
 //Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or

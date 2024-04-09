@@ -178,3 +178,63 @@
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 20)
+
+/obj/item/reagent_containers/food/pill/retrovirus
+	name = "странная таблетка"
+	desc = "Упругая и зловонная таблетка. Лучше не принимать."
+	icon_state = "pill4"
+	spawned_disease = /datum/disease/virus/dna_retrovirus
+	disease_amount = 0.1
+
+///////////////////////
+////////////// OBJECT SAMPO
+///////////////////////
+
+/obj/item/reagent_containers/food/pill/random_object_sampo_virus
+	spawned_disease = /datum/disease/virus/advance/object_sampo_random
+	disease_amount = 0.1
+
+/datum/disease/virus/advance/object_sampo_random
+	var/static/list/random_symptoms = list(
+		/datum/symptom/voice_change,
+		/datum/symptom/mind_restoration,
+		/datum/symptom/sensory_restoration,
+		/datum/symptom/vomit/projectile,
+		/datum/symptom/shedding,
+		/datum/symptom/laugh,
+		/datum/symptom/love,
+		/datum/symptom/damage_converter,
+		/datum/symptom/oxygen,
+		/datum/symptom/painkiller,
+		/datum/symptom/epinephrine,
+		/datum/symptom/itching,
+		/datum/symptom/dizzy,
+		/datum/symptom/limb_throw,
+		/datum/symptom/bones,
+		/datum/symptom/moan,
+	)
+
+/datum/disease/virus/advance/object_sampo_random/New()
+	var/list/random_symptoms_copy = random_symptoms.Copy()
+	for(var/i in 1 to rand(4, 6))
+		var/datum/symptom/symptom_path = pick_n_take(random_symptoms_copy)
+		symptoms += new symptom_path
+	..()
+	name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
+
+/obj/item/reagent_containers/food/pill/random_object_sampo_disease
+	disease_amount = 0.1
+
+/obj/item/reagent_containers/food/pill/random_object_sampo_disease/New()
+	spawned_disease = pick(
+		/datum/disease/virus/transformation/jungle_fever,
+		/datum/disease/virus/anxiety,
+		/datum/disease/virus/beesease,
+		/datum/disease/food_poisoning,
+		/datum/disease/vampire,
+		/datum/disease/virus/fake_gbs,
+		/datum/disease/virus/pierrot_throat,
+		/datum/disease/virus/advance/preset/pre_loyalty)
+	..()
+
+////////////////////////////////////////////////////////////////////////////////

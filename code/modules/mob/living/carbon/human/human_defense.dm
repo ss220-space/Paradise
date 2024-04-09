@@ -674,7 +674,7 @@ emp_act
 			affecting = get_organ(BODY_ZONE_CHEST)
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		apply_damage(damage, M.melee_damage_type, affecting, armor, M.sharp_attack)
 		updatehealth("animal attack")
 		var/all_objectives = M?.mind?.get_all_objectives()
 		if(mind && all_objectives)

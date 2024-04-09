@@ -684,6 +684,13 @@
 		/obj/item/reagent_containers/glass/beaker,
 	))
 
+//// broken smartfridge for decorations
+/obj/machinery/smartfridge/secure/chemistry/virology/broken
+
+/obj/machinery/smartfridge/secure/chemistry/virology/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * # Smart Virus Storage (Preloaded)
