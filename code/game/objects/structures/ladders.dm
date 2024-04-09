@@ -7,10 +7,12 @@
 	anchored = TRUE
 	var/obj/structure/ladder/down   //the ladder below this one
 	var/obj/structure/ladder/up     //the ladder above this one
-	var/use_verb = "climb"
+	obj_flags = BLOCK_Z_OUT_DOWN
+	/// Optional travel time for ladder in deciseconds
+	var/travel_time = 0
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
-	. = ..()
+	..()
 	if (up)
 		src.up = up
 		up.down = src
@@ -30,19 +32,20 @@
 /obj/structure/ladder/LateInitialize()
 	// By default, discover ladders above and below us vertically
 	var/turf/T = get_turf(src)
+	var/obj/structure/ladder/L
 
 	if(!down)
-		for(var/obj/structure/ladder/L in locate(T.x, T.y, T.z - 1))
+		L = locate() in GET_TURF_BELOW(T)
+		if(L)
 			down = L
 			L.up = src  // Don't waste effort looping the other way
 			L.update_icon(UPDATE_ICON_STATE)
-			break
 	if(!up)
-		for (var/obj/structure/ladder/L in locate(T.x, T.y, T.z + 1))
+		L = locate() in GET_TURF_ABOVE(T)
+		if(L)
 			up = L
 			L.down = src  // Don't waste effort looping the other way
 			L.update_icon()
-			break
 
 	update_icon(UPDATE_ICON_STATE)
 
@@ -75,52 +78,78 @@
 
 /obj/structure/ladder/proc/travel(going_up, mob/user, is_ghost, obj/structure/ladder/ladder)
 	if(!is_ghost)
-		show_fluff_message(going_up, user)
 		ladder.add_fingerprint(user)
+		if(!do_after(user, travel_time, target = src))
+			return
+		show_fluff_message(going_up, user)
 
-	var/turf/T = get_turf(ladder)
-	var/atom/movable/AM
-	if(user.pulling)
-		AM = user.pulling
-		AM.forceMove(T)
-	user.forceMove(T)
-	if(AM)
-		user.start_pulling(AM)
+	var/turf/target = get_turf(ladder)
+	user.zMove(target = target, z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+	ladder.use(user) //reopening ladder radial menu ahead
 
 /obj/structure/ladder/proc/use(mob/user, is_ghost = FALSE)
 	if(!is_ghost && !in_range(src, user))
 		return
 
-	if(up && down)
-		var/result = alert("Go up or down [src]?", "[name]", "Up", "Down", "Cancel")
-		if (!is_ghost && !in_range(src, user))
-			return  // nice try
-		switch(result)
-			if("Up")
-				travel(TRUE, user, is_ghost, up)
-			if("Down")
-				travel(FALSE, user, is_ghost, down)
-			if("Cancel")
-				return
-	else if(up)
-		travel(TRUE, user, is_ghost, up)
-	else if(down)
-		travel(FALSE, user, is_ghost, down)
-	else
-		to_chat(user, "<span class='warning'>[src] doesn't seem to lead anywhere!</span>")
+	var/list/tool_list = list()
+	if (up)
+		tool_list["Up"] = image(icon = 'icons/misc/Testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	if (down)
+		tool_list["Down"] = image(icon = 'icons/misc/Testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+	if (!length(tool_list))
+		to_chat(user, span_warning("[src] doesn't seem to lead anywhere!"))
+		return
+	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost)
+	if (!is_ghost && !in_range(src, user))
+		return  // nice try
+	switch(result)
+		if("Up")
+			travel(TRUE, user, is_ghost, up)
+		if("Down")
+			travel(FALSE, user, is_ghost, down)
+		if("Cancel")
+			return
 
 	if(!is_ghost)
 		add_fingerprint(user)
 
-/obj/structure/ladder/attack_hand(mob/user)
-	use(user)
+/obj/structure/ladder/proc/check_menu(mob/user, is_ghost)
+	if(is_ghost)
+		return TRUE
+	if(user.incapacitated() || (!user.Adjacent(src) && !is_ghost))
+		return FALSE
+	return TRUE
 
 /obj/structure/ladder/attackby(obj/item/W, mob/user, params)
-	return use(user)
+	use(user)
+	return TRUE
 
-/obj/structure/ladder/attack_robot(mob/living/silicon/robot/R)
-	if(R.Adjacent(src))
-		return use(R)
+/obj/structure/ladder/attack_hand(mob/living/user)
+	. = ..()
+	if(.)
+		return
+	use(user)
+
+/obj/structure/ladder/attack_animal(mob/living/simple_animal/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_alien(mob/living/carbon/alien/humanoid/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_larva(mob/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_slime(mob/living/simple_animal/slime/user)
+	use(user)
+	return TRUE
+
+/obj/structure/ladder/attack_robot(mob/living/silicon/robot/user)
+	if(user.Adjacent(src))
+		use(user)
+	return TRUE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/structure/ladder/attack_ghost(mob/dead/observer/user)
@@ -128,9 +157,9 @@
 
 /obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] climbs up [src].","<span class='notice'>You [use_verb] up [src].</span>")
+		user.visible_message("[user] climbs up [src].","<span class='notice'>You climb up [src].</span>")
 	else
-		user.visible_message("[user] climbs down [src].","<span class='notice'>You [use_verb] down [src].</span>")
+		user.visible_message("[user] climbs down [src].","<span class='notice'>You climb down [src].</span>")
 
 
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.
@@ -156,20 +185,19 @@
 		update_icon(UPDATE_ICON_STATE)
 		return
 
-	for(var/O in GLOB.ladders)
-		var/obj/structure/ladder/unbreakable/L = O
-		if(L.id != id)
+	for(var/obj/structure/ladder/unbreakable/unbreakable_ladder in GLOB.ladders)
+		if(unbreakable_ladder.id != id)
 			continue  // not one of our pals
-		if(!down && L.height == height - 1)
-			down = L
-			L.up = src
-			L.update_icon(UPDATE_ICON_STATE)
-			if (up)
+		if(!down && unbreakable_ladder.height == height - 1)
+			down = unbreakable_ladder
+			unbreakable_ladder.up = src
+			unbreakable_ladder.update_icon(UPDATE_ICON_STATE)
+			if(up)
 				break  // break if both our connections are filled
-		else if(!up && L.height == height + 1)
-			up = L
-			L.down = src
-			L.update_icon(UPDATE_ICON_STATE)
+		else if(!up && unbreakable_ladder.height == height + 1)
+			up = unbreakable_ladder
+			unbreakable_ladder.down = src
+			unbreakable_ladder.update_icon(UPDATE_ICON_STATE)
 			if (down)
 				break  // break if both our connections are filled
 
@@ -182,8 +210,14 @@
 	icon_state = "buoy"
 	id = "dive"
 	height = 2
-	use_verb = "swim"
 	layer = MOB_LAYER + 0.2		//0.1 higher than the water overlay, this also means people can "swim" behind/under it
+
+
+/obj/structure/ladder/unbreakable/dive_point/buoy/show_fluff_message(going_up, mob/user)
+	if(going_up)
+		user.visible_message("[user] swims up [src].","<span class='notice'>You swim up [src].</span>")
+	else
+		user.visible_message("[user] swims down [src].","<span class='notice'>You swim down [src].</span>")
 
 /obj/structure/ladder/unbreakable/dive_point/anchor
 	name = "diving point anchor"

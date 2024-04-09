@@ -339,7 +339,7 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(user)
+	consume(user)
 
 /obj/machinery/power/supermatter_shard/proc/get_integrity()
 	var/integrity = damage / explosion_point
@@ -368,7 +368,7 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
@@ -384,7 +384,7 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
@@ -428,7 +428,7 @@
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)
 		add_fingerprint(user)
-		Consume(W)
+		consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
@@ -453,10 +453,38 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(moving_atom)
+	consume(moving_atom)
+
+/obj/machinery/power/supermatter_shard/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		if(hit_object == src)
+			return
+		Bumped(hit_object)
+	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
+
+/obj/machinery/power/supermatter_shard/onZImpact(turf/impacted_turf, levels, impact_flags)
+
+	for(var/mob/living/poor_target in impacted_turf)
+		consume(poor_target)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		poor_target.visible_message(span_danger("\The [src] slams into \the [poor_target] out of nowhere inducing a resonance... [poor_target.p_their()] body starts to glow and burst into flames before flashing into dust!"),
+			span_userdanger("\The [src] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
+			span_hear("You hear an unearthly noise as a wave of heat washes over you."))
+	for(var/atom/movable/hit_object as anything in impacted_turf)
+		if(src == hit_object)
+			return
+		if(iseffect(hit_object))
+			continue
+
+		consume(hit_object)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		visible_message(span_danger("\The [src], smacks into the plating out of nowhere, reducing everything below to ash."), null,
+			span_hear("You hear a loud crack as you are washed with a wave of heat."))
+	return ..()
 
 
-/obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
+/obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
 		user.gib()

@@ -145,7 +145,7 @@
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
 
-/obj/machinery/power/compressor/CanAtmosPass(turf/T)
+/obj/machinery/power/compressor/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/power/compressor/process()
@@ -244,7 +244,7 @@
 	if(compressor)
 		compressor.locate_machinery()
 
-/obj/machinery/power/turbine/CanAtmosPass(turf/T)
+/obj/machinery/power/turbine/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/power/turbine/process()

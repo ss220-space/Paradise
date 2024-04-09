@@ -113,36 +113,86 @@
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
 
-
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(air && !defer_change && !ignore_air)
-		var/aoxy = air.oxygen
-		var/anitro = air.nitrogen
-		var/aco = air.carbon_dioxide
-		var/atox = air.toxins
-		var/asleep = air.sleeping_agent
-		var/ab = air.agent_b
-		var/atemp = air.temperature
-		. = ..()
-		var/turf/simulated/T = .
-		if(istype(T) && T.air)
-			T.air.oxygen = aoxy
-			T.air.nitrogen = anitro
-			T.air.carbon_dioxide = aco
-			T.air.toxins = atox
-			T.air.sleeping_agent = asleep
-			T.air.agent_b = ab
-			T.air.temperature = atemp
-	else
-		. = ..()
-	queue_smooth_neighbors(src)
+    . = ..()
+    queue_smooth_neighbors(src)
 
-/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
-	..()
-	RemoveLattice()
-	if(!ignore_air && air && SSair)
-		SSair.add_to_active(src)
+/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType)
+    ..()
+    RemoveLattice()
+
+//////Assimilate Air//////
+/turf/simulated/proc/assimilate_air(datum/gas_mixture/old_air)
+    if(blocks_air || !air) // We are wall
+        return
+    if(old_air) // We are floor and prev(old) turf was also floor
+        air.copy_from(old_air) // We just transfer the old air to our new air and call it a day
+        if(SSair)
+            SSair.add_to_active(src)
+        return
+	// We become floor from wall or space turf.
+    var/aoxy = 0
+    var/anitro = 0
+    var/aco = 0
+    var/atox = 0
+    var/asleep = 0
+    var/ab = 0
+    var/atemp = 0
+
+    var/turf_count = 0
+
+    for(var/turf/T in atmos_adjacent_turfs)
+        if(isspaceturf(T))//Counted as no air
+            turf_count++//Considered a valid turf for air calcs
+            continue
+        else if(isfloorturf(T))
+            var/turf/simulated/S = T
+            if(S.air)//Add the air's contents to the holders
+                aoxy += S.air.oxygen
+                anitro += S.air.nitrogen
+                aco += S.air.carbon_dioxide
+                atox += S.air.toxins
+                asleep += S.air.sleeping_agent
+                ab += S.air.agent_b
+                atemp += S.air.temperature
+            turf_count++
+    air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
+    air.nitrogen = (anitro / max(turf_count, 1))
+    air.carbon_dioxide = (aco / max(turf_count, 1))
+    air.toxins = (atox / max(turf_count, 1))
+    air.sleeping_agent = (asleep / max(turf_count, 1))
+    air.agent_b = (ab / max(turf_count, 1))
+    air.temperature = (atemp / max(turf_count, 1))
+    if(SSair)
+        SSair.add_to_active(src)
 
 /turf/simulated/proc/is_shielded()
+
+// for floors and walls to go inside our turf
+/turf/simulated/zPassIn(direction)
+	if(density)
+		return FALSE // wall
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_IN_DOWN)
+			return FALSE
+	return TRUE
+
+/turf/simulated/zPassOut(direction)
+	if(density)
+		return FALSE
+	if(direction != UP) // only up. no down from the floor
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_OUT_UP)
+			return FALSE
+	return TRUE
+
+/turf/simulated/zAirIn(direction, turf/source)
+	return (!blocks_air && (direction == DOWN))
+
+/turf/simulated/zAirOut(direction, turf/source)
+	return (!blocks_air && (direction == UP))
 
 #undef WATER_WEAKEN_TIME

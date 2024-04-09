@@ -20,6 +20,25 @@
 /obj/screen/plane_master/proc/backdrop(mob/mymob)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum, add_filter), "displace", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10)), 2 SECONDS)//Why a timer vs just apply on initialize / async? I don't know. It just can't be, neither works correctly. Don't lower below 2 seconds unless you can see effects through walls with no issue.
 
+/obj/screen/plane_master/openspace
+	name = "open space plane master"
+	plane = OPENSPACE_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+
+///Things rendered on "openspace"; holes in multi-z
+/obj/screen/plane_master/openspace_backdrop
+	name = "open space backdrop plane master"
+	plane = OPENSPACE_BACKDROP_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_MULTIPLY
+	alpha = 255
+
+/obj/screen/plane_master/openspace_backdrop/Initialize(mapload)
+	. = ..()
+	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
+	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
+	add_filter("third_stage_openspace", 3, drop_shadow_filter(color = "#04080FAA", size = -20))
 
 /obj/screen/plane_master/floor
 	name = "floor plane master"

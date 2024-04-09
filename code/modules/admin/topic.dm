@@ -3384,9 +3384,9 @@
 
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
-				message_admins("[key_name_admin(usr)] moved the gamma armory")
-				log_admin("[key_name(usr)] moved the gamma armory")
-				move_gamma_ship()
+				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away"))
+					message_admins("[key_name_admin(usr)] moved the gamma armory")
+					log_admin("[key_name(usr)] moved the gamma armory")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")

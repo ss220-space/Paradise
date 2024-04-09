@@ -9,6 +9,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = 1.7
 	intact = 0
+	explosion_vertical_block = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -53,7 +54,7 @@
 
 /turf/simulated/floor/chasm/Initialize()
 	. = ..()
-	drop_z = level_name_to_num(MAIN_STATION)
+	drop_z = level_name_to_num(EMPTY_AREA)
 
 /turf/simulated/floor/chasm/ex_act()
 	return
@@ -157,6 +158,8 @@
 	if(falling_atoms[AM])
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
+		return FALSE
+	if(iseffect(AM))
 		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE

@@ -353,6 +353,10 @@
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
+	var/turf/turf_to_check = get_turf(user)
+	if(user.can_z_move(DOWN, turf_to_check))
+		to_chat(user, span_warning("You need a ground to jump from!"))
+		return
 
 	if(isturf(user.loc))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
@@ -381,10 +385,13 @@
 			if(i < 5) user.pixel_y += 8
 			else user.pixel_y -= 8
 			sleep(1)
-
 		REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
 
-		if((FAT in user.mutations) && prob(66))
+		if(!(user.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !user.currently_z_moving) // in case he could fly after
+			var/turf/pitfall = get_turf(user)
+			pitfall?.zFall(user)
+
+		else if((FAT in user.mutations) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)

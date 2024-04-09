@@ -57,7 +57,7 @@
 				if(dna.species.fragile_bones_chance && prob(30))
 					playsound(src, "bonebreak", 10, TRUE)
 
-	if(!has_gravity(loc))
+	if(!has_gravity())
 		return
 
 	var/obj/item/clothing/shoes/S = shoes

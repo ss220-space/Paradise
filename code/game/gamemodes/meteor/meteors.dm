@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(GLOB.cardinal)
-		var/level = level_name_to_num(MAIN_STATION)
+		var/level = pick(levels_by_trait(STATION_LEVEL))
 		pickedstart = spaceDebrisStartLoc(startSide, level)
 		pickedgoal = spaceDebrisFinishLoc(startSide, level)
 		max_i--
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	M.z_original = level_name_to_num(MAIN_STATION)
+	M.z_original = pick(levels_by_trait(STATION_LEVEL))
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return

@@ -1875,8 +1875,18 @@
 	},
 /area/security/brig)
 "ahF" = (
-/turf/space,
-/area/shuttle/gamma/station)
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 4;
+	height = 6;
+	id = "gamma_home";
+	name = "gamma dock";
+	width = 7
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "ahG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7040,7 +7050,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/security/prisonershuttle)
 "atO" = (
 /turf/simulated/wall,
@@ -10553,7 +10563,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aBA" = (
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/security/prisonershuttle)
 "aBB" = (
 /obj/machinery/door/airlock/hatch/gamma{
@@ -24788,7 +24798,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "bms" = (
 /obj/structure/cable{
@@ -27336,7 +27346,7 @@
 "bsO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "bsP" = (
 /obj/structure/disposalpipe/segment,
@@ -27454,7 +27464,7 @@
 "btc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "btd" = (
 /obj/structure/chair{
@@ -32712,7 +32722,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "bGX" = (
 /obj/structure/closet/emcloset,
@@ -36139,7 +36149,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
 "bPx" = (
 /obj/structure/cable{
@@ -38592,7 +38602,7 @@
 	dir = 8
 	},
 /obj/machinery/computer/security/telescreen/research,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "bVp" = (
 /obj/machinery/navbeacon{
@@ -40125,7 +40135,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "bYA" = (
 /obj/item/folder/white{
@@ -40144,7 +40154,7 @@
 	pixel_x = -7;
 	pixel_y = 10
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "bYB" = (
 /obj/machinery/computer/robotics,
@@ -40152,7 +40162,7 @@
 	layer = 4;
 	pixel_x = 32
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "bYC" = (
 /obj/structure/table,
@@ -40947,7 +40957,7 @@
 	pixel_x = -6;
 	pixel_y = 36
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "bZX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -42512,12 +42522,12 @@
 /obj/effect/turf_decal/stripes{
 	dir = 10
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "cdk" = (
 /obj/machinery/computer/mecha,
 /obj/effect/turf_decal/stripes,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "cdn" = (
 /obj/structure/cable{
@@ -42649,7 +42659,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/research_director,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "cdS" = (
 /obj/structure/cable{
@@ -43040,7 +43050,7 @@
 /area/ntrep)
 "ceQ" = (
 /obj/effect/turf_decal/stripes,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/hor)
 "ceS" = (
 /obj/machinery/alarm{
@@ -71334,7 +71344,7 @@
 /obj/item/flashlight/seclite{
 	on = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "fJU" = (
 /obj/structure/closet/secure_closet/miner,
@@ -72331,7 +72341,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "gRy" = (
 /obj/structure/table,
@@ -72718,7 +72728,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "hjl" = (
 /obj/machinery/vending/dinnerware,
@@ -73787,7 +73797,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "iya" = (
 /obj/machinery/vending/cola,
@@ -73841,7 +73851,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "iBk" = (
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/toxins/xenobiology)
 "iCe" = (
 /obj/effect/decal/cleanable/dirt,
@@ -73932,7 +73942,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "iGz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -74376,7 +74386,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light_construct/small,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "jil" = (
 /obj/machinery/conveyor/southwest{
@@ -75832,7 +75842,7 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/sofa/corp/right,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint)
 "kPe" = (
 /obj/machinery/vending/pai,
@@ -76814,7 +76824,7 @@
 	},
 /area/toxins/xenobiology)
 "lQb" = (
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint)
 "lQV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -77850,7 +77860,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "naP" = (
 /obj/item/storage/backpack/duffel,
@@ -78708,7 +78718,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint)
 "nVw" = (
 /obj/structure/cable{
@@ -79046,7 +79056,7 @@
 "ouP" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "ovs" = (
 /obj/structure/disposalpipe/segment{
@@ -79692,7 +79702,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "pma" = (
 /obj/structure/cable{
@@ -80314,7 +80324,7 @@
 /area/quartermaster/storage)
 "pPy" = (
 /obj/machinery/light,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/security/prisonershuttle)
 "pQH" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -80583,7 +80593,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "qfY" = (
 /obj/machinery/door/airlock/public/glass{
@@ -81393,7 +81403,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "qRA" = (
 /obj/machinery/camera{
@@ -81587,7 +81597,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "rdT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -81893,7 +81903,7 @@
 	dir = 4
 	},
 /obj/item/shard,
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/maintenance/server)
 "rtv" = (
 /obj/effect/decal/warning_stripes/east,
@@ -82645,7 +82655,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "soa" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -83160,7 +83170,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
-/turf/simulated/floor/transparent/glass,
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "sSg" = (
 /obj/structure/chair/stool/bar/dark{
@@ -85770,7 +85780,7 @@
 /area/maintenance/xenozoo)
 "vLh" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/livingcomplex)
 "vLJ" = (
 /obj/structure/disposalpipe/segment{
@@ -86546,7 +86556,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint)
 "wBA" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -87459,7 +87469,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint)
 "xxk" = (
 /obj/effect/decal/warning_stripes/northwest,
@@ -113619,13 +113629,13 @@ uTI
 uTI
 uTI
 lTl
+ylx
+ylx
+ylx
+ylx
 ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
 mqT
 ipD
 sHR
@@ -113876,13 +113886,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mxb
 pma
 ris
@@ -114133,13 +114143,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mQz
 pCX
 rwz
@@ -114390,13 +114400,13 @@ uTI
 uTI
 uTI
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 apF
 apF
 rBq
@@ -114647,13 +114657,13 @@ lTl
 amW
 lTl
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 nhb
 pSJ
 rFd
@@ -114904,13 +114914,13 @@ amW
 uTI
 amW
 lTl
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
-ahF
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
+ylx
 mQz
 pUD
 rIF

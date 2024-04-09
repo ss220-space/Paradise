@@ -64,7 +64,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = level_name_to_num(MAIN_STATION)
+	src.z = pick(levels_by_trait(STATION_LEVEL))
 	walk_towards(src, goal, 1)
 
 /obj/effect/space_dust/Bump(atom/A)

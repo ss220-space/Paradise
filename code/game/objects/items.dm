@@ -1287,3 +1287,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/get_throwforce()
 	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
 	return initial(throwforce) + sharpening?.damage_increase
+
+/// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")

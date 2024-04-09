@@ -365,6 +365,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	for(var/i = 1; i <= size; i++)
 		for(var/j = 1; j <= size; j++)
 			var/turf/T = locate(x_c, y_c, z_c)
+			if(isopenspaceturf(T))
+				T = GET_TURF_BELOW(T) // Multi-Z
 			if(can_capture_turf(T, user))
 				turfs.Add(T)
 				mobs += get_mobs(T)

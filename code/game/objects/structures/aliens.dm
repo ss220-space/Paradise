@@ -72,7 +72,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/alien/resin/wall
