@@ -154,3 +154,18 @@
 	display_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
+
+/datum/gear/accessory/holsters
+	display_name = "holster, select"
+	path = /obj/item/clothing/accessory/holster/
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT)
+
+/datum/gear/accessory/holsters/New()
+	..()
+	var/list/holsters = list(/obj/item/clothing/accessory/holster/leg,
+							/obj/item/clothing/accessory/holster/leg/black,
+							/obj/item/clothing/accessory/holster/belt,
+							/obj/item/clothing/accessory/holster/belt/black,
+							)
+	gear_tweaks += new /datum/gear_tweak/path(holsters, src, TRUE)
+
