@@ -608,12 +608,20 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
 			continue
+
+		for(var/obj/things in T1)
+			if(istype(things, /obj/docking_port)) //prevent from qdel docking port
+				continue
+			else
+				if(!(istype(things, /obj/effect)) || istype(things, /obj/effect/decal)) //and any effects other than decals (dels only blood, gibs, remains etc.)
+					things.visible_message(span_warning("\The [things] gets crushed to dust!"))
+					qdel(things)
+				continue
 
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
@@ -623,19 +631,11 @@
 				if(mobile_docking_port.buckled)
 					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
 				if(isliving(AM))
-					var/mob/living/L = AM
-					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(20 SECONDS)
-							L.ex_act(2)
+					var/mob/living/living_things = AM
+					living_things.stop_pulling()
+					living_things.visible_message(span_warning("[living_things] is hit by a hyperspace ripple!"),
+						span_userdanger("You feel an immense crushing pressure as the space around you ripples."))
+					living_things.gib()
 
 			// Move unanchored atoms
 			if(!AM.anchored)
