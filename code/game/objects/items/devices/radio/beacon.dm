@@ -204,12 +204,10 @@
 								/obj/item/storage/belt/military/traitor/hacker = 1,							// 10 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/flashlight/emp = 1),												// 20 TK
-			"Dark Lord" = list(	"Name" = "\improper 'Darklord' bundle",	// 100-125 TK
+			"Dark Lord" = list(	"Name" = "\improper 'Darklord' bundle",	// 160-185 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
-/*								/obj/item/t_scanner = 1,
-								/obj/item/clothing/gloves/color/yellow/power = 1, */	// Plan B fot 'coming soon' Martial Art.
+								/obj/item/midichlorian_injector = 1,										// 60 TK
 								/obj/item/melee/energy/sword/saber/red = 2,									// 80 TK
-								/obj/item/dnainjector/telemut/darkbundle = 1,								// 0 TK
 								/obj/item/clothing/suit/hooded/chaplain_hoodie = 1,							// 0 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
