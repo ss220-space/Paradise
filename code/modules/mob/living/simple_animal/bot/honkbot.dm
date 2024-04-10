@@ -66,7 +66,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src, 0)
 	last_found = world.time
 	spam_flag = FALSE
@@ -234,7 +234,7 @@
 						if(threatlevel >= 6)
 							set waitfor = 0
 							stun_attack(target)
-							anchored = FALSE
+							set_anchored(FALSE)
 							target_lastloc = target.loc
 					return
 				else	// not next to perp
@@ -258,7 +258,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -267,14 +267,14 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
 			continue

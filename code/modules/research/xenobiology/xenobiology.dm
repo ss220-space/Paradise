@@ -785,7 +785,7 @@
 				if(M in immune)
 					continue
 				M.notransform = 1
-				M.anchored = TRUE
+				M.set_anchored(TRUE)
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
@@ -813,7 +813,7 @@
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = 0
-	M.anchored = FALSE
+	M.set_anchored(FALSE)
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

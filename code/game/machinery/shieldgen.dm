@@ -152,7 +152,7 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
-	anchored = TRUE
+	set_anchored(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
@@ -289,12 +289,12 @@
 		if(active)
 			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		if(istype(get_turf(src), /turf/space))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -475,7 +475,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 
 		else if(state == 1)
@@ -483,7 +483,7 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 
 	if(I.GetID() || ispda(I))

@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-		hologram.anchored = TRUE//So space wind cannot drag it.
+		hologram.set_anchored(TRUE)	//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()

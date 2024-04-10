@@ -199,7 +199,7 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "wrench" : "unwrench"] [src]."))
 
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary

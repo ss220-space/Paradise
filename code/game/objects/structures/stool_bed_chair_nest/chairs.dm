@@ -35,10 +35,10 @@
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
 	. = ..()
 	if(. && !movable)
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force, can_fall)
-	anchored = initial(anchored)
+	set_anchored(initial(anchored))
 	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
