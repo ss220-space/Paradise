@@ -14,7 +14,7 @@
 	if(isnull(old_turf) || isnull(new_turf))
 		if(!QDELING(src))
 			refresh_gravity()
-		return
+		return FALSE
 	// If the turf gravity has changed, then it's possible that our state has changed, so update
 	if(HAS_TRAIT(old_turf, TRAIT_FORCED_GRAVITY) != HAS_TRAIT(new_turf, TRAIT_FORCED_GRAVITY) || new_turf.force_no_gravity != old_turf.force_no_gravity)
 		refresh_gravity()
