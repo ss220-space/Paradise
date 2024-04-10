@@ -7431,7 +7431,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/openspace,
+/turf/simulated/floor/glass,
 /area/engine/gravitygenerator)
 "baf" = (
 /obj/structure/lattice,
@@ -85785,6 +85785,9 @@
 	icon_state = "escape"
 	},
 /area/bridge/checkpoint/south)
+"oeF" = (
+/turf/simulated/floor/glass,
+/area/engine/gravitygenerator)
 "oeN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -129818,7 +129821,7 @@
 	dir = 1;
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/openspace,
+/turf/simulated/floor/glass,
 /area/engine/gravitygenerator)
 "xQz" = (
 /obj/structure/flora/ausbushes/palebush,
@@ -213853,11 +213856,11 @@ aaq
 cCa
 fKE
 bwN
-qTK
-qTK
+oeF
+oeF
 aZS
-qTK
-qTK
+oeF
+oeF
 bwN
 azU
 dse
@@ -214110,11 +214113,11 @@ aaq
 cCa
 fKE
 bwN
-qTK
-qTK
-qTK
-qTK
-qTK
+oeF
+cNZ
+ljm
+cNZ
+oeF
 bwN
 fKE
 dse
@@ -214367,10 +214370,10 @@ fKE
 cCa
 fKE
 bwN
-qTK
-qTK
-qTK
-qTK
+oeF
+ljm
+sJK
+nDV
 xQv
 bwN
 fKE
@@ -214624,11 +214627,11 @@ aaq
 fKE
 fKE
 bwN
-qTK
-qTK
-qTK
-qTK
-qTK
+oeF
+cNZ
+ljm
+cNZ
+oeF
 bwN
 fKE
 dse
@@ -214881,11 +214884,11 @@ fKE
 cCa
 fKE
 bwN
+oeF
 qTK
 qTK
 qTK
-qTK
-qTK
+oeF
 bwN
 fKE
 dse
