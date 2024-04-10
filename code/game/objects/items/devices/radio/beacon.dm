@@ -204,7 +204,7 @@
 								/obj/item/storage/belt/military/traitor/hacker = 1,							// 10 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/flashlight/emp = 1),												// 20 TK
-			"Dark Lord" = list(	"Name" = "\improper 'Darklord' bundle",	// 160-185 TK
+			"Dark Lord" = list(	"Name" = "\improper 'Darklord' bundle",	// 160-190 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
 								/obj/item/midichlorian_injector = 1,										// 60 TK
 								/obj/item/melee/energy/sword/saber/red = 2,									// 80 TK
@@ -212,6 +212,7 @@
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
 								/obj/item/clothing/mask/chameleon = 1,										// 0-20 TK
+								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-5 TK
 				"Sniper" = list("Name" = "\improper 'Professional' Bundle",	// 180-190 TK
 								"Desc" = "Suit up and handle yourself like a professional with a long-distance sniper rifle, additional .50 standard and penetrator rounds and thermal glasses to easily scope out your target.",
