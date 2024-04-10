@@ -27,12 +27,12 @@
 	if(zone == BODY_ZONE_CHEST)
 		delimb_chance = 0
 	INVOKE_ASYNC(src, PROC_REF(delimb_zone), target, zone)
-	RemoveComponent()
+	qdel(src)
 
 /datum/component/delimb/proc/on_item_attack(obj/item/item, mob/living/target, mob/living/user)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(delimb_zone), target, user.zone_selected)
-	RemoveComponent()
+	qdel(src)
 
 /datum/component/delimb/proc/delimb_zone(mob/living/target, zone)
 	if(prob(delimb_chance))

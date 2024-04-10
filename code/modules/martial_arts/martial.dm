@@ -502,7 +502,10 @@
 
 	var/datum/martial_art/theforce/MA = new
 	MA.teach(user)
-	icon_state = "midichlorian_injector_noreag"
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/midichlorian_injector/update_icon_state()
+	icon_state = "midichlorian_injector[used ? "_noreag" : ""]"
 
 /obj/item/twohanded/bostaff
 	name = "bo staff"
