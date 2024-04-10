@@ -232,7 +232,7 @@
 	pilot.forceMove(get_turf(src))
 	pilot = null
 
-/obj/spacepod/proc/eject_passenger(mob/passenger)
+/obj/spacepod/proc/eject_passenger(mob/living/passenger)
 	passenger.forceMove(get_turf(src))
 	passengers -= passenger
 
@@ -810,7 +810,7 @@
 
 	move_inside(user)
 
-/obj/spacepod/proc/move_inside(mob/user)
+/obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
 		log_debug("SHIT'S GONE WRONG WITH THE SPACEPOD [src] AT [x], [y], [z], AREA [get_area(src)], TURF [get_turf(src)]")
 
@@ -878,12 +878,10 @@
 			return
 
 	if(user == pilot)
-		user.forceMove(get_turf(src))
-		pilot = null
+		eject_pilot()
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
-	if(user in passengers)
-		user.forceMove(get_turf(src))
-		passengers -= user
+	else if(user in passengers)
+		eject_passenger(user)
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
 
 /obj/spacepod/verb/lock_pod()
