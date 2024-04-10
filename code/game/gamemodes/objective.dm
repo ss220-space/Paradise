@@ -330,14 +330,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/debrain/find_target(list/target_blacklist)
-	..()
-	if(target?.current)
-		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
-		if(!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
-	else
-		explanation_text = "Free Objective"
-	return target
+    ..()
+    if(target?.current)
+        var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+        explanation_text = "Steal the [brains.name] of [target.current.real_name], the [target.assigned_role]."
+        if(!(target in SSticker.mode.victims))
+            SSticker.mode.victims.Add(target)
+    else
+        explanation_text = "Free Objective"
+    return target
 
 
 /datum/objective/debrain/check_completion()
