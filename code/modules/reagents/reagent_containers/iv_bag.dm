@@ -152,7 +152,7 @@
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)
 			if(IV_DRAW)
 				. += "draw"
