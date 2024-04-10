@@ -252,6 +252,18 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
+"dP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
 "dS" = (
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
@@ -297,9 +309,11 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "eg" = (
-/mob/living/simple_animal/hostile/tree/palm,
-/turf/simulated/floor/beach/sand,
-/area/ruin/space/spacebotany/EastGarden)
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "eh" = (
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
@@ -502,6 +516,12 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
+"gJ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "gP" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -675,18 +695,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/Hydro)
-"ig" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/EastGarden)
 "ik" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -856,6 +864,14 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/spacebotany/Dorm)
+"kw" = (
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
 "kE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light{
@@ -1038,6 +1054,10 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/Garden)
+"ne" = (
+/mob/living/simple_animal/hostile/tree/palm,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
 "nf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1236,8 +1256,16 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/seeds/firelemon,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Hydro)
+"oZ" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
 "pf" = (
 /obj/structure/table/reinforced,
 /obj/item/stock_parts/cell/high/plus,
@@ -1450,11 +1478,6 @@
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
-"sO" = (
-/mob/living/simple_animal/hostile/tree/palm,
-/obj/item/seeds/plump/walkingmushroom,
-/turf/simulated/floor/beach/sand,
-/area/ruin/space/spacebotany/EastGarden)
 "sQ" = (
 /obj/machinery/light/small,
 /obj/structure/table,
@@ -1875,6 +1898,16 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
+"yw" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
 "yD" = (
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -1902,6 +1935,16 @@
 "zn" = (
 /obj/effect/spawner/lootdrop/crate_spawner{
 	pixel_y = -2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"zu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -2032,6 +2075,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
+"AE" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
 "AI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -2050,6 +2100,7 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "AK" = (
 /obj/structure/table,
+/obj/item/seeds/tower/steel,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "AO" = (
@@ -2304,16 +2355,6 @@
 	dir = 1
 	},
 /area/ruin/space/spacebotany/WestGarden)
-"DY" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/Garden)
 "DZ" = (
 /obj/structure/sign/radiation,
 /obj/structure/disposalpipe/segment{
@@ -2393,12 +2434,6 @@
 /area/space)
 "EW" = (
 /obj/structure/chair/stool,
-/obj/item/seeds/tower/steel,
-/turf/simulated/floor/beach/sand,
-/area/ruin/space/spacebotany/EastGarden)
-"EZ" = (
-/mob/living/simple_animal/hostile/tree/palm,
-/obj/item/seeds/fungus,
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
 "Fj" = (
@@ -2573,6 +2608,7 @@
 	pixel_y = 8
 	},
 /obj/structure/spacevine,
+/obj/item/seeds/cherry/bomb,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Med)
 "Is" = (
@@ -2958,13 +2994,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/space,
 /area/ruin/space/spacebotany/Hydro)
-"MI" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/EastGarden)
 "MK" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -3038,6 +3067,11 @@
 "NP" = (
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
+"NR" = (
+/mob/living/simple_animal/hostile/tree/palm,
+/obj/item/seeds/plump/walkingmushroom,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
 "NS" = (
 /obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
@@ -3435,11 +3469,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"RV" = (
-/mob/living/simple_animal/hostile/tree/jungle,
-/obj/item/seeds/wheat/oat,
-/turf/simulated/floor/grass,
-/area/ruin/space/spacebotany/Garden)
 "SC" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
@@ -3539,10 +3568,10 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "Tn" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/obj/item/seeds/firelemon,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/spacebotany/GardenMaint)
+/obj/structure/flora/ausbushes/hell,
+/obj/item/seeds/tower,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
 "Tr" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/cable{
@@ -3670,10 +3699,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
-"UM" = (
-/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
-/turf/simulated/floor/beach/sand,
-/area/ruin/space/spacebotany/EastGarden)
 "UN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3730,6 +3755,10 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
+"Vv" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
 "Vx" = (
 /obj/machinery/plantgenes,
 /turf/simulated/floor/plasteel{
@@ -4024,6 +4053,7 @@
 /obj/effect/decal/ants,
 /obj/item/seeds/coca,
 /obj/item/rollingpaper,
+/obj/item/seeds/fungus,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Chem)
 "Zc" = (
@@ -4083,6 +4113,11 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
+"ZF" = (
+/mob/living/simple_animal/hostile/tree/jungle,
+/obj/item/seeds/wheat/oat,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
 "ZG" = (
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Hydro)
@@ -5723,7 +5758,7 @@ hT
 hg
 Qn
 Qn
-RV
+ZF
 Qn
 lh
 Qn
@@ -5960,7 +5995,7 @@ TJ
 YA
 mU
 JO
-VK
+Iu
 dv
 AZ
 lv
@@ -6028,13 +6063,13 @@ IH
 Qn
 XL
 hT
-qZ
+gJ
 vw
 oK
 vw
 bp
 vw
-VK
+Iu
 eP
 gm
 SX
@@ -6105,10 +6140,10 @@ hT
 vw
 pS
 XU
-Tn
+vw
 VM
 qw
-VK
+Iu
 Tl
 FH
 AX
@@ -6169,7 +6204,7 @@ qz
 qz
 qz
 qz
-DY
+yw
 qz
 kc
 MA
@@ -6181,7 +6216,7 @@ vw
 BC
 qZ
 bp
-qZ
+oZ
 Iu
 Tl
 Ui
@@ -6393,12 +6428,12 @@ Ap
 Ap
 Ap
 Ap
-eg
+ne
 Ap
 Ap
 Wn
 SR
-Zx
+kw
 En
 kI
 En
@@ -6462,7 +6497,7 @@ DE
 SR
 uv
 Up
-sO
+NR
 Ap
 Ap
 hY
@@ -6477,7 +6512,7 @@ qZ
 gP
 En
 gA
-qZ
+eg
 NP
 at
 MY
@@ -6540,9 +6575,9 @@ Ap
 Ap
 Ap
 Ap
-eg
+ne
 Ap
-UM
+Vv
 Ap
 kN
 SR
@@ -6618,7 +6653,7 @@ EW
 Ap
 Ap
 Ap
-MI
+AE
 SR
 zV
 En
@@ -6685,18 +6720,18 @@ SR
 vu
 Ap
 Ap
-eg
-UM
+ne
+Vv
 Ap
 Ap
 Ap
-nz
-EZ
+Tn
+ne
 kN
 SR
 UQ
 qZ
-bp
+zu
 qZ
 NP
 Vh
@@ -6756,7 +6791,7 @@ TG
 DE
 DE
 SR
-ig
+dP
 Ap
 Ap
 hW

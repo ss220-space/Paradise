@@ -67,15 +67,17 @@
 	icon_living = "palm"
 	icon_dead = "palm"
 	icon_gib = "palm"
-	aggro_vision_range = 1
+	aggro_vision_range = 3
 	damage_coeff = list("brute" = 1, "fire" = 0.5, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+	obj_damage = 0
 
 /mob/living/simple_animal/hostile/tree/jungle
-	name = "Palm tree"
+	name = "Tree"
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
 	icon_state = "tree2"
 	icon_living = "tree2"
 	icon_dead = "tree2"
 	icon_gib = "tree2"
-	aggro_vision_range = 1
+	aggro_vision_range = 3
 	damage_coeff = list("brute" = 0.3, "fire" = 2, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+	obj_damage = 0
