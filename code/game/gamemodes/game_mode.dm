@@ -281,7 +281,7 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -289,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -317,7 +317,7 @@
 /**
  * Works like get_players_for_role, but for alive mobs.
  */
-/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -325,7 +325,7 @@
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
