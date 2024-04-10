@@ -432,18 +432,17 @@
 	flags = NODROP | DROPDEL
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-	flags = NODROP | DROPDEL
+	flags = NODROP
 
-/obj/item/clothing/suit/cultrobesghost
+/obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	icon_state = "cultrobesalt"
-	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
+	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
 
 /obj/item/clothing/shoes/cult/ghost
@@ -456,10 +455,10 @@
 	name = "Cultist Ghost"
 
 	uniform = /obj/item/clothing/under/color/black/ghost
-	suit = /obj/item/clothing/suit/cultrobesghost
+	suit = /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
-	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
+	toggle_helmet = TRUE
 
 /obj/item/shield/mirror
 	name = "mirror shield"
