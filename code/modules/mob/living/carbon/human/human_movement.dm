@@ -170,6 +170,6 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	Weaken(10 SECONDS)
+	Weaken(4 SECONDS)
 	to_chat(src, "Gravity!")
 
