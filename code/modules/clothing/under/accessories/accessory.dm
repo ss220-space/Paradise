@@ -1050,6 +1050,11 @@
 	item_color = "cheesebadge"
 	strip_bubble_icon = "cheese"
 
+/obj/item/clothing/accessory/head_strip/cheese_badge/attack_self(mob/user)
+	..()
+	if(prob(1))
+		user.say("CHEE-EE-EE-EE-EE-EESE!")
+
 /obj/item/clothing/accessory/head_strip/clown
 	name = "clown's strip"
 	desc = "Плотно сшитая круглая нашивка с изображением клоуна. Идеально подойдет для совершения военных преступлений, ведь это не военное преступление, если тебе было весело!"
@@ -1057,11 +1062,6 @@
 	item_state = "clownstrip"
 	item_color = "clownstrip"
 	strip_bubble_icon = "clown"
-
-/obj/item/clothing/accessory/head_strip/cheese_badge/attack_self(mob/user)
-	..()
-	if(prob(1))
-		user.say("CHEE-EE-EE-EE-EE-EESE!")
 
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"
