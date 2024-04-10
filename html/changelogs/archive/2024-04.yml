@@ -47,6 +47,8 @@
   Mindfri:
   - add: Lavaland spell books (#4742)
 '2024-04-03':
+  ArtemDerp:
+  - add: t3 donor night dresses (#4713)
   Honker9999999:
   - bugfix: equal clown masks (#4772)
   NightDawnFox:
@@ -58,3 +60,100 @@
   - add: Trait Prerequisites And Variables Renaming (#4777)
   aeternaclose:
   - add: Pai vending to Cerestation & Cyberiad (#4786)
+'2024-04-04':
+  Daeberdir:
+  - refactor: syndie bundles. (#4263)
+  Honker9999999:
+  - add: chang ad kit and so on (#4779)
+  - add: cult_arm cinematic (#4746)
+  NightDawnFox:
+  - add: new resonators (#4785)
+  - balance: new mining voucher rewards (#4784)
+  Rerik007:
+  - qol: added forced look alert (#4762)
+  Vladisvell:
+  - bugfix: Defiler terror spider no longer attacks twice (#4794)
+  - bugfix: Shadowlings no longer can catch a disease (#4795)
+  - add: Added bibki case (#4750)
+  - add: Admins now can add components and elements to objects (#4796)
+  Zwei:
+  - bugfix: Shadowling Items Deleted On Drop (#4792)
+  - bugfix: Correct Layer For Vending Machines Panel Overlay (#4756)
+  - bugfix: Adjust Temperature Fixes (#4774)
+  - bugfix: Rolling Paper Icons Fix (#4797)
+  aeternaclose:
+  - bugfix: Beartrap & Cyberiad Fixes (#4791)
+'2024-04-05':
+  Honker9999999:
+  - add: new loadouts (#4799)
+  NotSoWizard:
+  - add: Secbot and ED209 detainment speech cooldown (#4802)
+  Rerik007:
+  - bugfix: fixes access control eating and holding (#4778)
+  Zwei:
+  - bugfix: Fractures Slowdown (#4806)
+  - tweak: Hide PDA (#4803)
+  - refactor: Event Based Gravity System (#4783)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4805)
+'2024-04-06':
+  ArtemDerp:
+  - add: t4 donor pins (#4709)
+  Den109G:
+  - tweak: gamemodes says station names (#4816)
+  Honker9999999:
+  - add: ling link update (#4798)
+  MstrKabach:
+  - add: 5 new cleaners (#4686)
+  Rerik007:
+  - bugfix: draw cards without cd (#4478)
+  Valtor:
+  - add: Nucleation debrain (#4788)
+  Vladisvell:
+  - balance: Explosion effect tweaks (#4495)
+  Zwei:
+  - bugfix: Correct Stamina Slowdown Update (#4811)
+  - add: FullAuto Gun Mode Component (#4736)
+  - bugfix: DNA Fixes (#4812)
+'2024-04-07':
+  ArtemDerp:
+  - imageadd: street judge species sprites (#4769)
+  - add: t3 donor backpacks (#4703)
+  BeebBeebBoob:
+  - tweak: Now you can call deathsquad multiple times (#4824)
+  Etrnlmelancholy:
+  - imageadd: unzhmih thick tape roll (#4823)
+  MstrKabach:
+  - tweak: multitool in toolbelt spawn (#4822)
+  Rerik007:
+  - bugfix: access list electronics is null (#4821)
+  - bugfix: fixes fail equipping thief kit (#4820)
+  - bugfix: correct check dirs for railings (#4819)
+  - bugfix: when sending message console sprite disappeared (#4826)
+  Vladisvell:
+  - server: Energy sabers no longer have light while turned off (#4830)
+  Zwei:
+  - refactor: Dropped Proc Refactor (#4818)
+  - bugfix: Remove Unnecessary Proc Calls (#4789)
+'2024-04-08':
+  ArtemDerp:
+  - add: t4 donor golden wheelchair kit (#4829)
+  Daeberdir:
+  - add: Blueshield + NT Represantive badges for donut loadaut. (#4834)
+  Mr-Vivor:
+  - add: t3 donor space cloak (#4831)
+  MstrKabach:
+  - add: R&D handheld body analyzer (#4825)
+'2024-04-09':
+  ArtemDerp:
+  - bugfix: deleted lonely nun hoods from hotel templates (#4836)
+  BeebBeebBoob:
+  - add: Multi-Z Support (#4216)
+  Etrnlmelancholy:
+  - add: 'Kisik Special: Engineering jacket and Holster loadout update (#4837)'
+  Ksaikok46:
+  - bugfix: you can no longer craft an item using exactly the same item (#4839)
+  WolfLox:
+  - balance: update for ballictic armor in security armory (#4810)
+  aeternaclose:
+  - add: Folder for event maps & event.dm  (#4833)
