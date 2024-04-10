@@ -32,7 +32,7 @@
 	var/static_environ = 0
 
 	/// Whether this area has a gravity by default.
-	var/has_gravity = TRUE
+	var/has_gravity = STANDARD_GRAVITY
 	var/list/apc = list()
 	var/no_air = null
 
