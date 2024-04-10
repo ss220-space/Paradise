@@ -4,6 +4,7 @@
 	there_can_be_many = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	is_haunted = TRUE
+	has_gravity = STANDARD_GRAVITY
 	var/blast_id = null
 	white_noise = 'sound/ambience/spooky/space_loop5.ogg'
 	ambientsounds = list('sound/ambience/spooky/chill.ogg',\
@@ -38,6 +39,7 @@
 /area/ruin/space/test ////////////////////////////не забыть удалить
 	name = "Test area" /////////////////////////////////отбалансить хп и шанс отрубания у гориллы; отбалансить количество мясных зомбей и их хп/урон, скорость
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED ////////////////////
+	has_gravity = STANDARD_GRAVITY
 
 /area/vision_change_area/object_sampo/main_lab
 	name = "Main laboratory"
