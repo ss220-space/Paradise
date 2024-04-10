@@ -256,7 +256,7 @@
 
 /obj/item/twohanded/dualsaber/equipped(mob/user, slot)
 	var/datum/component/two_handed/two_handed
-	if((slot == slot_r_hand || slot == slot_l_hand) && active)
+	if((slot == SLOT_HUD_RIGHT_HAND || slot == SLOT_HUD_LEFT_HAND) && active)
 		two_handed = GetComponent(/datum/component/two_handed)
 		two_handed.require_twohands = TRUE
 	. = ..()

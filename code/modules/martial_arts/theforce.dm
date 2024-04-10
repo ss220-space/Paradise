@@ -35,10 +35,13 @@
 
 		if(INTENT_GRAB)
 			var/mob/living/carbon/human/victim = A
-			if(istype(victim) && get_dist(owner, victim) <= 4)
-				var/obj/item/grab/force/G = victim.grabbedby(owner, grab_type = /obj/item/grab/force)
-				G.state = GRAB_PASSIVE
-				victim.LoseBreath(10 SECONDS)
+			if(istype(victim))
+				if(get_dist(owner, victim) <= 4)
+					var/obj/item/grab/force/G = victim.grabbedby(owner, grab_type = /obj/item/grab/force)
+					G.state = GRAB_PASSIVE
+					victim.LoseBreath(10 SECONDS)
+				else
+					to_chat(owner, span_danger("You can't reach that target!"))
 
 		if(INTENT_HARM)
 			if(!force_lightning_spell.cooldown_handler.is_on_cooldown())

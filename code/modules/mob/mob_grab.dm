@@ -502,7 +502,7 @@
 
 /obj/item/grab/force/New(mob/user, mob/victim)
 	..()
-	affecting.flying = TRUE
+	ADD_TRAIT(affecting, TRAIT_MOVE_FLYING, FORCE_GRAB_TRAIT)
 	assailant.canmove = FALSE
 
 /obj/item/grab/force/process()
@@ -524,7 +524,7 @@
 		return FALSE
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return FALSE
-	if(assailant.lying)
+	if(assailant.lying_angle)
 		qdel(src)
 		return FALSE
 	return TRUE
@@ -545,7 +545,7 @@
 		return affecting
 
 /obj/item/grab/Destroy()
-	affecting.flying = FALSE
+	REMOVE_TRAIT(affecting, TRAIT_MOVE_FLYING, FORCE_GRAB_TRAIT)
 	assailant.canmove = TRUE
 	return ..()
 
