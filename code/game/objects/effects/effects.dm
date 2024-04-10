@@ -76,6 +76,9 @@
 /obj/effect/abstract/singularity_act()
 	return
 
+/obj/effect/abstract/has_gravity()
+	return
+
 /obj/effect/abstract/narsie_act()
 	return
 

@@ -78,6 +78,8 @@
 
 /datum/config_entry/flag/reactionary_explosions //If we use reactionary explosions, explosions that react to walls and doors
 
+/datum/config_entry/flag/multiz_explosions //If we use reactionary explosions, explosions that react to walls and doors
+
 /datum/config_entry/flag/allow_random_events // Enables random events mid-round when set
 
 /datum/config_entry/number/traitor_objectives_amount

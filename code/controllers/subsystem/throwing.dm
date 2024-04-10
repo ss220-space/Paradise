@@ -209,6 +209,10 @@ SUBSYSTEM_DEF(throwing)
 		if(QDELETED(thrownthing))
 			return
 
+	if(!thrownthing.currently_z_moving) // I don't think you can zfall while thrown but hey, just in case.
+		var/turf/T = get_turf(thrownthing)
+		T?.zFall(thrownthing)
+
 	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
 	thrownthing.end_throw()
 	if(QDELETED(thrownthing))

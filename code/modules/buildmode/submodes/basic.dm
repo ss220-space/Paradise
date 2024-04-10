@@ -21,7 +21,7 @@
 
 	if(istype(object,/turf) && left_click && !alt_click && !ctrl_click)
 		var/turf/T = object
-		if(istype(object,/turf/space))
+		if(istype(object,/turf/space) || istype(object,/turf/simulated/openspace))
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
 		else if(istype(object,/turf/simulated/floor))
 			T.ChangeTurf(/turf/simulated/wall)

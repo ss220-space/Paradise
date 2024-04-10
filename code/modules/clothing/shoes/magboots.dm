@@ -130,9 +130,10 @@
 	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/magboots/clown/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/magboots/clown/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user.RemoveElement(/datum/element/waddling)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
 	if(!isliving(user))
@@ -299,17 +300,18 @@
 	if(slot == SLOT_HUD_SHOES && cell && core)
 		style.teach(user, TRUE)
 
-/obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, silent = FALSE)
-	. = ..()
-	if(!ishuman(user))
-		return
 
-	if(user.get_item_by_slot(SLOT_HUD_SHOES) == src)
-		style.remove(user)
-		if(magpulse)
-			if(!silent)
-				to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			toggle_magpulse(user, silent = TRUE)
+/obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_SHOES)
+		return .
+
+	style.remove(user)
+	if(magpulse)
+		if(!silent)
+			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
+		toggle_magpulse(user, silent = TRUE)
+
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == SLOT_HUD_SHOES)

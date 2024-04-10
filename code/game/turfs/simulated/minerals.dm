@@ -11,6 +11,7 @@
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
+	init_air = FALSE
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	var/environment_type = "asteroid"

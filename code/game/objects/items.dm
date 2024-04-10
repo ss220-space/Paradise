@@ -545,7 +545,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /**
  * When item is officially left user
  */
-/obj/item/proc/dropped(mob/user, silent = FALSE)
+/obj/item/proc/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Remove any item actions we temporary gave out
@@ -763,9 +763,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * * 'slot' is the slot we are trying to equip to
  * * 'bypass_equip_delay_self' for whether we want to bypass the equip delay
  * * 'bypass_obscured' for whether we want to ignore clothing obscuration
+ * * 'bypass_incapacitated' wheter we are ignoring user's incapacitated status (uded only for hands currently)
  */
-/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured)
+/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
 
 /obj/item/verb/verb_pickup()
@@ -1286,3 +1287,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/get_throwforce()
 	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
 	return initial(throwforce) + sharpening?.damage_increase
+
+/// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")

@@ -413,7 +413,7 @@
 	return OXYLOSS
 
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user, silent = FALSE)
+/obj/item/twohanded/shockpaddles/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(defib)
 		defib.toggle_paddles(user)
@@ -445,7 +445,7 @@
 	var/safety = TRUE
 	var/heart_attack_probability = 10
 
-/obj/item/twohanded/shockpaddles/borg/dropped(mob/user, silent = FALSE)
+/obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	// No-op.
 

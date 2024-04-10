@@ -685,7 +685,7 @@
 	damage = 6
 
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
@@ -713,14 +713,14 @@
 		if(SLOT_HUD_LEFT_HAND)
 			if(user.l_hand)
 				return FALSE
-			if(user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated())
 				return FALSE
 			return TRUE
 
 		if(SLOT_HUD_RIGHT_HAND)
 			if(user.r_hand)
 				return FALSE
-			if(user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated())
 				return FALSE
 			return TRUE
 

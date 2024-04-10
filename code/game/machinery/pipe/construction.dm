@@ -1,3 +1,6 @@
+#define CIRC_LEFT WEST
+#define CIRC_RIGHT EAST
+
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -88,6 +91,8 @@
 			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/multiz))
+			src.pipe_type = PIPE_MULTIZ
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_CAP
 			connect_types = list(2)
@@ -267,7 +272,7 @@
 				return dir|flip|cw
 			else
 				return flip|cw|acw
-		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
+		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_MULTIZ)
 			return dir|flip
 	return 0
 
@@ -341,7 +346,7 @@
 			return 1
 
 	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
-		if(T.transparent_floor) //stops jank with transparent floors and pipes
+		if(T.transparent_floor == TURF_TRANSPARENT) //stops jank with transparent floors and pipes
 			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
 
@@ -396,6 +401,10 @@
 
 		if(PIPE_SCRUBBERS_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/M = new( src.loc )
+			M.on_construction(dir, pipe_dir, color)
+
+		if(PIPE_MULTIZ)		//multi-z
+			var/obj/machinery/atmospherics/pipe/multiz/M = new( src.loc )
 			M.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_JUNCTION)

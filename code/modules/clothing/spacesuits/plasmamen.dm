@@ -116,9 +116,9 @@
 		H.add_hud_to(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, silent = FALSE)
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(HUDType && istype(user) && user.head == src)
+	if(HUDType && istype(user) && slot == SLOT_HUD_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
 

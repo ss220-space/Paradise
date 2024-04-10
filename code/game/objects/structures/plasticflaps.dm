@@ -114,5 +114,5 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T)
+/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T, vertical)
 	return FALSE

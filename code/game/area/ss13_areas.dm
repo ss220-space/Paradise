@@ -52,6 +52,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space_near"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
+/area/space/planetary
+	icon_state = "space_planet"
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	ambientsounds = list('sound/ambience/ambimine.ogg')
+	sound_environment = SOUND_AREA_ASTEROID
+
 /area/space/atmosalert()
 	return
 
@@ -186,13 +192,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Alien Shuttle Mine"
 	requires_power = 1
 
-/area/shuttle/gamma/space
+/area/shuttle/gamma
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory"
-
-/area/shuttle/gamma/station
-	icon_state = "shuttle"
-	name = "\improper Gamma Armory Station"
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"

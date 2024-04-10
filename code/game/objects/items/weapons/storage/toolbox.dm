@@ -19,6 +19,10 @@
 	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/blurry_chance = 5
 
+/obj/item/storage/toolbox/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+
 /obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)
 	. = ..()
 

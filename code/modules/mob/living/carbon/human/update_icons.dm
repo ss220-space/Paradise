@@ -494,7 +494,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
-/mob/living/carbon/human/proc/update_mutantrace()
+/mob/living/carbon/human/proc/update_mutantrace(update_hair = TRUE)
 //BS12 EDIT
 	var/skel = (SKELETON in mutations)
 	if(skel)
@@ -502,8 +502,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		skeleton = null
 
-	update_hair()
-	update_fhair()
+	if(update_hair)
+		update_hair()
+		update_fhair()
 
 
 /mob/living/carbon/human/update_fire()
@@ -519,12 +520,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(notransform)
 		return
 	cut_overlays()
+	update_mutantrace(update_hair = FALSE)
+	force_update_limbs(update_body = FALSE)
+	update_eyes(update_body = FALSE)
+	update_body(rebuild_base = TRUE) //Update the body and force limb icon regeneration.
 	update_mutations()
-	update_body(TRUE) //Update the body and force limb icon regeneration.
-	update_hair()
-	update_head_accessory()
-	update_fhair()
-	update_mutantrace()
 	update_inv_w_uniform()
 	update_inv_wear_id()
 	update_inv_gloves()
@@ -545,14 +545,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_pockets()
 	update_inv_wear_pda()
 	UpdateDamageIcon()
-	force_update_limbs()
-	update_tail_layer()
-	update_wing_layer()
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 	update_halo_layer()
 	update_fire()
-	update_hands_HUD()
 
 
 /* --------------------------------------- */
@@ -1456,10 +1452,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		remove_overlay(FROZEN_LAYER)
 
-/mob/living/carbon/human/proc/force_update_limbs()
+/mob/living/carbon/human/proc/force_update_limbs(update_body = TRUE)
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.sync_colour_to_human(src)
-	update_body()
+	if(update_body)
+		update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new

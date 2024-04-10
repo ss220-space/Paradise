@@ -32,7 +32,7 @@
 	move_update_air(T)
 
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)

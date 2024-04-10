@@ -247,7 +247,7 @@
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user?.remove_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 

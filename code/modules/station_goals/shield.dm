@@ -23,6 +23,9 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
 	P.special_enabled = TRUE
 	supply_list.Add(P)
+	//Changes
+	var/list/station_levels = levels_by_trait(STATION_LEVEL)
+	coverage_goal = coverage_goal * station_levels.len
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())

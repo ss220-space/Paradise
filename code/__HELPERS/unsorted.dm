@@ -1059,6 +1059,10 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return EAST
 		if(NORTHWEST)
 			return SOUTHEAST
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
 
 /*
 Checks if that loc and dir has a item on the wall

@@ -125,7 +125,7 @@
 	name = "jacob's ladder"
 	desc = "A celestial ladder that violates the laws of physics."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder00"
+	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
 	var/turf/T = get_turf(src)

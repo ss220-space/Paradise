@@ -47,16 +47,13 @@
 	id = "snowland";
 	radius = 2
 	},
-/turf/simulated/floor/indestructible/plating,
+/turf/simulated/floor/indestructible/snow,
 /area/template_noop)
 "l" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/template_noop)
-"n" = (
-/turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
-	},
+"U" = (
+/turf/simulated/wall/indestructible/invisible/view_portal,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -74,7 +71,7 @@ b
 e
 c
 l
-n
+U
 a
 "}
 (3,1,1) = {"
@@ -83,7 +80,7 @@ c
 c
 c
 l
-n
+U
 a
 "}
 (4,1,1) = {"
@@ -92,7 +89,7 @@ c
 c
 g
 k
-n
+U
 a
 "}
 (5,1,1) = {"
@@ -101,7 +98,7 @@ c
 c
 c
 l
-n
+U
 a
 "}
 (6,1,1) = {"
@@ -110,7 +107,7 @@ d
 f
 h
 l
-n
+U
 a
 "}
 (7,1,1) = {"

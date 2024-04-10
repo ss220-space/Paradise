@@ -84,7 +84,7 @@
 						Contract(C, act_type = a_type, need_protection_check = TRUE)
 						break
 					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp))
+					if(!V.CanAtmosPass(Temp, vertical = FALSE))
 						break
 					V = Temp
 

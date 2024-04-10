@@ -57,7 +57,7 @@
 		var/turf/T = get_turf(get_step(src, potential))
 		if(isspaceturf(T) || T.density)
 			continue
-		if(!T.CanAtmosPass(T))
+		if(!T.CanAtmosPass(T, vertical = FALSE))
 			continue
 		if(parent_machine.make_snowcloud(T))
 			return

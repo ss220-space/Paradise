@@ -879,34 +879,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 //ALL DONE
 //*********************************************************************************************************
 
-GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
-
-/proc/move_gamma_ship()
-	var/area/fromArea
-	var/area/toArea
-	if(GLOB.gamma_ship_location == 1)
-		fromArea = locate(/area/shuttle/gamma/space)
-		toArea = locate(/area/shuttle/gamma/station)
-		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.unlock(TRUE)
-		GLOB.event_announcement.Announce("Центральное Командование отправило оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
-	else
-		fromArea = locate(/area/shuttle/gamma/station)
-		toArea = locate(/area/shuttle/gamma/space)
-		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.lock(TRUE)
-		GLOB.event_announcement.Announce("Центральное Командование отозвало оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
-	fromArea.move_contents_to(toArea)
-
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea.machinery_cache)
-		P.update_recharge_turf()
-
-	if(GLOB.gamma_ship_location)
-		GLOB.gamma_ship_location = 0
-	else
-		GLOB.gamma_ship_location = 1
-	return
-
 /proc/formatJumpTo(var/location,var/where="")
 	var/turf/loc
 	if(istype(location,/turf/))

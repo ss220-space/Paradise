@@ -86,7 +86,7 @@
   * Coordinates are constrained within 50-200 x & y.
   */
 /obj/item/rcs/proc/random_coords()
-	var/Z = level_name_to_num(MAIN_STATION) // Z level
+	var/Z = pick(levels_by_trait(STATION_LEVEL)) // Z level
 	// Random Coordinates
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
