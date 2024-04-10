@@ -19,6 +19,11 @@
 	map_path = "_maps/map_files/event/Station/delta_z.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 
+	traits = list(
+		list(STATION_LEVEL = "Second Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),
+		list(MAIN_STATION, STATION_LEVEL = "Main Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
+	)
+
 	station_name  = "NSS Kerberos"
 	station_short = "Kerberos"
 	dock_name     = "NAV Trurl"
