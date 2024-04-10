@@ -21,15 +21,17 @@
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_IMPACT_ZONE, COMSIG_ITEM_ATTACK))
 
 /datum/component/delimb/proc/on_item_throw_impact(obj/item/item, mob/target, zone, datum/thrownthing/throwingdatum)
+	SIGNAL_HANDLER
 	if(zone == BODY_ZONE_HEAD)
 		delimb_chance /= 2
 	if(zone == BODY_ZONE_CHEST)
 		delimb_chance = 0
-	delimb_zone(target, zone)
+	INVOKE_ASYNC(src, PROC_REF(delimb_zone), target, zone)
 	RemoveComponent()
 
 /datum/component/delimb/proc/on_item_attack(obj/item/item, mob/living/target, mob/living/user)
-	delimb_zone(target, user.zone_selected)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(delimb_zone), target, user.zone_selected)
 	RemoveComponent()
 
 /datum/component/delimb/proc/delimb_zone(mob/living/target, zone)
