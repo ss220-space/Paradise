@@ -44,6 +44,9 @@
 	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
 
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+	var/list/clothing_traits
+
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -91,7 +94,7 @@
 	return FALSE
 
 
-/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -101,6 +104,25 @@
 		if(!disable_warning)
 			to_chat(M, span_warning("[src] не могут использовать такие как Вы."))
 		return FALSE
+
+
+/obj/item/clothing/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
+	if(!istype(user))
+		return
+
+	for(var/trait in clothing_traits)
+		REMOVE_CLOTHING_TRAIT(user, src, trait)
+
+
+/obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
+	. = ..()
+	if(!istype(user))
+		return
+
+	if(slot_bitfield_to_slot(slot_flags) == slot) //Was equipped to a valid slot for this item?
+		for(var/trait in clothing_traits)
+			ADD_CLOTHING_TRAIT(user, src, trait)
 
 
 /obj/item/clothing/proc/refit_for_species(target_species)
@@ -526,7 +548,7 @@ BLIND     // can't see anything
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-			M.dropped()
+			user.drop_item_ground(I)
 		return
 
 	if(I.tool_behaviour == TOOL_WIRECUTTER)
@@ -564,9 +586,6 @@ BLIND     // can't see anything
 	item_state = "[item_state]_opentoe"
 	update_equipped_item()
 
-
-/obj/item/proc/negates_gravity()
-	return
 
 //Suit
 /obj/item/clothing/suit
@@ -754,7 +773,7 @@ BLIND     // can't see anything
 			action.Grant(user)
 
 
-/obj/item/clothing/suit/space/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(jetpack)
 		for(var/datum/action/action as anything in jetpack.actions)
@@ -831,23 +850,24 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/under/dropped(mob/user, silent = FALSE)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_unequip()
+/obj/item/clothing/under/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != SLOT_HUD_JUMPSUIT)
+		return .
+
+	for(var/obj/item/clothing/accessory/accessory in accessories)
+		accessory.attached_unequip()
+
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_JUMPSUIT)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attached_equip()
+	if(!ishuman(user) || slot != SLOT_HUD_JUMPSUIT)
+		return .
+
+	for(var/obj/item/clothing/accessory/accessory in accessories)
+		accessory.attached_equip()
+
 
 /*
   * # can_attach_accessory
@@ -1027,3 +1047,40 @@ BLIND     // can't see anything
 		H.forceMove(picked)
 		return 1
 	return ..()
+
+
+/**
+ * Inserts a trait (or multiple traits) into the clothing traits list
+ *
+ * If worn, then we will also give the wearer the trait as if equipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYOR(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer) && (wearer.get_slot_by_item(src) == slot_bitfield_to_slot(slot_flags)))
+		for(var/new_trait in trait_or_traits)
+			ADD_CLOTHING_TRAIT(wearer, src, new_trait)
+
+
+/**
+ * Removes a trait (or multiple traits) from the clothing traits list
+ *
+ * If worn, then we will also remove the trait from the wearer as if unequipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYREMOVE(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer))
+		for(var/new_trait in trait_or_traits)
+			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
+

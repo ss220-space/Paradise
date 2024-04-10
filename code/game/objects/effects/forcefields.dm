@@ -13,7 +13,7 @@
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 
-/obj/effect/forcefield/CanAtmosPass(turf/T)
+/obj/effect/forcefield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/forcefield/wizard

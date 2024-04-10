@@ -12,6 +12,8 @@
 	light_power = 0.25
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	intact = FALSE
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
 
 	var/destination_z
 	var/destination_x
@@ -21,11 +23,17 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+	force_no_gravity = TRUE
 
+	transparent_floor = TURF_FULLTRANSPARENT
+
+	//when this be added to vis_contents of something it be associated with something on clicking,
+	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
+	vis_flags = VIS_INHERIT_ID
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(!istype(src, /turf/space/transit))
+	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
 		icon_state = SPACE_ICON_STATE
 	vis_contents.Cut() //removes inherited overlays
 
@@ -52,7 +60,7 @@
 	if(light_sources) // Turn off starlight, if present
 		set_light_on(FALSE)
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
+/turf/space/AfterChange(ignore_air, keep_cabling = FALSE, oldType)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
@@ -136,13 +144,13 @@
 
 	if(destination_z && destination_x && destination_y)
 		destination_z = check_taipan_availability(A, destination_z)
-		A.forceMove(locate(destination_x, destination_y, destination_z))
+		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
 		if(isliving(A))
 			var/mob/living/L = A
 			if(L.pulling)
 				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.forceMove(T)
+				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
 
 		//now we're on the new z_level, proceed the space drifting
 		spawn(0)//Let a diagonal move finish, if necessary
@@ -347,4 +355,28 @@
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
+	return TRUE
+
+// the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.
+/turf/space/zPassIn(direction)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_IN_DOWN)
+			return FALSE
+	return TRUE
+
+//direction is direction of travel of an atom
+/turf/space/zPassOut(direction)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & BLOCK_Z_OUT_UP)
+			return FALSE
+	return TRUE
+
+/turf/space/zAirIn()
+	return TRUE
+
+/turf/space/zAirOut()
 	return TRUE

@@ -281,7 +281,7 @@
 	update_all_mob_security_hud()
 	return 1
 
-/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
+/proc/do_mob(mob/living/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -317,7 +317,7 @@
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
@@ -557,18 +557,26 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
+
 /proc/getviewsize(view)
-	var/viewX
-	var/viewY
+	if(!view) // Just to avoid any runtimes that could otherwise cause constant disconnect loops.
+		stack_trace("Missing value for 'view' in getviewsize(), defaulting to world.view!")
+		view = world.view
+
 	if(isnum(view))
-		var/totalviewrange = 1 + 2 * view
-		viewX = totalviewrange
-		viewY = totalviewrange
+		var/totalviewrange = (view < 0 ? -1 : 1) + 2 * view
+		return list(totalviewrange, totalviewrange)
 	else
 		var/list/viewrangelist = splittext(view, "x")
-		viewX = text2num(viewrangelist[1])
-		viewY = text2num(viewrangelist[2])
-	return list(viewX, viewY)
+		return list(text2num(viewrangelist[1]), text2num(viewrangelist[2]))
+
+
+/proc/in_view_range(mob/user, atom/A)
+	var/list/view_range = getviewsize(user.client.view)
+	var/turf/source = get_turf(user)
+	var/turf/target = get_turf(A)
+	return ISINRANGE(target.x, source.x - view_range[1], source.x + view_range[1]) && ISINRANGE(target.y, source.y - view_range[1], source.y + view_range[1])
+
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)

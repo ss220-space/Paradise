@@ -109,3 +109,22 @@
 /datum/map_per_tile_test/structures_in_farspace_checker/CheckTile(turf/T)
 	if(T.loc.type == /area/space && locate(/obj/structure) in T.contents)
 		Fail(T, "tile contains at least one structure found in non-near space area")
+
+/**
+  * Check that multi-z structures aren't placed in non-multi-z place.
+  */
+/datum/map_per_tile_test/invalid_multiz_objects_checker
+	var/list/invalid_types = list(
+		/obj/structure/disposalpipe/trunk/multiz,
+		/obj/structure/disposalpipe/trunk/multiz/down,
+		/obj/structure/cable/multiz,
+		/obj/machinery/atmospherics/pipe/multiz,
+		// obj/structure/ladder, if it wasn't being used by jacob I guess
+		/obj/structure/stairs
+	)
+
+/datum/map_per_tile_test/invalid_multiz_objects_checker/CheckTile(turf/T)
+	if(!GET_TURF_ABOVE(T) && !GET_TURF_BELOW(T))
+		for(var/invalid_type in invalid_types)
+			if(locate(invalid_type) in T.contents)
+				Fail(T, "Non-multi-z turf contains at least one multi-z object of type [invalid_type]")

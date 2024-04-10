@@ -345,6 +345,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(species == SPECIES_GREY)
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
+			if(species == SPECIES_MACNINEPERSON)
+				dat += "<b>Synthetic Shell:</b> <a href='?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
@@ -496,8 +498,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						dat += "\tAmputated [organ_name]"
 					if("cybernetic")
 						dat += "\tCybernetic [organ_name]"
-			if(!ind)	dat += "\[...\]<br>"
-			else		dat += "<br>"
+			if(!ind)
+				dat += "\[...\]<br>"
+			else
+				dat += "<br>"
 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
@@ -2070,6 +2074,40 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 						flavor_text = msg
 
+				if("ipcloadouts")
+					var/choice
+					var/datum/robolimb/R
+					var/static/robolimb_companies = list()
+					var/rparts = list(BODY_ZONE_CHEST,
+						BODY_ZONE_PRECISE_GROIN,
+						BODY_ZONE_HEAD, BODY_ZONE_L_ARM,
+						BODY_ZONE_PRECISE_L_HAND,
+						BODY_ZONE_R_ARM,
+						BODY_ZONE_PRECISE_R_HAND,
+						BODY_ZONE_R_LEG,
+						BODY_ZONE_PRECISE_R_FOOT,
+						BODY_ZONE_L_LEG,
+						BODY_ZONE_PRECISE_L_FOOT)
+					if(!length(robolimb_companies))
+						for(var/comp in typesof(/datum/robolimb))	//This loop populates a list of companies that shells
+							R = new comp()
+							if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
+								robolimb_companies[R.company] = R
+					R = new() //Re-initialize R.
+					choice = tgui_input_list(user, "Which manufacturer model would you like to use?", "Character Preference",  robolimb_companies)
+					if(!choice)
+						return
+					R.company = choice
+					for(var/limb in rparts)
+						if(limb == BODY_ZONE_HEAD)
+							ha_style = "None"
+							alt_head = null
+							h_style = GLOB.hair_styles_public_list["Bald"]
+							f_style = GLOB.facial_hair_styles_list["Shaved"]
+							m_styles["head"] = "None"
+						rlimb_data[limb] = choice
+						organ_data[limb] = "cyborg"
+
 				if("uplink_pref")
 					var/new_uplink_pref = tgui_input_list(user, "Choose your preferred uplink location:", "Character Preference", list("pda", "headset"))
 					if(new_uplink_pref)
@@ -2095,8 +2133,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states = list("Normal", "Amputated", "Prosthesis")
-					var/no_amputate = 0
+					var/valid_limb_states = list("Normal", "Prosthesis")
+					var/no_amputate = FALSE
 
 					switch(limb_name)
 						if("Torso")
@@ -2138,6 +2176,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_ARM
 
+					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
+						valid_limb_states += "Amputated"
+
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
 
@@ -2153,12 +2194,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
 						if("Amputated")
-							if(!no_amputate)
-								organ_data[limb] = "amputated"
-								rlimb_data[limb] = null
-								if(second_limb)
-									organ_data[second_limb] = "amputated"
-									rlimb_data[second_limb] = null
+							organ_data[limb] = "amputated"
+							rlimb_data[limb] = null
+							if(second_limb)
+								organ_data[second_limb] = "amputated"
+								rlimb_data[second_limb] = null
 						if("Prosthesis")
 							var/choice
 							var/subchoice
@@ -2168,7 +2208,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							for(var/limb_type in typesof(/datum/robolimb)) //This loop populates a list of companies that offer the limb the user selected previously as one of their cybernetic products.
 								R = new limb_type()
 								if(!R.unavailable_at_chargen && (limb in R.parts) && R.has_subtypes) //Ensures users can only choose companies that offer the parts they want, that singular models get added to the list as well companies that offer more than one model, and...
-									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
+									if(species in R.species_allowed)
+										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
 							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
@@ -2807,8 +2848,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
-	character.force_update_limbs()
-	character.update_eyes()
 	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)

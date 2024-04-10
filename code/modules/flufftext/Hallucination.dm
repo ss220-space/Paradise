@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			if((T in flood_turfs) || !FT.CanAtmosPass(T, FALSE))
 				continue
 			flood_images += image(image_icon,T,image_state,MOB_LAYER)
 			flood_turfs += T
@@ -557,7 +557,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat || H.lying)
+		if(H.stat || H.lying_angle)
 			continue
 		clone = H
 		break

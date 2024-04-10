@@ -55,30 +55,34 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"k" = (
-/obj/effect/view_portal{
-	id = "beach_room"
-	},
-/obj/structure/curtain/open,
-/turf/simulated/floor/indestructible{
-	icon_state = "wood"
-	},
-/area/template_noop)
-"m" = (
-/turf/simulated/wall/indestructible/sandstone,
-/area/template_noop)
-"n" = (
+"j" = (
 /turf/simulated/wall/indestructible{
-	dynamic_lighting = 0;
-	icon = null
+	icon_state = "sandstone8"
+	},
+/area/template_noop)
+"l" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone4"
 	},
 /area/template_noop)
 "o" = (
+/turf/simulated/wall/indestructible/invisible/view_portal,
+/area/template_noop)
+"H" = (
 /obj/effect/view_portal/visual{
-	dist = 6;
 	frustrum = 1;
 	id = "beach";
-	radius = 1
+	radius = 1;
+	opacity = 0
+	},
+/turf/simulated/floor/indestructible/view_portal,
+/area/template_noop)
+"O" = (
+/turf/simulated/wall/indestructible/sandstone,
+/area/template_noop)
+"R" = (
+/obj/effect/view_portal{
+	id = "beach_room"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
@@ -96,47 +100,47 @@ a
 "}
 (2,1,1) = {"
 a
-m
-m
-m
-n
-n
+O
+O
+O
+O
+o
 a
 "}
 (3,1,1) = {"
 a
+j
 c
 g
-m
-n
-n
+O
+o
 a
 "}
 (4,1,1) = {"
 a
 d
 d
-k
+R
+H
 o
-n
 a
 "}
 (5,1,1) = {"
 a
+l
 e
 h
-m
-n
-n
+O
+o
 a
 "}
 (6,1,1) = {"
 a
-m
-m
-m
-n
-n
+O
+O
+O
+O
+o
 a
 "}
 (7,1,1) = {"

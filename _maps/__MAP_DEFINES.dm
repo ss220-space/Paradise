@@ -7,6 +7,8 @@
 	#define BLOCK_TELEPORT "Blocks Teleport"
 	// Impedes with the casting of some spells
 	#define IMPEDES_MAGIC "Impedes Magic"
+	// A level that indicates a main station level. Optimally on telecomms z-level.
+	#define MAIN_STATION "Main Station"
 	// A level the station exists on
 	#define STATION_LEVEL "Station Level"
 	// A level affected by Code Red announcements, cargo telepads, or similar
@@ -31,19 +33,53 @@
 	#define TAIPAN "RaMSS Taipan"
 
 // Level names
-	#define MAIN_STATION "Main Station"
 	#define CENTCOMM "CentComm"
 	#define ADMIN_ZONE "Admin Zone"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"
 	#define MINING "Lavaland"
 	#define EMPTY_AREA "Empty Area"
-	#define EMPTY_AREA_2 "Empty Area 2"
-	#define EMPTY_AREA_3 "Empty Area 3"
 	#define AWAY_MISSION "Away Mission"
 	#define RAMSS_TAIPAN "RAMSS Taipan"
+
+/*
+2024-01-14, the typical z-levels for a single-level station are:
+1: CentCom
+2: Admin Zone
+3: Station
+4: Mining
+5: Taipan
+6: Away mission
+7-11: Randomized space
+*/
+
+// Whether this z level is linked up/down. Bool.
+#define ZTRAIT_UP "Up"
+#define ZTRAIT_DOWN "Down"
+
+#define ZTRAIT_GRAVITY "Gravity"	// overrides Z-level gravity making it always on. Unless it's space turf or openspace in a space area. See atom/proc/has_gravity()
+#define ZTRAIT_BASETURF "Baseturf"	// overrides Z-level baseturf. set type path by ZTRAIT_BASETURF = "/turf/..."
+
+// 3 Is already big one hella station.
+// Making over 3 may consider some big impact on space levels but it saned to top.
+// So it "may" have issues if over 3.
+#define MULTIZ_WARN 3
+
+#define DEFAULT_STATION_TRATS list(MAIN_STATION, STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)
 
 	#define AWAY_MISSION_LIST list(DECLARE_LEVEL(AWAY_MISSION,UNAFFECTED,list(BLOCK_TELEPORT, AWAY_LEVEL)))
+
+//Ruin Generation
+
+#define SPACERUIN_MAP_EDGE_PAD 15
+#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
+
+#define PLACE_DEFAULT "random"
+#define PLACE_SAME_Z "same"
+#define PLACE_SPACE_RUIN "space"
+#define PLACE_LAVA_RUIN "lavaland"
+
+#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.

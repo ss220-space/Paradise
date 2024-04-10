@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	if(ionpulse_on)
 		var/turf/T = get_turf(oldloc)
-		if(!has_gravity(T))
+		if(!T.has_gravity(T))
 			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1393,7 +1393,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						cleaned_item.clean_blood()
 					else if(istype(A, /mob/living/carbon/human))
 						var/mob/living/carbon/human/cleaned_human = A
-						if(cleaned_human.lying)
+						if(cleaned_human.lying_angle)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
 								cleaned_human.update_inv_head()

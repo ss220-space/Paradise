@@ -5,11 +5,12 @@
 	var/list/bodyparts_by_name = list()
 
 
-/mob/living/carbon/human/proc/update_eyes()
+/mob/living/carbon/human/proc/update_eyes(update_body = TRUE)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		eyes.update_colour()
-		update_body()
+		if(update_body)
+			update_body()
 
 
 // Takes care of organ related updates, such as broken and missing limbs
@@ -22,7 +23,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.process()
 
-		if(!lying && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
+		if(!lying_angle && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
@@ -33,46 +34,20 @@
 	handle_stance()
 
 
-/mob/living/carbon/human/proc/handle_stance(forced = FALSE)
-	// Don't need to process any of this if they aren't standing anyways
-	// unless their stance is damaged, and we want to check if they should stay down
-	if(!forced && !stance_damage && (lying || resting) && (life_tick % 4) == 0)
+// temporary solution till traits system are fully implemented
+/mob/living/carbon/human/proc/handle_stance()
+	set waitfor = FALSE
+
+	if(usable_legs || buckled || !isturf(loc) || lying_angle || resting)
 		return
 
-	var/old_stance_damage = stance_damage
-	stance_damage = 0
-
-	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
-	// Not standing, so no need to care about stance
-	if(!forced && (istype(buckled, /obj/structure/chair) || !isturf(loc)))
+	if(!(life_tick % (4 + usable_hands)))
 		return
 
-	for(var/limb_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
-		if(!bodypart || bodypart.is_dead() || bodypart.is_malfunctioning())
-			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
-		else if(bodypart.is_traumatized() || !bodypart.is_usable())
-			stance_damage += 1
+	if(has_pain())
+		emote("scream")
 
-	stance_damage -= get_crutches()
-
-	var/new_stance_damage = stance_damage
-
-	if(stance_damage < 0)
-		stance_damage = 0
-
-	// standing is poor
-	if(!forced && stance_damage >= 8)
-		if(!(lying || resting))
-			if(has_pain())
-				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "scream")
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "collapses", null, null, FALSE, FALSE, TRUE)
-
-	if(old_stance_damage != new_stance_damage)
-		if(stance_damage)
-			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = 2 * stance_damage)
-		else
-			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+	emote("collapses", ignore_cooldowns = TRUE)
 
 
 /mob/living/carbon/human/proc/handle_grasp()

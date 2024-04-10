@@ -37,6 +37,8 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
+	///Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
@@ -231,7 +233,7 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
+				bonus_spread += dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -498,9 +500,9 @@
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
-/obj/item/gun/dropped(mob/user, silent = FALSE)
-	..()
-	zoom(user,FALSE)
+/obj/item/gun/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
 
@@ -576,7 +578,7 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

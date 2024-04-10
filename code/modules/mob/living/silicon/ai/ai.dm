@@ -815,7 +815,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			client.eye = eyeobj
+			client.set_eye(eyeobj)
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
 

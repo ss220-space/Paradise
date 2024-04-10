@@ -249,15 +249,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				blueprints = 1
 
 			// If what we got back is actually a picture, draw it.
-			if(istype(img, /icon))
+			if(isicon(img))
 				// Check if we're looking at a mob that's lying down
-				if(istype(A, /mob/living) && A:lying)
+				if(isliving(A) && A:lying_angle)
 					// If they are, apply that effect to their picture.
 					img.BecomeLying()
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
-				if(istype(A,/atom/movable))
+				if(ismovable(A))
 					xoff+=A:step_x
 					yoff+=A:step_y
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
@@ -365,6 +365,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	for(var/i = 1; i <= size; i++)
 		for(var/j = 1; j <= size; j++)
 			var/turf/T = locate(x_c, y_c, z_c)
+			if(isopenspaceturf(T))
+				T = GET_TURF_BELOW(T) // Multi-Z
 			if(can_capture_turf(T, user))
 				turfs.Add(T)
 				mobs += get_mobs(T)
@@ -611,11 +613,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	camera_state(user)
 
 
-/obj/item/videocam/dropped(mob/user, silent = FALSE)
+/obj/item/videocam/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!on)
-		return
-	camera_state()
+	if(on)
+		camera_state()
 
 
 /obj/item/videocam/examine(mob/user)

@@ -128,7 +128,7 @@
 	return TRUE
 
 
-/obj/machinery/door/window/CanAtmosPass(turf/T)
+/obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
@@ -218,9 +218,7 @@
 
 		if(!electronics)
 			electronics = new(loc)
-			if(!req_access)
-				check_access()
-			electronics.selected_accesses = req_access
+			electronics.selected_accesses = length(req_access) ? req_access : list()
 			electronics.one_access = check_one_access
 		else
 			electronics.forceMove(loc)
@@ -338,9 +336,7 @@
 
 				if(!electronics)
 					electronics = new(loc)
-					if(!req_access)
-						check_access()
-					electronics.selected_accesses = req_access
+					electronics.selected_accesses = length(req_access) ? req_access : list()
 					electronics.one_access = check_one_access
 				else
 					electronics.forceMove(loc)

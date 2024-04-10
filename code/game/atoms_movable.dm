@@ -52,6 +52,8 @@
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
 
+	///is the mob currently ascending or descending through z levels?
+	var/currently_z_moving
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -188,23 +190,22 @@
 			var/mob/living/L = ex_pulled
 			L.update_canmove()// mob gets up if it was lyng down in a chokehold
 
-/atom/movable/proc/check_pulling()
+/**
+ * Checks if the pulling and pulledby should be stopped because they're out of reach.
+ * If z_allowed is TRUE, the z level of the pulling will be ignored.This is to allow things to be dragged up and down stairs.
+ */
+/atom/movable/proc/check_pulling(only_pulling = FALSE, z_allowed = FALSE)
 	if(pulling)
-		var/atom/movable/pullee = pulling
-		if(pullee && get_dist(src, pullee) > 1)
+		if(get_dist(src, pulling) > 1 || (z != pulling.z && !z_allowed))
 			stop_pulling()
-			return
-		if(!isturf(loc))
+		else if(!isturf(loc))
 			stop_pulling()
-			return
-		if(pullee && !isturf(pullee.loc) && pullee.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
-			log_debug("[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		else if(pulling && !isturf(pulling.loc) && pulling.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
+			log_debug("[src]'s pull on [pulling] wasn't broken despite [pulling] being in [pulling.loc]. Pull stopped manually.")
 			stop_pulling()
-			return
-		if(pulling.anchored || pulling.move_resist > move_force)
+		else if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
-			return
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
+	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (get_dist(src, pulledby) > 1 || z != pulledby.z)) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
 /atom/movable/proc/can_be_pulled(atom/movable/user, force, show_message = FALSE)
@@ -227,6 +228,17 @@
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
 	loc = T
 
+/**
+ * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
+ * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
+ * most of the time you want forceMove()
+ */
+/atom/movable/proc/abstract_move(atom/new_loc)
+	var/atom/old_loc = loc
+	var/direction = get_dir(old_loc, new_loc)
+	loc = new_loc
+	Moved(old_loc, direction, TRUE)
+
 
 /atom/movable/Move(atom/newloc, direct = NONE, movetime)
 	if(!loc || !newloc)
@@ -235,6 +247,7 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, oldloc)
 		if(movetime > 0)
 			glide_for(movetime)
 
@@ -301,6 +314,7 @@
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
 		last_move = 0
+		set_currently_z_moving(FALSE, TRUE)
 		return
 
 	if(.)
@@ -313,6 +327,12 @@
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
 		. = FALSE
 
+	if(currently_z_moving)
+		if(. && loc == newloc)
+			var/turf/pitfall = get_turf(src)
+			pitfall.zFall(src, falling_from_move = TRUE)
+		else
+			set_currently_z_moving(FALSE, TRUE)
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
@@ -356,6 +376,15 @@
 			if(QDELETED(A))
 				return
 		A.Bumped(src)
+
+/// Sets the currently_z_moving variable to a new value. Used to allow some zMovement sources to have precedence over others.
+/atom/movable/proc/set_currently_z_moving(new_z_moving_value, forced = FALSE)
+	if(forced)
+		currently_z_moving = new_z_moving_value
+		return TRUE
+	var/old_z_moving_value = currently_z_moving
+	currently_z_moving = max(currently_z_moving, new_z_moving_value)
+	return (currently_z_moving > old_z_moving_value)
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
@@ -413,6 +442,106 @@
 
 	Moved(old_loc, NONE, TRUE)
 
+/atom/movable/proc/onZImpact(turf/impacted_turf, levels, impact_flags = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(isliving(src))
+		add_attack_logs(src, src, "crashed into [impacted_turf] from [levels] level(s) up.")
+	if(!(impact_flags & ZIMPACT_NO_MESSAGE))
+		visible_message(span_danger("[src] crashes into [impacted_turf]!"), span_userdanger("You crash into [impacted_turf]!"))
+	if(!(impact_flags & ZIMPACT_NO_SPIN))
+		INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
+	SEND_SIGNAL(src, COMSIG_ATOM_ON_Z_IMPACT, impacted_turf, levels)
+	return TRUE
+
+/*
+ * The core multi-z movement proc. Used to move a movable through z levels.
+ * If target is null, it'll be determined by the can_z_move proc, which can potentially return null if
+ * conditions aren't met (see z_move_flags defines in __DEFINES/movement.dm for info) or if dir isn't set.
+ * Bear in mind you don't need to set both target and dir when calling this proc, but at least one or two.
+ * This will set the currently_z_moving to CURRENTLY_Z_MOVING_GENERIC if unset, and then clear it after
+ * Forcemove().
+ *
+ *
+ * Args:
+ * * dir: the direction to go, UP or DOWN, only relevant if target is null.
+ * * target: The target turf to move the src to. Set by can_z_move() if null.
+ * * z_move_flags: bitflags used for various checks in both this proc and can_z_move(). See __DEFINES/movement.dm.
+ */
+/atom/movable/proc/zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+	if(!target)
+		target = can_z_move(dir, get_turf(src), null, z_move_flags)
+		if(!target)
+			set_currently_z_moving(FALSE, TRUE)
+			return FALSE
+
+	var/list/moving_movs = get_z_move_affected(z_move_flags)
+
+	for(var/atom/movable/movable as anything in moving_movs)
+		movable.currently_z_moving = currently_z_moving || CURRENTLY_Z_MOVING_GENERIC
+		movable.forceMove(target)
+		movable.set_currently_z_moving(FALSE, TRUE)
+	// This is run after ALL movables have been moved, so pulls don't get broken unless they are actually out of range.
+	if(z_move_flags & ZMOVE_CHECK_PULLS)
+		for(var/atom/movable/moved_mov as anything in moving_movs)
+			if(z_move_flags & ZMOVE_CHECK_PULLEDBY && moved_mov.pulledby && (moved_mov.z != moved_mov.pulledby.z || get_dist(moved_mov, moved_mov.pulledby) > 1))
+				moved_mov.pulledby.stop_pulling()
+			if(z_move_flags & ZMOVE_CHECK_PULLING)
+				moved_mov.check_pulling(TRUE)
+	return TRUE
+
+/// Returns a list of movables that should also be affected when src moves through zlevels, and src.
+/atom/movable/proc/get_z_move_affected(z_move_flags)
+	. = list(src)
+	if(buckled_mobs)
+		. |= buckled_mobs
+	if(!(z_move_flags & ZMOVE_INCLUDE_PULLED))
+		return
+	for(var/mob/living/buckled as anything in buckled_mobs)
+		if(buckled.pulling)
+			. |= buckled.pulling
+	if(pulling)
+		. |= pulling
+
+/**
+ * Checks if the destination turf is elegible for z movement from the start turf to a given direction and returns it if so.
+ * Args:
+ * * direction: the direction to go, UP or DOWN, only relevant if target is null.
+ * * start: Each destination has a starting point on the other end. This is it. Most of the times the location of the source.
+ * * z_move_flags: bitflags used for various checks. See __DEFINES/movement.dm.
+ * * rider: A living mob in control of the movable. Only non-null when a mob is riding a vehicle through z-levels.
+ */
+/atom/movable/proc/can_z_move(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
+	if(!start)
+		start = get_turf(src)
+		if(!start)
+			return FALSE
+	if(!direction)
+		if(!destination)
+			return FALSE
+		direction = get_dir_multiz(start, destination)
+	if(direction != UP && direction != DOWN)
+		return FALSE
+	if(!destination)
+		destination = get_step_multiz(start, direction)
+		if(!destination)
+			if(z_move_flags & ZMOVE_FEEDBACK)
+				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
+			return FALSE
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !has_gravity(start)))
+		return FALSE
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && has_gravity(start))
+		if(z_move_flags & ZMOVE_FEEDBACK)
+			if(rider)
+				to_chat(rider, span_notice("[src] is not capable of flight."))
+			else
+				to_chat(src, span_notice("You are not Superman."))
+		return FALSE
+	if((!(z_move_flags & ZMOVE_IGNORE_OBSTACLES) && !(start.zPassOut(direction) && destination.zPassIn(direction))) || (!(z_move_flags & ZMOVE_ALLOW_ANCHORED) && anchored))
+		if(z_move_flags & ZMOVE_FEEDBACK)
+			to_chat(rider || src, span_warning("You couldn't move there!"))
+		return FALSE
+	return destination //used by some child types checks and zMove()
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -427,11 +556,11 @@
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(pulling)
+	if(pulling && !currently_z_moving)
 		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
-		reset_perspective(destination)
+		reset_perspective()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -440,7 +569,7 @@
 //Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
-	if(has_gravity(src))
+	if(has_gravity())
 		return TRUE
 
 	if(pulledby && !pulledby.pulling)

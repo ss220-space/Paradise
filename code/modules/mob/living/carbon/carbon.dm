@@ -209,7 +209,7 @@
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] встряхива[pluralize_ru(M.gender,"ет","ют")] [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.", \
 				"<span class='notice'>Вы трясете [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.</span>")
-			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			if(lying_angle) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
@@ -654,7 +654,7 @@
 	if((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
-	if((lying) && (!(tilesSlipped)))
+	if(lying_angle && !tilesSlipped)
 		return FALSE
 
 	if(ishuman(src))
@@ -666,7 +666,7 @@
 			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
 			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
 				return FALSE
-		if(!has_gravity(H) && !grav_ignore)
+		if(!H.has_gravity() && !grav_ignore)
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
 				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
 				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))

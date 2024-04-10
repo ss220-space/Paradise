@@ -40,6 +40,31 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
+/// Forces the user to stay unconscious.
+#define TRAIT_KNOCKEDOUT "knockedout"
+/// Prevents almost all actions, formely know as Stunned.
+#define TRAIT_INCAPACITATED "incapacitated"
+/// Prevents voluntary movement.
+#define TRAIT_IMMOBILIZED "immobilized"
+/// Prevents voluntary standing or staying up on its own.
+#define TRAIT_FLOORED "floored"
+/// Forces user to stay standing
+#define TRAIT_FORCED_STANDING "forcedstanding"
+/// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
+#define TRAIT_HANDS_BLOCKED "handsblocked"
+/// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
+#define TRAIT_UI_BLOCKED "uiblocked"
+/// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
+#define TRAIT_PULL_BLOCKED "pullblocked"
+/// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
+#define TRAIT_RESTRAINED "restrained"
+
+/// Negates our gravity, letting us move normally on floors in 0-g
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
+/// We are ignoring gravity
+#define TRAIT_IGNORING_GRAVITY "ignores_gravity"
+/// We have some form of forced gravity acting on us
+#define TRAIT_FORCED_GRAVITY "forced_gravity"
 
 //item traits
 #define TRAIT_CMAGGED "cmagged"

@@ -49,6 +49,10 @@
 	poster_type = /obj/structure/sign/poster/contraband/commando
 	icon_state = "rolled_poster"
 
+/obj/item/poster/cheng
+	poster_type = /obj/structure/sign/poster/official/mr_cheng
+	icon_state = "rolled_poster"
+
 //############################## THE ACTUAL DECALS ###########################
 
 /obj/structure/sign/poster

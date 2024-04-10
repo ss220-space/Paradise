@@ -265,6 +265,8 @@
 		return
 	if(!T)
 		T = get_turf(src)
+	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+		return
 
 	var/list/temp_blood_DNA
 	var/list/b_data = get_blood_data(check_blood)

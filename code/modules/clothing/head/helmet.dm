@@ -69,13 +69,28 @@
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
-	icon_state = "swat"
-	item_state = "swat-alt"
+	icon_state = "bullethelmet"
+	item_state = "bullethelmet"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
+	flags_inv = HIDEHEADSETS | HIDEGLASSES | HIDEMASK
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flash_protect = 1
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot
@@ -407,7 +422,16 @@
 	icon_state = "streetjudge_helmet"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
 
 /obj/item/clothing/head/helmet/lightweighthelmet
 	name = "lightweight helmet"

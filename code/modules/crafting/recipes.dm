@@ -41,6 +41,7 @@
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
 				/obj/item/reagent_containers/food/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
 	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
@@ -71,6 +72,7 @@
 	reqs = list(/obj/item/stack/tape_roll = 4,
 				/obj/item/clothing/gloves/color/black = 1,
 				/obj/item/cultivator = 1)
+	blacklist = list(/obj/item/clothing/gloves/color/black/razorgloves) // so we don't craft razorgloves using razorgloves etc.
 	time = 40
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_WEAPONRY
@@ -284,6 +286,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
 				/datum/reagent/blackpowder = 10,
 				/datum/reagent/plasma_dust = 20)
+	blacklist = list(/obj/item/ammo_casing/shotgun/improvised/overload)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
@@ -353,6 +356,7 @@
 	time = 15
 	reqs = list(/obj/item/camera = 1,
 				/datum/reagent/holywater = 10)
+	blacklist = list(/obj/item/camera/spooky)
 	parts = list(/obj/item/camera = 1)
 	category = CAT_MISC
 
@@ -438,6 +442,7 @@
 	result = /obj/item/stack/tile/carpet/black
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/black)
 	pathtools = list(/obj/item/toy/crayon/black)
 	category = CAT_MISC
 
@@ -446,6 +451,7 @@
 	result = /obj/item/stack/tile/carpet/blue
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/blue)
 	pathtools = list(/obj/item/toy/crayon/blue)
 	category = CAT_MISC
 
@@ -454,6 +460,7 @@
 	result = /obj/item/stack/tile/carpet/cyan
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/cyan)
 	pathtools = list(/obj/item/toy/crayon/blue, /obj/item/toy/crayon/green)
 	category = CAT_MISC
 
@@ -462,6 +469,7 @@
 	result = /obj/item/stack/tile/carpet/green
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/green)
 	pathtools = list(/obj/item/toy/crayon/green)
 	category = CAT_MISC
 
@@ -470,6 +478,7 @@
 	result = /obj/item/stack/tile/carpet/orange
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/orange)
 	pathtools = list(/obj/item/toy/crayon/orange)
 	category = CAT_MISC
 
@@ -478,6 +487,7 @@
 	result = /obj/item/stack/tile/carpet/purple
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/purple)
 	pathtools = list(/obj/item/toy/crayon/purple)
 	category = CAT_MISC
 
@@ -486,6 +496,7 @@
 	result = /obj/item/stack/tile/carpet/red
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
+	blacklist = list(/obj/item/stack/tile/carpet/red)
 	pathtools = list(/obj/item/toy/crayon/red)
 	category = CAT_MISC
 
@@ -670,6 +681,7 @@
 	reqs = list(/obj/item/twohanded/spear/bonespear = 1, //tier 2 spear
 				/obj/item/stack/sheet/sinew = 3,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 8)
+	blacklist = list(/obj/item/twohanded/spear/bonespear/chitinspear)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bow
@@ -689,6 +701,7 @@
 				/obj/item/stack/sheet/bone = 4,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 2,
 				/obj/item/stack/sheet/sinew = 2)
+	blacklist = list(/obj/item/gun/projectile/bow/ashen)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/arrow
@@ -711,6 +724,7 @@
 				/obj/item/stack/sheet/bone = 1,
 				/obj/item/stack/sheet/sinew = 2,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
+	blacklist = list(/obj/item/ammo_casing/caseless/arrow/bone_tipped)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/quiver
@@ -836,6 +850,7 @@
 	reqs = list(/datum/reagent/paint/red = 10,
 				/datum/reagent/paint/black = 30,
 				/obj/item/storage/toolbox = 1) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
+	blacklist = list(/obj/item/storage/toolbox/fakesyndi)
 	pathtools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
 	category = CAT_MISC
 
@@ -1386,6 +1401,42 @@
 	time = 5 SECONDS
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/cloth = 3)
+	category = CAT_MISC
+
+/datum/crafting_recipe/brig_cleaner
+	name = "Brig cleaner"
+	result = /obj/item/reagent_containers/spray/cleaner/brig/empty
+	reqs = list(/obj/item/reagent_containers/spray = 1)
+	blacklist = list(/obj/item/reagent_containers/spray/cleaner/brig)
+	pathtools = list(/obj/item/toy/crayon/red = 1)
+	time = 1.5 SECONDS
+	category = CAT_MISC
+
+/datum/crafting_recipe/chemical_cleaner
+	name = "Chemical cleaner"
+	result = /obj/item/reagent_containers/spray/cleaner/chemical/empty
+	reqs = list(/obj/item/reagent_containers/spray = 1)
+	blacklist = list(/obj/item/reagent_containers/spray/cleaner/chemical)
+	pathtools = list(/obj/item/toy/crayon/orange = 1)
+	time = 1.5 SECONDS
+	category = CAT_MISC
+
+/datum/crafting_recipe/janitor_cleaner
+	name = "Janitor cleaner"
+	result = /obj/item/reagent_containers/spray/cleaner/janitor/empty
+	reqs = list(/obj/item/reagent_containers/spray = 1)
+	blacklist = list(/obj/item/reagent_containers/spray/cleaner/janitor)
+	pathtools = list(/obj/item/toy/crayon/purple = 1)
+	time = 1.5 SECONDS
+	category = CAT_MISC
+
+/datum/crafting_recipe/medical_cleaner
+	name = "Medical cleaner"
+	result = /obj/item/reagent_containers/spray/cleaner/medical/empty
+	reqs = list(/obj/item/reagent_containers/spray = 1)
+	blacklist = list(/obj/item/reagent_containers/spray/cleaner/medical)
+	pathtools = list(/obj/item/toy/crayon/white = 1)
+	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/pathcloak

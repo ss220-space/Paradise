@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
-/obj/item/clothing/accessory/proc/on_removed(mob/user)
+/obj/item/clothing/accessory/proc/on_removed(mob/user, silent = FALSE)
 	if(!has_suit)
 		return
 	has_suit.cut_overlay(inv_overlay)
@@ -68,8 +68,9 @@
 
 	has_suit = null
 	if(user)
-		user.put_in_hands(src)
-		add_fingerprint(user)
+		forceMove_turf()
+		user.put_in_hands(src, ignore_anim = !silent, silent = silent)
+
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
@@ -413,7 +414,7 @@
 	. = ..()
 	has_suit.verbs += /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
 
-/obj/item/clothing/accessory/holobadge/on_removed(mob/user as mob)
+/obj/item/clothing/accessory/holobadge/on_removed(mob/user, silent = FALSE)
 	has_suit.verbs -= /obj/item/clothing/accessory/holobadge/verb/holobadge_verb
 	. = ..()
 
@@ -877,13 +878,13 @@
 	if(access_id)
 		. += "<span class='notice'>There is [bicon(access_id)] \a [access_id] clipped onto it.</span>"
 
-/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
+/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user, slot, initial = FALSE)
 	. = ..()
 
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, silent = FALSE)
+/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user, slot, silent = FALSE)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
@@ -958,7 +959,7 @@
 		cached_bubble_icon = M.bubble_icon
 		M.bubble_icon = strip_bubble_icon
 
-/obj/item/clothing/accessory/head_strip/on_removed(mob/user)
+/obj/item/clothing/accessory/head_strip/on_removed(mob/user, silent = FALSE)
 	if(has_suit && ismob(has_suit.loc))
 		var/mob/M = has_suit.loc
 		M.bubble_icon = cached_bubble_icon
@@ -1012,6 +1013,22 @@
 	item_color = "qmstrip"
 	strip_bubble_icon = "QM"
 
+/obj/item/clothing/accessory/head_strip/bs
+	name = "Blueshield's strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с темно-синей окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи при службе на корпорацию."
+	icon_state = "bsstrip"
+	item_state = "bsstrip"
+	item_color = "bsstrip"
+	strip_bubble_icon = "BS"
+
+/obj/item/clothing/accessory/head_strip/ntr
+	name = "NanoTrasen Representative's strip"
+	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся заслуги при службе на корпорацию."
+	icon_state = "ntrstrip"
+	item_state = "ntrstrip"
+	item_color = "ntrstrip"
+	strip_bubble_icon = "NTR"
+
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
@@ -1024,3 +1041,33 @@
 	..()
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
+
+/obj/item/clothing/accessory/head_strip/cheese_badge
+	name = "great fellow's badge"
+	desc = "Плотно сшитая круглая нашивка из желто-оранжевого бархата, по центру красуется то ли корона, то ли головка сыра. Слегка отдает запахом Монтерей Джека."
+	icon_state = "cheesebadge"
+	item_state = "cheesebadge"
+	item_color = "cheesebadge"
+	strip_bubble_icon = "cheese"
+
+/obj/item/clothing/accessory/head_strip/cheese_badge/attack_self(mob/user)
+	..()
+	if(prob(1))
+		user.say("CHEE-EE-EE-EE-EE-EESE!")
+
+/obj/item/clothing/accessory/medal/smile
+	name = "smiling pin"
+	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой!"
+	icon_state = "smile"
+	item_color = "smile"
+	materials = list(MAT_METAL = 300, MAT_GOLD = 200)
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/clothing/accessory/medal/smile/attack_self(mob/user)
+	..()
+	if(prob(5))
+		user.emote("smile")
+
+/obj/item/clothing/accessory/medal/smile/examine(mob/user)
+	. = ..()
+	user.emote("smile")

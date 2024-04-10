@@ -80,6 +80,12 @@
 	//flags = IGNORE_NOSLOW
 
 
+/datum/movespeed_modifier/fractures
+	variable = TRUE
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)
+
+
 /datum/movespeed_modifier/forced_look
 	multiplicative_slowdown = 3
 	flags = IGNORE_NOSLOW
@@ -157,6 +163,12 @@
 	multiplicative_slowdown = 5
 
 
+/datum/movespeed_modifier/gravity
+	blacklisted_movetypes = FLOATING
+	variable = TRUE
+	flags = IGNORE_NOSLOW
+
+
 /*
 /datum/movespeed_modifier/grab_slowdown
 	id = MOVESPEED_ID_MOB_GRAB_STATE
@@ -178,12 +190,6 @@
 /datum/movespeed_modifier/bulky_drag
 	variable = TRUE
 	blacklisted_movetypes = FLOATING
-
-
-/datum/movespeed_modifier/gravity
-	blacklisted_movetypes = FLOATING
-	variable = TRUE
-	flags = IGNORE_NOSLOW
 
 
 /datum/movespeed_modifier/carbon_softcrit

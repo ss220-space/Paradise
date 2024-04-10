@@ -85,6 +85,45 @@
 	amputation_point = "left hip"
 	convertable_children = list(/obj/item/organ/external/foot)
 
+
+/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
@@ -123,6 +162,87 @@
 	amputation_point = "left ankle"
 
 
+/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_legs(owner.num_legs + 1)
+	if(is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_legs(user.num_legs - 1)
+	if(is_usable())
+		user.set_usable_legs(user.usable_legs - 1)
+	user.update_fractures_slowdown()
+	user.drop_item_ground(user.shoes, force = TRUE)
+
+
+/obj/item/organ/external/foot/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+
+/obj/item/organ/external/foot/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
@@ -139,10 +259,6 @@
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
 
-/obj/item/organ/external/foot/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner?.shoes)
-		owner.drop_item_ground(owner.shoes, force = TRUE)
-	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_zone = BODY_ZONE_PRECISE_R_FOOT
@@ -165,6 +281,60 @@
 	amputation_point = "left wrist"
 	can_grasp = TRUE
 
+
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_hands(owner.num_hands + 1)
+	if(is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_hands(user.num_hands - 1)
+	if(is_usable())
+		user.set_usable_hands(user.usable_hands - 1)
+	user.drop_item_ground(user.gloves, force = TRUE)
+	user.drop_item_ground(user.l_hand, force = TRUE)
+	user.drop_item_ground(user.r_hand, force = TRUE)
+
+
+/obj/item/organ/external/hand/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
@@ -175,16 +345,6 @@
 		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
-/obj/item/organ/external/hand/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
-		if(owner.gloves)
-			owner.drop_item_ground(owner.gloves, force = TRUE)
-		if(owner.l_hand)
-			owner.drop_item_ground(owner.l_hand, force = TRUE)
-		if(owner.r_hand)
-			owner.drop_item_ground(owner.r_hand, force = TRUE)
-
-	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_zone = BODY_ZONE_PRECISE_R_HAND

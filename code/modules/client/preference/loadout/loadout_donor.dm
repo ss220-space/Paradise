@@ -170,6 +170,20 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
+/datum/gear/donor/strip/bs
+	display_name = "strip, Blueshield"
+	path = /obj/item/clothing/accessory/head_strip/bs
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_BLUESHIELD)
+
+/datum/gear/donor/strip/ntr
+	display_name = "strip, NanoTrasen Representative"
+	path = /obj/item/clothing/accessory/head_strip/ntr
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
+
 /datum/gear/donor/heartglasses
 	display_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart
@@ -179,3 +193,88 @@
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/donor/night_dress
+	display_name = "night dress, select"
+	description = "A classic night dress."
+	cost = 1
+	donator_tier = 3
+	path = /obj/item/clothing/under/night_dress
+
+/datum/gear/donor/night_dress/New()
+	..()
+	var/list/skirts = list("black" = /obj/item/clothing/under/night_dress,
+							"darkred" = /obj/item/clothing/under/night_dress/darkred,
+							"red" = /obj/item/clothing/under/night_dress/red,
+							"silver" = /obj/item/clothing/under/night_dress/silver,
+							"white" = /obj/item/clothing/under/night_dress/white,)
+	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
+
+/datum/gear/donor/strip/cheese_badge
+	display_name = "great fellow's badge"
+	path = /obj/item/clothing/accessory/head_strip/cheese_badge
+	donator_tier = 4
+	cost = 1
+
+/datum/gear/donor/smile_pin
+	display_name = "smiling pin"
+	path = /obj/item/clothing/accessory/medal/smile
+	donator_tier = 4
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
+
+/datum/gear/donor/backpack_hiking
+	donator_tier = 3
+	cost = 1
+	display_name = "backpack, Fancy Hiking Pack"
+	path = /obj/item/storage/backpack/fluff/hiking
+
+/datum/gear/donor/backpack_brew
+	donator_tier = 3
+	cost = 1
+	display_name = "backpack, The brew"
+	path = /obj/item/storage/backpack/fluff/thebrew
+
+/datum/gear/donor/backpack_cat
+	donator_tier = 3
+	cost = 1
+	display_name = "backpack, CatPack"
+	path = /obj/item/storage/backpack/fluff/ssscratches_back
+
+/datum/gear/donor/backpack_voxcaster
+	donator_tier = 3
+	cost = 1
+	display_name = "backpack, Voxcaster"
+	path = /obj/item/storage/backpack/fluff/krich_back
+
+/datum/gear/donor/backpack_syndi
+	donator_tier = 3
+	cost = 1
+	display_name = "backpack, Military Satchel"
+	path = /obj/item/storage/backpack/fluff/syndiesatchel
+
+/datum/gear/donor/spacecloak
+	donator_tier = 3
+	cost = 1
+	display_name = "Space cloak"
+	path = /obj/item/clothing/neck/cloak/spacecloak
+
+/datum/gear/donor/golden_wheelchair
+	donator_tier = 4
+	cost = 1
+	display_name = "Golden wheelchair paintkit"
+	path = /obj/item/fluff/rapid_wheelchair_kit
+
+/datum/gear/donor/hazardbelt
+	display_name = "hazard vest alt"
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
+
+/datum/gear/donor/atmosbelt
+	display_name = "hazard vest alt (atmos)"
+	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
+	donator_tier = 3
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)

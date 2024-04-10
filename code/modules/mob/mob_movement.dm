@@ -307,11 +307,17 @@
 		return rebound
 
 
-/mob/proc/mob_has_gravity(turf/T)
-	return has_gravity(src, T)
+/mob/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admin override.
+		return GLOB.gravity_is_on
+	return mob_negates_gravity() || ..()
 
+
+/**
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return 0
+	return FALSE
 
 
 /mob/proc/Move_Pulled(atom/target)
@@ -339,9 +345,6 @@
 				return
 	pulling.Move(get_step(pulling.loc, pull_dir), pull_dir, glide_size)
 
-
-/mob/proc/update_gravity(has_gravity)
-	return
 
 /client/proc/check_has_body_select()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
@@ -482,3 +485,56 @@
 /mob/proc/toggle_move_intent()
 	return
 
+/mob/verb/move_up()
+	set name = "Move Upwards"
+	set category = "IC"
+
+	if(remote_control)
+		return remote_control.relaymove(src, UP)
+
+	var/turf/current_turf = get_turf(src)
+	var/turf/above_turf = GET_TURF_ABOVE(current_turf)
+
+	if(!above_turf)
+		to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
+		return
+
+	if(ismovable(loc)) //Inside an object, tell it we moved
+		var/atom/loc_atom = loc
+		return loc_atom.relaymove(src, UP)
+
+	var/mob/living/L = src
+	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
+		if(buckled)
+			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
+		else
+			to_chat(src, "<span class='notice'>You are not Superman.<span>")
+		return
+
+	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+		to_chat(src, span_notice("You move upwards."))
+
+/mob/verb/move_down()
+	set name = "Move Down"
+	set category = "IC"
+
+	if(remote_control)
+		return remote_control.relaymove(src, DOWN)
+
+	var/turf/current_turf = get_turf(src)
+	var/turf/below_turf = GET_TURF_BELOW(current_turf)
+
+	if(!below_turf)
+		to_chat(src, span_warning("There's nowhere to go in that direction!"))
+		return
+
+	if(ismovable(loc)) //Inside an object, tell it we moved
+		var/atom/loc_atom = loc
+		return loc_atom.relaymove(src, DOWN)
+
+	var/mob/living/L = src
+	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+		to_chat(src, span_notice("You move down."))
+	return FALSE

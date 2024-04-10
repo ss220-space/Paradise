@@ -21,6 +21,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_CROWBAR
 
+/obj/item/crowbar/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"

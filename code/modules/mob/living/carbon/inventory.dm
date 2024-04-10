@@ -341,7 +341,7 @@
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 
-	if(lying && !(I.flags & ABSTRACT))
+	if(lying_angle && !(I.flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == "HAND_LEFT" && !has_left_hand())
@@ -380,7 +380,7 @@
 		I.pixel_y = initial(I.pixel_y)
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
-		I.dropped(src, silent)
+		I.dropped(src, null, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -419,7 +419,7 @@
 	I.forceMove(drop_location())
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped(src, silent)
+	I.dropped(src, null, silent)
 
 	return FALSE
 
@@ -482,3 +482,9 @@
 	if(head)
 		items += head
 	return items
+
+
+/mob/living/carbon/update_equipment_speed_mods()
+	. = ..()
+	update_limbless_slowdown()	// in case we get crutches
+

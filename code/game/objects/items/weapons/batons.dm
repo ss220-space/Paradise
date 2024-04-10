@@ -140,7 +140,7 @@
 	needs_permit = FALSE
 
 /obj/item/melee/classic_baton/ntcane/is_crutch()
-	return TRUE
+	return 2
 
 /**
   * # Telescopic Baton

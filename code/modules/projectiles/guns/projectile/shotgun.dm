@@ -260,8 +260,8 @@
 	bolt_open = 1
 	pump()
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	guns_left = 0
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self()

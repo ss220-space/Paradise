@@ -1059,6 +1059,10 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return EAST
 		if(NORTHWEST)
 			return SOUTHEAST
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
 
 /*
 Checks if that loc and dir has a item on the wall
@@ -1190,7 +1194,7 @@ Standard way to write links -Sayu
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.lying)
+	if(!ismob(target) || target.lying_angle)
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -1360,7 +1364,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return 0
 	if(isliving(A))
 		var/mob/living/LA = A
-		if(LA.lying)
+		if(LA.lying_angle)
 			return 0
 	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
@@ -1914,6 +1918,29 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
+
+
+///Returns a turf based on text inputs, original turf and viewing client
+/proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
+	if(!modifiers)
+		return null
+
+	var/screen_loc = splittext(modifiers["screen-loc"], ",")
+	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)
+	var/click_turf_x = splittext(screen_loc[1], ":")
+	var/click_turf_y = splittext(screen_loc[2], ":")
+	var/click_turf_z = origin.z
+
+	var/click_turf_px = text2num(click_turf_x[2])
+	var/click_turf_py = text2num(click_turf_y[2])
+	click_turf_x = origin.x + text2num(click_turf_x[1]) - round(actual_view[1] / 2) - 1
+	click_turf_y = origin.y + text2num(click_turf_y[1]) - round(actual_view[2] / 2) - 1
+
+	var/turf/click_turf = locate(clamp(click_turf_x, 1, world.maxx), clamp(click_turf_y, 1, world.maxy), click_turf_z)
+	LAZYSET(modifiers, "icon-x", "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
+	LAZYSET(modifiers, "icon-y", "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
+	return click_turf
+
 
 /proc/params2turf(scr_loc, turf/origin, client/C)
 	if(!scr_loc)

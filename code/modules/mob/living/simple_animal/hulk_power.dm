@@ -75,7 +75,7 @@
 		return
 
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
 		return
 
@@ -147,7 +147,7 @@
 				user.canmove = FALSE
 				user.density = 0
 				for(var/mob/living/M in T.contents)
-					if(!M.lying)
+					if(!M.lying_angle)
 						var/turf/target = get_turf(get_step(user,cur_dir))
 						hit = 1
 						playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
@@ -169,7 +169,7 @@
 				for(var/mob/living/M in T.contents)
 					playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
 					M.Weaken(4 SECONDS)
-			if(user.lying)
+			if(user.lying_angle)
 				break
 			if(hit)
 				break
@@ -234,8 +234,12 @@
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
-	if (istype(user.loc,/mob) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		return
+	var/turf/turf_to_check = get_turf(user)
+	if(user.can_z_move(DOWN, turf_to_check))
+		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
 	if (istype(user.loc,/turf) && !(istype(user.loc,/turf/space)))
@@ -291,8 +295,8 @@
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)
-			var/turf/T = get_step(user,direction)
-			for(var/mob/living/M in T.contents)
+			var/turf/turf_neighbor = get_step(user,direction)
+			for(var/mob/living/M in turf_neighbor.contents)
 				if( (M != user) && !(M.stat))
 					if(snd)
 						snd = 0
@@ -325,6 +329,9 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
+	if(!(user.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !user.currently_z_moving) // in case he could fly after
+		var/turf/pitfall = get_turf(user)
+		pitfall?.zFall(user)
 
 //Clown-Hulk
 
@@ -421,7 +428,7 @@
 
 
 /obj/effect/proc_holder/spell/hulk_mill/cast(list/targets,mob/user = user)
-	if (user.lying || user.incapacitated())
+	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	for(var/i in 1 to 45)

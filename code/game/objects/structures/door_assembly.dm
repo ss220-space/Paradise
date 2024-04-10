@@ -103,6 +103,17 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			airlock_electronics = W
+			var/obj/item/airlock_electronics/electronics = W
+			if(electronics.access_electronics)
+				if(electronics.access_electronics.emagged || access_electronics)
+					to_chat(user, span_warning("[electronics.access_electronics] не вставляется в [src]"))
+					electronics.access_electronics.forceMove(user.drop_location())
+					electronics.access_electronics = null
+					return
+				electronics.access_electronics.forceMove(src)
+				to_chat(user, span_notice("You install the access control electronics."))
+				access_electronics = electronics.access_electronics
+				electronics.access_electronics = null
 
 	else if(istype(W, /obj/item/access_control) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		var/obj/item/access_control/control = W
@@ -231,6 +242,8 @@
 		door.check_one_access = access_electronics.one_access
 		access_electronics.forceMove(door)
 		access_electronics = null
+	else
+		door.has_access_electronics = FALSE
 
 	qdel(src)
 	update_icon(UPDATE_OVERLAYS)

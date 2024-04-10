@@ -406,6 +406,40 @@
 		current_power = null
 		update_controlling_area()
 
+/mob/living/simple_animal/demon/pulse_demon/move_up()
+	set name = "Move Upwards"
+	set category = "IC"
+
+	var/turf/current_turf = get_turf(src)
+	if(!locate(/obj/structure/cable/multiz) in current_turf)
+		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		return FALSE
+
+	var/turf/turf_to_check = GET_TURF_ABOVE(current_turf)
+	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		return FALSE
+
+	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
+		to_chat(src, "<span class='notice'>You move upwards.</span>")
+
+/mob/living/simple_animal/demon/pulse_demon/move_down()
+	set name = "Move Down"
+	set category = "IC"
+
+	var/turf/current_turf = get_turf(src)
+	if(!locate(/obj/structure/cable/multiz) in current_turf)
+		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		return
+
+	var/turf/turf_to_check = GET_TURF_BELOW(current_turf)
+	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		return FALSE
+
+	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
+		to_chat(src, "<span class='notice'>You move down.</span>")
+
 // signal to replace relaymove where or when? // Never, actually just manage your code instead
 /obj/machinery/power/relaymove(mob/user, dir)
 	if(!ispulsedemon(user))
@@ -654,7 +688,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return (T.transparent_floor == TURF_TRANSPARENT) || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -799,9 +833,6 @@
 	return
 
 /mob/living/simple_animal/demon/pulse_demon/mob_negates_gravity()
-	return TRUE
-
-/mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
 	return TRUE
 
 /obj/item/organ/internal/heart/demon/pulse

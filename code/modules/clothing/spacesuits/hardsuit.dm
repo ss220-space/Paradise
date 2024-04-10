@@ -4,11 +4,11 @@
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
     //alt_desc =
 	icon_state = "hardsuit0-engineering"
+	base_icon_state = "hardsuit"
 	item_state = "eng_helm"
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75)
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
 	max_integrity = 300
-	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
 	light_power = 1
 	light_range = 4
@@ -40,31 +40,51 @@
 		)
 
 
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
+	. = ..()
+	if(istype(parent))
+		suit = parent
+	else
+		stack_trace("Investigate hardsuit helmet ([type]). Initialized without proper suit.")
+
+
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	suit = null
+	if(suit)
+		suit.RemoveHelmet(loc)
+		suit.helmet = null
+		suit = null
 	return ..()
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/update_icon_state()
-	icon_state = "[basestate][light_on]-[item_color]"
+	icon_state = "[base_icon_state][light_on]-[item_color]"
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/attack_hand(mob/user, pickupfireoverride = FALSE)
+	if(suit)
+		suit.RemoveHelmet(user)
+	else
+		qdel(src)
+		stack_trace("Investigate hardsuit helmet attackhand of type: [type]")
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/living/carbon/user, slot, initial = FALSE)
 	. = ..(user, slot, TRUE)
-	if(!suit)
-		qdel(src)
-		return FALSE
-	if(slot != SLOT_HUD_HEAD || user.wear_suit != suit)
-		user.drop_item_ground(src, force = TRUE, silent = TRUE)
+	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate hardsuit helmet equip of type: [type]")
 		return FALSE
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user, silent = FALSE)
-	. = ..(user, TRUE)
-	if(suit)
-		suit.RemoveHelmet(user)
-	else if(!QDELETED(src))
-		qdel(src)
+/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/living/carbon/user, slot, silent = FALSE)
+	. = ..(user, slot, TRUE)
+	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate hardsuit helmet drop of type: [type]")
+		return FALSE
+	suit.RemoveHelmet(user)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -72,18 +92,17 @@
 		suit.RemoveHelmet(usr)
 	else
 		qdel(src)
+		stack_trace("Investigate hardsuit helmet mousedrop of type: [type]")
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
+	toggle_light()
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(update_buttons = TRUE)
 	set_light_on(!light_on)
-	toggle_light(light_on)
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(enable = TRUE, update_buttons = TRUE)
-	light_on = enable
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_buttons)
-	set_light_on(enable)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
@@ -104,7 +123,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(light_on)
-		toggle_light(enable = FALSE)
+		toggle_light()
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
@@ -158,8 +177,7 @@
 	if(!helmettype || helmet)
 		return
 
-	var/obj/item/clothing/head/helmet/space/hardsuit/new_helmet = new helmettype(src)
-	new_helmet.suit = src
+	var/obj/item/clothing/head/helmet/space/hardsuit/new_helmet = new helmettype(src, src)
 	helmet = new_helmet
 	helmet.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -169,7 +187,7 @@
 	RemoveHelmet(user)
 
 
-/obj/item/clothing/suit/space/hardsuit/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/space/hardsuit/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	RemoveHelmet(user)
 
@@ -194,7 +212,10 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(mob/living/carbon/human/user)
-	if(!helmet || !ishuman(user))
+	if(!ishuman(user))
+		return
+	if(!helmet)
+		to_chat(user, span_warning("[src] has no helmet anymore!"))
 		return
 	if(taser_proof?.ert_mindshield_locked)
 		if(isertmindshielded(user))
@@ -231,13 +252,11 @@
 	if(!helmet)
 		return FALSE
 	if(!suit_adjusted)
-		if(helmet.loc != src)	// in case helmet was dropped on equip and hardsuit is already adjusted
-			helmet.forceMove(src)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
 	if(helmet.light_on)
-		helmet.toggle_light(enable = FALSE, update_buttons = FALSE)
+		helmet.toggle_light(update_buttons = FALSE)
 	if(ishuman(user))
 		user.temporarily_remove_item_from_inventory(helmet, force = TRUE)
 		user.update_inv_wear_suit()
@@ -384,7 +403,8 @@
 		return
 	if(toggle)
 		on = !on
-		toggle_light(enable = on, update_buttons = FALSE)
+		if(on != light_on)
+			toggle_light(update_buttons = FALSE)
 	if(user)
 		to_chat(user, span_notice("You switch your hardsuit to [on ? "EVA mode, sacrificing speed for space protection." : "combat mode and can now run at full speed."]"))
 		playsound(loc, 'sound/items/rig_deploy.ogg', 110, TRUE)
@@ -469,8 +489,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet(mob/living/carbon/human/user)
 	. = ..()
-	if(. && on)
-		helmet?.toggle_light(enable = TRUE, update_buttons = FALSE)
+	if(. && on && !light_on)
+		helmet.toggle_light()
 
 
 //Elite Syndie suit
@@ -711,15 +731,15 @@
 	var/explosion_detection_dist = 40
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial)
+/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == SLOT_HUD_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user, silent = FALSE)
+/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(!user || user.head != src)
+	if(slot == SLOT_HUD_HEAD)
 		GLOB.doppler_arrays -= src
 
 

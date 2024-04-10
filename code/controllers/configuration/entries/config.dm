@@ -90,6 +90,9 @@
 /// logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 /datum/config_entry/flag/log_timers_on_bucket_reset
 
+/// Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
+/datum/config_entry/flag/report_active_turfs
+
 /// allows admins with relevant permissions to have their own ooc colour
 /datum/config_entry/flag/allow_admin_ooccolor
 

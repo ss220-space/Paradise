@@ -432,8 +432,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
 	return magpulse
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_has_gravity()
-	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
 	if(!magpulse)

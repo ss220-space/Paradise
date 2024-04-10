@@ -37,13 +37,24 @@
 
 #define CLOTHING_TRAIT "clothing"
 
+#define DNA_TRAIT "dna_trait"
+
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 
 /// Trait given by your current speed
 #define SPEED_TRAIT "speed_trait"
 
+/// Trait associated to being cuffed
+#define HANDCUFFED_TRAIT "handcuffed_trait"
+/// Trait associated to wearing a suit
+#define SUIT_TRAIT "suit_trait"
+
 #define NO_GRAVITY_TRAIT "no-gravity"
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"

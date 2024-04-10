@@ -19,6 +19,7 @@
 	light_power = 2
 	light_range = 2
 	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)

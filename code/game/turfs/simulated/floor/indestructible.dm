@@ -1,4 +1,5 @@
 /turf/simulated/floor/indestructible
+	explosion_vertical_block = 50
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
@@ -170,15 +171,21 @@
 /turf/simulated/floor/indestructible/beach
 	name = "Beach"
 	icon = 'icons/misc/beach.dmi'
-	var/water_overlay_image = null
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	// I'll be glad if someone wants a way to make an overlay that can also smooth. But
+	var/obj/effect/beach_water_overlay/water_overlay
+	var/water_overlay_icon = 'icons/misc/beach.dmi'
+	var/water_overlay_icon_state = null
+	var/water_overlay_smooth = SMOOTH_FALSE
 
 /turf/simulated/floor/indestructible/beach/Initialize(mapload)
 	. = ..()
-	if(water_overlay_image)
-		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
-		overlay_image.plane = GAME_PLANE
-		add_overlay(overlay_image)
+	if(water_overlay_icon_state || water_overlay_icon != 'icons/misc/beach.dmi')
+		water_overlay = new(src, water_overlay_icon, water_overlay_icon_state, water_overlay_smooth)
+
+/turf/simulated/floor/indestructible/beach/Destroy()
+	QDEL_NULL(water_overlay)
+	return ..()
 
 /turf/simulated/floor/indestructible/beach/sand
 	name = "Sand"
@@ -202,7 +209,7 @@
 	//icon = 'icons/misc/beach2.dmi'
 	//icon_state = "sandwater"
 	icon_state = "beach"
-	water_overlay_image = "water_coast"
+	water_overlay_icon_state = "water_coast"
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
 	clawfootstep = FOOTSTEP_WATER
@@ -214,7 +221,7 @@
 /turf/simulated/floor/indestructible/beach/water
 	name = "Shallow Water"
 	icon_state = "seashallow"
-	water_overlay_image = "water_shallow"
+	water_overlay_icon_state = "water_shallow"
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 	footstep = FOOTSTEP_WATER
 	barefootstep = FOOTSTEP_WATER
@@ -250,34 +257,15 @@
 /turf/simulated/floor/indestructible/beach/water/edge_drop
 	name = "Water"
 	icon_state = "seadrop"
-	water_overlay_image = "water_drop"
+	water_overlay_icon_state = "water_drop"
 
 /turf/simulated/floor/indestructible/beach/water/drop
 	name = "Water"
 	icon = 'icons/turf/floors/seadrop.dmi'
 	icon_state = "seadrop"
-	water_overlay_image = null
+	water_overlay_icon = 'icons/turf/floors/seadrop-o.dmi'
+	water_overlay_smooth = SMOOTH_TRUE
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
-		/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,
-		/turf/simulated/floor/indestructible/beach/water/edge_drop)
-	var/obj/effect/beach_drop_overlay/water_overlay
-
-/turf/simulated/floor/indestructible/beach/water/drop/Initialize(mapload)
-	. = ..()
-	water_overlay = new(src)
-
-/turf/simulated/floor/indestructible/beach/water/drop/Destroy()
-	QDEL_NULL(water_overlay)
-	return ..()
-
-/obj/effect/beach_drop_overlay
-	name = "Water"
-	icon = 'icons/turf/floors/seadrop-o.dmi'
-	layer = MOB_LAYER + 0.1
-	smooth = SMOOTH_TRUE
-	anchored = TRUE
 	canSmoothWith = list(
 		/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
 		/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,
@@ -289,7 +277,7 @@
 /turf/simulated/floor/indestructible/beach/water/deep
 	name = "Deep Water"
 	icon_state = "seadeep"
-	water_overlay_image = "water_deep"
+	water_overlay_icon_state = "water_deep"
 
 /turf/simulated/floor/indestructible/beach/water/deep/dense
 	density = TRUE
@@ -310,3 +298,33 @@
 	opacity = TRUE
 	explosion_block = 2
 	mouse_opacity = MOUSE_OPACITY_ICON
+
+
+/obj/effect/beach_water_overlay
+	name = "Water overlay that you shouldn't see"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = null
+	smooth = SMOOTH_FALSE
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
+
+/obj/effect/beach_water_overlay/Initialize(mapload, new_icon, new_icon_state, new_smooth)
+	. = ..()
+	icon = new_icon
+	icon_state = new_icon_state
+	smooth = new_smooth
+	if(smooth)
+		canSmoothWith = list(
+			/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
+			/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,
+			/turf/simulated/floor/indestructible/beach/water/edge_drop)
+
+// used with /effect/view_portal in order to get rid of dynamic lighting.
+/turf/simulated/floor/indestructible/view_portal
+	name = "Deep space"
+	desc = "Deep space nothing"
+	icon = null
+	icon_state = null
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED

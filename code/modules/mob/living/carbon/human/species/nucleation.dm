@@ -11,6 +11,7 @@
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."
 	language = LANGUAGE_SOL_COMMON
+	blood_color = "#ada776"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
@@ -62,6 +63,13 @@
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
+	if(H.health <= HEALTH_THRESHOLD_DEAD || !H.surgeries.len) // Needed to prevent brain gib on surgery debrain
+		death_explosion(H)
+		return
+	H.adjustBruteLoss(15)
+	H.do_jitter_animation(1000, 8)
+
+/datum/species/nucleation/proc/death_explosion(mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")
 	explosion(T, 0, 0, 3, 6, cause = H) // Create a small explosion burst upon death

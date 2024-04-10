@@ -319,7 +319,7 @@
 		return !density || checkpass(mover, PASSGLASS)
 
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
