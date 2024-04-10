@@ -310,7 +310,7 @@
 
 	var/grabbed_something = FALSE
 	for(var/obj/item/A in T)
-		if(A.materials[MAT_METAL] && !anchored && (length(grabbed_items) < grab_limit))
+		if(LAZYIN(A.materials, MAT_METAL) && !anchored && (length(grabbed_items) < grab_limit))
 			grabbed_items += A
 			A.forceMove(src)
 			grabbed_something = TRUE

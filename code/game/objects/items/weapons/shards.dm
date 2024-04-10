@@ -91,8 +91,8 @@
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+	if(istype(L) && L.has_gravity())
+		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()

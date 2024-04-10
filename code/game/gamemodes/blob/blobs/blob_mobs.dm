@@ -53,7 +53,6 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays
@@ -72,6 +71,13 @@
 		factory = linked_node
 		factory.spores += src
 	..()
+
+
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -192,9 +198,6 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/mob_negates_gravity()
 	return magpulse
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/mob_has_gravity()
-	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/experience_pressure_difference(pressure_difference, direction)
 	if(!magpulse)

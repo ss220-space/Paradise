@@ -13,6 +13,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	layer = GHOST_LAYER
 	plane = GAME_PLANE
 	stat = DEAD
+	movement_type = GROUND|FLYING
 	density = FALSE
 	canmove = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
@@ -56,8 +57,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
 
-
-	stat = DEAD
+	set_stat(DEAD)
 
 	var/turf/T
 	if(ismob(body))
@@ -154,7 +154,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.layer = GHOST_LAYER
 	MA.plane = GAME_PLANE
 	. = MA
-
 
 /*
 Transfer_mind is there to check if mob is being deleted/not going to have a body.

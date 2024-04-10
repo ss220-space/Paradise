@@ -1,32 +1,19 @@
 #define SCRAMBLE_CACHE_LEN 20
 /*
-	When creating new 2 letter language keys, use the following naming scheme:
-	For languages with a compound name, use the first letter of each word whenever possible, for example: Sol Common = "sc".
-	For racial languages, whenever possible, use the first two letters of the race name or use euphony for associative rows, for example: Vulpkanin = "vu" or Canilunzt = "ca".
-	Also don't forget about code/__DEFINES/language.dm
-
-
 	Datum based languages. Easily editable and modular.
 
 	Busy letters for language:
-	un ta vu sk vo di tr ki sl gr dr ni
-	xm db wr xh ts ch hs sh ab gl bo bi dt
-	sw gc sc tb gt cl nr mo ne st fa wo
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
 
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
 
-	Busy letters by radio(eng):
-	c e h i l m n p r s t u w x
+	Also don't forget about code/__DEFINES/language.dm
 
-
-	Busy letters by radio(rus):
-	б г д е ё з к р с т у ц ч ш ы ь я э
-
-
-	Busy symbols by radio:
-	~ , $ _ - + * 1 2 3
-
-	CAUTION!	The key must not repeat the key of the radio channel
-				and must not contain prohibited characters!
+	CAUTION! The key must not repeat the key of the radio channel
+	and must not contain prohibited characters
 */
 
 /datum/language
@@ -127,11 +114,8 @@
 
 	return scrambled_text
 
-/datum/language/proc/format_message(message)
+/datum/language/proc/format_message(message, mob/speaker)
 	return "<span class='message'><span class='[colour]'>[message]</span></span>"
-
-/datum/language/proc/format_message_radio(message)
-	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -145,15 +129,15 @@
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
-	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message)]</span></i>"
+	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]</span></i>"
 
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message)]</span></i>"
+			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [get_spoken_verb(message)], [format_message(message, speaker)]</span></i>"
 			to_chat(player, msg_dead)
 			continue
 
-		else if(istype(player,/mob/dead) || ((src in player.languages) && check_special_condition(player, speaker)))
+		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
@@ -176,11 +160,6 @@
 	desc = "Noises"
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER|NOBABEL
 
-/datum/language/noise/format_message(message)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
-
-/datum/language/noise/format_message_radio(message)
-	return "<span class='[colour]'>[message]</span>"
 
 /datum/language/noise/get_talkinto_msg_range(message)
 	// if you make a loud noise (screams etc), you'll be heard from 4 tiles over instead of two
@@ -193,7 +172,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
 	colour = "soghun"
-	key = "un"
+	key = "o"
 	flags = RESTRICTED
 	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
 	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
@@ -214,7 +193,7 @@
 	ask_verb = "mrowls"
 	exclaim_verbs = list("yowls")
 	colour = "tajaran"
-	key = "ta"
+	key = "j"
 	flags = RESTRICTED
 	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
 	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
@@ -254,7 +233,7 @@
 	ask_verb = "rurs"
 	exclaim_verbs = list("barks")
 	colour = "vulpkanin"
-	key = "vu"
+	key = "7"
 	flags = RESTRICTED
 	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
 	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
@@ -268,7 +247,7 @@
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
 	colour = "skrell"
-	key = "sk"
+	key = "k"
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
@@ -279,7 +258,7 @@
 	ask_verb = "creels"
 	exclaim_verbs = list("loudly skrees")
 	colour = "vox"
-	key = "vo"
+	key = "v"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","yi","chi","cha","kah", \
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
@@ -301,7 +280,7 @@
 	ask_verb = "creaks"
 	exclaim_verbs = list("rustles")
 	colour = "diona"
-	key = "di"
+	key = "q"
 	flags = RESTRICTED
 	syllables = list("hs","zt","kr","st","sh")
 
@@ -317,7 +296,7 @@
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
 	colour = "trinary"
-	key = "tr"
+	key = "5"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("0+2+0+1+1","0+1+2+2+2","1+0+1+0+0","1+0+2+1+0","2+1+0+1+2","0+2+0+1+1","2+1+2+0+0","1+0+0+2","2+0+0+1","0+0+0+2","0+0+1+2","0+0+1+2","0+0+0","1+2+0","1+2+1","2+0+1","2+2+0","1+0","1+1","0")
 
@@ -336,7 +315,7 @@
 	ask_verb = "rubs their antennae together"
 	exclaim_verbs = list("rubs their antennae together")
 	colour = "kidan"
-	key = "ki"
+	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 
@@ -356,7 +335,7 @@
 	ask_verb = "bubbles and pops"
 	exclaim_verbs = list("bubbles and pops")
 	colour = "slime"
-	key = "sl"
+	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
@@ -367,7 +346,7 @@
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
-	key = "gr"
+	key = "^"
 	flags = RESTRICTED | HIVEMIND
 	follow = TRUE
 
@@ -402,7 +381,7 @@
 	ask_verb = "hums"
 	exclaim_verbs = list("rumbles")
 	colour = "drask"
-	key = "dr"
+	key = "%"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
 
@@ -419,7 +398,7 @@
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
 	colour = "moth"
-	key = "ni"
+	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
 	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
@@ -440,7 +419,7 @@
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
-	key = "gc"
+	key = "9"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = TRUE
@@ -452,7 +431,7 @@
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	colour = "solcom"
-	key = "sc"
+	key = "1"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = TRUE
@@ -463,7 +442,7 @@
 	desc = "Maintained by the various trading cartels in major systems, this elegant, structured language is used for bartering and bargaining."
 	speech_verb = "enunciates"
 	colour = "say_quote"
-	key = "tb"
+	key = "2"
 	space_chance = 100
 	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
 					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
@@ -481,7 +460,7 @@
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
 	colour = "gutter"
-	key = "gt"
+	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 
 /datum/language/clown
@@ -491,7 +470,7 @@
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
 	colour = "clown"
-	key = "cl"
+	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
 /datum/language/com_srus
@@ -501,7 +480,7 @@
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
 	colour = "com_srus"
-	key = "nr"
+	key = "?"
 	space_chance = 65
 	english_names = TRUE
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
@@ -521,7 +500,7 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("buzzes")
 	colour = "alien"
-	key = "wr"
+	key = "y"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -541,7 +520,7 @@
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
-	key = "xm"
+	key = "6"
 	flags = RESTRICTED
 	syllables = list("sss","sSs","SSS")
 
@@ -552,7 +531,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
 	colour = "alien"
-	key = "xh"
+	key = "a"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -563,7 +542,7 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
 	colour = "terrorspider"
-	key = "ts"
+	key = "as"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -573,7 +552,7 @@
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
 	speech_verb = "says"
 	colour = "changeling"
-	key = "ch"
+	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -590,7 +569,7 @@
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
 	speech_verb = "says"
 	colour = "changeling"
-	key = "hs"
+	key = "gi"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -607,7 +586,7 @@
 	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
 	speech_verb = "says"
 	colour = "shadowling"
-	key = "sh"
+	key = "8"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -626,7 +605,7 @@
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
 	colour = "abductor"
-	key = "ab"
+	key = "aa"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -641,19 +620,13 @@
 			return TRUE
 	return FALSE
 
-/datum/language/golem
+/datum/language/abductor/golem
 	name = "Golem Mindlink"
 	desc = "Communicate with other alien alloy golems through a psychic link."
-	speech_verb = "gibbers"
-	ask_verb = "gibbers"
-	exclaim_verbs = list("gibbers")
-	colour = "abductor"
-	key = "gl"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
-/datum/language/golem/broadcast(mob/living/speaker, message, speaker_mask)
-	..(speaker,message,speaker.real_name)
+/datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
+	return TRUE
 
 /datum/language/borer
 	name = "Cortical Link"
@@ -686,7 +659,7 @@
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
-	key = "bi"
+	key = "b"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 	var/drone_only
@@ -733,7 +706,7 @@
 	ask_verb = "transmits"
 	exclaim_verbs = list("transmits")
 	colour = "say_quote"
-	key = "dt"
+	key = "d"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
 	follow = TRUE
@@ -756,7 +729,7 @@
 	ask_verb = "tones"
 	exclaim_verbs = list("tones")
 	colour = "say_quote"
-	key = "sw"//Zwarmer...Or Zerg!
+	key = "as"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
@@ -766,17 +739,17 @@
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
-	key = "mo"
+	key = "fm"
 
 /datum/language/skrell/monkey
 	name = "Neara"
 	desc = "Squik squik squik."
-	key = "ne"
+	key = "fn"
 
 /datum/language/unathi/monkey
 	name = "Stok"
 	desc = "Hiss hiss hiss."
-	key = "st"
+	key = "fs"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
@@ -786,12 +759,28 @@
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
 	desc = "Bark bark bark."
-	key = "wo"
+	key = "vu"
+
+
+/datum/language/angel
+	name = "Angel Singing"
+	colour = "colossus yell"
+	flags = RESTRICTED|NO_STUTTER|NOBABEL|NONGLOBAL|INNATE
+
+
+/datum/language/angel/proc/get_spans(mob/speaker)
+	. = colour //reset spans, just in case someone gets deculted or the cords change owner
+	if(iscultist(speaker))
+		. += " narsiesmall"
+
+
+/datum/language/angel/format_message(message, mob/speaker)
+	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
 
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking && speaking.flags & INNATE) || (speaking in languages)
+	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)
 
 
 //TBD
@@ -852,8 +841,9 @@
 		if(!istype(new_language))
 			return FALSE
 
-	languages |= new_language
-	return TRUE
+	. = !LAZYIN(languages, new_language)
+	if(.)
+		LAZYADD(languages, new_language)
 
 
 /mob/proc/remove_language(language_name)
@@ -863,8 +853,9 @@
 		if(!istype(rem_language))
 			return FALSE
 
-	. = (rem_language in languages)
-	languages.Remove(rem_language)
+	. = LAZYIN(languages, rem_language)
+	if(.)
+		LAZYREMOVE(languages, rem_language)
 
 
 /mob/living/remove_language(language_name)
@@ -884,7 +875,7 @@
 		var/datum/language/new_language = GLOB.all_languages[la]
 		if(new_language.flags & NOBABEL)
 			continue
-		languages |= new_language
+		LAZYOR(languages, new_language)
 
 
 /mob/proc/grant_all_languages()

@@ -15,7 +15,7 @@
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 0
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -442,7 +442,7 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = user.mind && (user.mind.assigned_role == "Clown")
+	var/clown = user.mind && (user.mind.assigned_role == JOB_TITLE_CLOWN)
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))

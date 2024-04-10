@@ -143,7 +143,7 @@
 		if(MOB_SIZE_SMALL) slopchance = 20
 		if(MOB_SIZE_TINY) slopchance = 10
 
-	if(/datum/dna/gene/disability/clumsy in user.active_genes)
+	if(LAZYIN(user.active_genes, /datum/dna/gene/disability/clumsy))
 		slopchance += 20
 	if(user.mind?.miming)
 		slopchance -= 30
@@ -176,7 +176,8 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(M.lying_angle)
+			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")

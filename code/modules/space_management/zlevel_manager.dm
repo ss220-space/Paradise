@@ -110,7 +110,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
-	world.maxz++
+	world.incrementMaxZ()
 	var/our_z = world.maxz
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
@@ -135,7 +135,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 // An internally-used proc used for heap-zlevel management
 /datum/zlev_manager/proc/add_new_heap()
-	world.maxz++
+	world.incrementMaxZ()
 	var/our_z = world.maxz
 	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
 	z_list["[our_z]"] = yup

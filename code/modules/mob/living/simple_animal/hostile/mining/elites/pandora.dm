@@ -212,7 +212,7 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
@@ -222,7 +222,7 @@
 		var/mob/living/M = user
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, silent = FALSE)
 	. = ..()
 	if(isliving(user))
 		var/mob/living/M = user

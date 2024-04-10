@@ -121,12 +121,12 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue

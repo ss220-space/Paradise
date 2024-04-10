@@ -117,7 +117,7 @@
 	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
-		if(!ownturf.CanAtmosPass(earth))
+		if(!ownturf.CanAtmosPass(earth, vertical = FALSE))
 			continue
 		possible_locs += earth
 

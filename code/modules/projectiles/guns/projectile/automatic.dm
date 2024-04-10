@@ -336,6 +336,13 @@
 	actions_types = null
 
 
+/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
+	name = "\improper 'Mastiff' Shotgun"
+	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
+	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
+	color = COLOR_ASSEMBLY_BROWN
+
+
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
@@ -376,6 +383,7 @@
 	icon_state = "minotaur"
 	item_state = "minotaur"
 	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'

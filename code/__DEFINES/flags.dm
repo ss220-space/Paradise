@@ -6,7 +6,7 @@
 #define ALL_CARDINALS (NORTH|SOUTH|EAST|WEST)
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 		(1<<0)		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDMAGE 		(1<<0)		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_FLAG_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			(1<<2)		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				(1<<3)		// mask allows internals
@@ -152,6 +152,21 @@
 #define PASSEVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSDOOR|PASSVEHICLE|PASSITEM|LETPASSCLICKS)
 
 
+
+//Movement Types
+#define GROUND (1<<0)
+#define FLYING (1<<1)
+#define VENTCRAWLING (1<<2)
+#define FLOATING (1<<3)
+/// When moving, will Cross() everything, but won't stop or Bump() anything.
+#define PHASING (1<<4)
+/// The mob is walking on the ceiling. Or is generally just, upside down.
+#define UPSIDE_DOWN (1<<5)
+
+/// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
+#define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
+
+
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)
 #define DF_VAR_EDITED (1<<1)
@@ -163,23 +178,23 @@
 #define NO_RUINS 	4
 
 //ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING	(1<<0)
-#define SLOT_ICLOTHING	(1<<1)
-#define SLOT_GLOVES		(1<<2)
-#define SLOT_EYES		(1<<3)
-#define SLOT_EARS		(1<<4)
-#define SLOT_MASK		(1<<5)
-#define SLOT_HEAD		(1<<6)
-#define SLOT_FEET		(1<<7)
-#define SLOT_ID			(1<<8)
-#define SLOT_BELT		(1<<9)
-#define SLOT_BACK		(1<<10)
-#define SLOT_POCKET		(1<<11)		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET	(1<<12)	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
-#define SLOT_TWOEARS	(1<<13)
-#define SLOT_PDA		(1<<14)
-#define SLOT_TIE		(1<<15)
-#define SLOT_NECK		(1<<16)
+#define SLOT_FLAG_OCLOTHING		(1<<0)
+#define SLOT_FLAG_ICLOTHING		(1<<1)
+#define SLOT_FLAG_GLOVES		(1<<2)
+#define SLOT_FLAG_EYES			(1<<3)
+#define SLOT_FLAG_EARS			(1<<4)
+#define SLOT_FLAG_MASK			(1<<5)
+#define SLOT_FLAG_HEAD			(1<<6)
+#define SLOT_FLAG_FEET			(1<<7)
+#define SLOT_FLAG_ID			(1<<8)
+#define SLOT_FLAG_BELT			(1<<9)
+#define SLOT_FLAG_BACK			(1<<10)
+#define SLOT_FLAG_POCKET		(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+#define SLOT_FLAG_DENYPOCKET	(1<<12)	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
+#define SLOT_FLAG_TWOEARS		(1<<13)
+#define SLOT_FLAG_PDA			(1<<14)
+#define SLOT_FLAG_TIE			(1<<15)
+#define SLOT_FLAG_NECK			(1<<16)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
@@ -213,3 +228,29 @@
 #define TOXIC		(1<<12)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+
+
+//Mob mobility var flags
+/// can move
+#define MOBILITY_MOVE (1<<0)
+/// can, and is, standing up
+#define MOBILITY_STAND (1<<1)
+/// can pickup items
+#define MOBILITY_PICKUP (1<<2)
+/// can hold and use items
+#define MOBILITY_USE (1<<3)
+/// can use interfaces like machinery
+#define MOBILITY_UI (1<<4)
+/// can use storage item
+#define MOBILITY_STORAGE (1<<5)
+/// can pull things
+#define MOBILITY_PULL (1<<6)
+/// can rest
+#define MOBILITY_REST (1<<7)
+/// can lie down
+#define MOBILITY_LIEDOWN (1<<8)
+
+#define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL)
+#define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
+#define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
+

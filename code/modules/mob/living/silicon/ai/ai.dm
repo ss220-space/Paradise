@@ -45,6 +45,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	nightvision = 8
 	can_strip = 0
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -145,8 +146,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 
-	proc_holder_list = new()
-
 	if(B?.clock)
 		ratvar_act()
 	else if(L)
@@ -234,7 +233,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
-	job = "AI"
+	job = JOB_TITLE_AI
 
 /mob/living/silicon/ai/Stat()
 	..()
@@ -311,7 +310,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		// Set ai pda name
 		if(aiPDA)
-			aiPDA.set_name_and_job(newname, "AI")
+			aiPDA.set_name_and_job(newname, JOB_TITLE_AI)
 
 	return TRUE
 
@@ -720,7 +719,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["track"])
 		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
-		if(target && target.can_track())
+		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
@@ -816,7 +815,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			client.eye = eyeobj
+			client.set_eye(eyeobj)
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
 
@@ -1176,7 +1175,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for(var/obj/machinery/camera/C in lit_cameras)
-			C.set_light_on(FALSE)
+			C.set_light(l_on = FALSE)
 			lit_cameras = list()
 
 		return
@@ -1238,9 +1237,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	for(var/obj/machinery/camera/C in remove)
 		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
-		C.Togglelight(0)
+		C.Togglelight(FALSE)
 	for(var/obj/machinery/camera/C in add)
-		C.Togglelight(1)
+		C.Togglelight(TRUE)
 		lit_cameras |= C
 
 

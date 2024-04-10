@@ -22,7 +22,7 @@
 
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -46,17 +46,17 @@
 		drop_item_ground(wear_mask, force = TRUE)
 		drop_item_ground(head, force = TRUE)
 		drop_item_ground(wear_suit, force = TRUE)
-		equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown, slot_head)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown, slot_wear_suit)
+		equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown, SLOT_HUD_HEAD)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown, SLOT_HUD_OUTER_SUIT)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz, slot_wear_mask)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz, SLOT_HUD_WEAR_MASK)
 	else
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, slot_w_uniform)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, slot_shoes)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, slot_wear_mask)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, SLOT_HUD_JUMPSUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, SLOT_HUD_SHOES)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, SLOT_HUD_WEAR_MASK)
 	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
 	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 	genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)

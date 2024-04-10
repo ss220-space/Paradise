@@ -4,7 +4,7 @@
 	item_state = "buildpipe"
 	icon_state = "blank"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
@@ -225,7 +225,7 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+			if(jobban_isbanned(M.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(M.brainmob,"nonhumandept"))
 				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
 				return
 
@@ -314,7 +314,7 @@
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 
-			O.job = "Cyborg"
+			O.job = JOB_TITLE_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -363,7 +363,7 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+	if(living_user.incapacitated() || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)

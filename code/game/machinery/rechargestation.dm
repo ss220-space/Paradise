@@ -181,67 +181,62 @@
 
 
 /obj/machinery/recharge_station/proc/restock_modules()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			var/coeff = recharge_speed / 200
-			if(R.module && R.module.modules)
-				var/list/um = R.contents|R.module.modules
-				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
-				for(var/obj/O in um)
-					// Security
-					if(istype(O,/obj/item/flash))
-						var/obj/item/flash/F = O
-						if(F.broken)
-							F.broken = 0
-							F.times_used = 0
-							F.icon_state = "flash"
-					if(istype(O,/obj/item/gun/energy))
-						var/obj/item/gun/energy/D = O
-						if(D.cell.charge < D.cell.maxcharge)
-							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.cell.give(E.e_cost)
-							D.on_recharge()
-							D.update_icon()
-						else
-							D.charge_tick = 0
-					if(istype(O,/obj/item/melee/baton))
-						var/obj/item/melee/baton/B = O
-						if(B.cell)
-							B.cell.charge = B.cell.maxcharge
-					//Service
-					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
-						if(O.reagents.get_reagent_amount("enzyme") < 50)
-							O.reagents.add_reagent("enzyme", 2 * coeff)
-					//Janitor
-					if(istype(O, /obj/item/lightreplacer))
-						var/obj/item/lightreplacer/LR = O
-						var/i = 1
-						for(1, i <= coeff, i++)
-							LR.Charge(occupant)
-					//Fire extinguisher
-					if(istype(O, /obj/item/extinguisher))
-						var/obj/item/extinguisher/ext = O
-						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
-					//Welding tools
-					if(istype(O, /obj/item/weldingtool))
-						var/obj/item/weldingtool/weld = O
-						weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
-				if(R)
-					if(R.module)
-						R.module.respawn_consumable(R)
+	if(isrobot(occupant))
+		var/mob/living/silicon/robot/R = occupant
+		var/coeff = recharge_speed / 200
+		if(R.module && R.module.modules)
+			var/list/um = R.contents|R.module.modules
+			// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
+			for(var/obj/O in um)
+				// Security
+				if(istype(O,/obj/item/flash))
+					var/obj/item/flash/F = O
+					if(F.broken)
+						F.broken = FALSE
+						F.times_used = 0
+						F.update_icon(UPDATE_ICON_STATE)
+				else if(istype(O,/obj/item/gun/energy))
+					var/obj/item/gun/energy/D = O
+					if(D.cell.charge < D.cell.maxcharge)
+						var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
+						D.cell.give(E.e_cost)
+						D.on_recharge()
+						D.update_icon()
+					else
+						D.charge_tick = 0
+				//Service
+				else if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
+					if(O.reagents.get_reagent_amount("enzyme") < 50)
+						O.reagents.add_reagent("enzyme", 2 * coeff)
+				//Janitor
+				else if(istype(O, /obj/item/lightreplacer))
+					var/obj/item/lightreplacer/LR = O
+					var/i = 1
+					for(1, i <= coeff, i++)
+						LR.Charge(occupant)
+				//Fire extinguisher
+				else if(istype(O, /obj/item/extinguisher))
+					var/obj/item/extinguisher/ext = O
+					ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+				//Welding tools
+				else if(istype(O, /obj/item/weldingtool))
+					var/obj/item/weldingtool/weld = O
+					weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
 
-				//Emagged items for janitor and medical borg
-				if(R.module.emag)
-					if(istype(R.module.emag, /obj/item/reagent_containers/spray))
-						var/obj/item/reagent_containers/spray/S = R.module.emag
-						if(S.name == "polyacid spray")
-							S.reagents.add_reagent("facid", 2 * coeff)
-						if(S.name == "lube spray")
-							S.reagents.add_reagent("lube", 2 * coeff)
-						else if(S.name == "acid synthesizer")
-							S.reagents.add_reagent("facid", 2 * coeff)
-							S.reagents.add_reagent("sacid", 2 * coeff)
+			R.module.respawn_consumable(R)
+
+			//Emagged items for janitor and medical borg
+			if(R.module.emag)
+				if(istype(R.module.emag, /obj/item/reagent_containers/spray))
+					var/obj/item/reagent_containers/spray/S = R.module.emag
+					if(S.name == "polyacid spray")
+						S.reagents.add_reagent("facid", 2 * coeff)
+					if(S.name == "lube spray")
+						S.reagents.add_reagent("lube", 2 * coeff)
+					else if(S.name == "acid synthesizer")
+						S.reagents.add_reagent("facid", 2 * coeff)
+						S.reagents.add_reagent("sacid", 2 * coeff)
+
 
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"

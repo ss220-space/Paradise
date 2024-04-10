@@ -18,7 +18,7 @@
 	if(!length(stations_z))
 		return
 
-	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[1]))
+	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[length(stations_z)]))
 	for(var/turf/simulated/floor/new_turf in station_turfs)
 		pick_turfs |= new_turf
 

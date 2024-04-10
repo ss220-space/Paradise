@@ -28,12 +28,12 @@
 /obj/item/reagent_containers/iv_bag/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/pickup(mob/user)
+/obj/item/reagent_containers/iv_bag/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/iv_bag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack_self(mob/user)
@@ -152,7 +152,7 @@
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)
 			if(IV_DRAW)
 				. += "draw"

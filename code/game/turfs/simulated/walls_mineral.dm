@@ -42,7 +42,11 @@
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
-	canSmoothWith = list(/turf/simulated/wall/mineral/bananium, /obj/structure/falsewall/bananium)
+	canSmoothWith = list(
+		/obj/structure/falsewall/bananium,
+		/turf/simulated/wall/mineral/bananium,
+		/turf/simulated/wall/indestructible/bananium,
+	)
 
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"
@@ -51,7 +55,11 @@
 	icon_state = "sandstone"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /obj/structure/falsewall/sandstone)
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
 
 /turf/simulated/wall/mineral/uranium
 	name = "uranium wall"
@@ -159,7 +167,11 @@
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
 	sheet_amount = 5
-	canSmoothWith = list(/turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron)
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
 
 /turf/simulated/wall/mineral/abductor
 	name = "alien wall"

@@ -52,6 +52,16 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/bodyanalyzer
+	name = "handheld body analyzer"
+	desc = "A handheld scanner capable of deep-scanning an entire body."
+	id = "handheld_body_analyzer"
+	req_tech = list("biotech" = 6, "materials" = 7, "magnets" = 5, "programming" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000, MAT_SILVER = 600)
+	build_path = /obj/item/bodyanalyzer/rnd
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
@@ -347,7 +357,7 @@
 	name = "Tail Laserblade Implant"
 	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
 	id = "ci-laserblade"
-	req_tech = list("powerstorage" = 20) // unreacheable
+	req_tech = null	// Unreachable by tech researching.
 	locked = TRUE
 	access_requirement = list(ACCESS_ARMORY)
 	build_type = PROTOLATHE | MECHFAB

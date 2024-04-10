@@ -18,7 +18,7 @@
 
 /datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
 	var/atom/A = parent
-	if(!has_gravity(A))
+	if(!A.has_gravity(A.loc))
 		return
 
 	if(!prob(probability))
@@ -47,7 +47,7 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if(H.flying || H.floating || H.buckled)
+		if(H.buckled || (H.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 
 		var/damage = rand(min_damage, max_damage)

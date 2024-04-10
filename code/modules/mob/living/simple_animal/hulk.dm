@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/hulk/Life()
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(usr, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
+		to_chat(src, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
 		unmutate()
 		return
 	if(health < 1)

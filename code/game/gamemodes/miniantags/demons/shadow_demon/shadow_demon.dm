@@ -50,13 +50,13 @@
 			thrown_alert = TRUE
 			throw_alert("light", /obj/screen/alert/lightexposure)
 		animate(src, alpha = 255, time = 0.5 SECONDS)
-		speed = initial(speed)
+		set_varspeed(initial(speed))
 	else
 		if(thrown_alert)
 			thrown_alert = FALSE
 			clear_alert("light")
 		animate(src, alpha = 125, time = 0.5 SECONDS)
-		speed = -0.3
+		set_varspeed(-0.3)
 	return lum_count
 
 

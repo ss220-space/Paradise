@@ -6,7 +6,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#66c6ff"
 	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
@@ -52,7 +52,7 @@
 	spawn_positions = 3
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
@@ -86,7 +86,7 @@
 	flag = JOB_FLAG_INTERN
 	total_positions = 5
 	spawn_positions = 3
-	department_head = list("Chief Medical Officer", "Medical Doctor")
+	department_head = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR)
 	selection_color = "#d1eeff"
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
 	exp_requirements = 180
@@ -133,7 +133,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE)
@@ -173,7 +173,7 @@
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
 				head = /obj/item/clothing/head/surgery/blue
-			if("Medical Doctor")
+			if(JOB_TITLE_DOCTOR)
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
 				if(H.gender == FEMALE)
@@ -196,7 +196,7 @@
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM)
@@ -232,7 +232,7 @@
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
+	department_head = list(JOB_TITLE_CMO, JOB_TITLE_RD)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH)
@@ -267,7 +267,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM)
@@ -304,7 +304,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
@@ -344,7 +344,7 @@
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)

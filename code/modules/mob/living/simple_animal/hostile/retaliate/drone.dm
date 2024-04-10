@@ -38,7 +38,7 @@
 
 /mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	var/turf/T = get_turf(oldloc)
-	if(!has_gravity(T))
+	if(!T.has_gravity())
 		new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(check_drift = 0)

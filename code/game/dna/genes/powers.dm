@@ -41,14 +41,22 @@
 	..()
 	block = GLOB.increaserunblock
 
-/datum/dna/gene/basic/increaserun/can_activate(mob/M, flags)
-	if(!..())
+
+/datum/dna/gene/basic/increaserun/can_activate(mob/living/mutant, flags)
+	. = ..()
+	if(mutant.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
 		return FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.dna.species && H.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
-			return FALSE
-	return TRUE
+
+
+/datum/dna/gene/basic/increaserun/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.ignore_slowdown(RUN)
+
+
+/datum/dna/gene/basic/increaserun/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.unignore_slowdown(RUN)
+
 
 /datum/dna/gene/basic/heat_resist
 	name = "Heat Resistance"
@@ -112,17 +120,20 @@
 	..()
 	block = GLOB.smallsizeblock
 
-/datum/dna/gene/basic/midget/activate(mob/M, connected, flags)
-	..()
-	M.pass_flags |= PASSTABLE
-	M.resize = 0.8
-	M.update_transform()
 
-/datum/dna/gene/basic/midget/deactivate(mob/M, connected, flags)
-	..()
-	M.pass_flags &= ~PASSTABLE
-	M.resize = 1.25
-	M.update_transform()
+/datum/dna/gene/basic/midget/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.pass_flags |= PASSTABLE
+	mutant.resize = 0.8
+	mutant.update_transform()
+
+
+/datum/dna/gene/basic/midget/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.pass_flags &= ~PASSTABLE
+	mutant.resize = 1.25
+	mutant.update_transform()
+
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
@@ -137,13 +148,16 @@
 	..()
 	block = GLOB.hulkblock
 
-/datum/dna/gene/basic/hulk/activate(mob/M)
-	..()
-	M.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
 
-/datum/dna/gene/basic/hulk/deactivate(mob/M)
-	..()
-	M.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
+/datum/dna/gene/basic/hulk/activate(mob/living/mutant)
+	. = ..()
+	mutant.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
+
+
+/datum/dna/gene/basic/hulk/deactivate(mob/living/mutant)
+	. = ..()
+	mutant.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
+
 
 /datum/dna/gene/basic/hulk/OnDrawUnderlays(mob/M, g)
 	if(HULK in M.mutations)
@@ -174,15 +188,18 @@
 	..()
 	block = GLOB.xrayblock
 
-/datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
-	..()
-	M.update_sight()
-	M.update_icons() //Apply eyeshine as needed.
 
-/datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
-	..()
-	M.update_sight()
-	M.update_icons() //Remove eyeshine as needed.
+/datum/dna/gene/basic/xray/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.update_sight()
+	mutant.update_icons() //Apply eyeshine as needed.
+
+
+/datum/dna/gene/basic/xray/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.update_sight()
+	mutant.update_icons() //Remove eyeshine as needed.
+
 
 /datum/dna/gene/basic/tk
 	name = "Telekenesis"

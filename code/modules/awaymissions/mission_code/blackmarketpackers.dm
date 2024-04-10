@@ -125,14 +125,6 @@
 	icon_state = "away17"
 	requires_power = TRUE
 
-//Невидимая и неразрушаемая стена, для ограничения уровня
-
-/turf/simulated/wall/indestructible/invisible
-	name = "Deep space"
-	desc = "Deep space nothing"
-	icon = null
-	icon_state = null
-
 //Пустые аптечки с мышеловкой и насмешкой
 
 /obj/item/storage/firstaid/with_mousetrap/tactical

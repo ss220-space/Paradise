@@ -91,14 +91,6 @@
 #define IS_WEAKEN_IMMUNE(source, ignore_canweaken) ((source.status_flags & GODMODE) || (!ignore_canweaken && !(source.status_flags & CANWEAKEN)))
 #define IS_PARALYZE_IMMUNE(source, ignore_canparalyse) ((source.status_flags & GODMODE) || (!ignore_canparalyse && !(source.status_flags & CANPARALYSE)))
 
-/mob/living
-
-	// Booleans
-	var/resting = FALSE
-
-	/*
-	STATUS EFFECTS
-	*/
 
 // RESTING
 
@@ -829,6 +821,49 @@
 		dna.SetSEState(block, 0, 1) //Fix the gene
 		genemutcheck(src, block,null, MUTCHK_FORCED)
 		dna.UpdateSE()
+
+
+///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/mob/living/proc/unignore_slowdown(source)
+	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
+	update_movespeed()
+
+
+///Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/mob/living/proc/ignore_slowdown(source)
+	ADD_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
+	update_movespeed()
+
+
+///Ignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/add_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYADDASSOCLIST(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYADDASSOCLIST(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()
+
+
+///Unignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/remove_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYREMOVEASSOC(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYREMOVEASSOC(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()
+
 
 ///////////////////////////////// FROZEN /////////////////////////////////////
 

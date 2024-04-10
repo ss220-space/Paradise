@@ -111,19 +111,30 @@
 	return data
 
 /obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
-	data["stationLevel"] = level_name_to_num(MAIN_STATION)
-	return data
+	var/list/static_data = list()
+	static_data["mapRef"] = map_name
+	var/list/station_level_numbers = list()
+	var/list/station_level_names = list()
+	for(var/z_level in levels_by_trait(STATION_LEVEL))
+		station_level_numbers += z_level
+		station_level_names += check_level_trait(z_level, STATION_LEVEL)
+	static_data["stationLevelNum"] = station_level_numbers
+	static_data["stationLevelName"] = station_level_names
+	return static_data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())
 		return
 
+	. = TRUE
+
 	if(action == "switch_camera")
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		if(isnull(C))
+			to_chat(usr, span_warning("ERROR. [c_tag] camera was not found."))
+			return
 		active_camera?.computers_watched_by -= src
 		active_camera = C
 		active_camera.computers_watched_by += src
@@ -132,11 +143,11 @@
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())
 			show_camera_static()
-			return TRUE
+			return
 
 		update_camera_view()
 
-		return TRUE
+		return
 
 /obj/machinery/computer/security/proc/update_camera_view()
 	if(!active_camera || !active_camera.can_use())

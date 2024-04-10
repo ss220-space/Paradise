@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(throwing)
 		if(!AM.throwing)	// datum was nullified on finalize, our job is done
 			return
 
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
 			if(!hitcheck())
 				finalize()
 			return
@@ -208,6 +208,10 @@ SUBSYSTEM_DEF(throwing)
 		callback.Invoke()
 		if(QDELETED(thrownthing))
 			return
+
+	if(!thrownthing.currently_z_moving) // I don't think you can zfall while thrown but hey, just in case.
+		var/turf/T = get_turf(thrownthing)
+		T?.zFall(thrownthing)
 
 	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
 	thrownthing.end_throw()

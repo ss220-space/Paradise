@@ -55,7 +55,7 @@
 	. = ..()
 	if(.)
 		if(ishuman(owner))
-			owner.status_flags |= IGNORESLOWDOWN
+			owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 			var/mob/living/carbon/human/H = owner
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.brute_mod *= 0.1
@@ -80,12 +80,13 @@
 		H.dna.species.clone_mod *= 10
 		H.dna.species.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
-	owner.status_flags &= ~IGNORESLOWDOWN
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	if(islist(owner.status_effect_absorption))
 		if(owner.status_effect_absorption["blooddrunk_stun"])
 			owner.status_effect_absorption -= "blooddrunk_stun"
 		if(owner.status_effect_absorption["blooddrunk_weaken"])
 			owner.status_effect_absorption -= "blooddrunk_weaken"
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200
@@ -279,14 +280,15 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
+
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORE_SPEED_CHANGES
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.bodytemperature = H.dna.species.body_temperature
+		H.set_bodytemperature(H.dna ? H.dna.species.body_temperature : BODYTEMP_NORMAL)
 		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
@@ -294,11 +296,12 @@
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
-		owner.bodytemperature = BODYTEMP_NORMAL
+		owner.set_bodytemperature(BODYTEMP_NORMAL)
 	return TRUE
 
+
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORE_SPEED_CHANGES
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/fleshmend
@@ -368,7 +371,7 @@
 
 /datum/status_effect/speedlegs/on_apply()
 	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
 	return TRUE
 
 
@@ -392,7 +395,7 @@
 
 
 /datum/status_effect/speedlegs/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
 	if(!owner.IsWeakened())
 		to_chat(owner, span_notice("Our muscles relax."))
 		if(stacks >= 7)
@@ -613,12 +616,12 @@
 
 
 /datum/status_effect/blood_rush/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 	return TRUE
 
 
 /datum/status_effect/blood_rush/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 
 
 /obj/screen/alert/status_effect/blood_rush
@@ -683,3 +686,41 @@
 	duration = 5 SECONDS
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/dash
+
+
+/datum/status_effect/drill_payback
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/drilled_successfully = FALSE
+	var/times_warned = 0
+	var/obj/structure/safe/drilled
+
+/datum/status_effect/drill_payback/on_creation(mob/living/new_owner, obj/structure/safe/safe)
+	drilled = safe
+	return ..()
+
+/datum/status_effect/drill_payback/on_apply()
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
+	return TRUE
+
+/datum/status_effect/drill_payback/proc/payback_phase_2()
+	owner.clear_fullscreen("payback")
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+
+/datum/status_effect/drill_payback/tick()
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) // No privelegies for that who leave his target.
+		to_chat(owner, span_userdanger("Get back to the safe, they are going to get the drill!"))
+		times_warned++
+		if(times_warned >= 6)
+			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+			return
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-3)
+		owner.adjustFireLoss(-3)
+		owner.adjustStaminaLoss(-25)
+
+/datum/status_effect/drill_payback/on_remove()
+	..()
+	owner.clear_fullscreen("payback")

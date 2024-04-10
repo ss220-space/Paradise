@@ -1384,8 +1384,8 @@
 		M.loc = prison_cell
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
@@ -1646,8 +1646,8 @@
 
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), SLOT_HUD_JUMPSUIT)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), SLOT_HUD_SHOES)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
@@ -2220,9 +2220,9 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
 		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
@@ -3000,18 +3000,35 @@
 				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
-				GLOB.gravity_is_on = !GLOB.gravity_is_on
-				for(var/area/A in world)
-					A.gravitychange(GLOB.gravity_is_on,A)
+
+				var/static/list/gravity_states = list(
+					"Default Gravity Handling",
+					"Enable Gravity Globally",
+					"Disable Gravity Globally",
+				)
+				var/gravity_state = input(usr, "Enable or disable global gravity state", "Global Gravity State") as null|anything in gravity_states
+				if(!gravity_state)
+					return
+
+				var/gravity_announce = input(usr, "Do you wish to make any global announcement?", "Announcement Text") as text|null
+				if(gravity_announce)
+					GLOB.event_announcement.Announce("[gravity_announce]")
+
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
-				if(GLOB.gravity_is_on)
-					log_admin("[key_name(usr)] toggled gravity on.")
-					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>")
-					GLOB.event_announcement.Announce("Гравитационные генераторы снова функционируют в пределах штатных значений. Приносим извинения за неудобства.")
-				else
-					log_admin("[key_name(usr)] toggled gravity off.")
-					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>")
-					GLOB.event_announcement.Announce("Обнаружен всплеск обратной связи в системах распределения масс. Искусственная гравитация была отключена на время восстановления системы. Дальнейшие сбои могут привести к гравитационному коллапсу и образованию чёрных дыр. Хорошего дня.")
+
+				switch(gravity_state)
+					if("Default Gravity Handling")
+						GLOB.gravity_is_on = null
+						log_and_message_admins("returned global gravity state to default.")
+					if("Enable Gravity Globally")
+						GLOB.gravity_is_on = TRUE
+						log_and_message_admins("toggled global gravity ON.")
+					if("Disable Gravity Globally")
+						GLOB.gravity_is_on = FALSE
+						log_and_message_admins("toggled global gravity OFF.")
+
+				for(var/area/area as anything in GLOB.all_areas)
+					area.gravitychange()
 
 			if("power")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
@@ -3056,8 +3073,8 @@
 							H.drop_item_ground(W)
 						//teleport person to cell
 						H.loc = pick(GLOB.prisonwarp)
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), SLOT_HUD_JUMPSUIT)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), SLOT_HUD_SHOES)
 					else
 						//teleport security person
 						H.loc = pick(GLOB.prisonsecuritywarp)
@@ -3367,9 +3384,9 @@
 
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
-				message_admins("[key_name_admin(usr)] moved the gamma armory")
-				log_admin("[key_name(usr)] moved the gamma armory")
-				move_gamma_ship()
+				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away"))
+					message_admins("[key_name_admin(usr)] moved the gamma armory")
+					log_admin("[key_name(usr)] moved the gamma armory")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -3493,7 +3510,7 @@
 						M.req_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
-				var/datum/job/J = SSjobs.GetJob("Security Officer")
+				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
 				J.total_positions = -1
 				J.spawn_positions = -1
@@ -3679,7 +3696,7 @@
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
+	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.pinpoint_at(H)
 	N.modelocked = TRUE

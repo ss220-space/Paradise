@@ -34,7 +34,7 @@
 
 /datum/dna/gene/basic/stealth/can_activate(mob/M, flags)
 	// Can only activate one of these at a time.
-	if(is_type_in_list(/datum/dna/gene/basic/stealth,M.active_genes))
+	if(is_type_in_list(/datum/dna/gene/basic/stealth, M.active_genes))
 		testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
 		return FALSE
 	return ..()
@@ -90,29 +90,32 @@
 /datum/dna/gene/basic/grant_spell
 	var/obj/effect/proc_holder/spell/spelltype
 
-/datum/dna/gene/basic/grant_spell/activate(mob/M, connected, flags)
-	M.AddSpell(new spelltype(null))
-	..()
-	return TRUE
 
-/datum/dna/gene/basic/grant_spell/deactivate(mob/M, connected, flags)
-	for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)
-		if(istype(S, spelltype))
-			M.RemoveSpell(S)
-	..()
-	return TRUE
+/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.AddSpell(new spelltype(null))
+
+
+/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	for(var/obj/effect/proc_holder/spell/spell as anything in mutant.mob_spell_list)
+		if(istype(spell, spelltype))
+			mutant.RemoveSpell(spell)
+
 
 /datum/dna/gene/basic/grant_verb
 	var/verbtype
 
-/datum/dna/gene/basic/grant_verb/activate(mob/M, connected, flags)
-	..()
-	M.verbs += verbtype
-	return TRUE
 
-/datum/dna/gene/basic/grant_verb/deactivate(mob/M, connected, flags)
-	..()
-	M.verbs -= verbtype
+/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.verbs |= verbtype
+
+
+/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.verbs -= verbtype
+
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
@@ -174,10 +177,10 @@
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 
-					H.bodytemperature = max(0, H.bodytemperature - 100)
+					H.adjust_bodytemperature(-100)
 				add_attack_logs(user, C, "Cryokinesis")
 	if(!handle_suit)
-		C.bodytemperature = max(0, C.bodytemperature - 200)
+		C.adjust_bodytemperature(-200)
 		C.ExtinguishMob()
 
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
@@ -347,8 +350,12 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.lying || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		return
+	var/turf/turf_to_check = get_turf(user)
+	if(user.can_z_move(DOWN, turf_to_check))
+		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
 	if(isturf(user.loc))
@@ -369,18 +376,22 @@
 								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
 			return FALSE
 		var/prevLayer = user.layer
-		var/prevFlying = user.flying
-		user.layer = 9
+		user.layer = LOW_LANDMARK_LAYER
 
-		user.flying = TRUE
+		ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
+
 		for(var/i=0, i<10, i++)
 			step(user, user.dir)
 			if(i < 5) user.pixel_y += 8
 			else user.pixel_y -= 8
 			sleep(1)
-		user.flying = prevFlying
+		REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
 
-		if((FAT in user.mutations) && prob(66))
+		if(!(user.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !user.currently_z_moving) // in case he could fly after
+			var/turf/pitfall = get_turf(user)
+			pitfall?.zFall(user)
+
+		else if((FAT in user.mutations) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
@@ -570,7 +581,7 @@
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
+		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
 ////////////////////////////////////////////////////////////////////////
@@ -588,18 +599,22 @@
 	..()
 	block = GLOB.strongblock
 
-/datum/dna/gene/basic/strong/can_activate(mob/M, flags)
-	if(WEAK in M.mutations)
+
+/datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
+	if(WEAK in mutant.mutations)
 		return FALSE
 	return ..()
 
-/datum/dna/gene/basic/strong/activate(mob/living/M, connected, flags)
-	..()
-	change_strength(M, 1)
 
-/datum/dna/gene/basic/strong/deactivate(mob/living/M, connected, flags)
-	..()
-	change_strength(M, -1)
+/datum/dna/gene/basic/strong/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	change_strength(mutant, 1)
+
+
+/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	change_strength(mutant, -1)
+
 
 /datum/dna/gene/basic/strong/proc/change_strength(mob/living/M, modifier)
 	if(ishuman(M))

@@ -338,6 +338,13 @@ or something covering your eyes."
 	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
 	icon_state = "asleep"
 
+
+/obj/screen/alert/negative
+	name = "Negative Gravity"
+	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	icon_state = "negative"
+
+
 /obj/screen/alert/weightless
 	name = "Weightless"
 	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
@@ -345,6 +352,19 @@ wall or lattice, to push yourself off if you want to move. A jetpack would enabl
 magboots would let you walk around normally on the floor. Barring those, you can throw things, use a fire extinguisher, \
 or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "weightless"
+
+
+/obj/screen/alert/highgravity
+	name = "High Gravity"
+	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed."
+	icon_state = "paralysis"
+
+
+/obj/screen/alert/veryhighgravity
+	name = "Crushing Gravity"
+	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed. You'll also accumulate brute damage!"
+	icon_state = "paralysis"
+
 
 /obj/screen/alert/fire
 	name = "On Fire"
@@ -355,6 +375,16 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
+
+/obj/screen/alert/direction_lock
+	name = "Direction Lock"
+	desc = "You are facing only one direction, slowing your movement down. Click here to stop the direction lock."
+	icon_state = "direction_lock"
+
+/obj/screen/alert/direction_lock/Click()
+	if(isliving(usr))
+		var/mob/living/L = usr
+		return L.clear_forced_look()
 
 
 //ALIENS
@@ -791,9 +821,6 @@ so as to remain in compliance with the most up-to-date laws."
 		alert.screen_loc = .
 		mymob.client.screen |= alert
 	return TRUE
-
-/mob
-	var/list/alerts // lazy list. contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /obj/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)

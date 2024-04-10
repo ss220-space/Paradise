@@ -494,7 +494,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
-/mob/living/carbon/human/proc/update_mutantrace()
+/mob/living/carbon/human/proc/update_mutantrace(update_hair = TRUE)
 //BS12 EDIT
 	var/skel = (SKELETON in mutations)
 	if(skel)
@@ -502,8 +502,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		skeleton = null
 
-	update_hair()
-	update_fhair()
+	if(update_hair)
+		update_hair()
+		update_fhair()
 
 
 /mob/living/carbon/human/update_fire()
@@ -518,12 +519,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/regenerate_icons()
 	if(notransform)
 		return
+	cut_overlays()
+	update_mutantrace(update_hair = FALSE)
+	force_update_limbs(update_body = FALSE)
+	update_eyes(update_body = FALSE)
+	update_body(rebuild_base = TRUE) //Update the body and force limb icon regeneration.
 	update_mutations()
-	update_body(TRUE) //Update the body and force limb icon regeneration.
-	update_hair()
-	update_head_accessory()
-	update_fhair()
-	update_mutantrace()
 	update_inv_w_uniform()
 	update_inv_wear_id()
 	update_inv_gloves()
@@ -544,14 +545,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_pockets()
 	update_inv_wear_pda()
 	UpdateDamageIcon()
-	force_update_limbs()
-	update_tail_layer()
-	update_wing_layer()
-	update_halo_layer()
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
+	update_halo_layer()
 	update_fire()
-	update_hands_HUD()
 
 
 /* --------------------------------------- */
@@ -561,7 +558,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(UNIFORM_LAYER)
 	remove_overlay(OVER_SHOES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_JUMPSUIT]
 		if(inv)
 			inv.update_icon()
 
@@ -641,7 +638,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_id]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_ID]
 		if(inv)
 			inv.update_icon()
 
@@ -657,7 +654,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLOVES]
 		if(inv)
 			inv.update_icon()
 
@@ -702,7 +699,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(OVER_HEAD_LAYER)
 
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLASSES]
 		if(inv)
 			inv.update_icon()
 
@@ -720,6 +717,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else
 			new_glasses = mutable_appearance('icons/mob/clothing/eyes.dmi', "[glasses.icon_state]", layer = -GLASSES_LAYER)
+
+		new_glasses.alpha = glasses.alpha
+		new_glasses.color = glasses.color
 
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
@@ -744,12 +744,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
 		if(inv)
 			inv.update_icon()
 
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_r_ear]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
 		if(inv)
 			inv.update_icon()
 
@@ -792,7 +792,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SHOES]
 		if(inv)
 			inv.update_icon()
 
@@ -829,7 +829,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_s_store]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SUIT_STORE]
 		if(inv)
 			inv.update_icon()
 
@@ -850,7 +850,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(HEAD_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_head]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_HEAD]
 		if(inv)
 			inv.update_icon()
 
@@ -875,7 +875,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_belt]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
 			inv.update_icon()
 
@@ -900,7 +900,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		if(inv)
 			inv.update_icon()
 
@@ -946,11 +946,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv
 
-		inv = hud_used.inv_slots[slot_l_store]
+		inv = hud_used.inv_slots[SLOT_HUD_LEFT_STORE]
 		if(inv)
 			inv.update_icon()
 
-		inv = hud_used.inv_slots[slot_r_store]
+		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_STORE]
 		if(inv)
 			inv.update_icon()
 
@@ -965,7 +965,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_wear_pda()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_pda]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_PDA]
 		if(inv)
 			inv.update_icon()
 
@@ -977,11 +977,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(FACEMASK_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_mask]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_MASK]
 		if(inv)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
-		if(!(slot_wear_mask in check_obscured_slots()))
+		if(!(SLOT_HUD_WEAR_MASK in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 			if(!head_organ)
 				return // Nothing to update here
@@ -1013,7 +1013,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_neck]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_NECK]
 		if(inv)
 			inv.update_icon()
 
@@ -1452,10 +1452,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		remove_overlay(FROZEN_LAYER)
 
-/mob/living/carbon/human/proc/force_update_limbs()
+/mob/living/carbon/human/proc/force_update_limbs(update_body = TRUE)
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.sync_colour_to_human(src)
-	update_body()
+	if(update_body)
+		update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new

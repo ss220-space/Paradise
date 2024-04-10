@@ -629,7 +629,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!n_scarf)
 		var/obj/item/clothing/neck/ninjascarf/new_scarf = new
-		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
+		if(!ninja.equip_to_slot_if_possible(new_scarf, SLOT_HUD_NECK, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
 			to_chat(ninja, "[span_userdanger("ERROR")]: 100220 UNABLE TO TRANSFORM HEAD GEAR\nABORTING...")
 			return FALSE
 		n_scarf = new_scarf

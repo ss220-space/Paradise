@@ -81,6 +81,7 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
+	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
 	H.verbs |= /mob/living/carbon/human/proc/emote_flap
 	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
@@ -95,6 +96,7 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
+	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
 	H.verbs -= /mob/living/carbon/human/proc/emote_flap
 	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
 	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
@@ -136,9 +138,6 @@
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
-/datum/species/moth/spec_movement_delay()
-	return FALSE
-
 /datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
 	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
 		return TRUE //Cocooned mobs dont get to wake up
@@ -166,7 +165,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 

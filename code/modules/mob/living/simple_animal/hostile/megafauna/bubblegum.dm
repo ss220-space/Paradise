@@ -91,6 +91,8 @@ Difficulty: Hard
 			if(B != src)
 				qdel(src) //There can be only one
 				return
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
@@ -394,7 +396,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying)
+		return (livingtarget.stat != CONSCIOUS || livingtarget.lying_angle)
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
@@ -427,7 +429,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/change_move_delay(newmove = initial(move_to_delay))
 	move_to_delay = newmove
-	speed = move_to_delay
+	set_varspeed(move_to_delay)
 	handle_automated_action() // need to recheck movement otherwise move_to_delay won't update until the next checking aka will be wrong speed for a bit
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_pools(turf/T, range)

@@ -5,7 +5,7 @@
 	icon_state = "shadowling_uniform"
 	icon_override = "golem_s"
 	origin_tech = null
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT|NODROP|DROPDEL
 	has_sensor = FALSE
 	displays_id = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -26,7 +26,7 @@
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
 	armor = list(melee = 25, bullet = 25, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
-	flags = ABSTRACT | NODROP | THICKMATERIAL | STOPSPRESSUREDMAGE
+	flags = ABSTRACT|NODROP|DROPDEL|THICKMATERIAL|STOPSPRESSUREDMAGE
 
 
 /obj/item/clothing/shoes/shadowling
@@ -35,7 +35,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_shoes"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = NOSLIP | ABSTRACT | NODROP
+	flags = ABSTRACT|NODROP|DROPDEL|NOSLIP
 
 
 /obj/item/clothing/mask/gas/shadowling
@@ -46,7 +46,7 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT|NODROP|DROPDEL
 	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
 
 
@@ -58,7 +58,7 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT|NODROP|DROPDEL
 
 
 /obj/item/clothing/head/shadowling
@@ -72,7 +72,7 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT | NODROP | STOPSPRESSUREDMAGE
+	flags = ABSTRACT|NODROP|DROPDEL|STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 
 
@@ -86,5 +86,5 @@
 	flash_protect = -1
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT|NODROP|DROPDEL
 

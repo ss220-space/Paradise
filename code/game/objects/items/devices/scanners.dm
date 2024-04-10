@@ -13,7 +13,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
 	var/on = FALSE
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -261,7 +261,7 @@ REAGENT SCANNER
 	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -675,7 +675,7 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -810,9 +810,10 @@ REAGENT SCANNER
 	name = "handheld body analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
+	base_icon_state = "bodyanalyzer"
 	item_state = "healthanalyser"
 	desc = "A handheld scanner capable of deep-scanning an entire body."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
@@ -826,6 +827,11 @@ REAGENT SCANNER
 	var/usecharge = 750
 	var/scan_time = 10 SECONDS //how long does it take to scan
 	var/scan_cd = 60 SECONDS //how long before we can scan again
+
+/obj/item/bodyanalyzer/rnd
+	icon_state = "bodyscan_0"
+	item_state = "portable_bodyscan"
+	base_icon_state = "bodyscan"
 
 /obj/item/bodyanalyzer/get_cell()
 	return cell
@@ -855,21 +861,21 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/update_icon_state()
 	if(!cell)
-		icon_state = "bodyanalyzer_0"
+		icon_state = "[base_icon_state]_0"
 		return
 	if(ready)
-		icon_state = "bodyanalyzer_1"
+		icon_state = "[base_icon_state]_1"
 	else
-		icon_state = "bodyanalyzer_2"
+		icon_state = "[base_icon_state]_2"
 
 
 /obj/item/bodyanalyzer/update_overlays()
 	. = ..()
 	var/percent = cell.percent()
 	var/overlayid = round(percent / 10)
-	. += "bodyanalyzer_charge[overlayid]"
+	. += "[base_icon_state]_charge[overlayid]"
 	if(printing)
-		. += "bodyanalyzer_printing"
+		. += "[base_icon_state]_printing"
 
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)

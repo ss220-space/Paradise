@@ -3,7 +3,7 @@
 	desc = "Make a dash followed by an attack with the tentacles of goliath"
 	school = "lavaland"
 	base_cooldown = 20 SECONDS
-	clothes_req = TRUE
+	clothes_req = FALSE
 	human_req = FALSE
 	invocation = "RAGET'RE BRAN!"
 	invocation_type = "shout"

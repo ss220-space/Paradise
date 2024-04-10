@@ -127,7 +127,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "i_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_w_uniform
+	inv_box.slot_id = SLOT_HUD_JUMPSUIT
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.color = ui_color
@@ -137,7 +137,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "o_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_wear_suit
+	inv_box.slot_id = SLOT_HUD_OUTER_SUIT
 	inv_box.icon_state = "suit"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.color = ui_color
@@ -151,7 +151,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = SLOT_HUD_RIGHT_HAND
 	static_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
@@ -161,7 +161,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = SLOT_HUD_LEFT_HAND
 	static_inventory += inv_box
 
 	using = new /obj/screen/swap_hand()
@@ -187,7 +187,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "id"
 	inv_box.screen_loc = ui_id
-	inv_box.slot_id = slot_wear_id
+	inv_box.slot_id = SLOT_HUD_WEAR_ID
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -197,7 +197,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pda"
 	inv_box.screen_loc = ui_pda
-	inv_box.slot_id = slot_wear_pda
+	inv_box.slot_id = SLOT_HUD_WEAR_PDA
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -207,7 +207,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "mask"
 	inv_box.screen_loc = ui_mask
-	inv_box.slot_id = slot_wear_mask
+	inv_box.slot_id = SLOT_HUD_WEAR_MASK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -217,7 +217,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "neck"
 	inv_box.screen_loc = ui_neck
-	inv_box.slot_id = slot_neck
+	inv_box.slot_id = SLOT_HUD_NECK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -227,7 +227,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
 	inv_box.screen_loc = ui_back
-	inv_box.slot_id = slot_back
+	inv_box.slot_id = SLOT_HUD_BACK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -237,7 +237,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage1
-	inv_box.slot_id = slot_l_store
+	inv_box.slot_id = SLOT_HUD_LEFT_STORE
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -247,7 +247,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage2
-	inv_box.slot_id = slot_r_store
+	inv_box.slot_id = SLOT_HUD_RIGHT_STORE
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -259,7 +259,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_sstore1
-	inv_box.slot_id = slot_s_store
+	inv_box.slot_id = SLOT_HUD_SUIT_STORE
 	static_inventory += inv_box
 
 	using = new /obj/screen/resist()
@@ -288,7 +288,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "gloves"
 	inv_box.screen_loc = ui_gloves
-	inv_box.slot_id = slot_gloves
+	inv_box.slot_id = SLOT_HUD_GLOVES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -298,7 +298,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "glasses"
 	inv_box.screen_loc = ui_glasses
-	inv_box.slot_id = slot_glasses
+	inv_box.slot_id = SLOT_HUD_GLASSES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -308,7 +308,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
 	inv_box.screen_loc = ui_l_ear
-	inv_box.slot_id = slot_l_ear
+	inv_box.slot_id = SLOT_HUD_LEFT_EAR
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -318,7 +318,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
 	inv_box.screen_loc = ui_r_ear
-	inv_box.slot_id = slot_r_ear
+	inv_box.slot_id = SLOT_HUD_RIGHT_EAR
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -328,7 +328,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "head"
 	inv_box.screen_loc = ui_head
-	inv_box.slot_id = slot_head
+	inv_box.slot_id = SLOT_HUD_HEAD
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -338,7 +338,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "shoes"
 	inv_box.screen_loc = ui_shoes
-	inv_box.slot_id = slot_shoes
+	inv_box.slot_id = SLOT_HUD_SHOES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -348,7 +348,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
 	inv_box.screen_loc = ui_belt
-	inv_box.slot_id = slot_belt
+	inv_box.slot_id = SLOT_HUD_BELT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box

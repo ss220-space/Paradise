@@ -7,7 +7,7 @@
 	else if(stat == UNCONSCIOUS)
 		return 0
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
-	stat = UNCONSCIOUS
+	set_stat(UNCONSCIOUS)
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -22,7 +22,7 @@
 	else if(stat == CONSCIOUS)
 		return 0
 	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 	if(updating)
 		update_sight()
 		update_blind_effects()
@@ -44,7 +44,7 @@
 	if(!force && !can_be_revived())
 		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list += src
 	if(mind)
@@ -67,8 +67,7 @@
 		S.sharerRevives(src)
 
 	if(mind)
-		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
+		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
 			spell.updateButtonIcon()
 
 	return TRUE

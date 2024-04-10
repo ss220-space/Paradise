@@ -21,9 +21,9 @@
 /mob/living/carbon/AIize()
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	notransform = 1
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -47,7 +47,7 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.rename_self(JOB_TITLE_AI,1)
 
 	O.tts_seed = tts_seed
 
@@ -67,10 +67,10 @@
 /mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 
-	notransform = 1
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -93,7 +93,7 @@
 
 	if(mind)		//TODO
 		mind.transfer_to(O)
-		if(O.mind.assigned_role == "Cyborg")
+		if(O.mind.assigned_role == JOB_TITLE_CYBORG)
 			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
@@ -101,16 +101,24 @@
 		O.key = key
 
 	O.forceMove(loc)
-	O.job = "Cyborg"
+	O.job = JOB_TITLE_CYBORG
 
-	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Robot")
-			O.mmi = new /obj/item/mmi/robotic_brain(O)
-			if(O.mmi.brainmob)
-				O.mmi.brainmob.name = O.name
-		else
-			O.mmi = new /obj/item/mmi(O)
-		O.mmi.transfer_identity(src) //Does not transfer key/client.
+	if(O.mind && O.mind.assigned_role == JOB_TITLE_CYBORG)
+		var/obj/item/mmi/new_mmi
+		switch(O.mind.role_alt_title)
+			if("Robot")
+				new_mmi = new /obj/item/mmi/robotic_brain(O)
+				if(new_mmi.brainmob)
+					new_mmi.brainmob.name = O.name
+			if("Cyborg")
+				new_mmi = new /obj/item/mmi(O)
+			else
+				// This should never happen, but oh well
+				new_mmi = new /obj/item/mmi(O)
+		new_mmi.transfer_identity(src) //Does not transfer key/client.
+		// Replace the MMI.
+		QDEL_NULL(O.mmi)
+		O.mmi = new_mmi
 
 	O.update_pipe_vision()
 
@@ -124,10 +132,9 @@
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	regenerate_icons()
-	notransform = 1
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -148,11 +155,10 @@
 
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 
-	regenerate_icons()
-	notransform = 1
+	notransform = TRUE
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -187,9 +193,8 @@
 /mob/living/carbon/human/proc/paize(name, bespai)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		drop_item_ground(W)
-	regenerate_icons()
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		drop_item_ground(check, force = TRUE)
 	notransform = TRUE
 	canmove = FALSE
 	icon = null
@@ -220,7 +225,7 @@
 	if(stat == DEAD)
 		return
 
-	for(var/obj/item/check in get_all_slots())
+	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 
 	notransform = TRUE

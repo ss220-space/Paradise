@@ -5,15 +5,9 @@
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
-	if(!gibbed)
-		if(age_state.age != SLIME_BABY)
-			if (nutrition >= get_hunger_nutrition())
-				force_split(FALSE)
-				return
-
-	stat = DEAD //Temporarily set to dead for icon updates
-	regenerate_icons()
-	stat = CONSCIOUS
+	if(!gibbed && age_state.age != SLIME_BABY && nutrition >= get_hunger_nutrition())
+		force_split(FALSE)
+		return
 
 	return ..(gibbed)
 

@@ -130,7 +130,7 @@
 	if(objective_complete)
 		return
 	rifts_charged = 0
-	dragon.dragon_depression = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_depression)
 	riftTimer = -1
 	SEND_SOUND(owner.current, sound('sound/vehicles/rocketlaunch.ogg'))
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)
@@ -177,7 +177,7 @@
 /datum/antagonist/space_dragon/proc/permanant_empower()
 	owner.current.rejuvenate()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	dragon.dragon_rage = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
 
 /**
@@ -189,7 +189,7 @@
 /datum/antagonist/space_dragon/proc/rift_empower()
 	owner.current.rejuvenate()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	dragon.dragon_rage = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
 
@@ -202,7 +202,7 @@
  */
 /datum/antagonist/space_dragon/proc/rift_depower()
 	owner.current.remove_filter("anger_glow")
-	dragon.dragon_rage = FALSE
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
 
 /datum/objective/summon_carp

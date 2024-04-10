@@ -64,12 +64,9 @@
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
-	if(. || mover.throwing || isprojectile(mover))
+	if(. || mover.throwing || isprojectile(mover) || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
-	var/mob/mob_mover = mover
-	if(istype(mob_mover) && mob_mover.flying)
-		return TRUE
-	if(border_dir == dir)
+	if(dir & border_dir)
 		return !density
 	return TRUE
 
@@ -90,14 +87,13 @@
 		return TRUE
 	if(isprojectile(mover))
 		return TRUE
-	var/mob/mob_mover = mover
-	if(istype(mob_mover) && mob_mover.flying)
+	if(mover.movement_type & (PHASING|MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
 	if(mover.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
 		return TRUE
 	if(currently_climbed)
 		return TRUE
-	if(dir == moving_direction)
+	if(dir & moving_direction)
 		return FALSE
 
 

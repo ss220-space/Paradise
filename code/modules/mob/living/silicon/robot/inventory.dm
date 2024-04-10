@@ -3,6 +3,9 @@
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
 /mob/living/silicon/robot/get_active_hand()
+	if(istype(module_active, /obj/item/gripper))
+		var/obj/item/gripper/gripper = module_active
+		return gripper.gripped_item == null ? module_active : gripper.gripped_item
 	return module_active
 
 /mob/living/silicon/robot/get_all_slots()
@@ -25,6 +28,8 @@
 			A.Remove(src)
 
 	if(module_active == O)
+		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
 		inv1.icon_state = "inv1"
@@ -115,7 +120,7 @@
 		return 0
 
 /mob/living/silicon/robot/drop_from_active_hand(force = FALSE)
-	var/obj/item/gripper/G = get_active_hand()
+	var/obj/item/gripper/G = module_active
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
 		return TRUE // The gripper is special because it has a normal item inside that we can drop.
@@ -157,9 +162,11 @@
 
 //select_module(module) - Selects the module slot specified by "module"
 /mob/living/silicon/robot/proc/select_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+	if(module < 1 || module > 3)
+		return
 
-	if(!module_active(module)) return
+	if(!module_active(module))
+		return
 
 	switch(module)
 		if(1)
@@ -168,44 +175,47 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3"
 				module_active = module_state_1
-				return
+
 		if(2)
 			if(module_active != module_state_2)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2 +a"
 				inv3.icon_state = "inv3"
 				module_active = module_state_2
-				return
+
 		if(3)
 			if(module_active != module_state_3)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
-				return
-	return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
+
 
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+	if(module < 1 || module > 3)
+		return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 
 	switch(module)
 		if(1)
 			if(module_active == module_state_1)
 				inv1.icon_state = "inv1"
 				module_active = null
-				return
 		if(2)
 			if(module_active == module_state_2)
 				inv2.icon_state = "inv2"
 				module_active = null
-				return
 		if(3)
 			if(module_active == module_state_3)
 				inv3.icon_state = "inv3"
 				module_active = null
-				return
-	return
+
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(var/module) //Module is 1-3

@@ -59,21 +59,21 @@ STI KALY - blind
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.drop_item_ground(H.head))
 					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), slot_head)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
 				return
 
 		if("robe")
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.drop_item_ground(H.wear_suit))
 					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), slot_wear_suit)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
 				return
 
 		if("sandal")
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.drop_item_ground(H.shoes))
 					qdel(H.shoes)
-				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 				return
 
 		if("staff")

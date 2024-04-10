@@ -33,7 +33,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
-	flying = TRUE
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
@@ -68,6 +67,7 @@
 	carp_randomify(rarechance)
 	update_icons()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)

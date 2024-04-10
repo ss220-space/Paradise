@@ -33,17 +33,17 @@
 	mutations.Add(NERVOUS)
 	dna.SetSEState(GLOB.nervousblock, 1, 1)
 	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
-	rename_character(real_name, "cluwne")
+	rename_character(newname = "cluwne")
 
 	drop_item_ground(w_uniform, force = TRUE)
 	drop_item_ground(shoes, force = TRUE)
 	drop_item_ground(gloves, force = TRUE)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		drop_item_ground(wear_mask, force = TRUE)
-	equip_to_slot_or_del(new /obj/item/clothing/under/cursedclown, slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, slot_gloves)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES)
 
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
@@ -88,6 +88,6 @@
 		drop_item_ground(gloves, force = TRUE)
 		qdel(G)
 
-	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
 

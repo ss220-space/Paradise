@@ -125,7 +125,8 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED //lying jumps is real
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED //lying jumps is real
+
 
 /datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
@@ -138,20 +139,20 @@
 
 	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
 		last_jump.Invoke()
-	var/isflying = owner.flying
-	owner.flying = TRUE
-	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), owner, isflying)
+	ADD_TRAIT(owner, TRAIT_MOVE_FLYING, IMPLANT_JUMP_BOOTS_TRAIT)
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), owner)
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
-		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		owner.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(owner, "<span class='warning'>Something prevents you from dashing forward!</span>")
-		after_jump(owner, isflying)
+		after_jump(owner)
 
-/datum/action/bhop/proc/after_jump(mob/owner, isflying)
-	owner.flying = isflying
+
+/datum/action/bhop/proc/after_jump(mob/owner)
+	REMOVE_TRAIT(owner, TRAIT_MOVE_FLYING, IMPLANT_JUMP_BOOTS_TRAIT)
 	last_jump = null
 
 

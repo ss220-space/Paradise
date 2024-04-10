@@ -55,6 +55,8 @@
 #define COMSIG_ATOM_CREATED "atom_created"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
+//from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization and has a loc
+#define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"
 ///from base of atom/attackby(): (/obj/item, /atom/source, params) sends singal on user who attacked source
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
@@ -186,17 +188,25 @@
 	#define COMPONENT_NO_ATTACK_HAND (1<<0)								//works on all 3.
 //This signal return value bitflags can be found in __DEFINES/misc.dm
 
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
-#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 ///called on a movable (NOT living) when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
-
 /// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
 #define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
 	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
-
+///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
+///signal sent out by an atom upon onZImpact : (turf/impacted_turf, levels)
+#define COMSIG_ATOM_ON_Z_IMPACT "movable_on_z_impact"
+///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
+#define COMSIG_LIVING_Z_IMPACT "living_z_impact"
+/// Just for the signal return, does not run normal living handing of z fall damage for mobs
+	#define ZIMPACT_CANCEL_DAMAGE (1<<0)
+	/// Do not show default z-impact message
+	#define ZIMPACT_NO_MESSAGE (1<<1)
+	/// Do not do the spin animation when landing
+	#define ZIMPACT_NO_SPIN (1<<2)
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -235,13 +245,14 @@
 
 // /turf signals
 
-///from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
+///from base of turf/ChangeTurf(): (path, list/new_baseturf, flags, list/transferring_comps)
 #define COMSIG_TURF_CHANGE "turf_change"
 ///from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"
-///from base of turf/New(): (turf/source, direction)
+///from base of turf/multiz_turf_del(): (turf/source, direction)
+#define COMSIG_TURF_MULTIZ_DEL "turf_multiz_del"
+///from base of turf/multiz_turf_new: (turf/source, direction)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
-
 // /atom/movable signals
 
 ///from base of atom/movable/Moved(): (/atom)
@@ -344,6 +355,10 @@
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
+	/// Flag for when /afterattack potentially acts on an item.
+	/// Used for the swap hands/drop tutorials to know when you might just be trying to do something normally.
+	/// Does not necessarily imply success, or even that it did hit an item, just intent.
+	#define COMPONENT_AFTERATTACK_PROCESSED_ITEM (1<<0)
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)
@@ -369,6 +384,12 @@
 	#define SPEECH_FORCED 7 */
 ////from mob/living/adjust_fire_stacks()
 #define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
+
+///from base of /mob/living/toggle_move_intent(): (old_move_intent)
+#define COMSIG_MOB_MOVE_INTENT_TOGGLE "mob_move_intent_toggle"
+	#define COMPONENT_BLOCK_INTENT_TOGGLE (1<<0)
+
+#define COMSIG_MOB_MOVE_INTENT_TOGGLED "mob_move_intent_toggled"
 
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
@@ -402,6 +423,9 @@
 /// Performed after the hands are swapped.
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 
+///From base of mob/update_movespeed():area
+#define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -427,6 +451,13 @@
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+//from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+//from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+//from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
 ///sent from living mobs every tick of fire
@@ -465,6 +496,20 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+/// From base of /client/Move(): (new_loc, direction)
+#define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	/// The argument of move_args which corresponds to the loc we're moving to
+	#define MOVE_ARG_NEW_LOC 1
+	/// The arugment of move_args which dictates our movement direction
+	#define MOVE_ARG_DIRECTION 2
+
+/// From base of /client/Move(): (list/move_args)
+#define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
+	/// Should we stop the current living movement attempt
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
 // /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
@@ -499,6 +544,11 @@
 
 /// Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
 #define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
+
+/// from /mob/living/can_z_move, sent to whatever the mob is buckled to. Only ridable movables should be ridden up or down btw.
+#define COMSIG_BUCKLED_CAN_Z_MOVE "ridden_pre_can_z_move"
+	#define COMPONENT_RIDDEN_STOP_Z_MOVE 1
+	#define COMPONENT_RIDDEN_ALLOW_Z_MOVE 2
 
 // /obj signals
 
@@ -921,3 +971,13 @@
 	#define COMPONENT_BLOCK_LIGHT_EATER (1<<0)
 ///from base of [/datum/element/light_eater/proc/devour]: (atom/eaten_light)
 #define COMSIG_LIGHT_EATER_DEVOUR "light_eater_devour"
+
+
+// /datum/element/movetype_handler signals
+/// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
+#define COMSIG_PAUSE_FLOATING_ANIM "pause_floating_anim"
+/// From base of datum/element/movetype_handler/on_movement_type_trait_gain: (flag, old_movement_type)
+#define COMSIG_MOVETYPE_FLAG_ENABLED "movetype_flag_enabled"
+/// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)
+#define COMSIG_MOVETYPE_FLAG_DISABLED "movetype_flag_disabled"
+

@@ -84,12 +84,13 @@
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user.RemoveElement(/datum/element/waddling)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))
@@ -142,6 +143,28 @@
 	icon_state = "jackboots_cross"
 	item_color = "jackboots_cross"
 	can_cut_open = FALSE
+
+/obj/item/clothing/shoes/jackboots/armored
+	name = "armored shoes"
+	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
+	can_cut_open = TRUE
+	icon_state = "armored_shoes"
+	item_color = "armored_shoes"
+	item_state = "armored_shoes"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
@@ -442,6 +465,12 @@
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
 
+
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+	if(slot == SLOT_HUD_SHOES)
+		return TRUE
+
+
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!ishuman(user))
 		return
@@ -457,21 +486,22 @@
 
 	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
 		last_jump.Invoke()
-	var/isflying = user.flying
-	user.flying = TRUE
-	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user, isflying)
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
+	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_JUMP_BOOTS_TRAIT)
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
-		after_jump(user, isflying)
+		after_jump(user)
 
-/obj/item/clothing/shoes/bhop/proc/after_jump(mob/user, isflying)
-	user.flying = isflying
+
+/obj/item/clothing/shoes/bhop/proc/after_jump(mob/user)
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_JUMP_BOOTS_TRAIT)
 	last_jump = null
+
 
 /obj/item/clothing/shoes/bhop/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
@@ -495,7 +525,7 @@
 
 /obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/bhop/clown/dropped(mob/user, silent = FALSE)

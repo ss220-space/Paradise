@@ -4,9 +4,6 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
 
-	if(flying && !floating) //TODO: Better floating
-		float(TRUE)
-
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
 		if(client && registered_z != T.z)
@@ -63,8 +60,6 @@
 	if(vamp)
 		vamp.handle_vampire()
 
-	update_gravity(mob_has_gravity())
-
 	if(pulling)
 		update_pulling()
 
@@ -81,19 +76,24 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(stat != DEAD)
+		if(forced_look && !isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.maxview() : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					clear_forced_look(TRUE)
+					to_chat(src, span_notice("Your direction target has left your view, you are no longer facing anything."))
+			else
+				clear_forced_look(TRUE)
+				to_chat(src, span_notice("Your direction target has left your view, you are no longer facing anything."))
+		// Make sure it didn't get cleared
 		if(forced_look)
-			if(!isnum(forced_look))
-				var/atom/A = locateUID(forced_look)
-				if(istype(A))
-					var/view = client ? client.maxview() : world.view
-					if(get_dist(src, A) > view || !(src in viewers(view, A)))
-						forced_look = null
-						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-						return
 			setDir()
 
 	if(machine)
 		machine.check_eye(src)
+
+	handle_gravity(seconds, times_fired)
 
 	if(stat != DEAD)
 		return TRUE
@@ -244,3 +244,24 @@
 		overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
+
+
+/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+	if(gravity_state > STANDARD_GRAVITY)
+		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+
+
+/mob/living/proc/gravity_animate()
+	if(!get_filter("gravity"))
+		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
+	animate(y = 0, time = 10)
+
+
+/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		return
+
+	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+

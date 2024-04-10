@@ -17,6 +17,10 @@
 	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
 
+/obj/item/holosign_creator/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
+
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
 		if(!check_allowed_items(target, 1))
@@ -57,6 +61,9 @@
 		for(var/H in signs)
 			qdel(H)
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	afterattack(target, user, proximity_flag, click_parameters)
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"

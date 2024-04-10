@@ -790,6 +790,9 @@
   */
 /datum/preferences/proc/save_volume_mixer()
 	volume_mixer_saving = null
+	//save_volume_mixer is called with a timer, the client may no longer be there.
+	if(isnull(parent))
+		return
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",

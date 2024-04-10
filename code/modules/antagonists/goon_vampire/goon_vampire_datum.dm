@@ -250,8 +250,7 @@
 /datum/antagonist/goon_vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.spell_list.Remove(ability)
-		qdel(ability)
+		owner.RemoveSpell(ability)
 		owner.current.update_sight()
 
 

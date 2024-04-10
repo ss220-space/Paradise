@@ -105,7 +105,7 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
+	if(!isslimeperson(M) && prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,6) / 2, FALSE) // avg 0.2 toxin per cycle
 	else if(prob(40))
@@ -116,6 +116,24 @@
 	merge_diseases_data(mix_data)
 	if(data && mix_data && mix_data["colour"])
 		color = mix_data["colour"]
+
+/datum/reagent/slimejelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
+
+			if(V.spread_flags < BLOOD)
+				continue
+
+			if(method == REAGENT_TOUCH)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
+
+	if(method == REAGENT_INGEST && iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.get_blood_id() == id)
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.reagents.del_reagent(id)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
@@ -272,6 +290,8 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
+	if(isnucleation(M))
+		return ..()
 	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))

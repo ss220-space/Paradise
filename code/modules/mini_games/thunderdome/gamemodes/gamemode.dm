@@ -43,6 +43,7 @@
 		/obj/item/storage/box/thunderdome/maga = 1,
 		/obj/item/storage/box/thunderdome/singulatiry = 1,
 		/obj/item/implanter/adrenalin = 1,
+		/obj/item/mimejutsu_scroll = 1,
 		)
 
 

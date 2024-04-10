@@ -26,7 +26,7 @@
 
 	toolspeedmod = 0.8 //25% faster
 
-	default_genes = list(REMOTE_TALK)
+	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -94,9 +94,9 @@
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
-		if(J.title == "Mime")
+		if(J.title == JOB_TITLE_MIME)
 			return
-		if(J.title == "Clown")
+		if(J.title == JOB_TITLE_CLOWN)
 			var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
 			implant.insert(H)
 		else

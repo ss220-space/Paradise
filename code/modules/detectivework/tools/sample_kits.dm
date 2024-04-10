@@ -99,7 +99,7 @@
 		to_chat(user, "<span class='warning'>\The [H] is wearing gloves.</span>")
 		return 1
 
-	if(user != H && H.a_intent != INTENT_HELP && !H.lying)
+	if(user != H && H.a_intent != INTENT_HELP && !H.lying_angle)
 		user.visible_message("<span class='danger'>\The [user] tries to take prints from \the [H], but they move away.</span>")
 		return 1
 

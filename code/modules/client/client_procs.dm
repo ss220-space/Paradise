@@ -141,19 +141,19 @@
 						return
 					switch(href_list["KarmaBuy"])
 						if("1")
-							karma_purchase(karma,5,"job","Barber")
+							karma_purchase(karma,5,"job", JOB_TITLE_BARBER)
 						if("2")
-							karma_purchase(karma,5,"job","Brig Physician")
+							karma_purchase(karma,5,"job", JOB_TITLE_BRIGDOC)
 						if("3")
-							karma_purchase(karma,30,"job","Nanotrasen Representative")
+							karma_purchase(karma,30,"job", JOB_TITLE_REPRESENTATIVE)
 						if("5")
-							karma_purchase(karma,30,"job","Blueshield")
+							karma_purchase(karma,30,"job", JOB_TITLE_BLUESHIELD)
 						if("6")
-							karma_purchase(karma,30,"job","Mechanic")
+							karma_purchase(karma,30,"job", JOB_TITLE_MECHANIC)
 						if("7")
-							karma_purchase(karma,45,"job","Magistrate")
+							karma_purchase(karma,45,"job", JOB_TITLE_JUDGE)
 						if("9")
-							karma_purchase(karma,30,"job","Security Pod Pilot")
+							karma_purchase(karma,30,"job", JOB_TITLE_PILOT)
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
@@ -1180,7 +1180,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1191,7 +1191,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1382,6 +1382,10 @@
 	else
 		SSambience.ambience_listening_clients -= src
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
 
 /**
   * Checks if the client has accepted TOS

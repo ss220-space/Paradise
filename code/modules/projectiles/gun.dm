@@ -6,7 +6,7 @@
 	item_state = "gun"
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -37,6 +37,8 @@
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
+	///Additional spread when dual wielding.
+	var/dual_wield_spread = 24
 	var/list/restricted_species
 	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
@@ -180,7 +182,7 @@
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
-			effect.set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
 
@@ -231,7 +233,7 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
+				bonus_spread += dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -498,9 +500,9 @@
 		visible_message(span_danger("[src]'s light fades and turns off."))
 
 
-/obj/item/gun/dropped(mob/user, silent = FALSE)
-	..()
-	zoom(user,FALSE)
+/obj/item/gun/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
 
@@ -576,7 +578,7 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
@@ -648,7 +650,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != slot_l_hand)
+	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)

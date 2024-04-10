@@ -59,7 +59,7 @@
 	visible_message("<span class='notice'>The [name] burns out!</span>")
 
 
-/obj/item/memorizer/proc/flash_recharge(var/mob/user)
+/obj/item/memorizer/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return FALSE
@@ -71,7 +71,7 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/memorizer/proc/try_use_flash(mob/user = null)
+/obj/item/memorizer/proc/try_use_flash(mob/user)
 	flash_recharge(user)
 
 	if(broken)

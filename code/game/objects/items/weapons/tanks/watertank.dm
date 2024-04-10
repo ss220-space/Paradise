@@ -6,7 +6,7 @@
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
@@ -26,13 +26,13 @@
 	toggle_mister()
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return 1
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
-	if(usr.get_item_by_slot(slot_back) != src)
+	if(usr.get_item_by_slot(SLOT_HUD_BACK) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
 	if(usr.incapacitated())
@@ -61,7 +61,7 @@
 /obj/item/watertank/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(slot != slot_back)
+	if(slot != SLOT_HUD_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
@@ -116,8 +116,8 @@
 		loc = tank
 	return
 
-/obj/item/reagent_containers/spray/mister/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
 	loc = tank
@@ -204,7 +204,7 @@
 			icon_state = "waterbackpackatmos"
 
 
-/obj/item/watertank/atmos/dropped(mob/user, silent = FALSE)
+/obj/item/watertank/atmos/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!noz)
 		return
@@ -264,8 +264,8 @@
 	tank.update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/extinguisher/mini/nozzle/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
 	loc = tank

@@ -257,31 +257,31 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
-			if(!("Barber" in joblist))
+			if(!(JOB_TITLE_BARBER in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
 			else
 				dat += "Barber  - <font color='green'>Unlocked</font><br>"
-			if(!("Brig Physician" in joblist))
+			if(!(JOB_TITLE_BRIGDOC in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
 			else
 				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
-			if(!("Nanotrasen Representative" in joblist))
+			if(!(JOB_TITLE_REPRESENTATIVE in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
-			if(!("Blueshield" in joblist))
+			if(!(JOB_TITLE_BLUESHIELD in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
 			else
 				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
-			if(!("Security Pod Pilot" in joblist))
+			if(!(JOB_TITLE_PILOT in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
 			else
 				dat += "Security Pod Pilot - <font color='green'>Unlocked</font><br>"
-			if(!("Mechanic" in joblist))
+			if(!(JOB_TITLE_MECHANIC in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
 			else
 				dat += "Mechanic - <font color='green'>Unlocked</font><br>"
-			if(!("Magistrate" in joblist))
+			if(!(JOB_TITLE_JUDGE in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
 			else
 				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"

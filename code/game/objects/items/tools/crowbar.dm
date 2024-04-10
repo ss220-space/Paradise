@@ -7,7 +7,7 @@
 	belt_icon = "pocket_crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
@@ -20,6 +20,10 @@
 
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_CROWBAR
+
+/obj/item/crowbar/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
