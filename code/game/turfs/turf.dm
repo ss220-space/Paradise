@@ -109,6 +109,9 @@
 	if(opacity)
 		has_opaque_atom = TRUE
 
+	if(istype(loc, /area/space))
+		force_no_gravity = TRUE
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
