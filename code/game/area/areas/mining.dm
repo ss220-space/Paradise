@@ -163,7 +163,7 @@
 	outdoors = TRUE
 	area_flags = FLORA_ALLOWED
 
-/area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
+/area/lavaland/surface/outdoors/unexplored // ruins spawn here
 	icon_state = "unexplored"
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
