@@ -129,6 +129,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_LAVALAND
+	area_flags = FLORA_ALLOWED
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -142,6 +143,7 @@
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+	area_flags = NONE
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -159,23 +161,22 @@
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
-	map_generator = /datum/map_generator/cave_generator/lavaland
-	generate_flora = TRUE
+	area_flags = FLORA_ALLOWED
 
 /area/lavaland/surface/outdoors/unexplored //monsters and ruins spawn here
 	icon_state = "unexplored"
-	generate_ruins = TRUE
-	generate_fauna = TRUE
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
 	icon_state = "cave"
-	generate_caves = TRUE
-	generate_megafauna = TRUE
+	area_flags = CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED
+	map_generator = /datum/map_generator/cave_generator/lavaland
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"
+	area_flags = NONE
 
 /area/lavaland/surface/outdoors/necropolis
 	name = "Necropolis"
 	icon_state = "unexplored"
 	tele_proof = TRUE
+	area_flags = NONE

@@ -96,8 +96,12 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		// Run map generation after ruin generation to prevent issues
+		run_map_terrain_generation()
 		if(lavaland_theme)
 			lavaland_theme.setup()
+		// now that the terrain is generated, including rivers, we can safely populate it with objects and mobs
+		run_map_terrain_population()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 		if(time_spent >= 10)
@@ -233,7 +237,6 @@ SUBSYSTEM_DEF(mapping)
 	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/plating/lava/smooth/mapping_lava)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
-	run_map_generation()
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 
@@ -333,9 +336,15 @@ SUBSYSTEM_DEF(mapping)
 
 	log_world("Ruin loader finished with [budget] left to spend.")
 
-/datum/controller/subsystem/mapping/proc/run_map_generation()
+/// Generate the turfs of the area
+/datum/controller/subsystem/mapping/proc/run_map_terrain_generation()
 	for(var/area/A in world)
-		A.RunGeneration()
+		A.RunTerrainGeneration()
+
+/// Populate the turfs of the area
+/datum/controller/subsystem/mapping/proc/run_map_terrain_population()
+	for(var/area/A in world)
+		A.RunTerrainPopulation()
 
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages(z_list)
 	for(var/z_level in 1 to length(z_list))

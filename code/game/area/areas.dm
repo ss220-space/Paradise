@@ -87,16 +87,7 @@
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
 	var/datum/map_generator/cave_generator/map_generator
 
-	///This var is CAVES_ALLOWED "flag" for mapgen.
-	var/generate_caves = FALSE
-	///This var is RUINS_ALLOWED "flag" for mapgen.
-	var/generate_ruins = FALSE
-	///This var is FLORA_ALLOVED "flag" for mapgen.
-	var/generate_flora = FALSE
-	///This var is FAUNA_ALLOWED "flag" for mapgen.
-	var/generate_fauna = FALSE
-	///This var is MEGAFAUNA_ALLOWED "flag" for mapgen.
-	var/generate_megafauna = FALSE
+	var/area_flags = 0
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -164,13 +155,22 @@
 		cameras += C
 	return cameras
 
-/area/proc/RunGeneration()
+/// Generate turfs, including cool cave wall gen
+/area/proc/RunTerrainGeneration()
 	if(map_generator)
 		map_generator = new map_generator()
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
 		map_generator.generate_terrain(turfs, src)
+
+/// Populate the previously generated terrain with mobs and objects
+/area/proc/RunTerrainPopulation()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.populate_terrain(turfs, src)
 
 /area/proc/test_gen()
 	if(map_generator)

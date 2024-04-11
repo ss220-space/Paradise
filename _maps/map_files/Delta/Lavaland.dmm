@@ -1540,9 +1540,6 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"fq" = (
-/turf/simulated/genturf,
-/area/lavaland/surface/outdoors)
 "fr" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/effect/turf_decal/bot,
@@ -31461,7 +31458,7 @@ aj
 aj
 ab
 ab
-fq
+Vh
 Vh
 Vh
 Vh
