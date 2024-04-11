@@ -420,3 +420,66 @@
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
 	list_reagents = list()
+
+/obj/item/reagent_containers/glass/pet_bowl
+	name = "pet bowl"
+	desc = "Миска под еду для любимых домашних животных!"
+	icon = 'icons/obj/pet_bowl.dmi'
+	icon_state = "petbowl"
+	item_state = "petbowl"
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	w_class = WEIGHT_CLASS_NORMAL
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = null
+	volume = 15
+	resistance_flags = FLAMMABLE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	color = "#0085E5"
+
+/obj/item/reagent_containers/glass/pet_bowl/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon(UPDATE_OVERLAYS)
+			return
+
+	return ..()
+
+/obj/item/reagent_containers/glass/pet_bowl/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/pet_bowl/update_overlays()
+	. = ..()
+	var/mutable_appearance/bowl_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "colorable_overlay")
+	. += bowl_mask
+	var/mutable_appearance/bowl_nc_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "nc_petbowl", appearance_flags = RESET_COLOR)
+	. += bowl_nc_mask
+	if(reagents.total_volume)
+		var/datum/reagent/feed = reagents.has_reagent("afeed")
+		if(feed && (feed.volume >= (reagents.total_volume - feed.volume)))
+			var/image/feed_overlay = image(icon = 'icons/obj/pet_bowl.dmi', icon_state = "petfood_5", layer = FLOAT_LAYER)
+			feed_overlay.appearance_flags = RESET_COLOR
+			switch(feed.volume)
+				if(6 to 10)
+					feed_overlay.icon_state = "petfood_10"
+				if(11 to 15)
+					feed_overlay.icon_state = "petfood_15"
+			. += feed_overlay
+		else
+			. += mutable_appearance(icon, "liquid_overlay", color = mix_color_from_reagents(reagents.reagent_list), appearance_flags = RESET_COLOR)
+
+/obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
+	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
+		return ..()
+	if(reagents.has_reagent("afeed", 1))
+		pet.heal_organ_damage(5, 5)
+		reagents.remove_reagent("afeed", 1)
+		playsound(pet.loc, 'sound/items/eatfood.ogg', rand(10, 30), TRUE)
+	else
+		reagents.remove_any(1)
+		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
