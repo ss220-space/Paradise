@@ -99,6 +99,7 @@
 	var/ninja_martial = FALSE
 	/// Встроенный в костюм джетпак
 	jetpack = /obj/item/tank/jetpack/suit/ninja
+	jetpack_upgradable = TRUE
 
 	/// UI stuff ///
 	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
