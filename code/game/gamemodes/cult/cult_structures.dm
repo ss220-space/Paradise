@@ -76,7 +76,7 @@
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		return

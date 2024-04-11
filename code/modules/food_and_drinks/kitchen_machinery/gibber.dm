@@ -212,14 +212,14 @@
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = TRUE
+	holder.set_anchored(TRUE)
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
 	holder2.add_overlay(gibberoverlay)
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = TRUE
+	holder2.set_anchored(TRUE)
 
 	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 

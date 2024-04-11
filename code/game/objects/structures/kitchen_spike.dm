@@ -15,10 +15,10 @@
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)

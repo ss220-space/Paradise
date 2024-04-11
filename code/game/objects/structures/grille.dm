@@ -190,7 +190,7 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 
@@ -239,7 +239,7 @@
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		W.update_nearby_icons()

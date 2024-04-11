@@ -90,6 +90,8 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.remove_from_hud(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_ping
 	H.verbs |= /mob/living/carbon/human/proc/emote_beep
 	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
@@ -101,6 +103,8 @@
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(H)
 	H.verbs -= /mob/living/carbon/human/proc/emote_ping
 	H.verbs -= /mob/living/carbon/human/proc/emote_beep
 	H.verbs -= /mob/living/carbon/human/proc/emote_buzz

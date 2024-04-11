@@ -66,7 +66,7 @@
 	transfer_fingerprints_to(C)
 	C.ptype = ptype
 	C.update()
-	C.anchored = FALSE
+	C.set_anchored(FALSE)
 	C.density = TRUE
 	if(!QDELING(src))
 		qdel(src)
@@ -217,7 +217,7 @@
 	var/obj/structure/disposalconstruct/C = new(loc)
 	C.ptype = deconstructs_to
 	C.update()
-	C.anchored = TRUE
+	C.set_anchored(TRUE)
 	C.density = TRUE
 	qdel(src)
 

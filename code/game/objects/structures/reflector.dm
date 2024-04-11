@@ -92,13 +92,13 @@
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0

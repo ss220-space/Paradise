@@ -124,7 +124,7 @@
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
@@ -354,7 +354,7 @@
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -543,7 +543,7 @@
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)

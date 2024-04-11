@@ -14,6 +14,7 @@
 	y_offset = y
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(pick_up))
+	I.set_anchored(TRUE)
 	I.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
 		var/datum/action/item_action/remove_tape/RT = new(I)
@@ -38,7 +39,7 @@
 	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
 	new /obj/item/trash/tapetrash(user.loc)
 	I.update_icon()
-	I.anchored = initial(I.anchored)
+	I.set_anchored(initial(I.anchored))
 	for(var/datum/action/item_action/remove_tape/RT in I.actions)
 		RT.Remove(user)
 		qdel(RT)

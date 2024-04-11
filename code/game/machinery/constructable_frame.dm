@@ -109,7 +109,7 @@
 		return .
 
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		return .
 
@@ -117,7 +117,7 @@
 		to_chat(user, span_warning("You cannot tightens the bolts in space!"))
 		return .
 
-	anchored = TRUE
+	set_anchored(TRUE)
 	WRENCH_ANCHOR_MESSAGE
 
 

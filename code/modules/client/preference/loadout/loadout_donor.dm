@@ -170,6 +170,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
+/datum/gear/donor/strip/clown
+	display_name = "strip, Clown"
+	path = /obj/item/clothing/accessory/head_strip/clown
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CLOWN)
+
 /datum/gear/donor/strip/bs
 	display_name = "strip, Blueshield"
 	path = /obj/item/clothing/accessory/head_strip/bs
