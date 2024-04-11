@@ -300,7 +300,7 @@
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
 	var/old_air
-	if(isfloorturf(src))
+	if(issimulatedturf(src))
 		var/turf/simulated/old_turf = src
 		old_air = old_turf.air
 
