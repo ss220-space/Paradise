@@ -300,7 +300,7 @@
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
 	var/old_air
-	if(isfloorturf(src))
+	if(issimulatedturf(src))
 		var/turf/simulated/old_turf = src
 		old_air = old_turf.air
 
@@ -332,7 +332,8 @@
 		W.AfterChange(ignore_air, oldType = old_type)
 		if(issimulatedturf(W))
 			var/turf/simulated/new_turf = W
-			new_turf.assimilate_air(old_air)
+			if(old_air) //If it really exists.
+				new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
 
