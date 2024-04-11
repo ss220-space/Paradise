@@ -285,7 +285,7 @@
 		return
 	used = TRUE
 	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
-	if(!bundle_name)
+	if(!bundle_name || QDELING(user) || QDELING(src))
 		return
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
