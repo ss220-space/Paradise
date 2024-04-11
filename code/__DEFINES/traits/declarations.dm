@@ -69,6 +69,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SLIP_SLIDE "noslip_slide"
 /// Stops all slipping and sliding from ocurring
 #define TRAIT_NO_SLIP_ALL "noslip_all"
+/// Give us unsafe_unwrenching protection
+#define TRAIT_GUSTPROTECTION "gustprotection"
 
 
 /// Negates our gravity, letting us move normally on floors in 0-g

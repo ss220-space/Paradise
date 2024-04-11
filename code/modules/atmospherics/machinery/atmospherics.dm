@@ -191,7 +191,6 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/safefromgusts = FALSE
 		var/I = int_air ? int_air.return_pressure() : 0
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
@@ -209,16 +208,12 @@ Pipelines + Other Objects -> Pipe network
 				span_italics("You hear ratcheting."))
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.gustprotection && usermagboots.magpulse)
-					safefromgusts = TRUE
-
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				if(safefromgusts)
+				if(HAS_TRAIT(user, TRAIT_GUSTPROTECTION))
 					to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
 				else
-					unsafe_pressure_release(user,internal_pressure)
+					unsafe_pressure_release(user, internal_pressure)
 			deconstruct(TRUE)
 	else
 		if(T.transparent_floor == TURF_TRANSPARENT)

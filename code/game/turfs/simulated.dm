@@ -143,7 +143,7 @@
 /turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube_flags, tilesSlipped)
 	if(slipper.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if(!has_gravity(src) && !lube_flags)
+	if(!slipper.has_gravity())
 		return FALSE
 
 	var/slide_distance = tilesSlipped
