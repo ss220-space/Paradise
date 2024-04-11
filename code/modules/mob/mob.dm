@@ -991,30 +991,24 @@
   *
   * Turns you to face the other mob too
   */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(M.buckled)
-		return 0
-	var/turf/T = get_turf(src)
-	if(M.loc != T)
-		var/old_density = density
-		density = FALSE
-		var/can_step = step_towards(M, T)
-		density = old_density
-		if(!can_step)
-			return 0
+/mob/is_buckle_possible(mob/living/target, force, check_loc = TRUE)
+	if(target.buckled)
+		return FALSE
 	return ..()
 
+
 ///Call back post buckle to a mob to offset your visual height
-/mob/post_buckle_mob(mob/living/M)
-	var/height = M.get_mob_buckling_height(src)
-	M.pixel_y = initial(M.pixel_y) + height
-	if(M.layer < layer)
-		M.layer = layer + 0.1
+/mob/post_buckle_mob(mob/living/target)
+	target.pixel_y += target.get_mob_buckling_height(src)
+	if(target.layer < layer)
+		target.layer = layer + 0.01
+
 
 ///Call back post unbuckle from a mob, (reset your visual height here)
-/mob/post_unbuckle_mob(mob/living/M)
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
+/mob/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= target.get_mob_buckling_height(src)
+	target.layer = initial(target.layer)
+
 
 ///returns the height in pixel the mob should have when buckled to another mob.
 /mob/proc/get_mob_buckling_height(mob/seat)
@@ -1023,14 +1017,6 @@
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
-
-///can the mob be buckled to something by default?
-/mob/proc/can_buckle()
-	return 1
-
-///can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
-	return 1
 
 
 //Can the mob see reagents inside of containers?

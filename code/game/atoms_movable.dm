@@ -31,6 +31,22 @@
 	///Used for the calculate_adjacencies proc for icon smoothing.
 	var/can_be_unanchored = FALSE
 
+	/// Whether the atom allows mobs to be buckled to it. Can be ignored in [/atom/movable/proc/buckle_mob()] if force = TRUE
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces mob.lying_angle = buckle_lying if not set to [NO_BUCKLE_LYING].
+	/// Its an ANGLE, not a BOOLEAN var! 0 means you will always stand up, after being buckled to this atom.
+	var/buckle_lying = NO_BUCKLE_LYING
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = FALSE
+	/// The mobs currently buckled to this atom
+	var/list/mob/living/buckled_mobs
+	/// The maximum number of mob/livings allowed to be buckled to this atom at once
+	var/max_buckled_mobs = 1
+	/// Whether things buckled to this atom can be pulled while they're buckled
+	var/buckle_prevents_pull = FALSE
+
+	var/buckle_offset = 0	// will be removed later
+
 	/**
 	  * In case you have multiple types, you automatically use the most useful one.
 	  * IE: Skating on ice, flippers on water, flying over chasm/space, etc.
@@ -185,13 +201,16 @@
 
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		pulling.pulledby = null
-		var/mob/living/ex_pulled = pulling
-		pulling = null
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+	if(!pulling)
+		return
+
+	pulling.pulledby = null
+	var/mob/living/ex_pulled = pulling
+	pulling = null
+	if(isliving(ex_pulled))
+		var/mob/living/L = ex_pulled
+		L.update_canmove()// mob gets up if it was lyng down in a chokehold
+
 
 /**
  * Checks if the pulling and pulledby should be stopped because they're out of reach.

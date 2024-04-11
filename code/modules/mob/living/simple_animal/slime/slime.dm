@@ -6,6 +6,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
+	can_buckle_to = FALSE
 	var/datum/slime_age/age_state = new /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
@@ -468,11 +469,6 @@
 /mob/living/simple_animal/slime/pet
 	docile = TRUE
 
-/mob/living/simple_animal/slime/can_unbuckle()
-	return FALSE
-
-/mob/living/simple_animal/slime/can_buckle()
-	return FALSE
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())

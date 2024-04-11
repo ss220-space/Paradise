@@ -106,3 +106,6 @@
 	/// Does the mob rotate when lying
 	var/rotate_on_lying = FALSE
 
+	/// Is this mob allowed to be buckled/unbuckled to/from things?
+	var/can_buckle_to = TRUE
+

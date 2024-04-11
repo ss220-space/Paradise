@@ -12,7 +12,6 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 
 	color = "#404040"
-	buckle_lying = TRUE
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 

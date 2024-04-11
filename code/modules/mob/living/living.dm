@@ -360,6 +360,47 @@
 	return !mover.density || lying_angle
 
 
+/mob/living/proc/set_pull_offsets(mob/living/user, grab_state = GRAB_PASSIVE)
+	/*
+	if(user.buckled)
+		return //don't make them change direction or offset them if they're buckled into something.
+	var/offset = 0
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			offset = GRAB_PIXEL_SHIFT_PASSIVE
+		if(GRAB_AGGRESSIVE)
+			offset = GRAB_PIXEL_SHIFT_AGGRESSIVE
+		if(GRAB_NECK)
+			offset = GRAB_PIXEL_SHIFT_NECK
+		if(GRAB_KILL)
+			offset = GRAB_PIXEL_SHIFT_NECK
+	user.setDir(get_dir(user, src))
+	var/target_pixel_x = user.base_pixel_x + M.body_position_pixel_x_offset
+	var/target_pixel_y = user.base_pixel_y + M.body_position_pixel_y_offset
+	switch(user.dir)
+		if(NORTH)
+			animate(user, pixel_x = target_pixel_x, pixel_y = target_pixel_y + offset, 3)
+		if(SOUTH)
+			animate(user, pixel_x = target_pixel_x, pixel_y = target_pixel_y - offset, 3)
+		if(EAST)
+			if(user.lying_angle == 270) //update the dragged dude's direction if we've turned
+				user.set_lying_angle(90)
+			animate(user, pixel_x = target_pixel_x + offset, pixel_y = target_pixel_y, 3)
+		if(WEST)
+			if(user.lying_angle == 90)
+				user.set_lying_angle(270)
+			animate(user, pixel_x = target_pixel_x - offset, pixel_y = target_pixel_y, 3)
+	*/
+
+
+/mob/living/proc/reset_pull_offsets(mob/living/user, override)
+	/*
+	if(!override && user.buckled)
+		return
+	animate(user, pixel_x = user.base_pixel_x + user.body_position_pixel_x_offset , pixel_y = user.base_pixel_y + user.body_position_pixel_y_offset, 1)
+	*/
+
+
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -376,9 +417,10 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	if(ismob(pulling))
+		reset_pull_offsets(pulling)
 	..()
-	if(pullin)
-		pullin.update_icon(UPDATE_ICON_STATE)
+	pullin?.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -1658,3 +1700,38 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
 		return
 	return ..()
+
+
+///Reports the event of the change in value of the buckled variable.
+/mob/living/proc/set_buckled(new_buckled)
+	if(new_buckled == buckled)
+		return
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BUCKLED, new_buckled)
+	. = buckled
+	buckled = new_buckled
+
+	update_canmove()
+
+	/*
+	if(buckled)
+		if(!HAS_TRAIT(buckled, TRAIT_NO_IMMOBILIZE))
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+		switch(buckled.buckle_lying)
+			if(NO_BUCKLE_LYING) // The buckle doesn't force a lying angle.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+			if(0) // Forcing to a standing position.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_body_position(STANDING_UP)
+				set_lying_angle(0)
+			else // Forcing to a lying position.
+				ADD_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_body_position(LYING_DOWN)
+				set_lying_angle(buckled.buckle_lying)
+	else
+		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), BUCKLED_TRAIT)
+		if(.) // We unbuckled from something.
+			var/atom/movable/old_buckled = .
+			if(old_buckled.buckle_lying == 0 && (resting || HAS_TRAIT(src, TRAIT_FLOORED))) // The buckle forced us to stay up (like a chair)
+				set_lying_down() // We want to rest or are otherwise floored, so let's drop on the ground.
+	*/
+

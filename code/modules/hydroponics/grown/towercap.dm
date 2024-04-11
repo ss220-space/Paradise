@@ -155,7 +155,7 @@
 	icon_state = "bonfire"
 	density = FALSE
 	anchored = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	pass_flags_self = PASSTABLE|LETPASSTHROW
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
@@ -252,10 +252,11 @@
 		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(..())
-		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
-	if(..())
-		buckled_mob.pixel_y -= 13
+/obj/structure/bonfire/post_buckle_mob(mob/living/target)
+	target.pixel_y += 13
+
+
+/obj/structure/bonfire/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= 13
+
