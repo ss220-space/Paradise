@@ -332,8 +332,7 @@
 		W.AfterChange(ignore_air, oldType = old_type)
 		if(issimulatedturf(W))
 			var/turf/simulated/new_turf = W
-			if(old_air) //If it really exists.
-				new_turf.assimilate_air(old_air)
+			new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
 
