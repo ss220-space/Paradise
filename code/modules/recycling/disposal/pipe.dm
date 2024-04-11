@@ -260,7 +260,7 @@
 	src.transfer_fingerprints_to(C)
 	C.dir = dir
 	C.density = FALSE
-	C.anchored = TRUE
+	C.set_anchored(TRUE)
 	C.update()
 
 	qdel(src)

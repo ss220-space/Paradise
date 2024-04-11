@@ -275,7 +275,7 @@
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
-	anchored = !anchored
+	set_anchored(!anchored)
 
 /obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
 	. = TRUE

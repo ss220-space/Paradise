@@ -111,7 +111,7 @@
 					"[user] unfastens \the [src].", \
 					span_notice("You have unfastened \the [src]. Now it can be pulled somewhere else."), \
 					"You hear ratchet.")
-				anchored = FALSE
+				set_anchored(FALSE)
 				stat |= MAINT
 				unwrenched = 1
 				if(usr.machine==src)
@@ -124,7 +124,7 @@
 					"[user] fastens \the [src].", \
 					span_notice("You have fastened \the [src]. Now it can dispense pipes."), \
 					"You hear ratchet.")
-				anchored = TRUE
+				set_anchored(TRUE)
 				stat &= ~MAINT
 				unwrenched = 0
 				power_change()

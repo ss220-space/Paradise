@@ -357,7 +357,7 @@
 	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
 		add_fingerprint(user)
 		if(!anchored)
-			anchored = !anchored
+			set_anchored(TRUE)
 			WRENCH_ANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))
@@ -373,7 +373,7 @@
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
 		else if (anchored)
-			anchored = !anchored
+			set_anchored(FALSE)
 			WRENCH_UNANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))

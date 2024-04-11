@@ -21,7 +21,7 @@
 /obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
 	. = ..()
 	I.play_tool_sound(src, I.tool_volume)
-	anchored = !anchored
+	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "un" : ""]wrenched [src]"))
 
 /obj/structure/garland/attackby(obj/item/P, mob/user, params)

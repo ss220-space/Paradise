@@ -101,14 +101,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = TRUE
+				set_anchored(TRUE)
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = FALSE
+				set_anchored(FALSE)
 		else if(mybag)
 			add_fingerprint(user)
 			mybag.attackby(I, user, params)
