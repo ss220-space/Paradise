@@ -41,6 +41,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return TRUE
 	var/datum/job/job = SSjobs.GetJob(req_job_rank)
 	if(!job)
+		stack_trace("Invalid job title: [req_job_rank]")
 		return FALSE
 	if(job.available_in_playtime(C))
 		return TRUE
