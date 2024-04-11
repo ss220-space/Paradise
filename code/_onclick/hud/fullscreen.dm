@@ -120,6 +120,11 @@
 	icon_state = "druggy"
 
 
+/obj/screen/fullscreen/payback
+	icon_state = "payback"
+	show_when_dead = TRUE
+
+
 /obj/screen/fullscreen/cinematic_backdrop
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"

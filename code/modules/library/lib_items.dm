@@ -167,6 +167,10 @@
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
 
+/obj/item/book/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = 5, hardhat_safety = TRUE, crushes = FALSE, impact_sound = drop_sound)
+
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())

@@ -5,7 +5,7 @@
 /datum/action/item_action/advanced/ninja/ninja_chameleon
 	name = "Chameleon Disguise"
 	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -144,7 +144,7 @@
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)
-			ninja.equip_to_slot_if_possible(n_id_card, slot_wear_id)
+			ninja.equip_to_slot_if_possible(n_id_card, SLOT_HUD_WEAR_ID)
 		else
 			qdel(n_id_card)
 			n_id_card = null
@@ -165,12 +165,15 @@
 		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
 			ninja_action.action_ready = TRUE
 			ninja_action.use_action()
+		ninja.cut_overlays()
+	else
+		ninja.cut_overlay(disguise.overlays)
 
 	//Disguise
 	ninja.name_override = disguise.name
 	ninja.icon = disguise.icon
 	ninja.icon_state = disguise.icon_state
-	ninja.overlays = disguise.overlays
+	ninja.add_overlay(disguise.overlays)
 	//Disguise flag
 	disguise_active = TRUE
 

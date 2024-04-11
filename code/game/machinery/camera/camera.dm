@@ -40,7 +40,7 @@
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = TRUE
+	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
@@ -84,7 +84,7 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			stat |= EMPED
-			set_light(0)
+			set_light_on(FALSE)
 			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
@@ -282,7 +282,7 @@
 		else
 			myArea = null
 	else
-		set_light(0)
+		set_light_on(FALSE)
 		GLOB.cameranet.removeCamera(src)
 		if(isarea(myArea))
 			LAZYREMOVE(myArea.cameras, UID())
@@ -382,7 +382,7 @@
 			if(cam == src)
 				return
 	if(on)
-		set_light(AI_CAMERA_LUMINOSITY)
+		set_light(AI_CAMERA_LUMINOSITY, l_on = TRUE)
 	else
 		set_light(0)
 
@@ -409,11 +409,11 @@
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		user.see_in_dark = max(user.see_in_dark, 8)
+		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
 		user.sight = initial(user.sight)
-		user.see_in_dark = initial(user.see_in_dark)
+		user.nightvision = initial(user.nightvision)
 		user.lighting_alpha = initial(user.lighting_alpha)
 
 	..()
@@ -425,10 +425,13 @@
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = FALSE
+	assembly.set_anchored(FALSE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
 	if(GLOB.cameranet && get_turf(src) != prev_turf)
 		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)
+
+/obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
+	return

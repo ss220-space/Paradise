@@ -4,8 +4,9 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
+	density = TRUE
 	anchored = FALSE
+	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -32,12 +33,6 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
-// So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
-	if(istype(mover) && mover.checkpass(PASSMOB))
-		return TRUE
-	else
-		return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -122,7 +117,7 @@
 
 
 //BUCKLE HOOKS
-/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
 	if(istype(buckled_mob))
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
@@ -164,7 +159,7 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
+		last_vehicle_move = get_config_multiplicative_speed_by_path(/mob/living/carbon/human) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
@@ -208,7 +203,7 @@
 
 
 /obj/vehicle/Process_Spacemove(direction)
-	if(has_gravity(src))
+	if(has_gravity())
 		return TRUE
 
 	if(pulledby && (pulledby.loc != loc))

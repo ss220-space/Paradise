@@ -62,7 +62,7 @@
 	if(target == user)
 		return ..()
 
-	if(!proximity || !isalien(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || !isalien(target) || !iscarbon(user) || user.incapacitated())
 		return
 
 	var/mob/living/carbon/transfering_to = target

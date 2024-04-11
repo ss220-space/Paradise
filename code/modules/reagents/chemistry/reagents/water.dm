@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()
-		M.resistances |= data
+		LAZYOR(M.resistances, data)
 
 /datum/reagent/vaccine/on_merge(list/data)
 	if(istype(data))

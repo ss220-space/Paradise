@@ -1,5 +1,5 @@
 /datum/species/plasmaman
-	name = "Plasmaman"
+	name = SPECIES_PLASMAMAN
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
@@ -79,109 +79,109 @@
 	var/current_job = J.title
 	var/datum/outfit/plasmaman/O = new /datum/outfit/plasmaman
 	switch(current_job)
-		if("Chaplain")
+		if(JOB_TITLE_CHAPLAIN)
 			O = new /datum/outfit/plasmaman/chaplain
 
-		if("Librarian")
+		if(JOB_TITLE_LIBRARIAN)
 			O = new /datum/outfit/plasmaman/librarian
 
-		if("Janitor")
+		if(JOB_TITLE_JANITOR)
 			O = new /datum/outfit/plasmaman/janitor
 
-		if("Botanist")
+		if(JOB_TITLE_BOTANIST)
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender")
+		if(JOB_TITLE_BARTENDER)
 			O = new /datum/outfit/plasmaman/bar
 
-		if("Internal Affairs Agent", "Magistrate")
+		if(JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)
 			O = new /datum/outfit/plasmaman/nt
 
-		if("Nanotrasen Representative")
+		if(JOB_TITLE_REPRESENTATIVE)
 			O = new /datum/outfit/plasmaman/nt_rep
 
-		if("Chef")
+		if(JOB_TITLE_CHEF)
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet")
+		if(JOB_TITLE_OFFICER)
 			O = new /datum/outfit/plasmaman/security
 
-		if("Special Operations Officer", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+		if(JOB_TITLE_CCSPECOPS, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD)
 			O = new /datum/outfit/plasmaman/specops_officer
 
-		if("Syndicate Officer")
+		if(JOB_TITLE_SYNDICATE)
 			O = new /datum/outfit/plasmaman/syndicate_officer
 
-		if("Security Pod Pilot")
+		if(JOB_TITLE_PILOT)
 			O = new /datum/outfit/plasmaman/security/pod
 
-		if("Detective")
+		if(JOB_TITLE_DETECTIVE)
 			O = new /datum/outfit/plasmaman/detective
 
-		if("Warden")
+		if(JOB_TITLE_WARDEN)
 			O = new /datum/outfit/plasmaman/warden
 
-		if("Head of Security")
+		if(JOB_TITLE_HOS)
 			O = new /datum/outfit/plasmaman/hos
 
-		if("Cargo Technician", "Quartermaster")
+		if(JOB_TITLE_CARGOTECH, JOB_TITLE_QUARTERMASTER)
 			O = new /datum/outfit/plasmaman/cargo
 
-		if("Shaft Miner")
+		if(JOB_TITLE_MINER)
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner", "Intern")
+		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_BRIGDOC, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 			O = new /datum/outfit/plasmaman/medical
 
-		if("Chief Medical Officer")
+		if(JOB_TITLE_CMO)
 			O = new /datum/outfit/plasmaman/cmo
 
-		if("Chemist")
+		if(JOB_TITLE_CHEMIST)
 			O = new /datum/outfit/plasmaman/chemist
 
-		if("Geneticist")
+		if(JOB_TITLE_GENETICIST)
 			O = new /datum/outfit/plasmaman/genetics
 
-		if("Roboticist")
+		if(JOB_TITLE_ROBOTICIST)
 			O = new /datum/outfit/plasmaman/robotics
 
-		if("Virologist")
+		if(JOB_TITLE_VIROLOGIST)
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist", "Student Scientist")
+		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
 			O = new /datum/outfit/plasmaman/science
 
 		if("Xenobiologist")
 			O = new /datum/outfit/plasmaman/xeno
 
-		if("Research Director")
+		if(JOB_TITLE_RD)
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Trainee Engineer",)
+		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 			O = new /datum/outfit/plasmaman/engineering
 
-		if("Mechanic")
+		if(JOB_TITLE_MECHANIC)
 			O = new /datum/outfit/plasmaman/engineering/mecha
 
-		if("Chief Engineer")
+		if(JOB_TITLE_CHIEF)
 			O = new /datum/outfit/plasmaman/ce
 
-		if("Life Support Specialist")
+		if(JOB_TITLE_ATMOSTECH)
 			O = new /datum/outfit/plasmaman/atmospherics
 
-		if("Mime")
+		if(JOB_TITLE_MIME)
 			O = new /datum/outfit/plasmaman/mime
 
-		if("Clown")
+		if(JOB_TITLE_CLOWN)
 			O = new /datum/outfit/plasmaman/clown
 
-		if("Head of Personnel")
+		if(JOB_TITLE_HOP)
 			O = new /datum/outfit/plasmaman/hop
 
-		if("Captain")
+		if(JOB_TITLE_CAPTAIN)
 			O = new /datum/outfit/plasmaman/captain
 
-		if("Blueshield")
+		if(JOB_TITLE_BLUESHIELD)
 			O = new /datum/outfit/plasmaman/blueshield
 
 	H.equipOutfit(O, visualsOnly)

@@ -660,7 +660,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -1009,7 +1009,7 @@
     item_state = "pouch"
     storage_slots = 2
     w_class = WEIGHT_CLASS_TINY
-    slot_flags = SLOT_BELT
+    slot_flags = SLOT_FLAG_BELT
     can_hold = list(/obj/item/ammo_box/magazine)
 
 /obj/item/storage/pouch/fast
@@ -1042,6 +1042,12 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Dominator kit"
@@ -1089,6 +1095,41 @@
 
 	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
 		new item_path(src)
+
+
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	item_state = "chinese2"
+	storage_slots = 3
+	display_contents_with_number = TRUE
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+	)
+
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

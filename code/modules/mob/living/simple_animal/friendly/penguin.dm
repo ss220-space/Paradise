@@ -13,7 +13,7 @@
 	tts_seed = "Narrator"
 	faction = list("penguin")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
-	see_in_dark = 5
+	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'

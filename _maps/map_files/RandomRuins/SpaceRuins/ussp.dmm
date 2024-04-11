@@ -122,9 +122,7 @@
 	},
 /area/derelict/bridge)
 "au" = (
-/obj/machinery/computer/atmos_alert{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/atmos_alert/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -135,12 +133,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -158,18 +151,16 @@
 	},
 /area/derelict/engineer_area)
 "az" = (
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
-	network = list("USSP")
-	},
 /obj/item/paper/djstation{
 	info = "<b>Август 28, 2532</b><hr><small>Наш пост прослушки передал несколько тревожных сообщений об активности ТСФ в секторе. Хотя перехваченные сообщения говорят о том, что это просто исследовательская работа, я не могу отделаться от ощущения, что эти упрямые ублюдки всё таки нас разыскали.<br><br> Капитан уверяет меня, что волноваться не о чем, но мне трудно воспринимать всерьез человека, параноидальное относящегося к двери душа с электроприводом.<br><br><i>- Офицер Связи Восток</i></small>";
 	name = "личный журнал";
 	pixel_x = 26;
 	pixel_y = 4;
 	language = "Neo-Russkiya"
+	},
+/obj/machinery/computer/security/old_frame{
+	network = list("USSP");
+	name = "USSP security camera console"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -185,12 +176,7 @@
 	},
 /area/derelict/bridge)
 "aB" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1282,9 +1268,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dj" = (
 /obj/structure/cable{
@@ -1380,9 +1364,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dv" = (
 /obj/item/bedsheet/blue,
@@ -1490,9 +1472,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dH" = (
 /obj/structure/grille,
@@ -2448,10 +2428,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/solar_control{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe";
-	icon_state = "frame-eng";
+/obj/machinery/power/solar_control/old_frame{
 	id = "ussp"
 	},
 /turf/simulated/floor/plasteel{
@@ -2661,10 +2638,7 @@
 /area/derelict/security)
 "gt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/core{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "rnd_oldframe";
-	icon_state = "frame-rnd";
+/obj/machinery/computer/rdconsole/core/old_frame{
 	req_access = list(131)
 	},
 /turf/simulated/floor/plasteel{
@@ -3115,12 +3089,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3245,9 +3214,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "hR" = (
-/obj/machinery/computer/atmos_alert{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/atmos_alert/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -5288,12 +5255,7 @@
 	},
 /area/derelict/med)
 "mV" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -5419,9 +5381,7 @@
 	},
 /area/derelict/med)
 "nl" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nm" = (
 /obj/structure/chair/stool,
@@ -5432,6 +5392,7 @@
 "nn" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/grille/broken,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "no" = (
@@ -5499,9 +5460,7 @@
 	},
 /area/derelict/common)
 "nw" = (
-/obj/machinery/smartfridge{
-	icon_state = "smartfridge-broken"
-	},
+/obj/machinery/smartfridge/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -5577,12 +5536,10 @@
 	},
 /area/derelict/med)
 "nG" = (
+/obj/structure/flora/rock,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
+/turf/simulated/floor/plating/airless,
+/area/derelict/garden)
 "nH" = (
 /obj/structure/cable{
 	icon_state = "1-4";
@@ -5596,25 +5553,19 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nJ" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nK" = (
 /obj/item/stack/ore/slag,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nL" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -5719,28 +5670,17 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
-"oa" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "ob" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oc" = (
 /turf/space,
 /area/derelict/med)
 "od" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -5964,15 +5904,11 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oF" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oG" = (
 /obj/effect/decal/cleanable/dust,
@@ -6053,9 +5989,7 @@
 "oS" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oT" = (
 /obj/structure/rack,
@@ -6362,9 +6296,7 @@
 "pH" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/hemostat,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "pI" = (
 /obj/machinery/light/spot{
@@ -6555,9 +6487,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qg" = (
 /obj/structure/closet/body_bag,
@@ -6639,9 +6569,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qs" = (
 /obj/structure/sign/nosmoking_2,
@@ -6718,9 +6646,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qC" = (
 /obj/structure/cable{
@@ -7545,9 +7471,7 @@
 /area/derelict/arrival)
 "sK" = (
 /obj/item/stack/rods,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "sL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7590,9 +7514,7 @@
 /area/derelict/arrival)
 "ti" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "tk" = (
 /turf/simulated/wall/mineral/titanium,
@@ -7627,9 +7549,7 @@
 	},
 /area/derelict/security)
 "tI" = (
-/obj/machinery/computer/shuttle/ruins_transport_shuttle{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -7703,11 +7623,6 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/space,
 /area/template_noop)
-"uB" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
 "uK" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7901,9 +7816,7 @@
 /obj/structure/shuttle/engine/large{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "xs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -8147,12 +8060,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/derelict/arrival)
-"Af" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
 "Ah" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider{
@@ -8338,9 +8245,7 @@
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "Ch" = (
 /obj/structure/lattice,
@@ -8739,12 +8644,6 @@
 	},
 /turf/space,
 /area/template_noop)
-"Fh" = (
-/obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
 "Fi" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -9760,9 +9659,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "QW" = (
 /obj/effect/decal/cleanable/blood,
@@ -9805,9 +9702,7 @@
 "Ry" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "RH" = (
 /obj/structure/chair/stool,
@@ -10183,9 +10078,7 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "VO" = (
 /obj/effect/decal/remains/human,
@@ -10267,10 +10160,7 @@
 	network = list("USSP")
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/arcade/orion_trail{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "oldcomp";
-	icon_screen = "stock_computer";
+/obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10374,11 +10264,9 @@
 /area/derelict/crew_quarters)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
-	network = list("USSP")
+/obj/machinery/computer/security/old_frame{
+	network = list("USSP");
+	name = "USSP security camera console"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -15672,7 +15560,7 @@ mI
 mS
 nk
 mU
-nG
+pp
 mS
 mS
 oF
@@ -15796,7 +15684,7 @@ mT
 mT
 nH
 mU
-nG
+pp
 oH
 oI
 oc
@@ -16039,7 +15927,7 @@ mV
 nm
 mS
 nJ
-oa
+pp
 oc
 oJ
 oI
@@ -16534,11 +16422,11 @@ oc
 oc
 oc
 oI
-oa
+pp
 nl
 pR
 oc
-Fh
+po
 qp
 ac
 ac
@@ -16777,9 +16665,9 @@ oc
 oc
 pq
 oc
-Fh
+po
 nl
-oa
+pp
 rY
 nl
 nl
@@ -17529,7 +17417,7 @@ ac
 ac
 ac
 ac
-uB
+lH
 xo
 ac
 ac
@@ -17651,13 +17539,13 @@ ac
 ac
 ac
 sh
-uB
-uB
+lH
+lH
 VG
 VG
-Af
-uB
-uB
+CA
+lH
+lH
 sp
 ac
 ac
@@ -17778,8 +17666,8 @@ QO
 QO
 sK
 Cg
-Af
-Af
+CA
+CA
 ac
 ac
 ac
@@ -18109,7 +17997,7 @@ ac
 ag
 mC
 Ox
-mW
+nG
 JB
 KO
 nM

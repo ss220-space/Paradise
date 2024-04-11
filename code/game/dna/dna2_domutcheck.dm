@@ -1,67 +1,44 @@
 // (Re-)Apply mutations.
 // TODO: Turn into a /mob proc, change inj to a bitflag for various forms of differing behavior.
-// M: Mob to mess with
+// mutant: Mob to mess with
 // connected: Machine we're in, type unchecked so I doubt it's used beyond monkeying
 // flags: See below, bitfield.
-/proc/domutcheck(mob/living/M, connected = null, flags = 0)
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!M || !M.dna)
-			return
-		if(!gene.block)
-			continue
+/proc/domutcheck(mob/living/mutant, connected, flags = NONE)
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		domutation(gene, mutant, connected, flags)
 
-		domutation(gene, M, connected, flags)
 
 // Use this to force a mut check on a single gene!
-/proc/genemutcheck(mob/living/M, block, connected = null, flags = 0)
-	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			return
-	if(!M)
-		return
-	if(block < 0)
-		return
-
-	var/datum/dna/gene/gene = GLOB.assigned_gene_blocks[block]
-	domutation(gene, M, connected, flags)
+/proc/genemutcheck(mob/living/mutant, block, connected, flags = NONE)
+	return domutation(GLOB.assigned_gene_blocks[block], mutant, connected, flags)
 
 
-/proc/domutation(datum/dna/gene/gene, mob/living/M, connected = null, flags = 0)
-	if(!gene || !istype(gene))
+/proc/domutation(datum/dna/gene/gene, mob/living/mutant, connected, flags = NONE)
+	if(!istype(gene) || !gene.block || gene.block < 0 || !istype(mutant) || !mutant.dna || (NO_DNA in mutant.dna.species.species_traits))
 		return FALSE
 
-	// Current state
-	var/gene_active = M.dna.GetSEState(gene.block)
+	// Is our gene in activation bounds?
+	var/gene_in_bounds = mutant.dna.GetSEState(gene.block)
+	// Is our gene currently active?
+	var/gene_is_active = gene.is_active(mutant)
 
-	// Sanity checks, don't skip.
-	if(!gene.can_activate(M,flags) && gene_active)
-		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
+	// Do not mutate inherent species abilities
+	if(gene_in_bounds && gene_is_active && LAZYIN(mutant.dna.species.default_genes, gene.type))
 		return FALSE
 
-	var/defaultgenes // Do not mutate inherent species abilities
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		defaultgenes = H.dna.species.default_genes
+	// Gene is in bounds but not active currently
+	if(gene_in_bounds && !gene_is_active)
+		// If our gene can be activated, we should check for conditions
+		if(!gene.can_activate(mutant, flags))
+			return FALSE
+		gene.activate(mutant, connected, flags)
+		return TRUE
 
-		if((gene in defaultgenes) && gene_active)
-			return
+	// Gene is active, we should remove it
+	if(!gene_in_bounds && gene_is_active)
+		// If our gene should be deactivated, we should check for conditions
+		if(!gene.can_deactivate(mutant, flags))
+			return FALSE
+		gene.deactivate(mutant, connected, flags)
+		return TRUE
 
-	// Prior state
-	var/gene_prior_status = (gene.type in M.active_genes)
-	var/changed = gene_active != gene_prior_status
-
-	// If gene state has changed:
-	if(changed)
-		// Gene active (or ALWAYS ACTIVATE)
-		if(gene_active)
-			//testing("[gene.name] activated!")
-			gene.activate(M,connected,flags)
-			if(M)
-				M.active_genes |= gene.type
-		// If Gene is NOT active:
-		else
-			//testing("[gene.name] deactivated!")
-			gene.deactivate(M,connected,flags)
-			if(M)
-				M.active_genes -= gene.type

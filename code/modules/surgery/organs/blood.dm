@@ -185,7 +185,7 @@
 		blood_data["diseases"] = list()
 		for(var/datum/disease/D in diseases)
 			blood_data["diseases"] += D.Copy()
-		if(resistances?.len)
+		if(LAZYLEN(resistances))
 			blood_data["resistances"] = resistances.Copy()
 
 	switch(blood_id)
@@ -265,6 +265,8 @@
 		return
 	if(!T)
 		T = get_turf(src)
+	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+		return
 
 	var/list/temp_blood_DNA
 	var/list/b_data = get_blood_data(check_blood)

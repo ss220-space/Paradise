@@ -595,10 +595,10 @@
 
 	if(anchored)
 		to_chat(user, span_notice("You unfasten the frame."))
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		to_chat(user, span_notice("You wrench the frame into place."))
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

@@ -35,11 +35,10 @@
 	maxHealth = 50
 	health = 50
 	speed = -0.5
-	flying = TRUE
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
 	del_on_death = TRUE
-
+	light_system = MOVABLE_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = "sparks"
 	a_intent = INTENT_HARM
@@ -128,6 +127,7 @@
 		name += " ([rand(100, 999)])"
 		real_name = name
 
+	AddElement(/datum/element/simple_flying)
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_AI_UNTRACKABLE, PULSEDEMON_TRAIT)
 	// flags_2 |= RAD_NO_CONTAMINATE_2
@@ -309,7 +309,7 @@
 	Move(T)
 	if(!current_cable && !current_power)
 		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
-		if(!S.locked && !can_exit_cable)
+		if(S && !S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
 			to_chat(src, span_danger("Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!"))
@@ -363,9 +363,9 @@
 
 	if(!new_cable && !new_power)
 		if(can_exit_cable && moved)
-			speed = outside_cable_speed
+			set_varspeed(outside_cable_speed)
 	else
-		speed = inside_cable_speed
+		set_varspeed(inside_cable_speed)
 
 	if(moved)
 		if(!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))
@@ -405,6 +405,40 @@
 		current_cable = null
 		current_power = null
 		update_controlling_area()
+
+/mob/living/simple_animal/demon/pulse_demon/move_up()
+	set name = "Move Upwards"
+	set category = "IC"
+
+	var/turf/current_turf = get_turf(src)
+	if(!locate(/obj/structure/cable/multiz) in current_turf)
+		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		return FALSE
+
+	var/turf/turf_to_check = GET_TURF_ABOVE(current_turf)
+	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		return FALSE
+
+	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
+		to_chat(src, "<span class='notice'>You move upwards.</span>")
+
+/mob/living/simple_animal/demon/pulse_demon/move_down()
+	set name = "Move Down"
+	set category = "IC"
+
+	var/turf/current_turf = get_turf(src)
+	if(!locate(/obj/structure/cable/multiz) in current_turf)
+		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		return
+
+	var/turf/turf_to_check = GET_TURF_BELOW(current_turf)
+	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		return FALSE
+
+	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
+		to_chat(src, "<span class='notice'>You move down.</span>")
 
 // signal to replace relaymove where or when? // Never, actually just manage your code instead
 /obj/machinery/power/relaymove(mob/user, dir)
@@ -453,7 +487,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/update_glow()
 	var/range = 2 + (log(2, charge + 1) - log(2, 50000)) / 2
 	range = max(range, 1.5)
-	set_light(range, 2, glow_color)
+	set_light_range_power_color(range, 2, glow_color)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
@@ -654,7 +688,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
-	return T.transparent_floor || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	return (T.transparent_floor == TURF_TRANSPARENT) || T.intact || HAS_TRAIT(T, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -756,8 +790,10 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE
 
@@ -799,9 +835,6 @@
 /mob/living/simple_animal/demon/pulse_demon/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
-	return TRUE
-
 /obj/item/organ/internal/heart/demon/pulse
 	name = "perpetual pacemaker"
 	desc = "It still beats furiously, thousands of bright lights shine within it."
@@ -809,7 +842,7 @@
 
 /obj/item/organ/internal/heart/demon/pulse/Initialize(mapload)
 	. = ..()
-	set_light(13, 2, "#bbbb00")
+	set_light_range_power_color(13, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
 	. = ..()
@@ -820,7 +853,7 @@
 	. = ..()
 	M.AddComponent(/datum/component/cross_shock, 30, 500, 2 SECONDS)
 	ADD_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
-	M.set_light(3, 2, "#bbbb00")
+	M.set_light_range_power_color(3, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	REMOVE_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))

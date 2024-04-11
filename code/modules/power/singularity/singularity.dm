@@ -24,16 +24,20 @@
 	var/target = null //its target. moves towards the target if it has one
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
-	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
+	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	var/warps_projectiles = TRUE
 	allow_spin = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/Initialize(mapload, starting_energy = 50)
+	. = ..()
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
-	src.energy = starting_energy
-	..()
+	energy = starting_energy
+	if(warps_projectiles)
+		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
@@ -465,3 +469,47 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)
+
+/datum/component/proximity_monitor/singulo
+	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+
+/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
+	. = ..()
+	var/obj/effect/abstract/proximity_checker/singulo/S = .
+	S.calibrate()
+
+/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
+	. = ..()
+	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
+		S.calibrate()
+
+/obj/effect/abstract/proximity_checker/singulo
+	var/angle_to_singulo
+	var/distance_to_singulo
+
+/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
+	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
+	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
+
+/obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!istype(AM, /obj/item/projectile))
+		return
+	var/obj/item/projectile/P = AM
+	var/distance = distance_to_singulo
+	var/projectile_angle = P.Angle
+	var/angle_to_projectile = angle_to_singulo
+	if(angle_to_projectile == 180)
+		angle_to_projectile = -180
+	angle_to_projectile -= projectile_angle
+	if(angle_to_projectile > 180)
+		angle_to_projectile -= 360
+	else if(angle_to_projectile < -180)
+		angle_to_projectile += 360
+
+	if(distance == 0)
+		qdel(P)
+		return
+	projectile_angle += angle_to_projectile / (distance ** 2)
+	P.damage += 10 / distance
+	P.set_angle(projectile_angle)

@@ -68,7 +68,8 @@
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
+/mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	return TRUE
 
 
@@ -305,8 +306,7 @@
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/I in getline(src, get_turf(H)))
-					var/turf/T = I
+				for(var/turf/T as anything in get_line(src, get_turf(H)))
 					for(var/obj/structure/O in T)
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O
@@ -352,7 +352,7 @@
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
 			H.density = FALSE
-			H.anchored = TRUE
+			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
 		else//some fuck pulled away our food
@@ -389,7 +389,7 @@
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
 	H.density = initial(H.density)
-	H.anchored = initial(H.anchored)
+	H.set_anchored(initial(H.anchored))
 
 	eating = FALSE
 	if(prob(2))

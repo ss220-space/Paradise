@@ -599,7 +599,6 @@ Difficulty: Very Hard
 	weather_immunities = list("lava","ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
@@ -632,6 +631,8 @@ Difficulty: Very Hard
 	. = ..()
 	if(!ancient)
 		qdel(src) //no
+		return
+	AddElement(/datum/element/simple_flying)
 	core = ancient
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
@@ -779,7 +780,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot/Initialize(mapload, target)
 	. = ..()
 	new /obj/effect/temp_visual/beam_target(get_turf(src), target) // Yup, we have to make *another* effect since beam doesn't work right with 64x64
-	set_light(4, l_color = "#ee2e27")
+	set_light(4, l_color = "#ee2e27", l_on = TRUE)
 
 /obj/effect/temp_visual/beam_target
 	duration = 1.6 SECONDS

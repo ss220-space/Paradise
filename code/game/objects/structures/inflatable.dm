@@ -33,16 +33,8 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	else
-		return FALSE
-
-
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
-
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
@@ -125,14 +117,16 @@
 /obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/inflatable/door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+
+/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 

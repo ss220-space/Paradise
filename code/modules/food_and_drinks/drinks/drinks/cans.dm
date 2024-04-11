@@ -174,6 +174,34 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
+/obj/item/reagent_containers/food/drinks/cans/energy
+	name = "heart attack"
+	desc = "The heart will say: - My stop."
+	icon_state = "heart_attack"
+	item_state = "heart_attack"
+	list_reagents = list("energetik" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/trop
+	name = "tropical spasm"
+	desc = "Get a taste of hunting down USSP soldiers."
+	icon_state = "tropical_spasm"
+	item_state = "tropical_spasm"
+	list_reagents = list("trop_eng" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/milk
+	name = "milk flow"
+	desc = "For pro gamers."
+	icon_state = "milk_flow"
+	item_state = "milk_flow"
+	list_reagents = list("milk_eng" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/grey
+	name = "GreyPower"
+	desc = "Your hands will burn from GreyPower."
+	icon_state = "GreyPower"
+	item_state = "GreyPower"
+	list_reagents = list("grey_eng" = 30)
+
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "space beer"
 	desc = "Contains only water, malt and hops."

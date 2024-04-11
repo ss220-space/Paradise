@@ -1,3 +1,7 @@
+/area/syndicate/unpowered
+	has_gravity = STANDARD_GRAVITY
+
+
 /area/syndicate/unpowered/syndicate_space_base
 	name = "Secret Space Base"
 	icon_state = "syndie-control"

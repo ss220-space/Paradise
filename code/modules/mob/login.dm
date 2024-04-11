@@ -65,9 +65,6 @@
 	//Clear ability list and update from mob.
 	client.verbs -= GLOB.ability_verbs
 
-	if(abilities)
-		client.verbs |= abilities
-
 	client.update_active_keybindings()
 
 	//HUD updates (antag hud, etc)

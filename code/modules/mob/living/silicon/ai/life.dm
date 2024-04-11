@@ -17,7 +17,6 @@
 	updatehealth("life")
 	if(stat == DEAD)
 		return
-	update_gravity(mob_has_gravity())
 
 	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()

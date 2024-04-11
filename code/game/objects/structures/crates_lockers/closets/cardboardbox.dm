@@ -27,7 +27,7 @@
 	var/oldloc = loc
 	step(src, direction)
 	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
-	var/delay = CONFIG_GET(number/walk_speed) * move_speed_multiplier
+	var/delay = CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier
 	if(direction & (direction - 1))
 		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
 	if(oldloc != loc)

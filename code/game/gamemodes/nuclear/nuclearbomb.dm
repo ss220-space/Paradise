@@ -42,6 +42,10 @@ GLOBAL_VAR(bomb_set)
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
 
+	light_system = MOVABLE_LIGHT
+	light_power = LIGHTING_MINIMUM_POWER
+	light_range = 1
+
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 
@@ -112,11 +116,14 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	underlays.Cut()
 
+	if(panel_open)
+		. += mutable_appearance(icon, "npanel_open")
+
 	if(!lighthack)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light_on(TRUE)
 		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
 	else if(light)
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/nuclearbomb/process()
@@ -214,7 +221,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
 			return
 		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
-		anchored = FALSE
+		set_anchored(FALSE)
 		removal_stage = NUKE_MOBILE
 
 /obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
@@ -246,13 +253,13 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -261,7 +268,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -377,7 +384,7 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
-				anchored = TRUE
+				set_anchored(TRUE)
 				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 			else
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
@@ -425,13 +432,13 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
-				anchored = FALSE
+				set_anchored(FALSE)
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 			else if(isinspace())
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
 			else
-				anchored = !(anchored)
+				set_anchored(!anchored)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 				else
@@ -534,7 +541,7 @@ GLOBAL_VAR(bomb_set)
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
 			else
-				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
+				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
 			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.

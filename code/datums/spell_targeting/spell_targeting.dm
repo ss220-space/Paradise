@@ -87,26 +87,5 @@
 	SHOULD_CALL_PARENT(TRUE)
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		spell.valid_target(target, user) && (!check_if_in_range || (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))) \
-		&& (!use_obstacle_check || obstacle_check(user, target))
-
-
-/**
- * Checks if the path from the source to the target is free.
- * Mobs won't block the path. But any dense object (other than tables) will.
- *
- * Arguments:
- * * source - Where is the spell effect coming from?
- * * target - Where is the spell effect going?
- */
-/datum/spell_targeting/proc/obstacle_check(atom/source, atom/target)
-	//Checks for obstacles from A to B
-	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf as anything in getline(source, target))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy, turf, 1))
-				qdel(dummy)
-				return FALSE
-	qdel(dummy)
-	return TRUE
+		&& (!use_obstacle_check || is_path_exist(user, target, PASSTABLE))
 

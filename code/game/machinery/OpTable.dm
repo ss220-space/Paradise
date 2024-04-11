@@ -31,13 +31,6 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
-	else
-		return FALSE
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
@@ -57,7 +50,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && M.lying)
+	if(M && M.lying_angle)
 		patient = M
 	else
 		patient = null

@@ -7,7 +7,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = FALSE
 	var/installed = FALSE
 	var/require_module = FALSE
 	var/module_type = null
@@ -122,7 +121,7 @@
 			if(ghost.mind && ghost.mind.current == robot)
 				robot.key = ghost.key
 
-	robot.stat = CONSCIOUS
+	robot.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= robot //please never forget this ever kthx
 	GLOB.alive_mob_list += robot
 	robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
@@ -141,7 +140,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed -= 1 // Gotta go fast.
+	robot.add_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)	// Gotta go fast.
 	return TRUE
 
 
@@ -149,7 +148,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed += 1
+	robot.remove_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
 	return TRUE
 
 

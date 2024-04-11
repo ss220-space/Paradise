@@ -42,7 +42,7 @@
 #define UI_ORANGE 1
 #define UI_RED 0
 
-
+GLOBAL_LIST_EMPTY(restricted_door_tags)
 GLOBAL_LIST_EMPTY(airlock_overlays)
 GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
@@ -76,7 +76,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/closeOtherId
 	var/lockdownbyai = FALSE
 	var/justzap = FALSE
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/airlock_electronics
+	var/obj/item/access_control/access_electronics
+	var/has_access_electronics = TRUE
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
@@ -129,8 +131,11 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
+	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
+		// Players won't be allowed to create new buttons that open roundstart doors
+		GLOB.restricted_door_tags += id_tag
 	if(closeOtherId)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 0.5 SECONDS)
 	if(glass)
@@ -159,7 +164,8 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/Destroy()
 	SStgui.close_uis(wires)
-	QDEL_NULL(electronics)
+	QDEL_NULL(airlock_electronics)
+	QDEL_NULL(access_electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)
 	if(main_power_timer)
@@ -490,16 +496,18 @@ About the new airlock wires panel:
 
 	cut_overlays()
 
-	overlays += frame_overlay
-	overlays += filling_overlay
-	overlays += lights_overlay
-	overlays += panel_overlay
-	overlays += weld_overlay
-	overlays += sparks_overlay
-	overlays += damag_overlay
-	overlays += note_overlay
+	add_overlay(list(
+		frame_overlay,
+		filling_overlay,
+		lights_overlay,
+		panel_overlay,
+		weld_overlay,
+		sparks_overlay,
+		damag_overlay,
+		note_overlay,
+	))
 
-	overlays += check_unres()
+	add_overlay(check_unres())
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
@@ -731,7 +739,7 @@ About the new airlock wires panel:
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
 		. = list()
-		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+		set_light(l_range = 1, l_power = 1, l_color = "#00FF00", l_on = TRUE)
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
@@ -749,17 +757,30 @@ About the new airlock wires panel:
 			I.pixel_x = -32
 			. += I
 
-/obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(isElectrified() && density && istype(mover, /obj/item))
-		var/obj/item/I = mover
-		if(I.flags & CONDUCT)
-			do_sparks(5, 1, src)
-	return ..()
+
+/obj/machinery/door/airlock/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isElectrified() && density && isitem(mover) && (mover.flags & CONDUCT))
+		do_sparks(5, TRUE, src)
+
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()
 	if(isElectrified())
 		shock(user, 100)
+		return .
+
+	if(!istype(user, /mob/living/simple_animal/hostile/gorilla) || !density || operating || locked || welded || arePowerSystemsOn())
+		return .
+
+
+	open(TRUE)
+	user.visible_message(
+		span_warning("[user] grabs the door with both hands and opens it with ease!"),
+		span_notice("You easily open depowered door."),
+		span_hear("You hear groaning metal..."),
+	)
+
 
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()
@@ -1494,7 +1515,7 @@ About the new airlock wires panel:
 			DA = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		DA.anchored = TRUE
+		DA.set_anchored(TRUE)
 		DA.glass = src.glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
@@ -1507,23 +1528,30 @@ About the new airlock wires panel:
 				DA.obj_integrity = DA.max_integrity * 0.5
 		if(user)
 			to_chat(user, span_notice("You remove the airlock electronics."))
-		var/obj/item/airlock_electronics/ae
-		if(!electronics)
-			if(istype(src, /obj/machinery/door/airlock/syndicate))
-				ae = new/obj/item/airlock_electronics/syndicate(loc)
-			else
-				ae = new/obj/item/airlock_electronics(loc)
-			check_access()
-			ae.selected_accesses = length(req_access) ? req_access  : list()
-			ae.one_access = check_one_access
+
+		if(!airlock_electronics)
+			airlock_electronics = new /obj/item/airlock_electronics(loc)
+			airlock_electronics.id = id_tag
 		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+			airlock_electronics.forceMove(loc)
 		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
+			airlock_electronics.icon_state = "door_electronics_smoked"
+		airlock_electronics = null
+
+		if(has_access_electronics)
+			if(!access_electronics)
+				build_access_electronics()
+			access_electronics.forceMove(loc)
+			if(emagged)
+				access_electronics.emag_act()
+			access_electronics = null
+
 	qdel(src)
+
+/obj/machinery/door/airlock/proc/build_access_electronics()
+	access_electronics = new(src)
+	access_electronics.selected_accesses = length(req_access) ? req_access : list()
+	access_electronics.one_access = check_one_access
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)

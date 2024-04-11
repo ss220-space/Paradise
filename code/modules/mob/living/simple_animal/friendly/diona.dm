@@ -277,7 +277,7 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped()
+	I.dropped(src, null, silent)
 
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)

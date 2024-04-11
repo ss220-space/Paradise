@@ -61,6 +61,10 @@
 /// Speed boost for gargantua vampires.
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush
 
+/// Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback
+
 /////////////
 // DEBUFFS //
 /////////////

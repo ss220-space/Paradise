@@ -7,7 +7,7 @@
 	// Settings
 	/// Jobs that cannot be the kidnapping target.
 	var/static/list/forbidden_jobs = list(
-		"Captain",
+		JOB_TITLE_CAPTAIN,
 	)
 	/// Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.

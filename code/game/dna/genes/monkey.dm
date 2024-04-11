@@ -5,79 +5,65 @@
 	..()
 	block = GLOB.monkeyblock
 
-/datum/dna/gene/monkey/can_activate(mob/M, flags)
-	return ishuman(M)
 
-/datum/dna/gene/monkey/activate(mob/living/carbon/human/H, connected, flags)
-	if(!istype(H))
-		return
-	if(issmall(H))
-		return
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
-			continue
-		H.drop_item_ground(W)
+/datum/dna/gene/monkey/can_activate(mob/living/mutant, flags)
+	return ishuman(mutant) && !ismonkeybasic(mutant)
 
-	H.regenerate_icons()
-	H.SetStunned(2 SECONDS)
-	H.canmove = FALSE
-	H.icon = null
-	H.invisibility = INVISIBILITY_ABSTRACT
-	var/has_primitive_form = H.dna.species.primitive_form // cache this
+
+/datum/dna/gene/monkey/can_deactivate(mob/living/mutant, flags)
+	return ishuman(mutant) && ismonkeybasic(mutant)
+
+
+/datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, connected, flags)
+	. = ..()
+	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		mutant.drop_item_ground(item, force = TRUE)
+
+	mutant.SetStunned(2 SECONDS)
+	mutant.invisibility = INVISIBILITY_ABSTRACT
+	var/has_primitive_form = mutant.dna.species.primitive_form // cache this
 	if(has_primitive_form)
-		H.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
 
-	new /obj/effect/temp_visual/monkeyify(H.loc)
-	sleep(22)
+	new /obj/effect/temp_visual/monkeyify(mutant.loc)
+	sleep(2.2 SECONDS)
 
-	H.SetStunned(0)
-	H.invisibility = initial(H.invisibility)
+	mutant.SetStunned(0)
+	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_primitive_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
-		H.gib()
+		mutant.gib()
 		return
 
-	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
+	to_chat(mutant, "<B>You are now a [mutant.dna.species.name].</B>")
 
-	return H
 
-/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/H, connected, flags)
-	if(!istype(H))
-		return
-	if(!issmall(H))
-		return
-	for(var/obj/item/W in H)
-		if(W == H.w_uniform) // will be torn
+/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, connected, flags)
+	. = ..()
+
+	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(item == mutant.w_uniform) // will be torn
 			continue
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
-			continue
-		H.drop_item_ground(W)
-	H.regenerate_icons()
-	H.SetStunned(2 SECONDS)
-	H.canmove = FALSE
-	H.icon = null
-	H.invisibility = INVISIBILITY_ABSTRACT
-	var/has_greater_form = H.dna.species.greater_form //cache this
+		mutant.drop_item_ground(item, force = TRUE)
+
+	mutant.SetStunned(2 SECONDS)
+	mutant.invisibility = INVISIBILITY_ABSTRACT
+	var/has_greater_form = mutant.dna.species.greater_form //cache this
 	if(has_greater_form)
-		H.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
+		mutant.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
 
-	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
-	sleep(22)
+	new /obj/effect/temp_visual/monkeyify/humanify(mutant.loc)
+	sleep(2.2 SECONDS)
 
-	H.SetStunned(0)
-	H.invisibility = initial(H.invisibility)
+	mutant.SetStunned(0)
+	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
-		H.gib()
+		mutant.gib()
 		return
 
-	H.real_name = H.dna.real_name
-	H.name = H.real_name
+	mutant.real_name = mutant.dna.real_name
+	mutant.name = mutant.real_name
 
-	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
+	to_chat(mutant, "<B>You are now a [mutant.dna.species.name].</B>")
 
-	return H

@@ -12,6 +12,7 @@
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
+	pass_flags_self = PASSDOOR
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening or closing.
@@ -144,16 +145,17 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
-	return !density
 
-/obj/machinery/door/CanAtmosPass()
+/obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	// Snowflake handling for PASSGLASS.
+	if(checkpass(mover, PASSGLASS))
+		return !opacity
+
+
+/obj/machinery/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user)

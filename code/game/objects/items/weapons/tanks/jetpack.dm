@@ -82,7 +82,7 @@
 	var/turf/T = get_turf(user)
 	T.assume_air(removed)
 
-	if(!has_gravity(T) && should_leave_trail)
+	if(!user.has_gravity(T) && should_leave_trail)
 		new /obj/effect/particle_effect/ion_trails(T)
 
 	return 1

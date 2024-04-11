@@ -33,8 +33,8 @@
 		if(src.stat & BROKEN)
 			to_chat(usr, "The upload computer is broken!")
 			return
-		for(var/mob/living/silicon/ai/currentAI in GLOB.alive_mob_list)
-			if(currentAI.stat != DEAD && currentAI.see_in_dark != FALSE)
+		for(var/mob/living/silicon/ai/currentAI as anything in GLOB.ai_list)
+			if(currentAI.stat != DEAD && currentAI.nightvision != 0)
 				currentAI.laws.clear_inherent_laws()
 				SSticker?.score?.save_silicon_laws(currentAI, ninja, "AI upload hacked by ninja, all inherent laws were deleted", log_all_laws = TRUE)
 

@@ -54,7 +54,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else
@@ -65,7 +65,7 @@
 	set category = "Object"
 	set src in range(1)
 
-	if(usr.stat || usr.restrained() || !usr.incapacitated() || usr.lying)
+	if(usr.incapacitated())
 		return
 
 	if(!paperamount)

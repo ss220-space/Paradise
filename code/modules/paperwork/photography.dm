@@ -137,7 +137,7 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					var/mob/dead/observer/O = A
 					if(O.orbiting)
 						continue
-					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+					if(user.mind && !(user.mind.assigned_role == JOB_TITLE_CHAPLAIN))
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
 					else
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
@@ -249,15 +249,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				blueprints = 1
 
 			// If what we got back is actually a picture, draw it.
-			if(istype(img, /icon))
+			if(isicon(img))
 				// Check if we're looking at a mob that's lying down
-				if(istype(A, /mob/living) && A:lying)
+				if(isliving(A) && A:lying_angle)
 					// If they are, apply that effect to their picture.
 					img.BecomeLying()
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
-				if(istype(A,/atom/movable))
+				if(ismovable(A))
 					xoff+=A:step_x
 					yoff+=A:step_y
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
@@ -329,15 +329,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+	set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	if(istype(src,/obj/item/camera/spooky))
-		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
+	if(istype(src, /obj/item/camera/spooky))
+		if(user.mind && user.mind.assigned_role == JOB_TITLE_CHAPLAIN && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(delayed_turn_on)), 6.4 SECONDS)
@@ -365,6 +365,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	for(var/i = 1; i <= size; i++)
 		for(var/j = 1; j <= size; j++)
 			var/turf/T = locate(x_c, y_c, z_c)
+			if(isopenspaceturf(T))
+				T = GET_TURF_BELOW(T) // Multi-Z
 			if(can_capture_turf(T, user))
 				turfs.Add(T)
 				mobs += get_mobs(T)
@@ -563,7 +565,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = "videocam"
 	item_state = "videocam"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	var/on = FALSE
 	var/video_cooldown = 0
@@ -611,11 +613,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	camera_state(user)
 
 
-/obj/item/videocam/dropped(mob/user, silent = FALSE)
+/obj/item/videocam/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!on)
-		return
-	camera_state()
+	if(on)
+		camera_state()
 
 
 /obj/item/videocam/examine(mob/user)
@@ -644,5 +645,5 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/advanced
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 

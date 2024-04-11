@@ -22,7 +22,8 @@
 
 #define SIMPLE_SIGN(X)	((X) < 0 ? -1 : 1)
 
-#define SIGN(x) ( (x)!=0 ? (x) / abs(x) : 0 )
+/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
+#define SIGN(x) (((x) > 0) - ((x) < 0))
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
 
@@ -33,7 +34,7 @@
 #define WRAP(val, min, max) clamp(( min == max ? min : (val) - (round(((val) - (min))/((max) - (min))) * ((max) - (min))) ),min,max)
 
 // Real modulus that handles decimals
-#define MODULUS(x, y) ( (x) - (y) * round((x) / (y)) )
+#define MODULUS(x, y) ( (x) - FLOOR(x, y))
 
 // Cotangent
 #define COT(x) (1 / tan(x))

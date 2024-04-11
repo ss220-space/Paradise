@@ -10,10 +10,9 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
-	var/nightvision = FALSE
-	see_in_dark = 4
+	var/nightvision_enabled = FALSE
+	nightvision = 4
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
@@ -60,6 +59,9 @@
 
 	for(var/organ_path in get_caste_organs())
 		new organ_path(src)
+
+	if(caste_movement_delay)
+		update_alien_speed()
 
 
 /mob/living/carbon/alien/Destroy()
@@ -141,9 +143,9 @@
 			//Place is hotter than we are
 			var/thermal_protection = heat_protection //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
-				bodytemperature += (1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+				adjust_bodytemperature((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
 		else
-			bodytemperature += 1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR)
+			adjust_bodytemperature(1 * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR))
 		//	bodytemperature -= max((loc_temp - bodytemperature / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
@@ -194,9 +196,10 @@
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
 
-/mob/living/carbon/alien/movement_delay()
-	. = ..()
-	. += move_delay_add + caste_movement_delay + CONFIG_GET(number/alien_delay) //move_delay_add is used to slow aliens with stuns
+
+/mob/living/carbon/alien/proc/update_alien_speed()
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_speed, multiplicative_slowdown = caste_movement_delay)
+
 
 /mob/living/carbon/alien/getDNA()
 	return null
@@ -207,15 +210,14 @@
 /mob/living/carbon/alien/verb/nightvisiontoggle()
 	set name = "Toggle Night Vision"
 
-	if(!nightvision)
-		see_in_dark = 8
+	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		nightvision = TRUE
+		nightvision = 8
+		nightvision_enabled = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
-	else if(nightvision)
-		see_in_dark = initial(see_in_dark)
+	else if(nightvision_enabled)
 		lighting_alpha = initial(lighting_alpha)
-		nightvision = FALSE
+		nightvision_enabled = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 	update_sight()
@@ -345,11 +347,9 @@ Des: Removes all infected images from the alien.
 
 	see_invisible = initial(see_invisible)
 	sight = SEE_MOBS
-	if(nightvision)
-		see_in_dark = 8
+	if(nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		see_in_dark = initial(see_in_dark)
 		lighting_alpha = initial(lighting_alpha)
 
 	if(client.eye != src)
@@ -360,7 +360,7 @@ Des: Removes all infected images from the alien.
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		sight |= cyber_eyes.vision_flags
 		if(cyber_eyes.see_in_dark)
-			see_in_dark = max(see_in_dark, cyber_eyes.see_in_dark)
+			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
 			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
 		if(!isnull(cyber_eyes.lighting_alpha))

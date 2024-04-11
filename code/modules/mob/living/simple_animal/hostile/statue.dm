@@ -34,7 +34,7 @@
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
 
-	see_in_dark = 8
+	nightvision = 8
 	vision_range = 12
 	aggro_vision_range = 12
 

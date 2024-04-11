@@ -1,11 +1,11 @@
 /datum/job/civilian
-	title = "Civilian"
-	flag = JOB_CIVILIAN
+	title = JOB_TITLE_CIVILIAN
+	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()

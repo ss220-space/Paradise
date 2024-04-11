@@ -39,7 +39,7 @@
 
 /datum/keybinding/robot/drop_held_object
 	name = "Выложить в хранилище"
-	keys = list("Q", "Northwest")
+	keys = list("Q")
 
 /datum/keybinding/robot/drop_held_object/down(client/C)
 	. = ..()

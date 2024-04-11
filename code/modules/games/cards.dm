@@ -62,6 +62,22 @@
 /obj/item/deck/proc/build_deck()
 	return
 
+/obj/item/deck/afterattack(atom/target, mob/user, proximity, params)
+	if(!istype(target, /obj/item/cardhand))
+		return
+	var/success
+	for(var/obj/item/cardhand/cardhand in target.loc)
+		if(cardhand.parentdeck != src)
+			continue
+		for(var/datum/playingcard/card in cardhand.cards)
+			cards += card
+		qdel(cardhand)
+		success = TRUE
+
+	if(success)
+		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/deck/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/cardhand))
@@ -103,6 +119,7 @@
 /datum/action/item_action/draw_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
+		owner.changeNext_click(CLICK_CD_RAPID)
 		return D.draw_card(owner)
 	return ..()
 
@@ -620,7 +637,7 @@
 	return I
 
 
-/obj/item/cardhand/dropped(mob/user, silent = FALSE)
+/obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user)
 		direction = user.dir

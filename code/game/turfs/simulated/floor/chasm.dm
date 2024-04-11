@@ -9,6 +9,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	layer = 1.7
 	intact = 0
+	explosion_vertical_block = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -44,11 +45,8 @@
 	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
 
-/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(!isliving(caller))
-		return TRUE
-	var/mob/living/L = caller
-	return (L.flying || ismegafauna(caller))
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((caller.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
@@ -56,7 +54,7 @@
 
 /turf/simulated/floor/chasm/Initialize()
 	. = ..()
-	drop_z = level_name_to_num(MAIN_STATION)
+	drop_z = level_name_to_num(EMPTY_AREA)
 
 /turf/simulated/floor/chasm/ex_act()
 	return
@@ -161,12 +159,16 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
+	if(iseffect(AM))
+		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating || M.incorporeal_move)
+		if(M.incorporeal_move)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -331,10 +333,10 @@
 		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
 		ourturf.visible_message(span_boldwarning("[escapee] busts through [ourturf], leaping out of the chasm below!"))
 		ourturf.ChangeTurf(ourturf.baseturf)
-	escapee.flying = TRUE
+	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
 	escapee.forceMove(ourturf)
 	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
-	escapee.flying = FALSE
+	REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 
@@ -345,5 +347,9 @@
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
+
+/// Lets people walk into chasms.
+/turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
+

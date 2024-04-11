@@ -11,6 +11,7 @@
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
+	init_air = FALSE
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	var/environment_type = "asteroid"
@@ -44,7 +45,7 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
-/turf/simulated/mineral/Spread(turf/T)
+/turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)

@@ -19,13 +19,16 @@
 	..()
 	block = GLOB.muteblock
 
-/datum/dna/gene/disability/mute/activate(mob/living/M, connected, flags)
-	. = ..()
-	ADD_TRAIT(M, TRAIT_MUTE, "dna")
 
-/datum/dna/gene/disability/mute/deactivate(mob/living/M, connected, flags)
+/datum/dna/gene/disability/mute/activate(mob/living/mutant, connected, flags)
 	. = ..()
-	REMOVE_TRAIT(M, TRAIT_MUTE, "dna")
+	ADD_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
+
+
+/datum/dna/gene/disability/mute/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	REMOVE_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
+
 
 /datum/dna/gene/disability/mute/OnSay(mob/M, message)
 	return ""
@@ -47,14 +50,11 @@
 	block = GLOB.radblock
 
 
-/datum/dna/gene/disability/radioactive/can_activate(mob/M, flags)
-	if(!..())
+/datum/dna/gene/disability/radioactive/can_activate(mob/living/mutant, flags)
+	if((RADIMMUNE in mutant.dna.species.species_traits) && !(flags & MUTCHK_FORCED))
 		return FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if((RADIMMUNE in H.dna.species.species_traits) && !(flags & MUTCHK_FORCED))
-			return FALSE
 	return TRUE
+
 
 /datum/dna/gene/disability/radioactive/OnMobLife(mob/living/carbon/human/H)
 	var/radiation_amount = abs(min(H.radiation - 20,0))

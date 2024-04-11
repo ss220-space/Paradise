@@ -161,8 +161,10 @@
 				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = 0
-				overlays.Cut()
-				overlays += "securecrateg"
+				cut_overlays()
+				add_overlay("securecrateg")
+				if(blocks_emissive)
+					add_overlay(get_emissive_block())
 			else if(input == null || length(input) != codelen)
 				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")

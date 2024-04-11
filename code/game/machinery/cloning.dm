@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/machinery/clonepod/biomass
@@ -471,14 +471,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant)
 		to_chat(user, span_warning("Can not do that while [src] is in use."))
 		return
+	set_anchored(!anchored)
 	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
 		WRENCH_UNANCHOR_MESSAGE
-		anchored = FALSE
 		connected.pods -= src
 		connected = null
-	else
-		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+
 
 /obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))

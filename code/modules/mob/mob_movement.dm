@@ -1,23 +1,3 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover, /obj/item/projectile))
-		return (!density || lying)
-	if(mover.throwing)
-		return (!density || lying || (mover.throwing.thrower == src))
-	if(mover.checkpass(PASSMOB))
-		return 1
-	if(buckled == mover)
-		return TRUE
-	if(ismob(mover))
-		var/mob/moving_mob = mover
-		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
-			return FALSE
-		if(mover in buckled_mobs)
-			return TRUE
-	return (!mover.density || !density || lying)
-
-
 /client/verb/toggle_throw_mode()
 	set hidden = 1
 	if(iscarbon(mob))
@@ -37,19 +17,14 @@
 			mob.control_object.forceMove(get_step(mob.control_object, direct))
 	return
 
-#define MOVEMENT_DELAY_BUFFER 0.75
-#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
-#define CONFUSION_LIGHT_COEFFICIENT		0.15
-#define CONFUSION_HEAVY_COEFFICIENT		0.075
-#define CONFUSION_MAX					80 SECONDS
-
 
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
-	else
-		input_data.desired_move_dir_add = NONE
-		input_data.desired_move_dir_sub = NONE
+
+	input_data.desired_move_dir_add = NONE
+	input_data.desired_move_dir_sub = NONE
+
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
@@ -71,16 +46,18 @@
 		mob.ghostize()
 		return 0
 
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, n, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+		return FALSE
+
 	if(moving)
 		return 0
 
-	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
-			move_delay = world.time + 0.5 // cap to 20fps
-			L.glide_size = 8
-			Process_Incorpmove(direct)
-			return
+	var/mob/living/L = mob	//Already checked for isliving earlier
+	if(L.incorporeal_move)//Move though walls
+		move_delay = world.time + 0.5 // cap to 20fps
+		L.glide_size = 8
+		Process_Incorpmove(direct)
+		return FALSE
 
 	if(mob.remote_control) //we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
@@ -90,7 +67,6 @@
 			var/obj/O = mob.loc
 			return O.relaymove(mob, direct) // aicards have special relaymove stuff
 		return AIMove(n, direct, mob)
-
 
 	if(Process_Grab())
 		return
@@ -111,20 +87,19 @@
 	if(!mob.Process_Spacemove(direct))
 		return 0
 
-	if(mob.restrained()) // Why being pulled while cuffed prevents you from moving
-		for(var/mob/M in orange(1, mob))
-			if(M.pulling == mob)
-				if(!M.incapacitated() && mob.Adjacent(M))
-					to_chat(src, "<span class='warning'>Вы скованы и не можете пошевелиться!</span>")
-					move_delay = world.time + 10
-					return 0
-				else
-					M.stop_pulling()
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+		return FALSE
 
+	if(mob.restrained() && mob.pulledby) // Why being pulled while cuffed prevents you from moving
+		var/mob/puller = mob.pulledby
+		if(!puller.incapacitated() && mob.Adjacent(puller))
+			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
+			move_delay = world.time + 1 SECONDS
+			return FALSE
+		puller.stop_pulling()
 
 	//We are now going to move
-	moving = 1
-	current_move_delay = mob.movement_delay()
+	current_move_delay = mob.cached_multiplicative_slowdown
 
 	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
 		var/mob/living/M = mob
@@ -132,7 +107,7 @@
 		if(!(STRONG in M.mutations) && !istype(M, /mob/living/simple_animal/hostile/construct) && !istype(M, /mob/living/simple_animal/hostile/clockwork) && !istype(M, /mob/living/simple_animal/hostile/guardian) && !(istype(R) && (/obj/item/borg/upgrade/vtec in R.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
 			current_move_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(current_move_delay))
 
-	if(old_move_delay + (current_move_delay * MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	if(old_move_delay + world.tick_lag > world.time)
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
@@ -140,20 +115,6 @@
 
 	if(locate(/obj/item/grab, mob))
 		current_move_delay += 7
-	else if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.get_confusion())
-			var/newdir = NONE
-			var/confusion = L.get_confusion()
-			if(confusion > CONFUSION_MAX)
-				newdir = pick(GLOB.alldirs)
-			else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-			else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
-				newdir = angle2dir(dir2angle(direct) + pick(45, -45))
-			if(newdir)
-				direct = newdir
-				n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, current_move_delay)
 	mob.setDir(direct)
@@ -166,17 +127,12 @@
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()
 
-	moving = 0
 	if(mob && .)
 		if(mob.throwing)
 			mob.throwing.finalize()
 
-	for(var/obj/O in mob)
-		O.on_mob_move(direct, mob)
-
-#undef CONFUSION_LIGHT_COEFFICIENT
-#undef CONFUSION_HEAVY_COEFFICIENT
-#undef CONFUSION_MAX
+		for(var/obj/O in mob)
+			O.on_mob_move(direct, mob)
 
 
 /mob/proc/SelfMove(turf/n, direct, movetime)
@@ -186,7 +142,7 @@
 ///Called by client/Move()
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
-	if(mob.grabbed_by.len)
+	if(LAZYLEN(mob.grabbed_by))
 		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
 		var/list/grabbing = list()
@@ -266,7 +222,7 @@
 				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T as anything in get_line(mobloc, L.loc))
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -295,7 +251,7 @@
 /mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
@@ -304,34 +260,64 @@
 		return 1
 	return 0
 
-/mob/get_spacemove_backup()
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+
+/mob/get_spacemove_backup(moving_direction)
+	for(var/atom/pushover as anything in range(1, get_turf(src)))
+		if(pushover == src)
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
-			if(istype(turf, /turf/space))
+		if(isarea(pushover))
+			continue
+		if(isturf(pushover))
+			var/turf/turf = pushover
+			if(isspaceturf(turf))
 				continue
 			if(!turf.density && !mob_negates_gravity())
 				continue
-			return A
-		else
-			var/atom/movable/AM = A
-			if(AM == buckled) //Kind of unnecessary but let's just be sure
+			return turf
+
+		var/atom/movable/rebound = pushover
+		if(rebound == buckled)
+			continue
+
+		if(ismob(rebound))
+			var/mob/lover = rebound
+			if(lover.buckled)
 				continue
-			if(!AM.CanPass(src) || AM.density)
-				if(AM.anchored)
-					return AM
-				if(pulling == AM)
-					continue
-				. = AM
+
+		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
+		if(!rebound.density || pass_allowed)
+			continue
+		/*
+		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
+		if(rebound.last_pushoff == world.time)
+			continue
+		if(continuous_move && !pass_allowed)
+			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
+			// If you're moving toward it and you're both going the same direction, stop
+			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+				continue
+		else if(!pass_allowed)
+			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
+				continue
+		*/
+		if(rebound.anchored)
+			return rebound
+		if(pulling == rebound)
+			continue
+		return rebound
 
 
-/mob/proc/mob_has_gravity(turf/T)
-	return has_gravity(src, T)
+/mob/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admin override.
+		return GLOB.gravity_is_on
+	return mob_negates_gravity() || ..()
 
+
+/**
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return 0
+	return FALSE
 
 
 /mob/proc/Move_Pulled(atom/target)
@@ -347,13 +333,18 @@
 			return
 	if(target == loc && pulling.density)
 		return
-	if(!Process_Spacemove(get_dir(pulling.loc, target)))
+	var/pull_dir = get_dir(pulling.loc, target)
+	if(!Process_Spacemove(pull_dir))
 		return
-	step(pulling, get_dir(pulling.loc, target))
+	if(isobj(pulling))
+		var/obj/object = pulling
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(get_step(object, pull_dir), object.dir, is_fulltile = fulltile))
+				return
+	pulling.Move(get_step(pulling.loc, pull_dir), pull_dir, glide_size)
 
-
-/mob/proc/update_gravity(has_gravity)
-	return
 
 /client/proc/check_has_body_select()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
@@ -447,7 +438,7 @@
 
 	if(!check_has_body_select())
 		return
-	
+
 	var/next_in_line
 	if(mob.zone_selected == BODY_ZONE_PRECISE_GROIN)
 		next_in_line = BODY_ZONE_TAIL
@@ -490,24 +481,60 @@
 	if(mob)
 		mob.toggle_move_intent()
 
+
 /mob/proc/toggle_move_intent()
-	if(iscarbon(src))
-		var/mob/living/carbon/C = src
-		if(C.legcuffed)
-			to_chat(C, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [C.legcuffed]!"))
-			C.m_intent = MOVE_INTENT_WALK	//Just incase
-			C.hud_used?.move_intent.icon_state = "walking"
-			return
+	return
 
-	var/icon_toggle
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
-		icon_toggle = "walking"
-	else
-		m_intent = MOVE_INTENT_RUN
-		icon_toggle = "running"
+/mob/verb/move_up()
+	set name = "Move Upwards"
+	set category = "IC"
 
-	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
-		hud_used.move_intent.icon_state = icon_toggle
-		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()
+	if(remote_control)
+		return remote_control.relaymove(src, UP)
+
+	var/turf/current_turf = get_turf(src)
+	var/turf/above_turf = GET_TURF_ABOVE(current_turf)
+
+	if(!above_turf)
+		to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
+		return
+
+	if(ismovable(loc)) //Inside an object, tell it we moved
+		var/atom/loc_atom = loc
+		return loc_atom.relaymove(src, UP)
+
+	var/mob/living/L = src
+	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
+		if(buckled)
+			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
+		else
+			to_chat(src, "<span class='notice'>You are not Superman.<span>")
+		return
+
+	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+		to_chat(src, span_notice("You move upwards."))
+
+/mob/verb/move_down()
+	set name = "Move Down"
+	set category = "IC"
+
+	if(remote_control)
+		return remote_control.relaymove(src, DOWN)
+
+	var/turf/current_turf = get_turf(src)
+	var/turf/below_turf = GET_TURF_BELOW(current_turf)
+
+	if(!below_turf)
+		to_chat(src, span_warning("There's nowhere to go in that direction!"))
+		return
+
+	if(ismovable(loc)) //Inside an object, tell it we moved
+		var/atom/loc_atom = loc
+		return loc_atom.relaymove(src, DOWN)
+
+	var/mob/living/L = src
+	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
+		to_chat(src, span_notice("You move down."))
+	return FALSE

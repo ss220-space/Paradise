@@ -55,7 +55,7 @@
 		var/old_plane = new_master.plane
 		new_master.layer = FLOAT_LAYER
 		new_master.plane = FLOAT_PLANE
-		alert.overlays += new_master
+		alert.add_overlay(new_master)
 		new_master.layer = old_layer
 		new_master.plane = old_plane
 		alert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
@@ -338,6 +338,13 @@ or something covering your eyes."
 	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
 	icon_state = "asleep"
 
+
+/obj/screen/alert/negative
+	name = "Negative Gravity"
+	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	icon_state = "negative"
+
+
 /obj/screen/alert/weightless
 	name = "Weightless"
 	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
@@ -345,6 +352,19 @@ wall or lattice, to push yourself off if you want to move. A jetpack would enabl
 magboots would let you walk around normally on the floor. Barring those, you can throw things, use a fire extinguisher, \
 or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "weightless"
+
+
+/obj/screen/alert/highgravity
+	name = "High Gravity"
+	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed."
+	icon_state = "paralysis"
+
+
+/obj/screen/alert/veryhighgravity
+	name = "Crushing Gravity"
+	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed. You'll also accumulate brute damage!"
+	icon_state = "paralysis"
+
 
 /obj/screen/alert/fire
 	name = "On Fire"
@@ -355,6 +375,16 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
+
+/obj/screen/alert/direction_lock
+	name = "Direction Lock"
+	desc = "You are facing only one direction, slowing your movement down. Click here to stop the direction lock."
+	icon_state = "direction_lock"
+
+/obj/screen/alert/direction_lock/Click()
+	if(isliving(usr))
+		var/mob/living/L = usr
+		return L.clear_forced_look()
 
 
 //ALIENS
@@ -568,7 +598,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE
-	overlays += I
+	add_overlay(I)
 
 
 /obj/screen/alert/ghost/Click()
@@ -603,7 +633,7 @@ so as to remain in compliance with the most up-to-date laws."
 			return PROCESS_KILL
 
 		if(time_left_overlay)
-			overlays -= time_left_overlay
+			cut_overlay(time_left_overlay)
 
 		var/obj/O = new
 		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
@@ -615,7 +645,7 @@ so as to remain in compliance with the most up-to-date laws."
 		var/image/I = image(O)
 		I.layer = FLOAT_LAYER
 		I.plane = FLOAT_PLANE + 1
-		overlays += I
+		add_overlay(I)
 
 		time_left_overlay = I
 		qdel(O)
@@ -625,7 +655,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/notify_action/Destroy()
 	target = null
 	if(signed_up_overlay)
-		overlays -= signed_up_overlay
+		cut_overlay(signed_up_overlay)
 		qdel(signed_up_overlay)
 	return ..()
 
@@ -677,9 +707,9 @@ so as to remain in compliance with the most up-to-date laws."
 		signed_up_overlay.layer = FLOAT_LAYER
 		signed_up_overlay.plane = FLOAT_PLANE + 2
 	if(usr in poll.signed_up)
-		overlays += signed_up_overlay
+		add_overlay(signed_up_overlay)
 	else
-		overlays -= signed_up_overlay
+		cut_overlay(signed_up_overlay)
 
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
@@ -696,7 +726,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/image/I = image(O)
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE + 1
-	overlays += I
+	add_overlay(I)
 
 	qdel(O)
 
@@ -791,9 +821,6 @@ so as to remain in compliance with the most up-to-date laws."
 		alert.screen_loc = .
 		mymob.client.screen |= alert
 	return TRUE
-
-/mob
-	var/list/alerts // lazy list. contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /obj/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)

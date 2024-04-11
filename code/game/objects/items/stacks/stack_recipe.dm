@@ -12,10 +12,14 @@
 	var/one_per_turf = 0
 	var/on_floor = 0    //must have floor under it?
 	var/on_lattice = 0  //ONLY if has on_floor = 1 checks could be built in space on lattice. Otherwise won't work.
-	var/window_checks = FALSE
+	/// If the atom is fulltile, as in a fulltile window. This is used for the direction check to prevent fulltile windows from being able to be built over directional stuff.
+	/// Setting this to true will effectively set check_direction to true.
+	var/is_fulltile = FALSE
+	/// If this atom should run the direction check, for use when building things like directional windows where you can have more than one per turf
+	var/check_direction = FALSE
 	var/cult_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, cult_structure = FALSE, on_lattice = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, is_fulltile = FALSE, check_direction = FALSE, cult_structure = FALSE, on_lattice = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -24,7 +28,8 @@
 	src.time = time
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
-	src.window_checks = window_checks
+	src.is_fulltile = is_fulltile
+	src.check_direction = check_direction || is_fulltile
 	src.cult_structure = cult_structure
 	src.on_lattice = on_lattice
 
@@ -32,14 +37,6 @@
 	return
 
 /* Special Recipes */
-
-/datum/stack_recipe/cable_restraints
-/datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
-	var/obj/item/restraints/handcuffs/cable/cable_restraints = result
-	if(istype(cable_restraints))
-		cable_restraints.cable_color(S.color)
-	..()
-
 
 /datum/stack_recipe/dangerous
 /datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
@@ -63,7 +60,7 @@
 	else if(istype(result, /obj/structure/window))
 		var/obj/structure/window/W = result
 		W.ini_dir = W.dir
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 
 /*

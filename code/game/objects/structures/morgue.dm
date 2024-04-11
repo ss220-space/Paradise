@@ -262,6 +262,7 @@
 	icon_state = "morgue_tray"
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/structure/morgue/morgue
@@ -311,21 +312,18 @@
 	return TRUE
 
 
-/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSTABLE))
+/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
-	return FALSE
 
 
 /obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(checkpass(caller, PASSTABLE))
+		. = TRUE
 
 
 /mob/proc/update_morgue()
@@ -400,10 +398,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	. = ..()
 	underlays.Cut()
 	if(cremating)
-		set_light(1, LIGHTING_MINIMUM_POWER)
+		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 		underlays += emissive_appearance(icon, "crema_active_lightmask")
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
 	if(connected)
 		return
@@ -684,6 +682,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon_state = "crema_tray"
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/machinery/crematorium/crematorium

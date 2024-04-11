@@ -11,7 +11,7 @@
 	if(istype(arrived, /mob/living/carbon))
 		var/mob/living/carbon/C = arrived
 		C.see_invisible = initial(C.see_invisible)
-		C.see_in_dark = initial(C.see_in_dark)
+		C.nightvision = initial(C.nightvision)
 		C.sight = initial(C.sight)
 		C.lighting_alpha = initial(C.lighting_alpha)
 		C.sync_lighting_plane_alpha()
@@ -37,7 +37,7 @@
 
 /datum/component/vision_reset/proc/change_vision()
 	my_mob.see_invisible = initial(my_mob.see_invisible)
-	my_mob.see_in_dark = initial(my_mob.see_in_dark)
+	my_mob.nightvision = initial(my_mob.nightvision)
 	my_mob.sight = initial(my_mob.sight)
 	my_mob.lighting_alpha = initial(my_mob.lighting_alpha)
 	my_mob.sync_lighting_plane_alpha()

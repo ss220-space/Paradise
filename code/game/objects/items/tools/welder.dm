@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 3
 	var/force_enabled = 15
 	throwforce = 5
@@ -34,12 +34,18 @@
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -99,7 +105,7 @@
 		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
-		set_light(light_intensity)
+		set_light_on(TRUE)
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -107,7 +113,7 @@
 		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		set_light(0)
+		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc

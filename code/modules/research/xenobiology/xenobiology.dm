@@ -497,10 +497,11 @@
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return
 		I.is_speedslimepotioned = TRUE
+		I.update_equipped_item()
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = CONFIG_GET(number/run_speed)
+		var/vehicle_speed_mod = CONFIG_GET(number/movedelay/run_delay)
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()
@@ -768,9 +769,11 @@
 
 /obj/effect/timestop/New()
 	..()
-	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
-			immune |= M
+	for(var/mob/living/living in GLOB.player_list)
+		if(!living.mind)
+			continue
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
+			immune |= living
 
 
 /obj/effect/timestop/proc/timestop()
@@ -782,7 +785,7 @@
 				if(M in immune)
 					continue
 				M.notransform = 1
-				M.anchored = TRUE
+				M.set_anchored(TRUE)
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
@@ -810,7 +813,7 @@
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = 0
-	M.anchored = FALSE
+	M.set_anchored(FALSE)
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

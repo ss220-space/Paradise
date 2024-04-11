@@ -965,6 +965,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	id = 1
 
+/obj/machinery/computer/rdconsole/core/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "rnd_oldframe"
+	icon_state = "frame-rnd"
+	icon_keyboard = "kb9"
+
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
@@ -984,6 +990,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 4
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
+
+/obj/machinery/computer/rdconsole/mechanics/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame-eng"
+	icon_keyboard = "kb12"
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"

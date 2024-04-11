@@ -8,6 +8,8 @@
 	/// Whether it shows up as an option to remove during surgery.
 	var/unremovable = FALSE
 	var/can_see_food = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
@@ -39,7 +41,7 @@
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ_zone], but [parent_organ_zone] wasn't an organ! [atom_loc_line(h_target)]")
 		else
-			LAZYADDOR(parent.internal_organs, src)
+			LAZYOR(parent.internal_organs, src)
 		h_target.update_int_organs()
 
 	loc = null

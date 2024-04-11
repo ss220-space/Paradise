@@ -25,16 +25,16 @@
 		if(!O.anchored)
 			if(length(chassis.cargo) < chassis.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = TRUE
+				O.set_anchored(TRUE)
 				if(do_after_cooldown(target))
 					LAZYADD(chassis.cargo, O)
 					O.loc = chassis
-					O.anchored = FALSE
+					O.set_anchored(FALSE)
 					occupant_message(span_notice("[target] successfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 					return TRUE
 				else
-					O.anchored = initial(O.anchored)
+					O.set_anchored(initial(O.anchored))
 			else
 				occupant_message(span_warning("Not enough room in cargo compartment!"))
 		else
@@ -59,16 +59,16 @@
 			if(!M.anchored)
 				if(length(chassis.cargo) < chassis.cargo_capacity)
 					chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-					M.anchored = TRUE
+					M.set_anchored(TRUE)
 					if(do_after_cooldown(target))
 						LAZYADD(chassis.cargo, M)
 						M.loc = chassis
-						M.anchored = FALSE
+						M.set_anchored(FALSE)
 						occupant_message(span_notice("[target] successfully loaded."))
 						log_message("Loaded [M]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 						return TRUE
 					else
-						M.anchored = initial(M.anchored)
+						M.set_anchored(initial(M.anchored))
 				else
 					occupant_message(span_warning("Not enough room in cargo compartment!"))
 			else
@@ -594,7 +594,7 @@
 		occupant_message(span_notice("You use [src] to deactivate [H]."))
 		qdel(H)
 	else
-		if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+		if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 			if(holocreator_busy)
 				occupant_message(span_notice("[src] is busy creating a hologram."))
 				return FALSE
@@ -611,7 +611,7 @@
 					holocreator_busy = FALSE
 					if(length(barriers) >= max_barriers)
 						return
-					if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+					if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 						return
 				H = new /obj/structure/holosign/barrier/atmos(T, src)
 				chassis.use_power(energy_drain)

@@ -251,7 +251,7 @@
 	queennest_action.Remove(src)
 	hasnested = TRUE
 	ventcrawler = 0
-	speed = 0.5
+	set_varspeed(0.5)
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
@@ -386,7 +386,7 @@
 	. = ..()
 	air_update_turf(TRUE)
 
-/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T, vertical)
 	return FALSE
 
 /obj/structure/spider/terrorweb/queen/Destroy()

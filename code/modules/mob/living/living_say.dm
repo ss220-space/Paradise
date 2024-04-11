@@ -1,9 +1,12 @@
 GLOBAL_LIST_INIT(department_radio_keys, list(
 /*
-	Busy letters by languages:
-	un ta vu sk vo di tr ki sl gr dr ni
-	xm db wr xh ts ch hs sh ab gl bo bi dt
-	sw gc sc tb gt cl nr mo ne st fa wo
+	Busy letters for language:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
+
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
 
 
 	Busy letters by radio(eng):
@@ -15,7 +18,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy symbols by radio:
-	~ , $ _ - + * 1 2 3
+	~ , $ _ - + *
 
 	CAUTION!	The key must not repeat the key of the languages (language.dm)
 				and must not contain prohibited characters!
@@ -255,10 +258,16 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
 			var/obj/item/organ/internal/vocal_cords/V = C.get_int_organ(/obj/item/organ/internal/vocal_cords)
-			if(V && V.can_speak_with())
-				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
-				V.speak_with(message) //words come before actions
-		return TRUE
+			if(!V || !V.can_speak_with())
+				return TRUE
+
+			V.speak_with(message)
+			message_pieces = V.handle_speech(message_pieces)
+			if(!LAZYLEN(message_pieces))
+				return TRUE
+
+			ignore_speech_problems = TRUE
+			ignore_atmospherics = TRUE
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
@@ -465,7 +474,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/message = multilingual_to_message(message_pieces)
 
-	say_log += "whisper: [message]"
+	LAZYADD(say_log, "whisper: [message]")
 	log_whisper(message, src)
 	var/message_range = 1
 	var/eavesdropping_range = 2

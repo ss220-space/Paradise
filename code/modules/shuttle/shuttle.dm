@@ -35,6 +35,9 @@
 
 		return QDEL_HINT_LETMELIVE
 
+/obj/docking_port/has_gravity(turf/T)
+	return FALSE
+
 /obj/docking_port/take_damage()
 	return
 
@@ -42,7 +45,7 @@
 	return
 
 /obj/docking_port/singularity_act()
-	return 0
+	return FALSE
 
 /obj/docking_port/shuttleRotate()
 	return //we don't rotate with shuttles via this code.
@@ -155,7 +158,7 @@
 /obj/docking_port/stationary
 	name = "dock"
 
-	var/turf_type = /turf/space
+	var/turf_type = /turf/baseturf_bottom
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
@@ -514,6 +517,11 @@
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
+		var/turf/new_ceiling = GET_TURF_ABOVE(T1) // Do it before atmos readjust.
+		if(new_ceiling)
+			// generate ceiling
+			new_ceiling.ChangeTurf(/turf/simulated/floor/engine/hull/ceiling)
+
 		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
@@ -524,6 +532,14 @@
 
 		if(!should_transit)
 			continue // Don't want to actually change the skipped turf
+
+		// We make roof here, before the turf change and atmos change. or the atmos will BREAK
+		var/turf/old_ceiling = GET_TURF_ABOVE(T0)
+		if(old_ceiling && istype(old_ceiling, /turf/simulated/floor/engine/hull/ceiling)) // check if a ceiling was generated previously
+			// remove old ceiling
+			var/turf/simulated/floor/engine/hull/ceiling/old_shuttle_ceiling = old_ceiling
+			old_shuttle_ceiling.ChangeTurf(old_shuttle_ceiling.old_turf_type)
+
 		T0.ChangeTurf(turf_type, keep_icon = FALSE)
 
 		SSair.remove_from_active(T0)
@@ -551,7 +567,7 @@
 	unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
-	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	var/static/list/blacklisted_turf_types = typecacheof(GLOB.blacklisted_turf_types_for_transit)
 	return is_type_in_typecache(T, blacklisted_turf_types)
 
 /obj/docking_port/mobile/proc/findTransitDock()
@@ -935,6 +951,10 @@
 	shuttleId = "ruins_transport_shuttle"
 	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame"
+	icon_keyboard = "kb6"
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
 	name = "Regular Civilian Shuttle Console"
@@ -1033,10 +1053,11 @@
 		var/obj/O
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
-			O.underlays.Add(T)
+			O.underlays += T
 		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
-			T.underlays = O.underlays
+			T.underlays.Cut()
+			T.underlays += O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
 	if(T.icon != icon)

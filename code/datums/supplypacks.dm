@@ -56,10 +56,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
+
 	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
-	var/order_limit = -1
+//	var/order_limit = -1
 	/// Number of times a crate has been ordered in a shift
-	var/times_ordered = 0
+//	var/times_ordered = 0	// Unused for now (Crate limit #3056).
+
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
 
@@ -1710,6 +1712,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
 
+//Nanotrasen tailblade
+/datum/supply_packs/science/tailblade
+	name = "Tail Laserblade Implant Design"
+	cost = 50
+	contains = list(/obj/item/disk/design_disk/tailblade/blade_nt)
+	containername = "tail laserblade design crate"
+	containertype = /obj/structure/closet/crate/secure/scisec
+	access = ACCESS_RESEARCH
+	required_tech = list("materials" = 6, "combat" = 6, "biotech" = 6, "powerstorage" = 5)
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -2565,7 +2577,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
-					/obj/structure/piano)
+					/obj/structure/piano/unanchored,
+					/obj/structure/musician/drumkit)
 	cost = 50
 	containername = "Big band musical instruments collection"
 

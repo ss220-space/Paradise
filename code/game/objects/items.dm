@@ -3,6 +3,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = PASSITEM
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
@@ -131,7 +132,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
+		SPECIES_TAJARAN = 'icons/cat/are/bad'
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
@@ -476,7 +477,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(TR.use(1))
 			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
 			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
-			anchored = TRUE
 			user.transfer_fingerprints_to(src)
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
@@ -544,7 +544,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /**
  * When item is officially left user
  */
-/obj/item/proc/dropped(mob/user, silent = FALSE)
+/obj/item/proc/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Remove any item actions we temporary gave out
@@ -651,14 +651,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(islist(equip_sound) && length(equip_sound))
 				chosen_sound = pick(equip_sound)
 			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(slot == slot_l_store || slot == slot_l_store)
+		else if(slot == SLOT_HUD_LEFT_STORE || slot == SLOT_HUD_LEFT_STORE)
 			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(pickup_sound && (slot == slot_l_hand || slot == slot_r_hand))
+		else if(pickup_sound && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
 			var/chosen_sound = pickup_sound
 			if(islist(pickup_sound) && length(pickup_sound))
 				chosen_sound = pick(pickup_sound)
 			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 
+	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
 
@@ -723,8 +724,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//Checking for storage item in offhand, then belt, then backpack
 	var/list/possible = list( \
 		user.get_inactive_hand(), \
-		user.get_item_by_slot(slot_belt), \
-		user.get_item_by_slot(slot_back) \
+		user.get_item_by_slot(SLOT_HUD_BELT), \
+		user.get_item_by_slot(SLOT_HUD_BACK) \
 	)
 
 	for(var/obj/item/storage/container in possible)
@@ -761,9 +762,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * * 'slot' is the slot we are trying to equip to
  * * 'bypass_equip_delay_self' for whether we want to bypass the equip delay
  * * 'bypass_obscured' for whether we want to ignore clothing obscuration
+ * * 'bypass_incapacitated' wheter we are ignoring user's incapacitated status (uded only for hands currently)
  */
-/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured)
+/obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
 
 /obj/item/verb/verb_pickup()
@@ -972,7 +974,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 
-/obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+/// Returns an effectiveness of an item as a crunch, which allow mobs to stand if they are missing a leg/foot?
+/obj/item/proc/is_crutch()
 	return 0
 
 
@@ -1081,59 +1084,61 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/slot = owner.get_slot_by_item(src)
 
 	switch(slot)
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			owner.wear_suit_update(src)
 
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			owner.update_inv_w_uniform()
 
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			owner.update_inv_gloves()
 
-		if(slot_neck)
+		if(SLOT_HUD_NECK)
 			owner.update_inv_neck()
 
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			owner.wear_glasses_update(src)
 
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			owner.update_head(src)
 
-		if(slot_l_ear, slot_r_ear)
+		if(SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR)
 			owner.update_inv_ears()
 
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			owner.update_inv_shoes()
 
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			owner.update_inv_belt()
 
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			owner.wear_mask_update(src)
 
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
 				h_owner.sec_hud_set_ID()
 			owner.update_inv_wear_id()
 
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			owner.update_inv_wear_pda()
 
-		if(slot_l_store, slot_r_store)
+		if(SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
 			owner.update_inv_pockets()
 
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			owner.update_inv_s_store()
 
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			owner.update_inv_back()
 
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			owner.update_inv_l_hand()
 
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			owner.update_inv_r_hand()
+
+	owner.update_equipment_speed_mods()
 
 	if(update_buttons)
 		for(var/datum/action/action as anything in actions)
@@ -1281,3 +1286,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/get_throwforce()
 	var/datum/component/sharpening/sharpening = GetComponent(/datum/component/sharpening)
 	return initial(throwforce) + sharpening?.damage_increase
+
+/// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
+/obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")

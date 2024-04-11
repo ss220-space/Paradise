@@ -31,12 +31,8 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)
@@ -156,7 +152,7 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
-	anchored = TRUE
+	set_anchored(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
@@ -293,12 +289,12 @@
 		if(active)
 			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		if(istype(get_turf(src), /turf/space))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -479,7 +475,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 
 		else if(state == 1)
@@ -487,7 +483,7 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 
 	if(I.GetID() || ispda(I))
@@ -619,17 +615,14 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(checkpass(mover, PASSGLASS))
 		return prob(20)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(10)
-		else
-			return !density
+	if(isprojectile(mover))
+		return prob(10)
 
 
 /obj/machinery/shieldwall/syndicate
@@ -637,14 +630,17 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/machinery/shieldwall/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover))
-		var/mob/living/M = mover
-		if("syndicate" in M.faction)
-			return 1
-	if(istype(mover, /obj/item/projectile))
-		return 0
-	return ..(mover, target, height)
+		var/mob/living/living_mover = mover
+		if("syndicate" in living_mover.faction)
+			return TRUE
+	else if(isprojectile(mover))
+		return FALSE
 
 
 /obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)

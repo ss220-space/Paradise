@@ -176,6 +176,7 @@
 	anchored = TRUE
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/foamedmetal/Initialize()
 	..()
@@ -220,11 +221,6 @@
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	else
-		return !density
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(turf/T, vertical)
 	return !density

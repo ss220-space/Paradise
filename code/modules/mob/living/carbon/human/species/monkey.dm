@@ -1,5 +1,5 @@
 /datum/species/monkey
-	name = "Monkey"
+	name = SPECIES_MONKEY
 	name_plural = "Monkeys"
 	blurb = "Ook."
 
@@ -13,7 +13,7 @@
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(slot_belt, slot_gloves)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
+	no_equip = list(SLOT_HUD_BELT, SLOT_HUD_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
@@ -68,17 +68,17 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
+
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.meatleft = 5
 
-/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
-	..()
-	if(!remove)
-		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+
+/datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.meatleft = initial(H.meatleft)
 
 
 /datum/species/monkey/can_understand(mob/other)
@@ -86,7 +86,7 @@
 
 
 /datum/species/monkey/tajaran
-	name = "Farwa"
+	name = SPECIES_FARWA
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
@@ -135,7 +135,7 @@
 
 
 /datum/species/monkey/vulpkanin
-	name = "Wolpin"
+	name = SPECIES_WOLPIN
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
@@ -184,7 +184,7 @@
 
 
 /datum/species/monkey/skrell
-	name = "Neara"
+	name = SPECIES_NEARA
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
@@ -239,7 +239,7 @@
 	return
 
 /datum/species/monkey/unathi
-	name = "Stok"
+	name = SPECIES_STOK
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'

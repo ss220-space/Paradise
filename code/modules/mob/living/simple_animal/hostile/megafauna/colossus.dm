@@ -65,6 +65,8 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/megafauna/colossus/LateInitialize()
@@ -331,10 +333,6 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
-	if(throwing)
-		return
-	floating = on
 
 /obj/item/projectile/colossus
 	name ="death bolt"

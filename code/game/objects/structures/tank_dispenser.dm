@@ -5,8 +5,9 @@
 	desc = "A simple yet bulky storage device for gas tanks. Has room for up to ten oxygen tanks, and ten plasma tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
-	density = 1
+	density = TRUE
 	anchored = TRUE
+	pass_flags_self = LETPASSTHROW
 	var/starting_oxygen_tanks = MAX_TANK_STORAGE // The starting amount of oxygen tanks the dispenser gets when it's spawned
 	var/starting_plasma_tanks = MAX_TANK_STORAGE // Starting amount of plasma tanks
 	var/list/stored_oxygen_tanks = list() // List of currently stored oxygen tanks
@@ -106,10 +107,10 @@
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 		return
 	return ..()
 

@@ -14,7 +14,7 @@
 /obj/machinery/computer/arcade/New()
 	..()
 	if(!circuit)
-		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
+		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
 		qdel(src)
 		return
@@ -1016,6 +1016,27 @@
 	explosion(src.loc, 1,2,4, flame_range = 3, cause = user)
 	qdel(src)
 
+/obj/machinery/computer/arcade/orion_trail/pc_frame
+	name = "special purpose computer"
+	desc = "It will be difficult to perform calculations on this computer..."
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "aimainframe"
+
+/obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "stock_computer"
+
+/obj/machinery/computer/arcade/battle/pc_frame
+	name = "special purpose computer"
+	desc = "It will be difficult to perform calculations on this computer..."
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "aimainframe"
+
+/obj/machinery/computer/arcade/battle/pc_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "stock_computer"
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS

@@ -19,7 +19,7 @@
 		else
 			temp = new
 
-		var/num_teams = min(round(length(GLOB.clients) / for_players) + 1, temp.max_teams)
+		var/num_teams = min(round(num_station_players() / for_players) + 1, temp.max_teams)
 		for(var/i in 1 to num_teams)
 			//Oh god why we can't have static functions
 			if (length(candidates) < 2)

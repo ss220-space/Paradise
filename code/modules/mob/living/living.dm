@@ -7,10 +7,13 @@
 
 /mob/living/Initialize()
 	. = ..()
+	AddElement(/datum/element/movetype_handler)
+	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
+	gravity_setup()
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
@@ -79,6 +82,67 @@
 
 /mob/living/proc/OpenCraftingMenu()
 	return
+
+/mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
+	if(!isopenspaceturf(impacted_turf))
+		impact_flags |= ZImpactDamage(impacted_turf, levels)
+
+	return ..()
+
+/mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & ZIMPACT_CANCEL_DAMAGE)
+		return .
+
+	// If you are incapped, you probably can't brace yourself
+	var/can_help_themselves = !incapacitated(ignore_restraints = TRUE)
+	if(levels <= 1 && can_help_themselves)
+		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
+		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
+			visible_message(
+				span_notice("[src] makes a hard landing on [impacted_turf] but remains unharmed from the fall."),
+				span_notice("You brace for the fall. You make a hard landing on [impacted_turf], but remain unharmed."),
+			)
+			AdjustWeakened((levels * 4 SECONDS))
+			return . | ZIMPACT_NO_MESSAGE
+	var/incoming_damage = (levels * 5) ** 1.5
+	var/cat = iscat(src)
+	var/functional_legs = TRUE
+	var/skip_weaken = FALSE
+	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+		var/obj/item/organ/external/leg = get_organ(zone)
+		if(leg.has_fracture())
+			functional_legs = FALSE
+			break
+	if(((istajaran(src) && functional_legs) || cat) && !(lying_angle || resting) && can_help_themselves)
+		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
+		skip_weaken = TRUE
+		if(cat || (DWARF in mutations)) // lil' bounce kittens
+			visible_message(
+				span_notice("[src] makes a hard landing on [impacted_turf], but lands safely on [p_their()] feet!"),
+				span_notice("You make a hard landing on [impacted_turf], but land safely on your feet!"),
+			)
+			return .
+		incoming_damage *= 1.2 // at least no stuns
+		visible_message(
+			span_danger("[src] makes a hard landing on [impacted_turf], landing on [p_their()] feet painfully!"),
+			span_userdanger("You make a hard landing on [impacted_turf], and instinctively land on your feet - still painfully!"),
+		)
+
+	if(!lying_angle && !resting)
+		var/damage_for_each_leg = round(incoming_damage / 4)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_L_LEG)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_R_LEG)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_L_FOOT)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_R_FOOT)
+
+	else
+		apply_damage(incoming_damage, BRUTE)
+
+	if(!skip_weaken)
+		AdjustWeakened(levels * 5 SECONDS)
+	return .
+
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
 /mob/living/Bump(atom/A, yes)
@@ -198,7 +262,7 @@
 /mob/living/get_pull_push_speed_modifier(current_delay)
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
-	var/average_delay = (movement_delay(TRUE) + current_delay) / 2
+	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
 
 //Called when we want to push an atom/movable
@@ -277,6 +341,25 @@
 	return TRUE
 
 
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	if(isprojectile(mover))
+		return !density || lying_angle
+	if(mover.throwing)
+		return !density || lying_angle || (mover.throwing.thrower == src && !ismob(mover))
+	if(buckled == mover)
+		return TRUE
+	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
+			return FALSE
+		if(mover in buckled_mobs)
+			return TRUE
+	return !mover.density || lying_angle
+
+
 /mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
@@ -303,7 +386,7 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view(client.maxview()))
+/mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -550,7 +633,7 @@
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	bodytemperature = 310
+	set_bodytemperature(dna ? dna.species.body_temperature : BODYTEMP_NORMAL)
 	CureBlind()
 	CureNearsighted()
 	CureMute()
@@ -635,13 +718,12 @@
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
-			return 0
+			return FALSE
 
-	var/atom/movable/pullee = pulling
-	if(pullee && get_dist(src, pullee) > 1)
+	if(pulling && get_dist(src, pulling) > 1)
 		stop_pulling()
-	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_debug("[src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+	if(pulling && !isturf(pulling.loc) && pulling.loc != loc)
+		log_debug("[src]'s pull on [pulling] was broken despite [pulling] being in [pulling.loc]. Pull stopped manually.")
 		stop_pulling()
 	if(restrained())
 		stop_pulling()
@@ -650,8 +732,9 @@
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pullee, movetime)
-		pull_grabbed(old_loc, direct, movetime)
+		pull_pulled(old_loc, pulling, movetime)
+		if(!currently_grab_pulled)
+			pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -664,17 +747,29 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
+		if(isobj(pulling))
+			var/obj/object = pulling
+			if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+				var/obj/structure/window/window = object
+				var/fulltile = istype(window) ? window.fulltile : FALSE
+				if(!valid_build_direction(dest, object.dir, is_fulltile = fulltile))
+					stop_pulling()
+					return
 
 		var/pull_dir = get_dir(src, pulling)
 		pulling.glide_size = glide_size
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
+			// This sucks.
+			// Pulling things up/down & into other z-levels. Conga line lives.
+			if(pulling.z != z && can_z_move(null, pulling, dest))
+				dest = get_step_multiz(pulling, get_dir(pulling, dest))
 			if(isliving(pulling))
 				var/mob/living/M = pulling
-				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+				if(M.lying_angle && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					if(!H.lying)
+					if(!H.lying_angle)
 						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
@@ -682,8 +777,13 @@
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
+			var/old_dir = pulling.dir
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
-			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+			if(!pulling)
+				return
+			if(pulling.dir != old_dir)
+				SEND_SIGNAL(pulling, COMSIG_ATOM_DIR_CHANGE, old_dir, pulling.dir)
+			if(get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
@@ -733,7 +833,7 @@
 		G.adjust_position()
 
 /mob/living/proc/makeTrail(turf/T)
-	if(!has_gravity(src))
+	if(!has_gravity())
 		return
 	var/blood_exists = 0
 
@@ -915,29 +1015,124 @@
 /mob/living/proc/is_facehugged()
 	return FALSE
 
-/mob/living/update_gravity(has_gravity)
-	if(!SSticker)
-		return
-	if(has_gravity)
-		clear_alert("weightless")
-	else
-		throw_alert("weightless", /obj/screen/alert/weightless)
-	if(!flying)
-		float(!has_gravity)
 
-/mob/living/proc/float(on)
-	if(throwing)
+/mob/living/proc/update_gravity(gravity)
+	// Handle movespeed stuff
+	var/speed_change = max(0, gravity - STANDARD_GRAVITY)
+	if(speed_change)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown = speed_change)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
+
+	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
+	var/obj/screen/alert/gravity_alert = LAZYACCESS(alerts, ALERT_GRAVITY)
+	switch(gravity)
+		if(-INFINITY to NEGATIVE_GRAVITY)
+			if(!istype(gravity_alert, /obj/screen/alert/negative))
+				throw_alert(ALERT_GRAVITY, /obj/screen/alert/negative)
+				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
+				var/matrix/flipped_matrix = transform
+				flipped_matrix.b = -flipped_matrix.b
+				flipped_matrix.e = -flipped_matrix.e
+				animate(src, transform = flipped_matrix, pixel_y = pixel_y+4, time = 0.5 SECONDS, easing = EASE_OUT)
+				base_pixel_y += 4
+		if(NEGATIVE_GRAVITY + 0.01 to 0)
+			if(!istype(gravity_alert, /obj/screen/alert/weightless))
+				throw_alert(ALERT_GRAVITY, /obj/screen/alert/weightless)
+				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+		if(0.01 to STANDARD_GRAVITY)
+			if(gravity_alert)
+				clear_alert(ALERT_GRAVITY)
+		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
+			throw_alert(ALERT_GRAVITY, /obj/screen/alert/highgravity)
+		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
+			throw_alert(ALERT_GRAVITY, /obj/screen/alert/veryhighgravity)
+
+	// If we had no gravity alert, or the same alert as before, go home
+	if(!gravity_alert || LAZYACCESS(alerts, ALERT_GRAVITY) == gravity_alert)
 		return
-	var/fixed = FALSE
-	if(anchored || (buckled && buckled.anchored))
-		fixed = TRUE
-	if(on && !floating && !fixed)
-		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		animate(pixel_y = pixel_y - 2, time = 10, loop = -1)
-		floating = TRUE
-	else if(((!on || fixed) && floating))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
-		floating = FALSE
+
+	// By this point we know that we do not have the same alert as we used to
+	if(istype(gravity_alert, /obj/screen/alert/weightless))
+		REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+
+	else if(istype(gravity_alert, /obj/screen/alert/negative))
+		REMOVE_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
+		var/matrix/flipped_matrix = transform
+		flipped_matrix.b = -flipped_matrix.b
+		flipped_matrix.e = -flipped_matrix.e
+		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT)
+		base_pixel_y -= 4
+
+
+///Proc to modify the value of num_legs and hook behavior associated to this event.
+/mob/living/proc/set_num_legs(new_value)
+	if(num_legs == new_value)
+		return
+	. = num_legs
+	num_legs = new_value
+
+
+///Proc to modify the value of usable_legs and hook behavior associated to this event.
+/mob/living/proc/set_usable_legs(new_value)
+	if(usable_legs == new_value)
+		return
+	if(new_value < 0) // Sanity check
+		stack_trace("[src] had set_usable_legs() called on them with a negative value!")
+		new_value = 0
+
+	. = usable_legs
+	usable_legs = new_value
+
+	update_limbless_slowdown()
+
+	/*
+	if(new_value > .) // Gained leg usage.
+		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	else if(!(movement_type & (FLYING|FLOATING))) //Lost leg usage, not flying.
+		if(!usable_legs)
+			ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+			if(!usable_hands)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	*/
+
+
+///Proc to modify the value of num_hands and hook behavior associated to this event.
+/mob/living/proc/set_num_hands(new_value)
+	if(num_hands == new_value)
+		return
+	. = num_hands
+	num_hands = new_value
+
+
+///Proc to modify the value of usable_hands and hook behavior associated to this event.
+/mob/living/proc/set_usable_hands(new_value)
+	if(usable_hands == new_value)
+		return
+	. = usable_hands
+	usable_hands = new_value
+
+	if(!usable_legs)
+		update_limbless_slowdown()	// in case we got new hand but have no legs
+
+	/*
+	if(new_value > .) // Gained hand usage.
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	else if(!(movement_type & (FLYING|FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	*/
+
+
+/mob/living/proc/update_limbless_slowdown()
+	if(usable_legs < default_num_legs)
+		var/limbless_slowdown = (default_num_legs - usable_legs) * 4 - get_crutches()
+		if(!usable_legs && usable_hands < default_num_hands)
+			limbless_slowdown += (default_num_hands - usable_hands) * 4
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
@@ -983,7 +1178,7 @@
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
 			if(!who.drop_item_ground(what, silent = silent))
 				return
-			if(silent)
+			if(silent && !QDELETED(what) && isturf(what.loc))
 				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 
@@ -1060,17 +1255,16 @@
 		if(!visual_effect_icon && used_item?.attack_effect_override)
 			visual_effect_icon = used_item.attack_effect_override
 	..()
-	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
+
+/// Helper proc that causes the mob to do a jittering animation by jitter_amount.
+/// `jitteriness` will only apply up to 300 (maximum jitter effect).
 /mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
-	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = (ANIMATION_RELATIVE|ANIMATION_PARALLEL))
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
@@ -1133,27 +1327,6 @@
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
-
-/mob/living/movement_delay(ignorewalk = 0)
-	. = ..()
-	if(isturf(loc))
-		var/turf/T = loc
-		. += T.slowdown
-	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
-	if(S)
-		. += S.slowdown_value
-	if(forced_look)
-		. += 3
-	if(ignorewalk)
-		. += CONFIG_GET(number/run_speed)
-	else
-		switch(m_intent)
-			if(MOVE_INTENT_RUN)
-				if(get_drowsiness() > 0)
-					. += 6
-				. += CONFIG_GET(number/run_speed)
-			if(MOVE_INTENT_WALK)
-				. += CONFIG_GET(number/walk_speed)
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
@@ -1263,7 +1436,7 @@
 
 
 /mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || flying || !density)
+	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	if(mob_hurt)
@@ -1349,24 +1522,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	for(var/obj/machinery/atmospherics/A in totalMembers)
 		if(!A.pipe_image)
 			A.update_pipe_image()
-		pipes_shown += A.pipe_image
+		LAZYADD(pipes_shown, A.pipe_image)
 		client.images += A.pipe_image
 
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
-		for(var/image/current_image in pipes_shown)
+		for(var/image/current_image as anything in pipes_shown)
 			client.images -= current_image
 		client.eye = src
-
-	pipes_shown.len = 0
+		LAZYCLEARLIST(pipes_shown)
 
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
 	if(!client)
-		pipes_shown.Cut()
+		LAZYCLEARLIST(pipes_shown)
 		return
-	if(length(pipes_shown) && !target_move)
+	if(LAZYLEN(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
@@ -1380,10 +1552,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return "Unknown"
 
 
+/**
+ * Can this mob see in the dark
+ *
+ * Cursed version of checking lighting_cutoffs, just making orientation on nightvision see_in_dark analog
+ *
+**/
+/mob/proc/has_nightvision()
+	return nightvision >= 4
+
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
 
 	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	var/turf/examine_turf = get_turf(target)
+
+	if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
 		return
 
 	var/examine_time = target.get_examine_time()
@@ -1425,3 +1617,44 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
 		return TRUE
 	return FALSE
+
+/**
+  * Sets the mob's direction lock towards a given atom.
+  *
+  * Arguments:
+  * * a - The atom to face towards.
+  * * track - If TRUE, updates our direction relative to the atom when moving.
+  */
+/mob/living/proc/set_forced_look(atom/A, track = FALSE)
+	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
+	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+
+/**
+  * Clears the mob's direction lock if enabled.
+  *
+  * Arguments:
+  * * quiet - Whether to display a chat message.
+  */
+/mob/living/proc/clear_forced_look(quiet = FALSE)
+	if(!forced_look)
+		return
+	forced_look = null
+	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	if(!quiet)
+		to_chat(src, span_notice("Cancelled direction lock."))
+	clear_alert("direction_lock")
+
+/mob/living/setDir(new_dir)
+	var/old_dir = dir
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
+		return
+	return ..()

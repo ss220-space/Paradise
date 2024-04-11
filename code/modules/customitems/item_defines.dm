@@ -148,7 +148,7 @@
 	force = 5
 	sharp = 0
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -194,7 +194,6 @@
 	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
 		chair.name = "vox wheelchair"
 		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
@@ -345,12 +344,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-			"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -623,7 +622,7 @@
 	desc = "A visor of alien origin, charred by fire and completely non-functioning. It's been impeccably polished, shiny!"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "charred_visor"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
@@ -946,12 +945,12 @@
 	icon_state = "k3_webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = FALSE
@@ -1213,7 +1212,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "spartan_mask"
 	item_state = "spartan_mask"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 //////////// Shoes ////////////
 
@@ -1390,18 +1389,21 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rawk_satchel"
 	sprite_sheets = null
+	item_state = "rawk_satchel"
 
 /obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+	item_state = "voxcaster_fluff"
 
 /obj/item/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
 	name = "CatPack"
 	desc = "It's a backpack, but it's also a cat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
+	item_state = "ssscratches_backpack"
 
 /obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
@@ -1476,7 +1478,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
@@ -1575,7 +1577,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
@@ -1584,7 +1586,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
     name = "Old purple scarf"
@@ -1613,6 +1615,7 @@
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
+	item_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
@@ -1620,12 +1623,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
 	displays_id = FALSE
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 /obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
 	name = "Suspicious Witch Hat"
@@ -1643,11 +1646,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 
 /obj/item/clothing/gloves/ring/fluff
@@ -1674,10 +1677,10 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)

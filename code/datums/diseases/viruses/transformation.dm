@@ -57,14 +57,11 @@
 		affected_mob.notransform = 1
 		affected_mob.canmove = FALSE
 		affected_mob.icon = null
-		affected_mob.overlays.Cut()
+		affected_mob.cut_overlays()
 		affected_mob.invisibility = INVISIBILITY_ABSTRACT
 
-		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/implant))
-				qdel(W)
-				continue
-			affected_mob.drop_item_ground(W) //Если вещь снимается - снимаем
+		for(var/obj/item/item as anything in affected_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			affected_mob.drop_item_ground(item)
 
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc

@@ -2,7 +2,6 @@
 #define ASSIGNMENT_AI "AI"
 #define ASSIGNMENT_CYBORG "Cyborg"
 #define ASSIGNMENT_ENGINEER "Engineer"
-#define ASSIGNMENT_BOTANIST "Botanist"
 #define ASSIGNMENT_JANITOR "Janitor"
 #define ASSIGNMENT_MEDICAL "Medical"
 #define ASSIGNMENT_SCIENTIST "Scientist"
@@ -188,6 +187,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ложная тревога",			/datum/event/falsealarm,				200, 	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Скопление карпов",			/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбойные дроны",			/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Космолоза",				/datum/event/spacevine, 				250,	list(ASSIGNMENT_ENGINEER = 10)),
@@ -254,7 +254,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 #undef ASSIGNMENT_AI
 #undef ASSIGNMENT_CYBORG
 #undef ASSIGNMENT_ENGINEER
-#undef ASSIGNMENT_BOTANIST
 #undef ASSIGNMENT_JANITOR
 #undef ASSIGNMENT_MEDICAL
 #undef ASSIGNMENT_SCIENTIST

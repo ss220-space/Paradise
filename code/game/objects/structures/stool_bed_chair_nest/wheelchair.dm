@@ -4,13 +4,16 @@
 	item_chair = null
 	movable = TRUE
 	pull_push_speed_modifier = 1
-
+	var/mutable_appearance/chair_overlay
 	var/move_delay = null
 
 /obj/structure/chair/wheelchair/handle_rotation()
-	overlays = null
-	var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
-	overlays += O
+	if(chair_overlay)
+		cut_overlay(chair_overlay)
+	else
+		chair_overlay = mutable_appearance(icon, "[icon_state]_overlay", FLY_LAYER)
+	chair_overlay.dir = src.dir
+	add_overlay(chair_overlay)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
@@ -20,7 +23,7 @@
 	if(propelled)
 		return 0
 
-	if(!Process_Spacemove(direction) || !has_gravity(src.loc) || !isturf(loc))
+	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))
 		return 0
 
 	if(world.time < move_delay)
@@ -35,7 +38,7 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 
@@ -109,7 +112,7 @@
 	if(propelled)
 		return 0
 
-	if(!Process_Spacemove(direction) || !has_gravity(src.loc) || !isturf(loc))	//bikes in space.
+	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))	//bikes in space.
 		return 0
 
 	if(world.time < move_delay)
@@ -125,7 +128,7 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 

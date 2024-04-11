@@ -103,7 +103,7 @@
 	embed_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force_unwielded = 5
 	force_wielded = 24
 	toolspeed = 0.25
@@ -210,8 +210,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
+	light_range = 2
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 
@@ -247,10 +249,11 @@
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		icon_state = "dualsaber[blade_color]1"
-		set_light(brightness_on, l_color = colormap[blade_color])
+		set_light_on(TRUE)
+		set_light_color(colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
-		set_light(0)
+		set_light_on(FALSE)
 
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
@@ -322,7 +325,7 @@
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force_unwielded = 10
 	force_wielded = 18
 	throwforce = 20
@@ -433,8 +436,8 @@
 			var/matrix/M = matrix()
 			I.transform = M
 			var/image/IM = image(I.icon, I.icon_state)
-			IM.overlays = I.overlays.Copy()
-			HS.overlays += IM
+			IM.copy_overlays(I)
+			HS.add_overlay(IM)
 			I.forceMove(HS)
 			HS.mounted_head = I
 			forceMove(HS)
@@ -605,7 +608,7 @@
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
 	icon_state = "mjollnir0"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
@@ -674,7 +677,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir0"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 25
@@ -716,7 +719,7 @@
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
 	icon_state = "knighthammer0"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 30
@@ -853,7 +856,7 @@
 	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force_unwielded = 10
 	force_wielded = 18
 	throwforce = 22
@@ -942,7 +945,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)

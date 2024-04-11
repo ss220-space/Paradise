@@ -38,13 +38,13 @@
 	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
-	anchored = FALSE
+	set_anchored(FALSE)
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
 		user.visible_message(span_notice("[user] picks up [src]."))
 		return TRUE
 
-	anchored = TRUE
+	set_anchored(TRUE)
 	return FALSE
 
 
@@ -78,12 +78,12 @@
 			user.visible_message("[user] begins securing [src]...", "You begin securing [src]...")
 			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
 				return
-			anchored = TRUE
+			set_anchored(TRUE)
 		else
 			user.visible_message("[user] begins unsecuring [src]...", "You begin unsecuring [src]...")
 			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))
 				return
-			anchored = FALSE
+			set_anchored(FALSE)
 
 
 /// Check if the clapper breaks, and if it does, break it

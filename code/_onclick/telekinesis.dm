@@ -80,7 +80,7 @@
 	host = null
 	return ..()
 
-/obj/item/tk_grab/dropped(mob/user, silent = FALSE)
+/obj/item/tk_grab/dropped(mob/user, slot, silent = FALSE)
 	if(focus && user && loc != user && loc != user.loc) // drop_from_active_hand() gets called when you tk-attack a table/closet with an item
 		if(focus.Adjacent(loc))
 			focus.forceMove(loc)
@@ -90,7 +90,7 @@
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
 	SHOULD_CALL_PARENT(FALSE)
-	if((slot == slot_l_hand) || (slot== slot_r_hand))
+	if((slot == SLOT_HUD_LEFT_HAND) || (slot== SLOT_HUD_RIGHT_HAND))
 		return
 	qdel(src)
 
@@ -120,7 +120,7 @@
 	var/d = get_dist(user, target)
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
-	if((d > TK_MAXRANGE)||(user.z != target.z))
+	if((d > TK_MAXRANGE)||(user.z != focus.z)) // both in range and on same z-level
 		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 		return
 

@@ -33,8 +33,8 @@
 	health = 40
 
 /mob/living/simple_animal/goose/Scientist
-	name = "Гуськор"
-	desc = "Учёный Гусь. Везде учусь. Крайне умная птица. Обожает генетику. Надеемся это не бывший пропавший генетик..."
+	name = "Гусар"
+	desc = "И учёный, и жнец, и на дуде игрец."
 	icon_state = "goose_labcoat"
 	icon_living = "goose_labcoat"
 	icon_dead = "goose_labcoat_dead"

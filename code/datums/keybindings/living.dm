@@ -34,3 +34,31 @@
 	M.set_typing_indicator(FALSE)
 	if(message)
 		M.whisper(message)
+
+/datum/keybinding/living/look_up
+	name = "Взглянуть вверх"
+	keys = list("Northwest") // Home
+
+/datum/keybinding/living/look_up/down(client/user)
+	. = ..()
+	var/mob/living/L = user.mob
+	L.look_up()
+
+/datum/keybinding/living/look_up/up(client/user)
+	. = ..()
+	var/mob/living/L = user.mob
+	L.end_look_up()
+
+/datum/keybinding/living/look_down
+	name = "Взглянуть вниз"
+	keys = list("Southwest") // End
+
+/datum/keybinding/living/look_down/down(client/user)
+	. = ..()
+	var/mob/living/L = user.mob
+	L.look_down()
+
+/datum/keybinding/living/look_down/up(client/user)
+	. = ..()
+	var/mob/living/L = user.mob
+	L.end_look_down()

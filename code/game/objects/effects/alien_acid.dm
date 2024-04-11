@@ -52,10 +52,10 @@
 		qdel(src)
 		return 0
 
-/obj/effect/acid/Crossed(AM as mob|obj)
+/obj/effect/acid/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(L.flying)
+		if(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level * 0.05, 20)

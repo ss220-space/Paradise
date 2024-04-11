@@ -96,7 +96,7 @@
 	var/mob/living/carbon/human/ninja = usr
 	switch(action)
 		if("initialise_suit")
-			if(ninja.get_item_by_slot(slot_wear_suit) == src)
+			if(ninja.get_item_by_slot(SLOT_HUD_OUTER_SUIT) == src)
 				toggle_on_off()
 				suit_tgui_state = NINJA_TGUI_LOADING_STATE
 			else

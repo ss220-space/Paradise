@@ -257,65 +257,65 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
-			if(!("Barber" in joblist))
+			if(!(JOB_TITLE_BARBER in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
 			else
 				dat += "Barber  - <font color='green'>Unlocked</font><br>"
-			if(!("Brig Physician" in joblist))
+			if(!(JOB_TITLE_BRIGDOC in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
 			else
 				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
-			if(!("Nanotrasen Representative" in joblist))
+			if(!(JOB_TITLE_REPRESENTATIVE in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
 			else
 				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
-			if(!("Blueshield" in joblist))
+			if(!(JOB_TITLE_BLUESHIELD in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
 			else
 				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
-			if(!("Security Pod Pilot" in joblist))
+			if(!(JOB_TITLE_PILOT in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
 			else
 				dat += "Security Pod Pilot - <font color='green'>Unlocked</font><br>"
-			if(!("Mechanic" in joblist))
+			if(!(JOB_TITLE_MECHANIC in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
 			else
 				dat += "Mechanic - <font color='green'>Unlocked</font><br>"
-			if(!("Magistrate" in joblist))
+			if(!(JOB_TITLE_JUDGE in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
 			else
 				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"
 
 		if(1) // Species Unlocks
-			if(!("Machine" in specieslist))
+			if(!(SPECIES_MACNINEPERSON in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>"
 			else
 				dat += "Machine People - <font color='green'>Unlocked</font><br>"
-			if(!("Kidan" in specieslist))
+			if(!(SPECIES_KIDAN in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>"
 			else
 				dat += "Kidan - <font color='green'>Unlocked</font><br>"
-			if(!("Grey" in specieslist))
+			if(!(SPECIES_GREY in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>"
 			else
 				dat += "Grey - <font color='green'>Unlocked</font><br>"
-			if(!("Drask" in specieslist))
+			if(!(SPECIES_DRASK in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>"
 			else
 				dat += "Drask - <font color='green'>Unlocked</font><br>"
-			if(!("Vox" in specieslist))
+			if(!(SPECIES_VOX in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>"
 			else
 				dat += "Vox - <font color='green'>Unlocked</font><br>"
-			if(!("Slime People" in specieslist))
+			if(!(SPECIES_SLIMEPERSON in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>"
 			else
 				dat += "Slime People - <font color='green'>Unlocked</font><br>"
-			if(!("Plasmaman" in specieslist))
+			if(!(SPECIES_PLASMAMAN in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
 			else
 				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
-			if(!("Nian" in specieslist))
+			if(!(SPECIES_MOTH in specieslist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Nian -- 30KP</a><br>"
 			else
 				dat += "Nian - <font color='green'>Unlocked</font><br>"

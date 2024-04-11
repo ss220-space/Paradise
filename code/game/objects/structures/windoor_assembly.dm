@@ -18,8 +18,10 @@
 	density = FALSE
 	dir = NORTH
 	max_integrity = 300
+	pass_flags_self = PASSGLASS
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	var/ini_dir
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/created_name
 
 	//Vars to help with the icon's name
@@ -56,36 +58,33 @@
 		temp_state = "02"
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[temp_state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
-		return FALSE
-	return 1
 
-/obj/structure/windoor_assembly/CanAtmosPass(turf/T)
+/obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(border_dir == dir)
+		return .
+
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
+
+/obj/structure/windoor_assembly/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
 		return 1
 
-/obj/structure/windoor_assembly/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+
+/obj/structure/windoor_assembly/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 /obj/structure/windoor_assembly/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
@@ -134,7 +133,10 @@
 
 		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
-			if(istype(W, /obj/item/airlock_electronics))
+			if(istype(W, /obj/item/access_control))
+				var/obj/item/access_control/control = W
+				if(control.emagged)
+					return
 				if(electronics)
 					to_chat(user, "<span class='notice'>There's already [electronics] inside!")
 					return
@@ -202,13 +204,14 @@
 				windoor.base_state = "right"
 		windoor.setDir(dir)
 		windoor.density = FALSE
-		windoor.unres_sides = electronics.unres_access_from
 
+		windoor.unres_sides = electronics.unres_access_from
 		windoor.req_access = electronics.selected_accesses
 		windoor.check_one_access = electronics.one_access
-		windoor.electronics = src.electronics
+		windoor.electronics = electronics
 		electronics.forceMove(windoor)
 		electronics = null
+
 		if(created_name)
 			windoor.name = created_name
 		qdel(src)
@@ -265,14 +268,14 @@
 				to_chat(user, "<span class='warning'>There is already a windoor in that location!</span>")
 				return
 		to_chat(user, "<span class='notice'>You tighten bolts on [src].</span>")
-		anchored = TRUE
+		set_anchored(TRUE)
 		name = "[(src.secure) ? "secure" : ""]  anchored windoor assembly"
 	else	//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 		user.visible_message("<span class='notice'>[user] begin loosening the bolts on [src]...</span>", "<span class='notice'>You begin loosening the bolts on [src]...</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != "01")
 			return
 		to_chat(user, "<span class='notice'>You loosen bolts on [src].</span>")
-		anchored = FALSE
+		set_anchored(FALSE)
 		name = "[(src.secure) ? "secure" : ""] windoor assembly"
 	update_icon(UPDATE_ICON_STATE)
 
@@ -305,7 +308,7 @@
 		return FALSE
 	var/target_dir = turn(dir, 270)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 

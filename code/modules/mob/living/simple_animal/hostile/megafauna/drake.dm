@@ -68,6 +68,12 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/mass_fire,
 							   /datum/action/innate/megafauna_attack/lava_swoop)
 
+
+/mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
+
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
 	icon_icon = 'icons/obj/wizard.dmi'
@@ -270,7 +276,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
 	SLEEP_CHECK_DEATH(0)
@@ -476,7 +482,7 @@ Difficulty: Medium
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass()
+/obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/temp_visual/lava_safe

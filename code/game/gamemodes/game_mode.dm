@@ -289,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -325,7 +325,7 @@
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -367,7 +367,7 @@
 		if(player.client && player.ready)
 			.++
 
-/datum/game_mode/proc/num_station_players()
+/proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player)
@@ -396,7 +396,7 @@
 
 	for(var/mob/living/carbon/human/player in GLOB.human_list)
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -411,7 +411,7 @@
 		if(!player)
 			continue
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -637,8 +637,8 @@
 	var/list/possible = list()
 
 	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/goal = T
-		if(config_tag in initial(goal.gamemode_blacklist))
+		var/datum/station_goal/goal = new T
+		if(config_tag in goal.gamemode_blacklist)
 			continue
 
 		possible += goal
@@ -646,8 +646,8 @@
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked_goal = pick_n_take(possible)
-		goal_weights += initial(picked_goal.weight)
-		station_goals += new picked_goal
+		goal_weights += picked_goal.weight
+		station_goals += picked_goal
 
 	if(length(station_goals))
 		send_station_goals_message()
@@ -687,6 +687,31 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/datum/game_mode/proc/apocalypse()
+	set_security_level(SEC_LEVEL_DELTA)
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(50 SECONDS)
+	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(30 SECONDS)
+	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
+	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
+	if(!N && !R)
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+		SSshuttle.emergency.request(null, 0.3)
+		SSshuttle.emergency.canRecall = FALSE
+		return
+	if(SSticker.cultdat.name == "Cult of Nar'Sie")
+		if(N.soul_devoured > 20)
+			play_cinematic(/datum/cinematic/cult_arm, world)
+			sleep(15 SECONDS)
+			SSticker.force_ending = TRUE
+			return
+	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+	sleep(8 SECONDS)
+	SSticker.force_ending = TRUE
+	qdel(R)
+	qdel(N)
 
 
 #undef NUKE_INTACT

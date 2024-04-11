@@ -126,13 +126,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			user.faction |= "faithless"
 
 			user.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
-			user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
-			user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
-			user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
-			user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), slot_head)
-			user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
-			user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
-			user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
+			user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), SLOT_HUD_JUMPSUIT)
+			user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), SLOT_HUD_SHOES)
+			user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), SLOT_HUD_OUTER_SUIT)
+			user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), SLOT_HUD_HEAD)
+			user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), SLOT_HUD_GLOVES)
+			user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), SLOT_HUD_WEAR_MASK)
+			user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), SLOT_HUD_GLASSES)
 
 			user.mind.RemoveSpell(src)
 
@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 			var/mob/living/simple_animal/ascendant_shadowling/ascendant = new (user.loc)
 			ascendant.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
-			for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list)
+			for(var/obj/effect/proc_holder/spell/spell as anything in user.mind.spell_list)
 				if(spell == src)
 					continue
 				user.mind.RemoveSpell(spell)
@@ -246,6 +246,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_phase_shift(null))
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/ascendant_storm(null))
 			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_transmit(null))
+			ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant(null))
 
 			if(ascendant.real_name)
 				ascendant.real_name = user.real_name
@@ -285,13 +286,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	add_language(LANGUAGE_HIVE_SHADOWLING)
 
 	set_species(/datum/species/shadow/ling)
-	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(src), slot_wear_suit)
-	equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(src), slot_head)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(src), slot_gloves)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), slot_glasses)
+	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(src), SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(src), SLOT_HUD_OUTER_SUIT)
+	equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(src), SLOT_HUD_HEAD)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(src), SLOT_HUD_GLOVES)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(src), SLOT_HUD_WEAR_MASK)
+	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), SLOT_HUD_GLASSES)
 
 	to_chat(src, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 

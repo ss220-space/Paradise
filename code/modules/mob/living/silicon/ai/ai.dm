@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
-	see_in_dark = 8
+	nightvision = 8
 	can_strip = 0
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -139,14 +139,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = TRUE
+	set_anchored(TRUE)
 	canmove = FALSE
 	density = 1
 	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
-
-	proc_holder_list = new()
 
 	if(B?.clock)
 		ratvar_act()
@@ -162,7 +160,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiRadio = new(src)
 	common_radio = aiRadio
 	aiRadio.myAi = src
-	additional_law_channels["Binary"] = ":b "
+	additional_law_channels["Binary"] = get_language_prefix(LANGUAGE_BINARY)
 	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/camera/siliconcam/ai_camera(src)
@@ -219,7 +217,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
 	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
 	to_chat(src, "To use something, simply click on it.")
-	to_chat(src, "Use say :b to speak to your cyborgs through binary. Use say :h to speak from an active holopad.")
+	to_chat(src, "Use say '[get_language_prefix(LANGUAGE_BINARY)]' to speak to your cyborgs through binary. Use say ':h ' to speak from an active holopad.")
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
@@ -235,7 +233,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
-	job = "AI"
+	job = JOB_TITLE_AI
 
 /mob/living/silicon/ai/Stat()
 	..()
@@ -312,7 +310,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 		// Set ai pda name
 		if(aiPDA)
-			aiPDA.set_name_and_job(newname, "AI")
+			aiPDA.set_name_and_job(newname, JOB_TITLE_AI)
 
 	return TRUE
 
@@ -617,9 +615,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return // stop
 
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
-		anchored = TRUE
+		set_anchored(TRUE)
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
@@ -682,7 +680,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	SSticker.mode.add_clocker(mind)
 	laws = new /datum/ai_laws/ratvar
-	overlays += "clockwork_frame"
+	add_overlay("clockwork_frame")
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		to_chat(R, "<span class='danger'>ERROR: Master AI has be&# &#@)!-")
 		to_chat(R, "<span class='clocklarge'>\"Your master is under my control, so do you\"")
@@ -700,7 +698,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
+		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])
@@ -721,7 +719,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["track"])
 		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
-		if(target && target.can_track())
+		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
@@ -817,7 +815,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			client.eye = eyeobj
+			client.set_eye(eyeobj)
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
 
@@ -1177,7 +1175,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "Camera lights deactivated.")
 
 		for(var/obj/machinery/camera/C in lit_cameras)
-			C.set_light(0)
+			C.set_light(l_on = FALSE)
 			lit_cameras = list()
 
 		return
@@ -1215,7 +1213,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
-	if(newmsg != arrivalmsg)
+	if(isnull(newmsg))
+		to_chat(usr, "Arrival message changing aborted.")
+	else if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")
 
@@ -1237,9 +1237,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	for(var/obj/machinery/camera/C in remove)
 		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
-		C.Togglelight(0)
+		C.Togglelight(FALSE)
 	for(var/obj/machinery/camera/C in add)
-		C.Togglelight(1)
+		C.Togglelight(TRUE)
 		lit_cameras |= C
 
 
@@ -1251,7 +1251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
@@ -1259,7 +1259,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 	else
 		return ..()
@@ -1489,7 +1489,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
@@ -1497,7 +1497,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		sight = sight &~ SEE_TURFS
 		sight = sight &~ SEE_MOBS
 		sight = sight &~ SEE_OBJS
-		see_in_dark = 0
+		nightvision = 0
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

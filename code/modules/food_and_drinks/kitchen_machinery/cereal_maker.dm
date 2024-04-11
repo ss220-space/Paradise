@@ -11,8 +11,8 @@
 /obj/machinery/cooker/cerealmaker/setIcon(obj/item/copyme, obj/item/copyto)
 	var/image/img = new(copyme.icon, copyme.icon_state)
 	img.transform *= 0.7
-	copyto.overlays += img
-	copyto.overlays += copyme.overlays
+	copyto.add_overlay(img)
+	copyto.copy_overlays(copyme)
 
 /obj/machinery/cooker/cerealmaker/changename(obj/item/name, obj/item/setme)
 	setme.name = "box of [name] cereal"

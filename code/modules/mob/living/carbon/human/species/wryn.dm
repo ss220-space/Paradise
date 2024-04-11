@@ -1,5 +1,5 @@
 /datum/species/wryn
-	name = "Wryn"
+	name = SPECIES_WRYN
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
@@ -88,7 +88,7 @@
 	name = "Жало врина"
 	desc = "Подготовка жала к ужаливанию."
 	button_icon_state = "wryn_sting_off"		//Default Button State
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/button_on = FALSE
 
 //What happens when you click the Button?

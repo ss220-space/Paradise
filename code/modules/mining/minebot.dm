@@ -36,7 +36,9 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
@@ -126,8 +128,7 @@
 /mob/living/simple_animal/hostile/mining_drone/death(gibbed)
 	DropOre(0)
 	if(stored_gun)
-		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
-			M.uninstall(stored_gun)
+		stored_gun.deattach_modkits()
 	deathmessage = "blows apart!"
 	. = ..()
 
@@ -142,17 +143,20 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/K = O
-		if(K.kinetic_gun)
-			for(var/A in K.kinetic_gun.get_modkits())
-				var/obj/item/borg/upgrade/modkit/M = A
-				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
-					return TRUE
-	if(istype(O, /obj/item/projectile/destabilizer))
+
+/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(istype(mover, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/projectile = mover
+		if(projectile.kinetic_gun)
+			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in projectile.kinetic_gun.get_modkits())
+				return TRUE
+
+	if(istype(mover, /obj/item/projectile/destabilizer))
 		return TRUE
-	return ..()
+
+
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
@@ -229,10 +233,9 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 
 	if(user.light_on)
-		user.set_light(0)
+		user.set_light_on(FALSE)
 	else
-		user.set_light(6)
-	user.light_on = !user.light_on
+		user.set_light_range(6)
 	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision

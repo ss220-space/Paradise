@@ -2,7 +2,7 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /obj/item/survivalcapsule
@@ -45,7 +45,7 @@
 	get_template()
 	if(used == FALSE)
 		var/turf/UT = get_turf(usr)
-		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+		if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
 			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
 			playsound(usr, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 			return
@@ -285,7 +285,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/fans/CanAtmosPass(turf/T)
+/obj/structure/fans/CanAtmosPass(turf/T, vertical)
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()

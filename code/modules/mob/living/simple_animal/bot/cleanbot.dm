@@ -16,7 +16,7 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	path_image_color = "#993299"
 
 	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"
@@ -191,7 +191,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
-	anchored = TRUE
+	set_anchored(TRUE)
 	visible_message(span_notice("[src] begins to clean up [target]"))
 	mode = BOT_CLEANING
 	update_icon()
@@ -203,7 +203,7 @@
 		return
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
-		anchored = FALSE
+		set_anchored(FALSE)
 	mode = BOT_IDLE
 	update_icon()
 

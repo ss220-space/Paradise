@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -18,7 +18,7 @@
 	var/saved_overlays = null
 	var/saved_underlays = null
 
-/obj/item/chameleon/dropped(mob/user, silent = FALSE)
+/obj/item/chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt()
 
@@ -200,7 +200,7 @@
 		S.cham_proj = null
 	return ..()
 
-/obj/item/borg_chameleon/dropped(mob/user, silent = FALSE)
+/obj/item/borg_chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt(user)
 

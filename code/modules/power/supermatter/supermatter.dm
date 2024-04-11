@@ -324,13 +324,22 @@
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
 	if(isAI(user))
 		return
+	if(isnucleation(user))
+		nuclear_touch(user)
+		new /obj/effect/temp_visual/heart(loc)
+		var/touch_sm = pick(list("poke", "pet", "hug", "cuddle"))
+		user.visible_message(span_notice("[user] [touch_sm]s the supermatter!"), \
+								span_notice("You [touch_sm] the supermatter!"))
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		return
+
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(user)
+	consume(user)
 
 /obj/machinery/power/supermatter_shard/proc/get_integrity()
 	var/integrity = damage / explosion_point
@@ -348,7 +357,7 @@
 	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
 		add_fingerprint(user)
 		if(!anchored)
-			anchored = !anchored
+			set_anchored(TRUE)
 			WRENCH_ANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))
@@ -359,12 +368,12 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
 		else if (anchored)
-			anchored = !anchored
+			set_anchored(FALSE)
 			WRENCH_UNANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))
@@ -375,7 +384,7 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
@@ -419,7 +428,7 @@
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)
 		add_fingerprint(user)
-		Consume(W)
+		consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
@@ -429,7 +438,10 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
-	if(istype(moving_atom, /mob/living))
+	if(isnucleation(moving_atom))
+		nuclear_touch(moving_atom)
+		return
+	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
@@ -441,10 +453,38 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(moving_atom)
+	consume(moving_atom)
+
+/obj/machinery/power/supermatter_shard/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		if(hit_object == src)
+			return
+		Bumped(hit_object)
+	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
+
+/obj/machinery/power/supermatter_shard/onZImpact(turf/impacted_turf, levels, impact_flags)
+
+	for(var/mob/living/poor_target in impacted_turf)
+		consume(poor_target)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		poor_target.visible_message(span_danger("\The [src] slams into \the [poor_target] out of nowhere inducing a resonance... [poor_target.p_their()] body starts to glow and burst into flames before flashing into dust!"),
+			span_userdanger("\The [src] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
+			span_hear("You hear an unearthly noise as a wave of heat washes over you."))
+	for(var/atom/movable/hit_object as anything in impacted_turf)
+		if(src == hit_object)
+			return
+		if(iseffect(hit_object))
+			continue
+
+		consume(hit_object)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		visible_message(span_danger("\The [src], smacks into the plating out of nowhere, reducing everything below to ash."), null,
+			span_hear("You hear a loud crack as you are washed with a wave of heat."))
+	return ..()
 
 
-/obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
+/obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
 	if(istype(AM, /mob/living))
 		var/mob/living/user = AM
 		user.gib()
@@ -531,3 +571,10 @@
 		user.visible_message("<span class='danger'>As [user] tries to loose bolts of \the [src] with \a [W] but the tool disappears</span>")
 	consume_wrench(W)
 	user.apply_effect(150, IRRADIATE)
+
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+	var/datum/species/nucleation/nuclear = user.dna.species
+	if(nuclear.touched_supermatter == FALSE)
+		user.revive()
+		nuclear.touched_supermatter = TRUE
+		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))

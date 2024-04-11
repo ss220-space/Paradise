@@ -17,10 +17,12 @@
 
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
-	opacity = 1
-	density = 1
-	blocks_air = 1
+	opacity = TRUE
+	density = TRUE
+	blocks_air = TRUE
+	init_air = FALSE
 	explosion_block = 1
+	explosion_vertical_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
@@ -47,7 +49,9 @@
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated,
 	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced)
+	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
+	)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()
@@ -245,7 +249,7 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	return ChangeTurf(/turf/simulated/floor)
+	return ChangeTurf(/turf/simulated/floor/plating)
 
 
 #define THERMITE_PER_SECOND 2.5
@@ -271,7 +275,7 @@
 	visuals.desc = "Looks hot."
 	visuals.icon = 'icons/effects/fire.dmi'
 	visuals.icon_state = "2"
-	visuals.anchored = TRUE
+	visuals.set_anchored(TRUE)
 	visuals.density = TRUE
 	visuals.layer = FLY_LAYER
 
@@ -292,7 +296,7 @@
 			sleep(0.1 SECONDS)
 		if(QDELETED(src))
 			return
-		var/turf/simulated/floor/our_floor = burn_down()
+		var/turf/simulated/floor/plating/our_floor = burn_down()
 		our_floor.burn_tile()
 		our_floor.cut_overlay(melting_olay)
 		if(visuals)
@@ -306,7 +310,7 @@
 			return
 		reagents.remove_reagent("thermite", THERMITE_PER_SECOND)
 		if(damage_cap - damage <= DAMAGE_PER_SECOND)
-			var/turf/simulated/floor/our_floor = burn_down()
+			var/turf/simulated/floor/plating/our_floor = burn_down()
 			our_floor.burn_tile()
 			break
 		take_damage(DAMAGE_PER_SECOND)

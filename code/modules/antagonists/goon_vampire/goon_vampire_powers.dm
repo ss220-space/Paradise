@@ -156,7 +156,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)
-	user.lying = FALSE
+	user.lying_angle = 0
 	user.resting = FALSE
 	user.update_canmove()
 	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))
@@ -518,7 +518,7 @@
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
 		animation.name = "water"
 		animation.density = FALSE
-		animation.anchored = TRUE
+		animation.set_anchored(TRUE)
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "liquify"
 		animation.layer = 5
@@ -628,7 +628,7 @@
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
 		animation.name = user.name
 		animation.density = FALSE
-		animation.anchored = TRUE
+		animation.set_anchored(TRUE)
 		animation.icon = user.icon
 		animation.alpha = 127
 		animation.layer = 5

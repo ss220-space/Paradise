@@ -41,7 +41,7 @@
 			attached = null
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = FALSE
+			set_anchored(FALSE)
 			density = FALSE
 
 		if(CLAMPED_OFF)
@@ -49,19 +49,19 @@
 				return
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = TRUE
+			set_anchored(TRUE)
 			density = TRUE
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
-			anchored = TRUE
+			set_anchored(TRUE)
 			density = TRUE
 
 	mode = value
 	update_icon(UPDATE_ICON_STATE)
-	set_light(0)
+	set_light_on(FALSE)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -118,7 +118,7 @@
 
 	var/datum/powernet/PN = attached.powernet
 	if(PN)
-		set_light(5)
+		set_light(5, l_on = TRUE)
 
 		// found a powernet, so drain up to max power from it
 
