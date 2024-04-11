@@ -103747,7 +103747,12 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm";
-	pixel_y = 24
+	pixel_y = 24;
+	pixel_x = 5
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
