@@ -100,6 +100,8 @@
 	var/broken_description
 	/// Descriptive string used in amputation
 	var/amputation_point
+	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
+	var/properly_attached = FALSE
 
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -114,7 +116,22 @@
 	if(ishuman(holder))
 		replaced(holder)
 		sync_colour_to_human(holder)
+		properly_attached = TRUE
+
+	if(is_robotic())
+		// These can just be slapped on.
+		properly_attached = TRUE
+
 	get_icon()
+
+	// so you can just smack the limb onto a guy to start the "surgery"
+	var/application_surgery
+	if(!is_robotic())
+		application_surgery = /datum/surgery/reattach
+	else
+		application_surgery = /datum/surgery/reattach_synth
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
 
 /obj/item/organ/external/Destroy()
@@ -156,6 +173,8 @@
 	owner = target
 
 	forceMove(owner)
+	if(iscarbon(owner))
+		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	if(LAZYLEN(embedded_objects))
 		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
@@ -411,7 +430,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = 0 //Closing all wounds.
+	open = ORGAN_CLOSED //Closing all wounds.
 	disfigured = FALSE
 
 	// handle internal organs
@@ -670,6 +689,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(organ_spilled && !silent)
 		organ_owner.visible_message(span_danger("[organ_owner]'s internal organs spill out onto the floor!"))
 
+	open = ORGAN_ORGANIC_OPEN
 	return TRUE
 
 
@@ -940,6 +960,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
+
+	// override the existing initiator
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)

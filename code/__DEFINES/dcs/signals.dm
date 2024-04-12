@@ -178,6 +178,16 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+// Attack signals. These should share the returned flags, to standardize the attack chain.
+// The chain currently works like:
+// tool_act -> pre_attackby -> target.attackby (item.attack) -> afterattack
+// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
+	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
+	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -583,8 +593,8 @@
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
+///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_PRE_ATTACKBY "item_pre_attackby"
 	#define COMPONENT_NO_ATTACK (1<<0)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
