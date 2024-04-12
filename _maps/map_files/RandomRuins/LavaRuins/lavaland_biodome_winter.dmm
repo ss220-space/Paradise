@@ -182,7 +182,8 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "aM" = (
-/turf/simulated/floor/carpet,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/wood/cold,
 /area/ruin/powered/snow_cabin)
 "aN" = (
 /obj/structure/bed/dogbed,
@@ -286,9 +287,6 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"fx" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
 "gh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -342,9 +340,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"sf" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
 "sE" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
@@ -371,11 +366,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
-"vf" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "xU" = (
@@ -578,9 +568,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"QI" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
 "QJ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/beans,
@@ -825,8 +812,8 @@ UW
 Wg
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -859,8 +846,8 @@ Wg
 aK
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -893,7 +880,7 @@ aQ
 ak
 Wg
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -926,7 +913,7 @@ ak
 ak
 ak
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -1141,8 +1128,8 @@ hk
 at
 Gf
 aD
-aM
-aM
+Bz
+Bz
 bD
 ak
 ak
@@ -1171,7 +1158,7 @@ aq
 aq
 aq
 Li
-fx
+Bz
 qI
 aq
 Zo
@@ -1205,7 +1192,7 @@ um
 Lf
 aq
 Cz
-vf
+Cz
 aq
 aq
 aD
@@ -1302,12 +1289,12 @@ tg
 as
 at
 aG
-aG
+aM
 Jl
 aG
 Ir
 at
-sf
+Bz
 bi
 ak
 ab
@@ -1553,7 +1540,7 @@ ak
 aC
 ak
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -1586,7 +1573,7 @@ ak
 ak
 Wg
 Wg
-QI
+tb
 aa
 aa
 aa
@@ -1618,8 +1605,8 @@ ak
 ak
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -1650,8 +1637,8 @@ ak
 Wg
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
