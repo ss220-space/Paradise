@@ -42,7 +42,7 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			set_anchored(FALSE)
-			density = FALSE
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
@@ -50,14 +50,14 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			set_anchored(TRUE)
-			density = TRUE
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
 			set_anchored(TRUE)
-			density = TRUE
+			set_density(TRUE)
 
 	mode = value
 	update_icon(UPDATE_ICON_STATE)

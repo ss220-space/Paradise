@@ -41,7 +41,7 @@
 	air_update_turf(1)
 
 /obj/structure/windoor_assembly/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	QDEL_NULL(electronics)
 	air_update_turf(1)
 	return ..()
@@ -183,7 +183,7 @@
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
 				return
-		density = TRUE //Shouldn't matter but just incase
+		set_density(TRUE) //Shouldn't matter but just incase
 		to_chat(user, "<span class='notice'>You finish the [(src.secure) ? "secure" : ""] windoor.</span>")
 		var/obj/machinery/door/window/windoor
 		if(secure)
@@ -203,7 +203,7 @@
 				windoor.icon_state = "rightopen"
 				windoor.base_state = "right"
 		windoor.setDir(dir)
-		windoor.density = FALSE
+		windoor.set_density(FALSE)
 
 		windoor.unres_sides = electronics.unres_access_from
 		windoor.req_access = electronics.selected_accesses

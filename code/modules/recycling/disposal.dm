@@ -67,7 +67,7 @@
 	C.ptype = ptype
 	C.update()
 	C.set_anchored(FALSE)
-	C.density = TRUE
+	C.set_density(TRUE)
 	if(!QDELING(src))
 		qdel(src)
 
@@ -218,7 +218,7 @@
 	C.ptype = deconstructs_to
 	C.update()
 	C.set_anchored(TRUE)
-	C.density = TRUE
+	C.set_density(TRUE)
 	qdel(src)
 
 // mouse drop another mob or self

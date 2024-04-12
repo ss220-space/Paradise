@@ -675,7 +675,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
 	raised = is_raised
 	raising = is_raising
-	density = is_raised || is_raising
+	set_density(is_raised || is_raising)
 
 /obj/machinery/porta_turret/proc/target(mob/living/target)
 	if(disabled)

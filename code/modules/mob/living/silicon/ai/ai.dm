@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	rename_character(null, pickedName)
 	set_anchored(TRUE)
 	canmove = FALSE
-	density = 1
+	set_density(TRUE)
 	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))

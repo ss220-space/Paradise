@@ -61,7 +61,7 @@
 	qdel(src)
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -85,7 +85,7 @@
 		add_fingerprint(user)
 		do_the_flick()
 		sleep(0.4 SECONDS)
-		density = FALSE
+		set_density(FALSE)
 		obj_flags &= ~BLOCK_Z_IN_DOWN
 		set_opacity(FALSE)
 	else
@@ -95,7 +95,7 @@
 			return
 		add_fingerprint(user)
 		do_the_flick()
-		density = TRUE
+		set_density(TRUE)
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)

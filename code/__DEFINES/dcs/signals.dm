@@ -207,6 +207,8 @@
 	#define ZIMPACT_NO_MESSAGE (1<<1)
 	/// Do not do the spin animation when landing
 	#define ZIMPACT_NO_SPIN (1<<2)
+///called when the movable sucessfully has it's density var changed, from base atom/set_density(): (value)
+#define COMSIG_ATOM_SET_DENSITY "atom_set_density"
 /////////////////
 
 ///from base of area/Entered(): (/area)

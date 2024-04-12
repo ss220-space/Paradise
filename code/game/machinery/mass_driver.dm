@@ -75,10 +75,10 @@
 /obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
 	..()
 
-	density = 0
+	set_density(FALSE)
 	step(moving_atom, get_dir(moving_atom, src))
 	spawn(1)
-		density = 1
+		set_density(TRUE)
 	drive()
 	return
 

@@ -145,7 +145,7 @@
 							H.Weaken(4 SECONDS)
 			if(i > 20)
 				user.canmove = FALSE
-				user.density = 0
+				user.set_density(FALSE)
 				for(var/mob/living/M in T.contents)
 					if(!M.lying_angle)
 						var/turf/target = get_turf(get_step(user,cur_dir))
@@ -191,7 +191,7 @@
 			else if(i < 30)
 				step(user, cur_dir)
 			sleep(1)
-		user.density = 1
+		user.set_density(TRUE)
 		user.canmove = TRUE
 		user.layer = prevLayer
 	else
@@ -266,7 +266,7 @@
 			tile.break_tile()
 		var/o=3
 		for(var/i=0, i<14, i++)
-			user.density = 0
+			user.set_density(FALSE)
 			user.canmove = FALSE
 			o++
 			if(o == 4)
@@ -306,7 +306,7 @@
 						spawn(i)
 							if(i < 3) M.pixel_y += 8
 							else M.pixel_y -= 8
-		user.density = 1
+		user.set_density(TRUE)
 		user.canmove = TRUE
 		user.layer = prevLayer
 	else

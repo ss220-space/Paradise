@@ -223,7 +223,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	air_update_turf()
 
 	stat |= BROKEN
-	density = FALSE
+	set_density(FALSE)
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	update_icon()
 

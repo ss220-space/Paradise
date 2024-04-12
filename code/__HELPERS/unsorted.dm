@@ -643,7 +643,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						// Spawn a new shuttle corner object
 						var/obj/corner = new()
 						corner.loc = X
-						corner.density = 1
+						corner.set_density(TRUE)
 						corner.set_anchored(TRUE)
 						corner.icon = X.icon
 						corner.icon_state = replacetext(X.icon_state, "_s", "_f")

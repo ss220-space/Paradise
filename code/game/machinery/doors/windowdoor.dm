@@ -41,7 +41,7 @@
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
@@ -171,7 +171,7 @@
 	update_icon()
 	sleep(1 SECONDS)
 
-	density = FALSE
+	set_density(FALSE)
 
 	air_update_turf(TRUE)
 	update_freelook_sight()
@@ -192,7 +192,7 @@
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
-	density = TRUE
+	set_density(TRUE)
 	update_icon()
 	air_update_turf(TRUE)
 	update_freelook_sight()

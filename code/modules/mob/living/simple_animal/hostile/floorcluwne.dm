@@ -184,13 +184,13 @@
 		layer = GAME_PLANE
 		invisibility = INVISIBILITY_MAXIMUM
 		mouse_opacity = 0
-		density = FALSE
+		set_density(FALSE)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
 	layer = MOB_LAYER
 	invisibility = FALSE
 	mouse_opacity = 1
-	density = TRUE
+	set_density(TRUE)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, color, mob/living/carbon/human/H)
@@ -351,7 +351,7 @@
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
-			H.density = FALSE
+			H.set_density(FALSE)
 			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
@@ -388,7 +388,7 @@
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
-	H.density = initial(H.density)
+	H.set_density(initial(H.density))
 	H.set_anchored(initial(H.anchored))
 
 	eating = FALSE

@@ -183,4 +183,4 @@
 		var/p_type = text2num(href_list["dmake"])
 		var/obj/structure/disposalconstruct/C = new(loc, p_type)
 		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
-			C.density = TRUE
+			C.set_density(TRUE)

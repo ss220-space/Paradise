@@ -45,10 +45,9 @@
 
 
 /obj/structure/closet/body_bag/close()
-	if(..())
-		density = FALSE
-		return TRUE
-	return FALSE
+	. = ..()
+	if(.)
+		set_density(FALSE)
 
 
 /obj/structure/closet/body_bag/update_icon_state()

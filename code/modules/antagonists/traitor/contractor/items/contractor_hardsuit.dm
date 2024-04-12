@@ -181,9 +181,9 @@
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
 
 			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
+			L.set_density(FALSE) // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
-			L.density = old_density
+			L.set_density(old_density)
 			firer.drop_item_ground(src)
 
 

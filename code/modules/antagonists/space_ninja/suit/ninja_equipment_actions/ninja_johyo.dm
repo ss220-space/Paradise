@@ -107,9 +107,9 @@
 		if(!target_living.anchored && target_living.loc)
 			target_living.visible_message(span_danger("[target_living] is snagged by [firer]'s chain!"))
 			var/old_density = target_living.density
-			target_living.density = FALSE // Ensures the hook does not hit the target multiple times
+			target_living.set_density(FALSE) // Ensures the hook does not hit the target multiple times
 			target_living.forceMove(get_turf(firer))
-			target_living.density = old_density
+			target_living.set_density(old_density)
 
 /obj/item/projectile/johyo/Destroy()
 	QDEL_NULL(chain)

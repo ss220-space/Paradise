@@ -1292,7 +1292,7 @@ About the new airlock wires panel:
 	set_opacity(FALSE)
 	update_freelook_sight()
 	sleep(4)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1331,7 +1331,7 @@ About the new airlock wires panel:
 	layer = CLOSED_DOOR_LAYER
 	if(!override)
 		sleep(1)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 	if(!override)
 		sleep(4)

@@ -1337,17 +1337,20 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-/*
-	Setter for the `density` variable.
-	Arguments:
-	* new_value - the new density you would want it to set.
-	Returns: Either null if identical to existing density, or the new density if different.
-*/
+/**
+ * Setter for the `density` variable.
+ * Returns: Either null if identical to existing density, or the new density if different.
+ * 
+ * Arguments:
+ * * new_value - the new density you would want it to set.
+ **/
 /atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
 	if(density == new_value)
 		return
 	. = density
 	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
 
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")

@@ -142,9 +142,9 @@
 		return
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
-	B.density = 1
+	B.set_density(TRUE)
 	if(T.Enter(B,src))//Attempt to move into the tile
-		B.density = initial(B.density)
+		B.set_density(initial(B.density))
 		B.loc = T
 	else
 		T.blob_act()//If we cant move in hit the turf

@@ -147,7 +147,7 @@
 		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
-	user.density = FALSE
+	user.set_density(FALSE)
 	original_body.notransform = TRUE
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))

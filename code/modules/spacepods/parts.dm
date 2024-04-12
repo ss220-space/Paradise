@@ -77,7 +77,7 @@
 	if(O.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
 		set_anchored(!anchored)
-		density = anchored
+		set_density(anchored)
 		playsound(get_turf(src), O.usesound, 50, 1)
 
 /obj/item/pod_parts/pod_frame/verb/rotate()

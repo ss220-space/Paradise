@@ -95,7 +95,7 @@
 		fall(fall_over)
 
 	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	density = !lying_angle
+	set_density(!lying_angle)
 	if(lying_angle)
 		if(layer == initial(layer))
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs

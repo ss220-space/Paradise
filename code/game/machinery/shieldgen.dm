@@ -19,7 +19,7 @@
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -110,18 +110,16 @@
 * The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
 */
 /obj/machinery/shield/cult/barrier/proc/Toggle()
-	var/visible
-	if(!density) // Currently invisible
-		density = TRUE // Turn visible
+	set_density(!density)
+	if(density)
 		invisibility = initial(invisibility)
-		visible = TRUE
-	else // Currently visible
-		density = FALSE // Turn invisible
+		. = TRUE
+	else
 		invisibility = INVISIBILITY_ABSTRACT
-		visible = FALSE
+		. = FALSE
 
 	air_update_turf(1)
-	return visible
+	return .
 
 /obj/machinery/shieldgen
 	name = "Emergency shield projector"

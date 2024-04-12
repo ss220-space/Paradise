@@ -87,7 +87,7 @@
 	..()
 
 /obj/machinery/door/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -404,7 +404,7 @@
 	do_animate("opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	sleep(0.5 SECONDS)
 	layer = initial(layer)
 	update_icon()
@@ -434,7 +434,7 @@
 	do_animate("closing")
 	layer = closingLayer
 	sleep(0.5 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	sleep(0.5 SECONDS)
 	update_icon()
 	if(visible && !glass)

@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', open_sound_volume, TRUE, -3)
-	density = FALSE
+	set_density(FALSE)
 	after_open()
 	return TRUE
 
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
-	density = ignore_density_closed ? FALSE : TRUE
+	set_density(!ignore_density_closed)
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -520,4 +520,4 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
-	density = 0
+	set_density(FALSE)

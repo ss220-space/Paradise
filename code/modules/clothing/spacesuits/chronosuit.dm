@@ -79,7 +79,7 @@
 		phaseanim.name = "phasing [user.name]"
 		phaseanim.icon = 'icons/mob/mob.dmi'
 		phaseanim.icon_state = "chronostuck"
-		phaseanim.density = 1
+		phaseanim.set_density(TRUE)
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
 		user.ExtinguishMob()
