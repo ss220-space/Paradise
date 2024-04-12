@@ -742,6 +742,7 @@ BLIND     // can't see anything
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	faction_restricted = list("ashwalker")
 	var/obj/item/tank/jetpack/suit/jetpack = null
+	var/jetpack_upgradable = FALSE
 
 
 /obj/item/clothing/suit/space/Initialize(mapload)
@@ -782,6 +783,9 @@ BLIND     // can't see anything
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
+		if(!jetpack_upgradable)
+			to_chat(user, span_warning("There is no slot for jetpack upgrade in [src]"))
+			return
 		if(jetpack)
 			to_chat(user, span_warning("[src] already has a jetpack installed."))
 			return

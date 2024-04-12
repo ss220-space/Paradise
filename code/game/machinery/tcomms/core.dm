@@ -36,6 +36,14 @@
 	. = ..()
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
+	var/turf/above = GET_TURF_ABOVE(loc)
+	while(above)
+		reachable_zlevels |= above.z
+		above = GET_TURF_ABOVE(above)
+	var/turf/below = GET_TURF_BELOW(loc)
+	while(below)
+		reachable_zlevels |= below.z
+		below = GET_TURF_BELOW(below)
 	component_parts += new /obj/item/circuitboard/tcomms/core(null)
 	if(check_power_on())
 		active = TRUE
@@ -121,6 +129,15 @@
 	reachable_zlevels = list()
 	// Add itself as a reachable Z-level
 	reachable_zlevels |= loc.z
+	// add adjacent zlevels above and below
+	var/turf/above = GET_TURF_ABOVE(loc)
+	while(above)
+		reachable_zlevels |= above.z
+		above = GET_TURF_ABOVE(above)
+	var/turf/below = GET_TURF_BELOW(loc)
+	while(below)
+		reachable_zlevels |= below.z
+		below = GET_TURF_BELOW(below)
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
