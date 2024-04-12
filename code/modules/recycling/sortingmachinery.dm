@@ -3,7 +3,7 @@
 	desc = "A big wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycloset"
-	density = 1
+	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/iconLabeled = "deliverycloset_labeled"
 	var/obj/wrapped = null

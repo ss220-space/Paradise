@@ -8,7 +8,7 @@
 	obj_damage = 10
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
 
 	tts_seed = "Templar"
 

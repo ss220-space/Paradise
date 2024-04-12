@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/cold_sink.dmi'
 	icon_state = "intact_off"
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 
 	name = "heat reservoir"

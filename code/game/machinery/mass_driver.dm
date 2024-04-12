@@ -70,7 +70,7 @@
 /obj/machinery/mass_driver/bumper
 	name = "mass bumper"
 	desc = "Now you're here, now you're over there."
-	density = 1
+	density = TRUE
 
 /obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
 	..()
@@ -88,7 +88,7 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	var/build = 0
 

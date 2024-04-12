@@ -5,7 +5,7 @@
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.

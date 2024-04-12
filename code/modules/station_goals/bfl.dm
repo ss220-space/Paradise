@@ -432,7 +432,7 @@
 	icon_state = "Lens_Pull"
 	max_integrity = 40
 	layer = ABOVE_MOB_LAYER
-	density = 1
+	density = TRUE
 
 	var/step_count = 0
 	var/state = FALSE

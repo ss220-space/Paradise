@@ -8,7 +8,7 @@
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE

@@ -9,7 +9,7 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null

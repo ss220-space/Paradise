@@ -3,7 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
@@ -206,7 +206,7 @@
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -282,7 +282,7 @@
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "virusfood"
 
 /obj/structure/reagent_dispensers/spacecleanertank
@@ -290,13 +290,13 @@
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	accepts_rig = 0
 	tank_volume = 1000

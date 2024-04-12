@@ -180,7 +180,7 @@
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	opacity = 0

@@ -1,7 +1,7 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	opacity = 1
 

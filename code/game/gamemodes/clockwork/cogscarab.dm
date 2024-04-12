@@ -10,7 +10,7 @@
 	icon_state = "drone"
 	health = 35
 	maxHealth = 35
-	density = 0
+	density = FALSE
 	ventcrawler = 2
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
