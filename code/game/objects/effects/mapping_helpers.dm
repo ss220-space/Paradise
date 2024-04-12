@@ -8,10 +8,14 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
+	//This will be called only after MC has successfully loaded, making changes to it's representative area
+	addtimer(CALLBACK(src, PROC_REF(initialize_replacements)), 0)
+
+/obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
 	for(var/turf/T in get_area_turfs(thearea, z))
 		replace_baseturf(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	if(thing.baseturf != thing.type)
