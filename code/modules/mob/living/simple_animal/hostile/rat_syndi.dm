@@ -14,7 +14,7 @@
 	speak_chance = 2
 	turns_per_move = 5
 	pull_force = 1000
-	density = 0
+	density = FALSE
 	ventcrawler = 2
 	can_hide = 1
 	can_collar = 1

@@ -19,7 +19,7 @@
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -112,11 +112,11 @@
 /obj/machinery/shield/cult/barrier/proc/Toggle()
 	var/visible
 	if(!density) // Currently invisible
-		density = TRUE // Turn visible
+		set_density(TRUE) // Turn visible
 		invisibility = initial(invisibility)
 		visible = TRUE
 	else // Currently visible
-		density = FALSE // Turn invisible
+		set_density(FALSE) // Turn invisible
 		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
@@ -128,7 +128,7 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
-	density = 1
+	density = TRUE
 	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
@@ -536,7 +536,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = 0

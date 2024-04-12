@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/structure/filler
 	name = "big machinery part"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/machinery/parent
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32

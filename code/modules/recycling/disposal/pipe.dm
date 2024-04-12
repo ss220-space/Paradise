@@ -259,7 +259,7 @@
 			C.ptype = PIPE_DISPOSALS_SORT_LEFT
 	src.transfer_fingerprints_to(C)
 	C.dir = dir
-	C.density = FALSE
+	C.set_density(FALSE)
 	C.set_anchored(TRUE)
 	C.update()
 

@@ -6,7 +6,7 @@
 	icon_state = "dnaopen"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	var/obj/item/forensics/swab = null
 	var/scanning = 0

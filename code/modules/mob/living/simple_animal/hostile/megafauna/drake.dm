@@ -314,7 +314,7 @@ Difficulty: Medium
 		return
 	stop_automated_movement = TRUE
 	swooping |= SWOOP_DAMAGEABLE
-	density = FALSE
+	ADD_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	icon_state = "shadow"
 	visible_message("<span class='boldwarning'>[src] swoops up high!</span>")
 
@@ -391,7 +391,7 @@ Difficulty: Medium
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 
-	density = TRUE
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	SLEEP_CHECK_DEATH(1)
 	swooping &= ~SWOOP_DAMAGEABLE
 	SetRecoveryTime(swoop_cooldown)

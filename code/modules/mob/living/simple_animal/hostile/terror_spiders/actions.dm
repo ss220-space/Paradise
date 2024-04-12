@@ -160,7 +160,7 @@
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
-	density = 0 // prevents it blocking all movement
+	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	creates_cover = TRUE
 	icon_state = "stickyweb1"

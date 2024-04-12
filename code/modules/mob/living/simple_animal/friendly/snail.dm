@@ -15,7 +15,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	ventcrawler = 2
-	density = 0
+	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	gender = NEUTER
@@ -77,7 +77,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	ventcrawler = 0
-	density = 1
+	density = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE
 	status_flags = CANPARALYSE | CANPUSH
 	mob_size = MOB_SIZE_SMALL

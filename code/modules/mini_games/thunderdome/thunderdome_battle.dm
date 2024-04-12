@@ -107,8 +107,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 			if(M.id_tag != "TD_CloseCombat")
 				continue
 			M.do_animate("closing")
-			M.density = TRUE
-			M.set_opacity(1)
+			M.set_density(TRUE)
+			M.set_opacity(TRUE)
 			M.layer = M.closingLayer
 			M.update_icon()
 
@@ -118,8 +118,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 				continue
 			if(M.density)
 				M.do_animate("opening")
-				M.density = FALSE
-				M.set_opacity(0)
+				M.set_density(FALSE)
+				M.set_opacity(FALSE)
 				M.update_icon()
 
 

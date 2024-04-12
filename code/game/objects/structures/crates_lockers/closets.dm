@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', open_sound_volume, TRUE, -3)
-	density = FALSE
+	set_density(FALSE)
 	after_open()
 	return TRUE
 
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
-	density = ignore_density_closed ? FALSE : TRUE
+	set_density(ignore_density_closed ? FALSE : TRUE)
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -459,7 +459,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
-	density = 0
+	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
@@ -520,4 +520,5 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
-	density = 0
+	if(.)
+		set_density(FALSE)

@@ -33,7 +33,7 @@
 	friendly = "touches"
 	status_flags = 0
 	wander = 0
-	density = 0
+	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
