@@ -127,6 +127,8 @@
 		wearer = null
 
 /datum/component/shielded/proc/set_wearer(mob/user)
+	if(wearer == user)
+		return
 	wearer = user
 	RegisterSignal(wearer, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(apply_shield_overlay))
 	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
