@@ -8,9 +8,10 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
-	//This will be called only after MC has successfully loaded, making changes to it's representative area
-	//Note: It might not work, if you spawn ruins with baseturf helper after MC initialization.
-	addtimer(CALLBACK(src, PROC_REF(initialize_replacements)), 0)
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/baseturf_helper/LateInitialize()
+	initialize_replacements()
 
 /obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
