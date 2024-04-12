@@ -41,7 +41,6 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /turf/simulated/floor/plating/asteroid/update_icon_state()
-	. = ..()
 	if(dug)
 		icon_plating = "[environment_type]_dug"
 		icon_state = "[environment_type]_dug"
