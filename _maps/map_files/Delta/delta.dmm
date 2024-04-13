@@ -61,11 +61,11 @@
 	},
 /mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/requests_console{
-	pixel_y = -30;
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
 	departmentType = 5;
-	name = "Quartermaster Requests Console"
+	name = "Quartermaster Requests Console";
+	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8423,8 +8423,8 @@
 	pixel_y = 4
 	},
 /obj/item/toy/figure/qm{
-	pixel_y = 2;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -47275,8 +47275,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j2 (EAST)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76447,8 +76449,8 @@
 /area/medical/medbay2)
 "mkj" = (
 /obj/item/reagent_containers/spray/cleaner/medical{
-	pixel_y = 12;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 12
 	},
 /obj/item/folder/white,
 /obj/item/pen/red,
@@ -77006,8 +77008,8 @@
 	pixel_y = -9
 	},
 /obj/item/reagent_containers/spray/cleaner/brig{
-	pixel_y = 7;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -103753,12 +103755,12 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm";
-	pixel_y = 24;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 24
 	},
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -112989,8 +112991,8 @@
 "uvF" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/qm{
-	pixel_y = 10;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 10
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -121706,7 +121708,6 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/obj/item/reagent_containers/spray/cleaner/chemical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
