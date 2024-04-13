@@ -489,14 +489,14 @@
 /obj/machinery/disposal/proc/flush()
 	flushing = TRUE
 	flush_animation()
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
-												// travels through the pipes.
-	manage_wrapping(H)
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
+												// travels through the pipes.
+	manage_wrapping(H)
 	H.init(src)	// copy the contents of disposer to holder
 	air_contents = new() // The holder just took our gas; replace it
 	H.start(src) // start the holder processing movement
