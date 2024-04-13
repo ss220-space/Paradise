@@ -75,7 +75,7 @@
 			else
 				var/throwdir
 				if(get_turf(X) == T)
-					throwdir = pick(NORTH, SOUTH, EAST, WEST)
+					throwdir = pick(GLOB.alldirs)
 				else
 					throwdir = get_dir(T, X)
 				X.throw_at(get_edge_target_turf(T, throwdir), 4 + round(volume / 10), 10 + round(volume / 10))
