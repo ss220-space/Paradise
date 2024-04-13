@@ -110,7 +110,7 @@
 				new /obj/structure/lattice/catwalk/fireproof(src)
 	if(istype(C, /obj/item/twohanded/fishingrod))
 		var/obj/item/twohanded/fishingrod/rod = C
-		if(!rod.wielded)
+		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("You need to wield the rod in both hands before you can fish in the chasm!"))
 			return
 		user.visible_message(span_warning("[user] throws a fishing rod into the chasm and tries to catch something!"),
@@ -118,10 +118,11 @@
 							 span_notice("You hear the sound of a fishing rod."))
 		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
 		if(do_after(user, 6 SECONDS, target = src))
-			if(!rod.wielded)
+			if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 				return
-			var/atom/parent = src
-			var/list/fishing_contents = parent.GetAllContents()
+			var/list/fishing_contents = list()
+			for(var/turf/simulated/floor/chasm/chasm in range(4, src))
+				fishing_contents += chasm.GetAllContents()
 			if(!length(fishing_contents))
 				to_chat(user, span_warning("There's nothing here!"))
 				return
@@ -130,6 +131,7 @@
 				M.forceMove(get_turf(user))
 				UnregisterSignal(M, COMSIG_LIVING_REVIVE)
 				found = TRUE
+				break
 			if(found)
 				to_chat(user, span_warning("You reel in something!"))
 				playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
@@ -172,8 +174,7 @@
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(istype(H.belt, /obj/item/wormhole_jaunter))
-			var/obj/item/wormhole_jaunter/J = H.belt
+		for(var/obj/item/wormhole_jaunter/J in H.GetAllContents())
 			//To freak out any bystanders
 			visible_message(span_boldwarning("[H] falls into [src]!"))
 			J.chasm_react(H)
