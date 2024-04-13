@@ -424,12 +424,10 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
 	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
 	//Выдаем трейты ОРБа
-	if(!(XRAY in owner.mutations))
-		owner.mutations.Add(XRAY)
-		owner.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
-		owner.nightvision = 8
-		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+	owner.update_sight()
+	to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), ITEM_SLOT_HEAD)

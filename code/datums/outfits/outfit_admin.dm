@@ -375,8 +375,7 @@
 	name = "NT Death Commando"
 	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/centcom_officer
-	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
-	back = /obj/item/storage/backpack/ert/security
+	back = /obj/item/mod/control/pre_equipped/apocryphal
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
@@ -385,7 +384,6 @@
 	l_pocket = /obj/item/shield/energy
 	r_pocket = /obj/item/melee/energy/sword/saber
 	l_hand = /obj/item/gun/energy/pulse
-	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	l_ear = /obj/item/radio/headset/alt
 	id = /obj/item/card/id
 	pda = /obj/item/pinpointer
@@ -418,6 +416,9 @@
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.sec_hud_set_ID()
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -1025,59 +1026,57 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
-/datum/outfit/admin/hardsuit
-	name = "Hardsuit Generic"
-	toggle_helmet = TRUE
-	back = /obj/item/tank/jetpack/oxygen
+/datum/outfit/admin/modsuit
+	name = "MODsuit - Generic"
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit_store = /obj/item/tank/internals/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
 
-/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/modsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	if(istype(H.back, /obj/item/tank/jetpack))
-		var/obj/item/tank/jetpack/J = H.back
-		J.turn_on()
+	if(istype(H.back, /obj/item/tank/internals/oxygen))
+		var/obj/item/tank/internals/oxygen/J = H.back
 		J.toggle_internals(H)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
+		apply_to_card(I, H, get_all_accesses(), "MODsuit Tester")
 
-/datum/outfit/admin/hardsuit/engineer
-	name = "Engineer Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+/datum/outfit/admin/modsuit/engineer
+	name = "MODsuit - Engineer"
+	back = /obj/item/mod/control/pre_equipped/engineering
 
-/datum/outfit/admin/hardsuit/ce
-	name = "CE Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
+/datum/outfit/admin/modsuit/ce
+	name = "MODsuit - CE"
+	back = /obj/item/mod/control/pre_equipped/advanced
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/datum/outfit/admin/hardsuit/mining
-	name = "Mining Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+/datum/outfit/admin/modsuit/mining
+	name = "MODsuit - Mining"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 
-/datum/outfit/admin/hardsuit/syndi
-	name = "Syndi Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+/datum/outfit/admin/modsuit/syndi
+	name = "MODsuit - Syndi"
+	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/hardsuit/wizard
-	name = "Wizard Hardsuit"
+/datum/outfit/admin/modsuit/wizard // Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
+	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard/shielded
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
-/datum/outfit/admin/hardsuit/medical
-	name = "Medical Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/medical
+/datum/outfit/admin/modsuit/medical
+	name = "MODsuit - Medical"
+	back = /obj/item/mod/control/pre_equipped/medical
 
-/datum/outfit/admin/hardsuit/atmos
-	name = "Atmos Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
-
+/datum/outfit/admin/modsuit/atmos
+	name = "MODsuit - Atmos"
+	back = /obj/item/mod/control/pre_equipped/atmospheric
 
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"

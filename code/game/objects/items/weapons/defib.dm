@@ -3,6 +3,7 @@
 /obj/item/defibrillator
 	name = "defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
 	slot_flags = ITEM_SLOT_BACK
@@ -326,6 +327,7 @@
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
 	force = 0

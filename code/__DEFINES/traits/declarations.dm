@@ -71,6 +71,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PULL_BLOCKED "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+#define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
+#define TRAIT_XRAY_VISION		"xray_vision"
+#define TRAIT_THERMAL_VISION	"thermal_vision"
+#define TRAIT_MESON_VISION		"meson_vision"
+#define TRAIT_FLASH_PROTECTION	"flash_protection"
+#define TRAIT_NIGHT_VISION		"night_vision"
 
 /// Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [SLIP_IGNORE_NO_SLIP_WATER] set
 #define TRAIT_NO_SLIP_WATER "noslip_water"

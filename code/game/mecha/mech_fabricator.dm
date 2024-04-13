@@ -74,6 +74,8 @@
 		"Cyborg",
 		"Cyborg Repair",
 		"IPC",
+		"MODsuit Construction",
+		"MODsuit Modules",
 		"Ripley",
 		"Firefighter",
 		"Clarke",
@@ -218,10 +220,15 @@
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
-			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, dir))
+			var/obj/item/storage/lockbox/research/modsuit/L = new(get_step(src, dir))
 			I.forceMove(L)
 			L.name += " ([I.name])"
 			L.origin_tech = I.origin_tech
+			L.req_access = D.access_requirement
+			var/list/lockbox_access
+			for(var/access in L.req_access)
+				lockbox_access += "[get_access_desc(access)] "
+				L.desc = "A locked box. It is locked to [lockbox_access]access."
 
 	// Clean up
 	being_built = null

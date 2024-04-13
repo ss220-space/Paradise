@@ -764,7 +764,7 @@
 	return I
 
 
-/turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/turf/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)

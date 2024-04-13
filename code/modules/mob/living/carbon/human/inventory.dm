@@ -417,6 +417,10 @@
 				if(get_active_hand() == I)
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
+			else if(ismodcontrol(back))
+				var/obj/item/mod/control/C = back
+				if(C.bag)
+					I.forceMove(C.bag)
 			else
 				I.forceMove(drop_location())
 

@@ -63,3 +63,7 @@ GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
 
+/// Global list of all /datum/mod_theme
+GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
+
+GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)

@@ -132,6 +132,7 @@
 				continue
 			smoked_atoms += A
 			reagents.reaction(A)
+			SEND_SIGNAL(A, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, chemholder, reagents.total_volume)
 			if(iscarbon(A))
 				var/mob/living/carbon/C = A
 				if(C.can_breathe_gas())

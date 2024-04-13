@@ -1081,7 +1081,7 @@
 	..()
 
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
 		return FALSE
 
@@ -1110,7 +1110,7 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, istype(thrower) ? thrower.zone_selected : FALSE, dodgeable)
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, istype(thrower) ? thrower.zone_selected : FALSE, dodgeable, block_movement)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

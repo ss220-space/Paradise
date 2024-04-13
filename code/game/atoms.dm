@@ -435,6 +435,11 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+/atom/proc/examine_more(mob/user) ///Extended description of an object. Allows you to double examine objects and have them give you a second description of an item. Useful for writing flavourful stuff.
+	SHOULD_CALL_PARENT(TRUE)
+	RETURN_TYPE(/list)
+
+	return list()
 
 /**
  * Updates the appearence of the icon
@@ -725,9 +730,8 @@
 /atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	return TRUE
 
-
-/// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
-/atom/proc/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
+/// This proc applies special effects of a mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
+/atom/proc/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
 	return
 
 

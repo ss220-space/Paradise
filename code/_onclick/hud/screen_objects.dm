@@ -557,7 +557,7 @@
 				span_notice("[user] начинает снимать [I.name]..."),
 				span_notice("Вы начинаете снимать [I.name]..."),
 			)
-			if(!do_after(user, I.equip_delay_self, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.name] было прервано!")))
+			if(!do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.name] было прервано!")))
 				return FALSE
 
 		if(!user.drop_item_ground(I))

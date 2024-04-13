@@ -392,3 +392,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+/proc/text2bool(input)
+	if(input == "true")
+		return TRUE
+	return FALSE //

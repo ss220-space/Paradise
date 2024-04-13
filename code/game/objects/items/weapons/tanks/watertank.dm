@@ -225,7 +225,6 @@
 	item_state = "nozzleatmos"
 	safety = 0
 	max_water = 200
-	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE

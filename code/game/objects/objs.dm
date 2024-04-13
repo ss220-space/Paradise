@@ -322,7 +322,7 @@
 
 #define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 
-/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.

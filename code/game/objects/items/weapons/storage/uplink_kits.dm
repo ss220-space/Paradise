@@ -56,6 +56,10 @@
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 	name = "Counterfeiter Bundle"
@@ -64,11 +68,6 @@
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/fakesign(src)
-
-/obj/item/storage/box/syndie_kit/chameleon_hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/contractor/agent(src)
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
@@ -194,25 +193,6 @@
 	for(var/i in 1 to 3)
 		new/obj/item/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
-
-/obj/item/storage/box/syndie_kit/bonerepair
-	name = "emergency nanite kit"
-	desc = "A box containing one prototype nanite repair system."
-
-/obj/item/storage/box/syndie_kit/bonerepair/populate_contents()
-	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
-	var/obj/item/paper/P = new /obj/item/paper(src)
-	P.name = "Prototype nanite repair guide"
-	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
-	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
-
-<B>Usage:</B> <BR><BR><BR>
-
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
-
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
-	"}
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"

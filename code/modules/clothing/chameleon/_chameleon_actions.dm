@@ -369,6 +369,32 @@
 /datum/action/item_action/chameleon/change/proc/apply_job_data(datum/job/job_datum)
 	return
 
+/datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
+	. = ..()
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+			return
+		C.current_disguise = TRUE
+		C.item_state = initial(picked_item.item_state)
+		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+
+/datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+				return
+		if(C.active || C.activating)
+			to_chat(C.wearer, span_warning("Your suit is already active!"))
+			UpdateButtonIcon()
+			return
+	..()
+
 
 #undef EMP_RANDOMISE_TIME
 #undef MAX_OUTFIT_NAME_LEN

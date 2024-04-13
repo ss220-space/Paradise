@@ -51,6 +51,10 @@
 	chameleon_name = "Backpack"
 	chameleon_type = /obj/item/storage/backpack
 
+/datum/action/item_action/chameleon/change/modsuit
+	chameleon_name = "Backpack"
+	chameleon_type = /obj/item/storage/backpack
+
 
 // Shoes
 /datum/action/item_action/chameleon/change/shoes

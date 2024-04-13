@@ -1687,7 +1687,7 @@
 					 list("key"=/obj/item/mecha_parts/part/clarke_right_arm),//4
 					 list("key"=/obj/item/mecha_parts/part/clarke_left_leg),//5
 					 list("key"=/obj/item/mecha_parts/part/clarke_right_leg),//6
-					 list("key"=/obj/item/clothing/suit/space/hardsuit/mining)//7
+					 list("key"=/obj/item/clothing/suit/space/eva)//7
 					)
 
 /datum/construction/mecha/clarke_chassis/custom_action(step, atom/used_atom, mob/user)

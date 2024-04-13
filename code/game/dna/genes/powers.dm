@@ -169,6 +169,7 @@
 	deactivation_messages = list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = XRAY
+	traits_to_add = (TRAIT_XRAY_VISION)
 	activation_prob = 15
 
 /datum/dna/gene/basic/xray/New()

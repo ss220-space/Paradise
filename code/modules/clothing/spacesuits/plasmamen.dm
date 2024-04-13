@@ -25,6 +25,7 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+	visor_flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list(SPECIES_PLASMAMAN)

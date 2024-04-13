@@ -189,11 +189,12 @@
 		Retract()
 		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!"))
+		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant misfires!"))
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
-		crit_fail = 1
+		crit_fail = TRUE
+		addtimer(VARSET_CALLBACK(src, crit_fail, FALSE), 60 SECONDS) //I would rather not have the weapon be permamently disabled, especially as there is no way to fix it.
 	else // The gun will still discharge anyway.
 		..()
 
@@ -394,6 +395,19 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/l
+	parent_organ_zone = BODY_ZONE_L_ARM
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
+	name = "advanced janitorial toolset implant"
+	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	origin_tech = "materials=5;engineering=6;biotech=5"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
 	parent_organ_zone = BODY_ZONE_L_ARM
 	slot = INTERNAL_ORGAN_L_ARM_DEVICE
 

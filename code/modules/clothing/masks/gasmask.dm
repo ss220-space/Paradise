@@ -43,6 +43,7 @@
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
+	visor_flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 

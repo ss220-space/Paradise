@@ -593,6 +593,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>View Range:</b> <a href='?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Modsuit Activation Method:</b> <a href='?_src_=prefs;preference=mam'>[(toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD) ? "Middle Click" : "Alt Click"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
@@ -2383,6 +2384,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
+
+				if("mam")
+					toggles2 ^= PREFTOGGLE_2_MOD_ACTIVATION_METHOD
 
 				if("setviewrange")
 					var/list/viewrange_options = list(

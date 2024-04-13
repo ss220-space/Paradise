@@ -197,6 +197,9 @@
 #define INCORPOREAL_NINJA 2
 #define INCORPOREAL_REVENANT 3
 
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW 1 SECONDS
+
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))

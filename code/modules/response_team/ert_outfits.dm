@@ -108,10 +108,9 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/commander
+	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 
 	hours_dif = 300
@@ -124,6 +123,7 @@
 		/obj/item/storage/lockbox/mindshield/ert = 1,
 		/obj/item/camera_bug/ert = 1,
 		/obj/item/door_remote/omni = 1,
+		/obj/item/gun/energy/gun/pdw9/ert = 1
 		)
 
 	cybernetic_implants = list(
@@ -209,13 +209,13 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
 	belt = /obj/item/storage/belt/military/assault/gammaert/full
-	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
+	back = /obj/item/mod/control/pre_equipped/responsory/security
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy
 	r_pocket = /obj/item/extinguisher/mini
+	l_hand = /obj/item/gun/energy/immolator/multi/sibyl
 
 	hours_dif = 200
 	ranks = list("Min" = "Старший капрал",
@@ -325,8 +325,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/engineer
-	suit_store = /obj/item/gun/energy/gun/pdw9/ert
+	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
@@ -339,6 +338,7 @@
 
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
@@ -448,11 +448,10 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/medical
+	back = /obj/item/mod/control/pre_equipped/responsory/medic
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/pdw9/ert
-	belt = /obj/item/defibrillator/compact/advanced/loaded
+	belt = /obj/item/storage/belt/medical //No need for belt defib, they got the built in ones. This gives them some extra storage.
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
 
@@ -469,7 +468,8 @@
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/handheld_defibrillator = 1
+		/obj/item/handheld_defibrillator = 1,
+		/obj/item/gun/energy/gun/pdw9/ert = 1
 		)
 
 	cybernetic_implants = list(
@@ -559,11 +559,8 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
-	toggle_helmet = TRUE
-	shoes = /obj/item/clothing/shoes/magboots/advance
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
-	suit_store = /obj/item/gun/energy/gun/nuclear/sibyl
 	l_pocket = /obj/item/grenade/clusterbuster/holy
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
@@ -575,7 +572,8 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8t = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
+		/obj/item/gun/energy/gun/nuclear/sibyl = 1,
 	)
 
 	cybernetic_implants = list(
@@ -606,8 +604,6 @@
 	backpack_contents = list(
 		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner = 1,
-		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/holosign_creator/janitor = 1,
 		/obj/item/flashlight = 1,
@@ -625,8 +621,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop)
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/arm/janitorial/advanced)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
@@ -634,6 +629,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	r_pocket = /obj/item/scythe/tele
 	mask = /obj/item/clothing/mask/gas/sechailer
 
@@ -644,19 +640,17 @@
 
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/janitorial,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
-	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
+	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
 
@@ -666,11 +660,12 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1
+		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/gun/energy/gun/pdw9/ert = 1,
 	)
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	)

@@ -17,6 +17,7 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = 2

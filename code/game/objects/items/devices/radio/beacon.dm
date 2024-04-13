@@ -107,7 +107,7 @@
 	var/used = FALSE
 	var/list/selected = list()
 	var/list/unselected = list()
-	var/list/static/bundles = list(
+	var/static/list/bundles = list(
 			"Bloody Spy" = list(	"Name" = "\improper 'Bloody Spy' Bundle",	// 220-222 TK
 								"Desc" = "Complete your objectives quietly with this compilation of stealthy items.",
 								/obj/item/storage/box/syndie_kit/chameleon = 1,								// 20 TK
@@ -271,20 +271,19 @@
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-			"Ocelot" = list(	"Name" = "\improper 'Ocelot' bundle",	// 95-227 TK
-								"Desc" = "It does not feel right to shoot an unarmed man… but I will get over it.",
-								/obj/item/kitchen/knife/combat = 1,											// 0 TK
-								/obj/item/gun/projectile/revolver = 2,                                      // 100 TK
-								/obj/item/ammo_box/a357 = 2,												// 0 TK
-								/obj/item/ammo_box/speedloader/a357 = 2,                                    // 5 TK
-								/obj/item/clothing/under/syndicate/tacticool = 1,                           // 0 TK
-								/obj/item/clothing/gloves/combat = 1,                                       // 0 TK
-								/obj/item/clothing/shoes/combat = 1,                                        // 0 TK
-								/obj/item/clothing/accessory/holster = 1,                                   // 5 TK
-								/obj/item/clothing/head/beret = 1,                                          // 0 TK
-								/obj/item/clothing/accessory/scarf/red = 1,                                	// 0 TK
-								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
-								/obj/item/clothing/mask/holo_cigar = 1,)                                    // 10 TK
+			"Metroid" = list(	"Name" = "\improper 'Metroid' bundle", // 210 + modules + laser gun
+								"Desc" = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!",
+								/obj/item/mod/control/pre_equipped/traitor_elite = 1,
+								/obj/item/mod/module/visor/thermal = 1,
+								/obj/item/mod/module/stealth = 1,
+								/obj/item/mod/module/power_kick = 1,
+								/obj/item/mod/module/sphere_transform = 1,
+								/obj/item/autoimplanter = 1,
+								/obj/item/pinpointer/advpinpointer = 1,
+								/obj/item/storage/box/syndidonkpockets = 1,
+								/obj/item/storage/belt/utility/full/multitool = 1,
+								/obj/item/clothing/head/collectable/slime = 1,
+								/obj/item/encryptionkey/syndicate = 1)
 	)
 
 /obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate

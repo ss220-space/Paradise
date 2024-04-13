@@ -212,7 +212,6 @@
 	item_state = "jetpack-captain"
 	volume = 90
 	w_class = WEIGHT_CLASS_NORMAL
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
