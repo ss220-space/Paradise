@@ -453,7 +453,7 @@
  * * target - path end loc.
  * * flags - additional pass_flags, used to determine passability on each step.
  */
-/proc/is_path_exist(atom/source, atom/target, flags, include_source_loc = FALSE)
+/proc/is_path_exist(atom/source, atom/target, flags, include_source_loc = FALSE, exclude_mobs = TRUE)
 	if(!source || !target)
 		return FALSE
 	var/list/path_turfs = get_line(source, target)
@@ -469,7 +469,7 @@
 	if(flags)
 		dummy.pass_flags |= flags
 	for(var/turf/turf as anything in path_turfs)
-		if(turf.is_blocked_turf(source_atom = dummy))
+		if(turf.is_blocked_turf(exclude_mobs = exclude_mobs, source_atom = dummy))
 			qdel(dummy)
 			return FALSE
 		dummy.loc = turf
