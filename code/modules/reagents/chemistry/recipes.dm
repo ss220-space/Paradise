@@ -71,7 +71,7 @@
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
-				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
+				X.throw_at(T, 4 + round(volume / 10), 10 + round(volume / 10))
 			else
 				var/throwdir
 				if(get_turf(X) == T)
