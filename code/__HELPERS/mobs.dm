@@ -287,7 +287,7 @@
 	var/user_loc = user.loc
 
 	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(!user.Process_Spacemove(NONE) && user.inertia_dir)
 		drifting = 1
 
 	var/target_loc = target.loc
@@ -344,7 +344,7 @@
 	var/turf/Uturf = get_turf(user)
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(!user.Process_Spacemove(NONE) && user.inertia_dir)
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()

@@ -59,8 +59,8 @@
 	AddElement(/datum/element/simple_flying)
 
 
-/mob/living/simple_animal/hostile/ghost/Process_Spacemove(var/check_drift = 0)
-	return 1
+/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/ghost/Life(seconds, times_fired)
 	if(target)

@@ -57,8 +57,8 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(var/check_drift = 0)
-	return 1 //space worms can flyyyyyy
+/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE)
+	return TRUE //space worms can flyyyyyy
 
 //Worm Head, Controls the AI for the entire worm "entity"
 /mob/living/simple_animal/hostile/spaceWorm/wormHead

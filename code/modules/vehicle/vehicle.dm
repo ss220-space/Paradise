@@ -202,7 +202,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = NONE)
 	if(has_gravity())
 		return TRUE
 
@@ -218,5 +218,5 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE

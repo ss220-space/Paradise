@@ -660,8 +660,8 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
-	return 1	//Void puppies can navigate space.
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = NONE)
+	return TRUE	//Void puppies can navigate space.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime
 	name = "\improper slime puppy"

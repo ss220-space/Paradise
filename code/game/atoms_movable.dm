@@ -19,6 +19,10 @@
 	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
+	///The last time we pushed off something
+	///This is a hack to get around dumb him him me scenarios
+	var/last_pushoff
+
 	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
 	var/generic_canpass = TRUE
 
@@ -566,19 +570,29 @@
 		reset_perspective()
 	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
-//Called whenever an object moves and by mobs when they attempt to move themselves through space
-//And when an object or action applies a force on src, see newtonian_move() below
-//Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
-//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
-//movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(movement_dir = 0)
+
+/**
+ * Called whenever an object moves and by mobs when they attempt to move themselves through space
+ * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
+ *
+ * Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+ *
+ * Mobs should return TRUE if they should be able to move of their own volition, see [/client/proc/Move]
+ *
+ * Arguments:
+ * * movement_dir - NONE when stopping or any dir when trying to move
+ */
+/atom/movable/proc/Process_Spacemove(movement_dir = NONE)
 	if(has_gravity())
 		return TRUE
 
-	if(pulledby && !pulledby.pulling)
+	if(pulledby && pulledby.pulledby != src)
 		return TRUE
 
 	if(throwing)
+		return TRUE
+
+	if(!isturf(loc))
 		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
@@ -586,8 +600,10 @@
 
 	return FALSE
 
-/atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
-	if(!loc || Process_Spacemove(0))
+
+/// Only moves the object if it's under no gravity
+/atom/movable/proc/newtonian_move(direction)
+	if(!isturf(loc) || Process_Spacemove(NONE))
 		inertia_dir = NONE
 		return FALSE
 
@@ -752,8 +768,8 @@
 			return turf
 		var/atom/movable/checked_atom = checked_range
 		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
-			//if(checked_atom.last_pushoff == world.time)
-			//	continue
+			if(checked_atom.last_pushoff == world.time)
+				continue
 			return checked_atom
 
 

@@ -124,15 +124,21 @@
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
-	var/turf/A = get_turf(H)
-	if(isspaceturf(A))
-		return FALSE
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.get_organ(BODY_ZONE_WING))
-		return FALSE
-	var/datum/gas_mixture/current = A.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
+
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+	. = FALSE
+	var/turf/user_turf = get_turf(user)
+	if(!user_turf)
+		return .
+	if(isspaceturf(user_turf))
+		return .
+	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
+		return .
+	//as long as there's reasonable pressure and no gravity, flight is possible
+	var/datum/gas_mixture/current = user_turf.return_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
 		return TRUE
+
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))

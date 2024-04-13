@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 			Beam(get_turf(meteor_to_destroy), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 			qdel(meteor_to_destroy)
 
-/obj/machinery/satellite/meteor_shield/Process_Spacemove(movement_dir)
+/obj/machinery/satellite/meteor_shield/Process_Spacemove(movement_dir = NONE)
 	return active
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

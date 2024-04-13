@@ -16,11 +16,12 @@
 	return considering
 
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return TRUE
+/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE)
+	. = ..()
+	if(.)
+		return .
 
-	var/jetpacks = list()
+	var/list/jetpacks = list()
 
 	if(istype(back, /obj/item/tank/jetpack))
 		jetpacks += back
@@ -33,10 +34,8 @@
 		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
 
-	if(dna.species.spec_Process_Spacemove(src))
+	if(dna.species.spec_Process_Spacemove(src, movement_dir))
 		return TRUE
-
-	return FALSE
 
 
 /mob/living/carbon/human/Move(NewLoc, direct)

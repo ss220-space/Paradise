@@ -52,10 +52,12 @@
 	stop_following()
 	return ..()
 
-/obj/structure/transit_tube_pod/Process_Spacemove()
+
+/obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
-	else return ..()
+	return ..()
+
 
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
 	if(!location)

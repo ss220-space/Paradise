@@ -732,7 +732,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return TRUE
 
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 

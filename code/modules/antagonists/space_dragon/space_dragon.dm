@@ -95,7 +95,7 @@
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 
-/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 

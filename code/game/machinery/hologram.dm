@@ -502,8 +502,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
-	return 1
+
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+	return TRUE
+
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)

@@ -334,7 +334,7 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = NONE)
 	. = ..()
 	if(.)
 		return TRUE
@@ -345,12 +345,21 @@
 		toggle_strafe(silent = TRUE)
 
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180)))
-				if(occupant)
-					to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+	if(!backup)
+		return FALSE
+
+	//get_spacemove_backup() already checks if a returned turf is solid, so we can just go
+	if(!istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
+
+	last_pushoff = world.time
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir)))
+		backup.last_pushoff = world.time
+		if(occupant)
+			to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+
+	return TRUE
+
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
