@@ -325,7 +325,7 @@
 	temperature = 300
 	defer_change = 1
 
-	mineralChance = 8
+	mineralChance = 14
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 0.5, /turf/simulated/mineral/gold/volcanic = 10, /turf/simulated/mineral/titanium/volcanic = 11,
 		/turf/simulated/mineral/silver/volcanic = 12, /turf/simulated/mineral/plasma/volcanic = 20, /turf/simulated/mineral/iron/volcanic = 40,
@@ -355,23 +355,23 @@
 	name = "hardened basalt"
 	icon_state = "rock_hard"
 	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
-	mineralChance = 10
+	mineralChance = 24
 	hardness = 2
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 2, /turf/simulated/mineral/gold/volcanic/hard = 10,
 		/turf/simulated/mineral/titanium/volcanic/hard = 21, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12,
 		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
-		/turf/simulated/mineral/iron/volcanic/hard = 50, /turf/simulated/mineral/gem/volcanic/hard = 2)
+		/turf/simulated/mineral/iron/volcanic/hard = 40, /turf/simulated/mineral/gem/volcanic/hard = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
 	icon_state = "rock_volcanic"
 	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	mineralChance = 30
+	mineralChance = 60
 	hardness = 3
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 3, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
-		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 1, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
+		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 2, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
 		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 3, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
 		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/mineral/clown/volcanic/hard/double = 2,
 		/turf/simulated/mineral/mime/volcanic/hard/double = 2)
