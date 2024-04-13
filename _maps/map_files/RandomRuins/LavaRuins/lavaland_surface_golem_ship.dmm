@@ -375,9 +375,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"rt" = (
-/turf/template_noop,
-/area/shuttle/freegolem)
 "sa" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/pod,
@@ -891,9 +888,6 @@
 
 (1,1,1) = {"
 yB
-rt
-rt
-rt
 yB
 yB
 yB
@@ -905,9 +899,12 @@ yB
 yB
 yB
 yB
-rt
-rt
-rt
+yB
+yB
+yB
+yB
+yB
+yB
 yB
 "}
 (2,1,1) = {"
@@ -940,9 +937,9 @@ cI
 yB
 yB
 yB
-rt
-rt
-rt
+yB
+yB
+yB
 yB
 yB
 yB
