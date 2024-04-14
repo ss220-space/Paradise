@@ -36,7 +36,7 @@
 		else if(isfloorturf(object))
 			var/turf/T = object
 			T.ChangeTurf(T.baseturf)
-		else if(istype(object,/turf/simulated/wall/r_wall))
+		else if(isreinforcedwallturf(object))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/wall)
 		else if(isobj(object))

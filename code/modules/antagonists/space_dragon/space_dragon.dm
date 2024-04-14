@@ -150,7 +150,7 @@
 		to_chat(src, span_warning("Вы начинаете рвать стену на части..."))
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		var/timetotear = 2 SECONDS
-		if(istype(target, /turf/simulated/wall/r_wall))
+		if(isreinforcedwallturf(target))
 			timetotear = 4 SECONDS
 		if(do_after(src, timetotear, target = thewall))
 			if(!iswallturf(thewall))

@@ -274,7 +274,7 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(istype(target, /turf/simulated/wall/r_wall))
+	if(isreinforcedwallturf(target))
 		// Too tough to pierce - should lead to interesting spread patterns
 		return
 	// Bust through windows or other stuff blocking the way

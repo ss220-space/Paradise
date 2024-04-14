@@ -124,7 +124,7 @@
 				if(iswallturf(T))
 					var/turf/simulated/wall/W = T
 					var/mob/living/carbon/human/H = user
-					if(istype(T,/turf/simulated/wall/r_wall))
+					if(isreinforcedwallturf(T))
 						playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 						hit = 1
 						H.Weaken(6 SECONDS)
