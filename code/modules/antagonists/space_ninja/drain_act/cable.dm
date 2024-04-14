@@ -23,7 +23,7 @@
 			drained = min(drain, delayed_surplus())
 			add_delayedload(drained)
 			for(var/obj/machinery/power/terminal/affected_terminal in wire_powernet.nodes)
-				if(istype(affected_terminal.master, /obj/machinery/power/apc))
+				if(isapc(affected_terminal.master))
 					var/obj/machinery/power/apc/affected_apc = affected_terminal.master
 					if(affected_apc.operating && affected_apc.cell && affected_apc.cell.charge > 0)
 						affected_apc.cell.use(10)
