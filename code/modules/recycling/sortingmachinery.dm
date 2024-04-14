@@ -391,7 +391,7 @@
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
-	if(isitem(O) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
+	if(isitem(O) && !isstorage(O) && !istype(O, /obj/item/shippingPackage))
 		if(!user.can_unEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return

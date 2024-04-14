@@ -110,7 +110,7 @@
 	if(istype(W,/obj/item/pen))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
-	if(istype(W,/obj/item/storage))
+	if(isstorage(W))
 		..() // -> item/attackby(, params)
 
 	else if(istype(W,/obj/item/kitchen/utensil))

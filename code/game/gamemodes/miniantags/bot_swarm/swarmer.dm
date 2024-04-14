@@ -515,7 +515,7 @@
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
 		I.pixel_z = target.pixel_z
-		if(istype(target, /obj/item/stack))
+		if(isstack(target))
 			var/obj/item/stack/S = target
 			S.use(1)
 			if(S.amount)

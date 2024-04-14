@@ -84,7 +84,7 @@
 /datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user)
 	set waitfor = FALSE
 	var/requested_amount
-	if(istype(I, /obj/item/stack) && precise_insertion)
+	if(isstack(I) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
 		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
@@ -97,7 +97,7 @@
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
 			if(!QDELETED(I) && !user.put_in_hands(I))
@@ -153,7 +153,7 @@
 /datum/component/material_container/proc/insert_item(obj/item/I, multiplier = 1, stack_amt)
 	if(!I)
 		return FALSE
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		return insert_stack(I, stack_amt, multiplier)
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		return FALSE

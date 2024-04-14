@@ -50,7 +50,7 @@
 				qdel(C)
 				ok = M.equip_or_collect(I, SLOT_HUD_WEAR_ID, 0)	//if 1, last argument deletes on fail
 				break
-		else if(istype(M.back, /obj/item/storage)) // Try to place it in something on the mob's back
+		else if(isstorage(M.back)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = M.back
 			if(S.contents.len < S.storage_slots)
 				Item.loc = M.back

@@ -381,7 +381,7 @@
 			update_inv_s_store()
 
 		if(SLOT_HUD_IN_BACKPACK)
-			if(istype(back, /obj/item/storage))
+			if(isstorage(back))
 				if(get_active_hand() == I)
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)

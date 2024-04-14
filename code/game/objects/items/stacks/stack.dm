@@ -243,7 +243,7 @@
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END

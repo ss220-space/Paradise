@@ -335,7 +335,7 @@
 	user.playsound_local(src, 'sound/machines/blender.ogg', 20, 1)
 	for(var/obj/item/A in grabbed_items)
 		if(A.materials[MAT_METAL])
-			if(istype(A, /obj/item/stack))
+			if(isstack(A))
 				var/obj/item/stack/S = A
 				metal_amount += S.materials[MAT_METAL] * S.amount
 			else
