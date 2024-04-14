@@ -732,7 +732,7 @@ Returns 1 if the chain up to the area contains the given typepath
 				if(istype(original.vars[V],/list))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
+				else if(isdatum(original.vars[V]))
 					continue	// this would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
@@ -1298,7 +1298,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return QDEL_HINT_LETMELIVE
 
 /proc/IsValidSrc(A)
-	if(istype(A, /datum))
+	if(isdatum(A))
 		var/datum/D = A
 		return !QDELETED(D)
 	if(istype(A, /client))

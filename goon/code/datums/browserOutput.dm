@@ -296,7 +296,7 @@ var/to_chat_src
 		// Info about the "message"
 		if(isnull(message))
 			message = "(null)"
-		else if(istype(message, /datum))
+		else if(isdatum(message))
 			var/datum/D = message
 			message = "([D.type]): '[D]'"
 		else if(!is_valid_tochat_message(message))
@@ -304,7 +304,7 @@ var/to_chat_src
 
 		// Info about the target
 		var/targetstring = "'[target]'"
-		if(istype(target, /datum))
+		if(isdatum(target))
 			var/datum/D = target
 			targetstring += ", [D.type]"
 
