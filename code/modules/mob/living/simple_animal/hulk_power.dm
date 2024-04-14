@@ -198,7 +198,7 @@
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
 		return
 
-	if (istype(user.loc,/obj))
+	if (isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You dash and slam your head against the inside of [container]! Ouch!</span>")
 		user.Paralyse(6 SECONDS)
@@ -313,7 +313,7 @@
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
 		return
 
-	if (istype(user.loc,/obj))
+	if (isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		user.Paralyse(6 SECONDS)

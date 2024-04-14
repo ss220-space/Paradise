@@ -39,7 +39,7 @@
 		else if(istype(object,/turf/simulated/wall/r_wall))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/wall)
-		else if(istype(object,/obj))
+		else if(isobj(object))
 			qdel(object)
 	else if(istype(object,/turf) && alt_click && left_click)
 		log_admin("Build Mode: [key_name(user)] built an airlock at [COORD(object)]")

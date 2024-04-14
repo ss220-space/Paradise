@@ -672,7 +672,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)

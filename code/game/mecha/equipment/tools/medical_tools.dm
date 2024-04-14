@@ -603,7 +603,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
-	if(istype(target, /obj))
+	if(isobj(target))
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return FALSE
 		set_ready_state(FALSE)

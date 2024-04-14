@@ -154,7 +154,7 @@
 		return I == focus
 
 /obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
-	if(!istype(target,/obj))
+	if(!isobj(target))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
 		qdel(src)

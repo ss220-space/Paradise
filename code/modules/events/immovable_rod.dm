@@ -75,7 +75,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		x = clong.x
 		y = clong.y
 
-	if(istype(clong, /turf) || istype(clong, /obj))
+	if(istype(clong, /turf) || isobj(clong))
 		if(clong.density)
 			clong.ex_act(2)
 
