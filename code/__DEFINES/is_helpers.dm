@@ -133,6 +133,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
 	/turf/simulated/floor/chasm,
+	/turf/simulated/openspace,
 )))
 
 #define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))

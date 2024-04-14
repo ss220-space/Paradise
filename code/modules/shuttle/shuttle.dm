@@ -518,7 +518,7 @@
 				T1.shuttleRotate(rotation)
 
 		var/turf/new_ceiling = GET_TURF_ABOVE(T1) // Do it before atmos readjust.
-		if(new_ceiling)
+		if(new_ceiling && (isspaceturf(new_ceiling) || isopenspaceturf(new_ceiling))) //Check for open one, not wall
 			// generate ceiling
 			new_ceiling.ChangeTurf(/turf/simulated/floor/engine/hull/ceiling)
 

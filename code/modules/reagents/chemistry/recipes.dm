@@ -71,9 +71,14 @@
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
-				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
+				X.throw_at(T, 4 + round(volume / 10), 10 + round(volume / 10))
 			else
-				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 20 + round(volume * 2), 1 + round(volume / 10))
+				var/throwdir
+				if(get_turf(X) == T)
+					throwdir = pick(GLOB.alldirs)
+				else
+					throwdir = get_dir(T, X)
+				X.throw_at(get_edge_target_turf(T, throwdir), 4 + round(volume / 10), 10 + round(volume / 10))
 
 /proc/goonchem_vortex_weak(turf/T, setting_type, volume)
 	if(setting_type)

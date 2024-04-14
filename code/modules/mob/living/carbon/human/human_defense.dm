@@ -87,7 +87,7 @@ emp_act
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
 		return
-	if(!S.is_robotic() || S.open == 2)
+	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
 	. = TRUE
 	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
@@ -218,30 +218,32 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/block_chance_modifier = round(damage / -3) - shields_penetration
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
 		var/final_block_chance = r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
 		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(neck)
 		var/final_block_chance = neck.block_chance - (clamp((armour_penetration-neck.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
-	return 0
+			return TRUE
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(mind && mind.martial_art)

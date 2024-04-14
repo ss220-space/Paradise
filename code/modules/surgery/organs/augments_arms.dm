@@ -32,8 +32,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration.</span>"
-	. += "<span class='info'>You can use a screwdriver to reassemble it.</span>"
+	. += span_notice("[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration.")
+	. += span_info("You can use a screwdriver to reassemble it.")
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -44,7 +44,7 @@
 	else
 		parent_organ_zone = BODY_ZONE_R_ARM
 	slot = parent_organ_zone + "_device"
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
+	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."))
 	update_transform()
 
 /obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/arm_owner, special = ORGAN_MANIPULATION_DEFAULT)
@@ -73,7 +73,7 @@
 	if(emp_proof)
 		return
 	if(prob(15/severity) && owner)
-		to_chat(owner, "<span class='warning'>[src] is hit by EMP!</span>")
+		to_chat(owner, span_warning("[src] is hit by EMP!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
@@ -100,9 +100,9 @@
 	if(!active_item || (active_item in src))
 		return FALSE
 
-	owner.visible_message("<span class='notice'>[owner] retracts [active_item] back into [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='notice'>[active_item] snaps back into your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+	owner.visible_message(span_notice("[owner] retracts [active_item] back into [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+		span_notice("[active_item] snaps back into your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+		span_italics("You hear a short mechanical noise."))
 
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)
@@ -127,27 +127,27 @@
 
 	if(arm_item)
 		if(!owner.drop_item_ground(arm_item))
-			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
+			to_chat(owner, span_warning("Your [arm_item] interferes with [src]!"))
 			return
 		else
-			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
+			to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
 	if(parent_organ_zone == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item) : !owner.put_in_l_hand(active_item))
-		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
+		to_chat(owner, span_warning("Your [src] fails to activate!"))
 		return
 
 	// Activate the hand that now holds our item.
 	if(parent_organ_zone == BODY_ZONE_R_ARM ? owner.hand : !owner.hand)
 		owner.swap_hand()
 
-	owner.visible_message("<span class='notice'>[owner] extends [active_item] from [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='notice'>You extend [active_item] from your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
-		"<span class='italics'>You hear a short mechanical noise.</span>")
+	owner.visible_message(span_notice("[owner] extends [active_item] from [owner.p_their()] [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+		span_notice("You extend [active_item] from your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), src.sound_on, 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!active_item && !contents.len))
-		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
+		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
@@ -187,9 +187,9 @@
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
-		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!</span>")
+		owner.visible_message(span_danger("A loud bang comes from [owner]\'s [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm!"))
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!</span>")
+		to_chat(owner, span_userdanger("You feel an explosion erupt inside your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!"))
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
@@ -240,7 +240,7 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
 		if(user)
-			to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+			to_chat(user, span_notice("You unlock [src]'s integrated knife!"))
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
@@ -427,7 +427,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/surgeryize()
 	if(crit_fail && owner)
-		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
+		to_chat(owner, span_notice("Your [src] feels functional again."))
 	crit_fail = FALSE
 
 
@@ -443,7 +443,7 @@
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
-		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		to_chat(user, span_warning("You're already charging."))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
@@ -451,42 +451,42 @@
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
-			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
+			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10,0)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+				to_chat(user, span_warning("You are already fully charged!"))
 			else
 				INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), A, H)
 		else
-			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+			to_chat(user, span_warning("There is no charge to draw from that APC."))
 	else
-		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+		to_chat(user, span_warning("You lack a cell in which to store charge!"))
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
-			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break
 		if(A.cell.charge == 0)
-			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
+			to_chat(H, span_warning("\The [A] has no more charge."))
 			break
 		A.charging = APC_IS_CHARGING
 		if(A.cell.charge >= 500)
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500
-			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+			to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
 		else
 			H.adjust_nutrition(A.cell.charge * 0.1)
 			A.cell.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
+			to_chat(H, span_notice("You siphon off the last of \the [A]'s charge."))
 			break
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			to_chat(H, span_notice("You are now fully charged."))
 			break
-	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+	H.visible_message(span_notice("[H] unplugs from \the [A]."), span_notice("You unplug from \the [A]."))
 	drawing_power = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/telebaton

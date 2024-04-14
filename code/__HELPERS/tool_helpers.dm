@@ -49,3 +49,9 @@
 	istype(W, /obj/item/bonegel)			||	\
 	istype(W, /obj/item/bonesetter)
 	)
+
+/proc/is_surgery_tool_by_behavior(obj/item/W)
+	if(!istype(W))
+		return FALSE
+	var/tool_behavior = W.tool_behaviour
+	return tool_behavior in GLOB.surgery_tool_behaviors

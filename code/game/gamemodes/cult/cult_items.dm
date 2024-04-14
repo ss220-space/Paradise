@@ -168,9 +168,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
-	var/current_charges = 3
-	var/shield_state = "shield-cult"
-	var/shield_on = "shield-cult"
 	species_restricted = null
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
@@ -197,21 +194,15 @@
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges)
-		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
-			shield_state = "broken"
-			owner.update_inv_wear_suit()
-		return TRUE
-	return FALSE
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
+	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
 
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
-	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
+/// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
 	name = "flagellant's robes"
@@ -432,18 +423,17 @@
 	flags = NODROP | DROPDEL
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-	flags = NODROP | DROPDEL
+	flags = NODROP
 
-/obj/item/clothing/suit/cultrobesghost
+/obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	icon_state = "cultrobesalt"
-	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
+	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
 
 /obj/item/clothing/shoes/cult/ghost
@@ -456,10 +446,10 @@
 	name = "Cultist Ghost"
 
 	uniform = /obj/item/clothing/under/color/black/ghost
-	suit = /obj/item/clothing/suit/cultrobesghost
+	suit = /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
-	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
+	toggle_helmet = TRUE
 
 /obj/item/shield/mirror
 	name = "mirror shield"
