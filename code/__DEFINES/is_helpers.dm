@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
 //Structures
-#define isstructure(A)	(istype((A), /obj/structure))
+#define isstructure(A)	(istype(A, /obj/structure))
 
 // Misc
 #define isclient(A) istype(A, /client)

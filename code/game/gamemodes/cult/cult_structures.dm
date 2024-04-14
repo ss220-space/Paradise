@@ -105,7 +105,7 @@
 		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type(drop_location())
-		if(!istype(O, /obj/structure))
+		if(!isstructure(O))
 			user.put_in_hands(O, ignore_anim = FALSE)
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 

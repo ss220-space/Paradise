@@ -236,7 +236,7 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
-		if(isitem(O) || istype(O, /obj/structure) || ismachinery(O))
+		if(isitem(O) || isstructure(O) || ismachinery(O))
 			if(!istype(O, /obj/item/paper))
 				cocoon_target = O
 				stop_automated_movement = 1
