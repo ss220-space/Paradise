@@ -326,11 +326,11 @@
 	reusable = FALSE
 
 
-/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, silent = FALSE)
+/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!istype(user) || user.legcuffed != src)
-		return
+	if(!istype(user) || slot != SLOT_HUD_LEGCUFFED)
+		return .
 
 	user.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 	new /obj/item/restraints/handcuffs/sinew(user.loc)

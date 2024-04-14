@@ -346,3 +346,14 @@
 	name = "hotsauce pack"
 	originalname = "hotsauce"
 	list_reagents = list("capsaicin" = 10)
+
+/obj/item/reagent_containers/food/condiment/animalfeed
+	name = "pet food package"
+	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
+	icon = 'icons/obj/pet_bowl.dmi'
+	icon_state = "pet_food"
+	volume = 80
+	list_reagents = list("afeed" = 80)
+
+/obj/item/reagent_containers/food/condiment/animalfeed/on_reagent_change()
+	return

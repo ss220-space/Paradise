@@ -26,7 +26,7 @@
 			owner?.adjustStaminaLoss(20)
 		if(2)
 			owner?.adjustStaminaLoss(10)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, вызывая усталость!</span>")
+	to_chat(owner, span_userdanger("Ваш [name] выходит из строя, вызывая усталость!"))
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -61,7 +61,7 @@
 	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, бросая то что держал!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% рука выходит из строя!")
 
 /obj/item/organ/external/arm/right
@@ -129,10 +129,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, не давая вам встать!"))
 		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% нога выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, заставив вас упасть на пол!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, заставив вас упасть на пол!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% нога выходит из строя!")
 	switch(severity)
 		if(1)
@@ -176,6 +176,7 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1)
 	user.update_fractures_slowdown()
+	user.drop_item_ground(user.shoes, force = TRUE)
 
 
 /obj/item/organ/external/foot/fracture(silent = FALSE)
@@ -247,10 +248,10 @@
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, не давая вам встать!"))
 		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% ступня выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, падая на пол!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, падая на пол!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% ступня выходит из строя!")
 	switch(severity)
 		if(1)
@@ -258,10 +259,6 @@
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
 
-/obj/item/organ/external/foot/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner?.shoes)
-		owner.drop_item_ground(owner.shoes, force = TRUE)
-	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_zone = BODY_ZONE_PRECISE_R_FOOT
@@ -297,6 +294,9 @@
 	user.set_num_hands(user.num_hands - 1)
 	if(is_usable())
 		user.set_usable_hands(user.usable_hands - 1)
+	user.drop_item_ground(user.gloves, force = TRUE)
+	user.drop_item_ground(user.l_hand, force = TRUE)
+	user.drop_item_ground(user.r_hand, force = TRUE)
 
 
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
@@ -342,19 +342,9 @@
 	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
-/obj/item/organ/external/hand/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
-		if(owner.gloves)
-			owner.drop_item_ground(owner.gloves, force = TRUE)
-		if(owner.l_hand)
-			owner.drop_item_ground(owner.l_hand, force = TRUE)
-		if(owner.r_hand)
-			owner.drop_item_ground(owner.r_hand, force = TRUE)
-
-	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_zone = BODY_ZONE_PRECISE_R_HAND
@@ -434,11 +424,11 @@
 	. = ..()
 	if(in_range(user, src) || istype(user, /mob/dead/observer))
 		if(!contents.len)
-			. += "<span class='notice'>Выглядит пустой.</span>"
+			. += span_notice("Выглядит пустой.")
 		else
-			. += "<span class='notice'>Выглядит относительно целой, внутри что-то есть.</span>"
+			. += span_notice("Выглядит относительно целой, внутри что-то есть.")
 	else
-		. += "<span class='notice'>Вы должны подойти ближе, чтобы осмотреть это.</span>"
+		. += span_notice("Вы должны подойти ближе, чтобы осмотреть это.")
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
@@ -469,7 +459,7 @@
 			owner.AdjustConfused(60 SECONDS)
 		if(2)
 			owner.AdjustConfused(40 SECONDS)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
+	to_chat(owner, span_userdanger("Ваш [name] выходит из строя, перегружая ваше управление!"))
 
 /obj/item/organ/external/tail
 	limb_zone = BODY_ZONE_TAIL

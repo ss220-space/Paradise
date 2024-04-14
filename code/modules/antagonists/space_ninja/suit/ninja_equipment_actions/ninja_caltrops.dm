@@ -85,7 +85,7 @@
 	return FALSE
 
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
+	if(istype(L) && has_gravity())
 		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		add_attack_logs(L, src, "Stepped on Caltrop")

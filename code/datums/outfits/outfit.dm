@@ -87,9 +87,9 @@
 		equip_item(H, suit_store, SLOT_HUD_SUIT_STORE)
 
 	if(l_hand)
-		H.equip_to_slot_if_possible(new l_hand(H.loc), SLOT_HUD_LEFT_HAND, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
+		H.equip_to_slot_if_possible(new l_hand(H.loc), SLOT_HUD_LEFT_HAND, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 	if(r_hand)
-		H.equip_to_slot_if_possible(new r_hand(H.loc), SLOT_HUD_RIGHT_HAND, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
+		H.equip_to_slot_if_possible(new r_hand(H.loc), SLOT_HUD_RIGHT_HAND, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 
 	if(pda)
 		equip_item(H, pda, SLOT_HUD_WEAR_PDA)

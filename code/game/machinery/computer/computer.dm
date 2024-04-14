@@ -153,7 +153,7 @@
 			A.name += " ([M.board_name])"
 			A.setDir(dir)
 			A.circuit = M
-			A.anchored = TRUE
+			A.set_anchored(TRUE)
 			if(stat & BROKEN)
 				if(user)
 					to_chat(user, span_notice("The broken glass falls out."))

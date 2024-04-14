@@ -2,6 +2,7 @@
 	name = "wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
+	explosion_vertical_block = 50
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
 	smooth = SMOOTH_FALSE
@@ -247,8 +248,27 @@
 
 /turf/simulated/wall/indestructible/mineral_rock
 	name = "rock"
-	icon = 'icons/turf/smoothrocks.dmi'
+	icon = 'icons/turf/mining.dmi'
 	icon_state = "rock"
+	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/wall/indestructible/mineral_rock)
 
+/turf/simulated/wall/indestructible/mineral_rock/Initialize(mapload)
+	var/matrix/M = new
+	M.Translate(-4, -4)
+	transform = M
+	icon = smooth_icon
+	. = ..()
+
+
+/turf/simulated/wall/indestructible/invisible
+	name = "Deep space"
+	desc = "Deep space nothing"
+	icon = null
+	icon_state = null
+
+// used with /effect/view_portal in order to get rid of dynamic lighting.
+/turf/simulated/wall/indestructible/invisible/view_portal
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED

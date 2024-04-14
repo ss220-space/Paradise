@@ -55,6 +55,8 @@
 #define COMSIG_ATOM_CREATED "atom_created"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
+//from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization and has a loc
+#define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"
 ///from base of atom/attackby(): (/obj/item, /atom/source, params) sends singal on user who attacked source
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
@@ -176,6 +178,16 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+// Attack signals. These should share the returned flags, to standardize the attack chain.
+// The chain currently works like:
+// tool_act -> pre_attackby -> target.attackby (item.attack) -> afterattack
+// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
+	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
+	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -186,17 +198,25 @@
 	#define COMPONENT_NO_ATTACK_HAND (1<<0)								//works on all 3.
 //This signal return value bitflags can be found in __DEFINES/misc.dm
 
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
-#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 ///called on a movable (NOT living) when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
-
 /// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
 #define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
 	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
-
+///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
+///signal sent out by an atom upon onZImpact : (turf/impacted_turf, levels)
+#define COMSIG_ATOM_ON_Z_IMPACT "movable_on_z_impact"
+///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
+#define COMSIG_LIVING_Z_IMPACT "living_z_impact"
+/// Just for the signal return, does not run normal living handing of z fall damage for mobs
+	#define ZIMPACT_CANCEL_DAMAGE (1<<0)
+	/// Do not show default z-impact message
+	#define ZIMPACT_NO_MESSAGE (1<<1)
+	/// Do not do the spin animation when landing
+	#define ZIMPACT_NO_SPIN (1<<2)
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -235,13 +255,14 @@
 
 // /turf signals
 
-///from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
+///from base of turf/ChangeTurf(): (path, list/new_baseturf, flags, list/transferring_comps)
 #define COMSIG_TURF_CHANGE "turf_change"
 ///from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"
-///from base of turf/New(): (turf/source, direction)
+///from base of turf/multiz_turf_del(): (turf/source, direction)
+#define COMSIG_TURF_MULTIZ_DEL "turf_multiz_del"
+///from base of turf/multiz_turf_new: (turf/source, direction)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
-
 // /atom/movable signals
 
 ///from base of atom/movable/Moved(): (/atom)
@@ -292,6 +313,8 @@
 	/* #define HEARING_RADIO_FREQ 5
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
+///called when the movable sucessfully has it's anchored var changed, from base atom/movable/set_anchored(): (value)
+#define COMSIG_MOVABLE_SET_ANCHORED "movable_set_anchored"
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
@@ -344,6 +367,10 @@
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
+	/// Flag for when /afterattack potentially acts on an item.
+	/// Used for the swap hands/drop tutorials to know when you might just be trying to do something normally.
+	/// Does not necessarily imply success, or even that it did hit an item, just intent.
+	#define COMPONENT_AFTERATTACK_PROCESSED_ITEM (1<<0)
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)
@@ -436,6 +463,13 @@
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
+//from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+//from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+//from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
 ///sent from living mobs every tick of fire
@@ -523,6 +557,11 @@
 /// Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
 #define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
 
+/// from /mob/living/can_z_move, sent to whatever the mob is buckled to. Only ridable movables should be ridden up or down btw.
+#define COMSIG_BUCKLED_CAN_Z_MOVE "ridden_pre_can_z_move"
+	#define COMPONENT_RIDDEN_STOP_Z_MOVE 1
+	#define COMPONENT_RIDDEN_ALLOW_Z_MOVE 2
+
 // /obj signals
 
 ///from base of obj/deconstruct(): (disassembled)
@@ -554,8 +593,8 @@
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
+///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_PRE_ATTACKBY "item_pre_attackby"
 	#define COMPONENT_NO_ATTACK (1<<0)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
@@ -582,6 +621,7 @@
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
+	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///called on item when microwaved (): (obj/machinery/microwave/M)
@@ -672,6 +712,9 @@
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
 
+///called in /obj/item/gun/process_fire (user, target)
+#define COMSIG_GUN_FIRED "gun_fired"
+
 // /obj/item/grenade signals
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
@@ -727,6 +770,13 @@
 #define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+///From mob/living/carbon/human/regenerate_icons()
+#define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
+
+
+///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
+	#define SHIELD_BLOCK (1<<0)
 
 // /datum/species signals
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)

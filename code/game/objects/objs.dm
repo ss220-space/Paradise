@@ -1,6 +1,7 @@
 /obj
-	var/obj_flags = NONE
 	//var/datum/module/mod		//not used
+	var/obj_flags
+	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = 2
@@ -53,6 +54,8 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -233,7 +236,7 @@
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-			anchored = !anchored
+			set_anchored(!anchored)
 		return TRUE
 	return FALSE
 
@@ -288,6 +291,16 @@
 /obj/proc/is_mob_spawnable() //Called by spawners_menu methods to determine if you can use an object through spawn-menu
 	//just override it to return TRUE in your object if you want to use it through spawn menu
 	return
+
+/// Set whether the item should be sharp or not
+/obj/proc/set_sharpness(new_sharp_val)
+	if(sharp == new_sharp_val)
+		return
+	sharp = new_sharp_val
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
+	if(!sharp && new_sharp_val)
+		AddComponent(/datum/component/surgery_initiator)
+
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

@@ -46,7 +46,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = TRUE
+		S.set_anchored(TRUE)
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
@@ -214,13 +214,13 @@
 
 	if(!anchored && isturf(loc))
 		if(W.tool_behaviour == TOOL_WRENCH)
-			anchored = TRUE
+			set_anchored(TRUE)
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return TRUE
 	else
 		if(W.tool_behaviour == TOOL_WRENCH)
-			anchored = FALSE
+			set_anchored(FALSE)
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return TRUE
@@ -465,7 +465,7 @@
 	A.dir = dir
 	A.circuit = M
 	A.update_icon(UPDATE_ICON_STATE)
-	A.anchored = TRUE
+	A.set_anchored(TRUE)
 	qdel(src)
 
 

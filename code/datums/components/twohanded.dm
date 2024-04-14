@@ -241,7 +241,7 @@
 	if(sharpening)
 		parent_item.force += sharpening.damage_increase
 	if(sharp_when_wielded)
-		parent_item.sharp = TRUE
+		parent_item.set_sharpness(TRUE)
 
 	var/original_name = parent_item.name
 	parent_item.name = "[original_name] (Wielded)"
@@ -308,7 +308,7 @@
 	else
 		parent_item.force = force_unwielded
 	if(sharp_when_wielded)
-		parent_item.sharp = FALSE
+		parent_item.set_sharpness(FALSE)
 
 	// update the items name to remove the wielded status
 	var/sf = findtext(parent_item.name, " (Wielded)", -10) // 10 == length(" (Wielded)")

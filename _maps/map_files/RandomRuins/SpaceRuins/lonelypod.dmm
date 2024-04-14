@@ -69,7 +69,7 @@
 /area/template_noop)
 "lI" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/transparent/glass/reinforced,
+/turf/simulated/floor/glass/reinforced,
 /area/ruin/unpowered)
 "mE" = (
 /obj/effect/decal/cleanable/dirt,

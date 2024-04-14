@@ -67,6 +67,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 			crewmemberData["area"] = A.name
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
+			crewmemberData["z"] = pos.z
 
 		crewmembers[++crewmembers.len] = crewmemberData
 

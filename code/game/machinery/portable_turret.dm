@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//This code handles moving the turret around. After all, it's a portable turret!
 			add_fingerprint(user)
 			playsound(loc, I.usesound, 100, TRUE)
-			anchored = !anchored
+			set_anchored(!anchored)
 			update_icon(UPDATE_ICON_STATE)
 			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 		wrenching = FALSE
@@ -804,7 +804,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You secure the external bolts."))
-				anchored = TRUE
+				set_anchored(TRUE)
 				build_step = 1
 				return
 
@@ -831,7 +831,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You unfasten the external bolts."))
-				anchored = FALSE
+				set_anchored(FALSE)
 				build_step = 0
 				return
 

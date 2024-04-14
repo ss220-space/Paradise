@@ -43,6 +43,8 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
+	//Value used in multiz_explosions. it set here, so may some objects that cover the floor, may also impact the explosion
+	var/explosion_vertical_block = 0
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
@@ -125,7 +127,7 @@
 
 //Note: the following functions don't call the base for optimization and must copypasta:
 // /turf/Initialize
-// /turf/open/space/Initialize
+// /turf/simulated/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -266,6 +268,10 @@
 				var/mob/living/L = M.loc
 				L.drop_item_ground(M)
 			M.forceMove(src)
+
+/atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
+	SHOULD_CALL_PARENT(TRUE)
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, falling_movables, levels)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -615,7 +621,7 @@
 
 /atom/proc/unemag()
 	return
-	
+
 /atom/proc/cmag_act(mob/user)
 	return
 
@@ -652,7 +658,7 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 
@@ -1416,4 +1422,57 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	return TRUE
+
+
+/**
+ * Returns `TRUE` if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
+ * HEY JACKASS, LISTEN
+ * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
+ * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
+ * for them to use. If you add more to it, make sure you do that, or things will behave strangely
+ *
+ * Gravity situations:
+ * * Gravity if global admin override
+ * * Gravity if the z-level has trait ZTRAIT_GRAVITY
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admin override
+		return GLOB.gravity_is_on
+
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)//no gravity in nullspace
+			return FALSE
+
+	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
+		return TRUE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
+	var/area/turf_area = gravity_turf.loc
+
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || length(GLOB.gravity_generators["[gravity_turf.z]"]))
 

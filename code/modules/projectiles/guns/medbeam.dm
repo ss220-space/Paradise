@@ -31,7 +31,7 @@
 	return
 
 
-/obj/item/gun/medbeam/dropped(mob/user, silent = FALSE)
+/obj/item/gun/medbeam/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	LoseTarget()
 

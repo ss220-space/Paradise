@@ -64,10 +64,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored && !isinspace())
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 	else if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 

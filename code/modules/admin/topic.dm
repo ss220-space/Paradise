@@ -3000,18 +3000,35 @@
 				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
-				GLOB.gravity_is_on = !GLOB.gravity_is_on
-				for(var/area/A in world)
-					A.gravitychange(GLOB.gravity_is_on,A)
+
+				var/static/list/gravity_states = list(
+					"Default Gravity Handling",
+					"Enable Gravity Globally",
+					"Disable Gravity Globally",
+				)
+				var/gravity_state = input(usr, "Enable or disable global gravity state", "Global Gravity State") as null|anything in gravity_states
+				if(!gravity_state)
+					return
+
+				var/gravity_announce = input(usr, "Do you wish to make any global announcement?", "Announcement Text") as text|null
+				if(gravity_announce)
+					GLOB.event_announcement.Announce("[gravity_announce]")
+
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
-				if(GLOB.gravity_is_on)
-					log_admin("[key_name(usr)] toggled gravity on.")
-					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>")
-					GLOB.event_announcement.Announce("Гравитационные генераторы снова функционируют в пределах штатных значений. Приносим извинения за неудобства.")
-				else
-					log_admin("[key_name(usr)] toggled gravity off.")
-					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>")
-					GLOB.event_announcement.Announce("Обнаружен всплеск обратной связи в системах распределения масс. Искусственная гравитация была отключена на время восстановления системы. Дальнейшие сбои могут привести к гравитационному коллапсу и образованию чёрных дыр. Хорошего дня.")
+
+				switch(gravity_state)
+					if("Default Gravity Handling")
+						GLOB.gravity_is_on = null
+						log_and_message_admins("returned global gravity state to default.")
+					if("Enable Gravity Globally")
+						GLOB.gravity_is_on = TRUE
+						log_and_message_admins("toggled global gravity ON.")
+					if("Disable Gravity Globally")
+						GLOB.gravity_is_on = FALSE
+						log_and_message_admins("toggled global gravity OFF.")
+
+				for(var/area/area as anything in GLOB.all_areas)
+					area.gravitychange()
 
 			if("power")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
@@ -3367,9 +3384,9 @@
 
 			if("gammashuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
-				message_admins("[key_name_admin(usr)] moved the gamma armory")
-				log_admin("[key_name(usr)] moved the gamma armory")
-				move_gamma_ship()
+				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away"))
+					message_admins("[key_name_admin(usr)] moved the gamma armory")
+					log_admin("[key_name(usr)] moved the gamma armory")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")

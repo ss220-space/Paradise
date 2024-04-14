@@ -32,6 +32,8 @@
 
 	if(stat == DEAD)
 		handle_decay()
+		if(isnucleation(src))
+			dna.species.handle_death(FALSE, src)
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -872,6 +874,7 @@
 	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
 		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+		med_hud_set_status()
 
 
 /mob/living/carbon/human/handle_random_events()

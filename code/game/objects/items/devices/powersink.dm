@@ -41,7 +41,7 @@
 			attached = null
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = FALSE
+			set_anchored(FALSE)
 			density = FALSE
 
 		if(CLAMPED_OFF)
@@ -49,14 +49,14 @@
 				return
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = TRUE
+			set_anchored(TRUE)
 			density = TRUE
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
-			anchored = TRUE
+			set_anchored(TRUE)
 			density = TRUE
 
 	mode = value

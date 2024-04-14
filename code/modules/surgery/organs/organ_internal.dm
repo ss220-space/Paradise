@@ -260,7 +260,7 @@
 		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
 			obj_integrity++
 		if(obj_integrity <= 0)
-			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
+			visible_message(span_warning("[src] collapses in on itself!"))
 			qdel(src)
 
 

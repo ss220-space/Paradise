@@ -161,3 +161,4 @@
 #define EXOTIC_COLOR	"exotic_blood_colour"
 #define NO_OBESITY		"no_obesity"
 #define RUNIC_MIND		"runic_mind"
+#define REPEATSURGERY	"repeat_syrgery"

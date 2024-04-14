@@ -6,7 +6,8 @@
 	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
-	anchored = TRUE //no pulling around.
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
+	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -148,6 +149,8 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
 ////////////////////////
 ////// Helpers /////////
@@ -412,6 +415,13 @@
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
+	else if(direction & (UP|DOWN))
+		var/turf/above = GET_TURF_ABOVE(loc)
+		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
+			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
+				playsound(src, stepsound, 40, 1)
+				move_result = TRUE
+				move_type = MECHAMOVE_STEP
 	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
 		if(strafe)
 			step_in_final *= STRAFE_TURN_FACTOR

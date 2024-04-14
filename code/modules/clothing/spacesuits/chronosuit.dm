@@ -8,13 +8,14 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
-/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, silent = FALSE)
-	if(suit)
+/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(suit && slot == SLOT_HUD_HEAD)
 		suit.deactivate()
-	..()
+	. = ..()
+
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
+	suit?.deactivate()
 	return ..()
 
 
@@ -48,13 +49,13 @@
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped(mob/user, silent = FALSE)
-	if(activated)
+/obj/item/clothing/suit/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(slot == SLOT_HUD_OUTER_SUIT && activated)
 		deactivate()
-	..()
+	. = ..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
+	deactivate()
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)

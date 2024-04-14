@@ -1515,7 +1515,7 @@ About the new airlock wires panel:
 			DA = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		DA.anchored = TRUE
+		DA.set_anchored(TRUE)
 		DA.glass = src.glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name

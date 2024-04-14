@@ -13,12 +13,10 @@
 	var/intialOxy = 0
 	var/timer = 240 //eventually the person will be freed
 
-/obj/structure/closet/statue/Initialize(mapload, var/mob/living/L)
+/obj/structure/closet/statue/Initialize(mapload, mob/living/L)
 	. = ..()
 	if(ishuman(L) || iscorgi(L))
-		if(L.buckled)
-			L.buckled = 0
-			L.anchored = FALSE
+		L.buckled?.unbuckle_mob(L, force = TRUE)
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, "statue")
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues

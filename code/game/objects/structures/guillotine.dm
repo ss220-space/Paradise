@@ -213,7 +213,7 @@
 
 	current_action = NONE
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-	anchored = !anchored
+	set_anchored(!anchored)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	dir = SOUTH
 

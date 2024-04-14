@@ -87,5 +87,5 @@
 	SHOULD_CALL_PARENT(TRUE)
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		spell.valid_target(target, user) && (!check_if_in_range || (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))) \
-		&& (!use_obstacle_check || is_path_exist(user, target, PASSTABLE))
+		&& (!use_obstacle_check || is_path_exist(user, target, PASSTABLE|PASSFENCE))
 

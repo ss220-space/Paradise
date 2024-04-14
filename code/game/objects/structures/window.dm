@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
-			anchored = !anchored
+			set_anchored(!anchored)
 			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
@@ -287,7 +287,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
-		anchored = !anchored
+		set_anchored(!anchored)
 		air_update_turf(TRUE)
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(turf/T, vertical)
 	if(!anchored || !density)
 		return TRUE
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
@@ -684,12 +684,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/abductor/Initialize(mapload, direct)
 	..()
 	AddComponent(/datum/component/obj_regenerate)
+
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+
+/obj/structure/window/full/CanAtmosPass(turf/T, vertical)
+	if(!anchored || !density)
+		return TRUE
+	return FALSE
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."

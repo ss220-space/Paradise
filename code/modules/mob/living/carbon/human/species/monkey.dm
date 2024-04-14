@@ -68,17 +68,17 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
+
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.meatleft = 5
 
-/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
-	..()
-	if(!remove)
-		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+
+/datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.meatleft = initial(H.meatleft)
 
 
 /datum/species/monkey/can_understand(mob/other)

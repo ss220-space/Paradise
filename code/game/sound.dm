@@ -57,22 +57,25 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
 	var/maxdistance = SOUND_RANGE + extrarange
-	var/list/listeners = GLOB.player_list
+	var/source_z = turf_source.z
+	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance, turf_source)
+	else
+		var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+		if(above_turf?.transparent_floor)
+			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+		var/turf/below_turf = GET_TURF_BELOW(turf_source)
+		if(below_turf?.transparent_floor)
+			listeners += SSmobs.clients_by_zlevel[below_turf.z]
 	for(var/mob/M in listeners)
 		if(!M.client)
 			continue
-
-		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
-		if(!T)
-			continue
-		if(T.z != turf_source.z)
-			continue
-
-		var/distance = get_dist(M, turf_source)
-
-		if(distance <= maxdistance)
+		if(get_dist(M, turf_source) <= maxdistance)
+			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+	for(var/P in SSmobs.dead_players_by_zlevel[source_z])
+		var/mob/M = P
+		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
 

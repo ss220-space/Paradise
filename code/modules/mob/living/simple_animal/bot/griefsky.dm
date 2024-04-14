@@ -169,7 +169,7 @@
 					if(Adjacent(target) && isturf(target.loc))	// if right next to perp
 						target_lastloc = target.loc
 						sword_attack(target)
-						anchored = TRUE
+						set_anchored(TRUE)
 						frustration++
 						return
 					else	// not next to perp
@@ -197,7 +197,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue

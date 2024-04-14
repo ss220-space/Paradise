@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		if(skip_overlays)
 			add_overlay(AO)
 
-		anchored = TRUE
+		set_anchored(TRUE)
 		canmove = FALSE
 		admin_prev_sleeping = AmountSleeping()
 		PermaSleeping()
@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		if(skip_overlays)
 			cut_overlay(frozen)
 
-		anchored = FALSE
+		set_anchored(FALSE)
 		canmove = TRUE
 		frozen = null
 		SetSleeping(admin_prev_sleeping, TRUE)

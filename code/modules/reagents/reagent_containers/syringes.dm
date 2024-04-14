@@ -31,12 +31,12 @@
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/pickup(mob/user)
+/obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/syringe/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/syringe/attack_self(mob/user)
@@ -167,7 +167,7 @@
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)
 			if(SYRINGE_DRAW)

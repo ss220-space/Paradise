@@ -170,3 +170,4 @@
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
+

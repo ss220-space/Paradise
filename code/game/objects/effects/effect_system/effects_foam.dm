@@ -176,6 +176,7 @@
 	anchored = TRUE
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/foamedmetal/Initialize()
 	..()
@@ -221,5 +222,5 @@
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(turf/T, vertical)
 	return !density

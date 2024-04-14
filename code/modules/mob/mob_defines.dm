@@ -13,8 +13,13 @@
 	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
 	var/nightvision = 0
 
+	/// Contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
+	var/list/alerts
+
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+
+	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
 
 	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 

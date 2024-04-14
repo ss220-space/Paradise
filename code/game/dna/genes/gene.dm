@@ -26,27 +26,42 @@
 	// Chance of the gene to cause adverse effects when active
 	var/instability = 0
 
+
 /*
 * Is the gene active in this mob's DNA?
 */
-/datum/dna/gene/proc/is_active(mob/M)
-	return LAZYIN(M.active_genes, type)
+/datum/dna/gene/proc/is_active(mob/living/mutant)
+	return LAZYIN(mutant.active_genes, type)
 
-// Return 1 if we can activate.
-// HANDLE MUTCHK_FORCED HERE!
-/datum/dna/gene/proc/can_activate(mob/M, flags)
+
+/// Return `TRUE` if we can activate.
+/datum/dna/gene/proc/can_activate(mob/living/mutant, flags)
 	return FALSE
 
-// Called when the gene activates.  Do your magic here.
-/datum/dna/gene/proc/activate(mob/living/M, connected, flags)
-	M.gene_stability -= instability
+
+/// Return `TRUE` if we can deactivate.
+/datum/dna/gene/proc/can_deactivate(mob/living/mutant, flags)
+	return TRUE
+
+
+/// Called when the gene activates.  Do your magic here.
+/datum/dna/gene/proc/activate(mob/living/mutant, connected, flags)
+	set waitfor = FALSE
+	SHOULD_CALL_PARENT(TRUE)
+	LAZYOR(mutant.active_genes, type)
+	mutant.gene_stability -= instability
+
 
 /**
 * Called when the gene deactivates.  Undo your magic here.
 * Only called when the block is deactivated.
 */
-/datum/dna/gene/proc/deactivate(mob/living/M, connected, flags)
-	M.gene_stability += instability
+/datum/dna/gene/proc/deactivate(mob/living/mutant, connected, flags)
+	set waitfor = FALSE
+	SHOULD_CALL_PARENT(TRUE)
+	LAZYREMOVE(mutant.active_genes, type)
+	mutant.gene_stability += instability
+
 
 // This section inspired by goone's bioEffects.
 
@@ -108,26 +123,30 @@
 	//which traits gene gives
 	var/list/traits_to_add = list()
 
-/datum/dna/gene/basic/can_activate(mob/M, flags)
+
+/datum/dna/gene/basic/can_activate(mob/living/mutant, flags)
 	if(flags & MUTCHK_FORCED)
 		return TRUE
 	// Probability check
 	return prob(activation_prob)
 
-/datum/dna/gene/basic/activate(mob/M, connected, flags)
-	..()
-	M.mutations.Add(mutation)
-	for(var/trait in traits_to_add)
-		ADD_TRAIT(M, trait, "mutation")
-	if(activation_messages.len)
-		var/msg = pick(activation_messages)
-		to_chat(M, "<span class='notice'>[msg]</span>")
 
-/datum/dna/gene/basic/deactivate(mob/living/M, connected, flags)
-	..()
-	M.mutations.Remove(mutation)
+/datum/dna/gene/basic/activate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.mutations |= mutation
 	for(var/trait in traits_to_add)
-		REMOVE_TRAIT(M, trait, "mutation")
-	if(deactivation_messages.len)
+		ADD_TRAIT(mutant, trait, DNA_TRAIT)
+	if(length(activation_messages))
+		var/msg = pick(activation_messages)
+		to_chat(mutant, span_notice("[msg]"))
+
+
+/datum/dna/gene/basic/deactivate(mob/living/mutant, connected, flags)
+	. = ..()
+	mutant.mutations -= mutation
+	for(var/trait in traits_to_add)
+		REMOVE_TRAIT(mutant, trait, DNA_TRAIT)
+	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
-		to_chat(M, "<span class='warning'>[msg]</span>")
+		to_chat(mutant, span_warning("[msg]"))
+

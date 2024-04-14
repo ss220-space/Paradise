@@ -165,7 +165,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		to_chat(user, span_notice("You unscrew the beacon from the floor."))
 		disconnect_from_network()
 		return
@@ -173,7 +173,7 @@
 		if(!connect_to_network())
 			to_chat(user, "This device must be placed over an exposed cable.")
 			return
-		anchored = TRUE
+		set_anchored(TRUE)
 		to_chat(user, span_notice("You screw the beacon to the floor and attach the cable."))
 
 /obj/machinery/power/singularity_beacon/Destroy()

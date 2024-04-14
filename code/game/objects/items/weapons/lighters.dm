@@ -346,7 +346,7 @@
 		return TRUE
 
 
-/obj/item/match/dropped(mob/user, silent = FALSE)
+/obj/item/match/dropped(mob/user, slot, silent = FALSE)
 	matchburnout()
 	. = ..()
 

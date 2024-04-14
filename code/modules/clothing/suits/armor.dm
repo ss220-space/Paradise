@@ -288,9 +288,23 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 70
 	put_on_delay = 50
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -646,14 +660,14 @@
 	magical = TRUE
 
 //mob_size using for crusher mark
-/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial)
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user) && slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_LARGE
 
-/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, silent)
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(istype(user))
+	if(istype(user)&& slot == SLOT_HUD_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone
@@ -689,4 +703,8 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		)
+

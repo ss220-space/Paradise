@@ -222,11 +222,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 		construction_state = ACCELERATOR_WRENCHED
 	else
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		construction_state = ACCELERATOR_UNWRENCHED
 	update_icon(UPDATE_ICON_STATE)
@@ -321,11 +321,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 		construction_state = ACCELERATOR_WRENCHED
 	else
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		construction_state = ACCELERATOR_UNWRENCHED
 	update_icon()

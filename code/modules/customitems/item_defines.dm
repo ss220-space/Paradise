@@ -194,7 +194,6 @@
 	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
 		chair.name = "vox wheelchair"
 		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
@@ -1390,18 +1389,21 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rawk_satchel"
 	sprite_sheets = null
+	item_state = "rawk_satchel"
 
 /obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+	item_state = "voxcaster_fluff"
 
 /obj/item/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
 	name = "CatPack"
 	desc = "It's a backpack, but it's also a cat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
+	item_state = "ssscratches_backpack"
 
 /obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
@@ -1613,6 +1615,7 @@
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
+	item_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"

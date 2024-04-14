@@ -35,10 +35,10 @@
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
 	. = ..()
 	if(. && !movable)
-		anchored = TRUE
+		set_anchored(TRUE)
 
-/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
-	anchored = initial(anchored)
+/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force, can_fall)
+	set_anchored(initial(anchored))
 	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -431,8 +431,12 @@
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
 		return
+	var/turf/T = get_turf(loc)
+	if(density || isopenspaceturf(T))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
 
-	for(var/obj/A in get_turf(loc))
+	for(var/obj/A in get_turf(T))
 		if(istype(A, /obj/structure/chair))
 			to_chat(user, span_danger("There is already [A] here."))
 			return

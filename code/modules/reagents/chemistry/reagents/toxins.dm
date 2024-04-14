@@ -290,6 +290,8 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
+	if(isnucleation(M))
+		return ..()
 	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))

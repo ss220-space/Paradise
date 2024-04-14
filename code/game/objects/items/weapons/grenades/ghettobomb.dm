@@ -107,7 +107,7 @@
 	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = T))
 		if(!user.drop_transfer_item_to_loc(src, user.loc))
 			return
-		anchored = TRUE
+		set_anchored(TRUE)
 		target = T
 
 		pixel_w = (T.x - x)*32
@@ -169,7 +169,7 @@
 		pixel_z = 0
 		to_chat(user, span_notice("You unattached [src]."))
 		layer = TURF_LAYER
-		anchored = FALSE
+		set_anchored(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		target = null
 
