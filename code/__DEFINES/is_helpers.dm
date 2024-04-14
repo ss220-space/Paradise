@@ -11,6 +11,18 @@
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
+
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
+
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 

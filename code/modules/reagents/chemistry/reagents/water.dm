@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(istype(data["donor"], /mob/living/carbon/alien))
+	else if(isalien(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
