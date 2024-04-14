@@ -79,7 +79,7 @@
 		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
 		return
 
-	if (istype(user.loc,/turf) && !(istype(user.loc,/turf/space)))
+	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
@@ -242,7 +242,7 @@
 		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
-	if (istype(user.loc,/turf) && !(istype(user.loc,/turf/space)))
+	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)

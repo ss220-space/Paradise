@@ -206,7 +206,7 @@
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
+				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
 					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
 					if(issimulatedturf(T))

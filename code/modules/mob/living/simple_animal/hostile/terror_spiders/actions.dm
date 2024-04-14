@@ -145,7 +145,7 @@
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
-		else if(istype(loc, /turf/space))
+		else if(isspaceturf(loc))
 			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)

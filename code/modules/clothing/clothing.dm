@@ -1047,7 +1047,7 @@ BLIND     // can't see anything
 		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue

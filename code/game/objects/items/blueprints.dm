@@ -313,7 +313,7 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
-	if(istype(T2, /turf/space))
+	if(isspaceturf(T2))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(istype(T2, /turf/simulated/wall/shuttle) || istype(T2, /turf/simulated/floor/shuttle))
 		return BORDER_SPACE

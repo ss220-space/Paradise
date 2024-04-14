@@ -654,7 +654,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Find a new turf to take on the property of
 						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !istype(nextturf, /turf/space))
+						if(!nextturf || !isspaceturf(nextturf))
 							nextturf = get_step(corner, turn(direction, 180))
 
 
