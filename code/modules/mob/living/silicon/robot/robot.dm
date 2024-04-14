@@ -1390,7 +1390,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
+					else if(ishuman(A))
 						var/mob/living/carbon/human/cleaned_human = A
 						if(cleaned_human.lying_angle)
 							if(cleaned_human.head)

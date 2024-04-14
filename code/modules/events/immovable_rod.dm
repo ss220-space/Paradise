@@ -80,7 +80,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			clong.ex_act(2)
 
 	else if(istype(clong, /mob))
-		if(istype(clong, /mob/living/carbon/human))
+		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
 			H.adjustBruteLoss(160)

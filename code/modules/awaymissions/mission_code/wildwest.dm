@@ -57,7 +57,7 @@
 		to_chat(user, "The Wish Granter lies silent.")
 		return
 
-	else if(!istype(user, /mob/living/carbon/human))
+	else if(!ishuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
 		return
 
@@ -143,7 +143,7 @@
 	if(triggered)
 		return
 
-	if(istype(moving_atom, /mob/living/carbon/human))
+	if(ishuman(moving_atom))
 		for(var/mob/O in viewers(world.view, src.loc))
 			to_chat(O, "<font color='red'>[moving_atom] triggered the [bicon(src)] [src]</font>")
 		triggered = 1

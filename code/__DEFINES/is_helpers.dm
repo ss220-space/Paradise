@@ -9,6 +9,8 @@
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
+#define ishuman(A) (istype(A, /mob/living/carbon/human))
+
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
