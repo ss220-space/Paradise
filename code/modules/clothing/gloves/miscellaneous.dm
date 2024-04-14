@@ -297,7 +297,6 @@
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
-	species_exception = list(/datum/species/monkey)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')

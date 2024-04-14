@@ -1411,9 +1411,6 @@
 	else
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
-	for(var/slot in dna.species.no_equip)
-		drop_item_ground(get_item_by_slot(slot), force = TRUE)
-
 	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	if(H && save_appearance && old_bodyparts)
