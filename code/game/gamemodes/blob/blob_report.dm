@@ -63,7 +63,7 @@
 			else
 				src.floor += 1
 
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			var/turf/simulated/wall/W = T
 			if(W.intact)
 				src.wall += 2

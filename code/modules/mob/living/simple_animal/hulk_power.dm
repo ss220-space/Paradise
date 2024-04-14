@@ -106,7 +106,7 @@
 			var/hit = 0
 			T = get_turf(get_step(user,user.dir))
 			if(i < 7)
-				if(istype(T,/turf/simulated/wall))
+				if(iswallturf(T))
 					hit = 1
 				else if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
@@ -121,7 +121,7 @@
 							S.ex_act(2)
 						if(istype(S,/obj/structure/grille))
 							qdel(S)
-				if(istype(T,/turf/simulated/wall))
+				if(iswallturf(T))
 					var/turf/simulated/wall/W = T
 					var/mob/living/carbon/human/H = user
 					if(istype(T,/turf/simulated/wall/r_wall))

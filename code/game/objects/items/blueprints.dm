@@ -319,7 +319,7 @@
 		return BORDER_SPACE
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if(istype(T2, /turf/simulated/wall))
+	if(iswallturf(T2))
 		return BORDER_2NDTILE
 	if(istype(T2, /turf/simulated/mineral))
 		return BORDER_2NDTILE

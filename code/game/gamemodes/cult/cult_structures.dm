@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(T)
 		if(isfloorturf(T))
 			T.ChangeTurf(/turf/simulated/floor/engine/cult)
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 	else
 		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)

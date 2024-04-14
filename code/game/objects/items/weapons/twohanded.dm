@@ -766,7 +766,7 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -842,7 +842,7 @@
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
-	if(istype(target, /turf/simulated/wall))
+	if(iswallturf(target))
 		var/turf/simulated/wall/W = target
 		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
