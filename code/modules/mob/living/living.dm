@@ -1270,7 +1270,7 @@
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	if(istype(loc, /obj/structure/closet/critter))
 		return environment.temperature
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		var/obj/mecha/M = loc
 		return  M.return_temperature()
 	if(isvampirecoffin(loc))

@@ -20,7 +20,7 @@
 	icon_state = "act_equip"
 
 /obj/screen/human/equip/Click()
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
 	if(is_ventcrawling(usr)) // stops inventory actions in vents

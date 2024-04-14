@@ -532,7 +532,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				popDown()
 
 /obj/machinery/porta_turret/proc/set_assess_type(atom/movable/target)
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/ME = target
 		return assess_and_assign(ME.occupant)
 

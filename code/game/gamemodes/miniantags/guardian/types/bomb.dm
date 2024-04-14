@@ -34,7 +34,7 @@
 			to_chat(src, span_danger("Ваши силы на перезарядке! Вы должны ждать ещё [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд до установки следующей бомбы."))
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
-	if(istype(A, /obj/mecha))
+	if(ismecha(A))
 		var/obj/mecha/target = A
 		if(target.occupant)
 			to_chat(src, span_warning("Пилотируемые мехи непригодны для минирования!"))
