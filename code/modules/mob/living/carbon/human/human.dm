@@ -1313,26 +1313,6 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/slots_to_check = list(
-		"[SLOT_HUD_WEAR_MASK]",
-		"[SLOT_HUD_HEAD]",
-		"[SLOT_HUD_SHOES]",
-		"[SLOT_HUD_GLOVES]",
-		"[SLOT_HUD_LEFT_EAR]",
-		"[SLOT_HUD_RIGHT_EAR]",
-		"[SLOT_HUD_GLASSES]",
-		"[SLOT_HUD_LEFT_HAND]",
-		"[SLOT_HUD_RIGHT_HAND]",
-		"[SLOT_HUD_NECK]",
-	)
-	for(var/slot in slots_to_check)
-		var/obj/item/item = get_item_by_slot(text2num(slot))
-		if(item)
-			var/has_drop_del = item.flags & DROPDEL
-			slots_to_check[slot] = list(item, has_drop_del)
-			if(has_drop_del)			// we are interested only in dropdel flag
-				item.flags &= ~DROPDEL	// to prevent items deletion on limbs regrowth
-
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 
@@ -1431,14 +1411,8 @@
 	else
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
-	for(var/slot in slots_to_check)
-		var/list/item_params = slots_to_check[slot]
-		if(!item_params)
-			continue
-		var/obj/item/item = item_params[1]
-		if(item_params[2])	// has dropdel flag previously
-			item.flags |= DROPDEL
-		equip_to_slot_if_possible(item, text2num(slot), drop_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE, initial = TRUE)
+	for(var/slot in dna.species.no_equip)
+		drop_item_ground(get_item_by_slot(slot), force = TRUE)
 
 	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
