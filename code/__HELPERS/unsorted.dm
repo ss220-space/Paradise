@@ -1030,7 +1030,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/assembly/igniter))
+	if(isigniter(W))
 		return 20000
 	else
 		return 0

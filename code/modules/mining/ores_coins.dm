@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/assembly/igniter))
+	if(!wires && isigniter(I))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
 		attacher = key_name(user)
