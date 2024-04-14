@@ -69,7 +69,7 @@
 	var/client/C
 	if(istext(whom))
 		C = get_client_by_ckey(whom)
-	else if(istype(whom,/client))
+	else if(isclient(whom))
 		C = whom
 
 	if(!C)

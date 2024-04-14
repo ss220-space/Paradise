@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else if(istype(var_value, /matrix))
 		. = VV_MATRIX
 
-	else if(istype(var_value,/client))
+	else if(isclient(var_value))
 		. = VV_CLIENT
 
 	else if(isdatum(var_value))

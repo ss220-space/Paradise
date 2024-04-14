@@ -1301,7 +1301,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(isdatum(A))
 		var/datum/D = A
 		return !QDELETED(D)
-	if(istype(A, /client))
+	if(isclient(A))
 		return TRUE
 	return FALSE
 
@@ -1836,7 +1836,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			C = M.client
 		else
 			return
-	else if(istype(mob_or_client, /client))
+	else if(isclient(mob_or_client))
 		C = mob_or_client
 
 	if(!istype(C))

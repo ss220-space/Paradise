@@ -327,7 +327,7 @@ var/to_chat_src
 				message = replacetext(message, char, GLOB.twitch_censor_list[char])
 
 		var/client/C
-		if(istype(target, /client))
+		if(isclient(target))
 			C = target
 		if(ismob(target))
 			C = target:client
