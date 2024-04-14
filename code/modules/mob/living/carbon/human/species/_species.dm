@@ -906,7 +906,7 @@
 					to_chat(user, span_warning("Размер [I] слишком большой, чтобы прикрепить."))
 				return FALSE
 
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, user.wear_suit.allowed))
+			if(is_pda(I) || istype(I, /obj/item/pen) || is_type_in_list(I, user.wear_suit.allowed))
 				return TRUE
 
 			if(!user.wear_suit.allowed)

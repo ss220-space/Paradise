@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(W.GetID() || ispda(W))
+	else if(W.GetID() || is_pda(W))
 		if(src.allowed(user))
 			add_fingerprint(user)
 			if(active)

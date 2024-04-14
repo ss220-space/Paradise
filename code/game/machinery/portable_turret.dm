@@ -359,7 +359,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 		wrenching = FALSE
 
-	else if(I.GetID() || ispda(I))
+	else if(I.GetID() || is_pda(I))
 		if(HasController())
 			to_chat(user, span_notice("Turrets regulated by a nearby turret controller are not unlockable."))
 		else if(allowed(user))

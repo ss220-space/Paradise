@@ -486,7 +486,7 @@
 			set_anchored(FALSE)
 			return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(allowed(user))
 			add_fingerprint(user)
 			locked = !locked

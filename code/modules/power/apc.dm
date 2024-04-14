@@ -608,7 +608,7 @@
 			chargecount = 0
 			update_icon()
 
-	else if(W.GetID() || ispda(W))			// trying to unlock the interface with an ID card
+	else if(W.GetID() || is_pda(W))			// trying to unlock the interface with an ID card
 		add_fingerprint(user)
 		togglelock(user)
 

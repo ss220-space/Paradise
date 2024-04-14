@@ -158,7 +158,7 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
 		if (!can_use())
 			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return

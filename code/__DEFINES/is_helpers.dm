@@ -48,8 +48,6 @@
 
 #define isstorage(A) (istype(A, /obj/item/storage))
 
-#define ispda(A) (istype(A, /obj/item/pda))
-
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
