@@ -6,7 +6,7 @@
  	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1

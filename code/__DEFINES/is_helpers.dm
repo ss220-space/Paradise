@@ -24,6 +24,8 @@
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
 
 //Simple animals
+// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
