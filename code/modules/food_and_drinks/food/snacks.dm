@@ -107,7 +107,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
 	if(isstorage(W))

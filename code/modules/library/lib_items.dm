@@ -214,7 +214,7 @@
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
 			return 1
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1

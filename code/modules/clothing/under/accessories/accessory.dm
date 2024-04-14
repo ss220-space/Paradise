@@ -849,7 +849,7 @@
 	remove_id(user)
 
 /obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		if(istype(loc, /obj/item/clothing/under))
 			return ..()
 		var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text

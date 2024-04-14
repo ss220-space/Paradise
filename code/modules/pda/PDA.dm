@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
-	else if(istype(C, /obj/item/pen))
+	else if(is_pen(C))
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")

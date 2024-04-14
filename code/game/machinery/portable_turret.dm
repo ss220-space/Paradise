@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 6
 				return
 
-	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
+	if(is_pen(I))	//you can rename turrets like bots!
 		var/t = input(user, "Enter new turret name", name, finish_name) as text
 		t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 		if(!t)

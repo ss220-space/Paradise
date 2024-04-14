@@ -36,7 +36,7 @@
 /obj/item/toy/attackby(obj/item/K, mob/user, params)
 	. = ..()
 	if(unique_toy_rename)
-		if(istype(K, /obj/item/pen))
+		if(is_pen(K))
 			var/t = rename_interactive(user, K, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the toy [name]. Say hello to your new friend.</span>")
