@@ -5,11 +5,11 @@
 
 // Mobs
 
-//#define ismob(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are mobs
-
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
 #define isliving(A) (istype(A, /mob/living))
+
+#define isbrain(A) (istype(A, /mob/living/carbon/brain))
 
 // Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
@@ -28,7 +28,7 @@
 
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
 
-//Simple animals
+// Simple animals
 // #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -38,6 +38,8 @@
 #define isslime(A) (istype((A), /mob/living/simple_animal/slime))
 
 #define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
+#define isvampireanimal(A) (istype((A), /mob/living/simple_animal/hostile/vampire))
 
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
@@ -120,33 +122,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
-
-//Mobs
-#define isliving(A) (istype(A, /mob/living))
-
-#define isbrain(A) (istype(A, /mob/living/carbon/brain))
-
-#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
-
-//Carbon mobs
-#define iscarbon(A) (istype(A, /mob/living/carbon))
-
-#define ishuman(A) (istype(A, /mob/living/carbon/human))
-
-//more carbon mobs
-#define isalien(A) (istype(A, /mob/living/carbon/alien))
-
-#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
-
-#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
-
-#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
-
-#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
-
-#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
-
-#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

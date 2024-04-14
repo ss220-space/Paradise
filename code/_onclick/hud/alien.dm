@@ -6,7 +6,7 @@
 	icon_state = "leap_off"
 
 /obj/screen/alien/leap/Click()
-	if(ishunter(usr))
+	if(isalienhunter(usr))
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
@@ -53,7 +53,7 @@
 	static_inventory += using
 	move_intent = using
 
-	if(ishunter(mymob))
+	if(isalienhunter(mymob))
 		mymob.leap_icon = new /obj/screen/alien/leap()
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
 		mymob.leap_icon.screen_loc = ui_alien_leap
