@@ -114,7 +114,7 @@
 		open(user)
 		return FALSE
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
 		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")

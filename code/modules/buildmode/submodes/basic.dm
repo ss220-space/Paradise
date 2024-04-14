@@ -23,7 +23,7 @@
 		var/turf/T = object
 		if(isspaceturf(object) || istype(object,/turf/simulated/openspace))
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
-		else if(istype(object,/turf/simulated/floor))
+		else if(isfloorturf(object))
 			T.ChangeTurf(/turf/simulated/wall)
 		else if(istype(object,/turf/simulated/wall))
 			T.ChangeTurf(/turf/simulated/wall/r_wall)
@@ -33,7 +33,7 @@
 		if(istype(object,/turf/simulated/wall))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
-		else if(istype(object,/turf/simulated/floor))
+		else if(isfloorturf(object))
 			var/turf/T = object
 			T.ChangeTurf(T.baseturf)
 		else if(istype(object,/turf/simulated/wall/r_wall))
