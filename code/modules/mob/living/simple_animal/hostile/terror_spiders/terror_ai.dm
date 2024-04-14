@@ -192,7 +192,7 @@
 			if(M.occupant)
 				enemies |= M
 				enemies |= M.occupant
-		else if(istype(A, /obj/spacepod))
+		else if(isspacepod(A))
 			var/obj/spacepod/M = A
 			if(M.pilot)
 				enemies |= M

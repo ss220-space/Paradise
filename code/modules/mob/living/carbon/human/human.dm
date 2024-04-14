@@ -245,7 +245,7 @@
 				stat("Заряд костюма","[ninja.get_cell_charge()]")
 				stat("Заряд рывков","[ninja.get_dash_charge()]")
 
-	if(istype(loc, /obj/spacepod)) // Spacdpods!
+	if(isspacepod(loc)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")

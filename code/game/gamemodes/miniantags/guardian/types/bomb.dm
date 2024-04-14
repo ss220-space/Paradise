@@ -39,7 +39,7 @@
 		if(target.occupant)
 			to_chat(src, span_warning("Пилотируемые мехи непригодны для минирования!"))
 			return FALSE
-	if(istype(A, /obj/spacepod))
+	if(isspacepod(A))
 		var/obj/spacepod/target = A
 		if(target.pilot)
 			to_chat(src, span_warning("Челноки не пригодны для минирования!"))

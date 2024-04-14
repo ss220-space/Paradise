@@ -536,7 +536,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		var/obj/mecha/ME = target
 		return assess_and_assign(ME.occupant)
 
-	if(istype(target, /obj/spacepod))
+	if(isspacepod(target))
 		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 

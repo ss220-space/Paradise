@@ -628,7 +628,7 @@
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
 	..()
-	if(ismecha(moving_atom) || istype(moving_atom, /obj/spacepod)) return
+	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
 
 	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))
 		return

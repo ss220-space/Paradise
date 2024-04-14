@@ -1276,7 +1276,7 @@
 	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
 		return coffin.return_temperature()
-	if(istype(loc, /obj/spacepod))
+	if(isspacepod(loc))
 		var/obj/spacepod/S = loc
 		return S.return_temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))

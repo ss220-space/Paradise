@@ -1518,7 +1518,7 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(!istype(target, /obj/spacepod))
+	if(!isspacepod(target))
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
