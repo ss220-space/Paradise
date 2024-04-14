@@ -630,7 +630,7 @@
 	..()
 	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
 
-	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))
+	if(istype(moving_atom, /obj/item/projectile) || iseffect(moving_atom))
 		return
 
 	switch(dir)
