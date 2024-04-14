@@ -405,7 +405,7 @@
 		var/atom/inside = target.loc
 		pointed_object += " внутри [inside.declent_ru(GENITIVE)]"
 
-	if(istype(hand_item, /obj/item/gun) && target != hand_item)
+	if(isgun(hand_item) && target != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(target))
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE

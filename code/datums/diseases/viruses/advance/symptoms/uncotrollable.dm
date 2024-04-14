@@ -63,7 +63,7 @@ Uncontrollable Aggression
 		if(!attacking_item)
 			UnarmedAttack(aggressor)
 		else
-			if(istype(attacking_item, /obj/item/gun))
+			if(isgun(attacking_item))
 				var/obj/item/gun/gun = attacking_item
 				GunAttack(aggressor, gun)
 			else
@@ -151,7 +151,7 @@ Uncontrollable Actions
 		if(!item)
 			return
 
-		if(istype(item, /obj/item/gun))
+		if(isgun(item))
 			var/obj/item/gun/gun = item
 			UseGun(possesed, gun)
 		else
