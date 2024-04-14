@@ -4,9 +4,12 @@
 #define isdatum(thing) (istype(thing, /datum))
 
 // Mobs
+
+//#define ismob(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are mobs
+
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
-//Carbon mobs
+// Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
