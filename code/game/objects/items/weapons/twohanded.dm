@@ -254,13 +254,10 @@
 		hitsound = "swing_hit"
 
 
-/obj/item/twohanded/dualsaber/equipped(mob/user, slot)
-	var/datum/component/two_handed/two_handed
-	if((slot == SLOT_HUD_RIGHT_HAND || slot == SLOT_HUD_LEFT_HAND) && active)
-		two_handed = GetComponent(/datum/component/two_handed)
-		two_handed.require_twohands = TRUE
-	. = ..()
-	two_handed?.require_twohands = FALSE //Some "kostili", what could go wrong?
+/obj/item/twohanded/dualsaber/equipped(mob/user, slot, initial = FALSE, send_signal)
+	. = ..(user, slot, initial, send_signal = !active)
+	if(active)
+		SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot, active)
 
 
 /obj/item/twohanded/dualsaber/wield(obj/item/source, mob/living/carbon/user)

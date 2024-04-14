@@ -122,13 +122,20 @@
 
 
 /// Triggered on equip of the item containing the component
-/datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
+/datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot, force_require_twohands)
 	SIGNAL_HANDLER
+
+	var/temp_require_twohands = require_twohands
+	if(force_require_twohands)
+		require_twohands = TRUE
 
 	if(require_twohands && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)) // force equip the item
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
+
+	if(force_require_twohands)
+		require_twohands = temp_require_twohands
 
 
 /// Triggered on drop of item containing the component and its offhand part
