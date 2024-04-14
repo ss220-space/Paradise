@@ -634,7 +634,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
-					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 

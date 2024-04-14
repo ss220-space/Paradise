@@ -190,7 +190,7 @@
 		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
-			if(istype(target, /turf/simulated))
+			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(iscarbon(target))
 				for(var/obj/item/carried_item in target.contents)

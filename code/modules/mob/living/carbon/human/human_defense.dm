@@ -475,7 +475,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = TRUE
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
