@@ -94,7 +94,7 @@
 	if(!proximity || istype(A, /obj/machinery/dnaforensics))
 		return
 
-	if(istype(A,/mob/living))
+	if(isliving(A))
 		return
 
 	if(is_used())

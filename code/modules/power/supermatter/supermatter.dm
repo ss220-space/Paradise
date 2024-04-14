@@ -498,7 +498,7 @@
 
 
 /obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
-	if(istype(AM, /mob/living))
+	if(isliving(AM))
 		var/mob/living/user = AM
 		user.gib()
 		power += 200

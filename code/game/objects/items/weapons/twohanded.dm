@@ -821,7 +821,7 @@
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()
-	if(istype(user, /mob/living))
+	if(isliving(user))
 		var/mob/living/U = user
 		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
 			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
