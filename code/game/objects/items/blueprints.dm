@@ -321,7 +321,7 @@
 		return BORDER_BETWEEN
 	if(iswallturf(T2))
 		return BORDER_2NDTILE
-	if(istype(T2, /turf/simulated/mineral))
+	if(ismineralturf(T2))
 		return BORDER_2NDTILE
 	if(!issimulatedturf(T2))
 		return BORDER_BETWEEN
