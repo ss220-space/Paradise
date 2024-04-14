@@ -184,7 +184,7 @@
 		AddComponent(/datum/component/proximity_monitor)
 		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
 		return TRUE
-	else if(istype(W, /obj/item/assembly))
+	else if(isassembly(W))
 		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
 		return FALSE
 

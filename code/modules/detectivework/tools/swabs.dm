@@ -108,7 +108,7 @@
 		var/list/choices = list()
 		if(A.blood_DNA)
 			choices |= "Blood"
-		if(istype(A, /obj/item/clothing))
+		if(isclothing(A))
 			choices |= "Gunshot Residue"
 
 		var/choice
