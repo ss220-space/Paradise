@@ -695,7 +695,7 @@
 /obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 	if(build_step == 0)
-		if(istype(W, /obj/item/assembly/prox_sensor))
+		if(isprox(W))
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			build_step++

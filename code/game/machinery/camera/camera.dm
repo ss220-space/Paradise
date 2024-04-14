@@ -145,7 +145,7 @@
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
+	else if(isprox(I) && panel_open)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return

@@ -37,7 +37,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+	else if(issignaler(W) && panel_open)
 		add_fingerprint(user)
 		wires.Interact(user)
 

@@ -171,8 +171,8 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
-		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
+	if(issignaler(W) || istype(W, /obj/item/assembly/voice))
+		if(issignaler(trigger) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
 			return FALSE
 		if(!user.drop_transfer_item_to_loc(W, src))

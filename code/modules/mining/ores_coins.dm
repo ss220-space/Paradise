@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/assembly/signaler))
+		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || issignaler(I))
 			wires.Interact(user)
 			return
 
