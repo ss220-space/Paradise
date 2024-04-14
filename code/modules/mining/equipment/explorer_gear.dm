@@ -38,7 +38,7 @@
 	icon_state = "explorer"
 	item_state = "explorer"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR | NODROP
+	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
@@ -239,7 +239,7 @@
 	icon_state = "pathhead"
 	item_state = "pathhead"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR | NODROP
+	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 35, "bullet" = 35, "laser" = 35, "energy" = 35, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)
 	resistance_flags = FIRE_PROOF
