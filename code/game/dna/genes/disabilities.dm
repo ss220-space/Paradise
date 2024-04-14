@@ -269,7 +269,7 @@
 	block = GLOB.wingdingsblock
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
-	var/garbled_message = ""
+/*	var/garbled_message = ""
 	for(var/i in 1 to length(message))
 		if(message[i] in GLOB.alphabet_uppercase)
 			garbled_message += pick(GLOB.alphabet_uppercase)
@@ -277,9 +277,29 @@
 			garbled_message += pick(GLOB.alphabet)
 		else
 			garbled_message += message[i]
-	message = garbled_message
-	return message
+	message = garbled_message     */
 
+	var/garbled_message = ""
+	var/i = 1
+	while(i <= length(message))
+		var/test = length(message)
+		var/test2 = message[i]
+		if(message[i] in GLOB.alphabet_uppercase)
+			garbled_message += pick(GLOB.alphabet_uppercase)
+		else if(message[i] in GLOB.alphabet)
+			garbled_message += pick(GLOB.alphabet)
+		else if(message[i] in list("А","Б","В","Г","Д","Е","Ё","Ж","З","И","Й","К","Л","М","Н","О","П","Р","С","T","У","Ф","Х","Ц","Ч","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"))
+			garbled_message += pick(GLOB.alphabet_uppercase)
+			i++
+		else if(message[i] in list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","е","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
+			garbled_message += pick(GLOB.alphabet)
+			i++
+		else
+			garbled_message += message[i]
+		i++
+	message = garbled_message
+
+	return message
 /datum/dna/gene/disability/weak
 	name = "Weak"
 	desc = "Делает мышцы цели более слабыми."
