@@ -61,7 +61,7 @@
 			return
 		shock_field(mover)
 
-	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
+	if(ismachinery(mover) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)

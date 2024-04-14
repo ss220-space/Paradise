@@ -478,7 +478,7 @@
 		return FALSE
 	if(check.throwing)	// no merging for items in middle air
 		return FALSE
-	if(istype(loc, /obj/machinery)) // no merging items in machines that aren't both in componentparts
+	if(ismachinery(loc)) // no merging items in machines that aren't both in componentparts
 		var/obj/machinery/machine = loc
 		if(!(src in machine.component_parts) || !(check in machine.component_parts))
 			return FALSE

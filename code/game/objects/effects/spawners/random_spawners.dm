@@ -43,7 +43,7 @@
 				O.pixel_x = pixel_x
 				O.pixel_y = pixel_y
 				O.pixel_z = pixel_z
-			if(use_power && istype(O, /obj/machinery)) //В основном для спавна туррелей. Чтобы туррели тратили электричество при работе
+			if(use_power && ismachinery(O)) //В основном для спавна туррелей. Чтобы туррели тратили электричество при работе
 				var/obj/machinery/OM = O
 				OM.use_power = use_power
 				if(active_power_usage)

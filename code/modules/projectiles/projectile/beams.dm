@@ -76,7 +76,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
-	if(istype(target, /turf) || istype(target, /obj/structure) || istype(target, /obj/machinery))
+	if(istype(target, /turf) || istype(target, /obj/structure) || ismachinery(target))
 		target.ex_act(2)
 	..()
 

@@ -87,7 +87,7 @@
 					grille += 1
 			else if(istype(O, /obj/machinery/door))
 				src.door += 1
-			else if(istype(O, /obj/machinery))
+			else if(ismachinery(O))
 				src.mach += 1
 
 /datum/station_state/proc/score(var/datum/station_state/result)

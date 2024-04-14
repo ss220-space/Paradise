@@ -265,7 +265,7 @@
 						if(!O.anchored)
 							if(isitem(O))
 								O.loc = C
-							else if(istype(O, /obj/machinery))
+							else if(ismachinery(O))
 								O.loc = C
 								large_cocoon = 1
 							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
