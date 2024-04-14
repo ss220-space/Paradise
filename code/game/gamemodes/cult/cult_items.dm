@@ -500,7 +500,7 @@
 	if(iscultist(owner)) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
