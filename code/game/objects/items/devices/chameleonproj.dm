@@ -39,7 +39,7 @@
 	if(target.invisibility)
 		return
 	if(!active_dummy)
-		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
+		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type

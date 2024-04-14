@@ -148,7 +148,7 @@
 
 /obj/item/picture_frame/attack_self(mob/user)
 	if(displayed)
-		if(istype(displayed, /obj/item))
+		if(isitem(displayed))
 			var/obj/item/I = displayed
 			I.attack_self(user)
 	else

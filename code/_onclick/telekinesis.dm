@@ -133,7 +133,7 @@
 		return // todo: something like attack_self not laden with assumptions inherent to attack_self
 
 
-	if(istype(focus,/obj/item) && target.Adjacent(focus) && !user.in_throw_mode)
+	if(isitem(focus) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
 		var/resolved = target.attackby(I, user, params)
 		if(!resolved && target && I)
@@ -163,7 +163,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	apply_focus_overlay()
 	// Make it behave like other equipment
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		if(target in user.tkgrabbed_objects)
 			// Release the old grab first
 			user.drop_item_ground(user.tkgrabbed_objects[target])
@@ -172,7 +172,7 @@
 /obj/item/tk_grab/proc/release_object()
 	if(!focus)
 		return
-	if(istype(focus, /obj/item))
+	if(isitem(focus))
 		// Delete the key/value pair of item to TK grab
 		host.tkgrabbed_objects -= focus
 	focus = null

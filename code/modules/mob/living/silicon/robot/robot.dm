@@ -1387,7 +1387,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 								floor_only = FALSE
 							else
 								qdel(B)
-					else if(istype(A, /obj/item))
+					else if(isitem(A))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
 					else if(ishuman(A))

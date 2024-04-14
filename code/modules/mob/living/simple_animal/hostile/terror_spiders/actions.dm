@@ -263,7 +263,7 @@
 					C.pixel_y = cocoon_target.pixel_y
 					for(var/obj/O in C.loc)
 						if(!O.anchored)
-							if(istype(O, /obj/item))
+							if(isitem(O))
 								O.loc = C
 							else if(istype(O, /obj/machinery))
 								O.loc = C

@@ -523,7 +523,7 @@
 		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return
-	else if(istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(isitem(W) && get_dist(src,user)<2)
 		user.drop_from_active_hand(src)
 		visible_message(span_notice("[user] dunks [W] into the [src]!"))
 		return

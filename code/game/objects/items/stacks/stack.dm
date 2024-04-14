@@ -238,7 +238,7 @@
 			src = null //dont kill proc after qdel()
 			usr.temporarily_remove_item_from_inventory(oldsrc, force = TRUE)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)

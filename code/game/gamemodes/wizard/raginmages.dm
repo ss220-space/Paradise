@@ -105,7 +105,7 @@
 		if(istype(L, /mob/living/carbon/brain))
 			// diediedie
 			var/mob/living/carbon/brain/B = L
-			if(istype(B.loc, /obj/item))
+			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
 				qdel(B.container)

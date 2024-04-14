@@ -347,7 +347,7 @@
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(istype(target,/obj/item)) // Eat items just to be annoying
+	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)
