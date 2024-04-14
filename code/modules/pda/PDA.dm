@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			cartridge.attackby(C, user, params)
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon) && scanmode)
+	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)

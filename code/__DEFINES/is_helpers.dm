@@ -6,6 +6,9 @@
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
+//Carbon mobs
+#define iscarbon(A) (istype(A, /mob/living/carbon))
+
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 

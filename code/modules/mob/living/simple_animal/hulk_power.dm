@@ -464,7 +464,7 @@
 	damage_type = TOX
 
 /obj/item/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
-	if(istype(target, /mob/living/carbon))
+	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.Weaken(4 SECONDS)
 		M.adjust_fire_stacks(20)

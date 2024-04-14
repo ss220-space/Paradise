@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 		throw EXCEPTION("Unable to find a blobstart landmark for hellish resurrection")
 
 /datum/devilinfo/proc/update_hud()
-	if(istype(owner.current, /mob/living/carbon))
+	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
 		if(C.hud_used && C.hud_used.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
