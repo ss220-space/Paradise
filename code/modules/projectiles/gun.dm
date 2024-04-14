@@ -269,6 +269,7 @@
 	if(semicd)
 		return
 
+	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 	var/randomized_gun_spread = 0
 	if(spread)

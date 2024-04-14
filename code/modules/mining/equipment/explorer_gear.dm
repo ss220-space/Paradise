@@ -74,6 +74,17 @@
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	jetpack = /obj/item/tank/jetpack/suit
+	jetpack_upgradable = TRUE
+
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+	)
 
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
@@ -105,6 +116,16 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+	)
 
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)

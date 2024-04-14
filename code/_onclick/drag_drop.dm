@@ -110,7 +110,7 @@ to inform the game this action was expected and its fine
 		drag_start = world.time
 		drag_details = modifiers.Copy()
 	mouseParams = params
-	mouse_location_UID = over_location?.UID()
+	mouse_location_UID = istype(over_location) ? over_location.UID() : null
 	mouse_object_UID = over_object?.UID()
 	if(selected_target[1] && over_object?.IsAutoclickable())
 		selected_target[1] = over_object

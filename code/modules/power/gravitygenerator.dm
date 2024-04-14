@@ -429,7 +429,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
-		if(!mob_turf || our_turf.z != mob_turf.z)
+		if(!istype(mob_turf))
+			continue
+		if(!is_valid_z_level(our_turf, mob_turf))
 			continue
 		if(isliving(shaked))
 			var/mob/living/living_shaked = shaked
@@ -453,12 +455,20 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return
-	if(!GLOB.gravity_generators["[our_turf.z]"])
-		GLOB.gravity_generators["[our_turf.z]"] = list()
-	if(on)
-		GLOB.gravity_generators["[our_turf.z]"] |= src
+	var/list/z_list = list()
+	// Multi-Z, station gravity generator generates gravity on all STATION_LEVEL z-levels.
+	if(check_level_trait(our_turf.z, STATION_LEVEL))
+		for(var/z in levels_by_trait(STATION_LEVEL))
+			z_list += z
 	else
-		GLOB.gravity_generators["[our_turf.z]"] -= src
+		z_list += our_turf.z
+	for(var/z in z_list)
+		if(!GLOB.gravity_generators["[z]"])
+			GLOB.gravity_generators["[z]"] = list()
+		if(on)
+			GLOB.gravity_generators["[z]"] |= src
+		else
+			GLOB.gravity_generators["[z]"] -= src
 
 
 // Misc

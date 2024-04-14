@@ -290,6 +290,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
 
+/obj/item/radio/headset/heads/qm
+	name = "quartermaster's headset"
+	desc = "Smelling of tobacco and gunpowder, this headset has likely seen many backroom deals."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/heads/qm
+
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
 	desc = "A cheap model of working modular intercom headset for a cargo, that fits over the head. Takes encryption keys. Won't protect ears from flashbangs and loud noises."

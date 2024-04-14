@@ -73,6 +73,7 @@
 	item_state = "bullethelmet"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
+	flags = BLOCKHAIR | HEADBANGPROTECT
 	flags_inv = HIDEHEADSETS | HIDEGLASSES | HIDEMASK
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = 1

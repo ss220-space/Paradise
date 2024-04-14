@@ -1,6 +1,13 @@
 /datum/surgery/embedded_removal
 	name = "Removal of Embedded Objects"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/remove_object,/datum/surgery_step/generic/cauterize)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/remove_object,
+		/datum/surgery_step/generic/cauterize
+	)
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -18,55 +25,50 @@
 	)
 
 /datum/surgery/embedded_removal/synth
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/remove_object,/datum/surgery_step/robotics/external/close_hatch)
-	requires_organic_bodypart = 0
+	steps = list(
+		/datum/surgery_step/robotics/external/unscrew_hatch,
+		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/remove_object,
+		/datum/surgery_step/robotics/external/close_hatch
+	)
+	requires_organic_bodypart = FALSE
 
-/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
+/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(affected.is_robotic())
-		return 0
-	return 1
-
-/datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(!affected.is_robotic())
-		return 0
-
-	return 1
+	if(!length(affected.embedded_objects))
+		return FALSE
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
-	time = 32
-	accept_hand = 1
+	time = 3.2 SECONDS
+	accept_hand = TRUE
 	var/obj/item/organ/external/L = null
+	repeatable = TRUE
 
 
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	L = surgery.organ_ref
+	L = surgery.organ_to_manipulate
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."))
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
+	return ..()
 
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(L)
-		if(ishuman(target))
-			var/objects_removed = L.remove_all_embedded_objects()
-			if(objects_removed)
-				user.visible_message("[user] sucessfully removes [objects_removed] embedded objects from [target]'s [L.name]!", "<span class='notice'>You successfully remove [objects_removed] embedded objects from [target]'s [L.name].</span>")
-			else
-				to_chat(user, "<span class='warning'>You find no objects embedded in [target]'s [L.name]!</span>")
+		var/objects_removed = L.remove_all_embedded_objects()
+		if(objects_removed)
+			user.visible_message("[user] sucessfully removes [objects_removed] embedded objects from [target]'s [L.name]!", span_notice("You successfully remove [objects_removed] embedded objects from [target]'s [L.name]."))
+		else
+			to_chat(user, span_warning("You find no objects embedded in [target]'s [L.name]!"))
 
 	else
-		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
+		to_chat(user, span_warning("You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!"))
 
-	return 1
+	return SURGERY_STEP_CONTINUE
+
+// this could use a fail_step...

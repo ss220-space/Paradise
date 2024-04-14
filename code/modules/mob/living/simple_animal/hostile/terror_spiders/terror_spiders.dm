@@ -59,7 +59,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	speed = 0
-	var/magpulse = 1
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 
 	//SPECIAL
@@ -140,6 +139,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -429,12 +434,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return TRUE
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
-	return magpulse
-
-
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
 /obj/item/projectile/terrorspider
