@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
-//Assembly
+// Assembly
 #define isassembly(O) (istype(O, /obj/item/assembly))
 #define isigniter(O) (istype(O, /obj/item/assembly/igniter))
 #define isinfared(O) (istype(O, /obj/item/assembly/infra))
@@ -124,12 +124,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
 //Structures
-#define isstructure(A)	(istype(A, /obj/structure))
+#define isstructure(A) (istype(A, /obj/structure))
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
+#define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
