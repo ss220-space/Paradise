@@ -37382,10 +37382,6 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
-"xMb" = (
-/turf/space/openspace,
-/turf/simulated/wall,
-/area/space)
 "xMc" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/delivery,
@@ -533500,7 +533496,7 @@ rgz
 rgz
 rgz
 fTJ
-xMb
+jaV
 rgz
 rgz
 rgz
@@ -534528,7 +534524,7 @@ rgz
 rgz
 rgz
 rgz
-xMb
+jaV
 rgz
 rgz
 rgz
