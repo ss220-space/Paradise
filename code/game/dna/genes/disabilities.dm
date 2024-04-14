@@ -269,21 +269,9 @@
 	block = GLOB.wingdingsblock
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
-/*	var/garbled_message = ""
-	for(var/i in 1 to length(message))
-		if(message[i] in GLOB.alphabet_uppercase)
-			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(message[i] in GLOB.alphabet)
-			garbled_message += pick(GLOB.alphabet)
-		else
-			garbled_message += message[i]
-	message = garbled_message     */
-
 	var/garbled_message = ""
 	var/i = 1
 	while(i <= length(message))
-		var/test = length(message)
-		var/test2 = message[i]
 		if(message[i] in GLOB.alphabet_uppercase)
 			garbled_message += pick(GLOB.alphabet_uppercase)
 		else if(message[i] in GLOB.alphabet)
