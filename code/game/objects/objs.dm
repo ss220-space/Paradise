@@ -28,7 +28,6 @@
 	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
@@ -40,10 +39,7 @@
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
+		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()

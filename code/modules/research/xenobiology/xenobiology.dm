@@ -874,19 +874,6 @@
 	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
-/obj/item/areaeditor/blueprints/slime
-	name = "cerulean prints"
-	desc = "A one use set of blueprints made of jelly like organic material. Extends the reach of the management console."
-	color = "#2956B2"
-
-/obj/item/areaeditor/blueprints/slime/edit_area()
-	..()
-	var/area/A = get_area(src)
-	for(var/turf/T in A)
-		T.color = "#2956B2"
-	A.xenobiology_compatible = TRUE
-	qdel(src)
-
 /turf/simulated/floor/sepia
 	slowdown = 2
 	icon_state = "sepia"
