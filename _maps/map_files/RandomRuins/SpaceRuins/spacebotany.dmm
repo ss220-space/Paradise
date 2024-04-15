@@ -178,7 +178,7 @@
 /area/ruin/space/spacebotany/Dorm)
 "cM" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/space,
+/turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
 "cS" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -643,8 +643,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/head/helmet/space/nasavoid/green,
 /obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space/syndicate,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
 "hT" = (
@@ -824,8 +824,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/clothing/suit/space/nasavoid/green,
 /obj/item/tank/internals/oxygen,
+/obj/item/clothing/suit/space/syndicate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
 "jR" = (
@@ -2290,7 +2290,7 @@
 "Dh" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /obj/structure/disposalpipe/segment,
-/turf/space,
+/turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
 "DB" = (
 /obj/structure/disposalpipe/segment{
@@ -2992,7 +2992,7 @@
 /area/ruin/space/spacebotany/Garden)
 "MH" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
-/turf/space,
+/turf/simulated/wall,
 /area/ruin/space/spacebotany/Hydro)
 "MK" = (
 /obj/structure/chair/wood{
