@@ -18,7 +18,7 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, REPEATSURGERY)
 	dies_at_threshold = TRUE
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE

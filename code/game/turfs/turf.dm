@@ -6,7 +6,7 @@
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE	// Important for interaction with and visualization of openspace.
 
 	var/intact = TRUE
-	var/turf/baseturf = /turf/space
+	var/turf/baseturf = /turf/baseturf_bottom
 	/// negative for faster, positive for slower
 	var/slowdown = 0
 	/// It's a check that determines if the turf is transparent to reveal the stuff(pipes, safe, cables and e.t.c.) without looking on intact
@@ -774,37 +774,6 @@
 	C.Weaken(3 SECONDS)
 
 
-/turf/proc/CanEnter(atom/mover, exclude_mobs = FALSE, list/ignore_atoms, type_list = FALSE)
-	var/border_dir = get_dir(src, mover)
-
-	if(!CanPass(mover, border_dir))
-		return FALSE
-
-	if(isturf(mover.loc))
-		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover.loc)
-			if(obstacle == mover)
-				continue
-			if(!obstacle.CanExit(mover, movement_dir))
-				return FALSE
-
-	var/list/large_dense = contents.Copy()
-	if(length(ignore_atoms))
-		for(var/thing in large_dense)
-			if(!type_list && (thing in large_dense))
-				large_dense -= thing
-			else if(type_list && is_type_in_list(thing, ignore_atoms))
-				large_dense -= thing
-
-	for(var/atom/movable/obstacle in large_dense)
-		if(ismob(obstacle) && exclude_mobs)
-			continue
-		if(!obstacle.CanPass(mover, border_dir))
-			return FALSE
-
-	return TRUE
-
-
 /**
  * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
  *
@@ -814,21 +783,28 @@
  *
  * Arguments:
  * * exclude_mobs - If `TRUE`, ignores dense mobs on the turf.
- * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf. Also if source atom is in turf contents proc will check if it can exit.
  * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
  * * type_list - are we checking for types of atoms to ignore and not physical atoms
  */
-/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, atom/source_atom = null, list/ignore_atoms, type_list = FALSE)
 	if(density)
 		return TRUE
 
-	if(locate(/mob/living/silicon/ai) in src) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+	// Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+	if(locate(/mob/living/silicon/ai) in contents)
 		return TRUE
 
-	if(source_atom && !CanEnter(source_atom, exclude_mobs, ignore_atoms, type_list))
-		return TRUE
+	// in case of source_atom we are also checking if it can exit its turf contents
+	if(source_atom && isturf(source_atom.loc) && source_atom.loc != src)
+		var/movement_dir = get_dir(source_atom, src)
+		for(var/obj/obstacle in source_atom.loc)
+			if(obstacle == source_atom)
+				continue
+			if(!obstacle.CanExit(source_atom, movement_dir))
+				return TRUE
 
-	for(var/atom/movable/movable_content as anything in src)
+	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves
 		if((movable_content == source_atom))
 			continue
@@ -842,8 +818,8 @@
 		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
 		// it cannot pass through the thing on the turf, we consider the turf blocked.
 		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
-			//if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
-			//	continue
+			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+				continue
 			return TRUE
-	return FALSE
 
+	return FALSE

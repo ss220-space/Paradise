@@ -8126,7 +8126,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -45315,9 +45314,6 @@
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "ckx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -45326,6 +45322,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -45418,9 +45418,6 @@
 	},
 /area/medical/medbreak)
 "ckG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -45430,9 +45427,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "ckH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -72086,7 +72080,14 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/item/megaphone,
+/obj/item/pen{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/obj/item/pen/red{
+	pixel_x = -1;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -72347,16 +72348,7 @@
 /area/maintenance/server)
 "gRy" = (
 /obj/structure/table,
-/obj/item/folder/yellow,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/lighter/zippo/qm,
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "gRL" = (
@@ -74456,7 +74448,6 @@
 	name = "east station intercom (General)";
 	pixel_x = 28
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -74626,10 +74617,11 @@
 /area/space)
 "juC" = (
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	name = "Cargo Requests Console";
-	pixel_x = -30
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = -30;
+	announcementConsole = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77493,10 +77485,6 @@
 	},
 /area/maintenance/engineering)
 "myU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -77811,6 +77799,26 @@
 /area/maintenance/apmaint)
 "mSV" = (
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/item/extraction_pack,
+/obj/item/fulton_core,
+/obj/item/flash,
+/obj/item/clipboard,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/megaphone{
+	pixel_x = 7
+	},
+/obj/item/stamp/qm{
+	pixel_x = 7;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -78257,7 +78265,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "npo" = (
-/obj/machinery/computer/security/mining,
+/obj/machinery/computer/card/minor/qm,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -78659,19 +78667,20 @@
 /area/security/warden)
 "nRV" = (
 /obj/structure/table,
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/toy/figure/qm,
+/obj/item/folder/yellow{
+	pixel_y = -4
+	},
+/obj/item/toy/figure/qm{
+	pixel_y = 3;
+	pixel_x = 8
+	},
+/obj/item/lighter/zippo/qm{
+	pixel_x = -8;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -82462,11 +82471,10 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "sdq" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -82546,11 +82554,14 @@
 	},
 /area/chapel/main)
 "sin" = (
-/obj/structure/closet,
 /obj/machinery/light_switch{
 	name = "west light switch";
 	pixel_x = -24
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -84603,7 +84614,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
 "uGn" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/camera{
 	c_tag = "Quartermaster's Office";
 	dir = 8
@@ -84936,11 +84946,10 @@
 /area/civilian/vacantoffice)
 "uWw" = (
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/stamp/qm,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/qm_quest_tablet{
-	pixel_x = -12
+	pixel_x = 1;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)

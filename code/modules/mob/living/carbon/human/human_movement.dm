@@ -1,6 +1,6 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	if(!OldLoc.has_gravity() && has_gravity())
+	if((!OldLoc || !OldLoc.has_gravity()) && has_gravity())
 		thunk()
 
 

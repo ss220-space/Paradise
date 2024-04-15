@@ -23,7 +23,7 @@
 	if(istype(H) && eye_colour)
 		H.update_body() //Apply our eye colour to the target.
 	if(aug_message && !special)
-		to_chat(owner, "<span class='notice'>[aug_message]</span>")
+		to_chat(owner, span_notice("[aug_message]"))
 	M.update_sight()
 
 /obj/item/organ/internal/cyberimp/eyes/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -45,7 +45,7 @@
 	if(severity > 1)
 		if(prob(10 * severity))
 			return
-	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
+	to_chat(owner, span_warning("Static obfuscates your vision!"))
 	owner.flash_eyes(visual = 1)
 
 /obj/item/organ/internal/cyberimp/eyes/meson
