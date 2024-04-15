@@ -276,18 +276,19 @@
 			garbled_message += pick(GLOB.alphabet_uppercase)
 		else if(message[i] in GLOB.alphabet)
 			garbled_message += pick(GLOB.alphabet)
-		else if(message[i] in list("А","Б","В","Г","Д","Е","Ё","Ж","З","И","Й","К","Л","М","Н","О","П","Р","С","Т","У","Ф","Х","Ц","Ч","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"))
-			garbled_message += pick(GLOB.alphabet_uppercase)
+		else if(lowertext(message[i]) in list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
+			if(prob(50)) // it's the only way it works properly, If I'd done it like the English ones, it would have broken on "Р" and "С"
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
 			i++ // rus chars coded by 2 bytes, so we need to skip one byte when encrypting them
-		else if(message[i] in list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
-			garbled_message += pick(GLOB.alphabet)
-			i++
 		else
 			garbled_message += message[i]
 		i++
 	message = garbled_message
-
 	return message
+
+
 /datum/dna/gene/disability/weak
 	name = "Weak"
 	desc = "Делает мышцы цели более слабыми."
