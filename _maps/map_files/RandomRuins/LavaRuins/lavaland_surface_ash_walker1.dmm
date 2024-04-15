@@ -462,7 +462,9 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/stack/marker_beacon/ten,
+/obj/item/stack/marker_beacon/ten{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bl" = (
@@ -1643,7 +1645,7 @@ ak
 ak
 ak
 ak
-am
+ak
 bF
 bE
 cb
@@ -1724,7 +1726,7 @@ cO
 "}
 (15,1,1) = {"
 ac
-ak
+am
 ak
 aw
 aI
