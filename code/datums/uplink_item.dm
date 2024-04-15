@@ -158,6 +158,8 @@
 	if(!spawned)
 		return .
 
+	update_db(limited_stock > 0)
+
 	if(limited_stock > 0)
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
 		if(!buyer.mind.special_role)
@@ -174,6 +176,58 @@
 	else
 		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
 
+
+/datum/uplink_item/proc/update_db(discount = FALSE)
+	var/buyed
+	var/bydiscount
+	var/dbname = initial(name)
+	var/datum/db_query/query_select = SSdbcore.NewQuery({"SELECT
+				buyed,
+				bydiscount
+				FROM [format_table_name("uplink_items_buy")]
+				WHERE item=:item"}, list(
+					"item" = dbname
+				))
+
+	if(query_select.warn_execute())
+		while(query_select.NextRow())
+			buyed = query_select.item[1]
+			bydiscount = query_select.item[2]
+			break
+
+	qdel(query_select)
+
+	if(isnull(buyed))
+		buyed = 0
+		bydiscount = 0
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("uplink_items_buy")] (item, lasttime, buyed, bydiscount) VALUES (:item, Now(), :buyed, :bydiscount)", list(
+			"item" = dbname,
+			"buyed" = buyed,
+			"bydiscount" = bydiscount,
+		))
+		if(!query_insert.warn_execute())
+			qdel(query_insert)
+			return
+		qdel(query_insert)
+
+	var/datum/db_query/query_update = SSdbcore.NewQuery({"UPDATE [format_table_name("uplink_items_buy")]
+				SET
+					lasttime=NOW(),
+					buyed=:buyed,
+					bydiscount=:bydiscount
+					WHERE item=:item"}, list(
+						"item" = dbname,
+						"buyed" = buyed + 1,
+						"bydiscount" = discount ? bydiscount + 1 : bydiscount,
+					)
+					)
+
+	if(!query_update.warn_execute())
+		qdel(query_update)
+		return
+
+	qdel(query_update)
+	return 1
 
 /*
 //
