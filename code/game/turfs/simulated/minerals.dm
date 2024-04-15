@@ -63,18 +63,31 @@
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
+	var/turf/T = user.loc
+	if(!isturf(T))
+		return
 
 	if(istype(I, /obj/item/pickaxe))
 		var/obj/item/pickaxe/P = I
-		var/turf/T = user.loc
-		if(!isturf(T))
-			return
 
 		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
+
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
+			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
+				to_chat(user, span_notice("You finish cutting into the rock."))
+				attempt_drill(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+	if(istype(I, /obj/item/pen/survival))
+		var/obj/item/pen/survival/P = I
+		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, span_notice("You start picking with your pen..."))
+		playsound('sound/effects/picaxe1.ogg', 20, 1)
 
 		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay

@@ -20,7 +20,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Main variables
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
+	var/default_cartridge = FALSE // Access level defined by cartridge
+	var/special_pen = null //special variable for nonstandart pens in new PDAs
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
@@ -79,7 +80,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	if(special_pen)
+		new special_pen(src)
+	else
+		new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
 /obj/item/pda/proc/can_use()
