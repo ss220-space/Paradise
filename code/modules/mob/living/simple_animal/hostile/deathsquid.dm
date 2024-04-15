@@ -29,7 +29,6 @@
 
 	nightvision = 8
 	mob_size = MOB_SIZE_LARGE
-	ventcrawler = 0
 	gold_core_spawnable = NO_SPAWN
 
 

@@ -20,7 +20,7 @@
 	can_wrap = FALSE
 	melee_damage_lower = 10
 	melee_damage_upper = 15
-	ventcrawler = 0
+	ventcrawler_trait = null
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly,

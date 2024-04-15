@@ -167,20 +167,19 @@
 				if(G.toxins)
 					G.nitrogen += (G.toxins)
 					G.toxins = 0
-		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
-			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
-				V.welded = 1
-				V.update_icon()
-				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
-			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
-				U.welded = 1
-				U.update_icon()
-				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
-		for(var/mob/living/L in T)
-			L.ExtinguishMob()
-		for(var/obj/item/Item in T)
-			Item.extinguish()
+		for(var/thing in T)
+			if(istype(thing, /obj/machinery/atmospherics/unary/vent_pump) || istype(thing, /obj/machinery/atmospherics/unary/vent_scrubber)) //must be an unwelded atmospherics
+				var/obj/machinery/atmospherics/vent = thing
+				if(!vent.welded)
+					vent.set_welded(TRUE)
+					vent.visible_message(span_danger("[vent] was frozen shut!"))
+			else if(isliving(thing))
+				var/mob/living/mob = thing
+				mob.ExtinguishMob()
+			else if(isitem(thing))
+				var/obj/item/item = thing
+				item.extinguish()
+
 
 /datum/effect_system/smoke_spread/freezing/set_up(n = 5, c = 0, loca, direct, blasting = 0)
 	..()

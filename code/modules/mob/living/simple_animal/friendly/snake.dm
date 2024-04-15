@@ -29,7 +29,7 @@
 	response_disarm = "shoos"
 	response_harm   = "steps on"
 	faction = list("hostile")
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL

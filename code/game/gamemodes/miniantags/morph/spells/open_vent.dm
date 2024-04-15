@@ -43,10 +43,9 @@
 /obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)
 	if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = unary
-		scrubber.welded = FALSE
+		scrubber.set_welded(FALSE)
 	else if(istype(unary, /obj/machinery/atmospherics/unary/vent_pump))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = unary
-		vent.welded = FALSE
-	unary.update_icon()
+		vent.set_welded(FALSE)
 	unary.cut_overlay(GLOB.acid_overlay)
 

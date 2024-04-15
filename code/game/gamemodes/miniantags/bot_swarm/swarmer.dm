@@ -90,7 +90,7 @@
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	ranged = 1
 	projectiletype = /obj/item/projectile/beam/disabler
 	ranged_cooldown_time = 20
@@ -147,10 +147,9 @@
 		stat("Resources:",resources)
 
 
-/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	. = ..()
-
-	if(. && light_range)
+	if(. == VENTCRAWL_IN_SUCCESS && light_on)
 		ToggleLight()
 
 

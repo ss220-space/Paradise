@@ -204,9 +204,10 @@
 	mind_control_uses = 4
 	mind_control_duration = 1800
 
+
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 
 /obj/item/organ/internal/heart/gland/viral

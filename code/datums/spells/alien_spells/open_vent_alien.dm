@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/alien_spell/break_vents/cast(list/targets, mob/user)
 
-	var/obj/machinery/atmospherics/unary/vent_pump/vent = targets[1]
+	var/obj/machinery/atmospherics/vent = targets[1]
 	if(!vent)
 		to_chat(user, span_warning("No nearby welded vents found!"))
 		revert_cast(user)
@@ -45,9 +45,7 @@
 	playsound(get_turf(user),'sound/weapons/bladeslice.ogg' , 100, FALSE)
 
 	if(vent?.welded)
-		vent.welded = FALSE
-		vent.update_icon()
-		vent.update_pipe_image()
+		vent.set_welded(FALSE)
 		user.forceMove(vent.loc)
 		vent.visible_message(span_danger("[user] smashes the welded cover off [vent]!"))
 

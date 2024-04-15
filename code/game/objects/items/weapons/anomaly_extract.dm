@@ -121,7 +121,7 @@
 	slimeme.canmove = FALSE
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
-	user.forceMove(null)
+	user.move_to_null_space()
 
 	new /obj/effect/temp_visual/wizard(get_turf(slimeme))
 

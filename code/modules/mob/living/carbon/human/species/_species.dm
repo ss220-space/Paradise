@@ -82,7 +82,10 @@
 	var/obj_damage = 0
 	var/list/default_genes
 
-	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
+	/// Allows species to have ventcrawl trait defined here.
+	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE
+	var/ventcrawler_trait
+
 	var/has_fine_manipulation = 1 // Can use small items.
 	var/fingers_count = 10
 
@@ -290,6 +293,16 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	if(ventcrawler_trait)
+		var/static/list/ventcrawler_sanity = list(
+			TRAIT_VENTCRAWLER_ALWAYS,
+			TRAIT_VENTCRAWLER_NUDE,
+		)
+		if(ventcrawler_trait in ventcrawler_sanity)
+			ADD_TRAIT(H, ventcrawler_trait, SPECIES_TRAIT)
+		else
+			stack_trace("Species [type] has improper ventcrawler_trait value.")
+
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
@@ -334,8 +347,6 @@
 
 	H.hud_used?.update_locked_slots()
 
-	H.ventcrawler = ventcrawler
-
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
@@ -345,7 +356,7 @@
 
 	H.meatleft = initial(H.meatleft)
 
-	H.ventcrawler = initial(H.ventcrawler)
+	REMOVE_TRAIT(H, ventcrawler_trait, SPECIES_TRAIT)
 
 	H.hud_used?.update_locked_slots()
 

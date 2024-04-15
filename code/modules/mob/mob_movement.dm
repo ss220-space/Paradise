@@ -518,15 +518,13 @@
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, UP)
 
-	var/mob/living/L = src
-	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
 			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
 		else
 			to_chat(src, "<span class='notice'>You are not Superman.<span>")
 		return
-
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move upwards."))
 
@@ -548,8 +546,7 @@
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, DOWN)
 
-	var/mob/living/L = src
-	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move down."))
 	return FALSE

@@ -118,8 +118,6 @@
 		QDEL_NULL(O.mmi)
 		O.mmi = new_mmi
 
-	O.update_pipe_vision()
-
 	O.Namepick()
 
 	O.tts_seed = tts_seed
@@ -143,7 +141,6 @@
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
-	new_corgi.update_pipe_vision()
 	qdel(src)
 
 /mob/living/carbon/human/Animalize()
@@ -171,7 +168,6 @@
 
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
-	new_mob.update_pipe_vision()
 	qdel(src)
 
 /mob/proc/Animalize()
@@ -184,7 +180,6 @@
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
 	to_chat(new_mob, "You feel more... animalistic")
-	new_mob.update_pipe_vision()
 
 	qdel(src)
 
@@ -213,7 +208,6 @@
 	card.name = name
 
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
-	pai.update_pipe_vision()
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)

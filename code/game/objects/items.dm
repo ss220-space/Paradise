@@ -1197,6 +1197,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/remove_tape()
 	return
 
+/*
+/obj/item/doMove(atom/destination)
+	if(!ismob(loc))
+		return ..()
+
+	var/mob/user = loc
+	user.drop_item_ground(src, force = TRUE)
+	return ..()
+*/
 
 /**
  * Simple helper we need to call before putting any item in hands, to allow fancy animation.
@@ -1317,4 +1326,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
+
+
+/// Conditional proc that allows ventcrawling with this item, if it has TRAIT_VENTCRAWLER_ITEM_BASED trait.
+/// Always allows by default.
+/obj/item/proc/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	return TRUE
 

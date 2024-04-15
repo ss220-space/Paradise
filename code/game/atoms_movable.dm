@@ -139,7 +139,7 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
-	forceMove(null)
+	move_to_null_space()
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(orbiting)
@@ -412,61 +412,95 @@
 	currently_z_moving = max(currently_z_moving, new_z_moving_value)
 	return (currently_z_moving > old_z_moving_value)
 
-/atom/movable/proc/forceMove(atom/destination)
-	var/turf/old_loc = loc
-	var/area/old_area = get_area(src)
-	var/area/new_area = get_area(destination)
-	loc = destination
-	moving_diagonally = NONE
-
-	if(old_loc)
-		old_loc.Exited(src, destination)
-		for(var/atom/movable/AM in old_loc)
-			AM.Uncrossed(src)
-
-	if(old_area && (new_area != old_area))
-		old_area.Exited(src)
-
-	if(destination)
-		destination.Entered(src)
-		for(var/atom/movable/AM in destination)
-			if(AM == src)
-				continue
-			AM.Crossed(src, old_loc)
-
-		if(new_area && (old_area != new_area))
-			new_area.Entered(src)
-
-		var/turf/oldturf = get_turf(old_loc)
-		var/turf/destturf = get_turf(destination)
-		var/old_z = (oldturf ? oldturf.z : null)
-		var/dest_z = (destturf ? destturf.z : null)
-		if(old_z != dest_z)
-			onTransitZ(old_z, dest_z)
-
-	Moved(old_loc, NONE, TRUE)
-
-	return TRUE
-
 
 /atom/movable/proc/move_to_null_space()
+	return doMove(null)
 
-	var/atom/old_loc = loc
+
+/atom/movable/proc/forceMove(atom/destination)
+	. = FALSE
+	if(destination)
+		. = doMove(destination)
+	else
+		CRASH("No valid destination passed into forceMove")
+
+
+/atom/movable/proc/doMove(atom/destination)
+	. = FALSE
+
+	var/atom/oldloc = loc
 	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
 
-	if(old_loc)
-		loc = null
-		var/area/old_area = get_area(old_loc)
-		if(is_multi_tile && isturf(old_loc))
-			for(var/atom/old_loc_multi as anything in locs)
-				old_loc_multi.Exited(src, NONE)
-		else
-			old_loc.Exited(src, NONE)
+	if(destination)
+		///zMove already handles whether a pull from another movable should be broken.
+		if(pulledby && !currently_z_moving)
+			pulledby.stop_pulling()
 
-		if(old_area)
-			old_area.Exited(src, NONE)
+		var/same_loc = oldloc == destination
+		var/area/old_area = get_area(oldloc)
+		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
-	Moved(old_loc, NONE, TRUE)
+		moving_diagonally = NONE
+
+		loc = destination
+
+		if(!same_loc)
+			if(is_multi_tile && isturf(destination))
+				var/list/new_locs = block(
+					destination,
+					locate(
+						min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
+						min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
+						destination.z
+					)
+				)
+				if(old_area && old_area != destarea)
+					old_area.Exited(src, movement_dir)
+				for(var/atom/left_loc as anything in locs - new_locs)
+					left_loc.Exited(src, movement_dir)
+
+				for(var/atom/entering_loc as anything in new_locs - locs)
+					entering_loc.Entered(src, movement_dir)
+
+				if(old_area && old_area != destarea)
+					destarea.Entered(src, movement_dir)
+			else
+				if(oldloc)
+					oldloc.Exited(src, movement_dir)
+					if(old_area && old_area != destarea)
+						old_area.Exited(src, movement_dir)
+				destination.Entered(src, oldloc)
+				if(destarea && old_area != destarea)
+					destarea.Entered(src, old_area)
+				for(var/atom/movable/movable in (destination.contents - src))
+					movable.Crossed(src, oldloc)
+
+			var/turf/oldturf = get_turf(oldloc)
+			var/turf/destturf = get_turf(destination)
+			if(oldturf && destturf && oldturf.z != destturf.z)
+				onTransitZ(oldturf.z, destturf.z)
+
+		. = TRUE
+
+	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
+	else
+		. = TRUE
+
+		if(oldloc)
+			loc = null
+			var/area/old_area = get_area(oldloc)
+			if(is_multi_tile && isturf(oldloc))
+				for(var/atom/old_loc as anything in locs)
+					old_loc.Exited(src, NONE)
+			else
+				oldloc.Exited(src, NONE)
+
+			if(old_area)
+				old_area.Exited(src, NONE)
+
+	Moved(oldloc, NONE, TRUE)
+
 
 /atom/movable/proc/onZImpact(turf/impacted_turf, levels, impact_flags = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -575,19 +609,6 @@
 		AM.onTransitZ(old_z,new_z)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
 
-/mob/living/forceMove(atom/destination)
-	if(buckled)
-		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(pulling && !currently_z_moving)
-		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
-	. = ..()
-	if(client)
-		reset_perspective()
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 
 /**
