@@ -97,7 +97,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
+/mob/living/carbon/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())

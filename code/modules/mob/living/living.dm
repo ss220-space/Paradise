@@ -1658,3 +1658,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
 		return
 	return ..()
+
+/mob/living/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
+	return

@@ -329,6 +329,15 @@
  * Other return values will cause weird badness
  */
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+
+	//Not accounting taste preferences.
+	//if(R.diet_flags & disliked_food)
+	//	H.AdjustDisgust(10)
+
+	if(R.diet_flags & toxic_food)
+		H.adjustToxLoss(1, TRUE)
+		H.AdjustDisgust(5)
+
 	return TRUE
 
 // For special snowflake species effects

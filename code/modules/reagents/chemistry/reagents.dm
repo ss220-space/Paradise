@@ -33,6 +33,7 @@
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
 	var/addict_supertype = /datum/reagent
+	var/diet_flags = NO_DIET
 
 /datum/reagent/New()
 	addict_supertype = type
@@ -57,6 +58,10 @@
 					M.reagents.add_reagent(id, amount)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
+			if(M.dna?.species?.disliked_food & diet_flags || M.dna?.species?.toxic_food & diet_flags)
+				to_chat(M, span_warning("You feel horrible sensations, as you consume this substance"))
+				if(prob(30))
+					M.vomit(stun = 2 SECONDS)
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)

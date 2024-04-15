@@ -9,7 +9,6 @@
 	taste_description = "generic food"
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
-	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
 	if(!isvampire(M))
@@ -98,6 +97,7 @@
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 5 * REAGENTS_METABOLISM
+	diet_flags = SUGAR
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	taste_mult = 1.5
