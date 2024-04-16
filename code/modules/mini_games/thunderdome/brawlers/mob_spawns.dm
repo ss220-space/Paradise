@@ -37,7 +37,8 @@
 	var/mob/living/created = ..()
 	thunderdome.fighters += created
 
-	created.mutations |= RUN
+	created.dna.SetSEState(GLOB.increaserunblock, TRUE)
+	genemutcheck(created, GLOB.increaserunblock, null, MUTCHK_FORCED)
 
 	created.AddComponent(/datum/component/thunderdome_death_signaler, thunderdome)
 	created.AddComponent(/datum/component/death_timer_reset, death_time_before)
