@@ -218,10 +218,13 @@
 		following_steps.Cut(1, 2)
 
 	var/datum/surgery_step/next_step = running_surgery.get_surgery_step(add_number = 1)
-	var/step_status = next_step.try_op(user, target, target_zone, tool, running_surgery)
+	. = next_step.try_op(user, target, target_zone, tool, running_surgery)
 	running_surgery.step_number++ /// after for operation comp correct update
+	if(running_surgery.step_number > length(running_surgery.steps))
+		running_surgery.complete(target)
+		return .
 
-	if(step_status != SURGERY_INITIATE_SUCCESS)
+	if(. != SURGERY_INITIATE_SUCCESS)
 		// always add ourselves after a failure so someone can make a different choice.
 		running_surgery.steps.Insert(running_surgery.step_number + 1, type)
 		running_surgery.step_number++
@@ -242,7 +245,7 @@
 		running_surgery.steps.Insert(running_surgery.step_number, following_steps)
 
 
-	return step_status
+	return .
 
 
 // Some intermediate surgeries
