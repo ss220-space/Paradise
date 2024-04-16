@@ -93,11 +93,16 @@
 	name = "battered shield"
 	},
 /obj/item/claymore{
-	name = "ancient sword";
+	block_chance = 40;
 	desc = "A cracked and blunted sword, clearly weathered over the ages.";
 	force = 30;
-	block_chance = 40
+	name = "ancient sword"
 	},
+/turf/simulated/floor/pod/light,
+/area/ruin/unpowered/misc_lavaruin)
+"V" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/pod/light,
 /area/ruin/unpowered/misc_lavaruin)
 
@@ -235,7 +240,7 @@ q
 q
 q
 a
-a
+V
 T
 q
 q

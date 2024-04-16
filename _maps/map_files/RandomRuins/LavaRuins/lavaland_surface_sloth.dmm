@@ -63,6 +63,10 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/wood/cold,
 /area/ruin/unpowered/misc_lavaruin)
+"J" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/carpet/green,
+/area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/machinery/vending/cola/free,
 /turf/simulated/floor/wood/cold,
@@ -241,7 +245,7 @@ z
 A
 g
 g
-D
+J
 A
 P
 P

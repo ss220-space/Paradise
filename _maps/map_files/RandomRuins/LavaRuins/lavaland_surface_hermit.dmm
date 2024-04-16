@@ -177,7 +177,7 @@
 	},
 /area/ruin/powered)
 "K" = (
-/obj/effect/baseturf_helper,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "M" = (
