@@ -38,27 +38,27 @@
 	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			l_hand = I
 			update_inv_l_hand()
 
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			r_hand = I
 			update_inv_r_hand()
 
-		if(SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_POCKET_RIGHT)
 			r_store = I
 			update_inv_pockets()
 
-		if(SLOT_HUD_LEFT_STORE)
+		if(ITEM_SLOT_POCKET_LEFT)
 			l_store = I
 			update_inv_pockets()
 
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			handcuffed = I
 			update_handcuffed_status()
 
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			legcuffed = I
 			update_legcuffed_status()
 
@@ -67,7 +67,7 @@
 
 /mob/living/carbon/alien/humanoid/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	switch(slot)
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			if(l_hand)
 				return FALSE
 			if(!I.allowed_for_alien())
@@ -76,7 +76,7 @@
 				return FALSE
 			return TRUE
 
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			if(r_hand)
 				return FALSE
 			if(!I.allowed_for_alien())
@@ -85,85 +85,85 @@
 				return FALSE
 			return TRUE
 
-		if(SLOT_HUD_LEFT_STORE)
+		if(ITEM_SLOT_POCKET_LEFT)
 			if(l_store)
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
 			if(I.flags & NODROP)
 				return FALSE
-			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
+			if(I.slot_flags_2 & ITEM_FLAG_POCKET_DENY)
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags_2 & ITEM_FLAG_POCKET_LARGE)
 
-		if(SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_POCKET_RIGHT)
 			if(r_store)
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
 			if(I.flags & NODROP)
 				return FALSE
-			if(I.slot_flags & SLOT_FLAG_DENYPOCKET)
+			if(I.slot_flags_2 & ITEM_FLAG_POCKET_DENY)
 				return FALSE
 
-			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET)
+			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags_2 & ITEM_FLAG_POCKET_LARGE)
 
-		if(SLOT_HUD_HANDCUFFED)
-			return !handcuffed && istype(I, /obj/item/restraints/handcuffs)
+		if(ITEM_SLOT_HANDCUFFED)
+			return !handcuffed && (I.slot_flags & ITEM_SLOT_HANDCUFFED)
 
-		if(SLOT_HUD_LEGCUFFED)
-			return !legcuffed && istype(I, /obj/item/restraints/legcuffs)
+		if(ITEM_SLOT_LEGCUFFED)
+			return !legcuffed && (I.slot_flags & ITEM_SLOT_LEGCUFFED)
 
 
-/mob/living/carbon/alien/humanoid/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(SLOT_HUD_BACK)
+/mob/living/carbon/alien/humanoid/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_CLOTH_OUTER)
 			return wear_suit
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return r_hand
-		if(SLOT_HUD_LEFT_STORE)
+		if(ITEM_SLOT_POCKET_LEFT)
 			return l_store
-		if(SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_POCKET_RIGHT)
 			return r_store
-		if(SLOT_HUD_HANDCUFFED)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(SLOT_HUD_LEGCUFFED)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
 	return null
 
 
 /mob/living/carbon/alien/humanoid/get_slot_by_item(item)
 	if(item == back)
-		return SLOT_HUD_BACK
+		return ITEM_SLOT_BACK
 	if(item == wear_mask)
-		return SLOT_HUD_WEAR_MASK
+		return ITEM_SLOT_MASK
 	if(item == wear_suit)
-		return SLOT_HUD_OUTER_SUIT
+		return ITEM_SLOT_CLOTH_OUTER
 	if(item == l_hand)
-		return SLOT_HUD_LEFT_HAND
+		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
-		return SLOT_HUD_RIGHT_HAND
+		return ITEM_SLOT_HAND_RIGHT
 	if(item == l_store)
-		return SLOT_HUD_LEFT_STORE
+		return ITEM_SLOT_POCKET_LEFT
 	if(item == r_store)
-		return SLOT_HUD_RIGHT_STORE
+		return ITEM_SLOT_POCKET_RIGHT
 	if(item == handcuffed)
-		return SLOT_HUD_HANDCUFFED
+		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
-		return SLOT_HUD_LEGCUFFED
+		return ITEM_SLOT_LEGCUFFED
 	return null
 
 
-/mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_id)
-	switch(slot_id)
-		if(SLOT_HUD_BACK, SLOT_HUD_WEAR_MASK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED)
+/mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_BACK, ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_HAND_LEFT, ITEM_SLOT_HAND_RIGHT, ITEM_SLOT_HANDS, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKETS, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED)
 			return TRUE
 		else
 			return FALSE

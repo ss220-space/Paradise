@@ -9,7 +9,7 @@
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
-	equip_to_slot_if_possible(new /obj/item/clothing/under/punpun(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/punpun(src), ITEM_SLOT_CLOTH_INNER)
 	tts_seed = "Chen"
 
 /mob/living/carbon/human/lesser/monkey/teeny/Initialize(mapload)

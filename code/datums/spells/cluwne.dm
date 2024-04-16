@@ -40,10 +40,10 @@
 	drop_item_ground(gloves, force = TRUE)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		drop_item_ground(wear_mask, force = TRUE)
-	equip_to_slot_or_del(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/under/cursedclown, ITEM_SLOT_CLOTH_INNER)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_FEET)
 
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
@@ -88,6 +88,6 @@
 		drop_item_ground(gloves, force = TRUE)
 		qdel(G)
 
-	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, SLOT_HUD_JUMPSUIT)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, ITEM_SLOT_CLOTH_INNER)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, ITEM_SLOT_FEET)
 

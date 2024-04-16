@@ -212,7 +212,6 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 

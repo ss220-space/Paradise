@@ -23,13 +23,13 @@
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(ishuman(user) && slot == SLOT_HUD_HEAD)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		if(isvox(user))
-			if(flags & BLOCKHAIR)
-				flags &= ~BLOCKHAIR
+			if(flags_inv & HIDEHAIR)
+				flags_inv &= ~HIDEHAIR
 		else
-			if((initial(flags) & BLOCKHAIR) && !(flags & BLOCKHAIR))
-				flags |= BLOCKHAIR
+			if((initial(flags_inv) & HIDEHAIR) && !(flags_inv & HIDEHAIR))
+				flags |= HIDEHAIR
 
 /obj/item/clothing/suit/space/captain
 	name = "captain's space suit"
@@ -190,7 +190,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
 	species_restricted = null
@@ -231,7 +231,7 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
+	flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20

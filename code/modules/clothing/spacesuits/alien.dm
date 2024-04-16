@@ -221,14 +221,14 @@
 
 
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && magpulse)
+	if(slot == ITEM_SLOT_FEET && magpulse)
 		if(!silent)
 			user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
 		toggle_magpulse(user, silent = TRUE)
