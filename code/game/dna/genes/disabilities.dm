@@ -272,12 +272,14 @@
 	var/garbled_message = ""
 	var/i = 1
 	while(i <= length(message))
-		if(message[i] in GLOB.alphabet_uppercase)
-			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(message[i] in GLOB.alphabet)
-			garbled_message += pick(GLOB.alphabet)
-		else if(lowertext(message[i]) in list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
-			if(prob(50)) // it's the only way it works properly, If I'd done it like the English ones, it would have broken on "Р" and "С"
+		var/char = lowertext(message[i])
+		if(char in GLOB.alphabet)
+			if(prob(50)) // upper and lowercase chars have different symbols, we encrypt the word and mix them up
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
+		else if(char in GLOB.alphabet_cyrillic)
+			if(prob(50))
 				garbled_message += pick(GLOB.alphabet_uppercase)
 			else
 				garbled_message += pick(GLOB.alphabet)
