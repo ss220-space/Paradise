@@ -128,8 +128,7 @@
 			target_dna.UpdateSE()
 		else
 			target_dna.SetSEValue(block, GetValue())
-		domutcheck(target, null, forcedmutation ? MUTCHK_FORCED : NONE)
-		target.update_mutations()
+		target.check_genes(forcedmutation ? MUTCHK_FORCED : NONE)
 
 	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
 

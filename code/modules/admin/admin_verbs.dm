@@ -606,17 +606,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			H.reagents.add_reagent("spaceacillin", 20)
 			logmsg = "a heal over time."
 		if("Permanent Regeneration")
-			H.dna.SetSEState(GLOB.regenerateblock, 1)
-			genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
-			H.update_mutations()
+			H.force_gene_block(GLOB.regenerateblock, TRUE)
 			H.gene_stability = 100
 			logmsg = "permanent regeneration."
 		if("Super Powers")
 			var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
 			for(var/gene in default_genes)
-				H.dna.SetSEState(gene, 1)
-				genemutcheck(H, gene,  null, MUTCHK_FORCED)
-				H.update_mutations()
+				H.force_gene_block(gene, TRUE)
 			H.gene_stability = 100
 			logmsg = "superpowers."
 		if("Scarab Guardian")

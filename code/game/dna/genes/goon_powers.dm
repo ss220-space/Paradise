@@ -32,16 +32,11 @@
 /datum/dna/gene/basic/stealth
 	instability = GENE_INSTABILITY_MODERATE
 
-/datum/dna/gene/basic/stealth/can_activate(mob/M, flags)
-	// Can only activate one of these at a time.
-	if(is_type_in_list(/datum/dna/gene/basic/stealth, M.active_genes))
-		testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
-		return FALSE
-	return ..()
 
-/datum/dna/gene/basic/stealth/deactivate(mob/living/M, connected, flags)
-	..()
-	M.alpha = 255
+/datum/dna/gene/basic/stealth/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha = initial(mutant.alpha)
+
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/stealth/darkcloak
@@ -56,15 +51,15 @@
 	..()
 	block = GLOB.shadowblock
 
-/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/M)
-	var/turf/simulated/T = get_turf(M)
+/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/living/mutant)
+	var/turf/simulated/T = get_turf(mutant)
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		M.alpha = round(M.alpha * 0.8)
+		mutant.alpha = round(mutant.alpha * 0.8)
 	else
-		M.alpha = 255
+		mutant.alpha = initial(mutant.alpha)
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
@@ -91,12 +86,12 @@
 	var/obj/effect/proc_holder/spell/spelltype
 
 
-/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.AddSpell(new spelltype(null))
 
 
-/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, flags)
 	. = ..()
 	for(var/obj/effect/proc_holder/spell/spell as anything in mutant.mob_spell_list)
 		if(istype(spell, spelltype))
@@ -107,12 +102,12 @@
 	var/verbtype
 
 
-/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.verbs |= verbtype
 
 
-/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.verbs -= verbtype
 
@@ -606,12 +601,12 @@
 	return ..()
 
 
-/datum/dna/gene/basic/strong/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/strong/activate(mob/living/mutant, flags)
 	. = ..()
 	change_strength(mutant, 1)
 
 
-/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, flags)
 	. = ..()
 	change_strength(mutant, -1)
 

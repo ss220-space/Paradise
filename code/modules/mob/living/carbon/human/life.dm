@@ -16,11 +16,6 @@
 
 	if(.) //not dead
 
-		if(check_mutations)
-			domutcheck(src,null)
-			update_mutations()
-			check_mutations = FALSE
-
 		handle_pain()
 		handle_heartbeat()
 		dna.species.handle_life(src)
@@ -230,7 +225,7 @@
 					if(prob(2))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
 						randmutb(src)
-						domutcheck(src, null)
+						check_genes()
 
 				if(101 to 150)
 					radiation = max(radiation-3, 0)
@@ -240,7 +235,7 @@
 					if(prob(4))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
 						randmutb(src)
-						domutcheck(src, null)
+						check_genes()
 
 				if(151 to INFINITY)
 					radiation = max(radiation-3, 0)
@@ -250,7 +245,7 @@
 					if(prob(6))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
 						randmutb(src)
-						domutcheck(src, null)
+						check_genes()
 
 			if(autopsy_damage)
 				var/obj/item/organ/external/chest/chest = get_organ(BODY_ZONE_CHEST)

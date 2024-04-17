@@ -3,7 +3,10 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-#define MUTCHK_FORCED        1
+/// Ignores any restrictions (except flag MUTCHK_IGNORE_DEFAULT) while we are making gene checks
+#define MUTCHK_FORCED (1<<0)
+/// Allows to modify species default genes
+#define MUTCHK_IGNORE_DEFAULT (1<<1)
 
 // mob/var/list/mutations
 
