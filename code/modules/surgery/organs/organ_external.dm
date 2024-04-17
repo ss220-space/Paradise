@@ -443,8 +443,6 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
 	if(is_robotic())
 		status = ORGAN_ROBOT
-		if(flags_to_heal & ORGAN_DISFIGURED)
-			undisfigure()
 		return
 	if(flags_to_heal & ORGAN_MUTATED)
 		unmutate()
@@ -1063,7 +1061,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/disfigure(silent = FALSE)
-	if(is_disfigured())
+	if(is_disfigured() || is_robotic())
 		return FALSE
 
 	if(owner)
@@ -1086,6 +1084,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/undisfigure()
+	if(is_robotic())
+		return FALSE
+
 	if(!is_disfigured())
 		return FALSE
 
