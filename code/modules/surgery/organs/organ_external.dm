@@ -422,10 +422,7 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(is_robotic())	//Robotic organs stay robotic.
-		status = ORGAN_ROBOT
-	else
-		status = NONE
+	heal_all_status_wounds()
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
@@ -445,6 +442,15 @@ This function completely restores a damaged organ to perfect condition.
 	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+/obj/item/organ/external/proc/heal_all_status_wounds()
+	if(is_robotic())
+		status = ORGAN_ROBOT
+		return
+	unmutate()
+	unnecrotize()
+	mend_fracture()
+	stop_internal_bleeding()
 
 
 /****************************************************
