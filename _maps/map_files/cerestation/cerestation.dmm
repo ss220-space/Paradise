@@ -23358,8 +23358,8 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm";
-	pixel_y = -24;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = -24
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -32843,8 +32843,8 @@
 "fCT" = (
 /obj/structure/table,
 /obj/item/paper_bin{
-	pixel_y = 13;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 13
 	},
 /obj/item/reagent_containers/food/drinks/mug/serv{
 	pixel_x = 12;
@@ -33075,7 +33075,6 @@
 "fGi" = (
 /obj/structure/table,
 /obj/item/storage/belt/medical,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/item/radio/headset/headset_med,
 /obj/machinery/camera{
 	c_tag = "Virology Breakroom";
@@ -33089,6 +33088,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/item/reagent_containers/spray/cleaner/medical,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -34696,6 +34696,9 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
+	},
+/obj/item/reagent_containers/spray/cleaner/medical{
+	pixel_x = -12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -67926,24 +67929,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
-"pzh" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/obj/item/storage/belt/medical,
-/obj/item/radio/headset/headset_med,
-/obj/item/reagent_containers/spray/cleaner/medical,
-/turf/simulated/wall/r_wall,
-/area/medical/virology)
 "pzi" = (
 /obj/machinery/light{
 	dir = 4
@@ -74394,19 +74379,6 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint3)
 "rrZ" = (
-/obj/structure/table,
-/obj/item/folder,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/item/lighter/zippo/qm{
-	pixel_x = -12
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -155192,7 +155164,7 @@ xFC
 irR
 axY
 uBd
-pzh
+bil
 bil
 bil
 bil
@@ -156485,7 +156457,7 @@ bil
 fMl
 fMl
 fMl
-aZM
+fMl
 jqn
 cKd
 jqn
@@ -158782,8 +158754,8 @@ rNK
 rNK
 rNK
 rNK
-jft
-jft
+lRR
+lRR
 rNK
 rNK
 rNK
