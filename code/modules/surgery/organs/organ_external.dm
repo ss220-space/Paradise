@@ -81,8 +81,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// If `TRUE` you cannot be identified by examine (used for head bodypart only)
-	var/disfigured = FALSE
 	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
 	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
@@ -422,7 +420,7 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	heal_all_status_wounds()
+	heal_status_wounds(ALL)
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
@@ -442,16 +440,22 @@ This function completely restores a damaged organ to perfect condition.
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/organ/external/proc/heal_all_status_wounds()
+/obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
 	if(is_robotic())
 		status = ORGAN_ROBOT
-		undisfigure()
+		if(flags_to_heal & ORGAN_DISFIGURED)
+			undisfigure()
 		return
-	unmutate()
-	unnecrotize()
-	mend_fracture()
-	stop_internal_bleeding()
-	undisfigure()
+	if(flags_to_heal & ORGAN_MUTATED)
+		unmutate()
+	if(flags_to_heal & ORGAN_DEAD)
+		unnecrotize()
+	if(flags_to_heal & ORGAN_BROKEN)
+		mend_fracture()
+	if(flags_to_heal & ORGAN_INT_BLEED)
+		stop_internal_bleeding()
+	if(flags_to_heal & ORGAN_DISFIGURED)
+		undisfigure()
 
 
 /****************************************************
@@ -1073,19 +1077,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_italics("You hear a sickening sound.")
 			)
 
-	disfigured = TRUE
+	status |= ORGAN_DISFIGURED
 	return TRUE
 
 
 /obj/item/organ/external/proc/is_disfigured()
-	return disfigured
+	return (status & ORGAN_DISFIGURED)
 
 
 /obj/item/organ/external/proc/undisfigure()
 	if(!is_disfigured())
 		return FALSE
 
-	disfigured = FALSE
+	status &= ~ORGAN_DISFIGURED
 
 	return TRUE
 
