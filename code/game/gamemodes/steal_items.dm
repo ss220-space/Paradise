@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	. = list()
 
 	var/list/stations_z = levels_by_trait(STATION_LEVEL)
-	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[1]))
+	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[length(stations_z)]))
 
 	for(var/turf/turf_check in station_turfs)
 		if(ispath(typepath, /mob/living))
@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_paperwork"
 	typepath = /mob/living/simple_animal/pet/sloth/paperwork
 	name = "ленивца по кличке Paperwork"
-	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CARGOTECH)
+	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
 
 /datum/theft_objective/animal/slugcat
 	id = "animal_slugcat"
@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_mars"
 	typepath = /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "гориллу по кличке Марс"
-	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CARGOTECH)
+	protected_jobs = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
 
 
 //==========================
@@ -785,6 +785,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/ce,
 		/obj/item/encryptionkey/heads/cmo,
 		/obj/item/encryptionkey/heads/hop,
+		/obj/item/encryptionkey/heads/qm,
 		/obj/item/encryptionkey/heads/ntrep,
 		/obj/item/encryptionkey/heads/magistrate,
 		/obj/item/encryptionkey/heads/blueshield,

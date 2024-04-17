@@ -5,11 +5,12 @@
 	var/list/bodyparts_by_name = list()
 
 
-/mob/living/carbon/human/proc/update_eyes()
+/mob/living/carbon/human/proc/update_eyes(update_body = TRUE)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		eyes.update_colour()
-		update_body()
+		if(update_body)
+			update_body()
 
 
 // Takes care of organ related updates, such as broken and missing limbs
@@ -58,7 +59,7 @@
 		if(!bodypart.can_grasp || bodypart.is_splinted())
 			continue
 
-		if(bodypart.is_traumatized())
+		if(bodypart.is_traumatized() || !bodypart.properly_attached)
 			if(bodypart.limb_zone == BODY_ZONE_L_ARM || bodypart.limb_zone == BODY_ZONE_PRECISE_L_HAND)
 				if(!l_hand)
 					continue
@@ -71,6 +72,13 @@
 					continue
 
 			var/emote_scream = pick("крич[pluralize_ru(gender,"ит","ат")] от боли и ", "изда[pluralize_ru(gender,"ёт","ют")] резкий крик и ", "вскрикива[pluralize_ru(gender,"ет","ют")] и ")
+			if(!bodypart.properly_attached && has_pain())
+				visible_message(
+					span_warning("[src] [emote_scream]броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] в [bodypart.declent_ru(PREPOSITIONAL)]!"),
+					span_userdanger("Вы чувствуете острую боль, пронизывающую [bodypart.name], которая лишь немного прикреплена к [bodypart.amputation_point], вам нужно прикрепить [bodypart.declent_ru(GENITIVE)] хирургическим путем, прежде чем вы сможете что-либо держать!")
+				)
+				continue
+
 			custom_emote(EMOTE_VISIBLE, "[(has_pain()) ? emote_scream :  "" ]броса[pluralize_ru(gender,"ет","ют")] предмет, который держал[genderize_ru(gender,"","а","о","и")] в [bodypart.declent_ru(PREPOSITIONAL)]!")
 
 		else if(bodypart.is_malfunctioning())

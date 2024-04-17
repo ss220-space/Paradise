@@ -76,6 +76,9 @@
 /obj/effect/abstract/singularity_act()
 	return
 
+/obj/effect/abstract/has_gravity()
+	return
+
 /obj/effect/abstract/narsie_act()
 	return
 
@@ -93,6 +96,9 @@
 
 /obj/effect/abstract/fire_act()
 	return
+
+/obj/effect/abstract/has_gravity(turf/gravity_turf)
+	return FALSE
 
 /obj/effect/decal
 	plane = FLOOR_PLANE

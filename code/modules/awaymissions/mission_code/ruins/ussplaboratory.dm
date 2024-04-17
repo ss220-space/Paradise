@@ -2,6 +2,7 @@
 
 /area/ruin/ussp_xeno
 	atmosalm = ATMOS_ALARM_NONE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/ussp_xeno/engi
     name = "Engineering"
@@ -38,7 +39,7 @@
 /area/ruin/ussp_xeno/out
 	name = "Space near USSP Laboratory"
 	icon_state = "out_ussp"
-	has_gravity = TRUE
+	has_gravity = FALSE
 	no_air = null
 
 

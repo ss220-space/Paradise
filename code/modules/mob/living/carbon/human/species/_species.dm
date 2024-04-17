@@ -685,7 +685,7 @@
 	damage = 6
 
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
@@ -713,14 +713,14 @@
 		if(SLOT_HUD_LEFT_HAND)
 			if(user.l_hand)
 				return FALSE
-			if(user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated())
 				return FALSE
 			return TRUE
 
 		if(SLOT_HUD_RIGHT_HAND)
 			if(user.r_hand)
 				return FALSE
-			if(user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated())
 				return FALSE
 			return TRUE
 
@@ -1078,7 +1078,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.set_bodytemperature((temperature + M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
+		M.adjust_bodytemperature((temperature - M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE

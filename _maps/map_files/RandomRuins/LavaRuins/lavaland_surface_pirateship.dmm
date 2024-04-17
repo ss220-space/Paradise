@@ -127,7 +127,7 @@
 "dT" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -147,7 +147,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -287,7 +287,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -309,7 +309,7 @@
 "gJ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -323,7 +323,7 @@
 "gQ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -336,7 +336,7 @@
 "gV" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -471,10 +471,16 @@
 	},
 /area/ruin/powered/pirateship)
 "iT" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/baseturf_helper/lava_land/surface/basalt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/effect/spawner/window/shuttle/gray,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "pcarrier_windows"
+	},
+/turf/simulated/floor/plasteel/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "iX" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -525,7 +531,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -608,7 +614,7 @@
 /area/lavaland/surface/outdoors)
 "kQ" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -673,7 +679,7 @@
 	dir = 8;
 	id_tag = "pcarrier_windows"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -784,7 +790,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -815,7 +821,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1019,7 +1025,7 @@
 "pB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1034,7 +1040,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1099,7 +1105,7 @@
 	pixel_x = -7
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1118,7 +1124,7 @@
 "rE" = (
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1141,7 +1147,7 @@
 "su" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1161,7 +1167,7 @@
 	pixel_y = 10
 	},
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1261,7 +1267,7 @@
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1310,7 +1316,7 @@
 	pixel_y = -5
 	},
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1354,7 +1360,7 @@
 /area/ruin/powered/pirateship)
 "xz" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1370,7 +1376,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/jackboots,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1478,7 +1484,7 @@
 /obj/effect/decal/cleanable/glass{
 	pixel_x = -12
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1596,7 +1602,7 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1658,7 +1664,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1839,7 +1845,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1967,7 +1973,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1983,7 +1989,7 @@
 "HS" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2219,7 +2225,7 @@
 	color = "EDCBFF"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/effect/baseturf_helper/lava_land/surface/basalt,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -2284,7 +2290,7 @@
 	},
 /area/ruin/powered/pirateship)
 "MV" = (
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2380,7 +2386,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2730,7 +2736,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "pcarrier_windows"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2738,7 +2744,7 @@
 /area/ruin/powered/pirateship)
 "RZ" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2929,7 +2935,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -2962,7 +2968,7 @@
 "VY" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -3239,7 +3245,7 @@
 "ZV" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -3806,7 +3812,7 @@ VX
 eG
 eG
 eG
-RJ
+iT
 eG
 VX
 XL
@@ -4394,7 +4400,7 @@ XL
 QL
 QL
 QL
-iT
+QL
 QL
 QL
 QL

@@ -74,14 +74,12 @@
 	if(!broken && O.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
+		set_anchored(!anchored)
 		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
+		else
+			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+		return
 
 	if(default_deconstruction_crowbar(user, O))
 		return

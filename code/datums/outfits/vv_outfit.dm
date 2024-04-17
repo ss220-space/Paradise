@@ -73,7 +73,7 @@
 
 	//Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_BELT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_NECK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_WEAR_ID, SLOT_HUD_WEAR_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
+	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_BELT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_NECK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_WEAR_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -81,15 +81,6 @@
 			result["[s]"] = vedits
 		if(istype(I))
 			O.set_equipment_by_slot(s, I.type)
-
-	//Copy access
-	O.stored_access = list()
-	var/obj/item/id_slot = get_item_by_slot(SLOT_HUD_WEAR_ID)
-	if(id_slot)
-		O.stored_access |= id_slot.GetAccess()
-		var/obj/item/card/id/ID = id_slot.GetID()
-		if(ID && ID.registered_name == real_name)
-			O.update_id_name = TRUE
 
 	//Copy hands
 	if(l_hand || r_hand) //Not in the mood to let outfits transfer amputees
@@ -119,6 +110,42 @@
 		O.backpack_contents = typecounts
 		//TODO : Copy varedits from backpack stuff too.
 
+	//Copy access
+	O.stored_access = list()
+	var/obj/item/id_slot = get_item_by_slot(SLOT_HUD_WEAR_ID)
+	if(istype(id_slot, /obj/item/storage/wallet))
+		for(var/obj/item/item in id_slot)
+			if(istype(item, /obj/item/card/id))
+				continue
+			if(O.backpack_contents[item.type])
+				O.backpack_contents[item.type] += 1
+			else
+				O.backpack_contents[item.type] = 1
+
+		if(O.backpack_contents[id_slot.type])
+			O.backpack_contents[id_slot.type] += 1
+		else
+			O.backpack_contents[id_slot.type] = 1
+
+		O.stored_access |= id_slot.GetAccess()
+		var/obj/item/card/id/ID = id_slot.GetID()
+		if(ID && ID.registered_name == real_name)
+			O.update_id_name = TRUE
+			var/vedits = collect_vv(ID)
+			if(vedits)
+				result["[SLOT_HUD_WEAR_ID]"] = vedits
+			O.set_equipment_by_slot(SLOT_HUD_WEAR_ID, ID.type)
+
+	else if(id_slot)
+		O.stored_access |= id_slot.GetAccess()
+		var/obj/item/card/id/ID = id_slot.GetID()
+		if(ID && ID.registered_name == real_name)
+			O.update_id_name = TRUE
+			var/vedits = collect_vv(ID)
+			if(vedits)
+				result["[SLOT_HUD_WEAR_ID]"] = vedits
+			O.set_equipment_by_slot(SLOT_HUD_WEAR_ID, ID.type)
+
 	//Copy implants
 	O.implants = list()
 	for(var/obj/item/implant/I in contents)
@@ -127,7 +154,7 @@
 
 	// Copy cybernetic implants
 	O.cybernetic_implants = list()
-	for(var/obj/item/organ/internal/CI in contents)
+	for(var/obj/item/organ/internal/CI in (contents + internal_organs))
 		if(istype(CI))
 			O.cybernetic_implants |= CI.type
 

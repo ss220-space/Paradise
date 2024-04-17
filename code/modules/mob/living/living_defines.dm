@@ -85,6 +85,11 @@
 
 	///what multiplicative slowdown we get from turfs currently.
 	var/current_turf_slowdown = 0
+	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/forced_look = null
+
+	/// What our current gravity state is. Used to avoid duplicate animates and such
+	var/gravity_state = null
 
 	/// Flags that determine the potential of a mob to perform certain actions. Do not change this directly.
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT

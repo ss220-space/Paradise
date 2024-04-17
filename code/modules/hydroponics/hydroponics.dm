@@ -933,7 +933,7 @@
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(anchored)
 					return
-				anchored = TRUE
+				set_anchored(TRUE)
 				user.visible_message("[user] wrenches [src] into place.", \
 									"<span class='notice'>You wrench [src] in place.</span>")
 		else if(anchored)
@@ -942,7 +942,7 @@
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(!anchored)
 					return
-				anchored = FALSE
+				set_anchored(FALSE)
 				user.visible_message("[user] unwrenches [src].", \
 									"<span class='notice'>You unwrench [src].</span>")
 

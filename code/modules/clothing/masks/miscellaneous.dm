@@ -113,14 +113,18 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, silent = FALSE)
-	var/obj/item/trash/tapetrash/TT = new trashtype
-	transfer_fingerprints_to(TT)
-	user.transfer_fingerprints_to(TT)
-	user.put_in_active_hand(TT)
-	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
+
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(slot != SLOT_HUD_WEAR_MASK)
+		return .
+	var/obj/item/trash/tapetrash/trash_gag = new trashtype(get_turf(src))
+	transfer_fingerprints_to(trash_gag)
+	user.transfer_fingerprints_to(trash_gag)
+	user.put_in_active_hand(trash_gag, ignore_anim = FALSE)
+	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
 	user.emote("scream")
-	..()
+
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
 	name = "thick tape gag"
@@ -376,10 +380,10 @@
 		else
 			user.real_name = "[user.name][temporaryname]"
 
-/obj/item/clothing/mask/horsehead/dropped(mob/user, silent = FALSE) //this really shouldn't happen, but call it extreme caution
-	if(flags & NODROP)
+/obj/item/clothing/mask/horsehead/dropped(mob/user, slot, silent = FALSE) //this really shouldn't happen, but call it extreme caution
+	if(slot == SLOT_HUD_WEAR_MASK && (flags & NODROP))
 		goodbye_horses(loc)
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/horsehead/Destroy()
 	if(flags & NODROP)

@@ -546,9 +546,8 @@
 	taste_description = "THE LAW"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
-	var/update_flag = STATUS_UPDATE_NONE
-	M.Stun(2 SECONDS)
-	return ..() | update_flag
+	M.drop_from_hands()
+	return ..()
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"

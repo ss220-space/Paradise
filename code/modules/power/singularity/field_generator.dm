@@ -95,7 +95,7 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = TRUE
+				set_anchored(TRUE)
 			if(FG_SECURED)
 				add_fingerprint(user)
 				state = FG_UNSECURED
@@ -103,7 +103,7 @@ field_generator power level display
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = FALSE
+				set_anchored(FALSE)
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
 	else
@@ -135,7 +135,7 @@ field_generator power level display
 /obj/machinery/field/generator/attack_animal(mob/living/simple_animal/M)
 	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
 		state = FG_UNSECURED
-		anchored = FALSE
+		set_anchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		..()

@@ -1,4 +1,5 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
@@ -49,6 +50,7 @@
 	var/flashing_lights = FALSE
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
+	var/speak_cooldown = FALSE
 
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -137,7 +139,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src,0)
 	set_path(null)
 	last_found = world.time
@@ -317,7 +319,10 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		if(!speak_cooldown)
+			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),
 					span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
 
@@ -375,7 +380,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = TRUE
+					set_anchored(TRUE)
 					target_lastloc = target.loc
 					return
 
@@ -409,7 +414,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -424,7 +429,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -436,7 +441,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -445,7 +450,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -455,7 +460,7 @@
  * Look for a criminal in view of the bot.
  */
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -531,5 +536,6 @@
 	req_access = list(ACCESS_SECURITY)
 
 
-#undef BATON_COOLDOWN
 
+#undef SPEAK_COOLDOWN
+#undef BATON_COOLDOWN

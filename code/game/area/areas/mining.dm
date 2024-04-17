@@ -2,7 +2,7 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/mine/explored
@@ -127,7 +127,7 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface

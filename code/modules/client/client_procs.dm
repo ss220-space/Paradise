@@ -1382,6 +1382,10 @@
 	else
 		SSambience.ambience_listening_clients -= src
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
 
 /**
   * Checks if the client has accepted TOS

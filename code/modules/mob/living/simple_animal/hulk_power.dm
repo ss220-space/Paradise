@@ -237,6 +237,10 @@
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
+	var/turf/turf_to_check = get_turf(user)
+	if(user.can_z_move(DOWN, turf_to_check))
+		to_chat(user, span_warning("You need a ground to jump from!"))
+		return
 
 	if (istype(user.loc,/turf) && !(istype(user.loc,/turf/space)))
 
@@ -291,8 +295,8 @@
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)
-			var/turf/T = get_step(user,direction)
-			for(var/mob/living/M in T.contents)
+			var/turf/turf_neighbor = get_step(user,direction)
+			for(var/mob/living/M in turf_neighbor.contents)
 				if( (M != user) && !(M.stat))
 					if(snd)
 						snd = 0
@@ -325,6 +329,9 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
+	if(!(user.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !user.currently_z_moving) // in case he could fly after
+		var/turf/pitfall = get_turf(user)
+		pitfall?.zFall(user)
 
 //Clown-Hulk
 

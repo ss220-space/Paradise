@@ -121,3 +121,8 @@
 	icon_state = "syndadmiral"
 	item_state = "syndadmiral"
 
+/obj/item/clothing/neck/cloak/spacecloak
+	name = "space cloak"
+	desc = "Hole, a blackhole on your back!"
+	icon_state = "spacecloak"
+	item_state = "spacecloak"

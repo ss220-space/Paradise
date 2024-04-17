@@ -42,6 +42,10 @@
 	display_name = "USSP uniform"
 	path = /obj/item/clothing/under/soviet
 
+/datum/gear/uniform/suit/federal
+	display_name = "Solar Federation uniform"
+	path = /obj/item/clothing/under/solgov/civ
+
 /datum/gear/uniform/suit/kilt
 	display_name = "a kilt"
 	path = /obj/item/clothing/under/kilt
@@ -49,6 +53,10 @@
 /datum/gear/uniform/suit/executive
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit_jacket/really_black
+
+/datum/gear/uniform/suit/amish_suit
+	display_name = "amish suit"
+	path = /obj/item/clothing/under/sl_suit
 
 /datum/gear/uniform/chaps
 	display_name = "chaps, select"

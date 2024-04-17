@@ -33,10 +33,8 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
-
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
@@ -128,7 +126,7 @@
 		return !opacity
 
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 

@@ -64,7 +64,7 @@
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = TRUE
 		update_icons()
-		var/speed = (!has_gravity(src) || !has_gravity(A)) ? leap_without_gravity_speed : leap_speed
+		var/speed = (!has_gravity() || !A.has_gravity()) ? leap_without_gravity_speed : leap_speed
 		throw_at(A, MAX_ALIEN_LEAP_DIST, speed, spin = 0, diagonals_first = 1, callback = CALLBACK(src, PROC_REF(leap_end)))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()

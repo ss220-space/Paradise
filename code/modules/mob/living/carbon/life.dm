@@ -268,12 +268,11 @@
 //this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
-	if(stam_regen_start_time <= world.time)
-		if(stam_paralyzed)
-			update_stamina()
-		if(staminaloss)
-			setStaminaLoss(0, FALSE)
-			update_stamina_hud()
+	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
+		setStaminaLoss(0, FALSE)
+		update_stamina()
+		update_stamina_hud()
+		stam_regen_start_time = null
 
 	// Keep SSD people asleep
 	if(player_logged)

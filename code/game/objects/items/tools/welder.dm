@@ -45,6 +45,7 @@
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)

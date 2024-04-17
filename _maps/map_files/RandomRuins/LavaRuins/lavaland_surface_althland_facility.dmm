@@ -39,8 +39,8 @@
 /area/ruin/unpowered)
 "aD" = (
 /obj/machinery/computer{
-	name = "Broken Computer";
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
 	},
 /turf/simulated/floor{
 	nitrogen = 23;
@@ -377,8 +377,8 @@
 	dir = 1
 	},
 /obj/structure/sign/atmosplaque{
-	name = "\improper Althland facility plaque";
 	desc = "A ruined and partially melted plaque bears words that are now faded and rusted, with some letters missing entirely. It reads: Est...ished by the Althland Mining...ration. In recog...on of the brave...who dared...harness...fiery heart...this world. May the...of our labor...shine as brightly...as the molten rivers...beneath our feet. The date of the facility's establishment at the bottom is obliterated, and the signatures of any founding miners are completely lost to time.";
+	name = "\improper Althland facility plaque";
 	pixel_y = 29
 	},
 /turf/simulated/floor/plasteel{
@@ -607,8 +607,8 @@
 	id = "mining_internal"
 	},
 /obj/item/stack/ore/bluespace_crystal{
-	pixel_y = 4;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/simulated/floor{
 	nitrogen = 23;
@@ -783,6 +783,7 @@
 /area/ruin/unpowered)
 "vz" = (
 /obj/effect/landmark/tiles/damageturf,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1715,8 +1716,8 @@
 /area/ruin/unpowered)
 "Xd" = (
 /obj/machinery/computer{
-	name = "Broken Computer";
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages."
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
@@ -1747,8 +1748,8 @@
 /area/lavaland/surface/outdoors)
 "ZF" = (
 /obj/item/stack/sheet/mineral/gold{
-	pixel_y = -8;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = -8
 	},
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,

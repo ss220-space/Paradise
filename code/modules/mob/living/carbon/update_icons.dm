@@ -31,7 +31,9 @@
 
 	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
 
-	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	//if true, we want to avoid any animation time, it'll tween and not rotate at all otherwise.
+	var/is_opposite_angle = SIMPLIFY_DEGREES(lying_angle + 180) == lying_prev
+	animate(src, transform = ntransform, time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 	handle_transform_change()
 
 

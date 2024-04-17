@@ -93,18 +93,37 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
-	if(!..())
-		return FALSE
+/obj/item/projectile/temp/on_hit(mob/living/carbon/human/target, blocked = 0, hit_zone)
+	. = ..()
+	if(!.)
+		return .
 
-	if(isliving(target))
-		var/mob/living/M = target
-		M.set_bodytemperature(temperature)	// this is pretty bad design
-		if(temperature > 500)//emagged
-			M.adjust_fire_stacks(0.5)
-			M.IgniteMob()
-			playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
-	return 1
+	var/target_is_living = isliving(target)
+	var/should_ignite = target_is_living && temperature > 500	//emagged
+
+	if(ishuman(target))
+		var/temp_diff = temperature - target.bodytemperature
+		if(temperature < target.bodytemperature)
+			// This returns a 0 - 1 value, which corresponds to the percentage of protection
+			// based on what you're wearing and what you're exposed to
+			var/thermal_protection = target.get_cold_protection(temperature)
+			if(thermal_protection < 1)
+				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+		else
+			var/thermal_protection = target.get_heat_protection(temperature)
+			if(thermal_protection < 1)
+				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+			else
+				should_ignite = FALSE
+
+	else if(target_is_living)
+		target.adjust_bodytemperature(temperature - target.bodytemperature)
+
+	if(should_ignite)
+		target.adjust_fire_stacks(0.5)
+		target.IgniteMob()
+		playsound(target.loc, 'sound/effects/bamf.ogg', 50, FALSE)
+
 
 /obj/item/projectile/meteor
 	name = "meteor"

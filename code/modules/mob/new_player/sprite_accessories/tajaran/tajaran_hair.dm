@@ -10,13 +10,13 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_bangs
 	name = "Tajara Bangs"
 	icon_state = "bangs"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_braid
 	name = "Tajara Braid"
 	icon_state = "braid"
 	secondary_theme = "beads"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_shaggy
 	name = "Tajara Shaggy"
@@ -53,29 +53,43 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_curls
 	name = "Tajara Curly"
 	icon_state = "curly"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_bedhead
 	name = "Tajara bedhead"
 	icon_state = "bedhead"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_retro
 	name = "Tajaran Ladies' Retro"
 	icon_state = "ladiesretro"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_victory
 	name = "Tajara Victory Curls"
 	icon_state = "victory"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_bob
 	name = "Tajara Bob"
 	icon_state = "bob"
-	glasses_over = null
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_fingercurl
 	name = "Tajara Finger Curls"
 	icon_state = "fingerwave"
-	glasses_over = null
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/tajara/taj_hair_marmalade
+	name = "Tajara Marmalade"
+	icon_state = "marmalade"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/tajara/taj_hair_shy
+	name = "Tajara Shy"
+	icon_state = "shy"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/tajara/taj_hair_metal
+	name = "Tajara Metal"
+	icon_state = "metal"

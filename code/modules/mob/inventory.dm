@@ -76,7 +76,7 @@
 	)
 
 	for(var/slot in priority_list)
-		if(equip_to_slot_if_possible(I, slot, FALSE, FALSE, force, force, TRUE))
+		if(equip_to_slot_if_possible(I, slot, FALSE, FALSE, force, force, force, TRUE))
 			return TRUE
 
 	if(drop_on_fail)
@@ -137,7 +137,7 @@
  * Used in job equipping so shit doesn't pile up at the start loc.
  */
 /mob/proc/equip_or_collect(obj/item/I, slot)
-	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE))
+	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot(I, slot, initial = TRUE)
 	else
@@ -158,7 +158,7 @@
  * Used to equip people when the rounds starts and when events happen and such.
  */
 /mob/proc/equip_to_slot_or_del(obj/item/I, slot)
-	return equip_to_slot_if_possible(I, slot, qdel_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, disable_warning = TRUE, initial = TRUE)
+	return equip_to_slot_if_possible(I, slot, qdel_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE, disable_warning = TRUE, initial = TRUE)
 
 
 /**
@@ -171,11 +171,11 @@
  * * 'bypass_obscured' - set `TRUE` if you want to ignore clothing obscuration
  * * 'initial' - used to indicate whether our items is initial equipment (job datums etc) or just a player doing it
  */
-/mob/proc/equip_to_slot_if_possible(obj/item/I, slot, drop_on_fail = FALSE, qdel_on_fail = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, disable_warning = FALSE, initial = FALSE)
+/mob/proc/equip_to_slot_if_possible(obj/item/I, slot, drop_on_fail = FALSE, qdel_on_fail = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE, disable_warning = FALSE, initial = FALSE)
 	if(!istype(I) || QDELETED(I)) //This qdeleted is to prevent stupid behavior with things that qdel during init
 		return FALSE
 
-	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured))
+	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated))
 		if(drop_on_fail)
 			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
@@ -207,7 +207,7 @@
  * Returns if a certain item can be equipped to a certain slot.
  * Always call [obj/item/mob_can_equip()] instead of this proc.
  */
-/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	return FALSE
 
 
@@ -543,6 +543,8 @@
 	if(!can_unEquip(I, force, silent, newloc, no_move, invdrop))
 		return FALSE
 
+	var/slot = get_slot_by_item(I)
+
 	if(I == r_hand)
 		r_hand = null
 		update_inv_r_hand()
@@ -563,7 +565,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src, silent)
+		I.dropped(src, slot, silent)
 
 	return TRUE
 

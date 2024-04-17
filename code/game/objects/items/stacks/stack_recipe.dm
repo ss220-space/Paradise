@@ -38,14 +38,6 @@
 
 /* Special Recipes */
 
-/datum/stack_recipe/cable_restraints
-/datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
-	var/obj/item/restraints/handcuffs/cable/cable_restraints = result
-	if(istype(cable_restraints))
-		cable_restraints.cable_color(S.color)
-	..()
-
-
 /datum/stack_recipe/dangerous
 /datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
 	var/turf/targ = get_turf(usr)
@@ -68,7 +60,7 @@
 	else if(istype(result, /obj/structure/window))
 		var/obj/structure/window/W = result
 		W.ini_dir = W.dir
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 
 /*

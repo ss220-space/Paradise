@@ -308,3 +308,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
 	prof_stop()
 	..()
+
+/world/proc/incrementMaxZ()
+	maxz++
+	SSmobs.MaxZChanged()
+	SSidlenpcpool.MaxZChanged()

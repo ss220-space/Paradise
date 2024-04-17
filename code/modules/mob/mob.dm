@@ -235,19 +235,30 @@
 	return validtargets
 
 // If you're looking for `reset_perspective`, that's a synonym for this proc.
-/mob/proc/reset_perspective(atom/A)
-	if(client)
-		if(istype(A, /atom/movable))
+/mob/proc/reset_perspective(atom/new_eye)
+	if(!client)
+		return
+	if(ismovable(new_eye))
+		if(new_eye != src)
 			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
+			client.set_eye(new_eye)
 		else
-			if(isturf(loc))
-				client.eye = client.mob
-				client.perspective = MOB_PERSPECTIVE
-			else
-				client.perspective = EYE_PERSPECTIVE
-				client.eye = loc
-		return 1
+			client.set_eye(client.mob)
+			client.perspective = MOB_PERSPECTIVE
+	else if(isturf(new_eye))
+		if(new_eye != loc)
+			client.perspective = EYE_PERSPECTIVE
+			client.set_eye(new_eye)
+		else
+			client.set_eye(client.mob)
+			client.perspective = MOB_PERSPECTIVE
+	else if(isturf(loc))
+		client.set_eye(client.mob)
+		client.perspective = MOB_PERSPECTIVE
+	else
+		client.perspective = EYE_PERSPECTIVE
+		client.set_eye(loc)
+	return TRUE
 
 /mob/living/reset_perspective(atom/A)
 	. = ..()
@@ -268,19 +279,6 @@
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
-
-/mob/setDir(new_dir)
-	var/old_dir = dir
-	if(forced_look)
-		if(isnum(forced_look))
-			dir = forced_look
-		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
-		return
-	. = ..()
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)

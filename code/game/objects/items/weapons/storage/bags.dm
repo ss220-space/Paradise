@@ -102,7 +102,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot==SLOT_HUD_HEAD && contents.len)
 		if(!disable_warning)
 			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
@@ -403,10 +403,20 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
-	 /obj/item/assembly, /obj/item/circuitboard, /obj/item/intercom_electronics,
-	 /obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/tracker_electronics,
-	 /obj/item/firealarm_electronics, /obj/item/airalarm_electronics, /obj/item/apc_electronics,
-	 /obj/item/stock_parts/cell, /obj/item/stock_parts, /obj/item/camera_assembly)
+		/obj/item/assembly,
+		/obj/item/circuitboard,
+		/obj/item/intercom_electronics,
+		/obj/item/airlock_electronics,
+		/obj/item/firelock_electronics,
+		/obj/item/tracker_electronics,
+		/obj/item/firealarm_electronics,
+		/obj/item/airalarm_electronics,
+		/obj/item/apc_electronics,
+		/obj/item/stock_parts/cell,
+		/obj/item/stock_parts,
+		/obj/item/camera_assembly,
+		/obj/item/access_control
+	)
 	resistance_flags = FLAMMABLE
 
 /*

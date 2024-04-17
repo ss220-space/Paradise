@@ -37,6 +37,11 @@
 
 #define CLOTHING_TRAIT "clothing"
 
+#define DNA_TRAIT "dna_trait"
+
+/// Traits applied to a silicon mob by their model.
+#define ROBOT_TRAIT "robot_trait"
+
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 
@@ -49,6 +54,10 @@
 #define SUIT_TRAIT "suit_trait"
 
 #define NO_GRAVITY_TRAIT "no-gravity"
+#define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
+
+/// Sources for TRAIT_IGNORING_GRAVITY
+#define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"

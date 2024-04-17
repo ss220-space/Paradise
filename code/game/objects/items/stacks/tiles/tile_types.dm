@@ -16,10 +16,11 @@
 	var/turf_type = null
 	var/mineralType = null
 
-/obj/item/stack/tile/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge)
+	. = ..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
+	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
@@ -40,6 +41,10 @@
 		R.use(4)
 		if(!R && replace)
 			user.put_in_hands(new_item)
+
+/obj/item/stack/tile/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		target.attackby(src, user, click_parameters)
 
 // GRASS
 /obj/item/stack/tile/grass

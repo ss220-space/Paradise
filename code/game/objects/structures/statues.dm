@@ -46,7 +46,7 @@
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
 						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
-/obj/structure/statue/CanAtmosPass()
+/obj/structure/statue/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)

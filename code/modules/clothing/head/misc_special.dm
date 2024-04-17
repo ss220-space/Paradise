@@ -322,7 +322,7 @@
 		user_suit.disguise(user, src)
 
 
-/obj/item/clothing/head/cardborg/dropped(mob/living/user, silent = FALSE)
+/obj/item/clothing/head/cardborg/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_alt_appearance("standard_borg_disguise")
 

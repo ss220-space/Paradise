@@ -24,7 +24,7 @@
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		playsound(src.loc, W.usesound, 75, 1)
 		if(anchored)
 			user.visible_message("[user.name] secures [src.name] to the floor.", \

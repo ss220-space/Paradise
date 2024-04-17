@@ -6,6 +6,7 @@
 	max_integrity = 150
 	brute_resist = 0.25
 	explosion_block = 3
+	explosion_vertical_block = 2
 	atmosblock = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 
@@ -62,6 +63,7 @@
 	max_integrity = 100
 	brute_resist = 0.5
 	explosion_block = 2
+	explosion_vertical_block = 1
 	point_return = 9
 	flags_2 = CHECK_RICOCHET_2
 

@@ -157,14 +157,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = FALSE
+				set_anchored(FALSE)
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = TRUE
+				set_anchored(TRUE)
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -269,7 +269,7 @@
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 			pixel_x = 0
 			pixel_y = 0
 	else
@@ -278,7 +278,7 @@
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 			pixel_x = 0
 			pixel_y = 32
 
@@ -632,14 +632,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = FALSE
+				set_anchored(FALSE)
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = TRUE
+				set_anchored(TRUE)
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -763,7 +763,7 @@
 	if(do_after(user, 30, target = user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
-		S.anchored = FALSE
+		S.set_anchored(FALSE)
 		S.dir = user.dir
 		S.update_icon(UPDATE_ICON_STATE)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)

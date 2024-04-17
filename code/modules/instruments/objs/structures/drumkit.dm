@@ -1,7 +1,7 @@
 /obj/structure/musician/drumkit
 	name = "space drum kit"
 	desc = "This is a space drum kit. It's a sound that can rock anyone."
-	
+
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "drumkit"
 	anchored = FALSE
@@ -66,7 +66,7 @@
 					buckled_mob.pixel_y = 0
 
 //BUCKLE HOOKS
-/obj/structure/musician/drumkit/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/structure/musician/drumkit/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall)
 	song.stop_playing()
 	SStgui.close_uis(src)
 	if(istype(buckled_mob))
@@ -87,7 +87,7 @@
 	M.forceMove(get_turf(src))
 	..()
 	handle_offsets()
-	
+
 /obj/structure/musician/drumkit/examine(mob/user)
 	. = ..()
 	if(!anchored)
@@ -95,7 +95,7 @@
 
 /obj/structure/musician/drumkit/AltClick(mob/living/user)
 	rotate(user)
-	
+
 /obj/structure/musician/drumkit/proc/rotate(mob/living/user)
 	if(anchored)
 		to_chat(user, span_warning("The musical instrument is anchored to the floor!"))

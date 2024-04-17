@@ -485,6 +485,17 @@
 	max_ammo = 12
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/cheap_m12g
+	name = "shotgun magazine (12g buckshot slugs)"
+	desc = "A cheaply-made drum magazine."
+	icon_state = "m12gbc"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	origin_tech = "combat=2"
+	caliber = ".12"
+	max_ammo = 12
+	multiple_sprites = 2
+	color = COLOR_ASSEMBLY_BROWN
+
 /obj/item/ammo_box/magazine/m12g/slug
 	name = "shotgun magazine (12g slugs)"
 	icon_state = "m12gb"

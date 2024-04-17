@@ -261,6 +261,12 @@
 		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
 		burn_human.adjustFireLoss(15)
 
+// It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/cold
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+
 /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"

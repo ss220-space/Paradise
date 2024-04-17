@@ -47,7 +47,7 @@
 		restricted_jobs += protected_jobs
 
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-	var/list/possible_malfs = get_players_for_role(ROLE_MALF_AI)
+	var/list/possible_malfs = get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)
 
 	var/malf_AI_candidate
 	if(length(possible_malfs))

@@ -39,6 +39,16 @@
 
 		ui.open()
 
+/datum/ui_module/crew_monitor/ui_static_data(mob/user)
+	var/list/static_data = list()
+	var/list/station_level_numbers = list()
+	var/list/station_level_names = list()
+	for(var/z_level in levels_by_trait(STATION_LEVEL))
+		station_level_numbers += z_level
+		station_level_names += check_level_trait(z_level, STATION_LEVEL)
+	static_data["stationLevelNum"] = station_level_numbers
+	static_data["stationLevelName"] = station_level_names
+	return static_data
 
 /datum/ui_module/crew_monitor/ui_data(mob/user)
 	var/list/data = list()

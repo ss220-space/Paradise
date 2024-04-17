@@ -71,9 +71,8 @@
 /datum/antagonist/thief/proc/equip_thief_kit()
 	if(!ishuman(owner.current))
 		return
-	var/obj/item/thief_kit/kit = new(null)
-	if(!kit.equip_to_best_slot(owner.current))
-		qdel(kit)
+	var/obj/item/thief_kit/kit = new(owner.current.drop_location())
+	if(!kit.equip_to_best_slot(owner.current, qdel_on_fail = TRUE, silent = TRUE))
 		log_admin("Failed to spawn thief kit for [owner.current.real_name].")
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] Failed to spawn thief kit.")
 		return

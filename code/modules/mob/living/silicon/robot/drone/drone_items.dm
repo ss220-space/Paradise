@@ -139,6 +139,18 @@
 	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
+/obj/item/gripper/Click(location,control,params)
+	if(!usr.get_active_hand())
+		usr.ClickOn(src, params)
+		return
+	gripped_item ? usr.ClickOn(gripped_item, params) : usr.ClickOn(src, params)
+
+/obj/item/gripper/DblClick(location,control,params)
+	if(!usr.get_active_hand())
+		usr.DblClickOn(src, params)
+		return
+	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
+
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
 	if(!gripped_item)
 		return
@@ -186,13 +198,15 @@
 	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold) && Adjacent(user, I)) // Make sure the item is something the gripper can hold
-			to_chat(user, "<span class='notice'>You collect [I].</span>")
+			to_chat(user, span_notice("You collect [I]."))
 			I.forceMove(src)
 			gripped_item = I
+			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
 			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
-			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
+			to_chat(user, span_warning("Your gripper cannot hold [target]."))
 			return FALSE
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
@@ -201,20 +215,24 @@
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
-	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING, COMSIG_ATOM_UPDATED_ICON))
+	gripped_item.update_icon(UPDATE_OVERLAYS)
 	gripped_item = null
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gripper/proc/handle_item_icon_update()
+	SIGNAL_HANDLER
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gripper/update_overlays()
 	. = ..()
-	cut_overlays()
 	if(gripped_item)
 		alpha = 128
-		var/mutable_appearance/item_preview = mutable_appearance(gripped_item.icon, gripped_item.icon_state, appearance_flags = RESET_ALPHA)
+		var/mutable_appearance/item_preview = mutable_appearance(gripped_item.icon, gripped_item.icon_state, appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM)
+		item_preview.copy_overlays(gripped_item)
 		. += item_preview
 	else
 		alpha = initial(alpha)
-
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler

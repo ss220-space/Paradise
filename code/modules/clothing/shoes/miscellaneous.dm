@@ -87,9 +87,10 @@
 	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user.RemoveElement(/datum/element/waddling)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))
@@ -142,6 +143,28 @@
 	icon_state = "jackboots_cross"
 	item_color = "jackboots_cross"
 	can_cut_open = FALSE
+
+/obj/item/clothing/shoes/jackboots/armored
+	name = "armored shoes"
+	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
+	can_cut_open = TRUE
+	icon_state = "armored_shoes"
+	item_color = "armored_shoes"
+	item_state = "armored_shoes"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+		)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

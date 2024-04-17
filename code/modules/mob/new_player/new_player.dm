@@ -716,3 +716,7 @@
 // No hearing announcements
 /mob/new_player/can_hear()
 	return FALSE
+
+/mob/new_player/mob_negates_gravity()
+	return TRUE //no need to calculate if they have gravity.
+

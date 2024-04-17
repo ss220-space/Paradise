@@ -329,6 +329,7 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
+	new /obj/item/multitool/ai_detect(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
 
@@ -380,6 +381,15 @@
 /obj/item/storage/belt/grenade/frag/populate_contents()
 	for(var/I in 1 to 4)
 		new /obj/item/grenade/frag(src)
+
+/obj/item/storage/belt/grenade/demolitionist/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/frag(src)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/plastic/c4(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/empgrenade(src)
 
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
@@ -889,6 +899,7 @@
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/wormhole_jaunter(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"

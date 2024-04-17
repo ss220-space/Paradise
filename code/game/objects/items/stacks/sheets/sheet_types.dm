@@ -106,6 +106,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("Intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe("Shower", /obj/item/mounted/shower, 5, time = 7, on_floor = TRUE),
+	new /datum/stack_recipe("Stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/metal

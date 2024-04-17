@@ -1,4 +1,5 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/ed209
 	name = "\improper ED-209 Security Robot"
@@ -55,7 +56,7 @@
 	var/projectile = /obj/item/projectile/energy/electrode
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
-
+	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
 	..()
@@ -109,7 +110,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src,0)
 	set_path(null)
 	last_found = world.time
@@ -297,7 +298,7 @@
 					stun_attack(target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
-						anchored = TRUE
+						set_anchored(TRUE)
 						target_lastloc = target.loc
 						return
 					else
@@ -337,7 +338,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -352,7 +353,7 @@
 				return
 			else
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -364,7 +365,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -373,7 +374,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -385,7 +386,7 @@
 /mob/living/simple_animal/bot/ed209/proc/look_for_perp()
 	if(disabled)
 		return
-	anchored = FALSE
+	set_anchored(FALSE)
 	threatlevel = 0
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -519,7 +520,7 @@
 		pulse2.icon = 'icons/effects/effects.dmi'
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
-		pulse2.anchored = TRUE
+		pulse2.set_anchored(TRUE)
 		pulse2.dir = pick(GLOB.cardinal)
 		QDEL_IN(pulse2, 1 SECONDS)
 		var/list/mob/living/carbon/targets = new
@@ -628,9 +629,13 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		if(!speak_cooldown)
+			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[src] has stunned [C]!"),
 					span_userdanger("[src] has stunned you!"))
+
 
 
 /mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
@@ -652,5 +657,6 @@
 	back_to_idle()
 
 
-#undef BATON_COOLDOWN
 
+#undef SPEAK_COOLDOWN
+#undef BATON_COOLDOWN

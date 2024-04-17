@@ -14,34 +14,31 @@
 
 
 /proc/domutation(datum/dna/gene/gene, mob/living/mutant, connected, flags = NONE)
-	if(!istype(gene) || !gene.block || gene.block < 0 || !istype(mutant) || !mutant.dna)
+	if(!istype(gene) || !gene.block || gene.block < 0 || !istype(mutant) || !mutant.dna || (NO_DNA in mutant.dna.species.species_traits))
 		return FALSE
 
 	// Is our gene in activation bounds?
-	var/gene_on = mutant.dna.GetSEState(gene.block)
+	var/gene_in_bounds = mutant.dna.GetSEState(gene.block)
 	// Is our gene currently active?
-	var/gene_active = gene.is_active(mutant)
+	var/gene_is_active = gene.is_active(mutant)
 
-	if(mutant.dna.species)
-		// Do not mutate inherent species abilities
-		if(gene_on && gene_active && LAZYIN(mutant.dna.species.default_genes, gene.type))
-			return FALSE
-
-		if(NO_DNA in mutant.dna.species.species_traits)
-			return FALSE
+	// Do not mutate inherent species abilities
+	if(gene_in_bounds && gene_is_active && LAZYIN(mutant.dna.species.default_genes, gene.type))
+		return FALSE
 
 	// Gene is in bounds but not active currently
-	if(gene_on && !gene_active)
+	if(gene_in_bounds && !gene_is_active)
 		// If our gene can be activated, we should check for conditions
 		if(!gene.can_activate(mutant, flags))
 			return FALSE
-		INVOKE_ASYNC(gene, TYPE_PROC_REF(/datum/dna/gene, activate), mutant, connected, flags)
-		LAZYADD(mutant.active_genes, gene.type)
+		gene.activate(mutant, connected, flags)
 		return TRUE
 
 	// Gene is active, we should remove it
-	if(gene_active)
-		INVOKE_ASYNC(gene, TYPE_PROC_REF(/datum/dna/gene, deactivate), mutant, connected, flags)
-		LAZYREMOVE(mutant.active_genes, gene.type)
+	if(!gene_in_bounds && gene_is_active)
+		// If our gene should be deactivated, we should check for conditions
+		if(!gene.can_deactivate(mutant, flags))
+			return FALSE
+		gene.deactivate(mutant, connected, flags)
 		return TRUE
 

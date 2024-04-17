@@ -171,7 +171,9 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
-	holder.icon_state = "hud[RoundHealth(src)]"
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_HUD]
+	holder?.icon_state = "hud[RoundHealth(src)]"
 
 
 //called when a carbon changes stat, virus or XENO_HOST
@@ -187,6 +189,21 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
+
+	if(ismachineperson(src))
+		var/image/diag_hud = hud_list[DIAG_STAT_HUD]
+		if(!diag_hud)
+			diag_hud.icon_state = null
+		else if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			diag_hud.icon_state = "kpb_dead"
+		else if(health < 0)
+			diag_hud.icon_state = "kpb_alert"
+		else if(nutrition < NUTRITION_LEVEL_STARVING)
+			diag_hud.icon_state = "kpb_low_power"
+		else
+			diag_hud.icon_state = "kpb_nominal"
+		return
+
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))

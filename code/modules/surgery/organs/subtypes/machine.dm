@@ -191,5 +191,5 @@
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		to_chat(owner, "<span class='userdanger'>BZZZZZZZZZZZZZZT! Microphone error!</span>")
+		to_chat(owner, span_userdanger("BZZZZZZZZZZZZZZT! Microphone error!"))
 	. = ..()
