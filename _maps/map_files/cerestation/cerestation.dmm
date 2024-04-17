@@ -5280,8 +5280,8 @@
 /obj/machinery/button/windowtint{
 	dir = 1;
 	id = "qm";
-	pixel_y = -24;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = -24
 	},
 /obj/machinery/light_switch{
 	dir = 8;
@@ -23365,8 +23365,8 @@
 "cWB" = (
 /obj/structure/table,
 /obj/item/paper_bin{
-	pixel_y = 13;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 13
 	},
 /obj/item/reagent_containers/food/drinks/mug/serv{
 	pixel_x = 12;
@@ -76914,9 +76914,6 @@
 "smd" = (
 /obj/machinery/computer/security/mining{
 	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
