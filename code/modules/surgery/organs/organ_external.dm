@@ -428,7 +428,6 @@ This function completely restores a damaged organ to perfect condition.
 	brute_dam = 0
 	burn_dam = 0
 	open = ORGAN_CLOSED //Closing all wounds.
-	disfigured = FALSE
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -446,11 +445,13 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/proc/heal_all_status_wounds()
 	if(is_robotic())
 		status = ORGAN_ROBOT
+		undisfigure()
 		return
 	unmutate()
 	unnecrotize()
 	mend_fracture()
 	stop_internal_bleeding()
+	undisfigure()
 
 
 /****************************************************
