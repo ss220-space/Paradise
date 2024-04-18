@@ -270,15 +270,26 @@
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
 	var/garbled_message = ""
-	for(var/i in 1 to length(message))
-		if(message[i] in GLOB.alphabet_uppercase)
-			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(message[i] in GLOB.alphabet)
-			garbled_message += pick(GLOB.alphabet)
+	var/i = 1
+	while(i <= length(message))
+		var/char = lowertext(message[i])
+		if(char in GLOB.alphabet)
+			if(prob(50)) // upper and lowercase chars have different symbols, we encrypt the word and mix them up
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
+		else if(char in GLOB.alphabet_cyrillic)
+			if(prob(50))
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
+			i++ // rus chars coded by 2 bytes, so we need to skip one byte when encrypting them
 		else
 			garbled_message += message[i]
+		i++
 	message = garbled_message
 	return message
+
 
 /datum/dna/gene/disability/weak
 	name = "Weak"
