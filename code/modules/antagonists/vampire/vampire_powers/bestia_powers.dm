@@ -1657,21 +1657,9 @@
 			if(QDELETED(body_part))
 				continue
 
-			if(body_part.is_robotic())
-				body_part.status = ORGAN_ROBOT
-			else
-				var/fractured = body_part.has_fracture()
-				var/bleeding = body_part.has_internal_bleeding()
-				body_part.status = NONE
-				if(fractured)	// we have separate method to mend fractures
-					body_part.status |= ORGAN_BROKEN
-				if(bleeding)	// and stop internal bleedings too
-					body_part.status |= ORGAN_INT_BLEED
-
-
+			body_part.heal_status_wounds(ORGAN_DISFIGURED|ORGAN_DEAD|ORGAN_MUTATED)
 			body_part.germ_level = 0
-			body_part.open = FALSE
-			body_part.undisfigure()
+			body_part.open = ORGAN_CLOSED
 
 			for(var/obj/item/organ/internal/organ as anything in body_part.internal_organs)
 				if(QDELETED(organ))

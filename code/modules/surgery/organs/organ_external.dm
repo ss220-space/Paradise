@@ -81,8 +81,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// If `TRUE` you cannot be identified by examine (used for head bodypart only)
-	var/disfigured = FALSE
 	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
 	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
@@ -422,16 +420,12 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(is_robotic())	//Robotic organs stay robotic.
-		status = ORGAN_ROBOT
-	else
-		status = NONE
+	heal_status_wounds(ALL)
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
 	open = ORGAN_CLOSED //Closing all wounds.
-	disfigured = FALSE
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -445,6 +439,21 @@ This function completely restores a damaged organ to perfect condition.
 	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+/obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
+	if(is_robotic())
+		status = ORGAN_ROBOT
+		return
+	if(flags_to_heal & ORGAN_MUTATED)
+		unmutate()
+	if(flags_to_heal & ORGAN_DEAD)
+		unnecrotize()
+	if(flags_to_heal & ORGAN_BROKEN)
+		mend_fracture()
+	if(flags_to_heal & ORGAN_INT_BLEED)
+		stop_internal_bleeding()
+	if(flags_to_heal & ORGAN_DISFIGURED)
+		undisfigure()
 
 
 /****************************************************
@@ -1052,7 +1061,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/disfigure(silent = FALSE)
-	if(is_disfigured())
+	if(is_disfigured() || is_robotic())
 		return FALSE
 
 	if(owner)
@@ -1066,19 +1075,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_italics("You hear a sickening sound.")
 			)
 
-	disfigured = TRUE
+	status |= ORGAN_DISFIGURED
 	return TRUE
 
 
 /obj/item/organ/external/proc/is_disfigured()
-	return disfigured
+	return (status & ORGAN_DISFIGURED)
 
 
 /obj/item/organ/external/proc/undisfigure()
+	if(is_robotic())
+		return FALSE
+
 	if(!is_disfigured())
 		return FALSE
 
-	disfigured = FALSE
+	status &= ~ORGAN_DISFIGURED
 
 	return TRUE
 
