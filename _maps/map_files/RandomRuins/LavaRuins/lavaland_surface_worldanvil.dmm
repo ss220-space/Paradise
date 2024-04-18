@@ -56,6 +56,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "md" = (

@@ -35,6 +35,10 @@
 #define TTS_CATEGORY_MARVEL "Marvel"
 #define TTS_CATEGORY_TREASURE_ISLAND "Treasure Island"
 #define TTS_CATEGORY_SLOVO_PATSANA "Слово пацана"
+#define TTS_CATEGORY_BALDURS_GATE_3 "Baldur's Gate 3"
+#define TTS_CATEGORY_HOGWARTS_LEGACY "Hogwarts Legacy"
+#define TTS_CATEGORY_HALFLIFE_ALYX "Half-Life: Alyx"
+#define TTS_CATEGORY_STRONGHOLD_CRUSADER "Stronghold Crusader"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
