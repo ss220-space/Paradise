@@ -216,7 +216,7 @@
 	icon_state = "hacktool"
 	item_state = "hacktool"
 	emagged = TRUE
-	var/hack_speed = 30
+	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
