@@ -615,13 +615,11 @@
 			continue
 
 		for(var/obj/things in T1)
-			if(istype(things, /obj/docking_port)) //prevent from qdel docking port
+			if(is_type_in_list(things, GLOB.ungibbable_items_types) || istype(things, /obj/docking_port) || istype(things, /obj/effect))
 				continue
 			else
-				if(!(istype(things, /obj/effect)) || istype(things, /obj/effect/decal)) //and any effects other than decals (dels only blood, gibs, remains etc.)
-					things.visible_message(span_warning("\The [things] gets crushed to dust!"))
-					qdel(things)
-				continue
+				things.visible_message(span_warning("\The [things] gets crushed to dust!"))
+				qdel(things)
 
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
@@ -635,6 +633,7 @@
 					living_things.stop_pulling()
 					living_things.visible_message(span_warning("[living_things] is hit by a hyperspace ripple!"),
 						span_userdanger("You feel an immense crushing pressure as the space around you ripples."))
+					living_things.drop_ungibbable_items(T1)
 					living_things.gib()
 
 			// Move unanchored atoms
