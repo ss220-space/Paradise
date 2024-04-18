@@ -8,17 +8,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 
-	var/item_state = null
-	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-
-	var/belt_icon = null
-
-	//Dimensions of the lefthand_file and righthand_file vars
-	//eg: 32x32 sprite, 64x64 sprite, etc.
-	var/inhand_x_dimension = 32
-	var/inhand_y_dimension = 32
-
 	max_integrity = 200
 
 	can_be_hit = FALSE
@@ -139,10 +128,41 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
+	///Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi
 	var/list/sprite_sheets = null
 	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
-	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
+	var/icon_override = null  //Used to override clothing dmis in human clothing proc.
+	var/sprite_sheets_obj = null //Used to override clothing inventory object dmis in human clothing proc.
+
+	///Sprite sheets used to render clothing, if none of sprite_sheets are used
+	var/list/onmob_sheets = list(
+		SLOT_HUD_BACK = DEFAULT_ICON_BACK,
+		SLOT_HUD_WEAR_MASK = DEFAULT_ICON_WEAR_MASK,
+		SLOT_HUD_HANDCUFFED = DEFAULT_ICON_HANDCUFFED,
+		SLOT_HUD_BELT = DEFAULT_ICON_BELT,
+		SLOT_HUD_WEAR_ID = DEFAULT_ICON_WEAR_ID,
+		SLOT_HUD_LEFT_EAR = DEFAULT_ICON_LEFT_EAR,
+		SLOT_HUD_GLASSES = DEFAULT_ICON_GLASSES,
+		SLOT_HUD_GLOVES = DEFAULT_ICON_GLOVES,
+		SLOT_HUD_HEAD = DEFAULT_ICON_HEAD,
+		SLOT_HUD_SHOES = DEFAULT_ICON_SHOES,
+		SLOT_HUD_OUTER_SUIT = DEFAULT_ICON_OUTER_SUIT,
+		SLOT_HUD_JUMPSUIT = DEFAULT_ICON_JUMPSUIT,
+		SLOT_HUD_SUIT_STORE = DEFAULT_ICON_SUIT_STORE,
+		SLOT_HUD_LEGCUFFED = DEFAULT_ICON_LEGCUFFED,
+		SLOT_HUD_RIGHT_EAR = DEFAULT_ICON_RIGHT_EAR,
+		SLOT_HUD_TIE = DEFAULT_ICON_TIE,
+		SLOT_HUD_COLLAR = DEFAULT_ICON_COLLAR,
+		SLOT_HUD_NECK = DEFAULT_ICON_NECK
+	)
+	var/belt_icon = null
+	var/item_state = null
+	//Dimensions of the lefthand_file and righthand_file vars
+	//eg: 32x32 sprite, 64x64 sprite, etc.
+	var/inhand_x_dimension = 32
+	var/inhand_y_dimension = 32
+	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?

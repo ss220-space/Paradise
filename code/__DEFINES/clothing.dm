@@ -151,6 +151,26 @@
 #define MATERIAL_CLASS_SOAP		3
 
 
+//default icons in case something is missing
+#define DEFAULT_ICON_BACK 'icons/mob/clothing/back.dmi'
+#define DEFAULT_ICON_WEAR_MASK 'icons/mob/clothing/mask.dmi'
+#define DEFAULT_ICON_HANDCUFFED 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_BELT 'icons/mob/clothing/belt.dmi'
+#define DEFAULT_ICON_WEAR_ID 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_LEFT_EAR 'icons/mob/clothing/ears.dmi'
+#define DEFAULT_ICON_GLASSES 'icons/mob/clothing/eyes.dmi'
+#define DEFAULT_ICON_GLOVES 'icons/mob/clothing/hands.dmi'
+#define DEFAULT_ICON_HEAD 'icons/mob/clothing/head.dmi'
+#define DEFAULT_ICON_SHOES 'icons/mob/clothing/feet.dmi'
+#define DEFAULT_ICON_OUTER_SUIT 'icons/mob/clothing/suit.dmi'
+#define DEFAULT_ICON_JUMPSUIT 'icons/mob/clothing/uniform.dmi'
+#define DEFAULT_ICON_SUIT_STORE 'icons/mob/clothing/belt_mirror.dmi'
+#define DEFAULT_ICON_LEGCUFFED 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_RIGHT_EAR 'icons/mob/clothing/ears.dmi'
+#define DEFAULT_ICON_TIE 'icons/mob/clothing/ties.dmi'
+#define DEFAULT_ICON_COLLAR 'icons/mob/clothing/collar.dmi'
+#define DEFAULT_ICON_NECK 'icons/mob/clothing/neck.dmi'
+
 /// Wrapper for adding clothing based traits
 #define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
 /// Wrapper for removing clothing based traits
