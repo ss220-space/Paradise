@@ -15687,6 +15687,7 @@
 /area/crew_quarters/fitness)
 "bXX" = (
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/vending/pai,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -31043,6 +31044,14 @@
 	icon_state = "dark"
 	},
 /area/teleporter)
+"eYR" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/apmaint2)
 "eYT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -49286,9 +49295,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -54327,9 +54333,6 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -85868,6 +85871,9 @@
 	name = "research";
 	sortType = 12
 	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -90041,10 +90047,10 @@
 	},
 /area/hallway/primary/central)
 "vVT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -106114,7 +106120,7 @@ rNK
 rNK
 rNK
 hUU
-hUU
+aXn
 gRZ
 cak
 xNz
@@ -106371,7 +106377,7 @@ rNK
 rNK
 hUU
 hUU
-hUU
+aXn
 gRZ
 oRw
 tDf
@@ -108389,7 +108395,7 @@ jqn
 qXW
 jqn
 hUU
-aXn
+hUU
 aXn
 aXn
 aXn
@@ -109913,7 +109919,7 @@ rNK
 rNK
 rNK
 rNK
-aXn
+hUU
 aXn
 aXn
 aXn
@@ -110170,7 +110176,7 @@ rNK
 pXy
 pXy
 pXy
-aXn
+hUU
 aXn
 aXn
 aXn
@@ -122082,7 +122088,7 @@ nFk
 ciG
 lxr
 pQN
-sKh
+eYR
 jiS
 xPU
 pAi
