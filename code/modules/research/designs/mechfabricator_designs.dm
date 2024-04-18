@@ -1514,7 +1514,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_hyperaccelerator
-	name = "Kinetic Accelerator Mining AoE Mod"
+	name = "Mining Cyborg Upgrade (KA Mining AoE Mod)"
 	id = "borg_hypermod"
 	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
 	build_type = MECHFAB
@@ -1523,7 +1523,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_offensive_turf_aoe
-	name = "Kinetic Accelerator Offensive Mining Explosion Mod"
+	name = "Mining Cyborg Upgrade (KA Offensive Mining Explosion Mod)"
 	id = "borg_hyperaoemod"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
 	build_type = MECHFAB
@@ -1532,7 +1532,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_rapid_repeater
-	name = "Kinetic Accelerator Rapid Repeater Mod"
+	name = "Mining Cyborg Upgrade (KA Rapid Repeater Mod)"
 	id = "borg_repeatermod"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
 	build_type = MECHFAB
@@ -1541,7 +1541,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_resonator_blast
-	name = "Kinetic Accelerator Resonator Blast Mod"
+	name = "Mining Cyborg Upgrade (KA Resonator Blast Mod)"
 	id = "borg_resonatormod"
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
 	build_type = MECHFAB
