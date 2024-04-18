@@ -84163,9 +84163,6 @@
 /obj/machinery/computer/security/mining{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 4;
