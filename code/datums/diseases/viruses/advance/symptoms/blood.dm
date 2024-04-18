@@ -35,7 +35,7 @@ Bonus
 				if(prob(10))
 					to_chat(M, span_notice("You can hear own heartbeat"))
 				check = TRUE
-	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits))
+	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits) && !isdiona(M))
 		M.blood_volume += 0.4
 		M.adjust_nutrition(-2)
 	return

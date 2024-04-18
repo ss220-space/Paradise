@@ -301,7 +301,7 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !isdiona(H))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	return ..() | update_flags
@@ -1393,7 +1393,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 60 healing to all internal organs.
 						I.heal_internal_damage(4)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9 && !isdiona(H))// If below 90% blood, regenerate 225 units total
 						H.blood_volume += 15
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it

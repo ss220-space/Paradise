@@ -26,7 +26,7 @@
 		return
 
 	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
-		if(blood_volume < BLOOD_VOLUME_NORMAL)
+		if(blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(src)) // dionas regenerate blood only on light
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
 
