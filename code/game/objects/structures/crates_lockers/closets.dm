@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(closets)
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
-		if(istype(M, /mob/living/simple_animal/hostile/megafauna))
+		if(ismegafauna(M))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue

@@ -403,7 +403,7 @@ REAGENT SCANNER
 		return "<span class='highlight'>[jointext(., "<br>")]</span>"
 
 	var/mob/living/carbon/human/scan_subject = null
-	if (istype(target, /mob/living/carbon/human))
+	if (ishuman(target))
 		scan_subject = target
 	else if (istype(target, /obj/structure/closet/body_bag))
 		var/obj/structure/closet/body_bag/B = target

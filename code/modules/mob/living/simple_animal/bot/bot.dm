@@ -398,7 +398,7 @@
 
 
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")

@@ -389,7 +389,7 @@
 			continue
 		if(T == mobloc)
 			continue
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
 			continue	//putting them at the edge is dumb
@@ -500,7 +500,7 @@
 	if(iscultist(owner)) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)

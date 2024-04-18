@@ -59,7 +59,7 @@
 		M.drop_item_ground(src)
 		to_chat(M, "[src.name] вырывается из вашей хватки!")
 		to_chat(L, "Вы вырываетесь из хвата [M.name]!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
 	L.resting = FALSE

@@ -194,7 +194,7 @@
 						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
 						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user].</span>")
-				if(istype(M, /mob/living/simple_animal/shade))
+				if(isshade(M))
 					var/mob/living/simple_animal/shade/shade = M
 					shade.holy = TRUE
 					shade.update_icon(UPDATE_ICON_STATE)
@@ -213,7 +213,7 @@
 				if(M.mind)
 					SSticker.mode.add_cultist(M.mind)
 					to_chat(M, "<span class='cult'>Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals.</span>")
-				if(istype(M, /mob/living/simple_animal/shade))
+				if(isshade(M))
 					var/mob/living/simple_animal/shade/shade = M
 					shade.holy = FALSE
 					shade.update_icon(UPDATE_ICON_STATE)

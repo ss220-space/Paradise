@@ -270,7 +270,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
@@ -281,7 +281,7 @@
 	// Apprentices
 	if(!wizards_alive)
 		for(var/datum/mind/apprentice in apprentices)
-			if(!istype(apprentice.current,/mob/living/carbon))
+			if(!iscarbon(apprentice.current))
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue

@@ -80,7 +80,7 @@
 		return
 
 	var/obj/icon = src
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(!in_range(src, user))
@@ -131,7 +131,7 @@
 	..()
 
 	add_fingerprint(user)
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(istype(W, /obj/item/assembly_holder))

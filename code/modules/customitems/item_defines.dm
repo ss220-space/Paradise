@@ -42,7 +42,7 @@
 		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
+	if(!ishuman(M))
 		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
 		return
 
@@ -1518,7 +1518,7 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(!istype(target, /obj/spacepod))
+	if(!isspacepod(target))
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 

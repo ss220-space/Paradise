@@ -628,9 +628,9 @@
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
 	..()
-	if(istype(moving_atom, /obj/mecha) || istype(moving_atom, /obj/spacepod)) return
+	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
 
-	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))
+	if(isprojectile(moving_atom) || iseffect(moving_atom))
 		return
 
 	switch(dir)
@@ -651,7 +651,7 @@
 
 
 /obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item/projectile))
+	if(isprojectile(AM))
 		return ..() //chutes won't eat bullets
 	if(dir == reverse_direction(throwingdatum.init_dir))
 		return

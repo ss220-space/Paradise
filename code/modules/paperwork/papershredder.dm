@@ -20,7 +20,7 @@
 
 /obj/machinery/papershredder/attackby(obj/item/W, mob/user, params)
 
-	if(istype(W, /obj/item/storage))
+	if(isstorage(W))
 		add_fingerprint(user)
 		empty_bin(user, W)
 		return

@@ -246,10 +246,10 @@
 
 		// next we will find THE GUN .\_/.
 		var/obj/item/gun/found_gun
-		if(istype(left_hand, /obj/item/gun))
+		if(isgun(left_hand))
 			found_gun = left_hand
 
-		if(!found_gun && istype(right_hand, /obj/item/gun))
+		if(!found_gun && isgun(right_hand))
 			found_gun = right_hand
 
 		// now we will find the target

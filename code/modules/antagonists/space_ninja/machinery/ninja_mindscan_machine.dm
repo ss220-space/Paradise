@@ -77,7 +77,7 @@
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
-	if(!istype(dropped, /mob/living/carbon/human))
+	if(!ishuman(dropped))
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
