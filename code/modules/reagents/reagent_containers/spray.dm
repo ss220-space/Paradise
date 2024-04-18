@@ -105,17 +105,11 @@
     icon_state = "cleaner_brig"
     item_state = "cleaner_brig"
 
-/obj/item/reagent_containers/spray/cleaner/brig/empty
-    list_reagents = list()
-
 /obj/item/reagent_containers/spray/cleaner/chemical
     name = "chemical cleaner"
     desc = "There is nothing safer than cleaning up spilled potassium with water"
     icon_state = "cleaner_chemical"
     item_state = "cleaner_medchem"
-
-/obj/item/reagent_containers/spray/cleaner/chemical/empty
-    list_reagents = list()
 
 /obj/item/reagent_containers/spray/cleaner/janitor
     name = "janitorial deluxe cleaner"
@@ -123,17 +117,11 @@
     icon_state = "cleaner_janitor"
     item_state = "cleaner_jan"
 
-/obj/item/reagent_containers/spray/cleaner/janitor/empty
-    list_reagents = list()
-
 /obj/item/reagent_containers/spray/cleaner/medical
     name = "medical cleaner"
     desc = "Disinfectant for hands, floor, and sole CMO"
     icon_state = "cleaner_medical"
     item_state = "cleaner_med"
-
-/obj/item/reagent_containers/spray/cleaner/medical/empty
-    list_reagents = list()
 
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
@@ -143,6 +131,38 @@
     spray_maxrange = 4
     spray_currentrange = 4
     volume = 450
+
+/obj/item/reagent_containers/spray/cleaner/attackby(obj/item/X, mob/user)
+	if(istype(X, /obj/item/toy/crayon))
+		if (icon_state == "cleaner")
+			to_chat(user, span_notice("You start diligently coloring the cleaner with a crayon"))
+			if(do_after(user, 10, target = user))
+				change_color(user, X)
+		else
+			to_chat(user, "<span class='warning'>For painting you need a clean cleaner.</span>")
+
+/obj/item/reagent_containers/spray/cleaner/proc/change_color(user, obj/item/toy/crayon/C)
+	switch(C.colour)
+		if(COLOR_PURPLE)
+			name = "janitorial deluxe cleaner"
+			desc = "A stylish spray for the most productive station worker!"
+			icon_state = "cleaner_janitor"
+			item_state = "cleaner_jan"
+		if(COLOR_RED)
+			name = "brig cleaner"
+			desc = "Blood spray to remove the blood of a handcuffed clown"
+			icon_state = "cleaner_brig"
+			item_state = "cleaner_brig"
+		if(COLOR_WHITE)
+			name = "chemical cleaner"
+			desc = "There is nothing safer than cleaning up spilled potassium with water"
+			icon_state = "cleaner_chemical"
+			item_state = "cleaner_medchem"
+		if(COLOR_ORANGE)
+			name = "chemical cleaner"
+			desc = "There is nothing safer than cleaning up spilled potassium with water"
+			icon_state = "cleaner_chemical"
+			item_state = "cleaner_medchem"
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
