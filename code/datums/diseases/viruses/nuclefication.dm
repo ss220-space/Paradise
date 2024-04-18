@@ -80,7 +80,7 @@
 	var/list/obj/item/organ/internal/I = target.internal_organs.Copy()
 	while(length(I))
 		var/obj/item/organ/internal/organ_check = pick_n_take(I)
-		if(organ_check.vital || organ_check.status & ORGAN_DEAD)
+		if(organ_check.vital || organ_check.is_dead())
 			continue
 		return organ_check
 
