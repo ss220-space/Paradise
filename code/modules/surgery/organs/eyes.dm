@@ -66,6 +66,10 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
+/obj/item/organ/internal/eyes/can_surgeryize()
+	if(owner)
+		return TRUE
+
 /obj/item/organ/internal/eyes/robotize(make_tough = FALSE)
 	colourmatrix = null
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
