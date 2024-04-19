@@ -66,7 +66,7 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
-/obj/item/organ/internal/eyes/has_damage(obj/item/tool, tool_name)
+/obj/item/organ/internal/eyes/has_damage()
 	. = ..()
 	if(.)
 		return .
