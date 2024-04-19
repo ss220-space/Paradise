@@ -1011,7 +1011,7 @@
 	var/obj/item/card/id/card = human.get_id_card()
 	if(!istype(card))
 		return
-	if(AIR_ALARM_READY)
+	if(buildstage == AIR_ALARM_READY)
 		if(stat & (NOPOWER|BROKEN))
 			to_chat(user, span_warning("It does nothing!"))
 			return
