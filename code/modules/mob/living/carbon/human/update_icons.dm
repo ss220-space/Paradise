@@ -549,6 +549,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		add_overlay(get_emissive_block())
 	update_halo_layer()
 	update_fire()
+	SEND_SIGNAL(src, COMSIG_HUMAN_REGENERATE_ICONS)
+
 
 
 /* --------------------------------------- */

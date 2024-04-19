@@ -111,7 +111,7 @@
 		. = timer_set
 
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+	if(issignaler(I))
 		if(open_panel)
 			add_fingerprint(user)
 			wires.Interact(user)
@@ -138,13 +138,13 @@
 			to_chat(user, span_notice("The bomb must be placed on solid ground to attach it."))
 		else
 			WRENCH_ANCHOR_MESSAGE
-			anchored = TRUE
+			set_anchored(TRUE)
 			if(active)
 				to_chat(user, span_notice("The bolts lock in place."))
 	else
 		if(!active)
 			WRENCH_UNANCHOR_MESSAGE
-			anchored = FALSE
+			set_anchored(FALSE)
 		else
 			to_chat(user, span_warning("The bolts are locked down!"))
 

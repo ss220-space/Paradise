@@ -578,7 +578,7 @@
 	set category = "OOC"
 	reset_perspective(null)
 	unset_machine()
-	if(istype(src, /mob/living))
+	if(isliving(src))
 		if(src:cameraFollow)
 			src:cameraFollow = null
 
@@ -944,7 +944,7 @@
 	if(stat==DEAD)
 		return
 	var/turf/location = loc
-	if(istype(location, /turf/simulated))
+	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")

@@ -55,7 +55,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
-		anchored = !anchored
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -160,7 +160,7 @@
 	icon_state = "railing_wood"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	can_be_unanchored = 1
+	can_be_unanchored = TRUE
 	flags = ON_BORDER
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5

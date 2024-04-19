@@ -8,10 +8,16 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/baseturf_helper/LateInitialize()
+	initialize_replacements()
+
+/obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
 	for(var/turf/T in get_area_turfs(thearea, z))
 		replace_baseturf(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	if(thing.baseturf != thing.type)

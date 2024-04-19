@@ -66,7 +66,7 @@
 	transfer_fingerprints_to(C)
 	C.ptype = ptype
 	C.update()
-	C.anchored = FALSE
+	C.set_anchored(FALSE)
 	C.density = TRUE
 	if(!QDELING(src))
 		qdel(src)
@@ -217,7 +217,7 @@
 	var/obj/structure/disposalconstruct/C = new(loc)
 	C.ptype = deconstructs_to
 	C.update()
-	C.anchored = TRUE
+	C.set_anchored(TRUE)
 	C.density = TRUE
 	qdel(src)
 
@@ -489,14 +489,14 @@
 /obj/machinery/disposal/proc/flush()
 	flushing = TRUE
 	flush_animation()
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
-												// travels through the pipes.
-	manage_wrapping(H)
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
+	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
+												// travels through the pipes.
+	manage_wrapping(H)
 	H.init(src)	// copy the contents of disposer to holder
 	air_contents = new() // The holder just took our gas; replace it
 	H.start(src) // start the holder processing movement
@@ -628,9 +628,9 @@
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
 	..()
-	if(istype(moving_atom, /obj/mecha) || istype(moving_atom, /obj/spacepod)) return
+	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
 
-	if(istype(moving_atom, /obj/item/projectile) || istype(moving_atom, /obj/effect))
+	if(isprojectile(moving_atom) || iseffect(moving_atom))
 		return
 
 	switch(dir)
@@ -651,7 +651,7 @@
 
 
 /obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item/projectile))
+	if(isprojectile(AM))
 		return ..() //chutes won't eat bullets
 	if(dir == reverse_direction(throwingdatum.init_dir))
 		return

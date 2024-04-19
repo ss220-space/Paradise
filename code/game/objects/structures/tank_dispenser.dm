@@ -107,10 +107,10 @@
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 		return
 	return ..()
 

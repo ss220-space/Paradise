@@ -79,7 +79,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(item, /obj/item/pen))
+	else if(is_pen(item))
 		add_fingerprint(user)
 		rename_interactive(user, item)
 
@@ -160,7 +160,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		add_fingerprint(user)
 		rename_interactive(user, W)
 
@@ -380,7 +380,7 @@
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
-		if(istype(O, /obj/item/pen))
+		if(is_pen(O))
 			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -391,7 +391,7 @@
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
-	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
+	if(isitem(O) && !isstorage(O) && !istype(O, /obj/item/shippingPackage))
 		if(!user.can_unEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return

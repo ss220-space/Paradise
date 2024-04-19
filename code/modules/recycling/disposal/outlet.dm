@@ -74,7 +74,7 @@
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = PIPE_DISPOSALS_OUTLET
 		C.update()
-		C.anchored = TRUE
+		C.set_anchored(TRUE)
 		C.density = TRUE
 		transfer_fingerprints_to(C)
 		qdel(src)
@@ -96,6 +96,6 @@
 	transfer_fingerprints_to(C)
 	C.ptype = PIPE_DISPOSALS_OUTLET
 	C.update()
-	C.anchored = FALSE
+	C.set_anchored(FALSE)
 	C.density = TRUE
 	qdel(src)

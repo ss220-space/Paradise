@@ -423,7 +423,7 @@
 	set name = "Holobadge"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		return
 	if(usr.stat)
 		return
@@ -849,7 +849,7 @@
 	remove_id(user)
 
 /obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		if(istype(loc, /obj/item/clothing/under))
 			return ..()
 		var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
@@ -1054,6 +1054,14 @@
 	..()
 	if(prob(1))
 		user.say("CHEE-EE-EE-EE-EE-EESE!")
+
+/obj/item/clothing/accessory/head_strip/clown
+	name = "clown's strip"
+	desc = "Плотно сшитая круглая нашивка с изображением клоуна. Идеально подойдет для совершения военных преступлений, ведь это не военное преступление, если тебе было весело!"
+	icon_state = "clownstrip"
+	item_state = "clownstrip"
+	item_color = "clownstrip"
+	strip_bubble_icon = "clown"
 
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"

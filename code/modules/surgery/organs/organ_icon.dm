@@ -57,11 +57,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(eyes) eyes.update_colour()
 
 
-/obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	get_icon()
-	. = ..()
-
-
 /obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
 	if(force_icon)

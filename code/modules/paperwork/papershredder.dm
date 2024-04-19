@@ -20,7 +20,7 @@
 
 /obj/machinery/papershredder/attackby(obj/item/W, mob/user, params)
 
-	if(istype(W, /obj/item/storage))
+	if(isstorage(W))
 		add_fingerprint(user)
 		empty_bin(user, W)
 		return
@@ -54,7 +54,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else

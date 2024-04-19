@@ -40,7 +40,7 @@
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = TRUE
+	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
@@ -145,7 +145,7 @@
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
+	else if(isprox(I) && panel_open)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
@@ -158,7 +158,7 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
 		if (!can_use())
 			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return
@@ -425,7 +425,7 @@
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = FALSE
+	assembly.set_anchored(FALSE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.

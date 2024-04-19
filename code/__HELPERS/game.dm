@@ -171,7 +171,7 @@
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && istype(A, /obj/item/radio))
+		else if(include_radio && isradio(A))
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= A

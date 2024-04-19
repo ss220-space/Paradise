@@ -32,12 +32,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_DEVIL = 14
 ))
 
-/proc/player_old_enough_antag(client/C, role)
+/proc/player_old_enough_antag(client/C, role, req_job_rank)
 	if(available_in_days_antag(C, role))
-		return 0	//available_in_days>0 = still some days required = player not old enough
+		return FALSE	//available_in_days>0 = still some days required = player not old enough
 	if(role_available_in_playtime(C, role))
-		return 0	//available_in_playtime>0 = still some more playtime required = they are not eligible
-	return 1
+		return FALSE	//available_in_playtime>0 = still some more playtime required = they are not eligible
+	if(!req_job_rank)
+		return TRUE
+	var/datum/job/job = SSjobs.GetJob(req_job_rank)
+	if(!job)
+		stack_trace("Invalid job title: [req_job_rank]")
+		return FALSE
+	if(job.available_in_playtime(C))
+		return TRUE
+
 
 /proc/available_in_days_antag(client/C, role)
 	if(!C)

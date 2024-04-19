@@ -342,7 +342,7 @@ Class Procs:
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
 	. = M
-	M.anchored = anchored
+	M.set_anchored(anchored)
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)

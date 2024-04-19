@@ -323,7 +323,7 @@ BLIND     // can't see anything
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(3)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
-		if(istype(user,/mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
@@ -342,7 +342,7 @@ BLIND     // can't see anything
 			if(3)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
-		if(istype(src,/mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
@@ -614,6 +614,19 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/Initialize(mapload)
+	. = ..()
+	setup_shielding()
+
+/**
+ * Wrapper proc to apply shielding through AddComponent().
+ * Called in /obj/item/clothing/suit/Initialize().
+ * Override with an AddComponent(/datum/component/shielded, args) call containing the desired shield statistics.
+ * See /datum/component/shielded documentation for a description of the arguments
+ **/
+/obj/item/clothing/suit/proc/setup_shielding()
+	return
+
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
 	if(ignore_suitadjust)
@@ -742,6 +755,7 @@ BLIND     // can't see anything
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	faction_restricted = list("ashwalker")
 	var/obj/item/tank/jetpack/suit/jetpack = null
+	var/jetpack_upgradable = FALSE
 
 
 /obj/item/clothing/suit/space/Initialize(mapload)
@@ -782,6 +796,9 @@ BLIND     // can't see anything
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
+		if(!jetpack_upgradable)
+			to_chat(user, span_warning("There is no slot for jetpack upgrade in [src]"))
+			return
 		if(jetpack)
 			to_chat(user, span_warning("[src] already has a jetpack installed."))
 			return
@@ -937,7 +954,7 @@ BLIND     // can't see anything
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
+	if(!isliving(usr)) return
 	if(usr.stat) return
 
 	if(!usr.incapacitated())
@@ -1030,7 +1047,7 @@ BLIND     // can't see anything
 		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue

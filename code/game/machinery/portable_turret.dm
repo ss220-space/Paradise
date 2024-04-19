@@ -354,12 +354,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//This code handles moving the turret around. After all, it's a portable turret!
 			add_fingerprint(user)
 			playsound(loc, I.usesound, 100, TRUE)
-			anchored = !anchored
+			set_anchored(!anchored)
 			update_icon(UPDATE_ICON_STATE)
 			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]secure the exterior bolts on the turret.</span>")
 		wrenching = FALSE
 
-	else if(I.GetID() || ispda(I))
+	else if(I.GetID() || is_pda(I))
 		if(HasController())
 			to_chat(user, span_notice("Turrets regulated by a nearby turret controller are not unlockable."))
 		else if(allowed(user))
@@ -532,11 +532,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				popDown()
 
 /obj/machinery/porta_turret/proc/set_assess_type(atom/movable/target)
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/ME = target
 		return assess_and_assign(ME.occupant)
 
-	if(istype(target, /obj/spacepod))
+	if(isspacepod(target))
 		var/obj/spacepod/SP = target
 		return assess_and_assign(SP.pilot)
 
@@ -804,7 +804,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, span_notice("You secure the external bolts."))
-				anchored = TRUE
+				set_anchored(TRUE)
 				build_step = 1
 				return
 
@@ -831,7 +831,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				add_fingerprint(user)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, span_notice("You unfasten the external bolts."))
-				anchored = FALSE
+				set_anchored(FALSE)
 				build_step = 0
 				return
 
@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 6
 				return
 
-	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
+	if(is_pen(I))	//you can rename turrets like bots!
 		var/t = input(user, "Enter new turret name", name, finish_name) as text
 		t = sanitize(copytext_char(t, 1, MAX_NAME_LEN))
 		if(!t)

@@ -475,7 +475,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/user = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
 			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")

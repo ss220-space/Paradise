@@ -196,7 +196,7 @@
 				occupantData["temperatureSuitability"] = 2
 			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
+		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
@@ -500,7 +500,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
+	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robots dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return

@@ -220,7 +220,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
 	if(reskin_allowed)
-		if(istype(W, /obj/item/pen))
+		if(is_pen(W))
 			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
 			if(!t)
 				return

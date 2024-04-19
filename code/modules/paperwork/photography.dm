@@ -41,7 +41,7 @@
 	user.examinate(src)
 
 /obj/item/photo/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 		var/holding = null
 
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		var/holding = null
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "holding [A.l_hand]"

@@ -608,7 +608,7 @@
 			chargecount = 0
 			update_icon()
 
-	else if(W.GetID() || ispda(W))			// trying to unlock the interface with an ID card
+	else if(W.GetID() || is_pda(W))			// trying to unlock the interface with an ID card
 		add_fingerprint(user)
 		togglelock(user)
 
@@ -1005,7 +1005,7 @@
 	if(malfai == (malf.parent || malf))
 		if(occupier == malf)
 			return APC_MALF_SHUNTED_HERE
-		else if(istype(malf.loc, /obj/machinery/power/apc))
+		else if(isapc(malf.loc))
 			return APC_MALF_SHUNTED_OTHER
 		else
 			return APC_MALF_HACKED
@@ -1242,7 +1242,7 @@
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
-	if(istype(malf.loc, /obj/machinery/power/apc)) // Already in an APC
+	if(isapc(malf.loc)) // Already in an APC
 		to_chat(malf, "<span class='warning'>You must evacuate your current APC first!</span>")
 		return
 	if(!malf.can_shunt)

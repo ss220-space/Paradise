@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = TRUE
+	set_anchored(TRUE)
 	canmove = FALSE
 	density = 1
 	loc = loc
@@ -615,9 +615,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return // stop
 
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
-		anchored = TRUE
+		set_anchored(TRUE)
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
@@ -1251,7 +1251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
@@ -1259,7 +1259,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 	else
 		return ..()

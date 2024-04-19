@@ -167,7 +167,7 @@
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && ispath(picked_item, /obj/item/clothing))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)

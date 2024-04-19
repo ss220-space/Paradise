@@ -275,7 +275,7 @@
 	visuals.desc = "Looks hot."
 	visuals.icon = 'icons/effects/fire.dmi'
 	visuals.icon_state = "2"
-	visuals.anchored = TRUE
+	visuals.set_anchored(TRUE)
 	visuals.density = TRUE
 	visuals.layer = FLY_LAYER
 

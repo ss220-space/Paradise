@@ -8,6 +8,8 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	setup_dna(new_species)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
 	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
@@ -243,7 +245,7 @@
 				stat("Заряд костюма","[ninja.get_cell_charge()]")
 				stat("Заряд рывков","[ninja.get_dash_charge()]")
 
-	if(istype(loc, /obj/spacepod)) // Spacdpods!
+	if(isspacepod(loc)) // Spacdpods!
 		var/obj/spacepod/S = loc
 		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
@@ -519,7 +521,7 @@
 		if(wear_id.GetID())
 			var/obj/item/card/id/id = wear_id.GetID()
 			name = id.registered_name
-		else if(ispda(wear_id))
+		else if(is_pda(wear_id))
 			var/obj/item/pda/pda = wear_id
 			name = pda.owner
 	return name
@@ -1019,8 +1021,8 @@
 	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	// affecting.open = 2 after scalpel->hemostat->retractor
-	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < 2)
+	// affecting.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
+	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN)
 		. = FALSE
 	else
 		switch(target_zone)
@@ -1311,26 +1313,6 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/slots_to_check = list(
-		"[SLOT_HUD_WEAR_MASK]",
-		"[SLOT_HUD_HEAD]",
-		"[SLOT_HUD_SHOES]",
-		"[SLOT_HUD_GLOVES]",
-		"[SLOT_HUD_LEFT_EAR]",
-		"[SLOT_HUD_RIGHT_EAR]",
-		"[SLOT_HUD_GLASSES]",
-		"[SLOT_HUD_LEFT_HAND]",
-		"[SLOT_HUD_RIGHT_HAND]",
-		"[SLOT_HUD_NECK]",
-	)
-	for(var/slot in slots_to_check)
-		var/obj/item/item = get_item_by_slot(text2num(slot))
-		if(item)
-			var/has_drop_del = item.flags & DROPDEL
-			slots_to_check[slot] = list(item, has_drop_del)
-			if(has_drop_del)			// we are interested only in dropdel flag
-				item.flags &= ~DROPDEL	// to prevent items deletion on limbs regrowth
-
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 
@@ -1428,15 +1410,6 @@
 
 	else
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
-
-	for(var/slot in slots_to_check)
-		var/list/item_params = slots_to_check[slot]
-		if(!item_params)
-			continue
-		var/obj/item/item = item_params[1]
-		if(item_params[2])	// has dropdel flag previously
-			item.flags |= DROPDEL
-		equip_to_slot_if_possible(item, text2num(slot), drop_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE, initial = TRUE)
 
 	//Handle hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)

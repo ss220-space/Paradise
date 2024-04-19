@@ -231,6 +231,9 @@
 				else if(bodypart.is_splinted())
 					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [bodypart.name]!\n"
 
+				else if(!bodypart.properly_attached)
+					wound_flavor_text[limb_zone] = "[p_their(TRUE)] [bodypart.name] is barely attached!\n"
+
 			if(bodypart.open)
 				if(bodypart.is_robotic())
 					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(limb_zone)] is open!</b>\n"
@@ -440,7 +443,7 @@
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hud_exam)
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/have_hud_exam = 0
 		var/mob/living/carbon/human/H = M
 

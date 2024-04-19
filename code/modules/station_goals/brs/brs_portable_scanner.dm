@@ -239,7 +239,7 @@
 			if(scanner == src)
 				continue
 			if(scanner.anchored)
-				anchored = FALSE
+				set_anchored(FALSE)
 				update_icon(UPDATE_ICON_STATE)
 				return
 

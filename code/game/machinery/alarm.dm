@@ -964,7 +964,7 @@
 
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(I.GetID() || ispda(I)) // trying to unlock the interface
+			if(I.GetID() || is_pda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, span_warning("It does nothing!"))
 					return

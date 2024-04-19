@@ -54,11 +54,9 @@
 	if(!istype(H))
 		return ..()
 	if(istype(I, /obj/item/clothing/suit/space) && !shield_ignore)
-		blocked = TRUE
 		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
-			var/obj/item/clothing/suit/space/hardsuit/HardS = I
-			if(HardS.shield)
-				HardS.shield.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
+			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(cooldown)
 		to_chat(user, span_warning("[src] is still charging!"))
 		return

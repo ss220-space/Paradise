@@ -72,8 +72,8 @@
 		end_processing()
 		return
 
-	// injection_limb.open = 2 after scalpel->hemostat->retractor
-	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < 2)
+	// injection_limb.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
+	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN)
 		end_processing()
 		return
 
@@ -152,7 +152,7 @@
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)
 			if(IV_DRAW)
 				. += "draw"

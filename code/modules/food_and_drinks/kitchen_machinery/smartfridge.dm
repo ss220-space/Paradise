@@ -354,7 +354,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())

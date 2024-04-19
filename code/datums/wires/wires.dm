@@ -210,7 +210,7 @@
 					user.put_in_hands(O, ignore_anim = FALSE)
 					return TRUE
 
-			if(!istype(I, /obj/item/assembly/signaler))
+			if(!issignaler(I))
 				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
 				return
 

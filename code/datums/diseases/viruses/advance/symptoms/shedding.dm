@@ -30,7 +30,7 @@ BONUS
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
 		to_chat(M, span_warning(pick("Your scalp itches.", "Your skin feels flakey.")))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 			switch(A.stage)

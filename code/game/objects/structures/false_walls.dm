@@ -140,7 +140,7 @@
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
 		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(!istype(T, /turf/simulated/floor))
+			if(!isfloorturf(T))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")

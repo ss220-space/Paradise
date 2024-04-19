@@ -26,7 +26,7 @@
 		owner.adjustWax(10)
 		owner.set_nutrition(owner.nutrition - 25)
 		if(prob(10))
-			to_chat(owner, "<span class='notice'>Вы чувствуете лёгкое бурление в восковых железах.</span>")
+			to_chat(owner, span_notice("Вы чувствуете лёгкое бурление в восковых железах."))
 
 /obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
@@ -55,11 +55,10 @@
 
 		if(do_after(usr, 50, target = usr))
 			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-				to_chat(owner, "<span class='notice'>Место уже занято!</span>")
+				to_chat(owner, span_notice("Место уже занято!"))
 				return
 			host.adjustWax(-50)
-			for(var/mob/O in viewers(host, null))
-				O.show_message(text("<span class='alert'>[host] выделяет кучу воска и формирует из неё [choice]!</span>"), 1)
+			host.visible_message(span_alert("[host] выделяет кучу воска и формирует из неё [choice]!"))
 			switch(choice)
 				if("соты")
 					new /obj/structure/wryn/wax/wall(host.loc)
@@ -67,7 +66,7 @@
 					new /obj/structure/wryn/wax/window(host.loc)
 
 	else
-		to_chat(owner, "<span class='notice'>Не хватает воска!</span>")
+		to_chat(owner, span_notice("Не хватает воска!"))
 
 	return
 
@@ -82,14 +81,13 @@
 	if(host.getWax() >= 25)
 		if(do_after(usr, 10, target = usr))
 			if(locate(/obj/structure/wryn/floor) in get_turf(owner))
-				to_chat(owner, "<span class='notice'>Пол здесь уже готов.</span>")
+				to_chat(owner, span_notice("Пол здесь уже готов."))
 				return
 			host.adjustWax(-25)
-			for(var/mob/O in viewers(owner, null))
-				O.show_message(text("<span class='alert'>[owner] выделяет кучу воска и формирует из неё пол!</span>"), 1)
+			host.visible_message(span_alert("[owner] выделяет кучу воска и формирует из неё пол!"))
 			new /obj/structure/wryn/floor(owner.loc)
 	else
-		to_chat(owner, "<span class='notice'>Не хватает воска!</span>")
+		to_chat(owner, span_notice("Не хватает воска!"))
 	return
 
 /datum/action/innate/toggle_producing

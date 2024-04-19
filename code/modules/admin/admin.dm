@@ -930,7 +930,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!frommob.ckey)
 		return 0
 
-	if(istype(tothing, /obj/item))
+	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")

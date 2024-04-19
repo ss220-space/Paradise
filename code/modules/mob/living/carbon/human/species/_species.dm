@@ -290,17 +290,51 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
-	for(var/slot_id in no_equip)
-		var/obj/item/thing = H.get_item_by_slot(slot_id)
-		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
-			H.drop_item_ground(thing)
-	if(H.hud_used)
-		H.hud_used.update_locked_slots()
-	H.ventcrawler = ventcrawler
-
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+
+	for(var/obj/item/item as anything in H.get_equipped_items())
+		if(QDELETED(item) || item.loc != H)	// wad deleted or dropped already
+			continue
+		var/item_slot = H.get_slot_by_item(item)
+		if(item_slot in no_equip)
+			H.drop_item_ground(item, force = TRUE)
+			continue
+
+		if(isclothing(item) && !H.is_general_slot(item_slot))
+			var/obj/item/clothing/cloth_item = item
+			// faction based cloth
+			if(cloth_item.faction_restricted && faction_check(cloth_item.faction_restricted, H.faction))
+				H.drop_item_ground(cloth_item, force = TRUE)
+				continue
+
+			// species restricted cloth
+			var/list/rectricted = cloth_item.species_restricted
+			if(!rectricted)
+				continue
+
+			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
+
+			if(wearable && ("lesser form" in rectricted) && is_small)
+				wearable = FALSE
+
+			if(!wearable)
+				H.drop_item_ground(cloth_item, force = TRUE)
+
+	if(!H.w_uniform)
+		H.drop_item_ground(H.r_store, force = TRUE)
+		H.drop_item_ground(H.l_store, force = TRUE)
+		H.drop_item_ground(H.wear_id, force = TRUE)
+		H.drop_item_ground(H.belt, force = TRUE)
+		H.drop_item_ground(H.wear_pda, force = TRUE)
+
+	if(!H.wear_suit)
+		H.drop_item_ground(H.s_store, force = TRUE)
+
+	H.hud_used?.update_locked_slots()
+
+	H.ventcrawler = ventcrawler
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
@@ -312,6 +346,8 @@
 	H.meatleft = initial(H.meatleft)
 
 	H.ventcrawler = initial(H.ventcrawler)
+
+	H.hud_used?.update_locked_slots()
 
 	if(inherent_factions)
 		for(var/i in inherent_factions)
@@ -687,8 +723,7 @@
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/user, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot in no_equip)
-		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
-			return FALSE
+		return FALSE
 
 	if(!user.has_organ_for_slot(slot))
 		return FALSE
@@ -700,7 +735,7 @@
 		if(rectricted)
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
 
-			if(wearable && ("lesser form" in rectricted) && issmall(user))
+			if(wearable && ("lesser form" in rectricted) && is_small)
 				wearable = FALSE
 
 			if(!wearable)
@@ -906,7 +941,7 @@
 					to_chat(user, span_warning("Размер [I] слишком большой, чтобы прикрепить."))
 				return FALSE
 
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, user.wear_suit.allowed))
+			if(is_pda(I) || is_pen(I) || is_type_in_list(I, user.wear_suit.allowed))
 				return TRUE
 
 			if(!user.wear_suit.allowed)

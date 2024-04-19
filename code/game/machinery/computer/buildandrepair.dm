@@ -151,6 +151,11 @@
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
 
+/obj/item/circuitboard/card/minor/qm
+	board_name = "Supply ID Computer"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
+
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"
 	build_path = /obj/machinery/computer/card/minor/rd
@@ -475,7 +480,7 @@
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/card/id) || is_pda(I))
 		if(allowed(user))
 			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
 			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
@@ -595,10 +600,10 @@
 
 	if(anchored)
 		to_chat(user, span_notice("You unfasten the frame."))
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		to_chat(user, span_notice("You wrench the frame into place."))
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

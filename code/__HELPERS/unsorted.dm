@@ -404,44 +404,46 @@ Returns 1 if the chain up to the area contains the given typepath
 
 // returns the turf located at the map edge in the specified direction relative to A
 // used for mass driver
-/proc/get_edge_target_turf(var/atom/A, var/direction)
-
-	var/turf/target = locate(A.x, A.y, A.z)
-	if(!A || !target)
+/proc/get_edge_target_turf(atom/target_atom, direction)
+	var/turf/target = locate(target_atom.x, target_atom.y, target_atom.z)
+	if(!target_atom || !target)
 		return 0
-		//since NORTHEAST == NORTH & EAST, etc, doing it this way allows for diagonal mass drivers in the future
+		//since NORTHEAST == NORTH|EAST, etc, doing it this way allows for diagonal mass drivers in the future
 		//and isn't really any more complicated
 
-		// Note diagonal directions won't usually be accurate
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
-		target = locate(target.x, world.maxy, target.z)
-	if(direction & SOUTH)
-		target = locate(target.x, 1, target.z)
+		y = world.maxy
+	else if(direction & SOUTH) //you should not have both NORTH and SOUTH in the provided direction
+		y = 1
 	if(direction & EAST)
-		target = locate(world.maxx, target.y, target.z)
-	if(direction & WEST)
-		target = locate(1, target.y, target.z)
-
-	return target
+		x = world.maxx
+	else if(direction & WEST)
+		x = 1
+	if(ISDIAGONALDIR(direction)) //let's make sure it's accurately-placed for diagonals
+		var/lowest_distance_to_map_edge = min(abs(x - target_atom.x), abs(y - target_atom.y))
+		return get_ranged_target_turf(target_atom, direction, lowest_distance_to_map_edge)
+	return locate(x,y,target_atom.z)
 
 // returns turf relative to A in given direction at set range
 // result is bounded to map size
 // note range is non-pythagorean
 // used for disposal system
-/proc/get_ranged_target_turf(var/atom/A, var/direction, var/range)
+/proc/get_ranged_target_turf(atom/target_atom, direction, range)
 
-	var/x = A.x
-	var/y = A.y
+	var/x = target_atom.x
+	var/y = target_atom.y
 	if(direction & NORTH)
 		y = min(world.maxy, y + range)
-	if(direction & SOUTH)
+	else if(direction & SOUTH)
 		y = max(1, y - range)
 	if(direction & EAST)
 		x = min(world.maxx, x + range)
-	if(direction & WEST)
+	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,A.z)
+	return locate(x,y,target_atom.z)
 
 
 // returns turf relative to A offset in dx and dy tiles
@@ -632,7 +634,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
-					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
@@ -644,7 +646,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						var/obj/corner = new()
 						corner.loc = X
 						corner.density = 1
-						corner.anchored = TRUE
+						corner.set_anchored(TRUE)
 						corner.icon = X.icon
 						corner.icon_state = replacetext(X.icon_state, "_s", "_f")
 						corner.tag = "delete me"
@@ -652,7 +654,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Find a new turf to take on the property of
 						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !istype(nextturf, /turf/space))
+						if(!nextturf || !isspaceturf(nextturf))
 							nextturf = get_step(corner, turn(direction, 180))
 
 
@@ -670,7 +672,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)
@@ -730,7 +732,7 @@ Returns 1 if the chain up to the area contains the given typepath
 				if(istype(original.vars[V],/list))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
+				else if(isdatum(original.vars[V]))
 					continue	// this would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
@@ -1028,7 +1030,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/assembly/igniter))
+	if(isigniter(W))
 		return 20000
 	else
 		return 0
@@ -1296,10 +1298,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return QDEL_HINT_LETMELIVE
 
 /proc/IsValidSrc(A)
-	if(istype(A, /datum))
+	if(isdatum(A))
 		var/datum/D = A
 		return !QDELETED(D)
-	if(istype(A, /client))
+	if(isclient(A))
 		return TRUE
 	return FALSE
 
@@ -1834,7 +1836,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			C = M.client
 		else
 			return
-	else if(istype(mob_or_client, /client))
+	else if(isclient(mob_or_client))
 		C = mob_or_client
 
 	if(!istype(C))

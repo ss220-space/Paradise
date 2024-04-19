@@ -1107,11 +1107,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
-"sF" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/noslip/lavaland,
-/area/lavaland/surface/outdoors/explored)
 "ye" = (
 /turf/simulated/floor/plating/lava/smooth,
 /area/ruin/powered/clownplanet)
@@ -1699,7 +1694,7 @@ ye
 cc
 "}
 (16,1,1) = {"
-sF
+eX
 CB
 YI
 cc

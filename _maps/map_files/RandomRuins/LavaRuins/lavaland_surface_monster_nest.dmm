@@ -19,10 +19,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"w" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
 "E" = (
 /obj/structure/flora/ash/cacti,
 /obj/effect/mapping_helpers/no_lava,
@@ -30,11 +26,6 @@
 /area/lavaland/surface/outdoors)
 "V" = (
 /obj/structure/flora/ash/leaf_shroom,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"W" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -55,7 +46,7 @@ a
 a
 a
 a
-w
+r
 a
 a
 a
@@ -110,12 +101,12 @@ X
 E
 r
 X
-W
+r
 d
 r
 r
 r
-w
+r
 "}
 (6,1,1) = {"
 a

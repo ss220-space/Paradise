@@ -164,6 +164,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -233,7 +234,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")

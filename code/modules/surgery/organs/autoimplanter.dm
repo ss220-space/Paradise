@@ -28,20 +28,20 @@
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		if(storedorgan)
-			to_chat(user, "<span class='notice'>[src] already has an implant stored.</span>")
+			to_chat(user, span_notice("[src] already has an implant stored."))
 			return
 		if(!user.temporarily_remove_item_from_inventory(I))
 			return
 		I.forceMove(src)
 		storedorgan = I
-		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
+		to_chat(user, span_notice("You insert the [I] into [src]."))
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!storedorgan)
-			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
+			to_chat(user, span_notice("There's no implant in [src] for you to remove."))
 		else
 			storedorgan.forceMove(get_turf(user))
 			storedorgan = null
-			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
+			to_chat(user, span_notice("You remove the [storedorgan] from [src]."))
 			playsound(get_turf(user), I.usesound, 50, 1)
 
 /obj/item/autoimplanter/oneuse
@@ -58,10 +58,10 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		storedorgan.forceMove(get_turf(user))
 		storedorgan = null
-		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
+		to_chat(user, span_notice("You remove the [storedorgan] from [src]."))
 		playsound(get_turf(user), I.usesound, 50, 1)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 	. = ..()
@@ -96,11 +96,11 @@
 	uses--
 	if(uses == 0)
 		user.drop_from_active_hand()
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 
 /obj/item/autoimplanter/traitor/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += "<span class = 'notice'>There are [uses] uses left.</span>"
+		. += span_notice("There are [uses] uses left.")

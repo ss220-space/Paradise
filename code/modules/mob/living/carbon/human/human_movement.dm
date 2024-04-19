@@ -1,6 +1,6 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	if(!OldLoc.has_gravity() && has_gravity())
+	if((!OldLoc || !OldLoc.has_gravity()) && has_gravity())
 		thunk()
 
 
@@ -170,6 +170,6 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	Weaken(10 SECONDS)
+	Weaken(4 SECONDS)
 	to_chat(src, "Gravity!")
 

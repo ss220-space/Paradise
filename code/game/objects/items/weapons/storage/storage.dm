@@ -114,7 +114,7 @@
 		open(user)
 		return FALSE
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
+	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
 		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")
@@ -154,7 +154,7 @@
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/storage))
+		if(isstorage(G.gift))
 			L += G.gift:return_inv()
 	for(var/obj/item/folder/F in src)
 		L += F.contents
@@ -371,7 +371,7 @@
 			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
 		return FALSE
 
-	if(W.w_class >= w_class && (istype(W, /obj/item/storage)))
+	if(W.w_class >= w_class && (isstorage(W)))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
@@ -633,7 +633,7 @@
 	while(cur_atom && !(cur_atom in container.contents))
 		if(isarea(cur_atom))
 			return -1
-		if(istype(cur_atom.loc, /obj/item/storage))
+		if(isstorage(cur_atom.loc))
 			depth++
 		cur_atom = cur_atom.loc
 
@@ -651,7 +651,7 @@
 	while(cur_atom && !isturf(cur_atom))
 		if(isarea(cur_atom))
 			return -1
-		if(istype(cur_atom.loc, /obj/item/storage))
+		if(isstorage(cur_atom.loc))
 			depth++
 		cur_atom = cur_atom.loc
 

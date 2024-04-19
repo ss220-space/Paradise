@@ -198,7 +198,7 @@
 	if(!pipe_check(user))
 		return
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		if(ispipe)
 			level = 2
 			density = 0
@@ -206,7 +206,7 @@
 			density = 1
 		to_chat(user, "You detach the [nicetype] from the underfloor.")
 	else
-		anchored = TRUE
+		set_anchored(TRUE)
 		if(ispipe)
 			level = 1 // We don't want disposal bins to disappear under the floors
 			density = 0
