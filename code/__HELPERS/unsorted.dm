@@ -2072,3 +2072,107 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
+/proc/slot_bitfield_to_slot(input_slot_flags) //Doesn't work with ears or pockets
+	switch(input_slot_flags)
+		if(SLOT_FLAG_OCLOTHING)
+			return SLOT_HUD_OUTER_SUIT
+		if(SLOT_FLAG_ICLOTHING)
+			return SLOT_HUD_JUMPSUIT
+		if(SLOT_FLAG_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(SLOT_FLAG_EYES)
+			return SLOT_HUD_GLASSES
+		if(SLOT_FLAG_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(SLOT_FLAG_HEAD)
+			return SLOT_HUD_HEAD
+		if(SLOT_FLAG_FEET)
+			return SLOT_HUD_SHOES
+		if(SLOT_FLAG_ID)
+			return SLOT_HUD_WEAR_ID
+		if(SLOT_FLAG_BELT)
+			return SLOT_HUD_BELT
+		if(SLOT_FLAG_BACK)
+			return SLOT_HUD_BACK
+		if(SLOT_FLAG_PDA)
+			return SLOT_HUD_WEAR_PDA
+		if(SLOT_FLAG_TIE)
+			return SLOT_HUD_TIE
+
+/proc/slot_string_to_slot(input_slot_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+	switch(input_slot_string)
+		if(RENDER_ICON_BACK)
+			return SLOT_HUD_BACK
+		if(RENDER_ICON_WEAR_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(RENDER_ICON_HANDCUFFS)
+			return SLOT_HUD_HANDCUFFED
+		if(RENDER_ICON_BELT)
+			return SLOT_HUD_BELT
+		if(RENDER_ICON_WEAR_ID)
+			return SLOT_HUD_WEAR_ID
+		if(RENDER_ICON_LEFT_EAR)
+			return SLOT_HUD_LEFT_EAR
+		if(RENDER_ICON_GLASSES)
+			return SLOT_HUD_GLASSES
+		if(RENDER_ICON_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(RENDER_ICON_HEAD)
+			return SLOT_HUD_HEAD
+		if(RENDER_ICON_SHOES)
+			return SLOT_HUD_SHOES
+		if(RENDER_ICON_OUTER_SUIT)
+			return SLOT_HUD_OUTER_SUIT
+		if(RENDER_ICON_JUMPSUIT)
+			return SLOT_HUD_JUMPSUIT
+		if(RENDER_ICON_SUIT_STORE)
+			return SLOT_HUD_SUIT_STORE
+		if(RENDER_ICON_LEGCUFFS)
+			return SLOT_HUD_LEGCUFFED
+		if(RENDER_ICON_RIGHT_EAR)
+			return SLOT_HUD_RIGHT_EAR
+		if(RENDER_ICON_TIE)
+			return SLOT_HUD_TIE
+		if(RENDER_ICON_COLLAR)
+			return SLOT_HUD_COLLAR
+		if(RENDER_ICON_NECK)
+			return SLOT_HUD_NECK
+
+/proc/slot_to_slot_string(input_slot) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+	switch(input_slot)
+		if(SLOT_HUD_BACK)
+			return RENDER_ICON_BACK
+		if(SLOT_HUD_WEAR_MASK)
+			return RENDER_ICON_WEAR_MASK
+		if(SLOT_HUD_HANDCUFFED)
+			return RENDER_ICON_HANDCUFFS
+		if(SLOT_HUD_BELT)
+			return RENDER_ICON_BELT
+		if(SLOT_HUD_WEAR_ID)
+			return RENDER_ICON_WEAR_ID
+		if(SLOT_HUD_LEFT_EAR)
+			return RENDER_ICON_LEFT_EAR
+		if(SLOT_HUD_GLASSES)
+			return RENDER_ICON_GLASSES
+		if(SLOT_HUD_GLOVES)
+			return RENDER_ICON_GLOVES
+		if(SLOT_HUD_HEAD)
+			return RENDER_ICON_HEAD
+		if(SLOT_HUD_SHOES)
+			return RENDER_ICON_SHOES
+		if(SLOT_HUD_OUTER_SUIT)
+			return RENDER_ICON_OUTER_SUIT
+		if(SLOT_HUD_JUMPSUIT)
+			return RENDER_ICON_JUMPSUIT
+		if(SLOT_HUD_SUIT_STORE)
+			return RENDER_ICON_SUIT_STORE
+		if(SLOT_HUD_LEGCUFFED)
+			return RENDER_ICON_LEGCUFFS
+		if(SLOT_HUD_RIGHT_EAR)
+			return RENDER_ICON_RIGHT_EAR
+		if(SLOT_HUD_TIE)
+			return RENDER_ICON_TIE
+		if(SLOT_HUD_COLLAR)
+			return RENDER_ICON_COLLAR
+		if(SLOT_HUD_NECK)
+			return RENDER_ICON_NECK
