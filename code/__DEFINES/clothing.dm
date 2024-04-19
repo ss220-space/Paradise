@@ -151,7 +151,27 @@
 #define MATERIAL_CLASS_SOAP		3
 
 
-//default icons in case something is missing
+//These defines used in sprites, keep in touch with "Slot defines" above if needed
+#define RENDER_ICON_BACK "back"
+#define RENDER_ICON_WEAR_MASK "mask"
+#define RENDER_ICON_HANDCUFFS "handcuff"
+#define RENDER_ICON_BELT "belt"
+#define RENDER_ICON_WEAR_ID "wear_id"
+#define RENDER_ICON_LEFT_EAR "left_ear"
+#define RENDER_ICON_GLASSES "glasses"
+#define RENDER_ICON_GLOVES "gloves"
+#define RENDER_ICON_HEAD "head"
+#define RENDER_ICON_SHOES "shoes"
+#define RENDER_ICON_OUTER_SUIT "suit"
+#define RENDER_ICON_JUMPSUIT "uniform"
+#define RENDER_ICON_SUIT_STORE "suit_store"
+#define RENDER_ICON_LEGCUFFS "legcuffs"
+#define RENDER_ICON_RIGHT_EAR "right_ear"
+#define RENDER_ICON_TIE "tie"
+#define RENDER_ICON_COLLAR "collar"
+#define RENDER_ICON_NECK "neck"
+
+//Default icons in case something is missing
 #define DEFAULT_ICON_BACK 'icons/mob/clothing/back.dmi'
 #define DEFAULT_ICON_WEAR_MASK 'icons/mob/clothing/mask.dmi'
 #define DEFAULT_ICON_HANDCUFFED 'icons/mob/mob.dmi'
