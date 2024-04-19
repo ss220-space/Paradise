@@ -265,3 +265,10 @@
   - bugfix: Keep Items On Species Change (#4883)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4861)
+'2024-04-19':
+  Aziz Chynaliev:
+  - tweak: TTS - free weekend
+  ROdenFL:
+  - add: mouse idle animation (#4097)
+  Zwei:
+  - bugfix: Access Tuner Icon Update Fix (#4908)
