@@ -142,7 +142,7 @@
 		equip_to_slot(I, slot, initial = TRUE)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/storage))
+		if(isstorage(back))
 			//Now, B represents a container we can insert I into.
 			var/obj/item/storage/backpack = back
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
@@ -677,7 +677,7 @@
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
 	for(var/obj/item/I in contents)
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(istype(SI, path))
 					return SI

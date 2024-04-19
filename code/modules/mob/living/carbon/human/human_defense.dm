@@ -221,11 +221,11 @@ emp_act
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/block_chance_modifier = round(damage / -3) - shields_penetration
 
-	if(l_hand && !istype(l_hand, /obj/item/clothing))
+	if(l_hand && !isclothing(l_hand))
 		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return TRUE
-	if(r_hand && !istype(r_hand, /obj/item/clothing))
+	if(r_hand && !isclothing(r_hand))
 		var/final_block_chance = r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
 		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return TRUE
@@ -475,7 +475,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = TRUE
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user

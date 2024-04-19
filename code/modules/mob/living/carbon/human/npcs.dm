@@ -4,7 +4,6 @@
 	icon_state = "punpun"
 	item_color = "punpun"
 	species_restricted = list(SPECIES_MONKEY)
-	species_exception = list(/datum/species/monkey)
 
 /mob/living/carbon/human/lesser/monkey/punpun/Initialize(mapload)
 	. = ..()

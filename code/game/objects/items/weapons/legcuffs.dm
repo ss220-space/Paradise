@@ -70,7 +70,7 @@
 		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is an IED hooked up to it.")]"
 
-	if(istype(I, /obj/item/assembly/signaler))
+	if(issignaler(I))
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
 			return

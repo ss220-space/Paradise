@@ -8,7 +8,7 @@
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
-	layer = TURF_LAYER
+	layer = CLEANABLES_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"

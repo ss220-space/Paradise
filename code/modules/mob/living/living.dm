@@ -244,9 +244,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
+	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !isclothing(M.r_hand))
 		return TRUE
-	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
+	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !isclothing(M.l_hand))
 		return TRUE
 
 //Called when we bump into an obj
@@ -405,7 +405,7 @@
 		var/atom/inside = target.loc
 		pointed_object += " внутри [inside.declent_ru(GENITIVE)]"
 
-	if(istype(hand_item, /obj/item/gun) && target != hand_item)
+	if(isgun(hand_item) && target != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(target))
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
@@ -506,7 +506,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
+//	if(ishuman(src))
 //		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
 	return temperature
 
@@ -527,12 +527,12 @@
 
 		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
@@ -549,12 +549,12 @@
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
@@ -1270,13 +1270,13 @@
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	if(istype(loc, /obj/structure/closet/critter))
 		return environment.temperature
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		var/obj/mecha/M = loc
 		return  M.return_temperature()
 	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
 		return coffin.return_temperature()
-	if(istype(loc, /obj/spacepod))
+	if(isspacepod(loc))
 		var/obj/spacepod/S = loc
 		return S.return_temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))

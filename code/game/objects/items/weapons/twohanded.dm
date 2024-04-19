@@ -821,12 +821,12 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -876,7 +876,7 @@
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()
-	if(istype(user, /mob/living))
+	if(isliving(user))
 		var/mob/living/U = user
 		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
 			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
@@ -897,7 +897,7 @@
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
-	if(istype(target, /turf/simulated/wall))
+	if(iswallturf(target))
 		var/turf/simulated/wall/W = target
 		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)

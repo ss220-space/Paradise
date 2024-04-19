@@ -166,7 +166,7 @@
 							var/blood_type = R.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
-			if(istype(scan_atom, /obj/item/clothing))
+			if(isclothing(scan_atom))
 				var/obj/item/clothing/scanned_clothing = scan_atom
 				if(scanned_clothing.spy_spider_attached)
 					found_spy_device = TRUE

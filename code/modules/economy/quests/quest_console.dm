@@ -11,8 +11,8 @@
 	icon_screen = "cargo_quest"
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplyquest
-	/// If TRUE you can see only active quests
-	var/for_active_quests = FALSE
+	/// If TRUE you can accept orders
+	var/accept_orders = TRUE
 	/// Parent object this console is assigned to. Used for QM tablet
 	var/atom/movable/parent
 	/// Prevent print spam
@@ -72,8 +72,6 @@
 	var/list/data = list()
 	var/list/quest_storages = list()
 	for(var/datum/cargo_quests_storage/quest_storage as anything in SScargo_quests.quest_storages)
-		if(for_active_quests && !quest_storage.active)
-			continue
 		var/timeleft_sec = round((quest_storage.time_start + quest_storage.quest_time - world.time) / 10)
 		var/list/quests_items = list()
 		for(var/datum/cargo_quest/cargo_quest as anything in quest_storage.current_quests)
@@ -119,7 +117,8 @@
 	switch(action)
 		if("activate")
 			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
-			if(!istype(quest))
+			if(!istype(quest) || !accept_orders)
+				to_chat(user, span_warning("Access denied."))
 				return
 			quest.active = TRUE
 			quest.after_activated()
@@ -227,7 +226,7 @@
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null
-	for_active_quests = TRUE
+	accept_orders = FALSE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
 
@@ -313,7 +312,7 @@
 	item_state	= "qm_tablet"
 	origin_tech = "programming=5;engineering=3"
 	/// Integrated console to serve UI data
-	var/obj/machinery/computer/supplyquest/iternal/integrated_console
+	var/obj/machinery/computer/supplyquest/integrated_console = /obj/machinery/computer/supplyquest/iternal
 
 /obj/machinery/computer/supplyquest/iternal
 	name = "invasive quest utility"
@@ -322,7 +321,7 @@
 
 /obj/item/qm_quest_tablet/Initialize(mapload)
 	. = ..()
-	integrated_console = new(src)
+	integrated_console = new integrated_console(src)
 	integrated_console.parent = src
 
 /obj/item/qm_quest_tablet/Destroy()
@@ -335,6 +334,17 @@
 /obj/item/qm_quest_tablet/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
 
+/obj/item/qm_quest_tablet/cargotech
+	name = "Portable Quest Monitor"
+	icon_state	= "cargo_tablet"
+	w_class		= WEIGHT_CLASS_SMALL
+	item_state	= "cargo_tablet"
+	origin_tech = "programming=2;engineering=2"
+	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
+
+/obj/machinery/computer/supplyquest/iternal/cargo
+	req_access = null
+	accept_orders = FALSE
 
 #undef QUEST_NOTES_STRINGS
 #undef PRINT_COOLDOWN

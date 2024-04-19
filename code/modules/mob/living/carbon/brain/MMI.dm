@@ -253,12 +253,12 @@
 // Also neatly handles basically every case where a brain
 // is inserted or removed from an MMI
 /obj/item/mmi/Entered(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
 	..()
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Remove(A)
 
 /obj/item/mmi/syndie

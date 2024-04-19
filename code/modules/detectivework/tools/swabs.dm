@@ -94,7 +94,7 @@
 	if(!proximity || istype(A, /obj/machinery/dnaforensics))
 		return
 
-	if(istype(A,/mob/living))
+	if(isliving(A))
 		return
 
 	if(is_used())
@@ -108,7 +108,7 @@
 		var/list/choices = list()
 		if(A.blood_DNA)
 			choices |= "Blood"
-		if(istype(A, /obj/item/clothing))
+		if(isclothing(A))
 			choices |= "Gunshot Residue"
 
 		var/choice

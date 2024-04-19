@@ -331,7 +331,7 @@
 	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/item_in_view in view(src))
-			if(istype(item_in_view, /obj) && allowed(item_in_view))
+			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
 		if (picked_thing)
@@ -347,7 +347,7 @@
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(istype(target,/obj/item)) // Eat items just to be annoying
+	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)

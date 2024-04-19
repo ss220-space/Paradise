@@ -188,7 +188,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
+	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
 
@@ -433,7 +433,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
 /obj/item/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
 			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -463,7 +463,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				I.do_pickup_animation(user)
 				S.handle_item_insertion(src)
 	else if(istype(I, /obj/item/stack/tape_roll))
-		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
 				return ..()
@@ -651,7 +651,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(islist(equip_sound) && length(equip_sound))
 				chosen_sound = pick(equip_sound)
 			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_STORE || slot == SLOT_HUD_LEFT_STORE)
+		else if(slot == SLOT_HUD_LEFT_STORE || slot == SLOT_HUD_RIGHT_STORE)
 			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 		else if(pickup_sound && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
 			var/chosen_sound = pickup_sound
@@ -832,7 +832,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/simple_animal/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(isalien(M) || isslime(M))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
@@ -955,7 +955,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return FALSE
-	if(istype(loc,/obj/item/storage))
+	if(isstorage(loc))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
 		return TRUE
@@ -1029,7 +1029,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
 		return FALSE
 
-	if(loc && dropping.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, dropping, user)
 		return TRUE

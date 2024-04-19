@@ -12,6 +12,7 @@
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/backpack/cargo(src)
 	new /obj/item/clothing/suit/storage/cargotech(src)
+	new /obj/item/qm_quest_tablet/cargotech(src)
 
 
 /obj/structure/closet/secure_closet/quartermaster

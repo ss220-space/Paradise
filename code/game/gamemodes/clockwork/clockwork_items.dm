@@ -1182,7 +1182,7 @@
 
 /obj/machinery/integration_cog/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/machinery/power/apc))
+	if(isapc(loc))
 		apc = loc
 	else
 		log_runtime(EXCEPTION("Invalid location for Integration cog"))

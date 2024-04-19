@@ -169,7 +169,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
+	else if(isigniter(I) && !(I.flags & NODROP))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))

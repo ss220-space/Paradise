@@ -97,7 +97,7 @@
 	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
-		if(istype(beacon_loc, /turf/simulated/floor))
+		if(isfloorturf(beacon_loc))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
 			F.name = "bluespace recieving pad"

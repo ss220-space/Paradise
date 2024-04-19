@@ -244,7 +244,7 @@
 		try_free_content(user = user)
 		return FALSE
 
-	if(opened && (istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor) \
+	if(opened && (istype(over_object, /obj/structure/table) || isfloorturf(over_object) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
 		if(alert(user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")

@@ -51,7 +51,7 @@
 
 
 /obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
+	if(isprox(a_left) || isprox(a_right))
 		return TRUE
 	return FALSE
 

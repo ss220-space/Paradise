@@ -70,7 +70,7 @@
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
 
-				if(istype(src, /mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
 					if(istype(organ))

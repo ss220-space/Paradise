@@ -558,7 +558,7 @@
 			temperature = target_temperature
 		update_icon()
 
-		if(istype(loc, /mob/living/carbon))
+		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()

@@ -323,7 +323,7 @@ BLIND     // can't see anything
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(3)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
-		if(istype(user,/mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
@@ -342,7 +342,7 @@ BLIND     // can't see anything
 			if(3)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
-		if(istype(src,/mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
@@ -954,7 +954,7 @@ BLIND     // can't see anything
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
+	if(!isliving(usr)) return
 	if(usr.stat) return
 
 	if(!usr.incapacitated())
@@ -1047,7 +1047,7 @@ BLIND     // can't see anything
 		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue

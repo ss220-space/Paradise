@@ -74,7 +74,7 @@
 	var/type = pick(welder_salvage)
 	var/N = new type(get_turf(user))
 	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-	if(!istype(N, /obj/item/stack))
+	if(!isstack(N))
 		welder_salvage -= type
 	salvage_num--
 

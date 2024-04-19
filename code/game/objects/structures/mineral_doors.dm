@@ -82,7 +82,7 @@
 			else
 				add_fingerprint(user)
 				SwitchState()
-	else if(istype(user, /obj/mecha))
+	else if(ismecha(user))
 		SwitchState()
 
 /obj/structure/mineral_door/proc/SwitchState()

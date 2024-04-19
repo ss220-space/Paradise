@@ -176,7 +176,8 @@
 	if(is_usable())
 		user.set_usable_legs(user.usable_legs - 1)
 	user.update_fractures_slowdown()
-	user.drop_item_ground(user.shoes, force = TRUE)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.shoes, force = TRUE)
 
 
 /obj/item/organ/external/foot/fracture(silent = FALSE)
@@ -294,9 +295,10 @@
 	user.set_num_hands(user.num_hands - 1)
 	if(is_usable())
 		user.set_usable_hands(user.usable_hands - 1)
-	user.drop_item_ground(user.gloves, force = TRUE)
-	user.drop_item_ground(user.l_hand, force = TRUE)
-	user.drop_item_ground(user.r_hand, force = TRUE)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.gloves, force = TRUE)
+		user.drop_item_ground(user.l_hand, force = TRUE)
+		user.drop_item_ground(user.r_hand, force = TRUE)
 
 
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
@@ -388,34 +390,32 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+
 /obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
+	if(owner && special == ORGAN_MANIPULATION_DEFAULT)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
+		get_icon()
 		name = "[dna.real_name]'s head"
-		if(owner.head)
-			owner.drop_item_ground(owner.head, force = TRUE)
-		if(owner.wear_mask)
-			owner.drop_item_ground(owner.wear_mask, force = TRUE)
-		if(owner.glasses)
-			owner.drop_item_ground(owner.glasses, force = TRUE)
-		if(owner.l_ear)
-			owner.drop_item_ground(owner.l_ear, force = TRUE)
-		if(owner.r_ear)
-			owner.drop_item_ground(owner.r_ear, force = TRUE)
+		owner.drop_item_ground(owner.head, force = TRUE)
+		owner.drop_item_ground(owner.wear_mask, force = TRUE)
+		owner.drop_item_ground(owner.glasses, force = TRUE)
+		owner.drop_item_ground(owner.l_ear, force = TRUE)
+		owner.drop_item_ground(owner.r_ear, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
 	. = ..()
 
-/obj/item/organ/external/head/replaced()
+
+/obj/item/organ/external/head/replaced(mob/living/carbon/human/target)
 	name = limb_zone
-	..()
+	. = ..()
 
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
-	..()
+	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
 

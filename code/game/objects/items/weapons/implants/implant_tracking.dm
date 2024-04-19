@@ -17,7 +17,8 @@
 
 
 /obj/item/implant/tracking/Destroy()
-	QDEL_NULL(internal_gps)
+	if(!ispath(internal_gps))
+		QDEL_NULL(internal_gps)
 	GLOB.tracked_implants -= src
 	return ..()
 

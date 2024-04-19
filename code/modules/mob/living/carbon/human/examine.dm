@@ -443,7 +443,7 @@
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hud_exam)
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/have_hud_exam = 0
 		var/mob/living/carbon/human/H = M
 
