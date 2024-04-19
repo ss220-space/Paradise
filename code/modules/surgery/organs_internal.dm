@@ -351,12 +351,11 @@
 		if(treated_robotic || treated_organic)
 			if(organ.is_dead())
 				continue
-			if(organ.damage)
-				user.visible_message(
-					span_notice("[user] treats damage to [target]'s [organ.name] with [tool_name]."),
-					span_notice("You treat damage to [target]'s [organ.name] with [tool_name].")
-				)
-				organ.damage = 0
+			user.visible_message(
+				span_notice("[user] treats damage to [target]'s [organ.name] with [tool_name]."),
+				span_notice("You treat damage to [target]'s [organ.name] with [tool_name].")
+			)
+			organ.damage = 0
 			organ.surgeryize()
 
 	return SURGERY_STEP_CONTINUE
