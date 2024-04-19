@@ -66,8 +66,15 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
-/obj/item/organ/internal/eyes/can_surgeryize()
-	if(owner)
+/obj/item/organ/internal/eyes/has_damage(obj/item/tool, tool_name)
+	. = ..()
+	if(.)
+		return .
+	if(owner.AmountEyeBlurry() || owner.AmountBlinded())
+		return TRUE
+	if(NEARSIGHTED in owner.mutations)
+		return TRUE
+	if(BLINDNESS in owner.mutations)
 		return TRUE
 
 /obj/item/organ/internal/eyes/robotize(make_tough = FALSE)

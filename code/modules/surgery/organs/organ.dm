@@ -360,7 +360,9 @@
 /obj/item/organ/proc/surgeryize()
 	return
 
-/obj/item/organ/proc/can_surgeryize()
+/obj/item/organ/proc/has_damage()
+	if(damage)
+		return TRUE
 	return FALSE
 
 /obj/item/organ/proc/is_robotic()

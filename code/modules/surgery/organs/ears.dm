@@ -31,8 +31,11 @@
 
 
 
-/obj/item/organ/internal/ears/can_surgeryize()
-	if(owner)
+/obj/item/organ/internal/ears/has_damage()
+	. = ..()
+	if(.)
+		return .
+	if(owner.AmountDeaf())
 		return TRUE
 
 /obj/item/organ/internal/ears/surgeryize()

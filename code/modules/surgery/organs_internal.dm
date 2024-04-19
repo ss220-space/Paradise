@@ -308,7 +308,7 @@
 	var/any_organs_damaged = FALSE
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
-		if(!organ.damage && !organ.can_surgeryize())
+		if(!organ.has_damage())
 			continue
 		any_organs_damaged = TRUE
 		var/can_treat_robotic = organ.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
@@ -329,6 +329,8 @@
 	if(!any_organs_damaged)
 		if(affected)
 			to_chat(user, "There are no damaged organs in [affected.name].")
+		else
+			to_chat(user, "There are no damaged organs in [parse_zone(target_zone)].")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
