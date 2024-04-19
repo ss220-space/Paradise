@@ -1006,6 +1006,25 @@
 				return
 	return ..()
 
+/obj/machinery/alarm/AltClick(mob/user)
+	var/mob/living/carbon/human/human = user
+	var/obj/item/card/id/card = human.get_id_card()
+	if(!istype(card))
+		return
+	if(AIR_ALARM_READY)
+		if(stat & (NOPOWER|BROKEN))
+			to_chat(user, span_warning("It does nothing!"))
+			return
+
+		if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+			add_fingerprint(user)
+			locked = !locked
+			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+			SStgui.update_uis(src)
+		else
+			to_chat(user, span_warning("Access denied."))
+		return
+
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
