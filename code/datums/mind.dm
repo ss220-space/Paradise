@@ -1011,7 +1011,7 @@
 						if("steal brain")
 							var/mob/living/target = new_target
 							var/obj/item/organ/internal/brains = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-							description = "Steal the [brains.name] of"
+							description = "Steal the [brains ? brains.name : "brain"] of"
 						if("prevent from escape")
 							description = "Prevent from escaping alive or free"
 						if("pain hunter")
