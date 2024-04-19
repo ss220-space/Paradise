@@ -1965,6 +1965,19 @@
 	category = "(Pointless) Badassery"
 	surplus = 0
 
+/datum/uplink_item/badass/desert_eagle
+	name = "Desert Eagle"
+	desc = "A badass gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo. Kill with style"
+	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
+	cost = 50
+
+/datum/uplink_item/badass/deagle_mag
+	name = ".50AE handgun magazine"
+	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
+	item = /obj/item/ammo_box/magazine/m50
+	cost = 5
+
+
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
