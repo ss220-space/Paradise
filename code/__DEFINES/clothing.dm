@@ -82,7 +82,6 @@
 /// Indicated that item needs two ears to wear, also creates dummy item in other ear slot
 #define ITEM_FLAG_TWOEARS (1<<2)
 
-
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1
 #define ACCESSORY_SLOT_UTILITY 2
