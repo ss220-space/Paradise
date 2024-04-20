@@ -96,7 +96,7 @@
 		/obj/item/kitchen/knife/combat/survival = 1,
 		/obj/item/mining_voucher = 1,
 		/obj/item/stack/marker_beacon/ten = 1,
-		/obj/item/wormhole_jaunter/conditional_spawn = 1,
+		/obj/item/wormhole_jaunter = 1,
 		/obj/item/survivalcapsule = 1
 	)
 

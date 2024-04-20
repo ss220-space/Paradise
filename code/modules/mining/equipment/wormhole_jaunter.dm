@@ -13,14 +13,6 @@
 	slot_flags = SLOT_FLAG_BELT
 	var/emagged = FALSE
 
-/obj/item/wormhole_jaunter/conditional_spawn
-	var/lavaland_theme = /datum/lavaland_theme/chasm
-
-/obj/item/wormhole_jaunter/conditional_spawn/Initialize(mapload)
-	if(!istype(SSmapping.lavaland_theme, lavaland_theme))
-		return INITIALIZE_HINT_QDEL
-	. = ..()
-
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
 	activate(user, TRUE)
