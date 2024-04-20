@@ -196,7 +196,7 @@
 	path = /obj/item/clothing/glasses/heart
 	donator_tier = 3
 	cost = 1
-	slot = SLOT_HUD_GLASSES
+	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)

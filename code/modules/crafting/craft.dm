@@ -77,7 +77,7 @@
 				if(AM.flags_2 & HOLOGRAM_2)
 					continue
 				. += AM
-	for(var/slot in list(SLOT_HUD_RIGHT_STORE, SLOT_HUD_LEFT_STORE))
+	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
 

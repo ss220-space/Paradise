@@ -253,7 +253,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	punchdamagehigh = 18
 	punchstunthreshold = 18	//+8 claws of powergaming
 	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
-	no_equip = list(SLOT_HUD_SHOES) //everyone have to pay for
+	no_equip = list(ITEM_SLOT_FEET) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,

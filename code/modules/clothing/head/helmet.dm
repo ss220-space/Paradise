@@ -73,9 +73,9 @@
 	item_state = "bullethelmet"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
-	flags = BLOCKHAIR | HEADBANGPROTECT
-	flags_inv = HIDEHEADSETS | HIDEGLASSES | HIDEMASK
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags = HEADBANGPROTECT
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEMASK|HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flash_protect = 1
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -114,8 +114,8 @@
 	desc = "A classic metal helmet."
 	icon_state = "knight_green"
 	item_state = "knight_green"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags = NONE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
@@ -214,9 +214,9 @@
 	name = "gladiator helmet"
 	desc = "Ave, Imperator, morituri te salutant."
 	icon_state = "gladiator"
-	flags = BLOCKHAIR
+	flags = NONE
 	item_state = "gladiator"
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	toggle_on_message = "You attach the face shield to the"
 	toggle_off_message = "You remove the face shield from the"
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
@@ -328,7 +328,8 @@
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command
-	flags = BLOCKHAIR
+	flags = NONE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	name = "emergency response team commander helmet"
 	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
@@ -338,7 +339,8 @@
 
 //Security
 /obj/item/clothing/head/helmet/ert/security
-	flags = BLOCKHAIR
+	flags = NONE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	name = "emergency response team security helmet"
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
@@ -347,7 +349,6 @@
 	)
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
-	flags = BLOCKHAIR
 	name = "paranormal emergency response team helmet"
 	desc = "An in-atmosphere helmet worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
 	icon_state = "knight_templar"
@@ -358,7 +359,8 @@
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
-	flags = BLOCKHAIR
+	flags = NONE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	name = "emergency response team engineer helmet"
 	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
@@ -368,7 +370,8 @@
 
 //Medical
 /obj/item/clothing/head/helmet/ert/medical
-	flags = BLOCKHAIR
+	flags = NONE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	name = "emergency response team medical helmet"
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
@@ -378,7 +381,8 @@
 
 //Janitorial
 /obj/item/clothing/head/helmet/ert/janitor
-	flags = BLOCKHAIR
+	flags = NONE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	name = "emergency response team janitor helmet"
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
@@ -439,9 +443,9 @@
 	desc = "Standard Security gear. Protects the head from impacts."
 	icon_state = "lightweighthelmet"
 	item_state = "lightweighthelmet"
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 	strip_delay = 60
-	flags = BLOCKHEADHAIR
+	flags = NONE
 	flags_cover = null
 	dog_fashion = null
 	sprite_sheets = list(

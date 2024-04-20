@@ -4,7 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 15
 	throwforce = 10
 	item_state = "pickaxe"
@@ -120,7 +120,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "shovel"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
 	item_state = "shovel"

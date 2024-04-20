@@ -136,13 +136,13 @@ GLOBAL_LIST_INIT(huds, list( \
 	for(var/obj/item/check in contents)
 		if(istype(check, /obj/item/clothing/glasses/hud))
 			var/obj/item/clothing/glasses/hud/glasses = check
-			if(glasses.HUDType && get_slot_by_item(glasses) == SLOT_HUD_GLASSES)
+			if(glasses.HUDType && get_slot_by_item(glasses) == ITEM_SLOT_EYES)
 				var/datum/atom_hud/my_hud = GLOB.huds[glasses.HUDType]
 				my_hud.add_hud_to(src, only_once=TRUE)
 
 		if(istype(check, /obj/item/clothing/head))
 			var/obj/item/clothing/head/helmet = check
-			if(helmet.HUDType && get_slot_by_item(helmet) == SLOT_HUD_HEAD)
+			if(helmet.HUDType && get_slot_by_item(helmet) == ITEM_SLOT_HEAD)
 				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
 				my_hud.add_hud_to(src, only_once=TRUE)
 

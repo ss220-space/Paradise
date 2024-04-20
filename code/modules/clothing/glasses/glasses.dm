@@ -168,7 +168,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/science/night
@@ -400,7 +400,7 @@
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
@@ -456,7 +456,7 @@
 	flags = NODROP
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
-	if(slot == SLOT_HUD_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
 		user.regenerate_icons()
 	. = ..(user, slot)

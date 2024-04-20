@@ -50,7 +50,7 @@
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	var/blocked = FALSE
-	var/obj/item/I = H.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(!istype(H))
 		return ..()
 	if(istype(I, /obj/item/clothing/suit/space) && !shield_ignore)

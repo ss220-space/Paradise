@@ -160,11 +160,11 @@
 		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	var/where = "At your feet"

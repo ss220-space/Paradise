@@ -6,6 +6,7 @@
 	icon_state = "handcuff"
 	flags = CONDUCT
 	throwforce = 0
+	slot_flags = ITEM_SLOT_LEGCUFFED
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
@@ -272,7 +273,7 @@
 		return TRUE	//abort
 
 	var/mob/living/carbon/target = hit_atom
-	if(target.legcuffed || !target.has_organ_for_slot(SLOT_HUD_LEGCUFFED))
+	if(target.legcuffed || !target.has_organ_for_slot(ITEM_SLOT_LEGCUFFED))
 		return TRUE
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -329,7 +330,7 @@
 /obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!istype(user) || slot != SLOT_HUD_LEGCUFFED)
+	if(!istype(user) || slot != ITEM_SLOT_LEGCUFFED)
 		return .
 
 	user.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))

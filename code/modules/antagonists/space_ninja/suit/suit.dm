@@ -630,20 +630,20 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!n_scarf)
 		var/obj/item/clothing/neck/ninjascarf/new_scarf = new
-		if(!ninja.equip_to_slot_if_possible(new_scarf, SLOT_HUD_NECK, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
+		if(!ninja.equip_to_slot_if_possible(new_scarf, ITEM_SLOT_NECK, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
 			to_chat(ninja, "[span_userdanger("ERROR")]: 100220 UNABLE TO TRANSFORM HEAD GEAR\nABORTING...")
 			return FALSE
 		n_scarf = new_scarf
 		n_scarf.icon_state="ninja_scarf_[scarf_design_choice]"
 		n_scarf.item_state="ninja_scarf_[scarf_design_choice]"
 		n_hood.icon_state = "ninja_hood_blocked_[scarf_design_choice]"
-		n_hood.flags &= ~BLOCKHAIR
+		n_hood.flags_inv &= ~HIDEHAIR
 		n_hood.desc = "Even thou your hood now looks like a scarf, it still offers a smart and adaptive protection from damage to your head. And from the other headwear as well..."
 		return TRUE
 	else
 		qdel(n_scarf)
 		n_scarf = null
-		n_hood.flags |= BLOCKHAIR
+		n_hood.flags_inv |= HIDEHAIR
 		n_hood.desc = initial(n_hood.desc)
 		return TRUE
 

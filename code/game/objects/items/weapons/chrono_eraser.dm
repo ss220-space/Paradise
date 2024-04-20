@@ -7,7 +7,7 @@
 	icon_state = "chronobackpack"
 	item_state = "backpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -33,8 +33,8 @@
 			user.put_in_hands(PA)
 
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_BACK)
-		return 1
+	if(slot == ITEM_SLOT_BACK)
+		return TRUE
 
 
 /obj/item/gun/energy/chrono_gun
