@@ -2,9 +2,9 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEGLASSES|HIDENAME
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
@@ -147,7 +147,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
@@ -200,13 +200,12 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSEYES
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT|NODROP
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -220,7 +219,7 @@
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
@@ -241,7 +240,7 @@
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list

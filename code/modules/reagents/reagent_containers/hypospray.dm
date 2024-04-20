@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
@@ -220,7 +220,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
 	if(reskin_allowed)
-		if(istype(W, /obj/item/pen))
+		if(is_pen(W))
 			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
 			if(!t)
 				return

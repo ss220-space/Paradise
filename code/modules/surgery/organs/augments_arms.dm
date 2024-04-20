@@ -122,7 +122,7 @@
 	active_item.w_class = WEIGHT_CLASS_HUGE
 	active_item.materials = null
 
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -151,7 +151,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -440,7 +440,7 @@
 	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
+	if(!isapc(target) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
 		to_chat(user, span_warning("You're already charging."))

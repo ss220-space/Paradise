@@ -122,8 +122,8 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), SLOT_HUD_OUTER_SUIT)
-	user.equip_to_slot_or_del(new helmet_type(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new suit_type(user), ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(new helmet_type(user), ITEM_SLOT_HEAD)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -475,7 +475,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/user = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
 			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
@@ -670,7 +670,8 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
+	flags = STOPSPRESSUREDMAGE|NODROP|DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
 	sprite_sheets = list(
@@ -733,7 +734,8 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = BLOCKHAIR | NODROP | DROPDEL
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
+	flags = NODROP|DROPDEL
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEHEADSETS
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH

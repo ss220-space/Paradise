@@ -218,7 +218,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	force_unwielded = 10
 	force_wielded = 20
@@ -365,7 +365,7 @@
 	desc = "A heavy hammer of an elder god. Used to shine like in past times."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
@@ -737,8 +737,7 @@
 	icon_state = "clockhood"
 	item_state = "clockhood"
 	desc = "A hood worn by the followers of ratvar."
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
@@ -749,8 +748,7 @@
 	icon_state = "clockhood"
 	item_state = "clockhood"
 	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
@@ -1182,7 +1180,7 @@
 
 /obj/machinery/integration_cog/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/machinery/power/apc))
+	if(isapc(loc))
 		apc = loc
 	else
 		log_runtime(EXCEPTION("Invalid location for Integration cog"))

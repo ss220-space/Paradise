@@ -5,7 +5,7 @@
 	var/base_icon = "stunbaton"
 	item_state = "baton"
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -264,7 +264,7 @@
 	stunforce = 0.5 SECONDS
 	hitcost = 500
 	throw_hit_chance = 50
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 
 
 /obj/item/melee/baton/cattleprod/baton_stun(mob/living/carbon/human/target, mob/user, skip_cooldown = FALSE)

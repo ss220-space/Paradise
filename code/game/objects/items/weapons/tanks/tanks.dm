@@ -2,7 +2,7 @@
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
@@ -80,7 +80,7 @@
 		return
 
 	var/obj/icon = src
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(!in_range(src, user))
@@ -131,7 +131,7 @@
 	..()
 
 	add_fingerprint(user)
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(istype(W, /obj/item/assembly_holder))

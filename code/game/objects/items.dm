@@ -57,7 +57,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
-	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
+	/// This is used to determine on which slots an item can fit.
+	var/slot_flags = NONE
+	/// Additional slot flags, mostly used by humans
+	var/slot_flags_2 = NONE
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 //	causeerrorheresoifixthis
@@ -188,7 +191,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
+	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
 
@@ -433,7 +436,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
 /obj/item/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
 			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -463,7 +466,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				I.do_pickup_animation(user)
 				S.handle_item_insertion(src)
 	else if(istype(I, /obj/item/stack/tape_roll))
-		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
 				return ..()
@@ -651,9 +654,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(islist(equip_sound) && length(equip_sound))
 				chosen_sound = pick(equip_sound)
 			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_STORE || slot == SLOT_HUD_RIGHT_STORE)
+		else if(slot & ITEM_SLOT_POCKETS)
 			playsound(src, 'sound/items/handling/generic_equip3.ogg', EQUIP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(pickup_sound && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
+		else if(pickup_sound && (slot & ITEM_SLOT_HANDS))
 			var/chosen_sound = pickup_sound
 			if(islist(pickup_sound) && length(pickup_sound))
 				chosen_sound = pick(pickup_sound)
@@ -724,8 +727,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//Checking for storage item in offhand, then belt, then backpack
 	var/list/possible = list( \
 		user.get_inactive_hand(), \
-		user.get_item_by_slot(SLOT_HUD_BELT), \
-		user.get_item_by_slot(SLOT_HUD_BACK) \
+		user.get_item_by_slot(ITEM_SLOT_BELT), \
+		user.get_item_by_slot(ITEM_SLOT_BACK) \
 	)
 
 	for(var/obj/item/storage/container in possible)
@@ -831,7 +834,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/simple_animal/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(isalien(M) || isslime(M))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
@@ -954,7 +957,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return FALSE
-	if(istype(loc,/obj/item/storage))
+	if(isstorage(loc))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
 		return TRUE
@@ -1028,7 +1031,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
 		return FALSE
 
-	if(loc && dropping.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, dropping, user)
 		return TRUE
@@ -1084,58 +1087,58 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/slot = owner.get_slot_by_item(src)
 
 	switch(slot)
-		if(SLOT_HUD_OUTER_SUIT)
+		if(ITEM_SLOT_CLOTH_OUTER)
 			owner.wear_suit_update(src)
 
-		if(SLOT_HUD_JUMPSUIT)
+		if(ITEM_SLOT_CLOTH_INNER)
 			owner.update_inv_w_uniform()
 
-		if(SLOT_HUD_GLOVES)
+		if(ITEM_SLOT_GLOVES)
 			owner.update_inv_gloves()
 
-		if(SLOT_HUD_NECK)
+		if(ITEM_SLOT_NECK)
 			owner.update_inv_neck()
 
-		if(SLOT_HUD_GLASSES)
+		if(ITEM_SLOT_EYES)
 			owner.wear_glasses_update(src)
 
-		if(SLOT_HUD_HEAD)
+		if(ITEM_SLOT_HEAD)
 			owner.update_head(src)
 
-		if(SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR)
+		if(ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT)
 			owner.update_inv_ears()
 
-		if(SLOT_HUD_SHOES)
+		if(ITEM_SLOT_FEET)
 			owner.update_inv_shoes()
 
-		if(SLOT_HUD_BELT)
+		if(ITEM_SLOT_BELT)
 			owner.update_inv_belt()
 
-		if(SLOT_HUD_WEAR_MASK)
+		if(ITEM_SLOT_MASK)
 			owner.wear_mask_update(src)
 
-		if(SLOT_HUD_WEAR_ID)
+		if(ITEM_SLOT_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
 				h_owner.sec_hud_set_ID()
 			owner.update_inv_wear_id()
 
-		if(SLOT_HUD_WEAR_PDA)
+		if(ITEM_SLOT_PDA)
 			owner.update_inv_wear_pda()
 
-		if(SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
+		if(ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT)
 			owner.update_inv_pockets()
 
-		if(SLOT_HUD_SUIT_STORE)
+		if(ITEM_SLOT_SUITSTORE)
 			owner.update_inv_s_store()
 
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			owner.update_inv_back()
 
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			owner.update_inv_l_hand()
 
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			owner.update_inv_r_hand()
 
 	owner.update_equipment_speed_mods()

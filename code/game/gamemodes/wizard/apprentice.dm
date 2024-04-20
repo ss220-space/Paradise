@@ -46,14 +46,14 @@
 
 				school_href_choose(href_list, teacher, apprentice)
 
-				apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), SLOT_HUD_LEFT_EAR)
-				apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), SLOT_HUD_JUMPSUIT)
-				apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), SLOT_HUD_SHOES)
-				apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), SLOT_HUD_OUTER_SUIT)
-				apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), SLOT_HUD_HEAD)
-				apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), SLOT_HUD_BACK)
-				apprentice.equip_or_collect(new /obj/item/storage/box/survival(apprentice), SLOT_HUD_IN_BACKPACK)
-				apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), SLOT_HUD_RIGHT_STORE)
+				apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), ITEM_SLOT_EAR_LEFT)
+				apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), ITEM_SLOT_CLOTH_INNER)
+				apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), ITEM_SLOT_FEET)
+				apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), ITEM_SLOT_CLOTH_OUTER)
+				apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), ITEM_SLOT_HEAD)
+				apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), ITEM_SLOT_BACK)
+				apprentice.equip_or_collect(new /obj/item/storage/box/survival(apprentice), ITEM_SLOT_BACKPACK)
+				apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), ITEM_SLOT_POCKET_RIGHT)
 				var/wizard_name_first = pick(GLOB.wizard_first)
 				var/wizard_name_second = pick(GLOB.wizard_second)
 				var/randomname = "[wizard_name_first] [wizard_name_second]"
@@ -218,10 +218,10 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
-	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), ITEM_SLOT_HAND_RIGHT)
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/healmage(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/healmage(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/healmage(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/healmage(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/motion
 	name = "Школа Пространства"
@@ -233,8 +233,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/space/suit/psyamp, SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/helmet/space/head/psyamp, SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/space/suit/psyamp, ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/helmet/space/head/psyamp, ITEM_SLOT_HEAD)
 
 /obj/item/clothing/suit/space/suit/psyamp
 	magical = TRUE
@@ -271,9 +271,9 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/emplosion/disable_tech(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
-	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), SLOT_HUD_RIGHT_HAND)
-	owner.equip_or_collect(new /obj/item/clothing/suit/blacktrenchcoat/suit/saboteur, SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
+	owner.equip_or_collect(new /obj/item/clothing/suit/blacktrenchcoat/suit/saboteur, ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, ITEM_SLOT_HEAD)
 
 /obj/item/clothing/suit/blacktrenchcoat/suit/saboteur
 	magical = TRUE
@@ -311,8 +311,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
 	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
 
 
 /datum/magick_school/fire
@@ -325,7 +325,7 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
 	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)
-	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, SLOT_HUD_OUTER_SUIT)
+	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, ITEM_SLOT_CLOTH_OUTER)
 
 /obj/item/clothing/suit/victcoat/red/suit/fire_robe
 	name = "Роба огня"
@@ -345,10 +345,10 @@
 
 /datum/magick_school/sculpt/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/flesh_to_stone(null))
-	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/artmage(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/artmage(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/artmage(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/artmage(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/stand
 	name = "Школа Хранителей"
@@ -357,10 +357,10 @@
 
 /datum/magick_school/stand/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
-	owner.equip_or_collect(new /obj/item/guardiancreator(owner), SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/guardiancreator(owner), ITEM_SLOT_HAND_RIGHT)
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/instability
 	name = "Школа Неустойчивости"
@@ -370,8 +370,8 @@
 /datum/magick_school/instability/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
-	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), SLOT_HUD_RIGHT_HAND)
-	owner.equip_or_collect(new /obj/item/bikehorn, SLOT_HUD_BELT)
+	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), ITEM_SLOT_HAND_RIGHT)
+	owner.equip_or_collect(new /obj/item/bikehorn, ITEM_SLOT_BELT)
 
 
 /datum/magick_school/blood
@@ -380,15 +380,15 @@
 	desc = "Запретная школа, вызывающая опасения у архимагов, но допущенная к изучению. Юный последователь крови получает собственную робу, цепь и камни душ."
 
 /datum/magick_school/blood/kit()
-	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), SLOT_HUD_BELT)
+	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), ITEM_SLOT_BELT)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 
 	var/obj/item/melee/chainofcommand/chain = new
 	chain.name = "Жертвенная Цепь"
 	chain.desc = "Цепь последователя школы крови для нанесения увечий и пускания крови."
 	chain.force = 15
-	owner.equip_or_collect(chain, SLOT_HUD_RIGHT_HAND)
-	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe, SLOT_HUD_OUTER_SUIT)
+	owner.equip_or_collect(chain, ITEM_SLOT_HAND_RIGHT)
+	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe, ITEM_SLOT_CLOTH_OUTER)
 
 /obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe
 	name = "Жертвенная роба"
@@ -408,11 +408,11 @@
 
 /datum/magick_school/necromantic/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/lichdom(null))
-	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), SLOT_HUD_LEFT_STORE)
-	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), SLOT_HUD_RIGHT_STORE)
+	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_LEFT)
+	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_RIGHT)
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/necromage(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/necromage(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/necromage(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/necromage(owner), ITEM_SLOT_HEAD)
 
 
 /datum/magick_school/vision
@@ -422,7 +422,7 @@
 
 /datum/magick_school/vision/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
-	owner.equip_or_collect(new /obj/item/scrying(owner), SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
 	//Выдаем трейты ОРБа
 	if(!(XRAY in owner.mutations))
 		owner.mutations.Add(XRAY)
@@ -431,8 +431,8 @@
 		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
 
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), ITEM_SLOT_HEAD)
 
 
 /datum/magick_school/singulo
@@ -441,7 +441,7 @@
 	desc = "Древняя школа, практикующая древние познания владения сингулярности."
 
 /datum/magick_school/singulo/kit()
-	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 
@@ -452,14 +452,14 @@
 	suit.item_state = "singuloth_hardsuit"
 	suit.name = "Роба межпространства"
 	suit.desc = "Древняя броня последователя школы сингулярности."
-	owner.equip_or_collect(suit, SLOT_HUD_OUTER_SUIT)
+	owner.equip_or_collect(suit, ITEM_SLOT_CLOTH_OUTER)
 	var/obj/item/clothing/head/wizard/magus/head = new
 	head.magical = TRUE
 	head.icon_state = "hardsuit0-singuloth"
 	head.item_state = "singuloth_helm"
 	head.name = "Капюшон межпространства"
 	head.desc = "Древний шлем последователя школы сингулярности."
-	owner.equip_or_collect(head, SLOT_HUD_HEAD)
+	owner.equip_or_collect(head, ITEM_SLOT_HEAD)
 
 
 /datum/magick_school/replace
@@ -472,8 +472,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 
 	//Нацепляем простой фиолетовый балахон
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), ITEM_SLOT_HEAD)
 
 
 /datum/magick_school/destruction
@@ -487,8 +487,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning(null))
 
 	//Стандартный костюм мага-воителя, который есть в башне волшебника и так.
-	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), SLOT_HUD_HEAD)
+	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), ITEM_SLOT_HEAD)
 
 /datum/magick_school/lavaland
 	name = "Школа Лаваленда"
@@ -503,8 +503,8 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/watchers_look)
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch/advanced)
 
-	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), SLOT_HUD_JUMPSUIT)
-	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), SLOT_HUD_GLOVES)
-	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), SLOT_HUD_OUTER_SUIT)
-	owner.equip_or_collect(new /obj/item/twohanded/spear/bonespear, SLOT_HUD_RIGHT_HAND)
+	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), ITEM_SLOT_CLOTH_INNER)
+	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), ITEM_SLOT_GLOVES)
+	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/twohanded/spear/bonespear, ITEM_SLOT_HAND_RIGHT)
 

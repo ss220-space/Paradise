@@ -51,7 +51,7 @@
 	var/ninjas_alive = 0
 
 	for(var/datum/mind/ninja in space_ninjas)
-		if(!istype(ninja.current, /mob/living/carbon))
+		if(!iscarbon(ninja.current))
 			continue
 		if(ninja.current.stat==DEAD)
 			continue

@@ -169,11 +169,11 @@
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
 	var/list/slots = list (
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
 	mob.equip_in_one_of_slots(R,slots)

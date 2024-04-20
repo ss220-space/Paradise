@@ -66,13 +66,13 @@
 			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
-	var/priority_list = list( \
-		SLOT_HUD_BACK, SLOT_HUD_WEAR_PDA, SLOT_HUD_WEAR_ID, \
-		SLOT_HUD_JUMPSUIT, SLOT_HUD_OUTER_SUIT, SLOT_HUD_WEAR_MASK, \
-		SLOT_HUD_NECK, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_EAR, \
-		SLOT_HUD_RIGHT_EAR, SLOT_HUD_HEAD, SLOT_HUD_BELT, \
-		SLOT_HUD_SUIT_STORE, SLOT_HUD_TIE, SLOT_HUD_GLOVES, \
-		SLOT_HUD_SHOES, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE \
+	var/list/priority_list = list(
+		ITEM_SLOT_BACK, ITEM_SLOT_PDA, ITEM_SLOT_ID,
+		ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_MASK,
+		ITEM_SLOT_NECK, ITEM_SLOT_EYES, ITEM_SLOT_EAR_LEFT,
+		ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_HEAD, ITEM_SLOT_BELT,
+		ITEM_SLOT_SUITSTORE, ITEM_SLOT_ACCESSORY, ITEM_SLOT_GLOVES,
+		ITEM_SLOT_FEET, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT,
 	)
 
 	for(var/slot in priority_list)
@@ -142,7 +142,7 @@
 		equip_to_slot(I, slot, initial = TRUE)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/storage))
+		if(isstorage(back))
 			//Now, B represents a container we can insert I into.
 			var/obj/item/storage/backpack = back
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
@@ -270,7 +270,7 @@
 /**
  * Only external organs and only for humans
  */
-/mob/proc/has_organ_for_slot()
+/mob/proc/has_organ_for_slot(slot_flag)
 	return FALSE
 
 
@@ -318,11 +318,11 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		I.equipped(src, SLOT_HUD_LEFT_HAND, silent)
+		I.equipped(src, ITEM_SLOT_HAND_LEFT, silent)
 		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		I.equipped(src, SLOT_HUD_RIGHT_HAND, silent)
+		I.equipped(src, ITEM_SLOT_HAND_RIGHT, silent)
 		update_inv_r_hand()
 
 	if(pulling == I)
@@ -610,7 +610,7 @@
  * and not actually wearing it in any REAL equipment slot.
  */
 /mob/proc/is_general_slot(slot)
-	return slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED)
+	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED))
 
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -647,35 +647,35 @@
 	return id_cards
 
 
-/mob/proc/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(SLOT_HUD_WEAR_MASK)
+/mob/proc/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return r_hand
 	return null
 
 
 /mob/proc/get_slot_by_item(item)
 	if(item == back)
-		return SLOT_HUD_BACK
+		return ITEM_SLOT_BACK
 	if(item == wear_mask)
-		return SLOT_HUD_WEAR_MASK
+		return ITEM_SLOT_MASK
 	if(item == l_hand)
-		return SLOT_HUD_LEFT_HAND
+		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
-		return SLOT_HUD_RIGHT_HAND
+		return ITEM_SLOT_HAND_RIGHT
 	return null
 
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
 	for(var/obj/item/I in contents)
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(istype(SI, path))
 					return SI

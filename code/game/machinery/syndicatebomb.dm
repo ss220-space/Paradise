@@ -111,7 +111,7 @@
 		. = timer_set
 
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+	if(issignaler(I))
 		if(open_panel)
 			add_fingerprint(user)
 			wires.Interact(user)

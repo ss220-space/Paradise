@@ -256,7 +256,7 @@
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
 
-	if(istype(target, /turf/simulated/floor))
+	if(isfloorturf(target))
 		occupant_message("Building Wall...")
 		if(do_after_cooldown(target))
 			new /obj/structure/barricade/mime/mrcd(target)
@@ -457,7 +457,7 @@
 	last_piece = null
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(turf/new_turf)
-	if(istype(new_turf, /turf/simulated/floor))
+	if(isfloorturf(new_turf))
 		var/turf/simulated/floor/T = new_turf
 		if(!istype(T, /turf/simulated/floor/plating))
 			T.make_plating(TRUE)
