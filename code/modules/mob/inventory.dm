@@ -137,6 +137,8 @@
  * Used in job equipping so shit doesn't pile up at the start loc.
  */
 /mob/proc/equip_or_collect(obj/item/I, slot)
+	if(QDELETED(I))
+		return
 	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot(I, slot, initial = TRUE)
