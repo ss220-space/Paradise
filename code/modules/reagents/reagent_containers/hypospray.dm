@@ -328,7 +328,7 @@
 	icon_state = "redinjector"
 	volume = 60
 	amount_per_transfer_from_this = 60
-	list_reagents = list("salbutamol" = 10, "Penthrite" = 10, "omnizine_cond" = 10,  "teporone" = 10, "sal_acid" = 10, "ephedrine" = 10)
+	list_reagents = list("salbutamol" = 10, "penthrite" = 10, "omnizine_cond" = 10,  "teporone" = 10, "hydrocodone" = 10, "oxandrolone" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/M, mob/user)
 	if(lavaland_equipment_pressure_check(get_turf(user)))
@@ -336,7 +336,7 @@
 		return ..()
 
 	to_chat(user,span_notice("You start manually releasing the low-pressure gauge..."))
-	if(!do_after(user, 10 SECONDS, target = M)) //10 seconds release and...
+	if(!do_after(user, 5 SECONDS, target = M)) //5 seconds release and...
 		return
 
 	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.5 //half of the reagents

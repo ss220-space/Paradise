@@ -1523,7 +1523,7 @@
 
 /datum/reagent/medicine/penthrite
 	name = "Penthrite"
-	id = "Penthrite"
+	id = "penthrite"
 	description = "n expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down. Overdose will cause heart attacks."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
@@ -1558,12 +1558,12 @@
 
 /datum/reagent/medicine/penthrite/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(3, FALSE)
-	update_flags |= M.adjustToxLoss(2, FALSE)
-	update_flags |= M.adjustBruteLoss(2, FALSE)
-	update_flags |= M.adjustFireLoss(2, FALSE)
+	update_flags |= M.adjustOxyLoss(4, FALSE)
+	update_flags |= M.adjustToxLoss(3, FALSE)
+	update_flags |= M.adjustBruteLoss(5, FALSE)
+	update_flags |= M.adjustFireLoss(5, FALSE)
 	update_flags |= M.adjustStaminaLoss(10, FALSE)
-	if(ishuman(M) && prob(5))
+	if(ishuman(M) && prob(7))
 		var/mob/living/carbon/human/H = M
 		if(!H.undergoing_cardiac_arrest())
 			H.set_heartattack(TRUE)
@@ -1577,6 +1577,7 @@
 
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
+	id = "oxandrolone"
 	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones. Overdose will worsen existing burns."
 	overdose_threshold = 10
 	reagent_state = LIQUID
@@ -1595,7 +1596,7 @@
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(M.getFireLoss())
-		update_flags |= M.adjustFireLoss(4.5, FALSE) //It only makes existing burns worse
+		update_flags |= M.adjustFireLoss(5, FALSE) //It only makes existing burns worse
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/dangerous
