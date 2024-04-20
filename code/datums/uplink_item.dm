@@ -1967,7 +1967,7 @@
 
 /datum/uplink_item/badass/desert_eagle
 	name = "Desert Eagle"
-	desc = "A badass gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo. Kill with style"
+	desc = "A badass gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo. Kill with style."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	cost = 50
 
