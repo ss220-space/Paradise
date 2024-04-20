@@ -11,6 +11,7 @@
 	density = 0
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	interact_offline = TRUE
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
