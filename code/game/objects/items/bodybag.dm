@@ -82,6 +82,9 @@
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
+/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
+	return FALSE //Can't be weldled under any circumstances.
+
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"
 	desc = "A folded bag designed for the storage and transportation of infected cadavers."
