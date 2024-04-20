@@ -873,7 +873,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/vintage,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/USSP_SpaceBanya)
 "Lj" = (
 /obj/machinery/computer/monitor,
@@ -980,7 +980,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/USSP_SpaceBanya)
 "RV" = (
 /obj/effect/decal/cleanable/flour,

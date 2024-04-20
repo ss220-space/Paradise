@@ -15,7 +15,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -31,7 +31,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -42,7 +42,7 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -51,7 +51,7 @@
 "ba" = (
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -75,7 +75,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -121,7 +121,7 @@
 "cg" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -147,7 +147,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -165,7 +165,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -174,7 +174,7 @@
 "eX" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -200,7 +200,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -210,7 +210,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -219,7 +219,7 @@
 "fG" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -228,7 +228,7 @@
 "fI" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -237,7 +237,7 @@
 "fU" = (
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -260,7 +260,7 @@
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -269,7 +269,7 @@
 "iv" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -281,7 +281,7 @@
 /obj/item/bedsheet,
 /obj/structure/bed,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -294,7 +294,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -317,7 +317,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -327,7 +327,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -392,7 +392,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -403,7 +403,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -415,7 +415,7 @@
 /area/lavaland/surface/outdoors)
 "kK" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -426,7 +426,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -439,7 +439,7 @@
 /area/lavaland/surface/outdoors)
 "mP" = (
 /obj/structure/girder,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -494,7 +494,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -516,7 +516,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -529,7 +529,7 @@
 	},
 /obj/item/clothing/under/rank/miner,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -540,7 +540,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -551,7 +551,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -561,7 +561,7 @@
 /obj/structure/door_assembly/door_assembly_ext,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -571,7 +571,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -610,7 +610,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -620,7 +620,7 @@
 /obj/structure/door_assembly/door_assembly_mhatch,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -630,7 +630,7 @@
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/box/white,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -638,14 +638,14 @@
 /area/ruin/unpowered)
 "sp" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "sD" = (
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -676,7 +676,7 @@
 	id = "mining_internal"
 	},
 /obj/item/stack/sheet/mineral/silver,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -687,7 +687,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -701,7 +701,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -722,7 +722,7 @@
 /area/ruin/unpowered)
 "uq" = (
 /obj/effect/decal/warning_stripes/white,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -739,7 +739,7 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -748,7 +748,7 @@
 "uL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -763,7 +763,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -775,7 +775,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -807,7 +807,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -841,7 +841,7 @@
 "xl" = (
 /obj/effect/landmark/tiles/burnturf,
 /obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -855,7 +855,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -872,7 +872,7 @@
 /obj/structure/disposalpipe/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -890,7 +890,7 @@
 /area/lavaland/surface/outdoors)
 "yL" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -920,7 +920,7 @@
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -932,7 +932,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -954,7 +954,7 @@
 "zy" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -964,7 +964,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1015,7 +1015,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1025,7 +1025,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/marker_beacon,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1043,7 +1043,7 @@
 "Cf" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1056,7 +1056,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1066,7 +1066,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_mhatch,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1074,7 +1074,7 @@
 /area/ruin/unpowered)
 "CF" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1098,7 +1098,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/chinese,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1134,7 +1134,7 @@
 /area/ruin/unpowered)
 "EP" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1182,7 +1182,7 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1192,7 +1192,7 @@
 /obj/item/stack/ore/plasma,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1201,7 +1201,7 @@
 "It" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/marker_beacon,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1214,7 +1214,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1225,7 +1225,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1235,7 +1235,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1247,7 +1247,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1267,7 +1267,7 @@
 /area/ruin/unpowered)
 "JF" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1277,7 +1277,7 @@
 /obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1288,7 +1288,7 @@
 	dir = 5
 	},
 /obj/structure/plasticflaps,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1307,7 +1307,7 @@
 "Lq" = (
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1317,7 +1317,7 @@
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1328,7 +1328,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1353,7 +1353,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1363,7 +1363,7 @@
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1373,7 +1373,7 @@
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1382,7 +1382,7 @@
 "NJ" = (
 /obj/machinery/power/smes,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1413,7 +1413,7 @@
 /obj/structure/table,
 /obj/machinery/light_construct/small,
 /obj/item/storage/belt/mining/alt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1422,7 +1422,7 @@
 "OU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1433,7 +1433,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1446,7 +1446,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1454,7 +1454,7 @@
 /area/ruin/unpowered)
 "Po" = (
 /obj/structure/grille,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1502,7 +1502,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1529,7 +1529,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1561,7 +1561,7 @@
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1571,7 +1571,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1590,7 +1590,7 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1598,7 +1598,7 @@
 /area/ruin/unpowered)
 "TT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1608,7 +1608,7 @@
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1627,7 +1627,7 @@
 "Uu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1635,7 +1635,7 @@
 /area/lavaland/surface/outdoors)
 "Uy" = (
 /obj/machinery/mech_bay_recharge_port,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1646,7 +1646,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1677,7 +1677,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1689,7 +1689,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1708,7 +1708,7 @@
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1720,7 +1720,7 @@
 	name = "Broken Computer"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1730,7 +1730,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1740,7 +1740,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1763,7 +1763,7 @@
 "ZJ" = (
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1773,7 +1773,7 @@
 /obj/structure/door_assembly/door_assembly_ext,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1790,7 +1790,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300

@@ -3561,7 +3561,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate3)
 "kf" = (
 /obj/machinery/computer{
@@ -3585,7 +3585,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4012,7 +4012,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "lq" = (
 /obj/machinery/light/small{
@@ -4077,7 +4077,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "lD" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "lF" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -6003,7 +6003,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "rn" = (
 /obj/machinery/door/airlock/highsecurity,
@@ -7409,7 +7409,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "uW" = (
 /obj/structure/window/plasmareinforced{
@@ -7903,7 +7903,7 @@
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "wo" = (
 /obj/structure/cable{
@@ -8386,7 +8386,7 @@
 	name = "Blast Shutters"
 	},
 /obj/machinery/door/poddoor/shutters,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate3)
 "xu" = (
 /obj/item/wirecutters,
@@ -11226,7 +11226,7 @@
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "Fg" = (
 /obj/structure/cable{
@@ -15562,7 +15562,7 @@
 "QQ" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle/gray,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate3)
 "QR" = (
 /obj/machinery/door/airlock/engineering,
@@ -17126,7 +17126,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "Vm" = (
 /obj/structure/cable{
@@ -18282,7 +18282,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "YC" = (
 /obj/effect/decal/syndie_logo{
