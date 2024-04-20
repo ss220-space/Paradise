@@ -1977,7 +1977,6 @@
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
 
-
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
