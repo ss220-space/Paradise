@@ -157,9 +157,6 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if(!AM.throwing)	// datum was nullified on finalize, our job is done
-			return
-
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
 			if(!hitcheck())
 				finalize()
@@ -179,7 +176,10 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		AM.Move(step, get_dir(AM, step))
+		if(!AM.Move(step, get_dir(AM, step), speed)) // we hit something during our move...
+			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
+				finalize()
+			return
 
 		dist_travelled++
 
