@@ -1524,7 +1524,7 @@
 /datum/reagent/medicine/penthrite
 	name = "Penthrite"
 	id = "penthrite"
-	description = "n expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down. Overdose will cause heart attacks."
+	description = "An expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down. Overdose will cause heart attacks."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
 	overdose_threshold = 10
