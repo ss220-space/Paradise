@@ -1161,7 +1161,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!hat_color)
 			hat_color = inventory_head.color
 		if(!hat_icon_file)
-			hat_icon_file = inventory_head.onmob_sheets[SLOT_HUD_HEAD]
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 		if(head_icon)
