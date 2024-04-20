@@ -327,10 +327,7 @@
 			to_chat(user, "[organ] can't be treated with [tool_name].")
 
 	if(!any_organs_damaged)
-		if(affected)
-			to_chat(user, "There are no damaged organs in [affected.name].")
-		else
-			to_chat(user, "There are no damaged organs in [parse_zone(target_zone)].")
+		to_chat(user, "There are no damaged organs in [affected ? affected.name : parse_zone(target_zone)].")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
