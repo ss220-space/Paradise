@@ -25,18 +25,6 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
-	else if(istype(target, /obj/item/reagent_containers/spray/cleaner))
-		if(do_after(user, 0, target = target))
-			if (target.icon_state != "cleaner")
-				user.visible_message("<span class='warning'>[user] begins to peel off a layer of crayon off \the [target.name].</span>")
-				if(do_after(user, cleanspeed, target = target))
-					to_chat(user, span_notice("You've washed off a layer of crayon from the cleaner"))
-					var/obj/item/reagent_containers/spray/to_clean = target
-					to_clean.name = /obj/item/reagent_containers/spray::item_state
-					target.name = /obj/item/reagent_containers/spray::name
-					target.desc = /obj/item/reagent_containers/spray::desc
-					target.icon = /obj/item/reagent_containers/spray::icon
-					target.icon_state = /obj/item/reagent_containers/spray::icon_state
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)

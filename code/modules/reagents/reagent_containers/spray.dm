@@ -134,12 +134,22 @@
 
 /obj/item/reagent_containers/spray/cleaner/attackby(obj/item/X, mob/user)
 	if(istype(X, /obj/item/toy/crayon))
-		if (icon_state == "cleaner")
+		if(icon_state == "cleaner")
 			to_chat(user, span_notice("You start diligently coloring the cleaner with a crayon"))
 			if(do_after(user, 10, target = user))
 				change_color(user, X)
 		else
 			to_chat(user, "<span class='warning'>For painting you need a clean cleaner.</span>")
+	if(istype(X, /obj/item/soap))
+		if(icon_state != "cleaner")
+			user.visible_message("<span class='warning'>[user] begins to peel off a layer of crayon off \the [X.name].</span>")
+			if(do_after(user, 10, target = user))
+				to_chat(user, span_notice("You've washed off a layer of crayon from the cleaner"))
+				item_state = /obj/item/reagent_containers/spray::item_state
+				name = /obj/item/reagent_containers/spray::name
+				desc = /obj/item/reagent_containers/spray::desc
+				icon_state = /obj/item/reagent_containers/spray::icon_state
+				return TRUE
 
 /obj/item/reagent_containers/spray/cleaner/proc/change_color(user, obj/item/toy/crayon/C)
 	switch(C.colour)
