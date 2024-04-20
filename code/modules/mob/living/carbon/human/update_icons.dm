@@ -802,7 +802,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
 			else
-				standing = mutable_appearance(shoes.onmob_sheets[ITEM_SLOT_SHOES_STRING], "[shoes.icon_state]", layer = -SHOES_LAYER)
+				standing = mutable_appearance(shoes.onmob_sheets[ITEM_SLOT_FEET_STRING], "[shoes.icon_state]", layer = -SHOES_LAYER)
 
 
 			if(shoes.blood_DNA)

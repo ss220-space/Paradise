@@ -18,6 +18,7 @@
 
 
 // ITEM INVENTORY SLOT BITMASKS
+// Update "ITEM_SLOT_X_STRING" below, if you change slots here
 /// Left hand slot
 #define ITEM_SLOT_HAND_LEFT (1<<0)
 /// Right hand slot
@@ -161,11 +162,11 @@
 #define ITEM_SLOT_EYES_STRING "glasses"
 #define ITEM_SLOT_MASK_STRING "mask"
 #define ITEM_SLOT_HEAD_STRING "head"
-#define ITEM_SLOT_HANDCUFFED_STRING "handcuff"
-#define ITEM_SLOT_SHOES_STRING "shoes"
+#define ITEM_SLOT_FEET_STRING "shoes"
 #define ITEM_SLOT_ID_STRING "wear_id"
 #define ITEM_SLOT_NECK_STRING "neck"
 #define ITEM_SLOT_SUITSTORE_STRING "suit_store"
+#define ITEM_SLOT_HANDCUFFED_STRING "handcuff"
 #define ITEM_SLOT_LEGCUFFED_STRING "legcuffs"
 #define ITEM_SLOT_ACCESSORY_STRING "accessory"
 #define ITEM_SLOT_COLLAR_STRING "collar"

@@ -2072,107 +2072,76 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
-/proc/slot_bitfield_to_slot(input_slot_flags) //Doesn't work with ears or pockets
-	switch(input_slot_flags)
-		if(SLOT_FLAG_OCLOTHING)
-			return SLOT_HUD_OUTER_SUIT
-		if(SLOT_FLAG_ICLOTHING)
-			return SLOT_HUD_JUMPSUIT
-		if(SLOT_FLAG_GLOVES)
-			return SLOT_HUD_GLOVES
-		if(SLOT_FLAG_EYES)
-			return SLOT_HUD_GLASSES
-		if(SLOT_FLAG_MASK)
-			return SLOT_HUD_WEAR_MASK
-		if(SLOT_FLAG_HEAD)
-			return SLOT_HUD_HEAD
-		if(SLOT_FLAG_FEET)
-			return SLOT_HUD_SHOES
-		if(SLOT_FLAG_ID)
-			return SLOT_HUD_WEAR_ID
-		if(SLOT_FLAG_BELT)
-			return SLOT_HUD_BELT
-		if(SLOT_FLAG_BACK)
-			return SLOT_HUD_BACK
-		if(SLOT_FLAG_PDA)
-			return SLOT_HUD_WEAR_PDA
-		if(SLOT_FLAG_TIE)
-			return SLOT_HUD_TIE
-
-/proc/slot_string_to_slot(input_slot_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
-	switch(input_slot_string)
-		if(ITEM_SLOT_BACK_STRING)
-			return SLOT_HUD_BACK
-		if(ITEM_SLOT_MASK_STRING)
-			return SLOT_HUD_WEAR_MASK
-		if(ITEM_SLOT_HANDCUFFED_STRING)
-			return SLOT_HUD_HANDCUFFED
-		if(ITEM_SLOT_BELT_STRING)
-			return SLOT_HUD_BELT
-		if(ITEM_SLOT_ID_STRING)
-			return SLOT_HUD_WEAR_ID
+/proc/slot_string_to_slot_bitfield(input_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+	switch(input_string)
 		if(ITEM_SLOT_EAR_LEFT_STRING)
-			return SLOT_HUD_LEFT_EAR
-		if(ITEM_SLOT_EYES_STRING)
-			return SLOT_HUD_GLASSES
-		if(ITEM_SLOT_GLOVES_STRING)
-			return SLOT_HUD_GLOVES
-		if(ITEM_SLOT_HEAD_STRING)
-			return SLOT_HUD_HEAD
-		if(ITEM_SLOT_SHOES_STRING)
-			return SLOT_HUD_SHOES
-		if(ITEM_SLOT_CLOTH_OUTER_STRING)
-			return SLOT_HUD_OUTER_SUIT
-		if(ITEM_SLOT_CLOTH_INNER_STRING)
-			return SLOT_HUD_JUMPSUIT
-		if(ITEM_SLOT_SUITSTORE_STRING)
-			return SLOT_HUD_SUIT_STORE
-		if(ITEM_SLOT_LEGCUFFED_STRING)
-			return SLOT_HUD_LEGCUFFED
+			return ITEM_SLOT_EAR_LEFT
 		if(ITEM_SLOT_EAR_RIGHT_STRING)
-			return SLOT_HUD_RIGHT_EAR
-		if(ITEM_SLOT_ACCESSORY_STRING)
-			return SLOT_HUD_TIE
-		if(ITEM_SLOT_COLLAR_STRING)
-			return SLOT_HUD_COLLAR
+			return ITEM_SLOT_EAR_RIGHT
+		if(ITEM_SLOT_BELT_STRING)
+			return ITEM_SLOT_BELT
+		if(ITEM_SLOT_BACK_STRING)
+			return ITEM_SLOT_BACK
+		if(ITEM_SLOT_CLOTH_OUTER_STRING)
+			return ITEM_SLOT_CLOTH_OUTER
+		if(ITEM_SLOT_CLOTH_INNER_STRING)
+			return ITEM_SLOT_CLOTH_INNER
+		if(ITEM_SLOT_EYES_STRING)
+			return ITEM_SLOT_EYES
+		if(ITEM_SLOT_MASK_STRING)
+			return ITEM_SLOT_MASK
+		if(ITEM_SLOT_HEAD_STRING)
+			return ITEM_SLOT_HEAD
+		if(ITEM_SLOT_FEET_STRING)
+			return ITEM_SLOT_FEET
+		if(ITEM_SLOT_ID_STRING)
+			return ITEM_SLOT_ID
 		if(ITEM_SLOT_NECK_STRING)
-			return SLOT_HUD_NECK
+			return ITEM_SLOT_NECK
+		if(ITEM_SLOT_GLOVES_STRING)
+			return ITEM_SLOT_GLOVES
+		if(ITEM_SLOT_SUITSTORE_STRING)
+			return ITEM_SLOT_SUITSTORE
+		if(ITEM_SLOT_HANDCUFFED_STRING)
+			return ITEM_SLOT_HANDCUFFED
+		if(ITEM_SLOT_LEGCUFFED_STRING)
+			return ITEM_SLOT_LEGCUFFED
+		if(ITEM_SLOT_ACCESSORY_STRING)
+			return ITEM_SLOT_ACCESSORY
 
-/proc/slot_to_slot_string(input_slot) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
-	switch(input_slot)
-		if(SLOT_HUD_BACK)
-			return ITEM_SLOT_BACK_STRING
-		if(SLOT_HUD_WEAR_MASK)
-			return ITEM_SLOT_MASK_STRING
-		if(SLOT_HUD_HANDCUFFED)
-			return ITEM_SLOT_HANDCUFFED_STRING
-		if(SLOT_HUD_BELT)
-			return ITEM_SLOT_BELT_STRING
-		if(SLOT_HUD_WEAR_ID)
-			return ITEM_SLOT_ID_STRING
-		if(SLOT_HUD_LEFT_EAR)
+/proc/slot_bitfield_to_slot_string(input_bitfield) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+	switch(input_bitfield)
+		if(ITEM_SLOT_EAR_LEFT)
 			return ITEM_SLOT_EAR_LEFT_STRING
-		if(SLOT_HUD_GLASSES)
-			return ITEM_SLOT_EYES_STRING
-		if(SLOT_HUD_GLOVES)
-			return ITEM_SLOT_GLOVES_STRING
-		if(SLOT_HUD_HEAD)
-			return ITEM_SLOT_HEAD_STRING
-		if(SLOT_HUD_SHOES)
-			return ITEM_SLOT_SHOES_STRING
-		if(SLOT_HUD_OUTER_SUIT)
-			return ITEM_SLOT_CLOTH_OUTER_STRING
-		if(SLOT_HUD_JUMPSUIT)
-			return ITEM_SLOT_CLOTH_INNER_STRING
-		if(SLOT_HUD_SUIT_STORE)
-			return ITEM_SLOT_SUITSTORE_STRING
-		if(SLOT_HUD_LEGCUFFED)
-			return ITEM_SLOT_LEGCUFFED_STRING
-		if(SLOT_HUD_RIGHT_EAR)
+		if(ITEM_SLOT_EAR_RIGHT)
 			return ITEM_SLOT_EAR_RIGHT_STRING
-		if(SLOT_HUD_TIE)
-			return ITEM_SLOT_ACCESSORY_STRING
-		if(SLOT_HUD_COLLAR)
-			return ITEM_SLOT_COLLAR_STRING
-		if(SLOT_HUD_NECK)
+		if(ITEM_SLOT_BELT)
+			return ITEM_SLOT_BELT_STRING
+		if(ITEM_SLOT_BACK)
+			return ITEM_SLOT_BACK_STRING
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return ITEM_SLOT_CLOTH_OUTER_STRING
+		if(ITEM_SLOT_CLOTH_INNER)
+			return ITEM_SLOT_CLOTH_INNER_STRING
+		if(ITEM_SLOT_GLOVES)
+			return ITEM_SLOT_GLOVES_STRING
+		if(ITEM_SLOT_EYES)
+			return ITEM_SLOT_EYES_STRING
+		if(ITEM_SLOT_MASK)
+			return ITEM_SLOT_MASK_STRING
+		if(ITEM_SLOT_HEAD)
+			return ITEM_SLOT_HEAD_STRING
+		if(ITEM_SLOT_FEET)
+			return ITEM_SLOT_FEET_STRING
+		if(ITEM_SLOT_ID)
+			return ITEM_SLOT_ID_STRING
+		if(ITEM_SLOT_NECK)
 			return ITEM_SLOT_NECK_STRING
+		if(ITEM_SLOT_SUITSTORE)
+			return ITEM_SLOT_SUITSTORE_STRING
+		if(ITEM_SLOT_HANDCUFFED)
+			return ITEM_SLOT_HANDCUFFED_STRING
+		if(ITEM_SLOT_LEGCUFFED)
+			return ITEM_SLOT_LEGCUFFED_STRING
+		if(ITEM_SLOT_ACCESSORY)
+			return ITEM_SLOT_ACCESSORY_STRING

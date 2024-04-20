@@ -321,7 +321,7 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
 	onmob_sheets = list(
-		ITEM_SLOT_SHOES_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
