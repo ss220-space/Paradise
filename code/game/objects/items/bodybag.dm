@@ -24,7 +24,7 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
-	integrity_failure = FALSE
+	integrity_failure = 50
 	var/item_path = /obj/item/bodybag
 
 
