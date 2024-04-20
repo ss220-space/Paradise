@@ -301,7 +301,7 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits) && !isdiona(H))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	return ..() | update_flags
