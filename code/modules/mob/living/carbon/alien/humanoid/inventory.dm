@@ -90,7 +90,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(I.flags & NODROP)
+			if(HAS_TRAIT(I, TRAIT_NODROP))
 				return FALSE
 			if(I.slot_flags_2 & ITEM_FLAG_POCKET_DENY)
 				return FALSE
@@ -102,7 +102,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(I.flags & NODROP)
+			if(HAS_TRAIT(I, TRAIT_NODROP))
 				return FALSE
 			if(I.slot_flags_2 & ITEM_FLAG_POCKET_DENY)
 				return FALSE

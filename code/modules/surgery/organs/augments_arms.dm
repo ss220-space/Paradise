@@ -116,9 +116,9 @@
 
 	active_item = augment
 
-	active_item.flags |= NODROP
-	active_item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	active_item.slot_flags = null
+	ADD_TRAIT(active_item, TRAIT_NODROP, AUGMENT_TRAIT)
+	active_item.resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	active_item.slot_flags = NONE
 	active_item.w_class = WEIGHT_CLASS_HUGE
 	active_item.materials = null
 
@@ -132,7 +132,7 @@
 		else
 			to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
-	if(parent_organ_zone == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item) : !owner.put_in_l_hand(active_item))
+	if(parent_organ_zone == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item, silent = TRUE) : !owner.put_in_l_hand(active_item, silent = TRUE))
 		to_chat(owner, span_warning("Your [src] fails to activate!"))
 		return
 

@@ -201,7 +201,7 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
-					if(inventory_head.flags & NODROP)
+					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_head)

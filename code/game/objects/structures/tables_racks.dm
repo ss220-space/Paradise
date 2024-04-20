@@ -247,7 +247,7 @@
 		tablepush(I, user)
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & (ABSTRACT | NODROP)))
+	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)

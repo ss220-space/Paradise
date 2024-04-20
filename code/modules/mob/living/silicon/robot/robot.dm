@@ -850,7 +850,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(U.action(src, user))
 				user.visible_message(span_notice("[user] applied [U] to [src]."), span_notice("You apply [U] to [src]."))
 				install_upgrade(U)
-				module?.fix_modules()	//Set up newly added items with NODROP flag.
+				module?.fix_modules()	//Set up newly added items with NODROP trait.
 			else
 				W.forceMove(drop_location())
 

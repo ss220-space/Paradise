@@ -557,9 +557,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(flags & DROPDEL && !QDELETED(src))
 		qdel(src)
 
-	if((flags & NODROP) && !(initial(flags) & NODROP)) // Remove NODROP flag if it was not initial
-		flags &= ~NODROP
-
 	in_inventory = FALSE
 	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
