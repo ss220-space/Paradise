@@ -23,7 +23,7 @@
 		/obj/item/clothing/head/cardborg
 	)
 
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -244,6 +244,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null

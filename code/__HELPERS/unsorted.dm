@@ -2072,3 +2072,76 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
+/proc/slot_string_to_slot_bitfield(input_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+	switch(input_string)
+		if(ITEM_SLOT_EAR_LEFT_STRING)
+			return ITEM_SLOT_EAR_LEFT
+		if(ITEM_SLOT_EAR_RIGHT_STRING)
+			return ITEM_SLOT_EAR_RIGHT
+		if(ITEM_SLOT_BELT_STRING)
+			return ITEM_SLOT_BELT
+		if(ITEM_SLOT_BACK_STRING)
+			return ITEM_SLOT_BACK
+		if(ITEM_SLOT_CLOTH_OUTER_STRING)
+			return ITEM_SLOT_CLOTH_OUTER
+		if(ITEM_SLOT_CLOTH_INNER_STRING)
+			return ITEM_SLOT_CLOTH_INNER
+		if(ITEM_SLOT_EYES_STRING)
+			return ITEM_SLOT_EYES
+		if(ITEM_SLOT_MASK_STRING)
+			return ITEM_SLOT_MASK
+		if(ITEM_SLOT_HEAD_STRING)
+			return ITEM_SLOT_HEAD
+		if(ITEM_SLOT_FEET_STRING)
+			return ITEM_SLOT_FEET
+		if(ITEM_SLOT_ID_STRING)
+			return ITEM_SLOT_ID
+		if(ITEM_SLOT_NECK_STRING)
+			return ITEM_SLOT_NECK
+		if(ITEM_SLOT_GLOVES_STRING)
+			return ITEM_SLOT_GLOVES
+		if(ITEM_SLOT_SUITSTORE_STRING)
+			return ITEM_SLOT_SUITSTORE
+		if(ITEM_SLOT_HANDCUFFED_STRING)
+			return ITEM_SLOT_HANDCUFFED
+		if(ITEM_SLOT_LEGCUFFED_STRING)
+			return ITEM_SLOT_LEGCUFFED
+		if(ITEM_SLOT_ACCESSORY_STRING)
+			return ITEM_SLOT_ACCESSORY
+
+/proc/slot_bitfield_to_slot_string(input_bitfield) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+	switch(input_bitfield)
+		if(ITEM_SLOT_EAR_LEFT)
+			return ITEM_SLOT_EAR_LEFT_STRING
+		if(ITEM_SLOT_EAR_RIGHT)
+			return ITEM_SLOT_EAR_RIGHT_STRING
+		if(ITEM_SLOT_BELT)
+			return ITEM_SLOT_BELT_STRING
+		if(ITEM_SLOT_BACK)
+			return ITEM_SLOT_BACK_STRING
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return ITEM_SLOT_CLOTH_OUTER_STRING
+		if(ITEM_SLOT_CLOTH_INNER)
+			return ITEM_SLOT_CLOTH_INNER_STRING
+		if(ITEM_SLOT_GLOVES)
+			return ITEM_SLOT_GLOVES_STRING
+		if(ITEM_SLOT_EYES)
+			return ITEM_SLOT_EYES_STRING
+		if(ITEM_SLOT_MASK)
+			return ITEM_SLOT_MASK_STRING
+		if(ITEM_SLOT_HEAD)
+			return ITEM_SLOT_HEAD_STRING
+		if(ITEM_SLOT_FEET)
+			return ITEM_SLOT_FEET_STRING
+		if(ITEM_SLOT_ID)
+			return ITEM_SLOT_ID_STRING
+		if(ITEM_SLOT_NECK)
+			return ITEM_SLOT_NECK_STRING
+		if(ITEM_SLOT_SUITSTORE)
+			return ITEM_SLOT_SUITSTORE_STRING
+		if(ITEM_SLOT_HANDCUFFED)
+			return ITEM_SLOT_HANDCUFFED_STRING
+		if(ITEM_SLOT_LEGCUFFED)
+			return ITEM_SLOT_LEGCUFFED_STRING
+		if(ITEM_SLOT_ACCESSORY)
+			return ITEM_SLOT_ACCESSORY_STRING

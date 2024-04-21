@@ -9,7 +9,9 @@
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_ACCESSORY //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/gem = null
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	var/necklace_light = FALSE //some lighting stuff
 	light_on = FALSE
@@ -142,7 +144,9 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_bracers"
 	item_state = "gem_bracers"
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/gem = null
 	transfer_prints = TRUE
 	cold_protection = HANDS

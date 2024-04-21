@@ -18,6 +18,7 @@
 
 
 // ITEM INVENTORY SLOT BITMASKS
+// Update "ITEM_SLOT_X_STRING" below, if you change slots here
 /// Left hand slot
 #define ITEM_SLOT_HAND_LEFT (1<<0)
 /// Right hand slot
@@ -81,7 +82,6 @@
 #define ITEM_FLAG_POCKET_DENY (1<<1)
 /// Indicated that item needs two ears to wear, also creates dummy item in other ear slot
 #define ITEM_FLAG_TWOEARS (1<<2)
-
 
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1
@@ -150,6 +150,46 @@
 #define MATERIAL_CLASS_TECH		2
 #define MATERIAL_CLASS_SOAP		3
 
+
+//These defines used in sprites, keep in touch with "Slot defines" above if needed
+#define ITEM_SLOT_EAR_LEFT_STRING "left_ear"
+#define ITEM_SLOT_EAR_RIGHT_STRING "right_ear"
+#define ITEM_SLOT_BELT_STRING "belt"
+#define ITEM_SLOT_BACK_STRING "back"
+#define ITEM_SLOT_CLOTH_OUTER_STRING "suit"
+#define ITEM_SLOT_CLOTH_INNER_STRING "uniform"
+#define ITEM_SLOT_GLOVES_STRING "gloves"
+#define ITEM_SLOT_EYES_STRING "glasses"
+#define ITEM_SLOT_MASK_STRING "mask"
+#define ITEM_SLOT_HEAD_STRING "head"
+#define ITEM_SLOT_FEET_STRING "shoes"
+#define ITEM_SLOT_ID_STRING "wear_id"
+#define ITEM_SLOT_NECK_STRING "neck"
+#define ITEM_SLOT_SUITSTORE_STRING "suit_store"
+#define ITEM_SLOT_HANDCUFFED_STRING "handcuff"
+#define ITEM_SLOT_LEGCUFFED_STRING "legcuffs"
+#define ITEM_SLOT_ACCESSORY_STRING "accessory"
+#define ITEM_SLOT_COLLAR_STRING "collar"
+
+//Default icons to use to render clothes
+#define DEFAULT_ICON_LEFT_EAR 'icons/mob/clothing/ears.dmi'
+#define DEFAULT_ICON_RIGHT_EAR 'icons/mob/clothing/ears.dmi'
+#define DEFAULT_ICON_BELT 'icons/mob/clothing/belt.dmi'
+#define DEFAULT_ICON_BACK 'icons/mob/clothing/back.dmi'
+#define DEFAULT_ICON_OUTER_SUIT 'icons/mob/clothing/suit.dmi'
+#define DEFAULT_ICON_JUMPSUIT 'icons/mob/clothing/uniform.dmi'
+#define DEFAULT_ICON_GLOVES 'icons/mob/clothing/hands.dmi'
+#define DEFAULT_ICON_GLASSES 'icons/mob/clothing/eyes.dmi'
+#define DEFAULT_ICON_WEAR_MASK 'icons/mob/clothing/mask.dmi'
+#define DEFAULT_ICON_HEAD 'icons/mob/clothing/head.dmi'
+#define DEFAULT_ICON_HANDCUFFED 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_SHOES 'icons/mob/clothing/feet.dmi'
+#define DEFAULT_ICON_WEAR_ID 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_NECK 'icons/mob/clothing/neck.dmi'
+#define DEFAULT_ICON_SUITSTORE 'icons/mob/clothing/belt_mirror.dmi'
+#define DEFAULT_ICON_LEGCUFFED 'icons/mob/mob.dmi'
+#define DEFAULT_ICON_ACCESSORY 'icons/mob/clothing/ties.dmi'
+#define DEFAULT_ICON_COLLAR 'icons/mob/clothing/collar.dmi'
 
 /// Wrapper for adding clothing based traits
 #define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
