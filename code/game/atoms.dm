@@ -1474,5 +1474,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/area/turf_area = gravity_turf.loc
 
-	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || length(GLOB.gravity_generators["[gravity_turf.z]"]))
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
 
