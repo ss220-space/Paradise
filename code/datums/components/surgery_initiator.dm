@@ -69,7 +69,7 @@
 		return
 	if(!(L.lying_angle || L.resting || L.stat) && !can_start_on_stander)
 		return
-	if(!(L.lying_angle || L.resting || L.stat) && !on_operable_surface(L))
+	if((L.lying_angle || L.resting || L.stat) && !on_operable_surface(L))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
