@@ -44,6 +44,8 @@
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
+	if(QDELETED(I))
+		return
 	if(collect_not_del)
 		H.equip_or_collect(I, slot)
 	else
