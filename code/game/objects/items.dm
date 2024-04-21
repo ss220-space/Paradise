@@ -238,6 +238,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(ismob(loc))
 		var/mob/M = loc
 		M.drop_item_ground(src, TRUE)
+	else
+		remove_item_from_storage(get_turf(src))
 
 	//Reason behind why it's not QDEL_LIST: works badly with lazy removal in Destroy() of item_action
 	for(var/i in actions)
