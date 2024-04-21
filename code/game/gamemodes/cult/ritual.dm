@@ -143,6 +143,9 @@
 		if(!(A in summon_areas))  // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return
+		if(!(SSticker.mode.cult_ascendant))
+			to_chat(user, "<span class='cultlarge'>Not enough unfaithful know what awaits them! You need to gain the pentagrams first!</span>")
+			return
 		GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		for(var/I in spiral_range_turfs(1, user, 1))
 			var/turf/T = I
