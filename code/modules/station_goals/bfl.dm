@@ -529,8 +529,6 @@
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
 
-/obj/structure/toilet/golden_toilet/bfl_goal
-	name = "\[NT REDACTED\]"
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Giant laser, which is supposed for mining"

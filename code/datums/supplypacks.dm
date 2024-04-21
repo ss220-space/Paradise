@@ -2324,6 +2324,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 	containername = "patriotic crate"
 
+/datum/supply_packs/misc/golden_toilet
+	name = "Golden Toilet"
+	cost = 500
+	contains = list(/obj/structure/toilet/golden_toilet)
+	containername = "golden toilet"
+
 
 ///////////// Paper Work
 
