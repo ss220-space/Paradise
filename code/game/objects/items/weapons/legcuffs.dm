@@ -4,6 +4,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	item_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
 	slot_flags = ITEM_SLOT_LEGCUFFED

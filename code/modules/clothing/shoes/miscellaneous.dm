@@ -320,7 +320,9 @@
 	icon = 'icons/goonstation/objects/clothing/feet.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_shoes"
-	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_FEET_STRING = 'icons/goonstation/mob/clothing/feet.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF

@@ -199,7 +199,7 @@
 	name = "Banana Grenade"
 	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
 	item = /obj/item/grenade/clown_grenade
-	cost = 10
+	cost = 8
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/cmag
@@ -214,14 +214,14 @@
 	name = "Clown Magboots"
 	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
 	item = /obj/item/clothing/shoes/magboots/clown
-	cost = 15
+	cost = 12
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/acrobatic_shoes
 	name = "Acrobatic Shoes"
 	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
 	item = /obj/item/clothing/shoes/bhop/clown
-	cost = 15
+	cost = 12
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/trick_revolver
@@ -266,7 +266,7 @@
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 20 //you need two for full damage, so total of 8 for maximum damage
+	cost = 18 //you need two for full damage, so total of 8 for maximum damage
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
@@ -282,7 +282,7 @@
 	name = "Chef Excellence's Special Sauce"
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
-	cost = 5
+	cost = 1
 	job = list(JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/meatcleaver
@@ -319,14 +319,14 @@
 	name = "Voodoo Doll"
 	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
 	item = /obj/item/voodoo
-	cost = 20
+	cost = 11
 	job = list(JOB_TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
 	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
 	item = /obj/item/storage/box/syndie_kit/missionary_set
-	cost = 75
+	cost = 72
 	job = list(JOB_TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/artistic_toolbox
@@ -342,7 +342,7 @@
 	name = "Book of Babel"
 	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
 	item = /obj/item/book_of_babel
-	cost = 5
+	cost = 1
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_LIBRARIAN)
 	surplus = 0
 	can_discount = FALSE
@@ -352,7 +352,7 @@
 	name = "Proximity Mine"
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
 	item = /obj/item/caution/proximity_sign
-	cost = 15
+	cost = 11
 	job = list(JOB_TITLE_JANITOR)
 	surplus = 0
 
@@ -369,7 +369,7 @@
 	name = "Radiation Laser"
 	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	item = /obj/item/rad_laser
-	cost = 25
+	cost = 23
 	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
@@ -400,7 +400,7 @@
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
-	cost = 10
+	cost = 3
 	job = list(JOB_TITLE_PSYCHIATRIST)//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 /datum/uplink_item/jobspecific/gbs
@@ -424,7 +424,7 @@
 	name = "Stungloves"
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
 	item = /obj/item/storage/box/syndie_kit/stungloves
-	cost = 10
+	cost = 7
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
 
 //Bartender
@@ -440,7 +440,7 @@
 	name = "Safety Scissors"
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	item = /obj/item/scissors/safety
-	cost = 10
+	cost = 6
 	job = list(JOB_TITLE_BARBER)
 
 //Botanist
@@ -448,7 +448,7 @@
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
 	item = /obj/item/bee_briefcase
-	cost = 30
+	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
 
 //Engineer
@@ -456,14 +456,14 @@
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
 	item = /obj/item/clothing/gloves/color/yellow/power
-	cost = 40
+	cost = 33
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Superior Suspicious Toolbox"
 	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
 	item = /obj/item/storage/toolbox/syndisuper
-	cost = 10
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
 			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
@@ -473,7 +473,7 @@
 	name = "Telegun"
 	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
 	item = /obj/item/gun/energy/telegun
-	cost = 60
+	cost = 66
 	job = list(JOB_TITLE_RD)
 
 //Roboticist
@@ -481,7 +481,7 @@
 	name = "Syndicate MMI"
 	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
 	item = /obj/item/mmi/syndie
-	cost = 10
+	cost = 6
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
@@ -500,7 +500,7 @@
 	name = "The E20"
 	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
 	item = /obj/item/dice/d20/e20
-	cost = 15
+	cost = 8
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 	hijack_only = TRUE
@@ -519,7 +519,7 @@
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	item = /obj/item/seeds/ambrosia/cruciatus
-	cost = 5
+	cost = 1
 	job = list(JOB_TITLE_BOTANIST)
 
 //Atmos Tech
@@ -534,7 +534,7 @@
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	item = /obj/item/twohanded/fireaxe/energized
-	cost = 20
+	cost = 18
 	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
 
 //CE
@@ -581,7 +581,7 @@
 	name = "Ipc combat upgrade"
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
 	item = /obj/item/ipc_combat_upgrade
-	cost = 15
+	cost = 11
 	race = list(SPECIES_MACNINEPERSON)
 
 /datum/uplink_item/racial/supercharge
@@ -689,7 +689,7 @@
 	name = "Gloves of the North Star"
 	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
 	item = /obj/item/clothing/gloves/fingerless/rapid
-	cost = 20
+	cost = 16
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -712,7 +712,7 @@
 	name = "Energy Crossbow"
 	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	cost = 45
+	cost = 48
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
@@ -737,7 +737,7 @@
 		 Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
 		 deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	item = /obj/item/melee/powerfist
-	cost = 20
+	cost = 18
 
 /datum/uplink_item/dangerous/chainsaw
 	name = "Chainsaw"
@@ -749,7 +749,7 @@
 	name = "Commandos knife operation kit"
 	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
 	item = /obj/item/storage/box/syndie_kit/commando_kit
-	cost = 35
+	cost = 33
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
@@ -834,7 +834,7 @@
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cost = 70
+	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	can_discount = FALSE
@@ -1086,7 +1086,7 @@
 	name = "Throwing knives kit"
 	desc = "A box containing 7 throwing knives"
 	item = /obj/item/storage/box/syndie_kit/knives_kit
-	cost = 5
+	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // STEALTHY WEAPONS
@@ -1124,7 +1124,7 @@
 	name = "Mr. Chang's Aggressive Marketing Technique"
 	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
 	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
-	cost = 15
+	cost = 18
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1132,60 +1132,60 @@
 			 Due to its design, this flash cannot be overcharged like regular flashes can.\
 			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
 	item = /obj/item/flash/cameraflash
-	cost = 10
+	cost = 6
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
 			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
-	cost = 5
+	cost = 3
 
 /datum/uplink_item/stealthy_weapons/edagger
 	name = "Energy Dagger"
 	desc = "A dagger made of energy that looks and functions as a pen when off."
 	item = /obj/item/pen/edagger
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
 	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
 	item = /obj/item/pen/sleepy
-	cost = 40
+	cost = 36
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/foampistol
 	name = "Toy Gun (with Stun Darts)"
 	desc = "An innocent looking toy pistol designed to fire foam darts. Comes loaded with riot grade darts, to incapacitate a target."
 	item = /obj/item/gun/projectile/automatic/toy/pistol/riot
-	cost = 15
+	cost = 12
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/false_briefcase
 	name = "False Bottomed Briefcase"
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
 	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 10
+	cost = 1
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
 	item = /obj/item/soap/syndie
-	cost = 5
+	cost = 1
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/tape
 	name = "Thick tape roll"
 	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
 	item = /obj/item/stack/tape_roll/thick
-	cost = 5
+	cost = 7
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol Kit"
 	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes, a knockout poison, a silencing agent and a deadly neurotoxin."
 	item = /obj/item/storage/box/syndie_kit/dart_gun
-	cost = 20
+	cost = 18
 	surplus = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1200,14 +1200,14 @@
 	name = "Universal Suppressor"
 	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
 	item = /obj/item/suppressor
-	cost = 5
+	cost = 4
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Dehydrated Space Carp"
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	item = /obj/item/toy/carpplushie/dehy_carp
-	cost = 10
+	cost = 7
 
 // GRENADES AND EXPLOSIVES
 
@@ -1218,13 +1218,13 @@
 	name = "Composition C-4"
 	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
 	item = /obj/item/grenade/plastic/c4
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/explosives/plastic_explosives_pack
 	name = "Pack of 5 C-4 Explosives"
 	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
 	item = /obj/item/storage/box/syndie_kit/c4
-	cost = 20
+	cost = 8
 
 /datum/uplink_item/explosives/c4bag
 	name = "Bag of C-4 explosives"
@@ -1363,7 +1363,7 @@
 	name = "Knockout Gas Grenades"
 	desc = "A box of two (2) grenades that spread knockout gas over a large area. Equip internals before using one of these."
 	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
-	cost = 20
+	cost = 18
 
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Plasma Fire Grenades"
@@ -1389,7 +1389,7 @@
 /datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
 	name = "Syndicate Counterfeiter Bundle"
 	desc = "A cleverly implemented bundle designed to document counterfeiting. Comes with a chameleon stamp, capable of imitating any NanoTrasen issued stamps and a fakesign pen to alter the world through the sheer force of paperwork. While making the user capable of faking almost any document, this Syndicate technology has been rumored to cause a huge upheaval on NT objects. "
-	cost = 5
+	cost = 2
 	surplus = 35
 	item = /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 
@@ -1397,14 +1397,14 @@
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
 	item = /obj/item/flag/chameleon
-	cost = 5
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chamsechud
 	name = "Chameleon Security HUD"
 	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
 	item = /obj/item/clothing/glasses/hud/security/chameleon
-	cost = 10
+	cost = 8
 
 /datum/uplink_item/stealthy_tools/thermal
 	name = "Thermal Chameleon Glasses"
@@ -1416,7 +1416,7 @@
 	name = "Traitor's Toolbelt"
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	item = /obj/item/storage/belt/military/traitor
-	cost = 5
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/frame
@@ -1426,7 +1426,7 @@
 			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
 			telecrystals normally."
 	item = /obj/item/cartridge/frame
-	cost = 20
+	cost = 16
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/agent_card
@@ -1447,7 +1447,7 @@
 	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
 			They do not work on heavily lubricated surfaces."
 	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 10
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
@@ -1458,13 +1458,13 @@
 	name = "Chameleon-Projector"
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	item = /obj/item/chameleon
-	cost = 25
+	cost = 26
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network to track a target."
 	item = /obj/item/camera_bug
-	cost = 5
+	cost = 3
 	surplus = 90
 
 /datum/uplink_item/stealthy_tools/dnascrambler
@@ -1477,7 +1477,7 @@
 	name = "Smuggler's Satchel"
 	desc = "This satchel is thin enough to be hidden in the gap between plating and tiling, great for stashing your stolen goods. Comes with a crowbar and a floor tile inside."
 	item = /obj/item/storage/backpack/satchel_flat
-	cost = 10
+	cost = 6
 	surplus = 30
 
 /datum/uplink_item/stealthy_tools/emplight
@@ -1485,14 +1485,14 @@
 	desc = "A small, self-charging, short-ranged EMP device disguised as a flashlight. \
 		Useful for disrupting headsets, cameras, and borgs during stealth operations."
 	item = /obj/item/flashlight/emp
-	cost = 20
+	cost = 19
 	surplus = 30
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Chameleon Shoes"
 	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. They do not work on heavily lubricated surfaces."
 	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 10
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
@@ -1506,7 +1506,7 @@
 	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
 	spraycan for changing their appearances."
 	item = /obj/item/storage/box/syndie_kit/cutouts
-	cost = 5
+	cost = 1
 	surplus = 20
 
 /datum/uplink_item/stealthy_tools/clownkit
@@ -1521,7 +1521,7 @@
 	name = "Chameleon Counterfeiter"
 	desc = "This device disguises itself as any object scanned by it. It's unstable and disguise will be disabled in about 30 minutes. The box contains three counterfeiters."
 	item = /obj/item/storage/box/syndie_kit/chameleon_counter
-	cost = 10
+	cost = 6
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -1543,7 +1543,7 @@
 	name = "Fully Loaded Toolbox"
 	desc = "The syndicate toolbox is a suspicious black and red. Aside from tools, it comes with insulated gloves and a multitool."
 	item = /obj/item/storage/toolbox/syndicate
-	cost = 5
+	cost = 3
 
 /datum/uplink_item/device_tools/supertoolbox
 	name = "Superior Suspicious Toolbox"
@@ -1556,50 +1556,50 @@
 	name = "Shoulder Holster"
 	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
 	item = /obj/item/clothing/accessory/holster
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/holster/knives
 	name = "Knife holster"
 	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
 	item = /obj/item/clothing/accessory/holster/knives
-	cost = 10
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	item = /obj/item/clothing/accessory/storage/webbing
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/black_vest
 	name = "Black Vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	item = /obj/item/clothing/accessory/storage/black_vest
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/brown_vest
 	name = "Brown Vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	item = /obj/item/clothing/accessory/storage/brown_vest
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/blackops_kit
 	name = "Black ops kit"
 	desc = "A package of clothing for dangerous covert operations"
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
-	cost = 10
+	cost = 8
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
 	desc = "The Syndicate Surgical Bag comes with a complete set of everything you need for quality surgery, including a straitjacket and muzzle. The bag itself is unprecedentedly light, doesn't slow you down, and is completely silent."
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Prototype Nanite Autoinjector Kit"
 	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 10
+	cost = 6
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Teleporter"
@@ -1608,13 +1608,13 @@
 			but if that emergency teleport fails, it will kill you. \
 			Has 4 charges, recharges, warranty voided if exposed to EMP."
 	item = /obj/item/storage/box/syndie_kit/teleporter
-	cost = 40
+	cost = 44
 
 /datum/uplink_item/device_tools/spai
 	name = "Syndicate Personal AI Device (SPAI)"
 	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
 	item = /obj/item/storage/box/syndie_kit/pai
-	cost = 35
+	cost = 37
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	refundable = TRUE
 	refund_path = /obj/item/paicard_upgrade/unused
@@ -1624,7 +1624,7 @@
 	name = "Amplifying Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	item = /obj/item/thermal_drill/syndicate
-	cost = 5
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/dthermal_drill
@@ -1672,7 +1672,7 @@
 	name = "Syndicate Autoimplanter"
 	desc = "Cheaper version of nuclear operatives autoimplanter, this model allows you to install three cybernetic implants on the field."
 	item = /obj/item/autoimplanter/traitor
-	cost = 30
+	cost = 28
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 //Space Suits and Hardsuits
@@ -1686,7 +1686,7 @@
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	item = /obj/item/storage/box/syndie_kit/space
-	cost = 20
+	cost = 18
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
@@ -1696,7 +1696,7 @@
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. Comes packaged with internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 30
+	cost = 33
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/chameleon_hardsuit
@@ -1704,7 +1704,7 @@
 	desc = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
 	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area. \
 	This one disquised as engineering hardsuit."
-	cost = 50 //reskinned blood-red hardsuit with chameleon
+	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 
 /datum/uplink_item/suits/hardsuit/elite
@@ -1727,7 +1727,7 @@
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
 	item = /obj/item/encryptionkey/binary
-	cost = 25
+	cost = 21
 	surplus = 75
 
 /datum/uplink_item/device_tools/bowman_kit
@@ -1735,14 +1735,14 @@
 	desc = "Easy-to-apply device which enchances headset with loud noise protection and chameleoning headsets. \
 	A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
 	item = /obj/item/storage/box/syndie_kit/bowman_conversion_kit
-	cost = 5
+	cost = 2
 	surplus = 75
 
 /datum/uplink_item/device_tools/hacked_module
 	name = "Hacked AI Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	item = /obj/item/aiModule/syndicate
-	cost = 40
+	cost = 38
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1790,19 +1790,19 @@
 	name = "Advanced Pinpointer"
 	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
 	item = /obj/item/pinpointer/advpinpointer
-	cost = 20
+	cost = 19
 
 /datum/uplink_item/device_tools/ai_detector
 	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
 	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
 	item = /obj/item/multitool/ai_detect
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
 	desc = "This device will disrupt any nearby outgoing radio communication when activated."
 	item = /obj/item/jammer
-	cost = 10
+	cost = 6
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
@@ -1840,7 +1840,7 @@
 	name = "Stimulants"
 	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
-	cost = 25
+	cost = 28
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 // IMPLANTS
@@ -1852,7 +1852,7 @@
 	name = "Freedom Implant"
 	desc = "An implant injected into the body and later activated manually to break out of any restraints. Can be activated up to 4 times."
 	item = /obj/item/implanter/freedom
-	cost = 20
+	cost = 18
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
@@ -1867,19 +1867,19 @@
 	name = "Storage Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
 	item = /obj/item/implanter/storage
-	cost = 30
+	cost = 27
 
 /datum/uplink_item/implants/mindslave
 	name = "Mindslave Implant"
 	desc = "A box containing an implanter filled with a mindslave implant that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	item = /obj/item/implanter/traitor
-	cost = 50
+	cost = 25
 
 /datum/uplink_item/implants/adrenal
 	name = "Adrenal Implant"
 	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	item = /obj/item/implanter/adrenalin
-	cost = 40
+	cost = 44
 	can_discount = FALSE
 	surplus = 0
 
@@ -1939,7 +1939,7 @@
 	name = "Mantis Blades"
 	desc = "A box containing a set of two Gorlex Hidden Blade Implants comes with self-destructing auto-implanters. After the EMP, they return to service to show that it's too early to write you off."
 	item = /obj/item/storage/box/syndie_kit/mantisblade
-	cost = 60
+	cost = 57
 	surplus = 90
 	uplinktypes = list()
 
@@ -1969,14 +1969,14 @@
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
 	desc = "A special deck of space-grade playing cards with a mono-molecular edge and metal reinforcement, making them lethal weapons both when wielded as a blade and when thrown. \
 	You can also play card games with them."
 	item = /obj/item/deck/cards/syndicate
-	cost = 5
+	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
@@ -1991,7 +1991,7 @@
 	name = "Plastic Bag"
 	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
 	item = /obj/item/storage/bag/plasticbag
-	cost = 5
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/badass/balloon

@@ -367,7 +367,7 @@
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
-	if(istype(spell, /datum/vampire_passive))
+	else if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
@@ -394,7 +394,10 @@
 		powers -= ability
 		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = null
-		owner.RemoveSpell(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell))
+			owner.RemoveSpell(ability)
+		else if(istype(ability, /datum/vampire_passive))
+			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 

@@ -4,6 +4,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	item_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_HANDCUFFED
@@ -159,6 +160,7 @@
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
+	item_state = "pinkcuff"
 
 /obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
@@ -216,6 +218,9 @@
 	item_state = "manacle"
 	breakouttime = 450 //Deciseconds = 45s
 	cuffsound = 'sound/items/zippoclose.ogg'
+	onmob_sheets = list(
+		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'
+	)
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/manacles/used
 
