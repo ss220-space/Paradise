@@ -90,8 +90,8 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
-		inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
+		inv?.update_appearance()
 
 	if(wear_suit)
 		if(client && hud_used && hud_used.hud_shown)
@@ -135,23 +135,19 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_pockets()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
+		inv?.update_appearance()
+		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_RIGHT) + 1]
+		inv?.update_appearance()
 
-		inv = hud_used.inv_slots[SLOT_HUD_LEFT_STORE]
-		if(inv)
-			inv.update_icon()
+		if(hud_used.hud_shown)
+			if(l_store)
+				client.screen += l_store
+				l_store.screen_loc = ui_alien_storage_l
 
-		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_STORE]
-		if(inv)
-			inv.update_icon()
-
-		if(l_store)
-			client.screen += l_store
-			l_store.screen_loc = ui_alien_storage_l
-
-		if(r_store)
-			client.screen += r_store
-			r_store.screen_loc = ui_alien_storage_r
+			if(r_store)
+				client.screen += r_store
+				r_store.screen_loc = ui_alien_storage_r
 
 
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()

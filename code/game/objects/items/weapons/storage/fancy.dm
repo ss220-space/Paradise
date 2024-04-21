@@ -140,7 +140,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
@@ -216,7 +216,7 @@
 	item_state = "cigpacket"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 20
 	max_combined_w_class = 20
 	display_contents_with_number = 1
@@ -261,7 +261,7 @@
 		to_chat(user, span_warning("There are no smokables in the pack!"))
 		return TRUE
 
-	if(target.equip_to_slot_if_possible(cigar, SLOT_HUD_WEAR_MASK, disable_warning = TRUE))
+	if(target.equip_to_slot_if_possible(cigar, ITEM_SLOT_MASK, disable_warning = TRUE))
 		to_chat(user, span_notice("You took \a [cigar.name] out of the pack[target != user ? " and deftly place it in [target] mouth" : ""]."))
 	else
 		to_chat(user, span_warning("Something is blocking [target] mouth!"))

@@ -66,6 +66,17 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
+/obj/item/organ/internal/eyes/has_damage()
+	. = ..()
+	if(.)
+		return .
+	if(owner.AmountEyeBlurry() || owner.AmountBlinded())
+		return TRUE
+	if(NEARSIGHTED in owner.mutations)
+		return TRUE
+	if(BLINDNESS in owner.mutations)
+		return TRUE
+
 /obj/item/organ/internal/eyes/robotize(make_tough = FALSE)
 	colourmatrix = null
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.

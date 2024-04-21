@@ -12,7 +12,7 @@
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(!istype(user) || !HUDType || (slot != SLOT_HUD_GLASSES && slot != SLOT_HUD_HEAD))
+	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
@@ -21,7 +21,7 @@
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(!istype(user) || !HUDType || (slot != SLOT_HUD_GLASSES && slot != SLOT_HUD_HEAD))
+	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]

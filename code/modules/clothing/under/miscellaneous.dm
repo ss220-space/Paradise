@@ -868,20 +868,20 @@
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_JUMPSUIT && !user.ventcrawler)
+	if(slot == ITEM_SLOT_CLOTH_INNER && !user.ventcrawler)
 		user.ventcrawler = 1
 
 
 /obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
-	if(slot == SLOT_HUD_JUMPSUIT && !user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
+	if(slot == ITEM_SLOT_CLOTH_INNER && !user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
 		user.ventcrawler = 0
 	. = ..()
 
 
 /obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(SLOT_HUD_BACK, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED, SLOT_HUD_LEFT_HAND, \
-										SLOT_HUD_RIGHT_HAND, SLOT_HUD_BELT, SLOT_HUD_HEAD, SLOT_HUD_OUTER_SUIT)
+	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED, ITEM_SLOT_HAND_LEFT, \
+										ITEM_SLOT_HAND_RIGHT, ITEM_SLOT_BELT, ITEM_SLOT_HEAD, ITEM_SLOT_CLOTH_OUTER)
 
 	var/obj/item/slot_item
 	for(var/slot_id in slot_must_be_empty)
@@ -900,7 +900,9 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_uniform"
 	item_color = "cursedclown"
-	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP

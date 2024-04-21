@@ -400,7 +400,7 @@
 
 	var/found_damaged_organ = FALSE
 	for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
-		if(organ.damage && organ.is_robotic())
+		if(organ.has_damage() && organ.is_robotic())
 			user.visible_message(
 				"[user] starts mending the damage to [target]'s [organ.name]'s mechanisms.",
 				"You start mending the damage to [target]'s [organ.name]'s mechanisms."

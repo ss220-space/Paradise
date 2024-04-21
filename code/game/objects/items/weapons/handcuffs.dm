@@ -4,9 +4,10 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	item_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_HANDCUFFED
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -34,7 +35,7 @@
 		to_chat(user, span_warning("[src] is stuck to your hand!"))
 		return
 
-	if(!C.has_organ_for_slot(SLOT_HUD_HANDCUFFED))
+	if(!C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
 		return
 
@@ -69,7 +70,7 @@
 	if(target.handcuffed)
 		return
 
-	if(!target.has_organ_for_slot(SLOT_HUD_HANDCUFFED))
+	if(!target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 		return
 
 	if(!user.temporarily_remove_item_from_inventory(src) && !dispense)
@@ -81,7 +82,7 @@
 	else if(dispense)
 		cuffs = new type()
 
-	target.equip_to_slot(cuffs, SLOT_HUD_HANDCUFFED)
+	target.equip_to_slot(cuffs, ITEM_SLOT_HANDCUFFED)
 
 	if(trashtype && !dispense)
 		qdel(src)
@@ -159,6 +160,7 @@
 	name = "fluffy pink handcuffs"
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
+	item_state = "pinkcuff"
 
 /obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
@@ -216,6 +218,9 @@
 	item_state = "manacle"
 	breakouttime = 450 //Deciseconds = 45s
 	cuffsound = 'sound/items/zippoclose.ogg'
+	onmob_sheets = list(
+		ITEM_SLOT_HANDCUFFED_STRING = 'icons/obj/ninjaobjects.dmi'
+	)
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/manacles/used
 

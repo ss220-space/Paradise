@@ -22,7 +22,7 @@
 	allow_quick_empty = 1
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
@@ -38,7 +38,7 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
-	slot_flags = null
+	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
@@ -92,7 +92,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -103,7 +103,7 @@
 
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
-	if(slot==SLOT_HUD_HEAD && contents.len)
+	if(slot==ITEM_SLOT_HEAD && length(contents))
 		if(!disable_warning)
 			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
@@ -113,7 +113,7 @@
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(slot==SLOT_HUD_HEAD)
+	if(slot==ITEM_SLOT_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -122,7 +122,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
+			if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)
@@ -141,7 +141,8 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
@@ -175,7 +176,8 @@
 	desc = "You thought it would be more like what those cartoon robbers wear."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 48
 	max_combined_w_class = 48
