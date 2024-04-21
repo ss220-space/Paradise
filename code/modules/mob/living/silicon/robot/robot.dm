@@ -1160,6 +1160,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
+		if(!hat_icon_file)
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 		if(head_icon)
@@ -1387,10 +1389,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 								floor_only = FALSE
 							else
 								qdel(B)
-					else if(istype(A, /obj/item))
+					else if(isitem(A))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
+					else if(ishuman(A))
 						var/mob/living/carbon/human/cleaned_human = A
 						if(cleaned_human.lying_angle)
 							if(cleaned_human.head)

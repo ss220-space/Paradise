@@ -313,17 +313,17 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
-	if(istype(T2, /turf/space))
+	if(isspaceturf(T2))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(istype(T2, /turf/simulated/wall/shuttle) || istype(T2, /turf/simulated/floor/shuttle))
 		return BORDER_SPACE
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if(istype(T2, /turf/simulated/wall))
+	if(iswallturf(T2))
 		return BORDER_2NDTILE
-	if(istype(T2, /turf/simulated/mineral))
+	if(ismineralturf(T2))
 		return BORDER_2NDTILE
-	if(!istype(T2, /turf/simulated))
+	if(!issimulatedturf(T2))
 		return BORDER_BETWEEN
 
 	for(var/obj/structure/window/W in T2)

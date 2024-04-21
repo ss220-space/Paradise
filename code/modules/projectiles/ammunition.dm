@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 1000)
@@ -118,7 +118,7 @@
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 500)
 	throwforce = 2

@@ -470,7 +470,7 @@
 	if(isalien(attacker))
 		var/mob/living/carbon/alien/A = attacker
 		return A.devour_time
-	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
+	if(isanimal(prey)) //simple animals get eaten at xeno-eating-speed regardless
 		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it

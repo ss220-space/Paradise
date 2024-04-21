@@ -578,9 +578,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/logmsg = null
 	switch(blessing)
 		if("Spawn Cookie")
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), ITEM_SLOT_HAND_LEFT )
 			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
+				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), ITEM_SLOT_HAND_RIGHT )
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
@@ -767,7 +767,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.bitesize = 100
 			evilcookie.flags = NODROP | DROPDEL
 			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
+			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
 			logmsg = "a mutagen cookie."
 		if("Hellwater Cookie")
 			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -776,7 +776,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.bitesize = 100
 			evilcookie.flags = NODROP | DROPDEL
 			H.drop_l_hand()
-			H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
+			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
 			logmsg = "a hellwater cookie."
 		if("Hunter")
 			H.mutations |= NOCLONE
@@ -822,7 +822,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(H.head)
 				H.drop_item_ground(H.head, force = TRUE)
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-			H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
+			H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 			logmsg = "shamebrero"
 		if("Dust")
 			H.dust()
@@ -1138,7 +1138,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
+		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
@@ -1160,7 +1160,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
+		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container

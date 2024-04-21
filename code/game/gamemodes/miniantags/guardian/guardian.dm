@@ -92,7 +92,7 @@
 		else
 			to_chat(src, "<span class='holoparasite'>Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
 			visible_message(span_danger("\The [src] вернулся к носителю."))
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
 				new /obj/effect/temp_visual/guardian/phase/out(loc)

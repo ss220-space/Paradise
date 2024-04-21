@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			if(MA.anchored)
 				continue
 			var/mob/MB = get_mob_in_atom_without_warning(MA)
-			if(MB?.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
+			if(MB?.stat || isliving(MA)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count

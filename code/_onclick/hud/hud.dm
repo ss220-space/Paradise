@@ -38,6 +38,8 @@
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /obj/screen/inventory objects, ordered by their slot ID.
+	/// List of obj/screen/inventory/hand objects
+	var/list/hand_slots
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
@@ -57,6 +59,8 @@
 	mymob = owner
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(mymob)
+
+	hand_slots = list()
 
 	for(var/mytype in subtypesof(/obj/screen/plane_master))
 		var/obj/screen/plane_master/instance = new mytype()
@@ -81,6 +85,7 @@
 	action_intent = null
 	zone_select = null
 	move_intent = null
+	hand_slots.Cut()
 
 	QDEL_LIST(toggleable_inventory)
 
@@ -159,10 +164,8 @@
 				mymob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			if(inv_slots[SLOT_HUD_LEFT_HAND])
-				mymob.client.screen += inv_slots[SLOT_HUD_LEFT_HAND]	//we want the hands to be visible
-			if(inv_slots[SLOT_HUD_RIGHT_HAND])
-				mymob.client.screen += inv_slots[SLOT_HUD_RIGHT_HAND]	//we want the hands to be visible
+			for(var/obj/screen/inventory/hand/hand_box as anything in hand_slots)
+				mymob.client.screen += hand_box	//we want the hands to be visible
 			if(action_intent)
 				mymob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.

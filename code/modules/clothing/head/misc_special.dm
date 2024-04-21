@@ -207,8 +207,7 @@
 	desc = "Soviet steel combat helmet."
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	materials = list(MAT_METAL=2500)
 
@@ -221,9 +220,8 @@
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
@@ -279,7 +277,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/user, slot, initial)
 	. = ..()
-	if(. && slot == SLOT_HUD_HEAD)
+	if(. && slot == ITEM_SLOT_HEAD)
 		update_look(user)
 
 
@@ -317,7 +315,7 @@
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(ishuman(user) && slot == SLOT_HUD_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
 		var/obj/item/clothing/suit/cardborg/user_suit = user.wear_suit
 		user_suit.disguise(user, src)
 

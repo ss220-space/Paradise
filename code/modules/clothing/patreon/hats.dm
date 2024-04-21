@@ -8,7 +8,7 @@
 	desc = "A horrifying display of Nanotrasen's ruthless pursuit in being the forefront of fashion. Or genocide."
 	icon_state = "mushhat"
 	item_state = "mushhat"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
@@ -54,8 +54,7 @@
 	desc = "A plastic re-creation of a medieval-era headwear worn by extremely bored recruits of the local army. Kintergarden only."
 	icon_state = "guardhelm"
 	item_state = "guardhelm"
-	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES|HIDEHAIR
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -71,7 +70,7 @@
 	desc = "A rare identifying hat of the infamous ancient renegade gang known as 'El Loco Pocos'"
 	icon_state = "blacksombrero"
 	item_state = "blacksombrero"
-	flags = BLOCKHAIR
+	flags_cover = HIDEHAIR
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',

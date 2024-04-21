@@ -9,7 +9,7 @@
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
 /obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
-	if(suit && slot == SLOT_HUD_HEAD)
+	if(suit && slot == ITEM_SLOT_HEAD)
 		suit.deactivate()
 	. = ..()
 
@@ -50,7 +50,7 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped(mob/user, slot, silent = FALSE)
-	if(slot == SLOT_HUD_OUTER_SUIT && activated)
+	if(slot == ITEM_SLOT_CLOTH_OUTER && activated)
 		deactivate()
 	. = ..()
 
@@ -201,7 +201,7 @@
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
-				if(istype(step, /turf/space))
+				if(isspaceturf(step))
 					if(!src.Move(step))
 						src.loc = step
 				else

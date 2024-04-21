@@ -42,7 +42,7 @@
 		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
+	if(!ishuman(M))
 		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
 		return
 
@@ -148,7 +148,7 @@
 	force = 5
 	sharp = 0
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -435,8 +435,7 @@
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_flags = helm.visor_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
-		if(!(BLOCKHAIR in sallet.flags))
-			sallet.flags |= BLOCKHAIR
+		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
@@ -683,8 +682,8 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
-	flags = BLOCKHAIR
-	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS
+	flags = NONE
+	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS|HIDEHAIR
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
@@ -990,8 +989,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
@@ -1010,8 +1007,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1055,8 +1050,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1193,7 +1186,9 @@
 	name = "E.L.O's Turtleneck"
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
-	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi' // for the mob sprite
+	)
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
 	displays_id = FALSE
@@ -1292,8 +1287,7 @@
 	icon_state = "superior_mask"
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/shoes/fluff/arachno_boots
@@ -1320,7 +1314,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = FALSE
@@ -1478,7 +1472,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_ACCESSORY
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
@@ -1518,7 +1512,7 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(!istype(target, /obj/spacepod))
+	if(!isspacepod(target))
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
@@ -1577,7 +1571,6 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
@@ -1586,7 +1579,6 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
     name = "Old purple scarf"

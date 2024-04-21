@@ -36,7 +36,7 @@
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -160,6 +160,8 @@
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
+		if(!hat_icon_file)
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 
@@ -281,6 +283,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null

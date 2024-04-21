@@ -386,7 +386,7 @@
 			target.adjustBruteLoss(20)
 			target.Slowed(8 SECONDS)
 
-		if(istype(target_turf, /turf/simulated/floor))
+		if(isfloorturf(target_turf))
 			var/turf/simulated/floor/floor_tile = target_turf
 			floor_tile.break_tile()
 

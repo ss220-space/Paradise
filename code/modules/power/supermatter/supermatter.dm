@@ -458,7 +458,7 @@
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	else if(isobj(moving_atom) && !istype(moving_atom, /obj/effect))
+	else if(isobj(moving_atom) && !iseffect(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
@@ -498,13 +498,13 @@
 
 
 /obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
-	if(istype(AM, /mob/living))
+	if(isliving(AM))
 		var/mob/living/user = AM
 		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
 		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
-	else if(isobj(AM) && !istype(AM, /obj/effect))
+	else if(isobj(AM) && !iseffect(AM))
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 

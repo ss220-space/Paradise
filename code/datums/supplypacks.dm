@@ -2230,6 +2230,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/largecrate/mule
 	containername = "\improper MULEbot crate"
 
+/datum/supply_packs/misc/cargo_mon
+	name = "Order Monitors Crate"
+	contains = list(/obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech)
+	cost = 30
+	containername = "\improper order monitors crate"
+
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)

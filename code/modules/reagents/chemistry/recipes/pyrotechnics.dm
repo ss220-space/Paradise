@@ -10,7 +10,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/emp_pulse
@@ -25,7 +25,7 @@
 	// 100 created volume = 4 heavy range & 7 light range. A few tiles smaller than traitor EMP grandes.
 	// 200 created volume = 8 heavy range & 14 light range. 4 tiles larger than traitor EMP grenades.
 	empulse(location, round(created_volume / 24), round(created_volume / 14), TRUE, "Chem Reaction")
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/beesplosion
@@ -65,7 +65,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round(created_volume/2, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/stabilizing_agent

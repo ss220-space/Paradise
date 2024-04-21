@@ -116,7 +116,7 @@
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(slot != SLOT_HUD_WEAR_MASK)
+	if(slot != ITEM_SLOT_MASK)
 		return .
 	var/obj/item/trash/tapetrash/trash_gag = new trashtype(get_turf(src))
 	transfer_fingerprints_to(trash_gag)
@@ -171,8 +171,8 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
-		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
+	if(issignaler(W) || istype(W, /obj/item/assembly/voice))
+		if(issignaler(trigger) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
 			return FALSE
 		if(!user.drop_transfer_item_to_loc(W, src))
@@ -184,7 +184,7 @@
 		AddComponent(/datum/component/proximity_monitor)
 		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
 		return TRUE
-	else if(istype(W, /obj/item/assembly))
+	else if(isassembly(W))
 		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
 		return FALSE
 
@@ -301,8 +301,8 @@
 	pontificate(user)
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_WEAR_MASK)
-		return 1
+	if(slot == ITEM_SLOT_MASK)
+		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
 	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
@@ -342,8 +342,7 @@
 	desc = "A rubber pig mask."
 	icon_state = "pig"
 	item_state = "pig"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -353,8 +352,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
 	item_state = "horsehead"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
@@ -381,7 +379,7 @@
 			user.real_name = "[user.name][temporaryname]"
 
 /obj/item/clothing/mask/horsehead/dropped(mob/user, slot, silent = FALSE) //this really shouldn't happen, but call it extreme caution
-	if(slot == SLOT_HUD_WEAR_MASK && (flags & NODROP))
+	if(slot == ITEM_SLOT_MASK && (flags & NODROP))
 		goodbye_horses(loc)
 	. = ..()
 
@@ -495,7 +493,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/clown_hat/rockso
 	name = "Rockso Mask"
@@ -514,7 +511,6 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
@@ -522,8 +518,8 @@
 	desc = "A colorful bandana."
 	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_MASK
-	adjusted_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_MASK
+	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
 	can_toggle = TRUE
@@ -621,7 +617,9 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_MASK_STRING = 'icons/goonstation/mob/clothing/mask.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP | AIRTIGHT
@@ -631,7 +629,7 @@
 	. = ..()
 
 	var/mob/living/carbon/human/H = user
-	if(istype(H) && slot == SLOT_HUD_WEAR_MASK)
+	if(istype(H) && slot == ITEM_SLOT_MASK)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
@@ -673,8 +671,7 @@
 	icon_state = "secscarf"
 	item_state = "secscarf"
 	icon = 'icons/obj/clothing/masks.dmi'
-	flags_inv = HIDENAME
-	flags = BLOCKFACIALHAIR
+	flags_inv = HIDENAME|HIDEFACIALHAIR
 	flags_cover = MASKCOVERSMOUTH
 	can_toggle = TRUE
 	strip_delay = 20

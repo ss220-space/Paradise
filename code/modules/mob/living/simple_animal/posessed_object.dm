@@ -93,7 +93,7 @@
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
 
-	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
+	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)

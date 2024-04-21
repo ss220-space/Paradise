@@ -113,10 +113,10 @@
 
 		var/obj/item/implantcase/case
 
-		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/implantcase))
-			case = user.get_item_by_slot(SLOT_HUD_LEFT_HAND)
-		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/implantcase))
-			case = user.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
+		if(istype(user.get_item_by_slot(ITEM_SLOT_HAND_LEFT), /obj/item/implantcase))
+			case = user.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
+		else if(istype(user.get_item_by_slot(ITEM_SLOT_HAND_RIGHT), /obj/item/implantcase))
+			case = user.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
 		else
 			case = locate(/obj/item/implantcase) in get_turf(target)
 
