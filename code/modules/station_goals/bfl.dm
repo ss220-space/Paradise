@@ -38,9 +38,9 @@
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
-	for(var/datum/supply_packs/misc/station_goal/bfl_goal/B)
-		if(B.times_ordered >= 1)
-			return TRUE
+	var/datum/supply_packs/misc/station_goal/bfl_goal/goal_pack = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
+	if(goal_pack.times_ordered >= 1)
+		return TRUE
 	return FALSE
 
 /datum/station_goal/bfl/Destroy()
