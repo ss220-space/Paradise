@@ -652,7 +652,6 @@
 	desc = "A legendary high power pistol that uses 7 rounds .50AE magazines."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/uzi
 	name = "Type U3 Uzi"
@@ -1970,12 +1969,6 @@
 	desc = "A badass gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50AE ammo. Kill with style."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	cost = 50
-
-/datum/uplink_item/badass/deagle_mag
-	name = ".50AE handgun magazine"
-	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
-	item = /obj/item/ammo_box/magazine/m50
-	cost = 5
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
