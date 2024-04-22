@@ -1024,7 +1024,7 @@ About the new airlock wires panel:
 						update_icon()
 					return
 
-	if(istype(C, /obj/item/assembly/signaler))
+	if(issignaler(C))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)

@@ -45,7 +45,7 @@
 			for(direct in list(WEST,NORTHWEST,NORTH))
 				possible_turfs += get_step(src,direct)
 		for(var/turf/spawn_turf in possible_turfs)
-			if(!istype(spawn_turf, /turf/simulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
+			if(!iswallturf(spawn_turf) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
 		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
 			ninja_action.use_action()

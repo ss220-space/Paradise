@@ -372,7 +372,7 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/I in items)
-		if(istype(I, /obj/item/pda))
+		if(is_pda(I))
 			var/obj/item/pda/P = I
 			QDEL_NULL(P.id)
 			qdel(P)

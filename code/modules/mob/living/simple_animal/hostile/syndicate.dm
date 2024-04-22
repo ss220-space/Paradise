@@ -136,9 +136,9 @@
 					depotarea.saw_double_agent(M)
 			depotarea.declare_started()
 		seen_enemy_name = target.name
-		if(istype(target, /obj/mecha))
+		if(ismecha(target))
 			depotarea.saw_mech(target)
-		if(istype(target, /obj/spacepod))
+		if(isspacepod(target))
 			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE

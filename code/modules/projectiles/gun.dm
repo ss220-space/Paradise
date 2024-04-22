@@ -6,7 +6,7 @@
 	item_state = "gun"
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -397,7 +397,7 @@
 				update_gun_light()
 
 	if(unique_rename)
-		if(istype(I, /obj/item/pen))
+		if(is_pen(I))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
@@ -651,7 +651,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
+	if(!(slot & ITEM_SLOT_HANDS))
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)

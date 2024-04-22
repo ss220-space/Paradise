@@ -398,7 +398,7 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue
@@ -623,8 +623,8 @@
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags = BLOCKHAIR
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/goliath
@@ -643,7 +643,7 @@
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
 	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/goliath/wizard
@@ -662,12 +662,12 @@
 //mob_size using for crusher mark
 /obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(istype(user) && slot == SLOT_HUD_HEAD)
+	if(istype(user) && slot == ITEM_SLOT_HEAD)
 		user.mob_size = MOB_SIZE_LARGE
 
 /obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(istype(user)&& slot == SLOT_HUD_HEAD)
+	if(istype(user)&& slot == ITEM_SLOT_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone

@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "dont_use_this_floor"
+	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!istype(src, /turf/simulated/floor))
+	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()

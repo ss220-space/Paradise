@@ -180,8 +180,9 @@
 	if(antidropupgrade)
 		if(on)
 			to_chat(user, "<span class='notice'>The baton spikes burrows into your arm, preventing you to drop your baton.</span>")
-			flags |= NODROP
-			slot_flags = 0 //preventing putting baton to belt using hotkey
+			ADD_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
+			slot_flags = NONE //preventing putting baton to belt using hotkey
 		else
 			to_chat(user, "<span class='notice'>The baton spikes fold back, allowing you to move your hand freely.</span>")
-			flags &= ~NODROP
+			REMOVE_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
+

@@ -283,14 +283,14 @@
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.teach(user, TRUE)
 
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
 
@@ -306,7 +306,7 @@
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
@@ -317,7 +317,7 @@
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	style.remove(user)
 	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
@@ -487,7 +487,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20

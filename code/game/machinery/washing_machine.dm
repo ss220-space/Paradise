@@ -28,7 +28,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )
@@ -300,7 +300,7 @@
 		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if(W.flags & NODROP) //if "can't drop" item
+		if(HAS_TRAIT(W, TRAIT_NODROP)) //if "can't drop" item
 			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return
 

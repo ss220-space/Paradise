@@ -133,7 +133,7 @@ Difficulty: Medium
 
 /obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_OUTER_SUIT)
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 	LAZYADD(user.mob_spell_list, blood_spell)
 	blood_spell.action.Grant(user)
@@ -141,7 +141,7 @@ Difficulty: Medium
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_OUTER_SUIT)
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 	LAZYREMOVE(user.mob_spell_list, blood_spell)
 	blood_spell.action.Remove(user)

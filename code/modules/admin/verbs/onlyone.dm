@@ -33,12 +33,12 @@
 				continue
 			qdel(I)
 
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), SLOT_HUD_JUMPSUIT)
-		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
-		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), SLOT_HUD_RIGHT_HAND)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
-		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), SLOT_HUD_LEFT_STORE)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), ITEM_SLOT_CLOTH_INNER)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
+		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), ITEM_SLOT_HAND_RIGHT)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_FEET)
+		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), ITEM_SLOT_POCKET_LEFT)
 
 		var/obj/item/card/id/W = new(H)
 		W.name = "[H.real_name]'s ID Card"
@@ -47,7 +47,7 @@
 		W.access += get_all_centcom_access()
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
-		H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+		H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
@@ -86,13 +86,13 @@
 		messages.Add(H.mind.prepare_announce_objectives(FALSE))
 		to_chat(H, chat_box_red(messages.Join("<br>")))
 
-		var/obj/item/slot_item_ID = H.get_item_by_slot(SLOT_HUD_WEAR_ID)
+		var/obj/item/slot_item_ID = H.get_item_by_slot(ITEM_SLOT_ID)
 		qdel(slot_item_ID)
-		var/obj/item/slot_item_hand = H.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
+		var/obj/item/slot_item_hand = H.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
 		H.drop_item_ground(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
-		H.equip_to_slot_or_del(multi, SLOT_HUD_RIGHT_HAND)
+		H.equip_to_slot_or_del(multi, ITEM_SLOT_HAND_RIGHT)
 
 		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"
@@ -101,7 +101,7 @@
 		W.assignment = "Multiverse Summoner"
 		W.registered_name = H.real_name
 		W.update_label(H.real_name)
-		H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+		H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 		H.update_icons()
 

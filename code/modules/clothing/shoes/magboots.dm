@@ -127,12 +127,12 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_FEET && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_FEET && enabled_waddle)
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
@@ -297,13 +297,13 @@
 
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_SHOES && cell && core)
+	if(slot == ITEM_SLOT_FEET && cell && core)
 		style.teach(user, TRUE)
 
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_SHOES)
+	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
 		return .
 
 	style.remove(user)
@@ -314,7 +314,7 @@
 
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)

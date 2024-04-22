@@ -11,6 +11,8 @@
 	density = 0
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	use_power = NO_POWER_USE
+	interact_offline = TRUE
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
@@ -111,7 +113,7 @@
 		. = timer_set
 
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+	if(issignaler(I))
 		if(open_panel)
 			add_fingerprint(user)
 			wires.Interact(user)

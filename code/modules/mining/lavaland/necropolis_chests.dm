@@ -256,13 +256,17 @@
 	activated()
 
 /obj/item/rod_of_asclepius/proc/activated()
-	flags =  NODROP | DROPDEL
+	flags =  DROPDEL
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
+
+
 // enchanced flowers
-#define COOLDOWN_SUMMON 1 MINUTES
+#define COOLDOWN_SUMMON (1 MINUTES)
+
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc ="A charming bunch of flowers, most animals seem to find the bearer amicable after momentary contact with it. Squeeze the bouquet to summon tamed creatures. Megafauna cannot be summoned. <b>Megafauna need to be exposed 35 times to become friendly.</b>"
@@ -329,7 +333,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "rune_scimmy"
 	force = 28
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'

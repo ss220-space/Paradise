@@ -25,16 +25,18 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = SLOT_HUD_RIGHT_HAND
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "left hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = SLOT_HUD_LEFT_HAND
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	using = new /obj/screen/swap_hand()
 	using.name = "hand"
@@ -59,8 +61,8 @@
 	for(var/obj/screen/inventory/inv in static_inventory)
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
 
 
 /datum/hud/devil/persistent_inventory_update()

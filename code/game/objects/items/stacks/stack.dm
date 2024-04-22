@@ -238,12 +238,12 @@
 			src = null //dont kill proc after qdel()
 			usr.temporarily_remove_item_from_inventory(oldsrc, force = TRUE)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -478,7 +478,7 @@
 		return FALSE
 	if(check.throwing)	// no merging for items in middle air
 		return FALSE
-	if(istype(loc, /obj/machinery)) // no merging items in machines that aren't both in componentparts
+	if(ismachinery(loc)) // no merging items in machines that aren't both in componentparts
 		var/obj/machinery/machine = loc
 		if(!(src in machine.component_parts) || !(check in machine.component_parts))
 			return FALSE

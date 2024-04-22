@@ -109,7 +109,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
@@ -326,7 +326,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -376,7 +376,7 @@
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()
 
-    if(slot == SLOT_HUD_HEAD && reagents.total_volume)
+    if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
         to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
         reagents.reaction(user, REAGENT_TOUCH)
         reagents.clear_reagents()

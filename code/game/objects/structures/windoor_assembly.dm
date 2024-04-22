@@ -151,7 +151,7 @@
 					electronics = W
 					state = "03"
 					name = "[(src.secure) ? "secure" : ""] near finished windoor assembly"
-			else if(istype(W, /obj/item/pen))
+			else if(is_pen(W))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
 					add_fingerprint(user)

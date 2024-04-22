@@ -980,7 +980,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					slots_free -= ui_lhand
 				if(r_hand)
 					slots_free -= ui_rhand
-				if(istype(src,/mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(!H.belt)
 						slots_free += ui_belt

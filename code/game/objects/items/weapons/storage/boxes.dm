@@ -308,9 +308,10 @@
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
 	icon_state = "implant"
+	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
+	for(var/I in 1 to 7)
 		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
@@ -660,7 +661,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -1009,7 +1010,7 @@
     item_state = "pouch"
     storage_slots = 2
     w_class = WEIGHT_CLASS_TINY
-    slot_flags = SLOT_FLAG_BELT
+    slot_flags = ITEM_SLOT_BELT
     can_hold = list(/obj/item/ammo_box/magazine)
 
 /obj/item/storage/pouch/fast

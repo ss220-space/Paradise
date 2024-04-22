@@ -162,12 +162,13 @@
 
 		I.icon_override = initial(picked_item.icon_override)
 		if(initial(picked_item.sprite_sheets))
-			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
+			// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
 			var/obj/item/P = new picked_item(null)
 			I.sprite_sheets = P.sprite_sheets
+			I.onmob_sheets = P.onmob_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && ispath(picked_item, /obj/item/clothing))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)

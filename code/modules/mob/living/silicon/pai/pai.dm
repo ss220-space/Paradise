@@ -298,7 +298,7 @@
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.drop_item_ground(card)
-	else if(istype(card.loc, /obj/item/pda))
+	else if(is_pda(card.loc))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
 

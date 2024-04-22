@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_ID | SLOT_FLAG_BELT | SLOT_FLAG_PDA
+	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
-	else if(istype(C, /obj/item/pen))
+	else if(is_pen(C))
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			cartridge.attackby(C, user, params)
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon) && scanmode)
+	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)

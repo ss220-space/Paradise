@@ -43,7 +43,7 @@
 
 /obj/screen/close/Click()
 	if(master)
-		if(istype(master, /obj/item/storage))
+		if(isstorage(master))
 			var/obj/item/storage/S = master
 			S.close(usr)
 	return TRUE
@@ -469,7 +469,7 @@
 /obj/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
-	if(!user || !slot_id || slot_id == SLOT_HUD_LEFT_HAND || slot_id == SLOT_HUD_RIGHT_HAND)
+	if(!user || !slot_id || (slot_id & ITEM_SLOT_HANDS))
 		return
 
 	var/obj/item/holding = user.get_active_hand()
@@ -544,7 +544,7 @@
 	if(hud.mymob != user)
 		return FALSE
 
-	if(slot_id != SLOT_HUD_LEFT_HAND && slot_id != SLOT_HUD_RIGHT_HAND)
+	if(!(slot_id & ITEM_SLOT_HANDS))
 		return FALSE
 
 	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
@@ -555,7 +555,7 @@
 			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
 				return FALSE
 
-			if((slot_id == SLOT_HUD_LEFT_HAND && user.l_hand) || (slot_id == SLOT_HUD_RIGHT_HAND && user.r_hand))
+			if((slot_id == ITEM_SLOT_HAND_LEFT && user.l_hand) || (slot_id == ITEM_SLOT_HAND_RIGHT && user.r_hand))
 				return FALSE
 
 		if(!user.drop_item_ground(I))
@@ -564,8 +564,8 @@
 	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
 		return FALSE
 
-	if((slot_id == SLOT_HUD_LEFT_HAND && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
-		(slot_id == SLOT_HUD_RIGHT_HAND && !user.put_in_r_hand(I, ignore_anim = FALSE)))
+	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
+		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(I, ignore_anim = FALSE)))
 		return FALSE
 
 	I.pickup(user)
@@ -587,7 +587,7 @@
 		active_overlay = image("icon" = icon, "icon_state" = "hand_active")
 
 	if(!handcuff_overlay)
-		var/state = (slot_id == SLOT_HUD_LEFT_HAND) ? "gabrielle" : "markus"
+		var/state = (slot_id == ITEM_SLOT_HAND_LEFT) ? "gabrielle" : "markus"
 		handcuff_overlay = image("icon" = 'icons/mob/screen_gen.dmi', "icon_state" = state)
 
 	if(iscarbon(hud.mymob))
@@ -595,14 +595,14 @@
 		if(user.handcuffed)
 			. += handcuff_overlay
 
-		var/obj/item/organ/external/limb = user.get_organ((slot_id == SLOT_HUD_LEFT_HAND) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		var/obj/item/organ/external/limb = user.get_organ((slot_id == ITEM_SLOT_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(!isalien(user) && (!limb || !limb.is_usable()))
 			. += blocked_overlay
 
-	if(slot_id == SLOT_HUD_LEFT_HAND && hud.mymob.hand)
+	if(slot_id == ITEM_SLOT_HAND_LEFT && hud.mymob.hand)
 		. += active_overlay
 
-	else if(slot_id == SLOT_HUD_RIGHT_HAND && !hud.mymob.hand)
+	else if(slot_id == ITEM_SLOT_HAND_RIGHT && !hud.mymob.hand)
 		. += active_overlay
 
 
