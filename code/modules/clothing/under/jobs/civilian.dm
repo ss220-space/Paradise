@@ -127,7 +127,13 @@
 	item_color = "clussy_clown"
 
 /obj/item/clothing/under/rank/clown/nodrop
-	flags = NODROP
+
+
+/obj/item/clothing/under/rank/clown/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -278,7 +284,13 @@
 	item_color = "mime"
 
 /obj/item/clothing/under/mime/nodrop
-	flags = NODROP
+
+
+/obj/item/clothing/under/mime/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

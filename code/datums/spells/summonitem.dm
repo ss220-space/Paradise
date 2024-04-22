@@ -32,7 +32,7 @@
 					break
 				if(ABSTRACT in item.flags)
 					continue
-				if(NODROP in item.flags)
+				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"

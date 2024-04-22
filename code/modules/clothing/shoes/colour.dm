@@ -14,7 +14,12 @@
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
 
 /obj/item/clothing/shoes/black/greytide
-	flags = NODROP
+
+
+/obj/item/clothing/shoes/black/greytide/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/shoes/brown
 	name = "brown shoes"

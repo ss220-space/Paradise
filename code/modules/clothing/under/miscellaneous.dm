@@ -905,9 +905,14 @@
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
+
+
+/obj/item/clothing/under/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"

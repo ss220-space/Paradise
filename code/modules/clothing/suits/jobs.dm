@@ -557,7 +557,12 @@
 
 
 /obj/item/clothing/suit/suspenders/nodrop
-	flags = NODROP
+
+
+/obj/item/clothing/suit/suspenders/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 // Surgeon
 /obj/item/clothing/suit/apron/surgical
