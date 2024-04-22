@@ -1358,16 +1358,16 @@
 	switch(current_cycle)
 		if(1 to 9)
 			M.AdjustJitter(8 SECONDS)
-			if(prob(10))
+			if(prob(20))
 				to_chat(M, span_warning("Your skin feels hot and your veins are on fire!"))
 				update_flags |= M.adjustFireLoss(1, FALSE)
 			for(var/datum/reagent/R in M.reagents.reagent_list)
 				if(stimulant_list.Find(R.id))
-					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
+					M.reagents.remove_reagent(R.id, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(10 to 21)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
-				update_flags |= M.adjustToxLoss(10, FALSE)
+				update_flags |= M.adjustToxLoss(20, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
 					M.AdjustConfused(10 SECONDS)
@@ -1391,19 +1391,19 @@
 
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 28 healing to all internal organs.
-						I.heal_internal_damage(4)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 105 units total
-						H.blood_volume += 15
+					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
+						I.heal_internal_damage(8)
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
+						H.blood_volume += 30
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
 				if(M.health < 40)
-					update_flags |= M.adjustOxyLoss(-3, FALSE)
-					update_flags |= M.adjustToxLoss(-1, FALSE)
-					update_flags |= M.adjustBruteLoss(-2, FALSE)
-					update_flags |= M.adjustFireLoss(-2, FALSE)
+					update_flags |= M.adjustOxyLoss(-6, FALSE)
+					update_flags |= M.adjustToxLoss(-2, FALSE)
+					update_flags |= M.adjustBruteLoss(-4, FALSE)
+					update_flags |= M.adjustFireLoss(-4, FALSE)
 				else
-					if(prob(25))
+					if(prob(50))
 						to_chat(M, span_warning("Your skin feels like it is ripping apart and your veins are on fire!")) //It is experimental and does cause scars, after all.
 						update_flags |= M.adjustBruteLoss(2, FALSE)
 						update_flags |= M.adjustFireLoss(2, FALSE)
