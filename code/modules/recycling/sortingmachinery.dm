@@ -42,7 +42,7 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
 		AM.add_fingerprint(user)
-		AM.loc = T
+		AM.forceMove(T)
 
 	qdel(src)
 
@@ -130,7 +130,7 @@
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
 		else
-			wrapped.loc = get_turf(src)
+			wrapped.forceMove(get_turf(src))
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 

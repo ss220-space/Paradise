@@ -118,6 +118,6 @@ STI KALY - blind
 
 	if(is_teleport_allowed(target_turf.z))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
-		affected_mob.loc = target_turf
+		affected_mob.forceMove(target_turf)
 
 	return
