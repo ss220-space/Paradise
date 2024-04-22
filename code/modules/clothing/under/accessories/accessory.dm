@@ -979,6 +979,14 @@
 	item_color = "cestrip"
 	strip_bubble_icon = "CE"
 
+/obj/item/clothing/accessory/head_strip/t4ce
+	name = "Grand Chief Engineer's strip"
+	desc = "Плотно сшитая круглая нашивка из серого бархата, по центру красуется логотип корпорации Nanotrasen прошитый желтыми металлическими нитями. Если присмотреться, можно заметить проходящее по нитям электричество и небольшие искорки."
+	icon_state = "t4cestrip"
+	item_state = "t4cestrip"
+	item_color = "t4cestrip"
+	strip_bubble_icon = "T4CE"
+
 /obj/item/clothing/accessory/head_strip/cmo
 	name = "Chief Medical Officer's strip"
 	desc = "Плотно сшитая круглая нашивка из голубого бархата, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная центральным командованием за выдающиеся успехи в области медицины."
