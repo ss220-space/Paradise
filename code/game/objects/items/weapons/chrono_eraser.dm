@@ -44,7 +44,7 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
-	flags = NODROP | DROPDEL
+	flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
 	fire_delay = 50
@@ -56,6 +56,7 @@
 	. = ..()
 	if(istype(T))
 		TED = T
+		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	else //admin must have spawned it
 		TED = new(src.loc)
 		qdel(src)

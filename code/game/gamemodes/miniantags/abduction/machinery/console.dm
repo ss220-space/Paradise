@@ -83,7 +83,7 @@
 
 		dat+="<br>"
 		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
-		dat += "<a href='?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
+		dat += "<a href='?src=[UID()];toggle_vest=1'>[HAS_TRAIT_FROM(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)

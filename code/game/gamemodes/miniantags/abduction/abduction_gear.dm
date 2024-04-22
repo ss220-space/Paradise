@@ -30,10 +30,15 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	flags ^= NODROP
+	var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+	if(prev_has)
+		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+	else
+		ADD_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
+		to_chat(loc, span_notice("Your vest is now [prev_has ? "unlocked" : "locked"]."))
 
 
 /obj/item/clothing/suit/armor/abductor/vest/update_icon_state()

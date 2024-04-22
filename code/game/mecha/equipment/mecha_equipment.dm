@@ -156,7 +156,7 @@
 		M.selected = src
 	update_chassis_page()
 	attach_act(M)
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
 		give_targeted_action()
 
@@ -189,7 +189,7 @@
 		update_chassis_page()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
-		flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 		set_ready_state(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach_act()

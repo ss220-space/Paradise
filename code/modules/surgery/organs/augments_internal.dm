@@ -55,17 +55,17 @@
 		l_hand_obj = owner.l_hand
 		r_hand_obj = owner.r_hand
 		if(l_hand_obj)
-			if(owner.l_hand.flags & NODROP)
+			if(HAS_TRAIT_FROM(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT))
 				l_hand_ignore = TRUE
 			else
-				owner.l_hand.flags |= NODROP
+				ADD_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
-			if(owner.r_hand.flags & NODROP)
+			if(HAS_TRAIT_FROM(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT))
 				r_hand_ignore = TRUE
 			else
-				owner.r_hand.flags |= NODROP
+				ADD_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -98,23 +98,26 @@
 
 	release_items()
 	..()
+	var/list/surrounds = oview(range)
 	if(L_item)
-		A = pick(oview(range))
+		A = pick(surrounds)
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, span_notice("Your left arm spasms and throws the [L_item.name]!"))
 		l_hand_obj = null
 	if(R_item)
-		A = pick(oview(range))
+		A = pick(surrounds)
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, span_notice("Your right arm spasms and throws the [R_item.name]!"))
 		r_hand_obj = null
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
 	if(!l_hand_ignore && (l_hand_obj in owner.contents))
-		l_hand_obj.flags ^= NODROP
+		REMOVE_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 	if(!r_hand_ignore && (r_hand_obj in owner.contents))
-		r_hand_obj.flags ^= NODROP
+		REMOVE_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(active)

@@ -114,7 +114,7 @@
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT|DROPDEL
 	slot_flags = null
 	fire_sound = null
 	fire_sound_text = null
@@ -124,6 +124,11 @@
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+
+
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/gun/projectile/revolver/fingergun/fake

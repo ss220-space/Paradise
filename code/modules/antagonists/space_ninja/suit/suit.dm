@@ -648,9 +648,13 @@
 		return TRUE
 
 //Блочит определённую часть костюма, чтобы ниндзя не мог её снять
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(var/obj/item/ninja_clothing)
-	ninja_clothing.flags ^= NODROP
-	current_initialisation_text = "[ninja_clothing.flags & NODROP ? "Блокировка" : "Разблокировка"]: [ninja_clothing.name]... Успех"
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(obj/item/ninja_clothing)
+	var/prev_has = HAS_TRAIT_FROM(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
+	if(prev_has)
+		REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+	else
+		ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
 //	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")

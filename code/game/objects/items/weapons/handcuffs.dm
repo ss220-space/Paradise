@@ -31,7 +31,7 @@
 	if(!user.IsAdvancedToolUser())
 		return
 
-	if((flags & NODROP) && !isrobot(user))
+	if(HAS_TRAIT(src, TRAIT_NODROP) && !isrobot(user))
 		to_chat(user, span_warning("[src] is stuck to your hand!"))
 		return
 

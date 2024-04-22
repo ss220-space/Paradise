@@ -1167,7 +1167,7 @@
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
-	if(what.flags & NODROP)
+	if(HAS_TRAIT(what, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
 	if(!silent)
@@ -1186,7 +1186,7 @@
 // Override if a certain mob should be behave differently when placing items (can't, for example)
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
 	what = get_active_hand()
-	if(what && (what.flags & NODROP))
+	if(what && HAS_TRAIT(what, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
@@ -1196,7 +1196,7 @@
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who) && !(what.flags & NODROP))
+			if(what && Adjacent(who) && !HAS_TRAIT(what, TRAIT_NODROP))
 				drop_item_ground(what, silent = silent)
 				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
 				add_attack_logs(src, who, "Equipped [what]")

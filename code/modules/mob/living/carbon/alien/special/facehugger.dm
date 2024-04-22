@@ -151,7 +151,7 @@
 					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
 									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
-			if(W.flags & NODROP)
+			if(HAS_TRAIT(W, TRAIT_NODROP))
 				return 0
 			target.drop_item_ground(W)
 

@@ -391,7 +391,7 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now
 		H.drop_item_ground(O)
 		O.loc = loc
@@ -399,7 +399,7 @@
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
 			qdel(C)
 		H.drop_item_ground(C)
 		C.loc = loc
