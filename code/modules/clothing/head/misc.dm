@@ -258,8 +258,7 @@
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.custom_emote(EMOTE_VISIBLE, "приподнимает федору.")
-
+	user.custom_emote(EMOTE_VISIBLE, "приподнима[pluralize_ru(user.gender,"ет","ют")] федору.")
 
 /obj/item/clothing/head/fez
 	name = "fez"
