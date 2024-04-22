@@ -1066,12 +1066,6 @@
 	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/deagle/traitor
-	item = /obj/item/ammo_box/magazine/m50
-	uplinktypes = list()
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
