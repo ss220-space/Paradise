@@ -72,6 +72,9 @@
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
+	if(!(gamemode.cult_ascendant))
+		to_chat(user, "<span class='cultlarge'>Not enough unfaithful know what awaits them! The cult must ascend first!</span>")
+		return FALSE
 
 	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
 	if(!(A in summon_areas))
@@ -151,9 +154,6 @@
 		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
 		if(!(A in summon_areas))  // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
-			return
-		if(!(SSticker.mode.cult_ascendant))
-			to_chat(user, "<span class='cultlarge'>Not enough unfaithful know what awaits them! You need to gain the pentagrams first!</span>")
 			return
 		GLOB.command_announcement.Announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 		log_admin("[key_name_log(user)] started to draw narsie rune!")
