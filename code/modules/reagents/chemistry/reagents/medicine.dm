@@ -1345,8 +1345,8 @@
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "2 minutes of suffering"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
+	taste_description = "1 minute of suffering"
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1356,15 +1356,15 @@
 		if(stimulant_list.Find(R.id))
 			has_stimulant = TRUE
 	switch(current_cycle)
-		if(1 to 19)
+		if(1 to 9)
 			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
-				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				to_chat(M, span_warning("Your skin feels hot and your veins are on fire!"))
 				update_flags |= M.adjustFireLoss(1, FALSE)
 			for(var/datum/reagent/R in M.reagents.reagent_list)
 				if(stimulant_list.Find(R.id))
 					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
-		if(20 to 43)
+		if(10 to 21)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
@@ -1373,27 +1373,27 @@
 					M.AdjustConfused(10 SECONDS)
 				else
 					M.AdjustWeakened(10 SECONDS)
-		if(44)
-			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			M.AdjustWeakened(30 SECONDS)
-		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
+		if(22)
+			to_chat(M, span_warning("Your body goes rigid, you cannot move at all!"))
+			M.AdjustWeakened(15 SECONDS)
+		if(23 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
-					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
+					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
 						if(bodypart.has_fracture()) //I can't just check for !E.status
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [bodypart.name] as it straightens involuntarily!</span>")
-							bodypart.rejuvenate() //Repair it completely.
+							to_chat(M, span_notice("You feel a burning sensation in your [bodypart.name] as it straightens involuntarily!"))
+							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [bodypart.name] as your veins begin to recover!</span>")
+							to_chat(M, span_notice("You feel a burning sensation in your [bodypart.name] as your veins begin to recover!"))
 							bodypart.stop_internal_bleeding()
 
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 60 healing to all internal organs.
+					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 28 healing to all internal organs.
 						I.heal_internal_damage(4)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 225 units total
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 105 units total
 						H.blood_volume += 15
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
@@ -1404,7 +1404,7 @@
 					update_flags |= M.adjustFireLoss(-2, FALSE)
 				else
 					if(prob(25))
-						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						to_chat(M, span_warning("Your skin feels like it is ripping apart and your veins are on fire!")) //It is experimental and does cause scars, after all.
 						update_flags |= M.adjustBruteLoss(2, FALSE)
 						update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
