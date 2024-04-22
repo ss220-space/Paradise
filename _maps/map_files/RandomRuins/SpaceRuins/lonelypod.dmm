@@ -199,7 +199,7 @@
 "DL" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Et" = (
 /obj/machinery/door/airlock/public/glass{
@@ -402,7 +402,7 @@
 "QK" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "Ry" = (
 /obj/structure/sign/vacuum/external,
@@ -436,12 +436,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "TU" = (
-/obj/machinery/vending/snack/free{
-	icon_state = "snack-broken";
-	obj_integrity = 95;
-	products = list()
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/snack/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "TW" = (
@@ -496,7 +492,7 @@
 "Yf" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "YP" = (
 /obj/structure/reagent_dispensers/watertank,

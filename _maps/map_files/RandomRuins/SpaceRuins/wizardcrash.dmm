@@ -17,8 +17,8 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/unpowered)
 "ae" = (
@@ -27,14 +27,14 @@
 "af" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/unpowered)
 "ag" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
-	icon_state = "wood-broken7"
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
 	},
 /area/ruin/unpowered)
 "ah" = (
@@ -44,8 +44,8 @@
 	},
 /obj/item/shard,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/unpowered)
 "ai" = (
@@ -62,11 +62,6 @@
 /area/ruin/unpowered)
 "ak" = (
 /obj/item/shard,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered)
-"al" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "am" = (
@@ -106,8 +101,8 @@
 	in_use = 1
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/unpowered)
 "as" = (
@@ -141,8 +136,8 @@
 /area/ruin/unpowered)
 "ax" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/unpowered)
 "ay" = (
@@ -157,8 +152,8 @@
 /area/ruin/unpowered)
 "aA" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
-	icon_state = "wood-broken6"
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
 	},
 /area/ruin/unpowered)
 "aB" = (
@@ -184,8 +179,8 @@
 "aF" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
-	icon_state = "wood-broken6"
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
 	},
 /area/ruin/unpowered)
 "aG" = (
@@ -225,7 +220,7 @@
 /area/ruin/unpowered)
 "aM" = (
 /obj/machinery/door/airlock/external,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "aN" = (
 /obj/structure/bookcase,
@@ -260,8 +255,8 @@
 /area/ruin/unpowered)
 "aT" = (
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	icon_state = "tube1"
 	},
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plating,
@@ -279,8 +274,8 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
-	icon_state = "wood-broken6"
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
 	},
 /area/ruin/unpowered)
 "aX" = (
@@ -367,8 +362,8 @@
 /area/ruin/unpowered)
 "bl" = (
 /mob/living/simple_animal/hostile/creature{
-	maxHealth = 150;
 	health = 150;
+	maxHealth = 150;
 	name = "Experiment 17e"
 	},
 /turf/simulated/floor/plating,
@@ -535,7 +530,7 @@
 "bO" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bP" = (
 /obj/item/stack/sheet/mineral/plasma,
@@ -705,7 +700,7 @@ ac
 ac
 ae
 ae
-al
+bO
 ae
 ae
 bO
@@ -999,7 +994,7 @@ ac
 ac
 ac
 ac
-al
+bO
 as
 as
 aB
@@ -1075,7 +1070,7 @@ ac
 ac
 ae
 ae
-al
+bO
 ae
 ae
 aM
