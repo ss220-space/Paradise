@@ -289,7 +289,7 @@
 	var/icon/new_look = icon('icons/mob/clothing/head.dmi', outer_state)
 	new_look.Blend(head_organ.hair_colour, ICON_ADD)
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
-	icon_override = new_look
+	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
 	user.update_inv_head()
 
 

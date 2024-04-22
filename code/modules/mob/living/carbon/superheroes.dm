@@ -27,7 +27,8 @@
 
 /datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
-		W.flags |= NODROP
+		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
+
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -58,7 +59,7 @@
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.UpdateName()
-	W.flags |= NODROP
+	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	H.regenerate_icons()
 
@@ -247,7 +248,7 @@
 	W.access = list(ACCESS_MAINT_TUNNELS)
 	W.assignment = "Greyshirt"
 	W.rank = "Greyshirt"
-	W.flags |= NODROP
+	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 	W.SetOwnerInfo(target)
 	W.UpdateName()
 	target.equip_to_slot_or_del(W, ITEM_SLOT_ID)

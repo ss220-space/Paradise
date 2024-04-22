@@ -509,7 +509,7 @@
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	if(enchant_type == FASTSWORD_SPELL && src == user.get_active_hand())
-		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTSWORD_SPELL))
 		enchant_type = CASTING_SPELL
 		force = 7
 		swordsman = TRUE
@@ -519,7 +519,7 @@
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
 	to_chat(user, "<span class='notice'>The grip on [src] looses...</span>")
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTSWORD_SPELL))
 	force = initial(force)
 	swordsman = FALSE
 	deplete_spell()
@@ -704,14 +704,14 @@
 			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			enchant_type = CASTING_SPELL
 			animate(carbon, alpha = 20, time = 1 SECONDS)
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 			sleep(10)
 			carbon.alpha = 20
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(uncloak), carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
 			enchant_type = CASTING_SPELL
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(SPEED_SPELL))
 			carbon.add_movespeed_modifier(/datum/movespeed_modifier/clock_robe)
 			addtimer(CALLBACK(src, PROC_REF(unspeed), carbon), 8 SECONDS)
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
@@ -721,14 +721,14 @@
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 	sleep(10)
 	user.alpha = 255
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)
 	carbon?.remove_movespeed_modifier(/datum/movespeed_modifier/clock_robe)
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(SPEED_SPELL))
 	deplete_spell()
 
 /obj/item/clothing/head/hooded/clockhood
@@ -865,7 +865,7 @@
 		"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
 		//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 		armor = harden_armor
-		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 		enchant_type = CASTING_SPELL
 		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
 		set_light_range_power_color(1.5, 0.8, COLOR_RED)
@@ -875,7 +875,7 @@
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
 	set_light_on(FALSE)
 	armor = normal_armor
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 	deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot, initial)
@@ -940,22 +940,22 @@
 			if(human.mind.martial_art)
 				to_chat(human, "<span class='warning'>You're too powerful to use it!</span>")
 				return
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
 			to_chat(human, "<span class='notice'>You fastening gloves making your moves agile!</span>")
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, PROC_REF(reset)), 6 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_punch)), 6 SECONDS)
 		if(FIRE_SPELL)
 			if(human.gloves != src)
 				to_chat(human, "<span class='notice'>You should wear [src]!</span>")
 				return
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
 			to_chat(human, "<span class='notice'>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
 			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, PROC_REF(reset)), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_fire)), 5 SECONDS)
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/user = loc
@@ -991,12 +991,19 @@
 		C.adjust_fire_stacks(0.5)
 		C.IgniteMob()
 
-/obj/item/clothing/gloves/clockwork/proc/reset()
+/obj/item/clothing/gloves/clockwork/proc/reset_punch()
 	north_star = FALSE
-	fire_casting = FALSE
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
 	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
 	deplete_spell()
+
+
+/obj/item/clothing/gloves/clockwork/proc/reset_fire()
+	fire_casting = FALSE
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
+	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
+	deplete_spell()
+
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()

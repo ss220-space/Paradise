@@ -75,7 +75,12 @@
 	new /obj/item/wirecutters(src)
 
 /obj/item/storage/toolbox/mechanical/greytide
-	flags = NODROP
+
+
+/obj/item/storage/toolbox/mechanical/greytide/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"

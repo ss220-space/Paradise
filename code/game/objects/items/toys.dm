@@ -212,8 +212,9 @@
 			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... itself. You're not very smart, are you?</span>")
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
-		else if((W.flags & NODROP) || (flags & NODROP))
-			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
+		else if(HAS_TRAIT(W, TRAIT_NODROP) || HAS_TRAIT(src, TRAIT_NODROP))
+			var/source_no_drop = HAS_TRAIT(src, TRAIT_NODROP)
+			to_chat(user, "<span class='notice'>\the [source_no_drop ? src : W] is stuck to your hand, you can't attach it to \the [source_no_drop ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			var/obj/item/sword = new /obj/item/twohanded/dualsaber/toy(drop_location())

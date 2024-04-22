@@ -97,7 +97,7 @@
 					sleep(7)
 			if(holder)
 				if(user && (user in holder.contents))
-					user.loc = to_turf
+					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
 							user.client.eye = camera
@@ -105,12 +105,12 @@
 							user.client.eye = user
 				qdel(holder)
 			else if(user)
-				user.loc = from_turf
+				user.forceMove(from_turf)
 			if(phaseanim)
 				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
-				user.loc = locate(0,0,1)
+				user.forceMove(locate(0,0,1))
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
@@ -137,9 +137,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					ADD_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = src
-					src.flags |= NODROP
+					ADD_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -168,11 +168,11 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0

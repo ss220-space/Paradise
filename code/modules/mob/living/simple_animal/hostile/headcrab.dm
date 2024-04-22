@@ -99,7 +99,7 @@
 /mob/living/simple_animal/hostile/headcrab/Destroy()
 	if(contents)
 		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+			M.forceMove(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()

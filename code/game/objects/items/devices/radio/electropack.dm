@@ -48,8 +48,9 @@
 
 		user.put_in_hands(A, ignore_anim = FALSE)
 		A.add_fingerprint(user)
-		if(flags & NODROP)
-			A.flags |= NODROP
+		if(HAS_TRAIT(src, TRAIT_NODROP))
+			ADD_TRAIT(A, TRAIT_NODROP, type)
+
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)

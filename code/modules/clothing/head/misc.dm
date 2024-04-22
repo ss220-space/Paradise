@@ -258,8 +258,7 @@
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
-
+	user.custom_emote(EMOTE_VISIBLE, "приподнима[pluralize_ru(user.gender,"ет","ют")] федору.")
 
 /obj/item/clothing/head/fez
 	name = "fez"
@@ -305,7 +304,12 @@
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
 	desc = "Woof! This one seems to pulse with a strange power"
-	flags = NODROP
+
+
+/obj/item/clothing/head/corgi/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/corgi/super_hero/en
 	name = "E-N suit head"
@@ -444,8 +448,13 @@
 	icon_state = "shamebrero"
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
-	flags = NODROP
 	dog_fashion = null
+
+
+/obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"

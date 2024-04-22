@@ -1,6 +1,8 @@
 // This file contains all of the trait sources, or all of the things that grant traits.
 // Several things such as `type` or `ref(src)` may be used in the ADD_TRAIT() macro as the "source", but this file contains all of the defines for immutable static strings.
 
+/// The item is magically cursed
+#define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
 /// Trait applied by element
@@ -26,10 +28,26 @@
 #define PULSEDEMON_TRAIT "pulse_demon"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
+#define NINJA_TRAIT "space-ninja"
+/// (B)admins only.
+#define ADMIN_TRAIT "admin"
 
 #define CMAGGED "clown_emag"
 
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
+#define ABDUCTOR_VEST_TRAIT "abductor-vest"
+#define CYBORG_ITEM_TRAIT "cyborg-item"
+#define MECHA_EQUIPMENT_TRAIT "mecha-equip"
+#define HIS_GRACE_TRAIT "his-grace"
+#define CHAINSAW_TRAIT "chainsaw-wield"
+#define PYRO_CLAWS_TRAIT "pyro-claws"
+#define CONTRACTOR_BATON_TRAIT "contractor-baton"
+#define MUZZLE_TRAIT "muzzle"
+#define CHRONOSUIT_TRAIT "chrono-suit"
+#define SUPERHERO_TRAIT "super-hero"
+#define AUGMENT_TRAIT "augment"
+#define ANTIDROP_TRAIT "antidrop"
+
 /// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
 

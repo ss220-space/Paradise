@@ -58,9 +58,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special_enabled = FALSE
 
 	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
-//	var/order_limit = -1
+//	var/order_limit = -1	// Unused for now (Crate limit #3056).
 	/// Number of times a crate has been ordered in a shift
-//	var/times_ordered = 0	// Unused for now (Crate limit #3056).
+	var/times_ordered = 0
 
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
@@ -1098,9 +1098,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl_goal
 	name = "BFL Mission goal"
-	cost = 6500
+	cost = 3000
 	contains = list(
-					/obj/structure/toilet/golden_toilet/bfl_goal
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes // 15 random research notes
 					)
 	containername = "Goal crate"
 
@@ -2315,6 +2329,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 
 	containername = "patriotic crate"
+
+/datum/supply_packs/misc/golden_toilet
+	name = "Golden Toilet"
+	cost = 500
+	contains = list(/obj/structure/toilet/golden_toilet)
+	containername = "golden toilet"
 
 
 ///////////// Paper Work

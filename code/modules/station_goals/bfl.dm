@@ -10,7 +10,7 @@
 	<br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
+	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and enjoy your reward.
 	<br><br>
 	-Nanotrasen Naval Command"}
 
@@ -38,9 +38,9 @@
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/structure/toilet/golden_toilet/bfl_goal/B)
-		if(B && is_station_contact(B.z))
-			return TRUE
+	var/datum/supply_packs/misc/station_goal/bfl_goal/goal_pack = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
+	if(goal_pack.times_ordered >= 1)
+		return TRUE
 	return FALSE
 
 /datum/station_goal/bfl/Destroy()
@@ -529,8 +529,6 @@
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
 
-/obj/structure/toilet/golden_toilet/bfl_goal
-	name = "\[NT REDACTED\]"
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Giant laser, which is supposed for mining"

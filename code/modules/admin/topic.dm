@@ -1381,7 +1381,7 @@
 		if(!M)
 			return
 
-		M.loc = prison_cell
+		M.forceMove(prison_cell)
 		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
@@ -1573,7 +1573,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdome1)
+		M.forceMove(pick(GLOB.tdome1))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
@@ -1599,7 +1599,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdome2)
+		M.forceMove(pick(GLOB.tdome2))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
@@ -1622,7 +1622,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdomeadmin)
+		M.forceMove(pick(GLOB.tdomeadmin))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
@@ -1652,7 +1652,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdomeobserve)
+		M.forceMove(pick(GLOB.tdomeobserve))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Observer.)")
@@ -1746,7 +1746,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.aroomwarp)
+		M.forceMove(pick(GLOB.aroomwarp))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the <b>Admin Room!</b>.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the Admin Room")
@@ -3072,12 +3072,12 @@
 								//don't strip organs
 							H.drop_item_ground(W)
 						//teleport person to cell
-						H.loc = pick(GLOB.prisonwarp)
+						H.forceMove(pick(GLOB.prisonwarp))
 						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_CLOTH_INNER)
 						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
 					else
 						//teleport security person
-						H.loc = pick(GLOB.prisonsecuritywarp)
+						H.forceMove(pick(GLOB.prisonsecuritywarp))
 					GLOB.prisonwarped += H
 			if("traitor_all")
 				if(!SSticker)

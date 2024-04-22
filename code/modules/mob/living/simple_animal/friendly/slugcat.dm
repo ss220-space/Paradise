@@ -258,7 +258,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
-		if(inventory_head.flags & NODROP)
+		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!"))
 			return TRUE
 
@@ -329,7 +329,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
-		if(inventory_hand.flags & NODROP)
+		if(HAS_TRAIT(inventory_hand, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_hand.name] застрял в лапах [src]! Его невозможно отнять!"))
 			return TRUE
 

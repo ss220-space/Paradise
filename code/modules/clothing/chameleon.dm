@@ -159,8 +159,6 @@
 
 		I.item_state = initial(picked_item.item_state)
 		I.item_color = initial(picked_item.item_color)
-
-		I.icon_override = initial(picked_item.icon_override)
 		if(initial(picked_item.sprite_sheets))
 			// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
 			var/obj/item/P = new picked_item(null)
