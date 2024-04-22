@@ -87,7 +87,7 @@
 		resting = 0
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.onmob_sheets[ITEM_SLOT_HEAD_STRING] = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.item_state = "[icon_state]_hand"
