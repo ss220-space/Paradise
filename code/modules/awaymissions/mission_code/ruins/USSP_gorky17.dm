@@ -580,7 +580,7 @@
 			for(var/obj/item/I in A.contents)
 				qdel(I)
 			qdel(A)
-		if(istype(A, /obj/structure/safe) || istype(A, /obj/item/gun))
+		if(istype(A, /obj/structure/safe) || isgun(A))
 			qdel(A)
 
 /obj/item/bombcore/sdg17/defuse()

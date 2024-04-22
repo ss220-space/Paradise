@@ -360,7 +360,7 @@
 				prisoner.forceMove(statue)
 				qdel(target)
 		else
-			if(istype(target, /obj/item/gun))
+			if(isgun(target))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(target.loc, target, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(target.loc, target, firer)

@@ -1009,7 +1009,9 @@
 						if("protect")
 							description = "Protect"
 						if("steal brain")
-							description = "Steal the brain of"
+							var/mob/living/target = new_target
+							var/obj/item/organ/internal/brains = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+							description = "Steal the [brains ? brains.name : "brain"] of"
 						if("prevent from escape")
 							description = "Prevent from escaping alive or free"
 						if("pain hunter")
@@ -1109,7 +1111,7 @@
 					//Выдача бомбы
 					var/obj/item/grenade/plastic/c4/ninja/charge = new
 					var/mob/living/carbon/human/bomber = current
-					bomber.equip_or_collect(charge, SLOT_HUD_LEFT_STORE)
+					bomber.equip_or_collect(charge, ITEM_SLOT_POCKET_LEFT)
 					charge.detonation_objective = bomb_objective
 
 			if("set up")

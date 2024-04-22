@@ -634,7 +634,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
-					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
@@ -654,7 +654,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Find a new turf to take on the property of
 						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !istype(nextturf, /turf/space))
+						if(!nextturf || !isspaceturf(nextturf))
 							nextturf = get_step(corner, turn(direction, 180))
 
 
@@ -672,7 +672,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)
@@ -732,7 +732,7 @@ Returns 1 if the chain up to the area contains the given typepath
 				if(istype(original.vars[V],/list))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
+				else if(isdatum(original.vars[V]))
 					continue	// this would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
@@ -1030,7 +1030,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/assembly/igniter))
+	if(isigniter(W))
 		return 20000
 	else
 		return 0
@@ -1298,10 +1298,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return QDEL_HINT_LETMELIVE
 
 /proc/IsValidSrc(A)
-	if(istype(A, /datum))
+	if(isdatum(A))
 		var/datum/D = A
 		return !QDELETED(D)
-	if(istype(A, /client))
+	if(isclient(A))
 		return TRUE
 	return FALSE
 
@@ -1836,7 +1836,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			C = M.client
 		else
 			return
-	else if(istype(mob_or_client, /client))
+	else if(isclient(mob_or_client))
 		C = mob_or_client
 
 	if(!istype(C))
@@ -2072,29 +2072,76 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			return NORTH
 
-/proc/slot_bitfield_to_slot(input_slot_flags) //Doesn't work with ears or pockets
-	switch(input_slot_flags)
-		if(SLOT_FLAG_OCLOTHING)
-			return SLOT_HUD_OUTER_SUIT
-		if(SLOT_FLAG_ICLOTHING)
-			return SLOT_HUD_JUMPSUIT
-		if(SLOT_FLAG_GLOVES)
-			return SLOT_HUD_GLOVES
-		if(SLOT_FLAG_EYES)
-			return SLOT_HUD_GLASSES
-		if(SLOT_FLAG_MASK)
-			return SLOT_HUD_WEAR_MASK
-		if(SLOT_FLAG_HEAD)
-			return SLOT_HUD_HEAD
-		if(SLOT_FLAG_FEET)
-			return SLOT_HUD_SHOES
-		if(SLOT_FLAG_ID)
-			return SLOT_HUD_WEAR_ID
-		if(SLOT_FLAG_BELT)
-			return SLOT_HUD_BELT
-		if(SLOT_FLAG_BACK)
-			return SLOT_HUD_BACK
-		if(SLOT_FLAG_PDA)
-			return SLOT_HUD_WEAR_PDA
-		if(SLOT_FLAG_TIE)
-			return SLOT_HUD_TIE
+/proc/slot_string_to_slot_bitfield(input_string) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
+	switch(input_string)
+		if(ITEM_SLOT_EAR_LEFT_STRING)
+			return ITEM_SLOT_EAR_LEFT
+		if(ITEM_SLOT_EAR_RIGHT_STRING)
+			return ITEM_SLOT_EAR_RIGHT
+		if(ITEM_SLOT_BELT_STRING)
+			return ITEM_SLOT_BELT
+		if(ITEM_SLOT_BACK_STRING)
+			return ITEM_SLOT_BACK
+		if(ITEM_SLOT_CLOTH_OUTER_STRING)
+			return ITEM_SLOT_CLOTH_OUTER
+		if(ITEM_SLOT_CLOTH_INNER_STRING)
+			return ITEM_SLOT_CLOTH_INNER
+		if(ITEM_SLOT_EYES_STRING)
+			return ITEM_SLOT_EYES
+		if(ITEM_SLOT_MASK_STRING)
+			return ITEM_SLOT_MASK
+		if(ITEM_SLOT_HEAD_STRING)
+			return ITEM_SLOT_HEAD
+		if(ITEM_SLOT_FEET_STRING)
+			return ITEM_SLOT_FEET
+		if(ITEM_SLOT_ID_STRING)
+			return ITEM_SLOT_ID
+		if(ITEM_SLOT_NECK_STRING)
+			return ITEM_SLOT_NECK
+		if(ITEM_SLOT_GLOVES_STRING)
+			return ITEM_SLOT_GLOVES
+		if(ITEM_SLOT_SUITSTORE_STRING)
+			return ITEM_SLOT_SUITSTORE
+		if(ITEM_SLOT_HANDCUFFED_STRING)
+			return ITEM_SLOT_HANDCUFFED
+		if(ITEM_SLOT_LEGCUFFED_STRING)
+			return ITEM_SLOT_LEGCUFFED
+		if(ITEM_SLOT_ACCESSORY_STRING)
+			return ITEM_SLOT_ACCESSORY
+
+/proc/slot_bitfield_to_slot_string(input_bitfield) //Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont render)
+	switch(input_bitfield)
+		if(ITEM_SLOT_EAR_LEFT)
+			return ITEM_SLOT_EAR_LEFT_STRING
+		if(ITEM_SLOT_EAR_RIGHT)
+			return ITEM_SLOT_EAR_RIGHT_STRING
+		if(ITEM_SLOT_BELT)
+			return ITEM_SLOT_BELT_STRING
+		if(ITEM_SLOT_BACK)
+			return ITEM_SLOT_BACK_STRING
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return ITEM_SLOT_CLOTH_OUTER_STRING
+		if(ITEM_SLOT_CLOTH_INNER)
+			return ITEM_SLOT_CLOTH_INNER_STRING
+		if(ITEM_SLOT_GLOVES)
+			return ITEM_SLOT_GLOVES_STRING
+		if(ITEM_SLOT_EYES)
+			return ITEM_SLOT_EYES_STRING
+		if(ITEM_SLOT_MASK)
+			return ITEM_SLOT_MASK_STRING
+		if(ITEM_SLOT_HEAD)
+			return ITEM_SLOT_HEAD_STRING
+		if(ITEM_SLOT_FEET)
+			return ITEM_SLOT_FEET_STRING
+		if(ITEM_SLOT_ID)
+			return ITEM_SLOT_ID_STRING
+		if(ITEM_SLOT_NECK)
+			return ITEM_SLOT_NECK_STRING
+		if(ITEM_SLOT_SUITSTORE)
+			return ITEM_SLOT_SUITSTORE_STRING
+		if(ITEM_SLOT_HANDCUFFED)
+			return ITEM_SLOT_HANDCUFFED_STRING
+		if(ITEM_SLOT_LEGCUFFED)
+			return ITEM_SLOT_LEGCUFFED_STRING
+		if(ITEM_SLOT_ACCESSORY)
+			return ITEM_SLOT_ACCESSORY_STRING

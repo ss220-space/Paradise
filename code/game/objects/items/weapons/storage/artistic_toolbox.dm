@@ -25,8 +25,12 @@
 	if(user.HasDisease(/datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
-			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
-			flags ^= NODROP
+			var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			if(prev_has)
+				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			else
+				ADD_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			to_chat(user, "<span class='warning'>His Grace [prev_has ? "releases from" : "binds to"] your hand!</span>")
 	else if(!activated && loc == user)
 		if(link_user(user))
 			to_chat(user, "<span class='notice'>Call to His Grace again if you wish it bound to your hand!</span>")

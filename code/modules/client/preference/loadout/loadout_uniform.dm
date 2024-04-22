@@ -1,7 +1,7 @@
 // Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
-	slot = SLOT_HUD_JUMPSUIT
+	slot = ITEM_SLOT_CLOTH_INNER
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit

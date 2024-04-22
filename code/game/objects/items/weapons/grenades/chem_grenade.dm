@@ -49,7 +49,7 @@
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
 	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
-		if(!O || istype(O,/obj/item/assembly/igniter)) continue
+		if(!O || isigniter(O)) continue
 		return O
 	return null
 

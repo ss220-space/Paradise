@@ -3,7 +3,7 @@
 	desc = "High Five?"
 	icon_state = "syndballoon"
 	item_state = null
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
@@ -28,6 +28,11 @@
 	attached_spell = spell
 	src.owner = owner
 	..()
+
+
+/obj/item/melee/touch_attack/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/melee/touch_attack/Destroy()

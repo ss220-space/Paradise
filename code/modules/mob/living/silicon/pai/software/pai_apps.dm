@@ -365,7 +365,7 @@
 		if(istype(machinery, /obj/machinery/door))
 			var/obj/machinery/door/D = machinery
 			D.open()
-		else if(istype(machinery, /obj/machinery/power/apc))
+		else if(isapc(machinery))
 			var/obj/machinery/power/apc/apc = machinery
 			apc.locked = FALSE
 			apc.update_icon()

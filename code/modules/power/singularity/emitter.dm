@@ -214,7 +214,7 @@
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
 
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return

@@ -130,7 +130,7 @@
 		// now look for APCs and drain their cells
 		if(drained < drain_rate)
 			for(var/obj/machinery/power/terminal/T in PN.nodes)
-				if(istype(T.master, /obj/machinery/power/apc))
+				if(isapc(T.master))
 					var/obj/machinery/power/apc/A = T.master
 					if(A.operating && A.cell)
 						A.cell.charge = max(0, A.cell.charge - 50)

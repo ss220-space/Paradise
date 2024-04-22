@@ -124,12 +124,12 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(prob(60))
 		if(D.hand)
-			if(istype(D.l_hand, /obj/item))
+			if(isitem(D.l_hand))
 				var/obj/item/I = D.l_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
 		else
-			if(istype(D.r_hand, /obj/item))
+			if(isitem(D.r_hand))
 				var/obj/item/I = D.r_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
@@ -155,14 +155,14 @@
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.teach(user, TRUE)
 
 
 /obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
 

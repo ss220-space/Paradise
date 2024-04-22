@@ -121,7 +121,7 @@
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
 		add_fingerprint(user)
-		if(istype(O,/obj/item/stack))
+		if(isstack(O))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
 				var/obj/item/stack/to_add = S.split_stack(user, 1)

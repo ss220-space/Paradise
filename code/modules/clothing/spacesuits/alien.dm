@@ -206,29 +206,22 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/feet.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NODROP)
 
 
 /obj/item/clothing/shoes/magboots/vox/update_icon_state()
 	return
 
 
-/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)
-	. = ..()
-	if(magpulse)
-		flags |= NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
-	else
-		flags &= ~NODROP
-
-
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && magpulse)
+	if(slot == ITEM_SLOT_FEET && magpulse)
 		if(!silent)
 			user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
 		toggle_magpulse(user, silent = TRUE)

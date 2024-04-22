@@ -572,7 +572,7 @@
 						if(P.credits_cost)
 							SSshuttle.cargo_money_account.money -= P.credits_cost
 						SSshuttle.shoppinglist += O
-//						P.times_ordered += 1	// Unused for now (Crate limit #3056).
+						P.times_ordered += 1
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
 					break
 

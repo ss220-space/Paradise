@@ -4,7 +4,7 @@
 	if(!istype(I, /obj/item/hardsuit_shield))
 		return
 	var/obj/item/hardsuit_shield/new_shield = I
-	if(user.get_item_by_slot(SLOT_HUD_OUTER_SUIT) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER) == src)
 		to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 		return
 	var/datum/component/shielded/shielded = GetComponent(/datum/component/shielded)
@@ -53,7 +53,7 @@
 	if(!istype(shielded))
 		to_chat(user, "<span class='warning'>No shield detected on this armour!</span>")
 		return
-	if(W == user.get_item_by_slot(SLOT_HUD_OUTER_SUIT))
+	if(W == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
 		to_chat(user, "<span class='warning'>You cannot replenish charges to [W] while wearing it.</span>")
 		return
 	shielded.current_charges += 8

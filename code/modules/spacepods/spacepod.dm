@@ -582,7 +582,7 @@
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/storage))
+		if(isstorage(G.gift))
 			var/obj/item/storage/inv = G.gift
 			L += inv.return_inv()
 	return L

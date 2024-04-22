@@ -17,7 +17,7 @@
 		return FALSE
 
 	if(user.handcuffed)
-		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(handcuffs))
 			return FALSE
 
@@ -28,7 +28,7 @@
 		used = TRUE
 
 	if(user.legcuffed && !used)
-		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(legcuffs))
 			return FALSE
 
@@ -39,7 +39,7 @@
 		used = TRUE
 
 	if(user.wear_suit?.breakouttime && !used)
-		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		if(!istype(res_suit))
 			return FALSE
 

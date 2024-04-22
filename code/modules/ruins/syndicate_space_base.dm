@@ -76,23 +76,23 @@
 
 		switch(race)
 			if(SPECIES_VOX, SPECIES_VOX_ARMALIS)
-				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), SLOT_HUD_WEAR_MASK)
-				H.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(H), SLOT_HUD_LEFT_HAND)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), ITEM_SLOT_MASK)
+				H.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(H), ITEM_SLOT_HAND_LEFT)
 				H.internal = H.l_hand
 
 			if(SPECIES_PLASMAMAN)
-				var/L = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
-				var/R = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
-				var/I = H.get_item_by_slot(SLOT_HUD_WEAR_ID)
-				qdel(H.get_item_by_slot(SLOT_HUD_JUMPSUIT))
-				qdel(H.get_item_by_slot(SLOT_HUD_HEAD))
-				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), SLOT_HUD_WEAR_MASK)
-				H.equip_to_slot(new /obj/item/tank/internals/plasmaman/belt/full(H), SLOT_HUD_LEFT_HAND)
-				H.equip_to_slot(I, SLOT_HUD_WEAR_ID) // По непонятной мне причине другие методы считают что персонаж не может надеть предметы. Поэтому надеваем насильно!
-				H.equip_to_slot(R, SLOT_HUD_RIGHT_STORE)
-				H.equip_to_slot(L, SLOT_HUD_LEFT_STORE)
-				H.equip_to_slot_or_del(new /obj/item/clothing/under/plasmaman(H), SLOT_HUD_JUMPSUIT)
-				H.equip_to_slot(new /obj/item/clothing/head/helmet/space/plasmaman(H), SLOT_HUD_HEAD)
+				var/L = H.get_item_by_slot(ITEM_SLOT_POCKET_LEFT)
+				var/R = H.get_item_by_slot(ITEM_SLOT_POCKET_RIGHT)
+				var/I = H.get_item_by_slot(ITEM_SLOT_ID)
+				qdel(H.get_item_by_slot(ITEM_SLOT_CLOTH_INNER))
+				qdel(H.get_item_by_slot(ITEM_SLOT_HEAD))
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(H), ITEM_SLOT_MASK)
+				H.equip_to_slot(new /obj/item/tank/internals/plasmaman/belt/full(H), ITEM_SLOT_HAND_LEFT)
+				H.equip_to_slot(I, ITEM_SLOT_ID) // По непонятной мне причине другие методы считают что персонаж не может надеть предметы. Поэтому надеваем насильно!
+				H.equip_to_slot(R, ITEM_SLOT_POCKET_RIGHT)
+				H.equip_to_slot(L, ITEM_SLOT_POCKET_LEFT)
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/plasmaman(H), ITEM_SLOT_CLOTH_INNER)
+				H.equip_to_slot(new /obj/item/clothing/head/helmet/space/plasmaman(H), ITEM_SLOT_HEAD)
 				H.internal = H.l_hand
 
 		H.update_action_buttons_icon()

@@ -23,7 +23,7 @@
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 
 	if(user.middleClickOverride)
@@ -38,7 +38,7 @@
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES || user.middleClickOverride != mclick_override)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES || user.middleClickOverride != mclick_override)
 		return .
 
 	if(old_mclick_override)

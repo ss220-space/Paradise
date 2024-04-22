@@ -18,7 +18,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_FLAG_EARS|SLOT_FLAG_MASK
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_EARS
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -123,7 +123,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(S.active)
 			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
 
-	else if(istype(I, /obj/item/assembly/igniter))
+	else if(isigniter(I))
 		light("<span class='notice'>[user] fiddles with [I], and manages to light [user.p_their()] [name].</span>")
 
 	else if(istype(I, /obj/item/gun/magic/wand/fireball))

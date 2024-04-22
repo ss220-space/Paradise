@@ -273,6 +273,11 @@
 								/obj/item/encryptionkey/syndicate = 1)										// 0-5 TK
 	)
 
+/obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate
+	used = TRUE
+	name = "suspicious 'magical' beacon"
+	desc = "It looks battered and old, as if someone tried to crack it with brute force."
+
 /obj/item/radio/beacon/syndicate/bundle/Initialize()
 	. = ..()
 	unselected = bundles.Copy()

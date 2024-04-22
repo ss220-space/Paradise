@@ -299,6 +299,7 @@
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
+	var/old_force_no_gravity = force_no_gravity
 	var/old_air
 	if(issimulatedturf(src))
 		var/turf/simulated/old_turf = src
@@ -344,6 +345,10 @@
 	lighting_corner_NW = old_lighting_corner_NW
 
 	dynamic_lumcount = old_dynamic_lumcount
+
+	if(old_force_no_gravity != force_no_gravity)
+		for(var/mob/living/mob in contents)
+			mob.refresh_gravity()
 
 	if(SSlighting.initialized)
 		recalc_atom_opacity()

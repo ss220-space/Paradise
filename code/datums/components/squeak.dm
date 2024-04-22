@@ -77,7 +77,7 @@
 		var/obj/item/I = AM
 		if(I.flags & ABSTRACT)
 			return
-		else if(istype(AM, /obj/item/projectile))
+		else if(isprojectile(AM))
 			var/obj/item/projectile/P = AM
 			if(P.original != parent)
 				return
@@ -99,7 +99,7 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
 
 // Disposal pipes related shit
-/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/disposal_source)
 	//We don't need to worry about unregistering this signal as it will happen for us automaticaly when the holder is qdeleted
 	RegisterSignal(holder, COMSIG_ATOM_DIR_CHANGE, PROC_REF(holder_dir_change))
 
