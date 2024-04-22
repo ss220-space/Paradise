@@ -147,66 +147,56 @@
 	return turfs
 
 
-
-//GLOBAL_VAR_INIT(debug_mob, 0)
-
-// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
-// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
-// being unable to hear people due to being in a box within a bag.
-
-/proc/recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
-
-	//GLOB.debug_mob += O.contents.len
+/// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
+/// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
+/// being unable to hear people due to being in a box within a bag.
+/proc/recursive_mob_check(atom/check, list/output = list(), recursion_limit = 3, include_clientless = FALSE, include_radio = TRUE, sight_check = TRUE)
 	if(!recursion_limit)
-		return L
-	for(var/atom/A in O.contents)
+		return output
 
-		if(ismob(A))
-			var/mob/M = A
-			if(client_check && !M.client)
-				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+	for(var/thing in check.contents)
+		var/is_mob = ismob(thing)
+		if(is_mob)
+			var/mob/mob = thing
+			if(isnull(mob.client) && !include_clientless)
+				output |= recursive_mob_check(mob, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
 				continue
-			if(sight_check && !isInSight(A, O))
+			if(sight_check && !isInSight(mob, check))
 				continue
-			L |= M
-			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
+			output |= mob
 
-		else if(include_radio && isradio(A))
-			if(sight_check && !isInSight(A, O))
+		else if(include_radio && isradio(thing))
+			if(sight_check && !isInSight(thing, check))
 				continue
-			L |= A
+			output |= thing
 
-		if(isobj(A) || ismob(A))
-			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
-	return L
+		if(is_mob || isobj(thing))
+			output |= recursive_mob_check(thing, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
+
+	return output
 
 
-// The old system would loop through lists for a total of 5000 per function call, in an empty server.
-// This new system will loop at around 1000 in an empty server.
-/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
-	// Returns a list of mobs in range of R from source. Used in radio and say code.
+/// The old system would loop through lists for a total of 5000 per function call, in an empty server.
+/// This new system will loop at around 1000 in an empty server.
+/// Returns a list of mobs in range from source. Used in radio and say code.
+/proc/get_mobs_in_view(range, atom/source, include_clientless = FALSE, include_radio = TRUE)
+	var/turf/source_turf = get_turf(source)
+	. = list()
 
-	var/turf/T = get_turf(source)
-	var/list/hear = list()
+	if(!source_turf)
+		return .
 
-	if(!T)
-		return hear
+	for(var/thing in hear(range, source_turf))
+		var/is_mob = ismob(thing)
+		if(is_mob)
+			var/mob/mob = thing
+			if(include_clientless || !isnull(mob.client))
+				. += mob
+		else if(include_radio && isradio(thing))
+			. += thing
 
-	var/list/range = hear(R, T)
-
-	for(var/atom/A in range)
-		if(ismob(A))
-			var/mob/M = A
-			if(M.client || include_clientless)
-				hear += M
-			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(isradio(A))
-			hear += A
-
-		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
-
-	return hear
+		if(is_mob || isobj(thing))
+			. |= recursive_mob_check(thing, ., 3, include_clientless, include_radio, FALSE)
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
