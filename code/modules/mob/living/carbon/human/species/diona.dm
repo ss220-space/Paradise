@@ -93,10 +93,10 @@
 	switch(R.id)
 
 		if("glyphosate")
-			H.adjustToxLoss(3) //Deal aditional damage
+			H.adjustToxLoss(3) //Deal additional damage
 			return TRUE
 		if("atrazine")
-			H.adjustToxLoss(3) //Deal aditional damage
+			H.adjustToxLoss(3) //Deal additional damage
 			return TRUE
 		if("iron")
 			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
@@ -107,6 +107,7 @@
 				H.adjustFireLoss(-1)
 			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
+
 	return ..()
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
