@@ -308,6 +308,7 @@
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
 	icon_state = "implant"
+	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 7)
