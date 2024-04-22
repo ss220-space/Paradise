@@ -72,6 +72,9 @@
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
+	if(!(gamemode.cult_ascendant))
+		to_chat(user, "<span class='cultlarge'>Not enough unfaithful know what awaits them! The cult must ascend first!</span>")
+		return FALSE
 
 	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
 	if(!(A in summon_areas))
