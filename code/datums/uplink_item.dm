@@ -652,6 +652,7 @@
 	desc = "A legendary high power pistol that uses 7 rounds .50AE magazines."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/uzi
 	name = "Type U3 Uzi"
@@ -1065,7 +1066,6 @@
 	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/rocketHE
 	name = "84mm High Explosive rocket"
