@@ -310,7 +310,7 @@
 	icon_state = "implant"
 
 /obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 7)
+	for(var/I in 1 to 6)
 		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
