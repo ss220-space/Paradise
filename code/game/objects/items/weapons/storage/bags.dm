@@ -157,7 +157,12 @@
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
-	flags = NODROP
+
+
+/obj/item/storage/bag/ore/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
@@ -169,7 +174,12 @@
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
-	flags = NODROP
+
+
+/obj/item/storage/bag/ore/holding/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/storage/bag/gem
 	name = "gem satchel"
@@ -187,7 +197,12 @@
 
 /obj/item/storage/bag/gem/cyborg
 	name = "cyborg gem satchel"
-	flags = NODROP
+
+
+/obj/item/storage/bag/gem/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 // -----------------------------
 //          Plant bag

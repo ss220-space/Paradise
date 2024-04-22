@@ -87,7 +87,12 @@
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
 	item_state = "lgloves"
-	flags = NODROP
+
+
+/obj/item/clothing/gloves/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"

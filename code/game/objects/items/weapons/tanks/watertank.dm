@@ -225,7 +225,6 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = NONE
 	var/metal_synthesis_cooldown = 0
@@ -239,6 +238,11 @@
 		reagents = tank.reagents
 		max_water = tank.volume
 		loc = tank
+
+
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
 /obj/item/extinguisher/mini/nozzle/Move()

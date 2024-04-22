@@ -50,10 +50,10 @@
 
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
-		I.flags |= NODROP
+		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 	if(emag)
-		emag.flags |= NODROP
+		ADD_TRAIT(emag, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /obj/item/robot_module/proc/handle_storages()

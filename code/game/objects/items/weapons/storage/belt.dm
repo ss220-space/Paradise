@@ -745,13 +745,13 @@
 		/obj/item/restraints/legcuffs/bola
 		)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 

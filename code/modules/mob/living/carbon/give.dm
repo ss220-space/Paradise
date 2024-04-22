@@ -14,7 +14,7 @@
 	if(!I)
 		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
 		return
-	if((I.flags & NODROP) || (I.flags & ABSTRACT))
+	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.flags & ABSTRACT))
 		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
 		return
 	if(target.r_hand == null || target.l_hand == null)
@@ -29,7 +29,7 @@
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
 					return
-				if((I.flags & NODROP) || (I.flags & ABSTRACT))
+				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.flags & ABSTRACT))
 					to_chat(usr, "<span class='warning'>[I] stays stuck to your hand when you try to give it!</span>")
 					to_chat(target, "<span class='warning'>[I] stays stuck to [usr.name]'s hand when you try to take it!</span>")
 					return
@@ -68,7 +68,7 @@
 	if(!I)
 		to_chat(src, "<span class='warning'>You don't have anything in your hand to give!</span>")
 		return
-	if(I.flags & NODROP)
+	if(HAS_TRAIT(I, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>[I] is stuck to your hand, you can't give it away!</span>")
 		return
 	if(I.flags & ABSTRACT)
@@ -220,7 +220,7 @@
 	if(!giver.Adjacent(receiver))
 		to_chat(receiver, "<span class='warning'>You need to stay in reaching distance of [giver] to take [I]!</span>")
 		return
-	if(I.flags & NODROP)
+	if(HAS_TRAIT(I, TRAIT_NODROP))
 		to_chat(giver, "<span class='warning'>[I] stays stuck to your hand when [receiver] tries to take it!</span>")
 		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
 		return

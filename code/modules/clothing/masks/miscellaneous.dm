@@ -37,7 +37,7 @@
 	if(security_lock)
 		security_lock = FALSE
 		locked = FALSE
-		flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		desc += " This one appears to be broken."
 		return TRUE
 	else
@@ -51,7 +51,7 @@
 	else if(ACCESS_BRIG in user.get_access())
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
-		flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
 	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
@@ -60,7 +60,7 @@
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
 	if(security_lock)
 		locked = TRUE
-		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 	return FALSE
 
@@ -371,7 +371,7 @@
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(flags & NODROP)	//cursed masks only
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)))	//cursed masks only
 		originalname = user.real_name
 		if(!user.real_name || user.real_name == "Unknown")
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
@@ -379,12 +379,12 @@
 			user.real_name = "[user.name][temporaryname]"
 
 /obj/item/clothing/mask/horsehead/dropped(mob/user, slot, silent = FALSE) //this really shouldn't happen, but call it extreme caution
-	if(slot == ITEM_SLOT_MASK && (flags & NODROP))
+	if(slot == ITEM_SLOT_MASK && HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)))
 		goodbye_horses(loc)
 	. = ..()
 
 /obj/item/clothing/mask/horsehead/Destroy()
-	if(flags & NODROP)
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)))
 		goodbye_horses(loc)
 	return ..()
 
@@ -622,8 +622,14 @@
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP | AIRTIGHT
+	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
+
+
+/obj/item/clothing/mask/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot, initial)
 	. = ..()

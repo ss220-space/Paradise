@@ -205,7 +205,13 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT|NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -263,7 +269,13 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/mime/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -292,7 +304,13 @@
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()

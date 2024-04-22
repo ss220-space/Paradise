@@ -246,7 +246,7 @@
 	C.name = "Sax"
 	C.real_name = "Sax"
 	var/obj/item/clothing/head/det_hat/D = new
-	D.flags |= NODROP
+	ADD_TRAIT(D, TRAIT_NODROP, CURSED_ITEM_TRAIT(D.type))
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")

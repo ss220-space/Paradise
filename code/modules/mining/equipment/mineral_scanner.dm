@@ -62,8 +62,14 @@
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
-	flags = CONDUCT | NODROP
+	flags = CONDUCT
 	speaker = FALSE //you know...
+
+
+/obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
@@ -75,8 +81,14 @@
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
-	flags = CONDUCT | NODROP
+	flags = CONDUCT
 	speaker = FALSE
+
+
+/obj/item/mining_scanner/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
