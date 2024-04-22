@@ -417,10 +417,21 @@
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
-	flags = NODROP | DROPDEL
+	flags = DROPDEL
+
+
+/obj/item/melee/cultblade/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-	flags = NODROP
+
+
+/obj/item/clothing/head/hooded/culthood/alt/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
@@ -429,15 +440,32 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
-	flags = NODROP | DROPDEL
+	flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
 
+/obj/item/clothing/suit/hooded/cultrobes/alt/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 /obj/item/clothing/shoes/cult/ghost
-	flags = NODROP | DROPDEL
+	flags = DROPDEL
+
+
+/obj/item/clothing/shoes/cult/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/color/black/ghost
-	flags = NODROP | DROPDEL
+	flags = DROPDEL
+
+
+/obj/item/clothing/under/color/black/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"

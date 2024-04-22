@@ -141,9 +141,14 @@
 	desc = "An implanted replacement for a left eye with meson vision capabilities."
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
-	flags = NODROP
-	flags_cover = null
+	flags_cover = NONE
 	prescription_upgradable = FALSE
+
+
+/obj/item/clothing/glasses/meson/cyber/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -273,17 +278,26 @@
 	desc = "An implanted replacement for a left eye with material vision capabilities."
 	icon_state = "cybereye-blue"
 	item_state = "eyepatch"
-	flags = NODROP
-	flags_cover = null
+	flags_cover = NONE
+
+
+/obj/item/clothing/glasses/material/cyber/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/glasses/material/lighting
 	name = "Neutron Goggles"
 	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
 	origin_tech = null
-	vision_flags = 0
-
-	flags = NODROP
+	vision_flags = NONE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
+
+/obj/item/clothing/glasses/material/lighting/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
@@ -453,7 +467,12 @@
 /obj/item/clothing/glasses/sunglasses/lasers
 	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
 	name = "high-tech sunglasses"
-	flags = NODROP
+
+
+/obj/item/clothing/glasses/sunglasses/lasers/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
 	if(slot == ITEM_SLOT_EYES)
@@ -573,7 +592,11 @@
 	desc = "An implanted replacement for a left eye with thermal vision capabilities."
 	icon_state = "cybereye-red"
 	item_state = "eyepatch"
-	flags = NODROP
+
+
+/obj/item/clothing/glasses/thermal/cyber/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
 /obj/item/clothing/glasses/hud/godeye
@@ -584,7 +607,6 @@
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	scan_reagents = TRUE
-	flags = NODROP
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -600,6 +622,11 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
+
+
+/obj/item/clothing/glasses/hud/godeye/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
 /obj/item/clothing/glasses/hud/godeye/update_icon_state()

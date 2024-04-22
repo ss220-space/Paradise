@@ -137,6 +137,8 @@
  * Used in job equipping so shit doesn't pile up at the start loc.
  */
 /mob/proc/equip_or_collect(obj/item/I, slot)
+	if(QDELETED(I))
+		return
 	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot(I, slot, initial = TRUE)
@@ -384,7 +386,7 @@
  * Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
  *
  * Arguments
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
@@ -439,12 +441,12 @@
  * Item will be dropped on turf below user, then forceMoved to `newloc`.
  * Returns `TRUE` if item is successfully transfered.
  * Returns `FALSE` if `newloc` is not specified or if its `null`.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * Thic proc is required if you expect transfer animation to be properly played,
  * since item loc should be turf only to properly register image.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -464,11 +466,11 @@
 /**
  * Used to drop an item (if it exists) to the ground.
  * Returns `TRUE` if item is successfully dropped.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * If item can be dropped, it will be forceMove()'d to the ground and the turf's Entered() will be called.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
@@ -503,7 +505,7 @@
  * If `newloc` is not a turf and you expect animation to register, use [drop_transfer_item_to_loc()] instead.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -517,7 +519,7 @@
  * Item MUST BE FORCEMOVE'D OR QDEL'D afterwards.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -531,7 +533,7 @@
  * You may override it, but do not modify the args.
  */
 /mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
-	// 'force' overrides flag NODROP and clothing obscuration
+	// 'force' overrides TRAIT_NODROP and clothing obscuration
 	// 'no_move' is used when item is just gonna be immediately moved afterwards
 	// 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping when item in jumsuit slot was removed
 	PROTECTED_PROC(TRUE)
@@ -575,7 +577,7 @@
 
 
 /**
- * General checks for do_unEquip proc: NODROP flag, obscurity and component blocking possibility.
+ * General checks for do_unEquip proc: TRAIT_NODROP, obscurity and component blocking possibility.
  * Set 'silent' to `FALSE` if you want to get warning messages.
  */
 /mob/proc/can_unEquip(obj/item/I, force = FALSE, silent = TRUE, atom/newloc, no_move = FALSE, invdrop = TRUE)
@@ -584,8 +586,8 @@
 	if(!I)
 		return TRUE
 
-	// NODROP flag
-	if((I.flags & NODROP) && !force)
+	// TRAIT_NODROP
+	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
 			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))

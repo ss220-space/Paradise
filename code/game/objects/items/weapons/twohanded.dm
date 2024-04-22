@@ -574,11 +574,11 @@
 
 
 /obj/item/twohanded/chainsaw/wield(obj/item/source, mob/living/carbon/user)
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -876,7 +876,7 @@
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
 	icon_state = "pyro_claws"
-	flags = ABSTRACT | NODROP | DROPDEL
+	flags = ABSTRACT|DROPDEL
 	force = 25
 	force_wielded = 25
 	damtype = BURN
@@ -888,6 +888,7 @@
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
@@ -969,7 +970,7 @@
 	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	used = TRUE
 	do_sparks(rand(1,6), 1, loc)
 
@@ -990,7 +991,7 @@
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
 	used = FALSE
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
 /obj/item/twohanded/fishingrod

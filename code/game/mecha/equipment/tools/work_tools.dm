@@ -655,9 +655,9 @@
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
 	..()
 	for(var/obj/item/item as anything in items_list)
-		item.flags |= NODROP
+		ADD_TRAIT(item, TRAIT_NODROP, type)
 		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		item.slot_flags = null
+		item.slot_flags = NONE
 		item.w_class = WEIGHT_CLASS_HUGE
 		item.materials = null
 		item.tool_enabled = TRUE
@@ -723,7 +723,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
 	if(!emagged)
-		items_list.Add(new emag_item)
+		var/obj/item/emag_thing = new emag_item
+		items_list.Add(emag_thing)
+		ADD_TRAIT(emag_thing, TRAIT_NODROP, type)
 		emagged = TRUE
 		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)

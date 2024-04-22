@@ -1414,4 +1414,5 @@
 		B.desc = "Sometimes, someone's just gotta die."
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
-		R.flags |= NODROP
+		ADD_TRAIT(R, TRAIT_NODROP, INNATE_TRAIT)
+
