@@ -92,10 +92,7 @@
 
 	switch(R.id)
 
-		if("glyphosate")
-			H.adjustToxLoss(3) //Deal additional damage
-			return TRUE
-		if("atrazine")
+		if("glyphosate", "atrazine")
 			H.adjustToxLoss(3) //Deal additional damage
 			return TRUE
 		if("iron")
