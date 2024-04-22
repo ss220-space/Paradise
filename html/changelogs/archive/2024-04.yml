@@ -294,10 +294,44 @@
 '2024-04-21':
   Den109G:
   - refactor: DMI's for clothes is no longer hardcoded (#4907)
+  Ksaikok46:
+  - tweak: Changed BFL goal crate cost and its content, decreased BSH goal points
+      (#4931)
   LiquidPotroh:
   - bugfix: Syndicate bomb dont work in de-powered zones (#4928)
+  Rerik007:
+  - bugfix: added missing cuffs icons (#4932)
+  Vladisvell:
+  - bugfix: Item deletion now removes it from storage before being destroyed (#4925)
   Zwei:
   - bugfix: VTEC Ignores Speed Penalties (#4927)
   - bugfix: Vampire Passives Removal Fix (#4919)
   pilygun:
   - balance: Changing the price of items in the uplink (#4903)
+'2024-04-22':
+  Aziz Chynaliev:
+  - del: TTS - free weekend"
+  Daeberdir:
+  - bugfix: event station lavaland path. (#4935)
+  Den109G:
+  - refactor: Getting rid of icon override var (#4930)
+  Helmsman:
+  - tweak: holos check before cult god summon (#4939)
+  Ksaikok46:
+  - tweak: Cryogenics reagents blacklist expansion (#4948)
+  Rerik007:
+  - bugfix: fix that you can start operate anywhere (#4934)
+  - bugfix: few health fixes (#4944)
+  - refactor: now using forcemove instead of loc= for mobs mostly (#4943)
+  Shakalchik:
+  - tweak: death implant for QM (#4941)
+  - add: gold Desert Eagle to badassery (#4917)
+  Valtor:
+  - add: Diona no_dna trait (#4947)
+  - qol: Fedora custom emote (#4946)
+  Vladisvell:
+  - add: Cyborg KA upgrades are brought back to exosuit fabricators. (#4904)
+  Zwei:
+  - refactor: Nodrop Trait (#4920)
+  - bugfix: Midnight Rollover Fix (#4942)
+  - tweak: Thunk Checks For Incorporeal Move (#4914)
