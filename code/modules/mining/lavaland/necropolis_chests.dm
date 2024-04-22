@@ -340,7 +340,7 @@
 	desc = "An eerie metal shard surrounded by dark energies."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana_organ"
-	status = 0
+	status = NONE
 	flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
@@ -380,10 +380,9 @@
 	INVOKE_ASYNC(src, PROC_REF(user_death_async), user)
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
-	Retract()
-	user.visible_message(span_warning("[user] begins to turn to dust, his soul being contained within [src]!"), span_userdanger("You feel your body begin to turn to dust, your soul being drawn into [src]!"))
-	forceMove(get_turf(owner))
 	remove(user)
+	user.visible_message(span_warning("[user] begins to turn to dust, his soul being contained within [src]!"), span_userdanger("You feel your body begin to turn to dust, your soul being drawn into [src]!"))
+	forceMove(get_turf(user))
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, dust)), 1 SECONDS)
 
 /obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
