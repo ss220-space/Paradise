@@ -404,7 +404,7 @@
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
 			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
-				if(reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
+				if(!reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
 					proportion = min(proportion, 1)
 					volume = 1
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
