@@ -9,7 +9,7 @@
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
 /obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
-	if(suit && slot == SLOT_HUD_HEAD)
+	if(suit && slot == ITEM_SLOT_HEAD)
 		suit.deactivate()
 	. = ..()
 
@@ -50,7 +50,7 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped(mob/user, slot, silent = FALSE)
-	if(slot == SLOT_HUD_OUTER_SUIT && activated)
+	if(slot == ITEM_SLOT_CLOTH_OUTER && activated)
 		deactivate()
 	. = ..()
 
@@ -137,9 +137,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					ADD_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = src
-					src.flags |= NODROP
+					ADD_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -168,11 +168,11 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0
@@ -201,7 +201,7 @@
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
-				if(istype(step, /turf/space))
+				if(isspaceturf(step))
 					if(!src.Move(step))
 						src.loc = step
 				else

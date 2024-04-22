@@ -602,7 +602,7 @@
 	create_log(SAY_LOG, "[message_mode ? "([message_mode])" : ""] '[message]'")
 
 	playsound(get_turf(src), pick(speech_sounds), 30, TRUE)
-	if(istype(loc, /obj/item/radio))
+	if(isradio(loc))
 		var/obj/item/radio/R = loc
 		name = gen_speech_name()
 		R.talk_into(src, message_pieces, message_mode, verb)

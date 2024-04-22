@@ -184,7 +184,7 @@
 	icon_state = "lavastaff"
 	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN

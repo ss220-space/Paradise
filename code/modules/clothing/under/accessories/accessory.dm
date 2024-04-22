@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 	w_class = WEIGHT_CLASS_SMALL
 	pickup_sound = 'sound/items/handling/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/accessory_drop.ogg'
@@ -359,7 +359,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_ACCESSORY
 	actions_types = list(/datum/action/item_action/accessory/holobadge)
 
 	var/emagged = FALSE //Emagging removes Sec check.
@@ -423,7 +423,7 @@
 	set name = "Holobadge"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		return
 	if(usr.stat)
 		return
@@ -538,7 +538,6 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -571,7 +570,6 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.
@@ -849,7 +847,7 @@
 	remove_id(user)
 
 /obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		if(istype(loc, /obj/item/clothing/under))
 			return ..()
 		var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text

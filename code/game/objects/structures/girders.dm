@@ -65,7 +65,7 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-	else if(istype(W, /obj/item/stack))
+	else if(isstack(W))
 		if(iswallturf(loc))
 			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
 			return

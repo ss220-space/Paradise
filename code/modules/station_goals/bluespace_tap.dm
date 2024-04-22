@@ -2,7 +2,7 @@
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
 	gamemode_blacklist = list("extended")
-	var/goal = 45000
+	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>

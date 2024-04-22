@@ -66,13 +66,13 @@
 			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
-	var/priority_list = list( \
-		SLOT_HUD_BACK, SLOT_HUD_WEAR_PDA, SLOT_HUD_WEAR_ID, \
-		SLOT_HUD_JUMPSUIT, SLOT_HUD_OUTER_SUIT, SLOT_HUD_WEAR_MASK, \
-		SLOT_HUD_NECK, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_EAR, \
-		SLOT_HUD_RIGHT_EAR, SLOT_HUD_HEAD, SLOT_HUD_BELT, \
-		SLOT_HUD_SUIT_STORE, SLOT_HUD_TIE, SLOT_HUD_GLOVES, \
-		SLOT_HUD_SHOES, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE \
+	var/list/priority_list = list(
+		ITEM_SLOT_BACK, ITEM_SLOT_PDA, ITEM_SLOT_ID,
+		ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_MASK,
+		ITEM_SLOT_NECK, ITEM_SLOT_EYES, ITEM_SLOT_EAR_LEFT,
+		ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_HEAD, ITEM_SLOT_BELT,
+		ITEM_SLOT_SUITSTORE, ITEM_SLOT_ACCESSORY, ITEM_SLOT_GLOVES,
+		ITEM_SLOT_FEET, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT,
 	)
 
 	for(var/slot in priority_list)
@@ -137,12 +137,14 @@
  * Used in job equipping so shit doesn't pile up at the start loc.
  */
 /mob/proc/equip_or_collect(obj/item/I, slot)
+	if(QDELETED(I))
+		return
 	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot(I, slot, initial = TRUE)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/storage))
+		if(isstorage(back))
 			//Now, B represents a container we can insert I into.
 			var/obj/item/storage/backpack = back
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
@@ -270,7 +272,7 @@
 /**
  * Only external organs and only for humans
  */
-/mob/proc/has_organ_for_slot()
+/mob/proc/has_organ_for_slot(slot_flag)
 	return FALSE
 
 
@@ -318,11 +320,11 @@
 
 	if(hand_id == "HAND_LEFT")
 		l_hand = I
-		I.equipped(src, SLOT_HUD_LEFT_HAND, silent)
+		I.equipped(src, ITEM_SLOT_HAND_LEFT, silent)
 		update_inv_l_hand()
 	else if(hand_id == "HAND_RIGHT")
 		r_hand = I
-		I.equipped(src, SLOT_HUD_RIGHT_HAND, silent)
+		I.equipped(src, ITEM_SLOT_HAND_RIGHT, silent)
 		update_inv_r_hand()
 
 	if(pulling == I)
@@ -384,7 +386,7 @@
  * Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
  *
  * Arguments
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
@@ -439,12 +441,12 @@
  * Item will be dropped on turf below user, then forceMoved to `newloc`.
  * Returns `TRUE` if item is successfully transfered.
  * Returns `FALSE` if `newloc` is not specified or if its `null`.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * Thic proc is required if you expect transfer animation to be properly played,
  * since item loc should be turf only to properly register image.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -464,11 +466,11 @@
 /**
  * Used to drop an item (if it exists) to the ground.
  * Returns `TRUE` if item is successfully dropped.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * If item can be dropped, it will be forceMove()'d to the ground and the turf's Entered() will be called.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
@@ -503,7 +505,7 @@
  * If `newloc` is not a turf and you expect animation to register, use [drop_transfer_item_to_loc()] instead.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -517,7 +519,7 @@
  * Item MUST BE FORCEMOVE'D OR QDEL'D afterwards.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -531,7 +533,7 @@
  * You may override it, but do not modify the args.
  */
 /mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
-	// 'force' overrides flag NODROP and clothing obscuration
+	// 'force' overrides TRAIT_NODROP and clothing obscuration
 	// 'no_move' is used when item is just gonna be immediately moved afterwards
 	// 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping when item in jumsuit slot was removed
 	PROTECTED_PROC(TRUE)
@@ -575,7 +577,7 @@
 
 
 /**
- * General checks for do_unEquip proc: NODROP flag, obscurity and component blocking possibility.
+ * General checks for do_unEquip proc: TRAIT_NODROP, obscurity and component blocking possibility.
  * Set 'silent' to `FALSE` if you want to get warning messages.
  */
 /mob/proc/can_unEquip(obj/item/I, force = FALSE, silent = TRUE, atom/newloc, no_move = FALSE, invdrop = TRUE)
@@ -584,8 +586,8 @@
 	if(!I)
 		return TRUE
 
-	// NODROP flag
-	if((I.flags & NODROP) && !force)
+	// TRAIT_NODROP
+	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
 		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
 			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
@@ -610,7 +612,7 @@
  * and not actually wearing it in any REAL equipment slot.
  */
 /mob/proc/is_general_slot(slot)
-	return slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED)
+	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED))
 
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -647,35 +649,35 @@
 	return id_cards
 
 
-/mob/proc/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(SLOT_HUD_WEAR_MASK)
+/mob/proc/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(SLOT_HUD_BACK)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(SLOT_HUD_LEFT_HAND)
+		if(ITEM_SLOT_HAND_LEFT)
 			return l_hand
-		if(SLOT_HUD_RIGHT_HAND)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return r_hand
 	return null
 
 
 /mob/proc/get_slot_by_item(item)
 	if(item == back)
-		return SLOT_HUD_BACK
+		return ITEM_SLOT_BACK
 	if(item == wear_mask)
-		return SLOT_HUD_WEAR_MASK
+		return ITEM_SLOT_MASK
 	if(item == l_hand)
-		return SLOT_HUD_LEFT_HAND
+		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
-		return SLOT_HUD_RIGHT_HAND
+		return ITEM_SLOT_HAND_RIGHT
 	return null
 
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
 	for(var/obj/item/I in contents)
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(istype(SI, path))
 					return SI

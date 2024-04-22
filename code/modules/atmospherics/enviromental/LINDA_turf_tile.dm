@@ -493,7 +493,7 @@
 				if(!neighbor?.thermal_conductivity)
 					continue
 
-				if(istype(neighbor, /turf/simulated)) //anything under this subtype will share in the exchange
+				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange
 					var/turf/simulated/T = neighbor
 
 					if(T.archived_cycle < SSair.times_fired)

@@ -87,7 +87,8 @@
 	desc = "Use in case of bomb."
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombsuit"
-	flags = BLOCKHAIR | THICKMATERIAL
+	flags = THICKMATERIAL
+	flags_inv = HIDEHAIR
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -170,8 +171,9 @@
 	name = "Radiation Hood"
 	icon_state = "rad"
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
-	flags = BLOCKHAIR|THICKMATERIAL
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags = THICKMATERIAL
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
 	strip_delay = 60
 	put_on_delay = 60

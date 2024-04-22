@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/emagged = FALSE
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)

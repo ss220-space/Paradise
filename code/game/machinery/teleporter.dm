@@ -377,7 +377,7 @@
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !istype(moving_atom, /obj/spacepod))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)

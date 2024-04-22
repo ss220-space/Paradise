@@ -67,7 +67,7 @@
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
@@ -88,7 +88,7 @@
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)

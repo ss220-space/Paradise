@@ -219,7 +219,7 @@
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
@@ -234,9 +234,9 @@
 		else
 			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
+			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
 				walk_away(thingy,chassis,15,2)

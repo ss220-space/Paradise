@@ -84,11 +84,11 @@
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/restraint
 	if(ninja.handcuffed)
-		restraint = ninja.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
 		ninja.uncuff()
 	if(ninja.legcuffed)
-		restraint = ninja.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
 		ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))

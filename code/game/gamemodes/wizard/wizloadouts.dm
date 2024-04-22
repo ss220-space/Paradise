@@ -97,7 +97,7 @@
 	is_ragin_restricted = TRUE
 
 /obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), ITEM_SLOT_CLOTH_OUTER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), ITEM_SLOT_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), ITEM_SLOT_CLOTH_INNER)

@@ -117,7 +117,7 @@
 		add_fingerprint(user)
 		return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(src.allowed(usr))
 			add_fingerprint(user)
 			if(emagged)

@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/disable_timer = 0
 
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
