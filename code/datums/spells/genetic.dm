@@ -21,7 +21,7 @@
 		for(var/trait in traits)
 			ADD_TRAIT(target, trait, MAGIC_TRAIT)
 
-		active_on += target
+		active_on |= target
 		target.regenerate_icons()
 
 		addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
