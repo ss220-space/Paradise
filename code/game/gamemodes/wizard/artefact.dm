@@ -714,7 +714,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(user.zone_selected == BODY_ZONE_CHEST)
 		if(link)
 			target = null
-			link.loc = get_turf(src)
+			link.forceMove(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the [link] from the doll.</span>")
 			link = null
 			update_targets()

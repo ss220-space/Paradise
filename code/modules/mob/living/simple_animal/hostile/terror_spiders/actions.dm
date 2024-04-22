@@ -283,7 +283,7 @@
 							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1
 						last_cocoon_object = 0
-						L.loc = C
+						L.forceMove(C)
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						break

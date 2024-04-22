@@ -518,7 +518,7 @@
 		if(G.state<2)
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
-		G.affecting.loc = src.loc
+		G.affecting.forceMove(loc)
 		G.affecting.Weaken(10 SECONDS)
 		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)

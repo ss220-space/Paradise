@@ -110,7 +110,7 @@
 			if(length(GLOB.ninjastart))
 				var/datum/mind/special_antag = safepick(get_players_for_role(ROLE_NINJA))
 				if(special_antag)
-					special_antag.current.loc = pick(GLOB.ninjastart)
+					special_antag.current.forceMove(pick(GLOB.ninjastart))
 					special_antag.assigned_role = SPECIAL_ROLE_SPACE_NINJA // assigned role and special role must be the same so they aren't chosen for other jobs.
 					special_antag.special_role = SPECIAL_ROLE_SPACE_NINJA
 					special_antag.offstation_role = TRUE // ninja can't be targeted as a victim for some pity traitors

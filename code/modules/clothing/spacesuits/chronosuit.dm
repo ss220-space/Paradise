@@ -97,7 +97,7 @@
 					sleep(7)
 			if(holder)
 				if(user && (user in holder.contents))
-					user.loc = to_turf
+					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
 							user.client.eye = camera
@@ -105,12 +105,12 @@
 							user.client.eye = user
 				qdel(holder)
 			else if(user)
-				user.loc = from_turf
+				user.forceMove(from_turf)
 			if(phaseanim)
 				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
-				user.loc = locate(0,0,1)
+				user.forceMove(locate(0,0,1))
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
