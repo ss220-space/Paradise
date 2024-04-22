@@ -503,6 +503,8 @@
 	modifier = -14 // Makes the cooldown 3 seconds (with no cooldown mods) if you miss. Don't miss.
 	cost = 50
 
+/obj/item/borg/upgrade/modkit/cooldown/repeater/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	var/valid_repeat = FALSE
@@ -582,6 +584,14 @@
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
 	modifier = 0.2
 
+/obj/item/borg/upgrade/modkit/aoe/turfs/borg
+	compatibility = COMPATIBILITY_CYBORG
+
+/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs/borg
+	compatibility = COMPATIBILITY_CYBORG
+
+/obj/item/borg/upgrade/modkit/aoe/mobs/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 // Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
@@ -614,6 +624,8 @@
 	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
+/obj/item/borg/upgrade/modkit/resonator_blasts/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(target_turf && !ismineralturf(target_turf)) // Don't make fields on mineral turfs.
