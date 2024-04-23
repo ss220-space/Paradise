@@ -389,10 +389,6 @@
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	. = ..()
 
-#define LEFT_SLASH "Harm"
-#define RIGHT_SLASH "Disarm"
-#define COMBO_STEPS "steps"
-#define COMBO_PROC "proc"
 #define ATTACK_STRIKE "Hilt Strike"
 #define ATTACK_SLICE "Wide Slice"
 #define ATTACK_DASH "Dash Attack"
@@ -417,9 +413,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/shattered = FALSE
 	var/drew_blood = FALSE
-	var/timerid
-	var/list/input_list = list()
-	var/list/combo_strings = list()
 	var/static/list/combo_list = list(
 		ATTACK_STRIKE = list(COMBO_STEPS = list(LEFT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = PROC_REF(strike)),
 		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = PROC_REF(slice)),
@@ -431,68 +424,35 @@
 
 /obj/item/cursed_katana/Initialize(mapload)
 	. = ..()
-	for(var/combo in combo_list)
-		var/list/combo_specifics = combo_list[combo]
-		var/step_string = english_list(combo_specifics[COMBO_STEPS])
-		combo_strings += (span_notice("<b>[combo]</b> - [step_string]"))
+	AddComponent( \
+		/datum/component/combo_attacks, \
+		combos = combo_list, \
+		max_combo_length = 4, \
+		reset_message = span_notice("You return to neutral stance."), \
+		can_attack_callback = CALLBACK(src, PROC_REF(can_combo_attack)) \
+	)
+
 
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
 	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
-	. += combo_strings
-
-/obj/item/cursed_katana/dropped(mob/user)
-	. = ..()
-	reset_inputs(null, TRUE)
-
-/obj/item/cursed_katana/attack_self(mob/user)
-	. = ..()
-	reset_inputs(user, TRUE)
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/user, def_zone)
-	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
-		return ..()
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to harm [target]!"))
-		return TRUE
 	var/add_melee_cooldown = TRUE
-	drew_blood = TRUE
-	if(user.a_intent == INTENT_DISARM)
-		input_list += RIGHT_SLASH
-	if(user.a_intent == INTENT_HARM)
-		input_list += LEFT_SLASH
-	if(ishostile(target))
-		user.changeNext_move(CLICK_CD_RAPID)
-		add_melee_cooldown = FALSE
-	if(length(input_list) > 4)
-		reset_inputs(user, TRUE)
-	if(check_input(target, user))
-		reset_inputs(null, TRUE)
-		return TRUE
-	else
-		timerid = addtimer(CALLBACK(src, PROC_REF(reset_inputs), user, FALSE), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
-		return ..(target, user, def_zone, add_melee_cooldown)
+	if(can_combo_attack(user, target))
+		drew_blood = TRUE
+		if(ishostile(target))
+			user.changeNext_move(CLICK_CD_RAPID)
+			add_melee_cooldown = FALSE
+	return ..(target, user, def_zone, add_melee_cooldown)
 
 /obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
-/obj/item/cursed_katana/proc/check_input(mob/living/target, mob/user)
-	for(var/combo in combo_list)
-		var/list/combo_specifics = combo_list[combo]
-		if(compare_list(input_list,combo_specifics[COMBO_STEPS]))
-			INVOKE_ASYNC(src, combo_specifics[COMBO_PROC], target, user)
-			return TRUE
-	return FALSE
-
-/obj/item/cursed_katana/proc/reset_inputs(mob/user, deltimer)
-	input_list.Cut()
-	if(user)
-		to_chat(user, span_notice("You return to neutral stance."))
-	if(deltimer && timerid)
-		deltimer(timerid)
-
+/obj/item/cursed_katana/proc/can_combo_attack(mob/user, mob/living/target)
+	return target.stat != DEAD && target != user
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
 	user.visible_message(span_warning("[user] strikes [target] with [src]'s hilt!"),
@@ -596,14 +556,12 @@
 	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
 
 /obj/item/cursed_katana/proc/coagulate(mob/user)
+	if(QDELETED(user))
+		return
 	to_chat(user, span_notice("[src] reforms!"))
 	shattered = FALSE
-	playsound(src, 'sound/misc/demon_consume.ogg', 50, TRUE)
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 
-#undef LEFT_SLASH
-#undef RIGHT_SLASH
-#undef COMBO_STEPS
-#undef COMBO_PROC
 #undef ATTACK_STRIKE
 #undef ATTACK_SLICE
 #undef ATTACK_DASH

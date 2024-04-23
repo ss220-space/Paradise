@@ -161,3 +161,7 @@
 #define COMSIG_AUTOFIRE_SHOT "autofire_shot"
 	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 
+#define LEFT_SLASH "Harm"
+#define RIGHT_SLASH "Disarm"
+#define COMBO_STEPS "steps"
+#define COMBO_PROC "proc"
