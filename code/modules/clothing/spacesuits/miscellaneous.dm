@@ -110,7 +110,7 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
-	flags_inv = 0
+	flags_inv = NONE
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = null
 	sprite_sheets = list(
@@ -139,7 +139,7 @@
 	icon_state = "detective"
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
-	flags_inv = 0
+	flags_inv = NONE
 	slowdown = 0
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -345,7 +345,6 @@
 	icon_state = "spacenew"
 	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = 0
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -437,7 +436,6 @@
 	icon_state = "pirate_armor"
 	item_state = "s_helmet"
 	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = 2
 	sprite_sheets = list(
