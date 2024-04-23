@@ -79,7 +79,7 @@
 	name = "dark robe's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
-	flags_inv = HIDEHAIR|HIDENAME
+	flags_inv = parent_type::flags_inv|HIDENAME
 
 
 //Chaplain
