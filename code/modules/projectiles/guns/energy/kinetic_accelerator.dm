@@ -148,7 +148,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
 	. = ..()
-	if(!can_shoot())
+	if(!can_shoot(user))
 		attempt_reload()
 
 

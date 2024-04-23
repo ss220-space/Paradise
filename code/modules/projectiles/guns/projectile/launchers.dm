@@ -149,7 +149,7 @@
 
 /obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
-	if(can_shoot())
+	if(can_shoot(user))
 		user.notransform = TRUE
 		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, 1, 5)
 		animate(user, pixel_z = 300, time = 3 SECONDS, easing = LINEAR_EASING)

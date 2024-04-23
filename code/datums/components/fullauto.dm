@@ -303,7 +303,7 @@
 	if(semicd || shooter.incapacitated() || !can_trigger_gun(shooter))
 		return FALSE
 
-	if(!can_shoot())
+	if(!can_shoot(shooter))
 		shoot_with_empty_chamber(shooter)
 		return FALSE
 
@@ -328,7 +328,7 @@
 	if(semicd || shooter.incapacitated())
 		return NONE
 
-	if(!can_shoot())
+	if(!can_shoot(shooter))
 		shoot_with_empty_chamber(shooter)
 		return NONE
 
