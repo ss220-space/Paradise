@@ -161,3 +161,10 @@
 #define COMSIG_AUTOFIRE_SHOT "autofire_shot"
 	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 
+#define HELP_SLASH "Help"
+#define DISARM_SLASH "Disarm"
+#define GRAB_SLASH "Grab"
+#define HARM_SLASH "Harm"
+
+#define COMBO_STEPS "steps"
+#define COMBO_PROC "proc"
