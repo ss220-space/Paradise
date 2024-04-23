@@ -1345,7 +1345,7 @@
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "1 minute of suffering"
+	taste_description = "minute of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1361,12 +1361,13 @@
 			if(prob(20))
 				to_chat(M, span_warning("Your skin feels hot and your veins are on fire!"))
 				update_flags |= M.adjustFireLoss(1, FALSE)
-			for(var/datum/reagent/R in M.reagents.reagent_list)
-				if(stimulant_list.Find(R.id))
-					M.reagents.remove_reagent(R.id, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
+			if(has_stimulant)
+				for(var/datum/reagent/R in M.reagents.reagent_list)
+					if(stimulant_list.Find(R.id))
+						M.reagents.remove_reagent(R.id, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(10 to 21)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
-			if(has_stimulant == TRUE)
+			if(has_stimulant)
 				update_flags |= M.adjustToxLoss(20, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
@@ -1377,7 +1378,7 @@
 			to_chat(M, span_warning("Your body goes rigid, you cannot move at all!"))
 			M.AdjustWeakened(15 SECONDS)
 		if(23 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
-			if(has_stimulant == TRUE)
+			if(has_stimulant)
 				return ..()
 			else
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
