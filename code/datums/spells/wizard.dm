@@ -334,7 +334,6 @@
 
 /obj/effect/proc_holder/spell/inflict_handler/blind
 	amt_eye_blind = 10 SECONDS
-	amt_eye_blurry = 20 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
 
