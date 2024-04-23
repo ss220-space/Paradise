@@ -156,7 +156,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
-		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				deployed_shields += new /obj/machinery/shield(target_tile)
 
@@ -486,7 +486,7 @@
 			set_anchored(FALSE)
 			return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(allowed(user))
 			add_fingerprint(user)
 			locked = !locked

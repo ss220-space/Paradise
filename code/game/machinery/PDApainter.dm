@@ -76,7 +76,7 @@
 		add_fingerprint(user)
 		power_change()
 		return
-	if(istype(I, /obj/item/pda))
+	if(is_pda(I))
 		if(storedpda)
 			to_chat(user, "В аппарате уже есть PDA.")
 			return

@@ -480,7 +480,7 @@
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/card/id) || is_pda(I))
 		if(allowed(user))
 			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
 			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)

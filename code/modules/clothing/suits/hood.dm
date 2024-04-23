@@ -37,7 +37,7 @@
 
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		return TRUE
 
 
@@ -77,7 +77,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return
-	if(!user.equip_to_slot(hood, SLOT_HUD_HEAD))
+	if(!user.equip_to_slot(hood, ITEM_SLOT_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -134,7 +134,7 @@
 
 /obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
 	. = ..()
-	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
 		if(!QDELING(src))
 			qdel(src)
 		stack_trace("Investigate suit hood equip of type: [type]")
@@ -143,7 +143,7 @@
 
 /obj/item/clothing/head/hooded/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..()
-	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
 		if(!QDELING(src))
 			qdel(src)
 		stack_trace("Investigate suit hood drop of type: [type]")

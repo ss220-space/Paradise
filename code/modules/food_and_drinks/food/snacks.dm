@@ -107,10 +107,10 @@
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
-	if(istype(W,/obj/item/storage))
+	if(isstorage(W))
 		..() // -> item/attackby(, params)
 
 	else if(istype(W,/obj/item/kitchen/utensil))
@@ -156,7 +156,7 @@
 			. = new trash(location)
 			trash = null
 			return
-		else if(istype(trash, /obj/item))
+		else if(isitem(trash))
 			var/obj/item/trash_item = trash
 			trash_item.forceMove(location)
 			. = trash

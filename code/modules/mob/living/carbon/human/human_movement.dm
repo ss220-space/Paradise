@@ -161,7 +161,7 @@
 
 /// Proc used to weaken the user when moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || mob_negates_gravity())
+	if(buckled || mob_negates_gravity() || incorporeal_move)
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides

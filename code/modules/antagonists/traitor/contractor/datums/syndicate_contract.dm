@@ -419,7 +419,7 @@
 		var/obj/item/I = i
 		if(GLOB.prisoner_belongings.give_item(I))
 			victim_belongings += I
-		else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
+		else if(!(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
 			I.forceMove(T)
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.

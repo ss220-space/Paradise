@@ -1,6 +1,6 @@
 /datum/gear/neck
 	subtype_path = /datum/gear/neck
-	slot = SLOT_HUD_NECK
+	slot = ITEM_SLOT_NECK
 	sort_category = "Neck"
 
 //Mantles
@@ -133,8 +133,23 @@
 
 //Ponchos
 /datum/gear/neck/poncho
-	display_name = "poncho, classic"
+	display_name = "poncho, select"
 	path = /obj/item/clothing/neck/poncho
+
+/datum/gear/neck/poncho/New()
+	. = ..()
+	var/list/ponchos = list(/obj/item/clothing/neck/poncho,
+							/obj/item/clothing/neck/poncho/red,
+							/obj/item/clothing/neck/poncho/orange,
+							/obj/item/clothing/neck/poncho/yellow,
+							/obj/item/clothing/neck/poncho/green,
+							/obj/item/clothing/neck/poncho/blue,
+							/obj/item/clothing/neck/poncho/purple,
+							/obj/item/clothing/neck/poncho/white,
+							/obj/item/clothing/neck/poncho/black,
+							/obj/item/clothing/neck/poncho/mime,
+							/obj/item/clothing/neck/poncho/rainbow,)
+	gear_tweaks += new /datum/gear_tweak/path(ponchos, src, TRUE)
 
 /datum/gear/neck/poncho/security
 	display_name = "poncho, corporate"

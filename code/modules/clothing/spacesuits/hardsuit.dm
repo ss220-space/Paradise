@@ -70,7 +70,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/living/carbon/user, slot, initial = FALSE)
 	. = ..(user, slot, TRUE)
-	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
 		if(!QDELING(src))
 			qdel(src)
 		stack_trace("Investigate hardsuit helmet equip of type: [type]")
@@ -79,7 +79,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..(user, slot, TRUE)
-	if(!suit || slot != SLOT_HUD_HEAD || user.wear_suit != suit)
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
 		if(!QDELING(src))
 			qdel(src)
 		stack_trace("Investigate hardsuit helmet drop of type: [type]")
@@ -106,7 +106,7 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 
@@ -203,7 +203,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return TRUE
 
 
@@ -239,7 +239,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return FALSE
-	if(!user.equip_to_slot(helmet, SLOT_HUD_HEAD))
+	if(!user.equip_to_slot(helmet, ITEM_SLOT_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -734,13 +734,13 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		GLOB.doppler_arrays -= src
 
 

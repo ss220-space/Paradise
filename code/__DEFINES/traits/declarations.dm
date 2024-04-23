@@ -76,6 +76,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SURGICAL "surgical_tool"
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
+/// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
+#define TRAIT_NODROP "nodrop"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

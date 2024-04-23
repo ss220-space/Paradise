@@ -151,7 +151,7 @@
 					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
 									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
-			if(W.flags & NODROP)
+			if(HAS_TRAIT(W, TRAIT_NODROP))
 				return 0
 			target.drop_item_ground(W)
 
@@ -159,7 +159,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, disable_warning = TRUE)
+		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, disable_warning = TRUE)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
 

@@ -220,7 +220,7 @@
 			new /obj/item/stack/sheet/wood(src)
 			new /obj/item/stack/sheet/wood(src)
 			qdel(src)
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		var/msg = sanitize(input(user, "What should it say?", "Grave marker", message) as text|null)
 		if(msg)
 			message = msg

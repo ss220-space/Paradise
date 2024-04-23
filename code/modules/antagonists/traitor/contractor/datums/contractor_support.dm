@@ -44,7 +44,7 @@
 	)
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/partner, visualsOnly)
 	. = ..()
-	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(ITEM_SLOT_MASK)
 	cig.light()
 
 	var/obj/item/card/id/I = partner.wear_id

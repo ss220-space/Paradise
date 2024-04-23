@@ -38,7 +38,7 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			for(var/atom/movable/AM in contents)
-				AM.loc = loc
+				AM.forceMove(loc)
 				AM.ex_act(severity++)
 
 			qdel(src)
@@ -46,7 +46,7 @@
 		if(EXPLODE_HEAVY)
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
-					AM.loc = loc
+					AM.forceMove(loc)
 					AM.ex_act(severity++)
 
 				qdel(src)

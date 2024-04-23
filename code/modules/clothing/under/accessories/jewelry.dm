@@ -6,10 +6,12 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_necklace"
 	item_state = "gem_necklace"
-	slot_flags = SLOT_FLAG_NECK | SLOT_FLAG_TIE //trust me, I am 100% triplechecked this
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_ACCESSORY //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/gem = null
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	var/necklace_light = FALSE //some lighting stuff
 	light_on = FALSE
@@ -127,12 +129,12 @@
 
 /obj/item/clothing/accessory/necklace/gem/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(isliving(user) && dragon_power && slot == SLOT_HUD_NECK)
+	if(isliving(user) && dragon_power && slot == ITEM_SLOT_NECK)
 		user.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
 /obj/item/clothing/accessory/necklace/gem/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(isliving(user) && dragon_power && slot == SLOT_HUD_NECK)
+	if(isliving(user) && dragon_power)
 		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
 //bracers
@@ -142,7 +144,9 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_bracers"
 	item_state = "gem_bracers"
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/gem = null
 	transfer_prints = TRUE
 	cold_protection = HANDS

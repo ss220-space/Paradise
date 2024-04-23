@@ -14,7 +14,7 @@
 		if(!user.drop_transfer_item_to_loc(W, src))
 			return
 		add_fingerprint(user)
-	else if(istype(W, /obj/item/storage))
+	else if(isstorage(W))
 		add_fingerprint(user)
 		var/obj/item/storage/S = W
 		S.hide_from(usr)

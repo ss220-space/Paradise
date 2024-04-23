@@ -1038,3 +1038,16 @@ proc/dd_sortedObjectList(list/incoming)
 /proc/sort_list(list/list_to_sort, cmp = /proc/cmp_text_asc)
 	return sortTim(list_to_sort.Copy(), cmp)
 
+///compare two lists, returns TRUE if they are the same
+/proc/compare_list(list/l, list/d)
+	if(!islist(l) || !islist(d))
+		return FALSE
+
+	if(length(l) != length(d))
+		return FALSE
+
+	for(var/i in 1 to length(l))
+		if(l[i] != d[i])
+			return FALSE
+
+	return TRUE

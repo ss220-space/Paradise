@@ -31,7 +31,7 @@
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split_stack(user, 1)

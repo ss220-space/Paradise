@@ -57,7 +57,12 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = NODROP|ABSTRACT
+	flags = ABSTRACT
+
+
+/obj/item/bloodcrawl/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow

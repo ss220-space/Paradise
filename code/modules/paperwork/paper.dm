@@ -15,7 +15,7 @@
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -457,7 +457,7 @@
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.drop_item_ground(P)
-		if(istype(user, /mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
 				h_user.drop_item_ground(src)
