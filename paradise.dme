@@ -378,6 +378,7 @@
 #include "code\datums\components\boomerang.dm"
 #include "code\datums\components\boss_music.dm"
 #include "code\datums\components\caltrop.dm"
+#include "code\datums\components\combo_attacks.dm"
 #include "code\datums\components\contsruction_regenerate.dm"
 #include "code\datums\components\cross_shock.dm"
 #include "code\datums\components\decal.dm"
