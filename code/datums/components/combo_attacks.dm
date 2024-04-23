@@ -1,7 +1,7 @@
 /datum/component/combo_attacks
 	/// Length of combo we allow before resetting.
 	var/max_combo_length
-	/// Balloon alert message when the combo is reset.
+	/// Message when the combo is reset.
 	var/reset_message
 	/// ID for the reset combo timer.
 	var/timerid
@@ -9,7 +9,7 @@
 	var/leniency_time
 	/// List of inputs done by user.
 	var/list/input_list = list()
-	/// Associative list of all the combo moves. Name of Attack = list(COMBO_STEPS = list(Steps made of LEFT_SLASH and RIGHT_SLASH), COMBO_PROC = PROC_REF(Proc Name))
+	/// Associative list of all the combo moves. Name of Attack = list(COMBO_STEPS = list(Steps made of HARM_SLASH and DISARM_SLASH), COMBO_PROC = PROC_REF(Proc Name))
 	var/list/combo_list = list()
 	/// A list of strings containing the ways to do combos, for examines.
 	var/list/combo_strings = list()
@@ -79,10 +79,15 @@
 		return NONE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		return NONE
-	if(user.a_intent == INTENT_DISARM)
-		input_list += RIGHT_SLASH
-	if(user.a_intent == INTENT_HARM)
-		input_list += LEFT_SLASH
+	switch(user.a_intent)
+		if(INTENT_HELP)
+			input_list += HELP_SLASH
+		if(INTENT_DISARM)
+			input_list += DISARM_SLASH
+		if(INTENT_GRAB)
+			input_list += GRAB_SLASH
+		if(INTENT_HARM)
+			input_list += HARM_SLASH
 	if(length(input_list) > max_combo_length)
 		reset_inputs(user, deltimer = TRUE)
 	if(check_input(target, user))
