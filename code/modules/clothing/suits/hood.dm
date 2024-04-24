@@ -105,6 +105,7 @@
 
 
 /obj/item/clothing/head/hooded
+	flags_inv = HIDEHAIR
 	var/obj/item/clothing/suit/hooded/suit
 
 
