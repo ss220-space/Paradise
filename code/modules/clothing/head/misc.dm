@@ -111,7 +111,7 @@
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
@@ -128,7 +128,6 @@
 	desc = "It's an amish looking armored top hat."
 	icon_state = "tophat"
 	item_state = "that"
-	flags_inv = 0
 
 
 /obj/item/clothing/head/greenbandana
@@ -136,7 +135,7 @@
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "greenbandana"
 	item_state = "greenbandana"
-	flags_inv = 0
+
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
@@ -258,8 +257,7 @@
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
-
+	user.custom_emote(EMOTE_VISIBLE, "приподнима[pluralize_ru(user.gender,"ет","ют")] федору.")
 
 /obj/item/clothing/head/fez
 	name = "fez"

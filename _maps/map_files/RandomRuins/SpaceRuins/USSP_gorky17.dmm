@@ -363,8 +363,8 @@
 	tag = ""
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -2409,8 +2409,12 @@
 "iD" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/marker_beacon/thirty,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
 "iN" = (
@@ -6050,8 +6054,8 @@
 "vF" = (
 /obj/structure/table,
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6162,12 +6166,12 @@
 	initialized = 1
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -11717,8 +11721,10 @@
 /area/ruin/space/USSP_gorky17/dorms)
 "OP" = (
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "OQ" = (
@@ -12821,9 +12827,9 @@
 /obj/structure/table,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -13050,7 +13056,9 @@
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "TN" = (
@@ -13610,9 +13618,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

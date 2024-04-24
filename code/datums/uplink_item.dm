@@ -1066,7 +1066,7 @@
 	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
 	name = "84mm High Explosive rocket"
@@ -1964,6 +1964,12 @@
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+/datum/uplink_item/badass/desert_eagle
+	name = "Desert Eagle"
+	desc = "A badass gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50AE ammo. Kill with style."
+	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
+	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"

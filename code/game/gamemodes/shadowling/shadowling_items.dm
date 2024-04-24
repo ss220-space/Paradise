@@ -3,7 +3,6 @@
 	desc = "Black, chitinous skin with thin red veins."
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_uniform"
-	icon_override = "golem_s"
 	origin_tech = null
 	flags = ABSTRACT|DROPDEL
 	has_sensor = FALSE
@@ -21,7 +20,6 @@
 	desc = "Dark, semi-transparent shell. Protects against vacuum, but not against the light of the stars." //Still takes damage from spacewalking but is immune to space itself
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_suit"
-	icon_override = "golem"
 	body_parts_covered = FULL_BODY //Shadowlings are immune to space
 	cold_protection = FULL_BODY
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

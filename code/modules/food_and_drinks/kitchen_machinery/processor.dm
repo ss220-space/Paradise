@@ -129,7 +129,7 @@
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
 	var/mob/living/carbon/human/lesser/monkey/O = what
 	if(O.client) //grief-proof
-		O.loc = loc
+		O.forceMove(loc)
 		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
 				"<span class='notice'>You jump out of \the [src].</span>", \
 				"<span class='notice'>You hear a chimp.</span>")

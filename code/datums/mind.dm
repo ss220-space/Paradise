@@ -2849,7 +2849,7 @@
 		SSticker.mode.forge_syndicate_objectives(src)
 		SSticker.mode.greet_syndicate(src)
 
-		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
+		current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
 
 		var/mob/living/carbon/human/H = current
 		qdel(H.belt)
@@ -2879,10 +2879,10 @@
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
 		if(!GLOB.wizardstart.len)
-			current.loc = pick(GLOB.latejoin)
+			current.forceMove(pick(GLOB.latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(GLOB.wizardstart)
+			current.forceMove(pick(GLOB.wizardstart))
 
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
@@ -2903,10 +2903,10 @@
 	add_antag_datum(ninja_datum)
 
 	if(!length(GLOB.ninjastart))
-		current.loc = pick(GLOB.latejoin)
+		current.forceMove(pick(GLOB.latejoin))
 		to_chat(current, "HOT INSERTION, GO GO GO")
 	else
-		current.loc = pick(GLOB.ninjastart)
+		current.forceMove(pick(GLOB.ninjastart))
 
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
