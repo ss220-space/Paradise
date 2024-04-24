@@ -100,9 +100,8 @@
 
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
-	for(var/obj/item/I in user)
-		if(!istype(I, /obj/item/implant))
-			user.drop_item_ground(I, force = TRUE)
+	for(var/obj/item/check as anything in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		user.drop_item_ground(check, force = TRUE)
 
 	user.underwear = "Nude"
 	user.undershirt = "Nude"
@@ -116,7 +115,7 @@
 						span_notice("You hear something squishing..."))
 
 	original_body = user
-	user.notransform = TRUE
+	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	slimeme.status_flags |= GODMODE
 	user.status_flags |= GODMODE
 	slimeme.canmove = FALSE
@@ -148,7 +147,6 @@
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
 	user.density = FALSE
-	original_body.notransform = TRUE
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE
@@ -170,7 +168,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
 	original_body.canmove = TRUE
 	is_transformed = FALSE

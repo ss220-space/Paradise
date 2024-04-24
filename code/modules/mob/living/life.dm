@@ -14,8 +14,9 @@
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
 
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return FALSE
+
 	if(!loc)
 		return FALSE
 

@@ -517,7 +517,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	cut_overlays()
 	update_mutantrace(update_hair = FALSE)

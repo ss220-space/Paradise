@@ -59,7 +59,6 @@
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/notransform = null	//Carbon
 	var/hand = null			// 0 - right hand is active, 1 - left hand is active
 	var/real_name = null
 	var/flavor_text = ""
