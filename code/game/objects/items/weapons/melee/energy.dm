@@ -164,6 +164,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -233,7 +234,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -291,7 +292,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'

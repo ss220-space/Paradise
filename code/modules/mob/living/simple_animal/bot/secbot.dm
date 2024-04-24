@@ -139,7 +139,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src,0)
 	set_path(null)
 	last_found = world.time
@@ -380,7 +380,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = TRUE
+					set_anchored(TRUE)
 					target_lastloc = target.loc
 					return
 
@@ -414,7 +414,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -429,7 +429,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -441,7 +441,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -450,7 +450,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -460,7 +460,7 @@
  * Look for a criminal in view of the bot.
  */
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue

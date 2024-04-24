@@ -110,7 +110,7 @@
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
+	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -123,7 +123,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
 			recycle_item(AM)
 			items_recycled++
 		else
@@ -150,7 +150,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	L.loc = loc
+	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
@@ -160,7 +160,7 @@
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
-	L.loc = loc
+	L.forceMove(loc)
 
 	if(issilicon(L))
 		playsound(loc, 'sound/items/welder.ogg', 50, 1)

@@ -162,7 +162,7 @@
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
+		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
@@ -283,7 +283,7 @@
 			return
 		can_accept_user = 1
 
-	else if(istype(user, /mob/living/carbon/human))
+	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
 		if(H.stat == DEAD)

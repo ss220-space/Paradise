@@ -43,12 +43,12 @@
 	var/admincluwne = FALSE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/New()
+/mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
 	var/obj/item/card/id/access_card = new (src)
 	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
-	access_card.flags |= NODROP
+	ADD_TRAIT(access_card, TRAIT_NODROP, CURSED_ITEM_TRAIT(access_card.type))
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
 	if(!current_victim)
@@ -352,7 +352,7 @@
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
 			H.density = FALSE
-			H.anchored = TRUE
+			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
 		else//some fuck pulled away our food
@@ -389,7 +389,7 @@
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
 	H.density = initial(H.density)
-	H.anchored = initial(H.anchored)
+	H.set_anchored(initial(H.anchored))
 
 	eating = FALSE
 	if(prob(2))

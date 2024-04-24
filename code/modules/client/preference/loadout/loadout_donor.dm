@@ -142,6 +142,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF)
 
+/datum/gear/donor/strip/t4ce
+	display_name = "strip, Grand Chief Engineer"
+	path = /obj/item/clothing/accessory/head_strip/t4ce
+	donator_tier = 4
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF)
+
 /datum/gear/donor/strip/cmo
 	display_name = "strip, Chief Medical Officer"
 	path = /obj/item/clothing/accessory/head_strip/cmo
@@ -170,6 +177,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
+/datum/gear/donor/strip/clown
+	display_name = "strip, Clown"
+	path = /obj/item/clothing/accessory/head_strip/clown
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CLOWN)
+
 /datum/gear/donor/strip/bs
 	display_name = "strip, Blueshield"
 	path = /obj/item/clothing/accessory/head_strip/bs
@@ -189,7 +203,7 @@
 	path = /obj/item/clothing/glasses/heart
 	donator_tier = 3
 	cost = 1
-	slot = SLOT_HUD_GLASSES
+	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
@@ -211,17 +225,17 @@
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
 
 /datum/gear/donor/strip/cheese_badge
-	display_name = "great fellow's badge"
+	display_name = "strip, Great fellow"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
 	donator_tier = 4
 	cost = 1
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/smile_pin
 	display_name = "smiling pin"
 	path = /obj/item/clothing/accessory/medal/smile
 	donator_tier = 4
 	cost = 1
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/backpack_hiking
 	donator_tier = 3

@@ -19,7 +19,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
@@ -157,7 +157,7 @@
 		return ..()
 
 	var/obj/item/organ/external/target_organ = target.get_organ(check_zone(user.zone_selected))
-	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == 2)
+	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
 
 	if(target_organ.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)

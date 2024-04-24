@@ -194,14 +194,17 @@
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
-	var/magpulse = 1
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/mob_negates_gravity()
-	return magpulse
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
+
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures

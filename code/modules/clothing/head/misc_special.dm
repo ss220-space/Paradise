@@ -16,7 +16,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = 2
@@ -207,8 +207,7 @@
 	desc = "Soviet steel combat helmet."
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 	armor = list("melee" = 25, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	materials = list(MAT_METAL=2500)
 
@@ -221,9 +220,8 @@
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
 	item_color = "pumpkin"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
@@ -245,7 +243,6 @@
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
-	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
@@ -279,7 +276,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/user, slot, initial)
 	. = ..()
-	if(. && slot == SLOT_HUD_HEAD)
+	if(. && slot == ITEM_SLOT_HEAD)
 		update_look(user)
 
 
@@ -291,7 +288,7 @@
 	var/icon/new_look = icon('icons/mob/clothing/head.dmi', outer_state)
 	new_look.Blend(head_organ.hair_colour, ICON_ADD)
 	new_look.Blend(icon('icons/mob/clothing/head.dmi', inner_state), ICON_OVERLAY)
-	icon_override = new_look
+	onmob_sheets[ITEM_SLOT_HEAD_STRING] = new_look
 	user.update_inv_head()
 
 
@@ -317,7 +314,7 @@
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(ishuman(user) && slot == SLOT_HUD_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD && istype(user.wear_suit, /obj/item/clothing/suit/cardborg))
 		var/obj/item/clothing/suit/cardborg/user_suit = user.wear_suit
 		user_suit.disguise(user, src)
 

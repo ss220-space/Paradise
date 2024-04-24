@@ -125,7 +125,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(require_twohands && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)) // force equip the item
+	if(require_twohands && (slot & ITEM_SLOT_HANDS)) // force equip the item
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
@@ -241,7 +241,7 @@
 	if(sharpening)
 		parent_item.force += sharpening.damage_increase
 	if(sharp_when_wielded)
-		parent_item.sharp = TRUE
+		parent_item.set_sharpness(TRUE)
 
 	var/original_name = parent_item.name
 	parent_item.name = "[original_name] (Wielded)"
@@ -308,7 +308,7 @@
 	else
 		parent_item.force = force_unwielded
 	if(sharp_when_wielded)
-		parent_item.sharp = FALSE
+		parent_item.set_sharpness(FALSE)
 
 	// update the items name to remove the wielded status
 	var/sf = findtext(parent_item.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
@@ -421,7 +421,7 @@
 
 /obj/item/twohanded/offhand/Initialize(mapload)
 	. = ..()
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/twohanded/offhand/Destroy()
 	wielded = FALSE

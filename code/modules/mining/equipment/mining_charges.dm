@@ -36,7 +36,7 @@
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
 				return
-			if(istype(AM, /mob/living/carbon))
+			if(iscarbon(AM))
 				return
 			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
 			if(do_after(user, 25 * toolspeed * gettoolspeedmod(user), target = AM))

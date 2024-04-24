@@ -165,10 +165,10 @@
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return TRUE
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		return TRUE
-	anchored = TRUE
+	set_anchored(TRUE)
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	return TRUE
 

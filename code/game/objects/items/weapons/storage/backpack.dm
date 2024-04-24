@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
+	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -415,11 +415,11 @@
 /obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
 		invisibility = INVISIBILITY_MAXIMUM
-		anchored = TRUE //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		set_anchored(TRUE) //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
 		invisibility = initial(invisibility)
-		anchored = FALSE
+		set_anchored(FALSE)
 		icon_state = initial(icon_state)
 
 /obj/item/storage/backpack/satchel_flat/populate_contents()

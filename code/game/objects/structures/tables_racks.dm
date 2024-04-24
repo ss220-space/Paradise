@@ -247,7 +247,7 @@
 		tablepush(I, user)
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & (ABSTRACT | NODROP)))
+	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)
@@ -921,7 +921,7 @@
 		var/obj/item/gunrack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	for(var/obj/item/I in loc.contents)
-		if(istype(I, /obj/item/gun))
+		if(isgun(I))
 			var/obj/item/gun/to_remove = I
 			to_remove.remove_from_rack()
 	qdel(src)

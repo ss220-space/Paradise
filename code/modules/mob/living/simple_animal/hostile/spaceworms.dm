@@ -158,10 +158,10 @@
 		return //Trying to eat part of self.
 
 	if(istype(noms, /turf))
-		if(istype(noms, /turf/simulated/wall))
+		if(iswallturf(noms))
 			W = noms
 			nomDelay *= 2
-			if(istype(W, /turf/simulated/wall/r_wall))
+			if(isreinforcedwallturf(W))
 				nomDelay *= 2
 		else
 			return
@@ -183,7 +183,7 @@
 				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
-					M.loc = src //because just setting a mob loc to null breaks the camera and such
+					M.forceMove(src) //because just setting a mob loc to null breaks the camera and such
 		else
 			currentlyEating = null
 	else

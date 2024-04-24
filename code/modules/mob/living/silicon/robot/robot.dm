@@ -111,7 +111,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 
@@ -397,7 +396,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
 
-			magpulse = 1
+			ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
@@ -851,7 +850,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(U.action(src, user))
 				user.visible_message(span_notice("[user] applied [U] to [src]."), span_notice("You apply [U] to [src]."))
 				install_upgrade(U)
-				module?.fix_modules()	//Set up newly added items with NODROP flag.
+				module?.fix_modules()	//Set up newly added items with NODROP trait.
 			else
 				W.forceMove(drop_location())
 
@@ -1161,6 +1160,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
+		if(!hat_icon_file)
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 		if(head_icon)
@@ -1388,10 +1389,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 								floor_only = FALSE
 							else
 								qdel(B)
-					else if(istype(A, /obj/item))
+					else if(isitem(A))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()
-					else if(istype(A, /mob/living/carbon/human))
+					else if(ishuman(A))
 						var/mob/living/carbon/human/cleaned_human = A
 						if(cleaned_human.lying_angle)
 							if(cleaned_human.head)
@@ -1569,7 +1570,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_camera = FALSE
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	magpulse = 1
 	pdahide = 1
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
@@ -1585,6 +1585,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/infinite
 	see_reagents = TRUE
 	has_transform_animation = TRUE
+
+
+/mob/living/silicon/robot/deathsquad/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1650,7 +1656,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	limited_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
-	magpulse = 1
+
+
+/mob/living/silicon/robot/ert/gamma/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 
 /mob/living/silicon/robot/destroyer
@@ -1664,7 +1674,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_camera = FALSE
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	magpulse = 1
 	pdahide = 1
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
@@ -1674,6 +1683,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
+
+
+/mob/living/silicon/robot/destroyer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)

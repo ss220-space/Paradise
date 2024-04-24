@@ -123,7 +123,7 @@
 
 //////Assimilate Air//////
 /turf/simulated/proc/assimilate_air(datum/gas_mixture/old_air)
-    if(blocks_air || !air) // We are wall
+    if(blocks_air || !air || planetary_atmos) // We are wall, or do not care.
         return
     if(old_air) // We are floor and prev(old) turf was also floor
         air.copy_from(old_air) // We just transfer the old air to our new air and call it a day
@@ -145,7 +145,7 @@
         if(isspaceturf(T))//Counted as no air
             turf_count++//Considered a valid turf for air calcs
             continue
-        else if(isfloorturf(T))
+        else if(issimulatedturf(T))
             var/turf/simulated/S = T
             if(S.air)//Add the air's contents to the holders
                 aoxy += S.air.oxygen

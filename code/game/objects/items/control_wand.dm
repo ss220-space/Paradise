@@ -192,9 +192,9 @@
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
-	name = "civillian door remote"
+	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = list(REGION_GENERAL, REGION_SUPPLY)
+	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
 /obj/item/door_remote/centcomm
@@ -216,8 +216,13 @@
 	icon_state = "hacktool"
 	item_state = "hacktool"
 	emagged = TRUE
-	var/hack_speed = 30
+	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
+
+
+/obj/item/door_remote/omni/access_tuner/update_icon_state()
+	icon_state = "hacktool[busy ? "-g" : ""]"
+
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
@@ -228,13 +233,14 @@
 	if(busy)
 		to_chat(user, span_warning("[src] is alreading interfacing with a door!"))
 		return
-	icon_state = "hacktool-g"
 	busy = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("[src] is attempting to interface with [D]..."))
 	if(do_after(user, hack_speed, target = D))
 		. = ..()
 	busy = FALSE
-	icon_state = "hacktool"
+	update_icon(UPDATE_ICON_STATE)
+
 
 #undef WAND_OPEN
 #undef WAND_BOLT

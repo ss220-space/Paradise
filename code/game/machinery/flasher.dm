@@ -112,7 +112,7 @@
 	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
-	if(istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		var/mob/living/carbon/M = AM
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
@@ -132,7 +132,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else

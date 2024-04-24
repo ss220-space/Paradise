@@ -785,13 +785,13 @@
 				if(M in immune)
 					continue
 				M.notransform = 1
-				M.anchored = TRUE
+				M.set_anchored(TRUE)
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
 				stopped_atoms |= M
-			else if(istype(A, /obj/item/projectile))
+			else if(isprojectile(A))
 				var/obj/item/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
@@ -813,7 +813,7 @@
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = 0
-	M.anchored = FALSE
+	M.set_anchored(FALSE)
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

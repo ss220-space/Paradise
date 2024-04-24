@@ -44,7 +44,13 @@
 	item_color = "blue"
 
 /obj/item/clothing/under/color/blue/dodgeball
-	flags = NODROP
+
+
+/obj/item/clothing/under/color/blue/dodgeball/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
@@ -60,7 +66,12 @@
 	item_color = "grey"
 
 /obj/item/clothing/under/color/grey/greytide
-	flags = NODROP
+
+
+/obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -100,7 +111,12 @@
 	item_color = "red"
 
 /obj/item/clothing/under/color/red/dodgeball
-	flags = NODROP
+
+
+/obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"

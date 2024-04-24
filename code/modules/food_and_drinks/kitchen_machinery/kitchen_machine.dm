@@ -74,14 +74,12 @@
 	if(!broken && O.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
+		set_anchored(!anchored)
 		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
+		else
+			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+		return
 
 	if(default_deconstruction_crowbar(user, O))
 		return
@@ -123,7 +121,7 @@
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
 		add_fingerprint(user)
-		if(istype(O,/obj/item/stack))
+		if(isstack(O))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
 				var/obj/item/stack/to_add = S.split_stack(user, 1)

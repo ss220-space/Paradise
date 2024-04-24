@@ -219,7 +219,12 @@
 /obj/item/clothing/suit/corgisuit/super_hero
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
-	flags = NODROP
+
+
+/obj/item/clothing/suit/corgisuit/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/suit/corgisuit/super_hero/en
 	name = "\improper super-hero E-N suit"
@@ -276,13 +281,13 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		disguise(user)
 
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.remove_alt_appearance("standard_borg_disguise")
 
 
@@ -329,8 +334,7 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"
@@ -345,8 +349,7 @@
 	desc = "A hood attached to a salmon suit."
 	icon_state = "salmon"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
@@ -362,8 +365,8 @@
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
 	body_parts_covered = HEAD
-	flags = THICKMATERIAL|BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags = THICKMATERIAL
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -417,8 +420,7 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -616,8 +618,7 @@
 	icon_state = "blackhood"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -916,7 +917,7 @@
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
@@ -1088,7 +1089,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+	flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
@@ -1098,6 +1099,12 @@
 	slowdown = -10
 	siemens_coefficient = 0
 	var/on = 0
+
+
+/obj/item/clothing/suit/advanced_protective_suit/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
@@ -1150,7 +1157,7 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot, initial)
 	. = ..()
 
-	if(!istype(H) || slot != SLOT_HUD_OUTER_SUIT)
+	if(!istype(H) || slot != ITEM_SLOT_CLOTH_OUTER)
 		STOP_PROCESSING(SSobj, src)
 	else
 		START_PROCESSING(SSobj, src)
@@ -1204,8 +1211,7 @@
 	throw_speed = 1
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
-	flags = BLOCKHAIR
-	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME
+	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME|HIDEHAIR
 
 /obj/item/clothing/suit/cyberpunk
 	name = "long cyberpunk black coat"

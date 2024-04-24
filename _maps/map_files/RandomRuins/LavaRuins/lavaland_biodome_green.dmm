@@ -174,11 +174,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "nK" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet,
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "og" = (
@@ -418,6 +414,10 @@
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
+/area/ruin/powered/green_bio)
+"Du" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "DN" = (
 /obj/structure/dresser,
@@ -707,15 +707,11 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "YL" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
 /obj/machinery/light/small{
 	dir = 8;
 	light_power = 3
 	},
+/obj/structure/closet,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "YQ" = (
@@ -1398,7 +1394,7 @@ gm
 Oy
 PE
 ol
-ol
+Du
 ol
 ol
 ol

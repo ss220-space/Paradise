@@ -482,36 +482,40 @@ SUBSYSTEM_DEF(jobs)
 	H.job = rank
 
 	if(!joined_late)
-		var/turf/T = null
-		var/obj/S = null
+		var/turf/turf_spawn = null
+		var/obj/mark_spawn = null
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
-			S = sloc
+			mark_spawn = sloc
 			break
-		if(!S)
-			S = locate("start*[rank]") // use old stype
-		if(!S) // still no spawn, fall back to the arrivals shuttle
+		if(!mark_spawn)
+			mark_spawn = locate("start*[rank]") // use old stype
+		if(!mark_spawn) // No spawn, then spawn on latejoin mark
+			log_runtime(EXCEPTION("No landmark start for [rank]."))
+			mark_spawn = pick(GLOB.latejoin)
+		if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
+			var/list/turf/possible_turfs = list()
 			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
-				if(!TS.density)
-					var/clear = 1
-					for(var/obj/O in TS)
-						if(O.density)
-							clear = 0
-							break
-					if(clear)
-						T = TS
+				if(TS.density)
+					continue
+				for(var/obj/O in TS)
+					if(O.density)
 						continue
+				possible_turfs += TS
+			mark_spawn = pick(possible_turfs)
 
-		if(isturf(S))
-			T = S
-		else if(istype(S, /obj/effect/landmark/start) && isturf(S.loc))
-			T = S.loc
+		if(isturf(mark_spawn))
+			turf_spawn = mark_spawn
+		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
+			turf_spawn = mark_spawn.loc
+		else
+			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
 
-		if(T)
-			H.forceMove(T)
+		if(turf_spawn)
+			H.forceMove(turf_spawn)
 			// Moving wheelchair if they have one
 			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
 				H.buckled.forceMove(H.loc)
@@ -527,7 +531,7 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(NEARSIGHTED in H.mutations)
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), SLOT_HUD_GLASSES)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)

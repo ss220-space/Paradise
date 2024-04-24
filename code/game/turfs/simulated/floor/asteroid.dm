@@ -26,15 +26,31 @@
 
 /turf/simulated/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
-	icon_plating = "[environment_type]_dug"
-	icon_state = "[environment_type]_dug"
 	dug = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 /turf/simulated/floor/plating/asteroid/proc/can_dig(mob/user)
 	if(!dug)
 		return TRUE
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
+
+///Refills the previously dug tile
+/turf/simulated/floor/plating/asteroid/proc/refill_dug()
+	dug = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/turf/simulated/floor/plating/asteroid/update_icon_state()
+	if(dug)
+		icon_plating = "[environment_type]_dug"
+		icon_state = "[environment_type]_dug"
+	else
+		icon_plating = initial(icon_plating)
+		if(prob(floor_variance))
+			icon_state = "[environment_type][rand(0,12)]"
+		else
+			icon_state =  initial(icon_state)
+
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -110,6 +126,9 @@
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return
 
+/// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
+GLOBAL_LIST_EMPTY(dug_up_basalt)
+
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
@@ -118,6 +137,15 @@
 	environment_type = "basalt"
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
+
+/turf/simulated/floor/plating/asteroid/basalt/refill_dug()
+	. = ..()
+	GLOB.dug_up_basalt -= src
+	set_basalt_light(src)
+
+/turf/simulated/floor/plating/asteroid/basalt/Destroy()
+	GLOB.dug_up_basalt -= src
+	return ..()
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
 	baseturf = /turf/simulated/floor/plating/lava/smooth
@@ -142,6 +170,7 @@
 
 /turf/simulated/floor/plating/asteroid/basalt/getDug()
 	set_light_on(FALSE)
+	GLOB.dug_up_basalt |= src
 	return ..()
 
 /proc/set_basalt_light(turf/simulated/floor/B)

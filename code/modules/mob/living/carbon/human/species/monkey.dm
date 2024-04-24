@@ -13,7 +13,7 @@
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(SLOT_HUD_BELT, SLOT_HUD_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
+	no_equip = list(ITEM_SLOT_BELT, ITEM_SLOT_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0

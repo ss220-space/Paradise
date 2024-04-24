@@ -38,7 +38,7 @@
 		return
 
 	if(!requires_sharpness)
-		I.sharp = TRUE
+		set_sharpness(TRUE)
 
 	user.visible_message(span_warning("[user] sharpens [I] with [src]!"), \
 		span_warning("You sharpen [I], making it much more deadly than before."))

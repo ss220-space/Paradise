@@ -1118,5 +1118,24 @@
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/animal_feed
+	name = "Animal Feed"
+	id = "afeed"
+	description = "Food that pets are fed."
+	color = "#ac3308"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "animal feed"
 
-
+/datum/reagent/consumable/animal_feed/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+		M.AdjustDisgust(-5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_notice("You feel delicious yummy snack taste!"))
+	else
+		M.AdjustDisgust(5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_warning("Yuack! What a terrible taste!"))
+	return ..() | update_flags

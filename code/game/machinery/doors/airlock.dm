@@ -1024,7 +1024,7 @@ About the new airlock wires panel:
 						update_icon()
 					return
 
-	if(istype(C, /obj/item/assembly/signaler))
+	if(issignaler(C))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
@@ -1515,7 +1515,7 @@ About the new airlock wires panel:
 			DA = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		DA.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		DA.anchored = TRUE
+		DA.set_anchored(TRUE)
 		DA.glass = src.glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name

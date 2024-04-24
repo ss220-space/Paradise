@@ -31,7 +31,7 @@
 		new prize(get_turf(src), prize_amount)
 	else
 		var/atom/movable/prize = pick(contents)
-		prize.loc = get_turf(src)
+		prize.forceMove(get_turf(src))
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)
@@ -469,7 +469,7 @@
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
-						if(istype(location, /turf/simulated))
+						if(issimulatedturf(location))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))

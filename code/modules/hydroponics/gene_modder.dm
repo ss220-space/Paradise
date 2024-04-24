@@ -107,8 +107,6 @@
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return
-	if(isrobot(user))
-		return
 
 	if(istype(I, /obj/item/seeds))
 		if(seed)
@@ -498,7 +496,7 @@
 			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	..()
-	if(istype(W, /obj/item/pen) && !HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
 

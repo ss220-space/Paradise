@@ -6,7 +6,7 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	flags_2 = BLOCKS_LIGHT_2
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
@@ -745,13 +745,13 @@
 		/obj/item/restraints/legcuffs/bola
 		)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 

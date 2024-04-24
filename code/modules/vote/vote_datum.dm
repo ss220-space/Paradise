@@ -195,7 +195,7 @@
 	if(..())
 		return
 
-	if(no_dead_vote && (usr.stat == DEAD || istype((usr), /mob/living/simple_animal)) && !usr.client.holder)
+	if(no_dead_vote && (usr.stat == DEAD || isanimal((usr))) && !usr.client.holder)
 		return FALSE
 
 	. = TRUE

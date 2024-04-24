@@ -2,9 +2,9 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEGLASSES|HIDENAME
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
@@ -42,7 +42,6 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
@@ -147,7 +146,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = parent_type::flags_inv|HIDEHAIR
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
@@ -200,13 +199,18 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSEYES
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -220,7 +224,7 @@
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
@@ -241,7 +245,7 @@
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
@@ -260,11 +264,17 @@
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
 	desc = "A mime mask glowing with power. Its eyes gaze deep into your soul."
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/mime/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -293,7 +303,13 @@
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+
+
+/obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()

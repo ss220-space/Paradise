@@ -18,7 +18,6 @@
 	has_camera = FALSE
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
-	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
@@ -62,6 +61,8 @@
 	add_language(LANGUAGE_DRONE_BINARY, 1)
 	add_language(LANGUAGE_DRONE, 1)
 
+
+
 	// Disable the microphone wire on Drones
 	if(radio)
 		radio.wires.cut(WIRE_RADIO_TRANSMIT)
@@ -103,6 +104,11 @@
 	//Some tidying-up.
 	scanner.Grant(src)
 	update_icons()
+
+
+/mob/living/silicon/robot/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 
 /mob/living/silicon/robot/drone/Destroy()
@@ -365,7 +371,7 @@
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)

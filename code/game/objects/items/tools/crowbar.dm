@@ -7,7 +7,7 @@
 	belt_icon = "pocket_crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
@@ -85,6 +85,10 @@
 	toolspeed = 0.25
 	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks
+
+/obj/item/crowbar/power/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] помеща[pluralize_ru(user.gender,"ет","ют")] свою голову между лезвиями [src.declent_ru(GENITIVE)]. Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ется","ются")] использовать [src.declent_ru(ACCUSATIVE)] для самоубийства!</span>")

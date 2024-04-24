@@ -339,7 +339,7 @@
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
-				if(istype(result, /obj/item/stack))
+				if(isstack(result))
 					var/obj/item/stack/A = result
 					A.amount = desired
 					unload_mineral(A)

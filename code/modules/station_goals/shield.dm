@@ -149,13 +149,13 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	active = !active
 	COOLDOWN_START(src, toggle_sat_cooldown, 1 SECONDS)
 	if(active)
-		anchored = TRUE
+		set_anchored(TRUE)
 		if(pulledby)
 			pulledby.stop_pulling()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 	else
 		animate(src, pixel_y = 0, time = 10)
-		anchored = FALSE
+		set_anchored(FALSE)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 

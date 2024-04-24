@@ -127,7 +127,7 @@
 		sensor = new(lower_turf, src)
 
 /turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
-	if(isliving(AM) || istype(AM, /obj))
+	if(isliving(AM) || isobj(AM))
 		if(isliving(AM))
 			var/mob/living/M = AM
 			M.emote("scream")
@@ -293,7 +293,7 @@
 			near_render_block -= T
 
 /obj/effect/view_portal/visual/Bumped(atom/movable/thing)
-	if((istype(thing, /obj) || isliving(thing)) && other && teleport)
+	if((isobj(thing) || isliving(thing)) && other && teleport)
 		if(!near_render_block)
 			setup_near()
 

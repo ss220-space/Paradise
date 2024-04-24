@@ -160,11 +160,11 @@
 		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	var/where = "At your feet"
@@ -292,7 +292,7 @@
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		// generate a passcode if the uplink is hidden in a PDA
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
@@ -325,7 +325,7 @@
 
 	var/obj/item/uplink_holder = hidden_uplink.loc
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
 		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
 

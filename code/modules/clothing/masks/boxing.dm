@@ -3,12 +3,11 @@
 	desc = "LOADSAMONEY"
 	icon_state = "balaclava"
 	item_state = "balaclava"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
-	adjusted_flags = SLOT_FLAG_HEAD
+	adjusted_flags = ITEM_SLOT_HEAD
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -42,17 +41,16 @@
 		user.put_in_hands(src)
 
 	if(!up)
-		flags |= BLOCKHAIR
+		flags_inv |= HIDEHAIR
 	else
-		flags &= ~BLOCKHAIR
+		flags_inv &= ~HIDEHAIR
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"
 	icon_state = "luchag"
 	item_state = "luchag"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	w_class = WEIGHT_CLASS_SMALL
 
 	sprite_sheets = list(

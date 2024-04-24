@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -239,7 +239,6 @@
 	if(on)
 		on = FALSE
 		force = initial(force)
-		sharp = FALSE
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
@@ -252,7 +251,6 @@
 	else
 		on = TRUE
 		force = 18
-		sharp = TRUE
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -262,6 +260,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] is now active."))
 		set_light_on(TRUE)
+	set_sharpness(on)
 	update_icon(UPDATE_ICON_STATE)
 
 

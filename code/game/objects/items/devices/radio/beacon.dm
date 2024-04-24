@@ -273,6 +273,11 @@
 								/obj/item/encryptionkey/syndicate = 1)										// 0-5 TK
 	)
 
+/obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate
+	used = TRUE
+	name = "suspicious 'magical' beacon"
+	desc = "It looks battered and old, as if someone tried to crack it with brute force."
+
 /obj/item/radio/beacon/syndicate/bundle/Initialize()
 	. = ..()
 	unselected = bundles.Copy()
@@ -283,9 +288,9 @@
 /obj/item/radio/beacon/syndicate/bundle/attack_self(mob/user)
 	if(!user)
 		return
-	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
 	used = TRUE
-	if(!bundle_name)
+	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
+	if(!bundle_name || QDELING(user) || QDELING(src))
 		return
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)

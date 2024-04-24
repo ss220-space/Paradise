@@ -43,7 +43,7 @@
 
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
-	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
+	if(istype(I, valid_projectile_type) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(get_ammocount() < max_capacity)
 			user.drop_transfer_item_to_loc(I, src)
 			loaded_projectiles += I

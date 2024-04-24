@@ -62,7 +62,7 @@
 	oldloc = null
 	ignore_list.Cut()
 	nagged = 0
-	anchored = FALSE
+	set_anchored(FALSE)
 	update_icon()
 
 
@@ -143,7 +143,7 @@
 		if("emptynag")
 			nag_on_empty = !nag_on_empty
 		if("anchor")
-			anchored = !anchored
+			set_anchored(!anchored)
 
 		if("bridgemode")
 			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
@@ -230,7 +230,7 @@
 				repair(target)
 			else if(emagged == 2 && isfloorturf(target))
 				var/turf/simulated/floor/F = target
-				anchored = TRUE
+				set_anchored(TRUE)
 				mode = BOT_REPAIRING
 				if(prob(90))
 					F.break_tile_to_plating()
@@ -267,7 +267,7 @@
 	if(QDELETED(src))
 		return
 	amount++
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 
@@ -295,11 +295,11 @@
 		if(HULL_BREACH) //The most common job, patching breaches in the station's hull.
 			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
 				result = scan_target
-				anchored = TRUE //Prevent the floorbot being blown off-course while trying to reach a hull breach.
+				set_anchored(TRUE) //Prevent the floorbot being blown off-course while trying to reach a hull breach.
 		if(BRIDGE_MODE) //Only space turfs in our chosen direction are considered.
 			if(get_dir(src, scan_target) == targetdirection)
 				result = scan_target
-				anchored = TRUE
+				set_anchored(TRUE)
 		if(REPLACE_TILE)
 			F = scan_target
 			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
@@ -332,7 +332,7 @@
 		target = null
 		return
 
-	anchored = TRUE
+	set_anchored(TRUE)
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
 		visible_message(span_notice("[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."]"))
@@ -357,7 +357,7 @@
 	mode = BOT_IDLE
 	amount--
 	update_icon()
-	anchored = FALSE
+	set_anchored(FALSE)
 	target = null
 
 
@@ -371,7 +371,7 @@
 	mode = BOT_IDLE
 	amount--
 	update_icon()
-	anchored = FALSE
+	set_anchored(FALSE)
 	target = null
 
 

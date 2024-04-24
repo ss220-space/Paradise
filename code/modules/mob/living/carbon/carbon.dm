@@ -70,7 +70,7 @@
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
 
-				if(istype(src, /mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
 					if(istype(organ))
@@ -525,7 +525,7 @@
 
 	var/obj/item/I = get_active_hand()
 
-	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || HAS_TRAIT(I, TRAIT_NODROP))
 		throw_mode_off()
 		return
 

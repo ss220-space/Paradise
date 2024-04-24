@@ -28,7 +28,7 @@
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -95,7 +95,7 @@
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -307,7 +307,7 @@
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -330,7 +330,7 @@
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -405,7 +405,7 @@
 
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -554,7 +554,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/pen))
+	else if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -695,7 +695,7 @@
 /obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 	if(build_step == 0)
-		if(istype(W, /obj/item/assembly/prox_sensor))
+		if(isprox(W))
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			build_step++

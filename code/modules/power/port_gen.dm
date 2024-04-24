@@ -297,7 +297,7 @@
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
+			set_anchored(!anchored)
 
 		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open

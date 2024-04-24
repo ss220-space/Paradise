@@ -14,11 +14,15 @@
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
+	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
+	if(signal_ret & COMPONENT_NO_INTERACT)
 		return
-	return
+	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	if(is_hot(src) && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
 		A.reagents.temperature_reagents(is_hot(src))
@@ -39,30 +43,12 @@
 		return TRUE
 	return I.attack(src, user)
 
-/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user)
+/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
 	if(flags & (NOBLUDGEON))
 		return FALSE
-	if(can_operate(target))  //Checks if mob is lying down on table for surgery
-		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
-			if(!attempt_initiate_surgery(src, target, user,1))
-				return FALSE
-			else
-				return TRUE
-		if(istype(src,/obj/item/organ/external))
-			var/obj/item/organ/external/E = src
-			if(E.is_robotic()) // Robot limbs are less messy to attach
-				if(!attempt_initiate_surgery(src, target, user,1))
-					return FALSE
-				else
-					return TRUE
-		var/obj/item/organ/external/O = target.get_organ(user.zone_selected)
-		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, target, user))
-				return FALSE
-			else
-				return TRUE
 
 	if (check_item_eat(target, user))
 		return FALSE
@@ -82,7 +68,8 @@
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
 
-	user.changeNext_move(CLICK_CD_MELEE)
+	if(add_melee_cooldown)
+		user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(target)
 	. = target.attacked_by(src, user, def_zone)
 

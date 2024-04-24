@@ -158,8 +158,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "aB" = (
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet3";
-	dir = 1
+	dir = 1;
+	icon_state = "corpse_soviet3"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -420,8 +420,8 @@
 	tag = ""
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -2387,8 +2387,8 @@
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet3";
-	dir = 4
+	dir = 4;
+	icon_state = "corpse_soviet3"
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -3996,8 +3996,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet_half";
-	dir = 1
+	dir = 1;
+	icon_state = "corpse_soviet_half"
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
@@ -7050,7 +7050,9 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "uY" = (
@@ -7145,8 +7147,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet2";
-	dir = 4
+	dir = 4;
+	icon_state = "corpse_soviet2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -7215,8 +7217,8 @@
 "vF" = (
 /obj/structure/table,
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7347,8 +7349,8 @@
 	initialized = 1
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -11033,7 +11035,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Gi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Gk" = (
@@ -11634,8 +11638,8 @@
 	pixel_y = 3
 	},
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet_lying_up";
 	dir = 4;
+	icon_state = "corpse_soviet_lying_up";
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -13913,8 +13917,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "OP" = (
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "OQ" = (
@@ -15206,9 +15212,9 @@
 /obj/structure/table,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -15550,7 +15556,9 @@
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "TN" = (
@@ -16160,9 +16168,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

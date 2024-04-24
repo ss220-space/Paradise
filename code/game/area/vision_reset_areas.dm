@@ -8,7 +8,7 @@
 
 /area/vision_change_area/Entered(atom/movable/arrived)
 	. = ..()
-	if(istype(arrived, /mob/living/carbon))
+	if(iscarbon(arrived))
 		var/mob/living/carbon/C = arrived
 		C.see_invisible = initial(C.see_invisible)
 		C.nightvision = initial(C.nightvision)
@@ -19,7 +19,7 @@
 
 /area/vision_change_area/Exited(atom/movable/gone)
 	. = ..()
-	if(istype(gone, /mob/living/carbon))
+	if(iscarbon(gone))
 		var/mob/living/carbon/C = gone
 		var/datum/component/component = C.GetComponent(/datum/component/vision_reset)
 		if(component)

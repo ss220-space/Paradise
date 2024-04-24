@@ -178,6 +178,16 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+// Attack signals. These should share the returned flags, to standardize the attack chain.
+// The chain currently works like:
+// tool_act -> pre_attackby -> target.attackby (item.attack) -> afterattack
+// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
+	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
+	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -303,6 +313,8 @@
 	/* #define HEARING_RADIO_FREQ 5
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
+///called when the movable sucessfully has it's anchored var changed, from base atom/movable/set_anchored(): (value)
+#define COMSIG_MOVABLE_SET_ANCHORED "movable_set_anchored"
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
@@ -581,8 +593,8 @@
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
-///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
+///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
+#define COMSIG_ITEM_PRE_ATTACKBY "item_pre_attackby"
 	#define COMPONENT_NO_ATTACK (1<<0)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
@@ -609,6 +621,7 @@
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
+	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///called on item when microwaved (): (obj/machinery/microwave/M)
@@ -699,6 +712,9 @@
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
 
+///called in /obj/item/gun/process_fire (user, target)
+#define COMSIG_GUN_FIRED "gun_fired"
+
 // /obj/item/grenade signals
 
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
@@ -754,6 +770,13 @@
 #define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+///From mob/living/carbon/human/regenerate_icons()
+#define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
+
+
+///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
+	#define SHIELD_BLOCK (1<<0)
 
 // /datum/species signals
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)

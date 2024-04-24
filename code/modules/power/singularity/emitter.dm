@@ -130,7 +130,7 @@
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
 		state = 0
-		anchored = FALSE
+		set_anchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		..()
@@ -214,7 +214,7 @@
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
 
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return
@@ -262,14 +262,14 @@
 			user.visible_message("[user.name] secures [name] to the floor.", \
 				"You secure the external reinforcing bolts to the floor.", \
 				"You hear a ratchet")
-			src.anchored = TRUE
+			set_anchored(TRUE)
 		if(1)
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 				"You undo the external reinforcing bolts.", \
 				"You hear a ratchet")
-			src.anchored = FALSE
+			set_anchored(FALSE)
 		if(2)
 			to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor.</span>")
 

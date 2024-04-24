@@ -1504,13 +1504,49 @@
 	build_path = /obj/item/borg/upgrade/modkit/range/borg
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_range_mod
+/datum/design/borg_hardness_mod
 	name = "Mining Cyborg Upgrade (KA Hardness Mod)"
 	id = "borg_hardnessmod"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2800, MAT_GLASS = 2100, MAT_GOLD = 2100, MAT_URANIUM = 1400)
 	build_path = /obj/item/borg/upgrade/modkit/hardness/borg
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_hyperaccelerator
+	name = "Mining Cyborg Upgrade (KA Mining AoE Mod)"
+	id = "borg_hypermod"
+	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/borg
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_offensive_turf_aoe
+	name = "Mining Cyborg Upgrade (KA Offensive Mining Explosion Mod)"
+	id = "borg_hyperaoemod"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
+	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs/borg
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_rapid_repeater
+	name = "Mining Cyborg Upgrade (KA Rapid Repeater Mod)"
+	id = "borg_repeatermod"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater/borg
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_resonator_blast
+	name = "Mining Cyborg Upgrade (KA Resonator Blast Mod)"
+	id = "borg_resonatormod"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 2, "magnets" = 2, "combat" = 2)
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
+	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts/borg
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_diamonddrill

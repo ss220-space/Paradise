@@ -21,7 +21,7 @@
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
@@ -51,7 +51,7 @@
 	name = "lily"
 	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	tastes = list("lily" = 1)
 	filling_color = "#FFA500"
 
@@ -80,7 +80,7 @@
 	name = "geranium"
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	tastes = list("geranium" = 1)
 	filling_color = "#008B8B"
 
@@ -133,7 +133,7 @@
 	icon_state = "moonlight"
 	tastes = list("moonlin" = 1)
 	filling_color = "#46fdfd"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 // Harebell
 /obj/item/seeds/harebell
@@ -159,7 +159,7 @@
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	tastes = list("harebell" = 1)
 	bitesize_mod = 3
@@ -191,7 +191,7 @@
 	icon_state = "sunflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
@@ -220,7 +220,7 @@
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
@@ -247,7 +247,7 @@
 	icon_state = "novaflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1

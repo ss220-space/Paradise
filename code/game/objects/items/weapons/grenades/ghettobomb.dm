@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	active = 0
 	det_time = 5 SECONDS
 	display_timer = 0
@@ -100,14 +100,14 @@
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!istype(T, /turf/simulated/wall) && !istype(T, /obj/machinery/door/airlock))
+	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
 	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = T))
 		if(!user.drop_transfer_item_to_loc(src, user.loc))
 			return
-		anchored = TRUE
+		set_anchored(TRUE)
 		target = T
 
 		pixel_w = (T.x - x)*32
@@ -169,7 +169,7 @@
 		pixel_z = 0
 		to_chat(user, span_notice("You unattached [src]."))
 		layer = TURF_LAYER
-		anchored = FALSE
+		set_anchored(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		target = null
 
@@ -208,7 +208,7 @@
 				qdel(T)
 			else
 				T.take_damage(300)
-		if(istype(target, /turf/simulated/wall))
+		if(iswallturf(target))
 			var/turf/simulated/wall/T = target
 			if((T.damage + 300) >= T.damage_cap)
 				T.dismantle_wall(1, 1)

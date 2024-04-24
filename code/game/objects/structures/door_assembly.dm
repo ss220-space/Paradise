@@ -67,7 +67,7 @@
 	. = ..()
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.
 		var/t = rename_interactive(user, W)
@@ -275,7 +275,7 @@
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure the airlock assembly.</span>")
-	anchored = !anchored
+	set_anchored(!anchored)
 
 /obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
 	. = TRUE

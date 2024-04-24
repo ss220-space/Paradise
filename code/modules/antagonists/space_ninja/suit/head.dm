@@ -9,8 +9,8 @@
 /obj/item/clothing/head/helmet/space/space_ninja
 	name = "ninja hood"
 	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
-	flags_inv = HIDEHEADSETS|HIDENAME
+	flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	flags_inv = HIDEHEADSETS|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 	icon = 'icons/obj/ninjaobjects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
@@ -40,6 +40,10 @@
 	icon_state = "ninja_scarf_classic"
 	item_state = "ninja_scarf_classic"
 	strip_delay = 12
-	flags = NODROP
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
+
+
+/obj/item/clothing/neck/ninjascarf/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
 

@@ -109,7 +109,7 @@
 		return .
 
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		return .
 
@@ -117,7 +117,7 @@
 		to_chat(user, span_warning("You cannot tightens the bolts in space!"))
 		return .
 
-	anchored = TRUE
+	set_anchored(TRUE)
 	WRENCH_ANCHOR_MESSAGE
 
 
@@ -279,7 +279,7 @@
 				var/success = FALSE
 				for(var/path in req_components)
 					var/is_stack = isstack(I)
-					if(istype(I, path) && (req_components[path] > 0) && (!(I.flags & NODROP) || is_stack))
+					if(istype(I, path) && (req_components[path] > 0) && (!HAS_TRAIT(I, TRAIT_NODROP) || is_stack))
 						success = TRUE
 						playsound(loc, I.usesound, 50, TRUE)
 						if(is_stack)

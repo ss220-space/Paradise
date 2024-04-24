@@ -239,7 +239,7 @@
 
 /datum/antagonist/goon_vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell/goon_vampire))
+	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
 
 	powers += spell
@@ -250,7 +250,10 @@
 /datum/antagonist/goon_vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.RemoveSpell(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell))
+			owner.RemoveSpell(ability)
+		else if(istype(ability, /datum/goon_vampire_passive))
+			qdel(ability)
 		owner.current.update_sight()
 
 
