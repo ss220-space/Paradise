@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "security supply crate"
 
 /datum/syndie_supply_packs/security/stechkin
-	name = "FK-69 Pistol 'Stechkin' Crate"
+	name = "Stechkin Pistol 'Stechkin' Crate"
 	contains = list(/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/suppressor,
 					/obj/item/suppressor)
 	cost = 2500
-	containername = "FK-69 Pistol 'Stechkin' crate"
+	containername = "Stechkin Pistol 'Stechkin' crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo
 	name = "Stechkin - 10mm Magazine"
