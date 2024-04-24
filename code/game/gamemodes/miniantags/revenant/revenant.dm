@@ -433,7 +433,7 @@
 
 	var/key_of_revenant
 	message_admins("Revenant ectoplasm was left undestroyed for [reform_time/10] seconds and is reforming into a new revenant.")
-	loc = get_turf(src) //In case it's in a backpack or someone's hand
+	forceMove_turf() //In case it's in a backpack or someone's hand
 	var/mob/living/simple_animal/revenant/new_revenant = new(get_turf(src))
 
 	if(client_to_revive)

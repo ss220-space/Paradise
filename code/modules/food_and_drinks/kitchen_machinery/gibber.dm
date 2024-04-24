@@ -33,7 +33,7 @@
 /obj/machinery/gibber/Destroy()
 	if(contents.len)
 		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
+			A.forceMove(get_turf(src))
 	if(occupant)
 		occupant = null
 	return ..()
@@ -182,7 +182,7 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -391,18 +391,16 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now
-		H.drop_item_ground(O)
-		O.loc = loc
+		H.drop_transfer_item_to_loc(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
 			qdel(C)
-		H.drop_item_ground(C)
-		C.loc = loc
+		H.drop_transfer_item_to_loc(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
@@ -414,7 +412,7 @@
 		if(stealthmode)
 			qdel(O)
 		else if(istype(O))
-			O.loc = loc
+			O.forceMove(loc)
 			O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 			spats++
 			sleep(1)

@@ -525,7 +525,7 @@
 
 	var/obj/item/I = get_active_hand()
 
-	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || HAS_TRAIT(I, TRAIT_NODROP))
 		throw_mode_off()
 		return
 

@@ -421,7 +421,7 @@
 
 /obj/item/twohanded/offhand/Initialize(mapload)
 	. = ..()
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/twohanded/offhand/Destroy()
 	wielded = FALSE

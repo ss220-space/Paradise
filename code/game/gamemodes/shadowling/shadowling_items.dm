@@ -3,12 +3,16 @@
 	desc = "Black, chitinous skin with thin red veins."
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_uniform"
-	icon_override = "golem_s"
 	origin_tech = null
-	flags = ABSTRACT|NODROP|DROPDEL
+	flags = ABSTRACT|DROPDEL
 	has_sensor = FALSE
 	displays_id = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+
+/obj/item/clothing/under/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/suit/space/shadowling
@@ -16,7 +20,6 @@
 	desc = "Dark, semi-transparent shell. Protects against vacuum, but not against the light of the stars." //Still takes damage from spacewalking but is immune to space itself
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_suit"
-	icon_override = "golem"
 	body_parts_covered = FULL_BODY //Shadowlings are immune to space
 	cold_protection = FULL_BODY
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -26,7 +29,12 @@
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
 	armor = list(melee = 25, bullet = 25, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
-	flags = ABSTRACT|NODROP|DROPDEL|THICKMATERIAL|STOPSPRESSUREDMAGE
+	flags = ABSTRACT|DROPDEL|THICKMATERIAL|STOPSPRESSUREDMAGE
+
+
+/obj/item/clothing/suit/space/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/shoes/shadowling
@@ -35,7 +43,12 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_shoes"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|NODROP|DROPDEL|NOSLIP
+	flags = ABSTRACT|DROPDEL|NOSLIP
+
+
+/obj/item/clothing/shoes/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/mask/gas/shadowling
@@ -46,8 +59,13 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|NODROP|DROPDEL
+	flags = ABSTRACT|DROPDEL
 	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
+
+
+/obj/item/clothing/mask/gas/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/gloves/shadowling
@@ -58,7 +76,12 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|NODROP|DROPDEL
+	flags = ABSTRACT|DROPDEL
+
+
+/obj/item/clothing/gloves/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/head/shadowling
@@ -72,8 +95,13 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|NODROP|DROPDEL|STOPSPRESSUREDMAGE
+	flags = ABSTRACT|DROPDEL|STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
+
+
+/obj/item/clothing/head/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/clothing/glasses/shadowling
@@ -86,5 +114,10 @@
 	flash_protect = -1
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	flags = ABSTRACT|NODROP|DROPDEL
+	flags = ABSTRACT|DROPDEL
+
+
+/obj/item/clothing/glasses/shadowling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 

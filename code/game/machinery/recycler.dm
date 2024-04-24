@@ -150,7 +150,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	L.loc = loc
+	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
@@ -160,7 +160,7 @@
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
-	L.loc = loc
+	L.forceMove(loc)
 
 	if(issilicon(L))
 		playsound(loc, 'sound/items/welder.ogg', 50, 1)

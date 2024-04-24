@@ -56,6 +56,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	/obj/item = list(
 		"TRAIT_NEEDS_TWO_HANDS" = TRAIT_NEEDS_TWO_HANDS,
+		"TRAIT_NODROP" = TRAIT_NODROP,
 		"TRAIT_WIELDED" = TRAIT_WIELDED,
 	),
 	/turf = list(

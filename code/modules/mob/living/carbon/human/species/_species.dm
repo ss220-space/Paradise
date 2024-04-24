@@ -897,7 +897,7 @@
 
 		// POCKETS
 		if(ITEM_SLOT_POCKET_LEFT)
-			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
+			if(HAS_TRAIT(I, TRAIT_NODROP)) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(user.l_store)
 				return FALSE
@@ -913,7 +913,7 @@
 			return I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags_2 & ITEM_FLAG_POCKET_LARGE)
 
 		if(ITEM_SLOT_POCKET_RIGHT)
-			if(I.flags & NODROP)
+			if(HAS_TRAIT(I, TRAIT_NODROP))
 				return FALSE
 			if(user.r_store)
 				return FALSE

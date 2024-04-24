@@ -24,7 +24,7 @@
 			new /obj/item/soulstone/anybody(src)
 			new /obj/item/stack/sheet/runed_metal_fake/fifty(src)
 		if(4)
-			new /obj/item/katana/cursed(src)
+			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 		if(5)
 			new /obj/item/book_of_babel(src)
 		if(6)
@@ -256,13 +256,17 @@
 	activated()
 
 /obj/item/rod_of_asclepius/proc/activated()
-	flags =  NODROP | DROPDEL
+	flags =  DROPDEL
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
+
+
 // enchanced flowers
-#define COOLDOWN_SUMMON 1 MINUTES
+#define COOLDOWN_SUMMON (1 MINUTES)
+
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc ="A charming bunch of flowers, most animals seem to find the bearer amicable after momentary contact with it. Squeeze the bouquet to summon tamed creatures. Megafauna cannot be summoned. <b>Megafauna need to be exposed 35 times to become friendly.</b>"
@@ -334,3 +338,237 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("slashed","pk'd","atk'd")
+
+/obj/item/organ/internal/cyberimp/arm/katana
+	name = "dark shard"
+	desc = "An eerie metal shard surrounded by dark energies."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "cursed_katana_organ"
+	status = NONE
+	flags = NO_PIXEL_RANDOM_DROP
+	contents = newlist(/obj/item/cursed_katana)
+
+/obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
+	. = ..()
+	to_chat(user, span_warning("The mass goes up your arm and inside it!"))
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
+	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
+
+	user.drop_item_ground(src, force = TRUE, silent = TRUE)
+	insert(user)
+
+/obj/item/organ/internal/cyberimp/arm/katana/emp_act() //Organic, no emp stuff
+	return
+
+/obj/item/organ/internal/cyberimp/arm/katana/Retract()
+	var/obj/item/cursed_katana/katana = active_item
+	if(!katana || katana.shattered)
+		return FALSE
+	if(!katana.drew_blood)
+		to_chat(owner, span_userdanger("[katana] lashes out at you in hunger!"))
+		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
+	katana.drew_blood = FALSE
+	katana.clean_blood()
+	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/katana/Extend()
+	for(var/obj/item/cursed_katana/katana in contents)
+		if(katana.shattered)
+			to_chat(owner,  span_warning("Your cursed katana has not reformed yet!"))
+			return FALSE
+	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(user_death_async), user)
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
+	remove(user)
+	user.visible_message(span_warning("[user] begins to turn to dust, his soul being contained within [src]!"), span_userdanger("You feel your body begin to turn to dust, your soul being drawn into [src]!"))
+	forceMove(get_turf(user))
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, dust)), 1 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
+	UnregisterSignal(M, COMSIG_MOB_DEATH)
+	. = ..()
+
+#define ATTACK_STRIKE "Hilt Strike"
+#define ATTACK_SLICE "Wide Slice"
+#define ATTACK_DASH "Dash Attack"
+#define ATTACK_CUT "Tendon Cut"
+#define ATTACK_HEAL "Dark Heal"
+#define ATTACK_SHATTER "Shatter"
+
+/obj/item/cursed_katana
+	name = "cursed katana"
+	desc = "A katana used to seal something vile away long ago. \
+	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "cursed_katana"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	force = 15
+	armour_penetration = 15
+	block_chance = 50
+	sharp = TRUE
+	w_class = WEIGHT_CLASS_HUGE
+	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/shattered = FALSE
+	var/drew_blood = FALSE
+	var/static/list/combo_list = list(
+		ATTACK_STRIKE = list(COMBO_STEPS = list(HARM_SLASH, HARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(strike)),
+		ATTACK_SLICE = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(slice)),
+		ATTACK_DASH = list(COMBO_STEPS = list(HARM_SLASH, DISARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(dash)),
+		ATTACK_CUT = list(COMBO_STEPS = list(DISARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(cut)),
+		ATTACK_HEAL = list(COMBO_STEPS = list(HARM_SLASH, DISARM_SLASH, HARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(heal)),
+		ATTACK_SHATTER = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(shatter)),
+		)
+
+/obj/item/cursed_katana/Initialize(mapload)
+	. = ..()
+	AddComponent( \
+		/datum/component/combo_attacks, \
+		combos = combo_list, \
+		max_combo_length = 4, \
+		reset_message = span_notice("You return to neutral stance."), \
+		can_attack_callback = CALLBACK(src, PROC_REF(can_combo_attack)) \
+	)
+
+
+/obj/item/cursed_katana/examine(mob/user)
+	. = ..()
+	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
+
+/obj/item/cursed_katana/attack(mob/living/target, mob/user, def_zone)
+	var/add_melee_cooldown = TRUE
+	if(can_combo_attack(user, target))
+		drew_blood = TRUE
+		if(ishostile(target))
+			user.changeNext_move(CLICK_CD_RAPID)
+			add_melee_cooldown = FALSE
+	return ..(target, user, def_zone, add_melee_cooldown)
+
+/obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	return ..()
+
+/obj/item/cursed_katana/proc/can_combo_attack(mob/user, mob/living/target)
+	return target.stat != DEAD && target != user
+
+/obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
+	user.visible_message(span_warning("[user] strikes [target] with [src]'s hilt!"),
+		span_notice("You hilt strike [target]!"))
+	to_chat(target, span_userdanger("You've been struck by [user]!"))
+	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_throw_impact))
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
+	to_chat(target,  span_userdanger("You've been struck by [user]!"))
+	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
+
+/obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
+	source.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	if(ishostile(source))
+		var/mob/living/simple_animal/hostile/target = source
+		target.ranged_cooldown = world.time + 5 SECONDS
+	else if(iscarbon(source))
+		var/mob/living/carbon/target = source
+		target.AdjustConfused(8 SECONDS)
+	return NONE
+
+/obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
+	user.visible_message(span_warning("[user] does a wide slice!"),
+		span_notice("You do a wide slice!"))
+	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
+	var/turf/user_turf = get_turf(user)
+	var/dir_to_target = get_dir(user_turf, get_turf(target))
+	var/static/list/cursed_katana_slice_angles = list(0, -45, 45, -90, 90) //so that the animation animates towards the target clicked and not towards a side target
+	for(var/iteration in cursed_katana_slice_angles)
+		var/turf/T = get_step(user_turf, turn(dir_to_target, iteration))
+		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
+		for(var/mob/living/additional_target in T)
+			if(user.Adjacent(additional_target) && additional_target.density)
+				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+				to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
+	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
+
+/obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
+	user.visible_message(span_warning("[user] lets [src] feast on [target]'s blood!"),
+		span_warning("You let [src] feast on [target], and it heals you, at a price!"))
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
+
+/obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
+	user.visible_message(span_warning("[user] cuts [target]'s tendons!"),
+		span_notice("You tendon cut [target]!"))
+	to_chat(target, span_userdanger("Your tendons have been cut by [user]!"))
+	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
+	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!A)
+		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+	else
+		A.add_bleed(6)
+
+
+/obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
+	var/turf/dash_target = get_turf(target)
+	var/turf/user_turf = get_turf(user)
+	if(!is_teleport_allowed(dash_target.z)) //No teleporting at CC
+		to_chat(user, span_userdanger("You can not dash here!"))
+		return
+	user.visible_message(span_warning("[user] dashes through [target]!"),
+		span_notice("You dash through [target]!"))
+	to_chat(target, span_userdanger("[user] dashes through you!"))
+	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
+	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
+	for(var/distance in 1 to 9)
+		var/turf/current_dash_target = dash_target
+		current_dash_target = get_step(current_dash_target, user.dir)
+		if(current_dash_target.is_blocked_turf(TRUE))
+			break
+		dash_target = current_dash_target
+		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
+			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+			to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
+	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
+	user.forceMove(dash_target)
+
+/obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
+	user.visible_message(span_warning("[user] shatters [src] over [target]!"),
+		span_notice("You shatter [src] over [target]!"))
+	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
+	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.Weaken(3 SECONDS)
+	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
+	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
+			if(O.active_item == src)
+				O.Retract()
+	shattered = TRUE
+	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
+
+/obj/item/cursed_katana/proc/coagulate(mob/user)
+	if(QDELETED(user))
+		return
+	to_chat(user, span_notice("[src] reforms!"))
+	shattered = FALSE
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
+
+#undef ATTACK_STRIKE
+#undef ATTACK_SLICE
+#undef ATTACK_DASH
+#undef ATTACK_CUT
+#undef ATTACK_HEAL
+#undef ATTACK_SHATTER

@@ -124,25 +124,6 @@
 		ADD_CLOTHING_TRAIT(user, src, trait)
 
 
-/obj/item/clothing/proc/refit_for_species(target_species)
-	//Set species_restricted list
-	switch(target_species)
-		if(SPECIES_HUMAN, SPECIES_SKRELL)	//humanoid bodytypes
-			species_restricted = list("exclude",SPECIES_UNATHI,SPECIES_TAJARAN,SPECIES_DIONA,SPECIES_VOX,SPECIES_WRYN,SPECIES_DRASK)
-		else
-			species_restricted = list(target_species)
-
-	//Set icon
-	if(sprite_sheets && (target_species in sprite_sheets))
-		icon_override = sprite_sheets[target_species]
-	else
-		icon_override = initial(icon_override)
-
-	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
-		icon = sprite_sheets_obj[target_species]
-	else
-		icon = initial(icon)
-
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
   */

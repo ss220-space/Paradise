@@ -40,6 +40,10 @@
 	icon_state = "ninja_scarf_classic"
 	item_state = "ninja_scarf_classic"
 	strip_delay = 12
-	flags = NODROP
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
+
+
+/obj/item/clothing/neck/ninjascarf/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
 

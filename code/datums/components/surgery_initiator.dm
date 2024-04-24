@@ -15,9 +15,9 @@
 	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
 	var/can_cancel = TRUE
 
-	/// If true, can start surgery on someone while they're standing up.
+	/// If true, can start surgery anywhere.
 	/// Seeing as how we really don't support this (yet), it's much nicer to selectively enable this if we want it.
-	var/can_start_on_stander = FALSE
+	var/can_start_anywhere = FALSE
 
 	/// Bitfield for the types of surgeries that this can start.
 	/// Note that in cases where organs are missing, this will be ignored.
@@ -67,9 +67,7 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(!(L.lying_angle || L.resting || L.stat) && !can_start_on_stander)
-		return
-	if(!(L.lying_angle || L.resting || L.stat) && !on_operable_surface(L))
+	if(!can_start_anywhere && !on_operable_surface(L))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target

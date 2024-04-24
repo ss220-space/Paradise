@@ -96,8 +96,6 @@
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
-/obj/item/katana/cursed
-	slot_flags = null
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
@@ -169,7 +167,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(isigniter(I) && !(I.flags & NODROP))
+	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))

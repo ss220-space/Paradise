@@ -620,7 +620,7 @@
 
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
-	if(!target || (flags & NODROP) || speed <= 0)
+	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
 		return FALSE
 
 	if(pulledby)

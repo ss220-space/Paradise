@@ -215,7 +215,7 @@
 
 /obj/structure/toilet/golden_toilet
 	name = "Золотой унитаз"
-	desc = "Поговаривают, что 7 веков назад у каждого арабского шейха был такой унитаз."
+	desc = "Поговаривают, что 7 веков назад у каждого арабского шейха был такой унитаз. Им явно кто-то пользовался..."
 	icon_state = "gold_toilet00"
 
 /obj/structure/toilet/golden_toilet/update_icon_state()

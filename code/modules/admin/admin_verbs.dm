@@ -765,7 +765,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.reagents.add_reagent("mutagen", 10)
 			evilcookie.desc = "It has a faint green glow."
 			evilcookie.bitesize = 100
-			evilcookie.flags = NODROP | DROPDEL
+			evilcookie.flags = DROPDEL
+			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
 			H.drop_l_hand()
 			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
 			logmsg = "a mutagen cookie."
@@ -774,7 +775,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.reagents.add_reagent("hell_water", 25)
 			evilcookie.desc = "Sulphur-flavored."
 			evilcookie.bitesize = 100
-			evilcookie.flags = NODROP | DROPDEL
+			evilcookie.flags = DROPDEL
+			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
 			H.drop_l_hand()
 			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
 			logmsg = "a hellwater cookie."

@@ -1037,12 +1037,13 @@
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."
 
-/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user as mob)
+/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP | DROPDEL	//curses!
-		magichead.flags_inv = null	//so you can still see their face
+		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
+		magichead.flags |= DROPDEL	//curses!
+		magichead.flags_inv = NONE	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
@@ -1057,7 +1058,7 @@
 	icon_state = "bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
 
-/obj/item/spellbook/oneuse/charge/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
 	empulse(src, 1, 1)
@@ -1068,7 +1069,7 @@
 	icon_state = "booksummons"
 	desc = "This book is bright and garish, very hard to miss."
 
-/obj/item/spellbook/oneuse/summonitem/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)

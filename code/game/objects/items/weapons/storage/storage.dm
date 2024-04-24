@@ -377,7 +377,7 @@
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
 			return FALSE //To prevent the stacking of same sized storage items.
 
-	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
+	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
 		return FALSE
 

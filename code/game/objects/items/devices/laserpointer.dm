@@ -58,15 +58,16 @@
 			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+		return
 
-	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+	return ..()
+
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(diode)
+		to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+		diode.forceMove(get_turf(loc))
+		diode = null
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
