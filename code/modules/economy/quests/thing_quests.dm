@@ -212,13 +212,9 @@
 	)
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
-		/obj/item/borg/upgrade/modkit/lifesteal = 145,
-		/obj/item/voodoo = 180,
 		/obj/item/gem/magma = 220
 	)
 	hard_items = list(
-		/obj/item/crusher_trophy/blaster_tubes = 260,
-		/obj/item/grenade/clusterbuster/inferno = 270,
 		/obj/item/gem/phoron = 350,
 		/obj/item/gem/purple = 400,
 		/obj/item/gem/amber = 400,
@@ -229,10 +225,6 @@
 		/obj/item/gem/void = 500,
 		/obj/effect/mob_spawn/human/ash_walker = 550,
 		/obj/item/gem/bloodstone = 650,
-		/obj/item/crusher_trophy/vortex_talisman = 700,
-		/obj/item/crusher_trophy/tail_spike = 750,
-		/obj/item/crusher_trophy/adaptive_intelligence_core = 850,
-		/obj/item/crusher_trophy/demon_claws = 1000,
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
