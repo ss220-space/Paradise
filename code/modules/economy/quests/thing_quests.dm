@@ -378,14 +378,14 @@
 		/obj/item/seeds/angel = 90
 	)
 
-	hard_items = list(
-		/obj/item/seeds/kudzu = 230,
-		/obj/item/seeds/cherry/bomb = 370,
-		/obj/item/seeds/apple/poisoned = 370,
-		/obj/item/seeds/wheat/meat = 370,
-		/obj/item/seeds/gatfruit = 430
+	very_hard_items = list(
+		/obj/item/seeds/kudzu = 460,
+		/obj/item/seeds/cherry/bomb = 740,
+		/obj/item/seeds/apple/poisoned = 740,
+		/obj/item/seeds/wheat/meat = 740,
+		/obj/item/seeds/gatfruit = 860
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
