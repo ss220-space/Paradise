@@ -54,7 +54,7 @@
 		if(HAS_TRAIT(affected_mob, TRAIT_NO_TRANSFORM))
 			return
 
-		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 		affected_mob.canmove = FALSE
 		affected_mob.icon = null
 		affected_mob.cut_overlays()

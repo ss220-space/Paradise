@@ -244,7 +244,8 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phasein(atom/enter_point, mob/living/user)
-
+	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
+		return FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		to_chat(user, span_warning("Finish eating first!"))
 		return FALSE
