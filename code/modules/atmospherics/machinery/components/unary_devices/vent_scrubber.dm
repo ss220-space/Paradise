@@ -356,7 +356,7 @@
 	return !welded
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
-	if(!welded || !(do_after(user, 20, target = src)))
+	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
 	user.visible_message(span_warning("[user] furiously claws at [src]!"), span_notice("You manage to clear away the stuff blocking the scrubber."), span_italics("You hear loud scraping noises."))
 	welded = FALSE

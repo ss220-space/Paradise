@@ -113,7 +113,7 @@
 
 	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
+	if(!do_after(user, 5 SECONDS, src))
 		climber = null
 		return FALSE
 

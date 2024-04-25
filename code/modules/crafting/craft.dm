@@ -155,7 +155,7 @@
 	if(!check_pathtools(user, R, contents))
 		return ", missing tool."
 
-	if(!do_after(user, R.time, target = user))
+	if(!do_after(user, R.time, user))
 		return "."
 	contents = get_surroundings(user)
 

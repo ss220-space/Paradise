@@ -54,7 +54,7 @@
 	if(has_buckled_mobs())
 		to_chat(user, span_danger("The spike already has something on it, finish collecting its meat first!"))
 		return
-	if(!do_mob(user, src, 12 SECONDS))
+	if(!do_after(user, 12 SECONDS, src, NONE) || QDELETED(grab))
 		return
 	var/mob/living/affected = grab.affecting
 	if(!spike(affected))
@@ -101,7 +101,7 @@
 			span_notice("[user] is trying to pull you off [src], opening up fresh wounds!"),
 			span_italics("You hear a squishy wet noise."),
 		)
-		if(!do_after(user, 30 SECONDS, target = src))
+		if(!do_after(user, 30 SECONDS, src))
 			if(target?.buckled)
 				target.visible_message(
 					span_notice("[user] fails to free [target]!"),
@@ -115,7 +115,7 @@
 			span_italics("You hear a wet squishing noise.."),
 		)
 		target.adjustBruteLoss(30)
-		if(!do_after(target, 2 MINUTES, target = src))
+		if(!do_after(target, 2 MINUTES, src))
 			if(target?.buckled)
 				to_chat(target, span_warning("You fail to free yourself!"))
 			return

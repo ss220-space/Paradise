@@ -105,7 +105,7 @@
 					to_chat(user, "<span class='warning'>You need more [P] to do this!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce [src] with [P]...</span>")
-				if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					add_fingerprint(user)
@@ -118,7 +118,7 @@
 			//Adding cable to the assembly. Step 5 complete.
 			else if(iscoil(W) && anchored)
 				user.visible_message("<span class='notice'>[user] wires [src]...</span>", "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || !anchored || state != "01")
 						return
 					add_fingerprint(user)
@@ -142,7 +142,7 @@
 					return
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("<span class='notice'>[user] installs [W] into [src]...</span>", "<span class='notice'>You start to install [W.name] into [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || electronics)
 						return
 					add_fingerprint(user)

@@ -46,7 +46,7 @@
 	target.do_jitter_animation(500, 30)
 	user.do_jitter_animation(500, 30)
 
-	if(!do_mob(user, target, 10 SECONDS))
+	if(!do_after(user, 10 SECONDS, target, NONE))
 		to_chat(user, span_warning("The body swap has been interrupted!"))
 		return FALSE
 

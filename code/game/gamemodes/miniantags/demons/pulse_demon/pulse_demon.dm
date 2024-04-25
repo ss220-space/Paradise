@@ -639,7 +639,7 @@
 	apc_being_hijacked = A
 	A.being_hijacked = TRUE
 	A.update_icon()
-	if(do_after(src, hijack_time, target = A))
+	if(do_after(src, hijack_time, A))
 		if(is_valid_apc(A))
 			finish_hijack_apc(A, remote)
 		else

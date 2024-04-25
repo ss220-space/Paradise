@@ -396,7 +396,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(equip_delay_self && !user.is_general_slot(user.get_slot_by_item(src)))
 			user.visible_message(span_notice("[user] начинает снимать [name]..."), \
 							span_notice("Вы начинаете снимать [name]..."))
-			if(!do_after_once(user, equip_delay_self, target = user, attempt_cancel_message = "Снятие [name] было прервано!"))
+			if(!do_after(user, equip_delay_self, user, max_interact_count = 1, cancel_message = span_warning("Снятие [name] было прервано!")))
 				return
 
 			if(user.get_active_hand())
@@ -988,7 +988,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
-	if(!do_after(user, 40, target = source))
+	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
 	acid_level = 0

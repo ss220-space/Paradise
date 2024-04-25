@@ -291,7 +291,7 @@
 			span_userdanger("[user] is trying to buckle you to [src]!"),
 			span_italics("You hear metal clanking."),
 		)
-		if(!do_mob(user, target, 0.7 SECONDS))
+		if(!do_after(user, 0.7 SECONDS, target, NONE))
 			to_chat(user, span_warning("You failed to buckle [target]."))
 			return FALSE
 

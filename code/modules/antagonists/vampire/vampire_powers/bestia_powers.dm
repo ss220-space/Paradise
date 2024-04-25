@@ -381,7 +381,7 @@
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
 
-		if(!do_mob(user, target, 5 SECONDS) || !special_check(user, TRUE, TRUE))
+		if(!do_after(user, 5 SECONDS, target, NONE) || !special_check(user, TRUE, TRUE))
 			to_chat(user, span_warning("Our dissection of [target] has been interrupted!"))
 			is_dissecting = FALSE
 			return

@@ -600,7 +600,7 @@
 		var/displaytime = breakouttime / 10
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
 					"<span class='notice'>Вы пытаетесь себя отстегнуть... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
@@ -748,12 +748,12 @@
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
-		return 0
+		return FALSE
 	if(!toEat.instant_application)
-		if(!do_mob(user, src))
-			return 0
+		if(!do_after(user, 3 SECONDS, src, NONE))
+			return FALSE
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
-	return 1
+	return TRUE
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach

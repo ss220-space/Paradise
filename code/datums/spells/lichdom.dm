@@ -108,7 +108,7 @@
 	to_chat(user, span_warning("You begin to focus your very being into [item]..."))
 
 	focusing = TRUE
-	if(!do_after(user, 5 SECONDS, target = user))
+	if(!do_after(user, 5 SECONDS, user))
 		focusing = FALSE
 		return
 	focusing = FALSE

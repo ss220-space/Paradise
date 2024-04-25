@@ -67,7 +67,7 @@
 			span_warning("You struggle to break free from the gelatinous resin... (Stay still for two minutes.)"),
 			span_italics("You hear squelching..."),
 		)
-		if(!do_after(target, 2 MINUTES, target = src))
+		if(!do_after(target, 2 MINUTES, src))
 			if(target?.buckled)
 				to_chat(target, span_warning("You fail to escape [src]!"))
 			return

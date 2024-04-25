@@ -130,7 +130,7 @@
 	else
 		eat_self_message = "<span class='notice'>You start eating [item].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, target = item))
+	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return

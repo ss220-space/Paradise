@@ -98,7 +98,7 @@
 						                 "<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = GUILLOTINE_ACTION_INUSE
 
-					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
+					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, src) && blade_status == GUILLOTINE_BLADE_RAISED)
 						add_fingerprint(user)
 						current_action = NONE
 						blade_status = GUILLOTINE_BLADE_DROPPING
@@ -175,7 +175,7 @@
 			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
 				blade_status = GUILLOTINE_BLADE_SHARPENING
 				add_fingerprint(user)
-				if(do_after(user, 7, target = src))
+				if(do_after(user, 0.7 SECONDS, src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
 						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")

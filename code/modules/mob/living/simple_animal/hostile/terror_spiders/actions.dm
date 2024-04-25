@@ -142,7 +142,7 @@
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
-	if(do_after(src, delay_web, target = loc))
+	if(do_after(src, delay_web, loc))
 		if(loc != mylocation)
 			return
 		else if(isspaceturf(loc))
@@ -254,7 +254,7 @@
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
 		walk(src,0)
-		if(do_after(src, 40, target = cocoon_target.loc))
+		if(do_after(src, 4 SECONDS, cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
 					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
@@ -305,7 +305,7 @@
 		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
 	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
-	if(do_after(src, 43, target = loc))
+	if(do_after(src, 4.3 SECONDS, loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.welded = 0

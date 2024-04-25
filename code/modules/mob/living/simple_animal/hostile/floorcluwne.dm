@@ -336,7 +336,7 @@
 	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
 	for(var/I in 1 to get_dist(src, H))
 
-		if(do_after(src, 10, target = H))
+		if(do_after(src, 1 SECONDS, H))
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
 			H.emote("scream")
@@ -346,7 +346,7 @@
 	if(get_dist(src,H) <= 1)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
-		if(do_after(src, 50, target = H) && eating)
+		if(do_after(src, 5 SECONDS, H) && eating)
 			H.BecomeBlind()
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
@@ -374,7 +374,7 @@
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
-	if(do_after(src, 50, target = H))
+	if(do_after(src, 5 SECONDS, H))
 		if(prob(50) || smiting)
 			H.makeCluwne()
 

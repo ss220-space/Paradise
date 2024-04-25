@@ -105,7 +105,7 @@
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся снять [I]!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь снять [I]... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(I.loc != src || buckled)
 				return
 			visible_message("<span class='danger'>[src.name] удалось снять [I]!</span>")
@@ -127,7 +127,7 @@
 		breakouttime = 50
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся сломать [I]!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь сломать [I]... (Это займет у вас приблизительно 5 секунд и вам не нужно двигаться)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!I.loc || buckled)
 				return
 			visible_message("<span class='danger'>[src.name] успешно сломал[genderize_ru(src.gender,"","а","о","и")] [I]!</span>")
@@ -210,7 +210,7 @@
 	else
 		visible_message("<span class='warning'>[src.name] грыз[pluralize_ru(src.gender,"ет","ут")] [I], пытаясь избавиться от него!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь избавиться от [I]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, time, 0, target = src))
+		if(do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			visible_message("<span class='warning'>[src.name] избавил[genderize_ru(src.gender,"ся","ась","ось","ись")] от [I]!</span>")
 			to_chat(src, "<span class='notice'>Вы избавились от [I]!</span>")
 			if(I.security_lock)
@@ -274,7 +274,7 @@
 				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на баллоне у [name]!"),
 				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на Вашем баллоне!"),
 			)
-			if(!do_mob(usr, src, POCKET_STRIP_DELAY) || !internal)
+			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE) || !internal)
 				return
 			internal = null
 			update_action_buttons_icon()
@@ -309,7 +309,7 @@
 				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на баллоне у [name]!"),
 				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на Вашем баллоне!"),
 			)
-			if(!do_mob(usr, src, POCKET_STRIP_DELAY))
+			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE))
 				return
 			if(internal)
 				to_chat(usr, span_warning("[name] уже име[pluralize_ru(src.gender,"ет","ют")] подключённый баллон."))

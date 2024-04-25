@@ -322,7 +322,7 @@
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 7.7 SECONDS)) //around 23 seconds total for enthralling
+		if(!do_after(user, 7.7 SECONDS, target, NONE)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE
@@ -419,7 +419,7 @@
 			thralls++
 			to_chat(target, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
 
-	if(!do_after(user, 3 SECONDS, target = user))
+	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 		return
 
@@ -627,7 +627,7 @@
 	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
 
 	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
-	if(!do_after(user, 20 SECONDS, target = target_apc))
+	if(!do_after(user, 20 SECONDS, target_apc))
 		//Whoops!  The APC's powers back on
 		to_chat(user, "<span class='shadowling'>Your concentration breaks and the APC suddenly repowers!</span>")
 		target_apc.operating = TRUE
@@ -700,7 +700,7 @@
 		user.visible_message("<span class='danger'>[user] places [user.p_their()] hands over [thrall]'s face, red light shining from beneath.</span>", \
 							"<span class='shadowling'>You place your hands on [thrall]'s face and begin gathering energy...</span>")
 		to_chat(thrall, "<span class='userdanger'>[user] places [user.p_their()] hands over your face. You feel energy gathering. Stand still...</span>")
-		if(!do_mob(user, thrall, 8 SECONDS))
+		if(!do_after(user, 8 SECONDS, thrall, NONE))
 			to_chat(user, "<span class='warning'>Your concentration snaps. The flow of energy ebbs.</span>")
 			revert_cast(user)
 			return
@@ -736,7 +736,7 @@
 		user.visible_message("<span class='danger'>[user] kneels over [thrall], placing [user.p_their()] hands on [thrall.p_their()] chest.</span>", \
 							"<span class='shadowling'>You crouch over the body of your thrall and begin gathering energy...</span>")
 		thrall.notify_ghost_cloning("Your masters are resuscitating you! Re-enter your corpse if you wish to be brought to life.", source = thrall)
-		if(!do_mob(user, thrall, 3 SECONDS))
+		if(!do_after(user, 3 SECONDS, thrall, NONE))
 			to_chat(user, "<span class='warning'>Your concentration snaps. The flow of energy ebbs.</span>")
 			revert_cast(user)
 			return
@@ -819,7 +819,7 @@
 						"<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
 	extend_limit_pressed = TRUE
 
-	if(!do_after_once(user, 15 SECONDS, target = target))
+	if(!do_after(user, 15 SECONDS, target, max_interact_count = 1))
 		extend_limit_pressed = FALSE
 		to_chat(target, "<span class='warning'>You are snapped back to reality, your haze dissipating!</span>")
 		to_chat(user, "<span class='warning'>You have been interrupted. The draw has failed.</span>")

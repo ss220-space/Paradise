@@ -37,7 +37,7 @@
 
 	playsound(get_turf(user),'sound/weapons/bladeslice.ogg' , 100, FALSE)
 
-	if(!do_after_once(user, 4 SECONDS, target = vent))
+	if(!do_after(user, 4 SECONDS, vent, max_interact_count = 1))
 		to_chat(user, span_danger("There is no welded vent or scrubber close enough to do this."))
 		revert_cast(user)
 		return

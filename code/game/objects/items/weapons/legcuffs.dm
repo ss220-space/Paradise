@@ -226,7 +226,8 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
-	if(do_mob(user, user, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), user))))
+
+	if(do_after(user, 1 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
 		throw_speed += round(max_speed / max_spins)
 		spin_cycle++

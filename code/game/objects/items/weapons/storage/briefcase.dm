@@ -74,7 +74,7 @@
 	if(!bottom_open)
 		to_chat(user, "You begin to hunt around the rim of the [src]...")
 		busy_hunting = TRUE
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(user)
 				to_chat(user, "You pry open the false bottom!")
 			bottom_open = TRUE

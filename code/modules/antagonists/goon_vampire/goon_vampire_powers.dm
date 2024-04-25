@@ -191,7 +191,7 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message(span_warning("Глаза [user] ярко вспыхивают, когда он[genderize_ru(user.gender,"","а","о","и")] пристально смотр[genderize_ru(user.gender,"ит","ит","ит","ят")] в глаза [target]."))
-	if(do_mob(user, target, 6 SECONDS))
+	if(do_after(user, 6 SECONDS, target, NONE))
 		if(!affects(target))
 			to_chat(user, span_warning("Ваш пронзительный взгляд не смог заворожить [target]."))
 			to_chat(target, span_notice("Невыразительный взгляд [user] ничего вам не делает."))
@@ -360,7 +360,7 @@
 						span_warning("Вы кусаете [target] в шею и начинаете передачу части своей силы."))
 	to_chat(target, span_warning("Вы ощущаете, как щупальца зла впиваются в ваш разум."))
 
-	if(do_mob(user, target, 5 SECONDS))
+	if(do_after(user, 5 SECONDS, target, NONE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 		else

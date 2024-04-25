@@ -336,7 +336,7 @@
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = G.affecting))
+		if(do_after(user, 2 SECONDS, G.affecting))
 			if(occupant)
 				to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 				return
@@ -532,7 +532,7 @@
 
 
 /obj/machinery/sleeper/proc/put_in(mob/living/L, mob/user)
-	if(!do_after(user, 2 SECONDS, target = L))
+	if(!do_after(user, 2 SECONDS, L))
 		return
 
 	if(occupant)

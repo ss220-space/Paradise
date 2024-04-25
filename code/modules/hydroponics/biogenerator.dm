@@ -165,7 +165,7 @@
 		SStgui.update_uis(src)
 
 		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 1 SECONDS, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			files.AddDesign2Known(D.blueprint)
 
 		add_fingerprint(user)

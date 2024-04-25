@@ -289,7 +289,7 @@
 
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
 		var/oldloc = H.loc
-		if(!do_mob(user, H, EAT_MOB_DELAY))
+		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)

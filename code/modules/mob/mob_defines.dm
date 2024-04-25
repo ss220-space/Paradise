@@ -220,7 +220,11 @@
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
 
+	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
+
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
+	var/list/do_afters
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 

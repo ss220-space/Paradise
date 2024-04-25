@@ -209,7 +209,7 @@
 								span_italics("You hear a metal screeching sound."))
 
 			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
-			if(!do_after(user, 3 SECONDS, target = airlock ))
+			if(!do_after(user, 3 SECONDS, airlock))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")

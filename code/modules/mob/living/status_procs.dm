@@ -357,7 +357,10 @@
 	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
 // PARALYSE
-/mob/living/proc/IsParalyzed()
+/mob/proc/IsParalyzed()
+	return FALSE
+
+/mob/living/IsParalyzed()
 	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
 /mob/living/proc/AmountParalyzed()
@@ -545,7 +548,10 @@
 	SetClockSlur(directional_bounded_sum(AmountClockSlurring(), amount, bound_lower, bound_upper))
 
 /* STUN */
-/mob/living/proc/IsStunned() //If we're stunned
+/mob/proc/IsStunned()
+	return FALSE
+
+/mob/living/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)
 
 /mob/living/proc/AmountStun() //How many deciseconds remain in our stun
@@ -655,7 +661,10 @@
 
 // WEAKEN
 
-/mob/living/proc/IsWeakened()
+/mob/proc/IsWeakened()
+	return FALSE
+
+/mob/living/IsWeakened()
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect

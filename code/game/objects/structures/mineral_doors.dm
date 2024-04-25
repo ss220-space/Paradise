@@ -136,7 +136,7 @@
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 40 * digTool.toolspeed * gettoolspeedmod(user) * hardness, target = src) && src)
+		if(do_after(user, 4 SECONDS * digTool.toolspeed * gettoolspeedmod(user) * hardness, src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)

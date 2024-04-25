@@ -63,7 +63,7 @@
 			if(ctarget != user)
 				ctarget.visible_message(span_danger("[user] attempts to feed something to [ctarget]."), \
 							span_userdanger("[user] attempts to feed something to you."))
-				if(!do_mob(user, ctarget))
+				if(!do_after(user, 3 SECONDS, ctarget, NONE))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding

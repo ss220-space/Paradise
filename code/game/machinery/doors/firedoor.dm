@@ -129,7 +129,7 @@
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	if(do_after(user, manual_open_time, target = src))
+	if(do_after(user, manual_open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
@@ -335,7 +335,7 @@
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -409,7 +409,7 @@
 				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
 									 span_notice("You begin reinforcing [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 60 * C.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 6 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					add_fingerprint(user)
@@ -428,7 +428,7 @@
 				user.visible_message(span_notice("[user] begins wiring [src]..."), \
 									 span_notice("You begin adding wires to [src]..."))
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 60 * B.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 6 SECONDS * B.toolspeed * gettoolspeedmod(user), src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					add_fingerprint(user)
@@ -444,7 +444,7 @@
 				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
 									 span_notice("You begin adding a circuit board to [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 40 * C.toolspeed * gettoolspeedmod(user), target = src))
+				if(!do_after(user, 4 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return

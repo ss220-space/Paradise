@@ -73,7 +73,7 @@
 			var/list/play_records = params2list(user.client.prefs.exp)
 			var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 			if (user.mind.special_role || livingtime > 9000)
-				if(do_after(user, 30, target=src))
+				if(do_after(user, 3 SECONDS, src))
 					investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
 					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
 					qdel(W)

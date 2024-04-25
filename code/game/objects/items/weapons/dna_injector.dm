@@ -164,7 +164,7 @@
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M, NONE))
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")

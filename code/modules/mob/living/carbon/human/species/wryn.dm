@@ -179,7 +179,7 @@
 			if("Да")
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
-				if(do_mob(user, target, 250))
+				if(do_after(user, 25 SECONDS, target, NONE))
 					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))

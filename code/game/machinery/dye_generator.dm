@@ -127,7 +127,7 @@
 			to_chat(user, "You are too far away!")
 			return
 		user.visible_message(span_notice("[user] starts dying [M]'s [what_to_dye]!"), span_notice("You start dying [M]'s [what_to_dye]!"))
-		if(do_after(user, 50, target = H))
+		if(do_after(user, 5 SECONDS, H))
 			switch(what_to_dye)
 				if("hair")
 					H.change_hair_color(dye_color)
