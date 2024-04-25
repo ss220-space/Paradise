@@ -206,14 +206,14 @@
 		/obj/item/gem/emerald = 60,
 		/obj/item/gem/sapphire = 60,
 		/obj/item/gem/ruby = 60,
-		/obj/item/gem/fdiamond = 60,
 		/obj/item/crusher_trophy/goliath_tentacle = 95,
-		/obj/item/crusher_trophy/blaster_tubes/magma_wing = 110,
-		/obj/item/crusher_trophy/watcher_wing/ice_wing = 110,
 	)
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
+		/obj/item/gem/fdiamond = 220,
 		/obj/item/gem/magma = 220
+		/obj/item/crusher_trophy/blaster_tubes/magma_wing = 110,
+		/obj/item/crusher_trophy/watcher_wing/ice_wing = 110,
 	)
 	hard_items = list(
 		/obj/item/gem/phoron = 350,
