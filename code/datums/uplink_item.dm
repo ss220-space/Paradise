@@ -1889,7 +1889,7 @@
 	can_discount = FALSE
 	surplus = 0
 
-	/datum/uplink_item/implants/adrenal/prototype
+/datum/uplink_item/implants/adrenal/prototype
 	name = "Prototype Adrenal Implant"
 	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. This prototype can be activated 1 time."
 	item = /obj/item/implanter/adrenalin/prototype
