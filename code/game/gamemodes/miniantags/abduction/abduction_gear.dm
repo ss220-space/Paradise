@@ -754,8 +754,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	buildstackamount = 1
 	framestackamount = 1
 	canSmoothWith = null
-	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/abductor
+
+
+/obj/structure/table/abductor/setup_flip(mob/living/user)
+	return
+
 
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'

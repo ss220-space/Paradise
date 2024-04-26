@@ -171,8 +171,10 @@
 	integrity_failure = 30
 	smooth = SMOOTH_FALSE
 
-/obj/structure/table/socle/flip()
+
+/obj/structure/table/socle/setup_flip(mob/living/user)
 	return
+
 
 /obj/effect/spawner/graveyard_statues
 	name = "Statues"

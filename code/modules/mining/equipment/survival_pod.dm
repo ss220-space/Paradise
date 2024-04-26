@@ -160,6 +160,11 @@
 	icon_state = "table"
 	smooth = SMOOTH_FALSE
 
+
+/obj/structure/table/survival_pod/setup_flip(mob/living/user)
+	return
+
+
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
