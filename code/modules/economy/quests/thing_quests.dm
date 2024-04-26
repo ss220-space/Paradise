@@ -211,7 +211,7 @@
 	normal_items = list(
 		/obj/item/gem/rupee = 130,
 		/obj/item/gem/fdiamond = 220,
-		/obj/item/gem/magma = 220
+		/obj/item/gem/magma = 220,
 		/obj/item/crusher_trophy/blaster_tubes/magma_wing = 110,
 		/obj/item/crusher_trophy/watcher_wing/ice_wing = 110,
 	)
