@@ -34,6 +34,18 @@
 	imp = /obj/item/implant/adrenalin
 
 
+/obj/item/implanter/adrenalin/prototype
+	name = "bio-chip implanter (proto-adrenalin)"
+	imp = /obj/item/implant/adrenalin/prototype
+
+/obj/item/implant/adrenalin/prototype
+	name = "prototype adrenalin bio-chip"
+	desc = "Use it to escape child support. Works only once!"
+	origin_tech = "combat=5;magnets=3;biotech=3;syndicate=1"
+	implant_data = /datum/implant_fluff/protoadrenaline
+	uses = 1
+
+
 /obj/item/implantcase/adrenaline
 	name = "bio-chip case - 'Adrenaline'"
 	desc = "A glass case containing an adrenaline bio-chip."
