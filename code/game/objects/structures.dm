@@ -45,7 +45,7 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/Move()
+/obj/structure/Move(atom/newloc, direct = NONE, movetime)
 	var/atom/old = loc
 	if(!..())
 		return FALSE

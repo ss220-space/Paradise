@@ -228,7 +228,7 @@ REAGENT SCANNER
 	if(alerted && !was_alerted)
 		for(var/mob/living/alerted_mob in alerted)
 			if(!alerted_mob.stat)
-				alerted_mob.do_alert_animation(alerted_mob)
+				do_alert_animation(alerted_mob)
 				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
 		was_alerted = TRUE
 		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
