@@ -4,69 +4,124 @@
  * @license MIT
  */
 
-import { classes, isFalsy, pureComponentHooks } from 'common/react';
-import { createVNode } from 'inferno';
+import { BooleanLike, classes, pureComponentHooks } from 'common/react';
+import { createVNode, InfernoNode } from 'inferno';
 import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
 
-const UNIT_PX = 12;
+export interface BoxProps {
+  [key: string]: any;
+  as?: string;
+  className?: string | BooleanLike;
+  children?: InfernoNode;
+  position?: string | BooleanLike;
+  overflow?: string | BooleanLike;
+  overflowX?: string | BooleanLike;
+  overflowY?: string | BooleanLike;
+  top?: string | BooleanLike;
+  bottom?: string | BooleanLike;
+  left?: string | BooleanLike;
+  right?: string | BooleanLike;
+  width?: string | BooleanLike;
+  minWidth?: string | BooleanLike;
+  maxWidth?: string | BooleanLike;
+  height?: string | BooleanLike;
+  minHeight?: string | BooleanLike;
+  maxHeight?: string | BooleanLike;
+  fontSize?: string | BooleanLike;
+  fontFamily?: string;
+  lineHeight?: string | BooleanLike;
+  opacity?: number;
+  textAlign?: string | BooleanLike;
+  verticalAlign?: string | BooleanLike;
+  inline?: BooleanLike;
+  bold?: BooleanLike;
+  italic?: BooleanLike;
+  nowrap?: BooleanLike;
+  preserveWhitespace?: BooleanLike;
+  m?: string | BooleanLike;
+  mx?: string | BooleanLike;
+  my?: string | BooleanLike;
+  mt?: string | BooleanLike;
+  mb?: string | BooleanLike;
+  ml?: string | BooleanLike;
+  mr?: string | BooleanLike;
+  p?: string | BooleanLike;
+  px?: string | BooleanLike;
+  py?: string | BooleanLike;
+  pt?: string | BooleanLike;
+  pb?: string | BooleanLike;
+  pl?: string | BooleanLike;
+  pr?: string | BooleanLike;
+  color?: string | BooleanLike;
+  textColor?: string | BooleanLike;
+  backgroundColor?: string | BooleanLike;
+  fillPositionedParent?: boolean;
+}
 
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export const unit = value => {
+export const unit = (value: unknown): string | undefined => {
   if (typeof value === 'string') {
+    // Transparently convert pixels into rem units
+    if (value.endsWith('px')) {
+      return parseFloat(value) / 12 + 'rem';
+    }
     return value;
   }
   if (typeof value === 'number') {
-    return (value * UNIT_PX) + 'px';
+    return value + 'rem';
   }
 };
 
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export const halfUnit = value => {
+export const halfUnit = (value: unknown): string | undefined => {
   if (typeof value === 'string') {
-    return value;
+    return unit(value);
   }
   if (typeof value === 'number') {
-    return (value * UNIT_PX * 0.5) + 'px';
+    return unit(value * 0.5);
   }
 };
 
-const isColorCode = str => !isColorClass(str);
+const isColorCode = (str: unknown) => !isColorClass(str);
 
-const isColorClass = str => typeof str === 'string'
-  && CSS_COLORS.includes(str);
+const isColorClass = (str: unknown): boolean => {
+  if (typeof str === 'string') {
+    return CSS_COLORS.includes(str);
+  }
+};
 
-const mapRawPropTo = attrName => (style, value) => {
-  if (!isFalsy(value)) {
+const mapRawPropTo = (attrName) => (style, value) => {
+  if (typeof value === 'number' || typeof value === 'string') {
     style[attrName] = value;
   }
 };
 
 const mapUnitPropTo = (attrName, unit) => (style, value) => {
-  if (!isFalsy(value)) {
+  if (typeof value === 'number' || typeof value === 'string') {
     style[attrName] = unit(value);
   }
 };
 
 const mapBooleanPropTo = (attrName, attrValue) => (style, value) => {
-  if (!isFalsy(value)) {
+  if (value) {
     style[attrName] = attrValue;
   }
 };
 
 const mapDirectionalUnitPropTo = (attrName, unit, dirs) => (style, value) => {
-  if (!isFalsy(value)) {
+  if (typeof value === 'number' || typeof value === 'string') {
     for (let i = 0; i < dirs.length; i++) {
       style[attrName + '-' + dirs[i]] = unit(value);
     }
   }
 };
 
-const mapColorPropTo = attrName => (style, value) => {
+const mapColorPropTo = (attrName) => (style, value) => {
   if (isColorCode(value)) {
     style[attrName] = value;
   }
@@ -74,10 +129,7 @@ const mapColorPropTo = attrName => (style, value) => {
 
 const styleMapperByPropName = {
   // Direct mapping
-  display: mapRawPropTo('display'),
   position: mapRawPropTo('position'),
-  float: mapRawPropTo('float'),
-  clear: mapRawPropTo('clear'),
   overflow: mapRawPropTo('overflow'),
   overflowX: mapRawPropTo('overflow-x'),
   overflowY: mapRawPropTo('overflow-y'),
@@ -93,43 +145,44 @@ const styleMapperByPropName = {
   maxHeight: mapUnitPropTo('max-height', unit),
   fontSize: mapUnitPropTo('font-size', unit),
   fontFamily: mapRawPropTo('font-family'),
-  lineHeight: mapRawPropTo('line-height'),
+  lineHeight: (style, value) => {
+    if (typeof value === 'number') {
+      style['line-height'] = value;
+    } else if (typeof value === 'string') {
+      style['line-height'] = unit(value);
+    }
+  },
   opacity: mapRawPropTo('opacity'),
   textAlign: mapRawPropTo('text-align'),
   verticalAlign: mapRawPropTo('vertical-align'),
-  textTransform: mapRawPropTo('text-transform'),
-  wordWrap: mapRawPropTo('word-wrap'),
-  textOverflow: mapRawPropTo('text-overflow'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),
   italic: mapBooleanPropTo('font-style', 'italic'),
   nowrap: mapBooleanPropTo('white-space', 'nowrap'),
-  prewrap: mapBooleanPropTo('white-space', 'pre-wrap'),
+  preserveWhitespace: mapBooleanPropTo('white-space', 'pre-wrap'),
   // Margins
   m: mapDirectionalUnitPropTo('margin', halfUnit, [
-    'top', 'bottom', 'left', 'right',
+    'top',
+    'bottom',
+    'left',
+    'right',
   ]),
-  mx: mapDirectionalUnitPropTo('margin', halfUnit, [
-    'left', 'right',
-  ]),
-  my: mapDirectionalUnitPropTo('margin', halfUnit, [
-    'top', 'bottom',
-  ]),
+  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
+  my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   mt: mapUnitPropTo('margin-top', halfUnit),
   mb: mapUnitPropTo('margin-bottom', halfUnit),
   ml: mapUnitPropTo('margin-left', halfUnit),
   mr: mapUnitPropTo('margin-right', halfUnit),
   // Margins
   p: mapDirectionalUnitPropTo('padding', halfUnit, [
-    'top', 'bottom', 'left', 'right',
+    'top',
+    'bottom',
+    'left',
+    'right',
   ]),
-  px: mapDirectionalUnitPropTo('padding', halfUnit, [
-    'left', 'right',
-  ]),
-  py: mapDirectionalUnitPropTo('padding', halfUnit, [
-    'top', 'bottom',
-  ]),
+  px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
+  py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   pt: mapUnitPropTo('padding-top', halfUnit),
   pb: mapUnitPropTo('padding-bottom', halfUnit),
   pl: mapUnitPropTo('padding-left', halfUnit),
@@ -138,18 +191,6 @@ const styleMapperByPropName = {
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),
   backgroundColor: mapColorPropTo('background-color'),
-  // Flex props
-  order: mapRawPropTo('order'),
-  flexDirection: mapRawPropTo('flex-direction'),
-  flexGrow: mapRawPropTo('flex-grow'),
-  flexShrink: mapRawPropTo('flex-shrink'),
-  flexWrap: mapRawPropTo('flex-wrap'),
-  flexFlow: mapRawPropTo('flex-flow'),
-  flexBasis: mapRawPropTo('flex-basis'),
-  flex: mapRawPropTo('flex'),
-  alignItems: mapRawPropTo('align-items'),
-  justifyContent: mapRawPropTo('justify-content'),
-  alignSelf: mapRawPropTo('align-self'),
   // Utility props
   fillPositionedParent: (style, value) => {
     if (value) {
@@ -162,12 +203,9 @@ const styleMapperByPropName = {
   },
 };
 
-export const computeBoxProps = props => {
-  const computedProps = {};
+export const computeBoxProps = (props: BoxProps) => {
+  const computedProps: HTMLAttributes<any> = {};
   const computedStyles = {};
-  if (props.double) {
-    computedStyles["transform"] = "scale(2);";
-  }
   // Compute props
   for (let propName of Object.keys(props)) {
     if (propName === 'style') {
@@ -177,8 +215,7 @@ export const computeBoxProps = props => {
     const mapPropToStyle = styleMapperByPropName[propName];
     if (mapPropToStyle) {
       mapPropToStyle(computedStyles, propValue);
-    }
-    else {
+    } else {
       computedProps[propName] = propValue;
     }
   }
@@ -200,7 +237,7 @@ export const computeBoxProps = props => {
   return computedProps;
 };
 
-export const computeBoxClassName = props => {
+export const computeBoxClassName = (props: BoxProps) => {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
   return classes([
@@ -209,20 +246,16 @@ export const computeBoxClassName = props => {
   ]);
 };
 
-export const Box = props => {
-  const {
-    as = 'div',
-    className,
-    children,
-    ...rest
-  } = props;
+export const Box = (props: BoxProps) => {
+  const { as = 'div', className, children, ...rest } = props;
   // Render props
   if (typeof children === 'function') {
     return children(computeBoxProps(props));
   }
-  const computedClassName = typeof className === 'string'
-    ? className + ' ' + computeBoxClassName(rest)
-    : computeBoxClassName(rest);
+  const computedClassName =
+    typeof className === 'string'
+      ? className + ' ' + computeBoxClassName(rest)
+      : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
   // Render a wrapper element
   return createVNode(
@@ -231,7 +264,8 @@ export const Box = props => {
     computedClassName,
     children,
     ChildFlags.UnknownChildren,
-    computedProps);
+    computedProps
+  );
 };
 
 Box.defaultHooks = pureComponentHooks;
