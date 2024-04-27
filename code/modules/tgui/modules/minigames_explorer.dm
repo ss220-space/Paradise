@@ -6,10 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/minigames_explorer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/ui_state/state = GLOB.observer_state, datum/tgui/master_ui = null)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/minigames_explorer/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/minigames_explorer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MiniGamesMenu", "Mini Games", 700, 600, master_ui, state = state)
+		ui = new(user, src, "MiniGamesMenu", "Mini Games")
 		ui.open()
 
 /datum/minigames_explorer/ui_data(mob/user)
