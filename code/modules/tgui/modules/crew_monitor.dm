@@ -21,8 +21,8 @@
 			return TRUE
 
 
-/datum/ui_module/crew_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/crew_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(GLOB.communications_blackout)
 		to_chat(user, span_warning("Monitor shows strange symbols. There is no useful information, because of noise."))
@@ -31,7 +31,7 @@
 		return
 
 	if(!ui)
-		ui = new(user, src, ui_key, "CrewMonitor", name, 800, 600, master_ui, state)
+		ui = new(user, src, "CrewMonitor", name)
 
 		// Send nanomaps
 		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
