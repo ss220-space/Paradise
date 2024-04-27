@@ -184,6 +184,10 @@
 		ui = new(user, src, "RPD", name)
 		ui.open()
 
+/obj/item/rpd/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/rpd/)
+	)
 
 /obj/item/rpd/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))

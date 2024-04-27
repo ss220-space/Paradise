@@ -942,21 +942,29 @@
 	if(inactivity > duration)	return inactivity
 	return 0
 
-//Send resources to the client.
+/// Send resources to the client.
+/// Sends both game resources and browser assets.
 /client/proc/send_resources()
-	// Change the way they should download resources.
-	if(CONFIG_GET(str_list/resource_urls))
-		preload_rsc = pick(CONFIG_GET(str_list/resource_urls))
-	else
-		preload_rsc = 1 // If CONFIG_GET(str_list/resource_urls) is not set, preload like normal.
-	// Most assets are now handled through global_cache.dm
-	getFiles(
-		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
-		'html/panels.css' // Used for styling certain panels, such as in the new player panel
-	)
-	spawn (10) //removing this spawn causes all clients to not get verbs.
+#if (PRELOAD_RSC == 0)
+	var/static/next_external_rsc = 0
+	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
+	if(length(external_rsc_urls))
+		next_external_rsc = WRAP(next_external_rsc+1, 1, external_rsc_urls.len+1)
+		preload_rsc = external_rsc_urls[next_external_rsc]
+#endif
+
+	spawn (10) //removing this spawn causes all clients to not get verbs. (this can't be addtimer because these assets may be needed before the mc inits)
+
+		//load info on what assets the client has
+		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
+
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		if (CONFIG_GET(flag/asset_simple_preload))
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
+
+		#if (PRELOAD_RSC == 0)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
+		#endif
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -1211,37 +1219,6 @@
 		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
-
-/client/verb/resend_ui_resources()
-	set name = "Reload UI Resources"
-	set desc = "Reload your UI assets if they are not working"
-	set category = "Special Verbs"
-
-	if(last_ui_resource_send > world.time)
-		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
-		return
-
-	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
-	if(choice == "Yes")
-		// 600 deciseconds = 1 minute
-		last_ui_resource_send = world.time + 60 SECONDS
-
-		// Close their open UIs
-		SStgui.close_user_uis(usr)
-
-		// Resend the resources
-
-		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
-		tgui_assets.register()
-
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.register()
-
-		// Clear the user's cache so they get resent.
-		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
-		cache = list()
-
-		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
 /client/proc/check_say_flood(rate = 5)
 	client_keysend_amount += rate
