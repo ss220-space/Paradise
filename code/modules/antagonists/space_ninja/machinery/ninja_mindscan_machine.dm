@@ -204,10 +204,10 @@
 	I.Scale(96,96)
 	return I
 
-/obj/machinery/ninja_mindscan_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/ninja_mindscan_machine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NinjaMindScan", name, 500, 400, master_ui, state)
+		ui = new(user, src, "NinjaMindScan", name)
 		ui.open()
 
 /obj/machinery/ninja_mindscan_machine/ui_data(mob/user)
