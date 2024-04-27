@@ -33,10 +33,10 @@
 	name = "bio-chip implanter (adrenalin)"
 	imp = /obj/item/implant/adrenalin
 
-
-/obj/item/implanter/adrenalin/prototype
-	name = "bio-chip implanter (proto-adrenalin)"
-	imp = /obj/item/implant/adrenalin/prototype
+/obj/item/implantcase/adrenaline
+	name = "bio-chip case - 'Adrenaline'"
+	desc = "A glass case containing an adrenaline bio-chip."
+	imp = /obj/item/implant/adrenalin
 
 /obj/item/implant/adrenalin/prototype
 	name = "prototype adrenalin bio-chip"
@@ -45,9 +45,12 @@
 	implant_data = /datum/implant_fluff/protoadrenaline
 	uses = 1
 
+/obj/item/implanter/adrenalin/prototype
+	name = "bio-chip implanter (proto-adrenalin)"
+	imp = /obj/item/implant/adrenalin/prototype
 
-/obj/item/implantcase/adrenaline
-	name = "bio-chip case - 'Adrenaline'"
-	desc = "A glass case containing an adrenaline bio-chip."
-	imp = /obj/item/implant/adrenalin
+/obj/item/implantcase/adrenalin/prototype
+	name = "bio-chip case - 'Proto-Adrenalin'"
+	desc = "A glass case containing a prototype adrenalin bio-chip."
+	imp = /obj/item/implant/adrenalin/prototype
 
