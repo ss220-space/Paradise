@@ -169,7 +169,7 @@
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
 		usr << browse(null, "window=infra")
 		onclose(usr, "infra")
 		return
@@ -204,7 +204,7 @@
 
 
 /obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
-	if(!isliving(user) || user.incapacitated() || user.restrained())
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dir = turn(dir, 90)

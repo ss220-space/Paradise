@@ -668,9 +668,6 @@
 	show_inv(user)
 
 
-/mob/proc/can_use_hands()
-	return
-
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
 
@@ -837,7 +834,7 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return FALSE
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
 	return TRUE
 

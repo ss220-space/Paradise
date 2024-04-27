@@ -6,7 +6,7 @@
 		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
 		return
 
-	if(target.incapacitated() || usr.incapacitated() || target.client == null)
+	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -23,7 +23,7 @@
 			return
 		switch(ans)
 			if("Yes")
-				if(target.incapacitated() || usr.incapacitated())
+				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
@@ -58,6 +58,8 @@
 	set name = "Give Item (Toggle)"
 	set category = "IC"
 
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
 		return
@@ -126,7 +128,7 @@
 	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
 	to_chat(holder, span_info("You can now left click on someone to give them your held item."))
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
-	RegisterSignal(holder.mob, COMSIG_MOB_SWAP_HANDS, PROC_REF(signal_qdel))
+	RegisterSignal(holder.mob, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
@@ -190,7 +192,7 @@
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
 	RegisterSignal(I, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
-	RegisterSignal(giver, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS), PROC_REF(cancel_give))
+	RegisterSignal(giver, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
 
 /obj/screen/alert/take_item/Destroy()

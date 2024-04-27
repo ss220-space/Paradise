@@ -279,8 +279,16 @@
 /**
  * Nonliving mobs don't have hands
  */
-/mob/proc/put_in_hand_check(obj/item/I)
+/mob/proc/put_in_hand_check(obj/item/I, hand_id)
 	return FALSE
+
+
+/*
+/mob/living/put_in_hand_check(obj/item/I, hand_id)
+	if(istype(I) && ((mobility_flags & MOBILITY_PICKUP) || (I.flags & ABSTRACT)))
+		return TRUE
+	return FALSE
+*/
 
 
 /**

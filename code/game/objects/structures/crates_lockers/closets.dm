@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(O.loc == user)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(closets)
 	set category = null
 	set name = "Toggle Open"
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 /obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
-	if(istype(gorilla) && in_range(gorilla, src))
+	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()

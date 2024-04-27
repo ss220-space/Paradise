@@ -42,9 +42,11 @@
 /obj/item/paper/check/update_icon_state()
 	return
 
-/obj/item/paper/check/AltClick(mob/user, obj/item/I)
-	to_chat(user, "<span class='warning'>Paper is too small! You fail to fold [src] into the shape of a plane!</span>")
-	return
+
+/obj/item/paper/check/AltClick(mob/living/carbon/human/user)
+	if(ishuman(user) && user.is_in_hands(src))
+		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
+
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()]"

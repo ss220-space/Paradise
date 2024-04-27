@@ -648,8 +648,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return 1
 	return 0
 
-/mob/living/silicon/ai/restrained()
-	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()

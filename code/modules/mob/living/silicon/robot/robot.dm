@@ -717,8 +717,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		for(var/datum/robot_energy_storage/st in module.storages)
 			stat("[st.name]:", "[st.energy]/[st.max_energy]")
 
-/mob/living/silicon/robot/restrained()
-	return 0
 
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode

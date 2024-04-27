@@ -84,7 +84,7 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !victim.restrained() && !victim.IsWeakened())
+			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !victim.IsWeakened())
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")

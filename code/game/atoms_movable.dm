@@ -194,11 +194,17 @@
 		if(previous_puller)
 			add_attack_logs(AM, previous_puller, "pulled from", ATKLOG_ALMOSTALL)
 			if(show_message)
-				visible_message(span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."))
+				mob_target.visible_message(
+					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."),
+					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [previous_puller]!"),
+				)
 		else
 			add_attack_logs(src, mob_target, "pulls", ATKLOG_ALMOSTALL)
 			if(show_message)
-				visible_message(span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"))
+				mob_target.visible_message(
+					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"),
+					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				)
 		mob_target.LAssailant = iscarbon(src) ? src : null
 
 	return TRUE

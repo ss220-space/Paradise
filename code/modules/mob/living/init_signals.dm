@@ -1,5 +1,12 @@
 /// Called on [/mob/living/Initialize(mapload)], for the mob to register to relevant signals.
 /mob/living/proc/register_init_signals()
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_loss))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_RESTRAINED), PROC_REF(on_restrained_trait_loss))
+
+
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
 
@@ -14,6 +21,32 @@
 		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/// Called when [TRAIT_HANDS_BLOCKED] is added to the mob.
+/mob/living/proc/on_handsblocked_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags &= ~(MOBILITY_USE|MOBILITY_PICKUP|MOBILITY_STORAGE)
+	on_handsblocked_start()
+
+
+/// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.
+/mob/living/proc/on_handsblocked_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags |= (MOBILITY_USE|MOBILITY_PICKUP|MOBILITY_STORAGE)
+	on_handsblocked_end()
+
+
+/// Called when [TRAIT_RESTRAINED] is added to the mob.
+/mob/living/proc/on_restrained_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
+
+
+/// Called when [TRAIT_RESTRAINED] is removed from the mob.
+/mob/living/proc/on_restrained_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
 
 
 ///From [element/movetype_handler/on_movement_type_trait_gain()]

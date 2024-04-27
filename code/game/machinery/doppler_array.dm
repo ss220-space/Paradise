@@ -64,6 +64,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 /obj/machinery/doppler_array/attack_ghost(mob/user)
 	ui_interact(user)
 
+
 /obj/machinery/doppler_array/AltClick(mob/user)
 	rotate(user)
 
@@ -76,7 +77,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 
 /obj/machinery/doppler_array/proc/rotate(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!Adjacent(user))
 		return

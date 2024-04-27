@@ -195,8 +195,8 @@
 	set name = "Rotate Frame"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
 		return
 
 	src.dir = turn(src.dir, -90)
-	return
+

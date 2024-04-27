@@ -27,7 +27,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(user.incapacitated() || !ishuman(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
 	if(over_object == user)

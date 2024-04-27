@@ -349,18 +349,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!user)
 		return
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-		if(user.hand)
-			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
-		if(!temp)
-			to_chat(user, span_warning("You try to use your hand, but it's missing!"))
-			return
-		if(temp && !temp.is_usable())
-			to_chat(user, span_warning("You try to move your [temp.name], but cannot!"))
-			return
-
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
@@ -387,6 +375,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(throwing)
 		throwing.finalize()
+
+	if(anchored)
+		return
 
 	if(loc == user)
 		if(!allow_attack_hand_drop(user))
@@ -796,26 +787,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	set category = null
 	set name = "Pick up"
 
-	if(!(usr)) //BS12 EDIT
+	if(usr.incapacitated() || !isturf(loc) || !Adjacent(usr))
 		return
-	if(usr.incapacitated() || !Adjacent(usr))
+	if(!iscarbon(usr))
+		to_chat(usr, span_warning("You can't pick things up!"))
 		return
-	if(!iscarbon(usr) || isbrain(usr)) //Is humanoid, and is not a brain
-		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
-		return
-	if(anchored) //Object isn't anchored
-		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
-		return
-	if(!usr.hand && usr.r_hand) //Right hand is not full
-		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
-		return
-	if(usr.hand && usr.l_hand) //Left hand is not full
-		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
-		return
-	if(!isturf(loc)) //Object is on a turf
-		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
-		return
-	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
 
 
@@ -1048,7 +1024,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/MouseDrop_T(atom/dropping, mob/user, params)
-	if(!user || user.incapacitated(ignore_lying = TRUE) || src == dropping)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
 		return FALSE
 
 	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
@@ -1099,7 +1075,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return 0
 
 
-/obj/item/proc/update_equipped_item(update_buttons = TRUE)
+/obj/item/proc/update_equipped_item(update_buttons = TRUE, update_speedmods = TRUE)
 	if(!ismob(loc) || QDELETED(src) || QDELETED(loc))
 		return
 
@@ -1161,7 +1137,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(ITEM_SLOT_HAND_RIGHT)
 			owner.update_inv_r_hand()
 
-	owner.update_equipment_speed_mods()
+		if(ITEM_SLOT_HANDCUFFED)
+			owner.update_inv_handcuffed()
+
+		if(ITEM_SLOT_LEGCUFFED)
+			owner.update_inv_legcuffed()
+
+	if(update_speedmods)
+		owner.update_equipment_speed_mods()
 
 	if(update_buttons)
 		for(var/datum/action/action as anything in actions)

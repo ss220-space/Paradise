@@ -278,10 +278,6 @@ Des: Removes all infected images from the alien.
 	return
 
 
-/mob/living/carbon/alien/canBeHandcuffed()
-	return TRUE
-
-
 /mob/living/carbon/proc/get_plasma()
 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 	if(!vessel)

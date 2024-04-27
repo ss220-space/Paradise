@@ -61,6 +61,9 @@
 
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/target)
+	if(!can_unarmed_attack())
+		return
+
 	if(!ishuman(target))
 		if(isitem(target))
 			target.extinguish_light(TRUE)
@@ -134,7 +137,7 @@
 
 
 /obj/structure/shadowcocoon/AltClick(mob/user)
-	if(!isdemon(user))
+	if(!isdemon(user) || user.incapacitated())
 		return ..()
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))

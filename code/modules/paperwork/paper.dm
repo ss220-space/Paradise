@@ -116,7 +116,7 @@
 
 
 /obj/item/paper/AltClick(mob/living/carbon/human/user)
-	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(is_pen(user.get_active_hand()))
 		rename(user)
@@ -362,7 +362,7 @@
 
 /obj/item/paper/Topic(href, href_list)
 	..()
-	if(!usr || (usr.stat || usr.restrained()))
+	if(!usr || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(href_list["auto_write"])

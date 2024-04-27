@@ -858,8 +858,8 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
-		return 0
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	switch(icon_state)
 		if("Kluysfluff1")
@@ -967,7 +967,7 @@
 		return
 
 	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
 	suit_adjusted = !suit_adjusted
 
@@ -1146,8 +1146,8 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
-		return 0
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	if(src.icon_state == "jane_sid_suit_down")
 		src.item_color = "jane_sid_suit"
@@ -1330,7 +1330,7 @@
 
 /obj/item/clothing/head/fluff/chronx/proc/adjust()
 	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	to_chat(usr, "You untransform [src].")
 	adjusted = !adjusted
 

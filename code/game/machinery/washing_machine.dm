@@ -28,7 +28,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!isliving(usr)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )

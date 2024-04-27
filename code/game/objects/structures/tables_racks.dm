@@ -203,7 +203,7 @@
 		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
 		return FALSE
-	if(isrobot(user))
+	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!user.drop_item_ground(dropping))
 		return FALSE
@@ -797,7 +797,7 @@
 	. = FALSE
 	if((!isitem(dropping)) || user.get_active_hand() != dropping)
 		return .
-	if(isrobot(user))
+	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(dropping.loc != loc && user.transfer_item_to_loc(dropping, src.loc))
 		add_fingerprint(user)
@@ -862,7 +862,7 @@
 
 /obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, params)
 	. = FALSE
-	if(!ishuman(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(!(istype(our_gun)))
 		to_chat(user, span_warning("This item doesn't fit!"))

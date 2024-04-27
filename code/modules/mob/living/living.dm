@@ -197,7 +197,7 @@
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
 		var/mob/living/L = M
-		if(L.pulledby && L.pulledby != src && L.restrained())
+		if(L.pulledby && L.pulledby != src && HAS_TRAIT(L, TRAIT_RESTRAINED))
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
@@ -205,7 +205,7 @@
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
-				if(P.restrained())
+				if(HAS_TRAIT(P, TRAIT_RESTRAINED))
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 					return TRUE
@@ -223,7 +223,7 @@
 		if(M.pulledby == src && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+		else if((HAS_TRAIT(M, TRAIT_RESTRAINED) || M.a_intent == INTENT_HELP) && (HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP))
 			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
@@ -780,7 +780,7 @@
 	if(pulling && !isturf(pulling.loc) && pulling.loc != loc)
 		log_debug("[src]'s pull on [pulling] was broken despite [pulling] being in [pulling.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		stop_pulling()
 
 	var/turf/old_loc = loc
@@ -986,9 +986,8 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 
-	if(!restrained())
-		if(resist_grab())
-			return
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && resist_grab())
+		return
 
 	//unbuckling yourself
 	if(buckled && last_special <= world.time)
@@ -1042,9 +1041,7 @@
 	return modifier
 
 /mob/living/proc/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	buckled.user_unbuckle_mob(src,src)
+	buckled.user_unbuckle_mob(src, src)
 
 /mob/living/proc/resist_muzzle()
 	return
@@ -1053,9 +1050,8 @@
 	return
 
 /mob/living/proc/resist_restraints()
-	spawn(0)
-		resist_muzzle()
 	return
+
 
 /*//////////////////////
 	END RESIST PROCS
@@ -1656,4 +1652,16 @@
 		set_density(FALSE)
 	else
 		set_density(TRUE)
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
+/mob/living/proc/on_handsblocked_start()
+	drop_from_hands()
+	stop_pulling()
+	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
+/mob/living/proc/on_handsblocked_end()
+	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
 

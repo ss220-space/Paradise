@@ -224,7 +224,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user, params)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(isanimal(user) && target != user)
 		return //animals cannot put mobs other than themselves into disposal
@@ -251,7 +251,7 @@
 											// must be awake, not stunned or whatever
 		msg = "[user.name] climbs into [src]."
 		to_chat(user, "You climb into [src].")
-	else if(target != user && !user.restrained() && !user.incapacitated())
+	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		msg = "[user.name] stuffs [target.name] into [src]!"
 		to_chat(user, "You stuff [target.name] into [src]!")
 		if(!iscarbon(user))
@@ -377,7 +377,7 @@
 
 
 /obj/machinery/disposal/AltClick(mob/user)
-	if(!Adjacent(user) || !ishuman(user) || user.incapacitated())
+	if(!Adjacent(user) || !ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",

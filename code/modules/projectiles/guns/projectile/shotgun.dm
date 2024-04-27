@@ -356,7 +356,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	. = ..()
-	if(user.incapacitated() || !Adjacent(user) || !istype(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 	pump()
 

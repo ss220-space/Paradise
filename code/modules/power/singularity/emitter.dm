@@ -59,20 +59,23 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(src.anchored || usr:stat)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
+
+	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
-		return 0
+		return FALSE
+
 	add_fingerprint(usr)
-	src.dir = turn(src.dir, 90)
-	return 1
+	dir = turn(dir, 90)
+	return TRUE
+
 
 /obj/machinery/power/emitter/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
+	if(Adjacent(user))
+		rotate()
+
 
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")

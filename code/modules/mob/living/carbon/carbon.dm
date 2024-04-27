@@ -599,23 +599,27 @@
 
 
 /mob/living/carbon/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	var/obj/item/I
-	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
-		var/breakouttime = I.breakouttime
-		var/displaytime = breakouttime / 10
-		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
-					"<span class='notice'>Вы пытаетесь себя отстегнуть... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
+	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		var/breakouttime = 60 SECONDS
+		var/obj/item/restraints = handcuffed
+		if(wear_suit?.breakouttime)
+			restraints = wear_suit
+		if(restraints)
+			breakouttime = restraints.breakouttime
+		visible_message(
+			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть... (Это займет [breakouttime / 10] секунд и Вам нельзя двигаться."),
+		)
 		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!buckled)
 				return
-			buckled.user_unbuckle_mob(src,src)
+			buckled.user_unbuckle_mob(src, src)
 		else
 			if(src && buckled)
-				to_chat(src, "<span class='warning'>Вам не удалось себя отстегнуть!</span>")
+				to_chat(src, span_warning("Вам не удалось себя отстегнуть!"))
 	else
-		buckled.user_unbuckle_mob(src,src)
+		buckled.user_unbuckle_mob(src, src)
 
 
 /mob/living/carbon/resist_fire()

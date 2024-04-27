@@ -98,7 +98,7 @@
 
 
 /obj/item/clothing/proc/can_use(mob/user)
-	if(isliving(user) && !user.incapacitated())
+	if(isliving(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return TRUE
 	return FALSE
 
@@ -262,7 +262,7 @@ BLIND     // can't see anything
 	var/mob/living/carbon/human/user = usr
 	if(!istype(user))
 		return
-	if(user.incapacitated()) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Dead spessmen adjust no glasses. Resting/buckled ones do, though
 		return
 
 	var/action_fluff = "You adjust \the [src]"
@@ -327,7 +327,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
-	if(user.stat || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/grab/grabbed in user.grabbed_by)
 		if(grabbed.state >= GRAB_NECK)
@@ -628,7 +628,7 @@ BLIND     // can't see anything
 		return
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 //Suit
@@ -974,7 +974,7 @@ BLIND     // can't see anything
 
 		return TRUE
 	else
-		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+		to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
 
 	return FALSE
 
@@ -983,28 +983,29 @@ BLIND     // can't see anything
 	if(has_sensor)
 		switch(sensor_mode)
 			if(0)
-				. += "<span class='notice'>Its sensors appear to be disabled.</span>"
+				. += span_notice("Its sensors appear to be disabled.")
 			if(1)
-				. += "<span class='notice'>Its binary life sensors appear to be enabled.</span>"
+				. += span_notice("Its binary life sensors appear to be enabled.")
 			if(2)
-				. += "<span class='notice'>Its vital tracker appears to be enabled.</span>"
+				. += span_notice("Its vital tracker appears to be enabled.")
 			if(3)
-				. += "<span class='notice'>Its vital tracker and tracking beacon appear to be enabled.</span>"
+				. += span_notice("Its vital tracker and tracking beacon appear to be enabled.")
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += A.attached_examine()
+
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
+
 	if(!ishuman(usr))
 		return
-	var/mob/living/carbon/human/owner = usr
-	if(owner.stat != CONSCIOUS)
-		return
 
-	if(!owner.incapacitated())
+	var/mob/living/carbon/human/owner = usr
+
+	if(!owner.incapacitated() && !HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
 		var/icon/file = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
@@ -1014,45 +1015,43 @@ BLIND     // can't see anything
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			owner.update_inv_w_uniform()
 		else
-			to_chat(owner, "<span class='notice'>You cannot roll down this uniform!</span>")
+			to_chat(owner, span_notice("You cannot roll down this uniform!"))
 	else
-		to_chat(owner, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(owner, span_notice("You cannot roll down the uniform right now!"))
+
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
 	set category = "Object"
 	set src in usr
-	handle_accessories_removal()
+	handle_accessories_removal(usr)
 
-/obj/item/clothing/under/proc/handle_accessories_removal()
-	if(!isliving(usr))
+
+/obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
+	if(!isliving(user))
 		return
-	if(usr.incapacitated())
-		return
-	if(!Adjacent(usr))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!accessories.len)
 		return
-	var/obj/item/clothing/accessory/A
+	var/obj/item/clothing/accessory/accessory
 	if(accessories.len > 1)
-		A = input("Select an accessory to remove from [src]") as null|anything in accessories
+		accessory = input("Select an accessory to remove from [src]") as null|anything in accessories
 	else
-		A = accessories[1]
-	remove_accessory(usr,A)
+		accessory = accessories[1]
+	if(!accessory || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	remove_accessory(user, accessory)
 
-/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/A)
-	if(!(A in accessories))
+
+/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/accessory)
+	if(!(accessory in accessories))
 		return
-	if(!isliving(user))
-		return
-	if(user.incapacitated())
-		return
-	if(!Adjacent(user))
-		return
-	A.on_removed(user)
-	accessories -= A
-	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
-	usr.update_inv_w_uniform()
+	accessory.on_removed(user)
+	accessories -= accessory
+	to_chat(user, span_notice("You remove [accessory] from [src]."))
+	user.update_inv_w_uniform()
+
 
 /obj/item/clothing/under/emp_act(severity)
 	if(accessories.len)
@@ -1060,8 +1059,9 @@ BLIND     // can't see anything
 			A.emp_act(severity)
 	..()
 
-/obj/item/clothing/under/AltClick()
-	handle_accessories_removal()
+/obj/item/clothing/under/AltClick(mob/user)
+	if(Adjacent(user))
+		handle_accessories_removal(user)
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == "bomb" || damage_flag == "melee")

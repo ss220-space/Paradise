@@ -82,17 +82,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 	new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
-/obj/item/pda/proc/can_use()
-	if(!ismob(loc))
-		return 0
 
-	var/mob/M = loc
-	if(M.incapacitated(ignore_lying = TRUE))
-		return 0
-	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
-		return 1
-	else
-		return 0
+/obj/item/pda/proc/can_use(mob/user)
+	if(loc != user)
+		return FALSE
+
+	if(user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
+	return TRUE
+
 
 /obj/item/pda/GetAccess()
 	if(id)
@@ -108,7 +107,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 
 	var/mob/user = usr
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	attack_self(user)
@@ -166,16 +165,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/living/user)
-	if(issilicon(user))
-		return
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!iscarbon(user))
 		return
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+
 
 /obj/item/pda/CtrlClick(mob/user)
 	..()

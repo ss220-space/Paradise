@@ -172,7 +172,7 @@
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
 		return
-	if(user?.incapacitated() || user?.restrained())
+	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 	occupant.forceMove(loc)
 	occupant = null

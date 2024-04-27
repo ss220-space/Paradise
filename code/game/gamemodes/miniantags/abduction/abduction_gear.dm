@@ -545,7 +545,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
-	if(!C.handcuffed)
+	if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
@@ -553,7 +553,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			if(C.handcuffed)
 				return
 
-			C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+			C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			add_attack_logs(user, C, "Handcuffed ([src])")

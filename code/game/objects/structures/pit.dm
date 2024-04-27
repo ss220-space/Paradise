@@ -122,7 +122,7 @@
 	if(open)
 		return
 
-	if(escapee.stat || escapee.restrained())
+	if(escapee.incapacitated() || HAS_TRAIT(escapee, TRAIT_HANDS_BLOCKED))
 		return
 
 	escapee.changeNext_click(CLICK_CD_CLICK_ABILITY)

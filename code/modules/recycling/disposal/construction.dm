@@ -91,7 +91,8 @@
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if(usr.stat)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 		return
 
 	if(anchored)
@@ -103,12 +104,8 @@
 	update()
 
 /obj/structure/disposalconstruct/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
+	if(Adjacent(user))
+		rotate()
 
 /obj/structure/disposalconstruct/verb/flip()
 	set category = "Object"

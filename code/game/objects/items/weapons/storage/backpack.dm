@@ -121,7 +121,7 @@
 		if(21 to INFINITY)
 			icon_state = "giftbag2"
 
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/backpack/cultpack
@@ -391,7 +391,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	strap_side_straight = !strap_side_straight
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"

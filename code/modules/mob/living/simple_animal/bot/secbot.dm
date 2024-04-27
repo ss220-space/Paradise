@@ -259,13 +259,13 @@
 
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if((C.staminaloss < 110 || arrest_type) && !baton_delayed)
 			stun_attack(A)
-		else if(C.canBeHandcuffed() && !C.handcuffed)
+		else if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 			cuff(A)
 	else
 		..()
@@ -295,7 +295,7 @@
 	if(!Adjacent(C) || !isturf(C.loc) || C.handcuffed)
 		return
 
-	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 	back_to_idle()
@@ -401,7 +401,7 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
+			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						cuff(target)

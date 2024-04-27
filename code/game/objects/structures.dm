@@ -222,7 +222,7 @@
 		return FALSE
 	if(!Adjacent(user))
 		return FALSE
-	if(user.restrained() || user.buckled)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.buckled)
 		to_chat(user, span_notice("You need your hands and legs free for this."))
 		return FALSE
 	if(user.incapacitated())

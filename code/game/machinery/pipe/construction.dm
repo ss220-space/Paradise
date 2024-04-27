@@ -152,7 +152,8 @@
 		return ..()
 
 /obj/item/pipe/AltClick(mob/user)
-	rotate()
+	if(Adjacent(user))
+		rotate()
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -182,7 +183,7 @@
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained() )
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type == PIPE_CIRCULATOR)
@@ -193,14 +194,13 @@
 
 	fixdir()
 
-	return
 
 /obj/item/pipe/verb/flip()
 	set category = "Object"
 	set name = "Flip Pipe"
 	set src in view(1)
 
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))
@@ -215,7 +215,6 @@
 
 	fixdir()
 
-	return
 
 /obj/item/pipe/Move()
 	. = ..()
@@ -324,7 +323,7 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self(mob/user)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)

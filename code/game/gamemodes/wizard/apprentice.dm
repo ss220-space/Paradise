@@ -19,12 +19,12 @@
 	..()
 	if(!ishuman(usr))
 		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
-		return 0
+		return FALSE
 
 	var/mob/living/carbon/human/teacher = usr
 
-	if(teacher.stat || teacher.restrained())
-		return 0
+	if(teacher.incapacitated() || HAS_TRAIT(teacher, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	if(loc == teacher || (in_range(src, teacher) && isturf(loc)))
 		teacher.set_machine(src)
@@ -99,12 +99,12 @@
 	..()
 	if(!ishuman(usr))
 		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
-		return 0
+		return FALSE
 
 	var/mob/living/carbon/human/apprentice = usr
 
-	if(apprentice.stat || apprentice.restrained())
-		return 0
+	if(apprentice.incapacitated() || HAS_TRAIT(apprentice, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	if(loc == apprentice || (in_range(src, apprentice) && isturf(loc)))
 		apprentice.set_machine(src)

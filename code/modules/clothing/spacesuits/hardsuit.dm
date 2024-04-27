@@ -88,6 +88,8 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	if(suit)
 		suit.RemoveHelmet(usr)
 	else
@@ -194,6 +196,8 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	RemoveHelmet(usr)
 	. = ..()
 

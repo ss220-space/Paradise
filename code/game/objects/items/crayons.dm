@@ -73,7 +73,7 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.is_in_active_hand(src))
 		return
 	drawtype = temp
 	update_window(usr)

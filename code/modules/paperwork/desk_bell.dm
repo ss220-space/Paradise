@@ -35,7 +35,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(over_object != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
 	set_anchored(FALSE)

@@ -69,7 +69,7 @@
 	..()
 	usr.set_machine(src)
 	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))	//For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/paper/paper = locateUID(href_list["remove"])
 		if(istype(paper) && paper.loc == src)
@@ -80,7 +80,7 @@
 			update_icon(UPDATE_OVERLAYS)
 
 	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/paper/paper = locateUID(href_list["write"])
 		if(istype(paper) && paper.loc == src) //ifthe paper's on the board

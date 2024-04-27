@@ -154,7 +154,7 @@
 
 
 /obj/structure/bed/roller/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
+	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && usr.Adjacent(src))
 		usr.visible_message(
 			span_notice("[usr] collapses [src]."),
 			span_notice("You collapse [src]."),

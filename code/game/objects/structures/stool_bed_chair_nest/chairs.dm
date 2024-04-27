@@ -67,7 +67,7 @@
 
 /obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
-		if(usr.incapacitated())
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			to_chat(usr, span_warning("You can't do that right now!"))
 			return
 		if(!usr.has_right_hand() && !usr.has_left_hand())
@@ -133,7 +133,7 @@
 		if(isobserver(user))
 			if(!CONFIG_GET(flag/ghost_interaction))
 				return FALSE
-		else if(!isliving(user) || user.incapacitated() || !Adjacent(user))
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 			return FALSE
 
 	setDir(turn(dir, 90))
@@ -528,10 +528,10 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!in_range(src, user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	add_fingerprint(user)
 	turns = 0

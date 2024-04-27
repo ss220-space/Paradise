@@ -737,7 +737,7 @@
 
 /obj/machinery/power/apc/AltClick(mob/user)
 	var/mob/living/carbon/human/human = user
-	if(!istype(human))
+	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!Adjacent(human) || (get_turf(user) != user.loc))
@@ -752,7 +752,7 @@
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	if(!can_use(usr) || (is_locked(usr)))
+	if(!can_use(user) || is_locked(user))
 		return
 	toggle_breaker(user)
 
@@ -1135,6 +1135,8 @@
 
 	var/mob/living/carbon/human/h_user = user
 	if(ishuman(h_user))
+		if(h_user.incapacitated() || HAS_TRAIT(h_user, TRAIT_HANDS_BLOCKED))
+			return FALSE
 		if(h_user.getBrainLoss() >= 60)
 			h_user.visible_message(span_danger("[h_user] stares cluelessly at [src] and drools."))
 			return FALSE

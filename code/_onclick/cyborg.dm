@@ -60,19 +60,16 @@
 				to_chat(src, "<span class='userdanger'>Your camera isn't functional.</span>")
 			return
 
-	/*
-	cyborg restrained() currently does nothing
-	if(restrained())
-		RestrainedClickOn(A)
-		return
-	*/
-
 	var/obj/item/W = get_active_hand()
 
 	// Cyborgs have no range-checking unless there is item use
 	if(!W)
 		A.add_hiddenprint(src)
 		A.attack_robot(src)
+		return
+
+	//if your "hands" are blocked you shouldn't be able to use modules
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 
 	// buckled cannot prevent machine interlinking but stops arm movement
@@ -196,6 +193,8 @@
 	change attack_robot() above to the proper function
 */
 /mob/living/silicon/robot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	A.attack_robot(src)
 
 /mob/living/silicon/robot/RangedAttack(atom/A, params)

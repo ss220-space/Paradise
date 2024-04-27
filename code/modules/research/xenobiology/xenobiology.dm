@@ -127,7 +127,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
@@ -181,7 +181,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(being_used || !ismob(M))
 		return
@@ -354,7 +354,7 @@
 	var/animal_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(prompted || !ismob(M))
 		return
@@ -482,7 +482,7 @@
 	origin_tech = "biotech=5"
 
 /obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, drop = FALSE)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	..()
 	if(!istype(O))
@@ -526,11 +526,10 @@
 	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
 	afterattack(over_object, user, TRUE, drop = TRUE)
-	return TRUE
 
 
 /obj/item/slimepotion/clothing
@@ -556,7 +555,7 @@
 	C.armor = C.armor.detachArmor(armor)
 
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!uses)
 		qdel(src)
@@ -593,7 +592,7 @@
 	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over_object == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
 	afterattack(over_object, user, TRUE)

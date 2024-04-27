@@ -100,7 +100,7 @@
 	return
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!sample)
 		to_chat(remover, "<span class='warning'>Внутри микроскопа нет образца!</span>")
@@ -114,8 +114,8 @@
 /obj/machinery/microscope/proc/is_complete_print(print)
 	return stringpercent(print) <= fingerprint_complete
 
-/obj/machinery/microscope/AltClick()
-	remove_sample(usr)
+/obj/machinery/microscope/AltClick(mob/user)
+	remove_sample(user)
 
 /obj/machinery/microscope/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)

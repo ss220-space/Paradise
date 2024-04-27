@@ -208,6 +208,9 @@
 	if(..())
 		return TRUE
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	switch(href_list["op"])
 		if("lock")
 			toggle_lock(usr)
@@ -375,7 +378,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
-	if(!istype(AM) || user.incapacitated() || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return FALSE
 
 	load(AM)
@@ -914,6 +917,8 @@
 
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

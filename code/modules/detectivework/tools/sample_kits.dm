@@ -148,7 +148,7 @@
 	to_chat(user, "<span class='notice'>You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S].</span>")
 
 /obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity)
-	if(!proximity)
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(can_take_sample(user, A))
 		take_sample(user,A)
@@ -167,7 +167,7 @@
 	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(loc != user || user.incapacitated() || !ishuman(user))
+	if(loc != user || !ishuman(user))
 		return FALSE
 
 	afterattack(over_object, user, TRUE)

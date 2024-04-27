@@ -383,7 +383,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
-	if(user.incapacitated() || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	. = TRUE
 	var/mob/living/target = A
@@ -708,9 +708,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat)
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!state_open)
 		to_chat(usr, span_warning("The unit's doors are shut."))
