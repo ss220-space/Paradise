@@ -1854,6 +1854,12 @@
 	item = /obj/item/implanter/freedom
 	cost = 18
 
+/datum/uplink_item/implants/freedom/prototype
+	name = "Prototype Freedom Implant"
+	desc = "An implant injected into the body and later activated manually to break out of any restraints. This prototype can be activated 1 time."
+	item = /obj/item/implanter/freedom/prototype
+	cost = 6
+
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
 	desc = "An implant injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
@@ -1882,6 +1888,12 @@
 	cost = 44
 	can_discount = FALSE
 	surplus = 0
+
+/datum/uplink_item/implants/adrenal/prototype
+	name = "Prototype Adrenal Implant"
+	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. This prototype can be activated 1 time."
+	item = /obj/item/implanter/adrenalin/prototype
+	cost = 16
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"
