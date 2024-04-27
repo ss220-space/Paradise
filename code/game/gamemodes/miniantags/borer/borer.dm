@@ -104,6 +104,7 @@
 	var/docile = FALSE						// Sugar can stop borers from acting.
 	var/bonding = FALSE
 	var/leaving = FALSE
+	var/sneaking = FALSE
 	var/hiding = FALSE
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
@@ -115,6 +116,7 @@
 	var/datum/action/innate/borer/make_chems/make_chems_action = new
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
+	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	..(newloc)
@@ -280,7 +282,7 @@
 						to_chat(src, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя."))
 					docile = FALSE
 
-			if(chemicals < max_chems)
+			if(chemicals < max_chems && !sneaking)
 				chemicals++
 			if(controlling)
 
@@ -664,6 +666,7 @@
 		host.verbs += /mob/living/carbon/proc/release_control
 		host.verbs += /mob/living/carbon/proc/punish_host
 		host.verbs += /mob/living/carbon/proc/spawn_larvae
+		host.verbs += /mob/living/carbon/proc/sneak_mode
 		host.verbs -= /mob/living/proc/borer_comm
 		host.verbs += /mob/living/proc/trapped_mind_comm
 
@@ -739,6 +742,35 @@
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return
 
+/mob/living/carbon/proc/sneak_mode()
+	set category = "Borer"
+	set name = "Sneak mode"
+	set desc = "Hides your status from medical huds."
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
+
+	if(B.sneaking)
+		to_chat(src, span_danger("Вы перестаете скрывать свое присутствие!"))
+		B.sneaking = FALSE
+		B.host.med_hud_set_status()
+		return
+
+	if(B.host_brain.ckey)
+		to_chat(src, span_danger("Душа вашего хозяина не позволяет вам скрыть свое присутствие!"))
+		return
+
+	if(B.chemicals >= 50)
+		B.sneaking = TRUE
+		to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
+		B.chemicals -= 50
+		B.host.med_hud_set_status()
+
+	else
+		to_chat(src, "Вам требуется 50 химикатов для сокрытия вашего присутствия!")
+		return
+
 /mob/living/simple_animal/borer/proc/detach()
 
 	if(!host || !controlling)
@@ -747,10 +779,12 @@
 	controlling = FALSE
 	reset_perspective(null)
 	machine = null
+	sneaking = FALSE
 
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
 	host.verbs -= /mob/living/carbon/proc/spawn_larvae
+	host.verbs -= /mob/living/carbon/proc/sneak_mode
 	host.verbs += /mob/living/proc/borer_comm
 	host.verbs -= /mob/living/proc/trapped_mind_comm
 
@@ -851,12 +885,14 @@
 	talk_to_brain_action.Grant(host)
 	give_back_control_action.Grant(host)
 	make_larvae_action.Grant(host)
+	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
 	make_larvae_action.Remove(host)
 	give_back_control_action.Remove(host)
+	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
 
 /datum/action/innate/borer
@@ -958,3 +994,13 @@
 	var/mob/living/simple_animal/borer/B = owner.has_brain_worms()
 	B.host = owner
 	B.host.punish_host()
+
+/datum/action/innate/borer/sneak_mode
+	name = "Sneak mode"
+	desc = "Hides your status from medical huds."
+	button_icon_state = "chameleon_skin"
+
+/datum/action/innate/borer/sneak_mode/Activate()
+	var/mob/living/simple_animal/borer/B = owner.has_brain_worms()
+	B.host = owner
+	B.host.sneak_mode()
