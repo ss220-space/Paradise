@@ -5,10 +5,13 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	var/static/list/changelog_items = list()
 	name = "Changelog"
 
-/datum/ui_module/changelog/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/changelog/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/ui_module/changelog/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "Changelog", name, 800, 600, master_ui, state)
+		ui = new(user, src, "Changelog", name)
 		ui.open()
 
 /datum/ui_module/changelog/ui_act(action, list/params)

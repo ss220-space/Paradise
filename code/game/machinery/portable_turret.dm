@@ -214,16 +214,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui = null)
 	if(HasController())
 		to_chat(user, span_notice("[src] can only be controlled using the assigned turret controller."))
 		return
 	if(!anchored)
 		to_chat(user, span_notice("[src] has to be secured first!"))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, access_is_configurable() ? 800 : 400)
+		ui = new(user, src, "PortableTurret", name)
 		ui.open()
 
 /obj/machinery/porta_turret/ui_data(mob/user)
