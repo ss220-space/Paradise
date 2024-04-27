@@ -250,13 +250,13 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui = null)
 	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
 	assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemMaster", name, 575, 500)
+		ui = new(user, src, "ChemMaster", name)
 		ui.open()
 
 /obj/machinery/chem_master/ui_data(mob/user)
