@@ -256,7 +256,7 @@ Class Procs:
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 
