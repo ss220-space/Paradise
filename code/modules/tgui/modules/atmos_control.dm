@@ -27,6 +27,11 @@
 
 		ui.open()
 
+/datum/ui_module/atmos_control/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/nanomaps)
+	)
+
 /datum/ui_module/atmos_control/ui_static_data(mob/user)
 	var/list/static_data = list()
 	var/list/station_level_numbers = list()

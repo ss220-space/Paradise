@@ -160,7 +160,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
+	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
 	assets.send(user)
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -226,6 +226,11 @@
 	data["modal"] = ui_modal_data(src)
 
 	return data
+
+/obj/machinery/computer/cloning/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/cloning)
+	)
 
 /obj/machinery/computer/cloning/ui_act(action, params)
 	if(..())
