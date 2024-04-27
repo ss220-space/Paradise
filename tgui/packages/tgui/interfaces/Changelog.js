@@ -5,7 +5,6 @@ import { Box, Button, Dropdown, Icon, Section, Stack, Table } from '../component
 import { Window } from '../layouts';
 import dateformat from 'dateformat';
 import yaml from 'js-yaml';
-import fetch from 'unfetch';
 
 const icons = {
   add: { icon: 'check-circle', color: 'green' },

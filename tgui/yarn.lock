@@ -3631,6 +3631,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dateformat@npm:^4.6.3":
+  version: 4.6.3
+  resolution: "dateformat@npm:4.6.3"
+  checksum: 10/5c149c91bf9ce2142c89f84eee4c585f0cb1f6faf2536b1af89873f862666a28529d1ccafc44750aa01384da2197c4f76f4e149a3cc0c1cb2c46f5cc45f2bcb5
+  languageName: node
+  linkType: hard
+
 "debounce@npm:^1.2.1":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -8166,6 +8173,7 @@ __metadata:
     "@types/marked": "npm:^6.0.0"
     common: "workspace:*"
     csstype: "npm:^3.1.3"
+    dateformat: "npm:^4.6.3"
     dompurify: "npm:2.5.0"
     highlight.js: "npm:^11.9.0"
     inferno: "npm:^7.4.11"
