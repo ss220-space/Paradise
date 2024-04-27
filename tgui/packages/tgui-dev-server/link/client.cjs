@@ -23,7 +23,7 @@ const ensureConnection = () => {
           socket.send(msg);
         }
       };
-      socket.onmessage = event => {
+      socket.onmessage = (event) => {
         const msg = JSON.parse(event.data);
         for (let subscriber of subscribers) {
           subscriber(msg);
@@ -31,20 +31,18 @@ const ensureConnection = () => {
       };
     }
   }
+
+  window.onunload = () => socket && socket.close();
 };
 
-if (process.env.NODE_ENV !== 'production') {
-  window.onunload = () => socket && socket.close();
-}
-
-const subscribe = fn => subscribers.push(fn);
+const subscribe = (fn) => subscribers.push(fn);
 
 /**
  * A json serializer which handles circular references and other junk.
  */
-const serializeObject = obj => {
+const serializeObject = (obj) => {
   let refs = [];
-  const primitiveReviver = value => {
+  const primitiveReviver = (value) => {
     if (typeof value === 'number' && !Number.isFinite(value)) {
       return {
         __number__: String(value),
@@ -68,7 +66,11 @@ const serializeObject = obj => {
       }
       refs.push(value);
       // Error object
-      if (value instanceof Error) {
+      // prettier-ignore
+      const isError = value instanceof Error || (
+        value.code && value.message && value.message.includes('Error')
+      );
+      if (isError) {
         return {
           __error__: true,
           string: String(value),
@@ -88,7 +90,7 @@ const serializeObject = obj => {
   return json;
 };
 
-const sendRawMessage = msg => {
+const sendMessage = (msg) => {
   if (process.env.NODE_ENV !== 'production') {
     const json = serializeObject(msg);
     // Send message using WebSocket
@@ -96,10 +98,9 @@ const sendRawMessage = msg => {
       ensureConnection();
       if (socket.readyState === WebSocket.OPEN) {
         socket.send(json);
-      }
-      else {
-        // Keep only 10 latest messages in the queue
-        if (queue.length > 10) {
+      } else {
+        // Keep only 100 latest messages in the queue
+        if (queue.length > 100) {
           queue.shift();
         }
         queue.push(json);
@@ -109,17 +110,17 @@ const sendRawMessage = msg => {
     else {
       const DEV_SERVER_IP = process.env.DEV_SERVER_IP || '127.0.0.1';
       const req = new XMLHttpRequest();
-      req.open('POST', `http://${DEV_SERVER_IP}:3001`);
-      req.timeout = 500;
+      req.open('POST', `http://${DEV_SERVER_IP}:3001`, true);
+      req.timeout = 250;
       req.send(json);
     }
   }
 };
 
-export const sendLogEntry = (level, ns, ...args) => {
+const sendLogEntry = (level, ns, ...args) => {
   if (process.env.NODE_ENV !== 'production') {
     try {
-      sendRawMessage({
+      sendMessage({
         type: 'log',
         payload: {
           level,
@@ -127,41 +128,50 @@ export const sendLogEntry = (level, ns, ...args) => {
           args,
         },
       });
-    }
-    catch (err) {}
+    } catch (err) {}
   }
 };
 
-export const setupHotReloading = () => {
-  if (process.env.NODE_ENV !== 'production'
-      && process.env.WEBPACK_HMR_ENABLED
-      && window.WebSocket) {
-    if (module.hot) {
-      ensureConnection();
-      sendLogEntry(0, null, 'setting up hot reloading');
-      subscribe(msg => {
-        const { type } = msg;
-        sendLogEntry(0, null, 'received', type);
-        if (type === 'hotUpdate') {
-          const status = module.hot.status();
-          if (status !== 'idle') {
-            sendLogEntry(0, null, 'hot reload status:', status);
-            return;
-          }
-          module.hot
-            .check({
-              ignoreUnaccepted: true,
-              ignoreDeclined: true,
-              ignoreErrored: true,
-            })
-            .then(modules => {
-              sendLogEntry(0, null, 'outdated modules', modules);
-            })
-            .catch(err => {
-              sendLogEntry(0, null, 'reload error', err);
-            });
-        }
-      });
-    }
+const setupHotReloading = () => {
+  if (
+    process.env.NODE_ENV === 'production' ||
+    !process.env.WEBPACK_HMR_ENABLED ||
+    !window.WebSocket
+  ) {
+    return;
   }
+  if (module.hot) {
+    ensureConnection();
+    sendLogEntry(0, null, 'setting up hot reloading');
+    subscribe((msg) => {
+      const { type } = msg;
+      sendLogEntry(0, null, 'received', type);
+      if (type === 'hotUpdate') {
+        const status = module.hot.status();
+        if (status !== 'idle') {
+          sendLogEntry(0, null, 'hot reload status:', status);
+          return;
+        }
+        module.hot
+          .check({
+            ignoreUnaccepted: true,
+            ignoreDeclined: true,
+            ignoreErrored: true,
+          })
+          .then((modules) => {
+            sendLogEntry(0, null, 'outdated modules', modules);
+          })
+          .catch((err) => {
+            sendLogEntry(0, null, 'reload error', err);
+          });
+      }
+    });
+  }
+};
+
+module.exports = {
+  subscribe,
+  sendMessage,
+  sendLogEntry,
+  setupHotReloading,
 };
