@@ -101,20 +101,20 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				to_chat(user, span_notice("You load a new magazine into \the [src]."))
+				balloon_alert(user, "inserting new magazine")
 				return TRUE
 			else if(!can_tactical)
 				to_chat(user, span_notice("There's already a magazine in \the [src]."))
 				return TRUE
 			else
-				to_chat(user, span_notice("You perform a tactical reload on \the [src], replacing the magazine."))
+				balloon_alert(user, "perfoming tactical reload")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
-			to_chat(user, span_notice("You can't put this type of ammo in \the [src]."))
+			balloon_alert(user, "wrong ammo type!")
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -122,7 +122,7 @@
 			if(!suppressed)
 				if(!user.drop_transfer_item_to_loc(A, src))
 					return
-				to_chat(user, span_notice("You screw [S] onto [src]."))
+				balloon_alert(user, "screwing [S] into [src]")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -147,7 +147,7 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			to_chat(user, span_notice("You unscrew [suppressed] from [src]."))
+			balloon_alert(user, "unscrewing [suppressed] from [src]")
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -165,13 +165,13 @@
 		magazine.update_icon()
 		magazine = null
 		update_weight()
-		to_chat(user, span_notice("You pull the magazine out of \the [src]!"))
+		balloon_alert(user, "pulling magazine out")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		to_chat(user, span_notice("You unload the round from \the [src]'s chamber."))
+		balloon_alert(user, "unloading round from [src]'s chamber")
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
 		to_chat(user, span_notice("There's no magazine in \the [src]."))

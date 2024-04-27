@@ -38,12 +38,12 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(magazine)
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				balloon_alert_to_viewers(user, "perfoming tactical reload", "perfomed tactical reload")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 			else
-				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+				balloon_alert_to_viewers(user, "inserting new magazine", "inserted new magazine")
 			if(alarmed)
 				alarmed = 0
 			user.drop_transfer_item_to_loc(AM, src)
@@ -64,11 +64,11 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
+		balloon_alert(user, "switching to semi-automatic")
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		balloon_alert(user, "switching to [burst_size] round burst")
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
