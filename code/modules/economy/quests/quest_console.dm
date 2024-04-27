@@ -202,20 +202,20 @@
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/paper = new(get_turf(src))
-	paper.info = "<div id=\"output\"><center> <h3> Supply request form </h3> </center><br><hr><br>"
-	paper.info += "Requestor department: [quest.customer.departament_name]<br>"
-	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
-	paper.info += "Order acceptance time: [quest.order_date]  [quest.order_time]<br>"
-	paper.info += "<ul> <h3> Order List</h3>"
+	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
+	paper.info += "Отдел-заказчик: [quest.customer.departament_name]<br>"
+	paper.info += "Поставку одобрил: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Время приёма поставки: [quest.order_date]  [quest.order_time]<br>"
+	paper.info += "<ul> <h3> Список поставок</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
-	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
+	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()
 	paper.stamp(stamp)
 	paper.update_icon()
-	paper.name = "Supply request form"
+	paper.name = "Форма запроса на поставку"
 
 
 
@@ -249,52 +249,52 @@
 	var/list/phrases = list()
 	var/obj/item/paper/paper = new(get_turf(src))
 
-	paper.info = "<div id=\"output\"><center> <h3> Shipment records </h3> </center><br><hr><br>"
-	paper.info += "Requestor department: [quest.customer.departament_name]<br>"
-	paper.info += "Supply request accepted by: [quest.idname] - [quest.idrank]<br>"
-	paper.info += "Time of print: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
-	paper.info += "<ul> <h3> Order List</h3>"
+	paper.info = "<div id=\"output\"><center> <h3> Отчёт о поставке </h3> </center><br><hr><br>"
+	paper.info += "Отдел-заказчик: [quest.customer.departament_name]<br>"
+	paper.info += "Поставку одобрил: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Время приёма поставки: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
+	paper.info += "<ul> <h3> Список поставок</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Initial reward: [quest.reward]</span><br>"
-	paper.info += "Fines: <br><i>"
+	paper.info += "</ul><br><span class=\"large-text\"> Суммарная награда: [quest.reward]</span><br>"
+	paper.info += "Штрафы: <br><i>"
 	if(modificators["departure_mismatch"])
-		paper.info += "departure mismatch (-20%)<br>"
+		paper.info += "Неверно отмечен отдел-заказчик (-20%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "departure_mismatch_phrases")
 	if(modificators["content_mismatch"])
-		paper.info += "content mismatch (-30%) x[modificators["content_mismatch"]]<br>"
+		paper.info += "Несовпадение в количестве содержимого (-30%) x[modificators["content_mismatch"]]<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_mismatch_phrases")
 	if(modificators["content_missing"])
-		paper.info += "content missing (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
+		paper.info += "Содержимое отсутствует (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_missing_phrases")
 	if(!complete)
-		paper.info += "time expired (-100%)<br>"
+		paper.info += "Время истекло (-100%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
 	else if(quest.time_add_count > 0)
-		paper.info += "shipment delay (-[10 * quest.time_add_count]%)<br>"
+		paper.info += "Задержка в поставке (-[10 * quest.time_add_count]%)<br>"
 
 	else if(!length(modificators))
-		paper.info += "- none <br>"
-	paper.info += "</i><br>Bonus:<br><i>"
+		paper.info += "- нету <br>"
+	paper.info += "</i><br>Бонус:<br><i>"
 	if(modificators["quick_shipment"])
-		paper.info += "quick shipment (+40%)<br>"
+		paper.info += "Быстрая отправка(+40%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
-		paper.info += "- none <br>"
+		paper.info += "- нету <br>"
 		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
 	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
 	if(!modificators["content_missing"] && !modificators["departure_mismatch"] && !modificators["content_mismatch"])
 		paper.info += "<hr><br>"
 		for(var/sale_category in quest.customer.cargo_sale)
-			paper.info += "<span class=\"small-text\">You have received a <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> discount on <b>[sale_category]</b> category in orders. </span><br>"
+			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в списке заказов. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
-	paper.info += "<br><hr><br><span class=\"small-text\">This paper has been stamped by the [station_name()] </span><br></div>"
+	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	var/obj/item/stamp/navcom/stamp = new()
 	paper.stamp(stamp)
 	paper.update_icon()
-	paper.name = "Shipment records"
+	paper.name = "Отчёт о поставке"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
 
