@@ -132,9 +132,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/list/schannels = list_secure_channels(user)
-		var/list/ichannels = list_internal_channels(user)
-		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
 		ui = new(user, src, "Radio", name)
 		ui.open()
 
