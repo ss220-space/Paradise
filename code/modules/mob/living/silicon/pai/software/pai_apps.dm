@@ -416,7 +416,7 @@
 
 	switch(action)
 		if("ui_interact")
-			pai_holder.pai_internal_gps.ui_interact(pai_holder, state = GLOB.self_state)
+			pai_holder.pai_internal_gps.ui_interact(pai_holder)
 
 // Host Bioscan //
 /datum/pai_software/host_scan
