@@ -798,10 +798,10 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
@@ -818,13 +818,13 @@
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != AIR_ALARM_READY)
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
-	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 

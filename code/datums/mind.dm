@@ -2451,12 +2451,12 @@
 			if("borgpanel")
 				var/mob/living/silicon/robot/R = current
 				var/datum/borgpanel/B = new(usr, R)
-				B.ui_interact(usr, state = GLOB.admin_state)
+				B.ui_interact(usr)
 				log_and_message_admins("has opened [R]'s Borg Panel.")
 			if("lawmanager")
 				var/mob/living/silicon/S = current
 				var/datum/ui_module/law_manager/L = new(S)
-				L.ui_interact(usr, state = GLOB.admin_state)
+				L.ui_interact(usr)
 				log_and_message_admins("has opened [S]'s law manager.")
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
