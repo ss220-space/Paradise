@@ -661,7 +661,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 
 	if(!cell || cell.charge <= 50)
-		toggle_ionpulse()
+		toggle_ionpulse(silent = TRUE)
 		return FALSE
 
 	cell.charge -= 25 // 500 steps on a default cell.
@@ -682,7 +682,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
 
 	if(!silent)
-		to_chat(src, span_notice("You [ionpulse_on ? null :"de"]activate your ion thrusters."))
+		to_chat(src, span_notice("You [ionpulse_on ? "" : "de"]activate your ion thrusters."))
 
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
