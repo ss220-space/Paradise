@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use 'sass:color';
 @use '../base.scss';
 @use '../functions.scss' as *;
 @use './Input.scss';
@@ -13,48 +12,26 @@ $background-color: Input.$background-color !default;
 $border-color: Input.$border-color !default;
 $border-radius: Input.$border-radius !default;
 
-.NumberInput {
+.TextArea {
   position: relative;
   display: inline-block;
   border: base.em(1px) solid $border-color;
   border: base.em(1px) solid rgba($border-color, 0.75);
   border-radius: $border-radius;
-  color: $border-color;
   background-color: $background-color;
-  padding: 0 base.em(4px);
   margin-right: base.em(2px);
   line-height: base.em(17px);
-  text-align: right;
-  overflow: visible;
-  cursor: n-resize;
-}
-
-.NumberInput--fluid {
-  display: block;
-}
-
-.NumberInput__content {
-  margin-left: 0.5em;
-}
-
-.NumberInput__barContainer {
-  position: absolute;
-  top: base.em(2px);
-  bottom: base.em(2px);
-  left: base.em(2px);
-}
-
-.NumberInput__bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: base.em(3px);
   box-sizing: border-box;
-  border-bottom: base.em(1px) solid $border-color;
-  background-color: $border-color;
+  width: 100%;
 }
 
-.NumberInput__input {
+.TextArea--fluid {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.TextArea__textarea {
   display: block;
   position: absolute;
   top: 0;
@@ -64,13 +41,29 @@ $border-radius: Input.$border-radius !default;
   border: 0;
   outline: 0;
   width: 100%;
-  font-size: base.em(12px);
+  height: 100%;
+  font-size: 1em;
   line-height: base.em(17px);
-  height: base.em(17px);
+  min-height: base.em(17px);
   margin: 0;
   padding: 0 0.5em;
-  font-family: Verdana, sans-serif;
-  background-color: $background-color;
-  color: $text-color;
-  text-align: right;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+  box-sizing: border-box;
+  // Make sure the div and the textarea wrap words in the same way
+  word-wrap: break-word;
+  overflow: hidden;
+
+  &::placeholder {
+    font-style: italic;
+    color: #777;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  // TODO: Remove with 516
+  &:-ms-input-placeholder {
+    font-style: italic;
+    color: rgba(125, 125, 125, 0.75);
+  }
 }
