@@ -14,6 +14,7 @@
 					// заразить главу,
 					/datum/objective/escape
 					)
+
 /obj/item/hemophagus_extract
 	name = "Bloody Injector"
 	desc = "Looks like something moving inside it"
