@@ -53,21 +53,28 @@
 			if(!iscarbon(M)) // Non-carbons can't process reagents
 				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
 				return
-			if(M != user)
-				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
+			var/mob/living/carbon/ctarget = M
+			if(!get_location_accessible(ctarget, BODY_ZONE_PRECISE_MOUTH))
+				if(ctarget == user)
+					to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+				else
+					to_chat(user, "<span class='warning'>[ctarget]'s face is obscured, so[ctarget.p_they()] cant eat.</span>")
+				return FALSE
+			if(ctarget != user)
+				ctarget.visible_message("<span class='danger'>[user] attempts to feed something to [ctarget].</span>", \
 							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
-				if(!do_mob(user, M))
+				if(!do_mob(user, ctarget))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(user, M, "Fed with [name] containing [contained]")
+				ctarget.visible_message("<span class='danger'>[user] feeds something to [ctarget].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
+				add_attack_logs(user, ctarget, "Fed with [name] containing [contained]")
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), ctarget, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
