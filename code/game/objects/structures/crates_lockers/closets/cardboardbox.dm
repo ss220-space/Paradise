@@ -48,6 +48,9 @@
 	if(opened || !can_open())
 		return FALSE
 
+	if(!COOLDOWN_FINISHED(src, recently_alerted_cd))
+		return ..()
+
 	var/list/viewing_clients = list()
 	var/list/mobs_in_contents = list()
 	for(var/mob/living/SNAKE in contents)
@@ -55,7 +58,7 @@
 			viewing_clients += SNAKE.client
 			mobs_in_contents += SNAKE
 
-	if(!length(viewing_clients) || !COOLDOWN_FINISHED(src, recently_alerted_cd))
+	if(!length(viewing_clients))
 		return ..()
 
 	var/list/all_viewers = viewers(src)
