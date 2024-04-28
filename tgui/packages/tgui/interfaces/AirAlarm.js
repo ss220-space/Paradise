@@ -6,20 +6,18 @@ import { InterfaceLockNoticeBox } from "./common/InterfaceLockNoticeBox";
 
 export const AirAlarm = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    locked,
-  } = data;
-  // Bail straight away if there is no air
+  const { locked } = data;
+
   return (
-    <Window resizable>
+    <Window width={570} height={locked ? 310 : 755}>
       <Window.Content scrollable>
-        <AirStatus />
         <InterfaceLockNoticeBox />
+        <AirStatus />
         {!locked && (
-          <Fragment>
+          <>
             <AirAlarmTabs />
             <AirAlarmUnlockedContent />
-          </Fragment>
+          </>
         )}
       </Window.Content>
     </Window>
