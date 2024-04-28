@@ -749,7 +749,7 @@
 	qdel(src)
 
 /obj/structure/table/tray/deconstruction_hints(mob/user)
-	to_chat(user, span_notice("It is held together by some <b>screws</b> and <b>bolts</b>."))
+	return span_notice("It is held together by some <b>screws</b> and <b>bolts</b>.")
 
 /obj/structure/table/tray/narsie_act()
 	return
