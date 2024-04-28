@@ -24,22 +24,22 @@
 
   @include meta.load-css('../components/Input.scss', $with: ('border-color': #87ce87,
     ));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('color-background': #044a1b,
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #044a1b,
     ));
   @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #87ce87,
     ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-background': rgba(0, 0, 0, 0.5),
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5),
     ));
-  @include meta.load-css('../components/Section.scss', $with: ('color-background': #003000,
+  @include meta.load-css('../components/Section.scss', $with: ('background-color': #003000,
     ));
-  @include meta.load-css('../components/Tooltip.scss', $with: ('color-background': #002800));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #002800));
 
   @include meta.load-css('../components/Dropdown.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('color-background': #044a1b,
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #044a1b,
     ));
 
   .Tooltip {
