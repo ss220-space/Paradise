@@ -196,7 +196,7 @@
 				"needs_container" = length(D.make_reagents)
 			)
 
-	SStgui.update_uis(src, update_static_data = TRUE)
+	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	if(..())
