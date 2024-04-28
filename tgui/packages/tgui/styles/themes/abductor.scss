@@ -7,19 +7,17 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #000000,
+  $primary: #ad2350,
   $fg-map-keys: (),
   $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-bg: #e8e4c9,
-  $color-bg-grad-spread: 0%,
-  $border-radius: 0
+  $color-bg: #2a314a,
+  $color-bg-grad-spread: 6%,
+  $border-radius: 2px
 );
 
-// A fat warning to anyone who wants to use this: this only half works.
-// It was made almost purely for the nuke ui, and requires a good amount of manual hacks to get it working as intended.
-.theme-retro {
+.theme-abductor {
   // Atomic classes
   @include meta.load-css('../atomic/color.scss');
 
@@ -27,9 +25,9 @@
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #e8e4c9,
+      'color-default': colors.$primary,
       'color-disabled': #363636,
-      'color-selected': #9d0808,
+      'color-selected': #465899,
       'color-caution': #be6209,
       'color-danger': #9a9d00
     )
@@ -37,31 +35,40 @@
   @include meta.load-css(
     '../components/ImageButton.scss',
     $with: (
-      'color-default': darken(#e8e4c9, 40%),
+      'color-default': darken(colors.$primary, 20%),
       'color-disabled': #363636,
-      'color-selected': #9d0808
+      'color-selected': #465899
     )
   );
   @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': #404b6e)
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': #a82d55)
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #404b6e)
+  );
+  @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
   );
   @include meta.load-css('../components/Section.scss');
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': #a82d55)
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #585337)
+    $with: ('background-color': #9e1b46)
   );
-
-  .Button {
-    font-family: monospace;
-    color: #161613;
-    border: base.em(2px) outset #e8e4c9;
-    outline: base.em(1px) solid #161613;
-  }
 
   .Layout__content {
     background-image: none;
