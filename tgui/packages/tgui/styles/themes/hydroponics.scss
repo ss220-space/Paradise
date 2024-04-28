@@ -2,9 +2,9 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #a14c49,
-  $blue: #d0212d,
-  $label: #a7817e,
+  $primary: #49a149,
+  $blue: #21d021,
+  $label: #7ea77e,
   $fg-map-keys: (
     'label',
   ),
@@ -14,7 +14,7 @@
 );
 @use '../base.scss';
 
-.theme-security {
+.theme-hydroponics {
   // Atomic classes
   @include meta.load-css('../atomic/color.scss');
 
@@ -24,12 +24,8 @@
     $with: ('color-default': colors.$primary)
   );
   @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: ('color-default': darken(colors.$primary, 23%))
-  );
-  @include meta.load-css(
     '../components/Input.scss',
-    $with: ('border-color': #ff8d88)
+    $with: ('border-color': #88ff88)
   );
   @include meta.load-css('../components/NoticeBox.scss');
   @include meta.load-css('../components/Section.scss');

@@ -26,7 +26,7 @@
   }
   &:not(&--dimmed):hover {
     background-color: color.adjust(
-      Section.$color-background,
+      Section.$background-color,
       $lightness: 30%
     );
 
