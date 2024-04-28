@@ -19,8 +19,8 @@ $clockwork: #825B17;
     'color-transparent-text': rgba(255, 214, 198, 0.75),
   ));
   @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'color-default': $clockwork,
-    'color-background': rgba(0, 0, 0, 0.5),
+    'color-default-fill': $clockwork,
+    'background-color': rgba(0, 0, 0, 0.5),
   ));
   @include meta.load-css('../components/Section.scss');
 
@@ -28,7 +28,7 @@ $clockwork: #825B17;
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css('../layouts/TitleBar.scss', $with: (
-    'color-background': color.scale($clockwork, $lightness: -25%),
+    'background-color': color.scale($clockwork, $lightness: -25%),
   ));
 
   .Layout__content {
