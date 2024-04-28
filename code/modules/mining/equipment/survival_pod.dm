@@ -158,11 +158,8 @@
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
+	flipped_sprite = FALSE
 	smooth = SMOOTH_FALSE
-
-
-/obj/structure/table/survival_pod/setup_flip(mob/living/user)
-	return
 
 
 //Sleeper

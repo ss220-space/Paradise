@@ -166,14 +166,11 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
+	flipped_sprite = FALSE
 	climbable = FALSE
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_FALSE
-
-
-/obj/structure/table/socle/setup_flip(mob/living/user)
-	return
 
 
 /obj/effect/spawner/graveyard_statues

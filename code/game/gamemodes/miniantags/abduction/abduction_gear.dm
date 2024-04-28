@@ -749,16 +749,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Advanced flat surface technology at work!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
 	icon_state = "alien_table"
+	flipped_sprite = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
 	canSmoothWith = null
 	frame = /obj/structure/table_frame/abductor
-
-
-/obj/structure/table/abductor/setup_flip(mob/living/user)
-	return
 
 
 /obj/machinery/optable/abductor

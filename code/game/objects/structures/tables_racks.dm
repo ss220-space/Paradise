@@ -36,6 +36,8 @@
 	var/deconstruction_ready = TRUE
 	var/flip_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/flipped = FALSE
+	/// Is this table have a flipped spite?
+	var/flipped_sprite = TRUE
 
 
 /obj/structure/table/Initialize(mapload)
@@ -47,11 +49,8 @@
 /obj/structure/table/examine(mob/user)
 	. = ..()
 
-	if(setup_flip("Is it flippable?"))
-		if(flipped)
-			. += span_info("<b>Disarm-Click</b> to right the table again.")
-		else
-			. += span_info("<b>Disarm-Click</b> to flip over the table.")
+	if(flip_check())
+		. += span_info("You can <b>Disarm-Click</b> to [flipped ? "right [src] again" : "flip over [src]"].")
 
 	. += deconstruction_hints(user)
 
@@ -117,7 +116,7 @@
 				span_warning("You place [user.pulling] onto [src]."))
 			user.stop_pulling()
 	else if(user.a_intent == INTENT_DISARM)
-		setup_flip(user)
+		actual_flip(user)
 
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
@@ -316,16 +315,19 @@
 	set desc = "Flips or unflips a table"
 	set category = null
 	set src in oview(1)
-	setup_flip(usr)
+	actual_flip(usr)
 
 
 /// Used to determine whether the table can be flipped over.
-/// And determine the proc of subsequent flipping/unflipping.
-/obj/structure/table/proc/setup_flip(mob/living/user)
-	if(!istype(user))	// For `/obj/structure/table/examine()` and just an addictional check.
-		return "Yes, it's flippable!"
+/obj/structure/table/proc/flip_check()
+	. = TRUE
+	if(!flipped_sprite || !deconstruction_ready)
+		. = FALSE	// It's welded to the floor or just doesn't have a sprite for flipping.
 
-	if(!can_touch(user))
+
+/// Used for determine the proc of subsequent flipping/unflipping.
+/obj/structure/table/proc/actual_flip(mob/living/user)
+	if(!flip_check() || !can_touch(user))
 		return
 
 	if(!flipped)
@@ -405,14 +407,6 @@
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
 	return TRUE
-
-
-/obj/structure/table/non_flippable	// Maybe for shitspawn purposes.
-	smooth = SMOOTH_FALSE
-
-
-/obj/structure/table/non_flippable/setup_flip(mob/living/user)
-	return
 
 
 /*
@@ -544,6 +538,7 @@
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 	icon_state = "fancy_table"
+	flipped_sprite = FALSE
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
@@ -557,10 +552,6 @@
 						/obj/structure/table/wood/fancy/red,
 						/obj/structure/table/wood/fancy/royalblack,
 						/obj/structure/table/wood/fancy/royalblue)
-
-
-/obj/structure/table/wood/fancy/setup_flip(mob/living/user)
-	return
 
 
 /obj/structure/table/wood/fancy/black
@@ -633,16 +624,12 @@
 	integrity_failure = 50
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 
+
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
-		to_chat(user, span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed."))
-	else
-		to_chat(user, span_notice("The top cover is firmly <b>welded</b> on."))
+		return span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.")
+	return span_notice("The top cover is firmly <b>welded</b> on.")
 
-/obj/structure/table/reinforced/setup_flip(mob/living/user)
-	if(!deconstruction_ready)
-		return
-	return ..()
 
 /obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -653,12 +640,14 @@
 		to_chat(user, span_notice("You [deconstruction_ready ? "strengthen" : "weaken"] the table."))
 		deconstruction_ready = !deconstruction_ready
 
+
 /obj/structure/table/reinforced/brass
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
 	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flipped_sprite = FALSE
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
@@ -681,10 +670,6 @@
 		animate(src, color = previouscolor, time = 8)
 
 
-/obj/structure/table/reinforced/brass/setup_flip(mob/living/user)
-	return
-
-
 /obj/structure/table/reinforced/brass/ratvar_act()
 	obj_integrity = max_integrity
 
@@ -696,10 +681,11 @@
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
-	anchored = FALSE
-	smooth = SMOOTH_FALSE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
+	anchored = FALSE
+	smooth = SMOOTH_FALSE
+	flipped_sprite = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
 	var/list/typecache_can_hold = list(/mob, /obj/item)
@@ -764,9 +750,6 @@
 
 /obj/structure/table/tray/deconstruction_hints(mob/user)
 	to_chat(user, span_notice("It is held together by some <b>screws</b> and <b>bolts</b>."))
-
-/obj/structure/table/tray/setup_flip(mob/living/user)
-	return
 
 /obj/structure/table/tray/narsie_act()
 	return
