@@ -24,6 +24,7 @@
 #define DISABILITY_FLAG_TEA_ADDICT    (1<<13)
 #define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
+#define DISABILITY_FLAG_COMB_DEAFNESS (1<<16)
 
 ///////////////////////////////////////
 // MUTATIONS

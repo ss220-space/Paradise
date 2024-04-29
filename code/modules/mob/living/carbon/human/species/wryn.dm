@@ -4,7 +4,6 @@
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -167,6 +166,9 @@
 /* Wryn Sting Action End */
 
 /datum/species/wryn/handle_death(gibbed, mob/living/carbon/human/H)
+	if(!(H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)))
+		return
+
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 			to_chat(C, "<span class='danger'><B>Ваши усики дрожат, когда вас одолевает боль...</B></span>")
@@ -180,15 +182,11 @@
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
 				if(do_mob(user, target, 250))
-					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
 					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
 					to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
-					var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
-					head_organ.h_style = "Bald"
-					target.update_hair()
 
 					add_attack_logs(user, target, "Antennae removed")
 				return 0

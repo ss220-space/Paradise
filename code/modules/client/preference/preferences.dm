@@ -1083,6 +1083,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
 
+	if(species == SPECIES_WRYN)
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COMB_DEAFNESS, "Comb deafness")
 	if(CAN_WINGDINGS in S.species_traits)
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
@@ -2844,6 +2846,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
 		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.wingdingsblock)
+
+	if(iswryn(character))
+		if(disabilities & DISABILITY_FLAG_COMB_DEAFNESS)
+			var/obj/item/organ/internal/wryn/hivenode/node = character.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
+			node.remove(character)
+			qdel(node)
+			H.h_style = "Bald"
+		else
+			H.h_style = "Antennae"
 
 	character.dna.species.handle_dna(character)
 
