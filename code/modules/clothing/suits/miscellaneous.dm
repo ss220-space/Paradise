@@ -917,10 +917,9 @@
 	icon_state = "mercy_hood"
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEHAIR|HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
