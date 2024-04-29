@@ -94,7 +94,7 @@
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)

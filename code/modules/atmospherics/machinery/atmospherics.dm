@@ -244,7 +244,7 @@ Pipelines + Other Objects -> Pipe network
 	user.throw_at(general_direction, pressures/10, pressures/50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
-	if(can_unwrench && !(flags & NODECONSTRUCT))
+	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
 		var/obj/item/pipe/stored = new(loc, null, null, src)
 		if(!disassembled)
 			stored.obj_integrity = stored.max_integrity * 0.5

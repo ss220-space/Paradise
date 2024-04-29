@@ -41,8 +41,8 @@
 	charge_tick = 1
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	force = 10
 	ninja_weapon = TRUE
 	var/cost = 500

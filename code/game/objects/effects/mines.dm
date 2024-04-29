@@ -143,7 +143,7 @@
 
 	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
-	chainsaw.flags |= DROPDEL
+	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)

@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "armour_plate"
 	singular_name = "armour plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 

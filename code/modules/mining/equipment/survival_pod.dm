@@ -231,7 +231,7 @@
 	light_color = "#DDFFD3"
 	max_n_of_items = 10
 	pixel_y = -4
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)
@@ -254,7 +254,7 @@
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
-	return isitem(O) && !(O.flags & ABSTRACT)
+	return isitem(O) && !(O.item_flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
@@ -289,7 +289,7 @@
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)

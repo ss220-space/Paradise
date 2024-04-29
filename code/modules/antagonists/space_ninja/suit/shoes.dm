@@ -15,7 +15,7 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "ninja_boots"
 	item_state = "ninja_boots"
-	flags = NOSLIP
+	clothing_flags = NOSLIP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 15, "bomb" = 30, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	cold_protection = FEET

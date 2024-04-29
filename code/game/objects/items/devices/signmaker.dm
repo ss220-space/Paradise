@@ -12,7 +12,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/pointer_busy = FALSE

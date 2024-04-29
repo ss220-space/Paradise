@@ -419,7 +419,7 @@
 	return P
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(toner > 0)
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0

@@ -364,7 +364,7 @@
 	return FALSE
 
 /obj/structure/table/holotable
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
 
 /obj/structure/table/holotable/wood
@@ -378,7 +378,7 @@
 	return FALSE
 
 /obj/structure/chair/stool/holostool
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -405,7 +405,7 @@
 	return FALSE
 
 /obj/structure/rack/holorack
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/item/holo
 	damtype = STAMINA

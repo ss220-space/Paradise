@@ -140,7 +140,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		broken = 1
 		opened = 1
 		if(has_extinguisher)
@@ -149,7 +149,7 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 		if(has_extinguisher)
 			has_extinguisher.forceMove(loc)

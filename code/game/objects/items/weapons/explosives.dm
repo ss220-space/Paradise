@@ -3,7 +3,7 @@
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
 	item_state = "plastic-explosive"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	det_time = 10 SECONDS
 	display_timer = 0
 	origin_tech = "syndicate=1"

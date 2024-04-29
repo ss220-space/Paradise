@@ -21,4 +21,5 @@
 	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
-	flags = CONDUCT | NO_PIXEL_RANDOM_DROP
+	flags = CONDUCT
+	item_flags = NO_PIXEL_RANDOM_DROP

@@ -219,7 +219,7 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && disassembled)
+	if(!(obj_flags & NODECONSTRUCT) && disassembled)
 		new metal_type(loc, 1)
 	return ..()
 

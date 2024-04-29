@@ -254,6 +254,6 @@
 	popup.open()
 
 /obj/machinery/icemachine/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)

@@ -192,12 +192,12 @@
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/datum/gas_mixture/environment = H.loc.return_air()
 	var/atmos_sealed = FALSE
-	if (H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
-		var/obj/item/clothing/CS = H.wear_suit
-		var/obj/item/clothing/CH = H.head
-		if (CS.flags & CH.flags & STOPSPRESSUREDMAGE)
+	if(isclothing(H.wear_suit) && isclothing(H.head))
+		var/obj/item/clothing/suit = H.wear_suit
+		var/obj/item/clothing/helmet = H.head
+		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
 			atmos_sealed = TRUE
-	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
 		if(environment)
 			if(environment.total_moles())
 				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire

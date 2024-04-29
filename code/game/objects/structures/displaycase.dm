@@ -57,7 +57,7 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		dump()
 		if(!disassembled)
 			new /obj/item/shard(loc)
@@ -65,7 +65,7 @@
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		density = FALSE
 		broken = 1
 		new /obj/item/shard( src.loc )
@@ -106,7 +106,7 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece && !(I.flags & ABSTRACT))
+	else if(open && !showpiece && !(I.item_flags & ABSTRACT))
 		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			showpiece = I

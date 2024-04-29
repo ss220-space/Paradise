@@ -18,7 +18,7 @@
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
 		investigate_log("deconstructed by [key_name_log(usr)]", INVESTIGATE_WIRES)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 

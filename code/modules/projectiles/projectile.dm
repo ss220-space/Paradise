@@ -5,7 +5,7 @@
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
@@ -437,14 +437,14 @@
 	return
 
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/item/projectile/proc/check_ricochet(atom/A)
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
 
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if(A.flags & CHECK_RICOCHET)
 		return TRUE
 	return FALSE
 

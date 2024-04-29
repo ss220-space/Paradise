@@ -188,12 +188,12 @@ GLOBAL_LIST_EMPTY(closets)
 	open()
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
-	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
+	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
 
 /obj/structure/closet/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)

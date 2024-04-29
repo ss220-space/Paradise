@@ -8,7 +8,7 @@
 	max_integrity = 120
 	var/image/nest_overlay
 	comfort = 0
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/ghost_timer
 
 /obj/structure/bed/nest/Initialize(mapload)

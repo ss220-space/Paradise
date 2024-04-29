@@ -20,7 +20,7 @@
 
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		if(state >= 2)
 			new /obj/item/stack/cable_coil(loc, 5)

@@ -547,7 +547,7 @@
 
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
 

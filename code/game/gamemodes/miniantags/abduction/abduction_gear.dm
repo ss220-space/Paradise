@@ -591,7 +591,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/restraints/handcuffs/energy/used
 	desc = "energy discharge"
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
@@ -614,7 +614,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/radio/headset/abductor
 	name = "alien headset"
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	origin_tech = "magnets=2;abductor=3"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"

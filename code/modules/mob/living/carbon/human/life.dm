@@ -85,13 +85,17 @@
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
-	..()
+/mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 
-	var/pressure_adjustment_coefficient = 1	//Determins how much the clothing you are wearing protects you in percent.
-	if(wear_suit && (wear_suit.flags & STOPSPRESSUREDMAGE) && head && (head.flags & STOPSPRESSUREDMAGE)) // Complete set of pressure-proof suit worn, assume fully sealed.
-		pressure_adjustment_coefficient = 0
+	// Determines how much the clothing you are wearing protects you in percent.
+	var/pressure_adjustment_coefficient = 1
+	if(isclothing(wear_suit) && isclothing(head))
+		var/obj/item/clothing/suit = wear_suit
+		var/obj/item/clothing/helmet = head
+		// Complete set of pressure-proof suit worn, assume fully sealed.
+		if((suit.clothing_flags & STOPSPRESSUREDMAGE) && (helmet.clothing_flags & STOPSPRESSUREDMAGE))
+			pressure_adjustment_coefficient = 0
 	pressure_adjustment_coefficient = max(pressure_adjustment_coefficient,0) //So it isn't less than 0
 	pressure_difference = pressure_difference * pressure_adjustment_coefficient
 	if(pressure > ONE_ATMOSPHERE)
@@ -295,28 +299,6 @@
 	// Health is in deep shit and we're not already dead
 	return health <= HEALTH_THRESHOLD_CRIT && stat != DEAD
 
-
-/mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
-	if(internal)
-		var/null_internals = 0      //internals are invalid, therefore turn them off
-		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
-
-		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
-				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
-					null_internals = 1 //not wearing a mask or suitable helmet
-
-		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
-			null_internals = 1 //not a rigsuit and your oxygen is gone
-
-		if(null_internals) //something wants internals gone
-			internal = null //so do it
-			update_action_buttons_icon()
-
-	if(internal) //check for hud updates every time this is called
-		return internal.remove_air_volume(volume_needed) //returns the valid air
-
-	return null
 
 /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 	if(!environment)

@@ -417,7 +417,7 @@
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/melee/cultblade/ghost/Initialize(mapload)
@@ -440,7 +440,7 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
-	flags = DROPDEL
+	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
 
@@ -450,7 +450,7 @@
 
 
 /obj/item/clothing/shoes/cult/ghost
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/clothing/shoes/cult/ghost/Initialize(mapload)
@@ -459,7 +459,7 @@
 
 
 /obj/item/clothing/under/color/black/ghost
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/clothing/under/color/black/ghost/Initialize(mapload)
@@ -707,7 +707,7 @@
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
-	flags = NOBLUDGEON | DROPDEL
+	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood

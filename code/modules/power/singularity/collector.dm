@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return null
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
 

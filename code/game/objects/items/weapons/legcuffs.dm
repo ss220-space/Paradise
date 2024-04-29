@@ -295,7 +295,7 @@
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)
-		flags |= DROPDEL
+		item_flags |= DROPDEL
 
 
 

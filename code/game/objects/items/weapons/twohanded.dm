@@ -876,7 +876,7 @@
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
 	icon_state = "pyro_claws"
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	force = 25
 	force_wielded = 25
 	damtype = BURN

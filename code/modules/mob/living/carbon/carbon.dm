@@ -550,7 +550,7 @@
 
 				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+	else if(!(I.item_flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
 		drop_item_ground(I, silent = TRUE)
 
@@ -660,16 +660,18 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		var/turf/simulated/T = get_turf(H)
-		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
-			return FALSE
-		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
-			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
+		if(!slipAny && isclothing(H.shoes))
+			var/obj/item/clothing/cloth = H.shoes
+			if(cloth.clothing_flags & NOSLIP)
+				return FALSE
+		var/wearing_magboots = istype(H.shoes, /obj/item/clothing/shoes/magboots)
+		var/obj/item/clothing/shoes/magboots/magboots = H.shoes
+		if(wearing_magboots) //Only for lubeprotection magboots and lube slip
+			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && magboots.magpulse && magboots.lubeprotection)
 				return FALSE
 		if(!H.has_gravity() && !grav_ignore)
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
-				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+			if(wearing_magboots) //Only for magboots and lube slip (no grav && no lubeprotection)
+				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && magboots.magpulse))
 					return FALSE
 			else
 				return FALSE
@@ -775,19 +777,21 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(!iscarbon(src))
+	if(dna && (NO_BREATHE in dna.species.species_traits))
 		return FALSE
 
-	if(NO_BREATHE in src.dna?.species?.species_traits)
-		return FALSE
-
-	if(!wear_mask)
+	if(!wear_mask && !head)
 		return TRUE
 
-	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
+	var/obj/item/clothing/our_mask = wear_mask
+	var/obj/item/clothing/our_helmet = head
+	if(!internal \
+		&& !(isclothing(our_mask) && (our_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)) \
+		&& !(isclothing(our_helmet) && (our_helmet.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)))
 		return TRUE
 
 	return FALSE
+
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

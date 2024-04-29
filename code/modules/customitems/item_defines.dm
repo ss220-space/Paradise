@@ -433,7 +433,7 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
-		sallet.visor_flags = helm.visor_flags
+		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
 		sallet.flags_inv |= HIDEHAIR
 
@@ -682,7 +682,6 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
-	flags = NONE
 	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS|HIDEHAIR
 	var/state = "Soldier Up"
 

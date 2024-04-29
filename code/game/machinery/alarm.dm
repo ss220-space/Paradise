@@ -1081,7 +1081,7 @@
 	update_icon()
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
 		if(!disassembled)

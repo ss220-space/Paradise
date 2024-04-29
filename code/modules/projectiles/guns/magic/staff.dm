@@ -1,7 +1,7 @@
 /obj/item/gun/magic/staff
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"

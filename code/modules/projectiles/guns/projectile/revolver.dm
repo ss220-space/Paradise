@@ -114,8 +114,8 @@
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
-	flags = ABSTRACT|DROPDEL
-	slot_flags = null
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
 	fire_sound = null
 	fire_sound_text = null
 	lefthand_file = null

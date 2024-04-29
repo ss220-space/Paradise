@@ -210,7 +210,7 @@
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && !disassembled)
+	if(!(obj_flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
@@ -288,7 +288,7 @@
 	return ..()
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(density || operating)
@@ -303,7 +303,7 @@
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
 	if(operating)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

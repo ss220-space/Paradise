@@ -31,7 +31,7 @@
 /datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
-	if(top.flags_2 & BLOCKS_LIGHT_2) // If the top atom blocks light, then our owner becomes the topmost instead. This still allows atoms that block light to be a light of their own.
+	if(top.flags & BLOCKS_LIGHT) // If the top atom blocks light, then our owner becomes the topmost instead. This still allows atoms that block light to be a light of their own.
 		top_atom = source_atom
 	else
 		top_atom = top
@@ -79,7 +79,7 @@
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
 			LAZYREMOVE(top_atom.light_sources, src)
 
-		if(new_top_atom.flags_2 & BLOCKS_LIGHT_2)
+		if(new_top_atom.flags & BLOCKS_LIGHT)
 			top_atom = source_atom
 		else
 			top_atom = new_top_atom

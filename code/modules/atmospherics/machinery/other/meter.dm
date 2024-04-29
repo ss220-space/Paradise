@@ -141,7 +141,7 @@
 		deconstruct(TRUE)
 
 /obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
 

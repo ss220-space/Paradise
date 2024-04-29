@@ -436,7 +436,7 @@
 	desc = "Insert into a nearby APC to draw power from it."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

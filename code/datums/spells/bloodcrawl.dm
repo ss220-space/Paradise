@@ -57,7 +57,7 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 
 
 /obj/item/bloodcrawl/Initialize(mapload)
