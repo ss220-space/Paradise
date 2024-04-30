@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_ap
-	name = "Stechkin - 10mm Armour Piercing Magazine"
+	name = "Syndicate Stechkin - 10mm Armour Piercing Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/ap,
 					/obj/item/ammo_box/magazine/m10mm/ap,
 					/obj/item/ammo_box/magazine/m10mm/ap,
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Armour Piercing Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_fire
-	name = "Stechkin - 10mm Incendiary Magazine"
+	name = "Syndicate Stechkin - 10mm Incendiary Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/fire,
 					/obj/item/ammo_box/magazine/m10mm/fire,
 					/obj/item/ammo_box/magazine/m10mm/fire,
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Incendiary Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_hp
-	name = "Stechkin - 10mm Hollow Point Magazine"
+	name = "Syndicate Stechkin - 10mm Hollow Point Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/hp,
 					/obj/item/ammo_box/magazine/m10mm/hp,
 					/obj/item/ammo_box/magazine/m10mm/hp,
