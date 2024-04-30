@@ -96,6 +96,13 @@
 		return COMPONENT_CANCEL_DROP
 
 
+/obj/item/organ/internal/cyberimp/arm/proc/unexpected_drop()
+	SIGNAL_HANDLER
+
+	if(Retract())
+		return COMPONENT_ITEM_BLOCK_UNEQUIP
+
+
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
 	if(!active_item || (active_item in src))
 		return FALSE
@@ -104,10 +111,11 @@
 		span_notice("[active_item] snaps back into your [parent_organ_zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_italics("You hear a short mechanical noise."))
 
+	UnregisterSignal(active_item, COMSIG_ITEM_PRE_UNEQUIP)
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)
 	active_item.forceMove(src)
 	active_item = null
-	playsound(get_turf(owner), src.sound_off, 50, 1)
+	playsound(get_turf(owner), src.sound_off, 50, TRUE)
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/augment)
@@ -117,6 +125,7 @@
 	active_item = augment
 
 	ADD_TRAIT(active_item, TRAIT_NODROP, AUGMENT_TRAIT)
+	RegisterSignal(active_item, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(unexpected_drop))
 	active_item.resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	active_item.slot_flags = NONE
 	active_item.w_class = WEIGHT_CLASS_HUGE

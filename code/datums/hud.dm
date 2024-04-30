@@ -146,11 +146,13 @@ GLOBAL_LIST_INIT(huds, list( \
 				var/datum/atom_hud/my_hud = GLOB.huds[helmet.HUDType]
 				my_hud.add_hud_to(src, only_once=TRUE)
 
-		if(istype(check, /obj/item/organ/internal/cyberimp/eyes/hud))
-			var/obj/item/organ/internal/cyberimp/eyes/hud/implant = check
-			if(implant.HUDType && !implant.is_equipped(TRUE, TRUE))
-				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUDType]
-				my_hud.add_hud_to(src, only_once=TRUE)
+
+/mob/living/carbon/human/reload_huds()
+	..()
+	for(var/obj/item/organ/internal/cyberimp/eyes/hud/implant in internal_organs)
+		if(implant.HUDType)
+			var/datum/atom_hud/my_hud = GLOB.huds[implant.HUDType]
+			my_hud.add_hud_to(src, only_once=TRUE)
 
 
 /mob/new_player/reload_huds()
