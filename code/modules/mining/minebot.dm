@@ -236,7 +236,9 @@
 		user.set_light_on(FALSE)
 	else
 		user.set_light_range(6)
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+		user.set_light_on(TRUE)
+
+	to_chat(user, span_notice("You toggle your light [user.light_on ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
