@@ -634,7 +634,7 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "Stechkin Pistol"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
