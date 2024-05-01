@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, TRUE)
 		if(num_loaded)
-			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
+			balloon_alert(user, "loaded [num_loaded] shell\s")
 			A.update_icon()
 			update_icon()
 			chamber_round(FALSE)
@@ -52,9 +52,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
+		balloon_alert(user, "unloaded [num_unloaded] shell\s")
 	else
-		to_chat(user, span_notice("[src] is empty!"))
+		balloon_alert(user, "it's empty")
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -257,9 +257,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
+			balloon_alert(user, "unloaded [num_unloaded] shell\s")
 		else
-			to_chat(user, span_notice("[src] is empty."))
+			balloon_alert(user, "it's empty")
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -272,12 +272,12 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			to_chat(user, span_notice("A mechanism prevents you from shooting anyone but yourself!"))
+			balloon_alert(user, "can't shoot anything but yourself!")
 		return
 
 	if(ishuman(user))
 		if(!spun)
-			to_chat(user, span_notice("You need to spin the revolver's chamber first!"))
+			balloon_alert(user, "spin chamber!")
 			return
 
 		spun = FALSE
@@ -370,11 +370,11 @@
 		if("Barrel")
 			if(!do_mob(user, src, 8 SECONDS))
 				return
-			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
+			balloon_alert(user, "unscrewed [barrel]")
 			user.put_in_hands(barrel)
 			barrel = null
 		if("Magazine")
-			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
+			balloon_alert(user, "unscrewed [magazine]")
 			user.put_in_hands(magazine)
 			magazine = null
 			verbs -= /obj/item/gun/projectile/revolver/verb/spin
@@ -391,9 +391,9 @@
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 	if(!magazine || !barrel)
-		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
+		balloon_alert(user, "Attach cylinder and barrel first")
 	else
-		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
+		balloon_alert(user, "you [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine]")
 		unscrewed = !unscrewed
 		update_icon(UPDATE_OVERLAYS)
 
@@ -401,7 +401,7 @@
 	if(unscrewed)
 		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
 			if(magazine)
-				to_chat(user, span_notice("[src] already have [magazine]."))
+				balloon_alert(user, "there is already [magazine]")
 			else if(user.drop_transfer_item_to_loc(A, src))
 				magazine = A
 				verbs += /obj/item/gun/projectile/revolver/verb/spin
@@ -409,7 +409,7 @@
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
-				to_chat(user, span_notice("[src] already have [barrel]."))
+				balloon_alert(user, "there is already [barrel]")
 			else if(do_mob(user, src, 8 SECONDS))
 				if(user.drop_transfer_item_to_loc(A, src))
 					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
@@ -480,9 +480,9 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, span_notice("You break open \the [src] and unload [num_unloaded] shell\s."))
+		balloon_alert(user, "unloaded [num_unloaded] shell\s")
 	else
-		to_chat(user, span_notice("[src] is empty."))
+		balloon_alert(user, "it's empty")
 
 // IMPROVISED SHOTGUN //
 
@@ -506,11 +506,11 @@
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
+			balloon_alert(user, "made a sling!")
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling."))
+			balloon_alert(user, "need more cable lenght!")
 			return
 	else
 		return ..()

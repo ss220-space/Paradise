@@ -62,11 +62,11 @@
 	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot()
-    . = ..()
-    if(. && !isertmindshielded(usr))
-        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
-        return FALSE
-    return .
+	. = ..()
+	if(. && !isertmindshielded(usr))
+		balloon_alert(user, "You don't have ERT mindshield!")
+		return FALSE
+	return .
 
 /obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
@@ -81,11 +81,11 @@
 /obj/item/gun/energy/gun/pdw9/ert
 
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot()
-    . = ..()
-    if(. && !isertmindshielded(usr))
-        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
-        return FALSE
-    return .
+	. = ..()
+	if(. && !isertmindshielded(usr))
+		balloon_alert(user, "You don't have ERT mindshield!")
+		return FALSE
+	return .
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"

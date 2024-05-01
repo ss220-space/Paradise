@@ -18,7 +18,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
-	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
+	balloon_alert(user, "[cover_open ? "opened" : "closed"] cover.")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
@@ -30,7 +30,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
-		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
+		balloon_alert(user, "Close cover before firing!")
 	else
 		..()
 		update_icon()
@@ -49,7 +49,7 @@
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
 		update_icon()
-		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
+		balloon_alert(user, "unloaded magazine")
 
 
 /obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
@@ -57,7 +57,7 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
-				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
+				balloon_alert(user, "Open cover first!")
 				return
 	return ..()
 

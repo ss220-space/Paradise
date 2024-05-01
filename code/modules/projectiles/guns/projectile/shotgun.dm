@@ -21,7 +21,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, 1)
 		if(num_loaded)
-			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+			balloon_alert(user, "loaded [num_loaded] shell\s")
 			A.update_icon()
 			update_icon()
 
@@ -100,10 +100,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
+		balloon_alert(user, "Already shortened!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		balloon_alert(user, "Remove gun from the bag!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -143,10 +143,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
-		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
+		balloon_alert(user, "It's not shortened!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		balloon_alert(user, "Remove gun from the bag!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -240,7 +240,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/A, mob/user, params)
 	if(!bolt_open)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
+		balloon_alert(user, "The bolt is closed")
 		return
 	. = ..()
 
@@ -349,9 +349,9 @@
 	alternate_magazine = current_mag
 	toggled = !toggled
 	if(toggled)
-		to_chat(user, "You switch to tube B.")
+		balloon_alert(user, "switched to tube B")
 	else
-		to_chat(user, "You switch to tube A.")
+		balloon_alert(user, "Switched to tube A")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)

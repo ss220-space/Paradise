@@ -101,20 +101,20 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				balloon_alert(user, "inserting new magazine")
+				balloon_alert(user, "magazine loaded")
 				return TRUE
 			else if(!can_tactical)
-				to_chat(user, span_notice("There's already a magazine in \the [src]."))
+				balloon_alert(user, "already loaded!")
 				return TRUE
 			else
-				balloon_alert(user, "perfoming tactical reload")
+				balloon_alert(user, "magazine swapped!")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
-			balloon_alert(user, "wrong ammo type!")
+			balloon_alert(user, "[AM.name] doesn't fit!")
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -122,7 +122,7 @@
 			if(!suppressed)
 				if(!user.drop_transfer_item_to_loc(A, src))
 					return
-				balloon_alert(user, "screwing [S] into [src]")
+				balloon_alert(user, "[S] attached!")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -132,10 +132,10 @@
 				update_icon()
 				return
 			else
-				to_chat(user, span_warning("[src] already has a suppressor."))
+				balloon_alert(user, "already has a supressor!")
 				return
 		else
-			to_chat(user, span_warning("You can't seem to figure out how to fit [S] on [src]."))
+			balloon_alert(user, "[S] doesn't fit!")
 			return
 	else
 		return ..()
@@ -147,7 +147,8 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			balloon_alert(user, "unscrewing [suppressed] from [src]")
+
+			balloon_alert(user, "[suppressed] removed")
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -165,16 +166,16 @@
 		magazine.update_icon()
 		magazine = null
 		update_weight()
-		balloon_alert(user, "pulling magazine out")
+		balloon_alert(user, "magazine unloaded")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		balloon_alert(user, "unloading round from [src]'s chamber")
+		balloon_alert(user, "unloaded round")
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
-		to_chat(user, span_notice("There's no magazine in \the [src]."))
+		balloon_alert(user, "it's empty!")
 	update_icon()
 	return
 
@@ -208,10 +209,10 @@
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, span_warning("\The [src] is already shortened!"))
+		balloon_alert(user, "already shortened!")
 		return
 	if(bayonet)
-		to_chat(user, span_warning("You cannot saw-off [src] with [bayonet] attached!"))
+		balloon_alert(user, "[bayonet] must be removed!")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))

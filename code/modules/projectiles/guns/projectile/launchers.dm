@@ -79,7 +79,7 @@
 /obj/item/gun/projectile/automatic/speargun/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
+		balloon_alert(user, "Loaded [num_loaded] spear\s")
 		update_icon()
 		chamber_round()
 
@@ -98,7 +98,7 @@
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You carefully load [A] into \the [src].</span>")
+		balloon_alert(user, "loaded [A]")
 		chamber_round()
 		cut_overlays()
 
@@ -130,9 +130,9 @@
 		user.put_in_hands(CB)
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You carefully remove [CB] from \the [src] .</span>")
+		baloon_alert(user, "unloaded [CB]")
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		baloon_alert(user, "It's empty")
 	update_icon()
 	return
 
