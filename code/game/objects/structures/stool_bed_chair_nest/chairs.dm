@@ -7,6 +7,7 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	resistance_flags = NONE
+	layer = BELOW_OBJ_LAYER
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
