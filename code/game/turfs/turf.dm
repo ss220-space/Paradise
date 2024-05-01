@@ -299,7 +299,6 @@
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
-	var/old_force_no_gravity = force_no_gravity
 	var/old_air
 	if(issimulatedturf(src))
 		var/turf/simulated/old_turf = src
@@ -346,9 +345,14 @@
 
 	dynamic_lumcount = old_dynamic_lumcount
 
-	if(old_force_no_gravity != force_no_gravity)
-		for(var/mob/living/mob in contents)
-			mob.refresh_gravity()
+	// we need to refresh gravity for all living mobs to cover possible gravity change
+	for(var/mob/living/mob in contents)
+		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
+			if(!isgroundlessturf(src))
+				ADD_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+			else
+				REMOVE_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
