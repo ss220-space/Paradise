@@ -1,4 +1,17 @@
-/datum/lighting_object
+/atom/movable/lighting_object
+	name = ""
+	anchored = TRUE
+	icon = LIGHTING_ICON
+	icon_state = "transparent"
+	color = null
+	plane = LIGHTING_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = LIGHTING_LAYER
+	invisibility = INVISIBILITY_LIGHTING
+	simulated = FALSE
+
+	var/turf/myturf
+
 	///the underlay we are currently applying to our turf to apply light
 	var/mutable_appearance/current_underlay
 
@@ -11,7 +24,7 @@
 // Global list of lighting underlays, indexed by z level
 GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
-/datum/lighting_object/New(turf/source)
+/atom/movable/lighting_object/New(turf/source)
 	if(!isturf(source))
 		qdel(src, force=TRUE)
 		stack_trace("a lighting object was assigned to [source], a non turf! ")
@@ -37,18 +50,18 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
-/datum/lighting_object/Destroy(force)
+/atom/movable/lighting_object/Destroy(force)
 	if (!force)
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
 	if (isturf(affected_turf))
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
-		affected_turf.underlays -= current_underlay
+		//affected_turf.underlays -= current_underlay
 	affected_turf = null
 	return ..()
 
-/datum/lighting_object/proc/update()
+/atom/movable/lighting_object/proc/update()
 	// To the future coder who sees this and thinks
 	// "Why didn't he just use a loop?"
 	// Well my man, it's because the loop performed like shit.
@@ -76,25 +89,25 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	var/set_luminosity = max > 1e-6
 	#endif
 
-	var/mutable_appearance/current_underlay = src.current_underlay
-	affected_turf.underlays -= current_underlay
+	//var/mutable_appearance/current_underlay = src.current_underlay
+	//underlays -= current_underlay
 	if(red_corner.cache_r & green_corner.cache_r & blue_corner.cache_r & alpha_corner.cache_r && \
 		(red_corner.cache_g + green_corner.cache_g + blue_corner.cache_g + alpha_corner.cache_g + \
 		red_corner.cache_b + green_corner.cache_b + blue_corner.cache_b + alpha_corner.cache_b == 8))
 		//anything that passes the first case is very likely to pass the second, and addition is a little faster in this case
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "transparent_lighting_object"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		//underlays -= current_underlay
+		icon_state = "transparent_lighting_object"
+		color = null
+		//underlays += current_underlay
 	else if(!set_luminosity)
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "dark_lighting_object"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		//underlays -= current_underlay
+		icon_state = "dark_lighting_object"
+		color = null
+		//underlays += current_underlay
 	else
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = null
-		current_underlay.color = list(
+		//underlays -= current_underlay
+		icon_state = null
+		color = list(
 			red_corner.cache_r, red_corner.cache_g, red_corner.cache_b, 00,
 			green_corner.cache_r, green_corner.cache_g, green_corner.cache_b, 00,
 			blue_corner.cache_r, blue_corner.cache_g, blue_corner.cache_b, 00,
@@ -104,5 +117,5 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
 	// Of note. Most of the cost in this proc is here, I think because color matrix'd underlays DO NOT cache well, which is what adding to underlays does
 	// We use underlays because objects on each tile would fuck with maptick. if that ever changes, use an object for this instead
-	affected_turf.underlays += current_underlay
+	//underlays += current_underlay
 	affected_turf.luminosity = set_luminosity
