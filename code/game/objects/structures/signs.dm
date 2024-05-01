@@ -23,7 +23,7 @@
 	if(!does_emissive)
 		return
 
-	underlays += emissive_appearance(icon,"[icon_state]_lightmask")
+	underlays += emissive_appearance(icon,"[icon_state]_lightmask", src)
 
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

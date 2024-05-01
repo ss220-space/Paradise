@@ -20,6 +20,9 @@ SUBSYSTEM_DEF(mapping)
 	/// List of z level (as number) -> plane offset of that z level
 	/// Used to maintain the plane cube
 	var/list/z_level_to_plane_offset = list()
+	/// List of z level (as number) -> list of all z levels vertically connected to ours
+	/// Useful for fast grouping lookups and such
+	var/list/z_level_to_stack = list()
 	/// List of z level (as number) -> The lowest plane offset in that z stack
 	var/list/z_level_to_lowest_plane_offset = list()
 	// This pair allows for easy conversion between an offset plane, and its true representation
@@ -63,6 +66,8 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
+	setupPlanes()
+
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
@@ -164,6 +169,19 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+/datum/controller/subsystem/mapping/proc/setupPlanes()
+	plane_offset_to_true = list()
+	true_to_offset_planes = list()
+	plane_to_offset = list()
+	// VERY special cases for FLOAT_PLANE, so it will be treated as expected by plane management logic
+	// Sorry :(
+	plane_offset_to_true["[FLOAT_PLANE]"] = FLOAT_PLANE
+	true_to_offset_planes["[FLOAT_PLANE]"] = list(FLOAT_PLANE)
+	plane_to_offset["[FLOAT_PLANE]"] = 0
+	plane_offset_blacklist = list()
+	render_offset_blacklist = list()
+	critical_planes = list()
+	create_plane_offsets(0, 0)
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()
@@ -364,6 +382,114 @@ SUBSYSTEM_DEF(mapping)
 	multiz_levels[z_level] = new /list(LARGEST_Z_LEVEL_INDEX)
 	multiz_levels[z_level][Z_LEVEL_UP] = !!z_above
 	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below
+
+
+/// Takes a z level datum, and tells the mapping subsystem to manage it
+/// Also handles things like plane offset generation, and other things that happen on a z level to z level basis
+/datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z)
+	// Build our lookup lists
+	var/z_value = new_z.zpos
+	log_debug(z_value)
+	// We are guarenteed that we'll always grow bottom up
+	// Suck it jannies
+	z_level_to_plane_offset.len += 1
+	z_level_to_lowest_plane_offset.len += 1
+	z_level_to_stack.len += 1
+	// Bare minimum we have ourselves
+	z_level_to_stack[z_value] = list(z_value)
+	// 0's the default value, we'll update it later if required
+	z_level_to_plane_offset[z_value] = 0
+	z_level_to_lowest_plane_offset[z_value] = 0
+
+	// Now we check if this plane is offset or not
+	var/below_offset = check_level_trait(z_value, ZTRAIT_DOWN)
+	if(below_offset)
+		update_plane_tracking(new_z)
+
+	// And finally, misc global generation
+
+	// We'll have to update this if offsets change, because we load lowest z to highest z
+	generate_lighting_appearance_by_z(z_value)
+
+/datum/controller/subsystem/mapping/proc/update_plane_tracking(datum/space_level/update_with)
+	// We're essentially going to walk down the stack of connected z levels, and set their plane offset as we go
+	var/plane_offset = 0
+	var/datum/space_level/current_z = update_with
+	var/list/datum/space_level/levels_checked = list()
+
+	var/list/z_stack = list()
+	while(TRUE)
+		var/z_level = current_z.zpos
+		z_stack += z_level
+		z_level_to_plane_offset[z_level] = plane_offset
+		levels_checked += current_z
+		if(!check_level_trait(z_level, ZTRAIT_DOWN)) // If there's nothing below, stop looking
+			break
+		// Otherwise, down down down we go
+		current_z = GLOB.space_manager.get_zlev(z_level - 1)
+		plane_offset += 1
+
+	/// Updates the lowest offset value
+	for(var/datum/space_level/level_to_update in levels_checked)
+		z_level_to_lowest_plane_offset[level_to_update.zpos] = plane_offset
+		z_level_to_stack[level_to_update.zpos] = z_stack
+
+	// This can be affected by offsets, so we need to update it
+	// PAIN
+	for(var/i in 1 to length(GLOB.space_manager.z_list))
+		generate_lighting_appearance_by_z(i)
+
+	var/old_max = max_plane_offset
+	max_plane_offset = max(max_plane_offset, plane_offset)
+	if(max_plane_offset == old_max)
+		return
+
+	generate_offset_lists(old_max + 1, max_plane_offset)
+	SEND_SIGNAL(src, COMSIG_PLANE_OFFSET_INCREASE, old_max, max_plane_offset)
+	// Sanity check
+	if(max_plane_offset > MAX_EXPECTED_Z_DEPTH)
+		stack_trace("We've loaded a map deeper then the max expected z depth. Preferences won't cover visually disabling all of it!")
+
+/// Takes an offset to generate misc lists to, and a base to start from
+/// Use this to react globally to maintain parity with plane offsets
+/datum/controller/subsystem/mapping/proc/generate_offset_lists(gen_from, new_offset)
+	create_plane_offsets(gen_from, new_offset)
+	for(var/offset in gen_from to new_offset)
+		GLOB.fullbright_overlays += create_fullbright_overlay(offset)
+
+/datum/controller/subsystem/mapping/proc/create_plane_offsets(gen_from, new_offset)
+	for(var/plane_offset in gen_from to new_offset)
+		for(var/atom/movable/screen/plane_master/master_type as anything in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/rendering_plate)
+			var/plane_to_use = initial(master_type.plane)
+			var/string_real = "[plane_to_use]"
+
+			var/offset_plane = GET_NEW_PLANE(plane_to_use, plane_offset)
+			var/string_plane = "[offset_plane]"
+
+			if(!initial(master_type.allows_offsetting))
+				plane_offset_blacklist[string_plane] = TRUE
+				var/render_target = initial(master_type.render_target)
+				if(!render_target)
+					render_target = get_plane_master_render_base(initial(master_type.name))
+				render_offset_blacklist[render_target] = TRUE
+				if(plane_offset != 0)
+					continue
+
+			if(initial(master_type.critical) & PLANE_CRITICAL_DISPLAY)
+				critical_planes[string_plane] = TRUE
+
+			plane_offset_to_true[string_plane] = plane_to_use
+			plane_to_offset[string_plane] = plane_offset
+
+			if(!true_to_offset_planes[string_real])
+				true_to_offset_planes[string_real] = list()
+
+			true_to_offset_planes[string_real] |= offset_plane
+
+/proc/generate_lighting_appearance_by_z(z_level)
+	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
+		GLOB.default_lighting_underlays_by_z.len = z_level
+	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

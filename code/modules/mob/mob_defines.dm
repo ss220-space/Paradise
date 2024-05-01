@@ -8,31 +8,36 @@
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
 
+	/// The current client inhabiting this mob. Managed by login/logout
+	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
+	/// We need to do this because the mob on logout never actually has a reference to client
+	/// We also need to clear this var/do other cleanup in client/Destroy, since that happens before logout
+	/// HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+	var/client/canon_client
+
 	see_in_dark = DEFAULT_SEE_IN_DARK
 
 	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
 	var/nightvision = 0
 
-	/// Contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
+	/// Contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-
-	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of mob in openspace.
 
 	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/hands = null
-	var/obj/screen/pullin = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
-	var/obj/screen/stamina_bar = null
+	var/atom/movable/screen/hands = null
+	var/atom/movable/screen/pullin = null
+	var/atom/movable/screen/i_select = null
+	var/atom/movable/screen/m_select = null
+	var/atom/movable/screen/healths = null
+	var/atom/movable/screen/throw_icon = null
+	var/atom/movable/screen/stamina_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -40,8 +45,8 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
-	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/leap_icon = null
+	var/atom/movable/screen/healthdoll/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

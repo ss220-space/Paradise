@@ -117,7 +117,7 @@ GLOBAL_VAR(bomb_set)
 		. += mutable_appearance(icon, "npanel_open")
 
 	if(!lighthack)
-		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask", src)
 
 
 /obj/machinery/nuclearbomb/process()

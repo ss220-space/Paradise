@@ -108,7 +108,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Доступная кровь"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"

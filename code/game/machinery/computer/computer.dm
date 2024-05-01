@@ -92,14 +92,14 @@
 		if(icon_screen)
 			. += "[icon_screen]"
 		if(light_on)
-			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
+			underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 	if(icon_keyboard && abductor)
 		. += "alien_key"
-		underlays += emissive_appearance(icon, "alien_key_lightmask")
+		underlays += emissive_appearance(icon, "alien_key_lightmask", src)
 	else if(icon_keyboard)
 		. += "[icon_keyboard]"
-		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
 
 /obj/machinery/computer/power_change(forced = FALSE)

@@ -67,7 +67,7 @@
 	underlays.Cut()
 
 	if(event_triggered_by || event_source)
-		underlays += emissive_appearance(icon, "auth_lightmask")
+		underlays += emissive_appearance(icon, "auth_lightmask", src)
 
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)

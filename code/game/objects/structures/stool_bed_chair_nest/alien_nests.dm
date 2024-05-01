@@ -88,7 +88,7 @@
 	for(var/mob/living/carbon/human/buckled_mob in buckled_mobs)
 		var/obj/item/clothing/mask/facehugger/hugger_mask = buckled_mob.wear_mask
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
-			buckled_mob.throw_alert(ALERT_GHOST_NEST, /obj/screen/alert/ghost)
+			buckled_mob.throw_alert(ALERT_GHOST_NEST, /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, span_ghostalert("You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest."))
 
 

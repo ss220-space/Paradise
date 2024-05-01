@@ -8,18 +8,9 @@
 	update_z(null)
 	return ..()
 
-/mob/dead/forceMove(atom/destination)
-	var/turf/old_turf = get_turf(src)
-	var/turf/new_turf = get_turf(destination)
-	if (old_turf?.z != new_turf?.z)
-		onTransitZ(old_turf?.z, new_turf?.z)
-	var/oldloc = loc
-	loc = destination
-	Moved(oldloc, NONE)
-
-/mob/dead/onTransitZ(old_z,new_z)
+/mob/dead/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 
 /mob/dead/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)

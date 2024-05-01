@@ -320,9 +320,9 @@
 	if(status != LIGHT_OK || !on)
 		return
 	if(nightshift_enabled || emergency_mode || fire_mode)
-		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
 	else
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**

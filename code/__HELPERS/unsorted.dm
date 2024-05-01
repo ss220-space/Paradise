@@ -1275,7 +1275,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	GLOB.dview_mob.loc = center
 
-	GLOB.dview_mob.see_invisible = invis_flags
+	GLOB.dview_mob.set_invis_see(invis_flags)
 
 	. = view(range, GLOB.dview_mob)
 	GLOB.dview_mob.loc = null
