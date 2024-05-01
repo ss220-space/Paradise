@@ -98,30 +98,35 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
+	var/paint = NONE
 
 /obj/item/reagent_containers/spray/cleaner/brig
-    name = "brig cleaner"
-    desc = "Blood spray to remove the blood of a handcuffed clown"
-    icon_state = "cleaner_brig"
-    item_state = "cleaner_brig"
+	name = "brig cleaner"
+	desc = "Blood spray to remove the blood of a handcuffed clown"
+	icon_state = "cleaner_brig"
+	item_state = "cleaner_brig"
+	paint = COLOR_RED
 
 /obj/item/reagent_containers/spray/cleaner/chemical
-    name = "chemical cleaner"
-    desc = "There is nothing safer than cleaning up spilled potassium with water"
-    icon_state = "cleaner_chemical"
-    item_state = "cleaner_medchem"
+	name = "chemical cleaner"
+	desc = "There is nothing safer than cleaning up spilled potassium with water"
+	icon_state = "cleaner_chemical"
+	item_state = "cleaner_medchem"
+	paint = COLOR_ORANGE
 
 /obj/item/reagent_containers/spray/cleaner/janitor
-    name = "janitorial deluxe cleaner"
-    desc = "A stylish spray for the most productive station worker!"
-    icon_state = "cleaner_janitor"
-    item_state = "cleaner_jan"
+	name = "janitorial deluxe cleaner"
+	desc = "A stylish spray for the most productive station worker!"
+	icon_state = "cleaner_janitor"
+	item_state = "cleaner_jan"
+	paint = COLOR_PURPLE
 
 /obj/item/reagent_containers/spray/cleaner/medical
-    name = "medical cleaner"
-    desc = "Disinfectant for hands, floor, and sole CMO"
-    icon_state = "cleaner_medical"
-    item_state = "cleaner_med"
+	name = "medical cleaner"
+	desc = "Disinfectant for hands, floor, and sole CMO"
+	icon_state = "cleaner_medical"
+	item_state = "cleaner_med"
+	paint = COLOR_WHITE
 
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
@@ -145,34 +150,54 @@
 			user.visible_message("<span class='warning'>[user] begins to peel off a layer of crayon off \the [X.name].</span>")
 			if(do_after(user, 10, target = user))
 				to_chat(user, span_notice("You've washed off a layer of crayon from the cleaner"))
-				item_state = /obj/item/reagent_containers/spray::item_state
-				name = /obj/item/reagent_containers/spray::name
-				desc = /obj/item/reagent_containers/spray::desc
-				icon_state = /obj/item/reagent_containers/spray::icon_state
+				paint = NONE
+				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 				return TRUE
 
 /obj/item/reagent_containers/spray/cleaner/proc/change_color(user, obj/item/toy/crayon/C)
-	switch(C.colour)
+	paint = C.colour
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/item/reagent_containers/spray/cleaner/update_name()
+	.=..()
+	switch(paint)
 		if(COLOR_PURPLE)
-			name = "janitorial deluxe cleaner"
-			desc = "A stylish spray for the most productive station worker!"
-			icon_state = "cleaner_janitor"
-			item_state = "cleaner_jan"
+			name = /obj/item/reagent_containers/spray/cleaner/janitor::name
 		if(COLOR_RED)
-			name = "brig cleaner"
-			desc = "Blood spray to remove the blood of a handcuffed clown"
-			icon_state = "cleaner_brig"
-			item_state = "cleaner_brig"
+			name = /obj/item/reagent_containers/spray/cleaner/brig::name
 		if(COLOR_WHITE)
-			name = "chemical cleaner"
-			desc = "There is nothing safer than cleaning up spilled potassium with water"
-			icon_state = "cleaner_chemical"
-			item_state = "cleaner_medchem"
+			name = /obj/item/reagent_containers/spray/cleaner/medical::name
 		if(COLOR_ORANGE)
-			name = "chemical cleaner"
-			desc = "There is nothing safer than cleaning up spilled potassium with water"
-			icon_state = "cleaner_chemical"
-			item_state = "cleaner_medchem"
+			name = /obj/item/reagent_containers/spray/cleaner/chemical::name
+		if(NONE)
+			name = /obj/item/reagent_containers/spray::name
+
+/obj/item/reagent_containers/spray/cleaner/update_desc()
+	.=..()
+	switch(paint)
+		if(COLOR_PURPLE)
+			desc = /obj/item/reagent_containers/spray/cleaner/janitor::desc
+		if(COLOR_RED)
+			desc = /obj/item/reagent_containers/spray/cleaner/brig::desc
+		if(COLOR_WHITE)
+			desc = /obj/item/reagent_containers/spray/cleaner/medical::desc
+		if(COLOR_ORANGE)
+			desc = /obj/item/reagent_containers/spray/cleaner/chemical::desc
+		if(NONE)
+			desc = /obj/item/reagent_containers/spray::desc
+
+/obj/item/reagent_containers/spray/cleaner/update_icon_state()
+	switch(paint)
+		if(COLOR_PURPLE)
+			name = /obj/item/reagent_containers/spray/cleaner/janitor::icon_state
+		if(COLOR_RED)
+			name = /obj/item/reagent_containers/spray/cleaner/brig::icon_state
+		if(COLOR_WHITE)
+			name = /obj/item/reagent_containers/spray/cleaner/medical::icon_state
+		if(COLOR_ORANGE)
+			name = /obj/item/reagent_containers/spray/cleaner/chemical::icon_state
+		if(NONE)
+			name = /obj/item/reagent_containers/spray::icon_state
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
