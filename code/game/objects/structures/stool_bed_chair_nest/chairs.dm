@@ -3,11 +3,10 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = OBJ_LAYER
+	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	resistance_flags = NONE
-	layer = BELOW_OBJ_LAYER
 	max_integrity = 250
 	integrity_failure = 25
 	buckle_offset = 0
@@ -117,7 +116,7 @@
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
-		layer = OBJ_LAYER
+		layer = initial(layer)
 
 
 /obj/structure/chair/post_buckle_mob(mob/living/M)
