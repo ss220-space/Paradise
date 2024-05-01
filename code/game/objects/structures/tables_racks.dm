@@ -320,9 +320,7 @@
 
 /// Used to determine whether the table can be flipped over.
 /obj/structure/table/proc/flip_check()
-	. = TRUE
-	if(!flipped_sprite || !deconstruction_ready)
-		. = FALSE	// It's welded to the floor or just doesn't have a sprite for flipping.
+	return flipped_sprite
 
 
 /// Used for determine the proc of subsequent flipping/unflipping.
@@ -629,6 +627,10 @@
 	if(deconstruction_ready)
 		return span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.")
 	return span_notice("The top cover is firmly <b>welded</b> on.")
+
+
+/obj/structure/table/reinforced/flip_check()
+	return ..() && deconstruction_ready
 
 
 /obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
