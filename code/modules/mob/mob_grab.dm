@@ -10,7 +10,7 @@
 /obj/item/grab
 	name = "grab"
 	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
-	var/obj/screen/grab/hud = null
+	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
 	var/state = GRAB_PASSIVE
@@ -50,7 +50,7 @@
 
 	LAZYADD(affecting.grabbed_by, src)
 
-	hud = new /obj/screen/grab(src)
+	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
 	icon_state = "grabbed"
 	hud.name = "reinforce grab"
@@ -252,7 +252,7 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/grab/proc/s_click(obj/screen/S)
+/obj/item/grab/proc/s_click(atom/movable/screen/S)
 	if(!confirm())
 		return
 	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))

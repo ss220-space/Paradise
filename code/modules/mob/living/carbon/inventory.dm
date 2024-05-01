@@ -78,7 +78,7 @@
 	if(handcuffed)
 		drop_from_hands()
 		stop_pulling()
-		throw_alert(ALERT_HANDCUFFED, /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 	else
 		clear_alert(ALERT_HANDCUFFED)
 
@@ -91,7 +91,7 @@
 /mob/living/carbon/proc/update_hands_HUD()
 	if(!hud_used)
 		return
-	for(var/obj/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
+	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
 		hand_box.update_appearance()
 
 
@@ -107,7 +107,7 @@
 /// Updates move intent, popup alert and human legcuffed overlay.
 /mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
-		throw_alert(ALERT_LEGCUFFED, /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent == MOVE_INTENT_RUN)
 			toggle_move_intent()
 

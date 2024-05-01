@@ -212,7 +212,7 @@
 	mmi = null
 	return ..()
 
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	// A copy/paste of the item action icon code
 	current_button.cut_overlays()
 	if(target)

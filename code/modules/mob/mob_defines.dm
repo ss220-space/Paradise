@@ -13,7 +13,7 @@
 	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
 	var/nightvision = 0
 
-	/// Contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
+	/// Contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 
 	var/datum/mind/mind
@@ -26,13 +26,13 @@
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/hands = null
-	var/obj/screen/pullin = null
-	var/obj/screen/i_select = null
-	var/obj/screen/m_select = null
-	var/obj/screen/healths = null
-	var/obj/screen/throw_icon = null
-	var/obj/screen/stamina_bar = null
+	var/atom/movable/screen/hands = null
+	var/atom/movable/screen/pullin = null
+	var/atom/movable/screen/i_select = null
+	var/atom/movable/screen/m_select = null
+	var/atom/movable/screen/healths = null
+	var/atom/movable/screen/throw_icon = null
+	var/atom/movable/screen/stamina_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -40,8 +40,8 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.   :resident_sleeper:
 	*/
-	var/obj/screen/leap_icon = null
-	var/obj/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/leap_icon = null
+	var/atom/movable/screen/healthdoll/healthdoll = null
 
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

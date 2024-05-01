@@ -164,7 +164,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over_object, /obj/screen))
+	if(is_screen_atom(over_object))
 		return FALSE
 
 	if(loc != user || !ishuman(user))

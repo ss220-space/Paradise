@@ -546,7 +546,7 @@
 		owner.Slur(actual_strength)
 		if(!alert_thrown)
 			alert_thrown = TRUE
-			owner.throw_alert("drunk", /obj/screen/alert/drunk)
+			owner.throw_alert("drunk", /atom/movable/screen/alert/drunk)
 			owner.sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
 	// THRESHOLD_BRAWLING (60 SECONDS)
 	if(M)
@@ -1023,7 +1023,7 @@
 
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
-	alert_type = /obj/screen/alert/status_effect/bubblegum_curse
+	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
 	duration = -1 //Kill it. There is no other option.
 	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
@@ -1035,7 +1035,7 @@
 /datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
 	. = ..()
 	source_UID = source.UID()
-	owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 1)
+	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 1)
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
@@ -1044,7 +1044,7 @@
 		return
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
-		owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
+		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 	if(!coward_checking)
 		if(owner.z != attacker.z)
 			addtimer(CALLBACK(src, PROC_REF(onstation_coward_callback)), 12 SECONDS)
@@ -1136,22 +1136,22 @@
 	playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 	addtimer(CALLBACK(attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, FindTarget), list(owner), 1), 2)
 
-/obj/screen/alert/status_effect/bubblegum_curse
+/atom/movable/screen/alert/status_effect/bubblegum_curse
 	name = "I SEE YOU"
 	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
 	icon_state = "bubblegumjumpscare"
 
-/obj/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
+/atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
 
-/obj/screen/alert/status_effect/bubblegum_curse/Destroy()
+/atom/movable/screen/alert/status_effect/bubblegum_curse/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 
-/obj/screen/alert/status_effect/bubblegum_curse/process()
+/atom/movable/screen/alert/status_effect/bubblegum_curse/process()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#ce3030", 6, 20)
 	if(new_filter)

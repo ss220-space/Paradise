@@ -12,39 +12,39 @@
 	var/inventory_shown = TRUE		//the inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
-	var/obj/screen/lingchemdisplay
-	var/obj/screen/lingstingdisplay
+	var/atom/movable/screen/lingchemdisplay
+	var/atom/movable/screen/lingstingdisplay
 
-	var/obj/screen/guardianhealthdisplay
+	var/atom/movable/screen/guardianhealthdisplay
 
-	var/obj/screen/blobpwrdisplay
-	var/obj/screen/blobhealthdisplay
-	var/obj/screen/vampire_blood_display
-	var/obj/screen/ninja_energy_display
-	var/obj/screen/ninja_focus_display
-	var/obj/screen/wind_up_timer
-	var/obj/screen/alien_plasma_display
-	var/obj/screen/nightvisionicon
-	var/obj/screen/action_intent
-	var/obj/screen/zone_select
-	var/obj/screen/move_intent
-	var/obj/screen/module_store_icon
-	var/obj/screen/combo/combo_display
+	var/atom/movable/screen/blobpwrdisplay
+	var/atom/movable/screen/blobhealthdisplay
+	var/atom/movable/screen/vampire_blood_display
+	var/atom/movable/screen/ninja_energy_display
+	var/atom/movable/screen/ninja_focus_display
+	var/atom/movable/screen/wind_up_timer
+	var/atom/movable/screen/alien_plasma_display
+	var/atom/movable/screen/nightvisionicon
+	var/atom/movable/screen/action_intent
+	var/atom/movable/screen/zone_select
+	var/atom/movable/screen/move_intent
+	var/atom/movable/screen/module_store_icon
+	var/atom/movable/screen/combo/combo_display
 
-	var/obj/screen/devil/soul_counter/devilsouldisplay
+	var/atom/movable/screen/devil/soul_counter/devilsouldisplay
 
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
-	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /obj/screen/inventory objects, ordered by their slot ID.
-	/// List of obj/screen/inventory/hand objects
+	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /atom/movable/screen/inventory objects, ordered by their slot ID.
+	/// List of atom/movable/screen/inventory/hand objects
 	var/list/hand_slots
 
-	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
+	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
-	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 
@@ -62,8 +62,8 @@
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/obj/screen/plane_master))
-		var/obj/screen/plane_master/instance = new mytype()
+	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
+		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
 
@@ -164,7 +164,7 @@
 				mymob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			for(var/obj/screen/inventory/hand/hand_box as anything in hand_slots)
+			for(var/atom/movable/screen/inventory/hand/hand_box as anything in hand_slots)
 				mymob.client.screen += hand_box	//we want the hands to be visible
 			if(action_intent)
 				mymob.client.screen += action_intent		//we want the intent switcher visible
@@ -195,7 +195,7 @@
 /datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers
 	for(var/thing in plane_masters)
-		var/obj/screen/plane_master/PM = plane_masters[thing]
+		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
 		PM.backdrop(mymob)
 		mymob.client.screen += PM
 

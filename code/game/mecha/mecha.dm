@@ -478,7 +478,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available, override = TRUE)
+			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
 			if(A)
 				A.target = possible_port
 		else
@@ -1208,7 +1208,7 @@
 
 	if(occupant)
 		occupant.clear_alert("mechaport")
-		occupant.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
+		occupant.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 
 	log_message("Connected to gas port.")
 	return TRUE
@@ -1309,7 +1309,7 @@
 		else if(!hasInternalDamage())
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
-			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		return TRUE
 	else
 		return FALSE
@@ -1540,20 +1540,20 @@
 			if(0.75 to INFINITY)
 				occupant.clear_alert("charge")
 			if(0.5 to 0.75)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
 			if(0.25 to 0.5)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
 			if(0.01 to 0.25)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					occupant << sound(lowpowersound, volume = 50)
 					power_warned = TRUE
 			else
-				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)
 	else
-		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
+		occupant.throw_alert("charge", /atom/movable/screen/alert/mech_nocell)
 
 
 //////////////////////////////////////////
