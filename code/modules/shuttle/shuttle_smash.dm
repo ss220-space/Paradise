@@ -118,7 +118,7 @@
 	return FALSE
 
 
-/obj/screen/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
+/atom/movable/screen/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
 

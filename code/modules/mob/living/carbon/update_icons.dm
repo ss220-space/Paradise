@@ -44,7 +44,7 @@
 /mob/living/carbon/proc/update_hud_handcuffed()
 	if(!hud_used)
 		return
-	for(var/obj/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
+	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
 		hand_box.update_appearance()
 
 
@@ -73,7 +73,7 @@
 
 /mob/living/carbon/update_inv_back()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
 		inv?.update_appearance()
 
 	if(back)

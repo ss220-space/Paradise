@@ -32,12 +32,12 @@ RLF
 		to_chat(user, "<span class='warning'>You offer lollipop to [receiver], but they don't seem to respond...</span>")
 		return
 	var/obj/item/I = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
-	receiver.throw_alert("take item [I.UID()]", /obj/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
+	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
 	to_chat(user, "<span class='info'>You offer lollipop to [receiver].</span>")
 
-/obj/screen/alert/take_item/RLF
+/atom/movable/screen/alert/take_item/RLF
 
-/obj/screen/alert/take_item/RLF/Click(location, control, params)
+/atom/movable/screen/alert/take_item/RLF/Click(location, control, params)
 	var/mob/living/receiver = locateUID(receiver_UID)
 	if(receiver.stat != CONSCIOUS)
 		return

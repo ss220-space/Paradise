@@ -135,7 +135,7 @@
 		player_client << 'sound/misc/announce_dig.ogg'
 		window_flash(player_client)
 
-		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			A.icon = ui_style2icon(player_client.prefs.UI_style)
 

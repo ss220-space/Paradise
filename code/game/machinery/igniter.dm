@@ -56,7 +56,7 @@
 	. = ..()
 	underlays.Cut()
 	if(on)
-		underlays += emissive_appearance(icon, "igniter_lightmask")
+		underlays += emissive_appearance(icon, "igniter_lightmask", src)
 
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()? // AA 2022-08-02 - I guess it cant go anywhere else?

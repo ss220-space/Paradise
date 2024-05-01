@@ -89,7 +89,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
 		inv?.update_appearance()
 
 	if(wear_suit)
@@ -134,7 +134,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_pockets()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
 		inv?.update_appearance()
 		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_RIGHT) + 1]
 		inv?.update_appearance()

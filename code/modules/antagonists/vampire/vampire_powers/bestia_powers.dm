@@ -1968,21 +1968,21 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
-			sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+			add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(client.eye != src)
