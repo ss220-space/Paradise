@@ -1,28 +1,108 @@
 //Defines for atom layers and planes
 //KEEP THESE IN A NICE ACSCENDING ORDER, PLEASE
 
+
+//-------------------- PLANES ---------------------
+
 //NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
 #define LOWEST_EVER_PLANE -100
 
-#define CLICKCATCHER_PLANE -99
+#define CLICKCATCHER_PLANE -80
 
-#define GRAVITY_PULSE_PLANE -96 //Needs to be behind space, otherwise it blocks space, lol
+#define GRAVITY_PULSE_PLANE -30 //Needs to be behind space, otherwise it blocks space, lol
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
-#define PLANE_SPACE -95
-#define PLANE_SPACE_PARALLAX -90
+#define PLANE_SPACE -25
+#define PLANE_SPACE_PARALLAX -20
 
-#define OPENSPACE_PLANE -9 //Openspace plane below all turfs
-#define OPENSPACE_BACKDROP_PLANE -8 //Black square just over openspace plane to guaranteed cover all in openspace turf
+#define RENDER_PLANE_TRANSPARENT -9 //Transparent plane that shows openspace underneath the floor
 
-#define FLOOR_PLANE -2
-#define FLOOR_OVERLAY_PLANE -1.5
-#define GAME_PLANE -1
-#define CINEMATIC_LAYER -1
+#define FLOOR_PLANE -8
+#define FLOOR_OVERLAY_PLANE -7.5
+
+#define GAME_PLANE -7
+
+#define RENDER_PLANE_GAME_WORLD -1
+
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
-#define AREA_PLANE 1
+#define AREA_PLANE 2
+#define MASSIVE_OBJ_PLANE 3
+#define GHOST_PLANE 4
+#define POINT_PLANE 5
 
+//---------- LIGHTING -------------
+///Normal 1 per turf dynamic lighting underlays
+#define LIGHTING_PLANE 10
+
+///Lighting objects that are "free floating"
+#define O_LIGHTING_VISUAL_PLANE 11
+#define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
+
+///Things that should render ignoring lighting
+#define ABOVE_LIGHTING_PLANE 12
+
+///Used in camerachunks to keep some turfs hidden on photo
+#define BYOND_LIGHTING_PLANE 19
+
+/// This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas.
+#define EMISSIVE_PLANE 14
+/// The render target used by the emissive.
+#define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
+
+#define RENDER_PLANE_LIGHTING 15
+
+///---------------- MISC -----------------------
+
+///Pipecrawling images
+#define PIPECRAWL_IMAGES_PLANE 20
+
+///AI Camera Static
+#define CAMERA_STATIC_PLANE 21
+
+///Anything that wants to be part of the game plane, but also wants to draw above literally everything else
+#define HIGH_GAME_PLANE 22
+
+#define FULLSCREEN_PLANE 23
+
+///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
+
+///Popup Chat Messages
+#define RUNECHAT_PLANE 30
+/// Plane for balloon text (text that fades up)
+//#define BALLOON_CHAT_PLANE 31
+
+//-------------------- HUD ---------------------
+//HUD layer defines
+#define HUD_PLANE 40
+#define ABOVE_HUD_PLANE 41
+
+///Plane of the "splash" icon used that shows on the lobby screen. only render plate planes should be above this
+#define SPLASHSCREEN_PLANE 50
+
+/// Buildmode HUD that in top-left corner
+#define HUD_PLANE_BUILDMODE 40
+
+/// Debug View. This should always be on top. No exceptions.
+#define HUD_PLANE_DEBUGVIEW 50
+
+//-------------------- Rendering ---------------------
+#define RENDER_PLANE_GAME 100
+#define RENDER_PLANE_NON_GAME 101
+#define RENDER_PLANE_MASTER 102
+
+// NOTE! You can only ever have planes greater then -10000, if you add too many with large offsets you will brick multiz
+// Same can be said for large multiz maps. Tread carefully mappers
+#define HIGHEST_EVER_PLANE RENDER_PLANE_MASTER
+/// The range unique planes can be in
+#define PLANE_RANGE (HIGHEST_EVER_PLANE - LOWEST_EVER_PLANE)
+
+///Plane master controller keys
+#define PLANE_MASTERS_GAME "plane_masters_game"
+
+//-------------------- LAYERS ---------------------
+
+#define CINEMATIC_LAYER -1
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
 /// Which layer turfs appear on by default in the map editor. Should be unique!
@@ -104,41 +184,16 @@
 #define HIGH_LANDMARK_LAYER 9.2
 #define AREA_LAYER 10
 #define MASSIVE_OBJ_LAYER 11
-
-/// This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas.
-#define EMISSIVE_PLANE 13
-/// The render target used by the emissive.
-#define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
-
-#define POINT_PLANE 14
 #define POINT_LAYER 12
-
 #define CHAT_LAYER 12.0001 // Do not insert layers between these two values
 #define CHAT_LAYER_MAX 12.9999
-
-#define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
-
-
-///Lighting objects that are "free floating"
-#define O_LIGHTING_VISUAL_PLANE 16
-#define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
-
-#define ABOVE_LIGHTING_PLANE 17
 #define ABOVE_LIGHTING_LAYER 17
-
-//#define FLOOR_OPENSPACE_PLANE 18 .See above OPENSPACE_PLANE
-#define OPENSPACE_LAYER 18 //Openspace layer over all
-
-#define BYOND_LIGHTING_PLANE 19
 #define BYOND_LIGHTING_LAYER 19
-
-#define CAMERA_STATIC_PLANE 20
 #define CAMERA_STATIC_LAYER 20
 
 //HUD layer defines
 
-#define FULLSCREEN_PLANE 30
 #define FLASH_LAYER 30
 #define FULLSCREEN_LAYER 30.1
 #define UI_DAMAGE_LAYER 30.2
@@ -146,40 +201,9 @@
 #define CRIT_LAYER 30.4
 #define CURSE_LAYER 30.5
 
-#define HUD_PLANE 31
 #define HUD_LAYER 31
-#define ABOVE_HUD_PLANE 32
 #define ABOVE_HUD_LAYER 32
 
 #define SPLASHSCREEN_LAYER 33
-#define SPLASHSCREEN_PLANE 33
 
-#define HUD_PLANE_BUILDMODE 40
-
-// This should always be on top. No exceptions.
-#define HUD_PLANE_DEBUGVIEW 50
-
-///Plane master controller keys
-#define PLANE_MASTERS_GAME "plane_masters_game"
-
-// The largest plane here must still be less than RENDER_PLANE_GAME
-
-//-------------------- Rendering ---------------------
-#define RENDER_PLANE_GAME 100
-#define RENDER_PLANE_NON_GAME 101
-
-// Only VERY special planes should be here, as they are above not just the game, but the UI planes as well.
-
-/// Plane related to the menu when pressing Escape.
-/// Needed so that we can apply a blur effect to EVERYTHING, and guarantee we are above all UI.
-#define ESCAPE_MENU_PLANE 105
-
-#define RENDER_PLANE_MASTER 110
-
-// Lummox I swear to god I will find you
-// NOTE! You can only ever have planes greater then -10000, if you add too many with large offsets you will brick multiz
-// Same can be said for large multiz maps. Tread carefully mappers
-#define HIGHEST_EVER_PLANE RENDER_PLANE_MASTER
-/// The range unique planes can be in
-#define PLANE_RANGE (HIGHEST_EVER_PLANE - LOWEST_EVER_PLANE)
-
+#define OPENSPACE_LAYER 600 //Openspace layer over all
