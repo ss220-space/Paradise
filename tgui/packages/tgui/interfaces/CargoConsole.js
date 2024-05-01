@@ -6,6 +6,7 @@ import { Button, LabeledList, Box, AnimatedNumber, Section, Dropdown, Input, Tab
 import { Window } from "../layouts";
 import { LabeledListItem } from "../components/LabeledList";
 import { createSearch, toTitleCase } from 'common/string';
+import { String } from 'core-js';
 
 export const CargoConsole = (props, context) => {
   return (
@@ -195,6 +196,8 @@ const CataloguePane = (_properties, context) => {
                     crate: c.ref,
                     multiple: 0,
                   })}
+                  tooltipPosition="left"
+                  tooltip={c.required_tech}
                 />
                 <Button
                   content="Order Multiple"

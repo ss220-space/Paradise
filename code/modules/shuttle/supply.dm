@@ -449,7 +449,7 @@
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		var/has_sale = pack.cost < initial(pack.cost)
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "creditsCost" = pack.credits_cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group, "has_sale" = has_sale, "required_tech" = pack.get_technologies_string())))
 
 	data["supply_packs"] = packs_list
 

@@ -67,6 +67,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 	var/list/required_tech
 
+	///Cached string for tooltips
+	var/tech_string
 
 /datum/supply_packs/New()
 	manifest += "<ul>"
@@ -77,6 +79,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		// Add the name to the UI manifest
 		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
+
+/datum/supply_packs/proc/get_technologies_string()
+	if(!tech_string)
+		tech_string = ""
+		for(var/tech_id in required_tech)
+			tech_string += "[CallTechName(tech_id)]: [required_tech[tech_id]]; "
+
+	return tech_string
 
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points < cost)
