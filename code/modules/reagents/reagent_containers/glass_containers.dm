@@ -33,7 +33,7 @@
 		return ..()
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	if(istype(M))
@@ -43,31 +43,39 @@
 		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
-			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
-							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+			M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
+							span_userdanger("[user] splashes the contents of [src] onto [M]!"))
 			add_attack_logs(user, M, "Splashed with [name] containing [contained]")
 
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
 			if(!iscarbon(M)) // Non-carbons can't process reagents
-				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+				to_chat(user, span_warning("You cannot find a way to feed [M]."))
 				return
-			if(M != user)
-				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
-							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
-				if(!do_mob(user, M))
+			var/mob/living/carbon/ctarget = M
+			if(!get_location_accessible(ctarget, BODY_ZONE_PRECISE_MOUTH))
+				if(ctarget == user)
+					to_chat(user, span_warning("Your face is obscured"))
+				else
+					to_chat(user, span_warning("[ctarget]'s face is obscured."))
+				return FALSE
+			if(ctarget != user)
+				ctarget.visible_message(span_danger("[user] attempts to feed something to [ctarget]."), \
+							span_userdanger("[user] attempts to feed something to you."))
+				if(!do_mob(user, ctarget))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(user, M, "Fed with [name] containing [contained]")
+				ctarget.visible_message(span_danger("[user] feeds something to [ctarget]."), \
+								span_userdanger("[user] feeds something to you."))
+				add_attack_logs(user, ctarget, "Fed with [name] containing [contained]")
 			else
-				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+				to_chat(user, span_notice("You swallow a gulp of [src]."))
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), ctarget, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
