@@ -206,6 +206,8 @@ const CataloguePane = (_properties, context) => {
                     crate: c.ref,
                     multiple: 1,
                   })}
+                  tooltipPosition="left"
+                  tooltip={c.required_tech}
                 />
                 <Button
                   content="View Contents"
