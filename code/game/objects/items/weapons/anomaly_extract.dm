@@ -100,12 +100,8 @@
 
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
-	for(var/obj/item/I in user)
-		if(istype(I, /obj/item/implant))
-			var/obj/item/implant/I_implant = I
-			if(I_implant.implanted)
-				continue
-		user.drop_item_ground(I, force = TRUE)
+	for(var/obj/item/thing as anything in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		user.drop_item_ground(thing, force = TRUE)
 
 	user.underwear = "Nude"
 	user.undershirt = "Nude"
