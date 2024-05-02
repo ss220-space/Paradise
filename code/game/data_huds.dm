@@ -216,7 +216,7 @@
 			holder.icon_state = "huddead"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
-	else if(B && B.controlling)
+	else if(B && B.controlling && !B.sneaking)
 		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
