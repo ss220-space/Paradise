@@ -50,7 +50,7 @@
   */
 /obj/item/rcs/attack_self(mob/user)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
+		user.balloon_alert(user, "<span class='warning'>Error: [name] is in use.</span>")
 		return
 
 	var/list/L = list() // List of avaliable telepads
@@ -100,34 +100,34 @@
 
 	return locate(rand_x, rand_y, Z)
 
-/obj/item/rcs/emag_act(user)
+/obj/item/rcs/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
 		if(user)
-			to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+			user.balloon_alert(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
 		return
 
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
+		user.balloon_alert(user, "<span class='warning'>You're already using [src]!</span>")
 		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
+		C.balloon_alert(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
 		return FALSE
 	if(rcell.charge < chargecost)
-		to_chat(user, "<span class='warning'>Unable to teleport, insufficient charge.</span>")
+		user.balloon_alert(user, "<span class='warning'>Insufficient charge.</span>")
 		return FALSE
 	if(!pad)
-		to_chat(user, "<span class='warning'>Error: No telepad selected.</span>")
+		user.balloon_alert(user, "<span class='warning'>Error: No telepad selected.</span>")
 		return FALSE
 	if(!is_level_reachable(C.z))
-		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
+		user.balloon_alert(user, "<span class='warning'>Warning: No telepads in range!</span>")
 		return FALSE
 	if(C.anchored)
-		to_chat(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
+		user.balloon_alert(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
 		return FALSE
 
 	teleport(user, C, pad)
@@ -135,7 +135,7 @@
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
+	user.balloon_alert(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
@@ -146,4 +146,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	user..balloon_alert(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
