@@ -52,8 +52,7 @@
 
 	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
 		if(H)
-			var/obj/item/organ/external/head/head_organ = FALSE
-			head_organ = H.get_organ(BODY_ZONE_HEAD)
+			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 			if(head_organ?.h_style)
 				return head_organ.h_style
 		else
