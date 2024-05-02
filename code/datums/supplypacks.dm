@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure
 	containername = "space suit crate"
-	access = ACCESS_EVA
+
 
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Scrubber Crate"
@@ -316,6 +316,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_SECURITY
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 
+/datum/supply_packs/security/hardsuit
+	name = "Security Hardsuit Crate"
+	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/security,
+					/obj/item/clothing/head/helmet/space/hardsuit/security,
+					/obj/item/clothing/mask/gas/sechailer,
+					/obj/item/clothing/mask/gas/sechailer)
+	cost = 180
+	containertype = /obj/structure/closet/crate/secure/gear
+	required_tech = list("toxins" = 6, "combat" = 6)
+	containername = "Security Hardsuit Crate"
+	access = ACCESS_SECURITY
 
 /datum/supply_packs/security/supplies
 	name = "Security Supplies Crate"
@@ -787,6 +798,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 	containertype = /obj/structure/closet/crate/engineering
 
+/datum/supply_packs/engineering/hardsuit
+	name = "Engineering Hardsuit Crate"
+	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/engine,
+					/obj/item/clothing/head/helmet/space/hardsuit/engine,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/engineering
+	required_tech = list("toxins" = 5, "engineering" = 4)
+	containername = "Engineering Hardsuit Crate"
+	access = ACCESS_CE
+
+/datum/supply_packs/engineering/hardsuit/atmospherics
+	name = "Atmospherics Hardsuit Crate"
+	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/engine/atmos,
+					/obj/item/clothing/head/helmet/space/hardsuit/engine/atmos,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/engineering
+	required_tech = list("toxins" = 6, "plasma" = 4)
+	containername = "Engineering Hardsuit Crate"
+	access = ACCESS_CE
 
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
@@ -1192,6 +1226,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
+
+/datum/supply_packs/medical/hardsuit
+	name = "Medical Hardsuit Crate"
+	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/medical,
+					/obj/item/clothing/head/helmet/space/hardsuit/medical,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/secure
+	required_tech = list("toxins" = 4, "biotech" = 4)
+	containername = "Medical Hardsuit Crate"
+	access = ACCESS_MEDICAL
 
 
 /datum/supply_packs/medical/supplies
@@ -2730,7 +2776,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/tank/jetpack/suit,
 					/obj/item/tank/jetpack/suit
 					)
-	cost = 180
+	cost = 80
+	required_tech = list("toxins" = 7)
 	containername = "Jetpack upgrade crate"
 
 /datum/supply_packs/misc/crematorium
