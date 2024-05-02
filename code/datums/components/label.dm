@@ -60,7 +60,7 @@
 
 	remove_label()
 	playsound(parent, 'sound/items/poster_ripped.ogg', 20, TRUE)
-	to_chat(user, "<span class='warning'>You remove the label from [parent].</span>")
+	user.balloon_alert(user, "<span class='warning'>You remove the label from [parent].</span>")
 	qdel(src) // Remove the component from the object.
 
 /**

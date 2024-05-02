@@ -55,7 +55,7 @@
 
 		if(do_after(usr, 50, target = usr))
 			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-				to_chat(owner, span_notice("Место уже занято!"))
+				owner.balloon_alert(owner, span_notice("Место уже занято!"))
 				return
 			host.adjustWax(-50)
 			host.visible_message(span_alert("[host] выделяет кучу воска и формирует из неё [choice]!"))
@@ -66,7 +66,7 @@
 					new /obj/structure/wryn/wax/window(host.loc)
 
 	else
-		to_chat(owner, span_notice("Не хватает воска!"))
+		owner.balloon_alert(owner, span_notice("Не хватает воска!"))
 
 	return
 
@@ -81,13 +81,13 @@
 	if(host.getWax() >= 25)
 		if(do_after(usr, 10, target = usr))
 			if(locate(/obj/structure/wryn/floor) in get_turf(owner))
-				to_chat(owner, span_notice("Пол здесь уже готов."))
+				owner.balloon_alert(owner, span_notice("Пол здесь уже готов."))
 				return
 			host.adjustWax(-25)
 			host.visible_message(span_alert("[owner] выделяет кучу воска и формирует из неё пол!"))
 			new /obj/structure/wryn/floor(owner.loc)
 	else
-		to_chat(owner, span_notice("Не хватает воска!"))
+		owner.balloon_alert(owner, span_notice("Не хватает воска!"))
 	return
 
 /datum/action/innate/toggle_producing

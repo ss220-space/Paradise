@@ -181,13 +181,13 @@
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else
-				to_chat(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
+				balloon_alert(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
 
 		// Set network ID
 		if("network_id")
 			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
+			balloon_alert(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
 
 		// Only do these hrefs if we are linked to prevent bugs/exploits

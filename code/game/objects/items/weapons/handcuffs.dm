@@ -32,15 +32,15 @@
 		return
 
 	if(HAS_TRAIT(src, TRAIT_NODROP) && !isrobot(user))
-		to_chat(user, span_warning("[src] is stuck to your hand!"))
+		user.balloon_alert(user, span_warning("[src] is stuck to your hand!"))
 		return
 
 	if(!C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
-		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
+		user.balloon_alert(user, span_warning("How do you suggest handcuffing someone with no hands?"))
 		return
 
 	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
-		to_chat(user, span_warning("Uh... how do those things work?!"))
+		user.balloon_alert(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
 		return
 
@@ -54,7 +54,7 @@
 		else
 			apply_cuffs(C, user)
 	else
-		to_chat(user, span_warning("You fail to handcuff [C]."))
+		user.balloon_alert(user, span_warning("You fail to handcuff [C]."))
 
 
 /**
@@ -171,16 +171,16 @@
 			if(!remove_item_from_storage(user))
 				user.temporarily_remove_item_from_inventory(src)
 			user.put_in_hands(W, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
+			user.balloon_alert(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
+			user.balloon_alert(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
 	else if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
 		if(M.get_amount() < 6)
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
-		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		user.balloon_alert(user, "<span class='notice'>begin to apply [I] to [src]...</span>")
 		if(do_after(user, 35 * M.toolspeed * gettoolspeedmod(user), target = src) && M.use(6))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(drop_location())
 			user.put_in_hands(S, ignore_anim = FALSE)
