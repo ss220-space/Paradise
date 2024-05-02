@@ -57,15 +57,15 @@
 	if(harderforce)
 		return ..()
 
-/atom/movable/lighting_object/Crossed(atom/movable/AM, oldloc)
+/atom/movable/emissive_blocker/Crossed(atom/movable/AM, oldloc)
 	return
 
-/atom/movable/lighting_object/Uncrossed(atom/movable/AM)
+/atom/movable/emissive_blocker/Uncrossed(atom/movable/AM)
 	return
 
-/atom/movable/lighting_object/Bump(atom/A, yes)
+/atom/movable/emissive_blocker/Bump(atom/A, yes)
 	return
 
-/atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/atom/movable/emissive_blocker/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	return
 
