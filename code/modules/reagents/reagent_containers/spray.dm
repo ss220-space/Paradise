@@ -152,11 +152,15 @@
 				to_chat(user, span_notice("You've washed off a layer of crayon from the cleaner"))
 				paint = NONE
 				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+				update_item_state()
 				return TRUE
 
 /obj/item/reagent_containers/spray/cleaner/proc/change_color(user, obj/item/toy/crayon/C)
 	paint = C.colour
-	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+	update_name()
+	update_desc()
+	update_icon_state()
+	update_item_state()
 
 /obj/item/reagent_containers/spray/cleaner/update_name()
 	.=..()
@@ -189,15 +193,28 @@
 /obj/item/reagent_containers/spray/cleaner/update_icon_state()
 	switch(paint)
 		if(COLOR_PURPLE)
-			name = /obj/item/reagent_containers/spray/cleaner/janitor::icon_state
+			icon_state = /obj/item/reagent_containers/spray/cleaner/janitor::icon_state
 		if(COLOR_RED)
-			name = /obj/item/reagent_containers/spray/cleaner/brig::icon_state
+			icon_state = /obj/item/reagent_containers/spray/cleaner/brig::icon_state
 		if(COLOR_WHITE)
-			name = /obj/item/reagent_containers/spray/cleaner/medical::icon_state
+			icon_state = /obj/item/reagent_containers/spray/cleaner/medical::icon_state
 		if(COLOR_ORANGE)
-			name = /obj/item/reagent_containers/spray/cleaner/chemical::icon_state
+			icon_state = /obj/item/reagent_containers/spray/cleaner/chemical::icon_state
 		if(NONE)
-			name = /obj/item/reagent_containers/spray::icon_state
+			icon_state = /obj/item/reagent_containers/spray::icon_state
+
+/obj/item/reagent_containers/spray/cleaner/proc/update_item_state()
+	switch(paint)
+		if(COLOR_PURPLE)
+			item_state = /obj/item/reagent_containers/spray/cleaner/janitor::item_state
+		if(COLOR_RED)
+			item_state = /obj/item/reagent_containers/spray/cleaner/brig::item_state
+		if(COLOR_WHITE)
+			item_state = /obj/item/reagent_containers/spray/cleaner/medical::item_state
+		if(COLOR_ORANGE)
+			item_state = /obj/item/reagent_containers/spray/cleaner/chemical::item_state
+		if(NONE)
+			item_state = /obj/item/reagent_containers/spray::item_state
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
