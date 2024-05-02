@@ -115,7 +115,7 @@
 		user.balloon_alert(user, "<span class='warning'>You're already using [src]!</span>")
 		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		C.balloon_alert(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
+		C.balloon_alert(user, "<span class='warning'>Error: User located in container.</span>")
 		return FALSE
 	if(rcell.charge < chargecost)
 		user.balloon_alert(user, "<span class='warning'>Insufficient charge.</span>")
@@ -127,7 +127,7 @@
 		user.balloon_alert(user, "<span class='warning'>Warning: No telepads in range!</span>")
 		return FALSE
 	if(C.anchored)
-		user.balloon_alert(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
+		user.balloon_alert(user, "<span class ='warning'>Error: [C.name] is anchored!</span>")
 		return FALSE
 
 	teleport(user, C, pad)
