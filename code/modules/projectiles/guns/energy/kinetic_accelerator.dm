@@ -202,7 +202,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	else if(isliving(loc))
-		balloon_alert(user, "charges up")
+		balloon_alert(loc, "charges up")
 	update_icon()
 	overheat = FALSE
 

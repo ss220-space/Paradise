@@ -68,7 +68,7 @@
 /datum/component/combo_attacks/proc/reset_inputs(mob/user, deltimer)
 	input_list.Cut()
 	if(user)
-		atom_parent.balloon_alert(user, reset_message)
+		user.balloon_alert(user, reset_message)
 	if(deltimer && timerid)
 		deltimer(timerid)
 

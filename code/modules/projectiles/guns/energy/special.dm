@@ -167,22 +167,22 @@
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			balloon_alert(user, "already charged!")
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		balloon_alert(user, "[A] inserted")
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			balloon_alert(user, "already charged!")
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		balloon_alert(user, "[A] inserted")
 	else
 		return ..()
 
@@ -383,12 +383,12 @@
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			to_chat(user, "<span class='notice'>В [src] уже инкрустирован БС кристалл.</span>")
+			balloon_alert(user, "[O] already installed!")
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
 			return
-		to_chat(user, "<span class='notice'>Вы загрузили [O] в [src].</span>")
+		balloon_alert(user, "inserted [O]")
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -396,9 +396,9 @@
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(has_core)
-			to_chat(user, "<span class='notice'>[src] уже имеет [O]!</span>")
+			balloon_alert(user, "[O] already installed!")
 			return
-		to_chat(user, "<span class='notice'>Вы вставили [O] в [src], и [src] начинает разогреваться.</span>")
+		balloon_alert(user, "inserted [O]")
 		has_core = TRUE
 		qdel(O)
 		update_icon(UPDATE_ICON_STATE)
@@ -407,10 +407,10 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		to_chat(user, "<span class='warning'>[src] не имеет БС кристалла для генерации заряда!</span>")
+		balloon_alert(user, "there is no bluespace crystal!")
 		return
 	if(!has_core)
-		to_chat(user, "<span class='warning'>[src] не имеет аномалии потока для генерации заряда!</span>")
+		balloon_alert(user, "there is no flux core!")
 		return
 	return ..()
 

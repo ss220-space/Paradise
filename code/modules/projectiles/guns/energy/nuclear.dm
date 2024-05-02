@@ -64,7 +64,7 @@
 /obj/item/gun/energy/gun/blueshield/can_shoot()
 	. = ..()
 	if(. && !isertmindshielded(usr))
-		balloon_alert(user, "You don't have ERT mindshield!")
+		balloon_alert(usr, "You don't have ERT mindshield!")
 		return FALSE
 	return .
 
@@ -83,7 +83,7 @@
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot()
 	. = ..()
 	if(. && !isertmindshielded(usr))
-		balloon_alert(user, "You don't have ERT mindshield!")
+		balloon_alert(usr, "You don't have ERT mindshield!")
 		return FALSE
 	return .
 

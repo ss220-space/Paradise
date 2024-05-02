@@ -99,7 +99,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		to_chat(user, span_warning("You can't draw [src] without a bolt nocked."))
+		balloon_alert(user, "There is no bolt to draw!")
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
@@ -119,22 +119,22 @@
 		return ..()
 
 	if(cell)
-		to_chat(user, span_notice("[src] already has a cell installed."))
+		balloon_alert(user, "cell already installed")
 		return
 
 	user.drop_transfer_item_to_loc(I, src)
 	cell = I
-	to_chat(user, span_notice("You jam [cell] into [src] and wire it to the firing coil."))
+	balloon_alert(user, "cell installed")
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		to_chat(user, span_notice("[src] doesn't have a cell installed."))
+		balloon_alert(user, "there is no cell")
 		return
 
 	cell.forceMove(get_turf(src))
-	to_chat(user, span_notice("You jimmy [cell] out of [src] with [I]."))
+	balloon_alert(user, "cell removed")
 	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
@@ -262,7 +262,7 @@
 	overlay_prefix = "flame"
 	w_class = WEIGHT_CLASS_SMALL
 	if(user)
-		to_chat(user, span_warning("You fire up a rod!"))
+		balloon_alert(user, "rod fired up!")
 	flamed = TRUE
 	addtimer(CALLBACK(src, PROC_REF(fire_down)), fire_duration)
 

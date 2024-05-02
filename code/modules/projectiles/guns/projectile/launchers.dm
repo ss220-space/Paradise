@@ -130,9 +130,9 @@
 		user.put_in_hands(CB)
 		num_unloaded++
 	if(num_unloaded)
-		baloon_alert(user, "unloaded [CB]")
+		balloon_alert(user, "unloaded [CB]")
 	else
-		baloon_alert(user, "It's empty")
+		balloon_alert(user, "It's empty")
 	update_icon()
 	return
 

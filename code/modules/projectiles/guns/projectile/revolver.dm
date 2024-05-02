@@ -393,7 +393,7 @@
 	if(!magazine || !barrel)
 		balloon_alert(user, "Attach cylinder and barrel first")
 	else
-		balloon_alert(user, "you [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine]")
+		balloon_alert(user, "you [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine]"]")
 		unscrewed = !unscrewed
 		update_icon(UPDATE_OVERLAYS)
 
