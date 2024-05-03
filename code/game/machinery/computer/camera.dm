@@ -69,6 +69,11 @@
 		ui = new(user, src, "CameraConsole", name)
 		ui.open()
 
+/obj/machinery/computer/security/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/nanomaps)
+	)
+
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
 	cam_screen.hide_from(user)

@@ -1,29 +1,41 @@
-$color-background: rgba(0, 0, 0, 0.33) !default;
+@use '../base.scss';
+
+$background-color: rgba(0, 0, 0, 0.33) !default;
 
 .CameraConsole__left {
   position: absolute;
   top: 23px;
   bottom: 0;
   left: 0;
-  width: 220px;
+  width: base.em(700px);
 }
 
 .CameraConsole__right {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 220px;
+  left: base.em(700px);
   right: 0;
-  background-color: $color-background;
+  background-color: $background-color;
 }
 
-.CameraConsole__new__right {
-  position: relative;
-  display: flex;
-  flex: 1;
-  height: 90%;
-  flex-direction: column;
-  background-color: $color-background;
+.CameraConsole__toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2em;
+  line-height: 2em;
+  margin: 0.25em 1em 0;
+}
+
+.CameraConsole__toolbarRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2em;
+  line-height: 2em;
+  margin: 0.33em 0.5em 0;
 }
 
 .CameraConsole__header {
@@ -35,11 +47,15 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
 }
 
 .CameraConsole__map {
-  display: flex;
-  overflow: hidden;
-  background-color: #00a;
+  position: absolute;
+  top: base.em(26px);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0.5em;
+  text-align: center;
 
   .NoticeBox {
-    margin-top: calc(50% - 24px);
+    margin-top: calc(50% - 2em);
   }
 }

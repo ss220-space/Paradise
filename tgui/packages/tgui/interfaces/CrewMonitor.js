@@ -51,7 +51,7 @@ export const CrewMonitor = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={800} height={600}>
       <Window.Content>
         <Box fillPositionedParent>
           <Tabs>
@@ -247,7 +247,7 @@ const CrewMonitorMapView = (_properties, context) => {
   };
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap onZoom={v => setZoom(v)} zLevels={stationLevelNum} zNames={stationLevelName} z_current={z_current} setZCurrent={setZCurrent}>
+      <NanoMap onZoom={(v) => setZoom(v)} zLevels={stationLevelNum} zNames={stationLevelName} z_current={z_current} setZCurrent={setZCurrent}>
         {data.crewmembers.filter(x => x.sensor_type === 3).map(cm => (
           <NanoMap.Marker
             key={cm.ref}
