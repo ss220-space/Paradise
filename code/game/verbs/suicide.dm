@@ -38,14 +38,21 @@
 		if(!forced && isAntag(src))
 			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
 			if(confirm == "Yes")
-				suiciding = TRUE
 				do_suicide()
+				if(stat == DEAD)
+					suiciding = TRUE
 				create_log(ATTACK_LOG, "Attempted suicide as special role")
 				message_admins("[src] with a special role attempted suicide at [ADMIN_JMP(src)]")
 				return
 			return
+			
 		suiciding = TRUE
 		do_suicide()
+		if(stat != DEAD)
+			to_chat(src, "You're somehow alive after suicide.")
+			suiciding = FALSE
+		
+		
 		create_log(ATTACK_LOG, "Attempted suicide")
 
 
