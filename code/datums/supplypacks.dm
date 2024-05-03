@@ -304,6 +304,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/reagent_containers/hypospray/CMO/empty)
 	required_tech = list("materials" = 7, "biotech" = 8)
 
+/datum/supply_packs/emergency/jetpack
+	name = "Jetpack Crate"
+	contains = list(
+					/obj/item/tank/jetpack,
+					/obj/item/tank/jetpack,
+					/obj/item/tank/jetpack
+					)
+	cost = 30
+	required_tech = list("toxins" = 3)
+	containername = "Jetpack crate"
+
+/datum/supply_packs/emergency/jetpack_upgrade
+	name = "Jetpack Upgrade Crate"
+	contains = list(
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit
+					)
+	cost = 80
+	required_tech = list("toxins" = 7)
+	containername = "Jetpack upgrade crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
@@ -808,7 +829,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/engineering
 	required_tech = list("toxins" = 5, "engineering" = 4)
 	containername = "Engineering Hardsuit Crate"
-	access = ACCESS_CE
+	access = ACCESS_ENGINE_EQUIP
 
 /datum/supply_packs/engineering/hardsuit/atmospherics
 	name = "Atmospherics Hardsuit Crate"
@@ -820,7 +841,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/engineering
 	required_tech = list("toxins" = 6, "plasma" = 4)
 	containername = "Engineering Hardsuit Crate"
-	access = ACCESS_CE
+	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
@@ -2769,16 +2790,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	special = TRUE
 
-/datum/supply_packs/misc/jetpack_upgrade
-	name = "Jetpack Upgrade Crate"
-	contains = list(
-					/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit
-					)
-	cost = 80
-	required_tech = list("toxins" = 7)
-	containername = "Jetpack upgrade crate"
 
 /datum/supply_packs/misc/crematorium
 	name = "Crematorium Parts"
