@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	if((!OldLoc || !OldLoc.has_gravity()) && has_gravity())
-		thunk()
+	//if((!OldLoc || !OldLoc.has_gravity()) && has_gravity()) //Temporary disable stun when gravity change
+	//	thunk()
 
 
 /mob/living/carbon/human/get_movespeed_modifiers()

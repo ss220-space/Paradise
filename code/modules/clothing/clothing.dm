@@ -981,19 +981,25 @@ BLIND     // can't see anything
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+	if(!ishuman(usr))
+		return
+	var/mob/living/carbon/human/owner = usr
+	if(owner.stat != CONSCIOUS)
+		return
 
-	if(!usr.incapacitated())
+	if(!owner.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states(onmob_sheets[ITEM_SLOT_CLOTH_INNER]))
+		var/icon/file = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
+		if(sprite_sheets && sprite_sheets[owner.dna.species.name])
+			file = sprite_sheets[owner.dna.species.name]
+		if((basecolor + "_d_s") in icon_states(file))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-			usr.update_inv_w_uniform()
+			owner.update_inv_w_uniform()
 		else
-			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+			to_chat(owner, "<span class='notice'>You cannot roll down this uniform!</span>")
 	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(owner, "<span class='notice'>You cannot roll down the uniform!</span>")
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
