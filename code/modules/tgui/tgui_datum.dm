@@ -232,7 +232,7 @@
 			"name" = "[user]",
 			"observer" = isobserver(user),
 		),
-		"map" = SSmapping.map_datum.station_short,
+		"map" = SSmapping.map_datum.name,
 		"ref" = "[src.UID()]"
 	)
 	var/data = custom_data || with_data && src_object.ui_data(user)

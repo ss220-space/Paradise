@@ -7,16 +7,14 @@ export const AtmosAlertConsole = (props, context) => {
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];
   return (
-    <Window resizable>
+    <Window width={350} height={300}>
       <Window.Content scrollable>
         <Section title="Alarms">
           <ul>
             {priorityAlerts.length === 0 && (
-              <li className="color-good">
-                No Priority Alerts
-              </li>
+              <li className="color-good">No Priority Alerts</li>
             )}
-            {priorityAlerts.map(alert => (
+            {priorityAlerts.map((alert) => (
               <li key={alert}>
                 <Button
                   icon="times"
@@ -26,11 +24,9 @@ export const AtmosAlertConsole = (props, context) => {
               </li>
             ))}
             {minorAlerts.length === 0 && (
-              <li className="color-good">
-                No Minor Alerts
-              </li>
+              <li className="color-good">No Minor Alerts</li>
             )}
-            {minorAlerts.map(alert => (
+            {minorAlerts.map((alert) => (
               <li key={alert}>
                 <Button
                   icon="times"
