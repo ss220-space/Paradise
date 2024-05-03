@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import { Box, Icon, Tooltip } from '.';
+import { Box, Icon, Tooltip, Dropdown } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
@@ -90,6 +90,10 @@ export class NanoMap extends Component {
         return state;
       });
     };
+
+    this.handleZChange = (value) => {
+      props.setZCurrent(value);
+    }
   }
 
   render() {
@@ -97,7 +101,7 @@ export class NanoMap extends Component {
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
-    const mapUrl = config.map + '_nanomap_z1.png';
+    const mapUrl = config.map + "_nanomap_z" + (this.props.zLevels.indexOf(this.props.z_current) + 1) + ".png";
     const mapSize = 510 * zoom + 'px';
     const newStyle = {
       width: mapSize,
@@ -129,13 +133,17 @@ export class NanoMap extends Component {
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
+        <NanoMapZLeveler z_current={this.props.z_current} z_levels={this.props.zLevels} z_names={this.props.zNames} onZChange={this.handleZChange}/>
       </Box>
     );
   }
 }
 
 const NanoMapMarker = (props, context) => {
-  const { x, y, zoom = 1, icon, tooltip, color } = props;
+  const { x, y, z, z_current, zoom = 1, icon, tooltip, color, onClick } = props;
+  if (z_current !== z) {
+    return null;
+  }
   const rx = x * 2 * zoom - zoom - 3;
   const ry = y * 2 * zoom - zoom - 3;
   return (
@@ -147,6 +155,7 @@ const NanoMapMarker = (props, context) => {
           lineHeight="0"
           bottom={ry + 'px'}
           left={rx + 'px'}
+          onClick={onClick}
         >
           <Icon name={icon} color={color} fontSize="6px" />
         </Box>
@@ -177,3 +186,23 @@ const NanoMapZoomer = (props, context) => {
 };
 
 NanoMap.Zoomer = NanoMapZoomer;
+
+const NanoMapZLeveler = props => {
+  if(props.z_levels.length === 1){
+    return
+  } else {
+    return (
+      <Box className="NanoMap__zlevel">
+        <LabeledList>
+          <LabeledList.Item label="Z-level">
+            <Dropdown width="100%"
+                selected={props.z_names[props.z_levels.indexOf(props.z_current)]}
+                options={props.z_names}
+                onSelected={value => props.onZChange(props.z_levels[props.z_names.indexOf(value)])}
+            />
+          </LabeledList.Item>
+        </LabeledList>
+      </Box>
+    );
+  }
+};
