@@ -302,7 +302,7 @@
 	. = 1
 	while(world.time < endtime)
 		sleep(1)
-		if(progress)
+		if(progress && !QDELETED(progbar))
 			progbar.update(world.time - starttime)
 		if(!user || !target)
 			. = 0
@@ -373,7 +373,7 @@
 
 	while(world.time < endtime)
 		sleep(1)
-		if(progress)
+		if(progress && !QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
