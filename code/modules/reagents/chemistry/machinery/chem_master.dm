@@ -375,7 +375,7 @@
 				if("change_pill_style")
 					var/list/choices = list()
 					for(var/i = 1 to MAX_PILL_SPRITE)
-						choices += "pill[i].png"
+						choices += "pill[i]"
 					ui_modal_bento(src, id, "Please select the new style for pills:", null, arguments, pillsprite, choices)
 				if("create_patch")
 					if(condi || !reagents.total_volume)
@@ -395,7 +395,7 @@
 				if("change_patch_style")
 					var/list/choices = list()
 					for(var/i = 1 to MAX_PATCH_SPRITE)
-						choices += "bandaid[i].png"
+						choices += "bandaid[i]"
 					ui_modal_bento(src, id, "Please select the new style for patches:", null, arguments, patchsprite, choices)
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
@@ -406,7 +406,7 @@
 						bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 					var/list/bottle_styles_png = list()
 					for(var/style in bottle_styles)
-						bottle_styles_png += "[style].png"
+						bottle_styles_png += "[style]"
 					ui_modal_bento(src, id, "Please select the new style for bottles:", null, arguments, bottlesprite, bottle_styles_png)
 				else
 					return FALSE

@@ -8,7 +8,7 @@
 	for(var/bottle_type in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		Insert(bottle_type, 'icons/obj/chemical.dmi', bottle_type)
 	for(var/i = 1 to 20)
-		Insert("bandaid[i].png", 'icons/obj/chemical.dmi', "bandaid[i]")
+		Insert("bandaid[i]", 'icons/obj/chemical.dmi', "bandaid[i]")
 
 /datum/asset/spritesheet/chem_master/ModifyInserted(icon/pre_asset)
 	pre_asset.Scale(64, 64)
