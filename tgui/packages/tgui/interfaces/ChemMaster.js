@@ -3,16 +3,26 @@ import { useBackend } from "../backend";
 import { Box, Button, Flex, Icon, LabeledList, Section } from "../components";
 import { Window } from "../layouts";
 import { BeakerContents } from './common/BeakerContents';
+import { classes } from 'common/react';
 import { ComplexModal, modalOpen, modalAnswer, modalRegisterBodyOverride } from './common/ComplexModal';
 
 const transferAmounts = [1, 5, 10];
 const bottleStyles = [
-  "bottle.png",
-  "small_bottle.png",
-  "wide_bottle.png",
-  "round_bottle.png",
-  "reagent_bottle.png",
+  "bottle",
+  "small_bottle",
+  "wide_bottle",
+  "round_bottle",
+  "reagent_bottle",
 ];
+
+const SpriteStyleButton = (props, context) => {
+  const { icon, ...restProps } = props;
+  return (
+    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
+      <Box className={classes(['chem_master32x32', icon])} />
+    </Button>
+  );
+};
 
 const analyzeModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -72,18 +82,53 @@ const changePatchStyleModalBodyOverride = (modal, context) => {
       maxHeight="1%">
       {data.modal.choices.map((c, i) => (
         <Flex.Item key={i} flex="1 1 auto">
-          <Button
+          <SpriteStyleButton
             selected={(i + 1) === parseInt(data.modal.value, 10)}
-            onClick={() => modalAnswer(context, modal.id, i + 1)}>
-            <div style={
-              "display: inline-block;"
-              + "width: 32px;"
-              + "height: 32px;"
-              + "background: url(bandaid" + (i + 1) + ".png);"
-              + "background-size: 160%;"
-              + "background-position: left -9px bottom -14px;"
-            } />
-          </Button>
+            onClick={() => modalAnswer(context, modal.id, i + 1)}
+            icon = {"bandaid" + (i + 1)}
+             />
+        </Flex.Item>
+      ))}
+    </Flex>
+  );
+};
+
+const changePillStyleModalBodyOverride = (modal, context) => {
+  const { data } = useBackend(context);
+  return (
+    <Flex
+      spacingPrecise="1"
+      wrap="wrap"
+      my="0.5rem"
+      maxHeight="1%">
+      {data.modal.choices.map((c, i) => (
+        <Flex.Item key={i} flex="1 1 auto">
+          <SpriteStyleButton
+            selected={(i + 1) === parseInt(data.modal.value, 10)}
+            onClick={() => modalAnswer(context, modal.id, i + 1)}
+            icon = {"pill" + (i + 1)}
+             />
+        </Flex.Item>
+      ))}
+    </Flex>
+  );
+};
+
+const changeBottleStyleModalBodyOverride = (modal, context) => {
+  const { data } = useBackend(context);
+  return (
+    <Flex
+      spacingPrecise="1"
+      wrap="wrap"
+      my="0.5rem"
+      maxHeight="1%">
+      {data.modal.choices.map((c, i) => (
+        <Flex.Item key={i} flex="1 1 auto">
+          <SpriteStyleButton
+            selected={(i + 1) === parseInt(data.modal.value, 10)}
+            onClick={() => modalAnswer(context, modal.id, i + 1)}
+            icon = {bottleStyles[i]}
+             />
         </Flex.Item>
       ))}
     </Flex>
@@ -328,15 +373,7 @@ const ChemMasterProductionChemical = (props, context) => {
         />
         <Button
           onClick={() => modalOpen(context, 'change_pill_style')}>
-          <div style={
-            "display: inline-block;"
-            + "width: 16px;"
-            + "height: 16px;"
-            + "vertical-align: middle;"
-            + "background: url(pill" + data.pillsprite + ".png);"
-            + "background-size: 200%;"
-            + "background-position: left -10px bottom -6px;"
-          } />
+          <Box className={classes(['chem_master32x32', "pill" + data.pillsprite])} />
           Style
         </Button>
       </LabeledList.Item>
@@ -354,15 +391,7 @@ const ChemMasterProductionChemical = (props, context) => {
         />
         <Button
           onClick={() => modalOpen(context, 'change_patch_style')}>
-          <div style={
-            "display: inline-block;"
-            + "width: 20px;"
-            + "height: 16px;"
-            + "vertical-align: middle;"
-            + "background: url(bandaid" + data.patchsprite + ".png);"
-            + "background-size: 200%;"
-            + "background-position: left -12px bottom -12px;"
-          } />
+          <Box className={classes(['chem_master32x32', "bandaid" + data.patchsprite ])} />
           Style
         </Button>
       </LabeledList.Item>
@@ -377,15 +406,7 @@ const ChemMasterProductionChemical = (props, context) => {
         <Button
           mb="0.5rem"
           onClick={() => modalOpen(context, 'change_bottle_style')}>
-          <div style={
-            "display: inline-block;"
-            + "width: 16px;"
-            + "height: 16px;"
-            + "vertical-align: middle;"
-            + "background: url(" + bottleStyles[data.bottlesprite - 1] + ");"
-            + "background-size: 200%;"
-            + "background-position: left -10px bottom -6px;"
-          } />
+          <Box className={classes(['chem_master32x32', bottleStyles[data.bottlesprite - 1] ])} />
           Style
         </Button>
       </LabeledList.Item>
@@ -448,3 +469,5 @@ const ChemMasterCustomization = (props, context) => {
 
 modalRegisterBodyOverride('analyze', analyzeModalBodyOverride);
 modalRegisterBodyOverride('change_patch_style', changePatchStyleModalBodyOverride);
+modalRegisterBodyOverride('change_pill_style', changePillStyleModalBodyOverride);
+modalRegisterBodyOverride('change_bottle_style', changeBottleStyleModalBodyOverride);
