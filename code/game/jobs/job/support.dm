@@ -14,7 +14,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
-	alt_titles = list(Chief Supply Manager)
+	alt_titles = list("Chief Supply Manager")
 	money_factor = 6
 	outfit = /datum/outfit/job/qm
 
