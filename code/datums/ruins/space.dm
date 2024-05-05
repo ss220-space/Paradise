@@ -402,4 +402,5 @@
 	description = "An abandoned botanical station that once produced various biological weapons and engaged in various dubious developments. \
 	However, it seems that hardly anyone is left on it now.. Or not?"
 	allow_duplicates = FALSE
+	cost = 2
 
