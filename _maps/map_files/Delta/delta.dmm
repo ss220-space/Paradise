@@ -64969,7 +64969,7 @@
 "jsC" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "jsJ" = (
 /turf/simulated/wall/r_wall,
@@ -88605,7 +88605,7 @@
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "oWK" = (
 /obj/item/radio/beacon,
@@ -112765,10 +112765,6 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/tourist)
-"utf" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
-/area/space)
 "utt" = (
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
@@ -183168,7 +183164,7 @@ coE
 aaq
 aaq
 coE
-jsC
+yga
 qrM
 nIH
 fsG
@@ -183426,7 +183422,7 @@ aaq
 aaq
 aaq
 coE
-utf
+htO
 jsC
 fsG
 fsG
@@ -184706,8 +184702,8 @@ wLN
 rSm
 edb
 kTT
-utf
-utf
+htO
+htO
 coE
 aaq
 aaq
@@ -184965,7 +184961,7 @@ aAE
 kTT
 kTT
 acF
-utf
+htO
 coE
 aaq
 aaq
