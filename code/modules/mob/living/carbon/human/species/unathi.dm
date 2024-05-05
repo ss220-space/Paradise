@@ -127,23 +127,22 @@
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
 
+
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-	speedylegs(H)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
 	SIGNAL_HANDLER
 
 	if(is_mining_level(H.z))
-		speed_mod = initial(speed_mod)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 	else
-		speed_mod = 0
-	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability

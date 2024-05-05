@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/attackby(obj/item/item, mob/user, params)
 	if(open)
-		if(item.flags && ABSTRACT)
+		if(item.flags & ABSTRACT)
 			return
 		if(broken && istype(item, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
 			to_chat(user, span_notice("You replace the broken mechanism."))
