@@ -55,7 +55,11 @@
 				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
-		wet_overlay.plane = FLOOR_OVERLAY_PLANE
+
+		//It is done like this, so wet overlay will cover only, and only turf without catching clicks on things conceptually above turf.
+		wet_overlay.plane = FLOOR_PLANE
+		wet_overlay.layer = TURF_LAYER + 0.001
+
 		add_overlay(wet_overlay)
 	if(time == INFINITY)
 		return
