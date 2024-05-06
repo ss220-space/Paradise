@@ -328,9 +328,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		..()
 
 
-/obj/item/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
-	..()
 
 	if(!proximity)
 		return
@@ -500,7 +499,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return
 		if(TR.use(1))
 			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
-			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
+			AddComponent(/datum/component/ducttape, x_offset, y_offset)
 			user.transfer_fingerprints_to(src)
 		else
 			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")

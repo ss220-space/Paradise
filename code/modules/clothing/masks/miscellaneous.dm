@@ -123,7 +123,9 @@
 	user.transfer_fingerprints_to(trash_gag)
 	user.put_in_active_hand(trash_gag, ignore_anim = FALSE)
 	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
-	user.emote("scream")
+	if(user.has_pain())
+		// we have to use timer, since an item is still on user, while this proc is called
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, emote), "scream"), 0)
 
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
