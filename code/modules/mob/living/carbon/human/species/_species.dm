@@ -378,7 +378,7 @@
 
 // Standard regeneration for species
 /datum/species/proc/on_life_regeneration(mob/living/carbon/human/H)
-	if((H.getBruteLoss() || H.getFireLoss()) && H.blood_volume > 392) // 392 = 70% of blood, between BLOOD_VOLUME_PALE and BLOOD_VOLUME_OKAY
+	if((H.getBruteLoss() || H.getFireLoss()) && ((!(NO_BLOOD in H.dna.species.species_traits)) && H.blood_volume > BLOOD_VOLUME_REGENERATION))
 		H.adjustBruteLoss(-0.1, FALSE)
 		H.adjustFireLoss(-0.1)
 	return
