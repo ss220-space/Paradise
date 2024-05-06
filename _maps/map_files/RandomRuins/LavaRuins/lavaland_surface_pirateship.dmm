@@ -202,7 +202,7 @@
 	dir = 1;
 	id_tag = "pcarrier_windows"
 	},
-/turf/simulated/floor{
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
