@@ -215,6 +215,9 @@
 	if(lash)
 		lash.Remove(H)
 
+/datum/species/unathi/on_life_regeneration(mob/living/carbon/human/H) // no passive regeneration, but Zessul blood
+	return
+
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return

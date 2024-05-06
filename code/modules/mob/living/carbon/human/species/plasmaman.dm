@@ -189,6 +189,9 @@
 	H.update_action_buttons_icon()
 	return FALSE
 
+/datum/species/plasmaman/on_life_regeneration(mob/living/carbon/human/H)
+	return
+
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/datum/gas_mixture/environment = H.loc.return_air()
 	var/atmos_sealed = FALSE

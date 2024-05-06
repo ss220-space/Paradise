@@ -86,23 +86,19 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_hum
 
-/datum/species/drask/handle_life(mob/living/carbon/human/H)
-	..()
-	if(H.stat == DEAD)
-		return
-	if(H.bodytemperature < TCRYO)
-		H.adjustCloneLoss(-1)
-		H.adjustOxyLoss(-2)
-		H.adjustToxLoss(-0.5)
-		H.adjustBruteLoss(-2)
-		H.adjustFireLoss(-4)
-		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
-		head?.undisfigure()
-
-
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "iron")
 		return TRUE
 	if(R.id == "salglu_solution")
 		return TRUE
 	return ..()
+
+/datum/species/drask/on_life_regeneration(mob/living/carbon/human/H)
+	if(H.bodytemperature < TCRYO)
+		H.adjustCloneLoss(-1, FALSE)
+		H.adjustOxyLoss(-2, FALSE)
+		H.adjustToxLoss(-0.5, FALSE)
+		H.adjustBruteLoss(-2, FALSE)
+		H.adjustFireLoss(-4)
+		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
+		head?.undisfigure()

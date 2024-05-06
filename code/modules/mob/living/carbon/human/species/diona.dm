@@ -94,6 +94,9 @@
 		return TRUE
 	return ..()
 
+/datum/species/diona/on_life_regeneration(mob/living/carbon/human/H) // all diona regeneration based on light in handle_life()
+	return
+
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	var/is_vamp = isvampire(H)

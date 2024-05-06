@@ -376,6 +376,13 @@
 			H.adjustBruteLoss(1)
 	return
 
+// Standard regeneration for species
+/datum/species/proc/on_life_regeneration(mob/living/carbon/human/H)
+	if((H.getBruteLoss() || H.getFireLoss()) && H.blood_volume > 392) // 392 = 70% of blood, between BLOOD_VOLUME_PALE and BLOOD_VOLUME_OKAY
+		H.adjustBruteLoss(-0.1, FALSE)
+		H.adjustFireLoss(-0.1)
+	return
+
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 

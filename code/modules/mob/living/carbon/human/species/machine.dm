@@ -112,6 +112,9 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_yes
 	H.verbs -= /mob/living/carbon/human/proc/emote_no
 
+/datum/species/machine/on_life_regeneration(mob/living/carbon/human/H) // No regeneration
+	return
+
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
