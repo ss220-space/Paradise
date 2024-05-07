@@ -979,7 +979,7 @@
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)
