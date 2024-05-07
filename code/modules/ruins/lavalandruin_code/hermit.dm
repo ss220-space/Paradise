@@ -54,6 +54,7 @@
 			outfit.uniform = /obj/item/clothing/under/color/grey/glorf
 			outfit.shoes = /obj/item/clothing/shoes/black
 			outfit.back = /obj/item/storage/backpack
+	l_pocket = /obj/item/kitchen/knife/combat
 
 /obj/effect/mob_spawn/human/hermit/Destroy()
 	new/obj/structure/fluff/empty_cryostasis_sleeper(get_turf(src))
