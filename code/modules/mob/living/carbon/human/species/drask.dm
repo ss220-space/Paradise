@@ -92,10 +92,10 @@
 
 /datum/species/drask/handle_life(mob/living/carbon/human/H)
 	..()
-	var/datum/gas_mixture/environment = H.return_air()
 	if(H.stat == DEAD)
 		return
-	if(H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
+	var/datum/gas_mixture/environment = H.return_air()
+	if(environment && H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
 		H.adjust_bodytemperature(-5)
 	if(H.bodytemperature < TCRYO)
 		H.adjustCloneLoss(-1)
