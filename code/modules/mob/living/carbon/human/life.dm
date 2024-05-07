@@ -23,7 +23,6 @@
 		handle_pain()
 		handle_heartbeat()
 		dna.species.handle_life(src)
-		dna.species.on_life_regeneration(src)
 		if(!client)
 			dna.species.handle_npc(src)
 

@@ -163,3 +163,4 @@
 #define NO_OBESITY		"no_obesity"
 #define RUNIC_MIND		"runic_mind"
 #define REPEATSURGERY	"repeat_syrgery"
+#define HAVE_REGENERATION "have_regeneration"

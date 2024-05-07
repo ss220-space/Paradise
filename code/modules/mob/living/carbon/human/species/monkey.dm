@@ -10,7 +10,7 @@
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = LANGUAGE_GALACTIC_COMMON
 	default_language = LANGUAGE_MONKEY_HUMAN
-	species_traits = list(NO_EXAMINE)
+	species_traits = list(NO_EXAMINE, HAVE_REGENERATION)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(ITEM_SLOT_BELT, ITEM_SLOT_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде

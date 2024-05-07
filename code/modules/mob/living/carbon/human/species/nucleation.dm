@@ -62,9 +62,6 @@
 			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
 	return ..()
 
-/datum/species/nucleation/on_life_regeneration(mob/living/carbon/human/H)
-	return
-
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	if(H.health <= HEALTH_THRESHOLD_DEAD || !H.surgeries.len) // Needed to prevent brain gib on surgery debrain
 		death_explosion(H)

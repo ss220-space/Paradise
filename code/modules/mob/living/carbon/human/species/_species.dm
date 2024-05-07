@@ -370,17 +370,14 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
+	if((H.getBruteLoss() || H.getFireLoss()) && (HAVE_REGENERATION in species_traits) && (H.blood_volume > BLOOD_VOLUME_REGENERATION))
+		H.adjustBruteLoss(-0.1, FALSE)
+		H.adjustFireLoss(-0.1)
+
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
-	return
-
-// Standard regeneration for species
-/datum/species/proc/on_life_regeneration(mob/living/carbon/human/H)
-	if((H.getBruteLoss() || H.getFireLoss()) && ((!(NO_BLOOD in H.dna.species.species_traits)) && H.blood_volume > BLOOD_VOLUME_REGENERATION))
-		H.adjustBruteLoss(-0.1, FALSE)
-		H.adjustFireLoss(-0.1)
 	return
 
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
