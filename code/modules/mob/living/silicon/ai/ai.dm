@@ -428,7 +428,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Nadburn",
 		"Rainbowslime",
 		"Borb",
-		"Catamari"
+		"Catamari",
+		"Anonimous"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -535,6 +536,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-borb"
 		if("Catamari")
 			icon_state = "ai-catamari"
+		if("Anonimous")
+			icon_state = "ai-anon"
 		else
 			icon_state = "ai"
 	//else
