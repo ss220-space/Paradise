@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Ничего",				/datum/event/nothing,			1100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Ничего",				/datum/event/nothing,			110),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Спам на КПК",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), FALSE, 25, 50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Денежная лотерея",		/datum/event/money_lotto, 		0, 		list(ASSIGNMENT_ANY = 1), TRUE, 5,  15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Взлом аккаунта",		/datum/event/money_hacker, 		0, 		list(ASSIGNMENT_ANY = 4), TRUE, 10, 25),
@@ -186,7 +186,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					615),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ложная тревога",			/datum/event/falsealarm,				200, 	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Скопление карпов",			/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбойные дроны",			/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
