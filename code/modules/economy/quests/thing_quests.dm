@@ -120,11 +120,11 @@
 	very_hard_items = list(
 		/obj/item/organ/internal/heart/cursed = 550,
 		/obj/item/organ/internal/xenos/plasmavessel/hunter = 550,
-		/obj/item/organ/internal/xenos/plasmavessel/drone = 550,
+		/obj/item/organ/internal/xenos/vessel/drone = 550,
 		/obj/item/organ/internal/xenos/neurotoxin/sentinel = 650,
 		/obj/item/organ/internal/wryn/glands = 700,
 		/obj/item/organ/internal/xenos/hivenode = 700,
-		/obj/item/organ/internal/heart/plasmaman = 750,
+		/obj/item/organ/internal/heart/man = 750,
 		/obj/item/organ/internal/xenos/acidgland/sentinel = 750,
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
@@ -264,7 +264,7 @@
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 700, "amount" = 5)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5)
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -397,10 +397,10 @@
 
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
-		/obj/item/seeds/cherry/bomb = 740,
-		/obj/item/seeds/apple/poisoned = 740,
-		/obj/item/seeds/wheat/meat = 740,
-		/obj/item/seeds/gatfruit = 860
+		/obj/item/seeds/cherry/bomb = 640,
+		/obj/item/seeds/apple/poisoned = 640,
+		/obj/item/seeds/wheat/meat = 640,
+		/obj/item/seeds/gatfruit = 760
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -411,28 +411,29 @@
 	req_items = list(/obj/item/disk/plantgene)
 	var/list/required_genes = list()
 	easy_items = list(
-		/datum/plant_gene/trait/plant_type/fungal_metabolism = 75,
-		/datum/plant_gene/trait/squash = 75,
-		/datum/plant_gene/trait/repeated_harvest = 75,
-		/datum/plant_gene/trait/maxchem = 75,
-		/datum/plant_gene/trait/stinging = 100,
-		/datum/plant_gene/trait/glow = 110,
+		/datum/plant_gene/trait/plant_type/fungal_metabolism = 60,
+		/datum/plant_gene/trait/squash = 60,
+		/datum/plant_gene/trait/repeated_harvest = 60,
+		/datum/plant_gene/trait/maxchem = 60,
+		/datum/plant_gene/trait/stinging = 90,
+		/datum/plant_gene/trait/glow = 100,
 	)
 	normal_items = list(
-		/datum/plant_gene/trait/battery = 125,
-		/datum/plant_gene/trait/slip = 125,
-		/datum/plant_gene/trait/cell_charge = 125,
-		/datum/plant_gene/trait/teleport = 150,
-		/datum/plant_gene/trait/plant_type/weed_hardy = 160,
-		/datum/plant_gene/trait/noreact = 180,
-		/datum/plant_gene/trait/glow/shadow = 180,
+		/datum/plant_gene/trait/battery = 110,
+		/datum/plant_gene/trait/glow/red = 110,
+		/datum/plant_gene/trait/slip = 110,
+		/datum/plant_gene/trait/cell_charge = 110,
+		/datum/plant_gene/trait/teleport = 130,
+		/datum/plant_gene/trait/plant_type/weed_hardy = 150,
+		/datum/plant_gene/trait/noreact = 160,
+		/datum/plant_gene/trait/glow/shadow = 160,
 	)
 	hard_items = list(
-		/datum/plant_gene/trait/plant_laughter = 220,
-		/datum/plant_gene/trait/fire_resistance = 220,
-		/datum/plant_gene/trait/glow/berry = 240,
+		/datum/plant_gene/trait/plant_laughter = 200,
+		/datum/plant_gene/trait/fire_resistance = 200,
+		/datum/plant_gene/trait/glow/berry = 210,
 		/datum/plant_gene/trait/smoke = 330,
-		/datum/plant_gene/trait/glow/red = 370,
+
 	)
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
