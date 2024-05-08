@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/gear
 	required_tech = list("toxins" = 6, "combat" = 6)
 	containername = "Security Hardsuit Crate"
-	access = ACCESS_SECURITY
+	access = ACCESS_ARMORY
 
 /datum/supply_packs/security/supplies
 	name = "Security Supplies Crate"
@@ -1256,7 +1256,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/secure
-	required_tech = list("toxins" = 4, "biotech" = 4)
+	required_tech = list("toxins" = 4, "biotech" = 5)
 	containername = "Medical Hardsuit Crate"
 	access = ACCESS_MEDICAL
 
