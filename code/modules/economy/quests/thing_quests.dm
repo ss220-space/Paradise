@@ -626,7 +626,8 @@
 		/datum/symptom/vomit/projectile = 300,
 		/datum/symptom/vomit/blood = 300,
 		/datum/symptom/deafness = 300,
-		/datum/symptom/confusion = 300
+		/datum/symptom/confusion = 300,
+
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
