@@ -615,7 +615,7 @@
 		/datum/symptom/vitiligo = 250,
 		/datum/symptom/choking = 250,
 		/datum/symptom/heal/longevity = 250,
-		/datum/symptom/beard = 250
+		/datum/symptom/beard = 250,
 		/datum/symptom/booze = 285,
 		/datum/symptom/weight_loss = 285,
 		/datum/symptom/weakness = 285,
