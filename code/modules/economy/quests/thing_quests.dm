@@ -129,8 +129,6 @@
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
 		/obj/item/organ/internal/xenos/neurotoxin = 850,
-		/obj/item/organ/internal/xenos/acidgland/queen = 900,
-		/obj/item/organ/internal/xenos/plasmavessel/queen = 900
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -266,7 +264,7 @@
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 280, "amount" = 20)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 280, "amount" = 5)
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -347,11 +345,6 @@
 		/obj/item/seeds/tomato/blue = 30,
 		/obj/item/seeds/sunflower/novaflower = 30,
 		/obj/item/seeds/carrot/parsnip = 30,
-		/obj/item/seeds/lavaland/cactus = 30,
-		/obj/item/seeds/lavaland/ember = 30,
-		/obj/item/seeds/lavaland/inocybe = 30,
-		/obj/item/seeds/lavaland/polypore = 30,
-		/obj/item/seeds/lavaland/porcini = 30,
 		/obj/item/seeds/tea/astra = 40,
 		/obj/item/seeds/soya/olive/charc = 40,
 		/obj/item/seeds/geranium = 40,
@@ -394,6 +387,11 @@
 		/obj/item/seeds/berry/death = 80,
 		/obj/item/seeds/banana/mime = 80,
 		/obj/item/seeds/angel = 90
+		/obj/item/seeds/lavaland/cactus = 100,
+		/obj/item/seeds/lavaland/ember = 100,
+		/obj/item/seeds/lavaland/inocybe = 100,
+		/obj/item/seeds/lavaland/polypore = 100,
+		/obj/item/seeds/lavaland/porcini = 100,
 	)
 
 
@@ -582,50 +580,49 @@
 
 	var/list/required_symptoms = list()
 
-	easy_items = list(
-		/datum/symptom/shivering = 70,
-		/datum/symptom/fever = 70,
-		/datum/symptom/sneeze = 90,
-		/datum/symptom/itching = 90,
-		/datum/symptom/headache = 90,
-		/datum/symptom/cough = 90,
-		/datum/symptom/oxygen = 100,
-		/datum/symptom/painkiller = 110,
-		/datum/symptom/epinephrine = 110,
-		/datum/symptom/mind_restoration = 110,
-		/datum/symptom/heal = 110,
-	)
 	normal_items = list(
-		/datum/symptom/youth = 130,
-		/datum/symptom/blood = 150,
-		/datum/symptom/voice_change = 150,
-		/datum/symptom/damage_converter = 150,
-		/datum/symptom/sensory_restoration = 150,
-		/datum/symptom/hallucigen = 150,
-		/datum/symptom/viralevolution = 175,
-		/datum/symptom/viraladaptation = 175,
-		/datum/symptom/flesh_eating = 175,
-		/datum/symptom/heal/metabolism = 175,
-		/datum/symptom/fire = 190,
-		/datum/symptom/vomit = 200,
-		/datum/symptom/vitiligo = 200,
-		/datum/symptom/choking = 200,
-		/datum/symptom/heal/longevity = 200,
-		/datum/symptom/beard = 200
+		/datum/symptom/shivering = 90,
+		/datum/symptom/fever = 90,
+		/datum/symptom/sneeze = 130,
+		/datum/symptom/itching = 130,
+		/datum/symptom/headache = 130,
+		/datum/symptom/cough = 130,
+		/datum/symptom/oxygen = 140,
+		/datum/symptom/painkiller = 150,
+		/datum/symptom/epinephrine = 150,
+		/datum/symptom/mind_restoration = 150,
+		/datum/symptom/heal = 150,
+		/datum/symptom/youth = 170,
+		/datum/symptom/blood = 170,
+		/datum/symptom/voice_change = 170,
+		/datum/symptom/damage_converter = 170,
+		/datum/symptom/sensory_restoration = 170,
+		/datum/symptom/hallucigen = 170,
+
 	)
 
 	hard_items = list(
-		/datum/symptom/booze = 225,
-		/datum/symptom/weight_loss = 225,
-		/datum/symptom/weakness = 225,
-		/datum/symptom/revitiligo = 225,
-		/datum/symptom/visionloss = 225,
-		/datum/symptom/dizzy = 225,
-		/datum/symptom/shedding = 225,
-		/datum/symptom/vomit/projectile = 275,
-		/datum/symptom/vomit/blood = 275,
-		/datum/symptom/deafness = 275,
-		/datum/symptom/confusion = 275
+		/datum/symptom/viralevolution = 200,
+		/datum/symptom/viraladaptation = 200,
+		/datum/symptom/flesh_eating = 200,
+		/datum/symptom/heal/metabolism = 200,
+		/datum/symptom/fire = 210,
+		/datum/symptom/vomit = 240,
+		/datum/symptom/vitiligo = 250,
+		/datum/symptom/choking = 250,
+		/datum/symptom/heal/longevity = 250,
+		/datum/symptom/beard = 250
+		/datum/symptom/booze = 285,
+		/datum/symptom/weight_loss = 285,
+		/datum/symptom/weakness = 285,
+		/datum/symptom/revitiligo = 285,
+		/datum/symptom/visionloss = 285,
+		/datum/symptom/dizzy = 285,
+		/datum/symptom/shedding = 285,
+		/datum/symptom/vomit/projectile = 300,
+		/datum/symptom/vomit/blood = 300,
+		/datum/symptom/deafness = 300,
+		/datum/symptom/confusion = 300
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
