@@ -453,7 +453,7 @@
 
 /datum/uplink_item/jobspecific/gatfruit
 	name = "Gatfruit seeds"
-	desc = "Семена растения гатфрукт, съев плоды которого можно получить револьвер калибра .36! Так же содержит в себе химические вещества 10% sulfur, 10% carbon, 7% nitrogen, 5% potassium."
+	desc = "Seeds of the Gatfruit plant, the fruits eaten will produce a .36 caliber revolver! It also contains chemicals 10% sulfur, 10% carbon, 7% nitrogen, 5% potassium."
 	item = /obj/item/seeds/gatfruit
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
