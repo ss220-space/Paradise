@@ -105,11 +105,11 @@
 		/obj/item/organ/internal/eyes/unathi = 170,
 		/obj/item/organ/internal/eyes/nian = 170,
 		/obj/item/organ/internal/liver/skrell = 170,
+	)
+	hard_items = list(
 		/obj/item/organ/internal/kidneys/grey = 175,
 		/obj/item/organ/internal/liver/kidan = 175,
 		/obj/item/organ/internal/lungs/slime = 185,
-	)
-	hard_items = list(
 		/obj/item/organ/internal/liver/grey = 200,
 		/obj/item/organ/internal/heart/slime = 210,
 		/obj/item/organ/external/wing/nian = 210,
@@ -137,65 +137,79 @@
 /datum/cargo_quest/thing/foods
 	quest_type_name = "Food"
 	easy_items = list(
+		/obj/item/reagent_containers/food/snacks/friedegg = 10,
+		/obj/item/reagent_containers/food/snacks/tofuburger = 10,
 		/obj/item/reagent_containers/food/snacks/boiledpelmeni = 20,
-		/obj/item/reagent_containers/food/snacks/superbiteburger = 60,
-		/obj/item/reagent_containers/food/snacks/yakiimo = 40,
-		/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 40,
-		/obj/item/reagent_containers/food/snacks/sushi_Unagi = 40,
-		/obj/item/reagent_containers/food/snacks/sliceable/salami = 40,
-		/obj/item/reagent_containers/food/snacks/amanitajelly = 50,
-		/obj/item/reagent_containers/food/snacks/donut/chaos = 50,
-		/obj/item/reagent_containers/food/snacks/sliceable/noel = 50,
+		/obj/item/reagent_containers/food/snacks/omelette = 20,
+		/obj/item/reagent_containers/food/snacks/cheeseburger = 20,
+		/obj/item/reagent_containers/food/snacks/benedict = 20,
+		/obj/item/reagent_containers/food/snacks/monkeyburger = 20, 
+		/obj/item/reagent_containers/food/snacks/hotdog = 20,
+		/obj/item/reagent_containers/food/snacks/sausage = 20,
+		/obj/item/reagent_containers/food/snacks/pastatomato = 20,
+		/obj/item/reagent_containers/food/snacks/soup/tomatosoup = 20,
+		/obj/item/reagent_containers/food/snacks/meatballspaghetti = 30,
+		/obj/item/reagent_containers/food/snacks/smokedsausage = 30,
+		/obj/item/reagent_containers/food/snacks/lasagna = 40,
 		/obj/item/reagent_containers/food/snacks/candy/jellybean/purple = 50,
-		/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat = 50,
-		/obj/item/reagent_containers/food/snacks/fishburger = 60,
-		/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly = 60,
-		/obj/item/reagent_containers/food/snacks/candy/sucker = 60,
-		/obj/item/reagent_containers/food/snacks/appletart = 60,
-		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
-		/obj/item/reagent_containers/food/snacks/aesirsalad = 60,
-		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
 		/obj/item/reagent_containers/food/snacks/muffin = 60,
-		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
-
 	)
-
 	normal_items = list(
-		/obj/item/reagent_containers/food/snacks/sashimi = 120,
-		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/human = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 90,
-		/obj/item/reagent_containers/food/snacks/vulpix/chilli = 80,
-		/obj/item/reagent_containers/food/snacks/vulpix/cheese = 80,
-		/obj/item/reagent_containers/food/snacks/vulpix = 80,
+		/obj/item/reagent_containers/food/snacks/yakiimo = 50,
+		/obj/item/reagent_containers/food/snacks/soup/beetsoup = 50,
+		/obj/item/reagent_containers/food/snacks/fishburger = 60,
+		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
+		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
+		/obj/item/reagent_containers/food/snacks/superbiteburger = 60, 
+		/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 60,
+		/obj/item/reagent_containers/food/snacks/sushi_Unagi = 60,
+		/obj/item/reagent_containers/food/snacks/sliceable/salami = 60,
+		/obj/item/reagent_containers/food/snacks/amanitajelly = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
 		/obj/item/reagent_containers/food/snacks/plov = 70,
-		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
-		/obj/item/reagent_containers/food/snacks/doner_mushroom = 90,
-		/obj/item/reagent_containers/food/snacks/doner_vegan = 90,
-		/obj/item/reagent_containers/food/snacks/tajaroni = 80,
-		/obj/item/reagent_containers/food/snacks/boiledslimecore = 70,
-		/obj/item/reagent_containers/food/snacks/sliceable/lizard = 70,
-		/obj/item/reagent_containers/food/snacks/shawarma = 100,
-		/obj/item/reagent_containers/food/snacks/dionaroast = 80,
+		/obj/item/reagent_containers/food/snacks/donut/chaos = 80,
+		/obj/item/reagent_containers/food/snacks/sliceable/noel = 80,
+		/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly = 90,
+		/obj/item/reagent_containers/food/snacks/aesirsalad = 90,
+		/obj/item/reagent_containers/food/snacks/candy/sucker = 60,
+		/obj/item/reagent_containers/food/snacks/appletart = 90,
 		/obj/item/reagent_containers/food/snacks/chawanmushi = 90,
-		/obj/item/reagent_containers/food/snacks/fruitcup = 90,
-		/obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow = 100,
-		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 100,
-		/obj/item/reagent_containers/food/snacks/fried_vox = 100,
-		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno = 110,
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
+	hard_items = list(
+		/obj/item/reagent_containers/food/snacks/sashimi = 120, 
+		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/human = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 120,
+		/obj/item/reagent_containers/food/snacks/vulpix/chilli = 120,
+		/obj/item/reagent_containers/food/snacks/soup/stew = 130,
+		/obj/item/reagent_containers/food/snacks/vulpix/cheese = 130,
+		/obj/item/reagent_containers/food/snacks/vulpix = 130,
+		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 130,
+		/obj/item/reagent_containers/food/snacks/doner_mushroom = 130,
+		/obj/item/reagent_containers/food/snacks/doner_vegan = 130,
+		/obj/item/reagent_containers/food/snacks/tajaroni = 120,
+		/obj/item/reagent_containers/food/snacks/boiledslimecore = 120,
+		/obj/item/reagent_containers/food/snacks/sliceable/lizard = 120,
+		/obj/item/reagent_containers/food/snacks/shawarma = 150,
+		/obj/item/reagent_containers/food/snacks/dionaroast = 180,
+		/obj/item/reagent_containers/food/snacks/fruitcup = 120,
+		/obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow = 200,
+		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 150,
+		/obj/item/reagent_containers/food/snacks/fried_vox = 120,
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno = 200,
+		/obj/item/reagent_containers/food/snacks/rofflewaffles = 150,
+	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
@@ -352,6 +366,9 @@
 		/obj/item/seeds/tomato/killer = 50,
 		/obj/item/seeds/cocoapod/vanillapod = 50,
 		/obj/item/seeds/plump/walkingmushroom = 50,
+
+	)
+	normal_items = list(
 		/obj/item/seeds/onion/red = 60,
 		/obj/item/seeds/firelemon = 60,
 		/obj/item/seeds/cannabis/white = 60,
@@ -379,6 +396,7 @@
 		/obj/item/seeds/angel = 90
 	)
 
+
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
 		/obj/item/seeds/cherry/bomb = 740,
@@ -386,7 +404,7 @@
 		/obj/item/seeds/wheat/meat = 740,
 		/obj/item/seeds/gatfruit = 860
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_VERY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
