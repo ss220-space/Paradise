@@ -628,7 +628,7 @@
 		/datum/symptom/deafness = 300,
 		/datum/symptom/confusion = 300
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/virus/length_quest()
 	return length(required_symptoms)
