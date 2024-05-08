@@ -139,10 +139,10 @@
 		/obj/item/reagent_containers/food/snacks/tofuburger = 10,
 		/obj/item/reagent_containers/food/snacks/boiledpelmeni = 20,
 		/obj/item/reagent_containers/food/snacks/omelette = 20,
-		/obj/item/reagent_containers/food/snacks/cheeseburger = 20,
-		/obj/item/reagent_containers/food/snacks/benedict = 20,
-		/obj/item/reagent_containers/food/snacks/monkeyburger = 20, 
-		/obj/item/reagent_containers/food/snacks/hotdog = 20,
+		/obj/item/reagent_containers/food/snacks/cheeseburger = 30,
+		/obj/item/reagent_containers/food/snacks/benedict = 30,
+		/obj/item/reagent_containers/food/snacks/monkeyburger = 30, 
+		/obj/item/reagent_containers/food/snacks/hotdog = 30,
 		/obj/item/reagent_containers/food/snacks/sausage = 20,
 		/obj/item/reagent_containers/food/snacks/pastatomato = 20,
 		/obj/item/reagent_containers/food/snacks/soup/tomatosoup = 20,
@@ -264,7 +264,7 @@
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 280, "amount" = 5)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 700, "amount" = 5)
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -386,7 +386,7 @@
 		/obj/item/seeds/potato/sweet = 80,
 		/obj/item/seeds/berry/death = 80,
 		/obj/item/seeds/banana/mime = 80,
-		/obj/item/seeds/angel = 90
+		/obj/item/seeds/angel = 90,
 		/obj/item/seeds/lavaland/cactus = 100,
 		/obj/item/seeds/lavaland/ember = 100,
 		/obj/item/seeds/lavaland/inocybe = 100,
@@ -434,6 +434,7 @@
 		/datum/plant_gene/trait/smoke = 330,
 		/datum/plant_gene/trait/glow/red = 370,
 	)
+
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/botanygenes/add_goal(difficultly)
@@ -478,54 +479,56 @@
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
 	normal_items = list(
-		"LISP" = 100,
-		"MUTE" = 100,
-		"RAD" = 100,
-		"FAT" = 100,
-		"SWEDE" = 100,
-		"SCRAMBLE" = 100,
-		"WEAK" = 100,
-		"HORNS" = 100,
-		"COMIC" = 100,
-		"SOBER" = 150,
-		"PSYRESIST" = 150,
-		"SHADOW" = 150,
-		"CHAMELEON" = 150,
-		"CRYO" = 150,
-		"EAT" = 150,
-		"JUMP" = 150,
-		"IMMOLATE" = 150,
-		"EMPATH" = 150,
-		"POLYMORPH" = 150,
-		"STRONG" = 150,
+		"LISP" = 150,
+		"MUTE" = 150,
+		"RAD" = 150,
+		"FAT" = 150,
+		"SWEDE" = 150,
+		"SCRAMBLE" = 150,
+		"WEAK" = 150,
+		"HORNS" = 150,
+		"COMIC" = 150,
 	)
 
 	hard_items = list(
+		"SOBER" = 200,
+		"PSYRESIST" = 200,
+		"SHADOW" = 200,
+		"CHAMELEON" = 200,
+		"CRYO" = 200,
+		"EAT" = 200,
+		"JUMP" = 200,
+		"IMMOLATE" = 200,
+		"EMPATH" = 200,
+		"STRONG" = 200,
 		"BLINDNESS" = 200,
+		"POLYMORPH" = 200,
 		"COLOURBLIND" = 200,
 		"DEAF" = 200,
-		"HULK" = 250,
-		"TELE" = 250,
-		"FIRE" = 300,
-		"XRAY" = 300,
 		"CLUMSY" = 200,
 		"COUGH" = 200,
 		"GLASSES" = 200,
 		"EPILEPSY" = 200,
 		"WINGDINGS" = 200,
 		"BREATHLESS" = 250,
-		"REMOTEVIEW" = 300,
-		"REGENERATE" = 300,
-		"INCREASERUN" = 300,
-		"REMOTETALK" = 300,
-		"MORPH" = 300,
 		"COLD" = 200,
 		"HALLUCINATION" = 200,
+	)
+	very_hard_items = list(
 		"NOPRINTS" = 250,
 		"SHOCKIMMUNITY" = 200,
-		"SMALLSIZE" = 250
+		"SMALLSIZE" = 250,
+		"HULK" = 300,
+		"TELE" = 300,
+		"FIRE" = 350,
+		"XRAY" = 350,
+		"REMOTEVIEW" = 350,
+		"REGENERATE" = 350,
+		"INCREASERUN" = 350,
+		"REMOTETALK" = 350,
+		"MORPH" = 350,
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/genes/length_quest()
 	return length(required_blocks)
