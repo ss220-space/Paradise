@@ -660,8 +660,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				visible_message(span_warning("[src] buzzes rudely."))
 				return FALSE
-			modify.registered_name = temp_name
-			regenerate_id_name()
+			if(modify.icon_state == "emag")
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				visible_message(span_warning("Error: An obstruction element has been detected that prevents the operation."))
+				return FALSE
+			else
+				modify.registered_name = temp_name
+				regenerate_id_name()
 			return
 		if("account") // card account number
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
