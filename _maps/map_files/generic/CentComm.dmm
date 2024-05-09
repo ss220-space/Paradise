@@ -1758,13 +1758,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "aPL" = (
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 2;
-	id_tag = "ert_vis_turret";
-	locked = 1;
-	opacity = 0;
-	icon_state = "open"
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
