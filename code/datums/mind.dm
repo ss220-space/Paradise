@@ -696,6 +696,7 @@
 	var/out = {"<meta charset="UTF-8"><B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]<br>"}
 	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a><br>"
+	out += "Special role: [special_role].<br>" //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
 	out += "Factions and special roles:<br>"
 
 	var/list/sections = list(
