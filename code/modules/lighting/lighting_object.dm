@@ -1,6 +1,19 @@
-/datum/lighting_object
+/atom/movable/lighting_object
+	name = ""
+	anchored = TRUE
+	icon = LIGHTING_ICON
+	icon_state = "transparent"
+	color = null
+	plane = LIGHTING_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = LIGHTING_LAYER
+	invisibility = INVISIBILITY_LIGHTING
+	simulated = FALSE
+
+	var/turf/myturf
+
 	///the underlay we are currently applying to our turf to apply light
-	var/mutable_appearance/current_underlay
+	//var/mutable_appearance/current_underlay
 
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
@@ -11,14 +24,12 @@
 // Global list of lighting underlays, indexed by z level
 GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 
-/datum/lighting_object/New(turf/source)
+/atom/movable/lighting_object/New(turf/source)
 	if(!isturf(source))
 		qdel(src, force=TRUE)
 		stack_trace("a lighting object was assigned to [source], a non turf! ")
 		return
 	. = ..()
-
-	current_underlay = new(GLOB.default_lighting_underlays_by_z[source.z])
 
 	affected_turf = source
 	if (affected_turf.lighting_object)
@@ -37,18 +48,17 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
-/datum/lighting_object/Destroy(force)
+/atom/movable/lighting_object/Destroy(force)
 	if (!force)
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
 	if (isturf(affected_turf))
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
-		affected_turf.underlays -= current_underlay
 	affected_turf = null
 	return ..()
 
-/datum/lighting_object/proc/update()
+/atom/movable/lighting_object/proc/update()
 	// To the future coder who sees this and thinks
 	// "Why didn't he just use a loop?"
 	// Well my man, it's because the loop performed like shit.
@@ -76,25 +86,18 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	var/set_luminosity = max > 1e-6
 	#endif
 
-	var/mutable_appearance/current_underlay = src.current_underlay
-	affected_turf.underlays -= current_underlay
 	if(red_corner.cache_r & green_corner.cache_r & blue_corner.cache_r & alpha_corner.cache_r && \
 		(red_corner.cache_g + green_corner.cache_g + blue_corner.cache_g + alpha_corner.cache_g + \
 		red_corner.cache_b + green_corner.cache_b + blue_corner.cache_b + alpha_corner.cache_b == 8))
 		//anything that passes the first case is very likely to pass the second, and addition is a little faster in this case
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "transparent_lighting_object"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		icon_state = "transparent_lighting_object"
+		color = null
 	else if(!set_luminosity)
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = "dark_lighting_object"
-		current_underlay.color = null
-		affected_turf.underlays += current_underlay
+		icon_state = "dark_lighting_object"
+		color = null
 	else
-		affected_turf.underlays -= current_underlay
-		current_underlay.icon_state = null
-		current_underlay.color = list(
+		icon_state = null
+		color = list(
 			red_corner.cache_r, red_corner.cache_g, red_corner.cache_b, 00,
 			green_corner.cache_r, green_corner.cache_g, green_corner.cache_b, 00,
 			blue_corner.cache_r, blue_corner.cache_g, blue_corner.cache_b, 00,
@@ -102,7 +105,40 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 			00, 00, 00, 01
 		)
 
-	// Of note. Most of the cost in this proc is here, I think because color matrix'd underlays DO NOT cache well, which is what adding to underlays does
-	// We use underlays because objects on each tile would fuck with maptick. if that ever changes, use an object for this instead
-	affected_turf.underlays += current_underlay
 	affected_turf.luminosity = set_luminosity
+
+
+// Variety of overrides so the overlays don't get affected by weird things.
+
+/atom/movable/lighting_object/ex_act(severity)
+	return 0
+
+/atom/movable/lighting_object/singularity_act()
+	return
+
+/atom/movable/lighting_object/singularity_pull()
+	return
+
+/atom/movable/lighting_object/blob_act(obj/structure/blob/B)
+	return
+
+/atom/movable/lighting_object/onTransitZ()
+	return
+
+// Override here to prevent things accidentally moving around overlays.
+/atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
+	if(harderforce)
+		. = ..()
+
+/atom/movable/lighting_object/Crossed(atom/movable/AM, oldloc)
+	return
+
+/atom/movable/lighting_object/Uncrossed(atom/movable/AM)
+	return
+
+/atom/movable/lighting_object/Bump(atom/A, yes)
+	return
+
+/atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	return
+
