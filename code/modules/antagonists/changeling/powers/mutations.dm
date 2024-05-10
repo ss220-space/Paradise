@@ -646,6 +646,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -678,6 +679,7 @@
 	flags = STOPSPRESSUREDMAGE|DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -721,6 +723,8 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	species_restricted = null
+	faction_restricted = null
 	hide_tail_by_species = list(SPECIES_VULPKANIN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -748,6 +752,8 @@
 	flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	species_restricted = null
+	faction_restricted = null
 
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)

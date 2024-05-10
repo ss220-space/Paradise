@@ -199,7 +199,7 @@
 /obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_SIZE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
 
