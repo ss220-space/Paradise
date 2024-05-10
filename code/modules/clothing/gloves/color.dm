@@ -1,5 +1,6 @@
 /obj/item/clothing/gloves/color
 	dyeable = TRUE
+	belt_icon = "other_gloves"
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
@@ -10,6 +11,7 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	belt_icon = "insulated_gloves"
 
 /obj/item/clothing/gloves/color/yellow/power
 	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."

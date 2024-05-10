@@ -79,6 +79,9 @@
 			var/new_poncho_desc = ""
 			var/new_poncho_name = ""
 			var/new_desc = "The colors are a bit dodgy."
+			var/new_belt_name = ""
+			var/new_belt_icon_state = ""
+			var/new_belt_item_state = ""
 			for(var/T in typesof(/obj/item/clothing/under))
 				var/obj/item/clothing/under/J = new T
 				if(wash_color == J.item_color)
@@ -88,6 +91,15 @@
 					qdel(J)
 					break
 				qdel(J)
+			for(var/T in typesof(/obj/item/storage/belt/utility))
+				var/obj/item/storage/belt/utility/U = new T
+				if(wash_color == U.item_color)
+					new_belt_icon_state = U.icon_state
+					new_belt_item_state = U.item_state
+					new_belt_name = U.name
+					qdel(U)
+					break
+				qdel(U)
 			for(var/T in typesof(/obj/item/clothing/gloves/color))
 				var/obj/item/clothing/gloves/color/G = new T
 				if(wash_color == G.item_color)
@@ -197,6 +209,14 @@
 					P.item_color = wash_color
 					P.name = new_poncho_name
 					P.desc = "[new_poncho_desc] [new_desc]"
+			if(new_belt_icon_state && new_belt_name)
+				for(var/obj/item/storage/belt/utility/U in contents)
+					if(!U.dyeable)
+						continue
+					U.icon_state = new_belt_icon_state
+					U.item_state = new_belt_item_state
+					U.item_color = wash_color
+					U.name = new_belt_name
 		QDEL_NULL(crayon)
 
 
@@ -258,6 +278,7 @@
 		istype(W,/obj/item/clothing/shoes) || \
 		istype(W,/obj/item/clothing/suit) || \
 		istype(W,/obj/item/bedsheet) || \
+		istype(W,/obj/item/storage/belt/utility) || \
 		istype(W,/obj/item/clothing/neck/poncho))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
