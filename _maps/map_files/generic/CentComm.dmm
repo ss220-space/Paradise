@@ -25379,7 +25379,8 @@
 	layer = 5;
 	locked = 1;
 	opacity = 0;
-	req_access = list(114)
+	req_access = list(114);
+	icon_state = "open"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
