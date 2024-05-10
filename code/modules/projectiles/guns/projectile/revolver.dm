@@ -76,7 +76,7 @@
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 
-/obj/item/gun/projectile/revolver/can_shoot()
+/obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)
 
 
@@ -243,7 +243,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
-	if(!spun && can_shoot())
+	if(!spun && can_shoot(user))
 		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 		Spin()
 	else

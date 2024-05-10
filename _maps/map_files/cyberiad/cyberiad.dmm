@@ -12588,9 +12588,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aHf" = (
-/obj/machinery/vending/dinnerware{
-	products = list(/obj/item/storage/bag/tray=1,/obj/item/kitchen/utensil/fork=2,/obj/item/kitchen/knife=0,/obj/item/kitchen/rollingpin=0,/obj/item/kitchen/sushimat=1,/obj/item/reagent_containers/food/drinks/drinkingglass=2,/obj/item/clothing/suit/chef/classic=1,/obj/item/storage/belt/chef=0,/obj/item/reagent_containers/food/condiment/pack/ketchup=1,/obj/item/reagent_containers/food/condiment/pack/hotsauce=0,/obj/item/reagent_containers/food/condiment/saltshaker=1,/obj/item/reagent_containers/food/condiment/peppermill=2,/obj/item/whetstone=1,/obj/item/mixing_bowl=3,/obj/item/kitchen/mould/bear=1,/obj/item/kitchen/mould/worm=0,/obj/item/kitchen/mould/bean=0,/obj/item/kitchen/mould/ball=1,/obj/item/kitchen/mould/cane=1,/obj/item/kitchen/mould/cash=0,/obj/item/kitchen/mould/coin=0,/obj/item/kitchen/mould/loli=1,/obj/item/kitchen/cutter=0,/obj/item/eftpos=1)
-	},
+/obj/machinery/vending/dinnerware/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
 	},
@@ -41686,9 +41684,15 @@
 "cbL" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start/quartermaster,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "cbM" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "cbN" = (
@@ -43799,6 +43803,9 @@
 /area/crew_quarters/hor)
 "cgz" = (
 /obj/machinery/computer/supplycomp,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -45432,6 +45439,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -70691,6 +70701,9 @@
 	name = "Quartermaster";
 	req_access = list(41)
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "eYR" = (
@@ -72034,6 +72047,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"gyy" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "gzq" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -72045,6 +72071,16 @@
 	icon_state = "blue"
 	},
 /area/bridge)
+"gAM" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "gBd" = (
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -72349,6 +72385,9 @@
 "gRy" = (
 /obj/structure/table,
 /obj/machinery/keycard_auth,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "gRL" = (
@@ -74617,11 +74656,11 @@
 /area/space)
 "juC" = (
 /obj/machinery/requests_console{
+	announcementConsole = 1;
 	department = "Quartermaster's Desk";
 	departmentType = 5;
 	name = "Quartermaster Requests Console";
-	pixel_x = -30;
-	announcementConsole = 1
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76358,7 +76397,10 @@
 	},
 /area/security/prisonershuttle)
 "lrP" = (
-/obj/structure/filingcabinet,
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -78674,8 +78716,8 @@
 	pixel_y = -4
 	},
 /obj/item/toy/figure/qm{
-	pixel_y = 3;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 3
 	},
 /obj/item/lighter/zippo/qm{
 	pixel_x = -8;
@@ -79473,6 +79515,10 @@
 "oQl" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -82670,6 +82716,16 @@
 	},
 /turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
+"snM" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "soa" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -84116,6 +84172,22 @@
 	icon_state = "wood-broken"
 	},
 /area/maintenance/fsmaint2)
+"tPq" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "tPF" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -111162,8 +111234,8 @@ bzJ
 bYK
 bYM
 bYM
-oQl
-oQl
+snM
+gyy
 eYH
 bYM
 bYM
@@ -111673,7 +111745,7 @@ bvH
 bvH
 bXk
 wZO
-oQl
+tPq
 cgz
 cbL
 gRy
@@ -111930,7 +112002,7 @@ bUV
 bVL
 bXj
 qdS
-oQl
+gAM
 npo
 gqp
 uWw

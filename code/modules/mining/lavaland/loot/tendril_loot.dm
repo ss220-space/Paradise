@@ -444,7 +444,7 @@
 	effect.desc = "It's shaped an awful lot like [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
@@ -460,7 +460,7 @@
 		return
 
 	user.status_flags &= ~GODMODE
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
 	user.visible_message(span_danger("[user] pops back into reality!"))
 	effect.can_destroy = TRUE

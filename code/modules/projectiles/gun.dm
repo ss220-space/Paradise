@@ -147,12 +147,12 @@
 
 
 /obj/item/gun/proc/process_chamber()
-	return 0
+	return FALSE
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
-/obj/item/gun/proc/can_shoot()
-	return 1
+/obj/item/gun/proc/can_shoot(mob/user)
+	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, span_danger("*click*"))

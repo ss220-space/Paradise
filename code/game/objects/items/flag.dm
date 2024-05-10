@@ -142,6 +142,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Nian."
 	icon_state = "nianflag"
 
+/obj/item/flag/species/wryn
+	name = "Wryn flag"
+	desc = "A flag proudly proclaiming the superior heritage of Wryn."
+	icon_state = "wrynflag"
+
 //Department Flags
 
 /obj/item/flag/cargo

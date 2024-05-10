@@ -107,11 +107,10 @@
 	else
 		return ..()
 
-/obj/item/gun/dartgun/can_shoot()
+/obj/item/gun/dartgun/can_shoot(mob/user)
 	if(!cartridge)
-		return 0
-	else
-		return cartridge.darts
+		return FALSE
+	return cartridge.darts
 
 /obj/item/gun/dartgun/proc/has_selected_beaker_reagents()
 	return 0
