@@ -25375,7 +25375,6 @@
 	},
 /obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ert_enter_control";
-	layer = 5;
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
