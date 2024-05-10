@@ -339,8 +339,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/hardsuit
 	name = "Security Hardsuit Crate"
-	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/security,
-					/obj/item/clothing/head/helmet/space/hardsuit/security,
+	contains = list(/obj/item/clothing/suit/space/hardsuit/security,
+					/obj/item/clothing/suit/space/hardsuit/security,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
 	cost = 180
@@ -821,8 +821,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/hardsuit
 	name = "Engineering Hardsuit Crate"
-	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/engine,
-					/obj/item/clothing/head/helmet/space/hardsuit/engine,
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine,
+					/obj/item/clothing/suit/space/hardsuit/engine,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
@@ -833,8 +833,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/hardsuit/atmospherics
 	name = "Atmospherics Hardsuit Crate"
-	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/engine/atmos,
-					/obj/item/clothing/head/helmet/space/hardsuit/engine/atmos,
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos,
+					/obj/item/clothing/suit/space/hardsuit/engine/atmos,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
@@ -1250,8 +1250,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/medical/hardsuit
 	name = "Medical Hardsuit Crate"
-	contains = list(/obj/item/clothing/head/helmet/space/hardsuit/medical,
-					/obj/item/clothing/head/helmet/space/hardsuit/medical,
+	contains = list(/obj/item/clothing/suit/space/hardsuit/medical,
+					/obj/item/clothing/suit/space/hardsuit/medical,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
