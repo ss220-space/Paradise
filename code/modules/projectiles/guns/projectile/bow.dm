@@ -68,7 +68,7 @@
 		chamber_round()
 		update_state()
 
-/obj/item/gun/projectile/bow/can_shoot()
+/obj/item/gun/projectile/bow/can_shoot(mob/user)
 	. = ..()
 	if(!ready_to_fire)
 		return FALSE

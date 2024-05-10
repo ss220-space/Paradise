@@ -32,10 +32,10 @@
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
 
-/obj/item/gun/projectile/shotgun/can_shoot()
+/obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
-		return 0
-	return (chambered.BB ? 1 : 0)
+		return FALSE
+	return (chambered.BB ? TRUE : FALSE)
 
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
 	if(recentpump)

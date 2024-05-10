@@ -75,7 +75,7 @@
 		chambered.loc = src
 	return
 
-/obj/item/gun/projectile/can_shoot()
+/obj/item/gun/projectile/can_shoot(mob/user)
 	if(!magazine || !magazine.ammo_count(FALSE))
 		return FALSE
 	return TRUE
