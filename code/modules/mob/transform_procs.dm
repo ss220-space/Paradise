@@ -19,11 +19,11 @@
 	return ..()
 
 /mob/living/carbon/AIize()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -65,12 +65,12 @@
 	* AI: A reference to the AI we want to connect to.
 */
 /mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -130,11 +130,11 @@
 	return O
 
 /mob/living/carbon/human/proc/corgize()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -153,12 +153,12 @@
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
 
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -191,11 +191,11 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/paize(name, bespai)
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -219,7 +219,7 @@
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(stat == DEAD)
@@ -228,7 +228,7 @@
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 
-	notransform = TRUE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
 

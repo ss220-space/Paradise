@@ -3,7 +3,7 @@
 		return FALSE
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -26,7 +26,7 @@
 /mob/living/carbon/alien/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT

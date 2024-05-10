@@ -19,7 +19,6 @@
 	var/datum/preferences/prefs = null
 	var/move_delay		= 1
 	var/current_move_delay = 0
-	var/moving			= null
 	var/area			= null
 	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 

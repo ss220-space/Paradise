@@ -15,7 +15,7 @@
 	tox_mod = 0.75
 	bonefragility = 0.8
 
-	species_traits = list(LIPS, NO_OBESITY)
+	species_traits = list(LIPS, NO_OBESITY, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	taste_sensitivity = TASTE_SENSITIVITY_DULL

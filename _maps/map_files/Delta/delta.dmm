@@ -92183,6 +92183,10 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/tape_roll,
 /obj/item/hand_labeler,
+/obj/item/stack/tape_roll{
+	pixel_x = -9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

@@ -140,15 +140,15 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		if(!auth_id)
 			to_chat(user, span_warning("Требуется авторизация! Приложите ID-карту."))
 			return FALSE
-		if(!find_and_compare_id_cards(user, auth_id))
+		if(!find_and_compare_id_cards(user))
 			to_chat(user, span_warning("Ваша ID-карта не совпадает с авторизованной."))
 			return FALSE
 	return TRUE
 
 
-/obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(mob/user, obj/item/card/id/registered_id)
+/obj/item/sibyl_system_mod/proc/find_and_compare_id_cards(mob/user)
 	for(var/obj/item/card/id/found_id in user.get_all_id_cards())
-		if(found_id == registered_id)
+		if(found_id == auth_id)
 			return TRUE
 	return FALSE
 

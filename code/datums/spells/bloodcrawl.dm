@@ -192,7 +192,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/user, obj/effect/dummy/slaughter/holder)
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/enter_point, mob/living/carbon/user)
@@ -200,7 +200,7 @@
 	if(istype(user) && !block_hands(user))
 		return FALSE
 
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	INVOKE_ASYNC(src, PROC_REF(async_phase), enter_point, user)
 	return TRUE
 
@@ -244,8 +244,9 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phasein(atom/enter_point, mob/living/user)
-
-	if(user.notransform)
+	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
+		return FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		to_chat(user, span_warning("Finish eating first!"))
 		return FALSE
 	rise_message(enter_point)
