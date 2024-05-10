@@ -24,7 +24,7 @@
 
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || user.incapacitated() || !isturf(loc) || !user.has_gravity())
+	if(!istype(user) || opened || user.incapacitated() || !isturf(loc) || !has_gravity())
 		return
 	var/turf/next_step = get_step(src, direction)
 	if(!next_step)
