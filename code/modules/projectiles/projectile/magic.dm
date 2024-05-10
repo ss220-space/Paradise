@@ -157,8 +157,8 @@
 	wabbajack(change)
 
 /proc/wabbajack(mob/living/M)
-	if(istype(M) && M.stat != DEAD && !M.notransform)
-		M.notransform = TRUE
+	if(istype(M) && M.stat != DEAD && !HAS_TRAIT(M, TRAIT_NO_TRANSFORM))
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 		M.canmove = FALSE
 		M.icon = null
 		M.cut_overlays()

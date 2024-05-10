@@ -805,13 +805,17 @@
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)						return 0
-	if(client.moving)					return 0
-	if(stat==2)							return 0
-	if(anchored)						return 0
-	if(notransform)						return 0
-	if(restrained())					return 0
-	return 1
+	if(!canmove)
+		return FALSE
+	if(stat == DEAD)
+		return FALSE
+	if(anchored)
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return FALSE
+	if(restrained())
+		return FALSE
+	return TRUE
 
 /mob/proc/fall(var/forced)
 	drop_l_hand()

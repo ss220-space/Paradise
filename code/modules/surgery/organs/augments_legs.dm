@@ -135,6 +135,10 @@
 		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
+	if(owner.throwing)
+		to_chat(owner, span_warning("You can't jump in the middle of another jump!"))
+		return
+
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
 
 	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
@@ -144,7 +148,7 @@
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		owner.visible_message(span_warning("[usr] dashes forward into the air!"))
+		owner.visible_message(span_warning("[owner] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(owner, span_warning("Something prevents you from dashing forward!"))

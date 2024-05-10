@@ -194,7 +194,7 @@
 	/// Do we require any of the needed chems, or all of them?
 	var/require_all_chems = TRUE
 	/// Whether silicons ignore any probabilities (and are therefore "perfect" surgeons)
-	var/silicons_ignore_prob = FALSE
+	var/silicons_ignore_prob = TRUE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 

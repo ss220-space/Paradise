@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	if((!OldLoc || !OldLoc.has_gravity()) && has_gravity())
-		thunk()
+	//if((!OldLoc || !OldLoc.has_gravity()) && has_gravity()) //Temporary disable stun when gravity change
+	//	thunk()
 
 
 /mob/living/carbon/human/get_movespeed_modifiers()
@@ -161,7 +161,7 @@
 
 /// Proc used to weaken the user when moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || mob_negates_gravity())
+	if(buckled || mob_negates_gravity() || incorporeal_move)
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides

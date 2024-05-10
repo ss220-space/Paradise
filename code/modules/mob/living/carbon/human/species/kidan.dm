@@ -12,7 +12,7 @@
 	brute_mod = 0.8
 	tox_mod = 1.7
 
-	species_traits = list(IS_WHITELISTED)
+	species_traits = list(IS_WHITELISTED, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	fingers_count = 6

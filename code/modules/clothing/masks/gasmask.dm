@@ -42,7 +42,6 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
@@ -147,7 +146,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags_inv = HIDEGLASSES|HIDENAME|HIDEHAIR
+	flags_inv = parent_type::flags_inv|HIDEHAIR
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
@@ -265,7 +264,7 @@
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
 	desc = "A mime mask glowing with power. Its eyes gaze deep into your soul."
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/mime/nodrop

@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 	for(var/bt in GLOB.bump_teleporters)
 		var/obj/effect/bump_teleporter/teleporter = bt
 		if(teleporter.id == id_target)
-			moving_atom.loc = teleporter.loc
+			moving_atom.forceMove(teleporter.loc)
 			process_special_effects(moving_atom)
 			return
 

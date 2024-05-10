@@ -92,10 +92,7 @@
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
-		A.loc = active_dummy.loc
-		if(ismob(A))
-			var/mob/M = A
-			M.reset_perspective(null)
+		A.forceMove(active_dummy.loc)
 
 /obj/effect/dummy/chameleon
 	name = ""
@@ -113,7 +110,7 @@
 	overlays = new_overlays
 	underlays = new_underlays
 	dir = O.dir
-	M.loc = src
+	M.forceMove(src)
 	master = C
 	master.active_dummy = src
 

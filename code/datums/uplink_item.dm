@@ -451,6 +451,13 @@
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
 
+/datum/uplink_item/jobspecific/gatfruit
+	name = "Gatfruit seeds"
+	desc = "Seeds of the Gatfruit plant, the fruits eaten will produce a .36 caliber revolver! It also contains chemicals 10% sulfur, 10% carbon, 7% nitrogen, 5% potassium."
+	item = /obj/item/seeds/gatfruit
+	cost = 22
+	job = list(JOB_TITLE_BOTANIST)
+
 //Engineer
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
@@ -634,7 +641,7 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "Stechkin Pistol"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
@@ -1066,7 +1073,7 @@
 	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
 	name = "84mm High Explosive rocket"
@@ -1854,6 +1861,12 @@
 	item = /obj/item/implanter/freedom
 	cost = 18
 
+/datum/uplink_item/implants/freedom/prototype
+	name = "Prototype Freedom Implant"
+	desc = "An implant injected into the body and later activated manually to break out of any restraints. This prototype can be activated 1 time."
+	item = /obj/item/implanter/freedom/prototype
+	cost = 6
+
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
 	desc = "An implant injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
@@ -1882,6 +1895,12 @@
 	cost = 44
 	can_discount = FALSE
 	surplus = 0
+
+/datum/uplink_item/implants/adrenal/prototype
+	name = "Prototype Adrenal Implant"
+	desc = "An implant injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. This prototype can be activated 1 time."
+	item = /obj/item/implanter/adrenalin/prototype
+	cost = 16
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"
@@ -1964,6 +1983,12 @@
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+/datum/uplink_item/badass/desert_eagle
+	name = "Desert Eagle"
+	desc = "A badass gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50AE ammo. Kill with style."
+	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
+	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"

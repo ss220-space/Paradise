@@ -370,6 +370,10 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
+	if((H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
+		H.adjustBruteLoss(-0.1, FALSE)
+		H.adjustFireLoss(-0.1)
+
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)

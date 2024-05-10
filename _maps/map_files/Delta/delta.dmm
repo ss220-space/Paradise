@@ -55,11 +55,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed,
 /obj/machinery/computer/guestpass{
 	pixel_x = 30
 	},
-/mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Quartermaster's Desk";
@@ -67,6 +65,8 @@
 	name = "Quartermaster Requests Console";
 	pixel_y = -30
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -8426,6 +8426,9 @@
 	pixel_x = -8;
 	pixel_y = 2
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -16353,6 +16356,9 @@
 /obj/item/radio/intercom{
 	pixel_x = 28;
 	pixel_y = -2
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -31227,7 +31233,10 @@
 	},
 /area/crew_quarters/chief)
 "dhb" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/table/reinforced,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -35401,11 +35410,11 @@
 	},
 /area/engine/controlroom)
 "dzs" = (
-/obj/machinery/photocopier,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -41292,6 +41301,9 @@
 	dir = 1;
 	name = "north bump";
 	pixel_y = 26
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -51318,6 +51330,9 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -51461,6 +51476,7 @@
 /area/crew_quarters/cabin2)
 "gib" = (
 /obj/effect/spawner/window/reinforced/polarized,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
 "gig" = (
@@ -64969,7 +64985,7 @@
 "jsC" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "jsJ" = (
 /turf/simulated/wall/r_wall,
@@ -73479,6 +73495,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
+"lzu" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "lzy" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
@@ -73653,6 +73681,13 @@
 	icon_state = "red"
 	},
 /area/security/holding_cell)
+"lBB" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "lBD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/event/lightsout,
@@ -80833,6 +80868,12 @@
 	id = "qm";
 	name = "Quartermaster";
 	req_access = list(41)
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -88605,7 +88646,7 @@
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "oWK" = (
 /obj/item/radio/beacon,
@@ -92142,6 +92183,10 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/tape_roll,
 /obj/item/hand_labeler,
+/obj/item/stack/tape_roll{
+	pixel_x = -9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -92931,6 +92976,16 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft)
+"pRX" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "pSd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -112765,10 +112820,6 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/tourist)
-"utf" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
-/area/space)
 "utt" = (
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
@@ -113633,6 +113684,9 @@
 "uDx" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -115835,6 +115889,14 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port)
+"vft" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/qm)
 "vfC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -116241,6 +116303,29 @@
 	icon_state = "vault"
 	},
 /area/maintenance/asmaint4)
+"vjO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/qm)
 "vjQ" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/sop_engineering,
@@ -173300,10 +173385,10 @@ tRm
 fnK
 dRG
 uDx
-uDx
+lzu
 nit
-uDx
-uDx
+pRX
+lBB
 dDb
 bSH
 dJl
@@ -173814,9 +173899,9 @@ dNr
 qbl
 uDx
 bgT
-duw
-fdQ
-duw
+vft
+vjO
+vft
 gfk
 gib
 bSH
@@ -183168,7 +183253,7 @@ coE
 aaq
 aaq
 coE
-jsC
+yga
 qrM
 nIH
 fsG
@@ -183426,7 +183511,7 @@ aaq
 aaq
 aaq
 coE
-utf
+htO
 jsC
 fsG
 fsG
@@ -184706,8 +184791,8 @@ wLN
 rSm
 edb
 kTT
-utf
-utf
+htO
+htO
 coE
 aaq
 aaq
@@ -184965,7 +185050,7 @@ aAE
 kTT
 kTT
 acF
-utf
+htO
 coE
 aaq
 aaq

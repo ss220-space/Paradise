@@ -124,25 +124,6 @@
 		ADD_CLOTHING_TRAIT(user, src, trait)
 
 
-/obj/item/clothing/proc/refit_for_species(target_species)
-	//Set species_restricted list
-	switch(target_species)
-		if(SPECIES_HUMAN, SPECIES_SKRELL)	//humanoid bodytypes
-			species_restricted = list("exclude",SPECIES_UNATHI,SPECIES_TAJARAN,SPECIES_DIONA,SPECIES_VOX,SPECIES_WRYN,SPECIES_DRASK)
-		else
-			species_restricted = list(target_species)
-
-	//Set icon
-	if(sprite_sheets && (target_species in sprite_sheets))
-		icon_override = sprite_sheets[target_species]
-	else
-		icon_override = initial(icon_override)
-
-	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
-		icon = sprite_sheets_obj[target_species]
-	else
-		icon = initial(icon)
-
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
   */
@@ -760,11 +741,10 @@ BLIND     // can't see anything
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
+	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -1001,19 +981,25 @@ BLIND     // can't see anything
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+	if(!ishuman(usr))
+		return
+	var/mob/living/carbon/human/owner = usr
+	if(owner.stat != CONSCIOUS)
+		return
 
-	if(!usr.incapacitated())
+	if(!owner.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states(onmob_sheets[ITEM_SLOT_CLOTH_INNER]))
+		var/icon/file = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
+		if(sprite_sheets && sprite_sheets[owner.dna.species.name])
+			file = sprite_sheets[owner.dna.species.name]
+		if((basecolor + "_d_s") in icon_states(file))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-			usr.update_inv_w_uniform()
+			owner.update_inv_w_uniform()
 		else
-			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+			to_chat(owner, "<span class='notice'>You cannot roll down this uniform!</span>")
 	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(owner, "<span class='notice'>You cannot roll down the uniform!</span>")
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"

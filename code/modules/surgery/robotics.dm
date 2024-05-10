@@ -124,13 +124,17 @@
 
 /datum/surgery/intermediate/robotics/manipulate_organs
 	possible_locs = list(
-		BODY_ZONE_PRECISE_EYES,
-		BODY_ZONE_PRECISE_MOUTH,
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
 		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
 		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM)
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_TAIL,
+	)
 
 /datum/surgery/intermediate/robotics/manipulate_organs/extract
 	steps = list(/datum/surgery_step/robotics/manipulate_robotic_organs/extract)

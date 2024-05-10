@@ -1004,7 +1004,7 @@
 	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 	vampire_animal.canmove = FALSE
 	user.forceMove(vampire_animal)
@@ -1066,7 +1066,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
 	original_body.update_canmove()
 	is_transformed = FALSE

@@ -20,25 +20,31 @@
 /obj/item/stack/ore/update_overlays()
 	. = ..()
 
-	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
-	if(difference == 0)
-		. += stack_overlays
-		return
+	if(!stack_overlays)
+		stack_overlays = list()
 
-	if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
-		if(LAZYLEN(stack_overlays)-difference <= 0)
-			stack_overlays = null
-		else
-			stack_overlays.len += difference
+	var/overlays_length = length(stack_overlays)
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (overlays_length + 1)
 
-	else if(difference > 0)			//amount > stack_overlays, add some.
+	if(!difference)
+		if(overlays_length)
+			. += stack_overlays
+		return .
+
+	if(difference < 0)
+		var/cut_diff = overlays_length - abs(difference)
+		if(cut_diff <= 0)
+			stack_overlays.Cut()
+			return .
+		stack_overlays.Cut(cut_diff, overlays_length)
+	else
 		for(var/i in 1 to difference)
 			var/mutable_appearance/newore = mutable_appearance(icon, icon_state)
 			newore.pixel_x = rand(-8,8)
 			newore.pixel_y = rand(-8,8)
-			LAZYADD(stack_overlays, newore)
+			stack_overlays += newore
 
-	if(stack_overlays)
+	if(length(stack_overlays))
 		. += stack_overlays
 
 

@@ -51,10 +51,10 @@
 			affected_mob.death(1)
 			return
 
-		if(affected_mob.notransform)
+		if(HAS_TRAIT(affected_mob, TRAIT_NO_TRANSFORM))
 			return
 
-		affected_mob.notransform = 1
+		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 		affected_mob.canmove = FALSE
 		affected_mob.icon = null
 		affected_mob.cut_overlays()

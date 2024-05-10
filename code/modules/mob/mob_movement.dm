@@ -33,8 +33,8 @@
 	if(!n || !direct) // why did we never check this before?
 		return FALSE
 
-	if(mob.notransform)
-		return 0 //This is sota the goto stop mobs from moving var
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
 
 	if(mob.control_object)
 		return Move_object(direct)
@@ -48,9 +48,6 @@
 
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, n, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
-
-	if(moving)
-		return 0
 
 	var/mob/living/L = mob	//Already checked for isliving earlier
 	if(L.incorporeal_move)//Move though walls
@@ -234,10 +231,10 @@
 		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
-				to_chat(L, "<span class='warning'>Святые силы блокируют ваш путь.</span>")
-				L.notransform = 1
+				to_chat(L, span_warning("Святые силы блокируют ваш путь."))
+				ADD_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
 				spawn(2)
-					L.notransform = 0
+					REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
 			else
 				L.forceMove(get_step(L, direct))
 				L.dir = direct

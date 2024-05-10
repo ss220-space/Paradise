@@ -62,7 +62,7 @@
 	qdel(src)
 
 
-/obj/item/gun/energy/shuriken_emitter/can_shoot()
+/obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
 	return !my_suit.ninjacost(cost*burst_size)
 
 /obj/item/ammo_casing/energy/shuriken
