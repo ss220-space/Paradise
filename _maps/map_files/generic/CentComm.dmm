@@ -25373,14 +25373,10 @@
 	name = "Shuttle Hatch";
 	req_access = list(109)
 	},
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ert_enter_control";
 	layer = 5;
-	locked = 1;
-	opacity = 0;
-	req_access = list(114);
-	icon_state = "open"
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
