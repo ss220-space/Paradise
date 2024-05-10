@@ -236,7 +236,7 @@
 	into the enveloping dark."))
 	if(isliving(AM))
 		var/mob/living/L = AM
-		L.notransform = TRUE
+		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 		L.Stun(400 SECONDS)
 		L.resting = TRUE
 	var/oldtransform = AM.transform
@@ -283,11 +283,10 @@
 			visible_message(span_boldwarning("[src] spits out [AM]!"))
 			AM.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
 
-
 		var/mob/living/fallen_mob = AM
 		if(fallen_mob.stat != DEAD)
 			fallen_mob.death(TRUE)
-			fallen_mob.notransform = FALSE
+			REMOVE_TRAIT(fallen_mob, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 			fallen_mob.apply_damage(1000)
 
 	else
@@ -317,7 +316,7 @@
 	if(isliving(gone))
 		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
 
-#define CHASM_TRAIT "chasm trait"
+
 /**
  * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
  * Ethereals should take enough damage to be smashed and not revive.
@@ -341,7 +340,6 @@
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 
-#undef CHASM_TRAIT
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
