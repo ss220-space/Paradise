@@ -263,7 +263,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
-
+	///Bloom level
+	var/bloom = 30
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -550,6 +551,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Input Lists:</b> <a href='?_src_=prefs;preference=input_lists'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "Default" : "TGUI"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Bloom:</b>	 <a href='?_src_=prefs;preference=bloom;task=input'>[bloom]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
@@ -2302,6 +2304,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							else
 								parent.fps = CONFIG_GET(number/clientfps)
 
+				if("bloom")
+					if(user.client)
+						var/new_bloom = input(user, "Выберите значение Bloom. \n 30 - значение по умолчанию. \n 0 - Отключить Bloom.")  as null|num
+						if(!isnull(new_bloom))
+							new_bloom = clamp(new_bloom, 0, 100)
+							set_bloom(new_bloom)
 
 		else
 			switch(href_list["preference"])
@@ -2898,3 +2906,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
+
+/datum/preferences/proc/set_bloom(value)
+	bloom = value
+	parent?.mob?.update_sight()

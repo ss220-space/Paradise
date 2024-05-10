@@ -94,6 +94,9 @@
 #define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //dynamic lighting enabled only if starlight is.
 #define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
 
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_MAX 255
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL 128
+#define ADDITIVE_LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0

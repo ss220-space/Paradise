@@ -5,6 +5,7 @@
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 
+	var/mutable_appearance/additive_underlay
 	///the turf that our light is applied to
 	var/turf/affected_turf
 
@@ -34,6 +35,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
 			space_tile.update_starlight()
 
+	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+	additive_underlay.blend_mode = BLEND_ADD
+
 	needs_update = TRUE
 	SSlighting.objects_queue += src
 
@@ -45,6 +49,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		affected_turf.lighting_object = null
 		affected_turf.luminosity = 1
 		affected_turf.underlays -= current_underlay
+		affected_turf.underlays -= additive_underlay
 	affected_turf = null
 	return ..()
 
@@ -105,4 +110,36 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	// Of note. Most of the cost in this proc is here, I think because color matrix'd underlays DO NOT cache well, which is what adding to underlays does
 	// We use underlays because objects on each tile would fuck with maptick. if that ever changes, use an object for this instead
 	affected_turf.underlays += current_underlay
+
+	if(red_corner.applying_additive || green_corner.applying_additive || blue_corner.applying_additive || alpha_corner.applying_additive)
+		affected_turf.underlays -= additive_underlay
+		additive_underlay.icon_state = "light"
+		var/arr = red_corner.add_r
+		var/arb = red_corner.add_b
+		var/arg = red_corner.add_g
+
+		var/agr = green_corner.add_r
+		var/agb = green_corner.add_b
+		var/agg = green_corner.add_g
+
+		var/abr = blue_corner.add_r
+		var/abb = blue_corner.add_b
+		var/abg = blue_corner.add_g
+
+		var/aarr = alpha_corner.add_r
+		var/aarb = alpha_corner.add_b
+		var/aarg = alpha_corner.add_g
+
+		additive_underlay.color = list(
+			arr, arg, arb, 00,
+			agr, agg, agb, 00,
+			abr, abg, abb, 00,
+			aarr, aarg, aarb, 00,
+			00, 00, 00, 01
+		)
+		affected_turf.underlays += additive_underlay
+	else
+		affected_turf.underlays -= additive_underlay
+
 	affected_turf.luminosity = set_luminosity
+

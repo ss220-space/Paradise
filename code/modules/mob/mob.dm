@@ -1221,6 +1221,14 @@
 		if(vis)
 			vis.alpha = lighting_alpha
 
+		var/obj/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
+		if(LA)
+			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL
+			if(client?.prefs)
+				bloom = client.prefs.bloom * (ADDITIVE_LIGHTING_PLANE_ALPHA_MAX / 100)
+
+			LA.alpha = lighting_alpha * (bloom / 255)
+
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
