@@ -1068,10 +1068,11 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
 
-/obj/item/storage/box/enforcer_kit/dec
+/obj/item/storage/box/revolver_kit
 	name = "Revolver kit"
+	icon_state = "box_revolver"
 
-/obj/item/storage/box/enforcer_kit/dec/populate_contents()
+/obj/item/storage/box/revolver_kit/populate_contents()
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/gun/projectile/revolver/detective(src)
