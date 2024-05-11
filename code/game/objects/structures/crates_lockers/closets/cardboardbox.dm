@@ -1,3 +1,6 @@
+/// The cooldown between visual alert animations.
+#define SNAKE_ALERT_COOLDOWN (10 SECONDS)
+
 /obj/structure/closet/cardboard
 	name = "large cardboard box"
 	desc = "Just a box..."
@@ -12,111 +15,167 @@
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	no_overlays = TRUE
-	var/decal = ""
-	var/amt = 4
-	var/move_delay = FALSE
-	var/egged = 0
+	/// Current cardboard look provided by spray can painting.
+	var/current_decal = ""
 	/// How fast a mob can move inside this box.
 	var/move_speed_multiplier = 1
+	/// The cooldown timestamp used for alert animations.
+	COOLDOWN_DECLARE(recently_alerted_cd)
 
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
+	if(!istype(user) || opened || user.incapacitated() || !isturf(loc) || !has_gravity())
 		return
-	move_delay = TRUE
-	var/oldloc = loc
-	step(src, direction)
-	// By default, while inside a box, we move at walk speed times the speed multipler of the box.
-	var/delay = CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier
-	if(direction & (direction - 1))
-		delay *= SQRT_2 // Moving diagonal counts as moving 2 tiles, we need to slow them down accordingly.
-	if(oldloc != loc)
-		addtimer(VARSET_CALLBACK(src, move_delay, FALSE), delay)
-	else
-		move_delay = FALSE
+	var/turf/next_step = get_step(src, direction)
+	if(!next_step)
+		return
+
+	// By default, while inside a box, we move at walk speed
+	var/delay = CONFIG_GET(number/movedelay/walk_delay)
+	// Also species speed mod is considered
+	if(user.dna?.species.speed_mod)
+		delay += user.dna.species.speed_mod
+	// And finally the multipler of the box is applied
+	delay *= move_speed_multiplier
+
+	. = Move(next_step, direction, delay)
+	if(!user.client)
+		return
+	user.client.move_delay += ISDIAGONALDIR(direction) ? delay * SQRT_2 : delay
 
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
 		return FALSE
-	if(!egged)
-		var/mob/living/Snake = null
-		for(var/mob/living/L in src.contents)
-			Snake = L
-			break
-		if(Snake)
-			var/list/alerted = viewers(7,src)
-			if(alerted)
-				for(var/mob/living/L in alerted)
-					if(!L.stat)
-						L.do_alert_animation(L)
-						egged = 1
-				SEND_SOUND(alerted, sound('sound/machines/chime.ogg'))
+
+	if(!COOLDOWN_FINISHED(src, recently_alerted_cd))
+		return ..()
+
+	var/list/viewing_clients = list()
+	var/list/mobs_in_contents = list()
+	for(var/mob/living/SNAKE in contents)
+		if(SNAKE.client)
+			viewing_clients += SNAKE.client
+			mobs_in_contents += SNAKE
+
+	if(!length(viewing_clients))
+		return ..()
+
+	var/list/all_viewers = viewers(src)
+	var/list/conscious_viewers = list()
+	for(var/mob/viewer as anything in all_viewers)
+		if(viewer.client)
+			viewing_clients += viewer.client
+		if(!viewer.stat)
+			conscious_viewers += viewer
+
+	if(!length(conscious_viewers))
+		return ..()
+
+	COOLDOWN_START(src, recently_alerted_cd, SNAKE_ALERT_COOLDOWN)
+	var/list/no_visual_alerts = (all_viewers - conscious_viewers) + mobs_in_contents
+	for(var/mob/viewer as anything in (all_viewers + mobs_in_contents))
+		viewer.playsound_local(viewer, 'sound/machines/chime.ogg', 25, FALSE)
+		if(!(viewer in no_visual_alerts))
+			do_alert_animation(viewer, viewing_clients)
+
 	return ..()
 
-/mob/living/proc/do_alert_animation(atom/A)
-	var/image/I
-	I = image('icons/obj/cardboard_boxes.dmi', A, "cardboard_special", A.layer+1)
-	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client)
-			viewing |= M.client
-	flick_overlay(I,viewing,8)
-	I.alpha = 0
-	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
-/obj/structure/closet/cardboard/welder_act()
+/obj/structure/closet/cardboard/welder_act(mob/living/user, obj/item/I)
 	return
 
-/obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(src.opened)
-		if(W.tool_behaviour == TOOL_WIRECUTTER)
-			var/obj/item/wirecutters/WC = W
-			new /obj/item/stack/sheet/cardboard(src.loc, amt)
-			for(var/mob/M in viewers(src))
-				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
-			qdel(src)
-			return
-		if(istype(W, /obj/item/toy/crayon/spraycan))
-			var/obj/item/toy/crayon/spraycan/can = W
-			if(can.capped)
-				to_chat(user, span_warning("You need to toggle cap off before repainting."))
-				return
-			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint box", list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
-			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
-			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
-			if(!decalselection)
-				return
-			if(user.incapacitated())
-				to_chat(user, "You're in no condition to perform this action.")
-				return
-			if(W != user.get_active_hand())
-				to_chat(user, "You must be holding the pen to perform this action.")
-				return
-			if(!Adjacent(user))
-				to_chat(user, "You have moved too far away from the cardboard box.")
-				return
-			add_fingerprint(user)
-			decalselection = replacetext(decalselection, " ", "_")
-			decalselection = lowertext(decalselection)
-			decal = decalselection
 
-			update_icon()
+/obj/structure/closet/cardboard/wirecutter_act(mob/living/user, obj/item/I)
+	if(!opened)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+	new /obj/item/stack/sheet/cardboard(loc, 4)
+	user.visible_message(
+		span_notice("[src] has been cut apart by [user] with [I]"),
+		span_notice("You cut [src] apart."),
+		span_italics("You hear cutting."),
+	)
+	qdel(src)
+
+
+/obj/structure/closet/cardboard/attackby(obj/item/I, mob/user, params)
+	if(!opened || !istype(I, /obj/item/toy/crayon/spraycan))
+		return ..()
+
+	var/obj/item/toy/crayon/spraycan/can = I
+	if(can.capped)
+		to_chat(user, span_warning("You need to toggle the cap off before repainting."))
+		return
+
+	var/static/list/decal_collection = list(
+		"Atmospherics", "Bartender", "Barber",
+		"Blueshield", "Brig Physician", "Captain",
+		"Cargo", "Chief Engineer",	"Chaplain",
+		"Chef", "Chemist", "Civilian",
+		"Clown", "CMO", "Coroner",
+		"Detective", "Engineering", "Genetics",
+		"HOP", "HOS", "Hydroponics",
+		"Internal Affairs Agent", "Janitor", "Magistrate",
+		"Mechanic", "Medical", "Mime",
+		"Mining", "NT Representative", "Paramedic",
+		"Pod Pilot", "Prisoner", "Research Director",
+		"Security", "Syndicate", "Therapist",
+		"Virology", "Warden", "Xenobiology",
+	)
+	var/new_decal = tgui_input_list(user, "Please select a decal", "Paint box", decal_collection)
+	if(!new_decal)
+		return
+	if(user.incapacitated())
+		to_chat(user, span_warning("You're in no condition to perform this action."))
+		return
+	if(can != user.get_active_hand())
+		to_chat(user, span_warning("You must be holding [can] to perform this action."))
+		return
+	if(!Adjacent(user))
+		to_chat(user, span_warning("You have moved too far away from [src]."))
+		return
+	new_decal = lowertext(replacetext(new_decal, " ", "_"))
+	if(new_decal == current_decal)
+		to_chat(user, span_warning("It looks like [src] is already painted this way."))
+		return
+
+	add_fingerprint(user)
+	current_decal = new_decal
+	update_icon()
+
 
 /obj/structure/closet/cardboard/update_icon_state() //Not deriving, because of different logic.
 	if(!opened)
-		if(decal)
-			icon_state = "cardboard_" + decal
+		if(current_decal)
+			icon_state = "cardboard_[current_decal]"
 		else
 			icon_state = "cardboard"
 	else
-		if(decal)
-			icon_state = "cardboard_open_" + decal
+		if(current_decal)
+			icon_state = "cardboard_open_[current_decal]"
 		else
 			icon_state = "cardboard_open"
 
 
 /obj/structure/closet/cardboard/update_overlays()
 	. = list()
+
+
+/proc/do_alert_animation(atom/source, list/passed_clients)
+	if(!passed_clients)
+		passed_clients = list()
+		for(var/mob/viewer as anything in viewers(source))
+			if(viewer.client)
+				passed_clients += viewer.client
+	var/image/image = image('icons/obj/cardboard_boxes.dmi', source, "cardboard_special", source.layer + 0.01)
+	image.alpha = 0
+	flick_overlay(image, passed_clients, 1.5 SECONDS)
+	animate(image, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
+	animate(alpha = 0, time = 0.3 SECONDS)
+
+
+#undef SNAKE_ALERT_COOLDOWN
 
