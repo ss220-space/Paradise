@@ -79,3 +79,7 @@
   - refactor: Genes Pretty (#4901)
   - tweak: New Gravity Effect (#4953)
   - unknown: All Flags Sorted (#4989)
+  - refactor: Density Setter And Undense Trait (#4865)
+  - refactor: Unified Procs do_after/do_after_once/do_mob (#4969)
+  - unknown: Blueprints Rework (#4881)
+  - unknown: Ventcrawling Update (#4891)
