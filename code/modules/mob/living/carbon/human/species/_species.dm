@@ -380,7 +380,10 @@
 			H.adjustBruteLoss(1)
 	return
 
-/datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
+/**
+ * Handles DNA mutations, as that doesn't work at init.
+ */
+/datum/species/proc/handle_dna(mob/living/carbon/human/H, remove)
 	return
 
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).

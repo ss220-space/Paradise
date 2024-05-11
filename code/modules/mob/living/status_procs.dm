@@ -817,10 +817,8 @@
 	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
-	if(dna && dna.GetSEState(block))
-		dna.SetSEState(block, 0, 1) //Fix the gene
-		genemutcheck(src, block,null, MUTCHK_FORCED)
-		dna.UpdateSE()
+	if(dna?.GetSEState(block))
+		force_gene_block(block, FALSE)
 
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
