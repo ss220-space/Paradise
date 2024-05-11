@@ -411,7 +411,7 @@
 	icon_state = "match_unathi"
 	attack_verb = null
 	force = 0
-	flags = DROPDEL | ABSTRACT
+	item_flags = DROPDEL|ABSTRACT
 	origin_tech = null
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets

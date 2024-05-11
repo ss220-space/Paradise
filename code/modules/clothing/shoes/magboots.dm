@@ -62,12 +62,12 @@
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		attach_clothing_traits(active_traits)
-		flags |= NOSLIP
+		clothing_flags |= NOSLIP
 		slowdown = slowdown_active
 	else
 		STOP_PROCESSING(SSobj, src)
 		detach_clothing_traits(active_traits)
-		flags &= ~NOSLIP
+		clothing_flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)

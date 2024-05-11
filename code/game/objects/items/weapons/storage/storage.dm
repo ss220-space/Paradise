@@ -9,7 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_2 = BLOCKS_LIGHT_2
+	flags = BLOCKS_LIGHT
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
@@ -311,7 +311,7 @@
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
-	if(!istype(W) || (W.flags & ABSTRACT)) //Not an item
+	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return
 
 	if(loc == W)
@@ -439,7 +439,6 @@
 	W.pixel_y = initial(W.pixel_y)
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
-	W.in_inventory = TRUE
 	update_icon()
 	return TRUE
 
@@ -468,7 +467,6 @@
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 			W.mouse_opacity = initial(W.mouse_opacity)
-			W.in_inventory = FALSE
 			W.remove_outline()
 
 		W.forceMove(new_location)

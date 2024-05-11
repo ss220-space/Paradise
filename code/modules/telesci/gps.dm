@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."

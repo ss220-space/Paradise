@@ -1,6 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
-	var/obj_flags
+	var/obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -231,7 +231,7 @@
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")

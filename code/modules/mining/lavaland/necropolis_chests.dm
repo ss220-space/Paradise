@@ -256,7 +256,7 @@
 	activated()
 
 /obj/item/rod_of_asclepius/proc/activated()
-	flags =  DROPDEL
+	item_flags |= DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
@@ -345,7 +345,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana_organ"
 	status = NONE
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)

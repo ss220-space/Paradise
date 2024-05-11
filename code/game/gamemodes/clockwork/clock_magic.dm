@@ -212,7 +212,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clocked_hand"
 	item_state = "clocked_hand"
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0

@@ -249,7 +249,7 @@
 		message = "крут%(ит,ят)% <b>[grabbed.affecting.name]</b>, удерживая [genderize_ru(grabbed.affecting.gender, "его", "её", "его", "их")] в захвате!"
 		grabbed.affecting.emote("spin")
 
-	else if(!(thing.flags & ABSTRACT))
+	else if(!(thing.item_flags & ABSTRACT))
 		message = "верт%(ит,ят)% [thing.name] в руках!"
 
 	else

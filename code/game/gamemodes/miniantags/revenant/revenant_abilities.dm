@@ -361,7 +361,7 @@
 		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
 			continue
 		// Don't throw abstract things
-		if(nearby_item.flags & ABSTRACT)
+		if(nearby_item.item_flags & ABSTRACT)
 			continue
 		// Don't throw things we can't see
 		if(nearby_item.invisibility > user.see_invisible)

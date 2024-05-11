@@ -106,7 +106,7 @@
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
 		var/obj/item/item = A
-		if(item.in_inventory)
+		if(item.item_flags & (IN_INVENTORY|IN_STORAGE))
 			return
 
 	face_atom(A)
@@ -191,7 +191,7 @@
 /mob/proc/beforeRangedClick(atom/A, params)
 	return
 
-//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+//Is the atom obscured by a PREVENT_CLICK_UNDER object above it
 /atom/proc/IsObscured()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
 		return FALSE

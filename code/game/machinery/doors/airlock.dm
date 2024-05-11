@@ -1494,7 +1494,7 @@ About the new airlock wires panel:
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(flags & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
@@ -1507,7 +1507,7 @@ About the new airlock wires panel:
 		update_icon()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
 			DA = new assemblytype(loc)

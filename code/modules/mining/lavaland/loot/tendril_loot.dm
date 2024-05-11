@@ -360,7 +360,7 @@
 	item_state = "chain"
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	force = 18
 
 /obj/item/ammo_casing/magic/hook

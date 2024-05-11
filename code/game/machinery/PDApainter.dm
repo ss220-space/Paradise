@@ -98,7 +98,7 @@
 	default_welder_repair(user, I)
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			stat |= BROKEN
 			update_icon()

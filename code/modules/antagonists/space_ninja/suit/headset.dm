@@ -3,7 +3,7 @@
 	desc = "Headset developed by a fearfull Spider Clan. \
 	It is able to hear and translate binary communications between cyborgs, and can copy radio channels from other headsets and encryption keys! \
 	Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "headset_green"
 	ks2type = /obj/item/encryptionkey/spider_clan

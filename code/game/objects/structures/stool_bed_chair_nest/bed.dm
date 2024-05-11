@@ -63,7 +63,7 @@
 
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -71,7 +71,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/bed/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	..()

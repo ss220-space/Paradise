@@ -574,7 +574,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
-	flags = ABSTRACT | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
@@ -1431,7 +1431,7 @@
 	color = "#7F0000"
 	anchored = TRUE
 	resistance_flags = NONE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'

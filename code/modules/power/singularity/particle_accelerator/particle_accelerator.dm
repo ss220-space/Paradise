@@ -124,7 +124,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal (loc, 5)
 	qdel(src)
 

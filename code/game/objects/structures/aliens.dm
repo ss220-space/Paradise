@@ -540,7 +540,7 @@
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT) && status != BURST)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
 

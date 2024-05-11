@@ -139,7 +139,7 @@
 
 
 /obj/machinery/light_construct/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
 	qdel(src)
 
@@ -527,7 +527,7 @@
 
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/machinery/light_construct/newlight = null
 		var/cur_stage = 2
 		if(!disassembled)

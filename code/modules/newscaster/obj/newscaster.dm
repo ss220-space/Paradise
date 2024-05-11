@@ -169,14 +169,14 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/newscaster/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		update_icon(UPDATE_OVERLAYS)

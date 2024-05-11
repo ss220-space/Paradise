@@ -164,7 +164,7 @@
 	icon_state = "hardsuit-berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
-	cant_be_faster = TRUE // no heretic magic
+	clothing_flags = FIXED_SLOWDOWN // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)

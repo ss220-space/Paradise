@@ -40,8 +40,8 @@
 	icon_state = "chameleon_device"
 	item_state = ""
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = 0
-	flags =  DROPDEL | ABSTRACT | NOBLUDGEON
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
@@ -140,7 +140,7 @@
 		//ID card initialisation
 		n_id_card = new
 		toggle_ninja_nodrop(n_id_card)
-		n_id_card.flags ^= DROPDEL
+		n_id_card.item_flags ^= DROPDEL
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)

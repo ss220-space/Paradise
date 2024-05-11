@@ -74,7 +74,7 @@
 		if(T.Adjacent(user))
 			for(var/B in T)
 				var/atom/movable/AM = B
-				if(AM.flags_2 & HOLOGRAM_2)
+				if(AM.flags & HOLOGRAM)
 					continue
 				. += AM
 	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
@@ -86,7 +86,7 @@
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
 	for(var/obj/item/I in get_environment(user))
-		if(I.flags_2 & HOLOGRAM_2)
+		if(I.flags & HOLOGRAM)
 			continue
 		if(isstack(I))
 			var/obj/item/stack/S = I

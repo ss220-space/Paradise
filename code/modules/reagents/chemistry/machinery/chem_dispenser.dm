@@ -75,7 +75,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -482,7 +482,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
 	var/mode = "dispense"

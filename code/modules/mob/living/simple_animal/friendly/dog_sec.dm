@@ -226,7 +226,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 

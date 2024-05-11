@@ -18,7 +18,7 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 5
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	has_lid = FALSE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC

@@ -204,7 +204,7 @@
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
 	explosion_block = 3
-	flags_2 = CHECK_RICOCHET_2
+	flags = CHECK_RICOCHET
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)

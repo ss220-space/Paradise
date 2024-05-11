@@ -222,7 +222,7 @@
 			SM.can_collar = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
@@ -270,7 +270,7 @@
 			SM.can_collar = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
@@ -490,13 +490,15 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || I.is_speedslimepotioned)
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
-		if(I.cant_be_faster)
-			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
-			return
-		I.is_speedslimepotioned = TRUE
+		if(isclothing(O))
+			var/obj/item/clothing/cloth = O
+			if(cloth.clothing_flags & FIXED_SLOWDOWN)
+				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+				return
+		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
 
 	if(istype(O, /obj/vehicle))

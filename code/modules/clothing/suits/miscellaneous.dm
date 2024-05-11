@@ -357,7 +357,7 @@
 	icon_state = "bee"
 	item_state = "labcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
 
 /obj/item/clothing/head/hooded/bee_hood
@@ -365,7 +365,7 @@
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
 	body_parts_covered = HEAD
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
@@ -921,6 +921,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
 
+
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
 	desc = "Aviators not included."
@@ -1088,7 +1089,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD

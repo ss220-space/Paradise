@@ -290,7 +290,7 @@
 	icon_state = "arcane_barrage"
 	item_state = "arcane_barrage"
 	slot_flags = null
-	flags = NOBLUDGEON | DROPDEL | ABSTRACT
+	item_flags = NOBLUDGEON|DROPDEL|ABSTRACT
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)

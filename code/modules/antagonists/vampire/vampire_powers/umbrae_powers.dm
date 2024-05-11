@@ -68,7 +68,7 @@
 	armed = TRUE
 	anchored = TRUE
 	breakouttime = 5 SECONDS
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)

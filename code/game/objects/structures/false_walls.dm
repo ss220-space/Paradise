@@ -165,7 +165,7 @@
 	deconstruct(disassembled)
 
 /obj/structure/falsewall/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			new girder_type(loc)
 		if(mineral_amount)

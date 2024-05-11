@@ -66,14 +66,14 @@
 	var/msg = "This is [bicon(src)] <b>[src]</b>!\n"
 
 	//Left hand items
-	if(l_hand && !(l_hand.flags & ABSTRACT))
+	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
 			msg += "<span class='warning'>It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
 		else
 			msg += "It is holding [bicon(l_hand)] \a [l_hand] in its left hand.\n"
 
 	//Right hand items
-	if(r_hand && !(r_hand.flags & ABSTRACT))
+	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
 			msg += "<span class='warning'>It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
 		else

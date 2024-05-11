@@ -122,8 +122,8 @@
 	charge_tick = 1
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON|NOPICKUP
 	force = 0
 	var/obj/item/clothing/suit/space/hardsuit/contractor/suit = null
 	var/datum/action/item_action/advanced/hook_upgrade/hook_action  = null

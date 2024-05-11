@@ -11,7 +11,7 @@
 	name = "control wand"
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()

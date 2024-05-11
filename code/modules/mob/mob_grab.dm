@@ -9,7 +9,7 @@
 
 /obj/item/grab
 	name = "grab"
-	flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
 	var/obj/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null

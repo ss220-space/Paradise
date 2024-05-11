@@ -183,7 +183,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
 	singular_name = "package wrapper"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE

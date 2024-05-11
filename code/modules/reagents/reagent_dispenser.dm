@@ -45,7 +45,7 @@
 	qdel(src)
 
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			boom(FALSE, TRUE)
 	else

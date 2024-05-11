@@ -10,7 +10,7 @@
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
 			add_fingerprint(user)
 			return
@@ -50,7 +50,7 @@
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(material_drop_type)
 			var/drop_amt = oreAmount
 			if(!disassembled)
