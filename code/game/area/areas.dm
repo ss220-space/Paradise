@@ -33,6 +33,9 @@
 
 	/// Whether this area has a gravity by default.
 	var/has_gravity = FALSE
+	/// If `TRUE` this area will skip gravity generator's effect in its Z-level.
+	var/ignore_gravgen = FALSE
+
 	var/list/apc = list()
 	var/no_air = null
 
