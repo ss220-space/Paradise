@@ -28,6 +28,7 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	update_icon()
 
 
 /obj/machinery/recharger/RefreshParts()
@@ -159,14 +160,11 @@
 			B.cell.charge = 0
 	..(severity)
 
+
 /obj/machinery/recharger/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/recharger/update_icon_state()

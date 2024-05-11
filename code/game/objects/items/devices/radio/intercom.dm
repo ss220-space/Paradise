@@ -227,10 +227,8 @@
 	if(!current_area)
 		return
 	if(on)
-		set_light(1, LIGHTING_MINIMUM_POWER)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 	else
-		set_light(0)
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**
@@ -245,10 +243,8 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
-		set_light_on(FALSE)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon()
 
 /obj/item/intercom_electronics

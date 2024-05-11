@@ -246,7 +246,7 @@
 	if(!firedoors)
 		return
 	firedoors_last_closed_on = world.time
-	for(var/obj/machinery/door/firedoor/firedoor in firedoors)
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
 		if(!firedoor.is_operational())
 			continue
 		var/valid = TRUE
@@ -285,9 +285,6 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -310,9 +307,6 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -371,7 +365,8 @@
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -383,7 +378,8 @@
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)

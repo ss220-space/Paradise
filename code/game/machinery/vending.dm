@@ -251,7 +251,7 @@
 
 
 /obj/machinery/vending/extinguish_light(force = FALSE)
-	if(light)
+	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
 
