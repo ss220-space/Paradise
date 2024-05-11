@@ -246,8 +246,8 @@
 
 
 /obj/item/gun/energy/update_icon(updates = ALL)
-	..()
-	update_equipped_item()
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/gun/energy/update_icon_state()

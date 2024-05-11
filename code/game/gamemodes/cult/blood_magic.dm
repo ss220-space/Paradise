@@ -523,7 +523,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed())
+		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
 				CuffAttack(C, user)
 			else
@@ -540,7 +540,7 @@
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_after(user, 1 SECONDS, C, NONE))
 			if(!C.handcuffed)
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
+				C.apply_restraints(new /obj/item/restraints/handcuffs/energy/cult/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")

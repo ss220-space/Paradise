@@ -99,7 +99,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(user)
 
 /obj/structure/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
@@ -267,7 +267,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 
 /obj/machinery/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")

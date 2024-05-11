@@ -70,11 +70,6 @@
 	updatehealth()
 
 
-/mob/living/simple_animal/mouse/do_suicide()
-	visible_message(span_danger("[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide."))
-	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
-
-
 /mob/living/silicon/do_suicide()
 	to_chat(viewers(src), span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 	//put em at -175

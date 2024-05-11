@@ -531,7 +531,7 @@
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(EXPLODE_LIGHT)
 
-/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
+/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)
 	if(target == src)
 		return
 
@@ -552,9 +552,9 @@
 	// If we're getting rid of a human, slap some energy cuffs on
 	// them to keep them away from us a little longer
 
-	var/mob/living/carbon/human/H = target
-	if(istype(H) && (!H.handcuffed))
-		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
+	var/mob/living/carbon/c_target = target
+	if(istype(c_target) && !c_target.handcuffed)
+		c_target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), TRUE)
 
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)

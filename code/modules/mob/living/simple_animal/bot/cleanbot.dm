@@ -276,6 +276,8 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else

@@ -142,6 +142,8 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
+			if(I.breakouttime) //when unequipping a straightjacket
+				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
 		if(invdrop && !dna.species.nojumpsuit)
@@ -299,11 +301,11 @@
 			update_inv_neck()
 
 		if(ITEM_SLOT_HANDCUFFED)
-			handcuffed = I
+			set_handcuffed(I)
 			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			set_legcuffed(I)
 			update_legcuffed_status()
 
 		if(ITEM_SLOT_HAND_LEFT)
@@ -359,6 +361,8 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
+			if(I.breakouttime) //when equipping a straightjacket
+				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
 			w_uniform = I

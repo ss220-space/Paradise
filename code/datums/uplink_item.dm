@@ -136,7 +136,7 @@
 	if(!istype(target_uplink))
 		return FALSE
 
-	if(buyer.stat || buyer.restrained())
+	if(buyer.stat || HAS_TRAIT(buyer, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(!ishuman(buyer))

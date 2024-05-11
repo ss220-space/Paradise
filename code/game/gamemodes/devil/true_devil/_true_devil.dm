@@ -125,6 +125,8 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
+	if(!can_unarmed_attack())
+		return
 	if(!ishuman(A))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst

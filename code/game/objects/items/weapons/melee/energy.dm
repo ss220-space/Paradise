@@ -54,7 +54,7 @@
 		icon_state = "sword[item_color]"
 		set_light_on(TRUE)
 		set_light_color(colormap[item_color])
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)

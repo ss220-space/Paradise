@@ -96,7 +96,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
-	if((user.restrained() && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
+	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
 		to_chat(user, "<span class='notice'>Вам нужна свобода передвижения, чтобы ужалить кого-то!</span>")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
@@ -156,7 +156,7 @@
 		target.apply_damage(dam, BRUTE, organ)
 		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, 0)
 		add_attack_logs(user, target, "Stung by Wryn Stinger - [dam] Brute damage to [organ].")
-		if(target.restrained())			//Apply tiny BURN damage if target is restrained
+		if(HAS_TRAIT(target, TRAIT_RESTRAINED))			//Apply tiny BURN damage if target is restrained
 			if(prob(50))
 				user.apply_damage(2, BURN, target)
 				to_chat(target, "<span class='danger'>Вы ощущаете небольшое жжение! Ауч!</span>")

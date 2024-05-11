@@ -185,7 +185,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		qdel(stand_icon)
 
 	update_misc_effects()
-	update_hands_HUD()
 	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
 	var/list/standing = list()
 	var/icon_key = generate_icon_render_key()

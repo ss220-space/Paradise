@@ -1310,7 +1310,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""

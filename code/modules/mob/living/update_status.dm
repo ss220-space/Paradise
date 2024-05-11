@@ -76,7 +76,7 @@
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsWeakened))
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsStunned))
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying_angle) || check_for_true_callbacks(extra_checks))
+	if(stat || IsParalyzed() || (!ignore_restraints && HAS_TRAIT(src, TRAIT_RESTRAINED)) || (!ignore_lying && lying_angle) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.

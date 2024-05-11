@@ -202,7 +202,9 @@
 	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!iscarbon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	var/obj/item/I = user.get_active_hand()
@@ -215,8 +217,6 @@
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
-		return
-	if(!iscarbon(user))
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")

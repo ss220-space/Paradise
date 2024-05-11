@@ -55,7 +55,7 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(var/obj/item/O, mob/user)
+/obj/item/pod_parts/pod_frame/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = O
 		var/list/linkedparts = find_square()
@@ -80,18 +80,36 @@
 		set_density(anchored)
 		playsound(get_turf(src), O.usesound, 50, 1)
 
+
+/obj/item/pod_parts/pod_frame/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to rotate it.")
+
+
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Rotate Frame"
 	set category = "Object"
 	set src in oview(1)
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
 	if(anchored)
 		to_chat(usr, "\The [src] is securely bolted!")
-		return 0
-	src.dir = turn(src.dir, -90)
-	return 1
+		return FALSE
+
+	dir = turn(dir, -90)
+	return TRUE
+
+
+/obj/item/pod_parts/pod_frame/AltClick(mob/user)
+	if(Adjacent(user))
+		rotate()
+
 
 /obj/item/pod_parts/pod_frame/attack_hand()
-	src.rotate()
+	return
+
 
 /obj/item/pod_parts/pod_frame/fore_port
 	name = "fore port pod frame"

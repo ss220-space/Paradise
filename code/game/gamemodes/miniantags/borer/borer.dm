@@ -305,6 +305,8 @@
 		return ..()
 
 /mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
+	if(!can_unarmed_attack())
+		return
 	if(istype(M))
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)

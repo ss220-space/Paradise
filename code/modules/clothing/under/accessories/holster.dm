@@ -128,8 +128,9 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	var/obj/item/clothing/accessory/holster/H = null
 	if(istype(src, /obj/item/clothing/accessory/holster))

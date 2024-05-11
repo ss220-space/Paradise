@@ -711,7 +711,7 @@
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 // -------------------------------------
@@ -993,7 +993,7 @@
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/belt/claymore/populate_contents()

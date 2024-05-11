@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return FALSE
 	if(!(loc == usr && loc.Adjacent(over_object)))
 		return FALSE
-	if(!ishuman(usr) || usr.incapacitated())
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	over_object.add_fingerprint(usr)
 	afterattack(over_object, usr, TRUE, params)

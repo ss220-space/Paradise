@@ -75,7 +75,7 @@
 	block = GLOB.chameleonblock
 
 /datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/M)
-	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
+	if((world.time - M.last_movement) >= 30 && M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 		M.alpha -= 25
 	else
 		M.alpha = round(255 * 0.80)
@@ -345,7 +345,7 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated(ignore_restraints = TRUE) || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 	var/turf/turf_to_check = get_turf(user)
@@ -354,13 +354,12 @@
 		return
 
 	if(isturf(user.loc))
-		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/living/M in range(user, 1))
-				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
-						failure = TRUE
-					else
-						M.stop_pulling()
+		if(HAS_TRAIT(user, TRAIT_RESTRAINED))//Why being pulled while cuffed prevents you from moving
+			var/mob/puller = user.pulledby
+			if(puller && !puller.stat && puller.canmove && user.Adjacent(puller))
+				failure = TRUE
+			else if(puller)
+				puller.stop_pulling()
 
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)

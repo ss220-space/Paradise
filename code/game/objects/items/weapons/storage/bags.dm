@@ -60,7 +60,7 @@
 			icon_state = "[initial(icon_state)]1"
 		else
 			icon_state = "[initial(icon_state)]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/bag/trash/cyborg
@@ -230,7 +230,7 @@
 	set category = "Object"
 	set desc = "Activate to convert your plants into plantable seeds."
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

@@ -114,7 +114,7 @@
 
 
 /obj/item/taperecorder/AltClick(mob/living/user)
-	if(istype(user) && in_range(user, src) && mytape && !user.incapacitated())
+	if(istype(user) && mytape && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
 						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
@@ -436,7 +436,7 @@
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(ruined)
 		return

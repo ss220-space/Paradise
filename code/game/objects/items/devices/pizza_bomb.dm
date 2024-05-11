@@ -53,7 +53,7 @@
 	if(!timer_set)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) * 10
-		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			timer_set = 0
 			name = "pizza box"
 			desc = "A box suited for pizzas."
@@ -92,7 +92,7 @@
 	if(I.tool_behaviour == TOOL_WIRECUTTER && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return
 		playsound(src, I.usesound, 50, 1, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")

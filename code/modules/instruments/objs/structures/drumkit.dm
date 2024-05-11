@@ -93,16 +93,19 @@
 /obj/structure/musician/drumkit/AltClick(mob/living/user)
 	rotate(user)
 
+
 /obj/structure/musician/drumkit/proc/rotate(mob/living/user)
-	if(anchored)
-		to_chat(user, span_warning("The musical instrument is anchored to the floor!"))
-		return FALSE
 	if(user)
 		if(isobserver(user))
 			if(!CONFIG_GET(flag/ghost_interaction))
 				return FALSE
-		else if(!isliving(user) || user.incapacitated() || !Adjacent(user))
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 			return FALSE
+
+	if(anchored)
+		if(user)
+			to_chat(user, span_warning("The musical instrument is anchored to the floor!"))
+		return FALSE
 
 	setDir(turn(dir, 90))
 	handle_layer()

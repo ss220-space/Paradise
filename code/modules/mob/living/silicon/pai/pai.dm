@@ -198,13 +198,6 @@
 		return 1
 	return 0
 
-/mob/living/silicon/pai/restrained()
-	if(istype(loc,/obj/item/paicard))
-		return 0
-	..()
-
-/mob/living/silicon/pai/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	return
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -598,7 +591,7 @@
 	return H
 
 /mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(user) || !Adjacent(user))
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
 		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))

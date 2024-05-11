@@ -79,8 +79,6 @@
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
 
-/mob/living/carbon/alien/larva/restrained()
-	return 0
 
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
@@ -88,17 +86,13 @@
 // now constructs damage icon for each organ from mask * damage field
 
 
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
+/mob/living/carbon/alien/larva/show_inv(mob/user)
 	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */
+
+/mob/living/carbon/alien/larva/can_unarmed_attack() //We bite stuff, and our head is always free.
+	return TRUE
+

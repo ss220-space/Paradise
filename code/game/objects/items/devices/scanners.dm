@@ -623,6 +623,9 @@ REAGENT SCANNER
 	set name = "Вкл/Выкл локализацию"
 	set category = "Object"
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	mode = !mode
 	switch(mode)
 		if(1)

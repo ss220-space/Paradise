@@ -39,7 +39,7 @@
 /obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/head/hardhat/proc/turn_on()

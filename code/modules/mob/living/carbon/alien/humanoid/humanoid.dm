@@ -67,11 +67,6 @@
 
 	take_overall_damage(b_loss, f_loss)
 
-/mob/living/carbon/alien/humanoid/restrained()
-	if(handcuffed)
-		return 1
-	return 0
-
 
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
 
@@ -116,12 +111,11 @@
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/carbon/alien/humanoid/canBeHandcuffed()
-	return 1
 
-/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
-	..(I, cuff_break = TRUE)
+/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
+	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
+	return ..(I, cuff_break = TRUE)
+
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
 	if(leaping)

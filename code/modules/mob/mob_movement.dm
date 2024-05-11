@@ -87,9 +87,9 @@
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
-	if(mob.restrained() && mob.pulledby) // Why being pulled while cuffed prevents you from moving
+	if(HAS_TRAIT(mob, TRAIT_RESTRAINED) && mob.pulledby) // Why being pulled while cuffed prevents you from moving
 		var/mob/puller = mob.pulledby
-		if(!puller.incapacitated() && mob.Adjacent(puller))
+		if(!puller.incapacitated() && !HAS_TRAIT(puller, TRAIT_HANDS_BLOCKED) && mob.Adjacent(puller))
 			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
 			move_delay = world.time + 1 SECONDS
 			return FALSE
@@ -336,7 +336,7 @@
 
 
 /mob/proc/Move_Pulled(atom/target)
-	if(!canmove || restrained() || !pulling)
+	if(!canmove || HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()

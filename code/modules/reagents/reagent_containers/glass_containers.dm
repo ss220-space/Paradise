@@ -184,7 +184,7 @@
 	set name = "Remove Assembly"
 	set category = "Object"
 	set src in usr
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")

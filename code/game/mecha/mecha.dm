@@ -1242,7 +1242,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return

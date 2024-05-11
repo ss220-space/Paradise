@@ -3,7 +3,7 @@
 	set category = null
 	set src in oview(1)
 
-	if(!isturf(src.loc) || usr.incapacitated() || src.anchored || src.density)
+	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
 		return
 
 	if(!item_pixel_shift)

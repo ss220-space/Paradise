@@ -327,7 +327,7 @@
 		if(M.current.stat == DEAD)
 			scoreboard.score_ops_killed++
 
-		else if(M.current.restrained())
+		else if(HAS_TRAIT(M, TRAIT_RESTRAINED))
 			scoreboard.score_arrested++
 
 	if(foecount == scoreboard.score_arrested)

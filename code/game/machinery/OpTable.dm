@@ -37,7 +37,7 @@
 		return
 	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
 		return
-	if(user.buckled || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
+	if(user.buckled || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //Is the person trying to use the table incapacitated or restrained?
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
@@ -98,7 +98,7 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
+	if(!iscarbon(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_table())
 		return
 	take_patient(usr, usr)
 

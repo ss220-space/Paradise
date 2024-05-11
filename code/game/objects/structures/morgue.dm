@@ -189,7 +189,7 @@
 
 
 /obj/structure/morgue/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
@@ -212,7 +212,7 @@
 
 
 /obj/structure/morgue/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
@@ -291,13 +291,13 @@
 
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!(istype(dropping)) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
@@ -508,13 +508,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/relaymove(mob/user)
-	if(user.incapacitated() || cremating)
+	if(cremating || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
 
 /obj/machinery/crematorium/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || cremating)
+	if(cremating || !iscarbon(user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
@@ -534,7 +534,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -707,13 +707,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if(!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))

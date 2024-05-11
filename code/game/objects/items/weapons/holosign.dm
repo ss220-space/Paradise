@@ -73,7 +73,9 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	wet_enabled = !wet_enabled

@@ -52,7 +52,7 @@
 
 
 /obj/item/shared_storage/AltClick(mob/user)
-	if(!bag || !iscarbon(user) || !Adjacent(user))
+	if(!bag || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return ..()
 
 	open_bag(user)

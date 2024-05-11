@@ -175,7 +175,7 @@
 			if(SYRINGE_INJECT)
 				injoverlay = "inject"
 		. += injoverlay
-		update_equipped_item()
+		update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/reagent_containers/syringe/antiviral

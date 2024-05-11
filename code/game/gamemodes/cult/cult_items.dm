@@ -635,7 +635,7 @@
 		var/mob/living/L = hit_atom
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(!L.restrained() && L.put_in_active_hand(src))
+			if(ishuman(L) && L.put_in_active_hand(src))
 				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")

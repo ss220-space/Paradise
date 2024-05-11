@@ -90,7 +90,7 @@
 	if(!SSticker)
 		return
 	var/mob/living/M = moving_atom
-	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
+	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)

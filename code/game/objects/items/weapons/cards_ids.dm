@@ -31,17 +31,6 @@
 	var/special = null
 	item_state = "card-id"
 
-/obj/item/card/data/verb/label(t as text)
-	set name = "Label Disk"
-	set category = "Object"
-	set src in usr
-
-	if(t)
-		src.name = text("Data Disk- '[]'", t)
-	else
-		src.name = "Data Disk"
-	src.add_fingerprint(usr)
-	return
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
@@ -298,7 +287,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(guest_pass)

@@ -162,7 +162,7 @@
 		"<span class='userdanger'>[user] is trying to put handcuffs on you!</span>")
 		if(do_after(user, 1 SECONDS, target, NONE))
 			if(!target.handcuffed)
-				target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(target))
+				target.apply_restraints(new /obj/item/restraints/handcuffs/cable(null), ITEM_SLOT_HANDCUFFED, TRUE)
 				to_chat(user, "<span class='notice'>You shackle [target].</span>")
 				add_attack_logs(user, target, "shackled")
 				cuffs--

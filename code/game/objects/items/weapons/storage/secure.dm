@@ -103,16 +103,18 @@
 
 
 /obj/item/storage/secure/AltClick(mob/living/user)
-	if(istype(user) && !try_to_open())
+	if(!try_to_open(user))
 		return FALSE
 	return ..()
 
 /obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!try_to_open())
+	if(!try_to_open(usr))
 		return FALSE
 	return ..()
 
-/obj/item/storage/secure/proc/try_to_open()
+/obj/item/storage/secure/proc/try_to_open(mob/living/user)
+	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return TRUE
 	if(locked)
 		add_fingerprint(usr)
 		to_chat(usr, "<span class='warning'>It's locked!</span>")

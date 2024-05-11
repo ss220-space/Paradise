@@ -195,7 +195,7 @@
 
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user, params)
-	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || ismecha(user.loc) || !master)
+	if(!user || !master || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return FALSE
 
 	if(is_ventcrawling(user))
@@ -529,7 +529,7 @@
 
 /obj/screen/inventory/MouseDrop_T(obj/item/I, mob/user, params)
 
-	if(!user || !istype(I) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+	if(!user || !istype(I) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
 
 	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here

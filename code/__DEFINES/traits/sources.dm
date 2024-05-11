@@ -80,6 +80,8 @@
 
 /// Trait associated to being cuffed
 #define HANDCUFFED_TRAIT "handcuffed_trait"
+/// trait associated to not having fine manipulation appendages such as hands
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit_trait"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).

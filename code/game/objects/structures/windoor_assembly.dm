@@ -301,7 +301,8 @@
 	set name = "Rotate Windoor Assembly"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(anchored)
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
@@ -319,20 +320,16 @@
 	return TRUE
 
 /obj/structure/windoor_assembly/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!Adjacent(user))
 		return
-	if(!in_range(src, user))
-		return
-	else
-		revrotate()
+	revrotate()
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()
 	set name = "Flip Windoor Assembly"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(facing == "l")
