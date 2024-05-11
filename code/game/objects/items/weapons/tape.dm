@@ -9,9 +9,6 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(loc, amount=null)
-	..()
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?

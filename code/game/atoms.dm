@@ -547,6 +547,40 @@
 	return
 
 
+/**
+ * Adds a special overlay to any atom.
+ * This overlay will always persist even when an atom is updating its overlays.
+ *
+ * Arguments:
+ * * overlay_to_add - should be an image, mutable_appearance or icon
+ * * id - string ID of our overlay, should be unique, otherwise it will remove all overlays with the same ID
+ * * timer (optional) - if set overlay will be removed after passed time
+ */
+/atom/proc/add_persistent_overlay(overlay_to_add, id, timer)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
+
+
+/**
+ * Removes a persistent overlay from an atom if it exists.
+ *
+ * Arguments:
+ * * id - string ID of the overlay we should remove
+ */
+/atom/proc/remove_persistent_overlay(id)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+		return
+	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
+	if(!islist(all_persistent))
+		all_persistent = list(all_persistent)
+	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
+		if(existing.dupe_id == id)
+			existing.remove_persistent_overlay()
+
+
 /atom/Topic(href, href_list)
 	. = ..()
 	if(.)

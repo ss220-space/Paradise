@@ -6,9 +6,10 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
+
 /obj/item/decorations/sticky_decorations/New()
 	. = ..()
-	AddComponent(/datum/component/ducttape, src, null, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
+	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
 
 
 
