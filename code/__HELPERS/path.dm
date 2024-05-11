@@ -465,7 +465,7 @@
 	if(!length(path_turfs))
 		return TRUE
 	var/obj/dummy = new(start_turf)
-	dummy.density = TRUE
+	dummy.set_density(TRUE)
 	if(flags)
 		dummy.pass_flags |= flags
 	for(var/turf/turf as anything in path_turfs)

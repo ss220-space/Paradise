@@ -1,5 +1,5 @@
 /obj/structure/clockwork
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
@@ -13,7 +13,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 
 /obj/structure/clockwork/functional
 	max_integrity = 100
@@ -224,7 +224,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 	death_message = "<span class='danger'>The credence breaks in pieces as it dusts into nothing!</span>"
 	canbehidden = TRUE
 	choosable_items = list(

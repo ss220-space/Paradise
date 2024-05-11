@@ -183,8 +183,8 @@
 
 
 /obj/effect/self_deleting
-	density = 0
-	opacity = 0
+	density = FALSE
+	opacity = FALSE
 	anchored = TRUE
 	icon = null
 	desc = ""

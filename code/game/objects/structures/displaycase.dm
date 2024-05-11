@@ -66,7 +66,7 @@
 
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(obj_flags & NODECONSTRUCT))
-		density = FALSE
+		set_density(FALSE)
 		broken = 1
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)

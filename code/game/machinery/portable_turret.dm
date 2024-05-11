@@ -788,7 +788,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	name = "turret frame"
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turret_frame"
-	density=1
+	density = TRUE
 	var/target_type = /obj/machinery/porta_turret	// The type we intend to build
 	var/build_step = 0			//the current step in the building process
 	var/finish_name="turret"	//the name applied to the product turret

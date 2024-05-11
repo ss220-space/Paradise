@@ -109,15 +109,16 @@
 	else
 		return ..()
 
-
 /obj/structure/bed/roller/post_buckle_mob(mob/living/target)
-	density = TRUE
+	. = ..()
+	set_density(TRUE)
 	icon_state = icon_up
 	target.pixel_y = initial(target.pixel_y)
 
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
-	density = FALSE
+	. = ..()
+	set_density(FALSE)
 	icon_state = icon_down
 	target.pixel_x = target.get_standard_pixel_x_offset(target.lying_angle)
 	target.pixel_y = target.get_standard_pixel_y_offset(target.lying_angle)

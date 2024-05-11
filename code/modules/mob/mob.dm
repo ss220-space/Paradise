@@ -995,7 +995,18 @@
   *
   * Turns you to face the other mob too
   */
-/mob/is_buckle_possible(mob/living/target, force, check_loc = TRUE)
+/mob/is_buckle_possible(mob/living/target, force = FALSE, check_loc = TRUE)
+	if(target.buckled)
+		return FALSE
+	return ..()
+
+
+/**
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
 	if(target.buckled)
 		return FALSE
 	return ..()

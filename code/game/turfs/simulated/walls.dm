@@ -276,7 +276,7 @@
 	visuals.icon = 'icons/effects/fire.dmi'
 	visuals.icon_state = "2"
 	visuals.set_anchored(TRUE)
-	visuals.density = TRUE
+	visuals.set_density(TRUE)
 	visuals.layer = FLY_LAYER
 
 	if(user)

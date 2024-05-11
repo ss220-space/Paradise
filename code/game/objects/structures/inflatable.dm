@@ -158,7 +158,7 @@
 		return
 
 	state_closed = !state_closed
-	density = state_closed
+	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
 	air_update_turf(TRUE)
