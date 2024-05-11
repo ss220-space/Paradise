@@ -210,9 +210,9 @@
 /obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)
 	. = ..()
 	if(magpulse)
-		ADD_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID(src)]")
+		ADD_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
 	else
-		REMOVE_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID(src)]")
+		REMOVE_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
 
 
 /obj/item/clothing/shoes/magboots/vox/update_icon_state()
