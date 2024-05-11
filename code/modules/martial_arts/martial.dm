@@ -171,6 +171,9 @@
 /datum/martial_art/proc/user_hit_by(atom/movable/AM, mob/living/carbon/human/H)
 	return FALSE
 
+/datum/martial_art/proc/RangedAttack(atom/A, mob/living/carbon/human/owner, params)
+	return
+
 /datum/martial_art/proc/objective_damage(mob/living/user, mob/living/target, damage, damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()
 	if(target.mind && all_objectives)
@@ -481,6 +484,26 @@
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
+
+/obj/item/midichlorian_injector
+	name = "Midichlorian injector"
+	desc = "UNLIMITED POWER!"
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "midichlorian_injector"
+	var/used = FALSE
+
+/obj/item/midichlorian_injector/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user || used)
+		return
+	used = TRUE
+	to_chat(user, span_boldannounce("You feel the [span_cult("THE FORCE!")]"))
+
+	var/datum/martial_art/theforce/MA = new
+	MA.teach(user)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/midichlorian_injector/update_icon_state()
+	icon_state = "midichlorian_injector[used ? "_noreag" : ""]"
 
 /obj/item/twohanded/bostaff
 	name = "bo staff"

@@ -99,4 +99,5 @@
 #define IMPLANT_JUMP_BOOTS_TRAIT "implant_jump_boots_trait"
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
+#define FORCE_GRAB_TRAIT "force_grab_trait"
 

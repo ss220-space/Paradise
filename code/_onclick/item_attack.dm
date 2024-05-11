@@ -44,7 +44,7 @@
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, def_zone) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
 	if(flags & (NOBLUDGEON))

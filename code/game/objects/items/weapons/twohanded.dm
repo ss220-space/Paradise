@@ -37,6 +37,7 @@
 	var/wieldsound = FALSE
 	var/unwieldsound = FALSE
 	var/sharp_when_wielded = FALSE
+	var/unwield_after_throw = TRUE
 
 
 /obj/item/twohanded/Initialize(mapload)
@@ -191,21 +192,31 @@
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+
+	var/active = FALSE
+
 	force = 3
-	throwforce = 5
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
-	var/w_class_on = WEIGHT_CLASS_BULKY
 	force_unwielded = 3
 	force_wielded = 34
-	wieldsound = 'sound/weapons/saberon.ogg'
-	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
+	block_chance = 75
+
+	throwforce = 5
+	var/throwforce_active = 35
+	throw_speed = 1
+	throw_range = 5
+
+	w_class = WEIGHT_CLASS_SMALL
+	var/w_class_on = WEIGHT_CLASS_BULKY
+
+	sharp_when_wielded = TRUE // only sharp when wielded
+	unwield_after_throw = FALSE
+
+	var/activate_sound = 'sound/weapons/saberon.ogg'
+	var/deactivate_sound = 'sound/weapons/saberoff.ogg'
+
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 75
-	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
@@ -220,34 +231,49 @@
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))	//We need to listen for item wield
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))	//We need to listen for item wield
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
 
 
+//Specific wield () hulk checks due to reflection chance for balance
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(HULK in user.mutations)
 		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
+	if(!active)
+		active = TRUE
+		playsound(loc, activate_sound, 50, TRUE)
+		hitsound = 'sound/weapons/blade1.ogg'
 
 
-//Specific wield () hulk checks due to reflection chance for balance
+/obj/item/twohanded/dualsaber/proc/on_unwield(obj/item/source, mob/living/carbon/user, is_throwed)
+	if(!is_throwed)
+		active = FALSE
+		playsound(loc, deactivate_sound, 50, TRUE)
+		hitsound = "swing_hit"
+
+
+/obj/item/twohanded/dualsaber/equipped(mob/user, slot, initial = FALSE, send_signal)
+	. = ..(user, slot, initial, send_signal = !active)
+	if(active)
+		SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot, active)
+
+
 /obj/item/twohanded/dualsaber/wield(obj/item/source, mob/living/carbon/user)
-	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
 
 /obj/item/twohanded/dualsaber/unwield(obj/item/source, mob/living/carbon/user)
-	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
-
 /obj/item/twohanded/dualsaber/IsReflect()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
+	if(active)
 		return TRUE
 
 
 /obj/item/twohanded/dualsaber/update_icon_state()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
+	if(active)
 		icon_state = "dualsaber[blade_color]1"
 		set_light_on(TRUE)
 		set_light_color(colormap[blade_color])
@@ -256,15 +282,24 @@
 		set_light_on(FALSE)
 
 
-/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	..()
-	if((CLUMSY in user.mutations) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40))
+/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user, def_zone, skip = FALSE)
+	if(skip) //if we come from /obj/item/twohanded/dualsaber/toy
+		return ..()
+
+	force = active ? force_wielded : initial(force)
+
+	var/datum/martial_art/theforce/MA = user?.mind?.martial_art
+	if(istype(MA))
+		AddComponent(/datum/component/delimb, MA.attack_double_sword_delimb_chance)
+
+	. = ..()
+
+	if((CLUMSY in user.mutations) && (active) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED) && prob(50))
+	if(active && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -275,9 +310,29 @@
 
 
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
+	if(active)
 		return ..()
 	return FALSE
+
+
+/obj/item/twohanded/dualsaber/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, speed, skip = FALSE)
+	if(skip) //if we come from /obj/item/twohanded/dualsaber/toy
+		return ..()
+
+	var/datum/martial_art/theforce/MA = throwingdatum?.thrower?.mind?.martial_art
+	if(istype(MA) && active)
+		AddComponent(/datum/component/delimb, MA.throw_sword_delimb_chance)
+
+	var/mob/living/carbon/human/hit_human = hit_atom
+	if(istype(hit_human))
+		MA = hit_human.mind?.martial_art
+		if(istype(MA) && !hit_human.restrained() && hit_human.put_in_hands(src))
+			hit_human.visible_message(span_warning("[hit_human] catches [src]!"))
+			return
+
+	throwforce = active ? throwforce_active : initial(throwforce)
+
+	. = ..()
 
 
 /obj/item/twohanded/dualsaber/green

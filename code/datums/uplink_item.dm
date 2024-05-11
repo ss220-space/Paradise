@@ -759,6 +759,13 @@
 	cost = 33
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/dangerous/midichlorian
+	name = "Midichlorian injector"
+	desc = "UNLIMITED POWER!"
+	item = /obj/item/midichlorian_injector
+	cost = 60
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support

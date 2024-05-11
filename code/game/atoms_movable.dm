@@ -361,7 +361,7 @@
 			set_currently_z_moving(FALSE, TRUE)
 
 // Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE, is_throwed = FALSE)
 
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
@@ -369,7 +369,7 @@
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced, is_throwed)
 
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
@@ -412,7 +412,7 @@
 	currently_z_moving = max(currently_z_moving, new_z_moving_value)
 	return (currently_z_moving > old_z_moving_value)
 
-/atom/movable/proc/forceMove(atom/destination)
+/atom/movable/proc/forceMove(atom/destination, is_throwed = FALSE)
 	var/turf/old_loc = loc
 	var/area/old_area = get_area(src)
 	var/area/new_area = get_area(destination)
@@ -444,7 +444,7 @@
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
 
-	Moved(old_loc, NONE, TRUE)
+	Moved(old_loc, NONE, TRUE, is_throwed)
 
 	return TRUE
 

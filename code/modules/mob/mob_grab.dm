@@ -29,7 +29,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
-/obj/item/grab/New(var/mob/user, var/mob/victim)
+/obj/item/grab/New(mob/user, mob/victim)
 	..()
 
 	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
@@ -101,11 +101,11 @@
 
 /obj/item/grab/process()
 	if(!confirm())
-		return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
+		return FALSE //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
 	if(assailant.client)
 		if(!hud)
-			return //this somehow can runtime under the right circumstances
+			return FALSE //this somehow can runtime under the right circumstances
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
@@ -197,6 +197,7 @@
 			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
+	return TRUE
 
 
 /obj/item/grab/attack_self(mob/user)
@@ -252,20 +253,25 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/grab/proc/s_click(obj/screen/S)
+/obj/item/grab/proc/s_click_checks()
 	if(!confirm())
-		return
+		return FALSE
 	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
-		return
+		return FALSE
 	if(state == GRAB_UPGRADING)
-		return
+		return FALSE
 	if(assailant.next_move > world.time)
-		return
+		return FALSE
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
-		return
+		return FALSE
 	if(!assailant.canmove || assailant.lying_angle)
 		qdel(src)
+		return FALSE
+	return TRUE
+
+/obj/item/grab/proc/s_click(obj/screen/S)
+	if(!s_click_checks())
 		return
 
 	last_upgrade = world.time
@@ -489,6 +495,58 @@
 			assailant.client.screen -= hud
 		assailant = null
 	QDEL_NULL(hud)
+	return ..()
+
+/obj/item/grab/force
+	name = "force grab"
+
+/obj/item/grab/force/New(mob/user, mob/victim)
+	..()
+	ADD_TRAIT(affecting, TRAIT_MOVE_FLYING, FORCE_GRAB_TRAIT)
+	assailant.canmove = FALSE
+
+/obj/item/grab/force/process()
+	if(..() && state >= GRAB_AGGRESSIVE)
+		playsound(affecting, 'sound/magic/theforce/grip.ogg', 40)
+
+/obj/item/grab/force/adjust_position()
+	return
+
+/obj/item/grab/force/s_click_checks()
+	if(!confirm())
+		return FALSE
+	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
+		return FALSE
+	if(state == GRAB_UPGRADING)
+		return FALSE
+	if(assailant.next_move > world.time)
+		return FALSE
+	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
+		return FALSE
+	if(assailant.lying_angle)
+		qdel(src)
+		return FALSE
+	return TRUE
+
+/obj/item/grab/force/confirm()
+	if(!assailant || !affecting)
+		qdel(src)
+		return FALSE
+
+	if(affecting)
+		if(!isturf(assailant.loc) || !isturf(affecting.loc))
+			qdel(src)
+			return FALSE
+	return TRUE
+
+/obj/item/grab/force/get_mob_if_throwable()
+	if(state >= GRAB_AGGRESSIVE && !affecting.buckled)
+		return affecting
+
+/obj/item/grab/Destroy()
+	REMOVE_TRAIT(affecting, TRAIT_MOVE_FLYING, FORCE_GRAB_TRAIT)
+	assailant.canmove = TRUE
 	return ..()
 
 

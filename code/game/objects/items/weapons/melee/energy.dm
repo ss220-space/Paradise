@@ -22,7 +22,7 @@
 	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user, def_zone)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
@@ -136,6 +136,25 @@
 	if(active)
 		return ..()
 	return 0
+
+/obj/item/melee/energy/sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/datum/martial_art/theforce/MA = throwingdatum?.thrower?.mind?.martial_art
+	if(istype(MA) && active)
+		AddComponent(/datum/component/delimb, MA.throw_sword_delimb_chance)
+
+	var/mob/living/carbon/human/hit_human = hit_atom
+	if(istype(hit_human))
+		MA = hit_human.mind?.martial_art
+		if(istype(MA) && !hit_human.restrained() && hit_human.put_in_hands(src))
+			hit_human.visible_message(span_warning("[hit_human] catches [src]!"))
+			return
+	. = ..()
+
+/obj/item/melee/energy/sword/attack(mob/living/target, mob/living/user, def_zone)
+	var/datum/martial_art/theforce/MA = user?.mind?.martial_art
+	if(istype(MA) && active)
+		AddComponent(/datum/component/delimb, MA.attack_sword_delimb_chance)
+	. = ..()
 
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50

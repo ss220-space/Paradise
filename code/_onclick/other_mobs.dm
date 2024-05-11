@@ -55,6 +55,10 @@
 		if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 			LaserEyes(A)
 
+		var/datum/martial_art/MA = mind?.martial_art
+		if(MA)
+			MA.RangedAttack(A, src, params)
+
 		if(TK in mutations)
 			A.attack_tk(src)
 

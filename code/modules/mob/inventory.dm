@@ -474,10 +474,11 @@
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
+ * * 'is_throwed' if TRUE, the function is called as a result of throwing an object to handle unique behavior.
 */
-/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE)
+/mob/proc/drop_item_ground(obj/item/I, force = FALSE, invdrop = TRUE, silent = FALSE, ignore_pixel_shift = FALSE, is_throwed = FALSE)
 
-	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent)
+	. = do_unEquip(I, force, drop_location(), FALSE, invdrop, silent, is_throwed)
 
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
@@ -532,10 +533,11 @@
  * Use one of the 4 helper above.
  * You may override it, but do not modify the args.
  */
-/mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
+/mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE, is_throwed = FALSE)
 	// 'force' overrides TRAIT_NODROP and clothing obscuration
 	// 'no_move' is used when item is just gonna be immediately moved afterwards
 	// 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping when item in jumsuit slot was removed
+	// 'is_throwed' if TRUE, the function is called as a result of throwing an object to handle unique behavior
 	PROTECTED_PROC(TRUE)
 
 	// If there's nothing to drop, the drop is automatically succesfull
@@ -566,8 +568,8 @@
 			if(isnull(newloc))
 				I.move_to_null_space()
 			else
-				I.forceMove(newloc)
-		I.dropped(src, slot, silent)
+				I.forceMove(newloc, is_throwed)
+		I.dropped(src, slot, silent, is_throwed)
 
 	return TRUE
 

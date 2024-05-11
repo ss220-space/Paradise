@@ -409,7 +409,7 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
-/mob/living/carbon/human/grabbedby(mob/living/user)
+/mob/living/carbon/human/grabbedby(mob/living/user, supress_message, grab_type)
 	if(w_uniform)
 		w_uniform.add_fingerprint(user)
 	return ..()

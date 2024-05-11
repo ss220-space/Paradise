@@ -120,6 +120,7 @@
 	var/armor = run_armor_check(zone, MELEE, "Броня защитила [parse_zone(zone)].", "[pluralize_ru(src.gender,"Твоя","Ваша")] броня смягчила удар по [parse_zone(zone)].", thrown_item.armour_penetration) // TODO: перевод зон
 	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
 
+
 	if(QDELETED(src)) //Damage can delete the mob.
 		return
 
@@ -276,7 +277,7 @@
 
 // End BS12 momentum-transfer code.
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE, grab_type = /obj/item/grab)
 	if(user == src || anchored)
 		return 0
 	if(!(status_flags & CANPUSH))
@@ -292,8 +293,8 @@
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
-	var/obj/item/grab/G = new /obj/item/grab(user, src)
-	if(!G)	//the grab will delete itself in New if src is anchored
+	var/obj/item/grab/G = new grab_type(user, src)
+	if(!istype(G))	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)
 	G.synch()

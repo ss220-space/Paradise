@@ -122,23 +122,30 @@
 
 
 /// Triggered on equip of the item containing the component
-/datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
+/datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot, force_require_twohands)
 	SIGNAL_HANDLER
+
+	var/temp_require_twohands = require_twohands
+	if(force_require_twohands)
+		require_twohands = TRUE
 
 	if(require_twohands && (slot & ITEM_SLOT_HANDS)) // force equip the item
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
 
+	if(force_require_twohands)
+		require_twohands = temp_require_twohands
+
 
 /// Triggered on drop of item containing the component and its offhand part
-/datum/component/two_handed/proc/on_drop(datum/source, mob/user)
+/datum/component/two_handed/proc/on_drop(datum/source, mob/user, is_throwed)
 	SIGNAL_HANDLER
 
 	if(require_twohands) //Don't let the item fall to the ground and cause bugs if it's actually being equipped on another slot.
-		unwield(user, FALSE, FALSE)
+		unwield(user, FALSE, FALSE, is_throwed)
 	if(wielded)
-		unwield(user)
+		unwield(user, TRUE, TRUE, is_throwed)
 	if(source == offhand_item && !QDELETED(source))
 		offhand_item = null
 		qdel(source)
@@ -280,7 +287,7 @@
  * * show_message (option) show a message to chat on unwield
  * * can_drop (option) whether 'drop_item_ground' can be called or not.
  */
-/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE)
+/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE, is_throwed = FALSE)
 	SIGNAL_HANDLER
 
 	if(!wielded)
@@ -294,7 +301,7 @@
 	// wield update status
 	wielded = FALSE
 	UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
-	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
+	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user, is_throwed)
 	REMOVE_TRAIT(parent, TRAIT_WIELDED, src)
 	unwield_callback?.Invoke(parent, user)
 
@@ -388,10 +395,10 @@
 /**
  * on_moved Triggers on item moved
  */
-/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
+/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir, forced, is_throwed)
 	SIGNAL_HANDLER
 
-	unwield(user, can_drop = FALSE)
+	unwield(user, TRUE, FALSE, is_throwed)
 
 
 /**

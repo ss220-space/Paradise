@@ -568,7 +568,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /**
  * When item is officially left user
  */
-/obj/item/proc/dropped(mob/user, slot, silent = FALSE)
+/obj/item/proc/dropped(mob/user, slot, silent = FALSE, is_throwed = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	// Remove any item actions we temporary gave out
@@ -582,7 +582,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, is_throwed)
 	if(!silent && !(flags & ABSTRACT) && drop_sound)
 		var/chosen_sound = drop_sound
 		if(islist(drop_sound) && length(drop_sound))
@@ -656,7 +656,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * * 'slot' uses the slot_X defines found in setup.dm for items that can be placed in multiple slots
  * * 'initial' is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
  */
-/obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+/obj/item/proc/equipped(mob/user, slot, initial = FALSE, send_signal = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	for(var/datum/action/action_item_has as anything in actions)
@@ -681,7 +681,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME * USER_VOLUME(user, CHANNEL_INTERACTION_SOUNDS), channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 
 	user.update_equipment_speed_mods()
-	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	if(send_signal)
+		SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	return TRUE
 
 

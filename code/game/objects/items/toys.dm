@@ -247,6 +247,17 @@
 	if(wielded)
 		return 2
 
+/obj/item/twohanded/dualsaber/toy/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, speed)
+	. = ..(hit_atom, throwingdatum, speed, skip = TRUE)
+
+/obj/item/twohanded/dualsaber/toy/attack(mob/target, mob/living/user, def_zone)
+	if((CLUMSY in user.mutations) && (active) && prob(40))
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+		return ..(user, user, def_zone, skip = TRUE)
+	if(active && prob(50))
+		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+	. = ..(target, user, def_zone, skip = TRUE)
+
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
