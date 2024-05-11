@@ -62,3 +62,20 @@
   - add: New cargo job titles (#5009)
   - balance: Cargo quests, garbage disposal and price balance 2 (#5023)
   - tweak: Gatfruit in uplink update (#4994)
+'2024-05-11':
+  Daeberdir:
+  - bugfix: Delta-map missclick revert. (#5030)
+  Zwei:
+  - tweak: Unnecessary Lights Removed (#4832)
+  - refactor: Updated Buckled Handling (#4857)
+  - refactor: Process Spacemove Refining (#4871)
+  - tweak: Areas Can Ignore Gravgen Effects (#4929)
+  - tweak: Cardboard Box Refining (#4978)
+  - add: Shuttle Smash (#4952)
+  - tweak: Updated Cyborg VTEC and Jetpack Modules (#4984)
+  - bugfix: Fixed Turf Gravity Recalculation (#4998)
+  - bugfix: Taperoll and Persistent Overlay Fix (#5016)
+  - qol: Possibility To Cancel End Round Call (#5028)
+  - refactor: Genes Pretty (#4901)
+  - tweak: New Gravity Effect (#4953)
+  - unknown: All Flags Sorted (#4989)
