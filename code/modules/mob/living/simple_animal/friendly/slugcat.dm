@@ -18,7 +18,7 @@
 	attacktext = "бьёт"
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"

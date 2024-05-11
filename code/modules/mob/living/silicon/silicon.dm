@@ -193,10 +193,9 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+/mob/living/silicon/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	. = ..()
-
-	if(. && inventory_head)
+	if(. == VENTCRAWL_IN_SUCCESS && inventory_head)
 		drop_hat()
 		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 

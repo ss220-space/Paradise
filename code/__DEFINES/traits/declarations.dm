@@ -64,6 +64,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
 
+/* Traits for ventcrawling.
+ * Both give access to ventcrawling, but *_NUDE requires the user to be
+ * wearing no clothes and holding no items. If both present, *_ALWAYS
+ * takes precedence.
+ */
+#define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
+#define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+/// Overrides above traits to allow aliens to use their pockets
+#define TRAIT_VENTCRAWLER_ALIEN "ventcrawler_alien"
+/// If this trait is present all equipped items will be checked for ventcrawling possibilities.
+/// Takes precedence over all traits above
+#define TRAIT_VENTCRAWLER_ITEM_BASED "ventcrawler_item"
+
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 /// We are ignoring gravity

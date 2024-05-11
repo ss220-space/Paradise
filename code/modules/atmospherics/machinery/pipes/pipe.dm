@@ -42,6 +42,11 @@
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
+
+/obj/machinery/atmospherics/pipe/return_pipenets()
+	return list(parent)
+
+
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
 

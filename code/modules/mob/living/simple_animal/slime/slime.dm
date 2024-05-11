@@ -4,7 +4,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gender = NEUTER
 	can_buckle_to = FALSE
 	var/datum/slime_age/age_state = new /datum/slime_age/baby
@@ -500,12 +500,13 @@
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder, new_set_nutrition = 2000)
 
 
-/mob/living/simple_animal/slime/can_ventcrawl(atom/clicked_on, override = FALSE)
+/mob/living/simple_animal/slime/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
 	if(buckled)
-		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете залезть в вентиляцию пока кормитесь!"))
 		return FALSE
-
 	return ..()
+
 
 /mob/living/simple_animal/slime/invalid
 	var/dead_for_sure = FALSE

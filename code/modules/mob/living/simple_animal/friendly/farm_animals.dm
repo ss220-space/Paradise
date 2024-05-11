@@ -197,7 +197,7 @@
 	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
@@ -256,7 +256,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	var/eggsleft = 0
 	var/eggsFertile = TRUE
 	var/body_color
@@ -356,7 +356,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 30
 	maxHealth = 30
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = 1

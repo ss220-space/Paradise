@@ -1,7 +1,7 @@
 /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien_s"
-
+	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
@@ -13,7 +13,7 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
-	pass_flags = PASSTABLE
+
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
@@ -163,4 +163,15 @@
 
 	if(legcuffed)
 		. += span_warning("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!")
+
+
+/mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+	var/list/items = ..()
+	if(!include_pockets)
+		return items
+	if(r_store)
+		items += r_store
+	if(l_store)
+		items += l_store
+	return items
 

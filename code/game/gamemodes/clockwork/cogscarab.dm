@@ -11,7 +11,7 @@
 	health = 35
 	maxHealth = 35
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 

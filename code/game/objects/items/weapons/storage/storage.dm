@@ -89,15 +89,15 @@
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
 
+
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
-	if(!destination)
-		return
-	if(!ismob(destination.loc))
-		for(var/mob/player in mobs_viewing)
-			if(player == destination)
-				continue
-			hide_from(player)
+	if(!destination || ismob(destination.loc))
+		return .
+	for(var/mob/player in mobs_viewing)
+		if(player == destination)
+			continue
+		hide_from(player)
 
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)

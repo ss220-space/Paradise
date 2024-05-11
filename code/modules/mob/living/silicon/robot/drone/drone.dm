@@ -17,7 +17,7 @@
 	density = FALSE
 	has_camera = FALSE
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE

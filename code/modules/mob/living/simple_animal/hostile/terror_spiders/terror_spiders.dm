@@ -61,11 +61,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	speed = 0
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+
 	//SPECIAL
 	var/list/special_abillity = list()  //has spider unique abillities?
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
-	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
 	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors

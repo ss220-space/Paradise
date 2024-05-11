@@ -2231,6 +2231,7 @@
 #include "code\modules\mob\living\status_procs.dm"
 #include "code\modules\mob\living\taste.dm"
 #include "code\modules\mob\living\update_status.dm"
+#include "code\modules\mob\living\ventcrawling.dm"
 #include "code\modules\mob\living\carbon\_defines.dm"
 #include "code\modules\mob\living\carbon\carbon.dm"
 #include "code\modules\mob\living\carbon\carbon_defense.dm"

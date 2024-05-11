@@ -412,15 +412,22 @@
 	dna = newDNA
 
 
-/mob/living/carbon/can_ventcrawl(atom/clicked_on, override = FALSE)
-	if(!override && ventcrawler == 1)
-		var/list/weared_items = get_all_slots()
-		for(var/obj/item/item in weared_items)
-			if(item)
-				to_chat(src, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
-				return FALSE
+/mob/living/carbon/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
+	. = ..()
+	if(!. || !entering)
+		return .
 
-	return ..()
+	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
+	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами в руках!"))
+		return FALSE
+
+	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами!"))
+		return FALSE
 
 
 //Throwing stuff

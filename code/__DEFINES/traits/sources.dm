@@ -105,6 +105,8 @@
 /// Trait given by living mob death
 #define SIMPLE_MOB_DEATH_TRAIT "simple_mob_death"
 
+#define VENTCRAWLING_TRAIT "ventcrawling"
+
 // sources for trait TRAIT_MOVE_FLYING
 #define ITEM_BROOM_TRAIT "item_broom_trait"
 #define ITEM_GRAV_BOOTS_TRAIT "item_grav_boots_trait"

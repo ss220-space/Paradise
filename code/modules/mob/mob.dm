@@ -234,43 +234,67 @@
 			validtargets[result_name] = M
 	return validtargets
 
-// If you're looking for `reset_perspective`, that's a synonym for this proc.
+
+/**
+ * Reset the attached clients perspective (viewpoint)
+ *
+ * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
+ * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
+ */
 /mob/proc/reset_perspective(atom/new_eye)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!client)
 		return
-	if(ismovable(new_eye))
-		if(new_eye != src)
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(new_eye)
+
+	if(new_eye)
+		if(ismovable(new_eye))
+			//Set the new eye unless it's us
+			if(new_eye != src)
+				client.perspective = EYE_PERSPECTIVE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+
+		else if(isturf(new_eye))
+			//Set to the turf unless it's our current turf
+			if(new_eye != loc)
+				client.perspective = EYE_PERSPECTIVE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
 		else
-			client.set_eye(client.mob)
-			client.perspective = MOB_PERSPECTIVE
-	else if(isturf(new_eye))
-		if(new_eye != loc)
-			client.perspective = EYE_PERSPECTIVE
-			client.set_eye(new_eye)
-		else
-			client.set_eye(client.mob)
-			client.perspective = MOB_PERSPECTIVE
-	else if(isturf(loc))
-		client.set_eye(client.mob)
-		client.perspective = MOB_PERSPECTIVE
+			return TRUE //no setting eye to stupid things like areas or whatever
 	else
-		client.perspective = EYE_PERSPECTIVE
-		client.set_eye(loc)
+		//Reset to common defaults: mob if on turf, otherwise current loc
+		if(isturf(loc))
+			client.set_eye(client.mob)
+			client.perspective = MOB_PERSPECTIVE
+		else
+			client.perspective = EYE_PERSPECTIVE
+			client.set_eye(loc)
+
 	return TRUE
 
-/mob/living/reset_perspective(atom/A)
+
+/mob/living/reset_perspective(atom/new_eye)
 	. = ..()
 	if(.)
 		// Above check means the mob has a client
 		update_sight()
-		if(client.eye != src)
-			var/atom/AT = client.eye
-			AT.get_remote_view_fullscreens(src)
-		else
-			clear_fullscreen("remote_view", 0)
+		update_fullscreen()
 		update_pipe_vision()
+
+
+/// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
+/mob/living/proc/update_fullscreen()
+	if(client.eye && client.eye != src)
+		var/atom/client_eye = client.eye
+		client_eye.get_remote_view_fullscreens(src)
+	else
+		clear_fullscreen("remote_view", 0)
+
 
 /mob/dead/reset_perspective(atom/A)
 	. = ..()
@@ -978,14 +1002,6 @@
 //override to avoid rotating pixel_xy on mobs
 /mob/shuttleRotate(rotation)
 	dir = angle2dir(rotation+dir2angle(dir))
-
-
-/mob/proc/can_ventcrawl(atom/clicked_on, override = FALSE)
-	return FALSE
-
-
-/mob/proc/handle_ventcrawl(atom/clicked_on)
-	return FALSE // Only living mobs can ventcrawl
 
 
 /**

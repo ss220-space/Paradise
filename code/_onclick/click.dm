@@ -350,19 +350,19 @@
 		user.listed_turf = T
 		user.client.statpanel = T.name
 
-/atom/proc/AltClick(var/mob/user)
+/atom/proc/AltClick(mob/user)
 	turf_examine(user)
 
-/atom/proc/turf_examine(var/mob/user)
+/atom/proc/turf_examine(mob/user)
 	var/turf/T = get_turf(src)
 	if(T)
-		if(user.TurfAdjacent(T))
+		if(user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
 			user.listed_turf = T
 			user.client.statpanel = T.name
 			// If we had a method to force a `Stat` update, it would go here
 		else
 			user.listed_turf = null
-	return
+
 
 /mob/proc/TurfAdjacent(var/turf/T)
 	return T.Adjacent(src)

@@ -1380,11 +1380,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return name
 
 
-//OOP
-/atom/proc/update_pipe_vision()
-	return
-
-
 /**
  * This proc is used for telling whether something can pass by this atom in a given direction, for use by the pathfinding system.
  *
