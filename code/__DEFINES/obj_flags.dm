@@ -64,6 +64,4 @@
 #define BLOCK_CAPSAICIN (1<<4)
 /// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
 #define FIXED_SLOWDOWN (1<<5)
-/// Used for shoes to prevent slipping on wet floors
-#define NOSLIP (1<<6)
 
