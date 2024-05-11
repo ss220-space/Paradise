@@ -65,6 +65,8 @@
 '2024-05-11':
   Daeberdir:
   - bugfix: Delta-map missclick revert. (#5030)
+  Rerik007:
+  - refactor: porting slippery and wet floor components from tg (#4814)
   Zwei:
   - tweak: Unnecessary Lights Removed (#4832)
   - refactor: Updated Buckled Handling (#4857)
@@ -83,3 +85,5 @@
   - refactor: Unified Procs do_after/do_after_once/do_mob (#4969)
   - unknown: Blueprints Rework (#4881)
   - unknown: Ventcrawling Update (#4891)
+  - unknown: Hands Blocked Trait (#4977)
+  - bugfix: Allow Pickup Anсhored Items (#5034)
