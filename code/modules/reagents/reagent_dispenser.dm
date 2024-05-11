@@ -3,7 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
@@ -45,7 +45,7 @@
 	qdel(src)
 
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			boom(FALSE, TRUE)
 	else
@@ -124,7 +124,7 @@
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
-		if(do_after(usr, 20, target = src))
+		if(do_after(usr, 2 SECONDS, src))
 			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
@@ -139,7 +139,7 @@
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
@@ -206,7 +206,7 @@
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -282,7 +282,7 @@
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "virusfood"
 
 /obj/structure/reagent_dispensers/spacecleanertank
@@ -290,13 +290,13 @@
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	accepts_rig = 0
 	tank_volume = 1000

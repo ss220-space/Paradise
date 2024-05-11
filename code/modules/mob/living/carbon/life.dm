@@ -190,19 +190,19 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
-/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal)
-		if(internal.loc != src)
-			internal = null
-		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
-				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
-					internal = null //turn off internals
 
-		if(internal)
-			return internal.remove_air_volume(volume_needed)
-		else
-			update_action_buttons_icon()
+/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
+	if(!internal)
+		return
+
+	if(internal.loc != src || !has_airtight_items())
+		internal = null
+
+	if(!internal)
+		update_action_buttons_icon()
+		return
+
+	return internal.remove_air_volume(volume_needed)
 
 
 /mob/living/carbon/proc/handle_organs()

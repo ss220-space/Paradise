@@ -385,3 +385,11 @@
 ///#define SLIP_WHEN_CRAWLING (1<<4)
 /// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
 #define SLIPPERY_TURF (1<<4)
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+// Return values for [/mob/living/proc/handle_ventcrawl()]
+#define VENTCRAWL_IN_SUCCESS 1
+#define VENTCRAWL_OUT_SUCCESS 2
+

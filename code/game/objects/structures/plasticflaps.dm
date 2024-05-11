@@ -65,11 +65,6 @@
 		if(bed_mover.density || bed_mover.has_buckled_mobs())	//if it's a bed/chair and is dense or someone is buckled, it will not pass
 			return FALSE
 
-	else if(istype(mover, /obj/structure/closet/cardboard))
-		var/obj/structure/closet/cardboard/cardboard_mover = mover
-		if(cardboard_mover.move_delay)
-			return FALSE
-
 	else if(ismecha(mover))
 		return FALSE
 
@@ -78,7 +73,7 @@
 		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
 
-		if(!living_mover.lying_angle && !living_mover.ventcrawler && living_mover.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+		if(!living_mover.lying_angle && living_mover.mob_size != MOB_SIZE_TINY && !is_ventcrawler(living_mover))	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 
 
@@ -88,7 +83,7 @@
 			return TRUE
 
 		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
+		if(!is_ventcrawler(M) && M.mob_size != MOB_SIZE_TINY)
 			return FALSE
 	var/atom/movable/M = caller
 	if(M?.pulling)
@@ -97,7 +92,7 @@
 
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 

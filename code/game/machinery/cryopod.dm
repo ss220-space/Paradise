@@ -19,11 +19,11 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = /obj/item/circuitboard/cryopodcontrol
-	density = 0
+	density = FALSE
 	interact_offline = 1
 	req_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -204,7 +204,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
@@ -510,7 +510,7 @@
 
 			visible_message("[user] starts putting [G.affecting.name] into [src].")
 
-			if(do_after(user, 20, target = G.affecting))
+			if(do_after(user, 2 SECONDS, G.affecting))
 				if(!M || !G || !G.affecting)
 					return
 
@@ -596,7 +596,7 @@
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.")
-		if(do_after(user, 2 SECONDS, target = L))
+		if(do_after(user, 2 SECONDS, L))
 			if(!L)
 				return
 			if(occupant)
@@ -677,7 +677,7 @@
 
 	visible_message("[usr] starts climbing into [src].")
 
-	if(do_after(usr, 20, target = usr))
+	if(do_after(usr, 2 SECONDS, usr))
 
 		if(!usr || !usr.client)
 			return

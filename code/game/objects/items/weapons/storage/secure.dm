@@ -52,7 +52,7 @@
 			emag_act(user, W)
 
 		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
@@ -60,7 +60,7 @@
 		if((W.tool_behaviour = TOOL_MULTITOOL) && (open) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = TRUE
-			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(prob(40))
 					l_setshort = TRUE
 					l_set = FALSE
@@ -246,7 +246,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 
 /obj/item/storage/secure/safe/attack_hand(mob/user)

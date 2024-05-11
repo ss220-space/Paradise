@@ -3,7 +3,7 @@
 	desc = "For those documents you don't want seen."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/max_paper = 15
 	var/paperamount = 0

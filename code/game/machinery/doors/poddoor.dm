@@ -65,7 +65,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(!hasPower())
 				open()
 			else

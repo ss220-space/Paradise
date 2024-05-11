@@ -3,7 +3,10 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-#define MUTCHK_FORCED        1
+/// Ignores any restrictions (except flag MUTCHK_IGNORE_DEFAULT) while we are making gene checks
+#define MUTCHK_FORCED (1<<0)
+/// Allows to modify species default genes
+#define MUTCHK_IGNORE_DEFAULT (1<<1)
 
 // mob/var/list/mutations
 
@@ -114,11 +117,6 @@
 #define MOB_SIZE_SMALL 1
 #define MOB_SIZE_HUMAN 2
 #define MOB_SIZE_LARGE 3
-
-//Ventcrawling defines
-#define VENTCRAWLER_NONE   0
-#define VENTCRAWLER_NUDE   1
-#define VENTCRAWLER_ALWAYS 2
 
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100

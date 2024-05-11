@@ -94,13 +94,13 @@
 		emission_cycles = 0
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
-		I.density = TRUE
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		first = I
 		step(I, I.dir)
 		if(first)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = 8
 			I.process()
@@ -290,14 +290,14 @@
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)
 		I.master = master
-		I.density = TRUE
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		I.previous = src
 		next = I
 		step(I, I.dir)
 		if(next)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = limit - 1
 			master.last = I

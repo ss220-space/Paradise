@@ -51,7 +51,7 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	force = 15
 	force_wielded = 15
 	armour_penetration = 40

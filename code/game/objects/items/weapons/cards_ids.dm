@@ -70,8 +70,8 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=3"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/emag/attack()
 	return
@@ -88,8 +88,8 @@
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)

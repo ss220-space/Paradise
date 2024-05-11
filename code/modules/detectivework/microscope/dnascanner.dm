@@ -6,7 +6,7 @@
 	icon_state = "dnaopen"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	var/obj/item/forensics/swab = null
 	var/scanning = 0
@@ -45,7 +45,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>Сканер начинает с жужением анализировать содержимое пробирки \the [swab].</span>")
 
-	if(!do_after(user, 25, src) || !swab)
+	if(!do_after(user, 2.5 SECONDS, src) || !swab)
 		to_chat(user, "<span class='notice'>Вы перестали анализировать \the [swab].</span>")
 		scanning = FALSE
 		update_icon(UPDATE_ICON_STATE)

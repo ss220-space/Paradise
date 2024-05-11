@@ -6,8 +6,9 @@
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
+	can_buckle_to = FALSE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -169,12 +170,6 @@
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
 	ram = min(initial(ram) + extra_memory, 170)
-
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
 
 
 /mob/living/silicon/pai/update_icons()
@@ -539,7 +534,7 @@
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = 0 //this is reset every canmove update otherwise
+	set_density(FALSE) //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()

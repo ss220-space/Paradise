@@ -32,6 +32,7 @@
 
 
 /atom/proc/attack_hand(mob/user)
+	. = FALSE
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 

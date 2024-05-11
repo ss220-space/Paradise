@@ -41,8 +41,8 @@
 	if(!T.has_gravity())
 		new /obj/effect/particle_effect/ion_trails(T, _dir)
 
-/mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(check_drift = 0)
-	return 1
+/mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/malf_drone/ListTargets()
 	if(passive_mode)

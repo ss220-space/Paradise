@@ -168,7 +168,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy swords
@@ -1567,7 +1567,7 @@
 /obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(O.loc != user)
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else

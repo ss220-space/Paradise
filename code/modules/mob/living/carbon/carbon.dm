@@ -412,15 +412,22 @@
 	dna = newDNA
 
 
-/mob/living/carbon/can_ventcrawl(atom/clicked_on, override = FALSE)
-	if(!override && ventcrawler == 1)
-		var/list/weared_items = get_all_slots()
-		for(var/obj/item/item in weared_items)
-			if(item)
-				to_chat(src, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
-				return FALSE
+/mob/living/carbon/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
+	. = ..()
+	if(!. || !entering)
+		return .
 
-	return ..()
+	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
+	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами в руках!"))
+		return FALSE
+
+	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами!"))
+		return FALSE
 
 
 //Throwing stuff
@@ -550,7 +557,7 @@
 
 				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+	else if(!(I.item_flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
 		drop_item_ground(I, silent = TRUE)
 
@@ -600,7 +607,7 @@
 		var/displaytime = breakouttime / 10
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
 					"<span class='notice'>Вы пытаетесь себя отстегнуть... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
@@ -652,6 +659,7 @@
 /mob/living/carbon/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
+
 	..()
 	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
@@ -714,12 +722,12 @@
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
-		return 0
+		return FALSE
 	if(!toEat.instant_application)
-		if(!do_mob(user, src))
-			return 0
+		if(!do_after(user, 3 SECONDS, src, NONE))
+			return FALSE
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
-	return 1
+	return TRUE
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
@@ -743,19 +751,21 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(!iscarbon(src))
+	if(dna && (NO_BREATHE in dna.species.species_traits))
 		return FALSE
 
-	if(NO_BREATHE in src.dna?.species?.species_traits)
-		return FALSE
-
-	if(!wear_mask)
+	if(!wear_mask && !head)
 		return TRUE
 
-	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
+	var/obj/item/clothing/our_mask = wear_mask
+	var/obj/item/clothing/our_helmet = head
+	if(!internal \
+		&& !(isclothing(our_mask) && (our_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)) \
+		&& !(isclothing(our_helmet) && (our_helmet.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)))
 		return TRUE
 
 	return FALSE
+
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()

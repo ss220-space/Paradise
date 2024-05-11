@@ -376,7 +376,7 @@
 	occupant = null
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		open_machine()
 		dump_contents()
 		new /obj/item/stack/sheet/metal (loc, 2)
@@ -402,7 +402,7 @@
 	else
 		target.visible_message(span_warning("[user] starts shoving [target] into [src]!"), span_userdanger("[user] starts shoving you into [src]!"))
 
-	if(!do_mob(user, target, 3 SECONDS))
+	if(!do_after(user, 3 SECONDS, target, NONE))
 		return
 
 	if(occupant || helmet || suit || storage)
@@ -474,7 +474,7 @@
 	user.visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
 		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
 		span_italics("You hear a thump from [src]."))
-	if(do_after(user,(breakout_time), target = src))
+	if(do_after(user,(breakout_time), src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src )
 			return
 		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
@@ -722,7 +722,7 @@
 		to_chat(usr, span_warning("It's too cluttered inside for you to fit in!"))
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
-	if(do_after(usr, 10, target = usr))
+	if(do_after(usr, 1 SECONDS, usr))
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr

@@ -552,7 +552,7 @@
 		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
 								span_notice("Вы начинаете снимать [I.name]..."))
-			if(!do_after_once(user, I.equip_delay_self, target = user, attempt_cancel_message = "Снятие [I.name] было прервано!"))
+			if(!do_after(user, I.equip_delay_self, user, max_interact_count = 1, cancel_message = span_warning("Снятие [I.name] было прервано!")))
 				return FALSE
 
 			if((slot_id == ITEM_SLOT_HAND_LEFT && user.l_hand) || (slot_id == ITEM_SLOT_HAND_RIGHT && user.r_hand))

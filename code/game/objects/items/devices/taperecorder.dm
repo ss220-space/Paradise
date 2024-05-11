@@ -401,7 +401,7 @@
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You start winding the tape back in."))
-		if(!do_after(user, 120 * I.toolspeed, target = user))
+		if(!do_after(user, 12 SECONDS * I.toolspeed, user))
 			return
 		to_chat(user, span_notice("You wind the tape back in!"))
 		fix()
@@ -415,7 +415,7 @@
 /obj/item/tape/proc/ruin(mob/user)
 	if(user)
 		to_chat(user, span_notice("You start pulling the tape out."))
-		if(!do_after(user, 1 SECONDS, target = user))
+		if(!do_after(user, 1 SECONDS, user))
 			return
 		to_chat(user, span_notice("You pull the tape out of [src]."))
 

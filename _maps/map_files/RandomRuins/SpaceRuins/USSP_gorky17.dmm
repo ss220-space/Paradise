@@ -2902,7 +2902,7 @@
 /obj/item/stack/spacecash/ussp{
 	amount = 3500
 	},
-/obj/item/areaeditor/gorky17,
+/obj/item/areaeditor/create_area_only/gorky17,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/vault)
 "kH" = (

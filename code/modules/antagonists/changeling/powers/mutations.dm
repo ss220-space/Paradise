@@ -153,7 +153,7 @@
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
@@ -209,7 +209,7 @@
 								span_italics("You hear a metal screeching sound."))
 
 			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
-			if(!do_after(user, 3 SECONDS, target = airlock ))
+			if(!do_after(user, 3 SECONDS, airlock))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
@@ -318,7 +318,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
-	flags = ABSTRACT|NOBLUDGEON|DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
@@ -587,7 +587,7 @@
 /obj/item/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
-	flags = DROPDEL
+	item_flags = DROPDEL
 	icon_state = "ling_shield"
 	block_chance = 50
 	var/remaining_uses //Set by the changeling ability.
@@ -642,7 +642,9 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE|DROPDEL|HIDETAIL
+	clothing_flags = STOPSPRESSUREDMAGE
+	flags_inv = HIDETAIL
+	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
@@ -675,8 +677,9 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
-	flags = STOPSPRESSUREDMAGE|DROPDEL
+	item_flags = DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
 	faction_restricted = null
@@ -717,7 +720,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
-	flags = DROPDEL
+	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEJUMPSUIT
@@ -749,7 +752,7 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
-	flags = DROPDEL
+	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null

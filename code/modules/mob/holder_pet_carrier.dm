@@ -175,7 +175,7 @@
 
 	if(opened && L.loc == src)
 		spawn(0)
-			if(do_after(L, (breakout_time_open), target = target_atom))
+			if(do_after(L, (breakout_time_open), target_atom))
 				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
 					to_chat(L, span_warning("Побег прерван!"))
 					return
@@ -189,7 +189,7 @@
 		O.show_message(span_danger("[name] начинает трястись!"), 1)
 
 	spawn(0)
-		if(do_after(L, (breakout_time), target = target_atom))
+		if(do_after(L, (breakout_time), target_atom))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				to_chat(L, span_warning("Побег прерван!"))
 				return

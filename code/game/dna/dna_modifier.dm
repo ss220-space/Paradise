@@ -602,7 +602,7 @@
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
-					domutcheck(connected.occupant, connected)
+					connected.occupant.check_genes()
 				else
 					randmuti(connected.occupant)
 					connected.occupant.UpdateAppearance()
@@ -657,7 +657,7 @@
 
 					//testing("Irradiated SE block [real_SE_block]:[selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
-					domutcheck(connected.occupant, connected)
+					connected.occupant.check_genes()
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
@@ -668,7 +668,7 @@
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
 						randmutb(connected.occupant)
-						domutcheck(connected.occupant, connected)
+						connected.occupant.check_genes()
 					else
 						randmuti(connected.occupant)
 						//testing("Random identity mut!")
@@ -750,7 +750,7 @@
 					else if(buf.types & DNA2_BUF_SE)
 						connected.occupant.dna.SE = buf.dna.SE.Copy()
 						connected.occupant.dna.UpdateSE()
-						domutcheck(connected.occupant, connected)
+						connected.occupant.check_genes()
 				if("createInjector")
 					if(!injector_ready)
 						return

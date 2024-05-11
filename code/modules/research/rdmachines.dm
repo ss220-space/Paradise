@@ -6,7 +6,7 @@
 	icon = 'icons/obj/machines/research.dmi'
 	var/icon_open = null
 	var/icon_closed = null
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/busy = 0

@@ -8,7 +8,8 @@
 	obj_damage = 10
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 
 	tts_seed = "Templar"
 
@@ -31,8 +32,6 @@
 	hide_action.Grant(src)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
-
-
 
 
 /mob/living/carbon/alien/larva/Destroy()

@@ -62,7 +62,7 @@
 		can_shake = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
-		if(do_after(H, 1 SECONDS, target = H))
+		if(do_after(H, 1 SECONDS, H))
 			visible_message("<span class='warning'>[user] shakes up the [name]!</span>")
 			if(times_shaken == 0)
 				times_shaken++

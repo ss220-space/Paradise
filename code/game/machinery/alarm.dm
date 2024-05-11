@@ -235,13 +235,15 @@
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
 		req_access = list(ACCESS_SYNDICATE)
 
 	if(!master_is_operating())
 		elect_master()
+
+	update_icon()
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
@@ -1069,12 +1071,9 @@
 
 
 /obj/machinery/alarm/power_change(forced = FALSE)
-	..() //we don't check return here because we also care about the BROKEN flag
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/alarm/obj_break(damage_flag)
@@ -1082,7 +1081,7 @@
 	update_icon()
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
 		if(!disassembled)

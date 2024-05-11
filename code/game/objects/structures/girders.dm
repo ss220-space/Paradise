@@ -2,7 +2,7 @@
 	name = "girder"
 	icon_state = "girder"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
@@ -40,7 +40,7 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			if(!src)
 				return
 			playsound(loc, W.usesound, 100, 1)
@@ -89,7 +89,7 @@
 					to_chat(user, "<span class='warning'>You need at least five rods to create a false wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start building a reinforced false wall...</span>")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 5)
 						return
 					S.use(5)
@@ -102,7 +102,7 @@
 					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 40, target = src))
+				if (do_after(user, 4 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 5)
 						return
 					S.use(5)
@@ -119,7 +119,7 @@
 				if(A.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
 					return
-				if(do_after(user, 2 SECONDS, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !A || A.get_amount() < 2)
 						return
 					A.use(2)
@@ -132,7 +132,7 @@
 					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
-				if(do_after(user, 4 SECONDS, target = src))
+				if(do_after(user, 4 SECONDS, src))
 					if(!src || !A || A.get_amount() < 2)
 						return
 					A.use(2)
@@ -158,7 +158,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to create a false wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start building a false wall...</span>")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -171,7 +171,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -190,7 +190,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to create a false wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start building a false wall...</span>")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -203,7 +203,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -222,7 +222,7 @@
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start building a reinforced false wall...</span>")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -235,7 +235,7 @@
 					if(S.get_amount() < 1)
 						return
 					to_chat(user, "<span class='notice'>You start finalizing the reinforced wall...</span>")
-					if(do_after(user, 50, target = src))
+					if(do_after(user, 5 SECONDS, src))
 						if(!src || !S || S.get_amount() < 1)
 							return
 						S.use(1)
@@ -251,7 +251,7 @@
 					if(S.get_amount() < 1)
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing the girder...</span>")
-					if(do_after(user,60, target = src))
+					if(do_after(user, 6 SECONDS, src))
 						if(!src || !S || S.get_amount() < 1)
 							return
 						S.use(1)
@@ -267,7 +267,7 @@
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					if(!loc || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -281,7 +281,7 @@
 					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user,40, target = src))
+				if(do_after(user, 4 SECONDS, src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -415,7 +415,7 @@
 
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/remains = pick(/obj/item/stack/rods, /obj/item/stack/sheet/metal)
 		new remains(loc)
 	qdel(src)
@@ -478,7 +478,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
@@ -498,7 +498,7 @@
 			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
 			return 0
 		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(R.get_amount() < 1 || !R)
 				return
 			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
@@ -517,7 +517,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
@@ -537,7 +537,7 @@
 			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
 			return 0
 		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(R.get_amount() < 1 || !R)
 				return
 			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
@@ -552,6 +552,6 @@
 	return
 
 /obj/structure/girder/cult/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/runed_metal(drop_location(), 1)
 	qdel(src)

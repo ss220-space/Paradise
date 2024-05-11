@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
@@ -39,7 +39,7 @@
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 					if(creation_time)
 						holocreator_busy = TRUE
-						if(!do_after(user, creation_time, target = target))
+						if(!do_after(user, creation_time, target))
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE

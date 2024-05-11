@@ -17,7 +17,7 @@
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."

@@ -48,7 +48,7 @@
 					span_userdanger("[user] is trying to put [name] on [C]!"))
 	playsound(loc, cuffsound, 30, 1, -2)
 
-	if(do_mob(user, C, 5 SECONDS))
+	if(do_after(user, 5 SECONDS, C, NONE))
 		if(isrobot(user))
 			apply_cuffs(C, user, TRUE)
 		else
@@ -181,7 +181,7 @@
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35 * M.toolspeed * gettoolspeedmod(user), target = src) && M.use(6))
+		if(do_after(user, 3.5 SECONDS * M.toolspeed * gettoolspeedmod(user), src) && M.use(6))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(drop_location())
 			user.put_in_hands(S, ignore_anim = FALSE)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")

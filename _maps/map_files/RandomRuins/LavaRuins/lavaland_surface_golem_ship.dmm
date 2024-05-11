@@ -689,7 +689,7 @@
 "Md" = (
 /obj/structure/table/reinforced,
 /obj/item/disk/design_disk/golem_shell,
-/obj/item/areaeditor/golem,
+/obj/item/areaeditor/create_area_only/golem,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "MI" = (

@@ -59,6 +59,9 @@
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"
 ///from base of atom/attackby(): (/obj/item, /atom/source, params) sends singal on user who attacked source
 #define COMSIG_ATOM_ATTACK "atom_attack"
+///called when the atom sucessfully has it's density var changed, from base atom/set_density(): (value)
+#define COMSIG_ATOM_SET_DENSITY "atom_set_density"
+
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
 ///Return this in response if you don't want afterattack to be called
@@ -493,6 +496,8 @@
 #define COMSIG_LIVING_REENTERED_BODY "reentered_body"
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
+///from base of mob/living/set_buckled(): (new_buckled)
+#define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
@@ -1015,3 +1020,8 @@
 
 ///called when a plant with slippery skin is slipped on (mob/victim)
 #define COMSIG_PLANT_ON_SLIP "plant_on_slip"
+
+/// Sent from /proc/do_after if someone starts a do_after action bar.
+#define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
+/// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
+#define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"

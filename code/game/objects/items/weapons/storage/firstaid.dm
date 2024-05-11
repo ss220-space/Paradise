@@ -363,7 +363,7 @@
 			return FALSE
 
 		user.visible_message(span_danger("[user] [rapid_intake_message]"))
-		if(!do_mob(user, user, 10 SECONDS) || src != user.get_active_hand())
+		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
 			return FALSE
 
 		for(var/obj/item/reagent_containers/food/pill/pill in src)

@@ -65,7 +65,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	max_integrity = 500
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
@@ -124,7 +124,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal (loc, 5)
 	qdel(src)
 
@@ -238,7 +238,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0

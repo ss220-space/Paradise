@@ -114,8 +114,8 @@
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
-	flags = ABSTRACT|DROPDEL
-	slot_flags = null
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
 	fire_sound = null
 	fire_sound_text = null
 	lefthand_file = null
@@ -368,7 +368,7 @@
 
 	switch(choice)
 		if("Barrel")
-			if(!do_mob(user, src, 8 SECONDS))
+			if(!do_after(user, 8 SECONDS, src, NONE))
 				return
 			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
 			user.put_in_hands(barrel)
@@ -410,7 +410,7 @@
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
 				to_chat(user, span_notice("[src] already have [barrel]."))
-			else if(do_mob(user, src, 8 SECONDS))
+			else if(do_after(user, 8 SECONDS, src, NONE))
 				if(user.drop_transfer_item_to_loc(A, src))
 					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
 					barrel = A

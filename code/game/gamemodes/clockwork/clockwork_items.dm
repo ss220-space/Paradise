@@ -106,7 +106,7 @@
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-		if(do_after(user, 1.5 SECONDS, target = user) && destination)
+		if(do_after(user, 1.5 SECONDS, user) && destination)
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -187,7 +187,7 @@
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-			if(do_after(user, 1.5 SECONDS, target = user))
+			if(do_after(user, 1.5 SECONDS, user))
 				do_sparks(4, 0, user)
 				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

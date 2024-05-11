@@ -1,6 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
-	var/obj_flags
+	var/obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -28,7 +28,6 @@
 	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
@@ -40,10 +39,7 @@
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
+		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -231,7 +227,7 @@
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")

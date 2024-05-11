@@ -82,6 +82,8 @@
 #define HANDCUFFED_TRAIT "handcuffed_trait"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit_trait"
+/// Trait associated to lying down (having a [lying_angle] of a different value than zero).
+#define LYING_DOWN_TRAIT "lying-down"
 
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
@@ -91,6 +93,19 @@
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"
+
+#define FULTON_TRAIT "fulton"
+
+#define FLOOR_CLUWNE_TRAIT "floor_cluwne"
+
+#define DRAGON_SWOOP_TRAIT "dragon_swoop"
+
+#define PANDORA_TEPELORT_TRAIT "pandora_teleport"
+
+/// Trait given by living mob death
+#define SIMPLE_MOB_DEATH_TRAIT "simple_mob_death"
+
+#define VENTCRAWLING_TRAIT "ventcrawling"
 
 // sources for trait TRAIT_MOVE_FLYING
 #define ITEM_BROOM_TRAIT "item_broom_trait"

@@ -15,7 +15,7 @@
 	name = "\improper space pod"
 	desc = "A space pod meant for space travel."
 	icon = 'icons/goonstation/48x48/pods.dmi'
-	density = 1 //Dense. To raise the heat.
+	density = TRUE //Dense. To raise the heat.
 	opacity = 0
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
@@ -394,7 +394,7 @@
 		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
 				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
@@ -474,7 +474,7 @@
 		if(istype(target))
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				target.Stun(2 SECONDS)
 				if(pilot)
 					eject_pilot()
@@ -750,7 +750,7 @@
 				return 0
 			if(passengers.len < max_passengers)
 				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
-				if(do_after(user, 50, target = M))
+				if(do_after(user, 5 SECONDS, M))
 					moved_other_inside(M)
 			return
 
@@ -769,7 +769,7 @@
 	var/obj/item/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
 	if(!C.storage)
 		to_chat(user, "<span class='notice'>You begin loading [O] into [src]'s [equipment_system.cargo_system]</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			C.storage = O
 			O.forceMove(C)
 			to_chat(user, "<span class='notice'>You load [O] into [src]'s [equipment_system.cargo_system]!</span>")
@@ -818,7 +818,7 @@
 
 	if(passengers.len <= max_passengers)
 		visible_message("<span class='notice'>[user] starts to climb into [src].</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			if(!pilot || pilot == null)
 				user.stop_pulling()
 				pilot = user
@@ -874,7 +874,7 @@
 		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
 		if(pilot)
 			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
-		if(!do_after(usr, 1200, target = src))
+		if(!do_after(usr, 2 MINUTES, src))
 			return
 
 	if(user == pilot)
@@ -1005,7 +1005,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 4 SECONDS, src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
 		if(true_contents.len > 0)

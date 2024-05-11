@@ -71,7 +71,7 @@
 		return
 	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
 		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
-	if(!do_after(user, 20, target = pod))
+	if(!do_after(user, 2 SECONDS, pod))
 		return
 	for(var/atom/movable/AM in pod)
 		pod.eject(AM)
@@ -88,7 +88,7 @@
 			var/mob/living/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
-				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
+				if(do_after(user, 3 SECONDS, GM) && GM && G && G.affecting == GM)
 					GM.add_fingerprint(user)
 					GM.Weaken(10 SECONDS)
 					Bumped(GM)

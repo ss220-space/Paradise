@@ -543,7 +543,7 @@
 		FEMALE = list("Тарелка", "Посуда", "Утварь"),
 		NEUTER = null
 		)
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."

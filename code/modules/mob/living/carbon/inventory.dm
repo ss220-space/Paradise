@@ -105,7 +105,7 @@
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся снять [I]!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь снять [I]... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(I.loc != src || buckled)
 				return
 			visible_message("<span class='danger'>[src.name] удалось снять [I]!</span>")
@@ -127,7 +127,7 @@
 		breakouttime = 50
 		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся сломать [I]!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь сломать [I]... (Это займет у вас приблизительно 5 секунд и вам не нужно двигаться)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!I.loc || buckled)
 				return
 			visible_message("<span class='danger'>[src.name] успешно сломал[genderize_ru(src.gender,"","а","о","и")] [I]!</span>")
@@ -210,7 +210,7 @@
 	else
 		visible_message("<span class='warning'>[src.name] грыз[pluralize_ru(src.gender,"ет","ут")] [I], пытаясь избавиться от него!</span>")
 		to_chat(src, "<span class='notice'>Вы пытаетесь избавиться от [I]... (Это займет около [time/10] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, time, 0, target = src))
+		if(do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			visible_message("<span class='warning'>[src.name] избавил[genderize_ru(src.gender,"ся","ась","ось","ись")] от [I]!</span>")
 			to_chat(src, "<span class='notice'>Вы избавились от [I]!</span>")
 			if(I.security_lock)
@@ -222,19 +222,24 @@
 	user.set_machine(src)
 
 	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BACK]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
-	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[ITEM_SLOT_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+	dat += "<tr><td><B>Internals:</B></td><td>"
+
+	if(has_airtight_items() && length(find_air_tanks()))
+		dat += "<A href='?src=[UID()];internal=1'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+	else
+		dat += "<font color=grey>Not available</font>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BACK]'>[(back && !(back.item_flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A></td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.item_flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_MASK]'>[(wear_mask && !(wear_mask.item_flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -260,41 +265,72 @@
 /mob/living/carbon/Topic(href, href_list)
 	..()
 	//strip panel
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
-		if(href_list["internal"])
-			var/slot = text2num(href_list["internal"])
-			var/obj/item/ITEM = get_item_by_slot(slot)
-			if(ITEM && istype(ITEM, /obj/item/tank))
-				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
-								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
 
-				var/no_mask
-				if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-					if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-						if(!(head && head.flags & AIRTIGHT))
-							no_mask = 1
-				if(no_mask)
-					to_chat(usr, "<span class='warning'>[src.name] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
+	if(href_list["internal"])
+		if(internal)
+			visible_message(
+				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на баллоне у [name]!"),
+				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на Вашем баллоне!"),
+			)
+			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE) || !internal)
+				return
+			internal = null
+			update_action_buttons_icon()
+		else
+			if(!has_airtight_items())
+				to_chat(usr, span_warning("[name] не облада[pluralize_ru(gender,"ет","ют")] подходящей маской или шлемом!"))
+				return
+
+			var/list/airtanks = find_air_tanks()
+			if(!length(airtanks))
+				return
+
+			var/obj/item/tank/our_tank
+			if(length(airtanks) > 1)
+				var/obj/item/tank/choice = tgui_input_list(usr, "Choose a tank to open valve on.", "Tank selection.", airtanks)
+				if(!choice || usr.incapacitated() || !Adjacent(usr))
 					return
+				if(internal)
+					to_chat(usr, span_warning("[name] уже име[pluralize_ru(gender,"ет","ют")] подключённый баллон."))
+					return
+				if(choice.loc != src)
+					to_chat(usr, span_warning("[name] более не облада[pluralize_ru(gender,"ет","ют")] указанным баллоном."))
+					return
+				if(!has_airtight_items())
+					to_chat(usr, span_warning("[name] более не облада[pluralize_ru(gender,"ет","ют")] подходящей маской или шлемом."))
+					return
+				our_tank = choice
+			else
+				our_tank = airtanks[1]
 
-				if(do_mob(usr, src, POCKET_STRIP_DELAY))
-					if(internal)
-						internal = null
-						update_action_buttons_icon()
-					else
-						var/no_mask2
-						if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-							if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-								if(!(head && head.flags & AIRTIGHT))
-									no_mask2 = 1
-						if(no_mask2)
-							to_chat(usr, "<span class='warning'>[src.name] не нос[pluralize_ru(src.gender,"ит","ят")] подходящую маску или шлем!</span>")
-							return
-						internal = ITEM
-						update_action_buttons_icon()
+			visible_message(
+				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на баллоне у [name]!"),
+				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на Вашем баллоне!"),
+			)
+			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE))
+				return
+			if(internal)
+				to_chat(usr, span_warning("[name] уже име[pluralize_ru(src.gender,"ет","ют")] подключённый баллон."))
+				return
+			if(our_tank.loc != src)
+				to_chat(usr, span_warning("[name] более не облада[pluralize_ru(src.gender,"ет","ют")] баллоном."))
+				return
+			if(!has_airtight_items())
+				to_chat(usr, span_warning("[name] более не облада[pluralize_ru(src.gender,"ет","ют")] подходящей маской или шлемом."))
+				return
+			internal = our_tank
+			update_action_buttons_icon()
 
-					visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
-									"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
+		for(var/mob/viewer as anything in viewers(1, src))
+			if(viewer.machine == src)
+				show_inv(viewer)
+
+		visible_message(
+			span_danger("[usr] [internal ? "открыва" : "закрыва"][pluralize_ru(usr.gender,"ет","ют")] воздушный клапан на баллоне у [name]!"),
+			span_userdanger("[usr] [internal ? "открыва" : "закрыва"][pluralize_ru(usr.gender,"ет","ют")] воздушный клапан на Вашем баллоне!"),
+		)
 
 
 /mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
@@ -334,13 +370,13 @@
 	if(!istype(I))
 		return FALSE
 
-	if(I.flags & NOPICKUP)
+	if(I.item_flags & NOPICKUP)
 		return FALSE
 
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 
-	if(lying_angle && !(I.flags & ABSTRACT))
+	if(lying_angle && !(I.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == "HAND_LEFT" && !has_left_hand())
@@ -418,7 +454,7 @@
 	I.forceMove(drop_location())
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped(src, null, silent)
+	I.dropped(src, NONE, silent)
 
 	return FALSE
 
@@ -486,4 +522,61 @@
 /mob/living/carbon/update_equipment_speed_mods()
 	. = ..()
 	update_limbless_slowdown()	// in case we get crutches
+
+
+
+/mob/living/carbon/proc/has_airtight_items()
+	if(get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+		return TRUE
+
+	if(isclothing(wear_mask))
+		var/obj/item/clothing/our_mask = wear_mask
+		if(our_mask.clothing_flags & AIRTIGHT)
+			return TRUE
+
+	if(isclothing(head))
+		var/obj/item/clothing/our_helmet = head
+		if(our_helmet.clothing_flags & AIRTIGHT)
+			return TRUE
+
+	return FALSE
+
+
+/mob/living/carbon/proc/find_air_tanks()
+	. = list()
+	for(var/obj/item/tank/tank in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		. += tank
+
+
+/mob/living/carbon/covered_with_thick_material(check_zone, full_body_check = FALSE)
+	if(full_body_check)
+		if(!isclothing(head))
+			return FALSE
+		var/obj/item/clothing/cloth = head
+		if(!(cloth.clothing_flags & THICKMATERIAL))
+			return FALSE
+
+		if(!isclothing(wear_suit))
+			return FALSE
+		cloth = wear_suit
+		if(!(cloth.clothing_flags & THICKMATERIAL))
+			return FALSE
+
+		return TRUE
+
+	if(!check_zone)
+		check_zone = BODY_ZONE_CHEST
+
+	if(above_neck(check_zone))
+		if(isclothing(head))
+			var/obj/item/clothing/cloth = head
+			if(cloth.clothing_flags & THICKMATERIAL)
+				return TRUE
+	else
+		if(isclothing(wear_suit))
+			var/obj/item/clothing/cloth = wear_suit
+			if(cloth.clothing_flags & THICKMATERIAL)
+				return TRUE
+
+	return FALSE
 

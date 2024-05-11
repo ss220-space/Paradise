@@ -247,7 +247,7 @@
 		tablepush(I, user)
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
+	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)
@@ -265,7 +265,7 @@
 
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
 		return
@@ -279,7 +279,7 @@
 
 
 /obj/structure/table/wrench_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
 		return
@@ -293,7 +293,7 @@
 
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 		if(!wrench_disassembly)
@@ -440,7 +440,7 @@
 
 /obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!isliving(AM))
 		return
@@ -480,7 +480,7 @@
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			..()
 			return
@@ -745,7 +745,7 @@
 				M.stop_pulling()
 
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 	qdel(src)
@@ -809,13 +809,13 @@
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!(I.flags & ABSTRACT) && user.transfer_item_to_loc(I, loc))
+	if(!(I.item_flags & ABSTRACT) && user.transfer_item_to_loc(I, loc))
 		add_fingerprint(user)
 
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -867,7 +867,7 @@
 	if(!(istype(our_gun)))
 		to_chat(user, span_warning("This item doesn't fit!"))
 		return .
-	if(our_gun.flags & ABSTRACT)
+	if(our_gun.item_flags & ABSTRACT)
 		return .
 	if(!user.drop_item_ground(our_gun))
 		return .
@@ -916,8 +916,8 @@
 
 
 /obj/structure/rack/gunrack/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		var/obj/item/gunrack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	for(var/obj/item/I in loc.contents)
@@ -947,7 +947,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
@@ -962,8 +962,8 @@
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	qdel(src)
@@ -993,7 +993,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

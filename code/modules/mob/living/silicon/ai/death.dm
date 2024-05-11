@@ -39,6 +39,7 @@
 
 	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
 		display.mode = AI_DISPLAY_MODE_BSOD
+		display.update_icon(UPDATE_OVERLAYS)
 
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"

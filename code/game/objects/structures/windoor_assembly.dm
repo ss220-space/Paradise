@@ -41,7 +41,7 @@
 	air_update_turf(1)
 
 /obj/structure/windoor_assembly/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	QDEL_NULL(electronics)
 	air_update_turf(1)
 	return ..()
@@ -105,7 +105,7 @@
 					to_chat(user, "<span class='warning'>You need more [P] to do this!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce [src] with [P]...</span>")
-				if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					add_fingerprint(user)
@@ -118,7 +118,7 @@
 			//Adding cable to the assembly. Step 5 complete.
 			else if(iscoil(W) && anchored)
 				user.visible_message("<span class='notice'>[user] wires [src]...</span>", "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || !anchored || state != "01")
 						return
 					add_fingerprint(user)
@@ -142,7 +142,7 @@
 					return
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("<span class='notice'>[user] installs [W] into [src]...</span>", "<span class='notice'>You start to install [W.name] into [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(!src || electronics)
 						return
 					add_fingerprint(user)
@@ -183,7 +183,7 @@
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
 				return
-		density = TRUE //Shouldn't matter but just incase
+		set_density(TRUE) //Shouldn't matter but just incase
 		to_chat(user, "<span class='notice'>You finish the [(src.secure) ? "secure" : ""] windoor.</span>")
 		var/obj/machinery/door/window/windoor
 		if(secure)
@@ -203,7 +203,7 @@
 				windoor.icon_state = "rightopen"
 				windoor.base_state = "right"
 		windoor.setDir(dir)
-		windoor.density = FALSE
+		windoor.set_density(FALSE)
 
 		windoor.unres_sides = electronics.unres_access_from
 		windoor.req_access = electronics.selected_accesses

@@ -5,7 +5,7 @@
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
-	flags = HANDSLOW
+	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE

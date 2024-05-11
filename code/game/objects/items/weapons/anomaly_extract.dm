@@ -121,7 +121,7 @@
 	slimeme.canmove = FALSE
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
-	user.forceMove(null)
+	user.move_to_null_space()
 
 	new /obj/effect/temp_visual/wizard(get_turf(slimeme))
 
@@ -146,7 +146,7 @@
 		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
-	user.density = FALSE
+	user.set_density(FALSE)
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE

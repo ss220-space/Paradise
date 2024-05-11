@@ -23,7 +23,7 @@
 	return TRUE // Always set!
 
 
-/datum/dna/gene/disability/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations |= mutation
 	if(activation_message)
@@ -32,7 +32,7 @@
 		testing("[name] has no activation message.")
 
 
-/datum/dna/gene/disability/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations -= mutation
 	if(deactivation_message)
@@ -153,12 +153,12 @@
 	block = GLOB.blindblock
 
 
-/datum/dna/gene/disability/blindness/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/blindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
 
 
-/datum/dna/gene/disability/blindness/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/blindness/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
 
@@ -175,13 +175,13 @@
 	block = GLOB.colourblindblock
 
 
-/datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_client_colour() //Handle the activation of the colourblindness on the mob.
 	mutant.update_icons() //Apply eyeshine as needed.
 
 
-/datum/dna/gene/disability/colourblindness/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/colourblindness/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
 	mutant.update_icons() //Remove eyeshine as needed.
@@ -199,12 +199,12 @@
 	block = GLOB.deafblock
 
 
-/datum/dna/gene/disability/deaf/activate(mob/mutant, connected, flags)
+/datum/dna/gene/disability/deaf/activate(mob/living/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_DEAF, DNA_TRAIT)
 
 
-/datum/dna/gene/disability/deaf/deactivate(mob/mutant, connected, flags)
+/datum/dna/gene/disability/deaf/deactivate(mob/living/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_DEAF, DNA_TRAIT)
 
@@ -221,12 +221,12 @@
 	block = GLOB.glassesblock
 
 
-/datum/dna/gene/disability/nearsighted/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/nearsighted/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
 
 
-/datum/dna/gene/disability/nearsighted/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/nearsighted/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
 
@@ -308,12 +308,12 @@
 	return ..()
 
 
-/datum/dna/gene/disability/weak/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/weak/activate(mob/living/mutant, flags)
 	. = ..()
 	change_strength(mutant, 1)
 
 
-/datum/dna/gene/disability/weak/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/weak/deactivate(mob/living/mutant, flags)
 	. = ..()
 	change_strength(mutant, -1)
 

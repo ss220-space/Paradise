@@ -1046,7 +1046,7 @@
 /obj/item/stack/sheet/bluespace_crystal{
 	amount = 2
 	},
-/obj/item/areaeditor/theta,
+/obj/item/areaeditor/create_area_only/theta,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/comm)
 "hH" = (

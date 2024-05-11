@@ -329,7 +329,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
 	/// Active defib this is connected to.

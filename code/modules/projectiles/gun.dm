@@ -555,7 +555,7 @@
 
 	semicd = 1
 
-	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
+	if(!do_after(user, 12 SECONDS, target, NONE) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")

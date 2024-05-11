@@ -210,7 +210,7 @@
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			if(!do_after(usr, R.time, usr))
 				return FALSE
 
 		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.

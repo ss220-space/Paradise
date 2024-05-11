@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	//if((!OldLoc || !OldLoc.has_gravity()) && has_gravity()) //Temporary disable stun when gravity change
-	//	thunk()
+	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+		thunk()
 
 
 /mob/living/carbon/human/get_movespeed_modifiers()
@@ -16,11 +16,12 @@
 	return considering
 
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return TRUE
+/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE)
+	. = ..()
+	if(.)
+		return .
 
-	var/jetpacks = list()
+	var/list/jetpacks = list()
 
 	if(istype(back, /obj/item/tank/jetpack))
 		jetpacks += back
@@ -33,10 +34,8 @@
 		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
 
-	if(dna.species.spec_Process_Spacemove(src))
+	if(dna.species.spec_Process_Spacemove(src, movement_dir))
 		return TRUE
-
-	return FALSE
 
 
 /mob/living/carbon/human/Move(NewLoc, direct)
@@ -159,9 +158,9 @@
 		*/
 
 
-/// Proc used to weaken the user when moving from no gravity to positive gravity.
+/// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || mob_negates_gravity() || incorporeal_move)
+	if(buckled || incorporeal_move || mob_negates_gravity())
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
@@ -170,8 +169,8 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	Weaken(4 SECONDS)
-	to_chat(src, "Gravity!")
+	to_chat(src, span_userdanger("Gravity exhausts you!"))
+	adjustStaminaLoss(35)
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))

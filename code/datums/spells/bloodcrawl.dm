@@ -57,7 +57,7 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 
 
 /obj/item/bloodcrawl/Initialize(mapload)
@@ -250,7 +250,7 @@
 		to_chat(user, span_warning("Finish eating first!"))
 		return FALSE
 	rise_message(enter_point)
-	if(!do_after(user, 2 SECONDS, target = enter_point))
+	if(!do_after(user, 2 SECONDS, enter_point))
 		return FALSE
 	if(!enter_point)
 		return FALSE

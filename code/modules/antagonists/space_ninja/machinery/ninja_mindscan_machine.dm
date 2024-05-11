@@ -109,7 +109,7 @@
 	. = TRUE
 	if(dropped_mob != user)
 		visible_message("[user] starts putting [dropped_mob] into the [src].")
-	if(do_after(user, 20, target = dropped_mob))
+	if(do_after(user, 2 SECONDS, dropped_mob))
 		if(!dropped_mob)
 			return
 		if(occupant)

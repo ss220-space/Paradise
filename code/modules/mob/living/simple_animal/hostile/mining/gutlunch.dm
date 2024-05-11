@@ -22,7 +22,7 @@
 	response_harm   = "squishes"
 	friendly = "pinches"
 	a_intent = INTENT_HELP
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS
 	gender = NEUTER

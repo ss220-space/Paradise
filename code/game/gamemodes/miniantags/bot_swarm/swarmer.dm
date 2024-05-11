@@ -90,7 +90,7 @@
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	ranged = 1
 	projectiletype = /obj/item/projectile/beam/disabler
 	ranged_cooldown_time = 20
@@ -147,10 +147,9 @@
 		stat("Resources:",resources)
 
 
-/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	. = ..()
-
-	if(. && light_range)
+	if(. == VENTCRAWL_IN_SUCCESS && light_on)
 		ToggleLight()
 
 
@@ -542,7 +541,7 @@
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_mob(src, target, 30))
+	if(!do_after(src, 3 SECONDS, target, NONE))
 		return
 
 	var/turf/simulated/floor/F
@@ -574,7 +573,7 @@
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
-	if(do_mob(src, target, 100))
+	if(do_after(src, 10 SECONDS, target, NONE))
 		to_chat(src, "<span class='info'>Dismantling complete.</span>")
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/metal(Tsec, 5)
@@ -680,7 +679,7 @@
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
-	if(do_mob(src, src, 10))
+	if(do_after(src, 1 SECONDS, src, NONE))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
 
@@ -709,7 +708,7 @@
 	if(!isturf(loc))
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS, src, NONE))
 		var/createtype = SwarmerTypeToCreate()
 		if(createtype && Fabricate(createtype, 100))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, TRUE, -1)
@@ -726,7 +725,7 @@
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS, src, NONE))
 		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 

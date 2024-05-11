@@ -424,23 +424,30 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				log_and_message_admins("has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
+
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
-	if(!check_rights(R_SERVER))
-		return
-	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
 
-	if(!input)
+	if(!check_rights(R_SERVER) || SSticker.force_ending)
 		return
+
+	var/response = alert(usr, "Are you sure you want to end the round?", "End Round", "Yes", "No")
+	if(response != "Yes" || SSticker.force_ending)
+		return
+
+	var/announcement = sanitize(copytext(input(usr, "What text should players see announcing the round end? You can skip this entirely.", "Specify Announcement Text", "Shift Has Ended!") as null|text, 1, MAX_MESSAGE_LEN))
 	if(SSticker.force_ending)
 		return
-	log_and_message_admins("has admin ended the round with message: '[input]'")
+
+	log_and_message_admins("has admin ended the round[announcement ? " with message: '[announcement]'" : ""]")
+	if(announcement)
+		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
 	SSticker.force_ending = TRUE
-	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
+
 
 /datum/admins/proc/announce()
 	set category = "Admin"

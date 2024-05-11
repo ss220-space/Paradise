@@ -3,7 +3,7 @@
 	desc = "High Five?"
 	icon_state = "syndballoon"
 	item_state = null
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0

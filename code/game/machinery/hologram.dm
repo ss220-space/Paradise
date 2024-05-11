@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(holopads)
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
+	light_on = FALSE
+	light_range = 2
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
@@ -90,8 +92,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(holopads)
 				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
 				ringing = TRUE
 
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 
 
 //Try to transfer hologram to another pad that can project on T
@@ -437,7 +437,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
-		set_light(2, l_on = TRUE)
+		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
 	update_icon()
@@ -502,8 +502,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
-	return 1
+
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+	return TRUE
+
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
