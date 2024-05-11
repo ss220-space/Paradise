@@ -376,8 +376,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(throwing)
 		throwing.finalize()
 
-	if(anchored)
-		return
+	//if(anchored)
+	//	return
 
 	if(loc == user)
 		if(!allow_attack_hand_drop(user))
