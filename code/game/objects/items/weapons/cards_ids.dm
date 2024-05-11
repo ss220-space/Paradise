@@ -92,7 +92,7 @@
 
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4, 4, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
 
 /obj/item/card/cmag/attack()
 	return

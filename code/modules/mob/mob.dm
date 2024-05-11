@@ -1342,7 +1342,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 
-
+/**
+ * Called when this mob slips over, override as needed
+ *
+ * weaken_amount - time (in deciseconds) the slip leaves them on the ground
+ * slipped_on - optional, what'd we slip on? if not set, we assume they just fell over
+ * lube - bitflag of "lube flags", see [mobs.dm] for more information
+ * tilesSlipped - how many tiles will we slip through.
+ */
+/mob/proc/slip(weaken_amount, obj/slipped_on, lube_flags, tilesSlipped)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, weaken_amount, slipped_on, lube_flags, tilesSlipped)
+ 
 /mob/proc/IsLying()
 	return FALSE
-

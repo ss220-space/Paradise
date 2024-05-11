@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		T.MakeSlippery(TURF_WET_LUBE)
+		T.MakeSlippery(TURF_WET_LUBE, 120 SECONDS)
 
 
 /datum/reagent/space_cleaner
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	taste_description = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
-	if(istype(T) && T.wet)
+	if(istype(T))
 		T.MakeDry(TURF_WET_WATER)
 
 /datum/reagent/drying_agent/reaction_obj(obj/O, volume)

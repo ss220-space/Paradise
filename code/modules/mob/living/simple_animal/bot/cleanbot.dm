@@ -112,7 +112,7 @@
 		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 			if(prob(5)) //Spawns foam!
 				visible_message(span_danger("[src] whirs and bubbles violently, before releasing a plume of froth!"))

@@ -227,7 +227,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(3))
@@ -255,7 +255,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(5))

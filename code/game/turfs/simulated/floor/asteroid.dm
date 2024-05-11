@@ -58,7 +58,7 @@
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
-/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting)
+/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
 	return
 
 /turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)

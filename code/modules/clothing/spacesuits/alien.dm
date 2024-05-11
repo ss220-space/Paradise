@@ -206,7 +206,13 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/feet.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
-	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NODROP)
+
+/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)
+	. = ..()
+	if(magpulse)
+		ADD_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
+	else
+		REMOVE_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
 
 
 /obj/item/clothing/shoes/magboots/vox/update_icon_state()

@@ -52,9 +52,10 @@
 	onmob_sheets = list(
 		ITEM_SLOT_FEET_STRING = NONE
 	)
+
 	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	item_flags = ABSTRACT|DROPDEL
-	clothing_flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_ALL)
 
 
 /obj/item/clothing/shoes/shadowling/Initialize(mapload)

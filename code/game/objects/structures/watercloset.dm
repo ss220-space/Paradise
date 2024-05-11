@@ -350,7 +350,7 @@
 		soundloop.stop()
 		var/turf/simulated/source_turf = loc
 		if(istype(source_turf) && !source_turf.density)
-			source_turf.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
+			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)

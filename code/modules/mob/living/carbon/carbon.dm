@@ -656,45 +656,12 @@
 		if(glands)
 			stat(null, "Wax: [glands.wax]")
 
-
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	if((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+/mob/living/carbon/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
+	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
 
-	if(lying_angle && !tilesSlipped)
-		return FALSE
-
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		var/turf/simulated/T = get_turf(H)
-		if(!slipAny && isclothing(H.shoes))
-			var/obj/item/clothing/cloth = H.shoes
-			if(cloth.clothing_flags & NOSLIP)
-				return FALSE
-		var/wearing_magboots = istype(H.shoes, /obj/item/clothing/shoes/magboots)
-		var/obj/item/clothing/shoes/magboots/magboots = H.shoes
-		if(wearing_magboots) //Only for lubeprotection magboots and lube slip
-			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && magboots.magpulse && magboots.lubeprotection)
-				return FALSE
-		if(!H.has_gravity() && !grav_ignore)
-			if(wearing_magboots) //Only for magboots and lube slip (no grav && no lubeprotection)
-				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && magboots.magpulse))
-					return FALSE
-			else
-				return FALSE
-
-	if(tilesSlipped)
-		for(var/i in 1 to tilesSlipped)
-			spawn(i)
-				step(src, dir)
-
-	stop_pulling()
-	to_chat(src, "<span class='notice'>Вы [slipVerb] на [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	// Something something don't run with scissors
-	moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-	Weaken(weaken)
-	return TRUE
+	..()
+	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
 /mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
