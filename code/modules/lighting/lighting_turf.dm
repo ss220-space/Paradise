@@ -89,6 +89,21 @@
 		reconsider_lights()
 
 /turf/proc/change_area(area/old_area, area/new_area)
+
+	old_area.contents -= src
+	new_area.contents += src
+
+	var/old_force_no_grav = force_no_gravity
+	if(istype(new_area, /area/space))
+		force_no_gravity = TRUE
+	else
+		force_no_gravity = FALSE
+
+	if(old_force_no_grav != force_no_gravity)
+		//inform atoms on the turf that their area has changed
+		for(var/mob/living/mob in contents)
+			mob.refresh_gravity()
+
 	if(SSlighting.initialized)
 		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
 			if(new_area.dynamic_lighting)

@@ -616,9 +616,9 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
-	I.plane = GAME_PLANE
-	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
+	SET_PLANE(I, GAME_PLANE, src)
+	I.layer = GHOST_LAYER + AM.layer
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
 	I.setDir(AM.dir)
