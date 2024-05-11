@@ -10,7 +10,7 @@
 	active_power_usage = 5
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1

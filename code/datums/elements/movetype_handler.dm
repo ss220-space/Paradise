@@ -69,9 +69,9 @@
 	source.movement_type &= ~flag
 	if((old_state & (FLOATING|FLYING)) && !(source.movement_type & (FLOATING|FLYING)))
 		STOP_FLOATING_ANIM(source)
-		//var/turf/pitfall = source.loc //Things that don't fly fall in open space.
-		//if(istype(pitfall))
-		//	pitfall.zFall(source)
+		var/turf/pitfall = source.loc //Things that don't fly fall in open space.
+		if(istype(pitfall))
+			pitfall.zFall(source)
 	SEND_SIGNAL(source, COMSIG_MOVETYPE_FLAG_DISABLED, flag, old_state)
 
 

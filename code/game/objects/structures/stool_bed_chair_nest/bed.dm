@@ -16,7 +16,7 @@
 	icon_state = "bed"
 	can_buckle = TRUE
 	anchored = TRUE
-	buckle_lying = TRUE
+	buckle_lying = 90
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 30
@@ -25,15 +25,16 @@
 	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
-/obj/structure/bed/post_buckle_mob(mob/living/M)
-	. = ..()
-	if(!M.resting)
-		M.StartResting()
 
-/obj/structure/bed/post_unbuckle_mob(mob/living/M)
-	. = ..()
-	if(M.resting)
-		M.StopResting()
+/obj/structure/bed/post_buckle_mob(mob/living/target)
+	if(!target.resting)
+		target.StartResting()
+
+
+/obj/structure/bed/post_unbuckle_mob(mob/living/target)
+	if(target.resting)
+		target.StopResting()
+
 
 /obj/structure/bed/psych
 	name = "psych bed"
@@ -108,18 +109,19 @@
 	else
 		return ..()
 
-/obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	. = ..()
+
+/obj/structure/bed/roller/post_buckle_mob(mob/living/target)
 	density = TRUE
 	icon_state = icon_up
-	M.pixel_y = initial(M.pixel_y)
+	target.pixel_y = initial(target.pixel_y)
 
-/obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
-	. = ..()
+
+/obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
 	density = FALSE
 	icon_state = icon_down
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying_angle)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
+	target.pixel_x = target.get_standard_pixel_x_offset(target.lying_angle)
+	target.pixel_y = target.get_standard_pixel_y_offset(target.lying_angle)
+
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"

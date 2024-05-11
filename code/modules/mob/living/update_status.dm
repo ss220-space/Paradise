@@ -82,7 +82,6 @@
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
-	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(fall_over || resting || IsStunned())
 		drop_r_hand()
 		drop_l_hand()
@@ -90,7 +89,8 @@
 		lying_angle = 0
 		canmove = TRUE
 	if(buckled)
-		lying_angle = 90 * buckle_lying
+		if(buckled.buckle_lying != NO_BUCKLE_LYING)
+			lying_angle = buckled.buckle_lying
 	else if((fall_over || resting) && !lying_angle)
 		fall(fall_over)
 

@@ -8,6 +8,7 @@
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/holder/pai
+	can_buckle_to = FALSE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -169,12 +170,6 @@
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
 	ram = min(initial(ram) + extra_memory, 170)
-
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
 
 
 /mob/living/silicon/pai/update_icons()

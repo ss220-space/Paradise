@@ -778,7 +778,7 @@ About the new airlock wires panel:
 	user.visible_message(
 		span_warning("[user] grabs the door with both hands and opens it with ease!"),
 		span_notice("You easily open depowered door."),
-		span_hear("You hear groaning metal..."),
+		span_italics("You hear groaning metal..."),
 	)
 
 

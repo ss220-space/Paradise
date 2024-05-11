@@ -13,7 +13,8 @@
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE
-	buckle_lying = -1
+	buckle_lying = 90
+
 
 /obj/machinery/atmospherics/pipe/New()
 	..()

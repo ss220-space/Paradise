@@ -5,7 +5,7 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
-	buckle_lying = FALSE // you sit in a chair, not lay
+	buckle_lying = 0 // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
@@ -31,15 +31,6 @@
 /obj/structure/chair/Move(atom/newloc, direct)
 	. = ..()
 	handle_rotation()
-
-/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	. = ..()
-	if(. && !movable)
-		set_anchored(TRUE)
-
-/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force, can_fall)
-	set_anchored(initial(anchored))
-	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -119,13 +110,11 @@
 		layer = OBJ_LAYER
 
 
-/obj/structure/chair/post_buckle_mob(mob/living/M)
-	. = ..()
+/obj/structure/chair/post_buckle_mob(mob/living/target)
 	handle_layer()
 
 
-/obj/structure/chair/post_unbuckle_mob()
-	. = ..()
+/obj/structure/chair/post_unbuckle_mob(mob/living/target)
 	handle_layer()
 
 
@@ -207,13 +196,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/comfy/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -317,13 +309,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/sofa/proc/update_armrest()
 	if(has_buckled_mobs())
