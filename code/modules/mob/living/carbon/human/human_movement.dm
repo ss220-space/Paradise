@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	. = ..()
-	//if((!OldLoc || !OldLoc.has_gravity()) && has_gravity()) //Temporary disable stun when gravity change
-	//	thunk()
+	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+		thunk()
 
 
 /mob/living/carbon/human/get_movespeed_modifiers()
@@ -158,9 +158,9 @@
 		*/
 
 
-/// Proc used to weaken the user when moving from no gravity to positive gravity.
+/// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || mob_negates_gravity() || incorporeal_move)
+	if(buckled || incorporeal_move || mob_negates_gravity())
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
@@ -169,6 +169,6 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	Weaken(4 SECONDS)
-	to_chat(src, "Gravity!")
+	to_chat(src, span_userdanger("Gravity exhausts you!"))
+	adjustStaminaLoss(35)
 
