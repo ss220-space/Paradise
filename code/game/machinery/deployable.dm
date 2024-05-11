@@ -93,7 +93,7 @@
 			return
 		else
 			to_chat(user, span_notice("You start adding [I] to [src]..."))
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				if(!W.use(5))
 					return
 				var/turf/T = get_turf(src)

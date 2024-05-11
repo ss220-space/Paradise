@@ -932,7 +932,7 @@
 			to_chat(user, span_notice("You can't access the mech's modification port while it is occupied."))
 			return
 		var/obj/item/mecha_modkit/M = W
-		if(do_after_once(user, M.install_time, target = src))
+		if(do_after(user, M.install_time, src, max_interact_count = 1))
 			M.install(src, user)
 		else
 			to_chat(user, span_notice("You stop installing [M]."))
@@ -1276,7 +1276,7 @@
 
 
 /obj/mecha/proc/put_in(mob/user)
-	if(do_after(user, mech_enter_time * gettoolspeedmod(user), target = src))
+	if(do_after(user, mech_enter_time * gettoolspeedmod(user), src))
 		if(obj_integrity <= 0)
 			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(occupant)
@@ -1331,7 +1331,7 @@
 		to_chat(user, span_warning("Access denied. [name] is secured with an ID lock."))
 		return FALSE
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 4 SECONDS, src))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else

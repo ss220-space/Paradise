@@ -66,7 +66,7 @@
 		to_chat(owner, "<span class='warning'>You are already invoking blood magic!</span>")
 		return
 
-	if(do_after(owner, 100 - rune * 60, target = owner))
+	if(do_after(owner, rune ? 4 SECONDS : 10 SECONDS, owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
@@ -538,7 +538,7 @@
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
-		if(do_mob(user, C, 10))
+		if(do_after(user, 1 SECONDS, C, NONE))
 			if(!C.handcuffed)
 				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.Silence(12 SECONDS)
@@ -614,7 +614,7 @@
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = target))
+			if(do_after(user, 5 SECONDS, target))
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")

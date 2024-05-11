@@ -245,7 +245,7 @@
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
-	if(do_after(user, 100, target = target))
+	if(do_after(user, 10 SECONDS, target))
 		marked = target
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
@@ -549,7 +549,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-		if(do_mob(user, C, 30))
+		if(do_after(user, 3 SECONDS, C, NONE))
 			if(C.handcuffed)
 				return
 
@@ -726,7 +726,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			P.use(1)
 			new /obj/structure/table/abductor(loc)
 			qdel(src)
@@ -737,7 +737,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			P.use(1)
 			new /obj/machinery/optable/abductor(loc)
 			qdel(src)

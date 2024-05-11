@@ -26,7 +26,7 @@
 
 	to_chat(ninja, span_notice("Заготовленный бэкдор обнаружен. Установка вируса..."))
 	AI_notify_hack()
-	if(do_after(ninja, 30 SECONDS, target = src))
+	if(do_after(ninja, 30 SECONDS, src))
 		if(src.stat & NOPOWER)
 			to_chat(usr, "The upload computer has no power!")
 			return

@@ -160,7 +160,7 @@
 		for(var/mob/viewer in (viewers(user) - user))
 			viewer.show_message("[user] starts putting [target.name] into the disposal.", 3)
 
-		if(!do_mob(user, target , 2 SECONDS))
+		if(!do_after(user, 2 SECONDS, target, NONE))
 			return
 
 		add_fingerprint(user)
@@ -243,7 +243,7 @@
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/msg
 	var/target_loc = target.loc
-	if(!do_after(usr, 2 SECONDS, target = target))
+	if(!do_after(usr, 2 SECONDS, target))
 		return
 	if(QDELETED(src) || target_loc != target.loc)
 		return
@@ -383,7 +383,7 @@
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
 		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
 	)
-	if(!do_after(user, 5 SECONDS, target = src))
+	if(!do_after(user, 5 SECONDS, src))
 		return ..()
 
 	user.visible_message(

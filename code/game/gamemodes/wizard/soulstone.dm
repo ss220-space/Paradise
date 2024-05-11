@@ -180,7 +180,7 @@
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			usability = TRUE
 			purified = TRUE
 			optional = TRUE
@@ -204,7 +204,7 @@
 		if(!purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			usability = FALSE
 			purified = FALSE
 			optional = FALSE
@@ -315,7 +315,7 @@
 		SS.transfer_soul("CONSTRUCT", src, user)
 		return
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
-		if(do_after(user, 4 SECONDS, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			user.visible_message("<span class='warning'>[user] defile [src] with dark magic!!</span>", "<span class='cult'>You sanctified [src]. Yes-yes. I need more acolytes!</span>")
 			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return

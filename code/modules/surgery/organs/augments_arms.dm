@@ -466,7 +466,7 @@
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
-	while(do_after(H, 10, target = A))
+	while(do_after(H, 1 SECONDS, A))
 		if(loc != H)
 			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break

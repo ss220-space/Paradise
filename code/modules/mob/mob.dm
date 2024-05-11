@@ -1326,3 +1326,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 
+
+/mob/proc/IsLying()
+	return FALSE
+

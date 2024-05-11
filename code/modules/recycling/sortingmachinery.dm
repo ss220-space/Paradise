@@ -245,7 +245,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = crate))
+		if(!do_after(user, 1.5 SECONDS, crate, max_interact_count = 1))
 			return
 
 		if(crate.opened || !use(3))
@@ -268,7 +268,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = closet))
+		if(!do_after(user, 1.5 SECONDS, closet, max_interact_count = 1))
 			return
 
 		if(closet.opened || !use(3))

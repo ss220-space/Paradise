@@ -104,7 +104,7 @@
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
 	if(cell && cell.charge > 499) //I really hope there is no way to get 499.5 charge or something
-		if(do_after(user, 5 * drawtension, target = user))
+		if(do_after(user, 0.5 SECONDS * drawtension, user))
 			tension = drawtension
 			if(to_launch)
 				modify_projectile(to_launch, 1)

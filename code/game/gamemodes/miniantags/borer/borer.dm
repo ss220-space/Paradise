@@ -46,7 +46,8 @@
 	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
-	do_mob(src, B.host, delay, only_use_extra_checks = TRUE)
+	if(!do_after(src, delay, B.host, ALL))
+		return
 	return_control(B)
 	host_resisting = FALSE
 
@@ -345,7 +346,7 @@
 	infesting = TRUE
 	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
 
-	if(!do_mob(user, target, 5 SECONDS))
+	if(!do_after(user, 5 SECONDS, target, NONE))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
 		infesting = FALSE
 		return
@@ -538,7 +539,7 @@
 		to_chat(src, span_danger("Вы решили остаться в носителе."))
 
 	// If we cast the spell a second time, it will be canceled
-	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
+	if(!do_after(src, 20 SECONDS, host, ALL, extra_checks = CALLBACK(src, PROC_REF(borer_leaving), src)))
 		return
 
 	to_chat(src, "Вы выкручиваетесь из уха носителя и падаете на пол.")
@@ -606,7 +607,7 @@
 	var/delay = 300+(host.getBrainLoss()*5)
 
 	// If we cast the spell a second time, it will be canceled
-	if(!do_mob(src, host, delay, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_assuming), src))))
+	if(!do_after(src, delay, host, ALL, extra_checks = CALLBACK(src, PROC_REF(borer_assuming), src)))
 		bonding = FALSE
 		return
 

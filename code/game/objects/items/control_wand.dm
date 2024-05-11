@@ -236,7 +236,7 @@
 	busy = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("[src] is attempting to interface with [D]..."))
-	if(do_after(user, hack_speed, target = D))
+	if(do_after(user, hack_speed, D))
 		. = ..()
 	busy = FALSE
 	update_icon(UPDATE_ICON_STATE)

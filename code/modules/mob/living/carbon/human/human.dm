@@ -638,7 +638,7 @@
 				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
 				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
 			)
-			if(do_after(usr, time_taken, needhand = TRUE, target = src))
+			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
 				bodypart.remove_embedded_object(thing)
@@ -678,7 +678,7 @@
 			else
 				return
 
-			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
+			if(do_after(usr, POCKET_STRIP_DELAY / delay_denominator, src, NONE)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
 					if(pocket_item == (pocket_id == ITEM_SLOT_POCKET_RIGHT ? r_store : l_store)) //item still in the pocket we search
 						if(drop_item_ground(pocket_item))
@@ -708,7 +708,7 @@
 		if(href_list["dislodge_headpocket"])
 			usr.visible_message("<span class='danger'>[usr] is trying to remove something from [src]'s head!</span>",
 													"<span class='danger'>You start to dislodge whatever's inside [src]'s headpocket!</span>")
-			if(do_mob(usr, src, POCKET_STRIP_DELAY))
+			if(do_after(usr, POCKET_STRIP_DELAY, src, NONE))
 				usr.visible_message("<span class='danger'>[usr] has dislodged something from [src]'s head!</span>",
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
@@ -724,7 +724,7 @@
 						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
 											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
 
-					if(do_mob(usr, src, 40) && A && U.accessories.len)
+					if(do_after(usr, 4 SECONDS, src, NONE) && A && U.accessories.len)
 						if(!thief_mode)
 							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
 												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
@@ -1699,7 +1699,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
 	H.receiving_cpr = TRUE
-	if(do_mob(src, H, 40))
+	if(do_after(src, 4 SECONDS, H, NONE))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.adjustOxyLoss(-15)
 			H.SetLoseBreath(0)

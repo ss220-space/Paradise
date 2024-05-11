@@ -400,7 +400,7 @@
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
-		if(!do_after(user, 5 SECONDS, target = loc))
+		if(!do_after(user, 5 SECONDS, loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 			return
 		if(QDELETED(src) || QDELETED(user))

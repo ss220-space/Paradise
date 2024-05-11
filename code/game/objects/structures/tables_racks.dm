@@ -947,7 +947,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
@@ -993,7 +993,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

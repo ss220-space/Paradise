@@ -385,7 +385,7 @@
 	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
 							span_notice("Вы начинаете снимать [W.name]..."))
-		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
 			return FALSE
 
 	return TRUE

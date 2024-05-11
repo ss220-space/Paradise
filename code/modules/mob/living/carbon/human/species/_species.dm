@@ -1007,7 +1007,7 @@
 		return TRUE
 
 	user.visible_message(span_notice("[user] начинает надевать [I]..."), span_notice("Вы начинаете надевать [I]..."))
-	return do_after(user, I.equip_delay_self, target = user)
+	return do_after(user, I.equip_delay_self, user)
 
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)

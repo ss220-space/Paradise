@@ -98,7 +98,7 @@
 					if(open)
 						GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
 						swirlie = GM
-						if(do_after(user, 30, 0, target = src))
+						if(do_after(user, 3 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 							GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 							if(iscarbon(GM))
 								var/mob/living/carbon/C = GM
@@ -560,7 +560,7 @@
 						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
 	busy = 1
 
-	if(!do_after(user, 40, target = src))
+	if(!do_after(user, 4 SECONDS, src))
 		busy = 0
 		return
 
@@ -683,15 +683,15 @@
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
 
-/obj/structure/sink/puddle/attack_hand(mob/M as mob)
+/obj/structure/sink/puddle/attack_hand(mob/M)
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/shovel) && user.a_intent == INTENT_HARM)
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			Destroy()
 			return
 	icon_state = "puddle-splash"
@@ -760,7 +760,7 @@
 		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
 		return
 	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
-	if(do_after(user, 30, target = user))
+	if(do_after(user, 3 SECONDS, user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
 		S.set_anchored(FALSE)

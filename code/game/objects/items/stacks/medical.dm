@@ -50,7 +50,7 @@
 
 		if(H == user && !unique_handling)
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_themselves()]...</span>")
-			if(!do_mob(user, H, self_delay))
+			if(!do_after(user, self_delay, H, NONE))
 				return TRUE
 
 			var/obj/item/organ/external/affecting_rechecked = H.get_organ(selected_zone)
@@ -330,9 +330,9 @@
 			span_italics("You hear something being wrapped."),
 		)
 
-	if(target == user && !do_mob(user, target, self_delay))
+	if(target == user && !do_after(user, self_delay, target, NONE))
 		return TRUE
-	else if(!do_mob(user, target, other_delay))
+	else if(!do_after(user, other_delay, target, NONE))
 		return TRUE
 
 	user.visible_message(

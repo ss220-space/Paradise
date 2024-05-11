@@ -530,7 +530,7 @@
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, target = M))
+	if(do_after(user, 15 SECONDS, M))
 		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
@@ -700,7 +700,7 @@
 		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
 		return
 	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
-	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
+	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
 			return

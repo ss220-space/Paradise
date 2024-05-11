@@ -122,7 +122,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		post_sawoff()
 		return 1
@@ -165,7 +165,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		qdel(A)
 		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
 		post_unsaw(user)

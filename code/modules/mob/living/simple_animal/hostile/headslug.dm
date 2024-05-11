@@ -62,7 +62,7 @@
 		to_chat(src, span_warning("Our target should be dead to infest it!"))
 		return
 
-	if(!do_mob(src, carbon_target, 5 SECONDS))
+	if(!do_after(src, 5 SECONDS, carbon_target, NONE))
 		return
 
 	if(QDELETED(carbon_target) || egg_layed)

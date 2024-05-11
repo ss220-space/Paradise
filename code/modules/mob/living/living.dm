@@ -27,6 +27,17 @@
 		S.sharerDies(FALSE)
 		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
 	sharedSoullinks = null
+	if(ranged_ability)
+		ranged_ability.remove_ranged_ability(src)
+	remove_from_all_data_huds()
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
+	GLOB.mob_living_list -= src
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -58,20 +69,6 @@
 	med_hud_set_status()
 
 
-/mob/living/Destroy()
-	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
-	remove_from_all_data_huds()
-	GLOB.mob_living_list -= src
-	if(LAZYLEN(status_effects))
-		for(var/s in status_effects)
-			var/datum/status_effect/S = s
-			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
-				qdel(S)
-			else
-				S.be_replaced()
-	return ..()
-
 /mob/living/ghostize(can_reenter_corpse = 1)
 	var/prev_client = client
 	. = ..()
@@ -82,6 +79,11 @@
 
 /mob/living/proc/OpenCraftingMenu()
 	return
+
+
+/mob/living/IsLying()
+	return lying_angle
+
 
 /mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
 	if(!isopenspaceturf(impacted_turf))
@@ -1216,7 +1218,7 @@
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
 	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
+	if(do_after(src, what.strip_delay, who, NONE))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
 			if(!who.drop_item_ground(what, silent = silent))
 				return
@@ -1237,7 +1239,7 @@
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_mob(src, who, what.put_on_delay))
+		if(do_after(src, what.put_on_delay, who, NONE))
 			if(what && Adjacent(who) && !HAS_TRAIT(what, TRAIT_NODROP))
 				drop_item_ground(what, silent = silent)
 				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
@@ -1355,7 +1357,7 @@
 		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
+			if(do_after(user, 8 SECONDS / sharpness, src, NONE) && Adjacent(I))
 				harvest(user)
 			return 1
 
@@ -1541,7 +1543,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message(span_notice("[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию..."), \
 					span_notice("Вы начинаете лезть в вентиляцию..."))
 
-	if(!do_after(src, 4.5 SECONDS, target = src))
+	if(!do_after(src, 4.5 SECONDS, src))
 		return FALSE
 
 	if(!can_ventcrawl(clicked_on))
@@ -1638,7 +1640,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					target_staring_effect.catch_look(src)
 
 		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
-		if(do_mob(src, src, examine_time, TRUE, only_use_extra_checks = TRUE))
+		if(do_after(src, examine_time, src, ALL))
 			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
 				return
 			..()

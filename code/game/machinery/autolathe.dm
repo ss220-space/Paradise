@@ -273,7 +273,7 @@
 					"You hear the chatter of a floppy drive.")
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
-				if(do_after(user, 14.4, target = src))
+				if(do_after(user, 1.4 SECONDS, src))
 					add_fingerprint(user)
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)

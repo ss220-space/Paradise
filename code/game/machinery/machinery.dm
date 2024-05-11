@@ -422,7 +422,7 @@ Class Procs:
 			return
 		to_chat(user, span_notice("You start applying [O] to [src]."))
 		being_repaired = TRUE
-		var/result = do_after(user, 3 SECONDS, target = src)
+		var/result = do_after(user, 3 SECONDS, src)
 		being_repaired = FALSE
 		if(!result)
 			return

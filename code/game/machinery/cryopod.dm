@@ -510,7 +510,7 @@
 
 			visible_message("[user] starts putting [G.affecting.name] into [src].")
 
-			if(do_after(user, 20, target = G.affecting))
+			if(do_after(user, 2 SECONDS, G.affecting))
 				if(!M || !G || !G.affecting)
 					return
 
@@ -596,7 +596,7 @@
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.")
-		if(do_after(user, 2 SECONDS, target = L))
+		if(do_after(user, 2 SECONDS, L))
 			if(!L)
 				return
 			if(occupant)
@@ -677,7 +677,7 @@
 
 	visible_message("[usr] starts climbing into [src].")
 
-	if(do_after(usr, 20, target = usr))
+	if(do_after(usr, 2 SECONDS, usr))
 
 		if(!usr || !usr.client)
 			return

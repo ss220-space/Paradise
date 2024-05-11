@@ -72,7 +72,7 @@
 		if(ishuman(usr))
 			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
 							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
-			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
+			if(do_after(usr, POCKET_STRIP_DELAY, wearer, NONE))
 				if(locked)
 					success = do_unlock(usr)
 				else

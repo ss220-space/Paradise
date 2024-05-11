@@ -145,7 +145,7 @@
 
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
-	if(!do_after(user, CLOSET_BREAKOUT_TIME, target = src))
+	if(!do_after(user, CLOSET_BREAKOUT_TIME, src))
 		return
 
 	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened

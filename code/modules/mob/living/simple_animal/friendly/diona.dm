@@ -214,7 +214,7 @@
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
-		if(do_after_once(src, 20, target = G))
+		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)

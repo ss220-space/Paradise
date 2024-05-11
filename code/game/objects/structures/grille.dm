@@ -67,7 +67,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-	if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -228,7 +228,7 @@
 			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 			return
 	to_chat(user, "<span class='notice'>You start placing the window...</span>")
-	if(do_after(user, 20, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)

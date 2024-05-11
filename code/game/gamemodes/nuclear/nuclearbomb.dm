@@ -144,7 +144,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -160,7 +160,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -169,7 +169,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!user.drop_item_ground(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
 				return
@@ -327,7 +327,7 @@ GLOBAL_VAR(bomb_set)
 		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, src))
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null

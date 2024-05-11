@@ -124,7 +124,7 @@
 						break
 			if(continuing)
 				to_chat(user,"<span class='warning'>You are now phasing in.</span>")
-				if(do_mob(user,user,150))
+				if(do_after(user, 15 SECONDS, user, NONE))
 					user.infernalphasein(src)
 			else
 				to_chat(user,"<span class='warning'>You can only re-appear near a potential signer or on a shuttle.</span>")
@@ -133,7 +133,7 @@
 		else
 			user.fakefire()
 			to_chat(user,"<span class='warning'>You begin to phase back into sinful flames.</span>")
-			if(do_mob(user,user,150))
+			if(do_after(user, 15 SECONDS, user, NONE))
 				ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 				user.infernalphaseout(src)
 			else

@@ -25,7 +25,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 5 SECONDS, target = M))
+	if(!do_after(user, 5 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
@@ -74,7 +74,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 1 SECONDS, target = M))
+	if(!do_after(user, 1 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
