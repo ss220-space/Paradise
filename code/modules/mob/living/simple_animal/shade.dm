@@ -48,7 +48,7 @@
 	icon_state = holy ? "shade_angelic" : "shade"
 
 
-/mob/living/simple_animal/shade/Process_Spacemove()
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 
@@ -73,7 +73,7 @@
 	faction = list("neutral")
 	tts_seed = "Alextraza_echo"
 	// Ckey check for master of talisman
-	var/master 
+	var/master
 
 /mob/living/simple_animal/shade/talisman/Initialize(mapload)
 	.=..()

@@ -1,9 +1,7 @@
-/mob/living/silicon/robot/Process_Spacemove(var/movement_dir = 0)
+/mob/living/silicon/robot/Process_Spacemove(movement_dir = NONE)
 	if(ionpulse())
-		return 1
-	if(..())
-		return 1
-	return 0
+		return TRUE
+	return ..()
 
 
 /mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)

@@ -429,8 +429,8 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
-	return 1
+/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /obj/effect/temp_visual/lava_warning
 	icon_state = "lavastaff_warn"

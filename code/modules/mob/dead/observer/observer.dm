@@ -239,8 +239,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
-	return 1
+/mob/dead/observer/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/dead/observer/Move(NewLoc, direct)
 	if(world.time < last_movement)

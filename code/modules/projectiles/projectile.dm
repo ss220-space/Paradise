@@ -296,7 +296,7 @@
 	qdel(src)
 
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = NONE)
 	return TRUE //Bullets don't drift in space
 
 

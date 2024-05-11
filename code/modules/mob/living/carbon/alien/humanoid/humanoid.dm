@@ -27,12 +27,6 @@
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	update_icons()
 
-/mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	if(..())
-		return 1
-
-	return 0
-
 
 // Determines if mob has and can use his hands like a human
 /mob/living/carbon/alien/humanoid/real_human_being()

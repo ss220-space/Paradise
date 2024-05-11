@@ -133,8 +133,9 @@
 		// If the devil wants to actually attack, they have the pitchfork.
 
 
-/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = 0)
+/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE)
 	return TRUE
+
 
 /mob/living/carbon/true_devil/singularity_act()
 	if(ascended)

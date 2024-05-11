@@ -241,21 +241,39 @@
 	return 1
 
 
-///Process_Spacemove
-///Called by /client/Move()
-///For moving in space
-///Return 1 for movement 0 for none
-/mob/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return 1
+/**
+ * Handles mob/living movement in space (or no gravity)
+ *
+ * Called by /client/Move()
+ *
+ * return TRUE for movement or FALSE for none
+ *
+ * You can move in space if you have a spacewalk ability
+ */
+/mob/Process_Spacemove(movement_dir = NONE)
+	. = ..()
+	if(.)
+		return .
+
+	if(buckled)
+		return TRUE
+
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			var/opposite_dir = turn(movement_dir, 180)
-			if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='notice'>Вы отталкиваетесь от [backup] для продолжения движения.</span>")
-		return 1
-	return 0
+	if(!backup)
+		return FALSE
+
+	if(!istype(backup) || !movement_dir || backup.anchored)
+		return TRUE
+
+	// last pushoff exists for one reason
+	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
+	last_pushoff = world.time
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir))) //You're pushing off something movable, so it moves
+		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
+		backup.last_pushoff = world.time
+		to_chat(src, span_info("Вы отталкиваетесь от [backup] для продолжения движения."))
+
+	return TRUE
 
 
 /mob/get_spacemove_backup(moving_direction)
@@ -282,12 +300,12 @@
 				continue
 
 		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
-		if(!rebound.density || pass_allowed)
+		if(!rebound.density && pass_allowed)
 			continue
-		/*
 		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
 		if(rebound.last_pushoff == world.time)
 			continue
+		/*
 		if(continuous_move && !pass_allowed)
 			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
 			// If you're moving toward it and you're both going the same direction, stop
