@@ -122,8 +122,8 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/blob_act(obj/structure/blob/B)
 	return
 
-/atom/movable/lighting_object/onTransitZ()
-	return
+/atom/movable/lighting_object/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
+	return ..()
 
 // Override here to prevent things accidentally moving around overlays.
 /atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)

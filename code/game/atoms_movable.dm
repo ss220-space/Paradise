@@ -483,10 +483,11 @@
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
 
-			var/turf/oldturf = get_turf(oldloc)
-			var/turf/destturf = get_turf(destination)
-			if(oldturf && destturf && oldturf.z != destturf.z)
-				onTransitZ(oldturf.z, destturf.z)
+			var/turf/old_turf = get_turf(oldloc)
+			var/turf/new_turf = get_turf(destination)
+			if(old_turf?.z != new_turf?.z)
+				var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
+				on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 		. = TRUE
 
@@ -610,11 +611,43 @@
 		return FALSE
 	return destination //used by some child types checks and zMove()
 
-/atom/movable/proc/onTransitZ(old_z,new_z)
-	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
-		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
+/**
+ * Called when a movable changes z-levels.
+ *
+ * Arguments:
+ * * old_turf - The previous turf they were on before.
+ * * new_turf - The turf they have now entered.
+ * * same_z_layer - If their old and new z levels are on the same level of plane offsets or not
+ * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed. NOTE, IF YOU SET THIS, YOU NEED TO MANUALLY SET PLANE OF THE CONTENTS LATER
+ */
+/atom/movable/proc/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_turf, new_turf, same_z_layer)
+
+	// If our turfs are on different z "layers", recalc our planes
+	if(!same_z_layer && !QDELETED(src))
+		SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
+		// a TON of overlays use planes, and thus require offsets
+		// so we do this. sucks to suck
+		update_appearance()
+
+		if(update_on_z)
+			// I so much wish this could be somewhere else. alas, no.
+			for(var/image/update as anything in update_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+		if(update_overlays_on_z)
+			// This EVEN more so
+			cut_overlay(update_overlays_on_z)
+			// This even more so
+			for(var/mutable_appearance/update in update_overlays_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+			add_overlay(update_overlays_on_z)
+
+	if(!notify_contents)
+		return
+
+	for (var/atom/movable/content as anything in src) // Notify contents of Z-transition.
+		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 
 
