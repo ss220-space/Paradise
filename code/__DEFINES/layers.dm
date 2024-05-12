@@ -5,6 +5,7 @@
 //-------------------- PLANES ---------------------
 
 //NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
+//FOR MORE INFORMATION ON EVERY PLANE, SEE plane_master_subtypes.dm
 #define LOWEST_EVER_PLANE -100
 
 #define CLICKCATCHER_PLANE -80

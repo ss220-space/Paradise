@@ -70,14 +70,14 @@
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
-	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, .proc/on_plane_increase)
-	RegisterSignal(mymob, COMSIG_MOB_LOGIN, .proc/client_refresh)
-	RegisterSignal(mymob, COMSIG_MOB_LOGOUT, .proc/clear_client)
-	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, .proc/update_sightflags)
+	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
+	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
+	RegisterSignal(mymob, COMSIG_MOB_LOGOUT, PROC_REF(clear_client))
+	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_sightflags))
 	update_sightflags(mymob, mymob.sight, NONE)
 
 /datum/hud/proc/client_refresh(datum/source)
-	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, .proc/on_eye_change)
+	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change))
 	on_eye_change(null, null, mymob.client.eye)
 
 /datum/hud/proc/clear_client(datum/source)
@@ -92,7 +92,7 @@
 		// By the time logout runs, the client's eye has already changed
 		// There's just no log of the old eye, so we need to override
 		// :sadkirby:
-		RegisterSignal(new_eye, COMSIG_MOVABLE_Z_CHANGED, .proc/eye_z_changed, override = TRUE)
+		RegisterSignal(new_eye, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(eye_z_changed), override = TRUE)
 	eye_z_changed(new_eye)
 
 /datum/hud/proc/update_sightflags(datum/source, new_sight, old_sight)

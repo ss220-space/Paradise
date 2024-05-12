@@ -104,7 +104,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_vision_img = image(src, loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
-	SET_PLANE(pipe_vision_img, HUD_PLANE, src)
+	SET_PLANE_IMPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE)
 
 
 /obj/machinery/atmospherics/proc/check_icon_cache()

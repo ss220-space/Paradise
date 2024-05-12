@@ -8,7 +8,7 @@
 
 /atom/movable/screen/plane_master/clickcatcher/Initialize(mapload, datum/plane_master_group/home, offset)
 	. = ..()
-	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, .proc/offset_increased)
+	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(offset_increased))
 	offset_increased(SSmapping, 0, SSmapping.max_plane_offset)
 
 /atom/movable/screen/plane_master/clickcatcher/proc/offset_increased(datum/source, old_off, new_off)
@@ -43,7 +43,7 @@
 	if(offset != 0)
 		// You aren't the source? don't change yourself
 		return
-	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, .proc/on_offset_increase)
+	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_offset_increase))
 	offset_increase(0, SSmapping.max_plane_offset)
 
 /atom/movable/screen/plane_master/parallax/proc/on_offset_increase(datum/source, old_offset, new_offset)
@@ -112,11 +112,11 @@
 	if(offset != 0)
 		// You aren't the source? don't change yourself
 		return
-	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, .proc/handle_sight_value)
+	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(handle_sight_value))
 	handle_sight_value(mymob, mymob.sight, 0)
 	var/datum/hud/hud = home.our_hud
 	if(hud)
-		RegisterSignal(hud, COMSIG_HUD_OFFSET_CHANGED, .proc/on_offset_change)
+		RegisterSignal(hud, COMSIG_HUD_OFFSET_CHANGED, PROC_REF(on_offset_change))
 	offset_change(0, hud?.current_plane_offset || 0)
 
 /atom/movable/screen/plane_master/blackness/hide_from(mob/oldmob)
@@ -126,7 +126,7 @@
 	UnregisterSignal(oldmob, COMSIG_MOB_SIGHT_CHANGE)
 	var/datum/hud/hud = home.our_hud
 	if(hud)
-		UnregisterSignal(hud, COMSIG_HUD_OFFSET_CHANGED, .proc/on_offset_change)
+		UnregisterSignal(hud, COMSIG_HUD_OFFSET_CHANGED, PROC_REF(on_offset_change))
 
 /// Reacts to some new plane master value
 /atom/movable/screen/plane_master/blackness/proc/handle_sight_value(datum/source, new_sight, old_sight)
@@ -212,6 +212,40 @@
 	. = ..()
 	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
 
+/atom/movable/screen/plane_master/pipecrawl
+	name = "Pipecrawl"
+	documentation = "Holds pipecrawl images generated during well, pipecrawling.\
+		<br>Has a few effects and a funky color matrix designed to make things a bit more visually readable."
+	plane = PIPECRAWL_IMAGES_PLANE
+	start_hidden = TRUE
+
+/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload)
+	. = ..()
+	// Makes everything on this plane slightly brighter
+	// Has a nice effect, makes thing stand out
+	color = list(1.2,0,0,0, 0,1.2,0,0, 0,0,1.2,0, 0,0,0,1, 0,0,0,0)
+	// This serves a similar purpose, I want the pipes to pop
+	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = "#0000007A"))
+	mirror_parent_hidden()
+
+/atom/movable/screen/plane_master/camera_static
+	name = "Camera static"
+	documentation = "Holds camera static images. Usually only visible to people who can well, see static.\
+		<br>We use images rather then vis contents because they're lighter on maptick, and maptick sucks butt."
+	plane = CAMERA_STATIC_PLANE
+	start_hidden = TRUE
+
+/atom/movable/screen/plane_master/camera_static/show_to(mob/mymob)
+	// If we aren't an AI, we have no need for this plane master (most of the time, ai eyes are weird and annoying)
+	if(force_hidden && isAI(mymob))
+		unhide_plane(mymob)
+	. = ..()
+	if(!.)
+		return
+	if(isAI(mymob))
+		return
+	return FALSE
+
 /atom/movable/screen/plane_master/high_game
 	name = "High Game"
 	documentation = "Holds anything that wants to be displayed above the rest of the game plane, and doesn't want to be clickable. \
@@ -226,6 +260,16 @@
 	plane = GHOST_PLANE
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
+/atom/movable/screen/plane_master/fullscreen
+	name = "Fullscreen"
+	documentation = "Holds anything that applies to or above the full screen. \
+		<br>Note, it's still rendered underneath hud objects, but this lets us control the order that things like death/damage effects render in."
+	plane = FULLSCREEN_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	allows_offsetting = FALSE
+
 /atom/movable/screen/plane_master/runechat
 	name = "Runechat"
 	documentation = "Holds runechat images, that text that pops up when someone say something. Uses a dropshadow to well, look nice."
@@ -239,6 +283,15 @@
 	remove_filter("AO")
 	if(istype(mymob) && (mymob.client?.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+
+/*
+/atom/movable/screen/plane_master/balloon_chat
+	name = "Balloon chat"
+	documentation = "Holds ballon chat images, those little text bars that pop up for a second when you do some things. NOT runechat."
+	plane = BALLOON_CHAT_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_relay_planes = list(RENDER_PLANE_NON_GAME)
+*/
 
 /atom/movable/screen/plane_master/hud
 	name = "HUD"
