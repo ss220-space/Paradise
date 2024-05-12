@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
-	plane = GAME_PLANE
+	plane = GHOST_PLANE
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE

@@ -15,11 +15,11 @@
 	var/turf/T = loc
 	if(!istype(T)) //you know this will happen somehow
 		CRASH("Turf decal initialized in an object/nullspace")
-	T.AddComponent(/datum/component/decal, icon, icon_state, dir, CLEAN_GOD, color, null, null, alpha)
+	T.AddComponent(/datum/component/decal, icon, icon_state, dir, plane, CLEAN_GOD, color, null, null, alpha)
 
 /obj/effect/turf_decal/onShuttleMove()
 	. = ..()
 	var/turf/T = loc
 	if(!istype(T)) //you know this will happen somehow
 		return
-	T.AddComponent(/datum/component/decal, icon, icon_state, dir, CLEAN_GOD, color, null, null, alpha)
+	T.AddComponent(/datum/component/decal, icon, icon_state, dir, plane, CLEAN_GOD, color, null, null, alpha)

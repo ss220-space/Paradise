@@ -15,12 +15,15 @@
 #define PLANE_SPACE -25
 #define PLANE_SPACE_PARALLAX -20
 
-#define RENDER_PLANE_TRANSPARENT -9 //Transparent plane that shows openspace underneath the floor
 
-#define FLOOR_PLANE -8
-#define FLOOR_OVERLAY_PLANE -7.5
+#define RENDER_PLANE_TRANSPARENT -11 //Transparent plane that shows openspace underneath the floor
 
-#define GAME_PLANE -7
+#define TRANSPARENT_FLOOR_PLANE -10
+
+#define FLOOR_PLANE -6
+
+#define GAME_PLANE -4
+#define ABOVE_GAME_PLANE -3
 
 #define RENDER_PLANE_GAME_WORLD -1
 
@@ -39,9 +42,6 @@
 #define O_LIGHTING_VISUAL_PLANE 11
 #define O_LIGHTING_VISUAL_RENDER_TARGET "O_LIGHT_VISUAL_PLANE"
 
-///Things that should render ignoring lighting
-#define ABOVE_LIGHTING_PLANE 12
-
 ///Used in camerachunks to keep some turfs hidden on photo
 #define BYOND_LIGHTING_PLANE 19
 
@@ -51,6 +51,9 @@
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
 #define RENDER_PLANE_LIGHTING 15
+
+///Things that should render ignoring lighting
+#define ABOVE_LIGHTING_PLANE 16
 
 ///---------------- MISC -----------------------
 

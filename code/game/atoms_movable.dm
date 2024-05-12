@@ -96,6 +96,7 @@
 			blocker.dir = dir
 			blocker.alpha = alpha
 			blocker.appearance_flags |= appearance_flags
+			blocker.plane = GET_NEW_PLANE(EMISSIVE_PLANE, PLANE_TO_OFFSET(plane))
 			// Ok so this is really cursed, but I want to set with this blocker cheaply while
 			// still allowing it to be removed from the overlays list later.
 			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.

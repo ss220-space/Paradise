@@ -94,4 +94,4 @@
 /// The primary group, holds everything on the main window
 #define PLANE_GROUP_MAIN "main"
 /// A secondary group, used when a client views a generic window
-#define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[REF(screen)]"
+#define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[UID(screen)]"

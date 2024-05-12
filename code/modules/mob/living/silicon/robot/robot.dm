@@ -133,8 +133,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
-	robot_modules_background.plane = HUD_PLANE
+	SET_PLANE_EXPLICIT(robot_modules_background, HUD_PLANE, src)
 
 	ident = rand(1, 999)
 	rename_character(null, get_default_name())

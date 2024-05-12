@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
@@ -41,6 +42,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(!GLOB.typing_indicator[bubble_emote_icon])
 		GLOB.typing_indicator[bubble_emote_icon] = image('icons/mob/talk.dmi', null, "[bubble_emote_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_emote_icon]
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(client)

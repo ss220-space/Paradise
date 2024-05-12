@@ -148,6 +148,8 @@
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
+	SET_PLANE_IMPLICIT(src, plane)
+
 	ComponentInitialize()
 
 	return INITIALIZE_HINT_NORMAL
@@ -1167,6 +1169,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 

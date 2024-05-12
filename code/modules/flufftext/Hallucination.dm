@@ -113,7 +113,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(!U.welded)
 			src.loc = U.loc
 			break
-	flood_images += image(image_icon,src,image_state,MOB_LAYER)
+	var/image/plasma_image = image(image_icon,src,image_state,MOB_LAYER)
+	SET_PLANE_EXPLICIT(plasma_image, ABOVE_GAME_PLANE, src)
+	flood_images += plasma_image
 	flood_turfs += get_turf(src.loc)
 	if(target.client)
 		target.client.images |= flood_images
@@ -272,9 +274,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		return
 
 	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakebroken, FLOOR_PLANE, wall)
 	var/turf/landing = get_turf(target)
 	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
 	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakerune, FLOOR_PLANE, wall)
 	fakebroken.override = TRUE
 	if(target.client)
 		target.client.images |= fakebroken
@@ -763,6 +767,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		people += H
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
+		SET_PLANE_EXPLICIT(speech_overlay, ABOVE_GAME_PLANE, src)
 		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
 		if(target.client)
 			target.client.images |= speech_overlay

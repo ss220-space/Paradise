@@ -1220,8 +1220,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 	var/image/transfer_animation = image(icon = src, loc = src.loc, layer = MOB_LAYER + 0.1)
+	SET_PLANE(transfer_animation, GAME_PLANE, loc)
 	transfer_animation.transform.Scale(0.75)
-	transfer_animation.plane = GAME_PLANE
 	transfer_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	var/target_x = target.pixel_x

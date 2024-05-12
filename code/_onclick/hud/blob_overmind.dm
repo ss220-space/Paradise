@@ -143,7 +143,7 @@
 	blobpwrdisplay.screen_loc = ui_health
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blobpwrdisplay.layer = ABOVE_HUD_LAYER
-	blobpwrdisplay.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(blobpwrdisplay, ABOVE_HUD_PLANE, mymob)
 	static_inventory += blobpwrdisplay
 
 	blobhealthdisplay = new /atom/movable/screen()
