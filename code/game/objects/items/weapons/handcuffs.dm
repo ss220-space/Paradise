@@ -58,13 +58,13 @@
 			span_userdanger("[user] is trying to put [name] on you!"),
 		)
 
-	if(do_after(user, target, 5 SECONDS))
+	if(do_after(user, 5 SECONDS, target))
 		if(isrobot(user))
 			apply_cuffs(target, user, TRUE)
 		else
 			apply_cuffs(target, user)
 	else
-		to_chat(user, span_warning("You failed to handcuff [user == target ? "yourself" : target ]!"))
+		to_chat(user, span_warning("You failed to handcuff [user == target ? "yourself" : target]!"))
 
 
 /**
