@@ -1,36 +1,3 @@
-/client
-	/**
-	 * Assoc list with all the active maps - when a screen obj is added to
-	 * a map, it's put in here as well.
-	 *
-	 * Format: list(<mapname> = list(/atom/movable/screen))
-	 */
-	var/list/screen_maps = list()
-
-/atom/movable/screen
-	/**
-	 * Map name assigned to this object.
-	 * Automatically set by /client/proc/add_obj_to_map.
-	 */
-	var/assigned_map
-	/**
-	 * Mark this object as garbage-collectible after you clean the map
-	 * it was registered on.
-	 *
-	 * This could probably be changed to be a proc, for conditional removal.
-	 * But for now, this works.
-	 */
-	var/del_on_map_removal = TRUE
-
-/**
- * A screen object, which acts as a container for turfs and other things
- * you want to show on the map, which you usually attach to "vis_contents".
- */
-/atom/movable/screen/map_view
-	// Map view has to be on the lowest plane to enable proper lighting
-	layer = GAME_PLANE
-	plane = GAME_PLANE
-
 /**
  * A generic background object.
  * It is also implicitly used to allocate a rectangle on the map, which will
@@ -113,9 +80,10 @@
  *
  * Returns a map name.
  */
-/client/proc/create_popup(name, ratiox = 100, ratioy = 100)
+/client/proc/create_popup(name, title, ratiox = 100, ratioy = 100)
 	winclone(src, "popupwindow", name)
 	var/list/winparams = list()
+	winparams["title"] = title
 	winparams["size"] = "[ratiox]x[ratioy]"
 	winparams["on-close"] = "handle-popup-close [name]"
 	winset(src, "[name]", list2params(winparams))
@@ -138,13 +106,13 @@
  * Width and height are multiplied by 64 by default.
  */
 /client/proc/setup_popup(popup_name, width = 9, height = 9, \
-		tilesize = 2, bg_icon)
+		tilesize = 2, title, bg_icon)
 	if(!popup_name)
 		return
 	clear_map("[popup_name]_map")
 	var/x_value = world.icon_size * tilesize * width
 	var/y_value = world.icon_size * tilesize * height
-	var/map_name = create_popup(popup_name, x_value, y_value)
+	var/map_name = create_popup(popup_name, title, x_value, y_value)
 
 	var/atom/movable/screen/background/background = new
 	background.assigned_map = map_name
@@ -168,3 +136,4 @@
 /client/verb/handle_popup_close(window_id as text)
 	set hidden = TRUE
 	clear_map("[window_id]_map")
+	SEND_SIGNAL(src, COMSIG_POPUP_CLEARED, window_id)

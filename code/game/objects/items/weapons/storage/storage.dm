@@ -227,7 +227,7 @@
 	for(var/obj/O in contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, loc)
 		cx++
 		if(cx > mx)
 			cx = tx
@@ -248,7 +248,7 @@
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white' face='Small Fonts'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = ABOVE_HUD_LAYER
-			ND.sample_object.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(ND.sample_object, ABOVE_HUD_PLANE, src)
 			cx++
 			if(cx > (4 + cols))
 				cx = 4
@@ -259,7 +259,7 @@
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = ABOVE_HUD_LAYER
-			O.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 			cx++
 			if(cx > (4 + cols))
 				cx = 4
@@ -460,12 +460,12 @@
 				W.pixel_y = pixel_y
 				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
-			W.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(W, ABOVE_HUD_PLANE, src)
 			W.pixel_y = initial(W.pixel_y)
 			W.pixel_x = initial(W.pixel_x)
 		else
 			W.layer = initial(W.layer)
-			W.plane = initial(W.plane)
+			SET_PLANE_IMPLICIT(W, initial(W.plane))
 			W.mouse_opacity = initial(W.mouse_opacity)
 			W.remove_outline()
 

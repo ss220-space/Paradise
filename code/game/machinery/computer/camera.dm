@@ -14,11 +14,9 @@
 	var/list/watchers = list()
 
 	// Stuff needed to render the map
-	var/map_name
 	var/const/default_map_size = 15
 	var/atom/movable/screen/map_view/cam_screen
 	/// All the plane masters that need to be applied.
-	var/list/cam_plane_masters
 	var/atom/movable/screen/background/cam_background
 
 	// Parent object this camera is assigned to. Used for camera bugs
@@ -30,26 +28,15 @@
 /obj/machinery/computer/security/Initialize()
 	. = ..()
 	// Initialize map objects
-	map_name = "camera_console_[UID()]_map"
+	var/map_name = "camera_console_[UID(src)]_map"
 	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = map_name
-	cam_screen.del_on_map_removal = FALSE
-	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
+	cam_screen.generate_view(map_name)
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
-	QDEL_LIST(cam_plane_masters)
 	qdel(cam_background)
 	active_camera = null
 	return ..()
@@ -76,9 +63,7 @@
 			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
 			use_power(active_power_usage)
 		// Register map objects
-		user.client.register_map_obj(cam_screen)
-		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
+		cam_screen.display_to(user)
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
@@ -86,6 +71,7 @@
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
+	cam_screen.hide_from(user)
 	watchers -= user.UID()
 
 /obj/machinery/computer/security/ui_data()
@@ -112,7 +98,7 @@
 
 /obj/machinery/computer/security/ui_static_data()
 	var/list/static_data = list()
-	static_data["mapRef"] = map_name
+	static_data["mapRef"] = cam_screen.assigned_map
 	var/list/station_level_numbers = list()
 	var/list/station_level_names = list()
 	for(var/z_level in levels_by_trait(STATION_LEVEL))

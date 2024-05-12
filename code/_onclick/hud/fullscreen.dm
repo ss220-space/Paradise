@@ -17,6 +17,9 @@
 		screen.update_for_view(client.view)
 		client.screen += screen
 
+	if(screen.needs_offsetting)
+		SET_PLANE_EXPLICIT(screen, PLANE_TO_TRUE(screen.plane), src)
+
 	return screen
 
 
@@ -82,6 +85,7 @@
 	var/view = 7
 	var/severity = 0
 	var/show_when_dead = FALSE
+	var/needs_offsetting = TRUE
 
 /atom/movable/screen/fullscreen/proc/update_for_view(client_view)
 	if (screen_loc == "CENTER-7,CENTER-7" && view != client_view)
@@ -155,6 +159,7 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_OVERLAY
 	show_when_dead = TRUE
+	needs_offsetting = FALSE
 
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
