@@ -21,7 +21,9 @@
 	set category = "Object"
 	set src in usr
 
-	if(!ishuman(usr) || !isrobot(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(usr) && !isrobot(usr))
+		return
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
