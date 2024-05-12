@@ -464,16 +464,16 @@
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
 				for(var/atom/left_loc as anything in locs - new_locs)
-					left_loc.Exited(src, movement_dir)
+					left_loc.Exited(src, destination)
 
 				for(var/atom/entering_loc as anything in new_locs - locs)
-					entering_loc.Entered(src, movement_dir)
+					entering_loc.Entered(src, oldloc)
 
 				if(old_area && old_area != destarea)
 					destarea.Entered(src, movement_dir)
 			else
 				if(oldloc)
-					oldloc.Exited(src, movement_dir)
+					oldloc.Exited(src, destination)
 					if(old_area && old_area != destarea)
 						old_area.Exited(src, movement_dir)
 				destination.Entered(src, oldloc)

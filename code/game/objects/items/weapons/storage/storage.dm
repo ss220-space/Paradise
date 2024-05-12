@@ -481,8 +481,8 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/A, loc)
-	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
+/obj/item/storage/Exited(atom/movable/AM, atom/newLoc)
+	remove_from_storage(AM, newLoc) //worry not, comrade; this only gets called once
 	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
