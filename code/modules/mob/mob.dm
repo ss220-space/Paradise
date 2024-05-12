@@ -1228,12 +1228,8 @@
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
-		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		var/atom/movable/screen/plane_master/o_light_visual/vis = hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"]
-		if(L)
-			L.alpha = lighting_alpha
-		if(vis)
-			vis.alpha = lighting_alpha
+		for(var/atom/movable/screen/plane_master/plane_master in hud_used.get_true_plane_masters(LIGHTING_PLANE) | hud_used.get_true_plane_masters(O_LIGHTING_VISUAL_PLANE))
+			plane_master.alpha = lighting_alpha
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 

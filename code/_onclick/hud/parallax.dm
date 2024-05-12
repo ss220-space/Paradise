@@ -16,16 +16,19 @@
 	var/client/C = mymob.client
 	if(!apply_parallax_pref())
 		return
-	// this is needed so it blends properly with the space plane and blackness plane.
-	var/atom/movable/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-		S.color = rgb(0, 0, 0, 0)
-	else
-		S.color = list(1, 1, 1, 1,
-					1, 1, 1, 1,
-					1, 1, 1, 1,
-					1, 1, 1, 1,)
-	S.appearance_flags |= NO_CLIENT_COLOR
+	// We could do not do parallax for anything except the main plane group
+	// This could be changed, but it would require refactoring this whole thing
+	// And adding non client particular hooks for all the inputs, and I do not have the time I'm sorry :(
+	for(var/atom/movable/screen/plane_master/plane_master in get_true_plane_masters(PLANE_SPACE))
+		if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+			plane_master.color = rgb(0, 0, 0, 0)
+		else
+			plane_master.color = list(1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1,)
+		plane_master.appearance_flags |= NO_CLIENT_COLOR
+
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, C.view)
@@ -37,11 +40,11 @@
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
-	var/atom/movable/screen/plane_master/parallax/parallax_plane_master = plane_masters["[PLANE_SPACE_PARALLAX]"]
-	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-		parallax_plane_master.blend_mode = BLEND_ADD
-	else
-		parallax_plane_master.blend_mode = BLEND_MULTIPLY
+	for(var/atom/movable/screen/plane_master/parallax_plane_master in get_true_plane_masters(PLANE_SPACE_PARALLAX))
+		if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+			parallax_plane_master.blend_mode = BLEND_ADD
+		else
+			parallax_plane_master.blend_mode = BLEND_MULTIPLY
 
 	if(length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
@@ -53,9 +56,9 @@
 	var/client/C = mymob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
-	var/atom/movable/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	S.color = null
-	S.appearance_flags &= ~NO_CLIENT_COLOR
+	for(var/atom/movable/screen/plane_master/plane_master in get_true_plane_masters(PLANE_SPACE))
+		plane_master.color = null
+		plane_master.appearance_flags &= ~NO_CLIENT_COLOR
 
 
 /datum/hud/proc/apply_parallax_pref()
@@ -90,6 +93,8 @@
 
 
 /datum/hud/proc/update_parallax_pref()
+	if(!mymob.client)
+		return
 	remove_parallax()
 	create_parallax()
 	update_parallax()

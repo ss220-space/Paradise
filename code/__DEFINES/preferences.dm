@@ -58,8 +58,9 @@
 #define PREFTOGGLE_2_MC_TABS				(1<<11) // 2048
 #define PREFTOGGLE_2_DISABLE_TGUI_LISTS		(1<<12) // 4096
 #define PREFTOGGLE_2_PARALLAX_IN_DARKNESS	(1<<13) // 8192
+#define PREFTOGGLE_2_PARALLAX_MULTIZ		(1<<14) // 16384
 
-#define TOGGLES_2_TOTAL						16383 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL						32767 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
 

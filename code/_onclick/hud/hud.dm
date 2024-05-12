@@ -44,16 +44,17 @@
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
-	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
+	/// Assoc list of key => "plane master groups"
+	/// This is normally just the main window, but it'll occasionally contain things like spyglasses windows
+	var/list/datum/plane_master_group/master_groups = list()
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 
-
-/mob/proc/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud(src)
-		update_sight()
-
+	/// Think of multiz as a stack of z levels. Each index in that stack has its own group of plane masters
+	/// This variable is the plane offset our mob/client is currently "on"
+	/// We use it to track what we should show/not show
+	/// Goes from 0 to the max (z level stack size - 1)
+	var/current_plane_offset = 0
 
 /datum/hud/New(mob/owner)
 	mymob = owner
@@ -62,14 +63,69 @@
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/plane_master/instance = new mytype()
-		plane_masters["[instance.plane]"] = instance
-		instance.backdrop(mymob)
+	var/datum/plane_master_group/main/main_group = new(PLANE_GROUP_MAIN)
+	main_group.attach_to(src)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
+
+	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, .proc/on_plane_increase)
+	RegisterSignal(mymob, COMSIG_MOB_LOGIN, .proc/client_refresh)
+	RegisterSignal(mymob, COMSIG_MOB_LOGOUT, .proc/clear_client)
+	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, .proc/update_sightflags)
+	update_sightflags(mymob, mymob.sight, NONE)
+
+/datum/hud/proc/client_refresh(datum/source)
+	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, .proc/on_eye_change)
+	on_eye_change(null, null, mymob.client.eye)
+
+/datum/hud/proc/clear_client(datum/source)
+	if(mymob.client)
+		UnregisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE)
+
+/datum/hud/proc/on_eye_change(datum/source, atom/old_eye, atom/new_eye)
+	SIGNAL_HANDLER
+	if(old_eye)
+		UnregisterSignal(old_eye, COMSIG_MOVABLE_Z_CHANGED)
+	if(new_eye)
+		// By the time logout runs, the client's eye has already changed
+		// There's just no log of the old eye, so we need to override
+		// :sadkirby:
+		RegisterSignal(new_eye, COMSIG_MOVABLE_Z_CHANGED, .proc/eye_z_changed, override = TRUE)
+	eye_z_changed(new_eye)
+
+/datum/hud/proc/update_sightflags(datum/source, new_sight, old_sight)
+	// If neither the old and new flags can see turfs but not objects, don't transform the turfs
+	// This is to ensure parallax works when you can't see holder objects
+	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
+		return
+
+	for(var/group_key as anything in master_groups)
+		var/datum/plane_master_group/group = master_groups[group_key]
+		group.transform_lower_turfs(src, current_plane_offset)
+
+/datum/hud/proc/should_use_scale()
+	return should_sight_scale(mymob.sight)
+
+/datum/hud/proc/should_sight_scale(sight_flags)
+	return (sight_flags & (SEE_TURFS | SEE_OBJS)) != SEE_TURFS
+
+/datum/hud/proc/eye_z_changed(atom/eye)
+	SIGNAL_HANDLER
+	update_parallax_pref() // If your eye changes z level, so should your parallax prefs
+	var/turf/eye_turf = get_turf(eye)
+	var/new_offset = GET_TURF_PLANE_OFFSET(eye_turf)
+	if(current_plane_offset == new_offset)
+		return
+	var/old_offset = current_plane_offset
+	current_plane_offset = new_offset
+
+	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
+	if(should_use_scale())
+		for(var/group_key as anything in master_groups)
+			var/datum/plane_master_group/group = master_groups[group_key]
+			group.transform_lower_turfs(src, new_offset)
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -112,12 +168,50 @@
 	nightvisionicon = null
 	devilsouldisplay = null
 
-	QDEL_LIST_ASSOC_VAL(plane_masters)
+	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
 	return ..()
 
+/datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
+	SIGNAL_HANDLER
+	build_plane_groups(old_max_offset + 1, new_max_offset)
+
+/// Creates the required plane masters to fill out new z layers (because each "level" of multiz gets its own plane master set)
+/datum/hud/proc/build_plane_groups(starting_offset, ending_offset)
+	for(var/group_key in master_groups)
+		var/datum/plane_master_group/group = master_groups[group_key]
+		group.build_plane_masters(starting_offset, ending_offset)
+
+/// Returns the plane master that matches the input plane from the passed in group
+/datum/hud/proc/get_plane_master(plane, group_key = PLANE_GROUP_MAIN)
+	var/plane_key = "[plane]"
+	var/datum/plane_master_group/group = master_groups[group_key]
+	return group.plane_masters[plane_key]
+
+/// Returns a list of all plane masters that match the input true plane, drawn from the passed in group (ignores z layer offsets)
+/datum/hud/proc/get_true_plane_masters(true_plane, group_key = PLANE_GROUP_MAIN)
+	var/list/atom/movable/screen/plane_master/masters = list()
+	for(var/plane in TRUE_PLANE_TO_OFFSETS(true_plane))
+		masters += get_plane_master(plane, group_key)
+	return masters
+
+/// Returns all the planes belonging to the passed in group key
+/datum/hud/proc/get_planes_from(group_key)
+	var/datum/plane_master_group/group = master_groups[group_key]
+	return group.plane_masters
+
+/// Returns the corresponding plane group datum if one exists
+/datum/hud/proc/get_plane_group(key)
+	return master_groups[key]
+
+/mob/proc/create_mob_hud()
+	if(!client || hud_used)
+		return
+	hud_used = new /datum/hud(src)
+	update_sight()
+	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
@@ -191,13 +285,15 @@
 	update_parallax_pref(mymob)
 	plane_masters_update()
 
+	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
+	return TRUE
+
 
 /datum/hud/proc/plane_masters_update()
-	// Plane masters are always shown to OUR mob, never to observers
-	for(var/thing in plane_masters)
-		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
-		PM.backdrop(mymob)
-		mymob.client.screen += PM
+	for(var/group_key in master_groups)
+		var/datum/plane_master_group/group = master_groups[group_key]
+		// Plane masters are always shown to OUR mob, never to observers
+		group.refresh_hud()
 
 
 /datum/hud/human/show_hud(version = 0)

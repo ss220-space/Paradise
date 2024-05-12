@@ -31,6 +31,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		return
 	. = ..()
 
+	var/mutable_appearance/light_appearance = new(GLOB.default_lighting_underlays_by_z[source.z])
+	appearance = light_appearance
+
 	affected_turf = source
 	if (affected_turf.lighting_object)
 		qdel(affected_turf.lighting_object, force = TRUE)

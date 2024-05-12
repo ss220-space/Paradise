@@ -572,7 +572,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Parallax Multi-Z:</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -2496,8 +2497,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(GAME_PLANE))
+							plane_master.show_to(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2518,6 +2519,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("parallax_darkness")
 					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
 					parent.mob?.hud_used?.update_parallax_pref()
+
+
+				if("parallax_multiz")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
 
 				if("keybindings")
 					if(!keybindings_overrides)

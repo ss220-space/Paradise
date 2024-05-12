@@ -42,8 +42,6 @@
 
 	flags = 0
 
-	var/image/obscured	//camerachunks
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -77,14 +75,25 @@
 	if(layer == MAP_EDITOR_TURF_LAYER)
 		layer = real_layer
 
+	/// We do NOT use the shortcut here, because this is faster
+	if(SSmapping.max_plane_offset)
+		if(!SSmapping.plane_offset_blacklist["[plane]"])
+			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+			var/turf/T = GET_TURF_ABOVE(src)
+			if(T)
+				T.multiz_turf_new(src, DOWN)
+			T = GET_TURF_BELOW(src)
+			if(T)
+				T.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
-	vis_contents.Cut()
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	if(length(vis_contents))
+		vis_contents.Cut()
 
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)
-	visibilityChanged()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
@@ -95,16 +104,6 @@
 
 	if(light_power && light_range)
 		update_light()
-
-	var/turf/T = GET_TURF_ABOVE(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = GET_TURF_BELOW(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
-
 
 	if(opacity)
 		has_opaque_atom = TRUE
@@ -136,7 +135,6 @@
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()
@@ -293,7 +291,6 @@
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
-	var/old_obscured = obscured
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
@@ -375,7 +372,8 @@
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
-	obscured = old_obscured
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
 
 	return W
 
@@ -569,10 +567,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
-/turf/proc/visibilityChanged()
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)

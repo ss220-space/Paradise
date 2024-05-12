@@ -32,6 +32,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = traits)
 		z_list["[k]"] = S
 		levels_by_name[name] = S
+		SSmapping.manage_z_level(S)
 		k++
 
 	// Then, we take care of unmanaged z levels
@@ -120,4 +121,5 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
+	SSmapping.manage_z_level(S)
 	return our_z
