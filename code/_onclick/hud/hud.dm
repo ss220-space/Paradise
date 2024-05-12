@@ -77,7 +77,7 @@
 	update_sightflags(mymob, mymob.sight, NONE)
 
 /datum/hud/proc/client_refresh(datum/source)
-	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change))
+	RegisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change), TRUE)
 	on_eye_change(null, null, mymob.client.eye)
 
 /datum/hud/proc/clear_client(datum/source)

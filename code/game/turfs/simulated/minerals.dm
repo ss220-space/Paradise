@@ -13,6 +13,7 @@
 	blocks_air = TRUE
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
+	plane = WALL_PLANE_UPPER
 	temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless

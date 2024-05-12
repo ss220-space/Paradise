@@ -19,16 +19,19 @@
 
 #define RENDER_PLANE_TRANSPARENT -11 //Transparent plane that shows openspace underneath the floor
 
-#define TRANSPARENT_FLOOR_PLANE -10
+#define FLOOR_PLANE -10
 
-#define FLOOR_PLANE -6
+#define WALL_PLANE -9
+#define GAME_PLANE -8
 
-#define GAME_PLANE -4
-#define ABOVE_GAME_PLANE -3
+#define GAME_PLANE_UPPER -6
+#define WALL_PLANE_UPPER -5
+
+#define ABOVE_GAME_PLANE -2
 
 #define RENDER_PLANE_GAME_WORLD -1
 
-#define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
+#define DEFAULT_PLANE 0 //Marks out the default plane, even if we don't use it
 
 #define AREA_PLANE 2
 #define MASSIVE_OBJ_PLANE 3
@@ -51,10 +54,14 @@
 /// The render target used by the emissive.
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
-#define RENDER_PLANE_LIGHTING 15
+/// Masks the emissive plane
+#define EMISSIVE_MASK_PLANE 15
+#define EMISSIVE_MASK_RENDER_TARGET "*EMISSIVE_MASK_PLANE"
+
+#define RENDER_PLANE_LIGHTING 16
 
 ///Things that should render ignoring lighting
-#define ABOVE_LIGHTING_PLANE 16
+#define ABOVE_LIGHTING_PLANE 1
 
 ///---------------- MISC -----------------------
 
@@ -124,7 +131,7 @@
 #define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 #define TRANSPARENT_PLATING_LAYER 1.98
 #define TRANSPARENT_GIRDER_LAYER 1.99 // for turf_transparency
-//#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
+//#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define. Most floors (FLOOR_PLANE) and walls (WALL_PLANE) use this.
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
@@ -132,7 +139,11 @@
 #define TURF_DECAL_LAYER 2.039 //Makes turf decals appear in DM how they will look inworld.
 #define ABOVE_OPEN_TURF_LAYER 2.04
 #define CLEANABLES_LAYER 2.045
+
+//WALL_PLANE layers
 #define CLOSED_TURF_LAYER 2.05
+
+// GAME_PLANE layers
 #define BULLET_HOLE_LAYER 2.06
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define ABOVE_ICYOVERLAY_LAYER 2.11
@@ -174,11 +185,14 @@
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define ABOVE_MOB_LAYER 4.1
 #define WALL_OBJ_LAYER 4.25
+
+// WALL_PLANE_UPPER layers
 #define EDGED_TURF_LAYER 4.3
 #define ON_EDGED_TURF_LAYER 4.35
 #define LARGE_MOB_LAYER 4.4
 #define ABOVE_ALL_MOB_LAYER 4.5
 
+// ABOVE_GAME_PLANE layers
 #define SPACEVINE_LAYER 4.8
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define

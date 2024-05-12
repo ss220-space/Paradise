@@ -1,6 +1,7 @@
 /obj/effect/turf_decal
 	icon = 'icons/turf/decals.dmi'
 	icon_state = "warningline"
+	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
 	var/do_not_delete_me = FALSE
 

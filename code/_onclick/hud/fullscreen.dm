@@ -70,10 +70,10 @@
 /mob/proc/relayer_fullscreens()
 	var/turf/our_lad = get_turf(src)
 	var/offset = GET_TURF_PLANE_OFFSET(our_lad)
-	var/atom/movable/screen/fullscreen/screen
 	for(var/category in screens)
-		screen = screens[category]
-		screen.plane = GET_NEW_PLANE(initial(screen.plane), offset)
+		var/atom/movable/screen/fullscreen/screen = screens[category]
+		if(screen.needs_offsetting)
+			screen.plane = GET_NEW_PLANE(initial(screen.plane), offset)
 
 /atom/movable/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'
@@ -166,12 +166,10 @@
 	invisibility = INVISIBILITY_LIGHTING
 	layer = BACKGROUND_LAYER+21
 	color = "#000"
-	show_when_dead = TRUE
 
 //Provides whiteness in case you don't see lights so everything is still visible
 /atom/movable/screen/fullscreen/lighting_backdrop/unlit
 	layer = BACKGROUND_LAYER+20
-	show_when_dead = TRUE
 
 /atom/movable/screen/fullscreen/see_through_darkness
 	icon_state = "nightvision"
