@@ -55,6 +55,26 @@
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
+/obj/item/circuitboard/camera/telescreen/singularity
+	board_name = "Telescreen_Singularity"
+	build_path = /obj/machinery/computer/security/telescreen/singularity
+
+/obj/item/circuitboard/camera/telescreen/toxin_chamber
+	board_name = "Toxins Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/toxin_chamber
+
+/obj/item/circuitboard/camera/telescreen/test_chamber
+	board_name = "Test Chamber Telescreen"
+	build_path = /obj/machinery/computer/security/telescreen/test_chamber
+
+/obj/item/circuitboard/camera/telescreen/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/telescreen/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
 /obj/item/circuitboard/camera/telescreen/entertainment
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
@@ -131,6 +151,11 @@
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
 
+/obj/item/circuitboard/card/minor/qm
+	board_name = "Supply ID Computer"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
+
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"
 	build_path = /obj/machinery/computer/card/minor/rd
@@ -198,7 +223,7 @@
 	origin_tech = "programming=3"
 
 /obj/item/circuitboard/cloning
-	board_name = "Cloning Machine Console"
+	board_name = "Biomass Pod Console"
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = "programming=2;biotech=2"
 
@@ -309,6 +334,17 @@
 	build_path = /obj/machinery/computer/supplycomp
 	origin_tech = "programming=3"
 	var/contraband_enabled = 0
+
+/obj/item/circuitboard/supplyquest
+	board_name = "Supply Quest Console"
+	build_path = /obj/machinery/computer/supplyquest
+	origin_tech = "programming=3"
+
+/obj/item/circuitboard/questcons
+	board_name = "Supply Quest Monitor"
+	build_path = /obj/machinery/computer/supplyquest/workers
+	origin_tech = "programming=3"
+
 /obj/item/circuitboard/syndicatesupplycomp
 	board_name = "Syndicate Supply Pad Console"
 	build_path = /obj/machinery/computer/syndie_supplycomp
@@ -444,10 +480,10 @@
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
+	if(istype(I, /obj/item/card/id) || is_pda(I))
 		if(allowed(user))
 			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
+			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
 			if(!console_choice)
 				return
 			switch(console_choice)
@@ -491,10 +527,42 @@
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
 
+
+/obj/structure/computerframe/examine(mob/user)
+	. = ..()
+	. += span_notice("It is [anchored ? "<b>bolted</b> to the floor" : "<b>unbolted</b>"].")
+	switch(state)
+		if(STATE_EMPTY)
+			. += span_notice("The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.")
+		if(STATE_CIRCUIT)
+			. += span_notice("A circuit board is <b>firmly connected</b>, but the cover is <i>unscrewed and open</i>.")
+		if(STATE_NOWIRES)
+			. += span_notice("The cover is <b>screwed shut</b>, but the frame is missing <i>wiring</i>.")
+		if(STATE_WIRES)
+			. += span_notice("The frame is <b>wired</b>, but the <i>glass</i> is missing.")
+		if(STATE_GLASS)
+			. += span_notice("The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.")
+	if(!anchored)
+		. += span_notice("Alt-Click to rotate it.")
+
+
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
+
+
+/obj/structure/computerframe/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
+		return
+	if(anchored)
+		to_chat(user, span_warning("The frame is anchored to the floor!"))
+		return
+	setDir(turn(dir, 90))
+
 
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
@@ -510,8 +578,7 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon()
-	. = ..()
+/obj/structure/computerframe/update_icon_state()
 	icon_state = "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
@@ -533,10 +600,10 @@
 
 	if(anchored)
 		to_chat(user, span_notice("You unfasten the frame."))
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		to_chat(user, span_notice("You wrench the frame into place."))
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -557,7 +624,7 @@
 		return
 
 	I.play_tool_sound(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -569,12 +636,12 @@
 			to_chat(user, span_notice("You screw the circuit board into place."))
 			state = STATE_NOWIRES
 			I.play_tool_sound(src)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if(STATE_NOWIRES)
 			to_chat(user, span_notice("You unfasten the circuit board."))
 			state = STATE_CIRCUIT
 			I.play_tool_sound(src)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if(STATE_GLASS)
 			to_chat(user, span_notice("You connect the monitor."))
 			I.play_tool_sound(src)
@@ -584,6 +651,7 @@
 				var/obj/item/circuitboard/supplycomp/C = circuit
 				SC.can_order_contraband = C.contraband_enabled
 			qdel(src)
+
 
 /obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -595,7 +663,8 @@
 		new /obj/item/stack/cable_coil(drop_location(), 5)
 		state = STATE_NOWIRES
 		I.play_tool_sound(src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
 	switch(state)
@@ -617,7 +686,7 @@
 			state = STATE_CIRCUIT
 			user.drop_transfer_item_to_loc(B, src)
 			circuit = B
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 		if(STATE_NOWIRES)
@@ -631,7 +700,7 @@
 
 			C.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -639,7 +708,7 @@
 
 			to_chat(user, span_notice("You add cables to the frame."))
 			state = STATE_WIRES
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
 
 		if(STATE_WIRES)
@@ -653,7 +722,7 @@
 
 			G.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
@@ -661,10 +730,10 @@
 
 			to_chat(user, span_notice("You put in the glass panel."))
 			state = STATE_GLASS
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			return
-
 	return ..()
+
 
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
@@ -676,6 +745,56 @@
 			return ..()
 	else
 		return ..()
+
+/obj/structure/computerframe/abductor
+	icon_state = "comp_frame_alien1"
+
+
+/obj/structure/computerframe/abductor/update_icon_state()
+	icon_state = "comp_frame_alien[state]"
+
+
+/obj/structure/computerframe/abductor/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
+
+	switch(state)
+		if(STATE_CIRCUIT)
+			to_chat(user, span_notice("You screw the circuit board into place."))
+			state = STATE_NOWIRES
+			I.play_tool_sound(src)
+			update_icon(UPDATE_ICON_STATE)
+		if(STATE_NOWIRES)
+			to_chat(user, span_notice("You unfasten the circuit board."))
+			state = STATE_CIRCUIT
+			I.play_tool_sound(src)
+			update_icon(UPDATE_ICON_STATE)
+		if(STATE_GLASS)
+			to_chat(user, span_notice("You connect the monitor."))
+			I.play_tool_sound(src)
+			var/obj/machinery/computer/computer = new circuit.build_path(loc)
+			computer.abductor = TRUE
+			computer.update_icon()
+			computer.max_integrity = 400
+			computer.obj_integrity = 400
+			computer.update_icon()
+			if(istype(circuit, /obj/item/circuitboard/supplycomp))
+				var/obj/machinery/computer/supplycomp/supply_comp = computer
+				var/obj/item/circuitboard/supplycomp/supply_circuit = circuit
+				supply_comp.can_order_contraband = supply_circuit.contraband_enabled
+			qdel(src)
+
+/obj/structure/computerframe/abductor/drop_computer_parts()
+	var/location = drop_location()
+	new /obj/item/stack/sheet/mineral/abductor(location, 4)
+	if(circuit)
+		circuit.forceMove(location)
+		circuit = null
+	if(state >= STATE_WIRES)
+		new /obj/item/stack/cable_coil(location, 5)
+	if(state == STATE_GLASS)
+		new /obj/item/stack/sheet/glass(location, 2)
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT

@@ -430,7 +430,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Mime")))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_MIME)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -536,7 +536,7 @@
 
 /datum/reagent/consumable/drink/non_alcoholic_beer
 	name = "Non-alcoholic beer"
-	id = "alcohol_free_beer"
+	id = "noalco_beer"
 	description = "The most meaningless thing."
 	drink_icon = "alcohol_free_beer"
 	drink_name = "Non-alcoholic beer"

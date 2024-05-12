@@ -6,6 +6,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	/// Is the sprite of this bible customisable
@@ -36,15 +38,17 @@
 	user.dust()
 	return OBLITERATION
 
-/obj/item/storage/bible/fart_act(mob/living/M)
-	if(QDELETED(M) || M.stat == DEAD)
-		return
-	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
-	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
-	M.suiciding = TRUE
-	do_sparks(3, 1, M)
-	M.gib()
+
+/obj/item/storage/bible/fart_act(mob/living/user)
+	if(QDELETED(user) || user.stat == DEAD)
+		return FALSE
+	user.visible_message(span_danger("[user] farts on \the [name]!"))
+	user.visible_message(span_userdanger("A mysterious force smites [user]!"))
+	user.suiciding = TRUE
+	do_sparks(3, 1, user)
+	user.gib()
 	return TRUE // Don't run the fart emote
+
 
 /obj/item/storage/bible/booze
 	name = "bible"
@@ -64,7 +68,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
-		for(var/obj/item/organ/external/affecting in H.bodyparts)
+		for(var/obj/item/organ/external/affecting as anything in H.bodyparts)
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.UpdateDamageIcon()
 	return
@@ -81,10 +85,10 @@
 	else
 		M.LAssailant = user
 
-	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
+	if(!ishuman(user) || ismonkeybasic(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!user.mind?.isholy)
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
 		user.take_organ_damage(0, 10)
 		return
@@ -176,21 +180,6 @@
 	icon_state = choice_icons["state"]
 	item_state = choice_icons["inhand"]
 	customisable = FALSE
-
-	// Carpet symbol icons are currently broken, so commented out until it's fixed
-	/*var/carpet_dir
-	switch(choice)
-		if("Bible")
-			carpet_dir = 2
-		if("Koran")
-			carpet_dir = 4
-		if("Scientology")
-			carpet_dir = 8
-	if(carpet_dir)
-		for(var/area/chapel/main/A in world)
-			for(var/turf/T in A.contents)
-				if(T.icon_state == "carpetsymbol")
-					T.dir = carpet_dir*/
 
 	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
 

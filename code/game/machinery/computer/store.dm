@@ -23,6 +23,9 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	if(..())
+		return TRUE
+
 	var/balance=0
 	if(user.mind)
 		if(user.mind.initial_account)

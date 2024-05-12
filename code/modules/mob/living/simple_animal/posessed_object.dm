@@ -6,7 +6,7 @@
 
 	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
 	status_flags = null 	// No canpush to prevent grabs ...
-	density = 0 			//  ... But a density of 0 means we won't be blocking anyone's way.
+	density = FALSE 			//  ... But a density of 0 means we won't be blocking anyone's way.
 	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
@@ -15,7 +15,7 @@
 	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
@@ -36,9 +36,9 @@
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(show_message)
-		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+		to_chat(src, span_warning("You are unable to pull [AM]!"))
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -93,7 +93,7 @@
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
 
-	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
+	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)
@@ -152,7 +152,8 @@
 
 	update_icon()
 
-/mob/living/simple_animal/possessed_object/proc/update_icon(update_pixel_xy = 0)
+
+/mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc
@@ -166,3 +167,4 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+	return ..(NONE)

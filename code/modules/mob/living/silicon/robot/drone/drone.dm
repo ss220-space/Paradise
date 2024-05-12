@@ -14,11 +14,10 @@
 	pass_flags = PASSTABLE
 	braintype = "Robot"
 	lawupdate = 0
-	density = 0
+	density = FALSE
 	has_camera = FALSE
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
-	ventcrawler = VENTCRAWLER_ALWAYS
-	magpulse = 1
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
@@ -57,10 +56,12 @@
 /mob/living/silicon/robot/drone/New()
 	..()
 
-	remove_language("Robot Talk")
-	remove_language("Galactic Common")
-	add_language("Drone Talk", 1)
-	add_language("Drone", 1)
+	remove_language(LANGUAGE_BINARY)
+	remove_language(LANGUAGE_GALACTIC_COMMON)
+	add_language(LANGUAGE_DRONE_BINARY, 1)
+	add_language(LANGUAGE_DRONE, 1)
+
+
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -105,6 +106,11 @@
 	update_icons()
 
 
+/mob/living/silicon/robot/drone/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
+
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/hide in actions)
 		hide.Remove(src)
@@ -117,7 +123,7 @@
 	connected_ai = null
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
-	additional_law_channels["Drone"] = ";"
+	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
@@ -129,14 +135,21 @@
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100,999)])"
 
-/mob/living/silicon/robot/drone/update_icons()
-	overlays.Cut()
-	if(stat == CONSCIOUS)
-		overlays += "eyes-[icon_state]"
-	else
-		overlays -= "eyes"
 
-	hat_icons()
+/mob/living/silicon/robot/drone/update_icons()
+	cut_overlays()
+
+	if(stat == CONSCIOUS)
+		add_overlay("eyes-[icon_state]")
+
+	if(inventory_head)
+		var/hat = get_hat_overlay()
+		if(hat)
+			add_overlay(hat)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 
 /mob/living/silicon/robot/drone/choose_icon()
 	return
@@ -156,7 +169,7 @@
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return
 
-	else if(istype(W, /obj/item/crowbar))
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
 		return
 
@@ -203,7 +216,7 @@
 
 	..()
 
-/mob/living/silicon/robot/drone/emag_act(user as mob)
+/mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
@@ -232,7 +245,7 @@
 	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = 1
-	density = 1
+	set_density(TRUE)
 	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
@@ -340,22 +353,10 @@
 	full_law_reset()
 	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
 	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
+	to_chat(src, "Use <b>'[get_language_prefix(LANGUAGE_DRONE_BINARY)]'</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
 	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
-
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
-	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-	updateicon()
-
-	choose_icon(6,sprite)
-*/
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
@@ -365,22 +366,22 @@
 /mob/living/silicon/robot/drone/Bumped(atom/movable/moving_atom)
 	return ..()
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
-				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+				to_chat(src, span_warning("You are too small to pull that."))
 			return
 		else
 			..()
 	else
 		if(show_message)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			to_chat(src, span_warning("You are too small to pull that."))
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
@@ -390,7 +391,7 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = emagged //this is reset every canmove update otherwise
+	set_density(emagged ? TRUE : FALSE) //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
@@ -399,7 +400,7 @@
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
-		if(!do_after(user, 5 SECONDS, target = loc))
+		if(!do_after(user, 5 SECONDS, loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 			return
 		if(QDELETED(src) || QDELETED(user))

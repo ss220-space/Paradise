@@ -1,7 +1,7 @@
 /datum/action/innate/clockwork
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	background_icon_state = "bg_clockwork"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	// buttontooltipstyle = "cult"
 
 /datum/action/innate/clockwork/IsAvailable()

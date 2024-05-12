@@ -79,3 +79,139 @@
   - balance: flashbangs (#3677)
   - balance: energy katana is now harmfull to non ninja (#3683)
   - balance: adrenaline implant (#3676)
+'2023-10-16':
+  ROdenFL:
+  - tweak: wallets can hold patches (#3719)
+  WolfLox:
+  - tweak: crewmember-aid-kit (#3726)
+'2023-10-17':
+  Daeberdir:
+  - bugfix: small map fixes. (#3711)
+  - bugfix: wrong check for martial arts usability. (#3694)
+  - bugfix: nucleation organs desc typo. (#3698)
+  - bugfix: separated objectives for different weapons. (#3708)
+  Etrnlmelancholy:
+  - tweak: ERT equip tweaks (#3680)
+  LoneAsket:
+  - bugfix: Allow Skeleton Race plays on his Bones (#3709)
+  Mindfri:
+  - add: IPC Combat Upgrade in uplink (#3704)
+  - tweak: BattlemageRecharges 3 FOR 1 (#3718)
+  NightDawnFox:
+  - bugfix: normal drake hood for vulps (#3721)
+  - add: mirror on beach biodome (#3706)
+  - add: eye implants in loadout (#3368)
+  PlayTheGoat:
+  - qol: fixing inventory cells for silicons (#3700)
+  ROdenFL:
+  - bugfix: pistol magazine return his sprite (#3702)
+  - bugfix: wolpin with vulps head (#3707)
+  - add: headslug event (#3577)
+  SAAD:
+  - bugfix: old Z2 emo shuttles (#3687)
+  Vladisvell:
+  - tweak: Bombarda tweaks (#3699)
+  - add: brand new items for Thunderdome and bundles (#3722)
+  - bugfix: Now blob can't expand into transitional borders of the Z-level (#3714)
+  - bugfix: fixed incorrect improvised shotgun rendering (#3724)
+  Zwei:
+  - tweak: Vampire Tweaks and Fixes (#3660)
+  - bugfix: Spell Cooldown Visual (#3725)
+  p4el007:
+  - add: sexy mustache beards and hairstyles (#3682)
+'2023-10-21':
+  ArtemDerp:
+  - bugfix: lavaland clown dome set lava base turf (#3736)
+  Daeberdir:
+  - tweak: MA combo steps explain_text. (#3734)
+  - bugfix: ticket machine button works (#3735)
+  Honker9999999:
+  - bugfix: no stimulants for nukies (#3744)
+  Vladisvell:
+  - bugfix: now random item picking from uplink is working correctly (#3731)
+  WolfLox:
+  - bugfix: wrong-mantisblades-sprite (#3741)
+  - add: frag grenade for traitors (#3727)
+  Zwei:
+  - bugfix: Get Temperature Fix (#3732)
+  - tweak: Shadowling Glare Autotarget (#3730)
+  captainnelly:
+  - soundadd: revolvers (#3740)
+'2023-10-22':
+  Zwei:
+  - bugfix: Malf AI Destroy Datum Fix (#3752)
+'2023-10-25':
+  Daeberdir:
+  - bugfix: chameleon presets. (#3764)
+  - bugfix: bananapeels makes you laugh normally. (#3754)
+  - bugfix: intllicard GIB AI's very soul. (#3757)
+  - bugfix: T-rays can now see hiden safes. (#3755)
+  - imageadd: literally injector sprite for DNA injector. (#3729)
+  - add: akula plushie (#3756)
+  - bugfix: gem selling for Tulpan (#3768)
+  - bugfix: syndie-med-rig sprite by @Corde50 (#3767)
+  Etrnlmelancholy:
+  - tweak: better welder for IPC (#3759)
+  - tweak: Alternate Job Titles (#3728)
+  Honker9999999:
+  - tweak: neural jumpstarter for nukies (#3769)
+  Mindfri:
+  - add: New drugs and implant for IPC (#3743)
+  - add: Plasmaman Chameleon Kit (#3751)
+  NuSanya:
+  - add: stealthbox (#3673)
+  ROdenFL:
+  - tweak: rcd can`t in plasteel airlock (#3745)
+  - add: abductor decor (#3696)
+  - add: coca bush, cocaine, crack, Mate de Coca (#3723)
+  Roman:
+  - add: Improvised Revolver (#3710)
+  SSefuss:
+  - add: Counterfeiter Bundle, uplink item that allows to forge all types of existing
+      documents.  (#3765)
+  Vladisvell:
+  - qol: Chemicals in dispenser can be floored to lesser integer number (#3766)
+  - add: Added and reworked Plasmaman Envirosuits sprites (#3753)
+  - add: Bombarda craft is now configurable. Craft enabled only on Vega/Cleo (#3763)
+  - add: added Syndicate's Bowman Conversion Kit (#3690)
+  Zwei:
+  - bugfix: Changeling Mutations Fix (#3762)
+  - refactor: Pathfinder Subsystem and Bots Refactor (#3516)
+  - refactor: Datumized Space Ninja (#3738)
+  - refactor: Throwing Refactor And Delayed Bolas (#3685)
+  dependabot[bot]:
+  - unknown: Bump terser from 4.6.11 to 4.8.1 in /tgui (#1106)
+  - unknown: bump pillow from 9.0.1 to 10.0.1 in /tools (#3665)
+'2023-10-27':
+  Etrnlmelancholy:
+  - add: New Haircuts for humans (#3758)
+  - tweak: Syndie Officer update (#3760)
+  - balance: generator crates cost more (#3777)
+  - add: Shitspawn items (#3761)
+  Honker9999999:
+  - add: ERT rank system (#3746)
+  LiquidPotroh:
+  - add: Skrell sound and visual emotes (#3733)
+  ROdenFL:
+  - add: uplink Racial Anomaly extract (#3770)
+  - bugfix: leather sofa armrest (#3780)
+  Vladisvell:
+  - bugfix: icon state plasma hat typo (#3773)
+  Zwei:
+  - bugfix: Tribal Bola Fix (#3779)
+  dependabot[bot]:
+  - unknown: bump browserify-sign from 4.0.4 to 4.2.2 in /tgui (#3781)
+  userbaza:
+  - tweak: client.color matrix for vulps and tajaras (#3778)
+'2023-10-29':
+  ROdenFL:
+  - bugfix: empty dna storage of headslugs (#3788)
+  - bugfix: slimes have no wings, heart max dmg is 60 (#3783)
+  Vladisvell:
+  - bugfix: fixed resource exploit for ore redemption (#3796)
+  - bugfix: non-one-shot events now work correctly (#3789)
+  - tweak: bumped python dependency from 3.7.9 to 3.11.6 (#3797)
+  Zwei:
+  - bugfix: Throwing Fix (#3793)
+  - bugfix: HUD Updates In Mind Transfer (#3786)
+  - bugfix: Terror Breathing Fix (#3792)

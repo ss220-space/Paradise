@@ -1,6 +1,7 @@
 //Used by the gang of the same name. Uses combos. Basic attacks bypass armor and never miss
 /datum/martial_art/the_sleeping_carp
 	name = "Спящий Карп"
+	weight = 9
 	deflection_chance = 100
 	reroute_deflection = TRUE
 	no_guns = TRUE
@@ -25,6 +26,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("кусает", "пинает", "ломает", "бьет", "крушит")
+	var/bonus_damage = rand(10, 15)
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>",
 					  "<span class='userdanger'>[A] [atk_verb] тебя!</span>")
 	if(atk_verb == "кусает")
@@ -35,7 +37,8 @@
 		playsound(get_turf(D), 'sound/weapons/genhit3.ogg', 50, 1, -1)
 	if(atk_verb == "ломает" || atk_verb == "бьет")
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
+	D.apply_damage(bonus_damage, BRUTE, A.zone_selected)
+	objective_damage(A, D, bonus_damage, BRUTE)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
@@ -44,6 +47,8 @@
 
 /datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
+	if(!.)
+		return FALSE
 	H.faction |= "carp"// :D
 	to_chat(H, "<span class='sciradio'>Вы изучили древнее боевое искусство Спящего Карпа! \
 					Рукопашный бой стал намного эффективнее, а в режиме броска вы теперь можете отклонять любые снаряды, направленные в вашу сторону. \
@@ -53,11 +58,16 @@
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()
+	if(!.)
+		return FALSE
 	H.faction -= "carp"// :C
 	H.UnregisterSignal(H, COMSIG_CARBON_THROWN_ITEM_CAUGHT)
 
 /datum/martial_art/the_sleeping_carp/explaination_footer(user)
 	to_chat(user, "<b><i>Кроме того, если при стрельбе в вас включен режим броска, вы переходите в режим активной обороны, в котором блокируете и отклоняете все выпущенные в вас снаряды!</i></b>")
+
+/datum/martial_art/the_sleeping_carp/explaination_notice(user)
+	to_chat(user, "<b><i>Шаги комбо могут быть произведены только пустой активной рукой!</i></b>")
 
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
 	return user.in_throw_mode && ..() // in case an admin wants to var edit carp to have less deflection chance

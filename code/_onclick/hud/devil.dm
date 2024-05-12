@@ -14,8 +14,9 @@
 	static_inventory += using
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -24,16 +25,18 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "left hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	using = new /obj/screen/swap_hand()
 	using.name = "hand"
@@ -49,9 +52,7 @@
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel()
-	zone_select.icon = ui_style
-	zone_select.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel(null, src, ui_style)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter
@@ -60,8 +61,8 @@
 	for(var/obj/screen/inventory/inv in static_inventory)
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
 
 
 /datum/hud/devil/persistent_inventory_update()

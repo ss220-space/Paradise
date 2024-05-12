@@ -1659,9 +1659,9 @@
 /area/awaymission/spacebattle/syndicate1)
 "fc" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
@@ -1709,9 +1709,7 @@
 /area/awaymission/spacebattle/engine)
 "fj" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /turf/space,
 /area/space)
 "fk" = (
@@ -3587,7 +3585,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4012,11 +4010,9 @@
 /area/space)
 "lp" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "lq" = (
 /obj/machinery/light/small{
@@ -4081,7 +4077,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "lD" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "lF" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -4566,7 +4562,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -6007,7 +6003,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "rn" = (
 /obj/machinery/door/airlock/highsecurity,
@@ -6160,8 +6156,8 @@
 /area/awaymission/spacebattle/cruiser)
 "rE" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -7159,9 +7155,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -7411,11 +7405,9 @@
 /area/awaymission/spacebattle/freezing)
 "uV" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "uW" = (
 /obj/structure/window/plasmareinforced{
@@ -7582,7 +7574,7 @@
 /obj/structure/closet/crate/secure/weapon{
 	opened = 1
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -7882,8 +7874,7 @@
 	master_tag = "left";
 	name = "interior access button";
 	pixel_x = -25;
-	pixel_y = 25;
-	req_access = null
+	pixel_y = 25
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -7904,15 +7895,13 @@
 /area/awaymission/spacebattle/hallway12)
 "wn" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/machinery/constructable_frame{
 	icon = 'icons/obj/engines_and_power/singularity.dmi';
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "wo" = (
 /obj/structure/cable{
@@ -8408,8 +8397,8 @@
 /area/awaymission/spacebattle/hallway1)
 "xx" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -8525,7 +8514,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/spacebattle)
 "xL" = (
-/obj/item/storage/box/slug{
+/obj/item/ammo_box/shotgun{
 	layer = 2.7
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -9064,10 +9053,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "zg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/soft/yellow{
-	blood_color = "#A10808";
-	blood_overlay = "#A10808"
-	},
+/obj/item/clothing/head/soft/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -9325,9 +9311,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "zQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "zR" = (
@@ -10226,9 +10210,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Cs" = (
@@ -11062,7 +11044,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "EG" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck/syndicate,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -11232,15 +11214,13 @@
 /area/awaymission/spacebattle/syndicate1)
 "Ff" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
+/obj/structure/transit_tube,
 /obj/machinery/constructable_frame{
 	icon = 'icons/obj/engines_and_power/singularity.dmi';
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "Fg" = (
 /obj/structure/cable{
@@ -11719,14 +11699,12 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "Gr" = (
@@ -12396,8 +12374,7 @@
 	master_tag = "right";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25;
-	req_access = null
+	pixel_y = -25
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)
@@ -12468,9 +12445,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "IB" = (
@@ -12642,7 +12617,7 @@
 /area/awaymission/spacebattle/kitchen)
 "Jc" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -13526,7 +13501,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "Lz" = (
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15059,7 +15034,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/storage/box/slug,
+/obj/item/ammo_box/shotgun,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret9)
 "PG" = (
@@ -15997,9 +15972,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Se" = (
@@ -16590,9 +16563,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "TQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "TR" = (
@@ -17141,7 +17112,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "Vm" = (
 /obj/structure/cable{
@@ -17767,8 +17738,7 @@
 	master_tag = "right";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = 25;
-	req_access = null
+	pixel_y = 25
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -17930,8 +17900,8 @@
 /area/awaymission/spacebattle/cruiser)
 "Xz" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -18298,7 +18268,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "YC" = (
 /obj/effect/decal/syndie_logo{
@@ -18315,7 +18285,7 @@
 /area/awaymission/spacebattle/sec_storage)
 "YE" = (
 /obj/structure/closet/walllocker/emerglocker/north,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -18427,8 +18397,7 @@
 	master_tag = "left";
 	name = "exterior access button";
 	pixel_x = 25;
-	pixel_y = -25;
-	req_access = null
+	pixel_y = -25
 	},
 /turf/space,
 /area/awaymission/spacebattle/syndicate1)

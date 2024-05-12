@@ -6,8 +6,8 @@
 	icon = 'icons/obj/machines/research.dmi'
 	var/icon_open = null
 	var/icon_closed = null
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/busy = 0
 	var/hacked = 0
@@ -42,6 +42,8 @@
 	w -= src.disable_wire
 
 /obj/machinery/r_n_d/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	if(shocked)
 		shock(user,50)
@@ -131,9 +133,8 @@
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	overlays += "[initial(name)]_[stack_name]"
-	sleep(10)
-	overlays -= "[initial(name)]_[stack_name]"
+	flick_overlay_view(image(icon, src,"[initial(name)]_[stack_name]", layer + 0.01), 1 SECONDS)
+
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)
 	return 0 // number of copies of design beign_built you can make with material M

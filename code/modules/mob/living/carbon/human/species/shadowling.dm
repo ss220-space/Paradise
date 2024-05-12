@@ -1,6 +1,6 @@
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
-	name = "Shadowling"
+	name = SPECIES_SHADOWLING
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
@@ -9,7 +9,7 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, VIRUSIMMUNE) //Can't use guns due to muzzle flash
 	burn_mod = 1.25
 	heatmod = 1.5
 
@@ -17,8 +17,10 @@
 	grant_vision_toggle = 0
 
 	has_organ = list(
-		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes)
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	disliked_food = NONE
 
@@ -63,7 +65,7 @@
 	handle_light(H)
 
 /datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
-	name = "Lesser Shadowling"
+	name = SPECIES_LESSER_SHADOWLING
 
 	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
 	deform = 'icons/mob/human_races/r_lshadowling.dmi'

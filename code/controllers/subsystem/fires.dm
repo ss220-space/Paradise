@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(fires)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	cpu_display = SS_CPUDISPLAY_LOW // Trust me, this isnt atmos fires, this is paper and stuff being lit with lighters and stuff
 	offline_implications = "Objects will no longer react to fires. No immediate action is needed."
+	ss_id = "fire_processing"
 
 	var/list/currentrun = list()
 	var/list/processing = list()

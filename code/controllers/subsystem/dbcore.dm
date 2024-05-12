@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(dbcore)
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "database_core"
 
 	/// Is the DB schema valid
 	var/schema_valid = TRUE
@@ -513,7 +514,7 @@ SUBSYSTEM_DEF(dbcore)
 
 	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
 	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this
 	if(!SSdbcore.Connect())

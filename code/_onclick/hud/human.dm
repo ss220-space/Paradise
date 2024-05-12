@@ -20,7 +20,7 @@
 	icon_state = "act_equip"
 
 /obj/screen/human/equip/Click()
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 
 	if(is_ventcrawling(usr)) // stops inventory actions in vents
@@ -75,13 +75,6 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 
-/mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
-	QDEL_NULL(hud_used)
-	create_mob_hud()
-	update_action_buttons_icon()
-	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
-
 /mob/living/carbon/human/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha)
@@ -92,7 +85,6 @@
 /datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
-
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
@@ -135,7 +127,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "i_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_w_uniform
+	inv_box.slot_id = ITEM_SLOT_CLOTH_INNER
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.color = ui_color
@@ -145,7 +137,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "o_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_wear_suit
+	inv_box.slot_id = ITEM_SLOT_CLOTH_OUTER
 	inv_box.icon_state = "suit"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.color = ui_color
@@ -159,8 +151,9 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "l_hand"
@@ -169,8 +162,9 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	using = new /obj/screen/swap_hand()
 	using.name = "hand"
@@ -195,7 +189,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "id"
 	inv_box.screen_loc = ui_id
-	inv_box.slot_id = slot_wear_id
+	inv_box.slot_id = ITEM_SLOT_ID
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -205,7 +199,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pda"
 	inv_box.screen_loc = ui_pda
-	inv_box.slot_id = slot_wear_pda
+	inv_box.slot_id = ITEM_SLOT_PDA
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -215,7 +209,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "mask"
 	inv_box.screen_loc = ui_mask
-	inv_box.slot_id = slot_wear_mask
+	inv_box.slot_id = ITEM_SLOT_MASK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -225,7 +219,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "neck"
 	inv_box.screen_loc = ui_neck
-	inv_box.slot_id = slot_neck
+	inv_box.slot_id = ITEM_SLOT_NECK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -235,7 +229,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
 	inv_box.screen_loc = ui_back
-	inv_box.slot_id = slot_back
+	inv_box.slot_id = ITEM_SLOT_BACK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -245,7 +239,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage1
-	inv_box.slot_id = slot_l_store
+	inv_box.slot_id = ITEM_SLOT_POCKET_LEFT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -255,7 +249,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage2
-	inv_box.slot_id = slot_r_store
+	inv_box.slot_id = ITEM_SLOT_POCKET_RIGHT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -267,7 +261,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_sstore1
-	inv_box.slot_id = slot_s_store
+	inv_box.slot_id = ITEM_SLOT_SUITSTORE
 	static_inventory += inv_box
 
 	using = new /obj/screen/resist()
@@ -296,7 +290,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "gloves"
 	inv_box.screen_loc = ui_gloves
-	inv_box.slot_id = slot_gloves
+	inv_box.slot_id = ITEM_SLOT_GLOVES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -306,7 +300,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "glasses"
 	inv_box.screen_loc = ui_glasses
-	inv_box.slot_id = slot_glasses
+	inv_box.slot_id = ITEM_SLOT_EYES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -316,7 +310,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
 	inv_box.screen_loc = ui_l_ear
-	inv_box.slot_id = slot_l_ear
+	inv_box.slot_id = ITEM_SLOT_EAR_LEFT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -326,7 +320,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
 	inv_box.screen_loc = ui_r_ear
-	inv_box.slot_id = slot_r_ear
+	inv_box.slot_id = ITEM_SLOT_EAR_RIGHT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -336,7 +330,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "head"
 	inv_box.screen_loc = ui_head
-	inv_box.slot_id = slot_head
+	inv_box.slot_id = ITEM_SLOT_HEAD
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -346,7 +340,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "shoes"
 	inv_box.screen_loc = ui_shoes
-	inv_box.slot_id = slot_shoes
+	inv_box.slot_id = ITEM_SLOT_FEET
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -356,7 +350,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
 	inv_box.screen_loc = ui_belt
-	inv_box.slot_id = slot_belt
+	inv_box.slot_id = ITEM_SLOT_BELT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -375,8 +369,9 @@
 	infodisplay += mymob.healthdoll
 
 	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin.hud = src
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -392,22 +387,23 @@
 	devilsouldisplay = new /obj/screen/devil/soul_counter
 	infodisplay += devilsouldisplay
 
-	zone_select =  new /obj/screen/zone_sel()
-	zone_select.color = ui_color
-	zone_select.icon = ui_style
-	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select =  new /obj/screen/zone_sel(null, src, ui_style, ui_alpha, ui_color)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE
 
+	combo_display = new()
+	infodisplay += combo_display
+
+
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
 
 	update_locked_slots()
+
 
 /datum/hud/human/update_locked_slots()
 	if(!mymob)
@@ -430,7 +426,7 @@
 			crafting.invisibility = initial(crafting.invisibility)
 
 /datum/hud/human/hidden_inventory_update()
-	if(!mymob)
+	if(!mymob?.client)
 		return
 	var/mob/living/carbon/human/H = mymob
 	if(inventory_shown && hud_shown)
@@ -465,16 +461,16 @@
 			H.head.screen_loc = ui_head
 			H.client.screen += H.head
 	else
-		if(H.shoes)		H.shoes.screen_loc = null
-		if(H.gloves)	H.gloves.screen_loc = null
-		if(H.l_ear)		H.l_ear.screen_loc = null
-		if(H.r_ear)		H.r_ear.screen_loc = null
-		if(H.glasses)	H.glasses.screen_loc = null
-		if(H.w_uniform)	H.w_uniform.screen_loc = null
-		if(H.wear_suit)	H.wear_suit.screen_loc = null
-		if(H.wear_mask)	H.wear_mask.screen_loc = null
-		if(H.neck) 		H.neck.screen_loc = null
-		if(H.head)		H.head.screen_loc = null
+		H.shoes?.screen_loc = null
+		H.gloves?.screen_loc = null
+		H.l_ear?.screen_loc = null
+		H.r_ear?.screen_loc = null
+		H.glasses?.screen_loc = null
+		H.w_uniform?.screen_loc = null
+		H.wear_suit?.screen_loc = null
+		H.wear_mask?.screen_loc = null
+		H.neck?.screen_loc = null
+		H.head?.screen_loc = null
 
 /datum/hud/human/persistent_inventory_update()
 	if(!mymob)

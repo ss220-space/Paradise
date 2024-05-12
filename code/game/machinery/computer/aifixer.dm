@@ -26,6 +26,8 @@
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -61,6 +63,9 @@
 		return
 	switch(action)
 		if("fix")
+			if(occupant.suiciding)
+				to_chat(usr, span_warning("Memory corruption detected in recovery partition, likely due to a sudden self-induced shutdown. AI is unrecoverable."))
+				return
 			if(active) // Prevent from starting a fix while fixing.
 				to_chat(usr, span_warning("You are already fixing this AI!"))
 				return
@@ -86,27 +91,28 @@
 		occupant.updatehealth()
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
-			occupant.lying = FALSE
+			occupant.lying_angle = 0
 			update_icon()
 		sleep(10)
 	active = FALSE
 
-/obj/machinery/computer/aifixer/update_icon()
-	..()
+
+/obj/machinery/computer/aifixer/update_overlays()
+	. = ..()
 	if(stat & (NOPOWER|BROKEN))
 		return
+
+	if(active)
+		. += "ai-fixer-on"
+	if(occupant)
+		switch(occupant.stat)
+			if(CONSCIOUS)
+				. += "ai-fixer-full"
+			if(DEAD)
+				. += "ai-fixer-404"
 	else
-		var/overlay_layer = LIGHTING_LAYER+0.2 // +0.1 from the default computer overlays
-		if(active)
-			overlays += image(icon,"ai-fixer-on",overlay_layer)
-		if(occupant)
-			switch(occupant.stat)
-				if(0)
-					overlays += image(icon,"ai-fixer-full",overlay_layer)
-				if(2)
-					overlays += image(icon,"ai-fixer-404",overlay_layer)
-		else
-			overlays += image(icon,"ai-fixer-empty",overlay_layer)
+		. += "ai-fixer-empty"
+
 
 /obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
 	if(!..())
@@ -118,8 +124,8 @@
 			return
 		AI.forceMove(src)
 		occupant = AI
-		AI.control_disabled = 1
-		AI.aiRadio.disabledAi = 1
+		AI.control_disabled = TRUE
+		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
 		to_chat(user, span_boldnotice("Transfer successful: ") + "[AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon()

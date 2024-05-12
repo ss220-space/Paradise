@@ -88,8 +88,8 @@
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force
 	name = "Overwhelming Force"
-	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
-	gain_desc = "You have gained the ability to force open doors at a small blood cost."
+	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access. Also deflects any thrown bola."
+	gain_desc = "You have gained the ability to force open doors and deflect bola at a small blood cost."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "OH_YEAAAAH"
 
@@ -150,7 +150,7 @@
 	update_vampire_spell_name()
 
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon()
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
 	return
 
 
@@ -172,34 +172,30 @@
 	new /obj/effect/temp_visual/demonic_grasp(loc)
 
 
-/obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
+/obj/item/projectile/magic/demonic_grasp/on_hit(mob/living/target, blocked, hit_zone)
 	. = ..()
-	if(!isliving(target))
+	if(!istype(target) || !firer || !target.affects_vampire(firer))
 		return
 
-	playsound(get_turf(target), 'sound/misc/demon_attack1.ogg', 50, TRUE)
-	var/mob/living/L = target
-	L.Immobilize(3 SECONDS)
-	new /obj/effect/temp_visual/demonic_grasp(loc)
+	var/target_turf = get_turf(target)
+	target.Immobilize(5 SECONDS)
+	playsound(target_turf, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+	new /obj/effect/temp_visual/demonic_grasp(target_turf)
+
 	var/throw_target
-	if(!firer)
-		return
-
-	if(!L.affects_vampire(firer))
-		return
-
 	switch(firer.a_intent)
 		if(INTENT_DISARM)
-			throw_target = get_edge_target_turf(L, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // shove away
-
+			throw_target = get_edge_target_turf(target, get_dir(firer, target))
+			target.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // shove away
 		if(INTENT_GRAB)
-			throw_target = get_step(firer, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // pull towards
+			throw_target = get_step(firer, get_dir(firer, target))
+			target.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), target)) // pull towards
+		else
+			create_snare(target)
 
 
-/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
-	new /obj/effect/temp_visual/demonic_snare(target.loc)
+/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/living/target)
+	new /obj/effect/temp_visual/demonic_snare(get_turf(target))
 
 
 /obj/effect/temp_visual/demonic_grasp
@@ -211,7 +207,7 @@
 /obj/effect/temp_visual/demonic_snare
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "immobilized"
-	duration = 3 SECONDS
+	duration = 5 SECONDS
 
 
 /obj/effect/proc_holder/spell/vampire/charge
@@ -230,7 +226,7 @@
 
 /obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(L.lying || L.resting)
+	if(L.lying_angle || L.resting)
 		return FALSE
 	return ..()
 

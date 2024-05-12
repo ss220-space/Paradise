@@ -14,7 +14,7 @@
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
 	if(stat != DEAD && bleed_rate)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+		to_chat(src, span_warning("The blood soaks through your bandage."))
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -35,42 +35,41 @@
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, span_warning("You feel [word]."))
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type)
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 
 		var/temp_bleed = 0
 		var/internal_bleeding_rate = 0
 		//Bleeding out
-		for(var/X in bodyparts)
-			var/obj/item/organ/external/BP = X
-			var/brutedamage = BP.brute_dam
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			var/brutedamage = bodypart.brute_dam
 
-			if(BP.is_robotic())
+			if(bodypart.is_robotic())
 				continue
 
-			//We want an accurate reading of .len
-			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			var/embedded_length = LAZYLEN(bodypart.embedded_objects)
+			if(embedded_length)
+				temp_bleed += 0.5 * embedded_length
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
 
-			if(BP.open)
+			if(bodypart.open)
 				temp_bleed += 0.5
 
-			if(BP.internal_bleeding)
+			if(bodypart.has_internal_bleeding())
 				internal_bleeding_rate += 0.5
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
@@ -108,7 +107,7 @@
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-			custom_emote(1, "кашляет кровью!")
+			custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
 			add_splatter_floor(loc, 1)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
@@ -127,14 +126,6 @@
 				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
-/mob/living/carbon/human/proc/check_internal_bleedings()
-	var/list/internals_list = list()
-	if(NO_BLOOD in dna.species.species_traits)
-		return
-	for(var/obj/item/organ/external/limb in bodyparts)
-		if(limb.internal_bleeding)
-			internals_list.Add(limb)
-	return internals_list
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -167,14 +158,13 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
+		if(blood_data["diseases"])
+			for(var/datum/disease/virus/V in blood_data["diseases"])
+				if(V.spread_flags < BLOOD)
+					continue
+				V.Contract(C)
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(blood_data["viruses"])
-					for(var/thing in blood_data["viruses"])
-						var/datum/disease/D = thing
-						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
-							continue
-						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
@@ -190,41 +180,44 @@
 	return
 
 /mob/living/carbon/human/get_blood_data(blood_id)
-	if(blood_id == "blood") //actual blood reagent
-		var/blood_data = list()
-		//set the blood data
-		blood_data["donor"] = src
-		blood_data["viruses"] = list()
-
-		for(var/thing in viruses)
-			var/datum/disease/D = thing
-			blood_data["viruses"] += D.Copy()
-
-		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
-		if(resistances && resistances.len)
+	var/blood_data = list()
+	if(blood_id in GLOB.diseases_carrier_reagents)
+		blood_data["diseases"] = list()
+		for(var/datum/disease/D in diseases)
+			blood_data["diseases"] += D.Copy()
+		if(LAZYLEN(resistances))
 			blood_data["resistances"] = resistances.Copy()
-		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			temp_chem[R.id] = R.volume
-		blood_data["trace_chem"] = list2params(temp_chem)
-		if(mind)
-			blood_data["mind"] = mind
-		if(ckey)
-			blood_data["ckey"] = ckey
-		if(!suiciding)
-			blood_data["cloneable"] = 1
-		blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
-		blood_data["blood_species"] = dna.species.blood_species
-		blood_data["gender"] = gender
-		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = dna.species.blood_color
-		blood_data["factions"] = faction
-		blood_data["dna"] = dna.Clone()
-		return blood_data
-	if(blood_id == "slimejelly")
-		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
-		return blood_data
+
+	switch(blood_id)
+		if("blood")
+			blood_data["donor"] = src
+			blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
+			var/list/temp_chem = list()
+			for(var/datum/reagent/R in reagents.reagent_list)
+				temp_chem[R.id] = R.volume
+			blood_data["trace_chem"] = list2params(temp_chem)
+			if(mind)
+				blood_data["mind"] = mind
+			if(ckey)
+				blood_data["ckey"] = ckey
+			if(!suiciding)
+				blood_data["cloneable"] = 1
+			blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
+			blood_data["blood_species"] = dna.species.blood_species
+			blood_data["gender"] = gender
+			blood_data["real_name"] = real_name
+			blood_data["blood_color"] = dna.species.blood_color
+			blood_data["factions"] = faction
+			blood_data["dna"] = dna.Clone()
+
+		if("slimejelly")
+			blood_data["colour"] = dna.species.blood_color
+			blood_data["blood_color"] = dna.species.blood_color
+
+		if("cryoxadone")
+			blood_data["blood_color"] = dna.species.blood_color
+
+	return blood_data
 
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()
@@ -266,13 +259,17 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/check_blood = get_blood_id()
+	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
+	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+		return
 
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
+	var/list/b_data = get_blood_data(check_blood)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.

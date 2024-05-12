@@ -1,10 +1,12 @@
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
-	desc = "a state-of-the-art implant that improves a baseline's functionality"
+	desc = "a state-of-the-art implant that improves a baseline's functionality."
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
 	tough = TRUE // Immune to damage
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()
@@ -20,17 +22,17 @@
 
 /obj/item/organ/internal/cyberimp/brain
 	name = "cybernetic brain implant"
-	desc = "injectors of extra sub-routines for the brain"
+	desc = "injectors of extra sub-routines for the brain."
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
-	parent_organ = "head"
+	parent_organ_zone = BODY_ZONE_HEAD
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
 	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	to_chat(owner, span_warning("Your body seizes up!"))
 	return stun_amount
 
 
@@ -43,7 +45,7 @@
 	var/obj/item/l_hand_obj = null
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
-	slot = "brain_antidrop"
+	slot = INTERNAL_ORGAN_BRAIN_ANTIDROP
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
@@ -53,21 +55,21 @@
 		l_hand_obj = owner.l_hand
 		r_hand_obj = owner.r_hand
 		if(l_hand_obj)
-			if(owner.l_hand.flags & NODROP)
+			if(HAS_TRAIT_FROM(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT))
 				l_hand_ignore = TRUE
 			else
-				owner.l_hand.flags |= NODROP
+				ADD_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
-			if(owner.r_hand.flags & NODROP)
+			if(HAS_TRAIT_FROM(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT))
 				r_hand_ignore = TRUE
 			else
-				owner.r_hand.flags |= NODROP
+				ADD_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
-			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
+			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
 			active = 0
 		else
 			var/msg = 0
@@ -75,14 +77,14 @@
 			msg += !r_hand_ignore && r_hand_obj ? 2 : 0
 			switch(msg)
 				if(1)
-					to_chat(owner, "<span class='notice'>Your left hand's grip tightens.</span>")
+					to_chat(owner, span_notice("Your left hand's grip tightens."))
 				if(2)
-					to_chat(owner, "<span class='notice'>Your right hand's grip tightens.</span>")
+					to_chat(owner, span_notice("Your right hand's grip tightens."))
 				if(3)
-					to_chat(owner, "<span class='notice'>Both of your hand's grips tighten.</span>")
+					to_chat(owner, span_notice("Both of your hand's grips tighten."))
 	else
 		release_items()
-		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
+		to_chat(owner, span_notice("Your hands relax..."))
 		l_hand_obj = null
 		r_hand_obj = null
 
@@ -96,25 +98,28 @@
 
 	release_items()
 	..()
+	var/list/surrounds = oview(range)
 	if(L_item)
-		A = pick(oview(range))
+		A = pick(surrounds)
 		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
+		to_chat(owner, span_notice("Your left arm spasms and throws the [L_item.name]!"))
 		l_hand_obj = null
 	if(R_item)
-		A = pick(oview(range))
+		A = pick(surrounds)
 		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+		to_chat(owner, span_notice("Your right arm spasms and throws the [R_item.name]!"))
 		r_hand_obj = null
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
 	if(!l_hand_ignore && (l_hand_obj in owner.contents))
-		l_hand_obj.flags ^= NODROP
+		REMOVE_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 	if(!r_hand_ignore && (r_hand_obj in owner.contents))
-		r_hand_obj.flags ^= NODROP
+		REMOVE_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
+
+/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(active)
 		ui_action_click()
 	return ..()
@@ -123,7 +128,7 @@
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
 	implant_color = "#FFFF00"
-	slot = "brain_antistun"
+	slot = INTERNAL_ORGAN_BRAIN_ANTISTUN
 	origin_tech = "materials=5;programming=4;biotech=5"
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
@@ -158,10 +163,10 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
-	name = "Nerual Jumpstarter implant"
+	name = "Neural Jumpstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
-	slot = "brain_antistun" //one or the other not both.
+	slot = INTERNAL_ORGAN_BRAIN_ANTISTUN //one or the other not both.
 	origin_tech = "materials=5;programming=4;biotech=5"
 	var/cooldown = FALSE
 
@@ -172,13 +177,13 @@
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
 		owner.AdjustSleeping(-200 SECONDS)
 		owner.AdjustParalysis(-200 SECONDS)
-		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
+		to_chat(owner, span_notice("You feel a rush of energy course through your body!"))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
-		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
+		to_chat(owner, span_notice("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
 	. = ..()
@@ -201,22 +206,22 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
 	name = "Hardened Neural Jumpstarter implant"
-	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
-	slot = "brain_antisleep"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
+	slot = INTERNAL_ORGAN_BRAIN_ANTISLEEP
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
 	desc = "<span class='sans'>Uh oh.</span>"
 	implant_color = "#DEDE00"
-	slot = "brain_clownvoice"
+	slot = INTERNAL_ORGAN_BRAIN_CLOWNVOICE
 	origin_tech = "materials=2;biotech=2"
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
 	implant_color = "#C0C0C0"
-	slot = "brain_speechtranslator"
+	slot = INTERNAL_ORGAN_BRAIN_SPEECHTRANSLATOR
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=4;biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -233,26 +238,26 @@
 	if(emp_proof)
 		return
 	if(owner && active)
-		to_chat(owner, "<span class='notice'>Your translator's safeties trigger, it is now turned off.</span>")
+		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
 		active = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && !active)
-		to_chat(owner, "<span class='notice'>You turn on your translator implant.</span>")
+		to_chat(owner, span_notice("You turn on your translator implant."))
 		active = TRUE
 	else if(owner && active)
-		to_chat(owner, "<span class='notice'>You turn off your translator implant.</span>")
+		to_chat(owner, span_notice("You turn off your translator implant."))
 		active = FALSE
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
-	parent_organ = "mouth"
+	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	name = "breathing tube implant"
 	desc = "This simple implant adds an internals connector to your back, allowing you to use internals without a mask and protecting you from being choked."
 	icon_state = "implant_mask"
-	slot = "breathing_tube"
+	slot = INTERNAL_ORGAN_BREATHING_TUBE
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
 
@@ -260,29 +265,62 @@
 	if(emp_proof)
 		return
 	if(prob(60/severity) && owner)
-		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
 	name = "cybernetic torso implant"
-	desc = "implants for the organs in your torso"
+	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
-	parent_organ = "chest"
+	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
 	icon_state = "chest_implant"
 	implant_color = "#00AA00"
+	var/hunger_modificator = 0.7
+	var/poison_amount = 5
+	slot = INTERNAL_ORGAN_STOMACH
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/M, special, dont_remove_slot)
+	M.hunger_drain *= hunger_modificator
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/M, special)
+	M.hunger_drain /= hunger_modificator
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
+	to_chat(owner, span_warning("You feel like your insides are burning."))
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+	name = "Nutriment pump implant PLUS"
+	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
+	icon_state = "chest_implant"
+	implant_color = "#006607"
+	hunger_modificator = 0.5
+	poison_amount = 10
+	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
+/obj/item/organ/internal/cyberimp/chest/nutriment_old
+	name = "Nutriment pump implant"
+	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
+	icon_state = "chest_implant"
+	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
-	slot = "stomach"
+	slot = INTERNAL_ORGAN_STOMACH
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
@@ -295,22 +333,22 @@
 		return
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = TRUE
-		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
+		to_chat(owner, span_notice("You feel less hungry..."))
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/proc/synth_cool()
 	synthesizing = FALSE
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/emp_act(severity)
 	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	to_chat(owner, span_warning("You feel like your insides are burning."))
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	name = "Nutriment pump implant PLUS"
-	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
+	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
@@ -323,7 +361,7 @@
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
-	slot = "heartdrive"
+	slot = INTERNAL_ORGAN_HEART_DRIVE
 	var/revive_cost = 0
 	var/reviving = FALSE
 	var/cooldown = 0
@@ -385,7 +423,7 @@
 		return
 	H.set_heartattack(FALSE)
 	if(H.stat == CONSCIOUS)
-		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+		to_chat(H, span_notice("You feel your heart beating again!"))
 
 //BOX O' IMPLANTS
 
@@ -412,6 +450,10 @@
 /obj/item/storage/box/cyber_implants/anti_stun_hardened/populate_contents()
 	..()
 	new /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened(src)
+
+/obj/item/storage/box/cyber_implants/anti_sleep_hardened/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened(src)
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"

@@ -14,7 +14,7 @@
 	icon_state = "chain"
 	item_state = "chain"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -41,6 +41,8 @@
 	sharp = TRUE
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
@@ -61,15 +63,16 @@
 	block_chance = 30
 	armour_penetration = 30
 	sharp = TRUE
+	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 
-/obj/item/melee/mantisblade/equipped(mob/user, slot)
+/obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 
-	if(slot == slot_l_hand)
+	if(slot == ITEM_SLOT_HAND_LEFT)
 		transform = null
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)

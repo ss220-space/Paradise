@@ -1,19 +1,37 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(!skipcatch)
-		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
-			if(!istype(AM,/obj/item) || !isturf(AM.loc))
-				return FALSE
-			if(get_active_hand())
-				return FALSE
-			if(istype(AM, /obj/item/twohanded))
-				if(get_inactive_hand())
-					return FALSE
-			put_in_active_hand(AM)
-			visible_message("<span class='warning'>[src] catches [AM]!</span>")
-			throw_mode_off()
-			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
-			return TRUE
-	return ..()
+	if(skipcatch || !isitem(AM))
+		return ..()
+
+	var/obj/item/check = AM
+	if(check.carbon_skip_catch_check(src))
+		return ..()
+
+	put_in_active_hand(AM)
+	visible_message(span_warning("[src] catches [AM]!"))
+	throw_mode_off()
+	SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
+	return TRUE
+
+
+/**
+ * Individual check for items to skip catching.
+ */
+/obj/item/proc/carbon_skip_catch_check(mob/living/carbon/user)
+	. = TRUE
+	if(!isturf(loc))
+		return .
+	if(!user.in_throw_mode)
+		return .
+	if(!user.canmove)
+		return .
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return .
+	if(user.get_active_hand())
+		return .
+	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
+		return .
+	. = FALSE
+
 
 /mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -21,33 +39,31 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(lying && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src, I))
-					return 1
+				if(S.next_step(user, src))
+					return TRUE
 	return ..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
 		return
 
-	for(var/thing in viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+	for(var/datum/disease/virus/V in diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
-	for(var/thing in user.viruses)
-		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+	for(var/datum/disease/virus/V in user.diseases)
+		if(V.spread_flags & CONTACT)
+			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
-	if(lying && surgeries.len)
+	if(lying_angle && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
-	return 0
+					return TRUE
+	return FALSE
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -75,10 +91,10 @@
 
 //Called when drawing cult runes/using cult spells. Deal damage to a random arm/hand, or chest if not there.
 /mob/living/carbon/cult_self_harm(damage)
-	var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
+	var/dam_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 	var/obj/item/organ/external/affecting = get_organ(dam_zone)
 	if(!affecting)
-		affecting = get_organ("chest")
+		affecting = get_organ(BODY_ZONE_CHEST)
 	if(!affecting) //bruh where's your chest
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)

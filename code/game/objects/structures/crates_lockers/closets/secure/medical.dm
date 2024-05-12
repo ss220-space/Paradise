@@ -185,8 +185,8 @@
 	overlay_locked = "m_locked"
 	overlay_locker = "m_locker"
 	overlay_unlocked = "m_unlocked"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	wall_mounted = 1
 	req_access = list(ACCESS_MEDICAL)
 
@@ -203,6 +203,7 @@
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/tank/jetpack/carbondioxide(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

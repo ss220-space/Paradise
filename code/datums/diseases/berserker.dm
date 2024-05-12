@@ -1,21 +1,20 @@
 /datum/disease/berserker
 	name = "Berserker"
+	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
+	agent = "Jagged Crystals"
+	cure_text = "Anti-Psychotics"
 	max_stages = 2
 	stage_prob = 5
-	spread_text = "Non-Contagious"
-	spread_flags = SPECIAL
-	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
-	agent = "Jagged Crystals"
-	cure_chance = 10
-	viable_mobtypes = list(/mob/living/carbon/human)
-	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
+	cure_prob = 10
 	severity = DANGEROUS
-	disease_flags = CURABLE
-	spread_flags = NON_CONTAGIOUS
+	can_immunity = FALSE
+	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/berserker/stage_act()
-	..()
+	if(!..())
+		return FALSE
+
 	if(affected_mob.reagents.has_reagent("thc"))
 		to_chat(affected_mob, "<span class='notice'>You mellow out.</span>")
 		cure()

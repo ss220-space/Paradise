@@ -136,7 +136,7 @@
 	taste_description = "pure resignation"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Civilian")
+	if(M.mind && M.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		var/update_flags = STATUS_UPDATE_NONE
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
@@ -285,7 +285,7 @@
 	M.AdjustDrowsy(-14 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
 	if(M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
 	return ..()
 
@@ -529,7 +529,7 @@
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (15 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
@@ -546,9 +546,8 @@
 	taste_description = "THE LAW"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
-	var/update_flag = STATUS_UPDATE_NONE
-	M.Stun(2 SECONDS)
-	return ..() | update_flag
+	M.drop_from_hands()
+	return ..()
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
@@ -695,7 +694,7 @@
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
@@ -800,7 +799,7 @@
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/devilskiss
@@ -854,7 +853,7 @@
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
 	if(M.bodytemperature > 270)
-		M.bodytemperature = max(270, M.bodytemperature - (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+		M.adjust_bodytemperature(-(20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
 	return ..()
 
 /datum/reagent/consumable/ethanol/grog
@@ -1180,7 +1179,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		M.Stun(2 SECONDS, FALSE)
+		M.Stun(2 SECONDS)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))
@@ -2104,10 +2103,9 @@
 	taste_description = "electromagnetic impulse"
 
 /datum/reagent/consumable/ethanol/irishempbomb/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Stun(1, FALSE)
+	M.Stun(1, FALSE)
 	do_sparks(5, FALSE, M.loc)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/ethanol/codelibre
 	name = "Code Libre"
@@ -2124,7 +2122,7 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		M.say(":5 [pick("Viva la Synthetica!")]")
+		M.say("[get_language_prefix(LANGUAGE_TRINARY)] Viva la Synthetica!")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
@@ -2193,9 +2191,8 @@
 	taste_description = "faith in fairies"
 
 /datum/reagent/consumable/ethanol/green_fairy/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.SetDruggy(min(max(0, M.AmountDruggy() + 10 SECONDS), 15 SECONDS))
-	return ..() | update_flags
+	M.SetDruggy(min(max(0, M.AmountDruggy() + 10 SECONDS), 15 SECONDS))
+	return ..()
 
 /datum/reagent/consumable/ethanol/home_lebovsky
 	name = "Home Lebowski"
@@ -2232,21 +2229,21 @@
 
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
-	var/datum/language/rus_lang = GLOB.all_languages["Neo-Russkiya"]
-	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
+	var/datum/language/rus_lang = GLOB.all_languages[LANGUAGE_NEO_RUSSIAN]
+	if(LAZYIN(M.languages, rus_lang) && !LAZYIN(M.temporary_languages, rus_lang))
 		if(M.default_language != rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.default_language = null //reset language we were speaking
 		return
 	else
-		if(!(rus_lang in M.languages))
-			M.temporary_languages += rus_lang
-			M.languages += rus_lang
+		if(!LAZYIN(M.languages, rus_lang))
+			LAZYADD(M.temporary_languages, rus_lang)
+			LAZYADD(M.languages, rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.languages ^= M.temporary_languages
-			M.temporary_languages -= rus_lang
+			LAZYREMOVE(M.temporary_languages, rus_lang)
 			M.default_language = null
 
 /datum/reagent/consumable/ethanol/sun
@@ -2306,8 +2303,7 @@
 	taste_description = "the blue set-up"
 
 /datum/reagent/consumable/ethanol/blue_moondrin/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(30 SECONDS, FALSE)
+	M.Druggy(30 SECONDS, FALSE)
 	switch(current_cycle)
 		if(1 to 15)
 			M.Dizzy(10 SECONDS)
@@ -2328,7 +2324,7 @@
 				M.Jitter(20 SECONDS)
 				M.AdjustHallucinate(30 SECONDS)
 				M.emote("moan")
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/ethanol/red_moondrin
 	name = "Redwater Moon'drin"
@@ -2344,7 +2340,7 @@
 
 /datum/reagent/consumable/ethanol/red_moondrin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Druggy(30, FALSE)
+	M.Druggy(30 SECONDS)
 	switch(current_cycle)
 		if(1 to 20)
 			M.Dizzy(20 SECONDS)
@@ -2395,7 +2391,7 @@
 				to_chat(M, "<span class='warning'>You can't breathe! But it feels GOOD!</span>")
 				update_flags |= M.adjustOxyLoss(15, FALSE)
 				update_flags |= M.adjustToxLoss(2, FALSE)
-				M.Stun(2 SECONDS, FALSE)
+				M.Stun(2 SECONDS)
 			if(prob(3))
 				M.playsound_local(src, 'sound/effects/heartbeat.ogg', 2)
 				to_chat(M, "<span class='warning'>You feel like you're being watched!</span>")
@@ -2403,7 +2399,7 @@
 				M.emote(pick("drool","scream"))
 				M.Jitter(20 SECONDS)
 				update_flags |= M.adjustToxLoss(3, FALSE)
-				M.Weaken(2 SECONDS, FALSE)
+				M.Weaken(2 SECONDS)
 				M.AdjustConfused(66 SECONDS)
 	return ..() | update_flags
 
@@ -2449,7 +2445,7 @@
 			M.SetJitter(0)
 			M.SetDizzy(0)
 			M.SetDruggy(0)
-			M.lying = 0
+			M.lying_angle = 0
 			M.update_canmove() // wakey wakey
 			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
 			M.reagents.remove_reagent("restart",restart_amount)

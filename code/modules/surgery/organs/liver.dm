@@ -1,15 +1,14 @@
 /obj/item/organ/internal/liver
 	name = "liver"
 	icon_state = "liver"
-	organ_tag = "liver"
-	parent_organ = "groin"
-	slot = "liver"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_LIVER
 	var/alcohol_intensity = 1
 
 /obj/item/organ/internal/liver/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
+			to_chat(owner, span_warning(" Your skin itches."))
 	if(germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			owner.vomit()
@@ -35,7 +34,7 @@
 		var/filter_effect = 3
 		if(is_bruised())
 			filter_effect -= 1
-		if(is_broken())
+		if(is_traumatized())
 			filter_effect -= 2
 
 		// Damaged liver means some chemicals are very dangerous
@@ -56,3 +55,5 @@
 	desc = "An electronic device designed to mimic the functions of a human liver. It has no benefits over an organic liver, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'

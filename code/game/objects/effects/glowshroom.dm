@@ -54,7 +54,7 @@
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("This is a [generation]\th generation [name]!")
+	. += span_notice("This is a [generation]\th generation [name]!")
 
 /**
   *	Creates a new glowshroom structure.
@@ -82,7 +82,7 @@
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
-		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
+		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
 	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)
@@ -117,7 +117,7 @@
 	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
-		if(!ownturf.CanAtmosPass(earth))
+		if(!ownturf.CanAtmosPass(earth, vertical = FALSE))
 			continue
 		possible_locs += earth
 
@@ -236,7 +236,7 @@
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message(SPAN_DANGER("[src] melts away!"))
+	visible_message(span_danger("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/object = new (get_turf(src))
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

@@ -1,10 +1,10 @@
 /obj/item/organ/internal/cyberimp/eyes
 	name = "cybernetic eyes"
-	desc = "artificial photoreceptors with specialized functionality"
+	desc = "artificial photoreceptors with specialized functionality."
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
-	slot = "eye_sight"
-	parent_organ = "eyes"
+	slot = INTERNAL_ORGAN_EYE_SIGHT_DEVICE
+	parent_organ_zone = BODY_ZONE_PRECISE_EYES
 	w_class = WEIGHT_CLASS_TINY
 
 	var/vision_flags = 0
@@ -17,20 +17,20 @@
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
 
-/obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
+/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && eye_colour)
 		H.update_body() //Apply our eye colour to the target.
 	if(aug_message && !special)
-		to_chat(owner, "<span class='notice'>[aug_message]</span>")
+		to_chat(owner, span_notice("[aug_message]"))
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(mob/living/carbon/human/HA)
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
@@ -45,7 +45,7 @@
 	if(severity > 1)
 		if(prob(10 * severity))
 			return
-	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
+	to_chat(owner, span_warning("Static obfuscates your vision!"))
 	owner.flash_eyes(visual = 1)
 
 /obj/item/organ/internal/cyberimp/eyes/meson
@@ -78,27 +78,28 @@
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
+/obj/item/organ/internal/cyberimp/eyes/thermals/empproof/emp_act(severity)
+	return
+
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
-	slot = "eye_hud"
-	var/HUD_type = 0
+	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
+	var/HUDType = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(M)
-		M.permanent_huds |= H
-
-/obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(HUD_type)
-		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		M.permanent_huds ^= H
+	if(HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
+		H.add_hud_to(M)
+
+/obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	if(HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(M)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
@@ -108,8 +109,8 @@
 	implant_color = "#00FFFF"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
-	HUD_type = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
@@ -118,7 +119,7 @@
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
-	HUD_type = DATA_HUD_DIAGNOSTIC
+	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
@@ -127,14 +128,14 @@
 	implant_color = "#CC0000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
-	HUD_type = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	HUDType = DATA_HUD_SECURITY_ADVANCED
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 // Welding shield implant
 /obj/item/organ/internal/cyberimp/eyes/shield
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
-	slot = "eye_shield"
+	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	implant_color = "#101010"
 	flash_protect = 2

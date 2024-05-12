@@ -1,9 +1,6 @@
 /*
 	AI ClickOn()
 
-	Note currently ai restrained() returns 0 in all cases,
-	therefore restrained code has been removed
-
 	The AI can double click to move the camera (this was already true but is cleaner),
 	or double click a mob to track them.
 
@@ -97,12 +94,7 @@
 		set_waypoint(A)
 		waypoint_mode = 0
 		return
-	/*
-		AI restrained() currently does nothing
-	if(restrained())
-		RestrainedClickOn(A)
-	else
-	*/
+
 	A.add_hiddenprint(src)
 	A.attack_ai(src)
 
@@ -139,7 +131,8 @@
 	A.AIAltClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
-
+/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
+	A.AIMiddleShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -165,6 +158,9 @@
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
 
+/atom/proc/AIMiddleShiftClick()
+	return
+
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
 	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T) && (get_dist(eyeobj, T) <= 7)) //not further than view distance
 
@@ -172,7 +168,7 @@
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
-	if(!can_use(user, TRUE))
+	if(!can_use(user))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
 		return
 	toggle_breaker(user)

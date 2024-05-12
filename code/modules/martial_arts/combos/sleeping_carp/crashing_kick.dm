@@ -12,6 +12,7 @@
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 10, 14, user)
 		target.apply_damage(15, BRUTE, BODY_ZONE_CHEST)
+		objective_damage(user, target, 15, BRUTE)
 		target.adjustOxyLoss(10) //тебе попали в солнечное сплетение, в конце концов. Как ты вообще жив?
 		target.Slowed(5 SECONDS)
 		add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Crashing Waves Kick", ATKLOG_ALL)

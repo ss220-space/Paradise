@@ -27,9 +27,11 @@
 
 /datum/status_effect/void_price
 	id = "void_price"
-	duration = 300
-	tick_interval = 30
+	duration = 30 SECONDS
+	tick_interval = 3 SECONDS
 	alert_type = /obj/screen/alert/status_effect/void_price
+	/// This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
+	var/price = 3
 
 /obj/screen/alert/status_effect/void_price
 	name = "Void Price"
@@ -37,8 +39,12 @@
 	icon_state = "shadow_mend"
 
 /datum/status_effect/void_price/tick()
-	playsound(owner, 'sound/weapons/bite.ogg', 50, 1)
-	owner.adjustBruteLoss(3)
+	playsound(owner, 'sound/weapons/bite.ogg', 50, TRUE)
+	owner.adjustBruteLoss(price)
+
+/datum/status_effect/void_price/refresh()
+	price++
+	return ..()
 
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
@@ -55,12 +61,11 @@
 	. = ..()
 	if(.)
 		if(ishuman(owner))
-			owner.status_flags |= IGNORESLOWDOWN
+			owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 			var/mob/living/carbon/human/H = owner
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/BP = X
-				BP.brute_mod *= 0.1
-				BP.burn_mod *= 0.1
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.brute_mod *= 0.1
+				bodypart.burn_mod *= 0.1
 			H.dna.species.tox_mod *= 0.1
 			H.dna.species.oxy_mod *= 0.1
 			H.dna.species.clone_mod *= 0.1
@@ -73,21 +78,21 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		for(var/X in H.bodyparts)
-			var/obj/item/organ/external/BP = X
-			BP.brute_mod *= 10
-			BP.burn_mod *= 10
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.brute_mod *= 10
+			bodypart.burn_mod *= 10
 		H.dna.species.tox_mod *= 10
 		H.dna.species.oxy_mod *= 10
 		H.dna.species.clone_mod *= 10
 		H.dna.species.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
-	owner.status_flags &= ~IGNORESLOWDOWN
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	if(islist(owner.status_effect_absorption))
 		if(owner.status_effect_absorption["blooddrunk_stun"])
 			owner.status_effect_absorption -= "blooddrunk_stun"
 		if(owner.status_effect_absorption["blooddrunk_weaken"])
 			owner.status_effect_absorption -= "blooddrunk_weaken"
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200
@@ -101,6 +106,71 @@
 /datum/status_effect/exercised/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
+
+
+/datum/status_effect/banana_power
+	id = "banana_power"
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/banana_power
+	/// Basic heal per tick.
+	var/basic_heal_amt = 10
+	/// This diminishes the healing from eating bananas the higher it is.
+	var/tolerance = 1
+	/// Number of heal ticks.
+	var/instance_duration = 10
+	/// A list of integers, one for each remaining banana effect.
+	var/list/active_instances = list()
+
+
+/datum/status_effect/banana_power/on_apply()
+	to_chat(owner, span_boldnotice("Banana juices surge through your veins, you feel invincible!"))
+	apply_banana_power()
+	return TRUE
+
+
+/datum/status_effect/banana_power/refresh()
+	apply_banana_power()
+	..()
+
+
+/datum/status_effect/banana_power/proc/apply_banana_power()
+	tolerance++
+	active_instances += instance_duration
+	owner.remove_CC()
+	if(tolerance > 2)
+		to_chat(owner, span_warning("Eating so many bananas will not enhance healing, only prolong it and make weaker!"))
+
+
+/datum/status_effect/banana_power/tick()
+	var/active_instances_length = length(active_instances)
+	if(active_instances_length >= 1)
+		var/heal_amount = (active_instances_length / tolerance) * basic_heal_amt
+		if(isanimal(owner))
+			var/mob/living/simple_animal/s_owner = owner
+			s_owner.adjustHealth(-heal_amount, updating_health = FALSE)
+		else
+			owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+			owner.adjustOxyLoss(-heal_amount, updating_health = FALSE)
+		owner.updatehealth()
+		var/list/expired_instances = list()
+		for(var/i in 1 to active_instances_length)
+			active_instances[i]--
+			if(active_instances[i] <= 0)
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
+	tolerance = max(tolerance - 0.05, 1)
+	if(tolerance <= 1 && !length(active_instances))
+		qdel(src)
+
+
+/obj/screen/alert/status_effect/banana_power
+	name = "Banana power"
+	desc = "Your body has been infused with banana juices, you will heal damage over time!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "banana_power"
+
 
 //Hippocratic Oath: Applied when the Rod of Asclepius is activated.
 /datum/status_effect/hippocraticOath
@@ -175,7 +245,7 @@
 					if(itemUser.put_in_l_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("l_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_L_ARM))
 							new /obj/item/organ/external/arm(itemUser)
 						new /obj/item/organ/external/hand(itemUser)
 						itemUser.update_body()
@@ -186,7 +256,7 @@
 					if(itemUser.put_in_r_hand(newRod, TRUE))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
-						if(!itemUser.has_organ("r_arm"))
+						if(!itemUser.get_organ(BODY_ZONE_R_ARM))
 							new /obj/item/organ/external/arm/right(itemUser)
 						new /obj/item/organ/external/hand/right(itemUser)
 						itemUser.update_body()
@@ -216,27 +286,28 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
+
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORE_SPEED_CHANGES
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z))
-			for(var/thing in H.bodyparts)
-				var/obj/item/organ/external/E = thing
-				E.internal_bleeding = FALSE
-				E.mend_fracture()
+		H.set_bodytemperature(H.dna ? H.dna.species.body_temperature : BODYTEMP_NORMAL)
+		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.stop_internal_bleeding()
+				bodypart.mend_fracture()
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
-		owner.bodytemperature = BODYTEMP_NORMAL
+		owner.set_bodytemperature(BODYTEMP_NORMAL)
 	return TRUE
 
+
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORE_SPEED_CHANGES
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/fleshmend
@@ -306,7 +377,7 @@
 
 /datum/status_effect/speedlegs/on_apply()
 	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
 	return TRUE
 
 
@@ -330,7 +401,7 @@
 
 
 /datum/status_effect/speedlegs/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, CHANGELING_TRAIT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
 	if(!owner.IsWeakened())
 		to_chat(owner, span_notice("Our muscles relax."))
 		if(stacks >= 7)
@@ -513,10 +584,10 @@
 
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
-	H.dna.species.brute_mod *= 0.5
-	H.dna.species.burn_mod *= 0.8
-	H.dna.species.stamina_mod *= 0.5
-	H.dna.species.stun_mod *= 0.5
+	H.dna.species.brute_mod *= 0.3
+	H.dna.species.burn_mod *= 0.6
+	H.dna.species.stamina_mod *= 0.3
+	H.dna.species.stun_mod *= 0.3
 
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
@@ -532,10 +603,10 @@
 
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
-	H.dna.species.brute_mod /= 0.5
-	H.dna.species.burn_mod /= 0.8
-	H.dna.species.stamina_mod /= 0.5
-	H.dna.species.stun_mod /= 0.5
+	H.dna.species.brute_mod /= 0.3
+	H.dna.species.burn_mod /= 0.6
+	H.dna.species.stamina_mod /= 0.3
+	H.dna.species.stun_mod /= 0.3
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
@@ -551,12 +622,12 @@
 
 
 /datum/status_effect/blood_rush/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 	return TRUE
 
 
 /datum/status_effect/blood_rush/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, VAMPIRE_TRAIT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 
 
 /obj/screen/alert/status_effect/blood_rush
@@ -565,3 +636,97 @@
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "blood_rush_status"
 
+/datum/status_effect/dragon_strength //less powerfull than hope, but works the same way
+	id = "dragon strength"
+	duration = -1
+	tick_interval = 3 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/dragon_strength/tick()
+	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
+		return
+	if(owner.health > 30)
+		if(prob(2))
+			war_message()
+		return
+	var/heal_multiplier = min(3, ((40 - owner.health) / 50 + 1)) // 1 hp at 40 health, 2 at -10, 3 at -60
+	owner.adjustBruteLoss(-heal_multiplier * 0.5)
+	owner.adjustFireLoss(-heal_multiplier * 0.5)
+	owner.adjustOxyLoss(-heal_multiplier)
+	if(prob(5))
+		hope_message()
+
+/datum/status_effect/dragon_strength/proc/hope_message()
+	var/list/hope_messages = list("You are filled with [pick("determination", "strength", "robustness", "power")].",
+							"Your most pleasant memories flash through your mind.",
+							"You can't give up, keep going!",
+							"Pull yourself together!",
+							"You are the strongest hunter, you can handle it!",
+							"Don't forget how you got this amulet, hunter!",
+							"All these persons are not nearly as powerful as you!",
+							"You ARE robust, don't you dare die now!",
+							"Some stupid scars can't stop you!",
+							"You still have monsters to kill, don't die!")
+	to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+
+/datum/status_effect/dragon_strength/proc/war_message()
+	var/list/war_messages = list("You feel incredible strength in your heart.",
+							"You feel a pleasant smell of human blood.",
+							"You feel envious glances.",
+							"You want to kill someone.",
+							"All your glorious battles flash through your memory.",
+							"No one can conquer you.",
+							"You can feel fire in your soul.",
+							"Don't forget how you got this amulet, hunter.")
+	to_chat(owner, "<span class='warning'>[pick(war_messages)]</span>")
+
+/obj/screen/alert/status_effect/dash
+	name = "Dash"
+	desc = "You have the ability to dash!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "genetic_jump"
+
+/datum/status_effect/dash
+	id = "dash"
+	duration = 5 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/dash
+
+
+/datum/status_effect/drill_payback
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/drilled_successfully = FALSE
+	var/times_warned = 0
+	var/obj/structure/safe/drilled
+
+/datum/status_effect/drill_payback/on_creation(mob/living/new_owner, obj/structure/safe/safe)
+	drilled = safe
+	return ..()
+
+/datum/status_effect/drill_payback/on_apply()
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
+	return TRUE
+
+/datum/status_effect/drill_payback/proc/payback_phase_2()
+	owner.clear_fullscreen("payback")
+	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+
+/datum/status_effect/drill_payback/tick()
+	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) // No privelegies for that who leave his target.
+		to_chat(owner, span_userdanger("Get back to the safe, they are going to get the drill!"))
+		times_warned++
+		if(times_warned >= 6)
+			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+			return
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-3)
+		owner.adjustFireLoss(-3)
+		owner.adjustStaminaLoss(-25)
+
+/datum/status_effect/drill_payback/on_remove()
+	..()
+	owner.clear_fullscreen("payback")

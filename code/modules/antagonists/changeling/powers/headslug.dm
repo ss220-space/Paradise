@@ -46,6 +46,11 @@
 	var/mob/living/simple_animal/hostile/headslug/crab = new(cling_turf)
 	crab.origin = user_mind
 
+	if(cling.evented) // change colour to native for this slug
+		crab.icon_state = "headslugevent"
+		crab.icon_living = "headslugevent"
+		crab.icon_dead = "headslug_deadevent"
+
 	if(crab.origin)
 		crab.origin.active = TRUE
 		crab.origin.transfer_to(crab)

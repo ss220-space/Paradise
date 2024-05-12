@@ -89,7 +89,7 @@
 	name = "Pompadour"
 	icon_state = "pompadour"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/quiff
@@ -114,19 +114,19 @@
 	name = "Beehive"
 	icon_state = "beehive"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bobcurl
 	name = "Bobcurl"
 	icon_state = "bobcurl"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bob
 	name = "Bob"
 	icon_state = "bobcut"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bowl
 	name = "Bowl"
@@ -148,7 +148,7 @@
 	name = "Buzzcut"
 	icon_state = "buzzcut"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/crew
@@ -217,7 +217,7 @@
 /datum/sprite_accessory/hair/mohawk
 	name = "Mohawk"
 	icon_state = "mohawk"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/jensen
@@ -252,7 +252,7 @@
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
 	icon_state = "spikey"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/kusanagi
@@ -755,7 +755,7 @@
 /datum/sprite_accessory/hair/fluff/pinapple_fluff_hair //Pineapple Salad hair fluff its for a slime..has to go under human
 	name = "Sasook Hair"
 	icon_state = "psalad_fluff_hair"
-	species_allowed = list("Slime People")
+	species_allowed = list(SPECIES_SLIMEPERSON)
 
 ///BAY12 Hairsyles///
 
@@ -805,7 +805,7 @@
 	icon_state = "long_braided"
 
 /datum/sprite_accessory/hair/long_emo
-	name = "Long Emo"
+	name = "Long Emo alt"
 	icon_state = "longemo_alt"
 
 /datum/sprite_accessory/hair/zone1
@@ -865,7 +865,7 @@
 	icon_state = "combedbob"
 
 /datum/sprite_accessory/hair/slightlymessy
-	name = "Slightlymessy"
+	name = "Slightly messy"
 	icon_state = "slightlymessy"
 
 /datum/sprite_accessory/hair/geisha
@@ -883,3 +883,83 @@
 /datum/sprite_accessory/hair/short_spiked
 	name = "Short Spiked"
 	icon_state = "short_spiked"
+
+/datum/sprite_accessory/hair/casual_cut
+	name = "Casual Cut"
+	icon_state = "casual_cut"
+
+/datum/sprite_accessory/hair/side_sweep
+	name = "Side Sweep"
+	icon_state = "side_sweep"
+
+/datum/sprite_accessory/hair/kreoline_whomen
+	name = "Kreoline Whomen"
+	icon_state = "kreoline_whomen"
+
+/datum/sprite_accessory/hair/newyou
+	name = "New You"
+	icon_state = "newyou"
+
+/datum/sprite_accessory/hair/sidecut_r
+	name = "Sidecut Right"
+	icon_state = "rightside"
+
+/datum/sprite_accessory/hair/sidecut_l
+	name = "Sidecut Left"
+	icon_state = "leftside"
+
+/datum/sprite_accessory/hair/longstraighttail
+	name = "Ponytail Straight"
+	icon_state = "longstraightponytail"
+
+/datum/sprite_accessory/hair/secretary_cut
+	name = "Secretary Cut"
+	icon_state = "secretary_cut"
+
+/datum/sprite_accessory/hair/akari
+	name = "Akari"
+	icon_state = "akari"
+
+/datum/sprite_accessory/hair/aradia
+	name = "Aradia"
+	icon_state = "aradia"
+
+/datum/sprite_accessory/hair/fastline
+	name = "Fastline"
+	icon_state = "fastline"
+
+/datum/sprite_accessory/hair/blackswordsman
+	name = "Swordsman"
+	icon_state = "blackswordsman"
+
+/datum/sprite_accessory/hair/dirk
+	name = "Dirk"
+	icon_state = "dirk"
+
+/datum/sprite_accessory/hair/mentalist
+	name = "Mentalist"
+	icon_state = "mentalist"
+
+/datum/sprite_accessory/hair/ramona
+	name = "Ramona"
+	icon_state = "ramona"
+
+/datum/sprite_accessory/hair/cotton
+	name = "Cotton hair"
+	icon_state = "cotton_hair"
+
+/datum/sprite_accessory/hair/pigtailsalt
+	name = "African Pigtails"
+	icon_state = "african_pigtails"
+
+/datum/sprite_accessory/hair/slightlymessyalt
+	name = "Slightly Messy alt"
+	icon_state = "slightmessy_2"
+
+/datum/sprite_accessory/hair/wild
+	name = "Wild"
+	icon_state = "wild"
+
+/datum/sprite_accessory/hair/undercutfem
+	name = "Female undercut"
+	icon_state = "undercut_fem"

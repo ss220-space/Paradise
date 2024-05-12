@@ -6,7 +6,7 @@
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -30,7 +30,7 @@
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -49,11 +49,13 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 40
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -77,13 +79,15 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
 	sharp = 1
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
@@ -92,8 +96,6 @@
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
-/obj/item/katana/cursed
-	slot_flags = null
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
@@ -106,19 +108,20 @@
 	item_state = "basalt_katana"
 	force = 30
 	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
 
-	var/fauna_damage_bonus = 40
-	var/fauna_damage_type = BRUTE
-
-/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+/obj/item/katana/basalt/attack(mob/living/target, mob/living/carbon/human/user)
+	var/nemesis_faction = FALSE
+	if(LAZYLEN(nemesis_factions))
+		for(var/F in target.faction)
+			if(F in nemesis_factions)
+				nemesis_faction = TRUE
+				force += faction_bonus_force
+				break
 	. = ..()
-	if(!proximity)
-		return
-	if(isliving(target))
-		var/mob/living/L = target
-		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
-			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
-			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
+	if(nemesis_faction)
+		force -= faction_bonus_force
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -164,7 +167,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
+	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))
@@ -213,6 +216,8 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
+	drop_sound = 'sound/items/handling/wooden_drop.ogg'
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
@@ -235,7 +240,7 @@
 				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(I.thrownby, 20, 20, owner)
+				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
@@ -274,7 +279,7 @@
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
-	if(do_after(user, 90, target = user))
+	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1
 	..()
@@ -342,7 +347,6 @@
 	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
 	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
 	и инструментом высшего правосудия."
-	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 	can_deflect = FALSE
@@ -367,70 +371,67 @@
 	/// Attack verbs when extended (created on Initialize)
 	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
 
+
 /obj/item/melee/baseball_bat/homerun/central_command/srt
 	name = "тактическая бита ГСН"
 	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
-
 	item_state = "srt_bat_0"
 	item_state_on = "srt_bat_1"
 	icon_state = "srt_bat_0"
 	icon_state_on = "srt_bat_1"
 
-/obj/item/melee/baseball_bat/homerun/central_command/Initialize(mapload)
-	. = ..()
+
+/obj/item/melee/baseball_bat/homerun/central_command/update_icon_state()
 	icon_state = on ? icon_state_on : initial(icon_state)
+	item_state = on ? item_state_on : initial(item_state)
+
+
+/obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
+	on = !on
+	slot_flags = on ? NONE : ITEM_SLOT_BELT
 	force = on ? force_on : initial(force)
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
+	homerun_ready = on
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+	playsound(loc, extend_sound, 50, TRUE)
+	add_fingerprint(user)
+	if(on)
+		to_chat(user, span_userdanger("Вы активировали [name] - время для правосудия!"))
+	else
+		to_chat(user, span_notice("Вы деактивировали [name]."))
+
+
 
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
-	. = ..()
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		else
 			user.adjustBruteLoss(rand(force/2, force))
-		return
+		return FALSE
+	return ..()
+
 
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
-	on = !on
-	icon_state = on ? icon_state_on : initial(icon_state)
-	if(on)
-		to_chat(user, "<span class='userdanger'>Вы активировали [src.name] - время для правосудия!</span>")
-		item_state = item_state_on
-		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
-		force = force_on
-		attack_verb = attack_verb_on
-		homerun_ready = TRUE
-	else
-		to_chat(user, "<span class='notice'>Вы деактивировали [src.name].</span>")
-		item_state = initial(item_state)
-		slot_flags = SLOT_BELT
-		w_class = WEIGHT_CLASS_SMALL
-		force = initial(force)
-		attack_verb = initial(attack_verb)
-		homerun_ready = FALSE
-	// Update mob hand visuals
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	playsound(loc, extend_sound, 50, TRUE)
-	add_fingerprint(user)
+	toggle(user)
+
 
 /obj/item/claymore/bone
 	name = "bone sword"
 	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 18
 	throwforce = 10
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
+

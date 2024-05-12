@@ -91,14 +91,6 @@
 #define IS_WEAKEN_IMMUNE(source, ignore_canweaken) ((source.status_flags & GODMODE) || (!ignore_canweaken && !(source.status_flags & CANWEAKEN)))
 #define IS_PARALYZE_IMMUNE(source, ignore_canparalyse) ((source.status_flags & GODMODE) || (!ignore_canparalyse && !(source.status_flags & CANPARALYSE)))
 
-/mob/living
-
-	// Booleans
-	var/resting = FALSE
-
-	/*
-	STATUS EFFECTS
-	*/
 
 // RESTING
 
@@ -365,7 +357,10 @@
 	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
 // PARALYSE
-/mob/living/proc/IsParalyzed()
+/mob/proc/IsParalyzed()
+	return FALSE
+
+/mob/living/IsParalyzed()
 	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
 /mob/living/proc/AmountParalyzed()
@@ -408,6 +403,17 @@
 	if(status_flags & GODMODE)
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
+
+/mob/living/proc/AmountAbsoluteSilenced()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED)
+
+/mob/living/proc/AbsoluteSilence(amount)
+	SetAbsoluteSilence(max(amount, AmountAbsoluteSilenced()))
+
+/mob/living/proc/SetAbsoluteSilence(amount)
+	if(status_flags & GODMODE)
+		return
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
 
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
@@ -486,10 +492,10 @@
 	return S
 
 
-/mob/living/proc/AdjustSlowedDuration(amount)
+/mob/living/proc/AdjustSlowedDuration(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(S)
-		S.duration += amount
+		S.duration = directional_bounded_sum(S.duration, amount, bound_lower, bound_upper)
 
 /mob/living/proc/AdjustSlowedIntensity(intensity)
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
@@ -542,7 +548,10 @@
 	SetClockSlur(directional_bounded_sum(AmountClockSlurring(), amount, bound_lower, bound_upper))
 
 /* STUN */
-/mob/living/proc/IsStunned() //If we're stunned
+/mob/proc/IsStunned()
+	return FALSE
+
+/mob/living/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)
 
 /mob/living/proc/AmountStun() //How many deciseconds remain in our stun
@@ -652,7 +661,10 @@
 
 // WEAKEN
 
-/mob/living/proc/IsWeakened()
+/mob/proc/IsWeakened()
+	return FALSE
+
+/mob/living/IsWeakened()
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
@@ -726,13 +738,8 @@
 /mob/living/proc/AdjustDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetDeaf(directional_bounded_sum(AmountDeaf(), amount, bound_lower, bound_upper))
 
-/mob/living/proc/BecomeDeaf()
-	mutations |= DEAF
-
 /mob/living/proc/CureDeaf()
-	mutations -= DEAF
 	CureIfHasDisability(GLOB.deafblock)
-
 
 //
 //		DISABILITIES
@@ -819,10 +826,51 @@
 	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
-	if(dna && dna.GetSEState(block))
-		dna.SetSEState(block, 0, 1) //Fix the gene
-		genemutcheck(src, block,null, MUTCHK_FORCED)
-		dna.UpdateSE()
+	if(dna?.GetSEState(block))
+		force_gene_block(block, FALSE)
+
+
+///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/mob/living/proc/unignore_slowdown(source)
+	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
+	update_movespeed()
+
+
+///Ignores all slowdowns that lack the IGNORE_NOSLOW flag.
+/mob/living/proc/ignore_slowdown(source)
+	ADD_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)
+	update_movespeed()
+
+
+///Ignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/add_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYADDASSOCLIST(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYADDASSOCLIST(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()
+
+
+///Unignores specific slowdowns. Accepts a list of slowdowns.
+/mob/living/proc/remove_movespeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYREMOVEASSOC(movespeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYREMOVEASSOC(movespeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_movespeed()
+
 
 ///////////////////////////////// FROZEN /////////////////////////////////////
 

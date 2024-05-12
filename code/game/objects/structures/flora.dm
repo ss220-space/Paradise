@@ -5,8 +5,8 @@
 //trees
 /obj/structure/flora/tree
 	name = "tree"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -14,15 +14,18 @@
 	name = "pine tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
+	var/randomize_tree = TRUE
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
 	. = ..()
-	icon_state = "pine_[rand(1, 3)]"
+	if(randomize_tree)
+		icon_state = "pine_[rand(1, 3)]"
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
+	randomize_tree = FALSE
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'
@@ -62,7 +65,7 @@
 /obj/structure/flora/grass
 	name = "grass"
 	icon = 'icons/obj/flora/snowflora.dmi'
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/grass/brown
@@ -93,7 +96,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/bush/Initialize(mapload)
@@ -106,7 +109,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 15
 
 /obj/structure/flora/ausbushes/Initialize(mapload)
@@ -223,8 +226,8 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	flags = NO_PIXEL_RANDOM_DROP
-	anchored = 0
+	item_flags = NO_PIXEL_RANDOM_DROP
+	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
@@ -238,6 +241,8 @@
 	var/l_range_init
 	/// Light power plant will get on init
 	var/l_power_init
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 
 
 /obj/item/twohanded/required/kirbyplants/New()
@@ -250,11 +255,13 @@
 	if(num == 9)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_on(TRUE)
 	else if(num == 20)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_on(TRUE)
 
 
 /obj/item/twohanded/required/kirbyplants/Destroy()
@@ -264,10 +271,8 @@
 
 
 /obj/item/twohanded/required/kirbyplants/extinguish_light(force = FALSE)
-	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+	if(light_on)
+		set_light_on(FALSE)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the plant. Perhaps shining a light will force it to clear?"
 		START_PROCESSING(SSobj, src)
@@ -285,9 +290,7 @@
 
 /obj/item/twohanded/required/kirbyplants/proc/reset_light()
 	light_process = 0
-	light_power = l_power_init
-	light_range = l_range_init
-	update_light()
+	set_light_on(TRUE)
 	name = initial(name)
 	desc = initial(desc)
 	STOP_PROCESSING(SSobj, src)
@@ -301,8 +304,8 @@
 	I.override = 1
 	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
-/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
-	..()
+/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/required/kirbyplants/dead
@@ -318,7 +321,7 @@
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/rock/Initialize(mapload)
 	. = ..()
@@ -367,7 +370,7 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -380,7 +383,7 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
+	density = TRUE
 	climbable = 1 // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
@@ -394,8 +397,8 @@
 	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
 	var/stump = 0
@@ -422,7 +425,7 @@
 						icon_state = "stump[rand(1,2)]"
 						name = "cleared foliage"
 						desc = "There used to be dense undergrowth here."
-						density = 0
+						set_density(FALSE)
 						stump = 1
 						pixel_x = rand(-6,6)
 						pixel_y = rand(-6,6)
@@ -496,3 +499,103 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
+
+
+//hellflora from shiptest
+/obj/structure/flora/firebush
+	name = "flaming bush"
+	desc = "A bush being consumed by flames. Maybe it'll rise from its ashes like a phoenix?"
+	icon = 'icons/obj/flora/hellflora.dmi'
+	icon_state = "hell_bush"
+	density = FALSE
+	light_color = "#e08300"
+	light_power = 2
+	light_range = 3
+	resistance_flags = LAVA_PROOF
+
+/obj/structure/flora/ausbushes/fullgrass/hell
+	name = "thick hellish grass"
+	desc = "A thick patch of grass tinted red."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_range = 2
+	light_power = 3
+	resistance_flags = LAVA_PROOF
+	gender = PLURAL
+
+/obj/structure/flora/ausbushes/fullgrass/hell/Initialize()
+	. = ..()
+	icon_state = "fullgrass_[rand(1, 3)]"
+	light_color = pick("#e87800", "#780606")
+
+/obj/structure/flora/ausbushes/sparsegrass/hell
+	name = "sparse hellish grass"
+	desc = "A sparse patch of grass tinted red."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_range = 2
+	light_power = 3
+	resistance_flags = LAVA_PROOF
+	gender = PLURAL
+
+/obj/structure/flora/ausbushes/sparsegrass/hell/Initialize()
+	. = ..()
+	icon_state = "sparsegrass_[rand(1, 3)]"
+	light_color = pick("#e87800", "#780606")
+
+/obj/structure/flora/ausbushes/grassybush/hell
+	name = "crimson bush"
+	desc = "A crimson bush, native to lava planets."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_color = "#c70404"
+	light_range = 2
+	light_power = 3
+	resistance_flags = LAVA_PROOF
+
+/obj/structure/flora/ausbushes/hell
+	name = "smouldering bush"
+	desc = "Some kind of orange plant that appears to be slowly burning."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_range = 2
+	light_power = 1
+	resistance_flags = LAVA_PROOF
+
+/obj/structure/flora/ausbushes/hell/Initialize()
+	. = ..()
+	if(icon_state == "firstbush_1")
+		icon_state = "firstbush_[rand(1, 4)]"
+	light_color = pick("#e87800", "#780606")
+
+/obj/structure/flora/ausbushes/fernybush/hell
+	name = "hellish fern"
+	desc = "Some kind of orange fern."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_range = 2
+	light_power = 1
+	resistance_flags = LAVA_PROOF
+
+/obj/structure/flora/ausbushes/fernybush/hell/Initialize()
+	. = ..()
+	icon_state = "fernybush_[rand(1, 3)]"
+	light_color = pick("#e87800", "#780606")
+
+/obj/structure/flora/ausbushes/genericbush/hell
+	name = "hellish bush"
+	desc = "A small crimson bush."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_range = 2
+	light_power = 2
+	resistance_flags = LAVA_PROOF
+
+/obj/structure/flora/ausbushes/genericbush/hell/Initialize()
+	. = ..()
+	icon_state = "genericbush_[rand(1, 4)]"
+	light_color = pick("#e87800", "#780606")
+
+/obj/structure/flora/ausbushes/ywflowers/hell
+	name = "lavablossom"
+	desc = "Some red and orange flowers. They appear to be faintly glowing."
+	icon = 'icons/obj/flora/hellflora.dmi'
+	light_color = "#aba507"
+	light_power = 3
+	light_range = 2
+	resistance_flags = LAVA_PROOF
+	gender = PLURAL

@@ -10,7 +10,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 
-/datum/action/innate/small_sprite_dragon/Trigger()
+/datum/action/innate/small_sprite_dragon/Trigger(left_click = TRUE)
 	..()
 	if(owner.stat == DEAD)
 		return
@@ -50,7 +50,7 @@
 	space_dragon = null
 
 
-/datum/action/innate/space_dragon_gust/Trigger()
+/datum/action/innate/space_dragon_gust/Trigger(left_click = TRUE)
 	. = ..()
 	if(space_dragon?.stat == DEAD)
 		return
@@ -82,7 +82,7 @@
 		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Для него нужна поверхность!"))
 		return
 	to_chat(owner, span_notice("Вы начинаете открывать разлом..."))
-	if(!do_after(owner, 10 SECONDS, target = owner))
+	if(!do_after(owner, 10 SECONDS, owner))
 		return
 	if(locate(/obj/structure/carp_rift) in owner.loc)
 		return
@@ -129,14 +129,14 @@
 
 	var/list/open_exit_turfs = list()
 	for (var/turf/potential_exit as anything in (RANGE_TURFS(1, target_turf) - target_turf))
-		if(is_blocked_turf(potential_exit, exclude_mobs = TRUE))
+		if(potential_exit.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		open_exit_turfs += potential_exit
 
 	if(!length(open_exit_turfs))
 		to_chat(owner, span_warning("Нет выхода!"))
 		return FALSE
-	if(!is_blocked_turf(target_turf, exclude_mobs = TRUE))
+	if(!target_turf.is_blocked_turf(exclude_mobs = TRUE))
 		open_exit_turfs += target_turf
 
 	new /obj/effect/temp_visual/lesser_carp_rift/exit(target_turf)

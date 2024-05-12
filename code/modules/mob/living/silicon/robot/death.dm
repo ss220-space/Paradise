@@ -3,10 +3,10 @@
 		return FALSE
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -32,10 +32,10 @@
 /mob/living/silicon/robot/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 	GLOB.dead_mob_list -= src
@@ -53,12 +53,8 @@
 	QDEL_IN(animation, 15)
 
 /mob/living/silicon/robot/death(gibbed)
-	if(can_die())
-		if(!gibbed && deathgasp_on_death)
-			emote("deathgasp", force = TRUE)
-
-		if(module)
-			module.handle_death(src, gibbed)
+	if(can_die() && module)
+		module.handle_death(src, gibbed)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)

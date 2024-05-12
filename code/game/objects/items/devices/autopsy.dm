@@ -8,7 +8,8 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
-	var/target_name = null
+	var/target_UID = null
+	var/target_name = null	// target.name can change after scanning, so better save it here.
 	var/timeofdeath = null
 
 /obj/item/autopsy_scanner/Destroy()
@@ -39,33 +40,32 @@
 	W.time_inflicted = time_inflicted
 	return W
 
-/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/O)
-	if(O.autopsy_data.len)
-		for(var/V in O.autopsy_data)
-			var/datum/autopsy_data/W = O.autopsy_data[V]
+/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/check_organ)
+	for(var/index in check_organ.autopsy_data)
+		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-			var/datum/autopsy_data_scanner/D = wdata[V]
-			if(!D)
-				D = new()
-				D.weapon = W.weapon
-				wdata[V] = D
+		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
+		if(!scanner_data)
+			scanner_data = new
+			scanner_data.weapon = weapon_data.weapon
+			wdata[index] = scanner_data
 
-			if(!D.organs_scanned[O.name])
-				if(D.organ_names == "")
-					D.organ_names = O.name
-				else
-					D.organ_names += ", [O.name]"
+		if(!scanner_data.organs_scanned[check_organ.name])
+			if(scanner_data.organ_names == "")
+				scanner_data.organ_names = check_organ.name
+			else
+				scanner_data.organ_names += ", [check_organ.name]"
 
-			qdel(D.organs_scanned[O.name])
-			D.organs_scanned[O.name] = W.copy()
+		qdel(scanner_data.organs_scanned[check_organ.name])
+		scanner_data.organs_scanned[check_organ.name] = weapon_data.copy()
 
-	if(O.trace_chemicals.len)
-		for(var/V in O.trace_chemicals)
-			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
-				chemtraces += V
+	for(var/chemID in check_organ.trace_chemicals)
+		if(check_organ.trace_chemicals[chemID] > 0 && !chemtraces.Find(chemID))
+			chemtraces += chemID
+
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		var/dead_name = input("Insert name of deceased individual")
 		var/dead_rank = input("Insert rank of deceased individual")
 		var/dead_tod = input("Insert time of death")
@@ -87,7 +87,7 @@
 	if(timeofdeath)
 		scan_data += "<b>Time of death:</b> [station_time_timestamp("hh:mm:ss", timeofdeath)]<br><br>"
 	else
-		scan_data += "<b>Time of death:</b> Unknown / Still alive<br><br>"
+		scan_data += "<b>Time of death:</b> No data<br><br>"
 
 	if(wdata.len)
 		var/n = 1
@@ -137,7 +137,7 @@
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	flick("autopsy_scanner_anim", src)
@@ -146,7 +146,7 @@
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
-	P.overlays += "paper_words"
+	P.update_icon()
 
 	user.put_in_hands(P, ignore_anim = FALSE)
 
@@ -154,23 +154,24 @@
 	if(!istype(M))
 		return
 
-	if(!can_operate(M))
+	if(!on_operable_surface(M))
 		return
 
-	if(target_name != M.name)
+	if(target_UID != M.UID())
+		to_chat(user, span_notice("A new patient has been registered.[target_UID ? " Purging data for previous patient." : ""]"))
+		target_UID = M.UID()
 		target_name = M.name
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
-		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
 
 	timeofdeath = M.timeofdeath
 
 	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
 	if(!S)
-		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
+		to_chat(user, span_warning("You can't scan this body part!"))
 		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S] with [src]</span>")
+	M.visible_message(span_notice("[user] scans the wounds on [M]'s [S] with [src]."))
 
 	add_data(S)
-	return 1
+	return TRUE

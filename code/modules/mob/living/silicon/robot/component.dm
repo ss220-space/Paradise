@@ -229,7 +229,7 @@
 	item_state = "analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries."
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
@@ -255,7 +255,7 @@
 	var/scan_type
 	if(istype(M, /mob/living/silicon/robot))
 		scan_type = "robot"
-	else if(istype(M, /mob/living/carbon/human))
+	else if(ishuman(M))
 		scan_type = "prosthetics"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
@@ -300,23 +300,21 @@
 			to_chat(user, "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
-			var/organ_found
-			if(LAZYLEN(H.internal_organs))
-				for(var/obj/item/organ/external/E in H.bodyparts)
-					if(!E.is_robotic())
-						continue
-					organ_found = TRUE
-					to_chat(user, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
+			var/organ_found = FALSE
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				if(!bodypart.is_robotic())
+					continue
+				organ_found = TRUE
+				to_chat(user, "[bodypart.name]: <font color='red'>[bodypart.brute_dam]</font> <font color='#FFA500'>[bodypart.burn_dam]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 			to_chat(user, "<hr>")
 			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
-			organ_found = null
-			if(LAZYLEN(H.internal_organs))
-				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic())
-						continue
-					organ_found = TRUE
-					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
+			organ_found = FALSE
+			for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+				if(!organ.is_robotic())
+					continue
+				organ_found = TRUE
+				to_chat(user, "[capitalize(organ.name)]: <font color='red'>[organ.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")

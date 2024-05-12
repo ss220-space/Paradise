@@ -7,8 +7,9 @@
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
-	large = 1
-	ventcrawler = 0
+	large = TRUE
+	move_resist = MOVE_FORCE_STRONG
+	ventcrawler_trait = null
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
@@ -18,17 +19,20 @@
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
 		icon_state = "empress_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || lying_angle || resting)
 		icon_state = "empress_sleep"
 	else
 		icon_state = "empress_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	//there should only be one queen

@@ -1,3 +1,9 @@
+//antag paradise gamemode type defines
+#define ANTAG_SINGLE	"antag_single"
+#define ANTAG_DOUBLE	"antag_double"
+#define ANTAG_TRIPPLE	"antag_tripple"
+#define ANTAG_RANDOM	"antag_random"
+
 //objective defines
 #define TARGET_INVALID_IS_OWNER		1
 #define TARGET_INVALID_NOT_HUMAN	2
@@ -35,6 +41,7 @@
 #define SPECIAL_ROLE_FREE_GOLEM "Free Golem"
 #define SPECIAL_ROLE_GOLEM "Golem"
 #define SPECIAL_ROLE_HEAD_REV "Head Revolutionary"
+#define SPECIAL_ROLE_HEADSLUG "HeadSlug"
 #define SPECIAL_ROLE_HONKSQUAD "Honksquad"
 #define SPECIAL_ROLE_REV "Revolutionary"
 #define SPECIAL_ROLE_MORPH "Morph"
@@ -45,7 +52,7 @@
 #define SPECIAL_ROLE_REVENANT "Revenant"
 #define SPECIAL_ROLE_SHADOWLING "Shadowling"
 #define SPECIAL_ROLE_SHADOWLING_THRALL "Shadowling Thrall"
-#define SPECIAL_ROLE_SLAUGHTER_DEMON "Slaughter Demon"
+#define SPECIAL_ROLE_DEMON "Demon"
 #define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"

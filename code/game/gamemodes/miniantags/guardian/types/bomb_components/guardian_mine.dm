@@ -1,7 +1,7 @@
 /**
  *  Guardian's mines. Can be attached to anything to do explosive stuff on a victim.
  */
-#define MINE_LIFE_TIME 60 SECONDS
+#define MINE_LIFE_TIME (60 SECONDS)
 
 ///Datum specialized for guardian(holoparasite)-bomber.
 /datum/component/guardian_mine
@@ -72,16 +72,7 @@
 	playsound(get_turf(parent_atom),'sound/effects/explosion1.ogg', 200, 1)
 	victim.ex_act(3)
 	victim.Weaken(6 SECONDS)
-	if(ishuman(victim))
-		dead_legs(victim)
-	victim.adjustBruteLoss(40)
+	victim.adjustBruteLoss(20)
 	is_exploded = TRUE
 	UnregisterFromParent()
 
-/datum/component/guardian_mine/proc/dead_legs(mob/living/carbon/human/human)
-	var/obj/item/organ/external/l = human.get_organ("l_leg")
-	var/obj/item/organ/external/r = human.get_organ("r_leg")
-	if(l && prob(50))
-		l.droplimb(0, DROPLIMB_SHARP)
-	if(r && prob(50))
-		r.droplimb(0, DROPLIMB_SHARP)

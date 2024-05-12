@@ -36,6 +36,7 @@
 	if(current)
 		qdel(current)
 		to_chat(user, span_notice("You dispel your claws!"))
+		return COMPONENT_CANCEL_DROP
 
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
@@ -50,7 +51,7 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = ABSTRACT | NODROP | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	force = 15
 	force_wielded = 15
 	armour_penetration = 40
@@ -58,7 +59,7 @@
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
-	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
+	sprite_sheets_inhand = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi', SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
@@ -67,6 +68,7 @@
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	parent_spell = new_parent_spell
 
 
@@ -91,12 +93,13 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		// no parameter in [affects_vampire()] so holy always protects
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna?.species?.species_traits))
 			C.bleed(blood_drain_amount)
-			V.adjust_blood(C, blood_absorbed_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustWeakened(-1 SECONDS) // blood is fuel
+			if(!C.dna.species.exotic_blood)
+				V.adjust_blood(C, blood_absorbed_amount)
 
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
@@ -250,7 +253,7 @@
 		return
 
 	var/wall_count
-	for(var/turf/T in getline(target_turf, start_turf))
+	for(var/turf/T as anything in get_line(target_turf, start_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)
@@ -294,7 +297,11 @@
 	return ..()
 
 
-/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target, height)
+/obj/structure/blood_barrier/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
+
 	if(!isliving(mover))
 		return FALSE
 
@@ -314,7 +321,7 @@
 	name = "Sanguine Pool"
 	desc = "You shift your form into a pool of blood, making you invulnerable and able to move through anything that's not a wall or space. You leave a trail of blood behind you when you do this."
 	gain_desc = "You have gained the ability to shift into a pool of blood, allowing you to evade pursuers with great mobility."
-	jaunt_duration = 3 SECONDS
+	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
 	panel = "Vampire"
 	school = "vampire"

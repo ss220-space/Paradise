@@ -39,11 +39,13 @@
 	var/list/data = list()
 
 	var/list/alive = list()
+	var/list/highlights = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/length_of_ghosts = length(get_observers())
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
@@ -62,6 +64,12 @@
 			continue
 
 		serialized["ref"] = "\ref[M]"
+		var/orbiters = 0
+		if(ismob(M))
+			orbiters = M.ghost_orbiting
+
+		if(orbiters > 0)
+			serialized["orbiters"] = orbiters
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
@@ -73,6 +81,8 @@
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
+				if(orbiters >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
+					highlights += list(serialized)
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
@@ -103,22 +113,22 @@
 					// Associative list of antag name => whether this mind is this antag
 					if(SSticker && SSticker.mode)
 						other_antags += list(
-							"Abductees — ([SSticker.mode.abductees.len])" = (mind in SSticker.mode.abductees),
-							"Abductors — ([SSticker.mode.abductors.len])" = (mind in SSticker.mode.abductors),
-							"Devils — ([SSticker.mode.devils.len])" = (mind in SSticker.mode.devils),
-							"Event Roles — ([SSticker.mode.eventmiscs.len])" = (mind in SSticker.mode.eventmiscs),
-							"Nar’Sie Cultists — ([SSticker.mode.cult.len])" = (mind in SSticker.mode.cult),
-							"Nuclear Operatives — ([SSticker.mode.syndicates.len])" = (mind in SSticker.mode.syndicates),
-							"Ratvar Cultists — ([SSticker.mode.clockwork_cult.len])" = (mind in SSticker.mode.clockwork_cult),
-							"Revolutionary Comrades — ([SSticker.mode.revolutionaries.len])" = (mind in SSticker.mode.revolutionaries),
-							"Revolutionary Heads — ([SSticker.mode.head_revolutionaries.len])" = (mind in SSticker.mode.head_revolutionaries),
-							"Shadowling Thralls — ([SSticker.mode.shadowling_thralls.len])" = (mind in SSticker.mode.shadowling_thralls),
-							"Shadowlings — ([SSticker.mode.shadows.len])" = (mind in SSticker.mode.shadows),
-							"Sintouched — ([SSticker.mode.sintouched.len])" = (mind in SSticker.mode.sintouched),
-							"Spider Clan — ([SSticker.mode.space_ninjas.len])" = (mind in SSticker.mode.space_ninjas),
-							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
-							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
-							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),
+							"Abductees — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
+							"Abductors — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),
+							"Demons — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
+							"Devils — ([length(SSticker.mode.devils)])" = (mind in SSticker.mode.devils),
+							"Event Roles — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
+							"Nar’Sie Cultists — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
+							"Nuclear Operatives — ([length(SSticker.mode.syndicates)])" = (mind in SSticker.mode.syndicates),
+							"Ratvar Cultists — ([length(SSticker.mode.clockwork_cult)])" = (mind in SSticker.mode.clockwork_cult),
+							"Revolutionary Comrades — ([length(SSticker.mode.revolutionaries)])" = (mind in SSticker.mode.revolutionaries),
+							"Revolutionary Heads — ([length(SSticker.mode.head_revolutionaries)])" = (mind in SSticker.mode.head_revolutionaries),
+							"Shadowling Thralls — ([length(SSticker.mode.shadowling_thralls)])" = (mind in SSticker.mode.shadowling_thralls),
+							"Shadowlings — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
+							"Sintouched — ([length(SSticker.mode.sintouched)])" = (mind in SSticker.mode.sintouched),
+							"Wizards — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
+							"Wizard’s Apprentices — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
+							"Xenomorphs — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
 						)
 
 				for(var/antag_name in other_antags)
@@ -130,10 +140,13 @@
 					antagonists += list(antag_serialized)
 
 		else
+			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
+				highlights += list(serialized)
 			misc += list(serialized)
 
 	data["alive"] = alive
 	data["antagonists"] = antagonists
+	data["highlights"] = highlights
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc

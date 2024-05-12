@@ -1,7 +1,8 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
-	var/goal = 45000
+	gamemode_blacklist = list("extended")
+	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
@@ -375,6 +376,9 @@
 
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -427,7 +431,7 @@
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
-/obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
+/obj/machinery/power/bluespace_tap/emag_act(mob/user)
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")

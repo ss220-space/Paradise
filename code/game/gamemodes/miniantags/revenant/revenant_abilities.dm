@@ -46,7 +46,7 @@
 	draining = TRUE
 	essence_drained = rand(15, 20)
 	to_chat(src, "<span class='revennotice'>You search for the soul of [target].</span>")
-	if(do_after(src, 10, 0, target = target)) //did they get deleted in that second?
+	if(do_after(src, 1 SECONDS, target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) //did they get deleted in that second?
 		if(target.ckey)
 			to_chat(src, "<span class='revennotice'>Their soul burns with intelligence.</span>")
 			essence_drained += rand(20, 30)
@@ -55,7 +55,7 @@
 			essence_drained += rand(40, 50)
 		else
 			to_chat(src, "<span class='revennotice'>Their soul is weak and faltering.</span>")
-		if(do_after(src, 20, 0, target = target)) //did they get deleted NOW?
+		if(do_after(src, 2 SECONDS, target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
 					to_chat(src, "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>")
@@ -65,7 +65,7 @@
 					to_chat(src, "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>")
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
-			if(do_after(src, 20, 0, target = target)) //how about now
+			if(do_after(src, 2 SECONDS, target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
 					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
@@ -74,12 +74,11 @@
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
 				if(target.stat != DEAD)
 					to_chat(target, "<span class='warning'>You feel a horribly unpleasant draining sensation as your grip on life weakens...</span>")
-				icon_state = "revenant_draining"
 				reveal(27)
 				stun(27)
 				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
-				if(do_after(src, 30, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
+				if(do_after(src, 3 SECONDS, target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, 0, target)
 					if(essence_drained > 90)
 						essence_regen_cap += 25
@@ -252,7 +251,7 @@
 	sleep(2 SECONDS)
 	if(!L.on) //wait, wait, don't shock me
 		return
-	flick("[L.base_state]2", L)
+	flick("[L.base_icon_state]2", L)
 	for(var/mob/living/M in view(shock_range, L))
 		if(M == user)
 			continue
@@ -362,7 +361,7 @@
 		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
 			continue
 		// Don't throw abstract things
-		if(nearby_item.flags & ABSTRACT)
+		if(nearby_item.item_flags & ABSTRACT)
 			continue
 		// Don't throw things we can't see
 		if(nearby_item.invisibility > user.see_invisible)
@@ -481,11 +480,9 @@
 /turf/simulated/floor/defile()
 	..()
 	if(prob(15))
-		if(intact && floor_tile)
-			new floor_tile(src)
 		broken = FALSE
 		burnt = FALSE
-		make_plating(1)
+		make_plating(intact)
 
 /turf/simulated/floor/plating/defile()
 	if(flags & NOJAUNT)

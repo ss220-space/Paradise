@@ -1,7 +1,7 @@
 /obj/item/gun/magic/staff
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -81,7 +81,7 @@
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	force = 20
+	force = 25
 	armour_penetration = 75
 	block_chance = 50
 	sharp = 1

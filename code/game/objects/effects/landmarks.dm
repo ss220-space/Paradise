@@ -3,14 +3,14 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 	layer = 5
-	anchored = 1.0
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/New()
 
 	..()
 	set_tag()
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	switch(name)			//some of these are probably obsolete
 		if("start")
@@ -103,8 +103,7 @@
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return ..()
 
 /obj/effect/landmark/singularity_act()
 	return
@@ -363,7 +362,7 @@
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = "Student Sientist"
+	name = "Student Scientist"
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist
@@ -685,3 +684,14 @@
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
 
+/obj/effect/landmark/spawner/bubblegum_arena
+	name = "bubblegum_arena_human"
+	icon_state = "awaystart"
+
+/obj/effect/landmark/spawner/bubblegum
+	name = "bubblegum_arena_bubblegum"
+	icon_state = "bubblegumjumpscare"
+
+/obj/effect/landmark/spawner/bubblegum_exit
+	name = "bubblegum_arena_exit"
+	icon_state = "bubblegumjumpscare"

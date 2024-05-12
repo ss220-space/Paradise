@@ -142,7 +142,12 @@
 /obj/item/encryptionkey/heads/hop
 	name = "Head of Personnel's Encryption Key"
 	icon_state = "hop_cypherkey"
-	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
+	channels = list("Service" = 1, "Security" = 0, "Command" = 1)
+
+/obj/item/encryptionkey/heads/qm
+	name = "Quartermaster's Encryption Key"
+	icon_state = "cargo_cypherkey"
+	channels = list("Supply" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"
@@ -164,11 +169,6 @@
 	name = "Mining Radio Encryption Key"
 	icon_state = "mine_cypherkey"
 	channels = list("Mining" = 1)
-
-/obj/item/encryptionkey/heads/qm
-	name = "Quartermaster's Encryption Key"
-	icon_state = "qm_cypherkey"
-	channels = list("Cargo" = 1, "Mining" = 1)
 */
 /obj/item/encryptionkey/headset_cargo
 	name = "Supply Radio Encryption Key"
@@ -193,3 +193,28 @@
 	desc = "Integrated encryption key"
 	icon_state = "cap_cypherkey"
 	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1, "Procedure" = 1)
+
+/obj/item/encryptionkey/admin //totally shitspawn
+	name = "Admin Radio Encryption Key"
+	channels = list("Common" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1, "AI Private" = 1, "Syndicate" = 1, \
+		"Response Team" = 1, "Special Ops" = 1, "SyndTaipan" = 1, "SyndTeam" = 1, "Soviet" = 1, "Medical(I)" = 1, "Security(I)" = 1, "Spy Spider" = 1, "Spider Clan" = 1, "Alpha wave" = 1, "Beta wave" = 1, "Gamma wave" = 1)
+
+/* Currently unusable due to language refactoring.
+/obj/item/encryptionkey/event_1
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :1."
+	icon_state = "sov_cypherkey"
+	channels = list("Alpha wave" = 1)
+
+/obj/item/encryptionkey/event_2
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :2."
+	icon_state = "sov_cypherkey"
+	channels = list("Beta wave" = 1)
+
+/obj/item/encryptionkey/event_3
+	name = "Encryption key"
+	desc = "An encryption key for a radio headset. To access special radio channel, use :3."
+	icon_state = "sov_cypherkey"
+	channels = list("Gamma wave" = 1)
+*/

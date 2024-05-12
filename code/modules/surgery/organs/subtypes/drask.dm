@@ -10,7 +10,7 @@
 	species_type = /datum/species/drask
 	name = "drask heart"
 	icon = 'icons/obj/species_organs/drask.dmi'
-	parent_organ = "head"
+	parent_organ_zone = BODY_ZONE_HEAD
 
 /obj/item/organ/internal/liver/drask
 	species_type = /datum/species/drask
@@ -30,5 +30,5 @@
 	species_type = /datum/species/drask
 	name = "drask eyeballs"
 	icon = 'icons/obj/species_organs/drask.dmi'
-	desc = "Drask eyes. They look even stranger disembodied"
+	desc = "Drask eyes. They look even stranger disembodied."
 	see_in_dark = 5

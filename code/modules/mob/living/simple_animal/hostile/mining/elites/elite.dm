@@ -75,7 +75,7 @@
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.attempt_drill()
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/M = target
 		M.take_damage(mech_damage, BRUTE, "melee", 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
@@ -269,6 +269,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					Хоть и оппонент снаряжен шахтерской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
 					Если вы захотите победить, вам придется использовать свои способности с умом. Вам лучше ознакомиться с ними всеми так быстро, насколько возможно.\n\
 					Good luck!</b>")
+
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
@@ -286,6 +287,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.key = elitemind.key
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
@@ -347,7 +349,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
-		set_light(6)
+		set_light(6, l_on = TRUE)
 		qdel(core)
 		return TRUE
 
@@ -505,10 +507,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
+
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
+
 
 /obj/item/gps/internal/tumor
 	icon_state = null

@@ -1,10 +1,10 @@
 /datum/species/wryn
-	name = "Wryn"
+	name = SPECIES_WRYN
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = "Wryn Hivemind"
+	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -28,29 +28,33 @@
 	body_temperature = 286
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes/wryn, //3 darksight.
-		"appendix" = /obj/item/organ/internal/appendix,
-		"antennae" = /obj/item/organ/internal/wryn/hivenode,
-		"glands" = 	 /obj/item/organ/internal/wryn/glands
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/wryn, //3 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_HIVENODE = /obj/item/organ/internal/wryn/hivenode,
+		INTERNAL_ORGAN_WAX_GLANDS = /obj/item/organ/internal/wryn/glands,
+	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wryn
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/wryn),
-		"groin" =  list("path" = /obj/item/organ/external/groin/wryn),
-		"head" =   list("path" = /obj/item/organ/external/head/wryn),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"tail" =   list("path" = /obj/item/organ/external/tail/wryn))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/wryn),
+		BODY_ZONE_PRECISE_GROIN =  list("path" = /obj/item/organ/external/groin/wryn),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/wryn),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/wryn),
+	)
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_SCAN, HIVEMIND)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_SCAN, HIVEMIND, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 
@@ -84,15 +88,15 @@
 	name = "Жало врина"
 	desc = "Подготовка жала к ужаливанию."
 	button_icon_state = "wryn_sting_off"		//Default Button State
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/button_on = FALSE
 
 //What happens when you click the Button?
-/datum/action/innate/wryn_sting/Trigger()
+/datum/action/innate/wryn_sting/Trigger(left_click = TRUE)
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
-	if((user.restrained() && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
+	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
 		to_chat(user, "<span class='notice'>Вам нужна свобода передвижения, чтобы ужалить кого-то!</span>")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
@@ -144,7 +148,7 @@
 		UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!
-		var/obj/item/organ/external/organ = target.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+		var/obj/item/organ/external/organ = target.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
 		to_chat(user, "<span class='danger'> Вы жалите [target] в [organ]!</span>")
 		user.visible_message("<span class='danger'>[user] жалит [target] в [organ]! </span>")
 		user.adjustStaminaLoss(20)		//You can't sting infinitely, Wryn - take some Stamina loss
@@ -152,7 +156,7 @@
 		target.apply_damage(dam, BRUTE, organ)
 		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, 0)
 		add_attack_logs(user, target, "Stung by Wryn Stinger - [dam] Brute damage to [organ].")
-		if(target.restrained())			//Apply tiny BURN damage if target is restrained
+		if(HAS_TRAIT(target, TRAIT_RESTRAINED))			//Apply tiny BURN damage if target is restrained
 			if(prob(50))
 				user.apply_damage(2, BURN, target)
 				to_chat(target, "<span class='danger'>Вы ощущаете небольшое жжение! Ауч!</span>")
@@ -170,19 +174,19 @@
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/obj/item/organ/internal/wryn/hivenode/node = target.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
-	if(target.handcuffed && node && user.zone_selected == "head")
+	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD)
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
-				if(do_mob(user, target, 250))
-					target.remove_language("Wryn Hivemind")
+				if(do_after(user, 25 SECONDS, target, NONE))
+					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
 					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
 					to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
-					var/obj/item/organ/external/head/head_organ = target.get_organ("head")
+					var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
 					head_organ.h_style = "Bald"
 					target.update_hair()
 

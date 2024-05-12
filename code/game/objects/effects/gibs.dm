@@ -13,14 +13,20 @@
 /proc/clockgibs(atom/location)
 	new /obj/effect/gibspawner/clock(get_turf(location))
 
+/proc/confettigibs(atom/location)
+	new /obj/effect/gibspawner/confetti(get_turf(location))
+
 /obj/effect/gibspawner
 	var/sparks = 0 //whether sparks spread on Gib()
+	var/sound_to_play
+	var/sound_vol = 60
+	var/sound_vary = FALSE
 	var/list/gibtypes = list()
 	var/list/gibamounts = list()
 	var/list/gibdirections = list() //of lists
 
 /obj/effect/gibspawner/Initialize(mapload, datum/dna/mob_dna)
-	..()
+	. = ..()
 	ASSERT(length(gibtypes) == length(gibamounts))
 	ASSERT(length(gibamounts) == length(gibdirections))
 	if(isturf(loc))
@@ -38,7 +44,10 @@
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
 	if(sparks)
-		do_sparks(2, 1, location)
+		do_sparks(sparks, TRUE, location)
+
+	if(sound_to_play && isnum(sound_vol))
+		playsound(location, sound_to_play, sound_vol, sound_vary)
 
 	for(var/gibtype in 1 to length(gibtypes))
 		if(!gibamounts[gibtype])

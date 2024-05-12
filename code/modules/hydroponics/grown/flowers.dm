@@ -14,7 +14,6 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
-	mutatelist = list(/obj/item/seeds/poppy/geranium, /obj/item/seeds/poppy/lily)
 	reagents_add = list("bicaridine" = 0.2, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy
@@ -22,48 +21,89 @@
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
 	icon_state = "poppy"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
 	distill_reagent = "vermouth"
 
 // Lily
-/obj/item/seeds/poppy/lily
+/obj/item/seeds/lily
 	name = "pack of lily seeds"
 	desc = "These seeds grow into lilies."
 	icon_state = "seed-lily"
 	species = "lily"
 	plantname = "Lily Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_grow = "lily-grow"
+	icon_dead = "lily-dead"
+	icon_harvest = "lily-harvest"
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	product = /obj/item/reagent_containers/food/snacks/grown/lily
 	mutatelist = list()
 
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily
-	seed = /obj/item/seeds/poppy/lily
+/obj/item/reagent_containers/food/snacks/grown/lily
+	seed = /obj/item/seeds/lily
 	name = "lily"
-	desc = "A beautiful orange flower"
+	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
+	slot_flags = ITEM_SLOT_HEAD
 	tastes = list("lily" = 1)
 	filling_color = "#FFA500"
 
 // Geranium
-/obj/item/seeds/poppy/geranium
+/obj/item/seeds/geranium
 	name = "pack of geranium seeds"
 	desc = "These seeds grow into geranium."
 	icon_state = "seed-geranium"
 	species = "geranium"
 	plantname = "Geranium Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
-	mutatelist = list()
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_grow = "geranium-grow"
+	icon_dead = "geranium-dead"
+	icon_harvest = "geranium-harvest"
+	growthstages = 3
+	endurance = 30
+	maturation = 5
+	yield = 4
+	potency = 25
+	product = /obj/item/reagent_containers/food/snacks/grown/geranium
+	mutatelist = list(/obj/item/seeds/geranium/forgetmenot)
+	reagents_add = list("bicaridine" = 0.2, "plantmatter" = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium
-	seed = /obj/item/seeds/poppy/geranium
+/obj/item/reagent_containers/food/snacks/grown/geranium
+	seed = /obj/item/seeds/geranium
 	name = "geranium"
-	desc = "A beautiful blue flower"
+	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
+	slot_flags = ITEM_SLOT_HEAD
 	tastes = list("geranium" = 1)
 	filling_color = "#008B8B"
 
+// Forget-me-not
+/obj/item/seeds/geranium/forgetmenot
+	name = "pack of forget-me-not seeds"
+	desc = "These seeds grow into forget-me-not"
+	icon_state = "seed-forget_me_not"
+	species = "forget_me_not"
+	plantname = "Forget-me-not Plants"
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_grow = "forget_me_not-grow"
+	icon_dead = "forget_me_not-dead"
+	icon_harvest = "forget_me_not-harvest"
+	product = /obj/item/reagent_containers/food/snacks/grown/geranium/forgetmenot
+	reagents_add = list("kelotane" = 0.2, "plantmatter" = 0.05)
+
+/obj/item/reagent_containers/food/snacks/grown/geranium/forgetmenot
+	name = "forget-me-not"
+	desc = "A clump of small blue flowers, they are primarily associated with rememberance, respect and loyalty."
+	icon_state = "forget_me_not"
+	tastes = list("forget-me-not" = 1)
+	filling_color = "#4466ff"
 
 // Moonlight
 /obj/item/seeds/moonlight
@@ -84,6 +124,7 @@
 	icon_grow = "moonlight-grow"
 	icon_dead = "moonlight-dead"
 	reagents_add = list("plantmatter" = 0.02, "vitamin" = 0.03, "moonlin" = 0.1)
+
 /obj/item/reagent_containers/food/snacks/grown/moonlight
 	seed = /obj/item/seeds/moonlight
 	name = "moonlight"
@@ -92,7 +133,7 @@
 	icon_state = "moonlight"
 	tastes = list("moonlin" = 1)
 	filling_color = "#46fdfd"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 // Harebell
 /obj/item/seeds/harebell
@@ -118,7 +159,7 @@
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	tastes = list("harebell" = 1)
 	bitesize_mod = 3
@@ -150,7 +191,7 @@
 	icon_state = "sunflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
@@ -179,7 +220,7 @@
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
@@ -206,7 +247,7 @@
 	icon_state = "novaflower"
 	damtype = "fire"
 	force = 0
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
@@ -240,3 +281,32 @@
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))
+//Shavel
+/obj/item/seeds/shavel
+	name = "pack of shavel seeds"
+	desc = "These seeds grow into shavel."
+	icon_state = "seed-shavel"
+	species = "shavel"
+	plantname = "Shavel Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/shavel
+	lifespan = 60
+	endurance = 65
+	potency = 15
+	maturation = 6
+	production = 2
+	yield = 7
+	growthstages = 3
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_grow = "shavel-grow"
+	icon_dead = "shavel-dead"
+	icon_harvest = "shavel-harvest"
+	reagents_add = list("plantmatter" = 0.04, "vitamin" = 0.15)
+/obj/item/reagent_containers/food/snacks/grown/shavel
+	seed = /obj/item/seeds/shavel
+	name = "shavel"
+	desc = "A shavel leaf."
+	origin_tech = "biotech=2"
+	icon_state = "shavel"
+	tastes = list("sour weed" = 1)
+	filling_color = "#177025"

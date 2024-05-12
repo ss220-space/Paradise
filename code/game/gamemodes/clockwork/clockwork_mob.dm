@@ -21,8 +21,7 @@
 	pressure_resistance = 100
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	see_in_dark = 8
-	flying = TRUE
+	nightvision = 8
 	pass_flags = PASSTABLE
 	AIStatus = AI_OFF // Usually someone WILL play for him but i don't know about this on chief.
 	universal_speak = TRUE
@@ -38,6 +37,8 @@
 
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	real_name = text("clockwork marauder ([rand(1, 1000)])")
 	name = real_name
 
@@ -155,7 +156,7 @@
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 		C.deconstruct()
 
-/mob/living/simple_animal/mouse/clockwork/splat(var/obj/item/item = null, var/mob/living/user = null)
+/mob/living/simple_animal/mouse/clockwork/splat(obj/item/item = null, mob/living/user = null)
 	return
 
 /mob/living/simple_animal/mouse/clockwork/toast()

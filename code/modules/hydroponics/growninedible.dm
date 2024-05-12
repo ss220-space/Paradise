@@ -38,7 +38,7 @@
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>\n"
+		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
@@ -49,12 +49,6 @@
 	if(reagents)
 		return 1
 	return 0
-
-/obj/item/grown/after_slip(mob/living/carbon/human/H)
-	if(!seed)
-		return
-	for(var/datum/plant_gene/trait/T in seed.genes)
-		T.on_slip(src, H)
 
 /obj/item/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
@@ -68,5 +62,5 @@
 		return
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
-	set_light(0)
+	set_light_on(FALSE)
 

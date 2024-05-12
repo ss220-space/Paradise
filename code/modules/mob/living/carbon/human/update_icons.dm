@@ -107,7 +107,7 @@ Please contact me on #coderbus IRC. ~Carn x
 	var/list/overlays_standing[TOTAL_LAYERS]
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
 	var/icon/skeleton
-	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
+
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
@@ -129,8 +129,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
-	for(var/obj/item/organ/external/O in bodyparts)
-		damage_appearance += O.damage_state
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		damage_appearance += bodypart.damage_state
 
 	if(damage_appearance == previous_damage_appearance)
 		// nothing to do here
@@ -143,18 +143,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
 	// blend the individual damage states with our icons
-	for(var/D in bodyparts)
-		var/obj/item/organ/external/E = D
-		E.update_icon()
-		if(E.damage_state == "00")
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		bodypart.update_state()
+		if(bodypart.damage_state == "00")
 			continue
 
 		var/icon/DI
-		var/cache_index = "[E.damage_state]/[E.icon_name]/[dna.species.blood_color]/[dna.species.name]"
+		var/cache_index = "[bodypart.damage_state]/[bodypart.icon_name]/[dna.species.blood_color]/[dna.species.name]"
 
 		if(GLOB.damage_icon_parts[cache_index] == null)
-			DI = new /icon(dna.species.damage_overlays, E.damage_state)			// the damage icon for whole human
-			DI.Blend(new /icon(dna.species.damage_mask, E.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
+			DI = new /icon(dna.species.damage_overlays, bodypart.damage_state)			// the damage icon for whole human
+			DI.Blend(new /icon(dna.species.damage_mask, bodypart.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
 			DI.Blend(dna.species.blood_color, ICON_MULTIPLY)
 			GLOB.damage_icon_parts[cache_index] = DI
 		else
@@ -166,7 +165,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
-	remove_overlay(BODY_LAYER)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
@@ -198,13 +196,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
-		var/obj/item/organ/external/chest = get_organ("chest")
-		base_icon = chest.get_icon(skeleton)
+		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
+		if(chest) //I hate it.
+			base_icon = chest.get_icon(skeleton)
 
-		for(var/obj/item/organ/external/part in bodyparts)
-			if(istype(part,/obj/item/organ/external/tail))
-				continue
-			if(istype(part,/obj/item/organ/external/wing))
+		for(var/obj/item/organ/external/part as anything in bodyparts)
+			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
 				continue
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
@@ -284,12 +281,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	overlays_standing[BODY_LAYER] = standing
-	apply_overlay(BODY_LAYER)
-	//tail
-	update_tail()
-	update_wing()
+	//wings
 	update_wing_layer()
+	//tail
 	update_tail_layer()
 	update_int_organs()
 	//head accessory
@@ -310,7 +304,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/icon/markings_standing = icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
 
 	//Body markings.
-	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
+	var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
@@ -320,7 +314,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
@@ -333,41 +327,40 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
 	apply_overlay(MARKINGS_LAYER)
 
+
 //HEAD ACCESSORY OVERLAY
 /mob/living/carbon/human/proc/update_head_accessory()
 	//Reset our head accessory
 	remove_overlay(HEAD_ACCESSORY_LAYER)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ || !head_organ.dna || !head_organ.ha_style)
 		return
 
 	//masks and helmets can obscure our head accessory
-	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags_inv & HIDEHAIR)) || (wear_mask && (wear_mask.flags_inv & HIDEHAIR)))
+		return
+
+	var/datum/sprite_accessory/head_accessory/head_accessory = GLOB.head_accessory_styles_list[head_organ.ha_style]
+	if(!head_accessory || !(head_accessory.species_allowed && (head_organ.dna.species.name in head_accessory.species_allowed)))
 		return
 
 	//base icons
-	var/icon/head_accessory_standing = new /icon('icons/mob/clothing/body_accessory.dmi',"accessory_none_s")
-	if(head_organ.ha_style && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed)
-			if(head_organ.dna.species.name in head_accessory_style.species_allowed)
-				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-				if(head_accessory_style.do_colouration)
-					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
-				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
-														   //Having it this way preserves animations. Useful for animated antennae.
+	var/icon/head_accessory_standing = icon('icons/mob/clothing/body_accessory.dmi', "accessory_none_s")
+	var/icon/head_accessory_s = icon(head_accessory.icon, "[head_accessory.icon_state]_s")
+	if(head_accessory.do_colouration)
+		head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+	//head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
+	//Having it this way preserves animations. Useful for animated antennae.
+	head_accessory_standing = head_accessory_s
 
-				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
-					overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
-					apply_overlay(HEAD_ACC_OVER_LAYER)
-				else
-					overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
-					apply_overlay(HEAD_ACCESSORY_LAYER)
-		else
-			//warning("Invalid ha_style for [species.name]: [ha_style]")
-
+	if(head_accessory.over_hair) //Select which layer to use based on the properties of the head accessory style.
+		overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
+		apply_overlay(HEAD_ACC_OVER_LAYER)
+	else
+		overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
+		apply_overlay(HEAD_ACCESSORY_LAYER)
 
 
 //HAIR OVERLAY
@@ -375,50 +368,51 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	//Reset our hair
 	remove_overlay(HAIR_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ || !head_organ.dna || !head_organ.h_style)
 		return
 
 	//masks and helmets can obscure our hair, unless we're a synthetic
-	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
+	if((head && (head.flags_inv & (HIDEHAIR|HIDEHEADHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR))))
+		return
+
+	var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[head_organ.h_style]
+	if(!hair || !((hair.species_allowed && (head_organ.dna.species.name in hair.species_allowed)) || (head_organ.dna.species.bodyflags & ALL_RPARTS)))
 		return
 
 	//base icons
 	var/mutable_appearance/MA = new()
 	MA.appearance_flags = KEEP_TOGETHER
 	MA.layer = -HAIR_LAYER
-	if(head_organ.h_style && !(head?.flags & BLOCKHEADHAIR))
-		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[head_organ.h_style]
-		if(hair?.species_allowed && ((dna.species.name in hair.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
-			// Base hair
-			var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
-			if(istype(dna.species, /datum/species/slime))
-				img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
-			else if(hair.do_colouration)
-				img_hair.color = COLOR_MATRIX_ADD(head_organ.hair_colour)
-			MA.overlays += img_hair
 
-			// Gradient
-			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[head_organ.h_grad_style]
-			if(gradient)
-				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
-				var/icon/icn_gradient = icon(gradient.icon, "full")
-				var/list/icn_color = ReadRGB(head_organ.h_grad_colour)
-				icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
-				icn_gradient.ChangeOpacity(head_organ.h_grad_alpha / 200)
-				icn_gradient.AddAlphaMask(icn_alpha_mask)
-				icn_gradient.Shift(EAST, head_organ.h_grad_offset_x)
-				icn_gradient.Shift(NORTH, head_organ.h_grad_offset_y)
-				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+	// Base hair
+	var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
+	if(head_organ.dna.species.name == SPECIES_SLIMEPERSON)
+		img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
+	else if(hair.do_colouration)
+		img_hair.color = COLOR_MATRIX_ADD(head_organ.hair_colour)
+	MA.overlays += img_hair
 
-				MA.overlays += icn_gradient
+	// Gradient
+	var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[head_organ.h_grad_style]
+	if(gradient)
+		var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
+		var/icon/icn_gradient = icon(gradient.icon, "full")
+		var/list/icn_color = ReadRGB(head_organ.h_grad_colour)
+		icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
+		icn_gradient.ChangeOpacity(head_organ.h_grad_alpha / 200)
+		icn_gradient.AddAlphaMask(icn_alpha_mask)
+		icn_gradient.Shift(EAST, head_organ.h_grad_offset_x)
+		icn_gradient.Shift(NORTH, head_organ.h_grad_offset_y)
+		icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+		MA.overlays += icn_gradient
 
-			// Secondary style
-			if(hair.secondary_theme)
-				var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
-				if(!hair.no_sec_colour)
-					img_secondary.color = COLOR_MATRIX_ADD(head_organ.sec_hair_colour)
-				MA.overlays += img_secondary
+	// Secondary style
+	if(hair.secondary_theme)
+		var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
+		if(!hair.no_sec_colour)
+			img_secondary.color = COLOR_MATRIX_ADD(head_organ.sec_hair_colour)
+		MA.overlays += img_secondary
 
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
@@ -430,43 +424,42 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FHAIR_LAYER)
 	remove_overlay(FHAIR_OVER_LAYER)
 
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ || !head_organ.dna || !head_organ.f_style)
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
-	if((head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+	if((head && (head.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))))
+		return
+
+	var/datum/sprite_accessory/facial_hair/facial_hair = GLOB.facial_hair_styles_list[head_organ.f_style]
+	//If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+	if(!facial_hair || !((facial_hair.species_allowed && (head_organ.dna.species.name in facial_hair.species_allowed)) || (head_organ.dna.species.bodyflags & ALL_RPARTS)))
 		return
 
 	//base icons
-	var/icon/face_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
-	if(head_organ.f_style)
-		var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
-		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
-				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
-					facial_s.Blend("[skin_colour]A0", ICON_AND)
-				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(head_organ.facial_colour, ICON_ADD)
+	var/icon/face_standing = icon('icons/mob/human_face.dmi', "bald_s")
 
-				if(facial_hair_style.secondary_theme)
-					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-					if(!facial_hair_style.no_sec_colour)
-						facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
-					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+	var/icon/facial_s = icon(facial_hair.icon, "[facial_hair.icon_state]_s")
+	if(head_organ.dna.species.name == SPECIES_SLIMEPERSON) // I am el worstos
+		facial_s.Blend("[skin_colour]A0", ICON_AND)
+	else if(facial_hair.do_colouration)
+		facial_s.Blend(head_organ.facial_colour, ICON_ADD)
 
-				face_standing.Blend(facial_s, ICON_OVERLAY)
+	if(facial_hair.secondary_theme)
+		var/icon/facial_secondary_s = icon(facial_hair.icon, "[facial_hair.icon_state]_[facial_hair.secondary_theme]_s")
+		if(!facial_hair.no_sec_colour)
+			facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
+		facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
-				if(facial_hair_style.over_hair) //Select which layer to use based on the properties of the facial hair style.
-					overlays_standing[FHAIR_OVER_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_OVER_LAYER)
-					apply_overlay(FHAIR_OVER_LAYER)
-				else
-					overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
-					apply_overlay(FHAIR_LAYER)
-		else
-			//warning("Invalid f_style for [species.name]: [f_style]")
+	face_standing.Blend(facial_s, ICON_OVERLAY)
 
+	if(facial_hair.over_hair) //Select which layer to use based on the properties of the facial hair style.
+		overlays_standing[FHAIR_OVER_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_OVER_LAYER)
+		apply_overlay(FHAIR_OVER_LAYER)
+	else
+		overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
+		apply_overlay(FHAIR_LAYER)
 
 
 /mob/living/carbon/human/update_mutations()
@@ -499,7 +492,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
-/mob/living/carbon/human/proc/update_mutantrace()
+/mob/living/carbon/human/proc/update_mutantrace(update_hair = TRUE)
 //BS12 EDIT
 	var/skel = (SKELETON in mutations)
 	if(skel)
@@ -507,8 +500,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		skeleton = null
 
-	update_hair()
-	update_fhair()
+	if(update_hair)
+		update_hair()
+		update_fhair()
 
 
 /mob/living/carbon/human/update_fire()
@@ -521,15 +515,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
-	..()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
+	cut_overlays()
+	update_mutantrace(update_hair = FALSE)
+	force_update_limbs(update_body = FALSE)
+	update_eyes(update_body = FALSE)
+	update_body(rebuild_base = TRUE) //Update the body and force limb icon regeneration.
 	update_mutations()
-	update_body(TRUE) //Update the body and force limb icon regeneration.
-	update_hair()
-	update_head_accessory()
-	update_fhair()
-	update_mutantrace()
 	update_inv_w_uniform()
 	update_inv_wear_id()
 	update_inv_gloves()
@@ -550,24 +543,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_pockets()
 	update_inv_wear_pda()
 	UpdateDamageIcon()
-	force_update_limbs()
-	update_tail_layer()
-	update_wing_layer()
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 	update_halo_layer()
-	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
-	update_icons()
+	SEND_SIGNAL(src, COMSIG_HUMAN_REGENERATE_ICONS)
+
+
+
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
+	remove_overlay(OVER_SHOES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_INNER) + 1]
+		inv?.update_icon()
 
-	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
+	if(istype(w_uniform, /obj/item/clothing/under))
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				w_uniform.screen_loc = ui_iclothing //...draw the item in the inventory screen
@@ -577,11 +571,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_color)
 			t_color = icon_state
 
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		var/mutable_appearance/standing = mutable_appearance(w_uniform.onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING], "[t_color]_s", layer = -UNIFORM_LAYER)
 
-		if(w_uniform.icon_override)
-			standing.icon = w_uniform.icon_override
-		else if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[dna.species.name])
+
+		if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[dna.species.name])
 			standing.icon = w_uniform.sprite_sheets[dna.species.name]
 
 		if(w_uniform.blood_DNA)
@@ -594,15 +587,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/tie_color = A.item_color
 				if(!tie_color)
 					tie_color = A.icon_state
-				if(A.icon_override)
-					standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
-				else if(A.sprite_sheets && A.sprite_sheets[dna.species.name])
+				if(A.sprite_sheets && A.sprite_sheets[dna.species.name])
 					standing.overlays += image("icon" = A.sprite_sheets[dna.species.name], "icon_state" = "[A.icon_state]")
 				else
-					standing.overlays += image("icon" = 'icons/mob/clothing/ties.dmi', "icon_state" = "[tie_color]")
+					standing.overlays += image("icon" = A.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], "icon_state" = "[tie_color]")
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
-		overlays_standing[UNIFORM_LAYER] = standing
+		if(w_uniform.over_shoes) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
+			standing.layer = -OVER_SHOES_LAYER
+			overlays_standing[OVER_SHOES_LAYER] = standing
+			apply_overlay(OVER_SHOES_LAYER)
+		else
+			overlays_standing[UNIFORM_LAYER] = standing
+			apply_overlay(UNIFORM_LAYER)
+
 
 	// Saved for history .\_/.
 
@@ -632,30 +630,27 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)*/
-	apply_overlay(UNIFORM_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_id]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ID) + 1]
+		inv?.update_icon()
 
 	if(wear_id)
 		if(client && hud_used && hud_used.hud_shown)
 			wear_id.screen_loc = ui_id
 			client.screen += wear_id
 
-		if(w_uniform && w_uniform:displays_id)
-			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
+		if(w_uniform?.displays_id)
+			overlays_standing[ID_LAYER]	= mutable_appearance(wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
+		inv?.update_icon()
 
 	if(gloves)
 		if(client && hud_used && hud_used.hud_shown)
@@ -667,12 +662,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_state)	t_state = gloves.icon_state
 
 		var/mutable_appearance/standing
-		if(gloves.icon_override)
-			standing = mutable_appearance(gloves.icon_override, "[t_state]", layer = -GLOVES_LAYER)
-		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
+		if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(gloves.sprite_sheets[dna.species.name], "[t_state]", layer = -GLOVES_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
+			standing = mutable_appearance(gloves.onmob_sheets[ITEM_SLOT_GLOVES_STRING], "[t_state]", layer = -GLOVES_LAYER)
 
 		if(gloves.blood_DNA)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
@@ -695,30 +688,35 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(GLASSES_LAYER)
 	remove_overlay(GLASSES_OVER_LAYER)
 	remove_overlay(OVER_MASK_LAYER)
+	remove_overlay(OVER_HEAD_LAYER)
 
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_EYES) + 1]
+		inv?.update_icon()
 
 	if(glasses)
 		var/mutable_appearance/new_glasses
-		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 			client.screen += glasses				//Either way, add the item to the HUD
 
-		if(glasses.icon_override)
-			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
-		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name])
+		if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name])
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else
-			new_glasses = mutable_appearance('icons/mob/clothing/eyes.dmi', "[glasses.icon_state]", layer = -GLASSES_LAYER)
+			new_glasses = mutable_appearance(glasses.onmob_sheets[ITEM_SLOT_EYES_STRING], "[glasses.icon_state]", layer = -GLASSES_LAYER)
+
+		new_glasses.alpha = glasses.alpha
+		new_glasses.color = glasses.color
 
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
-		if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
+		if(head && !(head.flags_cover & HEADCOVERSEYES) && G.over_hat && istype(G))
+			new_glasses.layer = -OVER_HEAD_LAYER
+			overlays_standing[OVER_HEAD_LAYER] = new_glasses
+			apply_overlay(OVER_HEAD_LAYER)
+		else if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
 			new_glasses.layer = -OVER_MASK_LAYER
 			overlays_standing[OVER_MASK_LAYER] = new_glasses
 			apply_overlay(OVER_MASK_LAYER)
@@ -735,14 +733,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
-		if(inv)
-			inv.update_icon()
-
-	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_r_ear]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_EAR_LEFT) + 1]
+		inv?.update_icon()
+		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_EAR_RIGHT) + 1]
+		inv?.update_icon()
 
 	if(l_ear || r_ear)
 		if(l_ear)
@@ -754,13 +748,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/t_type = l_ear.item_state
 			if(!t_type)
 				t_type = l_ear.icon_state
-			if(l_ear.icon_override)
-				t_type = "[t_type]_l"
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name])
+			if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name])
 				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
 			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], "[t_type]", layer = -EARS_LAYER)
 
 		if(r_ear)
 			if(client && hud_used && hud_used.hud_shown)
@@ -771,21 +762,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/t_type = r_ear.item_state
 			if(!t_type)
 				t_type = r_ear.icon_state
-			if(r_ear.icon_override)
-				t_type = "[t_type]_r"
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
+			if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
 				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
 			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.onmob_sheets[ITEM_SLOT_EAR_RIGHT_STRING], "[t_type]", layer = -EARS_LAYER)
 	apply_overlay(EARS_LAYER)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
+		inv?.update_icon()
 
 	if(shoes)
 		if(client && hud_used && hud_used.hud_shown)
@@ -795,12 +782,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDESHOES))
 			var/mutable_appearance/standing
-			if(shoes.icon_override)
-				standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
-			else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
+			if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
 			else
-				standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
+				standing = mutable_appearance(shoes.onmob_sheets[ITEM_SLOT_FEET_STRING], "[shoes.icon_state]", layer = -SHOES_LAYER)
 
 
 			if(shoes.blood_DNA)
@@ -820,9 +805,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_s_store]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SUITSTORE) + 1]
+		inv?.update_icon()
 
 	if(s_store)
 		if(client && hud_used && hud_used.hud_shown)
@@ -832,8 +816,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
-		var/dmi='icons/mob/clothing/belt_mirror.dmi'
-		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(dmi, "[t_state]", layer = -SUIT_STORE_LAYER)
+		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING], "[t_state]", layer = -SUIT_STORE_LAYER)
 		s_store.screen_loc = ui_sstore1		//TODO
 	apply_overlay(SUIT_STORE_LAYER)
 
@@ -841,18 +824,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(HEAD_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_head]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
+		inv?.update_icon()
 
 	if(head)
 		var/mutable_appearance/standing
-		if(head.icon_override)
-			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
-		else if(head.sprite_sheets && head.sprite_sheets[dna.species.name])
+		if(head.sprite_sheets && head.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.name], "[head.icon_state]", layer = -HEAD_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
+			standing = mutable_appearance(head.onmob_sheets[ITEM_SLOT_HEAD_STRING], "[head.icon_state]", layer = -HEAD_LAYER)
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
@@ -866,48 +846,41 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_belt]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
+		inv?.update_icon()
 
-		if(hud_used.hud_shown && belt)
+	if(belt)
+		if(hud_used?.hud_shown && belt)
 			client.screen += belt
 			belt.screen_loc = ui_belt
 
-	if(belt)
 		var/t_state = belt.item_state
 		if(!t_state)
 			t_state = belt.icon_state
 
-		if(belt.icon_override)
-			t_state = "[t_state]_be"
-			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
-		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.name])
+		if(belt.sprite_sheets && belt.sprite_sheets[dna.species.name])
 			overlays_standing[BELT_LAYER] = mutable_appearance(belt.sprite_sheets[dna.species.name], "[t_state]", layer = -BELT_LAYER)
 		else
-			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
+			overlays_standing[BELT_LAYER] = mutable_appearance(belt.onmob_sheets[ITEM_SLOT_BELT_STRING], "[t_state]", layer = -BELT_LAYER)
 	apply_overlay(BELT_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
+		inv?.update_icon()
 
-	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
+	if(istype(wear_suit, /obj/item/clothing/suit))
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
 
 		var/mutable_appearance/standing
-		if(wear_suit.icon_override)
-			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
+		if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
+			standing = mutable_appearance(wear_suit.onmob_sheets[ITEM_SLOT_CLOTH_OUTER_STRING], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 
 		if(wear_suit.breakouttime)
 			drop_l_hand()
@@ -935,15 +908,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_pockets()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv
-
-		inv = hud_used.inv_slots[slot_l_store]
-		if(inv)
-			inv.update_icon()
-
-		inv = hud_used.inv_slots[slot_r_store]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
+		inv?.update_icon()
+		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_RIGHT) + 1]
+		inv?.update_icon()
 
 		if(hud_used.hud_shown)
 			if(l_store)
@@ -956,9 +924,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_wear_pda()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_pda]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_PDA) + 1]
+		inv?.update_icon()
 
 		if(wear_pda)
 			client.screen += wear_pda
@@ -968,12 +935,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(FACEMASK_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_mask]
-		if(inv)
-			inv.update_icon()
-	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
-		if(!(slot_wear_mask in check_obscured_slots()))
-			var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
+		inv?.update_icon()
+
+	if((istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
+		if(!(ITEM_SLOT_MASK & check_obscured_slots()))
+			var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 			if(!head_organ)
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
@@ -982,14 +949,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			var/mutable_appearance/standing
 			var/icon/mask_icon = new(wear_mask.icon)
-			if(wear_mask.icon_override)
-				mask_icon = new(wear_mask.icon_override)
-				standing = mutable_appearance(wear_mask.icon_override, "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
-			else if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
+			if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
 				mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 			else
-				standing = mutable_appearance('icons/mob/clothing/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+				standing = mutable_appearance(wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 
 			if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
@@ -1004,9 +968,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_neck]
-		if(inv)
-			inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
+		inv?.update_icon()
 
 	if(neck)
 		if(client && hud_used?.hud_shown)
@@ -1015,12 +978,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += neck
 
 		var/mutable_appearance/standing
-		if(neck.icon_override)
-			standing = mutable_appearance(neck.icon_override, "[neck.icon_state]", layer = -NECK_LAYER)
-		else if(neck.sprite_sheets && neck.sprite_sheets[dna.species.name])
+		if(neck.sprite_sheets && neck.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(neck.sprite_sheets[dna.species.name], "[neck.icon_state]", layer = -NECK_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/neck.dmi', "[neck.icon_state]", layer = -NECK_LAYER)
+			standing = mutable_appearance(neck.onmob_sheets[ITEM_SLOT_NECK_STRING], "[neck.icon_state]", layer = -NECK_LAYER)
 		standing.alpha = neck.alpha
 		standing.color = neck.color
 		overlays_standing[NECK_LAYER] = standing
@@ -1032,12 +993,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(back)
 		//determine the icon to use
 		var/mutable_appearance/standing
-		if(back.icon_override)
-			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
-		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
+
+		if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
 		else
-			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
+			standing = mutable_appearance(back.onmob_sheets[ITEM_SLOT_BACK_STRING], "[back.icon_state]", layer = -BACK_LAYER)
 
 		//create the image
 		standing.alpha = back.alpha
@@ -1048,18 +1008,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "pinkcuff1", layer = -HANDCUFF_LAYER)
-		else if(istype(handcuffed, /obj/item/restraints/handcuffs/manacles))
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/obj/ninjaobjects.dmi', "manacle_hands", layer = -HANDCUFF_LAYER)
-		else
-			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff1", layer = -LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
 	apply_overlay(LEGCUFF_LAYER)
 
 
@@ -1130,6 +1085,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(WING_UNDERLIMBS_LAYER)
 	remove_overlay(WING_LAYER)
 
+	var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 	if(!bodypart_wing)
 		return
 	if(!istype(bodypart_wing.body_accessory, /datum/body_accessory/wing))
@@ -1166,6 +1122,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
+	var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 	if(!bodypart_tail) // No tail - no overlay!
 		return
 
@@ -1273,6 +1230,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 							can still appear on the outside of uniforms and such.
 							Otherwise, since the user's tail isn't overlapped by limbs, it will be a full icon with all directions. */
 
+	var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
 	if(!bodypart_tail) // No tail - no overlay!
 		return
 
@@ -1365,9 +1323,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(INTORGAN_LAYER)
 
 	var/list/standing = list()
-	for(var/organ in internal_organs)
-		var/obj/item/organ/internal/I = organ
-		var/render = I.render()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/render = organ.render()
 		if(render)
 			standing += render
 
@@ -1384,18 +1341,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //  For suits with sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/clothing/species/[species_name_here]/collar.dmi.
 /mob/living/carbon/human/proc/update_collar()
 	remove_overlay(COLLAR_LAYER)
-	var/icon/C = new('icons/mob/clothing/collar.dmi')
+	var/icon/C = null
 	var/mutable_appearance/standing = null
 
 	if(wear_suit)
-		if(wear_suit.icon_override)
-			var/icon_path = "[wear_suit.icon_override]"
-			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
-			if(fexists(icon_path)) //Just ensuring the nonexistance of a file with the above path won't cause a runtime.
-				var/icon/icon_file = new(icon_path)
-				if(wear_suit.icon_state in icon_file.IconStates())
-					standing = mutable_appearance(icon_file, "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
-		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
+		C = new(wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING])
+		if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			var/icon_path = "[wear_suit.sprite_sheets[dna.species.name]]"
 			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
 			if(fexists(icon_path)) //Just ensuring the nonexistance of a file with the above path won't cause a runtime.
@@ -1441,10 +1392,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		remove_overlay(FROZEN_LAYER)
 
-/mob/living/carbon/human/proc/force_update_limbs()
-	for(var/obj/item/organ/external/O in bodyparts)
-		O.sync_colour_to_human(src)
-	update_body()
+/mob/living/carbon/human/proc/force_update_limbs(update_body = TRUE)
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		bodypart.sync_colour_to_human(src)
+	if(update_body)
+		update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new
@@ -1476,13 +1428,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		. += "#000000"
 
-	for(var/organ_tag in dna.species.has_limbs)
-		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
+	for(var/limb_zone in dna.species.has_limbs)
+		var/obj/item/organ/external/part = bodyparts_by_name[limb_zone]
 		if(isnull(part))
 			. += "0"
 		else if(part.is_robotic())
 			. += "2[part.model ? "-[part.model]" : ""]"
-		else if(part.status & ORGAN_DEAD)
+		else if(part.is_dead())
 			. += "3"
 		else
 			. += "1"

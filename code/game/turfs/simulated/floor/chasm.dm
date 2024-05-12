@@ -7,6 +7,9 @@
 	icon_state = "smooth"
 	canSmoothWith = list(/turf/simulated/floor/chasm)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
+	layer = 1.7
+	intact = 0
+	explosion_vertical_block = 0
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
@@ -22,7 +25,11 @@
 		/obj/effect/collapse,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/abstract,
-		/obj/effect/ebeam
+		/obj/effect/ebeam,
+		/obj/effect/spawner,
+		/obj/structure/railing,
+		/obj/machinery/atmospherics/pipe/simple,
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -38,13 +45,16 @@
 	START_PROCESSING(SSprocessing, src)
 	drop_stuff(AM)
 
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((caller.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || ismegafauna(caller))
+
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/chasm/Initialize()
 	. = ..()
-	drop_z = level_name_to_num(MAIN_STATION)
+	drop_z = level_name_to_num(EMPTY_AREA)
 
 /turf/simulated/floor/chasm/ex_act()
 	return
@@ -98,6 +108,36 @@
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
+	if(istype(C, /obj/item/twohanded/fishingrod))
+		var/obj/item/twohanded/fishingrod/rod = C
+		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
+			to_chat(user, span_warning("You need to wield the rod in both hands before you can fish in the chasm!"))
+			return
+		user.visible_message(span_warning("[user] throws a fishing rod into the chasm and tries to catch something!"),
+							 span_notice("You started to fishing."),
+							 span_notice("You hear the sound of a fishing rod."))
+		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
+		if(do_after(user, 6 SECONDS, src))
+			if(!HAS_TRAIT(rod, TRAIT_WIELDED))
+				return
+			var/list/fishing_contents = list()
+			for(var/turf/simulated/floor/chasm/chasm in range(4, src))
+				fishing_contents += chasm.GetAllContents()
+			if(!length(fishing_contents))
+				to_chat(user, span_warning("There's nothing here!"))
+				return
+			var/found = FALSE
+			for(var/mob/M in fishing_contents)
+				M.forceMove(get_turf(user))
+				UnregisterSignal(M, COMSIG_LIVING_REVIVE)
+				found = TRUE
+				break
+			if(found)
+				to_chat(user, span_warning("You reel in something!"))
+				playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
+			else
+				to_chat(user, span_warning("There's nothing here!"))
+		return
 
 /turf/simulated/floor/chasm/is_safe()
 	if(find_safeties() && ..())
@@ -121,17 +161,20 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
+	if(iseffect(AM))
+		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
 	//Flies right over the chasm
+	if(AM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return FALSE
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating || M.incorporeal_move)
+		if(M.incorporeal_move)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(istype(H.belt, /obj/item/wormhole_jaunter))
-			var/obj/item/wormhole_jaunter/J = H.belt
+		for(var/obj/item/wormhole_jaunter/J in H.GetAllContents())
 			//To freak out any bystanders
 			visible_message(span_boldwarning("[H] falls into [src]!"))
 			J.chasm_react(H)
@@ -154,8 +197,18 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/straight_down
+	var/obj/effect/abstract/chasm_storage/storage
+
 /turf/simulated/floor/chasm/straight_down/Initialize()
 	..()
+	var/found_storage = FALSE
+	for(var/obj/effect/abstract/chasm_storage/C in contents)
+		storage = C
+		found_storage = TRUE
+		break
+	if(!found_storage)
+		storage = new /obj/effect/abstract/chasm_storage(src)
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
@@ -169,9 +222,9 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	light_range = 1.9 //slightly less range than lava
-	light_power = 0.65 //less bright, too
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
+	light_range = 2
+	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
@@ -183,7 +236,7 @@
 	into the enveloping dark."))
 	if(isliving(AM))
 		var/mob/living/L = AM
-		L.notransform = TRUE
+		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 		L.Stun(400 SECONDS)
 		L.resting = TRUE
 	var/oldtransform = AM.transform
@@ -206,22 +259,96 @@
 	if(isrobot(AM))
 		var/mob/living/silicon/robot/S = AM
 		qdel(S.mmi)
+		qdel(AM)
+		return
 
 	falling_atoms -= AM
 
-	qdel(AM)
+	if(istype(AM, /obj/item/grenade/jaunter_grenade))
+		AM.forceMove(storage)
+		return
 
-	if(AM && !QDELETED(AM))	//It's indestructible
+	if(isliving(AM))
+		if(!storage)
+			storage = new(get_turf(src))
+
+		if(storage.contains(AM))
+			return
+
+		AM.alpha = oldalpha
+		AM.color = oldcolor
+		AM.transform = oldtransform
+
+		if(!AM.forceMove(storage))
+			visible_message(span_boldwarning("[src] spits out [AM]!"))
+			AM.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+
+		var/mob/living/fallen_mob = AM
+		if(fallen_mob.stat != DEAD)
+			fallen_mob.death(TRUE)
+			REMOVE_TRAIT(fallen_mob, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
+			fallen_mob.apply_damage(1000)
+
+	else
+		qdel(AM)
+
+
+	if(!isliving(AM) && AM && !QDELETED(AM))	//It's indestructible and not human
 		visible_message(span_boldwarning("[src] spits out the [AM]!"))
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
 		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
 
+/obj/effect/abstract/chasm_storage
+	name = "chasm depths"
+	desc = "The bottom of a hole. You shouldn't be able to interact with this."
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
+	. = ..()
+	if(isliving(arrived))
+		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+	. = ..()
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
+
+
+/**
+ * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
+ * Ethereals should take enough damage to be smashed and not revive.
+ * Arguments
+ * escapee - Lucky guy who just came back to life at the bottom of a hole.
+ */
+
+/obj/effect/abstract/chasm_storage/proc/on_revive(mob/living/escapee)
+	SIGNAL_HANDLER
+	var/turf/ourturf = get_turf(src)
+	if(istype(ourturf, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		ourturf.visible_message(span_boldwarning("After a long climb, [escapee] leaps out of [ourturf]!"))
+	else
+		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
+		ourturf.visible_message(span_boldwarning("[escapee] busts through [ourturf], leaping out of the chasm below!"))
+		ourturf.ChangeTurf(ourturf.baseturf)
+	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
+	escapee.forceMove(ourturf)
+	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
+	REMOVE_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT)
+	escapee.Sleeping(20 SECONDS)
+	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
+
+
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
+
+/// Lets people walk into chasms.
+/turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
+

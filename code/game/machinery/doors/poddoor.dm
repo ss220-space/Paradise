@@ -12,7 +12,7 @@
 	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
-	var/id_tag = 1.0
+	var/id_tag
 	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
@@ -24,10 +24,7 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-/obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
+	hackable = FALSE
 
 /obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
@@ -35,6 +32,11 @@
 		return
 	else
 		return 0
+
+/obj/machinery/door/poddoor/impassable/preopen
+	icon_state = "open"
+	density = FALSE
+	opacity = 0
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity)
@@ -51,11 +53,9 @@
 			flick("closing", src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/update_icon()
-	if(density)
-		icon_state = "closed"
-	else
-		icon_state = "open"
+/obj/machinery/door/poddoor/update_icon_state()
+	icon_state = density ? "closed" : "open"
+
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return
@@ -65,7 +65,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(!hasPower())
 				open()
 			else

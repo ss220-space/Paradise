@@ -10,6 +10,7 @@
  *		Plant Bag
  *		Sheet Snatcher
  *		Book Bag
+ *      Construction bag
  *		Tray
  *
  *	-Sayu
@@ -21,7 +22,10 @@
 	allow_quick_empty = 1
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
 // -----------------------------
 //          Trash bag
@@ -34,7 +38,7 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
-	slot_flags = null
+	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
@@ -45,8 +49,9 @@
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
-/obj/item/storage/bag/trash/update_icon()
-	switch(contents.len)
+
+/obj/item/storage/bag/trash/update_icon_state()
+	switch(length(contents))
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
@@ -55,11 +60,8 @@
 			icon_state = "[initial(icon_state)]1"
 		else
 			icon_state = "[initial(icon_state)]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	..()
+	update_equipped_item(update_speedmods = FALSE)
+
 
 /obj/item/storage/bag/trash/cyborg
 
@@ -78,7 +80,7 @@
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 
 // -----------------------------
 //        Plastic Bag
@@ -90,7 +92,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_HEAD|SLOT_BELT
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -100,8 +102,8 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 
-/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
-	if(slot==slot_head && contents.len)
+/obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	if(slot==ITEM_SLOT_HEAD && length(contents))
 		if(!disable_warning)
 			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
@@ -111,7 +113,7 @@
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(slot==slot_head)
+	if(slot==ITEM_SLOT_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -120,7 +122,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(slot_head) == src)
+			if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)
@@ -139,7 +141,8 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_BELT | SLOT_POCKET
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
@@ -154,7 +157,12 @@
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
-	flags = NODROP
+
+
+/obj/item/storage/bag/ore/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
@@ -166,14 +174,20 @@
 
 /obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
-	flags = NODROP
+
+
+/obj/item/storage/bag/ore/holding/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/storage/bag/gem
 	name = "gem satchel"
 	desc = "You thought it would be more like what those cartoon robbers wear."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags = SLOT_BELT | SLOT_POCKET
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 48
 	max_combined_w_class = 48
@@ -183,7 +197,12 @@
 
 /obj/item/storage/bag/gem/cyborg
 	name = "cyborg gem satchel"
-	flags = NODROP
+
+
+/obj/item/storage/bag/gem/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 // -----------------------------
 //          Plant bag
@@ -211,7 +230,7 @@
 	set category = "Object"
 	set desc = "Activate to convert your plants into plantable seeds."
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)
@@ -387,6 +406,36 @@
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	resistance_flags = FLAMMABLE
 
+// ------------------------------------------
+//           Construction bag
+// ------------------------------------------
+
+/obj/item/storage/bag/construction
+	name = "construction bag"
+	desc = "A bag for construction stuff."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "construction_bag"
+	storage_slots = 50
+	max_combined_w_class = 100
+	max_w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(
+		/obj/item/assembly,
+		/obj/item/circuitboard,
+		/obj/item/intercom_electronics,
+		/obj/item/airlock_electronics,
+		/obj/item/firelock_electronics,
+		/obj/item/tracker_electronics,
+		/obj/item/firealarm_electronics,
+		/obj/item/airalarm_electronics,
+		/obj/item/apc_electronics,
+		/obj/item/stock_parts/cell,
+		/obj/item/stock_parts,
+		/obj/item/camera_assembly,
+		/obj/item/access_control
+	)
+	resistance_flags = FLAMMABLE
+
 /*
  * Trays - Agouri
  */
@@ -427,57 +476,54 @@
 		if(prob(10))
 			M.Weaken(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/rebuild_overlays()
-	overlays.Cut()
-	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	rebuild_overlays()
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
+	for(var/obj/item/item in contents)
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
 
 /obj/item/storage/bag/tray/cyborg
+	var/placement_radius = 12
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if( isturf(target) || istype(target,/obj/structure/table) )
-		var/foundtable = istype(target,/obj/structure/table/)
-		if( !foundtable ) //it must be a turf!
-			for(var/obj/structure/table/T in target)
-				foundtable = 1
-				break
+/obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
+	set name = "Select Placement Radius"
+	set category = "Object"
+	set src in usr
 
-		var/turf/dropspot
-		if( !foundtable ) // don't unload things onto walls or other silly places.
-			dropspot = user.loc
-		else if( isturf(target) ) // they clicked on a turf with a table in it
-			dropspot = target
-		else					// they clicked on a table
-			dropspot = target.loc
+	var/new_radius = input(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12) as num
+	new_radius = clamp(new_radius, 0, 16)
+	placement_radius = new_radius
 
-		overlays = null
+/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity, params)
+	if(!target || !proximity)
+		return
 
-		var/droppedSomething = 0
+	var/obj/structure/table/table = locate() in get_turf(target)
 
+	if(isturf(target) || table)
+		var/droppedSomething = FALSE
+		var/list/fancy_items
 		for(var/obj/item/I in contents)
-			I.loc = dropspot
-			contents.Remove(I)
-			droppedSomething = 1
-			if(!foundtable && isturf(dropspot))
-				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
-				spawn()
-					for(var/i = 1, i <= rand(1,2), i++)
-						if(I)
-							step(I, pick(NORTH,SOUTH,EAST,WEST))
-							sleep(rand(2,4))
-		if( droppedSomething )
-			if( foundtable )
-				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
+			remove_from_storage(I, get_turf(target))
+			LAZYADD(fancy_items, I)
+			droppedSomething = TRUE
+
+		if(fancy_items)
+			var/fancy_items_count = length(fancy_items)
+			var/iteration = 0
+			var/delta_phi = 2 * PI / fancy_items_count
+			for(var/obj/item/I as anything in fancy_items)
+				I.pixel_x = placement_radius * sin(180 * delta_phi * iteration / PI)
+				I.pixel_y = placement_radius * cos(180 * delta_phi * iteration / PI)
+				iteration += 1
+
+		if(droppedSomething)
+			if(table)
+				user.visible_message(span_notice("[user] unloads [user.p_their()] service tray."))
 			else
-				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
+				user.visible_message(span_notice("[user] drops all the items on [user.p_their()] tray."))
+		update_icon(UPDATE_OVERLAYS)
 
 	return ..()
 
@@ -485,11 +531,12 @@
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
+
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-	rebuild_overlays()
+
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
@@ -536,18 +583,11 @@
 			M.Weaken(4 SECONDS)
 
 
-/obj/item/storage/bag/dangertray/proc/rebuild_overlays()
-	overlays.Cut()
-	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
+/obj/item/storage/bag/dangertray/update_overlays()
+	. = ..()
+	for(var/obj/item/item in contents)
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-/obj/item/storage/bag/dangertray/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	rebuild_overlays()
-
-/obj/item/storage/bag/dangertray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
 
 /*
  *	Chemistry bag

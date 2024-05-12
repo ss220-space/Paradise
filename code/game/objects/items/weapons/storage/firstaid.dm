@@ -267,8 +267,10 @@
 
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
-	icon_state = "NTfirstaid"
+	icon_state = "crew_medpouch"
+	w_class = WEIGHT_CLASS_SMALL
 	desc = "A standart issued first aid kit for crewmembers. NanoTrasen appreciates you!"
+	can_hold = list(/obj/item/reagent_containers/hypospray/autoinjector, /obj/item/reagent_containers/food/pill, /obj/item/stack/medical/bruise_pack, /obj/item/stack/medical/ointment)
 
 /obj/item/storage/firstaid/crew/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -298,6 +300,8 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
+	pickup_sound = 'sound/items/handling/pillbottle_pickup.ogg'
+	drop_sound = 'sound/items/handling/pillbottle_drop.ogg'
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
@@ -318,10 +322,12 @@
 
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
-		overlays.Cut()
+		cut_overlays()
 		var/image/I = image(icon, wrapper_state)
 		I.color = wrapper_color
-		overlays += I
+		add_overlay(I)
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
 	if(iscarbon(M) && contents.len)
@@ -349,24 +355,27 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(over_object))
-		var/mob/living/carbon/C = over_object
-		if(loc == C && src == C.get_active_hand())
-			if(!contents.len)
-				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
-				return
-			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
-			if(do_mob(C, C, 100)) // 10 seconds
-				for(var/obj/item/reagent_containers/food/pill/P in contents)
-					P.attack(C, C)
-				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
-			return
+
+/obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!length(contents))
+			to_chat(user, span_notice("There is nothing in [src]!"))
+			return FALSE
+
+		user.visible_message(span_danger("[user] [rapid_intake_message]"))
+		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
+			return FALSE
+
+		for(var/obj/item/reagent_containers/food/pill/pill in src)
+			pill.attack(user, user)
+		user.visible_message(span_danger("[user] [rapid_post_instake_message]"))
+		return FALSE
 
 	return ..()
 
+
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 	else
 		return ..()
@@ -381,6 +390,13 @@
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
+
+/obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+
+	for(var/I in 1 to 10)
+		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"

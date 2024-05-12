@@ -1,6 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(dcs)
 	name = "Datum Component System"
 	flags = SS_NO_INIT
+	ss_id = "datum_component_system"
 
 	var/list/elements_by_type = list()
 	// Update this if you add in components which actually use this as a processor

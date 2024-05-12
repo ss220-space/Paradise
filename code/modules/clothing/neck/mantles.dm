@@ -23,6 +23,32 @@
 	desc = "A bunch of stitched together clothing with bandages covering them."
 	icon_state = "cowboy_mantle"
 
+/obj/item/clothing/neck/mantle/scarf
+	name = "black scarf"
+	desc = "A black scarf from cloth"
+	icon_state = "blackscarf"
+
+/obj/item/clothing/neck/mantle/scarf/blue
+	name = "blue scarf"
+	desc = "A blue scarf from cloth"
+	icon_state = "bluescarf"
+
+/obj/item/clothing/neck/mantle/scarf/red
+	name = "red scarf"
+	desc = "A red scarf from cloth"
+	icon_state = "redscarf"
+
+/obj/item/clothing/neck/mantle/scarf/yellow
+	name = "yellow scarf"
+	desc = "A yellow scarf from cloth"
+	icon_state = "yellowscarf"
+
+/obj/item/clothing/neck/mantle/scarf/style
+	name = "stylish scarf"
+	desc = "A stylish scarf. You can see initials L.C. on it."
+	item_state = "ninja_scarf"
+	icon_state = "ninja_scarf"
+
 //Mantles of the heads
 
 /obj/item/clothing/neck/mantle/captain
@@ -56,8 +82,7 @@
 	desc = "A tweed mantle, worn by the Research Director. Smells like science."
 	icon_state = "rdmantle"
 
-/obj/item/clothing/neck/mantle/New()
-	..()
+/obj/item/clothing/neck/mantle/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
+

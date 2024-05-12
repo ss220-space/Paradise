@@ -153,15 +153,16 @@
 	sheet_per_ore = S
 	SStgui.update_uis(src)
 
-/obj/machinery/mineral/ore_redemption/power_change()
-	..()
-	update_icon()
+/obj/machinery/mineral/ore_redemption/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/ore_redemption/update_icon()
+/obj/machinery/mineral/ore_redemption/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -257,7 +258,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	// General info
-	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points) : null
+	data["id"] = inserted_id ? list("name" = "[inserted_id.registered_name] ([inserted_id.assignment])", "points" = inserted_id.mining_points, "total_points" = inserted_id.total_mining_points) : null
 	data["points"] = points
 	data["disk"] = inserted_disk ? list(
 		"name" = inserted_disk.name,
@@ -305,7 +306,8 @@
 				return
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
-				to_chat(usr, "<span class='notice'>[points] points claimed.</span>")
+				inserted_id.total_mining_points += points
+				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
 				points = 0
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
@@ -332,12 +334,14 @@
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
+				if(!desired)
+					return FALSE
 				materials.use_amount(D.materials, desired)
 				// Spawn the alloy
 				var/result = new D.build_path(src)
-				if(istype(result, /obj/item/stack))
+				if(isstack(result))
 					var/obj/item/stack/A = result
-					A.amount = amount
+					A.amount = desired
 					unload_mineral(A)
 				else
 					unload_mineral(result)

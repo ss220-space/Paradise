@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 //	use_power = NO_POWER_USE
 	max_integrity = 350
@@ -37,6 +37,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(anchored)
 		if(!src.locked)
 			add_fingerprint(user)
@@ -51,7 +54,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
+	if(W.tool_behaviour == TOOL_MULTITOOL)
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
@@ -65,13 +68,13 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		add_fingerprint(user)
 		user.drop_transfer_item_to_loc(W, src)
 		src.P = W
-		update_icons()
-	else if(istype(W, /obj/item/crowbar))
+		update_icon()
+	else if(W.tool_behaviour == TOOL_CROWBAR)
 		if(P && !src.locked)
 			add_fingerprint(user)
 			eject()
 			return 1
-	else if(istype(W, /obj/item/wrench))
+	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(P)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 			return 1
@@ -85,7 +88,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(W.GetID() || ispda(W))
+	else if(W.GetID() || is_pda(W))
 		if(src.allowed(user))
 			add_fingerprint(user)
 			if(active)
@@ -106,7 +109,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return null
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
 
@@ -122,7 +125,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(active)
 		toggle_power()
 	else
-		update_icons()
+		update_icon()
 
 /obj/machinery/power/rad_collector/proc/receive_pulse(var/pulse_strength)
 	if(P && active)
@@ -131,26 +134,27 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		add_avail(power_produced)
 		last_power = power_produced
 		return
-	return
 
 
-/obj/machinery/power/rad_collector/proc/update_icons()
-	overlays.Cut()
+/obj/machinery/power/rad_collector/update_icon_state()
+	icon_state = "ca[active ? "_on" : ""]"
+
+
+/obj/machinery/power/rad_collector/update_overlays()
+	. = ..()
 	if(P)
-		overlays += image('icons/obj/engines_and_power/singularity.dmi', "ptank")
+		. +=  "ptank"
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
-		overlays += image('icons/obj/engines_and_power/singularity.dmi', "on")
+		. += "on"
 
 
 /obj/machinery/power/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
-		icon_state = "ca_on"
 		flick("ca_active", src)
 	else
-		icon_state = "ca"
 		flick("ca_deactive", src)
-	update_icons()
-	return
+	update_icon()
+

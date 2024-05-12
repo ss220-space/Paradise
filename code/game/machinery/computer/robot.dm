@@ -81,6 +81,22 @@
 			return FALSE
 	return TRUE
 
+/obj/machinery/computer/robotics/proc/can_detonate_any(mob/user, telluserwhy = FALSE)
+	if(ispulsedemon(user))
+		if(telluserwhy)
+			to_chat(user, "<span class='warning'>The console's authentication circuits reject your control!</span>")
+		return FALSE
+	return TRUE
+
+/// Checks if a user can detonate a specific cyborg, does a can_control check first.
+/obj/machinery/computer/robotics/proc/can_detonate(mob/user, mob/living/silicon/robot/R, telluserwhy = FALSE)
+	if(!can_control(user, R, telluserwhy))
+		return FALSE
+	if(!can_detonate_any(user, telluserwhy))
+		return FALSE
+	return TRUE
+
+
 
 /**
   * Check if the user is the right kind of entity to be able to hack borgs
@@ -178,6 +194,8 @@
 				to_chat(usr, span_danger("Access Denied (silicon detected)"))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
+			if(!can_detonate_any(usr, TRUE))
+				return
 			if(safety)
 				to_chat(usr, span_danger("Self-destruct aborted - safety active"))
 				return
@@ -196,7 +214,7 @@
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
-			if(!can_control(usr, R, TRUE))
+			if(!can_detonate(usr, R, TRUE))
 				return
 			if(R.mind && R.mind.special_role && R.emagged)
 				to_chat(R, span_userdanger("Extreme danger!  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered."))

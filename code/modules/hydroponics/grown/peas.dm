@@ -76,7 +76,7 @@
 	genes = list (/datum/plant_gene/trait/glow/blue)
 	reagents_add = list ("fomepizole" = 0.1, "love" = 0.1, "nutriment" = 0.15)
 	rarity = 50 // This absolutely will make even the most hardened Syndicate Operators relax.
-	mutatelist = null
+	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/peaspeace
 	seed = /obj/item/seeds/peas/laugh/peace

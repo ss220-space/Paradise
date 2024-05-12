@@ -310,15 +310,12 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
+	hackable = FALSE
 
 /obj/machinery/door/airlock/centcom/attack_hand(mob/user)
 	. = ..()
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		return
-
-/obj/machinery/door/airlock/centcom/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
 
 /////////////////////////////////
 /*
@@ -334,6 +331,12 @@
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
 	paintable = FALSE
+
+/obj/machinery/door/airlock/vault/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
+
 
 //////////////////////////////////
 /*
@@ -358,10 +361,7 @@
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
-
-/obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-	return
+	hackable = FALSE
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
@@ -436,6 +436,11 @@
 	security_level = 1
 	damage_deflection = 30
 	paintable = FALSE
+
+/obj/machinery/door/airlock/highsecurity/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
@@ -724,6 +729,11 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/syndicate/overlays.dmi'
 	paintable = FALSE
 
+/obj/machinery/door/airlock/syndicate/build_access_electronics()
+	access_electronics = new /obj/item/access_control/syndicate(src)
+	access_electronics.selected_accesses = length(req_access) ? req_access : list()
+	access_electronics.one_access = check_one_access
+
 /obj/machinery/door/airlock/syndicate/security
 	name = "evil looking security airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/security.dmi'
@@ -867,8 +877,8 @@
 	paintable = FALSE
 
 // Добавлено потому, что с помощью флагов не пройти через двойные двери
-/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover as mob|obj)
-	if(!src.CanPass(mover, mover.loc, 1))
+/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover)
+	if(!CanPass(mover, get_dir(src, mover)))
 		mover.Bump(src, TRUE)
 		return FALSE
 	return TRUE

@@ -4,18 +4,25 @@
 
 // Mutable appearances are children of images, just so you know.
 
-/mutable_appearance/New()
+// Mutable appearances erase template vars on new, because they accept an appearance to copy as an arg
+// If we have nothin to copy, we set the float plane
+/mutable_appearance/New(mutable_appearance/to_copy)
 	..()
-	plane = FLOAT_PLANE // No clue why this is 0 by default yet images are on FLOAT_PLANE
-						// And yes this does have to be in the constructor, BYOND ignores it if you set it as a normal var
+	if(!to_copy)
+		plane = FLOAT_PLANE
+
 
 // Helper similar to image()
-/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE)
+/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color)
 	var/mutable_appearance/MA = new()
 	MA.icon = icon
 	MA.icon_state = icon_state
 	MA.layer = layer
 	MA.plane = plane
+	MA.alpha = alpha
+	MA.appearance_flags |= appearance_flags
+	if(color)
+		MA.color = color
 	return MA
 
 
@@ -23,3 +30,15 @@
 	. = ..()
 	alpha = 255
 	transform = null
+
+
+/mutable_appearance/emissive_blocker
+
+
+/mutable_appearance/emissive_blocker/New()
+	. = ..()
+	// Need to do this here because it's overriden by the parent call
+	color = EM_BLOCK_COLOR
+	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+	plane = EMISSIVE_PLANE
+

@@ -2,9 +2,8 @@
 	name = "eyeballs"
 	icon_state = "eyes"
 	gender = PLURAL
-	organ_tag = "eyes"
-	parent_organ = "head"
-	slot = "eyes"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_EYES
 	var/eye_colour = "#000000" // Should never be null
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
@@ -39,24 +38,22 @@
 	if(is_robotic() || (see_in_dark > EYE_SHINE_THRESHOLD))
 		return TRUE
 
-/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
-	..()
+/obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(istype(M) && eye_colour)
 		M.update_body() //Apply our eye colour to the target.
 
 	if(!(COLOURBLIND in M.mutations) && (COLOURBLIND in dependent_disabilities)) //If the eyes are colourblind and we're not, carry over the gene.
 		dependent_disabilities -= COLOURBLIND
-		M.dna.SetSEState(GLOB.colourblindblock,1)
-		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
+		M.force_gene_block(GLOB.colourblindblock, TRUE)
 	else
 		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 
-/obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
+/obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special && (COLOURBLIND in M.mutations)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
 		if(!(COLOURBLIND in dependent_disabilities)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
 			dependent_disabilities |= COLOURBLIND
-		M.dna.SetSEState(GLOB.colourblindblock,0)
-		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
+		M.force_gene_block(GLOB.colourblindblock, FALSE)
 	. = ..()
 
 /obj/item/organ/internal/eyes/surgeryize()
@@ -67,7 +64,18 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
-/obj/item/organ/internal/eyes/robotize(make_tough)
+/obj/item/organ/internal/eyes/has_damage()
+	. = ..()
+	if(.)
+		return .
+	if(owner.AmountEyeBlurry() || owner.AmountBlinded())
+		return TRUE
+	if(NEARSIGHTED in owner.mutations)
+		return TRUE
+	if(BLINDNESS in owner.mutations)
+		return TRUE
+
+/obj/item/organ/internal/eyes/robotize(make_tough = FALSE)
 	colourmatrix = null
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
 	if(owner)
@@ -79,15 +87,17 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/on_life()
 	var/update_flags = STATUS_UPDATE_NONE
 	if(owner.glasses)
 		var/obj/item/clothing/glasses/G = owner.glasses
-		if(G.heal_bodypart == "eyes" && iscarbon(owner))
+		if(G.heal_bodypart == INTERNAL_ORGAN_EYES && iscarbon(owner))
 			var/mob/living/carbon/C = owner
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
 				E.heal_internal_damage(G.heal_rate)
-				update_flags |= owner.AdjustEyeBlurry(-2 SECONDS)
+				owner.AdjustEyeBlurry(-2 SECONDS)
 	return ..() | update_flags

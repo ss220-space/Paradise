@@ -33,15 +33,17 @@
 		if((O in user) && is_type_in_list(O, own_blacklist))
 			continue
 		if(is_type_in_list(O, types_allowed))
-			if(O.flags & ABSTRACT)
-				continue
+			if(isitem(O))
+				var/obj/item/I = O
+				if(I.item_flags & ABSTRACT)
+					continue
 			if(isanimal(O))
 				var/mob/living/simple_animal/SA = O
 				if(!SA.gold_core_spawnable)
 					continue
 			possible_targets += O
 
-	var/atom/movable/target = input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
+	var/atom/movable/target = tgui_input_list(user, "Choose the target of your hunger", "Targeting", possible_targets)
 
 	if(QDELETED(target))
 		return

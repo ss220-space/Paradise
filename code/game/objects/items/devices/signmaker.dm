@@ -7,12 +7,12 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker_clown_off"
 	item_state = "signmaker_clown"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/pointer_busy = FALSE
@@ -29,27 +29,31 @@
 		return
 	qdel(sign)
 	sign = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
 
-	icon_state = "signmaker_clown_on"
 	pointer_busy = TRUE
-	sleep(10)
+	update_icon(UPDATE_ICON_STATE)
+	sleep(1 SECONDS)
 	pointer_busy = FALSE
-	icon_state = "signmaker_clown_off"
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/signmaker/update_icon()
-	if(sign)
+
+/obj/item/signmaker/update_icon_state()
+	if(pointer_busy)
 		icon_state = "signmaker_clown_on"
-	else
-		icon_state = "signmaker_clown_off"
+		return
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
+
 
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()
-	to_chat(user, "You broke the pointer, oh no")
+	if(user)
+		to_chat(user, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
 /obj/item/signmaker/attack_self(mob/user)
@@ -93,7 +97,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/carbon/C = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
@@ -108,7 +112,7 @@
 			energy -= 1
 			icon_flick()
 			var/mob/living/silicon/S = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
 				if(prob(20))
 					S.flash_eyes(affect_silicon = 1)
@@ -155,7 +159,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 			clear_holosign()
 		return
-	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
@@ -181,7 +185,8 @@
 	projector = new_projector
 
 /obj/structure/holosoap/Destroy()
-	projector.sign = null
+	projector?.sign = null
+	projector?.update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/structure/holosoap/has_prints()

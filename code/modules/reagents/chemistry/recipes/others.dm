@@ -674,15 +674,17 @@
 	id = "mixvirus"
 	required_reagents = list("virusfood" = 1)
 	required_catalysts = list("blood" = 1)
+	count_of_catalysts = 1
 	var/level_min = 0
 	var/level_max = 2
 
 /datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Evolve(level_min, level_max)
+	for(var/datum/reagent/R in holder.reagent_list)
+		if(R.data && R.data["diseases"])
+			var/datum/disease/virus/advance/D = locate(/datum/disease/virus/advance) in R.data["diseases"]
+			if(D)
+				D.Evolve(level_min, level_max)
+				return
 
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
@@ -746,10 +748,12 @@
 	id = "remvirus"
 	required_reagents = list("diphenhydramine" = 1)
 	required_catalysts = list("blood" = 1)
+	count_of_catalysts = 1
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Devolve()
+	for(var/datum/reagent/R in holder.reagent_list)
+		if(R.data && R.data["diseases"])
+			var/datum/disease/virus/advance/D = locate(/datum/disease/virus/advance) in R.data["diseases"]
+			if(D)
+				D.Devolve()
+				return

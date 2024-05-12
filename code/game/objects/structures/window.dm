@@ -26,10 +26,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A window."
 	icon_state = "window"
 	density = TRUE
+	pass_flags_self = PASSGLASS
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
 	flags = ON_BORDER
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -44,7 +46,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/glass_type = /obj/item/stack/sheet/glass
 	var/glass_amount = 1
 	var/cancolor = FALSE
-	var/image/crack_overlay
+	var/mutable_appearance/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
@@ -86,6 +88,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/shards = 1
 	if(fulltile)
+		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
 		shards++
 		setDir()
 
@@ -135,39 +138,39 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		..(FULLTILE_WINDOW_DIR)
 
-/obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(dir == FULLTILE_WINDOW_DIR)
-		return 0	//full tile window, you can't move into it!
-	if(get_dir(loc, target) == dir)
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+/obj/structure/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+
+	if(fulltile || border_dir == dir)
 		return FALSE
-	return 1
 
-/obj/structure/window/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(O.loc, target) == dir)
-		return 0
-	return 1
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
+	return TRUE
+
+
+/obj/structure/window/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
+
+/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(!density)
-		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
-		return 0
+		return TRUE
+	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+		return FALSE
+	return TRUE
 
-	return 1
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -242,7 +245,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -255,7 +258,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
 
 /obj/structure/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -274,7 +277,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
-			anchored = !anchored
+			set_anchored(!anchored)
 			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
@@ -284,13 +287,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
-		anchored = !anchored
+		set_anchored(!anchored)
 		air_update_turf(TRUE)
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
 /obj/structure/window/wrench_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(anchored)
 		return
@@ -322,6 +325,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		obj_integrity = max_integrity
 		WELDER_REPAIR_SUCCESS_MESSAGE
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)
@@ -339,13 +343,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	..()
 
+
 /obj/structure/window/proc/can_be_reached(mob/user)
-	if(!fulltile)
-		if(get_dir(user, src) & dir)
-			for(var/obj/O in loc)
-				if(!O.CanPass(user, user.loc, 1))
-					return 0
-	return 1
+	if(fulltile || dir == FULLTILE_WINDOW_DIR)
+		return TRUE
+	var/checking_dir = get_dir(user, src)
+	if(!(checking_dir & dir))
+		return TRUE // Only windows on the other side may be blocked by other things.
+	checking_dir = REVERSE_DIR(checking_dir)
+	for(var/obj/blocker in loc)
+		if(!blocker.CanPass(user, checking_dir))
+			return FALSE
+	return TRUE
+
 
 /obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -367,7 +377,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(!disassembled)
 		playsound(src, breaksound, 70, 1)
-		if(!(flags & NODECONSTRUCT))
+		if(!(obj_flags & NODECONSTRUCT))
 			for(var/i in debris)
 				var/obj/item/I = i
 				I.forceMove(loc)
@@ -388,7 +398,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -396,7 +406,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return FALSE
 
 	var/target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, is_fulltile = fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -411,7 +421,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -420,7 +430,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	var/target_dir = turn(dir, 270)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 
@@ -431,23 +441,21 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/AltClick(mob/user)
 
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+		return
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
 
-	var/target_dir = turn(dir, 270)
+	var/target_dir = turn(dir, 90)
 
-	if(!valid_window_location(loc, target_dir))
-		target_dir = turn(dir, 90)
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_build_direction(loc, target_dir, fulltile))
 		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
 		return FALSE
 
@@ -457,7 +465,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return TRUE
 
 /obj/structure/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_nearby_icons()
 	return ..()
@@ -468,35 +476,64 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(turf/T, vertical)
 	if(!anchored || !density)
 		return TRUE
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(smooth)
 		queue_smooth_neighbors(src)
 
-/obj/structure/window/update_icon()
-	if(!QDELETED(src))
-		if(!fulltile)
-			return
-		var/ratio = obj_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
-		if(smooth)
-			queue_smooth(src)
-		overlays -= crack_overlay
-		if(ratio > 75)
-			return
-		crack_overlay = image('icons/obj/structures.dmi',"damage[ratio]",-(layer+0.1))
-		overlays += crack_overlay
+/obj/structure/window/update_overlays()
+	. = ..()
+	if(QDELETED(src) || !fulltile)
+		return
+
+	var/ratio = obj_integrity / max_integrity
+	ratio = CEILING(ratio * 4, 1) * 25
+	if(smooth)
+		queue_smooth(src)
+	if(ratio > 75)
+		return
+
+	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
+	. += crack_overlay
+
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
+
+
+/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/shattered = FALSE
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
+		shattered = TRUE
+		var/obj/item/S = new shardtype(loc)
+		S.embedded_ignore_throwspeed_threshold = TRUE
+		S.throw_impact(C)
+		S.embedded_ignore_throwspeed_threshold = FALSE
+		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/grille/G in T.contents)
+			var/obj/structure/cable/SC = T.get_cable_node()
+			if(SC)
+				playsound(G, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+				tesla_zap(G, 3, SC.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+				SC.add_delayedload(SC.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			qdel(G) //We don't want the grille to block the way, we want rule of cool of throwing people into space!
+
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
+	..()
+	if(shattered)
+		C.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
@@ -566,35 +603,38 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	use_power(5)
 
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/structure/window/reinforced/polarized/W in range(src,range))
-		if(W.id == src.id || !W.id)
-			spawn(0)
-				W.toggle()
-				return
-	for(var/obj/machinery/door/airlock/G in range(src,range))
-		if(G.id == src.id)
-			spawn(0)
-				if(G.glass)
-					G.airlock_material = null
-					G.glass = FALSE
-					G.update_icon()
-					if(G.density)
-						G.opacity = 1
-				else
-					G.airlock_material = "glass"
-					G.glass = TRUE
-					G.update_icon()
-					G.opacity = 0
-				return
+	for(var/obj/structure/window/reinforced/polarized/window in range(src,range))
+		if(window.id == id || !window.id)
+			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/reinforced/polarized, toggle))
 
-/obj/machinery/button/windowtint/power_change()
-	..()
+	for(var/obj/machinery/door/airlock/airlock in range(src,range))
+		if(airlock.id == id)
+			INVOKE_ASYNC(src, PROC_REF(async_update), airlock)
+
+
+/obj/machinery/button/windowtint/proc/async_update(obj/machinery/door/airlock/airlock)
+	if(airlock.glass)
+		airlock.airlock_material = null
+		airlock.glass = FALSE
+		airlock.update_icon()
+		if(airlock.density)
+			airlock.set_opacity(TRUE)
+	else
+		airlock.airlock_material = "glass"
+		airlock.glass = TRUE
+		airlock.update_icon()
+		airlock.set_opacity(FALSE)
+
+
+/obj/machinery/button/windowtint/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(active && !powered(power_channel))
 		toggle_tint()
 
-/obj/machinery/button/windowtint/update_icon()
+/obj/machinery/button/windowtint/update_icon_state()
 	icon_state = "light[active]"
 
 /obj/structure/window/plasmabasic
@@ -630,12 +670,33 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/plasmareinforced/BlockSuperconductivity()
 	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
+/obj/structure/window/abductor
+	name = "alien window"
+	desc = "A window made out of a alien alloy. Looks like it can regenerate all damage."
+	icon_state = "alwindow"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 150
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+
+/obj/structure/window/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
+
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+
+/obj/structure/window/full/CanAtmosPass(turf/T, vertical)
+	if(!anchored || !density)
+		return TRUE
+	return FALSE
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
@@ -713,6 +774,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "ice_window"
 	max_integrity = 150
 	cancolor = FALSE
+
+/obj/structure/window/full/abductor
+	name = "alien window"
+	desc = "A alien alloy window. Looks like it regenerate all damage."
+	icon = 'icons/obj/smooth_structures/alien_window.dmi'
+	icon_state = "al_window"
+	shardtype = /obj/item/shard
+	glass_type = /obj/item/stack/sheet/abductorglass
+	heat_resistance = 1600
+	max_integrity = 300
+	smooth = SMOOTH_TRUE
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	canSmoothWith = list(/obj/structure/window/full/abductor)
+
+/obj/structure/window/full/abductor/Initialize(mapload, direct)
+	..()
+	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
@@ -838,7 +917,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
 	obj_integrity = max_integrity
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
 	take_damage(rand(25, 75), BRUTE)

@@ -1,94 +1,72 @@
 /obj/item/implantcase
-	name = "implant case"
-	desc = "A glass case containing an implant."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "implantcase-0"
+	name = "bio-chip case"
+	desc = "A glass case containing a bio-chip."
+	icon = 'icons/obj/implants.dmi'
+	icon_state = "implantcase"
 	item_state = "implantcase"
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=2"
-	container_type = OPENCONTAINER | INJECTABLE | DRAWABLE
-	materials = list(MAT_GLASS=500)
-	var/obj/item/implant/imp = null
+	container_type = OPENCONTAINER|INJECTABLE|DRAWABLE
+	materials = list(MAT_GLASS = 500)
+	/// Path thats will be transformed into object on Initialize()
+	var/obj/item/implant/imp
 
 
-/obj/item/implantcase/update_icon()
+/obj/item/implantcase/Initialize(mapload)
+	. = ..()
+	if(ispath(imp, /obj/item/implant))
+		imp = new imp(src)
+	update_state()
+
+
+/obj/item/implantcase/Destroy()
 	if(imp)
-		icon_state = "implantcase-[imp.item_color]"
+		QDEL_NULL(imp)
+	return ..()
+
+
+/obj/item/implantcase/proc/update_state()
+	if(imp)
 		origin_tech = imp.origin_tech
-		flags = imp.flags & ~DROPDEL
+		item_flags = imp.item_flags & ~DROPDEL
 		reagents = imp.reagents
 	else
-		icon_state = "implantcase-0"
 		origin_tech = initial(origin_tech)
-		flags = initial(flags)
+		item_flags = initial(item_flags)
 		reagents = null
+	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/implantcase/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/pen))
-		rename_interactive(user, W)
-	else if(istype(W, /obj/item/implanter))
-		var/obj/item/implanter/I = W
-		if(I.imp)
-			if(imp || I.imp.implanted)
+/obj/item/implantcase/update_overlays()
+	. = ..()
+	if(imp)
+		. += image('icons/obj/implants.dmi', imp.implant_state)
+
+
+/obj/item/implantcase/attackby(obj/item/I, mob/user)
+	if(is_pen(I))
+		rename_interactive(user, I)
+	else if(istype(I, /obj/item/implanter))
+		var/obj/item/implanter/implater = I
+		if(implater.imp)
+			if(imp || implater.imp.implanted)
 				return
-			I.imp.loc = src
-			imp = I.imp
-			I.imp = null
-			update_icon()
-			I.update_icon()
+			implater.imp.forceMove(src)
+			imp = implater.imp
+			implater.imp = null
+			update_state()
+			implater.update_state()
 		else
 			if(imp)
-				if(I.imp)
+				if(implater.imp)
 					return
-				imp.loc = I
-				I.imp = imp
+				imp.forceMove(implater)
+				implater.imp = imp
 				imp = null
-				update_icon()
-			I.update_icon()
+				update_state()
+			implater.update_state()
+	else
+		return ..()
 
-	/*else if(istype(W, /obj/item/ammo_casing/shotgun/implanter))
-		var/obj/item/ammo_casing/shotgun/implanter/I = W
-		if(I.implanter)
-			src.attackby(I.implanter, user, params) */ // COMING SOON -- c0
-
-/obj/item/implantcase/New()
-	..()
-	update_icon()
-
-
-/obj/item/implantcase/tracking
-	name = "implant case - 'Tracking'"
-	desc = "A glass case containing a tracking implant."
-
-/obj/item/implantcase/tracking/New()
-	imp = new /obj/item/implant/tracking(src)
-	..()
-
-
-/obj/item/implantcase/weapons_auth
-	name = "implant case - 'Firearms Authentication'"
-	desc = "A glass case containing a firearms authentication implant."
-
-/obj/item/implantcase/weapons_auth/New()
-	imp = new /obj/item/implant/weapons_auth(src)
-	..()
-
-/obj/item/implantcase/adrenaline
-	name = "implant case - 'Adrenaline'"
-	desc = "A glass case containing an adrenaline implant."
-
-/obj/item/implantcase/adrenaline/New()
-	imp = new /obj/item/implant/adrenalin(src)
-	..()
-
-/obj/item/implantcase/death_alarm
-	name = "Glass Case- 'Death Alarm'"
-	desc = "A case containing a death alarm implant."
-
-/obj/item/implantcase/death_alarm/New()
-	imp = new /obj/item/implant/death_alarm(src)
-	..()

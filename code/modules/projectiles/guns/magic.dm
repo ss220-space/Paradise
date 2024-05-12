@@ -8,6 +8,8 @@
 	fire_sound_text = "energy blast"
 	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
+	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/generic_drop3.ogg'
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4
@@ -32,7 +34,7 @@
 			no_den_usage = 0
 	..()
 
-/obj/item/gun/magic/can_shoot()
+/obj/item/gun/magic/can_shoot(mob/user)
 	return charges
 
 /obj/item/gun/magic/newshot(params)
@@ -49,8 +51,8 @@
 		charges--//... drain a charge
 	return
 
-/obj/item/gun/magic/New()
-	..()
+/obj/item/gun/magic/Initialize()
+	. = ..()
 	charges = max_charges
 	chambered = new ammo_type(src)
 	if(can_charge)
@@ -71,7 +73,7 @@
 	charges++
 	return 1
 
-/obj/item/gun/magic/update_icon()
+/obj/item/gun/magic/update_icon_state()
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)

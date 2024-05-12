@@ -16,7 +16,7 @@
 
 /obj/screen/ai/camera_list/Click()
 	var/mob/living/silicon/ai/AI = usr
-	var/camera = input(AI, "Choose which camera you want to view", "Cameras") as null|anything in AI.get_camera_list()
+	var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
 	AI.ai_camera_list(camera)
 
 /obj/screen/ai/camera_track
@@ -26,7 +26,7 @@
 /obj/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = input(AI) as null|anything in AI.trackable_mobs()
+		var/target_name = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.trackable_mobs())
 		if(target_name)
 			AI.ai_camera_track(target_name)
 
@@ -140,6 +140,24 @@
 		var/mob/living/silicon/robot/borg = usr
 		borg.sensor_mode()
 
+/obj/screen/ai/move_up
+	name = "Move up a floor"
+	icon_state = "move_up"
+
+/obj/screen/ai/move_up/Click()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.move_up()
+
+/obj/screen/ai/move_down
+	name = "Move down a floor"
+	icon_state = "move_down"
+
+/obj/screen/ai/move_down/Click()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.move_down()
+
 /mob/living/silicon/ai/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/ai(src)
@@ -233,3 +251,13 @@
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
+
+//Move Up
+	using = new /obj/screen/ai/move_up()
+	using.screen_loc = ui_ai_up
+	static_inventory += using
+
+//Move Down
+	using = new /obj/screen/ai/move_down()
+	using.screen_loc = ui_ai_down
+	static_inventory += using

@@ -1,8 +1,8 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic
@@ -19,30 +19,25 @@
 	update_icon()
 
 /obj/machinery/computer/pandemic/set_broken()
-	icon_state = (beaker ? "mixer1_b" : "mixer0_b")
-	overlays.Cut()
 	stat |= BROKEN
+	update_icon()
 
-/obj/machinery/computer/pandemic/proc/GetVirusByIndex(index)
-	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
-			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
-			if(BL)
-				if(BL.data && BL.data["viruses"])
-					var/list/viruses = BL.data["viruses"]
-					return viruses[index]
+/obj/machinery/computer/pandemic/proc/GetDiseaseByIndex(index)
+	if(beaker?.reagents?.reagent_list.len)
+		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
+			if(BL?.data && BL.data["diseases"])
+				var/list/diseases = BL.data["diseases"]
+				return diseases[index]
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
-	if(beaker && beaker.reagents)
-		if(beaker.reagents.reagent_list.len)
-			var/datum/reagent/blood/BL = locate() in beaker.reagents.reagent_list
-			if(BL)
-				if(BL.data && BL.data["resistances"])
-					var/list/resistances = BL.data["resistances"]
-					return resistances[index]
+	if(beaker?.reagents?.reagent_list.len)
+		for(var/datum/reagent/BL in beaker.reagents.reagent_list)
+			if(BL?.data && BL.data["resistances"])
+				var/list/resistances = BL.data["resistances"]
+				return resistances[index]
 
-/obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
-	var/datum/disease/D = GetVirusByIndex(index)
+/obj/machinery/computer/pandemic/proc/GetDiseaseTypeByIndex(index)
+	var/datum/disease/D = GetDiseaseByIndex(index)
 	if(D)
 		return D.GetDiseaseID()
 
@@ -54,17 +49,19 @@
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, 1)
 
-/obj/machinery/computer/pandemic/update_icon()
+
+/obj/machinery/computer/pandemic/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = (beaker ? "mixer1_b" : "mixer0_b")
+		icon_state = "mixer[beaker ? "1" : "0"]_b"
 		return
+	icon_state = "mixer[beaker ? "1" : "0"][(powered()) ? "" : "_nopower"]"
 
-	icon_state = "mixer[(beaker)?"1":"0"][(powered()) ? "" : "_nopower"]"
 
-	if(wait)
-		overlays.Cut()
-	else
-		overlays += "waitlight"
+/obj/machinery/computer/pandemic/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && !wait)
+		. += "waitlight"
+
 
 /obj/machinery/computer/pandemic/Topic(href, href_list)
 	if(..())
@@ -103,31 +100,29 @@
 			temp_html = "The replicator is not ready yet."
 		updateUsrDialog()
 		return
-	else if(href_list["create_virus_culture"])
+	else if(href_list["create_disease_culture"])
 		if(!wait)
-			var/type = GetVirusTypeByIndex(text2num(href_list["create_virus_culture"]))//the path is received as string - converting
-			var/datum/disease/D = null
-			if(!ispath(type))
-				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
-				var/datum/disease/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
+			var/datum/disease/D = GetDiseaseByIndex(text2num(href_list["create_disease_culture"]))
+			var/datum/disease/copy
+			if(istype(D, /datum/disease/virus/advance))
+				var/datum/disease/virus/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
 				if(A)
-					D = A.Copy()
-			else if(type)
-				if(type in GLOB.diseases) // Make sure this is a disease
-					D = new type()
-			if(!D)
+					copy = A.Copy()
+			if(!copy)
+				copy = D.Copy()
+			if(!copy)
 				return
-			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
+			var/name = stripped_input(usr,"Name:","Name the culture",copy.name,MAX_NAME_LEN)
 			if(name == null || wait)
 				return
-			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
+			var/obj/item/reagent_containers/glass/bottle/B = new(loc)
 			B.icon_state = "round_bottle"
 			B.pixel_x = rand(-3, 3)
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
-			var/list/data = list("viruses"=list(D))
+			var/list/data = list("diseases"=list(copy))
 			B.name = "[name] culture bottle"
-			B.desc = "A small bottle. Contains [D.agent] culture in synthblood medium."
+			B.desc = "A small bottle. Contains [copy.agent] culture in synthblood medium."
 			B.reagents.add_reagent("blood",20,data)
 			updateUsrDialog()
 		else
@@ -153,15 +148,15 @@
 			return
 		if(..())
 			return
-		var/id = GetVirusTypeByIndex(text2num(href_list["name_disease"]))
+		var/id = GetDiseaseTypeByIndex(text2num(href_list["name_disease"]))
 		if(GLOB.archive_diseases[id])
-			var/datum/disease/advance/A = GLOB.archive_diseases[id]
+			var/datum/disease/virus/advance/A = GLOB.archive_diseases[id]
 			A.AssignName(new_name)
-			for(var/datum/disease/advance/AD in GLOB.active_diseases)
-				AD.Refresh()
+			for(var/datum/disease/virus/advance/AD in GLOB.active_diseases)
+				AD.Refresh(update_properties = FALSE)
 		updateUsrDialog()
 	else if(href_list["print_form"])
-		var/datum/disease/D = GetVirusByIndex(text2num(href_list["print_form"]))
+		var/datum/disease/D = GetDiseaseByIndex(text2num(href_list["print_form"]))
 		D = GLOB.archive_diseases[D.GetDiseaseID()]//We know it's advanced no need to check
 		print_form(D, usr)
 
@@ -179,7 +174,7 @@
 	icon_state = "mixer0"
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
-/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
+/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/virus/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = input(user,"Укажите причину выпуска", "Указать", null) as message
@@ -206,7 +201,7 @@
 		P.info += "<HR>"
 		P.info += "<U>Название вируса:</U> [D.name] <BR>"
 		P.info += "<U>Симптомы:</U> [symtoms]<BR>"
-		P.info += "<U>Путь передачи:</U> [D.spread_text]<BR>"
+		P.info += "<U>Путь передачи:</U> [D.additional_info]<BR>"
 		P.info += "<U>Лекарство от вируса:</U> [D.cure_text]<BR>"
 		P.info += "<BR>"
 		P.info += "<U>Причина выпуска:</U> [reason]"
@@ -217,6 +212,7 @@
 		P.populatefields()
 		P.updateinfolinks()
 		P.name = "Выпуск вируса «[D.name]»"
+		P.update_icon()
 		printing = null
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)
@@ -231,10 +227,13 @@
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
-		var/datum/reagent/blood/Blood = null
-		for(var/datum/reagent/blood/B in R.reagent_list)
-			if(B)
+		var/datum/reagent/Blood = null
+
+		for(var/datum/reagent/B in R.reagent_list)
+			if(B.id in GLOB.diseases_carrier_reagents)
 				Blood = B
+				if(!Blood.data)
+					continue
 				break
 		if(!R.total_volume||!R.reagent_list.len)
 			dat += "Мензурка пуста<BR>"
@@ -248,60 +247,59 @@
 			dat += "<b>Тип крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
 			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<BR>"
 
+			dat += "<h3>Данные о заболеваниях:</h3>"
+			if(Blood.data["diseases"])
+				var/i = 0
+				for(var/datum/disease/D in Blood.data["diseases"])
+					i++
+					if(!(D.visibility_flags & HIDDEN_PANDEMIC))
 
-			if(Blood.data["viruses"])
-				var/list/vir = Blood.data["viruses"]
-				if(vir.len)
-					var/i = 0
-					for(var/thing in Blood.data["viruses"])
-						var/datum/disease/D = thing
-						i++
-						if(!(D.visibility_flags & HIDDEN_PANDEMIC))
+						dat += "<b>Общепринятое название: </b>"
 
-							if(istype(D, /datum/disease/advance))
-
-								var/datum/disease/advance/A = D
-								D = GLOB.archive_diseases[A.GetDiseaseID()]
-								if(D)
-									if(D.name == "Unknown")
-										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
-									else
-										dat += "<b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
-
-							if(!D)
-								CRASH("We weren't able to get the advance disease from the archive.")
-
-							dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_virus_culture=[i]'>Создать бутылёк с вирусной культурой</A>":"нет"]<BR>"
-							dat += "<b>Общепринятое название:</b> [(D.name||"нет")]<BR>"
-							dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
-							dat += "<b>Путь передачи:</b> [(D.spread_text||"нет")]<BR>"
-							dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR><BR>"
-
-							if(istype(D, /datum/disease/advance))
-								var/datum/disease/advance/A = D
-								dat += "<b>Симптомы:</b> "
-								var/english_symptoms = list()
-								for(var/datum/symptom/S in A.symptoms)
-									english_symptoms += S.name
-								dat += english_list(english_symptoms)
-
+						if(istype(D, /datum/disease/virus/advance))
+							var/datum/disease/virus/advance/A = D
+							D = GLOB.archive_diseases[A.GetDiseaseID()]
+							if(D)
+								if(D.name == "Unknown")
+									dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
+								else
+									dat += "[D.name] <b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
 						else
-							dat += "В образце не обнаружен вирус."
+							dat += "[D.name]<BR>"
+
+						if(!D)
+							CRASH("We weren't able to get the advance disease from the archive.")
+
+						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_disease_culture=[i]'>Создать образец</A>":"нет"]<BR>"
+						dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
+						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
+						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR>"
+						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<BR>"
+
+						if(istype(D, /datum/disease/virus/advance))
+							var/datum/disease/virus/advance/A = D
+							dat += "<BR><b>Симптомы:</b> "
+							var/english_symptoms = list()
+							for(var/datum/symptom/S in A.symptoms)
+								english_symptoms += S.name
+							dat += english_list(english_symptoms)
+						dat += "<BR>"
+				if(i == 0)
+					dat += "В образце не обнаружен вирус."
 			else
 				dat += "В образце не обнаружен вирус."
 
-			dat += "<BR><b>Содержит антитела к:</b> "
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
 				if(res.len)
-					dat += "<ul>"
+					dat += "<BR><b>Содержит антитела к:</b><ul>"
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
 						var/disease_name = "Unknown"
 
 						if(!ispath(type))
-							var/datum/disease/advance/A = GLOB.archive_diseases[type]
+							var/datum/disease/virus/advance/A = GLOB.archive_diseases[type]
 							if(A)
 								disease_name = A.name
 						else
@@ -311,13 +309,13 @@
 						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
 					dat += "</ul><BR>"
 				else
-					dat += "ничему<BR>"
+					dat += "<BR><b>Не содержит антител</b><BR>"
 			else
-				dat += "nothing<BR>"
+				dat += "<BR><b>Не содержит антител</b><BR>"
 		dat += "<BR><A href='?src=[UID()];eject=1'>Извлечь мензурку</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Очистить и извлечь мензурку</A>":"")]<BR>"
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 
-	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
+	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pandemic")
@@ -343,7 +341,7 @@
 		updateUsrDialog()
 		icon_state = "mixer1"
 
-	else if(istype(I, /obj/item/screwdriver))
+	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(beaker)
 			add_fingerprint(user)
 			beaker.forceMove(get_turf(src))

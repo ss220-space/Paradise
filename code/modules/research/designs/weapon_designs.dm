@@ -139,7 +139,7 @@
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 22000)
+	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9
 	category = list("Weapons", "hacked", "Security")
 
@@ -147,21 +147,21 @@
 	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
 	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_ap"
-	materials = list(MAT_METAL = 32000, MAT_SILVER = 3000)
+	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
 
 /datum/design/mag_oldsmg/ic_mag
 	name = "WT-550 Auto Gun Incendiary Magazine (4.6x30mm IC)"
 	desc = "A 20 round incendiary magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_ic"
-	materials = list(MAT_METAL = 32000, MAT_SILVER = 3000, MAT_PLASMA = 4000)
+	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500, MAT_PLASMA = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
 
 /datum/design/mag_oldsmg/tx_mag
 	name = "WT-550 Auto Gun Uranium Magazine (4.6x30mm TX)"
 	desc = "A 20 round uranium tipped magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg_tx"
-	materials = list(MAT_METAL = 32000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
+	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/box_oldsmg
@@ -170,7 +170,7 @@
 	id = "box_oldsmg"
 	req_tech = list("combat" = 2, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 40500)
+	materials = list(MAT_METAL = 20000)
 	build_path = /obj/item/ammo_box/c46x30mm
 	category = list("Weapons", "hacked", "Security")
 
@@ -178,21 +178,21 @@
 	name = "WT-550 Auto Gun Armour Piercing Ammo box (4.6x30mm AP)"
 	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ap"
-	materials = list(MAT_METAL = 60500, MAT_SILVER = 6000)
+	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/ap46x30mm
 
 /datum/design/box_oldsmg/ic_box
 	name = "WT-550 Auto Gun Incendiary Ammo box (4.6x30mm IC)"
 	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ic"
-	materials = list(MAT_METAL = 60500, MAT_SILVER = 6000, MAT_PLASMA = 8000)
+	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/inc46x30mm
 
 /datum/design/box_oldsmg/tx_box
 	name = "WT-550 Auto Gun Uranium Ammo box (4.6x30mm TX)"
 	desc = "A 20 round uranium tipped ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_tx"
-	materials = list(MAT_METAL = 60500, MAT_SILVER = 6000, MAT_URANIUM = 8000)
+	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
 /datum/design/lmag
@@ -201,7 +201,7 @@
 	id = "lmag"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 16000, MAT_GLASS = 5000, MAT_PLASMA = 6000)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500, MAT_PLASMA = 3000)
 	build_path = /obj/item/ammo_box/magazine/lr30mag
 	category = list("Weapons")
 
@@ -509,7 +509,7 @@
 	id = "10mminc"
 	req_tech = list("combat" = 4, "syndicate" = 2, "materials" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 18000, MAT_SILVER = 1600, MAT_PLASMA = 2400)
+	materials = list(MAT_METAL = 9000, MAT_SILVER = 800, MAT_PLASMA = 1200)
 	build_path = /obj/item/ammo_box/magazine/m10mm/fire
 	locked = TRUE
 	category = list("ILLEGAL")

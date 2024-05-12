@@ -27,7 +27,7 @@
 	return BRUTELOSS
 
 /obj/item/seeds/kudzu/proc/plant(mob/user)
-	if(istype(user.loc, /turf/space))
+	if(isspaceturf(user.loc))
 		return
 	var/turf/T = get_turf(src)
 	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(T)]")

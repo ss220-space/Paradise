@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	flags = SS_TICKER
 	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "icon_smooth"
 
 	var/list/smooth_queue = list()
 

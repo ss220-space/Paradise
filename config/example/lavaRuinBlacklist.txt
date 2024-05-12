@@ -46,3 +46,5 @@
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_grave.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_legion.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_nest.dmm
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pirateship.dmm
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm

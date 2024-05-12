@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(npcpool)
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Simple animals will no longer process. Shuttle call recommended."
-
+	ss_id = "npc_pool"
 	var/list/currentrun = list()
 
 /datum/controller/subsystem/npcpool/get_stat_details()
@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(npcpool)
 			GLOB.simple_animals[AI_ON] -= SA
 			continue
 
-		if(!SA.ckey && !SA.notransform)
+		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)

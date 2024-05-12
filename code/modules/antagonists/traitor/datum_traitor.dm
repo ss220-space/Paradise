@@ -8,6 +8,8 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	wiki_page_name = "Traitor"
+	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	/// Should the traitor get codewords?
@@ -16,6 +18,8 @@
 	var/give_uplink = TRUE
 	/// Whether the traitor can specialize into a contractor.
 	var/is_contractor = FALSE
+	/// Whether the traitor will receive only hijack objective.
+	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
 
@@ -79,8 +83,15 @@
 
 
 /datum/antagonist/traitor/give_objectives()
-	var/is_hijacker = prob(10)
-	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
+
+	// delete these start
+
+	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
+
+	// delete these end
+
+
+	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
@@ -92,7 +103,7 @@
 
 	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
+	if(hijacker_antag && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
 			return
@@ -149,11 +160,11 @@
 		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	var/where = "At your feet"
@@ -192,8 +203,9 @@
  * Give traitors their uplink. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
+	var/list/messages = list()
 	if(give_codewords)
-		give_codewords()
+		messages.Add(give_codewords())
 
 	if(give_uplink)
 		give_uplink()
@@ -203,8 +215,9 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	if(is_contractor)
-		owner.add_antag_datum(/datum/antagonist/contractor)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/contractor), 1)
 
+	return messages
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
@@ -222,13 +235,15 @@
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
+	var/list/messages = list()
 	if(!silent)
-		to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-		to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-		to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-		to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+		messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
+		messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+		messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+		messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+		messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
+	return messages
 
 /**
  * Gives a traitor their uplink, and uplink code.
@@ -277,7 +292,7 @@
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		// generate a passcode if the uplink is hidden in a PDA
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
@@ -310,7 +325,7 @@
 
 	var/obj/item/uplink_holder = hidden_uplink.loc
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
 		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
 
@@ -320,6 +335,27 @@
 
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))
+
+
+/**
+ * Takes any datum `source` and checks it for traitor datum.
+ */
+/proc/istraitor(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/traitor)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/traitor)
 
 
 #undef EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED

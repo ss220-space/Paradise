@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(input)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "input"
 
 	/// List of clients whose input to process in loop.
 	var/list/client/processing = list()

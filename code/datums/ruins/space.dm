@@ -181,13 +181,13 @@
 	name = "Abandoned Teleporter"
 	description = "An old teleporter, seemingly part of what used to be a larger satellite."
 
-/datum/map_template/ruin/space/blowntcommsat
-	id = "blowntcommsat"
-	suffix = "blowntcommsat.dmm"
-	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
-	cost = 5 // This is a chonky boy
-	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+/datum/map_template/ruin/space/spaceprison
+	id = "spaceprison"
+	suffix = "spaceprison.dmm"
+	name = "Space Prison"
+	description = "This is an abandoned space prison. It looks like it was stormed and many things were stolen."
+	cost = 3
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
@@ -375,4 +375,21 @@
 	Complete freedom of action, with one condition - to clean up everything after yourself, keeping everything in its original form.\
 	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
 	cost = 3
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/graveyard
+	id = "graveyard"
+	suffix = "graveyard.dmm"
+	name = "Space graveyard"
+	description = "An abandoned graveyard with a church drifts across the vastness of space; memorial services and the ringing of bells have long since left this place.\
+	What secrets does the “Church of Salvation” keep and who is buried in its graveyard?"
+	cost = 4
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/abandoned_banya
+	id = "abandoned_banya"
+	suffix = "abandoned_banya.dmm"
+	name = "USSP Space Banya"
+	description = "Its old space USSP Banya.... She looks very abandoned."
+	cost = 2
 	allow_duplicates = FALSE

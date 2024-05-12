@@ -6,10 +6,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "airlock_painter"
 	item_state = "airlock_painter"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	usesound = 'sound/effects/spray2.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting
 
@@ -38,14 +39,14 @@
 	return TRUE
 
 /obj/item/airlock_painter/attack_self(mob/user)
-	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in available_paint_jobs
+	paint_setting = tgui_input_list(user, "Please select a paintjob for this airlock", "Airlock painter", available_paint_jobs)
 	if(!paint_setting)
 		return
 	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
 
 /obj/item/airlock_painter/suicide_act(mob/user)
 
-	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs")
+	var/obj/item/organ/internal/lungs/L = user.get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	var/lungs_name = "\improper[L.name]"
 
 	if(L)

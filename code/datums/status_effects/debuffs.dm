@@ -92,6 +92,7 @@
 	var/delay_before_decay = 5
 	var/bleed_damage = 200
 	var/needs_to_bleed = FALSE
+	var/bleed_cap = 10
 
 /datum/status_effect/saw_bleed/Destroy()
 	if(owner)
@@ -128,7 +129,7 @@
 	owner.underlays -= bleed_underlay
 	bleed_amount += amount
 	if(bleed_amount)
-		if(bleed_amount >= 10)
+		if(bleed_amount >= bleed_cap)
 			needs_to_bleed = TRUE
 			qdel(src)
 		else
@@ -151,6 +152,12 @@
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
+
+/datum/status_effect/saw_bleed/bloodletting
+	id = "bloodletting"
+	bleed_cap = 7
+	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
+	bleed_amount = 6
 
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
@@ -199,10 +206,10 @@
 /datum/status_effect/mark_prey/on_creation(mob/living/new_owner, datum/antagonist/vampire/antag_datum)
 	if(antag_datum)
 		vamp = antag_datum
-		var/t_kidneys = vamp.get_trophies("kidneys")
+		var/t_kidneys = vamp.get_trophies(INTERNAL_ORGAN_KIDNEYS)
 		duration += t_kidneys SECONDS	// 15s. MAX
-		t_eyes = vamp.get_trophies("eyes")
-		t_hearts = vamp.get_trophies("hearts")
+		t_eyes = vamp.get_trophies(INTERNAL_ORGAN_EYES)
+		t_hearts = vamp.get_trophies(INTERNAL_ORGAN_HEART)
 	return ..()
 
 
@@ -233,20 +240,23 @@
 		qdel(src)
 		return
 
+	if(owner.resting)	// abuses are not allowed
+		owner.StopResting()
+
 	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
 		owner.adjustFireLoss(t_hearts)	// 6 MAX
 
-	if(t_eyes && !owner.incapacitated() && prob(30 + t_eyes * 7))	// 100% on MAX
+	if(!owner.incapacitated() && !HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && prob(30 + t_eyes * 7))	// 100% on MAX
 		// lets check our arms first
 		var/obj/item/left_hand = owner.l_hand
 		var/obj/item/right_hand = owner.r_hand
 
 		// next we will find THE GUN .\_/.
 		var/obj/item/gun/found_gun
-		if(istype(left_hand, /obj/item/gun))
+		if(isgun(left_hand))
 			found_gun = left_hand
 
-		if(!found_gun && istype(right_hand, /obj/item/gun))
+		if(!found_gun && isgun(right_hand))
 			found_gun = right_hand
 
 		// now we will find the target
@@ -284,11 +294,11 @@
 			if(force_left > force_right)
 				if(!owner.hand)
 					owner.swap_hand()
-				left_hand.attack(target, owner, "head")	// yes! right in the neck
+				left_hand.attack(target, owner, BODY_ZONE_HEAD)	// yes! right in the neck
 			else if(force_right)
 				if(owner.hand)
 					owner.swap_hand()
-				right_hand.attack(target, owner, "head")
+				right_hand.attack(target, owner, BODY_ZONE_HEAD)
 			return
 
 		// here goes nothing!
@@ -298,8 +308,8 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = "head")	// hell yeah! few headshots for mr. vampire!
-			found_gun.attack(owner, owner, "head")	// attack ourselves also in case gun has no ammo
+			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.attack(owner, owner, BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 
 // start of `living` level status procs.
@@ -314,15 +324,61 @@
 	id = "confusion"
 	var/image/overlay
 
+
+/// The threshold in which all of our movements are fully randomized, in seconds.
+#define CONFUSION_FULL_THRESHOLD (40 SECONDS)
+/// A multiplier applied on how much time is left that determines the chance of moving sideways randomly
+#define CONFUSION_SIDEWAYS_MOVE_COEFFICIENT 0.15
+/// A multiplier applied on how much time is left that determines the chance of moving diagonally randomly
+#define CONFUSION_DIAGONAL_MOVE_COEFFICIENT 0.075
+
+/// Signal proc for [COMSIG_MOB_CLIENT_PRE_MOVE]. We have a chance to mix up our movement pre-move with confusion.
+/datum/status_effect/transient/confusion/proc/on_move(datum/source, list/move_args)
+	SIGNAL_HANDLER
+
+	var/direction = move_args[MOVE_ARG_DIRECTION]
+	var/new_dir
+
+	if(strength > CONFUSION_FULL_THRESHOLD && !owner.resting)
+		new_dir = pick(GLOB.alldirs)
+
+	else if(prob(strength * CONFUSION_SIDEWAYS_MOVE_COEFFICIENT))
+		new_dir = angle2dir(dir2angle(direction) + pick(90, -90))
+
+	else if(prob(strength * CONFUSION_DIAGONAL_MOVE_COEFFICIENT))
+		new_dir = angle2dir(dir2angle(direction) + pick(45, -45))
+
+	if(!isnull(new_dir))
+		move_args[MOVE_ARG_DIRECTION] = new_dir
+		move_args[MOVE_ARG_NEW_LOC] = get_step(owner, new_dir)
+
+#undef CONFUSION_FULL_THRESHOLD
+#undef CONFUSION_SIDEWAYS_MOVE_COEFFICIENT
+#undef CONFUSION_DIAGONAL_MOVE_COEFFICIENT
+
+
+/datum/status_effect/transient/confusion/on_apply()
+	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(on_move))
+	return TRUE
+
+
+/datum/status_effect/transient/confusion/on_remove()
+	UnregisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE)
+	owner.cut_overlay(overlay)
+	overlay = null
+	return ..()
+
+
 /datum/status_effect/transient/confusion/tick()
 	. = ..()
 	if(!.)
-		return
+		return .
 	if(!owner.stat) //add or remove the overlay if they are alive or unconscious/dead
 		add_overlay()
 	else if(overlay)
 		owner.cut_overlay(overlay)
 		overlay = null
+
 
 /datum/status_effect/transient/confusion/proc/add_overlay()
 	if(overlay)
@@ -333,10 +389,6 @@
 	overlay.transform = M
 	owner.add_overlay(overlay)
 
-/datum/status_effect/transient/confusion/on_remove()
-	owner.cut_overlay(overlay)
-	overlay = null
-	return ..()
 
 /**
  * # Disoriented
@@ -398,18 +450,47 @@
  */
 /datum/status_effect/transient/drowsiness
 	id = "drowsiness"
+	/// Difference between config run and walk delays
+	var/delay_diff
+
+
+/datum/status_effect/transient/drowsiness/on_apply()
+	. = ..()
+	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
+	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
+	on_move_intent_toggle()
+
+
+/datum/status_effect/transient/drowsiness/on_remove()
+	. = ..()
+	UnregisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness)
+
+
+#define DROWSY_MULTIPLICATIVE_SLOWDOWN 6
+
+/datum/status_effect/transient/drowsiness/proc/on_move_intent_toggle(datum/source)
+	SIGNAL_HANDLER
+
+	var/drowsy_value = owner.m_intent == MOVE_INTENT_RUN ? DROWSY_MULTIPLICATIVE_SLOWDOWN + delay_diff : DROWSY_MULTIPLICATIVE_SLOWDOWN
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness, multiplicative_slowdown = drowsy_value)
+
+#undef DROWSY_MULTIPLICATIVE_SLOWDOWN
+
 
 /datum/status_effect/transient/drowsiness/tick()
 	. = ..()
 	if(!.)
-		return
+		return .
 	owner.EyeBlurry(4 SECONDS)
 	if(prob(1))
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
+
 /datum/status_effect/transient/drowsiness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+
 
 /**
  * # Drukenness
@@ -532,6 +613,8 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/needs_update_stat = FALSE
+	var/list/traits_to_apply
+
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
@@ -544,26 +627,41 @@
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
-	owner.update_canmove()
+	owner?.update_canmove()
+
+
+/datum/status_effect/incapacitating/on_apply()
+	. = ..()
+	if(traits_to_apply)
+		owner.add_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/incapacitating/on_remove()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
+	if(traits_to_apply)
+		owner.remove_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
 	owner.update_canmove()
 	return ..()
+
 
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
+	traits_to_apply = list(TRAIT_HANDS_BLOCKED)
+
 
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
+	traits_to_apply = list(TRAIT_IMMOBILIZED)
+
 
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
+	traits_to_apply = list(TRAIT_HANDS_BLOCKED)
+
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
@@ -593,6 +691,9 @@
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
 		comfort += bed.comfort
+	else if(istype(dreamer.buckled, /obj/structure/chair))
+		var/obj/structure/chair/chair = dreamer.buckled
+		comfort += chair.comfort
 	for(var/obj/item/bedsheet/bedsheet in range(dreamer.loc,0))
 		if(bedsheet.loc != dreamer.loc) //bedsheets in your backpack/neck don't give you comfort
 			continue
@@ -621,6 +722,17 @@
 	if(isnum(slowdown_value))
 		src.slowdown_value = slowdown_value
 
+
+/datum/status_effect/incapacitating/slowed/on_apply()
+	. = ..()
+	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed, multiplicative_slowdown = slowdown_value)
+
+
+/datum/status_effect/incapacitating/slowed/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
+
+
 /datum/status_effect/transient/silence
 	id = "silenced"
 
@@ -631,6 +743,9 @@
 /datum/status_effect/transient/silence/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
+
+/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
+	id = "abssilenced"
 
 /datum/status_effect/transient/jittery
 	id = "jittering"
@@ -707,26 +822,60 @@
 #undef HALLUCINATE_MODERATE_WEIGHT
 #undef HALLUCINATE_MAJOR_WEIGHT
 
+
 /datum/status_effect/transient/eye_blurry
 	id = "eye_blurry"
 
+
 /datum/status_effect/transient/eye_blurry/on_apply()
-	owner.update_blurry_effects()
-	. = ..()
+	if(!ishuman(owner))
+		return FALSE
+	// Refresh the blur when a client jumps into the mob, in case we get put on a clientless mob with no hud
+	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(update_blur))
+	// Apply initial blur
+	update_blur()
+	return TRUE
+
 
 /datum/status_effect/transient/eye_blurry/on_remove()
-	owner.update_blurry_effects()
+	UnregisterSignal(owner, COMSIG_MOB_LOGIN)
+	if(!owner.hud_used)
+		return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.remove_filter("eye_blur")
+
+
+/// Updates the blur of the owner of the status effect.
+/// Also a signal proc for [COMSIG_MOB_LOGIN], to trigger then when the mob gets a client.
+/datum/status_effect/transient/eye_blurry/proc/update_blur(datum/source)
+	SIGNAL_HANDLER
+
+	if(!owner.hud_used)
+		return
+
+	var/amount_of_blur = clamp(strength * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(amount_of_blur))
+
+
+// Blur lessens the closer we are to expiring, so we update per tick.
+/datum/status_effect/transient/eye_blurry/tick(seconds_per_tick, times_fired)
+	. = ..()
+	if(.)
+		update_blur()
+
 
 /datum/status_effect/transient/eye_blurry/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+		var/obj/item/organ/vision = H.dna?.species?.get_vision_organ(H)
 
-		if(isnull(H.dna.species.vision_organ)) //species has no eyes
+		if(vision && vision == NO_VISION_ORGAN) //species has no eyes
 			return ..()
 
-		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
-
-		if(!vision || vision.is_bruised() || vision.is_broken()) // doesn't decay if you have damaged eyesight.
+		if(!vision || vision.is_bruised() || vision.is_traumatized()) // doesn't decay if you have damaged eyesight.
 			return 0
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold)) // decays faster if you rest your eyes with a blindfold.
@@ -750,12 +899,12 @@
 		if((BLINDNESS in H.mutations))
 			return 0
 
-		if(isnull(H.dna.species.vision_organ)) // species that have no eyes
+		var/obj/item/organ/vision = H.dna?.species?.get_vision_organ(H)
+
+		if(vision && vision == NO_VISION_ORGAN) // species that have no eyes
 			return ..()
 
-		var/obj/item/organ/vision = H.get_int_organ(H.dna.species.vision_organ)
-
-		if(!vision || vision.is_broken() || vision.is_bruised()) //got no eyes or broken eyes
+		if(!vision || vision.is_traumatized() || vision.is_bruised()) //got no eyes or broken eyes
 			return 0
 
 	return ..() //default decay rate
@@ -796,7 +945,7 @@
 		if(prob(pukeprob))
 			carbon.AdjustConfused(9 SECONDS)
 			carbon.AdjustStuttering(3 SECONDS)
-			carbon.vomit(15, FALSE, TRUE, 0, FALSE)
+			carbon.vomit(15, FALSE, 8 SECONDS, 0, FALSE)
 		carbon.Dizzy(15 SECONDS)
 	if(strength >= DISGUST_LEVEL_DISGUSTED)
 		if(prob(25))
@@ -871,3 +1020,140 @@
 		M.faction = tamer.faction
 		to_chat(tamer, span_notice("[M] is now friendly after exposure to the flowers!"))
 		. = ..()
+
+/datum/status_effect/bubblegum_curse
+	id = "bubblegum curse"
+	alert_type = /obj/screen/alert/status_effect/bubblegum_curse
+	duration = -1 //Kill it. There is no other option.
+	tick_interval = 1 SECONDS
+	/// The damage the status effect does per tick.
+	var/damage = 0.75
+	var/source_UID
+	/// Are we starting the process to check if the person has still gotten out of range of bubble / crossed zlvls.
+	var/coward_checking = FALSE
+
+/datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+	owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 1)
+
+/datum/status_effect/bubblegum_curse/tick()
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(!attacker || attacker.loc == null)
+		qdel(src)
+		return
+	if(attacker.health <= attacker.maxHealth / 2)
+		owner.clear_fullscreen("Bubblegum")
+		owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
+	if(!coward_checking)
+		if(owner.z != attacker.z)
+			addtimer(CALLBACK(src, PROC_REF(onstation_coward_callback)), 12 SECONDS)
+			coward_checking = TRUE
+		else if(get_dist(attacker, owner) >= 25)
+			addtimer(CALLBACK(src, PROC_REF(runaway_coward_callback)), 12 SECONDS)
+			coward_checking = TRUE
+
+	owner.apply_damage(damage, BRUTE)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.bleed(0.33)
+	if(prob(5))
+		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
+
+/datum/status_effect/bubblegum_curse/on_remove()
+	owner.clear_fullscreen("Bubblegum")
+
+/datum/status_effect/bubblegum_curse/proc/onstation_coward_callback()
+	coward_checking = FALSE
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(owner.z != attacker.z)
+		to_chat(owner, "<span class='colossus'><b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b></span>")
+	else
+		return
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>REALLY?</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>SUCH INSOLENCE!</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>SO PATHETIC...</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>...SO FOOLISH!</b></span>")
+	get_over_here()
+
+/datum/status_effect/bubblegum_curse/proc/runaway_coward_callback()
+	coward_checking = FALSE
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(get_dist(attacker, owner) >= 25)
+		to_chat(owner, "<span class='colossus'><b>My my, you can run FAST.</b></span>")
+	else
+		return
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken.</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>...BUT I WANT YOU DEAD!</b></span>")
+	get_over_here()
+
+/datum/status_effect/bubblegum_curse/proc/get_over_here()
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(!attacker)
+		return //Let's not nullspace
+	if(attacker.loc == null)
+		return //Extra emergency safety.
+	var/turf/TA = get_turf(owner)
+	owner.Immobilize(3 SECONDS)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TA)
+	sleep(6)
+	var/turf/TB = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TB, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TB)
+	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(TB)
+	sleep(6)
+	var/turf/TC = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TC, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TC)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TC)
+	sleep(6)
+	var/turf/TD = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TD, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/temp_visual/bubblegum_hands/leftpaw(TD)
+	new /obj/effect/temp_visual/bubblegum_hands/leftthumb(TD)
+	sleep(8)
+	to_chat(owner, "<span class='userdanger'>[attacker] drags you through the blood!</span>")
+	playsound(TD, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
+	var/turf/targetturf = get_step(attacker, attacker.dir)
+	owner.forceMove(targetturf)
+	playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
+	addtimer(CALLBACK(attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, FindTarget), list(owner), 1), 2)
+
+/obj/screen/alert/status_effect/bubblegum_curse
+	name = "I SEE YOU"
+	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
+	icon_state = "bubblegumjumpscare"
+
+/obj/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+
+/obj/screen/alert/status_effect/bubblegum_curse/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+
+/obj/screen/alert/status_effect/bubblegum_curse/process()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#ce3030", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)

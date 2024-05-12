@@ -139,6 +139,14 @@
 	build_path = /obj/item/apc_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/access_board
+	name = "Access Control Electronics"
+	id = "access_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control
+	category = list("initial", "Electronics")
+
 /datum/design/airlock_board
 	name = "Airlock Electronics"
 	id = "airlock_board"
@@ -147,12 +155,12 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
-/datum/design/syndie_airlock_board
-	name = "Suspicious Airlock Electronics"
-	id = "syndie_airlock_board"
+/datum/design/syndie_access_control
+	name = "Suspicious Access Control Electronics"
+	id = "syndie_access_board"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/airlock_electronics/syndicate
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control/syndicate
 	category = list("hacked", "Electronics")
 
 /datum/design/firelock_board
@@ -187,6 +195,14 @@
 	build_path = /obj/item/intercom_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/airlock_controller
+	name = "Airlock Remote Controller"
+	id = "airlock_controller"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL=100, MAT_GLASS=50)
+	build_path = /obj/item/assembly/control/airlock
+	category = list("initial", "Electronics")
+
 /datum/design/earmuffs
 	name = "Earmuffs"
 	id = "earmuffs"
@@ -212,7 +228,7 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/floorpainter
-	name = "Floor painter"
+	name = "Floor Painter"
 	id = "floor_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
@@ -220,11 +236,19 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/airlock_painter
-	name = "Airlock painter"
+	name = "Airlock Painter"
 	id = "airlock_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	build_path = /obj/item/airlock_painter
+	category = list("initial", "Miscellaneous")
+
+/datum/design/pet_bowl
+	name = "Pet Bowl"
+	id = "pet_bowl"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/glass/pet_bowl
 	category = list("initial", "Miscellaneous")
 
 /datum/design/metal
@@ -525,15 +549,15 @@
 	id = "c38"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5900)
-	build_path = /obj/item/ammo_box/c38
+	build_path = /obj/item/ammo_box/speedloader/c38
 	category = list("initial", "Security")
 
 /datum/design/c38hp
 	name = "Speed Loader (.38 Hollow-Point)"
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
-	build_path = /obj/item/ammo_box/c38/hp
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list("hacked", "Security")
 
 /datum/design/recorder
@@ -801,6 +825,14 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
+/datum/design/cylinder
+	name = "Revolver Cylinder"
+	id = "icylinder"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000)
+	build_path = /obj/item/ammo_box/magazine/internal/cylinder/improvised
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
@@ -823,6 +855,22 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 13000)
 	build_path = /obj/item/ammo_box/magazine/sp8
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_box
+	name = "Ammo Box (9mm TE)"
+	id = "9mmTEbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30500)
+	build_path = /obj/item/ammo_box/c9mmte
+	category = list("hacked", "Security")
+
+/datum/design/sp91rc_mag
+	name = "handgun magazine (9mm TE)"
+	id = "9mm-te"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc
 	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell
@@ -885,8 +933,8 @@
 	name = "Ammo Box (.357)"
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75000)
-	build_path = /obj/item/storage/box/a357
+	materials = list(MAT_METAL = 75500)
+	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
 /datum/design/c10mm
@@ -1023,6 +1071,7 @@
 	name = "Golem Shell Construction"
 	desc = "Allows for the construction of a Golem Shell."
 	id = "golem"
+	req_tech = null	// Unreachable by tech researching.
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
@@ -1052,5 +1101,5 @@
 	id = "cap_ammo"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100)
-	build_path = /obj/item/ammo_box/caps
+	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list("initial", "Miscellaneous")

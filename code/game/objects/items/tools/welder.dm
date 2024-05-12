@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	var/force_enabled = 15
 	throwforce = 5
@@ -24,6 +24,8 @@
 	toolspeed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
+	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
+	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
 	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/refills_over_time = FALSE //Do we regenerate fuel?
@@ -32,12 +34,18 @@
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -97,7 +105,7 @@
 		force = force_enabled
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
-		set_light(light_intensity)
+		set_light_on(TRUE)
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -105,7 +113,7 @@
 		force = initial(force)
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		set_light(0)
+		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -113,14 +121,16 @@
 		M.update_inv_l_hand()
 
 // If welding tool ran out of fuel during a construction task, construction fails.
-/obj/item/weldingtool/tool_use_check(mob/living/user, amount)
+/obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
-		to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+		if(!silent)
+			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+		if(!silent)
+			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -172,15 +182,8 @@
 	else
 		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
 
-/obj/item/weldingtool/proc/update_torch()
-	overlays.Cut()
-	if(tool_enabled)
-		overlays += "[initial(icon_state)]-on"
-		item_state = "[initial(item_state)]1"
-	else
-		item_state = "[initial(item_state)]"
 
-/obj/item/weldingtool/update_icon()
+/obj/item/weldingtool/update_icon_state()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
 		ratio = CEILING(ratio*4, 1) * 25
@@ -188,8 +191,16 @@
 			icon_state = initial(icon_state)
 		else
 			icon_state = "[initial(icon_state)][ratio]"
-	update_torch()
-	..()
+	if(tool_enabled)
+		item_state = "[initial(item_state)]1"
+	else
+		item_state = "[initial(item_state)]"
+
+
+/obj/item/weldingtool/update_overlays()
+	. = ..()
+	if(tool_enabled)
+		. += "[initial(icon_state)]-on"
 
 
 /obj/item/weldingtool/largetank

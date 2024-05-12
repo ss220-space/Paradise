@@ -431,21 +431,21 @@
 /area/shuttle/administration)
 "nQ" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -855,21 +855,21 @@
 /area/shuttle/administration)
 "yk" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},

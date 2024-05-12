@@ -1,5 +1,5 @@
 /datum/species/shadow
-	name = "Shadow"
+	name = SPECIES_SHADOW_BASIC
 	name_plural = "Shadows"
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
@@ -11,10 +11,12 @@
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
+
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain,
-		"eyes" = /obj/item/organ/internal/eyes/shadow //8 darksight.
-		)
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/shadow, //8 darksight.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+	)
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
 	dies_at_threshold = TRUE

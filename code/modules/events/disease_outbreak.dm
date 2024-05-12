@@ -1,39 +1,42 @@
 /datum/event/disease_outbreak
-	announceWhen = 15
-	/// The type of disease that patient zero will be infected with.
-	var/datum/disease/D
+	announceWhen = 150
+	/// The type of virus that patient zero will be infected with.
+	var/datum/disease/virus/D
 	/// The initial target of the disease.
 	var/mob/living/carbon/human/patient_zero
 
 /datum/event/disease_outbreak/setup()
-	announceWhen = rand(15, 30)
-	if(prob(40))
-		var/virus_type = pick(/datum/disease/advance/preset/flu, /datum/disease/advance/preset/cold, \
-					/datum/disease/brainrot, /datum/disease/magnitis, /datum/disease/beesease, /datum/disease/anxiety, \
-					 /datum/disease/fake_gbs, /datum/disease/fluspanish, /datum/disease/pierrot_throat, /datum/disease/lycan, \
-					 /datum/disease/loyalty)
-		D = new virus_type()
+	announceWhen = rand(150, 300)
+	var/virus_type = pick(
+		5; /datum/disease/virus/advance,
+		1; /datum/disease/virus/anxiety,
+		1; /datum/disease/virus/beesease,
+		1; /datum/disease/virus/brainrot,
+		1; /datum/disease/virus/cold,
+		1; /datum/disease/virus/flu,
+		1; /datum/disease/virus/fluspanish,
+		1; /datum/disease/virus/fake_gbs,
+		1; /datum/disease/virus/loyalty,
+		1; /datum/disease/virus/lycan,
+		1; /datum/disease/virus/magnitis,
+		1; /datum/disease/virus/pierrot_throat,
+		1; /datum/disease/virus/pierrot_throat/advanced,
+		1; /datum/disease/virus/tuberculosis,
+		1; /datum/disease/virus/wizarditis
+	)
+	if(virus_type == /datum/disease/virus/advance)
+		//creates only contagious viruses, that are always visible in Pandemic
+		D = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
+							stage_rate = rand(-11,5), transmittable = rand(5,9), severity = rand(0,5))
 	else
-		var/datum/disease/advance/A = new /datum/disease/advance
-		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
-		A.symptoms = A.GenerateSymptoms(1,9,6)
-		A.Refresh()
-		A.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
-		D = A
-
-	D.carrier = TRUE
+		D = new virus_type()
 
 /datum/event/disease_outbreak/announce()
 	GLOB.event_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", new_sound = 'sound/AI/outbreak7.ogg')
-	for(var/p in GLOB.dead_mob_list)
-		var/mob/M = p
-		to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
 
 /datum/event/disease_outbreak/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
 		if(!H.client)
-			continue
-		if(issmall(H)) //don't infect monkies; that's a waste
 			continue
 		var/turf/T = get_turf(H)
 		if(!T)
@@ -41,7 +44,15 @@
 		if(!is_station_level(T.z))
 			continue
 
-		if(!H.ForceContractDisease(D))
+		if(istype(D, /datum/disease/virus/advance))
+			var/datum/disease/virus/advance/old_virus = locate() in H.diseases
+			if(old_virus)
+				old_virus.cure(need_immunity = FALSE)
+		if(!D.Contract(H, is_carrier = TRUE))
 			continue
 		patient_zero = H
+
+		for(var/mob/M in GLOB.dead_mob_list)
+			to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
+
 		break

@@ -3,8 +3,8 @@
 	desc = "A cart for transporting food and drinks."
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	pull_push_speed_modifier = 1
 	//Food slots
 	var/list/food_slots[6]
@@ -39,7 +39,6 @@
 					add_fingerprint(user)
 					put_in_cart(I, user)
 					food_slots[s]=I
-					update_icon()
 					success = 1
 					break
 			if(!success)
@@ -51,12 +50,11 @@
 					add_fingerprint(user)
 					put_in_cart(I, user)
 					drink_slots[s]=I
-					update_icon()
 					success = 1
 					break
 			if(!success)
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
+		else if(I.tool_behaviour == TOOL_WRENCH)
 			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
@@ -64,14 +62,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				set_anchored(TRUE)
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				set_anchored(FALSE)
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
@@ -198,10 +196,9 @@
 			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
 			drink_slots[6] = null
 
-	update_icon()		//Not really needed without overlays, but keeping just in case
 	updateUsrDialog()
 
 /obj/structure/foodcart/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)

@@ -11,7 +11,6 @@
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
 	tts_seed = "Mannoroth"
-	flying = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
@@ -40,6 +39,13 @@
 	var/nest_range = 10
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
+	/// Has someone enabled hard mode?
+	var/enraged = FALSE
+	/// Path of the hardmode loot disk, if applicable.
+	var/enraged_loot
+	/// Hardmode one loot
+	var/enraged_unique_loot
+	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -54,6 +60,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -72,6 +80,12 @@
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
+		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			if(enraged_unique_loot)
+				loot += enraged_unique_loot
+			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
+				if(M.client)
+					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
@@ -88,9 +102,14 @@
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
-				OpenFire()
+				OpenFire(L)
 		else
 			devour(L)
+
+/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+	. = ..()
+	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
+		unrage()
 
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/oldloc = loc
@@ -139,6 +158,7 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
+
 /mob/living/simple_animal/hostile/megafauna/LoseTarget()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
@@ -164,6 +184,14 @@
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
 
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.set_density(FALSE) //I hate it.
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
+
+
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
@@ -173,7 +201,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE
@@ -181,3 +209,12 @@
 /datum/action/innate/megafauna_attack/Activate()
 	M.chosen_attack = chosen_attack_num
 	to_chat(M, chosen_message)
+
+/// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
+/mob/living/simple_animal/hostile/megafauna/proc/enrage()
+	if(enraged || ((health / maxHealth) * 100 <= 80))
+		return
+	enraged = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/proc/unrage()
+	enraged = FALSE

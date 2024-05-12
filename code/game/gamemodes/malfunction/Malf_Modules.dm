@@ -21,7 +21,7 @@
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return
 
-/datum/action/innate/ai/Trigger()
+/datum/action/innate/ai/Trigger(left_click = TRUE)
 	. = ..()
 	if(auto_use_uses)
 		adjust_uses(-1)
@@ -93,7 +93,7 @@
 	. = ..()
 	owner_AI.malf_picker = new /datum/module_picker
 
-/datum/action/innate/ai/choose_modules/Trigger()
+/datum/action/innate/ai/choose_modules/Trigger(left_click = TRUE)
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
 
@@ -104,7 +104,7 @@
 	button_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 
-/datum/action/innate/ai/return_to_core/Trigger()
+/datum/action/innate/ai/return_to_core/Trigger(left_click = TRUE)
 	. = ..()
 	var/obj/machinery/power/apc/apc = owner_AI.loc
 	if(!istype(apc)) // This shouldn't happen but here for safety.
@@ -265,8 +265,8 @@
 	name = "doomsday device"
 	icon_state = "nuclearbomb_base"
 	desc = "A weapon which disintegrates all organic life in a large area."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	atom_say_verb = "blares"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
@@ -421,10 +421,10 @@
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
-		if(!is_station_level(F.z))
+	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
+		if(!is_station_level(alarm.z))
 			continue
-		F.emagged = TRUE
+		alarm.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 

@@ -56,5 +56,5 @@
 
 	process_toxin_damage_on_death(src) // applies TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER times toxin damage to internal organs
 
-	for(var/obj/item/organ/internal/I in internal_organs)
-		I.on_owner_death()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		organ.on_owner_death()

@@ -127,7 +127,7 @@
 	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
@@ -181,7 +181,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(being_used || !ismob(M))
 		return
@@ -222,7 +222,7 @@
 			SM.can_collar = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
@@ -270,7 +270,7 @@
 			SM.can_collar = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
-			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
@@ -354,7 +354,7 @@
 	var/animal_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(prompted || !ismob(M))
 		return
@@ -481,8 +481,8 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag)
-	if(!proximity_flag)
+/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, drop = FALSE)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	..()
 	if(!istype(O))
@@ -490,41 +490,46 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || I.is_speedslimepotioned)
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
-		if(I.cant_be_faster)
-			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
-			return
-		I.is_speedslimepotioned = TRUE
+		if(isclothing(O))
+			var/obj/item/clothing/cloth = O
+			if(cloth.clothing_flags & FIXED_SLOWDOWN)
+				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+				return
+		I.item_flags |= IGNORE_SLOWDOWN
+		I.update_equipped_item()
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = CONFIG_GET(number/run_speed)
+		var/vehicle_speed_mod = CONFIG_GET(number/movedelay/run_delay)
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()
 		V.vehicle_move_delay = vehicle_speed_mod
+	else if (!drop && istype(O, /obj/machinery/smartfridge))
+		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
+		return ..()
 
 	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
 	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over)
+/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
-	return TRUE
+	afterattack(over_object, user, TRUE, drop = TRUE)
 
 
 /obj/item/slimepotion/clothing
@@ -550,7 +555,7 @@
 	C.armor = C.armor.detachArmor(armor)
 
 /obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
-	if(!proximity_flag)
+	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!uses)
 		qdel(src)
@@ -578,20 +583,19 @@
 		qdel(src)
 
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over)
+/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over, /obj/screen))
+	if(istype(over_object, /obj/screen))
 		return FALSE
 
-	if(over == user || loc != user || user.incapacitated() || !ishuman(user))
+	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over, user, TRUE)
-	return TRUE
+	afterattack(over_object, user, TRUE)
 
 
 /obj/item/slimepotion/clothing/fireproof
@@ -748,7 +752,7 @@
 	return C.armor.melee < 100 || C.armor.bullet < 100
 
 /obj/effect/timestop
-	anchored = 1
+	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
@@ -766,9 +770,11 @@
 
 /obj/effect/timestop/New()
 	..()
-	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
-			immune |= M
+	for(var/mob/living/living in GLOB.player_list)
+		if(!living.mind)
+			continue
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
+			immune |= living
 
 
 /obj/effect/timestop/proc/timestop()
@@ -779,14 +785,14 @@
 				var/mob/living/M = A
 				if(M in immune)
 					continue
-				M.notransform = 1
-				M.anchored = 1
+				ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+				M.set_anchored(TRUE)
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
 				stopped_atoms |= M
-			else if(istype(A, /obj/item/projectile))
+			else if(isprojectile(A))
 				var/obj/item/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
@@ -807,8 +813,8 @@
 	return
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	M.notransform = 0
-	M.anchored = 0
+	REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	M.set_anchored(FALSE)
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)
@@ -819,6 +825,9 @@
 /obj/effect/timestop/wizard/New()
 	..()
 	timestop()
+
+/obj/effect/timestop/clockwork
+	duration = 80
 
 /obj/effect/timestop/clockwork/Initialize(mapload)
 	. = ..()
@@ -863,19 +872,6 @@
 	flags = CONDUCT
 	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
-
-/obj/item/areaeditor/blueprints/slime
-	name = "cerulean prints"
-	desc = "A one use set of blueprints made of jelly like organic material. Extends the reach of the management console."
-	color = "#2956B2"
-
-/obj/item/areaeditor/blueprints/slime/edit_area()
-	..()
-	var/area/A = get_area(src)
-	for(var/turf/T in A)
-		T.color = "#2956B2"
-	A.xenobiology_compatible = TRUE
-	qdel(src)
 
 /turf/simulated/floor/sepia
 	slowdown = 2

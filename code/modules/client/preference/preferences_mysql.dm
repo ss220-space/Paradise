@@ -20,7 +20,8 @@
 					discord_id,
 					discord_name,
 					keybindings,
-					viewrange
+					viewrange,
+					ghost_darkness_level
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -53,6 +54,7 @@
 		discord_name = query.item[18]
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
+		ghost_darkness_level = query.item[21]
 
 	qdel(query)
 
@@ -105,7 +107,8 @@
 					clientfps=:clientfps,
 					parallax=:parallax,
 					keybindings=:keybindings,
-					viewrange=:viewrange
+					viewrange=:viewrange,
+					ghost_darkness_level=:ghost_darkness_level
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -125,7 +128,8 @@
 						"parallax" = parallax,
 						"keybindings" = json_encode(keybindings_overrides),
 						"viewrange" = viewrange,
-						"ckey" = C.ckey
+						"ghost_darkness_level" = ghost_darkness_level,
+						"ckey" = C.ckey,
 					)
 					)
 
@@ -202,6 +206,7 @@
 					med_record,
 					sec_record,
 					gen_record,
+					exploit_record,
 					disabilities,
 					player_alt_titles,
 					organ_data,
@@ -279,6 +284,7 @@
 		med_record = query.item[42]
 		sec_record = query.item[43]
 		gen_record = query.item[44]
+		exploit_record = null_longtextfix(query.item[45])
 		// Apparently, the preceding vars weren't always encoded properly...
 		if(findtext(flavor_text, "<")) // ... so let's clumsily check for tags!
 			flavor_text = html_encode(flavor_text)
@@ -288,31 +294,37 @@
 			sec_record = html_encode(sec_record)
 		if(findtext(gen_record, "<"))
 			gen_record = html_encode(gen_record)
-		disabilities = text2num(query.item[45])
-		player_alt_titles = params2list(query.item[46])
-		organ_data = params2list(query.item[47])
-		rlimb_data = params2list(query.item[48])
-		nanotrasen_relation = query.item[49]
-		speciesprefs = text2num(query.item[50])
+		if(findtext(exploit_record, "<"))
+			exploit_record = html_encode(exploit_record)
+		disabilities = text2num(query.item[46])
+		player_alt_titles = params2list(query.item[47])
+		organ_data = params2list(query.item[48])
+		rlimb_data = params2list(query.item[49])
+		nanotrasen_relation = query.item[50]
+		speciesprefs = text2num(query.item[51])
 
 		//socks
-		socks = query.item[51]
-		body_accessory = query.item[52]
-		loadout_gear = params2list(query.item[53])
-		autohiss_mode = text2num(query.item[54])
-		uplink_pref = query.item[55]
+		socks = query.item[52]
+		body_accessory = query.item[53]
+		loadout_gear.Cut()
+		var/list/unformated_loadout_gear = params2list(query.item[54])
+		for(var/gear in unformated_loadout_gear)
+			loadout_gear[gear] = params2list(unformated_loadout_gear[gear])
+		form_choosen_gears()
+		autohiss_mode = text2num(query.item[55])
+		uplink_pref = query.item[56]
 
 		// TTS
-		tts_seed = query.item[56]
+		tts_seed = query.item[57]
 
 		//Emotes
-		custom_emotes_tmp = query.item[57]
+		custom_emotes_tmp = query.item[58]
 
 		// Gradient
-		h_grad_style = query.item[58]
-		h_grad_offset_x = query.item[59] // parsed down below
-		h_grad_colour = query.item[60]
-		h_grad_alpha = query.item[61]
+		h_grad_style = query.item[59]
+		h_grad_offset_x = query.item[60] // parsed down below
+		h_grad_colour = query.item[61]
+		h_grad_alpha = query.item[62]
 
 		saved = TRUE
 
@@ -321,7 +333,7 @@
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
-	if(isnull(species)) species = "Human"
+	if(isnull(species)) species = SPECIES_HUMAN
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
@@ -394,7 +406,28 @@
 
 	return 1
 
+/datum/preferences/proc/form_choosen_gears()
+	choosen_gears.Cut()
+	for(var/gear in loadout_gear)
+		var/datum/geartype = GLOB.gear_datums[gear]
+		if(!istype(geartype))
+			loadout_gear -= gear // Delete wrong/outdated data
+			continue
+		var/datum/gear/new_gear = new geartype.type
+		for(var/tweak in loadout_gear[gear])
+			for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)
+				if(istype(gear_tweak, text2path(tweak)))
+					set_tweak_metadata(new_gear, gear_tweak, loadout_gear[gear][tweak])
+		choosen_gears[gear] = new_gear
+
 /datum/preferences/proc/save_character(client/C)
+
+	for(var/title in player_alt_titles)
+		var/datum/job/job = SSjobs.GetJob(title)
+		if(job && !(player_alt_titles[title] in job.alt_titles))
+			log_runtime(EXCEPTION("[C.key] had a malformed job title entry: '[title]:[player_alt_titles[title]]'. Removing!"), src)
+			player_alt_titles -= title
+
 	var/organlist
 	var/rlimblist
 	var/playertitlelist
@@ -409,7 +442,10 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
-		gearlist = list2params(loadout_gear)
+		var/list/savelist = list()
+		for(var/gear in loadout_gear)
+			savelist[gear] = list2params(loadout_gear[gear])
+		gearlist = list2params(savelist)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
@@ -465,6 +501,7 @@
 												med_record=:med_record,
 												sec_record=:sec_record,
 												gen_record=:gen_record,
+												exploit_record=:exploit_record,
 												player_alt_titles=:playertitlelist,
 												disabilities=:disabilities,
 												organ_data=:organlist,
@@ -529,6 +566,7 @@
 													"med_record" = med_record,
 													"sec_record" = sec_record,
 													"gen_record" = gen_record,
+													"exploit_record" = exploit_record,
 													"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 													"disabilities" = disabilities,
 													"organlist" = (organlist ? organlist : ""),
@@ -538,7 +576,7 @@
 													"socks" = socks,
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
-													"autohiss_mode" = autohiss_mode,
+													"autohiss_mode" = isnull(autohiss_mode) ? initial(autohiss_mode) : autohiss_mode,
 													"h_grad_style" = h_grad_style,
 													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
 													"h_grad_colour" = h_grad_colour,
@@ -585,6 +623,7 @@
 											med_record,
 											sec_record,
 											gen_record,
+											exploit_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
@@ -613,6 +652,7 @@
 											:med_record,
 											:sec_record,
 											:gen_record,
+											:exploit_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
 											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
@@ -665,6 +705,7 @@
 		"med_record" = med_record,
 		"sec_record" = sec_record,
 		"gen_record" = gen_record,
+		"exploit_record" = exploit_record,
 		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
 		"disabilities" = disabilities,
 		"organlist" = (organlist ? organlist : ""),
@@ -749,6 +790,9 @@
   */
 /datum/preferences/proc/save_volume_mixer()
 	volume_mixer_saving = null
+	//save_volume_mixer is called with a timer, the client may no longer be there.
+	if(isnull(parent))
+		return
 
 	var/datum/db_query/update_query = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET volume_mixer=:volume_mixer WHERE ckey=:ckey",

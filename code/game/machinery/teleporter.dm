@@ -63,7 +63,8 @@
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, span_notice("The teleporter can now lock on to Syndicate beacons!"))
+		if(user)
+			to_chat(user, span_notice("The teleporter can now lock on to Syndicate beacons!"))
 	else
 		ui_interact(user)
 
@@ -71,6 +72,8 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -89,16 +92,17 @@
 	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
 		data["calibrated"] = power_station.teleporter_hub.calibrated
+		data["accuracy"] = power_station.teleporter_hub.accurate
 	else
 		data["teleporterhub"] = null
 		data["calibrated"] = null
+		data["accuracy"] = null
 	data["regime"] = regime
 	var/area/targetarea = get_area(target)
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
-	data["accuracy"] = power_station.teleporter_hub.accurate
 	switch(regime)
 		if(REGIME_TELEPORT)
 			data["targetsTeleport"] = targets_teleport()
@@ -159,7 +163,7 @@
 /obj/machinery/computer/teleporter/proc/resetPowerstation()
 	power_station.engaged = FALSE
 	power_station.teleporter_hub.calibrated = FALSE
-	power_station.teleporter_hub.update_icon()
+	power_station.teleporter_hub.update_icon(UPDATE_ICON_STATE)
 
 /**
 *	Calibrates the hub. Helper function of ui_act
@@ -292,7 +296,7 @@
 	trg.stat &= ~NOPOWER
 	if(trg.teleporter_hub)
 		trg.teleporter_hub.stat &= ~NOPOWER
-		trg.teleporter_hub.update_icon()
+		trg.teleporter_hub.update_icon(UPDATE_ICON_STATE)
 	if(trg.teleporter_console)
 		trg.teleporter_console.stat &= ~NOPOWER
 		trg.teleporter_console.update_icon()
@@ -318,10 +322,14 @@
 	var/accurate = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
+	light_range = 2
+	light_color = "#f1f1bd"
+	light_on = FALSE
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -343,6 +351,7 @@
 /obj/machinery/teleport/hub/Initialize()
 	..()
 	link_power_station()
+	update_icon()
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -373,7 +382,7 @@
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !istype(moving_atom, /obj/spacepod))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -411,13 +420,37 @@
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
 		calibrated = FALSE
 
-/obj/machinery/teleport/hub/update_icon()
+
+/obj/machinery/teleport/hub/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
 	else if(power_station && power_station.engaged)
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
+
+
+/obj/machinery/teleport/hub/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(power_station && power_station.engaged && !panel_open)
+		underlays += emissive_appearance(icon, "tele1_lightmask")
+
+
+/obj/machinery/teleport/hub/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_lighting()
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/teleport/hub/proc/update_lighting()
+	if(power_station && power_station.engaged && !panel_open)
+		set_light_on(TRUE)
+	else
+		set_light_on(FALSE)
+
 
 /obj/machinery/teleport/perma
 	name = "permanent teleporter"
@@ -431,6 +464,12 @@
 	var/target
 	var/tele_delay = 50
 
+
+/obj/machinery/teleport/perma/Initialize(mapload)
+	. = ..()
+	update_lighting()
+
+
 /obj/machinery/teleport/perma/RefreshParts()
 	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
 		target = C.target
@@ -438,7 +477,7 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
 	Internal helper function
@@ -479,17 +518,35 @@
 	recalibrating = FALSE
 	update_icon()
 
-/obj/machinery/teleport/perma/power_change()
-	..()
+/obj/machinery/teleport/perma/power_change(forced = FALSE)
+	if(!..())
+		return
 	update_icon()
+	update_lighting()
 
-/obj/machinery/teleport/perma/update_icon()
+/obj/machinery/teleport/perma/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
 	else if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)))
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
+
+
+/obj/machinery/teleport/perma/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
+		underlays += emissive_appearance(icon, "tele1_lightmask")
+
+
+/obj/machinery/teleport/perma/proc/update_lighting()
+	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
+		set_light(2, 1, "#f1f1bd", l_on = TRUE)
+	else
+		set_light_on(FALSE)
+
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -526,11 +583,13 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	link_console_and_hub()
 
-/obj/machinery/teleport/station/Initialize()
-	..()
+
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	link_console_and_hub()
+	update_icon()
+
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
@@ -555,7 +614,7 @@
 /obj/machinery/teleport/station/Destroy()
 	if(teleporter_hub)
 		teleporter_hub.power_station = null
-		teleporter_hub.update_icon()
+		teleporter_hub.update_icon(UPDATE_ICON_STATE)
 		teleporter_hub = null
 	if(teleporter_console)
 		teleporter_console.power_station = null
@@ -633,19 +692,30 @@
 		visible_message(span_alert("No target detected."))
 		engaged = FALSE
 	teleporter_hub.update_icon()
+	teleporter_hub.update_lighting()
 	if(istype(user))
 		add_fingerprint(user)
 
-/obj/machinery/teleport/station/power_change()
-	..()
-	update_icon()
-	if(teleporter_hub)
-		teleporter_hub.update_icon()
 
-/obj/machinery/teleport/station/update_icon()
+/obj/machinery/teleport/station/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
+
+
+/obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)
 		icon_state = "controller-o"
 	else if(stat & NOPOWER)
 		icon_state = "controller-p"
 	else
 		icon_state = "controller"
+
+
+/obj/machinery/teleport/station/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(!(stat & NOPOWER) && !panel_open)
+		underlays += emissive_appearance(icon, "controller_lightmask")
+

@@ -171,7 +171,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				continue
 			else
 				var/varval = Master.vars[varname]
-				if(istype(varval, /datum)) // Check if it has a type var.
+				if(isdatum(varval)) // Check if it has a type var.
 					var/datum/D = varval
 					msg += "\t [varname] = [D]([D.type])\n"
 				else
@@ -236,6 +236,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
+
+	//Make some special interactions after all subsystems initialized
+	for(var/datum/controller/subsystem/SS in subsystems)
+		SS.OnMasterLoad()
+		CHECK_TICK
 
 	if(CONFIG_GET(flag/developer_express_start))
 		SSticker.force_start = TRUE

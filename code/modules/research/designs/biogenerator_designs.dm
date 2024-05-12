@@ -55,7 +55,7 @@
 	name = "Monkey cube"
 	id = "mcube"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
+	materials = list(MAT_BIOMASS = 500)
 	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
 	category = list("initial", "Food")
 
@@ -169,6 +169,14 @@
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 400)
 	build_path = /obj/item/clothing/accessory/holster
+	category = list("initial","Leather and Cloth")
+
+/datum/design/k_holster
+	name = "Knife holster"
+	id = "k_holster"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 400)
+	build_path = /obj/item/clothing/accessory/holster/knives
 	category = list("initial","Leather and Cloth")
 
 /datum/design/webbing

@@ -88,8 +88,10 @@
 		else
 			control_area = null
 
-	power_change() //Checks power and initial settings
-	return
+	updateTurrets()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
+
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(isrobot(user) && !iscogscarab(user) || isAI(user))
@@ -115,7 +117,7 @@
 		add_fingerprint(user)
 		return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(src.allowed(usr))
 			add_fingerprint(user)
 			if(emagged)
@@ -126,13 +128,13 @@
 		return
 	return ..()
 
-/obj/machinery/turretid/emag_act(user as mob)
+/obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, span_danger("You short out the turret controls' access analysis module."))
+		if(user)
+			to_chat(user, span_danger("You short out the turret controls' access analysis module."))
 		emagged = TRUE
 		locked = FALSE
 		ailock = FALSE
-		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	ui_interact(user)
@@ -141,6 +143,8 @@
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -213,32 +217,50 @@
 	TC.ailock = ailock
 
 	if(istype(control_area))
-		for(var/obj/machinery/porta_turret/aTurret in control_area)
+		for(var/obj/machinery/porta_turret/aTurret in control_area.machinery_cache)
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
 
-/obj/machinery/turretid/power_change()
-	..()
+
+/obj/machinery/turretid/power_change(forced = FALSE)
+	if(!..())
+		return
 	updateTurrets()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
 
-/obj/machinery/turretid/update_icon()
-	..()
+
+/obj/machinery/turretid/proc/update_turret_light()
+	if(stat & NOPOWER)
+		set_light_on(FALSE)
+		return
+
+	if(enabled)
+		if(lethal)
+			set_light(1.5, 1,"#990000", l_on = TRUE)
+		else
+			set_light(1.5, 1,"#FF9900", l_on = TRUE)
+		return
+
+	set_light(1.5, 1,"#003300", l_on = TRUE)
+
+
+/obj/machinery/turretid/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
-		set_light(0)
-	else if(enabled)
+		return
+	if(enabled)
 		if(lethal)
 			icon_state = "control_kill"
-			set_light(1.5, 1,"#990000")
 		else
 			icon_state = "control_stun"
-			set_light(1.5, 1,"#FF9900")
-	else
-		icon_state = "control_standby"
-		set_light(1.5, 1,"#003300")
+		return
+
+	icon_state = "control_standby"
+
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)

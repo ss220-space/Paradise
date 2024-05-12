@@ -101,3 +101,12 @@
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
+
+//'safe' caves
+/area/ruin/unpowered/safe_cave
+	icon_state = "dk_yellow"
+
+// pirate ship
+/area/ruin/powered/pirateship
+	name = "Crashed Pirate Ship"
+	icon_state = "green"

@@ -1,3 +1,8 @@
+///Default see in dark. See in dark sucks.
+#define DEFAULT_SEE_IN_DARK 1e6
+
+#define SEE_IN_DARK_THRESHOLD 4
+
 #define SEE_INVISIBLE_MINIMUM 5
 
 #define SEE_INVISIBLE_OBSERVER_NOLIGHTING 15
@@ -28,6 +33,7 @@
 
 
 #define INVISIBILITY_MAXIMUM 100
+#define INVISIBILITY_ABSTRACT 101
 
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6
@@ -42,8 +48,13 @@
 #define ANTAGHUD 3
 
 //for clothing visor toggles, these determine which vars to toggle
-#define VISOR_FLASHPROTECT	(1<<0)
-#define VISOR_TINT			(1<<1)
-#define VISOR_VISIONFLAGS	(1<<2) //all following flags only matter for glasses
-#define VISOR_DARKNESSVIEW	(1<<3)
-#define VISOR_INVISVIEW		(1<<4)
+#define VISOR_FLASHPROTECT		(1<<0)
+#define VISOR_TINT				(1<<1)
+#define VISOR_VISIONFLAGS		(1<<2) //all following flags only matter for glasses
+#define VISOR_DARKNESSVIEW		(1<<3)
+#define VISOR_INVISVIEW			(1<<4)
+#define VISOR_HUDTYPE			(1<<5)
+#define VISOR_EXAM_EXTENTIONS	(1<<6)
+
+
+#define VISOR_FULL_HUD (VISOR_HUDTYPE|VISOR_EXAM_EXTENTIONS)

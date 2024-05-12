@@ -14,12 +14,12 @@
 	speak_chance = 2
 	turns_per_move = 5
 	pull_force = 1000
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = 1
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	see_in_dark = 6
+	nightvision = 6
 	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
@@ -82,7 +82,7 @@
 		if(prob(1))
 			StopResting()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
 		StartResting()
 
@@ -93,27 +93,3 @@
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
 
-/mob/living/simple_animal/hostile/retaliate/syndirat/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "[pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-
-	..()

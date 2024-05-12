@@ -90,6 +90,9 @@
 /// logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 /datum/config_entry/flag/log_timers_on_bucket_reset
 
+/// Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
+/datum/config_entry/flag/report_active_turfs
+
 /// allows admins with relevant permissions to have their own ooc colour
 /datum/config_entry/flag/allow_admin_ooccolor
 
@@ -185,7 +188,7 @@
 
 /// Default fps for clients with "0" in prefs. -1 for synced with server.
 /datum/config_entry/number/clientfps
-	default = 65
+	default = 40
 
 /// use socket_talk to communicate with other processes
 /datum/config_entry/number/socket_talk
@@ -412,6 +415,55 @@
 /datum/config_entry/number/expected_round_length
 	default = 2 HOURS
 
+
+/datum/config_entry/number/antag_paradise_double_antag_chance
+	default = 33
+	max_val = 100
+	min_val = 0
+
+
+/datum/config_entry/keyed_list/antag_paradise_main_antags
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ROLE_TRAITOR = 60,
+		ROLE_VAMPIRE = 20,
+		ROLE_CHANGELING = 20,
+	)
+
+/datum/config_entry/keyed_list/antag_paradise_special_antags_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		"hijacker" = 10,
+		"malfai" = 10,
+		"ninja" = 10,
+		"thief" = 10,
+		"nothing" = 20,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_mode_subtypes
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 10,
+		ANTAG_DOUBLE = 10,
+		ANTAG_TRIPPLE = 10,
+		ANTAG_RANDOM = 10,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_subtype_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ANTAG_SINGLE = 6,
+		ANTAG_DOUBLE = 4,
+		ANTAG_TRIPPLE = 2,
+	)
+
+
 //Made that way because compatibility reasons.
 /datum/config_entry/keyed_list/event_delay_lower
 	default = list("ev_level_mundane" = 10, "ev_level_moderate" = 30, "ev_level_major" = 50) //minutes
@@ -609,6 +661,11 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_NUM
 
+//Needs proper testing
+/datum/config_entry/keyed_list/emoji
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_TEXT
+
 /datum/config_entry/number/shadowling_max_age
 
 /datum/config_entry/flag/guest_ban
@@ -662,3 +719,5 @@
 	if(.)
 		GLOB.abandon_allowed = config_entry_value
 
+/datum/config_entry/number/jobs_high_pop_mode_amount
+	default = 80

@@ -23,6 +23,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	hide_attacklogs = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 
 /area/adminconstruction
@@ -31,6 +32,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	hide_attacklogs = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/space
 	icon_state = "space"
@@ -50,6 +52,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space_near"
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
+/area/space/planetary
+	icon_state = "space_planet"
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	ambientsounds = list('sound/ambience/ambimine.ogg')
+	sound_environment = SOUND_AREA_ASTEROID
+
 /area/space/atmosalert()
 	return
 
@@ -67,14 +75,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	no_teleportlocs = TRUE
 	requires_power = FALSE
 	valid_territory = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-/*
-/area/shuttle/arrival //dont have this, but at once...
-	name = "\improper Arrival Shuttle"
 
-/area/shuttle/arrival/pre_game
+/area/shuttle/arrival
+	name = "\improper Arrival Shuttle"
+/*
+/area/shuttle/arrival/pre_game //dont have this, but at once...
 	icon_state = "shuttle2"
 */
 /area/shuttle/arrival/station
@@ -183,13 +192,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Alien Shuttle Mine"
 	requires_power = 1
 
-/area/shuttle/gamma/space
+/area/shuttle/gamma
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory"
-
-/area/shuttle/gamma/station
-	icon_state = "shuttle"
-	name = "\improper Gamma Armory Station"
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"
@@ -400,7 +405,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	ambientsounds = null
 
 // === end remove
@@ -413,6 +418,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 // New CC
 /area/centcom/bridge
@@ -477,6 +483,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Syndicate Forward Base"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
@@ -512,6 +519,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper USSP Ship Project 28u"
 	icon_state = "ussp_ship"
 	requires_power = TRUE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = HIGHSEC_SOUNDS
 
@@ -521,6 +529,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Chrono Ship"
 	icon_state = "chrono_ship"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
 
@@ -530,6 +539,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Event Zone"
 	icon_state = "event_zone"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	nad_allowed = TRUE
 
@@ -557,6 +567,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	hide_attacklogs = TRUE
 
@@ -597,24 +608,27 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
 	there_can_be_many = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 //Abductors
 /area/abductor_ship
 	name = "\improper Abductor Ship"
 	icon_state = "yellow"
 	requires_power = FALSE
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/wizard_station
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
 	icon_state = "ninjabase"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	no_teleportlocs = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
@@ -639,6 +653,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Vox Base"
 	icon_state = "yellow"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	no_teleportlocs = TRUE
 
@@ -646,6 +661,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Trade Base"
 	icon_state = "yellow"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/trader_station/sol
@@ -655,6 +671,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "USSP central committee"
 	icon_state = "red"
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ussp_centcom/secretariat
@@ -1801,6 +1818,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery/theatre
+	name = "\improper Surgery Theatre"
+	icon_state = "surgery_theatre"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
@@ -1851,7 +1872,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -1870,7 +1891,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
-	for(var/obj/machinery/door_timer/temp_timer in src)
+	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
 	..()
 
@@ -2245,6 +2266,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engiestation
 	name = "\improper Engineering Outpost"
 	icon_state = "construction"
+	has_gravity = STANDARD_GRAVITY
 
 /area/engiestation/solars
 	name = "\improper Engineering Outpost Solars"
@@ -2256,6 +2278,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Ruskie DJ Station"
 	icon_state = "DJ"
 	there_can_be_many = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/djstation/solars
 	name = "\improper Ruskie DJ Station Solars"
@@ -2266,6 +2289,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/derelict
 	name = "\improper Derelict Station"
 	icon_state = "storage"
+	has_gravity = STANDARD_GRAVITY
 
 /area/derelict/hallway/primary
 	name = "\improper Derelict Primary Hallway"
@@ -2470,6 +2494,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Syndicate Base"
 	icon_state = "syndie_hall"
 	report_alerts = FALSE
+	has_gravity = STANDARD_GRAVITY
 
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
@@ -2652,6 +2677,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Strange Location"
 	icon_state = "away"
 	report_alerts = FALSE
+	has_gravity = STANDARD_GRAVITY
 	ambientsounds = AWAY_MISSION_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
@@ -2678,7 +2704,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 // area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "moonoutpost"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	report_alerts = FALSE
 
 /area/moonoutpost19/mo19arrivals
@@ -2727,7 +2753,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ae13/medbay
 	name = "medbay"
@@ -2763,6 +2789,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaycontent
 	name = "space"
 	report_alerts = FALSE
+	has_gravity = STANDARD_GRAVITY
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"
@@ -2875,52 +2902,42 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/shuttle/specops/centcom,
 ))
 
-//SPACE STATION 13
-GLOBAL_LIST_INIT(the_station_areas, list(
-	/area/shuttle/arrival,
-	/area/shuttle/escape,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/shuttle/prison/station,
-	/area/shuttle/administration/station,
-	/area/shuttle/specops/station,
-	/area/atmos,
-	/area/maintenance,
-	/area/hallway,
-	/area/hallway/primary/fore,
-	/area/hallway/primary/starboard,
-	/area/hallway/primary/aft,
-	/area/hallway/primary/port,
-	/area/hallway/primary/central,
-	/area/bridge,
-	/area/crew_quarters,
-	/area/civilian,
-	/area/holodeck,
-	/area/library,
-	/area/chapel,
-	/area/escapepodbay,
-	/area/lawoffice,
-	/area/magistrateoffice,
-	/area/clownoffice,
-	/area/mimeoffice,
-	/area/engine,
-	/area/solar,
-	/area/assembly,
-	/area/teleporter,
-	/area/medical,
-	/area/security,
-	/area/quartermaster,
-	/area/janitor,
-	/area/hydroponics,
-	/area/toxins,
-	/area/storage,
-	/area/construction,
-	/area/ai_monitored/storage/eva, //do not try to simplify to "/area/ai_monitored" --rastaf0
-	/area/ai_monitored/storage/secure,
-	/area/ai_monitored/storage/emergency,
-	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
-	/area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai,
-))
+
+//// Special event areas
+
+/area/special_event
+	name = "Special event area"
+	icon_state = "unknown"
+	requires_power = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	report_alerts = FALSE
+	has_gravity = STANDARD_GRAVITY
+
+/area/special_event/alpha
+	name = "Special event area Alpha"
+	icon_state = "away1"
+
+/area/special_event/beta
+	name = "Special event area Beta"
+	icon_state = "away2"
+
+/area/special_event/gamma
+	name = "Special event area Gamma"
+	icon_state = "away3"
+
+/area/special_event/delta
+	name = "Special event area Delta"
+	icon_state = "away4"
+
+/area/special_event/epsilon
+	name = "Special event area Epsilon"
+	icon_state = "away5"
+
+//space area
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
+
+
+/area/ruin/USSP_SpaceBanya
+	name = "Space_abandoned_banya"
+	icon_state = "barstation"

@@ -17,6 +17,10 @@
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(..())
+		return TRUE
+
 	if(!allowed(user))
 		to_chat(user, span_warning("Access denied."))
 		return

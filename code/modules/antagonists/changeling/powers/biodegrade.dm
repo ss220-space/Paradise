@@ -12,12 +12,12 @@
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
 
-	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon) && !LAZYLEN(user.grabbed_by))
 		to_chat(user, span_warning("We are already free!"))
 		return FALSE
 
 	if(user.handcuffed)
-		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(slot_handcuffed)
+		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(handcuffs))
 			return FALSE
 
@@ -28,7 +28,7 @@
 		used = TRUE
 
 	if(user.legcuffed && !used)
-		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(slot_legcuffed)
+		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(legcuffs))
 			return FALSE
 
@@ -39,7 +39,7 @@
 		used = TRUE
 
 	if(user.wear_suit?.breakouttime && !used)
-		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(slot_wear_suit)
+		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		if(!istype(res_suit))
 			return FALSE
 
@@ -76,7 +76,7 @@
 			var/mob/living/carbon/grab_owner = grab.assailant
 			user.visible_message(span_warning("[user] spits acid at [grab_owner]'s face and slips out of their grab!"))
 			grab_owner.Stun(2 SECONDS) //Drops the grab
-			grab_owner.apply_damage(5, BURN, "head", grab_owner.run_armor_check("head", "melee"))
+			grab_owner.apply_damage(5, BURN, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
 			user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
 			user.SetWeakened(0)
 			playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)

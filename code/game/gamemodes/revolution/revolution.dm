@@ -12,7 +12,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
+	restricted_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_LAWYER, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOS, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC)
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -25,7 +25,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Involve other employees (excluding the heads of staff, and security officers) in to the revolution.  Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by implantiong them with mindshield implants).</B>")
+	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, QM, CE, RD and CMO. Involve other employees (excluding the heads of staff, and security officers) in to the revolution.  Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by implantiong them with mindshield implants).</B>")
 
 ///////////////////////////////////////////
 //Магический спелл для приглашения в реву//
@@ -122,7 +122,6 @@
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
-	modePlayer += head_revolutionaries
 	..()
 
 
@@ -141,17 +140,16 @@
 	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
 	rev_mind.objectives += rev_obj
 
-/datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=1)
-	var/obj_count = 1
+/datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=TRUE)
 	update_rev_icons_added(rev_mind)
 	rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 	var/datum/action/innate/revolution_recruitment/C = new()
 	C.Grant(rev_mind.current)
+	var/list/messages = list()
 	if(you_are)
-		to_chat(rev_mind.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
-	for(var/datum/objective/objective in rev_mind.objectives)
-		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add("<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
+	messages.Add(rev_mind.prepare_announce_objectives())
+	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -161,7 +159,7 @@
 		return
 
 	if(mob.mind)
-		if(mob.mind.assigned_role == "Clown")
+		if(mob.mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -171,11 +169,11 @@
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
 	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
 	mob.equip_in_one_of_slots(R,slots)
@@ -329,7 +327,7 @@
 		if(M.current.stat == DEAD)
 			scoreboard.score_ops_killed++
 
-		else if(M.current.restrained())
+		else if(HAS_TRAIT(M, TRAIT_RESTRAINED))
 			scoreboard.score_arrested++
 
 	if(foecount == scoreboard.score_arrested)
@@ -338,7 +336,7 @@
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/player = thing
 		if(player.stat == DEAD && player.mind?.assigned_role)
-			if(player.mind.assigned_role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(player.mind.assigned_role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				scoreboard.score_dead_command++
 
 
@@ -369,7 +367,7 @@
 		var/mob/living/carbon/human/player = thing
 		if(player.mind)
 			var/role = player.mind.assigned_role
-			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(role in list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO))
 				if(player.stat != DEAD)
 					comcount++
 			else
@@ -401,3 +399,12 @@
 	dat += "<HR>"
 
 	return dat
+
+
+/proc/is_revolutionary(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.revolutionaries)
+
+
+/proc/is_head_revolutionary(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.head_revolutionaries)
+

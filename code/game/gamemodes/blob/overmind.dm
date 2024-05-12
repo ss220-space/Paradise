@@ -3,8 +3,7 @@
 	real_name = "Blob Overmind"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
-
-	see_in_dark = 8
+	nightvision = 8
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -52,6 +51,7 @@
 	sync_mind()
 	blob_help()
 	update_health_hud()
+	sync_lighting_plane_alpha()
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core && hud_used)
@@ -63,21 +63,23 @@
 		if(hud_used)
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
-/mob/camera/blob/say(var/message)
+
+/mob/camera/blob/say(message)
 	if(!message)
 		return
 
-	if(src.client)
+	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
-		if(src.client.handle_spam_prevention(message,MUTE_IC))
+		if(client.handle_spam_prevention(message, MUTE_IC))
 			return
 
 	if(stat)
 		return
 
 	blob_talk(message)
+
 
 /mob/camera/blob/proc/blob_talk(message)
 	add_say_logs(src, message, language = "BLOB")
@@ -87,15 +89,12 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#008000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+	var/rendered = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> <span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
 			M.show_message(rendered, 2)
 
-/mob/camera/blob/emote(act, m_type = 1, message = null, force)
-	return
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return

@@ -2,7 +2,7 @@
 #define MENU_RECORDS 2
 
 /obj/machinery/computer/cloning
-	name = "cloning console"
+	name = "biomass pod console"
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
@@ -71,7 +71,11 @@
 
 	//Then look for a free one in the area
 	if(!scannerf)
-		for(var/obj/machinery/dna_scannernew/S in get_area(src))
+		var/area/search_area = get_area(src)
+		if(!search_area)
+			return
+
+		for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
 			return S
 
 	return 0
@@ -117,6 +121,9 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	user.set_machine(src)
 	add_fingerprint(user)
 

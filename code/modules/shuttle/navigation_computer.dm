@@ -146,7 +146,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
+		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -175,10 +175,13 @@
 		my_port.register()
 	my_port.setDir(the_eye.dir)
 	my_port.forceMove(locate(eyeobj.x - x_offset, eyeobj.y - y_offset, eyeobj.z))
-	if(is_mining_level(my_port.z))
-		my_port.turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	var/baseturf = check_level_trait(my_port.z, ZTRAIT_BASETURF)
+	if(baseturf)
+		my_port.turf_type = baseturf
+	else if(is_mining_level(my_port.z))
+		my_port.turf_type = SSmapping.lavaland_theme?.primary_turf_type ? SSmapping.lavaland_theme.primary_turf_type : /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	else
-		my_port.turf_type  =/turf/space
+		my_port.turf_type = /turf/space
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
@@ -262,7 +265,7 @@
 
 	if(space_turfs_only)
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		if(!ispath(turf_type, /turf/space) && !is_mining_level(T.z))
+		if(!(ispath(turf_type, /turf/space) || ispath(turf_type, /turf/space/openspace)) && !is_mining_level(T.z))
 			return SHUTTLE_DOCKER_BLOCKED
 
 	if(istype(T.loc.type, /area/syndicate_depot))
@@ -299,6 +302,7 @@
 	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
+	ai_detector_visible = FALSE	// The Shuttle Docker does not trigger the AI Detector
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -306,8 +310,8 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(/*istype(get_turf(T), /turf/space) ||*/ istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle) ||  istype(get_area(T), /area/lavaland) || istype(get_area(T), /area/ruin))
+/mob/camera/aiEye/remote/shuttle_docker/setLoc(turf/destination, force_update = FALSE)
+	if(istype(get_area(destination), /area/space) || istype(get_area(destination), /area/shuttle) ||  istype(get_area(destination), /area/lavaland) || istype(get_area(destination), /area/ruin))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()
@@ -369,7 +373,7 @@
 			L[S.name] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in L
+	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
 	playsound(src, "terminal_type", 25, 0)

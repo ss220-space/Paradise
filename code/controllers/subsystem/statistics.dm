@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(statistics)
 	wait = 6000 // 10 minute delay between fires
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME // Only count time actually ingame to avoid logging pre-round dips
 	offline_implications = "Player count and admin count statistics will no longer be logged to the database. No immediate action is needed."
-
+	ss_id = "statistics"
 
 /datum/controller/subsystem/statistics/Initialize()
 	if(!CONFIG_GET(flag/sql_enabled))

@@ -11,7 +11,6 @@
 	gender = NEUTER
 	health = 350
 	maxHealth = 350
-	ventcrawler = FALSE
 	density = TRUE
 	pass_flags =  0
 	var/ascended = FALSE
@@ -25,11 +24,11 @@
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
+	else
+		dna = new
 
-	var/obj/item/organ/internal/brain/B = new(src)
-	var/obj/item/organ/internal/ears/E = new(src)
-	B.insert()
-	E.insert()
+	new /obj/item/organ/internal/brain(src)
+	new /obj/item/organ/internal/ears(src)
 	..()
 
 // Determines if mob has and can use his hands like a human
@@ -49,9 +48,11 @@
 
 /mob/living/carbon/true_devil/Login()
 	..()
+	var/list/messages = list()
 	if(mind.devilinfo)
-		mind.devilinfo.announce_laws(src)
-	mind.announce_objectives()
+		messages.Add(mind.devilinfo.announce_laws(src))
+	messages.Add(mind.prepare_announce_objectives())
+	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 
 /mob/living/carbon/true_devil/death(gibbed)
@@ -64,14 +65,14 @@
 	var/msg = "This is [bicon(src)] <b>[src]</b>!\n"
 
 	//Left hand items
-	if(l_hand && !(l_hand.flags & ABSTRACT))
+	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
 			msg += "<span class='warning'>It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
 		else
 			msg += "It is holding [bicon(l_hand)] \a [l_hand] in its left hand.\n"
 
 	//Right hand items
-	if(r_hand && !(r_hand.flags & ABSTRACT))
+	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
 			msg += "<span class='warning'>It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
 		else
@@ -124,6 +125,8 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
+	if(!can_unarmed_attack())
+		return
 	if(!ishuman(A))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst
@@ -131,8 +134,9 @@
 		// If the devil wants to actually attack, they have the pitchfork.
 
 
-/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = 0)
+/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE)
 	return TRUE
+
 
 /mob/living/carbon/true_devil/singularity_act()
 	if(ascended)
@@ -169,7 +173,7 @@
 				add_attack_logs(M, src, "attacked")
 				updatehealth()
 			if(INTENT_DISARM)
-				if(!lying && !ascended) //No stealing the arch devil's pitchfork.
+				if(!lying_angle && !ascended) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out

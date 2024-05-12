@@ -85,7 +85,7 @@ const CryoContent = (props, context) => {
               {statNames[occupant.stat][1]}
             </LabeledList.Item>
             <LabeledList.Item label="Температура">
-              <AnimatedNumber value={Math.round(occupant.bodyTemperature)} /> K
+              <AnimatedNumber value={Math.round(occupant.bodyTemperature)} /> K
             </LabeledList.Item>
             <LabeledList.Divider />
             {(damageTypes.map(damageType => (
@@ -134,7 +134,7 @@ const CryoContent = (props, context) => {
             </Button>
           </LabeledList.Item>
           <LabeledList.Item label="Температура" color={cellTemperatureStatus}>
-            <AnimatedNumber value={cellTemperature} /> K
+            <AnimatedNumber value={cellTemperature} /> K
           </LabeledList.Item>
           <LabeledList.Item label="Ёмкость">
             <CryoBeaker />

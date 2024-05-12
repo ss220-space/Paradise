@@ -67,7 +67,9 @@
 				door.wires?.pulse_random()
 				continue
 			if(prob(DETONATION_MACHINE_BREAKDOWN_CHANCE))
-				door.electronics = null
+				door.access_electronics = null
+				door.has_access_electronics = FALSE
+				door.req_access = null
 
 //Break air alarms
 /datum/supermatter_explosive_effects/proc/handle_alarm_breakdown()
@@ -163,10 +165,9 @@
 
 
 /datum/supermatter_explosive_effects/proc/greet_sentient(var/mob/M)
-	to_chat(M, span_userdanger("Hello world!"))
-	to_chat(M, span_warning("Due to freak radiation, you have gained \
+	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
-							human language!"))
+							human language!</span>"))
 
 //All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()

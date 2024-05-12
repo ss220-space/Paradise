@@ -13,14 +13,13 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -37,12 +36,15 @@
 			return FALSE
 		Remove(owner)
 	owner = user
-	user.actions += src
+	owner.actions += src
 
-	if(user.client)
-		user.client.screen += button
+	if(owner.client)
+		owner.client.screen += button
 		button.locked = TRUE
-	user.update_action_buttons()
+	owner.update_action_buttons()
+
+	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 
 	return TRUE
 
@@ -54,19 +56,35 @@
 
 	if(user.client)
 		user.client.screen -= button
+		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	user.actions -= src
 	user.update_action_buttons()
 
+	// Clean up our check_flag signals
+	UnregisterSignal(user, list(
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+	))
+
 	return TRUE
 
 
-/datum/action/proc/Trigger()
+/// A general use signal proc that reacts to an event and updates JUST our button
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+	UpdateButtonIcon()
+
+
+/datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return FALSE
 	return TRUE
+
+/datum/action/proc/AltTrigger()
+	Trigger()
 
 /datum/action/proc/Process()
 	return
@@ -96,23 +114,20 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained())
-			return FALSE
-	if(check_flags & AB_CHECK_STUNNED)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(L.IsStunned() || L.IsWeakened())
-				return FALSE
-	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
-	if(check_flags & AB_CHECK_TURF)
-		if(!isturf(owner.loc))
-			return FALSE
+	var/owner_is_living = isliving(owner)
+	var/mob/living/living_owner = owner
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && owner_is_living && (living_owner.IsStunned() || living_owner.IsWeakened()))
+		return FALSE
+	if((check_flags & AB_CHECK_LYING) && owner_is_living && living_owner.lying_angle)
+		return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
+		return FALSE
+	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
+		return FALSE
 	return TRUE
 
 /datum/action/proc/IsMayActive()
@@ -168,14 +183,16 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	/// Whether action trigger should call attack self proc.
+	var/attack_self = TRUE
 	var/use_itemicon = TRUE
 	var/action_initialisation_text = null	//Space ninja abilities only
 
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
-	I.actions += src
+	LAZYADD(I.actions, src)
 	if(custom_icon && custom_icon_state)
 		use_itemicon = FALSE
 		icon_icon = custom_icon
@@ -183,15 +200,15 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	LAZYREMOVE(I.actions, src)
 	return ..()
 
-/datum/action/item_action/Trigger(attack_self = TRUE) //Maybe we don't want to click the thing itself
+/datum/action/item_action/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 	if(target && attack_self)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type)
+		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
@@ -287,7 +304,7 @@
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE)
 	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
@@ -303,7 +320,7 @@
 	desc = "Toggles if the club's blasts cause friendly fire."
 	button_icon_state = "vortex_ff_on"
 
-/datum/action/item_action/toggle_unfriendly_fire/Trigger()
+/datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
 		UpdateButtonIcon()
 
@@ -429,8 +446,9 @@
 
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"
+	attack_self = FALSE
 
-/datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
+/datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
 	if(..())
 		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
 		DT.remove_tape(target, usr)
@@ -479,17 +497,14 @@
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
 
-/datum/action/item_action/bomb_imp
-	check_flags = null
-
-/datum/action/item_action/bomb_imp/activate
-	name = "Activate Bomb Implant"
+/datum/action/item_action/hands_free/activate/always
+	check_flags = NONE
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
 
-/datum/action/item_action/toggle_research_scanner/Trigger()
+/datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
 		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
@@ -505,13 +520,13 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	desc = "Use the instrument specified."
 
-/datum/action/item_action/instrument/Trigger()
+/datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
 		var/obj/item/instrument/I = target
 		I.interact(usr)
@@ -538,8 +553,9 @@
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+	attack_self = FALSE
 
-/datum/action/item_action/gravity_jump/Trigger(attack_self = FALSE)
+/datum/action/item_action/gravity_jump/Trigger(left_click = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -575,7 +591,7 @@
 /datum/action/item_action/voice_changer/voice
 	name = "Set Voice"
 
-/datum/action/item_action/voice_changer/voice/Trigger()
+/datum/action/item_action/voice_changer/voice/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return FALSE
 
@@ -584,7 +600,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
@@ -610,7 +626,7 @@
 
 /datum/action/item_action/accessory/herald
 	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it"
+	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action
@@ -635,13 +651,19 @@
 	S.action = null
 	return ..()
 
-/datum/action/spell_action/Trigger()
+/datum/action/spell_action/Trigger(left_click = TRUE)
 	if(!IsAvailable(TRUE))
 		return FALSE
 
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
+		return TRUE
+
+/datum/action/spell_action/AltTrigger()
+	if(target)
+		var/obj/effect/proc_holder/spell/spell = target
+		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable(message = FALSE)
@@ -712,7 +734,7 @@
 	check_flags = 0
 	var/active = FALSE
 
-/datum/action/innate/Trigger()
+/datum/action/innate/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 	if(!active)
@@ -731,7 +753,7 @@
 	name = "Toggle Research Scanner"
 	button_icon_state = "scan_mode"
 
-/datum/action/innate/research_scanner/Trigger()
+/datum/action/innate/research_scanner/Trigger(left_click = TRUE)
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
 		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
@@ -747,14 +769,14 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic
 	check_flags = 0
 	var/procname
 
-/datum/action/generic/Trigger()
+/datum/action/generic/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
 	if(target && procname)

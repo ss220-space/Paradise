@@ -55,12 +55,15 @@
 
 
 /datum/antagonist/space_dragon/greet()
-	to_chat(owner.current, "<b>Мы движемся сквозь время и пространство, не смотря на их величину. Мы не помним, откуда мы явились; мы не знаем, куда мы пойдем. Весь космос принадлежит нам.\n\
+	var/list/messages = list()
+	messages.Add(span_userdanger("Вы космический дракон!"))
+	messages.Add("<b>Мы движемся сквозь время и пространство, не смотря на их величину. Мы не помним, откуда мы явились; мы не знаем, куда мы пойдем. Весь космос принадлежит нам.\n\
 					Мы являемся высшими хищниками в бездонной пустоте, и мало кто может осмелиться занять этот титул.\n\
 					Но сейчас, мы лицезреем нарушителей, что борются против наших клыков с помощью немыслимой магии; их логова мелькают в глубине космоса, как маленькие огоньки.\n\
 					Сегодня, мы потушим один из этих огоньков.</b>")
-	to_chat(owner.current, span_boldwarning("У вас имеется пять минут, чтобы найти безопасное место для открытия первого разрыва. Если не успеете, вас вернет в бездну, из которой вы пришли."))
+	messages.Add(span_boldwarning("У вас имеется пять минут, чтобы найти безопасное место для открытия первого разрыва. Если не успеете, вас вернет в бездну, из которой вы пришли."))
 	SEND_SOUND(owner.current, sound('sound/misc/demon_attack1.ogg'))
+	return messages
 
 
 /datum/antagonist/space_dragon/give_objectives()
@@ -127,7 +130,7 @@
 	if(objective_complete)
 		return
 	rifts_charged = 0
-	dragon.dragon_depression = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_depression)
 	riftTimer = -1
 	SEND_SOUND(owner.current, sound('sound/vehicles/rocketlaunch.ogg'))
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)
@@ -174,7 +177,7 @@
 /datum/antagonist/space_dragon/proc/permanant_empower()
 	owner.current.rejuvenate()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	dragon.dragon_rage = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
 
 /**
@@ -186,7 +189,7 @@
 /datum/antagonist/space_dragon/proc/rift_empower()
 	owner.current.rejuvenate()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	dragon.dragon_rage = TRUE
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
 
@@ -199,7 +202,7 @@
  */
 /datum/antagonist/space_dragon/proc/rift_depower()
 	owner.current.remove_filter("anger_glow")
-	dragon.dragon_rage = FALSE
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/dragon_rage)
 
 
 /datum/objective/summon_carp

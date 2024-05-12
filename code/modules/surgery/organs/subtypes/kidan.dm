@@ -17,8 +17,8 @@
 	icon_state = "kid_lantern"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "groin"
-	slot = "lantern"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	slot = INTERNAL_ORGAN_LANTERN
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/colour
 	var/glowing = 0
@@ -26,21 +26,21 @@
 /obj/item/organ/internal/lantern/ui_action_click()
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message("<span class='notice'>[owner] starts to glow!</span>", "<span class='notice'>You enable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] starts to glow!"), span_notice("You enable your bioluminescence."))
 		else
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>", "<span class='notice'>You disable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."), span_notice("You disable your bioluminescence."))
 
 /obj/item/organ/internal/lantern/on_life()
 	..()
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+			to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
 			return
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))
@@ -51,8 +51,8 @@
 			colour = BlendRGB(owner.m_colours["body"], owner.m_colours["head"], 0.65)	//then again im pretty bad at theoretics
 
 		if(new_light != glowing)
-			var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-			lbody.set_light(new_light,l_color = colour)
+			var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
+			lbody.set_light_range_power_color(new_light, color = colour)
 			glowing = new_light
 
 	return
@@ -63,11 +63,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
+		to_chat(owner, span_warning("You cannot alter your bioluminescence in your current state."))
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+		to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
 		return 0
 
 	if(!colour)
@@ -75,14 +75,15 @@
 
 	if(!glowing)
 		var/light = calculate_glow(KIDAN_LANTERN_LIGHT)
-		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-		lbody.set_light(light,l_color = colour)
+		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
+		lbody.set_light_range_power_color(light, color = colour)
+		lbody.set_light_on(TRUE)
 		glowing = light
 		return 1
 
 	else
-		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-		lbody.set_light(0)
+		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ_zone))
+		lbody.set_light_on(FALSE)
 		glowing = 0
 		return 1
 
@@ -92,7 +93,7 @@
 
 	var/occlusion = 0 //clothes occluding light
 
-	if(!get_location_accessible(owner, "head"))
+	if(!get_location_accessible(owner, BODY_ZONE_HEAD))
 		occlusion++
 	if(owner.w_uniform && copytext(owner.w_uniform.item_color,-2) != "_d") //jumpsuit not rolled down
 		occlusion++
@@ -101,7 +102,7 @@
 
 	return light - occlusion
 
-/obj/item/organ/internal/lantern/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/lantern/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
@@ -129,18 +130,18 @@
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
-	parent_organ = "chest"
+	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/kidan/on_life()
 	. = ..()
-	var/obj/item/organ/external/organ = owner.get_organ("head")
+	var/obj/item/organ/external/organ = owner.get_organ(BODY_ZONE_HEAD)
 	if(!istype(organ))
-		owner.Slowed(40 SECONDS)
-		owner.Confused(80 SECONDS)
-		owner.Silence(40 SECONDS)
-		owner.Stuttering(80 SECONDS)
-		owner.EyeBlind(10 SECONDS)
-		owner.EyeBlurry(40 SECONDS)
+		owner.SetSlowed(40 SECONDS)
+		owner.SetConfused(80 SECONDS)
+		owner.SetSilence(40 SECONDS)
+		owner.SetStuttering(80 SECONDS)
+		owner.SetEyeBlind(10 SECONDS)
+		owner.SetEyeBlurry(40 SECONDS)
 
 /obj/item/organ/internal/lungs/kidan
 	species_type = /datum/species/kidan
@@ -156,13 +157,13 @@
 	species_type = /datum/species/kidan
 	encased = "head chitin"
 
-/obj/item/organ/external/head/kidan/remove(var/mob/living/user, var/ignore_children)
-	if(iskidan(src.owner))
-		src.owner.adjustBrainLoss(60)
+/obj/item/organ/external/head/kidan/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	if(iskidan(owner))
+		owner.adjustBrainLoss(60)
 
 	. = ..()
 
-/obj/item/organ/external/head/kidan/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target)
 	. = ..()
 	if(iskidan(target))
 		target.adjustBrainLoss(30)

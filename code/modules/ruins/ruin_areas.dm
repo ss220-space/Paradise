@@ -3,7 +3,7 @@
 /area/ruin
 	name = "\improper Unexplored Location"
 	icon_state = "away"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 	there_can_be_many = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = RUINS_SOUNDS
@@ -52,7 +52,7 @@
 	name = "Old Mining Bay Bridge"
 	icon_state = "bridge"
 
-// Old tcommsat
-/area/ruin/tcommsat
-	name = "Telecommunications Satellite"
-	icon_state = "tcomsatcham"
+// Space Prison
+/area/ruin/spaceprison
+	name = "Space Prison"
+	icon_state = "spaceprison"

@@ -26,26 +26,32 @@
 		return 0
 	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss() || LAZYLEN(R.diseases))
 			R.heal_overall_damage(15, 15)
+			R.CureAllDiseases(FALSE)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
+	if(ishuman(M)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 
 		if(S && S.is_robotic())
+			if(ismachineperson(M) && M.diseases?.len)
+				use(1)
+				M.CureAllDiseases()
+				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M] to fix problems.</span>")
+				return
 			if(S.get_damage())
 				use(1)
 				var/remheal = 15
 				var/nremheal = 0
-				S.heal_damage(robo_repair = 1) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
+				S.heal_damage(robo_repair = TRUE) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
 				var/childlist
-				if(!isnull(S.children))
+				if(LAZYLEN(S.children))
 					childlist = S.children.Copy()
 				var/parenthealed = FALSE
 				while(remheal > 0)
@@ -64,8 +70,8 @@
 					else
 						break
 					nremheal = max(remheal - E.get_damage(), 0)
-					E.heal_damage(remheal, 0, 0, 1) //Healing Brute
-					E.heal_damage(0, remheal, 0, 1) //Healing Burn
+					E.heal_damage(remheal, 0, FALSE, TRUE) //Healing Brute
+					E.heal_damage(0, remheal, FALSE, TRUE) //Healing Burn
 					remheal = nremheal
 					H.UpdateDamageIcon()
 					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")

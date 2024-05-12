@@ -6,18 +6,25 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
+	flags = BLOCKS_LIGHT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
+	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 
-/obj/item/storage/belt/update_icon()
-	if(use_item_overlays)
-		overlays.Cut()
-		for(var/obj/item/I in contents)
-			if(I.belt_icon)
-				overlays += "[I.belt_icon]"
-	..()
+
+/obj/item/storage/belt/update_overlays()
+	. = ..()
+	if(!use_item_overlays)
+		return
+	for(var/obj/item/item in contents)
+		if(!item.belt_icon)
+			continue
+		. += mutable_appearance(icon, item.belt_icon, color = item.color)
+
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -32,6 +39,8 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
@@ -320,6 +329,7 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
+	new /obj/item/multitool/ai_detect(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
 
@@ -367,6 +377,19 @@
 		new /obj/item/grenade/chem_grenade/lube(src) //2
 		new /obj/item/grenade/chem_grenade/drugs(src) //2
 		new /obj/item/grenade/gas/knockout(src)	//2
+
+/obj/item/storage/belt/grenade/frag/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag(src)
+
+/obj/item/storage/belt/grenade/demolitionist/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/frag(src)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/plastic/c4(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/empgrenade(src)
 
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
@@ -441,6 +464,12 @@
 	new /obj/item/grenade/plastic/x4/thermite(src)
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
+/obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/melee/classic_baton/telescopic(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -492,21 +521,16 @@
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/storage/belt/lazarus/update_icon()
-	..()
+/obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
-		update_icon()
-
-/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -532,22 +556,17 @@
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
 	update_icon()
 
-/obj/item/storage/belt/bandolier/update_icon()
-	..()
+/obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
-		update_icon()
-
-/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W, atom/new_location)
-	..()
-	update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
@@ -686,16 +705,14 @@
 		return
 	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/update_icon()
-	. = ..()
+/obj/item/storage/belt/rapier/update_icon_state()
 	icon_state = initial(icon_state)
 	item_state = initial(item_state)
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
+	update_equipped_item(update_speedmods = FALSE)
+
 
 // -------------------------------------
 //     Bluespace Belt
@@ -728,13 +745,13 @@
 		/obj/item/restraints/legcuffs/bola
 		)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 
@@ -882,6 +899,7 @@
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
 	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/wormhole_jaunter(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
@@ -946,3 +964,66 @@
 	desc = "Red apron with pockets. Ideal for the best butchers!"
 	icon_state = "cabeltred"
 	item_state = "cabeltred"
+
+/obj/item/storage/belt/claymore
+	name = "holy claymore sheath"
+	desc = "Can hold claymore."
+	icon_state = "sheath_holy"
+	item_state = "sheath_holy"
+	storage_slots = 1
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/nullrod/claymore)
+	var/claymore_path = /obj/item/nullrod/claymore
+	var/sheath_sound = 'sound/weapons/blade_holy_sheath.ogg'
+	var/unsheath_sound = 'sound/weapons/blade_holy_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/dark
+	name = "dark claymore sheath"
+	icon_state = "sheath_dark"
+	item_state = "sheath_dark"
+	claymore_path = /obj/item/nullrod/claymore/darkblade
+	sheath_sound = 'sound/weapons/blade_dark_sheath.ogg'
+	unsheath_sound = 'sound/weapons/blade_dark_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/update_icon_state()
+	if(length(contents))
+		icon_state = "[initial(icon_state)]_blade"
+		item_state = "[initial(icon_state)]_blade"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	update_equipped_item(update_speedmods = FALSE)
+
+
+/obj/item/storage/belt/claymore/populate_contents()
+	new claymore_path(src)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/claymore/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.incapacitated())
+		return
+
+	if(length(contents))
+		var/obj/item/I = contents[1]
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
+		H.put_in_hands(I, ignore_anim = FALSE)
+		update_icon(UPDATE_ICON_STATE)
+	else
+		to_chat(user, span_warning("[src] is empty!"))
+
+/obj/item/storage/belt/claymore/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, sheath_sound, 20)
+
+/obj/item/storage/belt/claymore/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, unsheath_sound, 20)

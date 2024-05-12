@@ -10,20 +10,20 @@
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	active = 0
-	det_time = 50
+	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
 
 /obj/item/grenade/iedcasing/New()
 	..()
-	overlays += "improvised_grenade_filled"
-	overlays += "improvised_grenade_wired"
-	times = list("5" = 10, "-1" = 20, "[rand(30, 80)]" = 50, "[rand(65, 180)]" = 20)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
+	add_overlay("improvised_grenade_filled")
+	add_overlay("improvised_grenade_wired")
+	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
-		det_time = rand(30,80)
+		det_time = rand(3 SECONDS, 8 SECONDS)
 
 /obj/item/grenade/iedcasing/CheckParts(list/parts_list)
 	..()
@@ -37,13 +37,19 @@
 		underlays += can_underlay
 
 
+/obj/item/grenade/iedcasing/update_overlays()
+	. = ..()
+
+
+
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You light the [name]!</span>")
+			to_chat(user, span_warning("You light the [name]!"))
 			active = TRUE
-			overlays -= "improvised_grenade_filled"
+			cut_overlay("improvised_grenade_filled")
 			icon_state = initial(icon_state) + "_active"
+			update_icon()
 			add_fingerprint(user)
 			investigate_log("[key_name_log(user)] has primed a [name] for detonation", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
@@ -59,4 +65,153 @@
 
 /obj/item/grenade/iedcasing/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>You can't tell when it will explode!</span>"
+	. += span_warning("You can't tell when it will explode!")
+
+/obj/item/grenade/iedsatchel
+	name = "plastic explosive"
+	desc = "Used to put holes in specific areas without too much extra hole."
+	icon_state = "improvised_satchel"
+	item_state = "plastic-explosive"
+	toolspeed = 1
+	det_time = 8 SECONDS
+	var/atom/target = null
+	var/image_overlay = null
+	var/planted = FALSE
+	var/burned_out = FALSE
+
+/obj/item/grenade/iedsatchel/examine(mob/user)
+	. = ..()
+	if(anchored)
+		. += span_notice("It's secured in place")
+	if(burned_out)
+		. += span_notice("Looks like wick has burned out")
+
+
+/obj/item/grenade/iedsatchel/update_icon_state()
+	if(active)
+		icon_state = "[initial(icon_state)]_active"
+		return
+	if(anchored || burned_out)
+		icon_state = "[initial(icon_state)]_burned"
+		return
+	icon_state = initial(icon_state)
+
+
+/obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity)
+	if(!proximity)
+		return
+	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
+		return
+	to_chat(user, span_notice("You start planting the [src]."))
+
+	if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), T))
+		if(!user.drop_transfer_item_to_loc(src, user.loc))
+			return
+		set_anchored(TRUE)
+		target = T
+
+		pixel_w = (T.x - x)*32
+		pixel_z = (T.y - y)*32
+		layer = ABOVE_OBJ_LAYER
+
+		add_game_logs("planted [src] on [T.name] at [T.loc]", user)
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You plant the [src]."))
+
+/obj/item/grenade/iedsatchel/attack_hand(mob/user)
+	if(anchored)
+		update_icon(UPDATE_ICON_STATE)
+		return
+	..()
+
+/obj/item/grenade/iedsatchel/attack_self(mob/user)
+	if(burned_out)
+		to_chat(user, span_notice("Without a fuse, it is impossible to trigger [src]. It looks like the wick can be made out a few wires."))
+		return
+	to_chat(user, span_notice("You tickled a makeshift wick made of wires, it looks like it needs to be set on fire."))
+
+/obj/item/grenade/iedsatchel/attackby(obj/item/W, user)
+	if(active)
+		return
+	if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/I = W
+		if(!I.lit)
+			return
+		trigger(user)
+		return
+	if(istype(W, /obj/item/match))
+		var/obj/item/match/I = W
+		if(!I.lit)
+			return
+		trigger(user)
+		return
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/I = W
+		if(!I.tool_enabled)
+			return
+		trigger(user)
+		return
+	if(istype(W, /obj/item/stack/cable_coil))
+		if(!burned_out)
+			to_chat(user, span_notice("[src] already has a wick"))
+			return
+		var/obj/item/stack/cable_coil/I = W
+		if(I.use(5))
+			to_chat(user, span_notice("You made a new wick from the cable"))
+			burned_out = FALSE
+			update_icon(UPDATE_ICON_STATE)
+			return
+		to_chat(user, span_notice("There is not enough cables to make a wick."))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
+		if(!anchored)
+			return
+		pixel_w = 0
+		pixel_z = 0
+		to_chat(user, span_notice("You unattached [src]."))
+		layer = TURF_LAYER
+		set_anchored(FALSE)
+		update_icon(UPDATE_ICON_STATE)
+		target = null
+
+/obj/item/grenade/iedsatchel/proc/trigger(mob/user)
+	if(burned_out)
+		to_chat(user, span_notice("There is no wick to ignite [src]."))
+		return
+	var/N = roll(11) - 1
+	active = TRUE
+	to_chat(user, span_danger("You ignite wires on [src]!"))
+	update_icon(UPDATE_ICON_STATE)
+	add_game_logs("Triggered [name] at [COORD(target)]", user)
+	if(N <= 3)
+		active = 1
+		addtimer(CALLBACK(src, PROC_REF(prime_fake)), det_time, TRUE)
+		return
+	if(N <= 8)
+		active = 1
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+		return
+	prime()
+
+/obj/item/grenade/iedsatchel/proc/prime_fake()
+	visible_message(span_notice("The wires on [src] burned out, but nothing happened."))
+	active = FALSE
+	burned_out = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/iedsatchel/prime()
+	update_mob()
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)
+	if(target)
+		if(istype(target, /obj/machinery/door/airlock))
+			var/obj/machinery/door/airlock/T = target
+			if((T.obj_integrity - 300) <= 0)
+				qdel(T)
+			else
+				T.take_damage(300)
+		if(iswallturf(target))
+			var/turf/simulated/wall/T = target
+			if((T.damage + 300) >= T.damage_cap)
+				T.dismantle_wall(1, 1)
+			else
+				T.take_damage(300)
+	qdel(src)

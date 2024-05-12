@@ -1,6 +1,7 @@
 SUBSYSTEM_DEF(medals)
 	name = "Medals"
 	flags = SS_NO_FIRE
+	ss_id = "medals"
 	var/hub_enabled = FALSE
 
 

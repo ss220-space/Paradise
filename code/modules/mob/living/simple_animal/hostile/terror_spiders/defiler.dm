@@ -43,12 +43,16 @@
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
 	L.AdjustSilence(20 SECONDS)
 	L.adjustStaminaLoss(39)
-	L.attack_animal(src)
 	if(!poisonable)
-		return ..()
-	var/inject_target = pick("chest", "head")
+		return TRUE
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
@@ -65,8 +69,8 @@
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"
@@ -75,7 +79,7 @@
 /obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!IsTSInfected(C) && ishuman(C))
-			var/inject_target = pick("chest","head")
+			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)

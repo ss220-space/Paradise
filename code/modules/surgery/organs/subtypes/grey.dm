@@ -1,7 +1,7 @@
 /obj/item/organ/internal/liver/grey
 	species_type = /datum/species/grey
 	name = "grey liver"
-	desc = "A small, odd looking liver"
+	desc = "A small, odd looking liver."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	alcohol_intensity = 1.6
 
@@ -13,18 +13,18 @@
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
 	mmi_icon_state = "mmi_full"
 
-/obj/item/organ/internal/brain/grey/insert(var/mob/living/carbon/M, var/special = 0)
-	..()
-	M.add_language("Psionic Communication")
-
-/obj/item/organ/internal/brain/grey/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M.remove_language("Psionic Communication")
+	M.add_language(LANGUAGE_GREY)
+
+/obj/item/organ/internal/brain/grey/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	M.remove_language(LANGUAGE_GREY)
+	. = ..()
 
 /obj/item/organ/internal/eyes/grey
 	species_type = /datum/species/grey
 	name = "grey eyeballs"
-	desc = "They still look creepy and emotionless"
+	desc = "They still look creepy and emotionless."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	see_in_dark = 5
 

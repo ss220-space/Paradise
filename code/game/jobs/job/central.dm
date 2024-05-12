@@ -1,13 +1,13 @@
 
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
-	title = "Nanotrasen Navy Officer"
-	flag = JOB_CENTCOM
-	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
+	title = JOB_TITLE_CCOFFICER
+	flag = JOB_FLAG_CENTCOM
+	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
-	selection_color = "#ffdddd"
+	selection_color = "#6865B3"
 	access = list()
 	minimal_access = list()
 	admin_only = 1
@@ -41,18 +41,18 @@
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	)
 
 /datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 
 // НТ Оффицер для недовольных выходов с ЦК.
 /datum/job/ntnavyofficer/field
-	title = "Nanotrasen Navy Field Officer"
+	title = JOB_TITLE_CCFIELD
 	outfit = /datum/outfit/job/ntnavyofficer/field
 
 /datum/outfit/job/ntnavyofficer/field
@@ -64,13 +64,13 @@
 
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
-	title = "Special Operations Officer"
-	flag = JOB_CENTCOM
-	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
+	title = JOB_TITLE_CCSPECOPS
+	flag = JOB_FLAG_CENTCOM
+	department_flag = JOB_FLAG_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
-	selection_color = "#ffdddd"
+	selection_color = "#6865B3"
 	access = list()
 	minimal_access = list()
 	admin_only = 1
@@ -110,7 +110,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
@@ -118,11 +118,11 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE
 
 // Верховное командование для самых больших проблем
 /datum/job/ntspecops/supreme
-	title = "Supreme Commander"
+	title = JOB_TITLE_CCSUPREME
 	outfit = /datum/outfit/job/ntspecops/supreme
 
 /datum/outfit/job/ntspecops/supreme
@@ -140,7 +140,7 @@
 
 //Tran-Solar Federation General
 /datum/job/ntspecops/solgovspecops
-	title = "Solar Federation General"
+	title = JOB_TITLE_CCSOLGOV
 	outfit = /datum/outfit/job/ntspecops/solgovspecops
 
 /datum/outfit/job/ntspecops/solgovspecops
@@ -154,6 +154,10 @@
 		/obj/item/implant/dust
 	)
 
+	backpack_contents = list(
+		/obj/item/stamp/solgov = 1,
+	)
+
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
@@ -162,4 +166,4 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
 	H.sec_hud_set_ID()
-	H.mind.offstation_role = TRUE
+	H.mind?.offstation_role = TRUE

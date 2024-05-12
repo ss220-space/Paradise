@@ -125,14 +125,6 @@
 	icon_state = "away17"
 	requires_power = TRUE
 
-//Невидимая и неразрушаемая стена, для ограничения уровня
-
-/turf/simulated/wall/indestructible/invisible
-	name = "Deep space"
-	desc = "Deep space nothing"
-	icon = null
-	icon_state = null
-
 //Пустые аптечки с мышеловкой и насмешкой
 
 /obj/item/storage/firstaid/with_mousetrap/tactical
@@ -188,9 +180,9 @@
 	icon_state = "destroyed_target_prism"
 
 /obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
+	if(I.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+	if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		if(prob(70))
 			to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 			if(prob(50))
@@ -206,8 +198,7 @@
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-	triggered = TRUE
-	icon_state = "fire1"
+
 
 //Spieder spawner
 
@@ -222,3 +213,4 @@
 	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
 	spawn_text = "crawls out of"
 	faction = list("spiders")
+	mob_gps_id = "SPD"

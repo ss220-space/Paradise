@@ -51,15 +51,22 @@
 		melee_damage_lower = initial(melee_damage_lower) * 3
 		melee_damage_upper = initial(melee_damage_upper) * 3
 		armour_penetration = initial(armour_penetration) * 25
-		visible_message("<span class='danger'>[src] suddenly attacks and savagely mauls [target]!</span>")
-		L.adjustStaminaLoss(45)
-		L.AdjustSilence(10 SECONDS)
 	else
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		armour_penetration = initial(armour_penetration)
 		visible_message("<span class='danger'>[src] bites [target]!</span>")
-	L.attack_animal(src)
+
+	. = ..() //eat victim
+
+	if(!.)
+		return FALSE
+
+	if(W)	//apply debuffs if failed to block
+		L.adjustStaminaLoss(45)
+		L.AdjustSilence(10 SECONDS)
+	return TRUE
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker/spider_special_action()
 	if(prob(prob_ai_massweb))

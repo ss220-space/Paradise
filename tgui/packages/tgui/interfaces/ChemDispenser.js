@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
-import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
+import { Box, Button, Flex, LabeledList, ProgressBar, Section, Tooltip } from "../components";
 import { BeakerContents } from "../interfaces/common/BeakerContents";
 import { Window } from "../layouts";
 
@@ -172,6 +172,16 @@ const ChemDispenserBeaker = (properties, context) => {
               onClick={() => act('remove', {
                 reagent: chemical.id,
                 amount: chemical.volume,
+              })}
+            />
+            <Button
+              content={"Floor"}
+              tooltip={'Set to ' + Math.trunc(chemical.volume)}
+              tooltipPosition="bottom-left"
+              icon="arrow-circle-down"
+              onClick={() => act('remove', {
+                reagent: chemical.id,
+                amount: -2,
               })}
             />
           </Fragment>

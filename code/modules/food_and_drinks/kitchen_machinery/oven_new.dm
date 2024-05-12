@@ -50,7 +50,7 @@
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 0
 		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
+		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
 		if(!head)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 			return 0
@@ -59,8 +59,8 @@
 						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
-		C.apply_damage(15, BRUTE, "head")
+		C.apply_damage(5, BURN, BODY_ZONE_HEAD) //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
+		C.apply_damage(15, BRUTE, BODY_ZONE_HEAD)
 		C.Weaken(4 SECONDS)
 		add_attack_logs(user, G.affecting, "Smashed with [src]")
 		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...

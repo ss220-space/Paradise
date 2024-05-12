@@ -68,7 +68,7 @@
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor
 	name = "necropolis door"
-	desc = "Древние двери которые откроются только только избранным"
+	desc = "Древние двери которые откроются только избранным."
 	icon = 'icons/obj/lavaland/necrdoor.dmi'
 	icon_state = "necr"
 
@@ -86,7 +86,7 @@
 			flick("necrclosing", src)
 			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon()
+/obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon_state()
 	if(density)
 		icon_state = "necr"
 	else
@@ -150,7 +150,7 @@
 			flick("blocked_passage", src)
 			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon()
+/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon_state()
 	if(density)
 		icon_state = "blocked_passage"
 	else

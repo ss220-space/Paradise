@@ -14,6 +14,7 @@
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the ability to thrall people to your will."
 	action_icon_state = "vampire_enthrall"
+	need_active_overlay = TRUE
 	required_blood = 150
 	deduct_blood_on_cast = FALSE
 
@@ -31,7 +32,7 @@
 	user.visible_message(span_warning("[user] bites [target]'s neck!"), \
 						span_warning("You bite [target]'s neck and begin the flow of power."))
 	to_chat(target, span_warning("You feel the tendrils of evil invade your mind."))
-	if(do_mob(user, target, 15 SECONDS))
+	if(do_after(user, 15 SECONDS, target, NONE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
@@ -296,12 +297,12 @@
 
 
 /obj/effect/proc_holder/spell/vampire/hysteria/cast(list/targets, mob/user)
-	for(var/mob/living/carbon/human/H as anything in targets)
-		if(!H.affects_vampire(user))
+	for(var/mob/living/carbon/human/target in targets)
+		if(!target.affects_vampire(user))
 			continue
 
-		SEND_SOUND(H, 'sound/hallucinations/over_here1.ogg')
-		H.Slowed(4 SECONDS)
-		H.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(get_turf(user), H, skip_nearby = FALSE)
+		SEND_SOUND(target, 'sound/hallucinations/over_here1.ogg')
+		target.Slowed(4 SECONDS)
+		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
+		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
 

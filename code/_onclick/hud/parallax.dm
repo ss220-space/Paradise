@@ -11,11 +11,21 @@
 	var/parallax_layers_max = 4
 	var/parallax_animate_timer
 
+
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
 	if(!apply_parallax_pref())
 		return
-
+	// this is needed so it blends properly with the space plane and blackness plane.
+	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		S.color = rgb(0, 0, 0, 0)
+	else
+		S.color = list(1, 1, 1, 1,
+					1, 1, 1, 1,
+					1, 1, 1, 1,
+					1, 1, 1, 1,)
+	S.appearance_flags |= NO_CLIENT_COLOR
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_1(null, C.view)
@@ -27,39 +37,50 @@
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
+	var/obj/screen/plane_master/parallax/parallax_plane_master = plane_masters["[PLANE_SPACE_PARALLAX]"]
+	if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		parallax_plane_master.blend_mode = BLEND_ADD
+	else
+		parallax_plane_master.blend_mode = BLEND_MULTIPLY
+
 	if(length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
 
 	C.screen |= (C.parallax_layers + C.parallax_static_layers_tail)
 
+
 /datum/hud/proc/remove_parallax()
 	var/client/C = mymob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
+	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
+	S.color = null
+	S.appearance_flags &= ~NO_CLIENT_COLOR
+
 
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
 	if(C.prefs)
 		var/pref = C.prefs.parallax
-		if (isnull(pref))
+		if(isnull(pref))
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
-			if (PARALLAX_INSANE)
+			if(PARALLAX_INSANE)
 				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
 				return TRUE
 
-			if (PARALLAX_MED)
+			if(PARALLAX_MED)
 				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
 				return TRUE
 
-			if (PARALLAX_LOW)
+			if(PARALLAX_LOW)
 				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
 				return TRUE
 
-			if (PARALLAX_DISABLE)
+			if(PARALLAX_DISABLE)
 				return FALSE
 
 	//This is high parallax.
@@ -67,10 +88,12 @@
 	C.parallax_layers_max = 4
 	return TRUE
 
+
 /datum/hud/proc/update_parallax_pref()
 	remove_parallax()
 	create_parallax()
 	update_parallax()
+
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
 // Well, it would if our shuttle code had dynamic areas
@@ -84,7 +107,10 @@
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
-			L.icon_state = initial(L.icon_state)
+			if(istype(L, /obj/screen/parallax_layer/planet) && SSmapping.lavaland_theme?.planet_icon_state)
+				L.icon_state = SSmapping.lavaland_theme.planet_icon_state
+			else
+				L.icon_state = initial(L.icon_state)
 			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if(T > animate_time)
@@ -127,6 +153,7 @@
 	else
 		C.parallax_animate_timer = addtimer(CB, min(shortesttimer, PARALLAX_LOOP_TIME), TIMER_CLIENT_TIME|TIMER_STOPPABLE)
 
+
 /datum/hud/proc/update_parallax_motionblur(client/C, animatedir, new_parallax_movedir, matrix/newtransform)
 	C.parallax_animate_timer = FALSE
 	for(var/thing in C.parallax_layers)
@@ -152,6 +179,7 @@
 
 		animate(L, transform = L.transform, time = 0, loop = -1, flags = ANIMATION_END_NOW)
 		animate(transform = matrix(), time = T)
+
 
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
@@ -211,6 +239,7 @@
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 
+
 /atom/movable/proc/update_parallax_contents()
 	if(length(client_mobs_in_contents))
 		for(var/thing in client_mobs_in_contents)
@@ -265,36 +294,44 @@
 /obj/screen/parallax_layer/proc/update_status(mob/M)
 	return
 
+
 /obj/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
 	layer = 1
+
 
 /obj/screen/parallax_layer/layer_2
 	icon_state = "layer2"
 	speed = 1
 	layer = 2
 
+
 /obj/screen/parallax_layer/layer_3
 	icon_state = "layer3"
 	speed = 1.4
 	layer = 3
+
 
 /obj/screen/parallax_layer/random
 	blend_mode = BLEND_OVERLAY
 	speed = 3
 	layer = 3
 
+
 /obj/screen/parallax_layer/random/space_gas
 	icon_state = "space_gas"
+
 
 /obj/screen/parallax_layer/random/space_gas/New(view)
 	..()
 	add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
 
+
 /obj/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"
 	layer = 4
+
 
 /obj/screen/parallax_layer/planet
 	icon_state = "planet"
@@ -303,6 +340,11 @@
 	speed = 3
 	layer = 30
 
+/obj/screen/parallax_layer/planet/Initialize(mapload)
+	. = ..()
+	if(SSmapping.lavaland_theme?.planet_icon_state)
+		icon_state = SSmapping.lavaland_theme.planet_icon_state
+
 /obj/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)
 	if(is_station_level(T.z))
@@ -310,8 +352,10 @@
 	else
 		invisibility = INVISIBILITY_ABSTRACT
 
+
 /obj/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
+
 
 /obj/screen/parallax_pmaster
 	appearance_flags = PLANE_MASTER
@@ -319,6 +363,7 @@
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = FALSE
 	screen_loc = "CENTER-7,CENTER-7"
+
 
 /obj/screen/parallax_space_whitifier
 	appearance_flags = PLANE_MASTER
@@ -331,3 +376,4 @@
 		0, 0, 0, 0
 		)
 	screen_loc = "CENTER-7,CENTER-7"
+

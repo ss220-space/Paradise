@@ -87,7 +87,7 @@
 			return ..()
 
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -99,7 +99,6 @@
 
 		if(reag_txt)
 			msg += reag_txt
-			msg += "<br><span class='info'>*---------*</span>"
 		to_chat(user, msg)
 	else
 		if(seed)
@@ -110,7 +109,7 @@
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		if(!do_after(user, 1 SECONDS, target = user))
+		if(!do_after(user, 1 SECONDS, user))
 			return
 		squash(user, user)
 	..()
@@ -118,11 +117,12 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		if(seed)
-			log_action(thrownby, hit_atom, "Thrown [src] at")
+			var/mob/thrower = locateUID(thrownby)
+			log_action(thrower, hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom, thrownby)
+				squash(hit_atom, thrower)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
 	var/turf/T = get_turf(target)
@@ -155,12 +155,6 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_consume(src, M)
 	..()
-
-/obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
-	if(!seed)
-		return
-	for(var/datum/plant_gene/trait/T in seed.genes)
-		T.on_slip(src, H)
 
 // Glow gene procs
 /obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
@@ -211,5 +205,5 @@
 		return
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
-	set_light(0)
+	set_light_on(FALSE)
 

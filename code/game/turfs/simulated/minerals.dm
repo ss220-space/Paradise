@@ -11,6 +11,7 @@
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
+	init_air = FALSE
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	var/environment_type = "asteroid"
@@ -44,7 +45,7 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
-/turf/simulated/mineral/Spread(turf/T)
+/turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)
@@ -75,7 +76,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
@@ -104,14 +105,16 @@
 	else
 		update_icon()
 
-/turf/simulated/mineral/proc/update_icon()
+
+/turf/simulated/mineral/update_overlays()
+	. = ..()
 	if(hardness != initial(hardness))
 		var/amount = hardness
 		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)
 		var/matrix/M = new
 		M.Translate(4,4)
 		cracks.transform = M
-		add_overlay(cracks)
+		. += cracks
 
 
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
@@ -122,7 +125,7 @@
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
 	to_chat(M, span_notice("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
-	if(do_after(M, 40, target = src))
+	if(do_after(M, 4 SECONDS, src))
 		to_chat(M, span_notice("You tunnel into the rock."))
 		attempt_drill(M)
 
@@ -174,7 +177,8 @@
 	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
-	layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	mineralAmt = 2
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
@@ -197,7 +201,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time * P.toolspeed, target = src))
+		if(do_after(user, mine_time * P.toolspeed, src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				gets_drilled(user)
@@ -295,7 +299,7 @@
 /turf/simulated/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -315,7 +319,7 @@
 /turf/simulated/mineral/random/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -337,7 +341,7 @@
 /turf/simulated/mineral/random/labormineral/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -671,7 +675,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	defer_change = 1
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard

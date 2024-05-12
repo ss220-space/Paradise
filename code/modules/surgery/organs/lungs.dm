@@ -1,9 +1,8 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	organ_tag = "lungs"
+	parent_organ_zone = BODY_ZONE_CHEST
+	slot = INTERNAL_ORGAN_LUNGS
 	gender = PLURAL
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -58,13 +57,13 @@
 	if(owner)
 		owner.LoseBreath(40 SECONDS)
 
-/obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+/obj/item/organ/internal/lungs/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
-		M.clear_alert("not_enough_[thing]")
-		M.clear_alert("too_much_[thing]")
+		target.clear_alert("not_enough_[thing]")
+		target.clear_alert("too_much_[thing]")
 
-/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
 		M.clear_alert("not_enough_[thing]")
 		M.clear_alert("too_much_[thing]")
@@ -77,10 +76,10 @@
 
 	if(is_bruised())
 		if(prob(2))
-			owner.custom_emote(1, "кашляет кровью!")
+			owner.custom_emote(EMOTE_AUDIBLE, "откашлива%(ет,ют)% большое количество крови!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "задыхается!")
+			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
@@ -285,7 +284,7 @@
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
@@ -301,7 +300,7 @@
 				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
@@ -345,10 +344,12 @@
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	var/species_state = "human"
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+	. += span_notice("[src] is configured for [species_state] standards of atmosphere.")
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -360,7 +361,7 @@
 			safe_oxygen_max = safe_toxins_max
 			safe_nitro_min = 16
 			oxy_damage_type = TOX
-			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
+			to_chat(user, span_notice("You configure [src] to replace vox lungs."))
 			species_state = "vox"
 		if("vox") // from vox to plasmamen
 			safe_oxygen_max = initial(safe_oxygen_max)
@@ -368,13 +369,13 @@
 			safe_toxins_max = 0
 			safe_nitro_min = initial(safe_nitro_min)
 			oxy_damage_type = OXY
-			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
+			to_chat(user, span_notice("You configure [src] to replace plasmamen lungs."))
 			species_state = "plasmamen"
 		if("plasmamen") // from plasmamen to human
 			safe_oxygen_min = initial(safe_oxygen_min)
 			safe_toxins_min = initial(safe_toxins_min)
 			safe_toxins_max = initial(safe_toxins_max)
-			to_chat(user, "<span class='notice'>You configure [src] back to default settings.</span>")
+			to_chat(user, span_notice("You configure [src] back to default settings."))
 			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded

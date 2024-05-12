@@ -54,6 +54,10 @@
 	active_camera = null
 	return ..()
 
+/obj/machinery/computer/security/process()
+	. = ..()
+	update_camera_view()
+
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -107,19 +111,30 @@
 	return data
 
 /obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
-	data["stationLevel"] = level_name_to_num(MAIN_STATION)
-	return data
+	var/list/static_data = list()
+	static_data["mapRef"] = map_name
+	var/list/station_level_numbers = list()
+	var/list/station_level_names = list()
+	for(var/z_level in levels_by_trait(STATION_LEVEL))
+		station_level_numbers += z_level
+		station_level_names += check_level_trait(z_level, STATION_LEVEL)
+	static_data["stationLevelNum"] = station_level_numbers
+	static_data["stationLevelName"] = station_level_names
+	return static_data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())
 		return
 
+	. = TRUE
+
 	if(action == "switch_camera")
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		if(isnull(C))
+			to_chat(usr, span_warning("ERROR. [c_tag] camera was not found."))
+			return
 		active_camera?.computers_watched_by -= src
 		active_camera = C
 		active_camera.computers_watched_by += src
@@ -128,14 +143,14 @@
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())
 			show_camera_static()
-			return TRUE
+			return
 
 		update_camera_view()
 
-		return TRUE
+		return
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera)
+	if(!active_camera || !active_camera.can_use())
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
@@ -190,11 +205,24 @@
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
+
+
+// Other computer monitors.
+/obj/machinery/computer/security/telescreen
+	name = "telescreen"
+	desc = "Used for watching camera networks."
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
+	density = FALSE
+	circuit = /obj/item/circuitboard/camera/telescreen
+
+
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	var/direction = tgui_input_list(user, "Which direction?", "Select direction!", list("North", "East", "South", "West", "Centre"))
 	if(!direction || !Adjacent(user))
 		return
 	pixel_x = 0
@@ -209,27 +237,53 @@
 		if("West")
 			pixel_x = -32
 
-// Other computer monitors.
-/obj/machinery/computer/security/telescreen
-	name = "telescreen"
-	desc = "Used for watching camera networks."
-	icon_state = "telescreen_console"
-	icon_screen = "telescreen"
-	icon_keyboard = null
-	light_range_on = 0
-	density = 0
-	circuit = /obj/item/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
+	light_power_on = LIGHTING_MINIMUM_POWER
 	network = list("news")
-	luminosity = 0
+	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	/// Icon utilised when feeds_on is true
+	var/icon_screen_on = "entertainment"
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
+
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	icon_screen = feeds_on ? icon_screen_on : initial(icon_screen)
+	return ..()
+
+
+/obj/machinery/computer/security/telescreen/singularity
+	name = "Singularity Engine Telescreen"
+	desc = "Used for watching the singularity chamber."
+	network = list("Singularity")
+	circuit = /obj/item/circuitboard/camera/telescreen/singularity
+
+/obj/machinery/computer/security/telescreen/toxin_chamber
+	name = "Toxins Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("Toxins")
+
+/obj/machinery/computer/security/telescreen/test_chamber
+	name = "Test Chamber Telescreen"
+	desc = "Used for watching the test chamber."
+	network = list("TestChamber")
+
+/obj/machinery/computer/security/telescreen/research
+	name = "Research Monitor"
+	desc = "Used for watching the RD's goons from the safety of his office."
+	network = list("Research","Research Outpost","RD")
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "Prison Monitor"
+	desc = "Used for watching Prison Wing holding areas."
+	network = list("Prison")
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
@@ -259,3 +313,15 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldframe"
+	icon_state = "frame-sec"
+	icon_keyboard = "kb15"
+
+/obj/machinery/computer/security/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldcomp"
+	icon_state = "oldcomp"
+	icon_keyboard = null

@@ -1,9 +1,9 @@
 /datum/species/skrell
-	name = "Skrell"
+	name = SPECIES_SKRELL
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
-	language = "Skrellian"
+	language = LANGUAGE_SKRELL
 	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
@@ -15,7 +15,7 @@
 	tox_mod = 0.75
 	bonefragility = 0.8
 
-	species_traits = list(LIPS, NO_OBESITY)
+	species_traits = list(LIPS, NO_OBESITY, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -40,15 +40,18 @@
 	liked_food = VEGETABLES | FRUIT
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/skrell,
-		"lungs" =    /obj/item/organ/internal/lungs/skrell,
-		"liver" =    /obj/item/organ/internal/liver/skrell,
-		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
-		"brain" =    /obj/item/organ/internal/brain/skrell,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/skrell, //Default darksight of 5.
-		"headpocket" = /obj/item/organ/internal/headpocket
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/skrell,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/skrell,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/skrell,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/skrell,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,	//Default darksight of 5.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
+	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
 
 	suicide_messages = list(
 		"пытается откусить себе язык!",
@@ -57,15 +60,59 @@
 		"задыхается словно рыба!",
 		"душит себя собственными усиками!")
 
+	speech_sounds = list('sound/voice/skrell/talk1.ogg', 'sound/voice/skrell/talk2.ogg', 'sound/voice/skrell/talk3.ogg' )
+	speech_chance = 20
+	male_scream_sound = list('sound/voice/skrell/scream1.ogg', 'sound/voice/skrell/scream2.ogg', 'sound/voice/skrell/scream3.ogg')
+	female_scream_sound = list('sound/voice/skrell/scream1.ogg', 'sound/voice/skrell/scream2.ogg', 'sound/voice/skrell/scream3.ogg')
+	female_laugh_sound = list('sound/voice/skrell/laugh1.ogg', 'sound/voice/skrell/laugh2.ogg', 'sound/voice/skrell/laugh3.ogg')
+	male_laugh_sound = list('sound/voice/skrell/laugh1.ogg', 'sound/voice/skrell/laugh2.ogg', 'sound/voice/skrell/laugh3.ogg')
+	male_moan_sound = list('sound/voice/skrell/moan1.ogg', 'sound/voice/skrell/moan2.ogg', 'sound/voice/skrell/moan3.ogg')
+	female_moan_sound = list('sound/voice/skrell/moan1.ogg', 'sound/voice/skrell/moan2.ogg', 'sound/voice/skrell/moan3.ogg')
+	male_giggle_sound = list('sound/voice/skrell/giggle1.ogg', 'sound/voice/skrell/giggle2.ogg')
+	female_giggle_sound = list('sound/voice/skrell/giggle1.ogg', 'sound/voice/skrell/giggle2.ogg')
+	female_snore_sound = list('sound/voice/skrell/snore1.ogg', 'sound/voice/skrell/snore2.ogg', 'sound/voice/skrell/snore3.ogg')
+	male_snore_sound = list('sound/voice/skrell/snore1.ogg', 'sound/voice/skrell/snore2.ogg', 'sound/voice/skrell/snore3.ogg')
+	whistle_sound = list('sound/voice/skrell/whistling1.ogg', 'sound/voice/skrell/whistling2.ogg')
+
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	H.verbs |= /mob/living/carbon/human/proc/emote_warble
+	H.verbs |= /mob/living/carbon/human/proc/emote_sad_trill
+	H.verbs |= /mob/living/carbon/human/proc/emote_joyfull_trill
+	H.verbs |= /mob/living/carbon/human/proc/emote_croaking
+	H.verbs |= /mob/living/carbon/human/proc/emote_discontent
+	H.verbs |= /mob/living/carbon/human/proc/emote_relax
+	H.verbs |= /mob/living/carbon/human/proc/emote_excitement
+	H.verbs |= /mob/living/carbon/human/proc/emote_confusion
+	H.verbs |= /mob/living/carbon/human/proc/emote_understand
+	H.verbs -= /mob/living/carbon/human/verb/emote_grin
+	H.verbs -= /mob/living/carbon/human/verb/emote_wink
+	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs -= /mob/living/carbon/human/verb/emote_glare
+	H.verbs -= /mob/living/carbon/human/verb/emote_chuckle
+	H.verbs -= /mob/living/carbon/human/verb/emote_frown
+	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	..()
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	H.verbs -= /mob/living/carbon/human/proc/emote_warble
+	H.verbs -= /mob/living/carbon/human/proc/emote_sad_trill
+	H.verbs -= /mob/living/carbon/human/proc/emote_joyfull_trill
+	H.verbs -= /mob/living/carbon/human/proc/emote_croaking
+	H.verbs -= /mob/living/carbon/human/proc/emote_discontent
+	H.verbs -= /mob/living/carbon/human/proc/emote_relax
+	H.verbs -= /mob/living/carbon/human/proc/emote_excitement
+	H.verbs -= /mob/living/carbon/human/proc/emote_confusion
+	H.verbs -= /mob/living/carbon/human/proc/emote_understand
+	H.verbs |= /mob/living/carbon/human/verb/emote_grin
+	H.verbs |= /mob/living/carbon/human/verb/emote_wink
+	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
+	H.verbs |= /mob/living/carbon/human/verb/emote_glare
+	H.verbs |= /mob/living/carbon/human/verb/emote_chuckle
+	H.verbs |= /mob/living/carbon/human/verb/emote_frown
+	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
 
 
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)

@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(speech_controller)
 	priority = FIRE_PRIORITY_SPEECH_CONTROLLER//has to be high priority, second in priority ONLY to SSinput
 	init_order = INIT_ORDER_SPEECH_CONTROLLER
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-
+	ss_id = "speech_controller"
 	///used so that an admin can force all speech verbs to execute immediately instead of queueing
 	var/FOR_ADMINS_IF_BROKE_immediately_execute_all_speech = FALSE
 

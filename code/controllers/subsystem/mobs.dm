@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(mobs)
 	init_order = INIT_ORDER_MOBS
 	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
+	ss_id = "mobs"
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
@@ -23,6 +24,15 @@ SUBSYSTEM_DEF(mobs)
 	clients_by_zlevel = new /list(world.maxz, 0)
 	dead_players_by_zlevel = new /list(world.maxz, 0)
 
+/datum/controller/subsystem/mobs/proc/MaxZChanged()
+	if (!islist(clients_by_zlevel))
+		clients_by_zlevel = new /list(world.maxz,0)
+		dead_players_by_zlevel = new /list(world.maxz,0)
+	while(length(clients_by_zlevel) < world.maxz)
+		clients_by_zlevel.len++
+		clients_by_zlevel[length(clients_by_zlevel)] = list()
+		dead_players_by_zlevel.len++
+		dead_players_by_zlevel[length(dead_players_by_zlevel)] = list()
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
 	var/seconds = wait * 0.1

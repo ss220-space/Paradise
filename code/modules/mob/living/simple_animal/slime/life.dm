@@ -9,8 +9,10 @@
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
-	if(notransform)
+
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
+
 	if(..())
 		if(buckled)
 			handle_feeding()
@@ -23,6 +25,11 @@
 			if(!ckey)
 				handle_mood()
 				handle_speech()
+
+/mob/living/simple_animal/slime/forceMove(atom/destination) //Debug code to catch slimes stuck in null space
+	. = ..()
+	if(!destination && !QDELETED(src))
+		stack_trace("Slime moved to null space")
 
 // Unlike most of the simple animals, slimes support UNCONSCIOUS
 /mob/living/simple_animal/slime/update_stat(reason = "none given", should_log = FALSE)
@@ -74,7 +81,7 @@
 						if(Target.Adjacent(src))
 							Target.attack_slime(src)
 					break
-				if(!Target.lying && prob(80))
+				if(!Target.lying_angle && prob(80))
 
 					if(Target.client && Target.health >= 20)
 						if(!Atkcool)
@@ -101,7 +108,7 @@
 				AIproc = 0
 				break
 
-		var/sleeptime = movement_delay()
+		var/sleeptime = cached_multiplicative_slowdown
 		if(sleeptime <= 0)
 			sleeptime = 1
 
@@ -190,7 +197,7 @@
 		var/mob/living/carbon/C = M
 
 		var/feed_mod = round(age_state.feed/3)
-		if((C.dna.species.clone_mod + C.get_vampire_bonus("clone")) > 0)
+		if((C.dna.species.clone_mod + C.get_vampire_bonus(CLONE)) > 0)
 			C.adjustCloneLoss(rand(2, 4) + feed_mod)
 			C.adjustToxLoss(rand(1, 2) + feed_mod)
 		else
@@ -275,9 +282,9 @@
 	update_canmove()
 	if(Tempstun)
 		if(!buckled) // not while they're eating!
-			canmove = 0
+			canmove = FALSE
 	else
-		canmove = 1
+		canmove = TRUE
 
 	if(attacked > 50)
 		attacked = 50

@@ -8,37 +8,62 @@
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	var/pump_sound_cooldown = 1 SECONDS
+	var/last_pump = 0
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/A, mob/user, params)
 	. = ..()
 	if(.)
 		return
+	if(chambered)
+		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+		to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
 		A.update_icon()
 		update_icon()
+
+
+/obj/item/gun/projectile/bombarda/update_icon_state()
+	icon_state = "bombarda[chambered ? "" : "_open"]"
+
+
+/obj/item/gun/projectile/bombarda/process_chamber(eject_casing, empty_chamber)
+	var/obj/item/ammo_casing/AC = chambered
+	..(TRUE, TRUE)
+	if(!chambered)
+		AC.pixel_x = rand(-10.0, 10)
+		AC.pixel_y = rand(-10.0, 10)
+		AC.dir = pick(GLOB.alldirs)
 
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
 
-/obj/item/gun/projectile/bombarda/can_shoot()
+/obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
 
 /obj/item/gun/projectile/bombarda/attack_self(mob/living/user)
+	if(world.time < last_pump + pump_sound_cooldown)
+		return
 	pump(user)
+	last_pump = world.time
 	return
 
 /obj/item/gun/projectile/bombarda/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/sawclose.ogg', 60, 1)
+	playsound(M, 'sound/weapons/bombarda/pump.ogg', 60, 1)
 	if(chambered)
 		chambered.loc = get_turf(src)
 		chambered.SpinAnimation(5, 1)
+		chambered.pixel_x = rand(-10.0, 10)
+		chambered.pixel_y = rand(-10.0, 10)
+		chambered.dir = pick(GLOB.alldirs)
 		playsound(src, chambered.drop_sound, 60, 1)
 		chambered = null
+		update_icon()
 	if(!magazine.ammo_count())
 		return FALSE
 	var/obj/item/ammo_casing/AC = magazine.get_round()
@@ -51,12 +76,15 @@
 	ammo_type = /obj/item/ammo_casing/grenade/improvised
 	caliber = "40mm"
 	max_ammo = 1
+	insert_sound = 'sound/weapons/bombarda/load.ogg'
+	remove_sound = 'sound/weapons/bombarda/open.ogg'
+	load_sound = 'sound/weapons/bombarda/load.ogg'
 
-/obj/item/ammo_box/magazine/internal/bombarda/New()
-	..()
+/obj/item/ammo_box/magazine/internal/bombarda/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(stored_ammo)	//not supposed to have initial ammo.
 
-/obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = 1)
+/obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = TRUE)
 	if(!countempties)
 		var/boolets = 0
 		for(var/obj/item/ammo_casing/bullet in stored_ammo)
@@ -73,6 +101,7 @@
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
 	caliber = "40mm"
+	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
 /obj/item/ammo_casing/grenade/improvised/exp_shell
 	name = "Improvised explosive shell"
@@ -138,7 +167,12 @@
 	time = 6 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	always_availible = FALSE
 
+/datum/crafting_recipe/bombarda/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
@@ -150,6 +184,12 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/explosion_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
@@ -164,6 +204,12 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/flame_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
 
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
@@ -177,3 +223,9 @@
 	time = 2 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/smoke_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE

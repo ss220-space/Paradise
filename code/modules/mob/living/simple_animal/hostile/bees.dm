@@ -35,7 +35,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
-	flying = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
@@ -54,13 +53,14 @@
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
 
-/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
-	..()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
 	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -100,7 +100,7 @@
 	return
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
-	overlays.Cut()
+	cut_overlays()
 
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent && beegent.color)
@@ -110,20 +110,23 @@
 	if(!bee_icons["[icon_base]_base"])
 		bee_icons["[icon_base]_base"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_base")
 	base = bee_icons["[icon_base]_base"]
-	overlays += base
+	add_overlay(base)
 
 	var/image/greyscale
 	if(!bee_icons["[icon_base]_grey_[col]"])
 		bee_icons["[icon_base]_grey_[col]"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_grey")
 	greyscale = bee_icons["[icon_base]_grey_[col]"]
 	greyscale.color = col
-	overlays += greyscale
+	add_overlay(greyscale)
 
 	var/image/wings
 	if(!bee_icons["[icon_base]_wings"])
 		bee_icons["[icon_base]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_wings")
 	wings = bee_icons["[icon_base]_wings"]
-	overlays += wings
+	add_overlay(wings)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 //We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
@@ -170,7 +173,7 @@
 					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
-					L.reagents.add_reagent("spidertoxin", 5)
+					L.reagents.add_reagent("beetoxin", 5)
 
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))
@@ -179,7 +182,7 @@
 		generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_state)
+	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
 		target = null
 		return
 

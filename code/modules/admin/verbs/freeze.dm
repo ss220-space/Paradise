@@ -39,9 +39,9 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 		var/obj/effect/overlay/adminoverlay/AO = new
 		if(skip_overlays)
-			overlays += AO
+			add_overlay(AO)
 
-		anchored = TRUE
+		set_anchored(TRUE)
 		canmove = FALSE
 		admin_prev_sleeping = AmountSleeping()
 		PermaSleeping()
@@ -51,9 +51,9 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		GLOB.frozen_atom_list -= src
 
 		if(skip_overlays)
-			overlays -= frozen
+			cut_overlay(frozen)
 
-		anchored = FALSE
+		set_anchored(FALSE)
 		canmove = TRUE
 		frozen = null
 		SetSleeping(admin_prev_sleeping, TRUE)
@@ -81,7 +81,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		health = 0
 	else
 		revive()
-		overlays.Cut()
 
 //////////////////////////Freeze Mech
 
@@ -90,11 +89,11 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	if(!frozen)
 		GLOB.frozen_atom_list += src
 		frozen = TRUE
-		overlays += freeze_overlay
+		add_overlay(freeze_overlay)
 	else
 		GLOB.frozen_atom_list -= src
 		frozen = FALSE
-		overlays -= freeze_overlay
+		cut_overlay(freeze_overlay)
 
 	if(occupant)
 		occupant.admin_Freeze(admin, mech = name) // We also want to freeze the driver of the mech.

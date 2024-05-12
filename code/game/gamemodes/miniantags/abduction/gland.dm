@@ -19,7 +19,7 @@
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
 
-/obj/item/organ/internal/heart/gland/update_icon()
+/obj/item/organ/internal/heart/gland/update_icon_state()
 	return
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
@@ -67,8 +67,8 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
-	active = 0
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -76,9 +76,9 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	if(special != 2 && uses) // Special 2 means abductor surgery
+	if(special != ORGAN_MANIPULATION_ABDUCTOR && uses)
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(owner)
@@ -126,10 +126,10 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	owner.faction |= "slime"
-	owner.add_language("Bubblish")
+	owner.add_language(LANGUAGE_SLIME)
 
 /obj/item/organ/internal/heart/gland/slime/activate()
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
@@ -184,7 +184,7 @@
 		old_control_uses = gland.mind_control_uses
 	var/list/random_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
 	random_species -= h_owner.dna.species.type
-	h_owner.set_species(pick(random_species))
+	h_owner.set_species(pick(random_species), keep_missing_bodyparts = TRUE)
 	addtimer(CALLBACK(h_owner, TYPE_PROC_REF(/mob/living/carbon/human, insert_new_gland), old_control_uses), 0)
 
 
@@ -204,9 +204,10 @@
 	mind_control_uses = 4
 	mind_control_duration = 1800
 
+
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 
 /obj/item/organ/internal/heart/gland/viral
@@ -219,33 +220,13 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/datum/disease/advance/rand_virus = random_virus(rand(2, 6), 6)
-	rand_virus.carrier = TRUE
-	var/datum/disease/advance/check = locate() in owner.viruses
-	if(check)
-		check.cure(resistance = FALSE)
-	owner.ForceContractDisease(rand_virus)
-
-/obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
-	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
-		max_symptoms = VIRUS_SYMPTOM_LIMIT
-	var/datum/disease/advance/A = new
-	var/list/datum/symptom/possible_symptoms = list()
-	for(var/symptom in subtypesof(/datum/symptom))
-		var/datum/symptom/S = symptom
-		if(initial(S.level) > max_level)
-			continue
-		if(initial(S.level) <= 0) //unobtainable symptoms
-			continue
-		possible_symptoms += S
-	for(var/i in 1 to max_symptoms)
-		var/datum/symptom/chosen_symptom = pick_n_take(possible_symptoms)
-		if(chosen_symptom)
-			var/datum/symptom/S = new chosen_symptom
-			A.symptoms += S
-	A.Refresh() //just in case someone already made and named the same disease
-	return A
-
+	var/datum/disease/virus/advance/new_virus
+	new_virus = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
+								stage_rate = rand(-11,5), transmittable = rand(2,9), severity = rand(0,5))
+	var/datum/disease/virus/advance/old_virus = locate() in owner.diseases
+	if(old_virus)
+		old_virus.cure(need_immunity = FALSE)
+	new_virus.Contract(owner, is_carrier = TRUE)
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
@@ -294,18 +275,16 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
-		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		owner.force_gene_block(GLOB.shockimmunityblock, TRUE)
 
-/obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
-		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		owner.force_gene_block(GLOB.shockimmunityblock, FALSE)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()

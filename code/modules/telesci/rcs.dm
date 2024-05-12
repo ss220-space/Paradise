@@ -70,7 +70,7 @@
 	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
 		L += "**Unknown**"
 
-	var/select = input("Please select a telepad.", "RCS") in L
+	var/select = tgui_input_list(user, "Please select a telepad.", "RCS", L)
 	if(select == "**Unknown**") // Randomise the teleport location
 		pad = random_coords()
 	else // Else choose the value of the selection
@@ -86,7 +86,7 @@
   * Coordinates are constrained within 50-200 x & y.
   */
 /obj/item/rcs/proc/random_coords()
-	var/Z = level_name_to_num(MAIN_STATION) // Z level
+	var/Z = pick(levels_by_trait(STATION_LEVEL)) // Z level
 	// Random Coordinates
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
@@ -105,7 +105,8 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
-		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+		if(user)
+			to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
 		return
 
 
@@ -137,7 +138,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
+	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), C))
 		teleporting = FALSE
 		return
 

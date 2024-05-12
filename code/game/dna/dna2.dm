@@ -44,7 +44,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// Lazylist of all blocks toggled at roundstart
+	var/list/default_blocks
 	var/tts_seed_dna
 
 // Make a copy of this strand.
@@ -53,6 +54,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.struc_enzymes_original = struc_enzymes_original // will make clone's SE the same as the original, do we want this?
+	new_dna.default_blocks = default_blocks
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
@@ -89,7 +91,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	// Body Accessory
@@ -446,11 +448,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
 
 	destination.UpdateAppearance()
-	domutcheck(destination, null, MUTCHK_FORCED)
+	destination.check_genes(MUTCHK_FORCED)

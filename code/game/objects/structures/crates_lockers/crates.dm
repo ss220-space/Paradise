@@ -3,20 +3,28 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
 	climbable = TRUE
-//	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
+	open_sound = 'sound/machines/crate_open.ogg'
+	close_sound = 'sound/machines/crate_close.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 50
+	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
-/obj/structure/closet/crate/update_icon()
-	//..() is not needed here because of different overlay handling logic for crates
-	overlays.Cut()
+
+/obj/structure/closet/crate/update_icon_state()
+	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
+
+
+/obj/structure/closet/crate/update_overlays()
+	// . = ..() is not needed here because of different overlay handling logic for crates
+	. = list()
 	if(manifest)
-		overlays += "manifest"
+		. += "manifest"
+
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -25,15 +33,15 @@
 	return TRUE
 
 /obj/structure/closet/crate/open(by_hand = FALSE)
-	if(src.opened)
+	if(opened)
 		return FALSE
-	if(!src.can_open())
+	if(!can_open())
 		return FALSE
 
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 				if(response == "No" || !Adjacent(usr))
 					return FALSE
 				break
@@ -45,30 +53,31 @@
 				do_sparks(5, 1, src)
 				return 2
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
-		O.layer = src.layer + 0.1
 		O.forceMove(loc)
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
-	icon_state = icon_opened
-	src.opened = TRUE
+
+	opened = TRUE
+	update_icon()
 
 	if(climbable)
 		structure_shaken()
 
 	return TRUE
 
+
 /obj/structure/closet/crate/close()
-	if(!src.opened || !src.can_close())
+	if(!opened || !can_close())
 		return FALSE
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
-		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+		if(O.density || O.anchored || istype(O,/obj/structure/closet) || isobserver(O))
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
@@ -77,9 +86,10 @@
 		O.forceMove(src)
 		itemcount++
 
-	icon_state = icon_closed
-	src.opened = FALSE
+	opened = FALSE
+	update_icon()
 	return TRUE
+
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
@@ -158,12 +168,11 @@
 	desc = "A secure crate."
 	name = "Secure crate"
 	icon_state = "securecrate"
-	icon_opened = "securecrateopen"
-	icon_closed = "securecrate"
-	var/redlight = "securecrater"
-	var/greenlight = "securecrateg"
-	var/sparks = "securecratesparks"
-	var/emag = "securecrateemag"
+	overlay_locked = "securecrater"
+	overlay_unlocked = "securecrateg"
+	overlay_sparking = "securecratesparks"
+	/// Overlay for crate with broken lock
+	var/overlay_broken = "securecrateemag"
 	max_integrity = 500
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	damage_deflection = 25
@@ -172,17 +181,16 @@
 	locked = TRUE
 	can_be_emaged = TRUE
 
-/obj/structure/closet/crate/secure/update_icon()
-	..()
-	overlays.Cut()
-	if(manifest)
-		overlays += "manifest"
+
+/obj/structure/closet/crate/secure/update_overlays()
+	. = ..()
 	if(locked)
-		overlays += redlight
-	else if(broken)
-		overlays += emag
+		. += overlay_locked
+	else if(broken && overlay_broken)
+		. += overlay_broken
 	else
-		overlays += greenlight
+		. += overlay_unlocked
+
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -200,36 +208,48 @@
 	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
 	qdel(src)
 
+
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
-	if(src.opened)
+
+/obj/structure/closet/crate/secure/AltClick(mob/living/user)
+	if(Adjacent(user))
+		togglelock(user)
+
+
+/obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
-	if(src.broken)
+	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
 		return
-	if(src.allowed(user))
-		src.locked = !src.locked
+	if(allowed(user))
+		locked = !locked
+		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
+	add_fingerprint(user)
+
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = null
 	set name = "Toggle Lock"
 
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
-	if(ishuman(usr))
-		src.add_fingerprint(usr)
-		src.togglelock(usr)
+	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
+		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
@@ -242,104 +262,80 @@
 		manifest = null
 		update_icon()
 		return
-	add_fingerprint(user)
 	if(locked)
 		togglelock(user)
 	else
+		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
+
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
 
+
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
 		add_attack_logs(user, src, "emagged")
-		overlays += sparks
-		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		src.locked = 0
-		src.broken = 1
-		update_icon()
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		locked = FALSE
+		broken = TRUE
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		flick_overlay_view(image(icon, src, overlay_sparking), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		if(user)
+			to_chat(user, span_notice("You unlock [src]."))
+
 
 /obj/structure/closet/crate/secure/emp_act(severity)
-	for(var/obj/O in src)
-		O.emp_act(severity)
-	if(!broken && !opened  && prob(50/severity))
-		if(!locked)
-			src.locked = 1
+	for(var/obj/object in src)
+		object.emp_act(severity)
+
+	if(broken || opened)
+		return
+
+	if(prob(50 / severity))
+		locked = !locked
+		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		flick_overlay_view(image(icon, src, overlay_sparking), 1 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+
+	if(prob(20 / severity))
+		if(locked)
+			req_access = list()
+			req_access += pick(get_all_accesses())
 		else
-			overlays += sparks
-			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
-			src.locked = 0
-		update_icon()
-	if(!opened && prob(20/severity))
-		if(!locked)
 			open()
-		else
-			src.req_access = list()
-			src.req_access += pick(get_all_accesses())
-	..()
+
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."
 	icon_state = "plasticcrate"
-	icon_opened = "plasticcrateopen"
-	icon_closed = "plasticcrate"
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
 	name = "internals crate"
 	icon_state = "o2crate"
-	icon_opened = "o2crateopen"
-	icon_closed = "o2crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
 	icon_state = "trashcart"
-	icon_opened = "trashcartopen"
-	icon_closed = "trashcart"
 	pull_push_speed_modifier = 1
 
 /obj/structure/closet/crate/trashcart/gibs
 	desc = "A heavy, metal trashcart with wheels. You better don't ask."
 	name = "trash cart with gibs"
 	icon_state = "trashcartgib"
-	icon_opened = "trashcartgibopen"
-	icon_closed = "trashcartgib"
-
-/*these aren't needed anymore
-/obj/structure/closet/crate/hat
-	desc = "A crate filled with Valuable Collector's Hats!."
-	name = "Hat Crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-
-/obj/structure/closet/crate/contraband
-	name = "Poster crate"
-	desc = "A random assortment of posters manufactured by providers NOT listed under Nanotrasen's whitelist."
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-*/
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medicalcrate"
-	icon_opened = "medicalcrateopen"
-	icon_closed = "medicalcrate"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
 	name = "\improper RCD crate"
 	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
@@ -351,8 +347,6 @@
 	desc = "A freezer."
 	name = "Freezer"
 	icon_state = "freezer"
-	icon_opened = "freezeropen"
-	icon_closed = "freezer"
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
@@ -378,8 +372,6 @@
 	desc = "A large can, looks like a bin to me."
 	name = "garbage can"
 	icon_state = "largebin"
-	icon_opened = "largebinopen"
-	icon_closed = "largebin"
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
@@ -392,8 +384,6 @@
 	desc = "A crate with a radiation sign on it."
 	name = "radioactive gear crate"
 	icon_state = "radiation"
-	icon_opened = "radiationopen"
-	icon_closed = "radiation"
 
 /obj/structure/closet/crate/radiation/populate_contents()
 	new /obj/item/clothing/suit/radiation(src)
@@ -409,58 +399,47 @@
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
-	icon_opened = "weaponcrateopen"
-	icon_closed = "weaponcrate"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
-	icon_opened = "plasmacrateopen"
-	icon_closed = "plasmacrate"
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
 	name = "gear crate"
 	icon_state = "secgearcrate"
-	icon_opened = "secgearcrateopen"
-	icon_closed = "secgearcrate"
 
 /obj/structure/closet/crate/secure/hydrosec
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	name = "secure hydroponics crate"
 	icon_state = "hydrosecurecrate"
-	icon_opened = "hydrosecurecrateopen"
-	icon_closed = "hydrosecurecrate"
 
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
 	icon_state = "largebins"
-	icon_opened = "largebinsopen"
-	icon_closed = "largebins"
-	redlight = "largebinr"
-	greenlight = "largebing"
-	sparks = "largebinsparks"
-	emag = "largebinemag"
+	overlay_locked = "largebinr"
+	overlay_unlocked = "largebing"
+	overlay_sparking = "largebinsparks"
+	overlay_broken = "largebinemag"
 
 /obj/structure/closet/crate/large
 	name = "large crate"
 	desc = "A hefty metal crate."
 	icon_state = "largemetal"
-	icon_opened = "largemetalopen"
-	icon_closed = "largemetal"
+	pass_flags_self = PASSSTRUCTURE
 	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
 
 /obj/structure/closet/crate/large/close()
 	. = ..()
 	if(.)//we can hold up to one large item
-		var/found = 0
+		var/found = FALSE
 		for(var/obj/structure/S in src.loc)
 			if(S == src)
 				continue
 			if(!S.anchored)
-				found = 1
+				found = TRUE
 				S.forceMove(src)
 				break
 		if(!found)
@@ -473,10 +452,9 @@
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."
 	icon_state = "largemetal"
-	icon_opened = "largemetalopen"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
+	overlay_locked = "largemetalr"
+	overlay_unlocked = "largemetalg"
+	overlay_broken = ""
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()
@@ -499,15 +477,11 @@
 /obj/structure/closet/crate/secure/large/reinforced
 	desc = "A hefty, reinforced metal crate with an electronic locking system."
 	icon_state = "largermetal"
-	icon_opened = "largermetalopen"
-	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."
 	icon_state = "hydrocrate"
-	icon_opened = "hydrocrateopen"
-	icon_closed = "hydrocrate"
 
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
@@ -533,36 +507,26 @@
 	name = "science crate"
 	desc = "A science crate."
 	icon_state = "scicrate"
-	icon_opened = "scicrateopen"
-	icon_closed = "scicrate"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "scisecurecrate"
-	icon_opened = "scisecurecrateopen"
-	icon_closed = "scisecurecrate"
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	desc = "An engineering crate."
 	icon_state = "engicrate"
-	icon_opened = "engicrateopen"
-	icon_closed = "engicrate"
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	icon_state = "engisecurecrate"
-	icon_opened = "engisecurecrateopen"
-	icon_closed = "engisecurecrate"
 
 /obj/structure/closet/crate/engineering/electrical
 	name = "electrical engineering crate"
 	desc = "An electrical engineering crate."
 	icon_state = "electricalcrate"
-	icon_opened = "electricalcrateopen"
-	icon_closed = "electricalcrate"
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
@@ -572,8 +536,6 @@
 	name = "secure biohazard crate"
 	desc = "An protected biohazard crate."
 	icon_state = "biohazard"
-	icon_opened = "biohazardopen"
-	icon_closed = "biohazard"
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()
@@ -588,25 +550,21 @@
 
 //syndie crates by Furukai
 /obj/structure/closet/crate/syndicate
-
 	desc = "Definitely a property of an evil corporation!"
 	icon_state = "syndiecrate"
-	icon_opened = "syndiecrateopen"
-	icon_closed = "syndiecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 
 /obj/structure/closet/crate/secure/syndicate
 	name = "Secure suspicious crate"
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	icon_state = "syndiesecurecrate"
-	icon_opened = "syndiesecurecrateopen"
-	icon_closed = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
 
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(locked && !broken)
-		to_chat(user, span_notice("Отличная попытка, но нет!"))
+		if(user)
+			to_chat(user, span_notice("Отличная попытка, но нет!"))
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
@@ -622,7 +580,7 @@
 				//icon_state = icon_off // Crates has no icon_off :(
 			else // Bad day)
 				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
 				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))

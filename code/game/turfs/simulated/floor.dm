@@ -23,21 +23,20 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "dont_use_this_floor"
+	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
+	explosion_vertical_block = 1
 	var/lava = 0
 	var/broken = 0
 	var/burnt = 0
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	var/list/burnt_states = list("floorscorched1", "floorscorched2")
-	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
+	var/prying_tool = TOOL_CROWBAR //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
 
 	footstep = FOOTSTEP_FLOOR
@@ -53,11 +52,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		icon_regular_floor = icon_state
 		floor_regular_dir = dir
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
-//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if(!( locate(/obj/machinery/mass_driver, src) ))
-//			return 0
-//	return ..()
+
+/// Returns a list of every turf state considered "broken".
+/// Will be randomly chosen if a turf breaks at runtime.
+/turf/simulated/floor/proc/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/// Returns a list of every turf state considered "burnt".
+/// Will be randomly chosen if a turf is burnt at runtime.
+/turf/simulated/floor/proc/burnt_states()
+	return list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
@@ -117,36 +121,41 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
 
-/turf/simulated/floor/proc/update_icon()
+/turf/simulated/floor/update_overlays()
+	. = ..()
 	update_visuals()
-	overlays -= current_overlay
 	if(current_overlay)
-		overlays.Add(current_overlay)
-	return 1
+		. += current_overlay
 
 /turf/simulated/floor/proc/break_tile_to_plating()
-	var/turf/simulated/floor/plating/T = make_plating()
+	var/turf/simulated/floor/plating/T = make_plating(FALSE)
 	T.break_tile()
 
 /turf/simulated/floor/break_tile()
 	if(broken)
 		return
-	current_overlay = pick(broken_states)
+	current_overlay = pick(broken_states())
 	broken = TRUE
 	update_icon()
 
 /turf/simulated/floor/burn_tile()
 	if(burnt)
 		return
-	current_overlay = pick(burnt_states)
+	current_overlay = pick(burnt_states())
 	burnt = TRUE
 	update_icon()
 
-/turf/simulated/floor/proc/make_plating()
+/turf/simulated/floor/proc/make_plating(make_floor_tile, mob/user)	// Set `make_floor_tile` to FALSE, if `floor_tile` have another drop logic before calling this proc.
+	if(make_floor_tile && floor_tile && !broken && !burnt)
+		var/obj/item/stack/stack_dropped = new floor_tile(src)
+		if(user)
+			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
+			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
+				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!istype(src, /turf/simulated/floor))
+	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()
@@ -155,10 +164,12 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/old_plating = icon_plating
 	var/old_dir = dir
 	var/old_regular_dir = floor_regular_dir
+	var/old_transparent_floor = transparent_floor
 
 	var/turf/simulated/floor/W = ..()
 
 	var/obj/machinery/atmospherics/R
+	var/obj/machinery/power/terminal/term
 
 	if(keep_icon)
 		W.icon_regular_floor = old_icon
@@ -166,15 +177,17 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(W.keep_dir)
 		W.floor_regular_dir = old_regular_dir
 		W.dir = old_dir
-	if(W.transparent_floor)
+	if(W.transparent_floor != old_transparent_floor)
 		for(R in W)
 			R.update_icon()
+		for(term in W)
+			term.update_icon()
 	for(R in W)
 		R.update_underlays()
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
+/turf/simulated/floor/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return TRUE
 
@@ -223,7 +236,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(T.turf_type == type)
 		return
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
+	if(!thing || prying_tool != thing.tool_behaviour)
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
@@ -237,39 +250,29 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
-		broken = 0
-		burnt = 0
+		broken = FALSE
+		burnt = FALSE
 		current_overlay = null
+		make_tile = FALSE
 		if(user && !silent)
 			to_chat(user, span_danger("You remove the broken plating."))
 	else
 		if(user && !silent)
 			to_chat(user, span_danger("You remove the floor tile."))
-		if(floor_tile && make_tile)
-			var/obj/item/stack/stack_dropped = new floor_tile(src)
-			if(user)
-				var/obj/item/stack/stack_offhand = user.get_inactive_hand()
-				if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
-					user.put_in_hands(stack_dropped, ignore_anim = FALSE)
-	return make_plating()
+	return make_plating(make_tile, user)
 
 /turf/simulated/floor/singularity_pull(S, current_size)
 	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
+			make_plating(TRUE)
 	else if(current_size == STAGE_FOUR)
 		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
+			make_plating(TRUE)
 	else if(current_size >= STAGE_FIVE)
 		if(floor_tile)
 			if(prob(70))
-				new floor_tile(src)
-				make_plating()
+				make_plating(TRUE)
 		else if(prob(50))
 			ReplaceWithLattice()
 
@@ -292,7 +295,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing floor...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -315,7 +318,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(3, user))
 				to_chat(user, "Building Wall...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(!our_rcd.useResource(3, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -331,7 +334,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(10, user))
 				to_chat(user, "Building Airlock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(10, user))
@@ -358,7 +361,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			to_chat(user, "Constructing window...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-			if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 				to_chat(user, span_warning("ERROR! Construction interrupted!"))
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
@@ -388,7 +391,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(8, user))
 				to_chat(user, "Building Firelock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(8, user))

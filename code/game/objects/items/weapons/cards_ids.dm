@@ -16,6 +16,8 @@
 	desc = "A card."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	pickup_sound = 'sound/items/handling/card_pickup.ogg'
+	drop_sound = 'sound/items/handling/card_drop.ogg'
 	var/associated_account_number = 0
 
 	var/list/files = list(  )
@@ -29,17 +31,6 @@
 	var/special = null
 	item_state = "card-id"
 
-/obj/item/card/data/verb/label(t as text)
-	set name = "Label Disk"
-	set category = "Object"
-	set src in usr
-
-	if(t)
-		src.name = text("Data Disk- '[]'", t)
-	else
-		src.name = "Data Disk"
-	src.add_fingerprint(usr)
-	return
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
@@ -68,8 +59,8 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=3"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/emag/attack()
 	return
@@ -86,11 +77,11 @@
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4, 4, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
 
 /obj/item/card/cmag/attack()
 	return
@@ -105,10 +96,13 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	var/mining_points = 0 //For redeeming at mining equipment lockers
+	/// For redeeming at mining equipment lockers
+	var/mining_points = 0
+	/// Total mining points for the Shift.
+	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = SLOT_ID
+	slot_flags = ITEM_SLOT_ID
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -170,7 +164,7 @@
 	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
-		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
+		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)
 	return
 
@@ -293,7 +287,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(guest_pass)
@@ -301,7 +295,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
+		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -316,6 +310,7 @@
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
+	data["total_mining"] = total_mining_points
 	return data
 
 /obj/item/card/id/deserialize(list/data)
@@ -329,6 +324,7 @@
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
+	total_mining_points = data["total_mining"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	UpdateName()
 	RebuildHTML()
@@ -621,8 +617,8 @@
 			)
 
 			var/department = input(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-			var/new_job = "Civilian"
-			var/new_rank = "Civilian"
+			var/new_job = JOB_TITLE_CIVILIAN
+			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
 				new_job = sanitize(stripped_input(registered_user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
@@ -819,7 +815,7 @@
 	icon_state = "gold"
 	item_state = "gold_id"
 	registered_name = "Captain"
-	assignment = "Captain"
+	assignment = JOB_TITLE_CAPTAIN
 
 /obj/item/card/id/captains_spare/New()
 	var/datum/job/captain/J = new/datum/job/captain

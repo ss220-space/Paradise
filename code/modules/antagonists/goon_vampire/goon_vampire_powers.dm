@@ -91,7 +91,8 @@
 	update_name()
 
 
-/obj/effect/proc_holder/spell/goon_vampire/proc/update_name(mob/user = usr)
+/obj/effect/proc_holder/spell/goon_vampire/update_name(updates = ALL, mob/user)
+	. = ..()
 	if(required_blood)
 		var/new_name = "[name] ([required_blood])"
 		name = new_name
@@ -155,7 +156,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)
-	user.lying = FALSE
+	user.lying_angle = 0
 	user.resting = FALSE
 	user.update_canmove()
 	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))
@@ -190,7 +191,7 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message(span_warning("Глаза [user] ярко вспыхивают, когда он[genderize_ru(user.gender,"","а","о","и")] пристально смотр[genderize_ru(user.gender,"ит","ит","ит","ят")] в глаза [target]."))
-	if(do_mob(user, target, 6 SECONDS))
+	if(do_after(user, 6 SECONDS, target, NONE))
 		if(!affects(target))
 			to_chat(user, span_warning("Ваш пронзительный взгляд не смог заворожить [target]."))
 			to_chat(target, span_notice("Невыразительный взгляд [user] ничего вам не делает."))
@@ -220,8 +221,8 @@
 		to_chat(user, span_warning("Вам кажется, что заражающее касание не подействовало на [target]."))
 		return
 
-	var/datum/disease/virus = new /datum/disease/vampire
-	target.ForceContractDisease(virus)
+	var/datum/disease/vampire/virus = new
+	virus.Contract(target)
 
 
 /obj/effect/proc_holder/spell/goon_vampire/glare
@@ -359,7 +360,7 @@
 						span_warning("Вы кусаете [target] в шею и начинаете передачу части своей силы."))
 	to_chat(target, span_warning("Вы ощущаете, как щупальца зла впиваются в ваш разум."))
 
-	if(do_mob(user, target, 5 SECONDS))
+	if(do_after(user, 5 SECONDS, target, NONE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 		else
@@ -437,8 +438,8 @@
 	base_cooldown = 1 SECONDS
 
 
-/obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(mob/user = usr)
-
+/obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(updates = ALL, mob/user)
+	. = ..()
 	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(!vamp)
 		return
@@ -455,7 +456,7 @@
 		return
 
 	vamp.iscloaking = !vamp.iscloaking
-	update_name(user)
+	update_name(user = user)
 	to_chat(user, span_notice("Теперь вас будет <b>[vamp.iscloaking ? "не видно" : "видно"]</b> в темноте."))
 
 
@@ -516,8 +517,8 @@
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
 		animation.name = "water"
-		animation.density = FALSE
-		animation.anchored = TRUE
+		animation.set_density(FALSE)
+		animation.set_anchored(TRUE)
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "liquify"
 		animation.layer = 5
@@ -626,8 +627,8 @@
 		user.ExtinguishMob()
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
 		animation.name = user.name
-		animation.density = FALSE
-		animation.anchored = TRUE
+		animation.set_density(FALSE)
+		animation.set_anchored(TRUE)
 		animation.icon = user.icon
 		animation.alpha = 127
 		animation.layer = 5

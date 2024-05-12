@@ -3,10 +3,7 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/simulated/wall/indestructible{
-	icon = 'icons/turf/walls/cult_wall.dmi';
-	icon_state = "cult"
-	},
+/turf/simulated/wall/indestructible/cult,
 /area/awaymission/wwvault)
 "ac" = (
 /turf/simulated/floor/engine/cult,
@@ -71,10 +68,7 @@
 	layer = 1;
 	name = "Blocker"
 	},
-/turf/simulated/wall/indestructible{
-	icon = 'icons/turf/walls/cult_wall.dmi';
-	icon_state = "cult"
-	},
+/turf/simulated/wall/indestructible/cult,
 /area/awaymission/wwvault)
 "ao" = (
 /turf/simulated/floor/shuttle/plating{
@@ -651,7 +645,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bZ" = (
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "ca" = (
@@ -1771,7 +1765,7 @@
 "eW" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "eX" = (
@@ -1799,7 +1793,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fc" = (
@@ -2550,10 +2544,7 @@
 	},
 /area/awaymission/wwrefine)
 "hv" = (
-/turf/simulated/wall/indestructible{
-	icon = 'icons/turf/walls/cult_wall.dmi';
-	icon_state = "cult"
-	},
+/turf/simulated/wall/indestructible/cult,
 /area/awaymission/wwrefine)
 "hy" = (
 /obj/structure/table/reinforced,
@@ -19433,7 +19424,7 @@ aa
 aa
 aa
 ab
-ah
+ab
 ah
 ac
 ac

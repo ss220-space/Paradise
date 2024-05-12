@@ -34,7 +34,7 @@
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
 
-	see_in_dark = 8
+	nightvision = 8
 	vision_range = 12
 	aggro_vision_range = 12
 
@@ -129,8 +129,8 @@
 
 // Cannot talk
 
-/mob/living/simple_animal/hostile/statue/say()
-	return 0
+/mob/living/simple_animal/hostile/statue/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+	return
 
 // Turn to dust when gibbed
 
@@ -208,7 +208,4 @@
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
 
-/mob/living/simple_animal/hostile/statue/restrained()
-	. = ..()
-	if(can_be_seen(loc))
-		return 1
+

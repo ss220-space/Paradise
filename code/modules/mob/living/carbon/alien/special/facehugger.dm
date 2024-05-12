@@ -15,10 +15,14 @@
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
-	flags = AIRTIGHT
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	clothing_flags = AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	equip_sound = 'sound/items/handling/flesh_pickup.ogg'
+	drop_sound = 'sound/items/handling/flesh_drop.ogg'
+	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
@@ -41,7 +45,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user)
+	return O.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -83,7 +87,7 @@
 	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		return HasProximity(finder)
 	return 0
 
@@ -92,10 +96,10 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(!..())
 		return
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]_thrown"
 		spawn(15)
 			if(icon_state == "[initial(icon_state)]_thrown")
@@ -103,7 +107,7 @@
 
 /obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(stat == CONSCIOUS)
+	if(stat != DEAD)
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
@@ -147,7 +151,7 @@
 					target.visible_message("<span class='danger'>[src] spits acid onto [S] melting the lock!</span>", \
 									"<span class='userdanger'>[src] spits acid onto [S] melting the lock!</span>")
 			var/obj/item/clothing/W = target.wear_mask
-			if(W.flags & NODROP)
+			if(HAS_TRAIT(W, TRAIT_NODROP))
 				return 0
 			target.drop_item_ground(W)
 
@@ -155,7 +159,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, disable_warning = TRUE)
+		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, disable_warning = TRUE)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
 

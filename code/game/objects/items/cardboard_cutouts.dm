@@ -4,7 +4,7 @@
 	desc = "A vaguely humanoid cardboard cutout. It's completely blank."
 	icon = 'icons/obj/cardboard_cutout.dmi'
 	icon_state = "cutout_basic"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
@@ -45,7 +45,7 @@
 		change_appearance(I, user)
 		return
 	// Why yes, this does closely resemble mob and object attack code.
-	if(I.flags & NOBLUDGEON)
+	if(I.item_flags & NOBLUDGEON)
 		return
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', 20, 1, -1)
@@ -80,7 +80,7 @@
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
 		return
-	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in possible_appearances
+	var/new_appearance = tgui_input_list(user, "Choose a new appearance for [src]", "26th Century Deception", possible_appearances)
 	if(!Adjacent(usr))
 		user.visible_message("<span class='danger'>You need to be closer!</span>")
 		return
@@ -89,7 +89,7 @@
 		return
 	if(!new_appearance || !crayon)
 		return
-	if(!do_after(user, 10, FALSE, src, TRUE))
+	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	alpha = 255

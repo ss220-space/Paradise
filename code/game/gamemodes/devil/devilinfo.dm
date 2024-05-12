@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_DESTRUCTION, BANISH_FUNERAL_GARB)
 
 /datum/devilinfo/proc/link_with_mob(mob/living/L)
-	if(istype(L, /mob/living/carbon/human))
+	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		humanform = H.dna.Clone()
 	owner = L.mind
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 /datum/devilinfo/proc/regress_humanoid()
 	to_chat(owner.current, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
-	if(istype(owner.current, /mob/living/carbon/human))
+	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		if(humanform)
 			H.set_species(humanform.species)
@@ -234,9 +234,10 @@ GLOBAL_LIST_INIT(lawlorify, list (
 /datum/devilinfo/proc/increase_blood_lizard()
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
-		var/list/language_temp = H.languages.Copy()
+		var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
 		H.set_species(/datum/species/unathi)
-		H.languages = language_temp
+		if(language_temp)
+			H.languages = language_temp
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
@@ -320,10 +321,9 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	form = ARCH_DEVIL
 
 /datum/devilinfo/proc/remove_spells()
-	for(var/X in owner.spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(!is_type_in_typecache(S, dont_remove_spells))
-			owner.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
+		if(!is_type_in_typecache(spell, dont_remove_spells))
+			owner.RemoveSpell(spell)
 
 /datum/devilinfo/proc/give_summon_contract()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/summon_contract(null))
@@ -499,24 +499,25 @@ GLOBAL_LIST_INIT(lawlorify, list (
 		throw EXCEPTION("Unable to find a blobstart landmark for hellish resurrection")
 
 /datum/devilinfo/proc/update_hud()
-	if(istype(owner.current, /mob/living/carbon))
+	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
 		if(C.hud_used && C.hud_used.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 // SECTION: Messages and explanations
 
-/datum/devilinfo/proc/announce_laws(mob/living/owner)
-	to_chat(owner, "<span class='boldwarning'>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</span>")
-	to_chat(owner, "<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
-	to_chat(owner, "You may not use violence to coerce someone into selling their soul.")
-	to_chat(owner, "You may not directly and knowingly physically harm a devil, other than yourself.")
-	to_chat(owner,GLOB.lawlorify[LAW][bane])
-	to_chat(owner,GLOB.lawlorify[LAW][ban])
-	to_chat(owner,GLOB.lawlorify[LAW][obligation])
-	to_chat(owner,GLOB.lawlorify[LAW][banish])
-	to_chat(owner, "<br/><br/><span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
-
+/datum/devilinfo/proc/announce_laws()
+	var/list/messages = list()
+	messages.Add("<span class='boldwarning'>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</span>")
+	messages.Add("<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
+	messages.Add("You may not use violence to coerce someone into selling their soul.")
+	messages.Add("You may not directly and knowingly physically harm a devil, other than yourself.")
+	messages.Add(GLOB.lawlorify[LAW][bane])
+	messages.Add(GLOB.lawlorify[LAW][ban])
+	messages.Add(GLOB.lawlorify[LAW][obligation])
+	messages.Add(GLOB.lawlorify[LAW][banish])
+	messages.Add("<br/><br/><span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
+	return messages
 
 #undef BLOOD_THRESHOLD
 #undef TRUE_THRESHOLD

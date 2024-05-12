@@ -187,7 +187,7 @@
 
 					for(var/index in external_organ_fracture_healing)
 						body_part = human.bodyparts_by_name[index]
-						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || (body_part.is_robotic() && !robot_heal))
+						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
 						if(prob(mend_fractures_chance))
@@ -196,8 +196,8 @@
 							break
 
 				else
-					for(var/obj/item/organ/external/body_part in human.bodyparts)
-						if(QDELETED(body_part) || !(body_part.status & ORGAN_BROKEN) || (body_part.is_robotic() && !robot_heal))
+					for(var/obj/item/organ/external/body_part as anything in human.bodyparts)
+						if(QDELETED(body_part) || !body_part.has_fracture() || (body_part.is_robotic() && !robot_heal))
 							continue
 
 						if(prob(mend_fractures_chance))
@@ -211,22 +211,22 @@
 
 					for(var/index in external_organ_bleeding_healing)
 						body_part = human.bodyparts_by_name[index]
-						if(QDELETED(body_part) || !body_part.internal_bleeding)
+						if(QDELETED(body_part) || !body_part.has_internal_bleeding())
 							continue
 
 						if(prob(stop_internal_bleeding_chance))
 							external_organ_heal_done = TRUE
-							body_part.internal_bleeding = FALSE
+							body_part.stop_internal_bleeding()
 							break
 
 				else
-					for(var/obj/item/organ/external/body_part in human.bodyparts)
-						if(QDELETED(body_part) || !body_part.internal_bleeding)
+					for(var/obj/item/organ/external/body_part as anything in human.bodyparts)
+						if(QDELETED(body_part) || !body_part.has_internal_bleeding())
 							continue
 
 						if(prob(stop_internal_bleeding_chance))
 							external_organ_heal_done = TRUE
-							body_part.internal_bleeding = FALSE
+							body_part.stop_internal_bleeding()
 							break
 
 		if(should_show_effect && (external_organ_heal_done || old_health < candidate.maxHealth))

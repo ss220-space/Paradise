@@ -15,7 +15,7 @@
 	else
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
 		if(prob(10))
-			AttemptGrow(0)
+			AttemptGrow(FALSE)
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
@@ -40,32 +40,30 @@
 				owner.emote("cough")
 			if(prob(4))
 				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
-				if(prob(20))
-					owner.take_organ_damage(1)
+				owner.take_organ_damage(1)
 			if(prob(4))
 				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
-				if(prob(20))
-					owner.adjustToxLoss(1)
+				owner.adjustToxLoss(1)
 		if(5)
 			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
-	if(stage < 5 && prob(3))
+	if(stage < 5 && prob(4))
 		stage++
 		spawn(0)
 			RefreshInfectionImage()
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
-				AttemptGrow(0)
+			if(S.location == BODY_ZONE_CHEST && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
+				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = TRUE)
 	if(!owner || polling)
 		return
 	polling = 1
@@ -88,7 +86,7 @@
 			return
 
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
-		owner.overlays += overlay
+		owner.add_overlay(overlay)
 
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
@@ -99,12 +97,13 @@
 			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
+			log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
 
 			if(gib_on_success)
 				owner.gib()
 			else
 				owner.adjustBruteLoss(40)
-				owner.overlays -= overlay
+				owner.cut_overlay(overlay)
 			qdel(src)
 
 /*----------------------------------------

@@ -95,19 +95,20 @@
 	force = round((5 + seed.potency / 2.5), 1)
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
-	. = ..()
-	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
+	if(ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
-			return
+			return ..()
 		if(!H.gloves && prob(50))
 			user.Paralyse(4 SECONDS)
-			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
+			to_chat(user, span_userdanger("You are stunned by the Deathnettle when you try picking it up!"))
+			return FALSE
+	return ..()
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
+	. = ..()
+	if(. && isliving(M))
+		to_chat(M, span_danger("You are stunned by the powerful acid of the Deathnettle!"))
 		add_attack_logs(user, M, "Hit with [src]")
 
 		M.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)

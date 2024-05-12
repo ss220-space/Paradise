@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(afk)
 	flags = SS_BACKGROUND
 	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."
+	ss_id = "afk_watcher"
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
 
@@ -31,7 +32,7 @@ SUBSYSTEM_DEF(afk)
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs or people on other Z levels than the station
 		if(!H.client || !(H.client.prefs.toggles2 & PREFTOGGLE_2_AFKWATCH) || !H.mind || \
-			H.stat || H.restrained() || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
+			H.stat || HAS_TRAIT(H, TRAIT_RESTRAINED) || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey])
 				toRemove += H.ckey
 			continue

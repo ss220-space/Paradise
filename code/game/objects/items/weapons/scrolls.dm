@@ -30,10 +30,10 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if(usr.stat || usr.restrained() || src.loc != usr)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	var/mob/living/carbon/human/H = usr
-	if(!( istype(H, /mob/living/carbon/human)))
+	if(!( ishuman(H)))
 		return 1
 	if((usr == src.loc || (in_range(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)
@@ -47,14 +47,14 @@
 
 	var/A
 
-	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs
+	A = tgui_input_list(user, "Area to jump to", "BOOYEA", GLOB.teleportlocs)
 
 	if(!A)
 		return
 
 	var/area/thearea = GLOB.teleportlocs[A]
 
-	if(user.stat || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return

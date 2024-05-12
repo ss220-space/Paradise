@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	flags = SS_NO_INIT
 	offline_implications = "Nano-Mob Hunter will no longer spawn mobs. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "mob_hunt"
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
 	var/max_trap_spawns = 15		//change this to adjust the number of trap spawns that can exist at one time. traps spawned beyond this point clear the oldest traps

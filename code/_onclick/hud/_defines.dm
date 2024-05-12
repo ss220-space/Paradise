@@ -37,6 +37,7 @@
 #define ui_storage1 "CENTER+1:18,SOUTH:5"
 #define ui_storage2 "CENTER+2:20,SOUTH:5"
 #define ui_pda "CENTER+3:22,SOUTH:5"
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts
 
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
@@ -163,6 +164,9 @@
 #define ui_ai_core "SOUTH:6,RIGHT-1"
 #define ui_ai_sensor "SOUTH:6,RIGHT"
 
+#define ui_ai_up "TOP:-6,RIGHT-1"
+#define ui_ai_down "TOP:-6,RIGHT"
+
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"
 #define ui_bot_pull "EAST-2:26,SOUTH:7"
@@ -174,7 +178,8 @@
 #define ui_ghost_teleport "SOUTH:6,CENTER+1"
 #define ui_ghost_respawn_list "SOUTH:6,CENTER+2"
 #define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+2"
-#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+2"
+#define ui_ghost_minigames "SOUTH:6+2,CENTER+2"
+#define ui_ghost_respawn_pai "SOUTH:6+3,CENTER+2"
 
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
@@ -187,7 +192,3 @@
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
 
-
-#define HUD_LAYER_SCREEN 20
-
-#define HUD_LAYER_BUILDMODE 30

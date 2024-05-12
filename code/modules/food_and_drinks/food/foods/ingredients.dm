@@ -100,6 +100,16 @@
  	tastes = list("cucumber" = 1)
  	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/thing, mob/user, params)
+	if(istype(thing, src) && thing != src && loc == user)
+		var/obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask/new_thing = new(loc)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.temporarily_remove_item_from_inventory(thing, force = TRUE)
+		user.put_in_hands(new_thing)
+		qdel(src)
+		qdel(thing)
+	..()
+
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
@@ -184,17 +194,16 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	desc = "The base for tasty cookies."
 	icon_state = "cookiedough"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list("nutriment" = 5, "sugar" = 1)
 	tastes = list("dough" = 1, "sugar" = 1)
 	foodtype = GRAIN | SUGAR
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
     if(flat)
         icon_state = "cookiedough_flat"
         name = "flat pastry dough"
     else
         icon_state = "cookiedough"
-
 
 
 // Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
@@ -222,7 +231,7 @@
 	desc = "Ready for oven!"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list("nutriment" = 5, "sugar" = 2)
 	foodtype = GRAIN | SUGAR
 
 /obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
@@ -254,7 +263,7 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
+	list_reagents = list("nutriment" = 2, "sugar" = 5, "cocoa" = 2)
 	tastes = list("chocolate" = 1)
 	foodtype = SUGAR
 

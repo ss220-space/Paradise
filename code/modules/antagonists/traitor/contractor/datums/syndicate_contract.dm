@@ -272,7 +272,7 @@
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
-	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
+	if(do_after(M, EXTRACTION_PHASE_PREPARE, M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
@@ -304,7 +304,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.station_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
+	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -356,6 +356,14 @@
 	// Shove all of the victim's items in the secure locker.
 	victim_belongings = list()
 	var/list/obj/item/stuff_to_transfer = list()
+
+	// Speciall skrell headpocket handling
+	var/obj/item/organ/internal/headpocket/headpocket = M.get_organ_slot(INTERNAL_ORGAN_HEADPOCKET)
+	if(headpocket)
+		var/turf/target_turf = get_turf(M)
+		for(var/obj/item/item in headpocket.pocket.contents)
+			stuff_to_transfer += item
+			headpocket.pocket.remove_from_storage(item, target_turf)
 
 	// Cybernetic implants get removed first (to deal with NODROP stuff)
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
@@ -411,7 +419,7 @@
 		var/obj/item/I = i
 		if(GLOB.prisoner_belongings.give_item(I))
 			victim_belongings += I
-		else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
+		else if(!(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
 			I.forceMove(T)
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.
@@ -484,7 +492,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in contract.extraction_zone.contents)
-		if(!isspaceturf(T) && !is_blocked_turf(T))
+		if(!isspaceturf(T) && !T.is_blocked_turf())
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)

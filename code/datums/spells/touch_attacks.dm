@@ -15,6 +15,9 @@
 
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't control your hands!!"))
+		return FALSE
 	if(attached_hand)
 		discharge_hand(user, TRUE)
 		return FALSE
@@ -51,6 +54,7 @@
 
 	attached_hand.is_withdraw = TRUE
 	QDEL_NULL(attached_hand)
+	return COMPONENT_CANCEL_DROP
 
 
 /obj/effect/proc_holder/spell/touch/disintegrate

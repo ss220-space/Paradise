@@ -52,6 +52,16 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/bodyanalyzer
+	name = "handheld body analyzer"
+	desc = "A handheld scanner capable of deep-scanning an entire body."
+	id = "handheld_body_analyzer"
+	req_tech = list("biotech" = 6, "materials" = 7, "magnets" = 5, "programming" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000, MAT_SILVER = 600)
+	build_path = /obj/item/bodyanalyzer/rnd
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
@@ -343,6 +353,18 @@
 	build_path = /obj/item/storage/lockbox/research/mantis
 	category = list("Medical")
 
+/datum/design/tailblade
+	name = "Tail Laserblade Implant"
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
+	id = "ci-laserblade"
+	req_tech = null	// Unreachable by tech researching.
+	locked = TRUE
+	access_requirement = list(ACCESS_ARMORY)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 15000, MAT_URANIUM = 10000, MAT_TITANIUM = 6000, MAT_DIAMOND = 6000)
+	build_path = /obj/item/organ/internal/cyberimp/tail/blade/laser
+	category = list ("Medical")
+
 /datum/design/cyberimp_atmostoolset
 	name = "Atmos Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
@@ -581,7 +603,7 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/track
+	build_path = /obj/item/implantcase/tracking
 	category = list("Medical")
 
 /datum/design/implant_mindshield

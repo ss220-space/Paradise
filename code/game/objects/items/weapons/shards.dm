@@ -47,12 +47,12 @@
 		return
 	if(isturf(AM))
 		return
-	if(istype(AM, /obj/item/storage))
+	if(isstorage(AM))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+			var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
@@ -67,7 +67,10 @@
 		var/obj/item/stack/sheet/cloth/CL = I
 		CL.use(1)
 		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
-		new /obj/item/kitchen/knife/glassshiv(user.loc, src)
+		if(istype(src, /obj/item/shard/plasma))
+			new /obj/item/kitchen/knife/glassshiv/plasma(user.loc, src)
+		else
+			new /obj/item/kitchen/knife/glassshiv(user.loc, src)
 		qdel(src)
 	return ..()
 
@@ -88,8 +91,8 @@
 	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+	if(istype(L) && L.has_gravity())
+		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()

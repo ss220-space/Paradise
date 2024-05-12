@@ -6,7 +6,7 @@
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor
@@ -15,7 +15,7 @@
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor
@@ -37,7 +37,7 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/ui_action_click(user, action)
 	switch(action)
 		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
+			ToggleHelmet(user)
 			return TRUE
 		if(/datum/action/item_action/advanced/hook_upgrade)
 			toggle_hook()
@@ -60,6 +60,7 @@
 	description_antag = "Шлем хардсьюта-хамелеона, замаскированный изначально под инженерный шлем."
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
+	item_color = "engineering"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/suit/space/hardsuit/contractor/agent
@@ -121,8 +122,8 @@
 	charge_tick = 1
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON|NOPICKUP
 	force = 0
 	var/obj/item/clothing/suit/space/hardsuit/contractor/suit = null
 	var/datum/action/item_action/advanced/hook_upgrade/hook_action  = null
@@ -174,15 +175,14 @@
 	. = ..()
 	if(blocked >= 100)
 		return 0
+	var/turf/firer_turf = get_turf(firer)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-
-			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
-			L.forceMove(get_turf(firer))
-			L.density = old_density
+			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
+			L.forceMove(firer_turf)
+			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
 

@@ -81,17 +81,11 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc)
+	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork))
 	loc = C
 	C.assembly = src
 
 	C.auto_turn()
-
-	C.network = uniquelist(tempnetwork)
-	tempnetwork = difflist(C.network,GLOB.restricted_camera_networks)
-	if(!tempnetwork.len) // Camera isn't on any open network - remove its chunk from AI visibility.
-		GLOB.cameranet.removeCamera(C)
-
 	C.c_tag = input
 
 	for(var/i = 5; i >= 0; i -= 1)
@@ -123,14 +117,14 @@
 		return
 	if(state == ASSEMBLY_UNBUILT && isturf(loc))
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 		state = ASSEMBLY_WRENCHED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
-		anchored = FALSE
-		update_icon()
+		set_anchored(FALSE)
+		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, span_warning("[src] can't fit here!"))
@@ -153,7 +147,7 @@
 		to_chat(user, span_notice("You unweld [src] from its place."))
 		state = ASSEMBLY_WRENCHED
 
-/obj/item/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon_state()
 	if(anchored)
 		icon_state = "camera1"
 	else
@@ -164,7 +158,7 @@
 		..()
 
 /obj/item/camera_assembly/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
 

@@ -36,7 +36,7 @@ Retired Admin  			+ADMIN +BAN +STEALTH +VAREDIT +SPAWN
 Head of Staff           +EVERYTHING
 
 Hosting Provider        +EVERYTHING
- 
+
 # Coder Ranks
 Trial Coder				+ADMIN +VAREDIT +REJUVINATE +DEBUG
 Coders                  +ADMIN +VAREDIT +REJUVINATE +DEBUG +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +SOUND +SPAWN

@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
 	var/tracking = TRUE
@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
 	var/upgraded = 0
+	/// For GPS in pAI
+	var/atom/movable/parent
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -35,23 +37,23 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	GLOB.poi_list.Add(src)
 	if(name == initial(name))
 		name = "global positioning system ([gpstag])"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/item/gps/update_icon()
-	cut_overlays()
+/obj/item/gps/update_overlays()
+	. = ..()
 	if(emped)
-		add_overlay("emp")
+		. += "emp"
 	else if(tracking)
-		add_overlay("working")
+		. += "working"
 
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
@@ -59,15 +61,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	toggle_gps(user)
+
+/obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
 
 	tracking = !tracking
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(tracking)
 		to_chat(user, "[src] is now tracking, and visible to other GPS devices.")
 	else
@@ -120,16 +125,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	ui_interact(user)
 
 
-/obj/item/gps/MouseDrop(atom/over)
+/obj/item/gps/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 
 	var/mob/user = usr
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	attack_self(user)
 	return TRUE
 
+/obj/item/gps/ui_host()
+	return parent ? parent : src
 
 /obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -151,7 +158,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			toggle_gps(usr)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
@@ -163,7 +170,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
   */
 /obj/item/gps/proc/reboot()
 	emped = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/science
 	icon_state = "gps-s"
@@ -177,12 +184,24 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	tracking = FALSE
+
+/obj/item/gps/security
+	icon_state = "gps-r"
+	gpstag = "SEC0"
+	desc = "A positioning system helpful for monitoring prisoners that are implanted with a tracking implant."
+	local = TRUE
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
-	flags = NODROP
+
+
+/obj/item/gps/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/gps/cyborg/upgraded
 	upgraded = 1
@@ -192,15 +211,20 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	local = TRUE
 	gpstag = "SBORG0"
 	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
-	flags = NODROP
+
+
+/obj/item/gps/syndiecyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/item/gps/internal/mining
 	icon_state = "gps-m"
@@ -255,7 +279,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/attackby(obj/item/C as obj)
 	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
-		upgraded = 1
-		del(C)
+		upgraded = TRUE
+		qdel(C)
 
 #undef EMP_DISABLE_TIME

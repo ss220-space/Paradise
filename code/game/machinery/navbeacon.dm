@@ -10,7 +10,7 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	var/open = 0		// true if cover is open
@@ -76,32 +76,22 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
+
 
 // update the icon_state
-/obj/machinery/navbeacon/proc/updateicon()
-	var/state="navbeacon[open]"
+/obj/machinery/navbeacon/update_icon_state()
+	// if invisible, set icon to faded version
+	// in case revealed by T-scanner
+	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"
 
-	if(invisibility)
-		icon_state = "[state]-f"	// if invisible, set icon to faded version
-									// in case revealed by T-scanner
-	else
-		icon_state = "[state]"
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
-	if(istype(I, /obj/item/screwdriver))
-		add_fingerprint(user)
-		open = !open
-
-		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", span_notice("You [open ? "open" : "close"] the beacon's cover."))
-
-		updateicon()
-
-	else if(I.GetID())
+	if(I.GetID())
 		if(open)
 			if(allowed(user))
 				add_fingerprint(user)
@@ -115,6 +105,20 @@
 	else
 		return ..()
 
+
+/obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
+	var/turf/T = get_turf(src)
+	if(T.intact)
+		return FALSE
+	open = !open
+	user.visible_message(
+		"[user] [open ? "opens" : "closes"] the beacon's cover.",
+		span_notice("You [open ? "open" : "close"] the beacon's cover."),
+	)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
 
@@ -123,7 +127,7 @@
 	interact(user, 0)
 
 /obj/machinery/navbeacon/interact(mob/user, ai = 0)
-	var/turf/T = loc
+	var/turf/T = get_turf(src)
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
@@ -220,8 +224,8 @@ Transponder Codes:<UL>"}
 
 
 /obj/machinery/navbeacon/invisible
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/navbeacon/invisible/hide(intact)
-	invisibility = INVISIBILITY_MAXIMUM
-	updateicon()
+	invisibility = INVISIBILITY_ABSTRACT
+	update_icon(UPDATE_ICON_STATE)

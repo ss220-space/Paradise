@@ -9,7 +9,7 @@
 
 /obj/item/grab
 	name = "grab"
-	flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
 	var/obj/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
@@ -48,7 +48,7 @@
 		qdel(src)
 		return
 
-	affecting.grabbed_by += src
+	LAZYADD(affecting.grabbed_by, src)
 
 	hud = new /obj/screen/grab(src)
 	hud.icon_state = "reinforce"
@@ -148,7 +148,7 @@
 		if(ishuman(affecting))
 			switch(hit_zone)
 				//if("mouth") - the gag code in say.dm bellow is_muzzle
-				if("eyes")
+				if(BODY_ZONE_PRECISE_EYES)
 					if(!affecting.EyeBlind(2 SECONDS))
 						affecting.SetEyeBlind(2 SECONDS)
 
@@ -182,7 +182,7 @@
 
 */
 
-	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
+	var/breathing_tube = affecting.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)
 
 	if(state >= GRAB_NECK)
 		if(isliving(affecting) && !breathing_tube)
@@ -209,7 +209,7 @@
 		return
 	if(affecting.buckled)
 		return
-	if(affecting.lying && state != GRAB_KILL)
+	if(affecting.lying_angle && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
@@ -231,11 +231,15 @@
 			adir = assailant.dir
 			affecting.setDir(assailant.dir)
 			affecting.forceMove(assailant.loc)
+			//Assailant hides behind the victim from strikes from the front
+			assailant.bump_priority = BUMP_PRIORITY_LOW
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.setDir(SOUTH)//face up
 			affecting.forceMove(assailant.loc)
+			//Assailant hides behind the victim from strikes from the front
+			assailant.bump_priority = BUMP_PRIORITY_LOW
 
 	switch(adir)
 		if(NORTH)
@@ -260,7 +264,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying)
+	if(!assailant.canmove || assailant.lying_angle)
 		qdel(src)
 		return
 
@@ -273,12 +277,12 @@
 		last_hit_zone = hit_zone
 		if(ishuman(affecting))
 			switch(hit_zone)
-				if("mouth")
+				if(BODY_ZONE_PRECISE_MOUTH)
 					if(!affecting.wear_mask)
 						assailant.visible_message(span_warning("[assailant] закрыл[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting]"))
 					else
 						assailant.visible_message(span_warning("[assailant] схватил[genderize_ru(assailant.gender,"","а","о","и")] рот [affecting], но на нем маска!"))
-				if("eyes")
+				if(BODY_ZONE_PRECISE_EYES)
 					assailant.visible_message(span_warning("[assailant] рукой закрыл[genderize_ru(assailant.gender,"","а","о","и")] глаза [affecting]"))
 				else
 					assailant.visible_message(span_warning("[assailant] агрессивно схватил[genderize_ru(assailant.gender,"","а","о","и")] [affecting] (за руки)!"))
@@ -321,7 +325,7 @@
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
-		if(!affecting.get_organ_slot("breathing_tube"))
+		if(!affecting.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
@@ -360,15 +364,15 @@
 					return
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
-					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying)
+					if(last_hit_zone == BODY_ZONE_HEAD) //This checks the hitzone the user has selected. In this specific case, they have the head selected.
+						if(affecting.lying_angle)
 							return
 						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
 						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
+						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, affected.run_armor_check(affecting, MELEE))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return
@@ -427,17 +431,24 @@
 
 		user.visible_message("<span class='danger'>[user.name] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting.name]!</span>")
 
-		if(!do_after(user, checktime(user, affecting), target = user))//target = affecting))
+		if(!do_after(user, checktime(user, affecting), user))
 			user.visible_message("<span class='notice'>[user.name] прекраща[pluralize_ru(user.gender,"ет","ют")] поглощать [affecting.name]!</span>")
 			return FALSE
 
 		user.visible_message("<span class='danger'>[user.name] поглоща[pluralize_ru(user.gender,"ет","ют")] [affecting.name]!</span>")
+
 		if(affecting.mind)
 			add_attack_logs(attacker, affecting, "Devoured")
-		if(isvampire(user))
-			user.adjust_nutrition(affecting.blood_nutrients)
-		else
-			user.adjust_nutrition(10 * affecting.health)
+		if(!isvampire(user))
+			user.adjust_nutrition(2 * affecting.health)
+
+		for(var/datum/disease/virus/V in affecting.diseases)
+			if(V.spread_flags > NON_CONTAGIOUS)
+				V.Contract(user)
+
+		for(var/datum/disease/virus/V in user.diseases)
+			if(V.spread_flags > NON_CONTAGIOUS)
+				V.Contract(affecting)
 
 		affecting.forceMove(user)
 		LAZYADD(attacker.stomach_contents, affecting)
@@ -450,10 +461,6 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
-	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(H) && (vamp || g_vamp) && istype(prey, /mob/living/simple_animal/mouse)) //vampires can eat mice despite race
-		return 1
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
@@ -463,7 +470,7 @@
 	if(isalien(attacker))
 		var/mob/living/carbon/alien/A = attacker
 		return A.devour_time
-	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
+	if(isanimal(prey)) //simple animals get eaten at xeno-eating-speed regardless
 		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
@@ -474,7 +481,8 @@
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
-		affecting.grabbed_by -= src
+			assailant.bump_priority = BUMP_PRIORITY_NORMAL
+		LAZYREMOVE(affecting.grabbed_by, src)
 		affecting = null
 	if(assailant)
 		if(assailant.client)

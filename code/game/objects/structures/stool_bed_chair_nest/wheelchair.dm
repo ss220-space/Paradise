@@ -4,13 +4,16 @@
 	item_chair = null
 	movable = TRUE
 	pull_push_speed_modifier = 1
-
+	var/mutable_appearance/chair_overlay
 	var/move_delay = null
 
 /obj/structure/chair/wheelchair/handle_rotation()
-	overlays = null
-	var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
-	overlays += O
+	if(chair_overlay)
+		cut_overlay(chair_overlay)
+	else
+		chair_overlay = mutable_appearance(icon, "[icon_state]_overlay", FLY_LAYER)
+	chair_overlay.dir = src.dir
+	add_overlay(chair_overlay)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
@@ -20,7 +23,7 @@
 	if(propelled)
 		return 0
 
-	if(!Process_Spacemove(direction) || !has_gravity(src.loc) || !isturf(loc))
+	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))
 		return 0
 
 	if(world.time < move_delay)
@@ -35,7 +38,7 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 
@@ -44,13 +47,13 @@
 			if(!driver.has_left_hand() && !driver.has_right_hand())
 				return 0 // No hands to drive your chair? Tough luck!
 
-			for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
+			for(var/organ_name in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 				var/obj/item/organ/external/E = driver.get_organ(organ_name)
 				if(!E)
 					calculated_move_delay += 4
-				else if(E.status & ORGAN_SPLINTED)
+				else if(E.is_splinted())
 					calculated_move_delay += 0.5
-				else if(E.status & ORGAN_BROKEN)
+				else if(E.has_fracture())
 					calculated_move_delay += 1.5
 
 		if(calculated_move_delay < 4)
@@ -90,7 +93,7 @@
 		occupant.Weaken(12 SECONDS)
 		occupant.Stuttering(12 SECONDS)
 		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/victim = A
 			victim.Weaken(12 SECONDS)
 			victim.Stuttering(12 SECONDS)
@@ -109,7 +112,7 @@
 	if(propelled)
 		return 0
 
-	if(!Process_Spacemove(direction) || !has_gravity(src.loc) || !isturf(loc))	//bikes in space.
+	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))	//bikes in space.
 		return 0
 
 	if(world.time < move_delay)
@@ -125,24 +128,24 @@
 			return 0
 
 		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.movement_delay()
+		var/mob_delay = thedriver.cached_multiplicative_slowdown
 		if(mob_delay > 0)
 			calculated_move_delay += mob_delay
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user
-			var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
-			var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
+			var/obj/item/organ/external/l_hand = driver.get_organ(BODY_ZONE_PRECISE_L_HAND)
+			var/obj/item/organ/external/r_hand = driver.get_organ(BODY_ZONE_PRECISE_R_HAND)
 			if(!l_hand && !r_hand)
 				calculated_move_delay += 0.5	//I can ride my bike with no handlebars... (but it's slower)
 
-			for(var/organ_name in list("l_leg","r_leg","l_foot","r_foot"))
+			for(var/organ_name in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 				var/obj/item/organ/external/E = driver.get_organ(organ_name)
 				if(!E)
 					return 0	//Bikes need both feet/legs to work. missing even one makes it so you can't ride the bike
-				else if(E.status & ORGAN_SPLINTED)
+				else if(E.is_splinted())
 					calculated_move_delay += 0.5
-				else if(E.status & ORGAN_BROKEN)
+				else if(E.has_fracture())
 					calculated_move_delay += 1.5
 
 		move_delay = world.time

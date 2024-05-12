@@ -65,9 +65,6 @@
 	//Clear ability list and update from mob.
 	client.verbs -= GLOB.ability_verbs
 
-	if(abilities)
-		client.verbs |= abilities
-
 	client.update_active_keybindings()
 
 	//HUD updates (antag hud, etc)
@@ -84,3 +81,5 @@
 	update_morgue()
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+

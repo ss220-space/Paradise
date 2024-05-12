@@ -6,8 +6,8 @@
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	damage_deflection = 15
 	var/emergency_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -46,9 +46,10 @@
 	. += "The operation light is [emergency_mode ? "<b>off</b>. [src] has detected a forbidden object with its sensors, and has shut down temporarily." : "<b>on</b>. [src] is active."]"
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
-/obj/machinery/recycler/power_change()
-	..()
-	update_icon()
+/obj/machinery/recycler/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -68,23 +69,24 @@
 		return TRUE
 
 
-
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		if(emergency_mode)
 			emergency_mode = FALSE
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
+		if(user)
+			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")
 
-/obj/machinery/recycler/update_icon()
-	..()
+
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(emergency_mode)
-		is_powered = 0
+		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
+
 
 // This is purely for admin possession !FUN!.
 /obj/machinery/recycler/Bump(atom/movable/AM)
@@ -108,7 +110,7 @@
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
+	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -121,7 +123,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
 			recycle_item(AM)
 			items_recycled++
 		else
@@ -147,18 +149,18 @@
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	emergency_mode = TRUE
-	update_icon()
-	L.loc = loc
+	update_icon(UPDATE_ICON_STATE)
+	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 	emergency_mode = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
-	L.loc = loc
+	L.forceMove(loc)
 
 	if(issilicon(L))
 		playsound(loc, 'sound/items/welder.ogg', 50, 1)
@@ -175,7 +177,7 @@
 
 	if(!blood && !issilicon(L))
 		blood = 1
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
@@ -200,7 +202,7 @@
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
@@ -216,7 +218,7 @@
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")

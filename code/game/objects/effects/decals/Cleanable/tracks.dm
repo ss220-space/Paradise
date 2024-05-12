@@ -34,8 +34,8 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
-		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
-		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
+		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
@@ -61,8 +61,8 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
-		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
-		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
+		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
@@ -84,8 +84,8 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				update_icon()
 
 
-/obj/effect/decal/cleanable/blood/footprints/update_icon()
-	overlays.Cut()
+/obj/effect/decal/cleanable/blood/footprints/update_overlays()
+	. = ..()
 
 	for(var/Ddir in GLOB.cardinal)
 		if(entered_dirs & Ddir)
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
-				overlays += I
+				. += I
 		if(exited_dirs & Ddir)
 			var/image/I
 			if(GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"])
@@ -107,9 +107,10 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
-				overlays += I
+				. += I
 
-	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
+	alpha = BLOODY_FOOTPRINT_BASE_ALPHA + bloodiness
+
 
 /proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
 	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)

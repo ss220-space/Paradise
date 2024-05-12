@@ -12,7 +12,7 @@
 	filling_color = "#E8C31E"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
+	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 2)
 	tastes = list("crisps" = 1)
 	foodtype = JUNKFOOD | FRIED
 
@@ -36,7 +36,7 @@
 	filling_color = "#BAD145"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
+	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 2)
 	tastes = list("pistachios" = 1)
 	foodtype = JUNKFOOD
 
@@ -48,7 +48,7 @@
 	filling_color = "#343834"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sugar" = 4)
+	list_reagents = list("plantmatter" = 2, "sugar" = 2)
 	tastes = list("dried raisins" = 1)
 	foodtype = JUNKFOOD | FRUIT
 
@@ -95,7 +95,7 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("protein" = 2, "sugar" = 4)
+	list_reagents = list("protein" = 2, "sugar" = 2)
 	tastes = list("bread" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
@@ -106,7 +106,7 @@
 	trash = /obj/item/trash/doshik
 	filling_color = "#d1a62f"
 	junkiness = 20
-	list_reagents = list("protein" = 3, "sugar" = 1)
+	list_reagents = list("protein" = 3)
 	tastes = list("doshi co" = 1, "pleasure" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE
@@ -118,7 +118,7 @@
 	trash = /obj/item/trash/doshik
 	filling_color = "#d16a2f"
 	junkiness = 20
-	list_reagents = list("protein" = 3, "sugar" = 1, "capsaicin" = 5)
+	list_reagents = list("protein" = 3, "capsaicin" = 5)
 	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
 	foodtype = JUNKFOOD | MEAT
 	opened = FALSE

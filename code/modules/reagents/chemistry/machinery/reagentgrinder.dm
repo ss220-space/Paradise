@@ -3,7 +3,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
@@ -131,13 +131,12 @@
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/reagentgrinder/update_icon()
-	if(beaker)
-		icon_state = "juicer1"
-	else
-		icon_state = "juicer0"
+
+/obj/machinery/reagentgrinder/update_icon_state()
+	icon_state = "juicer[beaker ? "1" : "0"]"
+
 
 /obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -178,7 +177,7 @@
 				return FALSE
 			add_fingerprint(user)
 			beaker =  I
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			updateUsrDialog()
 		return TRUE //no afterattack
 
@@ -238,11 +237,13 @@
 
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
-		return FALSE
+	return FALSE
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
-		user.set_machine(src)
-		interact(user)
+	if(..())
+		return TRUE
+	user.set_machine(src)
+	interact(user)
 
 /obj/machinery/reagentgrinder/interact(mob/user) // The microwave Menu
 		var/is_chamber_empty = 0
@@ -317,7 +318,7 @@
 				return
 		beaker.loc = src.loc
 		beaker = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/eject()

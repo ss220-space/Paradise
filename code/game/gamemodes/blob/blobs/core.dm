@@ -27,14 +27,17 @@
 	..(loc, h)
 
 
-/obj/structure/blob/core/adjustcolors(var/a_color)
-	overlays.Cut()
+/obj/structure/blob/core/adjustcolors(a_color)
+	cut_overlays()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")
 	I.color = a_color
-	overlays += I
+	add_overlay(I)
 	var/image/C = new('icons/mob/blob.dmi', "blob_core_overlay")
-	overlays += C
+	add_overlay(C)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 
 /obj/structure/blob/core/Destroy()
@@ -124,6 +127,7 @@
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
 		B.is_offspring = is_offspring
+		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, PROC_REF(lateblobcheck)), 50)

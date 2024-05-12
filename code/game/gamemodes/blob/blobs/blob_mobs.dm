@@ -53,23 +53,31 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
-	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
-	var/list/human_overlays = list()
+	var/list/human_overlays
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
+
+/mob/living/simple_animal/hostile/blob/blobspore/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
+
 
 /mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
 	..()
+
+
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -83,7 +91,7 @@
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
@@ -148,11 +156,15 @@
 	color = a_color
 
 	if(is_zombie)
-		overlays.Cut()
-		overlays = human_overlays
+		cut_overlays()
+		add_overlay(human_overlays)
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
 		I.color = color
-		overlays += I
+		add_overlay(I)
+
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
+
 
 /////////////////
 // BLOBBERNAUT //
@@ -179,20 +191,20 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 50
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
-	var/magpulse = 1
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/mob_negates_gravity()
-	return magpulse
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/mob_has_gravity()
-	return ..() || mob_negates_gravity()
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
+
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
@@ -228,7 +240,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind])</span> states, <span class='blob'>\"[message]\"</span></i>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

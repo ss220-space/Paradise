@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(http)
 	// Assuming for the worst, since only discord is hooked into this for now, but that may change
 	offline_implications = "The server is no longer capable of making async HTTP requests. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "http_requests"
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests = list()
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests

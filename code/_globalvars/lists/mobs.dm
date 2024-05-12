@@ -38,3 +38,10 @@ GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's 
 GLOBAL_LIST_EMPTY(human_names_list)			//List of names for all humans that have ever entered the round
 
 GLOBAL_LIST_EMPTY(taipan_players_active)	//List of all Taipan operatives active
+
+GLOBAL_LIST_EMPTY(emote_list)
+
+GLOBAL_LIST_EMPTY(uplink_items)
+
+GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
+

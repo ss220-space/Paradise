@@ -3,7 +3,7 @@
 
 /obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	new /obj/item/gem/amber(src)
-	var/loot = rand(1,4)
+	var/loot = rand(1,5)
 	switch(loot)
 		if(1)
 			new /obj/item/melee/ghost_sword(src)
@@ -13,10 +13,9 @@
 			new /obj/item/spellbook/oneuse/sacredflame(src)
 			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
-			if(prob(25)) //Still same chance but now you know if you're turning into a lizard (ew)
-				new /obj/item/dragons_blood/refined(src)
-			else
-				new /obj/item/dragons_blood(src)
+			new /obj/item/dragons_blood(src)
+		if(5)
+			new /obj/item/dragons_blood/refined(src) //turning into lizard stuff
 
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
@@ -161,15 +160,15 @@
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
 
-/datum/disease/transformation/dragon
+/datum/disease/virus/transformation/dragon
 	name = "dragon transformation"
-	cure_text = "nothing"
+	cure_text = "Nothing"
 	cures = list("adminordrazine")
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
-	visibility_flags = 0
+	visibility_flags = VISIBLE
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaley.")
 	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
@@ -182,11 +181,10 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	icon_state = "lavastaff"
+	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
-	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -232,7 +230,7 @@
 			animate(L, alpha = 255, time = create_delay)
 			user.visible_message("<span class='danger'>[user] points [src] at [T]!</span>")
 			timer = world.time + create_delay + 1
-			if(do_after(user, create_delay, target = T))
+			if(do_after(user, create_delay, T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)

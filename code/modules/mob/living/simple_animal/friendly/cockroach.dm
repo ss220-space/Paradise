@@ -16,7 +16,7 @@
 	response_harm   = "splats"
 	death_sound = 'sound/creatures/crack_death2.ogg'
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
 	loot = list(/obj/effect/decal/cleanable/insectguts)
@@ -35,7 +35,7 @@
 				death()
 			else
 				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(istype(AM, /obj/structure))
+	else if(isstructure(AM))
 		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
 		death()
 

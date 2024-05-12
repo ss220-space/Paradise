@@ -24,6 +24,10 @@
 /obj/machinery/computer/crew/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -32,3 +36,9 @@
 
 /obj/machinery/computer/crew/interact(mob/user)
 	crew_monitor.ui_interact(user)
+
+/obj/machinery/computer/crew/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "med_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb3"

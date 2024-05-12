@@ -39,13 +39,15 @@ GLOBAL_LIST_EMPTY(holopads)
 	name = "holopad"
 	desc = "It's a floor-mounted device for projecting holographic images."
 	icon_state = "holopad0"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
+	light_on = FALSE
+	light_range = 2
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
@@ -59,13 +61,15 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
-/obj/machinery/hologram/holopad/New()
-	..()
+
+/obj/machinery/hologram/holopad/Initialize(mapload)
+	. = ..()
 	GLOB.holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+
 
 /obj/machinery/hologram/holopad/Destroy()
 	if(outgoing_call)
@@ -80,13 +84,42 @@ GLOBAL_LIST_EMPTY(holopads)
 	GLOB.holopads -= src
 	return ..()
 
-/obj/machinery/hologram/holopad/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+
+/obj/machinery/hologram/holopad/power_change(forced = FALSE)
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
+		set_light_on(FALSE)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/hologram/holopad/update_icon_state()
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	if(icon_state == "holopad_open")
+		return
+	else if(ringing)
+		icon_state = "holopad_ringing"
+	else if(total_users)
+		icon_state = "holopad1"
+	else
+		icon_state = "holopad0"
+
+
+/obj/machinery/hologram/holopad/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	if(ringing)
+		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
+	else if(total_users)
+		underlays += emissive_appearance(icon, "holopad1_lightmask")
+
 
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
@@ -217,7 +250,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			callnames -= get_area(src)
 			var/list/sorted_callnames = sortAtom(callnames)
 			dialling_input = TRUE
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sorted_callnames
+			var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", sorted_callnames)
 			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
@@ -365,7 +398,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-		hologram.anchored = 1//So space wind cannot drag it.
+		hologram.set_anchored(TRUE)	//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()
@@ -404,23 +437,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
-		set_light(2)
-		icon_state = "holopad1"
+		set_light_on(TRUE)
 	else
-		set_light(0)
-		icon_state = "holopad0"
+		set_light_on(FALSE)
 	update_icon()
-
-/obj/machinery/hologram/holopad/update_icon()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	if(icon_state == "holopad_open")
-		return
-	else if(ringing)
-		icon_state = "holopad_ringing"
-	else if(total_users)
-		icon_state = "holopad1"
-	else
-		icon_state = "holopad0"
 
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
@@ -482,8 +502,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
-	return 1
+
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+	return TRUE
+
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)

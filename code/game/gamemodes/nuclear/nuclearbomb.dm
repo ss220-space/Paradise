@@ -16,7 +16,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/extended = FALSE
 	var/lighthack = FALSE
@@ -46,6 +46,27 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
 
+
+/obj/machinery/nuclearbomb/Initialize()
+	. = ..()
+	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
+	wires = new/datum/wires/nuclearbomb(src)
+	previous_level = get_security_level()
+	GLOB.poi_list |= src
+	core = new /obj/item/nuke_core/plutonium(src)
+	STOP_PROCESSING(SSobj, core)
+	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/nuclearbomb/Destroy()
+	SStgui.close_uis(wires)
+	QDEL_NULL(wires)
+	QDEL_NULL(core)
+	GLOB.poi_list.Remove(src)
+	return ..()
+
+
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
 	if(!panel_open)
@@ -70,22 +91,34 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_FULLY_EXPOSED)
 			. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
 
-/obj/machinery/nuclearbomb/Initialize()
-	. = ..()
-	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
-	wires = new/datum/wires/nuclearbomb(src)
-	previous_level = get_security_level()
-	GLOB.poi_list |= src
-	core = new /obj/item/nuke_core/plutonium(src)
-	STOP_PROCESSING(SSobj, core)
-	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
 
-/obj/machinery/nuclearbomb/Destroy()
-	SStgui.close_uis(wires)
-	QDEL_NULL(wires)
-	QDEL_NULL(core)
-	GLOB.poi_list.Remove(src)
-	return ..()
+/obj/machinery/nuclearbomb/update_icon_state()
+	icon_state = initial(icon_state)
+	if(lighthack)
+		return
+
+	if(exploded)
+		icon_state = "nuclearbomb3"
+		return
+
+	if(timing)
+		icon_state = "nuclearbomb2"
+		return
+
+	if(!safety)
+		icon_state = "nuclearbomb1"
+
+
+/obj/machinery/nuclearbomb/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(panel_open)
+		. += mutable_appearance(icon, "npanel_open")
+
+	if(!lighthack)
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+
 
 /obj/machinery/nuclearbomb/process()
 	if(timing)
@@ -111,7 +144,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -127,7 +160,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -136,7 +169,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!user.drop_item_ground(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
 				return
@@ -182,7 +215,7 @@ GLOBAL_VAR(bomb_set)
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
 			return
 		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
-		anchored = FALSE
+		set_anchored(FALSE)
 		removal_stage = NUKE_MOBILE
 
 /obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
@@ -214,13 +247,13 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -229,7 +262,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
+			update_icon(UPDATE_OVERLAYS)
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -283,6 +316,8 @@ GLOBAL_VAR(bomb_set)
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 	add_fingerprint(user)
 	if(!panel_open)
 		return ui_interact(user)
@@ -292,7 +327,7 @@ GLOBAL_VAR(bomb_set)
 		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, src))
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
@@ -343,13 +378,12 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
-				anchored = TRUE
+				set_anchored(TRUE)
 				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 			else
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 			if(!lighthack)
 				flick("nuclearbombc", src)
-				icon_state = "nuclearbomb1"
 			extended = TRUE
 			return
 		if("auth")
@@ -392,13 +426,13 @@ GLOBAL_VAR(bomb_set)
 	switch(action)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
-				anchored = FALSE
+				set_anchored(FALSE)
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 			else if(isinspace())
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
 			else
-				anchored = !(anchored)
+				set_anchored(!anchored)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 				else
@@ -415,6 +449,7 @@ GLOBAL_VAR(bomb_set)
 					set_security_level(previous_level)
 				timing = FALSE
 				GLOB.bomb_set = FALSE
+			update_icon()
 		if("toggle_armed")
 			if(safety)
 				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
@@ -423,9 +458,8 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
 				return
 			timing = !(timing)
+			update_icon()
 			if(timing)
-				if(!lighthack)
-					icon_state = "nuclearbomb2"
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
@@ -437,8 +471,6 @@ GLOBAL_VAR(bomb_set)
 				if(!is_syndicate)
 					set_security_level(previous_level)
 				GLOB.bomb_set = FALSE
-				if(!lighthack)
-					icon_state = "nuclearbomb1"
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
@@ -466,12 +498,12 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
+		update_icon()
 		return
 	exploded = TRUE
 	yes_code = FALSE
 	safety = TRUE
-	if(!lighthack)
-		icon_state = "nuclearbomb3"
+	update_icon()
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = 1
@@ -503,7 +535,7 @@ GLOBAL_VAR(bomb_set)
 			else if(off_station == 2)
 				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
 			else
-				to_chat(world, "<b>The station was destoyed by the nuclear blast!</b>")
+				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
 			SSticker.mode.station_was_nuked = (off_station<2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
@@ -515,16 +547,16 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
 	lighthack = !lighthack
+	update_icon()
+
 
 /obj/machinery/nuclearbomb/proc/reset_safety_callback()
 	safety = !safety
+	update_icon()
 	if(safety == 1)
 		if(!is_syndicate)
 			set_security_level(previous_level)
 		visible_message("<span class='notice'>The [src] quiets down.</span>")
-		if(!lighthack)
-			if(icon_state == "nuclearbomb2")
-				icon_state = "nuclearbomb1"
 	else
 		visible_message("<span class='notice'>The [src] emits a quiet whirling noise!</span>")
 

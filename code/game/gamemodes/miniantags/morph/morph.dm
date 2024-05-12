@@ -18,7 +18,7 @@
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	tts_seed = "Treant"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -30,7 +30,7 @@
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
@@ -70,9 +70,8 @@
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
-		cancel_call_proc(usr)
-	else
-		return
+		SSshuttle.emergency.cancel()
+
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -85,6 +84,7 @@
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
 
 /**
  * This proc enables or disables morph reproducing ability
@@ -113,8 +113,12 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/smoke)
-	AddSpell(new /obj/effect/proc_holder/spell/forcewall)
+	var/obj/effect/proc_holder/spell/smoke/smoke = new
+	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
+	smoke.human_req = FALSE
+	forcewall.human_req = FALSE
+	AddSpell(smoke)
+	AddSpell(forcewall)
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
@@ -128,7 +132,7 @@
 	else
 		eat_self_message = "<span class='notice'>You start eating [item].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, target = item))
+	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return
@@ -177,7 +181,7 @@
 	//Morph is weaker initially when disguised
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	speed = MORPHED_SPEED
+	set_varspeed(MORPHED_SPEED)
 	ambush_spell.updateButtonIcon()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
@@ -190,7 +194,7 @@
 	//Baseline stats
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
@@ -240,7 +244,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		var/obj/item/organ/external/affecting = attacker.get_organ("[attacker.hand ? "l" : "r" ]_hand")
+		var/obj/item/organ/external/affecting = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		affecting.receive_damage(20)
 		add_food(5)
 
@@ -329,7 +333,7 @@
 	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/item_in_view in view(src))
-			if(istype(item_in_view, /obj) && allowed(item_in_view))
+			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
 		if (picked_thing)
@@ -345,7 +349,7 @@
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(istype(target,/obj/item)) // Eat items just to be annoying
+	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)
@@ -360,14 +364,16 @@
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
-	to_chat(src, "<b><font size=3 color='red'>You are a morph.</font><br></b>")
-	to_chat(src, "<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")
-	to_chat(src, "<span class='specialnotice'>As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnoticebold'>Mimic ability</span>.</span>")
-	to_chat(src, "<span class='specialnotice'>The transformation will not go unnoticed for bystanding observers.</span>")
-	to_chat(src, "<span class='specialnoticebold'>While morphed</span><span class='specialnotice'>, you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.</span>")
-	to_chat(src, "<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
-	to_chat(src, "<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
-	to_chat(src, "<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food</span>.")
+	var/list/messages = list()
+	messages.Add("<b><font size=3 color='red'>You are a morph.</font><br></b>")
+	messages.Add("<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")
+	messages.Add("<span class='specialnotice'>As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnoticebold'>Mimic ability.</span></span>")
+	messages.Add("<span class='specialnotice'>The transformation will not go unnoticed for bystanding observers.</span>")
+	messages.Add("<span class='specialnoticebold'>While morphed</span><span class='specialnotice'>, you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.</span>")
+	messages.Add("<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
+	messages.Add("<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
+	messages.Add("<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food.</span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Morph\">Морф</a></span>")
 
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
@@ -383,7 +389,22 @@
 		procreate.completed = TRUE
 		procreate.needs_target = FALSE
 		mind.objectives += procreate
-		mind.announce_objectives()
+		messages.Add(mind.prepare_announce_objectives(FALSE))
+
+	to_chat(src, chat_box_red(messages.Join("<br>")))
+
+
+/mob/living/simple_animal/hostile/morph/get_examine_time()
+	return morphed ? mimic_spell.selected_form.examine_time : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_gender()
+	return morphed ? mimic_spell.selected_form.examine_gender : ..()
+
+
+/mob/living/simple_animal/hostile/morph/get_visible_species()
+	return morphed ? mimic_spell.selected_form.examine_species : ..()
+
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

@@ -25,7 +25,8 @@
 
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ForceContractDisease(new /datum/disease/transformation/robot)
+		var/datum/disease/virus/transformation/robot/D = new
+		D.Contract(M)
 	return ..()
 
 
@@ -39,7 +40,8 @@
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ContractDisease(new /datum/disease/transformation/xeno)
+		var/datum/disease/virus/transformation/xeno/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/fungalspores
@@ -52,7 +54,8 @@
 
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/tuberculosis)
+		var/datum/disease/virus/tuberculosis/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/jagged_crystals
@@ -65,7 +68,8 @@
 	taste_mult = 0
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/berserker)
+	var/datum/disease/berserker/D = new
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/salmonella
@@ -78,7 +82,8 @@
 	taste_mult = 0
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/food_poisoning)
+	var/datum/disease/food_poisoning/D = new
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/gibbis
@@ -92,7 +97,8 @@
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/gbs/curable)
+		var/datum/disease/virus/gbs/non_con/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/prions
@@ -106,7 +112,8 @@
 
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/kuru)
+		var/datum/disease/kuru/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/grave_dust
@@ -120,7 +127,8 @@
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire)
+		var/datum/disease/vampire/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/bacon_grease
@@ -134,7 +142,8 @@
 
 /datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
+		var/datum/disease/critical/heart_failure/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/heartworms

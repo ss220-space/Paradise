@@ -29,7 +29,6 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
 	light_color = "#E4C7C5"
-	flying = FALSE
 	speak_emote = list("roars")
 	tts_seed = "Chen"
 	speed = 3
@@ -46,15 +45,18 @@ Difficulty: Medium
 	blood_volume = BLOOD_VOLUME_NORMAL
 	internal_type = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
-	var/obj/item/melee/energy/cleaving_saw/miner/miner_saw
+	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE
-	var/dash_cooldown = 15
+	var/dash_cooldown = 0
+	var/dash_cooldown_to_use = 1.5 SECONDS
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "falls to the ground, decaying into glowing particles."
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
+	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
 							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
 							   /datum/action/innate/megafauna_attack/transform_weapon)
@@ -63,11 +65,91 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
+
+/* New costume */
+
+/obj/item/clothing/suit/hooded/explorer/blood
+	name = "empowered explorer suit"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
+
+/obj/item/clothing/head/hooded/explorer/blood
+	name = "empowered explorer hood"
+	desc = "An armoured hood for exploring harsh environments. The sweet blood, oh, it sings to you."
+	armor = list("melee" = 55, "bullet" = 35, "laser" = 25, "energy" = 25, "bomb" = 75, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
+	.=..()
+	blood_spell = new
+
+/obj/item/clothing/suit/hooded/explorer/blood/Destroy()
+	QDEL_NULL(blood_spell)
+	return ..()
+
+/obj/effect/proc_holder/spell/blood_suit
+	name = "Bloodlust"
+	desc = "The sweet blood. My swetty blood I love you!"
+	base_cooldown = 20 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	phase_allowed = TRUE
+	should_recharge_after_cast = TRUE
+	stat_allowed = UNCONSCIOUS
+	sound = 'sound/misc/enter_blood.ogg'
+	action_icon_state = "bloodcrawl"
+	panel = "Blood Drunk"
+
+/obj/effect/proc_holder/spell/blood_suit/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
+	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
+		if(user.lying_angle)
+			to_chat(user, span_colossus("Fight right now my bloody warrior!"))
+		else
+			to_chat(user, span_colossus("The blood sings to me. How pretty!"))
+		user.say("Oh sweet blood. I hear you singing!")
+		user.SetWeakened(0)
+		user.SetStunned(0)
+		user.SetParalysis(0)
+		user.SetSleeping(0)
+		user.SetConfused(0)
+		user.SetImmobilized(0)
+		user.adjustStaminaLoss(-100)
+		user.lying_angle = 0
+		user.resting = FALSE
+		user.update_canmove()
+	else
+		to_chat(user, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
+		user.say("I don't hear a blood's sing!")
+		user.Stun(5 SECONDS)
+		user.Confused(20 SECONDS)
+		user.Slowed(20 SECONDS)
+		user.Dizzy(20 SECONDS)
+
+
+/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
+		return .
+	LAZYADD(user.mob_spell_list, blood_spell)
+	blood_spell.action.Grant(user)
+
+
+/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
+		return .
+	LAZYREMOVE(user.mob_spell_list, blood_spell)
+	blood_spell.action.Remove(user)
+
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
-	miner_saw = new(src)
+	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
@@ -125,13 +207,17 @@ Difficulty: Medium
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
+/obj/item/projectile/kinetic/miner/enraged
+	damage = 35
+
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE)
-	var/adjustment_amount = amount * 0.1
-	if(world.time + adjustment_amount > next_move)
-		changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
+	if(!enraged)
+		var/adjustment_amount = amount * 0.1
+		if(world.time + adjustment_amount > next_move)
+			changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death(gibbed)
 	if(health > 0)
 		return
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
@@ -172,7 +258,9 @@ Difficulty: Medium
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
-		adjustHealth(-2)
+		adjustHealth(enraged ? -6 : -2)
+	if(prob(50))
+		transform_weapon() //Still follows the normal rules for cooldown between swaps.
 	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
@@ -185,6 +273,24 @@ Difficulty: Medium
 	. = ..()
 	if(. && target && !targets_the_same)
 		wander = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/enrage()
+	. = ..()
+	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
+	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
+	ranged_cooldown_time = 5 //They got some cooldown mods.
+	projectiletype = /obj/item/projectile/kinetic/miner/enraged
+	maxHealth = 1800
+	health = 1800 //Bit more of a challenge.
+
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/unrage()
+	. = ..()
+	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	dash_cooldown_to_use = initial(dash_cooldown_to_use)
+	ranged_cooldown_time = initial(ranged_cooldown_time)
+	projectiletype = initial(projectiletype)
+	maxHealth = initial(maxHealth)
+	health = initial(health)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash_attack()
 	INVOKE_ASYNC(src, PROC_REF(dash), target)
@@ -215,8 +321,8 @@ Difficulty: Medium
 			turf_dist_to_target += get_dist(dash_target, O)
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
-			for(var/turf/T in getline(own_turf, O))
-				if(is_blocked_turf(T, TRUE))
+			for(var/turf/T as anything in get_line(own_turf, O))
+				if(T.is_blocked_turf(exclude_mobs = TRUE))
 					valid = FALSE
 					continue
 			if(valid)
@@ -232,7 +338,7 @@ Difficulty: Medium
 				accessable_turfs -= t
 	if(!LAZYLEN(accessable_turfs))
 		return
-	dash_cooldown = world.time + initial(dash_cooldown)
+	dash_cooldown = world.time + dash_cooldown_to_use
 	target_turf = pick(accessable_turfs)
 	var/turf/step_back_turf = get_step(target_turf, get_cardinal_dir(target_turf, own_turf))
 	var/turf/step_forward_turf = get_step(own_turf, get_cardinal_dir(own_turf, target_turf))
@@ -291,7 +397,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter/AttackingTarget()
 	. = ..()
-	if(. && prob(12))
+	if(. && prob(enraged ? 40 : 12))
 		INVOKE_ASYNC(src, PROC_REF(dash))
 
 #undef MINER_DASH_RANGE

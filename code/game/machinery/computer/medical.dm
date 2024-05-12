@@ -146,7 +146,7 @@
 				data["virus"] = list()
 				for(var/D in typesof(/datum/disease))
 					var/datum/disease/DS = new D(0)
-					if(istype(DS, /datum/disease/advance))
+					if(istype(DS, /datum/disease/virus/advance))
 						continue
 					if(!DS.desc)
 						continue
@@ -218,7 +218,7 @@
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
-					spread_text = D.spread_text,
+					spread_text = D.additional_info,
 					cure = D.cure_text || "None",
 					desc = D.desc,
 					severity = D.severity
@@ -399,9 +399,9 @@
 		<br>\nImportant Notes:
 		<br>\n\t[active2.fields["notes"]]<br>\n
 		<br>\n
-		<center></b>Comments/Log</b></center><br>"}
+		<center></b>Comments/Log</b></center>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "[c]<br>"
+			P.info += "<br>[c["header"]]<br>Comment: [c["text"]]<br>"
 	else
 		P.info += "</b>Medical Record Lost!</b><br>"
 	P.info += "</tt>"
@@ -459,7 +459,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
-	density = 0
+	density = FALSE
 
 #undef MED_DATA_R_LIST
 #undef MED_DATA_MAINT

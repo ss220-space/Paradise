@@ -16,7 +16,7 @@
 		var/mob/living/carbon/grab_owner = grab.assailant
 		user.visible_message(span_warning("[user] suddenly hits [grab_owner] in the face and slips out of their grab!"))
 		grab_owner.Stun(2 SECONDS) //Drops the grab
-		grab_owner.apply_damage(5, BRUTE, "head", grab_owner.run_armor_check("head", "melee"))
+		grab_owner.apply_damage(5, BRUTE, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
 		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
 	user.revive()
@@ -25,7 +25,7 @@
 	user.update_blurry_effects()
 	user.UpdateAppearance() //Ensures that the user's appearance matches their DNA.
 	user.regenerate_icons()
-	user.lying = FALSE
+	user.lying_angle = 0
 	user.resting = FALSE
 	user.update_canmove()
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.

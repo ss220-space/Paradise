@@ -27,8 +27,10 @@
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/megaphone(src)	//added here deleted on maps
+	new /obj/item/megaphone(src)
 	new /obj/item/storage/garmentbag/engineering_chief(src)
+	new /obj/item/storage/bag/construction(src)
+	new /obj/item/storage/belt/utility/chief/full(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
@@ -86,6 +88,8 @@
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/storage/bag/construction(src)
+	new /obj/item/storage/bag/construction(src)
 
 
 /obj/structure/closet/secure_closet/atmos_personal

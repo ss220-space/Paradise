@@ -5,14 +5,14 @@
 	min_broken_damage = 50
 	amputation_point = "trunk"
 	encased = null
-	gendered_icon = 0
+	gendered_icon = FALSE
 
 /obj/item/organ/external/groin/diona
 	species_type = /datum/species/diona
 	name = "fork"
 	min_broken_damage = 50
 	amputation_point = "lower trunk"
-	gendered_icon = 0
+	gendered_icon = FALSE
 
 /obj/item/organ/external/arm/diona
 	species_type = /datum/species/diona
@@ -76,7 +76,7 @@
 	min_broken_damage = 25
 	encased = null
 	amputation_point = "upper trunk"
-	gendered_icon = 0
+	gendered_icon = FALSE
 
 /obj/item/organ/diona/process()
 	return
@@ -87,7 +87,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	dead_icon = null
-	parent_organ = "chest"
+	parent_organ_zone = BODY_ZONE_CHEST
 	actions_types = list(/datum/action/item_action/organ_action/diona_brain_evacuation)
 
 /datum/action/item_action/organ_action/diona_brain_evacuation
@@ -101,7 +101,7 @@
 		return FALSE
 
 
-/datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
+/datum/action/item_action/organ_action/diona_brain_evacuation/Trigger(left_click = TRUE)
 	. = ..()
 	var/confirm = alert("Вы уверены, что хотите покинуть свое тело как нимфа? (!Если использовать, пока живы, то лишитесь роли антагониста!)","Confirm evacuation","Yes","No")
 	if(confirm == "No")
@@ -109,7 +109,7 @@
 
 	if(. && istype(target, /obj/item/organ/internal/brain/diona))
 		var/is_dead = owner.is_dead()
-		if(is_dead || do_after(owner, 1 MINUTES, target = owner))
+		if(is_dead || do_after(owner, 1 MINUTES, owner))
 			var/obj/item/organ/internal/brain/diona/brain = target
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
@@ -146,9 +146,9 @@
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	parent_organ = "groin"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 
-/obj/item/organ/internal/heart/diona/update_icon()
+/obj/item/organ/internal/heart/diona/update_icon_state()
 	return
 
 /obj/item/organ/internal/eyes/diona
@@ -156,7 +156,7 @@
 	name = "receptor node"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-	parent_organ = "chest"
+	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/liver/diona
 	species_type = /datum/species/diona
@@ -171,9 +171,11 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	desc = "A strange organic object used by a Gestalt for orientation in a three-dimensional projection."
-	parent_organ = "groin"
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+
 
 /datum/component/diona_internals
+
 
 /datum/component/diona_internals/Initialize()
 	if(!isatom(parent))
@@ -181,7 +183,10 @@
 	if(istype(parent, /obj/item/organ/internal))
 		RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(transform_organ))
 
+
 /datum/component/diona_internals/proc/transform_organ()
+	SIGNAL_HANDLER
+
 	if(is_int_organ(parent))
 		var/obj/item/organ/internal/organ = parent
 		var/mob/living/simple_animal/diona/nymph = new /mob/living/simple_animal/diona(get_turf(organ.owner))

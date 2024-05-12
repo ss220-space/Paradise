@@ -13,7 +13,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = list("hits", "gnawing", "bites")
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
 	speed = 0
@@ -34,7 +33,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	faction = list("carp")
-	flying = TRUE
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
@@ -69,6 +67,7 @@
 	carp_randomify(rarechance)
 	update_icons()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
@@ -96,7 +95,7 @@
 	base_dead_overlay.appearance_flags = RESET_COLOR
 	add_overlay(base_dead_overlay)
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = NONE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/carp/AttackingTarget()

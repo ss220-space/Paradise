@@ -3,6 +3,7 @@
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
+	pass_flags_self = PASSGRILLE
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
@@ -43,9 +44,6 @@
 	//height=42
 	icon='icons/obj/fence-ns.dmi'
 
-/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
-	. = ..()
-	update_icon()
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()
@@ -69,7 +67,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-	if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -96,6 +94,13 @@
 	QDEL_IN(src, 0.2)
 	return RCD_ACT_SUCCESSFULL
 
+/obj/structure/grille/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		Bumped(hit_object)
+	take_damage(25) //second time turn into broken
+	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
+
 /obj/structure/grille/Bumped(atom/movable/moving_atom)
 	..()
 
@@ -114,38 +119,38 @@
 	. = ..()
 	if(.)
 		return
+	if(shock(user, 70))
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	user.visible_message(span_warning("[user] hits [src]."))
+	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
-	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] hits [src].</span>")
-	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		return
+	take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/attack_alien(mob/living/carbon/alien/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
-		take_damage(user.obj_damage, BRUTE, "melee", 1)
+		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return 1
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(30)
-		else
-			return !density
 
-/obj/structure/grille/CanAStarPass(ID, dir, caller)
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
+	if(!. && isprojectile(mover))
+		return prob(30)
+
+
+/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(checkpass(caller, PASSGRILLE))
+		. = TRUE
+
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -178,14 +183,14 @@
 	deconstruct()
 
 /obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
-	if(!(istype(loc, /turf/simulated) || anchored))
+	if(!(issimulatedturf(loc) || anchored))
 		return
 	. = TRUE
 	if(shock(user, 90))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 
@@ -223,7 +228,7 @@
 			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 			return
 	to_chat(user, "<span class='notice'>You start placing the window...</span>")
-	if(do_after(user, 20, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
@@ -234,7 +239,7 @@
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		W.update_nearby_icons()
@@ -253,14 +258,14 @@
 /obj/structure/grille/deconstruct(disassembled = TRUE)
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/R = new rods_type(drop_location(), rods_amount)
 		transfer_fingerprints_to(R)
 		qdel(src)
 	..()
 
 /obj/structure/grille/obj_break()
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		new broken_type(loc)
 		var/obj/R = new rods_type(drop_location(), rods_broken)
 		transfer_fingerprints_to(R)
@@ -307,7 +312,7 @@
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
-	density = 0
+	density = FALSE
 	obj_integrity = 20
 	broken = 1
 	rods_amount = 1

@@ -5,11 +5,12 @@
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
-	flags = HANDSLOW
+	item_flags = SLOWS_WHILE_IN_HAND
+	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
-	var/ready_to_fire = 0
+	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
@@ -18,56 +19,67 @@
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/ashen //you can't shoot wooden arrows from bone bow!
-	flags = 0
+	flags = NONE
 	force = 10
 	slowdown_when_ready = 1
 
-/obj/item/gun/projectile/bow/update_icon()
+
+/obj/item/gun/projectile/bow/proc/update_state()
+	update_slowdown()
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
+
+
+/obj/item/gun/projectile/bow/update_icon_state()
 	if(magazine.ammo_count() && !ready_to_fire)
 		icon_state = "[initial(icon_state)]_loaded"
 	else if(ready_to_fire)
 		icon_state = "[initial(icon_state)]_firing"
-		slowdown = slowdown_when_ready
 	else
 		icon_state = initial(icon_state)
-		slowdown = initial(slowdown)
 
-/obj/item/gun/projectile/bow/dropped(mob/user)
+
+/obj/item/gun/projectile/bow/proc/update_slowdown()
+	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
+
+
+/obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
-		update_icon()
+		update_state()
 
 	. = ..()
+
 
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
 	if(!ready_to_fire && magazine.ammo_count())
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, 1)
-		update_icon()
 	else
 		ready_to_fire = FALSE
-		update_icon()
+	update_state()
+
 
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
-		update_icon()
 		chamber_round()
+		update_state()
 
-/obj/item/gun/projectile/bow/can_shoot()
+/obj/item/gun/projectile/bow/can_shoot(mob/user)
 	. = ..()
 	if(!ready_to_fire)
 		return FALSE
 
-/obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)
 	return
 
 /obj/item/gun/projectile/bow/process_chamber(eject_casing = 0, empty_chamber = 1)
 	. = ..()
 	ready_to_fire = FALSE
-	update_icon()
+	update_state()
 
 // ammo
 /obj/item/ammo_box/magazine/internal/bow
@@ -121,7 +133,8 @@
 	desc = "A quiver for holding arrows."
 	icon_state = "quiver"
 	item_state = "quiver"
-	storage_slots = 20
+	storage_slots = 21
+	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow
@@ -132,8 +145,8 @@
 		new /obj/item/ammo_casing/caseless/arrow(src)
 	update_icon()
 
-/obj/item/storage/backpack/quiver/update_icon()
-	if(length(contents) > 0)
+/obj/item/storage/backpack/quiver/update_icon_state()
+	if(length(contents))
 		icon_state = "quiver_[clamp(length(contents),1,5)]"
 	else
 		icon_state = initial(icon_state)
@@ -143,7 +156,8 @@
 	desc = "A fireproof quiver made from the chitin of a marrow weaver. Used to hold arrows."
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
-	storage_slots = 20
+	storage_slots = 21 //every craft makes 3 arrows
+	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/caseless/arrow

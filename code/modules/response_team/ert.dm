@@ -4,6 +4,11 @@
 #define ERT_TYPE_RED		2
 #define ERT_TYPE_GAMMA		3
 
+//Ranks
+
+#define MEDIUM_RANK_HOURS	200
+#define MAX_RANK_HOURS		500
+
 /datum/game_mode
 	var/list/datum/mind/ert = list()
 
@@ -71,7 +76,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
-		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
+		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
@@ -135,12 +140,12 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.cannot_send_team()
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
-	if(role == "Cyborg")
+	if(role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -165,12 +170,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.s_tone = skin_tone
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
-
-	M.rename_character(null, "[pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")] [M.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	M.rename_character(null, "Безымянный") // Rewritten in /datum/outfit/job/centcom/response_team/pre_equip
 	M.age = rand(23,35)
 	M.regenerate_icons()
-	M.update_body()
-	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new
@@ -186,6 +188,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	SSjobs.CreateMoneyAccount(M, role, null)
 
 	GLOB.active_team.equip_officer(role, M)
+
+	M.update_body()
+	M.update_dna()
 
 	return M
 
@@ -306,6 +311,12 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
 	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
+	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира - в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
+	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
+	var/exp_type = FALSE
+	var/list/ranks = list("Min" = "Рядовой",
+				"Med" = "Младший капрал",
+				"Max" = "Капрал")
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert
@@ -314,6 +325,29 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	box = /obj/item/storage/box/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
+
+/datum/outfit/job/centcom/response_team/pre_equip(mob/H) // Used to give specific rank
+	. = ..()
+	if(H.client)
+		var/client/C = H.client
+		var/list/all_hours = params2list(C.prefs.exp)
+		var/hours = text2num(all_hours[EXP_TYPE_CREW])
+		if(exp_type) // If the ERT have special exp type: EXP_TYPE_COMMAND for Leaders, EXP_TYPE_MEDICAL for medics, etc
+			hours -= text2num(all_hours[exp_type])
+			hours += text2num(all_hours[exp_type]) * 2
+		hours *= rand(0.8, 1.2)
+		if((hours - hours_dif) <= MEDIUM_RANK_HOURS)
+			H.rename_character(null, "[ranks["Min"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		else if((hours - hours_dif) < MAX_RANK_HOURS)
+			H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+		else
+			H.rename_character(null, "[ranks["Max"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	else
+		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+/datum/outfit/job/centcom/response_team/post_equip(mob/H)
+	. = ..()
+	to_chat(H, special_message)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"

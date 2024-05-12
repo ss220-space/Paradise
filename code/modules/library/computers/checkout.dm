@@ -3,10 +3,6 @@
  */
 /obj/machinery/computer/library/checkout
 	name = "Check-In/Out Computer"
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
-	anchored = 1
-	density = 1
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book
 	var/buffer_book
@@ -197,7 +193,8 @@
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
 	if(density && !emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+		if(user)
+			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/W as obj, mob/user as mob)
 	if(default_unfasten_wrench(user, W))

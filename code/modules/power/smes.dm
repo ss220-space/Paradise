@@ -57,7 +57,7 @@
 		stat |= BROKEN
 		return
 	terminal.master = src
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/smes/upgraded/Initialize(mapload)
 	. = ..()
@@ -87,30 +87,29 @@
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
-/obj/machinery/power/smes/update_icon()
-	overlays.Cut()
-	if(stat & BROKEN)	return
 
-	overlays += image('icons/obj/engines_and_power/power.dmi', "smes-op[outputting]")
+/obj/machinery/power/smes/update_overlays()
+	. = ..()
+	if((stat & BROKEN) || panel_open)
+		return
 
-	if(inputting == 2)
-		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc2")
-	else if(inputting == 1)
-		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc1")
-	else
-		if(input_attempt)
-			overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc0")
+	. += "smes-op[outputting]"
+
+	if(inputting)
+		. += "smes-oc[inputting]"
+	else if(input_attempt)
+		. += "smes-oc0"
 
 	var/clevel = chargedisplay()
-	if(clevel>0)
-		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-og[clevel]")
-	return
+	if(clevel > 0)
+		. += "smes-og[clevel]"
+
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		add_fingerprint(user)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	//changing direction using wrench
@@ -128,7 +127,7 @@
 			to_chat(user, "<span class='alert'>No power source found.</span>")
 			return
 		stat &= ~BROKEN
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	//exchanging parts using the RPE
@@ -171,7 +170,7 @@
 			if(NORTHWEST, SOUTHWEST)
 				tempDir = WEST
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-		if(istype(tempLoc, /turf/space))
+		if(isspaceturf(tempLoc))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
 			return
 		else if(istype(tempLoc))
@@ -182,7 +181,7 @@
 		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
 		playsound(loc, C.usesound, 50, 1)
 
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			if(!terminal && panel_open)
 				add_fingerprint(user)
 				T = get_turf(user)
@@ -202,7 +201,7 @@
 		return
 
 	//disassembling the terminal
-	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
+	if(I.tool_behaviour == TOOL_WIRECUTTER && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
@@ -211,7 +210,7 @@
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(terminal && panel_open)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
@@ -312,7 +311,7 @@
 
 	// only update icon if state changed
 	if(last_disp != chargedisplay() || last_chrg != inputting || last_onln != outputting)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 
 
@@ -342,7 +341,7 @@
 	output_used -= excess
 
 	if(clev != chargedisplay() ) //if needed updates the icons overlay
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/machinery/power/smes/attack_ai(mob/user)
@@ -353,6 +352,9 @@
 	ui_interact(user)
 
 /obj/machinery/power/smes/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -391,10 +393,10 @@
 	switch(action)
 		if("tryinput")
 			inputting(!input_attempt)
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if("tryoutput")
 			outputting(!output_attempt)
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if("input")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
@@ -477,7 +479,7 @@
 	charge -= 1e6/severity
 	if(charge < 0)
 		charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	log_smes()
 	..()
 

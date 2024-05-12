@@ -31,12 +31,12 @@
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/pickup(mob/user)
+/obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/dropped(mob/user)
-	..()
+/obj/item/reagent_containers/syringe/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/syringe/attack_self(mob/user)
@@ -79,7 +79,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
 					busy = TRUE
-					if(!do_mob(user, target))
+					if(!do_after(user, 3 SECONDS, target, NONE))
 						busy = FALSE
 						return
 					if(reagents.holder_full())
@@ -125,7 +125,7 @@
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_mob(user, L))
+					if(!do_after(user, 3 SECONDS, L, NONE))
 						return
 					if(!reagents.total_volume)
 						return
@@ -148,29 +148,35 @@
 				mode = SYRINGE_DRAW
 				update_icon()
 
-/obj/item/reagent_containers/syringe/update_icon()
-	cut_overlays()
+
+/obj/item/reagent_containers/syringe/update_icon_state()
+	var/rounded_vol
+	if(reagents?.total_volume)
+		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
+	else
+		rounded_vol = 0
+	icon_state = "[rounded_vol]"
+	item_state = "syringe_[rounded_vol]"
+
+
+/obj/item/reagent_containers/syringe/update_overlays()
+	. = ..()
 	var/rounded_vol
 	if(reagents && reagents.total_volume)
 		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling_overlay)
-	else
-		rounded_vol = 0
-	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
-	if(ismob(loc))
-		var/mob/M = loc
+		. += filling_overlay
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)
 			if(SYRINGE_DRAW)
 				injoverlay = "draw"
 			if(SYRINGE_INJECT)
 				injoverlay = "inject"
-		add_overlay(injoverlay)
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
+		. += injoverlay
+		update_equipped_item(update_speedmods = FALSE)
+
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"

@@ -7,8 +7,8 @@
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+	if(isturf(M.loc) && !isspaceturf(M.loc))
+		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -44,8 +44,8 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+	if(isturf(M.loc) && !isspaceturf(M.loc))
+		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))
@@ -119,7 +119,7 @@
 			M.emote("twitch_s")
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
-			M.bodytemperature += rand(15,30)
+			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
 			update_flags |= M.adjustToxLoss(4, FALSE)
@@ -131,7 +131,7 @@
 			to_chat(M, "<span class='warning'>You can't breathe!</span>")
 			update_flags |= M.adjustOxyLoss(15, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
-			M.Stun(2 SECONDS, FALSE)
+			M.Stun(2 SECONDS)
 		else if(effect <= 4)
 			to_chat(M, "<span class='warning'>You feel terrible!</span>")
 			M.emote("drool")
@@ -179,7 +179,7 @@
 		if(36 to 70)
 			M.Drowsy(20 SECONDS)
 		if(71 to INFINITY)
-			M.Paralyse(20 SECONDS, FALSE)
+			M.Paralyse(20 SECONDS)
 			M.Drowsy(20 SECONDS)
 	return ..() | update_flags
 
@@ -196,7 +196,7 @@
 			M.emote("twitch_s")
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
-			M.bodytemperature += rand(15,30)
+			M.adjust_bodytemperature(rand(15,30))
 			update_flags |= M.adjustToxLoss(3, FALSE)
 		else if(effect <= 7)
 			update_flags |= M.adjustToxLoss(4, FALSE)
@@ -247,7 +247,7 @@
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
 		to_chat(M, "<span class='notice'>You feel warm.</span>")
-		M.bodytemperature += rand(1,10)
+		M.adjust_bodytemperature(rand(1,10))
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
 		update_flags |= M.adjustToxLoss(1, FALSE)
@@ -267,19 +267,19 @@
 			M.emote("scream")
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
-			M.bodytemperature += rand(5,30)
+			M.adjust_bodytemperature(rand(5,30))
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			update_flags |= M.adjustToxLoss(1, FALSE)
-			M.Stun(4 SECONDS, FALSE)
+			M.Stun(4 SECONDS)
 		else if(effect <= 7)
 			M.Jitter(60 SECONDS)
 			M.emote("grumble")
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] is sweating like a pig!</span>")
-			M.bodytemperature += rand(20,100)
+			M.adjust_bodytemperature(rand(20,100))
 			update_flags |= M.adjustToxLoss(5, FALSE)
-			M.Stun(6 SECONDS, FALSE)
+			M.Stun(6 SECONDS)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] starts tweaking the hell out!</span>")
 			M.Jitter(200 SECONDS)
@@ -318,15 +318,15 @@
 		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
 	if(prob(10))
 		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
-		M.bodytemperature--
+		M.adjust_bodytemperature(-1)
 		M.emote("smile")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>You feel too chill!</span>")
 		M.emote(pick("yawn", "drool"))
-		M.Stun(2 SECONDS, FALSE)
+		M.Stun(2 SECONDS)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
-		M.bodytemperature -= 20
+		M.adjust_bodytemperature(-20)
 	if(prob(2))
 		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
@@ -343,7 +343,7 @@
 			M.emote("drool")
 		else if(effect <= 4)
 			M.emote("shiver")
-			M.bodytemperature -= 40
+			M.adjust_bodytemperature(-40)
 		else if(effect <= 7)
 			to_chat(M, "<span class='warning'>Your skin is cracking and bleeding!</span>")
 			update_flags |= M.adjustBruteLoss(5, FALSE)
@@ -367,7 +367,7 @@
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
-			M.bodytemperature -= 70
+			M.adjust_bodytemperature(-70)
 	return list(effect, update_flags)
 
 /datum/reagent/methamphetamine
@@ -384,31 +384,35 @@
 	taste_description = "speed"
 
 
-/datum/reagent/methamphetamine/on_mob_add(mob/living/L)
-	if(ismachineperson(L))
-		return
-	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+/datum/reagent/methamphetamine/on_mob_add(mob/living/user)
+	. = ..()
+	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 
 
-/datum/reagent/methamphetamine/on_mob_life(mob/living/M)
+/datum/reagent/methamphetamine/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
-		M.emote(pick("twitch_s","blink_r","shiver"))
+		user.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
-		M.AdjustJitter(10 SECONDS)
-	M.AdjustDrowsy(-20 SECONDS)
-	M.AdjustParalysis(-4 SECONDS)
-	M.AdjustStunned(-4 SECONDS)
-	M.AdjustWeakened(-4 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-7, FALSE)
-	M.SetSleeping(0)
+		user.AdjustJitter(10 SECONDS)
+	user.AdjustDrowsy(-20 SECONDS)
+	user.AdjustParalysis(-4 SECONDS)
+	user.AdjustStunned(-4 SECONDS)
+	user.AdjustWeakened(-4 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-7, FALSE)
+	user.SetSleeping(0)
 	if(prob(50))
-		update_flags |= M.adjustBrainLoss(1, FALSE)
+		update_flags |= user.adjustBrainLoss(1, FALSE)
+	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 	return ..() | update_flags
 
-/datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	..()
+
+/datum/reagent/methamphetamine/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
+
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -455,7 +459,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
 			head_organ.f_style = "Very Long Beard"
@@ -678,6 +682,7 @@
 	..()
 
 /datum/reagent/fliptonium/on_mob_delete(mob/living/M)
+	. = ..()
 	M.SpinAnimation(speed = 12, loops = -1)
 
 /datum/reagent/fliptonium/overdose_process(mob/living/M, severity)
@@ -708,6 +713,7 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
+
 /datum/reagent/rotatium //Rotatium. Fucks up your rotation and is hilarious
 	name = "Rotatium"
 	id = "rotatium"
@@ -717,22 +723,25 @@
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
 	taste_description = "spinning"
 
+
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
 		if(current_cycle >= 20 && current_cycle % 20 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle / 20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/key in pm_controller.controlled_planes)
+				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
+
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
-	if(M && M.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
+	if(M?.hud_used)
+		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
+
 
 //////////////////////////////
 //		   laughter         //
@@ -794,11 +803,11 @@
 				if(40 to 49)
 					M.say(pick(list("УАААААХАХАХ!", "КХХХААААААААА!", "АХАХАХАХ ААААА АХАХАХАХА!")))
 				if(50 to 55)
-					update_flags |= M.Weaken(4 SECONDS)
-					update_flags |= M.Jitter(10 SECONDS)
+					M.Weaken(4 SECONDS)
+					M.Jitter(10 SECONDS)
 					M.emote(pick("laugh"))
 				if(60 to 69)
-					M.bodytemperature += rand(1, 5)
+					M.adjust_bodytemperature(rand(1, 5))
 					M.vomit()
 					update_flags |= M.adjustBrainLoss(rand(1, 5))
 				if(70 to 74)
@@ -840,10 +849,10 @@
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
 		if(51 to 100)
 			M.emote(pick("whimper", "glare", "cry", "sniff"))
-			update_flags |= M.Jitter(10 SECONDS)
+			M.Jitter(10 SECONDS)
 		if(101 to 150)
 			to_chat(M, "<span class='warning'>Your life has lost all colours</span>")
-			update_flags |= M.EyeBlind(16 SECONDS)
+			M.EyeBlind(16 SECONDS)
 			update_flags |= M.adjustBrainLoss(rand(1, 7))
 		if(151 to 200)
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
@@ -884,32 +893,36 @@
 	taste_description = "wiper fluid"
 
 
-/datum/reagent/lube/ultra/on_mob_add(mob/living/L)
-	if(ismachineperson(L))
-		ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+/datum/reagent/lube/ultra/on_mob_add(mob/living/user)
+	. = ..()
+	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 
 
-/datum/reagent/lube/ultra/on_mob_life(mob/living/M)
+/datum/reagent/lube/ultra/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
-	if(prob(1))
-		if(prob(1))
-			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+	if(prob(1) && prob(1))
+		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.AdjustParalysis(-4 SECONDS)
-	M.AdjustStunned(-4 SECONDS)
-	M.AdjustWeakened(-4 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-7, FALSE)
-	M.Jitter(6 SECONDS)
-	update_flags |= M.adjustBrainLoss(0.5, FALSE)
+		to_chat(user, "<span class='notice'>[high_message]</span>")
+	user.AdjustParalysis(-4 SECONDS)
+	user.AdjustStunned(-4 SECONDS)
+	user.AdjustWeakened(-4 SECONDS)
+	update_flags |= user.adjustStaminaLoss(-7, FALSE)
+	user.Jitter(6 SECONDS)
+	update_flags |= user.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
-		M.emote(pick("twitch", "shiver"))
+		user.emote(pick("twitch", "shiver"))
+	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN)))
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 	return ..() | update_flags
 
-/datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	..()
+
+/datum/reagent/lube/ultra/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
+
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -972,3 +985,225 @@
 		update_flags |= M.adjustFireLoss(rand(1,5) / 2, FALSE)
 		update_flags |= M.adjustBruteLoss(rand(1,5) / 2, FALSE)
 	return list(0, update_flags)
+
+//surge+, used in supercharge implants
+/datum/reagent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A superconducting gel that overloads processors, causing an effect reportedly similar to benzodiazepines in synthetic units."
+	reagent_state = LIQUID
+	color = "#28b581"
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 5
+	taste_description = "silicon"
+
+/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustParalysis(-8 SECONDS)
+	M.AdjustStunned(-8 SECONDS)
+	M.AdjustWeakened(-8 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-25, FALSE)
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+
+	return ..() | update_flags
+
+/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/recent_consumption = holder.addiction_threshold_accumulated[type]
+	M.Jitter(40 SECONDS)
+	M.Stuttering(10 SECONDS)
+	if(prob(5))
+		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
+		M.adjust_bodytemperature(30 * recent_consumption)
+		M.Confused(2 SECONDS * recent_consumption)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
+		var/icon/I = new('icons/obj/zap.dmi', "lightningend")
+		I.Turn(-135)
+		var/obj/effect/overlay/beam/B = new(get_turf(M))
+		B.pixel_x = rand(-20, 0)
+		B.pixel_y = rand(-20, 0)
+		B.icon = I
+		update_flags |= M.adjustFireLoss(rand(1, 5))
+		update_flags |= M.adjustBruteLoss(rand(1, 5))
+	return list(0, update_flags)
+
+	//Servo Lube, supercharge
+/datum/reagent/lube/combat
+	name = "Combat-Lube"
+	id = "combatlube"
+	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	process_flags = SYNTHETIC
+	overdose_threshold = 30
+	addiction_chance = 1
+	addiction_chance_additional = 20
+
+
+/datum/reagent/lube/combat/on_mob_add(mob/living/user)
+	. = ..()
+	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
+
+
+/datum/reagent/lube/combat/on_mob_life(mob/living/user)
+	user.SetSleeping(0)
+	user.SetDrowsy(0)
+
+	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
+	if(prob(10))
+		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+	if(prob(5))
+		to_chat(user, "<span class='notice'>[high_message]</span>")
+	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN)))
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
+	return ..()
+
+
+/datum/reagent/lube/combat/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
+
+
+/datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(prob(20))
+		M.emote("ping")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_from_active_hand()
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustBrainLoss(3, FALSE)
+	return list(effect, update_flags)
+
+/datum/reagent/crack
+	name = "Crack"
+	id = "crack"
+	description = "A crystallized version of cocaine consumed by smoking."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 15
+	addiction_threshold = 5
+	taste_description = "nasty bitterness with a bit of poverty"
+	shock_reduction = 100
+	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+
+/datum/reagent/crack/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-3, FALSE)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
+	if(prob(50))
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/crack/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-0.4, FALSE)
+	update_flags |= M.adjustHeartLoss(1, FALSE)
+	return list(0, update_flags)
+
+/datum/reagent/crack/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/crack_crystal(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/cocaine
+	name = "cocaine"
+	id = "cocaine"
+	description = "World-famous drug with strong effect on organics."
+	reagent_state = LIQUID
+	color = "#f0f0f0"
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 5
+	taste_description = "light bitterness, going off with numbing feeling"
+	shock_reduction = 140
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+
+/datum/reagent/cocaine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.AdjustJitter(10 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-5, FALSE)
+	M.SetParalysis(0)
+	M.SetStunned(0)
+	M.SetWeakened(0)
+	if(prob(25))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/cocaine/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.adjustHeartLoss(1, FALSE)
+	M.AdjustConfused(2 SECONDS)
+	if(prob(25))
+		M.emote("sneeze")
+	if(prob(10))
+		M.emote("collapse")
+	M.emote("tremble")
+	return list(0, update_flags)
+
+/datum/reagent/cocaine/reaction_temperature(exposed_temperature, exposed_volume)
+	if((exposed_temperature >= 350) && (volume >= 10))
+		if(holder)
+			for(var/i = 0, i < round(volume/10,1),i++)
+				new /obj/item/coca_packet(get_turf(holder.my_atom))
+			holder.del_reagent(id)
+
+/datum/reagent/matedecoca
+	name = "Mate de Coca"
+	id = "matedecoca"
+	description = "A tea made of cocaine. Especially intresting drink."
+	reagent_state = LIQUID
+	color = "#8acca7"
+	overdose_threshold = 40
+	addiction_chance = 2
+	addiction_threshold = 5
+	taste_description = "pleasant bitterness"
+	shock_reduction = 50
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	drink_icon = "matedecoca"
+	drink_name = "Mate De Coca"
+	drink_desc = "A tea made of cocaine. Especially intresting drink."
+
+/datum/reagent/matedecoca/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.AdjustJitter(5 SECONDS)
+	M.AdjustDrowsy(-20 SECONDS)
+	M.AdjustParalysis(-3 SECONDS)
+	M.AdjustStunned(-3 SECONDS)
+	M.AdjustWeakened(-3 SECONDS)
+	M.SetSleeping(0)
+	return ..() | update_flags
+
+/datum/reagent/matedecoca/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(25))
+		M.fakevomit()
+		M.emote("tremble")
+	return list(0, update_flags)
+

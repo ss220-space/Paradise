@@ -251,6 +251,7 @@ const ColorContent = (props, context) => {
       {colorOptions.map(c => (
         !!data[c.key] && (
           <Button
+            key={c.key}
             content={c.text}
             onClick={
               () => act(c.action)

@@ -4,7 +4,7 @@ VOX HEIST ROUNDTYPE
 GLOBAL_LIST_EMPTY(raider_spawn)
 GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
-/datum/game_mode/
+/datum/game_mode
 	var/list/datum/mind/raiders = list()  //Antags.
 	var/list/raid_objectives = list()     //Raid objectives
 
@@ -27,16 +27,14 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
 
 /datum/game_mode/heist/can_start()
-
 	if(!..())
-		return 0
-
+		return FALSE
 	var/list/candidates = get_players_for_role(ROLE_RAIDER)
 	var/raider_num = 0
 
 	//Check that we have enough vox.
 	if(candidates.len < required_enemies)
-		return 0
+		return FALSE
 	else if(candidates.len < recommended_enemies)
 		raider_num = candidates.len
 	else
@@ -44,20 +42,18 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	//Grab candidates randomly until we have enough.
 	while(raider_num > 0)
-		var/datum/mind/new_raider = pick(candidates)
+		var/datum/mind/new_raider = pick_n_take(candidates)
 		raiders += new_raider
-		candidates -= new_raider
 		raider_num--
 
+	return TRUE
+
+/datum/game_mode/heist/pre_setup()
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER
 		raider.offstation_role = TRUE
-	..()
-	return 1
-
-/datum/game_mode/heist/pre_setup()
-	return 1
+	return TRUE
 
 /datum/game_mode/heist/post_setup()
 
@@ -94,7 +90,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
 	var/mob/living/carbon/human/vox = newraider.current
-	var/obj/item/organ/external/head/head_organ = vox.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = vox.get_organ(BODY_ZONE_HEAD)
 
 	vox.real_name = capitalize(newname)
 	vox.dna.real_name = vox.real_name
@@ -103,11 +99,11 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.age = rand(12,20)
 	vox.set_species(/datum/species/vox)
 	vox.s_tone = rand(1, 6)
-	vox.languages = list() // Removing language from chargen.
+	LAZYREINITLIST(vox.languages)	// Removing language from chargen.
 	vox.flavor_text = ""
-	vox.add_language("Vox-pidgin")
-	vox.add_language("Galactic Common")
-	vox.add_language("Tradeband")
+	vox.add_language(LANGUAGE_VOX)
+	vox.add_language(LANGUAGE_GALACTIC_COMMON)
+	vox.add_language(LANGUAGE_TRADER)
 	head_organ.h_style = "Short Vox Quills"
 	head_organ.f_style = "Shaved"
 	vox.change_hair_color(97, 79, 25) //Same as the species default colour.
@@ -121,7 +117,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.update_dna()
 	vox.update_eyes()
 
-	for(var/obj/item/organ/external/limb in vox.bodyparts)
+	for(var/obj/item/organ/external/limb as anything in vox.bodyparts)
 		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.
@@ -144,7 +140,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(istype(raider.current,/mob/living/carbon/human) && raider.current.stat != DEAD)
+			if(ishuman(raider.current) && raider.current.stat != DEAD)
 				return 1
 	return 0
 
@@ -172,11 +168,11 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	return objs
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
-	to_chat(raider.current, "<span class='boldnotice'>You are a Vox Raider, fresh from the Shoal!</span>")
-	to_chat(raider.current, "<span class='notice'>The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.</span>")
-	to_chat(raider.current, "<span class='notice'>Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.</span>")
-	to_chat(raider.current, "<span class='notice'>Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!</span>")
-	to_chat(raider.current, "<span class='notice'>Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.</span>")
+	to_chat(raider.current, span_boldnotice("You are a Vox Raider, fresh from the Shoal!"))
+	to_chat(raider.current, span_notice("The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both."))
+	to_chat(raider.current, span_notice("Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious."))
+	to_chat(raider.current, span_notice("Use '[get_language_prefix(LANGUAGE_VOX)]' to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!"))
+	to_chat(raider.current, span_notice("Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them."))
 	spawn(25)
 		show_objectives(raider)
 
@@ -292,7 +288,8 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/New()
 	. = ..()
-	overlays += icon('icons/obj/machines/computer.dmi', "syndie")
+	add_overlay(icon('icons/obj/machines/computer.dmi', "syndie"))
+
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round

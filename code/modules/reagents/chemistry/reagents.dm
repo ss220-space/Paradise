@@ -115,13 +115,22 @@
 		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
-// Called when this reagent is first added to a mob
-/datum/reagent/proc/on_mob_add(mob/living/L)
-	return
 
-// Called when this reagent is removed while inside a mob
-/datum/reagent/proc/on_mob_delete(mob/living/M)
-	return
+/// Called when this reagent is first added to a mob
+/datum/reagent/proc/on_mob_add(mob/living/carbon/human/user)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(shock_reduction && ishuman(user))
+		user.update_movespeed_damage_modifiers()
+
+
+/// Called when this reagent is removed while inside a mob
+/datum/reagent/proc/on_mob_delete(mob/living/carbon/human/user)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(shock_reduction)
+		user.update_movespeed_damage_modifiers()
+
 
 /datum/reagent/proc/on_move(mob/M)
 	return
@@ -132,6 +141,39 @@
 
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
+	return
+
+// Called in on_merge() proc if reagent can carry diseases
+/datum/reagent/proc/merge_diseases_data(list/mix_data)
+	if(!(id in GLOB.diseases_carrier_reagents))
+		return
+
+	if(data && mix_data)
+		if(data["diseases"] || mix_data["diseases"])
+			var/list/preserve = list()
+			var/list/all_diseases = data["diseases"] + mix_data["diseases"]
+
+			var/list/advances_to_mix = list()
+			for(var/datum/disease/virus/advance/A in all_diseases)
+				advances_to_mix += A
+				all_diseases -= A
+
+			var/datum/disease/virus/advance/A = Advance_Mix(advances_to_mix)
+			if(istype(A))
+				preserve += A
+
+			// It's almost always 1-3 items in this list, so there shouldn't be any problems with nested loops.
+			for(var/datum/disease/D1 in all_diseases)
+				var/unique = TRUE
+				for(var/datum/disease/D2 in preserve)
+					if(D1.GetDiseaseID() == D2.GetDiseaseID())
+						unique = FALSE
+						break
+				if(unique)
+					preserve += D1.Copy()
+
+			data["diseases"] = preserve
+
 	return
 
 /datum/reagent/proc/on_update(atom/A)
@@ -259,3 +301,10 @@
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+
+/datum/reagent/proc/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount

@@ -4,7 +4,7 @@
 // Hands
 /datum/keybinding/mob/use_held_object
 	name = "Использовать вещь в руке"
-	keys = list("Y", "Z", "Southeast")
+	keys = list("Y", "Z")
 
 /datum/keybinding/mob/use_held_object/down(client/C)
 	. = ..()
@@ -20,7 +20,7 @@
 
 /datum/keybinding/mob/drop_held_object
 	name = "Выложить вещь в руке"
-	keys = list("Q", "Northwest")
+	keys = list("Q")
 
 /datum/keybinding/mob/drop_held_object/can_use(client/C, mob/M)
 	return !isrobot(M) && ..()   //robots on 'q' have their own proc for drop, in keybindinds/robot.dm
@@ -28,15 +28,20 @@
 /datum/keybinding/mob/drop_held_object/down(client/C)
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
+	if(!I && C.mob.special_hands_drop_action())
+		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		return
+
 	if(I)
+		if(SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN) & COMPONENT_CANCEL_DROP)
+			return
 		I.run_drop_held_item(C.mob)
-		SEND_SIGNAL(C.mob, COMSIG_MOB_KEY_DROP_ITEM_DOWN, keys, C)
 	else
-		to_chat(C, SPAN_WARNING("Вы ничего не держите в руке!</span>"))
+		to_chat(C, span_warning("Вы ничего не держите в руке!"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"
-	keys = list("X", "Northeast")
+	keys = list("X")
 
 /datum/keybinding/mob/swap_hands/down(client/C)
 	. = ..()
@@ -88,7 +93,7 @@
 	if(C.mob.pulling)
 		C.mob.stop_pulling()
 	else
-		to_chat(C, SPAN_NOTICE("Вы ничего не тащите."))
+		to_chat(C, span_notice("Вы ничего не тащите."))
 
 /datum/keybinding/mob/face_dir
 	/// The direction to face towards.
@@ -126,6 +131,14 @@
 	. = ..()
 	C.body_toggle_head()
 
+/datum/keybinding/mob/target_cycle/chest
+	name = "Выбрать грудь/крылья"
+	keys = list("Numpad5")
+
+/datum/keybinding/mob/target_cycle/chest/down(client/C)
+	. = ..()
+	C.body_chest()
+
 /datum/keybinding/mob/target_cycle/r_arm
 	name = "Выбрать правую руку/кисть"
 	keys = list("Numpad4")
@@ -141,6 +154,14 @@
 /datum/keybinding/mob/target_cycle/l_arm/down(client/C)
 	. = ..()
 	C.body_l_arm()
+
+/datum/keybinding/mob/target_cycle/groin
+	name = "Выбрать пах/хвост"
+	keys = list("Numpad2")
+
+/datum/keybinding/mob/target_cycle/groin/down(client/C)
+	. = ..()
+	C.body_groin()
 
 /datum/keybinding/mob/target_cycle/r_leg
 	name = "Выбрать правую ногу/ступню"
@@ -169,7 +190,7 @@
 		return
 
 	var/obj/screen/zone_sel/selector = C.mob.hud_used.zone_select
-	selector.set_selected_zone(body_part, C.mob)
+	selector.set_selected_zone(body_part)
 
 /datum/keybinding/mob/target/head
 	name = "Выбрать голову"
@@ -186,12 +207,10 @@
 /datum/keybinding/mob/target/chest
 	name = "Выбрать грудь"
 	body_part = BODY_ZONE_CHEST
-	keys = list("Numpad5")
 
-/datum/keybinding/mob/target/groin
-	name = "Выбрать пах"
-	body_part = BODY_ZONE_PRECISE_GROIN
-	keys = list("Numpad2")
+/datum/keybinding/mob/target/wing
+	name = "Выбрать крылья"
+	body_part = BODY_ZONE_WING
 
 /datum/keybinding/mob/target/r_arm
 	name = "Выбрать правую руку"
@@ -209,6 +228,14 @@
 	name = "Выбрать левую кисть"
 	body_part = BODY_ZONE_PRECISE_L_HAND
 
+/datum/keybinding/mob/target/groin
+	name = "Выбрать пах"
+	body_part = BODY_ZONE_PRECISE_GROIN
+
+/datum/keybinding/mob/target/tail
+	name = "Выбрать хвост"
+	body_part = BODY_ZONE_TAIL
+
 /datum/keybinding/mob/target/r_leg
 	name = "Выбрать правую ногу"
 	body_part = BODY_ZONE_R_LEG
@@ -224,3 +251,30 @@
 /datum/keybinding/mob/target/l_foot
 	name = "Выбрать левую ступню"
 	body_part = BODY_ZONE_PRECISE_L_FOOT
+
+/datum/keybinding/mob/trigger_action_button // Don't add a name to this, shouldn't show up in the prefs menu
+	var/datum/action/linked_action
+	var/binded_to // these are expected to actually get deleted at some point, to prevent hard deletes we need to know where to remove them from the clients list
+
+/datum/keybinding/mob/trigger_action_button/down(client/C)
+	. = ..()
+	if(C.mob.next_click > world.time)
+		return
+	linked_action.Trigger()
+	linked_action.UpdateButtonIcon()
+
+/datum/keybinding/mob/move_up
+	name = "Подняться"
+	keys = list("Northeast") // Page Up
+
+/datum/keybinding/mob/move_down
+	name = "Спуститься"
+	keys = list("Southeast") // Page Down
+
+/datum/keybinding/mob/move_up/down(client/C)
+	. = ..()
+	C.mob.move_up()
+
+/datum/keybinding/mob/move_down/down(client/C)
+	. = ..()
+	C.mob.move_down()

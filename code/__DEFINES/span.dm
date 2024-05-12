@@ -1,12 +1,6 @@
-#define SPAN_HEAR(str) ("<span class='hear'>" + str + "</span>")
-#define SPAN_WARNING(str) ("<span class='warning'>" + str + "</span>")
-#define SPAN_ALERT(str) ("<span class='alert'>" + str + "</span>")
-#define SPAN_DANGER(str) ("<span class='danger'>" + str + "</span>")
-#define SPAN_NOTICE(str) ("<span class='notice'>" + str + "</span>")
-#define SPAN_NOTICE_BOLD(str) ("<span class='boldnotice'>" + str + "</span>")
 
 // Нагло скопировано мною с ТГ, то чего у нас в билде нету - закоменчено
-// Старые капсом написанные SPAN_WARNING() и т.д. удалены и заменены в файлах где применялись, на аналоги ниже. без КАПСА!
+// Старые капсом написанные span_warning() и т.д. удалены и заменены в файлах где применялись, на аналоги ниже. без КАПСА!
 
 // Sorted alphabetically
 #define span_abductor(str) ("<span class='abductor'>" + str + "</span>")
@@ -128,6 +122,7 @@
 //#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
+#define span_warningbig(str) ("<span class='warning big'>" + str + "</span>")
 #define span_yell(str) ("<span class='yell'>" + str + "</span>")
 //#define span_yellowteamradio(str) ("<span class='yellowteamradio'>" + str + "</span>")
 #define span_clockitalic(str) ("<span class='clockitalic'>" + str + "</span>")

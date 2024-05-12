@@ -25,7 +25,7 @@
 	attacktext = "кусает"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
-	see_in_dark = 9
+	nightvision = 9
 	universal_understand = 1
 	wander = 0
 	var/life_regen_cycles = 0
@@ -45,11 +45,11 @@
 		return
 	if(resting)
 		if(!wants_to_rest())
-			custom_emote(1, "growls, and gets up.")
+			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
 			StopResting()
 	else if(wants_to_rest())
-		custom_emote(1, "lays down, and starts to lick their wounds.")
+		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")
 		StartResting()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)

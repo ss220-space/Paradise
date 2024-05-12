@@ -1,12 +1,12 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1
@@ -87,7 +87,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -124,19 +124,22 @@
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		log_game("[theghost.key] has taken control of [M] (ckey: [M.key])")
 		M.ghostize()
 		M.key = theghost.key
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
+		log_game("No one decided to take control of [M] (ckey: [M.key])")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
 
 /proc/check_zone(zone)
-	if(!zone)	return "chest"
+	if(!zone)
+		return BODY_ZONE_CHEST
 	switch(zone)
-		if("eyes")
-			zone = "head"
-		if("mouth")
-			zone = "head"
+		if(BODY_ZONE_PRECISE_EYES)
+			zone = BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			zone = BODY_ZONE_HEAD
 	return zone
 
 // Returns zone with a certain probability.
@@ -151,27 +154,36 @@
 	if(prob(probability))
 		return zone
 
-	var/t = rand(1, 18) // randomly pick a different zone, or maybe the same one
-	switch(t)
-		if(1)		 return "head"
-		if(2)		 return "chest"
-		if(3 to 4)	 return "l_arm"
-		if(5 to 6)   return "l_hand"
-		if(7 to 8)	 return "r_arm"
-		if(9 to 10)  return "r_hand"
-		if(11 to 12) return "l_leg"
-		if(13 to 14) return "l_foot"
-		if(15 to 16) return "r_leg"
-		if(17 to 18) return "r_foot"
-
+	switch(rand(1, 18))	// randomly pick a different zone, or maybe the same one
+		if(1)
+			return BODY_ZONE_HEAD
+		if(2)
+			return BODY_ZONE_CHEST
+		if(3 to 4)
+			return BODY_ZONE_L_ARM
+		if(5 to 6)
+			return BODY_ZONE_PRECISE_L_HAND
+		if(7 to 8)
+			return BODY_ZONE_R_ARM
+		if(9 to 10)
+			return BODY_ZONE_PRECISE_R_HAND
+		if(11 to 12)
+			return BODY_ZONE_L_LEG
+		if(13 to 14)
+			return BODY_ZONE_PRECISE_L_FOOT
+		if(15 to 16)
+			return BODY_ZONE_R_LEG
+		if(17 to 18)
+			return BODY_ZONE_PRECISE_R_FOOT
 	return zone
 
+
 /proc/above_neck(zone)
-	var/list/zones = list("head", "mouth", "eyes")
+	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES)
 	if(zones.Find(zone))
-		return 1
-	else
-		return 0
+		return TRUE
+	return FALSE
+
 
 /proc/stars(n, pr)
 	if(pr == null)
@@ -346,14 +358,14 @@
 	return 0
 
 
-/mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
-		return 1
+/mob/proc/abiotic(full_body = FALSE)
+	if(full_body && ((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)) || (back || wear_mask)))
+		return TRUE
 
-	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
-		return 1
+	if((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)))
+		return TRUE
 
-	return 0
+	return FALSE
 
 //converts intent-strings into numbers and back
 GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
@@ -511,13 +523,14 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
 						source.plane = FLOAT_PLANE
-						A.overlays += source
+						A.add_overlay(source)
 						source.layer = old_layer
 						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE
-						A.overlays += alert_overlay
+						A.add_overlay(alert_overlay)
+
 
 /**
   * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
@@ -571,7 +584,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
@@ -752,6 +765,69 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
 
+
+/**
+ * Helper proc to determine if a mob can use emotes that make sound or not.
+ */
+/mob/proc/can_use_audio_emote(intentional)
+	var/emote_status = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+	switch(emote_status)
+		if(EMOTE_INFINITE)  // Spam those emotes
+			return TRUE
+		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
+			return FALSE
+		if(EMOTE_ON_COOLDOWN)	// Already on CD, prevent use
+			return FALSE
+		if(EMOTE_READY)
+			return TRUE
+
+	CRASH("Invalid emote type")
+
+
+/**
+ * Start the cooldown for an emote that plays audio.
+ *
+ * Arguments:
+ * * intentional - Whether or not the user deliberately triggered this emote.
+ * * cooldown - The amount of time that should be waited before any other audio emote can fire.
+ */
+/mob/proc/start_audio_emote_cooldown(intentional, cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote(intentional))
+		return FALSE
+
+	var/cooldown_source = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+
+	if(cooldown_source == EMOTE_READY)
+		// we do have to juggle between cooldowns a little bit, but this lets us keep them on separate cooldowns so
+		// a user screaming every five seconds doesn't prevent them from sneezing.
+		if(intentional)
+			audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		else
+			audio_emote_unintentional_cd_status = EMOTE_ON_COOLDOWN
+		addtimer(CALLBACK(src, PROC_REF(on_audio_emote_cooldown_end), intentional), cooldown)
+	return TRUE  // proceed with emote
+
+
+/mob/proc/on_audio_emote_cooldown_end(intentional)
+	if(intentional)
+		if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+			// only reset to ready if we're in a cooldown state
+			audio_emote_cd_status = EMOTE_READY
+	else
+		if(audio_emote_unintentional_cd_status == EMOTE_ON_COOLDOWN)
+			audio_emote_unintentional_cd_status = EMOTE_READY
+
+
+/proc/stat_to_text(stat)
+	switch(stat)
+		if(CONSCIOUS)
+			return "conscious"
+		if(UNCONSCIOUS)
+			return "unconscious"
+		if(DEAD)
+			return "dead"
+
+
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
 // Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
@@ -772,5 +848,28 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
+	return TRUE
+
+
+/mob/proc/can_pass_adjacent(atom/adjacent, list/types_to_exclude)
+	if(!isturf(loc))
+		return FALSE
+	if(!adjacent)
+		return FALSE
+	if(!isturf(adjacent))
+		adjacent = get_turf(adjacent)
+		if(!adjacent)
+			return FALSE
+	if(adjacent.density)
+		return FALSE
+	if(!in_range(loc, adjacent))
+		return FALSE
+	for(var/atom/check_atom in adjacent)
+		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+			continue
+		if(check_atom.density)
+			return FALSE
+		if(!check_atom.CanPass(src, loc))
+			return FALSE
 	return TRUE
 

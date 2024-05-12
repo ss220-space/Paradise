@@ -5,7 +5,7 @@
 	icon = 'icons/obj/objects.dmi'
 	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	origin_tech = "biotech=2"
 
 
@@ -37,8 +37,7 @@
 	if(ishuman(user))	//eating holder
 		if(target == user)
 			for(var/mob/M in src.contents)
-				if(devoured(M, user))
-					return TRUE
+				return devoured(M, user)
 	. = ..()
 
 /obj/item/holder/proc/show_message(var/message, var/m_type)
@@ -60,7 +59,7 @@
 		M.drop_item_ground(src)
 		to_chat(M, "[src.name] вырывается из вашей хватки!")
 		to_chat(L, "Вы вырываетесь из хвата [M.name]!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
 	L.resting = FALSE
@@ -76,6 +75,22 @@
 //Mob procs and vars for scooping up
 /mob/living
 	var/holder_type = null
+
+/mob/living/simple_animal/MouseDrop(atom/over_object)
+	var/mob/living/carbon/human/human_to_ask = over_object //changed to human to avoid stupid issues like xenos holding animals.
+	if(!istype(human_to_ask) || human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
+		return ..()
+	if(usr == src)
+		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+			if("Yes")
+				if(Adjacent(human_to_ask))
+					get_scooped(human_to_ask)
+				else
+					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
+			if("No")
+				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
+	else
+		return ..()
 
 /mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
 	if(!holder_type)
@@ -128,7 +143,7 @@
 /obj/item/holder/cogscarab
 	name = "cogscarab"
 	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
-	icon_state = "cogscarab"
+	icon_state = "drone_holder"
 	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
 
 /obj/item/holder/pai
@@ -300,7 +315,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snake"
-	slot_flags = SLOT_HEAD | SLOT_NECK
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
 /obj/item/holder/parrot
 	name = "pet"

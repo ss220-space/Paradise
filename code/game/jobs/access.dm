@@ -1,4 +1,4 @@
-/obj/var/list/req_access = list()
+/obj/var/list/req_access
 /obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
@@ -32,25 +32,25 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	if(!L)
-		return 0
+		return FALSE
 	if(!istype(L, /list))
-		return 0
+		return FALSE
 	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, check_one_access, var/list/accesses)
+/proc/has_access(list/req_access, check_one_access, list/accesses)
 	if(check_one_access)
-		if(req_access.len)
+		if(length(req_access))
 			for(var/req in req_access)
 				if(req in accesses) //has an access from the single access list
-					return 1
-			return 0
+					return TRUE
+			return FALSE
 	else
 		for(var/req in req_access)
 			if(!(req in accesses)) //doesn't have this access
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 /proc/get_centcom_access(job)
 	switch(job)
@@ -78,19 +78,19 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Reaction Team Member")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Special Operations Officer")
+		if(JOB_TITLE_CCSPECOPS)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if(JOB_TITLE_CCSOLGOV)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Officer")
+		if(JOB_TITLE_CCOFFICER)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Field Officer")
+		if(JOB_TITLE_CCFIELD)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Supreme Commander")
+		if(JOB_TITLE_CCSUPREME)
 			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_syndicate_access(job)
@@ -116,7 +116,7 @@
 							ACCESS_SYNDICATE_MEDICAL,
 							ACCESS_SYNDICATE_BOTANY,
 							ACCESS_SYNDICATE_ENGINE)
-		if("Syndicate Officer")
+		if(JOB_TITLE_SYNDICATE)
 			return list(	ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMAND,
@@ -447,10 +447,10 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer", JOB_TITLE_CCSPECOPS,"Nanotrasen Navy Representative", JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD,"Nanotrasen Diplomat","Nanotrasen Navy Captain", JOB_TITLE_CCSUPREME)
 
 /proc/get_all_solgov_jobs()
-	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader", JOB_TITLE_CCSOLGOV)
 
 /proc/get_all_soviet_jobs()
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
@@ -458,50 +458,7 @@
 /proc/get_all_special_jobs()
 	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
-//gets the actual job rank (ignoring alt titles)
-//this is used solely for sechuds
-/obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/rank
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			rank = src:id:rank
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		rank = src:rank
-		assignment = src:assignment
-
-	if( rank in GLOB.joblist )
-		return rank
-
-	if( assignment in GLOB.joblist )
-		return assignment
-
-	return "Unknown"
-
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -510,41 +467,12 @@
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
-	ASSERT(istype(H))
-	var/obj/item/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
-	C = H.wear_id
-
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/rankName = "Unknown"
-	if(istype(src, /obj/item/pda))
+	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank
 	else

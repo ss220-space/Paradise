@@ -6,7 +6,7 @@
 /obj/item/clothing/under/pants/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(ishuman(user) && slot == slot_w_uniform)
+	if(ishuman(user) && slot == ITEM_SLOT_CLOTH_INNER)
 		var/mob/living/carbon/human/H = user
 		if(H.undershirt != "Nude")
 			var/additional_body_parts = UPPER_TORSO|ARMS
@@ -91,3 +91,6 @@
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
 	item_color = "camopants"
+
+/obj/item/clothing/under/pants/camo/commando
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)

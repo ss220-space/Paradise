@@ -20,12 +20,13 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	attacktext = "кусает"
-	see_in_dark = 5
+	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
 	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
+	var/bark_emote = list("ла%(ет,ют)%.", "гавка%(ет,ют)%.")	// used in emote.
 	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
@@ -49,40 +50,6 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
-/mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("bark")
-			on_CD = handle_emote_CD()
-		if("yelp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("bark")
-			message = "[pick(src.speak_emote)]!"
-			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, TRUE)
-		if("yelp")
-			message = "yelps!"
-			m_type = 2 //audible
-			playsound(src, yelp_sound, 75, TRUE)
-		if("growl")
-			message = "growls!"
-			m_type = 2 //audible
-			playsound(src, pick(src.growl_sound), 75, TRUE)
-		if("help")
-			to_chat(src, "scream, bark, growl")
-
-	..()
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -97,10 +64,10 @@
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				new /obj/effect/temp_visual/heart(loc)
-				custom_emote(1, "yaps happily!")
+				custom_emote(EMOTE_VISIBLE, "радостно тявка%(ет,ют)%!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				custom_emote(1, "growls!")
+				custom_emote(EMOTE_VISIBLE, "рыч%(ит,ат)%!")
 
 //Corgis and pugs are now under one dog subtype
 /mob/living/simple_animal/pet/dog/corgi
@@ -166,7 +133,7 @@
 	var/armorval = 0
 
 	if(def_zone)
-		if(def_zone == "head")
+		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
 				armorval = inventory_head.armor.getRating(type)
 		else
@@ -189,7 +156,7 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
 			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE
@@ -215,7 +182,7 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
-					if(inventory_head.flags & NODROP)
+					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_head)
@@ -228,7 +195,7 @@
 					return
 			if("back")
 				if(inventory_back)
-					if(inventory_back.flags & NODROP)
+					if(HAS_TRAIT(inventory_back, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_back)
@@ -322,7 +289,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 
@@ -368,7 +335,7 @@
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
-	set_light(0)
+	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)
@@ -443,7 +410,7 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+/mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
 	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
@@ -562,10 +529,10 @@
 							movement_target.attack_animal(src)
 						else if(ishuman(movement_target.loc) )
 							if(prob(20))
-								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+								custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases its tail!"))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
@@ -591,6 +558,7 @@
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
 	faction = list("neutral", "cult")
+	bark_emote = list("рыч%(ит,ат)%.", "зловеще ла%(ет,ют)%.")
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
@@ -692,8 +660,8 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
-	return 1	//Void puppies can navigate space.
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = NONE)
+	return TRUE	//Void puppies can navigate space.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime
 	name = "\improper slime puppy"
@@ -741,7 +709,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("dances around.","chases her tail."))
+			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
@@ -778,7 +746,7 @@
 	nofur = TRUE
 	holder_type = /obj/item/holder/borgi
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
+/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
@@ -799,6 +767,7 @@
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
 	A.current = T
+	A.firer = src
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
 	A.fire()
@@ -814,6 +783,16 @@
 		var/mob/living/carbon/target = locate() in view(10, src)
 		if(target)
 			shootAt(target)
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = I
+		N.use(1)
+		if(LAZYLEN(diseases))
+			CureAllDiseases()
+			visible_message("<span class='notice'>[name] looks happy! </span>")
+			chasetail()
+	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died
@@ -843,7 +822,7 @@
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("chases its tail."))
+			custom_emote(EMOTE_VISIBLE, pick("гоня%(ет,ют)%ся за своим хвостом."))
 			spawn(0)
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i

@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "ticker"
 
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0
@@ -201,7 +202,6 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
 				mode = config.pick_mode(GLOB.secret_force_mode)
-		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
 		if(mode)
@@ -215,7 +215,6 @@ SUBSYSTEM_DEF(ticker)
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
-		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 
 		world.check_for_lowpop()
@@ -248,11 +247,8 @@ SUBSYSTEM_DEF(ticker)
 
 			P.ready = FALSE
 
-	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes
-	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -261,6 +257,17 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = CONFIG_GET(number/jobs_high_pop_mode_amount)
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.ApplyHighpopConfig()
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -300,7 +307,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(S.name != JOB_TITLE_AI)
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
@@ -321,7 +328,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(S.name != JOB_TITLE_AI)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
@@ -353,16 +360,6 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
-
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs("config/jobs_highpop.txt")
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
@@ -428,7 +425,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind)
-			if(player.mind.assigned_role == "AI")
+			if(player.mind.assigned_role == JOB_TITLE_AI)
 				player.close_spawn_windows()
 				var/mob/living/character = player.create_character()
 				var/mob/living/silicon/ai/ai_character = character.AIize()
@@ -445,7 +442,7 @@ SUBSYSTEM_DEF(ticker)
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
+			if(player.mind.assigned_role == JOB_TITLE_CAPTAIN)
 				captainless = FALSE
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
@@ -664,4 +661,3 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
-

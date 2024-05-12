@@ -17,6 +17,7 @@
 	var/harvest_message_med = "You pick a mushroom, carefully collecting the shavings from its cap."
 	var/harvest_message_high = "You harvest and collect shavings from several mushroom caps."
 	var/harvested = FALSE
+	var/delete_on_harvest = FALSE
 	var/base_icon
 	var/regrowth_time_low = 8 MINUTES
 	var/regrowth_time_high = 16 MINUTES
@@ -46,6 +47,9 @@
 	name = harvested_name
 	desc = harvested_desc
 	harvested = TRUE
+	if(delete_on_harvest)
+		qdel(src)
+		return 1
 	addtimer(CALLBACK(src, PROC_REF(regrow)), rand(regrowth_time_low, regrowth_time_high))
 	return 1
 
@@ -58,7 +62,7 @@
 /obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.sharp)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
-		if(do_after(user, harvest_time, target = src))
+		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)
 			harvest(user)
 	else
@@ -67,7 +71,7 @@
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src].</span>","<span class='notice'>You begin to harvest from [src].</span>")
-		if(do_after(user, harvest_time, target = src))
+		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)
 			harvest(user)
 	else
@@ -145,6 +149,25 @@
 	// min dmg 3, max dmg 6, prob(70)
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
+/obj/structure/flora/ash/fireblossom
+	icon_state = "fireblossom"
+	name = "fire blossom"
+	desc = "An odd flower that grows commonly near bodies of lava."
+	harvested_name = "fire blossom stems"
+	harvested_desc = "A few fire blossom stems, missing their flowers."
+	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	needs_sharp_harvest = FALSE
+	light_range = 1.5
+	light_power = 2.1
+	light_color = "#FFFF66"
+	harvest_amount_high = 3
+	harvest_time = 10
+	harvest_message_low = "You pluck a single, suitable flower."
+	harvest_message_med = "You pluck a number of flowers, leaving a few unsuitable ones."
+	harvest_message_high = "You pluck quite a lot of suitable flowers."
+	regrowth_time_low = 2500
+	regrowth_time_high = 4000
+
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
@@ -190,6 +213,14 @@
 	icon_state = "cactus_fruit"
 	seed = /obj/item/seeds/lavaland/cactus
 	wine_power = 0.5
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	name = "fire blossom"
+	desc = "A flower from a fire blossom."
+	icon_state = "fireblossom"
+	slot_flags = ITEM_SLOT_HEAD
+	seed = /obj/item/seeds/lavaland/fireblossom
+	wine_power = 0.4
 
 //SEEDS
 
@@ -264,6 +295,17 @@
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("tinlux" = 0.04, "vitamin" = 0.02, "space_drugs" = 0.02)
 
+/obj/item/seeds/lavaland/fireblossom
+	name = "pack of fire blossom seeds"
+	desc = "These seeds grow into fire blossoms."
+	icon_state = "seed-fireblossom"
+	species = "fireblossom"
+	plantname = "Fire Blossom"
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
+	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
+	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
+
 //CRAFTING
 
 //what you can craft with these things
@@ -280,3 +322,37 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
+
+
+/*********
+ * Rocks *
+ *********/
+// (I know these aren't plants)
+
+/obj/structure/flora/ash/rock
+	name = "large rock"
+	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
+	icon_state = "basalt1"
+	density = TRUE
+	resistance_flags = FIRE_PROOF
+	harvest = /obj/item/stack/ore/glass/basalt
+	harvest_time = 6 SECONDS
+	harvest_amount_low = 10
+	harvest_amount_high = 20
+	harvest_message_low = "You finish mining the rock."
+	harvest_message_med = "You finish mining the rock."
+	harvest_message_high = "You finish mining the rock."
+	delete_on_harvest = TRUE
+
+/obj/structure/flora/ash/rock/style_2
+	icon_state = "basalt2"
+
+/obj/structure/flora/ash/rock/style_3
+	icon_state = "basalt3"
+
+/obj/structure/flora/ash/rock/style_4
+	icon_state = "basalt4"
+
+/obj/structure/flora/ash/rock/style_random/Initialize(mapload)
+	. = ..()
+	icon_state = "basalt[rand(1, 4)]"

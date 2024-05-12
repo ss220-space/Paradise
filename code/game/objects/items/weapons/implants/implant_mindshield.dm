@@ -1,75 +1,68 @@
 /obj/item/implant/mindshield
-	name = "mindshield implant"
+	name = "mindshield bio-chip"
 	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
-	activated = 0
-
-/obj/item/implant/mindshield/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Nanotrasen Employee Management Implant<BR>
-				<b>Life:</b> Ten years.<BR>
-				<b>Important Notes:</b> Personnel injected with this device can better resist mental compulsions.<BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
-				<b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
-				<b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
-	return dat
+	implant_state = "implant-nanotrasen"
+	activated = BIOCHIP_ACTIVATED_PASSIVE
+	implant_data = /datum/implant_fluff/mindshield
 
 
-/obj/item/implant/mindshield/implant(mob/target)
-	if(..())
-		if(is_shadow_or_thrall(target))
-			target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-			removed(target, 1)
-			qdel(src)
-			return -1
-		if((target.mind in SSticker.mode?.cult) || (target.mind in SSticker.mode?.head_revolutionaries))
-			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-		else if(target.mind in SSticker.mode?.revolutionaries)
-			SSticker.mode.remove_revolutionary(target.mind)
-		else
-			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
-		return 1
-	return 0
+/obj/item/implant/mindshield/implant(mob/living/target, mob/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return .
 
-/obj/item/implant/mindshield/removed(mob/target, var/silent = 0)
-	if(..())
-		if(target.stat != DEAD && !silent)
-			to_chat(target, "<span class='boldnotice'>You feel a sense of liberation as Nanotrasen's grip on your mind fades away.</span>")
-		return 1
-	return 0
+	if(is_shadow_or_thrall(target))
+		target.visible_message(
+			span_warning("[target] seems to resist the implant!"),
+			span_warning("You feel the corporate tendrils of Nanotrasen try to invade your mind!"),
+		)
+		removed(target, silent = TRUE)
+		qdel(src)
+
+	else if(is_cultist(target) || is_head_revolutionary(target))
+		to_chat(target, span_warning("You feel the corporate tendrils of Nanotrasen try to invade your mind!"))
+
+	else if(is_revolutionary(target))
+		SSticker.mode.remove_revolutionary(target.mind)
+
+	else
+		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
+
+
+/obj/item/implant/mindshield/removed(mob/target, silent = FALSE)
+	. = ..()
+	if(. && target.stat != DEAD && !silent)
+		to_chat(target, span_boldnotice("Your mind softens. You feel susceptible to the effects of brainwashing once more."))
 
 
 /obj/item/implanter/mindshield
-	name = "implanter (mindshield)"
-
-/obj/item/implanter/mindshield/New()
-	imp = new /obj/item/implant/mindshield(src)
-	..()
-	update_icon()
+	name = "bio-chip implanter (mindshield)"
+	imp = /obj/item/implant/mindshield
 
 
 /obj/item/implantcase/mindshield
-	name = "implant case - 'mindshield'"
-	desc = "A glass case containing a mindshield implant."
+	name = "bio-chip case - 'mindshield'"
+	desc = "A glass case containing a mindshield bio-chip."
+	imp = /obj/item/implant/mindshield
 
-/obj/item/implantcase/mindshield/New()
-	imp = new /obj/item/implant/mindshield(src)
-	..()
 
+/**
+ * ERT mindshield
+ */
 /obj/item/implant/mindshield/ert
-	name = "ERT mindshield implant"
-	desc = "Защищает ваш разум и предоставляет доступ к продвинутому боевому оборудованию НТ"
+	name = "ERT-mindshield bio-chip"
+	desc = "Stops people messing with your mind and allows to use some high-tech weapons."
+	implant_data = /datum/implant_fluff/mindshield/ert
+
 
 /obj/item/implanter/mindshield/ert
-	name = "implanter (ERT mindshield)"
+	name = "bio-chip implanter (ERT-mindshield)"
+	imp = /obj/item/implant/mindshield/ert
 
-/obj/item/implanter/mindshield/ert/New()
-	imp = new /obj/item/implant/mindshield/ert(src)
-	..()
-	update_icon()
 
-/obj/item/implantcase/mindshield/ert/New()
-	imp = new /obj/item/implant/mindshield/ert(src)
-	..()
+/obj/item/implantcase/mindshield/ert
+	name = "bio-chip case - 'ERT-mindshield'"
+	desc = "A glass case containing an ERT mindshield bio-chip."
+	imp = /obj/item/implant/mindshield/ert
+

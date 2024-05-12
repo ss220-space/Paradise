@@ -1,13 +1,13 @@
 GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
 /datum/job/captain
-	title = "Captain"
-	flag = JOB_CAPTAIN
+	title = JOB_TITLE_CAPTAIN
+	flag = JOB_FLAG_CAPTAIN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
-	department_head = list("Nanotrasen Navy Officer")
-	selection_color = "#ccccff"
+	department_head = list(JOB_TITLE_CCOFFICER)
+	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
 	access = list() 			//See get_access()
@@ -59,14 +59,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/hop
-	title = "Head of Personnel"
-	flag = JOB_HOP
+	title = JOB_TITLE_HOP
+	flag = JOB_FLAG_HOP
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
-	selection_color = "#ddddff"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
@@ -76,14 +76,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	money_factor = 9
 	outfit = /datum/outfit/job/hop
@@ -110,14 +110,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/nanotrasenrep
-	title = "Nanotrasen Representative"
-	flag = JOB_NANO
+	title = JOB_TITLE_REPRESENTATIVE
+	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the command staff"
-	department_head = list("Captain")
-	selection_color = "#ddddff"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	transfer_allowed = FALSE
@@ -137,6 +137,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
+	alt_titles = list("NT Consultant","Central Command Consultant")
 	money_factor = 9
 	outfit = /datum/outfit/job/nanotrasenrep
 
@@ -159,14 +160,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/blueshield
-	title = "Blueshield"
-	flag = JOB_BLUESHIELD
+	title = JOB_TITLE_BLUESHIELD
+	flag = JOB_FLAG_BLUESHIELD
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
-	department_head = list("Captain")
-	selection_color = "#ddddff"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
 	transfer_allowed = FALSE
@@ -213,14 +214,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	CQC.teach(H)
 
 /datum/job/judge
-	title = "Magistrate"
-	flag = JOB_JUDGE
+	title = JOB_TITLE_JUDGE
+	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
-	department_head = list("Captain")
-	selection_color = "#ddddff"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	selection_color = "#edccd7"
 	req_admin_notify = 1
 	is_legal = 1
 	transfer_allowed = FALSE
@@ -235,6 +236,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
+	alt_titles = list("Judge")
 	money_factor = 9
 	outfit = /datum/outfit/job/judge
 
@@ -250,7 +252,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	l_pocket = /obj/item/flash
-	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -264,18 +266,18 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 //GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
-	title = "Internal Affairs Agent"
-	flag = JOB_LAWYER
+	title = JOB_TITLE_LAWYER
+	flag = JOB_FLAG_LAWYER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
 	supervisors = "the magistrate"
-	department_head = list("Captain")
-	selection_color = "#ddddff"
+	department_head = list(JOB_TITLE_CAPTAIN)
+	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
-	alt_titles = list("Human Resources Agent")
+	alt_titles = list("Human Resources Agent","Lawyer","Attorney")
 	minimal_player_age = 30
 	min_age_allowed = 30
 	exp_requirements = 3000
@@ -289,11 +291,11 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/headset_iaa
+	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/iaa
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
 	backpack_contents = list(

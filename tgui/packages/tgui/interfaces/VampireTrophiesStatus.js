@@ -9,7 +9,7 @@ const roundTenths = function (input) {
 export const VampireTrophiesStatus = (props, context) => {
   return (
     <Window theme="nologo">
-      <Window.Content>
+      <Window.Content scrollable>
         <Trophies />
         <Passives />
         <InfectedTrophy />
@@ -51,7 +51,7 @@ const Trophies = (props, context) => {
       textAlign="center"
       verticalAlign="middle">
 
-      <Box display="inline-block" mr="54px">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_hearts}`}
@@ -75,7 +75,7 @@ const Trophies = (props, context) => {
           color="transparent"
         />
       </Box>
-      <Box display="inline-block" mr="54px">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_lungs}`}
@@ -99,7 +99,7 @@ const Trophies = (props, context) => {
           color="transparent"
         />
       </Box>
-      <Box display="inline-block" mr="54px">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_livers}`}
@@ -123,7 +123,7 @@ const Trophies = (props, context) => {
           color="transparent"
         />
       </Box>
-      <Box display="inline-block" mr="54px">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_kidneys}`}
@@ -147,7 +147,7 @@ const Trophies = (props, context) => {
           color="transparent"
         />
       </Box>
-      <Box display="inline-block" mr="54px">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_eyes}`}
@@ -171,7 +171,7 @@ const Trophies = (props, context) => {
           color="transparent"
         />
       </Box>
-      <Box display="inline-block">
+      <Box display="inline-block" width="16.6%">
         <Box
           as="img"
           src={`data:image/jpeg;base64,${icon_ears}`}
@@ -231,9 +231,9 @@ const Passives = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table>
+      <Table ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Obtained by dissecting hearts"
@@ -245,7 +245,7 @@ const Passives = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Obtained by dissecting hearts"
@@ -257,7 +257,7 @@ const Passives = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Obtained by dissecting lungs"
@@ -417,9 +417,9 @@ const InfectedTrophy = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
-        <Table.Row textAlign="center">
-          <Table.Cell>
+      <Table italic="true" ml="2rem">
+        <Table.Row>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum range before fired skull will disappear. Increased by dissecting eyes"
@@ -431,7 +431,7 @@ const InfectedTrophy = (props, context) => {
               {eyes < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Range of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
@@ -443,7 +443,7 @@ const InfectedTrophy = (props, context) => {
               {ears < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Amount of brute damage that every living victim in the AOE will receive. Increased by dissecting hearts"
@@ -505,9 +505,9 @@ const Lunge = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum distance at which lunge will stop automatically. Increased by dissecting lungs"
@@ -519,7 +519,7 @@ const Lunge = (props, context) => {
               {lungs < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Radius of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
@@ -531,7 +531,7 @@ const Lunge = (props, context) => {
               {ears < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"
@@ -605,9 +605,9 @@ const MarkPrey = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum distance the spell can be cast. Increased by dissecting eyes"
@@ -619,7 +619,7 @@ const MarkPrey = (props, context) => {
               {eyes < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Amount of time that the mark will last. Increased by dissecting kidneys"
@@ -631,7 +631,7 @@ const MarkPrey = (props, context) => {
               {kidneys < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Amount of burn damage that the victim will receive every second if the chance worked. Increased by dissecting hearts"
@@ -693,9 +693,9 @@ const MetamorphosisBats = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum amount of that the bats can have. Increased by dissecting hearts"
@@ -707,7 +707,7 @@ const MetamorphosisBats = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Threshold below which no damage to the bats can be dealt. Works only for melee attacks. Increased by dissecting hearts"
@@ -719,7 +719,7 @@ const MetamorphosisBats = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Movement speed of the bats, lower is better. Decreased by dissecting lungs"
@@ -819,9 +819,9 @@ const ResonantShriek = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Radius of the area of effect, centered at the position of the vampire. All living mobs will be affected inside. Increased by dissecting ears"
@@ -833,7 +833,7 @@ const ResonantShriek = (props, context) => {
               {ears < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"
@@ -845,7 +845,7 @@ const ResonantShriek = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Amount of time that every living victim in the AOE will be confused. Increased by dissecting kidneys"
@@ -896,9 +896,9 @@ const Anabiosis = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum amount of brute damage that vampire will heal during the anabiosis. Increased by dissecting hearts"
@@ -910,7 +910,7 @@ const Anabiosis = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Maximum amount of burn damage that vampire will heal during the anabiosis. Increased by dissecting hearts"
@@ -922,7 +922,7 @@ const Anabiosis = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Maximum amount of toxin damage that vampire will heal during the anabiosis. Increased by dissecting livers"
@@ -1073,9 +1073,9 @@ const SummonBats = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum amount of that the bats can have. Increased by dissecting hearts"
@@ -1087,7 +1087,7 @@ const SummonBats = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Threshold below which no damage to the bats can be dealt. Works only for melee attacks. Increased by dissecting hearts"
@@ -1099,7 +1099,7 @@ const SummonBats = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Movement speed of the bats, lower is better. Decreased by dissecting lungs"
@@ -1211,9 +1211,9 @@ const MetamorphosisHound = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Maximum amount of health that the hound can have. Increased by dissecting hearts"
@@ -1225,7 +1225,7 @@ const MetamorphosisHound = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Threshold below which no damage to the hound can be dealt. Works only for melee attacks. Increased by dissecting hearts"
@@ -1237,7 +1237,7 @@ const MetamorphosisHound = (props, context) => {
               {hearts < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Movement speed of the hound, lower is better. Decreased by dissecting lungs"
@@ -1327,9 +1327,9 @@ const LungeFinale = (props, context) => {
       color="red"
       textAlign="center"
       verticalAlign="middle">
-      <Table italic="true">
+      <Table italic="true" ml="2rem">
         <Table.Row>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
               tooltip="Radius around the vampire in which targets will be searched. Increased by dissecting lungs"
@@ -1341,7 +1341,7 @@ const LungeFinale = (props, context) => {
               {lungs < trophies_max_crit ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
               tooltip="Radius of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
@@ -1353,7 +1353,7 @@ const LungeFinale = (props, context) => {
               {ears < trophies_max_gen ? "" : " (max)"}
             </Box>
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
               tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"

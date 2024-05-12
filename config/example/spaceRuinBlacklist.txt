@@ -26,7 +26,7 @@
 ### The following ruins are based from past pre-spawned Zlevel content ###
 
 #_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm
-#_maps/map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm
+#_maps/map_files/RandomRuins/SpaceRuins/spaceprison.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/clownmime.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/dj.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm

@@ -22,17 +22,17 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
+			to_chat(owner, span_danger("You feel like something is tearing its way out of your skin..."))
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
 					new/obj/structure/spider/spiderling(get_turf(owner))
-				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
+				owner.visible_message(span_danger("[owner] bursts open! Holy fuck!"))
 				owner.gib()
 
-/obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	if(!QDELETED(src))
@@ -112,12 +112,12 @@
 	owner.adjustBruteLoss(80)
 	owner.Paralyse(20 SECONDS)
 	owner.SetConfused(40 SECONDS)
-	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
+	to_chat(owner, span_warning("A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!"))
 
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 
-/obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others

@@ -168,7 +168,8 @@
 	if(faction)
 		M.faction = list(faction)
 	if(disease)
-		M.ForceContractDisease(new disease)
+		var/datum/disease/D = new disease
+		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
@@ -212,7 +213,7 @@
 	allow_gender_pick = FALSE
 	allow_name_pick = FALSE
 	allow_tts_pick = TRUE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA)
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -311,7 +312,7 @@
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
-	var/obj/item/organ/external/head/D = H.get_organ("head")
+	var/obj/item/organ/external/head/D = H.get_organ(BODY_ZONE_HEAD)
 	if(!use_prefs)
 		if(!random)
 			if(_mob_name)
@@ -450,13 +451,13 @@
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
-	disease = /datum/disease/beesease
+	disease = /datum/disease/virus/beesease
 
 /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection
-	disease = /datum/disease/brainrot
+	disease = /datum/disease/virus/brainrot
 
 /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection
-	disease = /datum/disease/fluspanish
+	disease = /datum/disease/virus/fluspanish
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
@@ -511,7 +512,7 @@
 
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
-
+	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
@@ -614,6 +615,7 @@
 
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
+	toggle_helmet = TRUE
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless

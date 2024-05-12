@@ -1,4 +1,4 @@
-#define BUBBLEGUM_SMASH (health <= maxHealth * 0.5) // angery
+#define BUBBLEGUM_SMASH (health <= maxHealth * 0.5 || second_life) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
 
@@ -60,6 +60,14 @@ Difficulty: Hard
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
+	/// Is it on its enraged exclusive second life?
+	var/second_life = FALSE
+	/// Does it have a portal to the funny second life arena created?
+	var/obj/effect/portal/redspace/second_life_portal
+	/// Max healing bubblegum can get from being enraged
+	var/maximum_enraged_healing = 500
+	/// Enraged healing recived
+	var/enraged_healing = 0
 	internal_type = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
@@ -74,7 +82,7 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -83,6 +91,8 @@ Difficulty: Hard
 			if(B != src)
 				qdel(src) //There can be only one
 				return
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
@@ -112,7 +122,49 @@ Difficulty: Hard
 	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
 	chosen_attack_num = 4
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
+	. = ..()
+	maxHealth = 2000 //Less health, as a phase 2
+	health = 2000
+	rapid_melee = 12 //Don't stand still
+	vision_range = 18
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum) //You'll get it in phase 2.
+	crusher_loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
+	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
+	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
+		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
+		FindTarget(list(H), 1) //From down town with the pile driver
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
+	return //They are pissed. Also whoever enraged them is stuck fighting them so, kinda a M.A.D situation.
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/i_see_you(source, target)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
+	if(second_life)
+		H.clear_fullscreen("bubblegum")
+		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
+	qdel(second_life_portal)
+	if(enraged && !second_life)
+		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
+		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
+		new /obj/effect/landmark/spawner/bubblegum_exit(get_turf(src))
+		great_chest_ahead.forceMove(jebait)
+	if(second_life)
+		var/area/A = get_area(src)
+		for(var/mob/M in A)
+			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
+		new /obj/effect/bubblegum_exit(get_turf(src))
+	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
+	if(second_life)
+		Shoot(A)
+
 	if(charging)
 		return
 
@@ -138,6 +190,9 @@ Difficulty: Hard
 	if(!BUBBLEGUM_SMASH)
 		triple_charge()
 	else
+		if(prob(25) && enraged)
+			hit_up_narsi()
+			return
 		if(prob(50 + anger_modifier))
 			hallucination_charge()
 		else
@@ -209,7 +264,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
 	var/list/targets = get_mobs_on_blood()
 	if(targets.len)
-		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(50))
+		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(enraged ? 75 : 50))
 		return TRUE
 	return FALSE
 
@@ -256,7 +311,7 @@ Difficulty: Hard
 			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
-			L.apply_damage(10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
+			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
 	SLEEP_CHECK_DEATH(3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)
@@ -277,6 +332,26 @@ Difficulty: Hard
 				playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 				addtimer(CALLBACK(src, PROC_REF(devour), L), 2)
 	SLEEP_CHECK_DEATH(1)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
+	SetRecoveryTime(20)
+	visible_message("<span class='colossus'><b>[pick("[SSticker.cultdat.entity_name], I call on YOU for one of MY favours you owe me!", "[SSticker.cultdat.entity_title1], I call on you for some support...", "Let us see how you like the minions of [SSticker.cultdat.entity_title2]!", "Oh, [SSticker.cultdat.entity_title3] join me in RENDING THIS WHELP APART!")]</b></span>")
+	var/list/turfs = list()
+	var/constructs = 0
+	for(var/turf/T in view(6, target))
+		if(T.density)
+			continue
+		if(T in range(2, target))
+			continue
+		turfs += T
+		var/amount = second_life ? 4 : 3
+		while(constructs < amount && length(turfs))
+			var/turf/spot = pick_n_take(turfs)
+			if(!spot)
+				return
+			var/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum(spot)
+			summon.faction = faction.Copy()
+			constructs++
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
 	if(Adjacent(target))
@@ -321,7 +396,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying)
+		return (livingtarget.stat != CONSCIOUS || livingtarget.lying_angle)
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
@@ -338,8 +413,10 @@ Difficulty: Hard
 	if(!BUBBLEGUM_CAN_ENRAGE)
 		return FALSE
 	enrage_till = world.time + enrage_time
+	if(enraged && enraged_healing < maximum_enraged_healing && !second_life)
+		adjustHealth(-75)
 	update_approach()
-	change_move_delay(5)
+	change_move_delay(enraged ? 3 : 4) //3 if enraged, 4 otherwise
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	var/datum/callback/cb = CALLBACK(src, PROC_REF(blood_enrage_end))
@@ -352,7 +429,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/change_move_delay(newmove = initial(move_to_delay))
 	move_to_delay = newmove
-	speed = move_to_delay
+	set_varspeed(move_to_delay)
 	handle_automated_action() // need to recheck movement otherwise move_to_delay won't update until the next checking aka will be wrong speed for a bit
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_pools(turf/T, range)
@@ -413,7 +490,7 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!charging)
 		..()
 
@@ -436,10 +513,12 @@ Difficulty: Hard
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/CanPass(atom/movable/mover, turf/target)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
 	if(!charging)
@@ -461,8 +540,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	if(Dir)
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
-	if(charging)
-		DestroySurroundings()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
@@ -470,7 +547,6 @@ Difficulty: Hard
 	if(charging)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
-		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -515,12 +591,12 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	loot = null
 	medal_type = null
 	score_type = null
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()
@@ -534,10 +610,12 @@ Difficulty: Hard
 	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanPass(atom/movable/mover, turf/target)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
@@ -553,3 +631,29 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/try_bloodattack()
 	return
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
+	desc = "Oh they are PISSED. And quite injured too..."
+	health = 750
+	maxHealth = 750
+	armour_penetration = 75
+	second_life = TRUE
+	enraged = TRUE
+	rapid_melee = 12
+	projectiletype = /obj/item/projectile/magic/arcane_barrage/blood
+	projectilesound = 'sound/effects/splat.ogg'
+	deathmessage = null
+	death_sound = 'sound/hallucinations/veryfar_noise.ogg'
+	ranged = TRUE
+	ranged_cooldown_time = 10
+	enraged_loot = /obj/item/disk/fauna_research/bubblegum
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
+	. = ..()
+	for(var/obj/effect/landmark/spawner/bubblegum_exit/E in GLOB.landmarks_list)
+		second_life_portal = new /obj/effect/portal/redspace(get_turf(E), get_turf(src), null, 2 HOURS, src, FALSE)
+		break
+	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
+	for(var/mob/living/carbon/human/H in range(20))
+		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
+		FindTarget(list(H), 1)

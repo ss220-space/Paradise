@@ -22,7 +22,7 @@
 	return ..()
 
 
-/datum/action/changeling/sting/Trigger()
+/datum/action/changeling/sting/Trigger(left_click = TRUE)
 	if(!ischangeling(owner) || !ishuman(owner))
 		to_chat(owner, span_warning("We cannot do that in this form!"))
 		return
@@ -63,8 +63,13 @@
 		to_chat(user, span_warning("We haven't prepared our sting yet!"))
 		return FALSE
 
-	if(get_dist(user, target) > cling.sting_range) // Too far, don't bother pathfinding
+	var/target_distance = get_dist(user, target)
+	if(target_distance > cling.sting_range) // Too far, don't bother pathfinding
 		to_chat(user, span_warning("Our target is too far for our sting!"))
+		return FALSE
+
+	if(target_distance && !length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE))) // If they're not on the same turf, check if it can even reach them.
+		to_chat(user, span_warning("Our sting is blocked from reaching our target!"))
 		return FALSE
 
 	if(ismachineperson(target))
@@ -74,10 +79,6 @@
 	if(ischangeling(target))
 		sting_feedback(user, target)
 		take_chemical_cost()
-		return FALSE
-
-	if(!AStar(user, target.loc, /turf/proc/Distance, cling.sting_range, simulated_only = FALSE))
-		to_chat(user, span_warning("Our target is too far for our sting!"))
 		return FALSE
 
 	return TRUE
@@ -141,7 +142,7 @@
 	return ..()
 
 
-/datum/action/changeling/sting/transformation/Trigger()
+/datum/action/changeling/sting/transformation/Trigger(left_click = TRUE)
 	if(!ishuman(owner))
 		to_chat(owner, span_warning("We cannot do that in this form!"))
 		return

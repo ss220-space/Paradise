@@ -51,7 +51,7 @@
 
 /datum/recipe/microwave/human/burger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/human_burger
@@ -176,8 +176,8 @@
 /datum/recipe/microwave/soylentgreen
 	reagents = list("flour" = 10)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/human,
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+		/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 	)
 	result = /obj/item/reagent_containers/food/snacks/soylentgreen
 
@@ -321,6 +321,12 @@
 /datum/recipe/microwave/coldchili
 	items = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/icepepper, /obj/item/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/reagent_containers/food/snacks/soup/coldchili
+
+/datum/recipe/microwave/shavelsoup
+	reagents = list("water" = 10)
+	items = list(/obj/item/reagent_containers/food/snacks/cutlet, /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/egg,
+	/obj/item/reagent_containers/food/snacks/grown/shavel)
+	result = /obj/item/reagent_containers/food/snacks/soup/shavelsoup
 
 //Burger
 /datum/recipe/microwave/spellburger
@@ -951,3 +957,13 @@
 		/obj/item/reagent_containers/food/snacks/egg
 	)
 	result = /obj/item/reagent_containers/food/snacks/quiche
+
+/datum/recipe/microwave/crayfish
+	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/crayfish_raw)
+	result = /obj/item/reagent_containers/food/snacks/crayfish_cooked
+
+/datum/recipe/microwave/crayfish_small
+	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/crayfish_raw_small)
+	result = /obj/item/reagent_containers/food/snacks/crayfish_cooked_small

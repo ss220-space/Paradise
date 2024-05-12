@@ -10,7 +10,7 @@
 		return
 
 	if(!host.nightvision)
-		host.see_in_dark = 8
+		host.nightvision = 8
 		host.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		host.nightvision = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
@@ -18,7 +18,7 @@
 		return
 
 	if(host.nightvision)
-		host.see_in_dark = initial(host.see_in_dark)
+		host.nightvision = initial(host.nightvision)
 		host.lighting_alpha = initial(host.lighting_alpha)
 		host.nightvision = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
@@ -52,7 +52,7 @@
 	small_icon_state = "aliens_running"
 
 
-/datum/action/innate/small_sprite_alien/Trigger()
+/datum/action/innate/small_sprite_alien/Trigger(left_click = TRUE)
 	. = ..()
 	if(!.)
 		return

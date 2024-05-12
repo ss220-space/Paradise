@@ -4,6 +4,8 @@
 	special_role = SPECIAL_ROLE_THIEF
 	antag_hud_type = ANTAG_HUD_THIEF
 	antag_hud_name = "hudthief"
+	wiki_page_name = "Thief"
+	russian_wiki_name = "Вор"
 	clown_gain_text = "Вы превзошли свою клоунскую натуру, ваши ловкие пальцы нивелировали былую неуклюжесть!"
 	clown_removal_text = "Ваша клоунская натура возвращается..."
 	/// Whether our thief should get a special equipment box
@@ -47,10 +49,11 @@
 
 
 /datum/antagonist/thief/greet()
+	var/list/messages = list()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/thiefalert.ogg')
-	to_chat(owner.current, span_userdanger("Вы член гильдии воров!"))
-	to_chat(owner.current, span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
-
+	messages.Add(span_userdanger("Вы член гильдии воров!"))
+	messages.Add(span_danger("Гильдия воров прислала новые заказы для кражи. Пора заняться старым добрым ремеслом, пока цели не украли конкуренты!"))
+	return messages
 
 /datum/antagonist/thief/farewell()
 	if(issilicon(owner.current))
@@ -68,9 +71,8 @@
 /datum/antagonist/thief/proc/equip_thief_kit()
 	if(!ishuman(owner.current))
 		return
-	var/obj/item/thief_kit/kit = new(null)
-	if(!kit.equip_to_best_slot(owner.current))
-		qdel(kit)
+	var/obj/item/thief_kit/kit = new(owner.current.drop_location())
+	if(!kit.equip_to_best_slot(owner.current, qdel_on_fail = TRUE, silent = TRUE))
 		log_admin("Failed to spawn thief kit for [owner.current.real_name].")
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] Failed to spawn thief kit.")
 		return

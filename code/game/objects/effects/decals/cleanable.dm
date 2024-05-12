@@ -3,6 +3,7 @@
 	var/list/random_icon_states = list()
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
+	layer = CLEANABLES_LAYER
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
@@ -14,8 +15,8 @@
 	..()
 	if(!off_floor && ishuman(O))
 		var/mob/living/carbon/human/H = O
-		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
-		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
+		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
@@ -52,6 +53,9 @@
 
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	return FALSE
+
+/obj/effect/decal/cleanable/is_cleanable()
+	return TRUE
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()

@@ -17,7 +17,7 @@
 	tts_seed = "pantheon"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 10
+	nightvision = 10
 	maxHealth = 10
 	health = 10
 	blood_volume = BLOOD_VOLUME_SURVIVE
@@ -25,8 +25,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	layer = MOB_LAYER
@@ -64,32 +64,38 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/frog/toxic
 
-/mob/living/simple_animal/frog/toxic/attack_hand(mob/living/carbon/human/H as mob)
-	if(ishuman(H))
-		if(!istype(H.gloves, /obj/item/clothing/gloves))
-			for(var/obj/item/organ/external/A in H.bodyparts)
-				if(!A.is_robotic())
-					if((A.body_part == HAND_LEFT) || (A.body_part == HAND_RIGHT))
-						to_chat(H, "<span class='warning'>Дотронувшись до [src.name], ваша кожа начинает чесаться!</span>")
-						toxin_affect(H)
-						if(H.a_intent == INTENT_DISARM || H.a_intent == INTENT_HARM)
-							..()
-	..()
 
-/mob/living/simple_animal/frog/toxic/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(!istype(H.shoes, /obj/item/clothing/shoes))
-			for(var/obj/item/organ/external/F in H.bodyparts)
-				if(!F.is_robotic())
-					if((F.body_part == FOOT_LEFT) || (F.body_part == FOOT_RIGHT))
-						toxin_affect(H)
-						to_chat(H, "<span class='warning'>Ваши ступни начинают чесаться!</span>")
-	..()
+/mob/living/simple_animal/frog/toxic/attack_hand(mob/living/carbon/human/user)
+	if(!ishuman(user) || user.gloves)
+		return ..()
 
-/mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/M as mob)
-	if(M.reagents && !toxin_per_touch == 0)
-		M.reagents.add_reagent(toxin_type, toxin_per_touch)
+	var/obj/item/organ/external/left_hand = get_organ(BODY_ZONE_PRECISE_L_HAND)
+	var/obj/item/organ/external/right_hand = get_organ(BODY_ZONE_PRECISE_R_HAND)
+	if((left_hand && !left_hand.is_robotic()) || (right_hand && !right_hand.is_robotic()))
+		to_chat(user, span_warning("Дотронувшись до [src.name], ваша кожа начинает чесаться!"))
+		toxin_affect(user)
+
+	if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_HARM)
+		return ..()
+
+
+/mob/living/simple_animal/frog/toxic/Crossed(mob/living/carbon/human/user, oldloc)
+	if(!ishuman(user) || user.gloves)
+		return ..()
+
+	var/obj/item/organ/external/left_foot = get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/right_foot = get_organ(BODY_ZONE_PRECISE_R_FOOT)
+	if((left_foot && !left_foot.is_robotic()) || (right_foot && !right_foot.is_robotic()))
+		to_chat(user, span_warning("Ваши ступни начинают чесаться!"))
+		toxin_affect(user)
+
+	return ..()
+
+
+/mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/user)
+	if(user.reagents && toxin_type && toxin_per_touch)
+		user.reagents.add_reagent(toxin_type, toxin_per_touch)
+
 
 /mob/living/simple_animal/frog/scream
 	name = "орущая лягушка"
@@ -112,31 +118,6 @@
 
 /mob/living/simple_animal/frog/handle_automated_movement()
 	. = ..()
-	if(!resting && !buckled)
-		if(prob(1))
-			custom_emote(1,"издаёт боевой клич!")
-			playsound(src, pick(src.scream_sound), 50, TRUE)
+	if(!resting && !buckled && prob(1))
+		emote("warcry")
 
-/mob/living/simple_animal/frog/emote(act, m_type = 1, message = null, force)
-	if(incapacitated())
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("warcry")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("warcry")
-			message = "издаёт боевой клич!"
-			m_type = 2 //audible
-			playsound(src, pick(src.scream_sound), 50, TRUE)
-		if("help")
-			to_chat(src, "warcry")
-	..()

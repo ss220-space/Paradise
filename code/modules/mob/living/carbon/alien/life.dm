@@ -1,3 +1,13 @@
+/mob/living/carbon/alien/Life(seconds, times_fired)
+	if(..() && can_evolve && evolution_points < max_evolution_points)
+		var/points_to_add = 1
+		if(locate(/obj/structure/alien/weeds) in loc)
+			points_to_add *= 2
+		if(lying_angle)
+			points_to_add *= 2
+		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
+		update_icons()
+
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return
@@ -29,11 +39,16 @@
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
+
 /mob/living/carbon/alien/handle_status_effects()
 	..()
 	//natural reduction of movement delay due to stun.
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - rand(1, 2))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+		return
+	remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
+
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	. = ..()
@@ -48,6 +63,6 @@
 			LAZYREMOVE(stomach_contents, M)
 			continue
 		if(stat != DEAD)
-			M.Weaken(3 SECONDS)
-			M.EyeBlind(3 SECONDS)
+			M.SetWeakened(4 SECONDS)
+			M.SetEyeBlind(4 SECONDS)
 			M.adjustBruteLoss(1.5)

@@ -157,7 +157,7 @@
 	desc = "A percussion instrument with a bright tone."
 	icon_state = "xylophone"
 	item_state = "xylophone"
-	allowed_instrument_ids = "bikehorn"
+	allowed_instrument_ids = "xylophone"
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"

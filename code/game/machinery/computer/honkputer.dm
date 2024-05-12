@@ -57,12 +57,13 @@
 
 	src.updateUsrDialog()
 
-/obj/machinery/computer/HONKputer/emag_act(user as mob)
+/obj/machinery/computer/HONKputer/emag_act(mob/user)
 	if(!emagged)
-		src.emagged = 1
-		to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
+		emagged = 1
+		if(user)
+			to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
 
-/obj/machinery/computer/HONKputer/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HONKputer/attack_hand(mob/user)
 	if(..())
 		return
 	if(is_away_level(src.z))
@@ -88,29 +89,3 @@
 	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
-
-
-/obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && circuit)
-		var/obj/item/screwdriver/S = I
-		playsound(src.loc, S.usesound, 50, 1)
-		if(do_after(user, 20 * S.toolspeed * gettoolspeedmod(user), target = src))
-			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
-			var/obj/item/circuitboard/M = new circuit( A )
-			A.circuit = M
-			A.anchored = 1
-			A.add_fingerprint(user)
-			for(var/obj/C in src)
-				C.loc = src.loc
-			if(src.stat & BROKEN)
-				to_chat(user, span_notice("The broken glass falls out."))
-				new /obj/item/shard( src.loc )
-				A.state = 4
-				A.icon_state = "comp_frame_4"
-			else
-				to_chat(user, span_notice("You disconnect the monitor."))
-				A.state = 5
-				A.icon_state = "comp_frame_5"
-			qdel(src)
-	else
-		return ..()

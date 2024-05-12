@@ -19,7 +19,7 @@
 	pixel_y = rand(-5, 5)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
-	if(do_after(user, 1 SECONDS, target = user))
+	if(do_after(user, 1 SECONDS, user))
 		var/mob/living/carbon/human/bs_user = user
 		if(use(1))
 			blink_mob(bs_user)

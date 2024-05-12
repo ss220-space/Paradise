@@ -18,12 +18,13 @@
 	req_human = TRUE
 	var/silent = FALSE
 	var/weapon_type
+	var/weapon_check_type
 	var/weapon_name_simple
 
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
-	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
-		retract(user, TRUE)
+	if(istype(user.get_active_hand(), weapon_check_type) || istype(user.get_inactive_hand(), weapon_check_type))
+		retract(user, any_hand = TRUE)
 		return
 	..(user, target)
 
@@ -36,6 +37,7 @@
 
 	var/obj/item/weapon = new weapon_type(user, silent, src)
 	user.put_in_hands(weapon)
+	playsound(user, "bonebreak", 150, 1)
 
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
@@ -43,35 +45,31 @@
 	return weapon
 
 
-/datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
+/datum/action/changeling/weapon/proc/retract(mob/user, any_hand = FALSE)
 	SIGNAL_HANDLER
 
-	if(!ischangeling(owner))
+	if(!ischangeling(user))
 		return
 
-	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
+	if(!any_hand && !istype(user.get_active_hand(), weapon_check_type))
 		return
 
 	var/done = FALSE
-	if(istype(owner.l_hand, weapon_type))
-		qdel(owner.l_hand)
-		owner.update_inv_l_hand()
+	if(istype(user.get_active_hand(), weapon_check_type))
+		qdel(user.get_active_hand())
 		done = TRUE
 
-	if(istype(owner.l_hand, weapon_type))
-		var/obj/item/hand_item = owner.l_hand
-		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-		qdel(hand_item)
+	if(istype(user.get_inactive_hand(), weapon_check_type))
+		qdel(user.get_inactive_hand())
 		done = TRUE
 
-	if(istype(owner.r_hand, weapon_type))
-		var/obj/item/hand_item = owner.r_hand
-		owner.temporarily_remove_item_from_inventory(hand_item, force = TRUE)
-		qdel(hand_item)
-		done = TRUE
-
-	if(done && !silent)
-		owner.visible_message(span_warning("With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_warning("You hear organic matter ripping and tearing!"))
+	if(done)
+		. = COMPONENT_CANCEL_DROP
+		if(!silent)
+			playsound(user, "bonebreak", 150, TRUE)
+			user.visible_message(span_warning("With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!"),
+								span_notice("We assimilate the [weapon_name_simple] back into our body."),
+								span_warning("You hear organic matter ripping and tearing!"))
 
 
 //Parent to space suits and armor.
@@ -124,8 +122,8 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), slot_wear_suit)
-	user.equip_to_slot_or_del(new helmet_type(user), slot_head)
+	user.equip_to_slot_or_del(new suit_type(user), ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(new helmet_type(user), ITEM_SLOT_HEAD)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -137,15 +135,16 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 10 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	dna_cost = 3
-	chemical_cost = 25
+	dna_cost = 2
+	chemical_cost = 10
 	genetic_damage = 10
 	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
+	weapon_check_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 
 
@@ -154,11 +153,12 @@
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
-	force = 25
-	armour_penetration = 20
+	force = 45
+	armour_penetration = -30
 	block_chance = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 0 //Just to be on the safe side
@@ -171,6 +171,7 @@
 
 /obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 
 
@@ -192,16 +193,7 @@
 	if(!proximity)
 		return
 
-	if(istype(target, /obj/structure/table))
-		var/obj/structure/table/table = target
-		table.deconstruct(FALSE)
-
-	else if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/computer = target
-		if(computer.attack_generic(user, 60, BRUTE, "melee", 0))
-			playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
-
-	else if(istype(target, /obj/machinery/door/airlock))
+	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/airlock = target
 
 		if(!airlock.requiresID() || airlock.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
@@ -217,7 +209,7 @@
 								span_italics("You hear a metal screeching sound."))
 
 			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
-			if(!do_after(user, 3 SECONDS, target = airlock ))
+			if(!do_after(user, 3 SECONDS, airlock))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
@@ -225,6 +217,78 @@
 							span_warning("We force the airlock to open."), \
 							span_warning("You hear a metal screeching sound."))
 		airlock.open(2)
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
+		if(O.brute_dam >= 50)
+			O.droplimb()
+
+
+/***************************************\
+|**************FLESHY MAUL**************|
+\***************************************/
+/datum/action/changeling/weapon/fleshy_maul
+	name = "Fleshy Maul"
+	desc = "We reform one of our arms into a enourmous maul. Costs 10 chemicals."
+	helptext = "We may retract our maul in the same manner as we form it. Cannot be used while in lesser form."
+	button_icon_state = "flesh_maul"
+	power_type = CHANGELING_PURCHASABLE_POWER
+	dna_cost = 2
+	chemical_cost = 10
+	genetic_damage = 10
+	max_genetic_damage = 20
+	weapon_type = /obj/item/melee/arm_blade/fleshy_maul
+	weapon_check_type = /obj/item/melee/arm_blade
+	weapon_name_simple = "maul"
+
+/obj/item/melee/arm_blade/fleshy_maul
+	name = "fleshy maul"
+	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
+	icon_state = "flesh_maul"
+	item_state = "flesh_maul"
+	sharp = FALSE
+	force = 25
+	block_chance = 0
+	armour_penetration = 35
+	hitsound = "swing_hit"
+	gender = MALE
+	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
+
+/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
+	if(!proximity)
+		return
+
+	if(isstructure(target))
+		var/obj/structure/S = target
+		if(!QDELETED(S))
+			S.attack_generic(user, 80, BRUTE, "melee", 0)
+
+	else if(iswallturf(target))
+		var/turf/simulated/wall/wall = target
+		wall.take_damage(30)
+		user.do_attack_animation(wall)
+		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
+
+	else if(isliving(target))
+		var/mob/living/M = target
+		M.Slowed(2 SECONDS, 5)
+		var/atom/throw_target = get_edge_target_turf(M, user.dir)
+		RegisterSignal(M, COMSIG_MOVABLE_IMPACT, PROC_REF(bump_impact))
+		M.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, PROC_REF(unregister_bump_impact), M))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
+			if(O.brute_dam > 20)
+				O.fracture()
+
+/obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+	if(target && !iscarbon(hit_atom) && hit_atom.density)
+		target.Weaken(1 SECONDS)
+
+/obj/item/melee/arm_blade/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
+	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
+
 
 
 /***************************************\
@@ -243,6 +307,7 @@
 	genetic_damage = 5
 	max_genetic_damage = 10
 	weapon_type = /obj/item/gun/magic/tentacle
+	weapon_check_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 
@@ -253,7 +318,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
-	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
+	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
@@ -267,6 +333,7 @@
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
@@ -343,65 +410,65 @@
 
 
 /obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/user)
-	if(!user)
+	if(QDELETED(user))
 		return
 	if(user.in_throw_mode)
 		user.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
 
 
-/obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item)
-	reset_throw(firer)
-	if(!thrown_item || !firer)
+/obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item, mob/living/carbon/user)
+	reset_throw(user)
+
+	if(QDELETED(thrown_item) || QDELETED(user))
 		return
 
-	if(thrown_item in firer.contents)
+	if(thrown_item in user.contents)
 		return
 
-	if(firer.get_active_hand())
+	if(user.get_active_hand())
 		return
 
-	if(istype(thrown_item, /obj/item/twohanded))
-		if(firer.get_inactive_hand())
-			return
-
-	firer.put_in_active_hand(thrown_item)
-
-
-/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target)
-	if(!firer || !target)
+	if(thrown_item.GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
 		return
 
-	if(!firer.Adjacent(target))
+	user.put_in_active_hand(thrown_item)
+
+
+/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target, mob/living/carbon/user)
+	if(QDELETED(target) || QDELETED(user))
 		return
 
-	var/obj/item/grab/grab = target.grabbedby(firer, 1)
+	if(!user.Adjacent(target))
+		return
+
+	var/obj/item/grab/grab = target.grabbedby(user, TRUE)
 	if(istype(grab))
 		grab.state = GRAB_PASSIVE
 		target.Weaken(4 SECONDS)
 
 
-/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target)
-	if(!firer || !target)
+/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target, mob/living/carbon/user)
+	if(QDELETED(target) || QDELETED(user))
 		return
 
-	if(!firer.Adjacent(target))
+	if(!user.Adjacent(target))
 		return
 
-	var/obj/item/offarm_item = firer.r_hand
+	var/obj/item/offarm_item = user.get_active_hand()
 	if(!is_sharp(offarm_item))
-		offarm_item = firer.l_hand
+		offarm_item = user.get_inactive_hand()
 
 	if(!is_sharp(offarm_item))
 		return
 
-	target.visible_message(span_danger("[firer] impales [target] with [offarm_item]!"), \
-							span_danger("[firer] impales you with [offarm_item]!"))
-	add_attack_logs(firer, target, "[firer] pulled [target] with a tentacle, attacking them with [offarm_item]") //Attack log is here so we can fetch the item they're stabbing with.
+	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \
+							span_danger("[user] impales you with [offarm_item]!"))
+	add_attack_logs(user, target, "[user] pulled [target] with a tentacle, attacking them with [offarm_item]") //Attack log is here so we can fetch the item they're stabbing with.
 
-	target.apply_damage(offarm_item.force, BRUTE, "chest")
-	do_item_attack_animation(target, used_item = offarm_item)
-	add_blood(target)
-	playsound(get_turf(firer), offarm_item.hitsound, 75, TRUE)
+	target.apply_damage(offarm_item.force, BRUTE, BODY_ZONE_CHEST)
+	user.do_attack_animation(target, used_item = offarm_item)
+	offarm_item.add_mob_blood(target)
+	playsound(get_turf(user), offarm_item.hitsound, 75, TRUE)
 
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
@@ -410,13 +477,13 @@
 		return FALSE
 
 	var/mob/living/carbon/human/user = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
 			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
 			add_attack_logs(src, item, "[src] pulled [item] towards them with a tentacle")
 			user.throw_mode_on()
-			item.throw_at(user, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), item))
+			item.throw_at(user, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), item, user))
 			. = TRUE
 
 	else if(isliving(target))
@@ -435,13 +502,15 @@
 						return TRUE
 
 					if(INTENT_DISARM)
-						var/obj/item/hand_item = c_target.l_hand
+						var/obj/item/active_hand = c_target.get_active_hand()
+						var/obj/item/inactive_hand = c_target.get_inactive_hand()
+						var/obj/item/hand_item = active_hand
 						if(!istype(hand_item, /obj/item/shield))  //shield is priotity target
-							hand_item = c_target.r_hand
+							hand_item = inactive_hand
 							if(!istype(hand_item, /obj/item/shield))
-								hand_item = c_target.get_active_hand()
+								hand_item = active_hand
 								if(!hand_item)
-									hand_item = c_target.get_inactive_hand()
+									hand_item = inactive_hand
 
 						if(hand_item)
 							if(c_target.drop_item_ground(hand_item))
@@ -465,14 +534,14 @@
 												span_userdanger("A tentacle grabs you and pulls you towards [user]!"))
 						add_attack_logs(user, c_target, "[user] grabbed [c_target] with a changeling tentacle")
 						c_target.client?.move_delay = world.time + 1 SECONDS
-						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_grab), c_target))
+						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_grab), c_target, user))
 						return TRUE
 
 					if(INTENT_HARM)
 						c_target.visible_message(span_danger("[c_target] is thrown towards [user] by a tentacle!"), \
 												span_userdanger("A tentacle grabs you and throws you towards [user]!"))
 						c_target.client?.move_delay = world.time + 1 SECONDS
-						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_stab), c_target))
+						c_target.throw_at(get_step_towards(user, c_target), 8, 2, callback = CALLBACK(src, PROC_REF(tentacle_stab), c_target, user))
 						return TRUE
 
 			else
@@ -502,6 +571,7 @@
 	genetic_damage = 12
 	max_genetic_damage = 20
 	weapon_type = /obj/item/shield/changeling
+	weapon_check_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
 
@@ -517,14 +587,15 @@
 /obj/item/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	icon_state = "ling_shield"
 	block_chance = 50
 	var/remaining_uses //Set by the changeling ability.
 
 
-/obj/item/shield/changeling/New()
-	..()
+/obj/item/shield/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!"), \
 							span_warning("We inflate our hand into a strong shield."), \
@@ -571,20 +642,24 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL | HIDETAIL
+	clothing_flags = STOPSPRESSUREDMAGE
+	flags_inv = HIDETAIL
+	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 
-/obj/item/clothing/suit/space/changeling/New()
-	..()
+/obj/item/clothing/suit/space/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!"), \
 							span_warning("We inflate our flesh, creating a spaceproof suit!"), \
@@ -602,15 +677,23 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
+	clothing_flags = STOPSPRESSUREDMAGE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
+	item_flags = DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
+
+
+/obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
 
 /***************************************\
@@ -637,24 +720,27 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	hide_tail_by_species = list("Vulpkanin", "Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid",)
+	species_restricted = null
+	faction_restricted = null
+	hide_tail_by_species = list(SPECIES_VULPKANIN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 
-/obj/item/clothing/suit/armor/changeling/New()
-	..()
+/obj/item/clothing/suit/armor/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), \
 							span_warning("We harden our flesh, creating a suit of armor!"), \
@@ -665,7 +751,15 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = BLOCKHAIR | NODROP | DROPDEL
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
+	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	species_restricted = null
+	faction_restricted = null
+
+
+/obj/item/clothing/head/helmet/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+

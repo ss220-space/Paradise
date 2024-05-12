@@ -38,6 +38,9 @@
 	icon_state = "emittercannon"
 	var/charge_cost = 750
 
+/obj/item/gun/energy/emittercannon/emp_act(severity)
+	return
+
 /obj/item/borg/overdrive
 	name = "Overdrive"
 	icon = 'icons/obj/decals.dmi'

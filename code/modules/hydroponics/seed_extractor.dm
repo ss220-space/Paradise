@@ -42,8 +42,8 @@
 	desc = "Extracts and bags seeds from produce."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "sextractor"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/list/piles = list()
 	var/max_seeds = 1000
 	var/seed_multiplier = 1
@@ -137,6 +137,8 @@
 	src.amount = am
 
 /obj/machinery/seed_extractor/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	interact(user)
 
 /obj/machinery/seed_extractor/attack_ghost(mob/user)
@@ -233,7 +235,7 @@
 		var/mob/M = O.loc
 		if(!M.drop_transfer_item_to_loc(O, src))
 			return FALSE
-	else if(istype(O.loc,/obj/item/storage))
+	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc
 		S.remove_from_storage(O,src)
 

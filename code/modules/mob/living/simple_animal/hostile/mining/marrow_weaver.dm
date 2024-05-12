@@ -7,7 +7,7 @@
 	icon_aggro = "weaver"
 	icon_dead = "weaver_dead"
 	throw_message = "bounces harmlessly off the"
-	butcher_results = list(/obj/item/stack/ore/uranium = 2, /obj/item/stack/sheet/bone = 3, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/weaver_chitin = 4, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 2)
+	butcher_results = list(/obj/item/stack/ore/uranium = 2, /obj/item/stack/sheet/bone = 2, /obj/item/stack/sheet/sinew = 1, /obj/item/stack/sheet/animalhide/weaver_chitin = 3, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 2)
 	loot = list()
 	attacktext = "кусает" //can we revert all translation in our code?
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -20,8 +20,8 @@
 	melee_damage_upper = 16
 	stat_attack = 1
 	robust_searching = 1
-	see_in_dark = 7
-	ventcrawler = 2
+	nightvision = 7
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "rolls over, frothing at the mouth before stilling."
@@ -34,8 +34,9 @@
 	var/melee_damage_upper_angery1 = 20
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
+	needs_gliding = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount)
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount, updating_health = TRUE)
 	if(buttmad == 0)
 		if(health < maxHealth/3)
 			buttmad = 1
@@ -43,9 +44,10 @@
 			melee_damage_lower = melee_damage_lower_angery1
 			melee_damage_upper = melee_damage_upper_angery1
 			move_to_delay = anger_move_to_delay
-			speed = anger_speed
+			set_varspeed(anger_speed)
 			poison_type = "venom"
 			poison_per_bite = 6
+			needs_gliding = TRUE
 	else if(buttmad == 1)
 		if(health > maxHealth/2)
 			buttmad = 0
@@ -53,8 +55,9 @@
 			melee_damage_lower = melee_damage_lower_angery0
 			melee_damage_upper = melee_damage_upper_angery0
 			poison_type = initial(poison_type)
-			speed = initial(speed)
+			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
+			needs_gliding = FALSE
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
@@ -87,8 +90,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(var/mob/living/carbon/human/snack, preparing = TRUE)
 	var/foundorgans = 0
-	var/list/organs = snack.get_organs_zone("chest")
-	for(var/obj/item/organ/internal/I in organs)
+	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
+	for(var/obj/item/organ/internal/I as anything in organs)
 		if(!istype(I, /obj/item/organ/internal/brain))
 			foundorgans ++
 			if(!preparing)
@@ -104,16 +107,38 @@
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
 
-//better and dangerous subtype for regular lavaland. Has X-ray and slightly faster
+//better and dangerous subtype for regular lavaland. Slightly faster and NO MORE XRAY.
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
 	health = 320
 	maxHealth = 320
 	vision_range = 8
-	see_in_dark = 8
+	nightvision = 8
 	speed = 5
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	move_to_delay = 14
 	anger_move_to_delay = 6
 	anger_speed = 6
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous/random/Initialize(mapload)
+	. = ..()
+	if(prob(15))
+		new /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost(loc)
+		return INITIALIZE_HINT_QDEL
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost
+	name = "frostbite weaver"
+	desc = "A big, angry, venomous ice spider. It likes to snack on bone marrow. Its preferred food source is you."
+	icon_state = "weaver_ice"
+	icon_living = "weaver_ice"
+	icon_aggro = "weaver_ice"
+	icon_dead = "weaver_ice_dead"
+	melee_damage_lower = 10 //stronger venom, but weaker attack.
+	melee_damage_upper = 13
+	poison_type = "frostoil"
+	poison_per_bite = 5
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril
+	fromtendril = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/tendril
+	fromtendril = TRUE

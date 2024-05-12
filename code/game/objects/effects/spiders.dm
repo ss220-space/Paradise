@@ -43,20 +43,19 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	if(height == 0)
+
+/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
-	else if(istype(mover, /mob/living))
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	if(isliving(mover) && prob(50))
+		to_chat(mover, span_danger("You get stuck in [src] for a moment."))
+		return FALSE
+	if(isprojectile(mover))
 		return prob(30)
-	return TRUE
+
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
@@ -92,7 +91,7 @@
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
-	anchored = 0
+	anchored = FALSE
 	layer = 2.75
 	max_integrity = 3
 	var/amount_grown = 0
@@ -187,6 +186,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
+				glide_for(3)
 				walk_to(src, entry_vent, 1)
 				break
 	if(isturf(loc))
@@ -215,6 +215,7 @@
 							S.key = C.key
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
@@ -226,6 +227,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
+	glide_for(3)
 	walk_to(src, pick(available_turfs))
 	return TRUE
 
@@ -244,7 +246,7 @@
 	desc = "Green squishy mess."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

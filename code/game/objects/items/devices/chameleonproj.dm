@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -18,11 +18,11 @@
 	var/saved_overlays = null
 	var/saved_underlays = null
 
-/obj/item/chameleon/dropped()
+/obj/item/chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt()
 
-/obj/item/chameleon/equipped()
+/obj/item/chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt()
 
@@ -39,7 +39,7 @@
 	if(target.invisibility)
 		return
 	if(!active_dummy)
-		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
+		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
@@ -92,10 +92,7 @@
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
-		A.loc = active_dummy.loc
-		if(ismob(A))
-			var/mob/M = A
-			M.reset_perspective(null)
+		A.forceMove(active_dummy.loc)
 
 /obj/effect/dummy/chameleon
 	name = ""
@@ -113,7 +110,7 @@
 	overlays = new_overlays
 	underlays = new_underlays
 	dir = O.dir
-	M.loc = src
+	M.forceMove(src)
 	master = C
 	master.active_dummy = src
 
@@ -150,7 +147,7 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/relaymove(mob/user, direction)
-	if(!isturf(loc) || istype(loc, /turf/space) || !direction)
+	if(!isturf(loc) || isspaceturf(loc) || !direction)
 		return // No magical movement!
 
 	if(can_move)
@@ -188,7 +185,7 @@
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 	var/list/possible_disguises = list("Last One",
 										"Standard" = list("Robot-STD", "droid", "Standard", "Noble-STD"),
-										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
+										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "chiefbot", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
 										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "chiefmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
 										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
 										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
@@ -200,11 +197,11 @@
 		S.cham_proj = null
 	return ..()
 
-/obj/item/borg_chameleon/dropped(mob/user)
+/obj/item/borg_chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt(user)
 
-/obj/item/borg_chameleon/equipped(mob/user)
+/obj/item/borg_chameleon/equipped(mob/user, slot, initial)
 	. = ..()
 	disrupt(user)
 
@@ -266,7 +263,7 @@
 			f = user.filters[start+i]
 			animate(f, offset = f:offset, time = 0, loop = 3, flags = ANIMATION_PARALLEL)
 			animate(offset = f:offset - 1, time = rand() * 20 + 10)
-		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
+		if(do_after(user, 5 SECONDS, user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen cyborg.</span>")
 			activate(user, choice)

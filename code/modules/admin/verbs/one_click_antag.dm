@@ -38,7 +38,7 @@
 		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
-		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
+		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.prefs?.skip_antag && (!jobban_isbanned(M, role)))
 			return TRUE
 		else
 			return FALSE
@@ -330,15 +330,17 @@
 
 
 /datum/admins/proc/makeSpaceNinja()
+	. = FALSE
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
-		return 0
+		return
 	var/datum/objective/custom_objective = null
 	if(alert(usr, "Хотите ли вы выдать этому ниндзя особую цель?","Особая цель","Да", "Нет") == "Да")
 		var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null,1,MAX_MESSAGE_LEN))
 		if(!expl)
 			return
 		custom_objective = new
+		custom_objective.needs_target = FALSE
 		custom_objective.explanation_text = expl
 	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
@@ -346,13 +348,13 @@
 	log_admin("[key_name(owner)] tried making a Space Ninja with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Space Ninja with One-Click-Antag")
 
-	if(candidates.len)
+	if(length(candidates))
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Space_Ninja(custom_objective)
-		return 1
-	return 0
+		return TRUE
+
 
 /proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return

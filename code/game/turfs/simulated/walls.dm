@@ -17,13 +17,17 @@
 
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
-	opacity = 1
-	density = 1
-	blocks_air = 1
+	opacity = TRUE
+	density = TRUE
+	blocks_air = TRUE
+	init_air = FALSE
 	explosion_block = 1
+	explosion_vertical_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+
+	var/melting = FALSE //TRUE if wall is currently being melted with thermite
 
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
@@ -45,7 +49,9 @@
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated,
 	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced)
+	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
+	)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()
@@ -71,27 +77,25 @@
 	if(rotting)
 		. += span_warning("There is fungus growing on [src].")
 
-/turf/simulated/wall/proc/update_icon()
+
+/turf/simulated/wall/update_overlays()
+	. = ..()
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
 	queue_smooth(src)
 	if(!damage)
-		if(damage_overlay)
-			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = 0
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
-		overlay = damage_overlays.len
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
+		overlay = length(damage_overlays)
 
 	if(damage_overlay && overlay == damage_overlay) //No need to update.
 		return
-	if(damage_overlay)
-		overlays -= damage_overlays[damage_overlay]
-	overlays += damage_overlays[overlay]
-	damage_overlay = overlay
+
+	. += damage_overlays[overlay]
+
 
 /turf/simulated/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
@@ -190,7 +194,7 @@
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), span_italics("You hear drilling."))
-			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+			if(!do_after(user, our_rpd.walldelay, src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
@@ -203,7 +207,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -245,35 +249,87 @@
 /turf/simulated/wall/burn_down()
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
-	ChangeTurf(/turf/simulated/floor)
+	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
-	var/wait = 100
-	if(speed)
-		wait = speed
+
+#define THERMITE_PER_SECOND 2.5
+#define DAMAGE_PER_SECOND 60
+
+/**
+ * Melts down wall into its base turf.
+ *
+ * Arguments:
+ * * user - who used thermite, optional argument used to show message.
+ * * time - optional override; thermite reagent will not be used for melting, only passed time matters.
+ */
+/turf/simulated/wall/proc/thermitemelt(mob/user, time)
+	set waitfor = FALSE
+
+	if(melting)
+		return
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
 
-	var/obj/effect/overlay/O = new/obj/effect/overlay( src )
-	O.name = "Thermite"
-	O.desc = "Looks hot."
-	O.icon = 'icons/effects/fire.dmi'
-	O.icon_state = "2"
-	O.anchored = 1
-	O.density = 1
-	O.layer = 5
+	var/obj/effect/overlay/visuals = new(src)
+	visuals.name = "Thermite"
+	visuals.desc = "Looks hot."
+	visuals.icon = 'icons/effects/fire.dmi'
+	visuals.icon_state = "2"
+	visuals.set_anchored(TRUE)
+	visuals.set_density(TRUE)
+	visuals.layer = FLY_LAYER
 
-	src.ChangeTurf(/turf/simulated/floor/plating)
-
-	var/turf/simulated/floor/F = src
-	F.burn_tile()
-	F.icon_state = "plating"
 	if(user)
-		to_chat(user, span_warning("The thermite starts melting through the wall."))
+		to_chat(user, span_warning("The thermite starts melting through [src]."))
 
-	spawn(wait)
-		if(O)	qdel(O)
-	return
+	if(time)
+		melting = TRUE
+		var/sound_timer = 10
+		while(time > 0)
+			if(QDELETED(src))
+				return
+			sound_timer++
+			if(sound_timer >= 10)
+				sound_timer = 0
+				playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+			time = max(0, time - 0.1 SECONDS)
+			sleep(0.1 SECONDS)
+		if(QDELETED(src))
+			return
+		var/turf/simulated/floor/plating/our_floor = burn_down()
+		our_floor.burn_tile()
+		our_floor.cut_overlay(melting_olay)
+		if(visuals)
+			qdel(visuals)
+		return
+
+	melting = TRUE
+
+	while(reagents.get_reagent_amount("thermite") > 0)
+		if(QDELETED(src))
+			return
+		reagents.remove_reagent("thermite", THERMITE_PER_SECOND)
+		if(damage_cap - damage <= DAMAGE_PER_SECOND)
+			var/turf/simulated/floor/plating/our_floor = burn_down()
+			our_floor.burn_tile()
+			break
+		take_damage(DAMAGE_PER_SECOND)
+		playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		sleep(1 SECONDS)
+
+	if(QDELETED(src))
+		return
+
+	if(iswallturf(src))
+		melting = FALSE
+
+	cut_overlay(melting_olay)
+	if(visuals)
+		qdel(visuals)
+
+#undef THERMITE_PER_SECOND
+#undef DAMAGE_PER_SECOND
+
 
 //Interactions
 
@@ -353,7 +409,7 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
 	if(rotting)
@@ -409,7 +465,8 @@
 		to_chat(user, span_notice("You begin slicing through the outer plating."))
 		playsound(src, I.usesound, 100, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed * gettoolspeedmod(user) : 60 * I.toolspeed * gettoolspeedmod(user), target = src))
+		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src))
 			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] slices apart [src]!"), span_warning("You hear metal being sliced apart."))
@@ -423,7 +480,8 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, span_notice("You begin to drill though the wall."))
 
-		if(do_after(user, isdiamond ? 480 * I.toolspeed * gettoolspeedmod(user) : 240 * I.toolspeed * gettoolspeedmod(user), target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
+		var/delay = isdiamond ? 48 SECONDS : 24 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
 			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] drills through [src]!"), span_italics("You hear the grinding of metal."))
@@ -431,8 +489,9 @@
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrates the wall."))
-
-		if(do_after(user, isdiamond ? 600 * I.toolspeed * gettoolspeedmod(user) : 300 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+		var/obj/item/pickaxe/drill/jackhammer/jh = I
+		var/delay = isdiamond ? 60 SECONDS : 30 SECONDS
+		if(do_after(user, delay * jh.wall_toolspeed * gettoolspeedmod(user), src)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
 			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))
@@ -440,8 +499,8 @@
 
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall."))
-
-		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+		var/delay = isdiamond ? 6 SECONDS : 3 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
 			to_chat(user, span_notice("Your [I.name] melts the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] melts [src]!"),span_italics("You hear the hissing of steam."))
@@ -467,7 +526,7 @@
 				span_notice("You start drilling a hole in [src]."),
 				span_italics("You hear a drill."))
 
-			if(do_after(user, 80 * P.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 8 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
 				user.visible_message(
 					span_notice("[user] drills a hole in [src] and pushes [P] into the void."),
 					span_notice("You finish drilling [src] and push [P] into the void."),

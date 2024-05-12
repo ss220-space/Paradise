@@ -9,7 +9,8 @@
 
 
 /datum/antagonist/survivalist/greet()
-	to_chat(owner.current, "<B>You are the survivalist! [greet_message]</B>")
+	. = ..()
+	return . += span_notice("[greet_message]")
 
 
 /datum/antagonist/survivalist/guns
@@ -28,7 +29,7 @@
 
 /datum/antagonist/survivalist/magic/greet()
 	..()
-	to_chat(owner.current, span_notice("As a wonderful magician, you should remember that spellbooks don't mean anything if they are used up."))
+	return . += span_notice("As a wonderful magician, you should remember that spellbooks don't mean anything if they are used up.")
 
 
 /datum/antagonist/survivalist/magic/give_objectives()

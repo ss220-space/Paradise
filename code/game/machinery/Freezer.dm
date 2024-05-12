@@ -2,9 +2,9 @@
 	name = "охладитель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
-	density = 1
+	density = TRUE
 	var/min_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
 	power_channel = EQUIP
@@ -69,7 +69,7 @@
 	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
 		on = FALSE
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
@@ -91,14 +91,14 @@
 	build_network()
 	update_icon()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon_state()
 	if(panel_open)
 		icon_state = "freezer-o"
-	else if(src.on)
+	else if(on)
 		icon_state = "freezer_1"
 	else
 		icon_state = "freezer"
-	return
+
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
 	attack_hand(user)
@@ -107,6 +107,9 @@
 	attack_hand(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
 	if(panel_open)
 		to_chat(user, span_notice("Сначала закройте панель техобслуживания."))
 		return
@@ -157,20 +160,21 @@
 			amount = text2num(amount)
 			current_temperature = clamp(amount, T20C, min_temperature)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/power_change()
-	..()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(stat & NOPOWER)
-		on = 0
+		on = FALSE
 		use_power = IDLE_POWER_USE
-		update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "нагреватель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
-	density = 1
+	density = TRUE
 	var/max_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	layer = 3
 	current_heat_capacity = 1000
 	active_power_usage = 5000
@@ -238,7 +242,7 @@
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
 		use_power = IDLE_POWER_USE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return TRUE
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
@@ -258,16 +262,17 @@
 			node = target
 			break
 	build_network()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon_state()
 	if(panel_open)
 		icon_state = "heater-o"
-	else if(src.on)
+	else if(on)
 		icon_state = "heater_1"
 	else
 		icon_state = "heater"
-	return
+
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
 	attack_hand(user)
@@ -326,9 +331,12 @@
 			amount = text2num(amount)
 			current_temperature = clamp(amount, T20C, T20C + max_temperature)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change()
-	..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(stat & NOPOWER)
-		on = 0
+		on = FALSE
 		use_power = IDLE_POWER_USE
-		update_icon()
+	update_icon(UPDATE_ICON_STATE)
+

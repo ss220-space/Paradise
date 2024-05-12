@@ -66,3 +66,10 @@
 	desc = "A cluster of bright neon eggs belonging to a bio-luminescent species of fish."
 	icon_state = "glofish_eggs"
 	fish_type = /datum/fish/glofish
+
+/obj/item/fish_eggs/crayfish
+	name = "crayfish eggs"
+	desc = "A cluster of bright red eggs."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "crayfish_eggs"
+	fish_type = /datum/fish/crayfish

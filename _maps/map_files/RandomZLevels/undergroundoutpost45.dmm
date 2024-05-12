@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO45/caves)
 "ac" = (
 /turf/simulated/mineral/random/labormineral,
@@ -2523,10 +2520,10 @@
 	name = "meat fridge";
 	req_access = list(201)
 	},
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -7093,7 +7090,7 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pb" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO45_air_sensor";
 	output = 7
@@ -7366,7 +7363,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
@@ -7566,7 +7563,7 @@
 "qe" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
@@ -7578,7 +7575,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
@@ -7606,7 +7603,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -8821,7 +8818,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -8865,7 +8862,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -8888,7 +8885,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9239,7 +9236,7 @@
 "td" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -9272,7 +9269,7 @@
 	},
 /area/awaymission/UO45/engineering)
 "tg" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_waste_sensor";
 	output = 63
 	},
@@ -9541,7 +9538,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tH" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -9761,12 +9758,12 @@
 /area/awaymission/UO45/caves)
 "ud" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "uf" = (
@@ -10046,7 +10043,7 @@
 "uJ" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -10055,7 +10052,7 @@
 "uK" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -10255,7 +10252,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
@@ -10276,7 +10273,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
@@ -10494,7 +10491,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vE" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_n2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10505,7 +10502,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vG" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_o2_sensor"
 	},
 /obj/machinery/light/small,
@@ -13014,12 +13011,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13164,12 +13161,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13314,12 +13311,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13464,12 +13461,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13614,12 +13611,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13764,12 +13761,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13914,15 +13911,15 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
 ac
 ac
 ac
+ac
+ac
+ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14064,15 +14061,15 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
 ac
 ac
 ac
+ac
+ac
+ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14217,12 +14214,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14367,12 +14364,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14517,12 +14514,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14667,12 +14664,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14817,15 +14814,15 @@ ac
 ac
 ac
 ac
+ac
+ac
+ac
 aa
 aa
 aa
-ac
-ac
-ac
-ac
-ac
-ac
+aa
+aa
+aa
 aa
 "}
 (21,1,1) = {"
@@ -14967,9 +14964,9 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
+ac
+ac
+ac
 aa
 aa
 aa

@@ -48,9 +48,9 @@
 				I.dna_hash = C.dna_hash
 				I.fingerprint_hash = C.fingerprint_hash
 				qdel(C)
-				ok = M.equip_or_collect(I, slot_wear_id, 0)	//if 1, last argument deletes on fail
+				ok = M.equip_or_collect(I, ITEM_SLOT_ID)
 				break
-		else if(istype(M.back, /obj/item/storage)) // Try to place it in something on the mob's back
+		else if(isstorage(M.back)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = M.back
 			if(S.contents.len < S.storage_slots)
 				Item.loc = M.back

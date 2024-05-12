@@ -29,9 +29,10 @@
 		adjustBruteLoss(1) //degenerates on life, can only get heals from other spiders, or from killing
 
 /mob/living/simple_animal/hostile/poison/terror_spider/reaper/spider_specialattack(mob/living/carbon/human/L)
+	. = ..()
+	if(!.)
+		return FALSE
+
 	if(L.stat != DEAD) //no healing when biting corpses
-		L.attack_animal(src)
 		L.bleed(25) //bloodsucker
 		src.adjustBruteLoss(-30)   //vampirism
-	else
-		..()

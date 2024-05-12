@@ -40,6 +40,7 @@ GLOBAL_LIST_EMPTY(bread_monsters)
 		current_teleport_count += 1
 		src.transform = src.transform.Scale(scaling_coeff, scaling_coeff)
 		health = initial(health) + health_increase * current_teleport_count
+		maxHealth = initial(maxHealth) + health_increase * current_teleport_count
 		harm_intent_damage = initial(harm_intent_damage) + damage_increase * current_teleport_count
 		melee_damage_lower = initial(melee_damage_lower) + damage_increase * current_teleport_count
 		melee_damage_upper = initial(melee_damage_upper) + damage_increase * current_teleport_count

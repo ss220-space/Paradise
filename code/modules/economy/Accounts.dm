@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		if(!R.stamped)
 			R.stamped = new
 		R.stamped += /obj/item/stamp
-		R.overlays += stampoverlay
+		LAZYADD(R.stamp_overlays, stampoverlay)
 		R.stamps += "<HR><i>This paper has been stamped by the Accounts Database.</i>"
 
 	//add the account

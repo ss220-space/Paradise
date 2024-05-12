@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(acid)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Objects will no longer react to acid. No immediate action is needed."
+	ss_id = "acid"
 
 	var/list/currentrun = list()
 	var/list/processing = list()

@@ -7,7 +7,7 @@
 	item_state = "analyzer"
 	belt_icon = "plant_analyzer"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
@@ -23,7 +23,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -42,7 +42,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -131,7 +131,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	armour_penetration = 20
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -145,7 +145,7 @@
 	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ("head")
+		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, "desceration", 50, 1, -1)
@@ -175,7 +175,7 @@
 	sharp = 0
 	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
@@ -184,9 +184,7 @@
 	extend = !extend
 	if(extend)
 		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
-		icon_state = "tscythe1"
-		item_state = "scythe0"	//use the normal scythe in-hands
-		slot_flags = SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
+		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -195,31 +193,26 @@
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
-		icon_state = "tscythe0"
-		item_state = null	//no sprite for folded version, like a tele-baton
-		slot_flags = SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
+		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
-	sharp = extend
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	set_sharpness(extend)
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
 	add_fingerprint(user)
-	if(!blood_DNA)
-		return
-	if(blood_overlay && (blood_DNA.len >= 1))	//updated blood overlay, if any
-		overlays.Cut()	//this might delete other item overlays as well but eeeeeh
 
-		var/icon/I = new /icon(icon, icon_state)
-		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)), ICON_ADD)
-		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_overlay = I
-		overlays += blood_overlay
+
+/obj/item/scythe/tele/update_icon_state()
+	if(extend)
+		icon_state = "tscythe1"
+		item_state = "scythe0"	//use the normal scythe in-hands
+	else
+		icon_state = "tscythe0"
+		item_state = null	//no sprite for folded version, like a tele-baton
 
 
 // *************************************
@@ -239,7 +232,7 @@
 	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
-	throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
 
@@ -251,17 +244,17 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(reagents.total_volume)
 		hitsound = 'sound/weapons/jug_filled_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_filled_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_filled_impact.ogg'
 	else
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 
-/obj/item/reagent_containers/glass/bottle/nutrient/update_icon()
-	cut_overlays()
 
+/obj/item/reagent_containers/glass/bottle/nutrient/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
 
@@ -283,10 +276,10 @@
 				filling.icon_state = "plastic_jug100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
+		. += filling
 
 	if(!is_open_container())
-		add_overlay("lid_jug")
+		. += "lid_jug"
 
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez

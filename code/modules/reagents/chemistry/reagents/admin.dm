@@ -18,12 +18,11 @@
 	M.setBrainLoss(0, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		for(var/thing in H.internal_organs)
-			var/obj/item/organ/internal/I = thing
-			I.receive_damage(-5, FALSE)
-		for(var/obj/item/organ/external/E in H.bodyparts)
-			E.mend_fracture()
-			E.internal_bleeding = FALSE
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.receive_damage(-5, FALSE)
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			bodypart.mend_fracture()
+			bodypart.stop_internal_bleeding()
 	M.SetEyeBlind(0)
 	M.CureNearsighted(FALSE)
 	M.CureBlind(FALSE)
@@ -41,19 +40,20 @@
 	M.SetParalysis(0)
 	M.SetSilence(0)
 	M.SetHallucinate(0)
+	M.SetDeaf(0)
 	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)
 	M.SetSlur(0)
 	M.SetConfused(0)
-	M.SetSleeping(0, FALSE)
+	M.SetSleeping(0)
 	M.SetJitter(0)
-	for(var/thing in M.viruses)
+	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
 			continue
-		D.cure(0)
+		D.cure(need_immunity = FALSE)
 	..()
 	return STATUS_UPDATE_ALL
 

@@ -2,7 +2,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi liver"
 	icon = 'icons/obj/species_organs/unathi.dmi'
-	desc = "A large looking liver"
+	desc = "A large looking liver."
 	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/eyes/unathi
@@ -14,7 +14,7 @@
 /obj/item/organ/internal/heart/unathi
 	species_type = /datum/species/unathi
 	name = "unathi heart"
-	desc = "A large looking heart"
+	desc = "A large looking heart."
 	icon = 'icons/obj/species_organs/unathi.dmi'
 
 /obj/item/organ/internal/brain/unathi

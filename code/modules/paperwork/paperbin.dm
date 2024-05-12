@@ -11,11 +11,12 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 	var/letterhead_type
+	var/purple_bin = FALSE
 
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	..()
 
 /obj/item/paper_bin/Destroy()
@@ -25,16 +26,16 @@
 /obj/item/paper_bin/burn()
 	amount = 0
 	extinguish()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/paper_bin/MouseDrop(atom/over)
+/obj/item/paper_bin/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	var/mob/user = usr
-	if(over != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || !ishuman(user))
 		return FALSE
 
 	if(user.put_in_hands(src, ignore_anim = FALSE))
@@ -45,19 +46,19 @@
 	return FALSE
 
 
-/obj/item/paper_bin/attack_hand(mob/user as mob)
+/obj/item/paper_bin/attack_hand(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+		var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		if(H.hand)
-			temp = H.bodyparts_by_name["l_hand"]
+			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(temp && !temp.is_usable())
 			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return
 	if(amount >= 1)
 		amount--
 		if(amount==0)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/P
 		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
@@ -102,22 +103,24 @@
 		else
 			. += "<span class='notice'>There are no papers in the bin.</span>"
 
-/obj/item/paper_bin/update_icon()
+
+/obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
 		icon_state = "paper_bin0"
 	else
-		icon_state = "paper_bin1"
-	..()
+		icon_state = "paper_bin[purple_bin ? "2" : "1"]"
+
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"
 	icon_state = "paper_bin2"
+	purple_bin = TRUE
 
-/obj/item/paper_bin/carbon/attack_hand(mob/user as mob)
+/obj/item/paper_bin/carbon/attack_hand(mob/user)
 	if(amount >= 1)
 		amount--
 		if(amount==0)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 		var/obj/item/paper/carbon/P
 		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
@@ -144,3 +147,7 @@
 /obj/item/paper_bin/ussp
 	name = "ussp paper bin"
 	letterhead_type = /obj/item/paper/ussp
+
+/obj/item/paper_bin/solgov
+	name = "solgov paper bin"
+	letterhead_type = /obj/item/paper/solgov

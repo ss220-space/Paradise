@@ -1,5 +1,5 @@
 /datum/martial_combo/sleeping_carp/gnashing_teeth
-	name = "Скрежешущие зубы"
+	name = "Скрежещущие зубы"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Каждый второй последовательный удар наносит 20 урона, который может отрубить конечность и вы кричите боевые фразы, вселяющие страх в сердца врагов."
 
@@ -18,6 +18,7 @@
 		playsound(get_turf(target), 'sound/effects/hulk_hit_airlock.ogg', 25, TRUE, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
 	target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
+	objective_damage(user, target, 20, BRUTE)
 	if(target.health >= 0)
 		user.say(pick("ХЯ!", "ХА!!", "ЧУУ!", "ВУА!", "КЬЯ!", "ХА!", "ХИЯ!", "УДАР КАРПА!", "УКУС КАРПА!"))
 	else

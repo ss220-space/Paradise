@@ -7,11 +7,25 @@
 
 /mob/living/Initialize()
 	. = ..()
+	AddElement(/datum/element/movetype_handler)
+	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
+	gravity_setup()
+	if(ventcrawler_trait)
+		var/static/list/ventcrawler_sanity = list(
+			TRAIT_VENTCRAWLER_ALWAYS,
+			TRAIT_VENTCRAWLER_NUDE,
+			TRAIT_VENTCRAWLER_ALIEN,
+		)
+		if(ventcrawler_trait in ventcrawler_sanity)
+			ADD_TRAIT(src, ventcrawler_trait, INNATE_TRAIT)
+		else
+			stack_trace("Mob [type] has improper ventcrawler_trait value.")
 	GLOB.mob_living_list += src
+
 
 /mob/living/Destroy()
 	for(var/s in ownedSoullinks)
@@ -24,6 +38,17 @@
 		S.sharerDies(FALSE)
 		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
 	sharedSoullinks = null
+	if(ranged_ability)
+		ranged_ability.remove_ranged_ability(src)
+	remove_from_all_data_huds()
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
+	GLOB.mob_living_list -= src
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -55,29 +80,82 @@
 	med_hud_set_status()
 
 
-/mob/living/Destroy()
-	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
-	remove_from_all_data_huds()
-	GLOB.mob_living_list -= src
-	if(LAZYLEN(status_effects))
-		for(var/s in status_effects)
-			var/datum/status_effect/S = s
-			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
-				qdel(S)
-			else
-				S.be_replaced()
-	return ..()
-
 /mob/living/ghostize(can_reenter_corpse = 1)
 	var/prev_client = client
 	. = ..()
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
+
+
+/mob/living/IsLying()
+	return lying_angle
+
+
+/mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
+	if(!isopenspaceturf(impacted_turf))
+		impact_flags |= ZImpactDamage(impacted_turf, levels)
+
+	return ..()
+
+/mob/living/proc/ZImpactDamage(turf/impacted_turf, levels)
+	. = SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, impacted_turf)
+	if(. & ZIMPACT_CANCEL_DAMAGE)
+		return .
+
+	// If you are incapped, you probably can't brace yourself
+	var/can_help_themselves = !incapacitated(ignore_restraints = TRUE)
+	if(levels <= 1 && can_help_themselves)
+		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
+		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
+			visible_message(
+				span_notice("[src] makes a hard landing on [impacted_turf] but remains unharmed from the fall."),
+				span_notice("You brace for the fall. You make a hard landing on [impacted_turf], but remain unharmed."),
+			)
+			AdjustWeakened((levels * 4 SECONDS))
+			return . | ZIMPACT_NO_MESSAGE
+	var/incoming_damage = (levels * 5) ** 1.5
+	var/cat = iscat(src)
+	var/functional_legs = TRUE
+	var/skip_weaken = FALSE
+	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+		var/obj/item/organ/external/leg = get_organ(zone)
+		if(leg.has_fracture())
+			functional_legs = FALSE
+			break
+	if(((istajaran(src) && functional_legs) || cat) && !(lying_angle || resting) && can_help_themselves)
+		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
+		skip_weaken = TRUE
+		if(cat || (DWARF in mutations)) // lil' bounce kittens
+			visible_message(
+				span_notice("[src] makes a hard landing on [impacted_turf], but lands safely on [p_their()] feet!"),
+				span_notice("You make a hard landing on [impacted_turf], but land safely on your feet!"),
+			)
+			return .
+		incoming_damage *= 1.2 // at least no stuns
+		visible_message(
+			span_danger("[src] makes a hard landing on [impacted_turf], landing on [p_their()] feet painfully!"),
+			span_userdanger("You make a hard landing on [impacted_turf], and instinctively land on your feet - still painfully!"),
+		)
+
+	if(!lying_angle && !resting)
+		var/damage_for_each_leg = round(incoming_damage / 4)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_L_LEG)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_R_LEG)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_L_FOOT)
+		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_R_FOOT)
+
+	else
+		apply_damage(incoming_damage, BRUTE)
+
+	if(!skip_weaken)
+		AdjustWeakened(levels * 5 SECONDS)
+	return .
+
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
 /mob/living/Bump(atom/A, yes)
@@ -119,7 +197,7 @@
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
 		var/mob/living/L = M
-		if(L.pulledby && L.pulledby != src && L.restrained())
+		if(L.pulledby && L.pulledby != src && HAS_TRAIT(L, TRAIT_RESTRAINED))
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
@@ -127,7 +205,7 @@
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
-				if(P.restrained())
+				if(HAS_TRAIT(P, TRAIT_RESTRAINED))
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 					return TRUE
@@ -145,7 +223,7 @@
 		if(M.pulledby == src && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+		else if((HAS_TRAIT(M, TRAIT_RESTRAINED) || M.a_intent == INTENT_HELP) && (HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP))
 			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
@@ -179,9 +257,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
+	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !isclothing(M.r_hand))
 		return TRUE
-	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
+	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !isclothing(M.l_hand))
 		return TRUE
 
 //Called when we bump into an obj
@@ -197,7 +275,7 @@
 /mob/living/get_pull_push_speed_modifier(current_delay)
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
-	var/average_delay = (movement_delay(TRUE) + current_delay) / 2
+	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
 
 //Called when we want to push an atom/movable
@@ -276,6 +354,70 @@
 	return TRUE
 
 
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	if(isprojectile(mover))
+		return !density || lying_angle
+	if(mover.throwing)
+		return !density || lying_angle || (mover.throwing.thrower == src && !ismob(mover))
+	if(buckled == mover)
+		return TRUE
+	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
+			return FALSE
+		if(mover in buckled_mobs)
+			return TRUE
+	return !mover.density || lying_angle
+
+
+/mob/living/proc/set_pull_offsets(mob/living/user, grab_state = GRAB_PASSIVE)
+	/*
+	if(user.buckled)
+		return //don't make them change direction or offset them if they're buckled into something.
+	var/offset = 0
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			offset = GRAB_PIXEL_SHIFT_PASSIVE
+		if(GRAB_AGGRESSIVE)
+			offset = GRAB_PIXEL_SHIFT_AGGRESSIVE
+		if(GRAB_NECK)
+			offset = GRAB_PIXEL_SHIFT_NECK
+		if(GRAB_KILL)
+			offset = GRAB_PIXEL_SHIFT_NECK
+	user.setDir(get_dir(user, src))
+	var/target_pixel_x = user.base_pixel_x + M.body_position_pixel_x_offset
+	var/target_pixel_y = user.base_pixel_y + M.body_position_pixel_y_offset
+	switch(user.dir)
+		if(NORTH)
+			animate(user, pixel_x = target_pixel_x, pixel_y = target_pixel_y + offset, 3)
+		if(SOUTH)
+			animate(user, pixel_x = target_pixel_x, pixel_y = target_pixel_y - offset, 3)
+		if(EAST)
+			if(user.lying_angle == 270) //update the dragged dude's direction if we've turned
+				user.set_lying_angle(90)
+			animate(user, pixel_x = target_pixel_x + offset, pixel_y = target_pixel_y, 3)
+		if(WEST)
+			if(user.lying_angle == 90)
+				user.set_lying_angle(270)
+			animate(user, pixel_x = target_pixel_x - offset, pixel_y = target_pixel_y, 3)
+	*/
+
+
+/mob/living/proc/reset_pull_offsets(mob/living/user, override)
+	/*
+	if(!override && user.buckled)
+		return
+	animate(user, pixel_x = user.base_pixel_x + user.body_position_pixel_x_offset , pixel_y = user.base_pixel_y + user.body_position_pixel_y_offset, 1)
+	*/
+
+
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
+
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -288,9 +430,10 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	if(ismob(pulling))
+		reset_pull_offsets(pulling)
 	..()
-	if(pullin)
-		pullin.update_icon(src)
+	pullin?.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -298,30 +441,50 @@
 	stop_pulling()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view(client.maxview()))
+/mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	return ..()
 
-/mob/living/run_pointed(atom/A)
+
+/mob/living/run_pointed(atom/target)
 	if(!..())
 		return FALSE
+
 	var/obj/item/hand_item = get_active_hand()
-	if(istype(hand_item, /obj/item/gun) && A != hand_item)
-		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
-			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
+	var/pointed_object = "[target.declent_ru(ACCUSATIVE)]"
+
+	if(target.loc in src)
+		var/atom/inside = target.loc
+		pointed_object += " внутри [inside.declent_ru(GENITIVE)]"
+
+	if(isgun(hand_item) && target != hand_item)
+		if(a_intent == INTENT_HELP || !ismob(target))
+			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
-		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
-											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
-		A << 'sound/weapons/targeton.ogg'
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
+
+		target.visible_message(
+			span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
+			span_userdanger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(target.gender,"тебя","вас")]!"),
+		)
+		SEND_SOUND(target, 'sound/weapons/targeton.ogg')
+		SEND_SOUND(src, 'sound/weapons/targeton.ogg')
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
 		return TRUE
-	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
-	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
+
+	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
+		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		trick.shoot_gun(src)
+		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
+		return TRUE
+
+	visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(gender,"ет","ют")] на [pointed_object].")
+	add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 	return TRUE
+
 
 /mob/living/verb/succumb()
 	set hidden = 1
@@ -351,7 +514,7 @@
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
-	if(!I.tool_use_check(null, 0)) //Don't need the message, just if it succeeded
+	if(!I.tool_use_check(user, 0, silent = TRUE)) //Don't need the message, just if it succeeded
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
@@ -379,7 +542,7 @@
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
-/mob/living/proc/calculate_affecting_pressure(var/pressure)
+/mob/living/proc/calculate_affecting_pressure(pressure)
 	return 0
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
@@ -398,7 +561,7 @@
 		temperature -= change
 		if(actual < desired)
 			temperature = desired
-//	if(istype(src, /mob/living/carbon/human))
+//	if(ishuman(src))
 //		to_chat(world, "[src] ~ [bodytemperature] ~ [temperature]")
 	return temperature
 
@@ -419,12 +582,12 @@
 
 		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
@@ -441,12 +604,12 @@
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
@@ -525,7 +688,7 @@
 	SetDruggy(0)
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	bodytemperature = 310
+	set_bodytemperature(dna ? dna.species.body_temperature : BODYTEMP_NORMAL)
 	CureBlind()
 	CureNearsighted()
 	CureMute()
@@ -539,6 +702,7 @@
 	SetDeaf(0)
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
+	CureAllDiseases(FALSE)
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -549,9 +713,9 @@
 		var/mob/living/carbon/C = src
 		C.uncuff()
 
-		for(var/thing in C.viruses)
+		for(var/thing in C.diseases)
 			var/datum/disease/D = thing
-			D.cure(0)
+			D.cure(need_immunity = FALSE)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -609,23 +773,23 @@
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
-			return 0
+			return FALSE
 
-	var/atom/movable/pullee = pulling
-	if(pullee && get_dist(src, pullee) > 1)
+	if(pulling && get_dist(src, pulling) > 1)
 		stop_pulling()
-	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_debug("[src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+	if(pulling && !isturf(pulling.loc) && pulling.loc != loc)
+		log_debug("[src]'s pull on [pulling] was broken despite [pulling] being in [pulling.loc]. Pull stopped manually.")
 		stop_pulling()
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		stop_pulling()
 
 	var/turf/old_loc = loc
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pullee, movetime)
-		pull_grabbed(old_loc, direct, movetime)
+		pull_pulled(old_loc, pulling, movetime)
+		if(!currently_grab_pulled)
+			pull_grabbed(old_loc, direct, movetime)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -638,29 +802,43 @@
 		if(pulling.anchored)
 			stop_pulling()
 			return
+		if(isobj(pulling))
+			var/obj/object = pulling
+			if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+				var/obj/structure/window/window = object
+				var/fulltile = istype(window) ? window.fulltile : FALSE
+				if(!valid_build_direction(dest, object.dir, is_fulltile = fulltile))
+					stop_pulling()
+					return
 
 		var/pull_dir = get_dir(src, pulling)
 		pulling.glide_size = glide_size
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
+			// This sucks.
+			// Pulling things up/down & into other z-levels. Conga line lives.
+			if(pulling.z != z && can_z_move(null, pulling, dest))
+				dest = get_step_multiz(pulling, get_dir(pulling, dest))
 			if(isliving(pulling))
 				var/mob/living/M = pulling
-				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
+				if(M.lying_angle && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
 				if(ishuman(pulling))
 					var/mob/living/carbon/human/H = pulling
-					if(!H.lying)
+					if(!H.lying_angle)
 						if(H.get_confusion() > 0 && m_intent != MOVE_INTENT_WALK && prob(4))
 							H.Weaken(4 SECONDS)
 							pulling.stop_pulling()
 							visible_message(span_danger("Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол!"))
-						if(H.m_intent == MOVE_INTENT_WALK && m_intent != MOVE_INTENT_WALK && prob(4))
-							H.Weaken(4 SECONDS)
-							visible_message(span_danger("[H] не поспевает за [src] и с грохотом падает на пол!"))
 			else
 				pulling.pixel_x = initial(pulling.pixel_x)
 				pulling.pixel_y = initial(pulling.pixel_y)
+			var/old_dir = pulling.dir
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
-			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
+			if(!pulling)
+				return
+			if(pulling.dir != old_dir)
+				SEND_SIGNAL(pulling, COMSIG_ATOM_DIR_CHANGE, old_dir, pulling.dir)
+			if(get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()
 
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
@@ -710,7 +888,7 @@
 		G.adjust_position()
 
 /mob/living/proc/makeTrail(turf/T)
-	if(!has_gravity(src))
+	if(!has_gravity())
 		return
 	var/blood_exists = 0
 
@@ -758,8 +936,9 @@
 		return pick("trails_1", "trails_2")
 
 /mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
-	if(buckled)
-		return
+	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
+	if(buckled || mob_negates_gravity())
+		return FALSE
 	if(client && client.move_delay >= world.time + world.tick_lag * 2)
 		pressure_resistance_prob_delta -= 30
 
@@ -807,9 +986,8 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 
-	if(!restrained())
-		if(resist_grab())
-			return
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && resist_grab())
+		return
 
 	//unbuckling yourself
 	if(buckled && last_special <= world.time)
@@ -863,9 +1041,7 @@
 	return modifier
 
 /mob/living/proc/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	buckled.user_unbuckle_mob(src,src)
+	buckled.user_unbuckle_mob(src, src)
 
 /mob/living/proc/resist_muzzle()
 	return
@@ -874,9 +1050,8 @@
 	return
 
 /mob/living/proc/resist_restraints()
-	spawn(0)
-		resist_muzzle()
 	return
+
 
 /*//////////////////////
 	END RESIST PROCS
@@ -889,29 +1064,127 @@
 /mob/living/proc/get_visible_name()
 	return name
 
-/mob/living/update_gravity(has_gravity)
-	if(!SSticker)
-		return
-	if(has_gravity)
-		clear_alert("weightless")
-	else
-		throw_alert("weightless", /obj/screen/alert/weightless)
-	if(!flying)
-		float(!has_gravity)
+/mob/living/proc/is_facehugged()
+	return FALSE
 
-/mob/living/proc/float(on)
-	if(throwing)
+
+/mob/living/proc/update_gravity(gravity)
+	// Handle movespeed stuff
+	var/speed_change = max(0, gravity - STANDARD_GRAVITY)
+	if(speed_change)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/gravity, multiplicative_slowdown = speed_change)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
+
+	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
+	var/obj/screen/alert/gravity_alert = LAZYACCESS(alerts, ALERT_GRAVITY)
+	switch(gravity)
+		if(-INFINITY to NEGATIVE_GRAVITY)
+			if(!istype(gravity_alert, /obj/screen/alert/negative))
+				throw_alert(ALERT_GRAVITY, /obj/screen/alert/negative)
+				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
+				var/matrix/flipped_matrix = transform
+				flipped_matrix.b = -flipped_matrix.b
+				flipped_matrix.e = -flipped_matrix.e
+				animate(src, transform = flipped_matrix, pixel_y = pixel_y+4, time = 0.5 SECONDS, easing = EASE_OUT)
+				base_pixel_y += 4
+		if(NEGATIVE_GRAVITY + 0.01 to 0)
+			if(!istype(gravity_alert, /obj/screen/alert/weightless))
+				throw_alert(ALERT_GRAVITY, /obj/screen/alert/weightless)
+				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+		if(0.01 to STANDARD_GRAVITY)
+			if(gravity_alert)
+				clear_alert(ALERT_GRAVITY)
+		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
+			throw_alert(ALERT_GRAVITY, /obj/screen/alert/highgravity)
+		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
+			throw_alert(ALERT_GRAVITY, /obj/screen/alert/veryhighgravity)
+
+	// If we had no gravity alert, or the same alert as before, go home
+	if(!gravity_alert || LAZYACCESS(alerts, ALERT_GRAVITY) == gravity_alert)
 		return
-	var/fixed = FALSE
-	if(anchored || (buckled && buckled.anchored))
-		fixed = TRUE
-	if(on && !floating && !fixed)
-		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		animate(pixel_y = pixel_y - 2, time = 10, loop = -1)
-		floating = TRUE
-	else if(((!on || fixed) && floating))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
-		floating = FALSE
+
+	// By this point we know that we do not have the same alert as we used to
+	if(istype(gravity_alert, /obj/screen/alert/weightless))
+		REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
+
+	else if(istype(gravity_alert, /obj/screen/alert/negative))
+		REMOVE_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
+		var/matrix/flipped_matrix = transform
+		flipped_matrix.b = -flipped_matrix.b
+		flipped_matrix.e = -flipped_matrix.e
+		animate(src, transform = flipped_matrix, pixel_y = pixel_y-4, time = 0.5 SECONDS, easing = EASE_OUT)
+		base_pixel_y -= 4
+
+
+///Proc to modify the value of num_legs and hook behavior associated to this event.
+/mob/living/proc/set_num_legs(new_value)
+	if(num_legs == new_value)
+		return
+	. = num_legs
+	num_legs = new_value
+
+
+///Proc to modify the value of usable_legs and hook behavior associated to this event.
+/mob/living/proc/set_usable_legs(new_value)
+	if(usable_legs == new_value)
+		return
+	if(new_value < 0) // Sanity check
+		stack_trace("[src] had set_usable_legs() called on them with a negative value!")
+		new_value = 0
+
+	. = usable_legs
+	usable_legs = new_value
+
+	update_limbless_slowdown()
+
+	/*
+	if(new_value > .) // Gained leg usage.
+		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	else if(!(movement_type & (FLYING|FLOATING))) //Lost leg usage, not flying.
+		if(!usable_legs)
+			ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+			if(!usable_hands)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	*/
+
+
+///Proc to modify the value of num_hands and hook behavior associated to this event.
+/mob/living/proc/set_num_hands(new_value)
+	if(num_hands == new_value)
+		return
+	. = num_hands
+	num_hands = new_value
+
+
+///Proc to modify the value of usable_hands and hook behavior associated to this event.
+/mob/living/proc/set_usable_hands(new_value)
+	if(usable_hands == new_value)
+		return
+	. = usable_hands
+	usable_hands = new_value
+
+	if(!usable_legs)
+		update_limbless_slowdown()	// in case we got new hand but have no legs
+
+	/*
+	if(new_value > .) // Gained hand usage.
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	else if(!(movement_type & (FLYING|FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	*/
+
+
+/mob/living/proc/update_limbless_slowdown()
+	if(usable_legs < default_num_legs)
+		var/limbless_slowdown = (default_num_legs - usable_legs) * 4 - get_crutches()
+		if(!usable_legs && usable_hands < default_num_hands)
+			limbless_slowdown += (default_num_hands - usable_hands) * 4
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
@@ -925,33 +1198,47 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
+
 /mob/living/proc/check_eye_prot()
-	return 0
+	var/number = 0
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
+		number++
+	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
+		number++
+	return number
+
 
 /mob/living/proc/check_ear_prot()
+	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/ears_bang_protection))
+		return HEARING_PROTECTION_TOTAL
+	return HEARING_PROTECTION_NONE
+
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
-	if(what.flags & NODROP)
+	if(HAS_TRAIT(what, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
 	if(!silent)
 		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
 	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
+	if(do_after(src, what.strip_delay, who, NONE))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.drop_item_ground(what)
-			if(silent)
-				put_in_hands(what)
+			if(!who.drop_item_ground(what, silent = silent))
+				return
+			if(silent && !QDELETED(what) && isturf(what.loc))
+				put_in_hands(what, silent = TRUE)
 			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
 /mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
 	what = get_active_hand()
-	if(what && (what.flags & NODROP))
+	if(what && HAS_TRAIT(what, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
 		return
 	if(what)
@@ -960,10 +1247,10 @@
 			return
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who) && !(what.flags & NODROP))
-				drop_item_ground(what)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE)
+		if(do_after(src, what.put_on_delay, who, NONE))
+			if(what && Adjacent(who) && !HAS_TRAIT(what, TRAIT_NODROP))
+				drop_item_ground(what, silent = silent)
+				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -1020,52 +1307,44 @@
 		if(!visual_effect_icon && used_item?.attack_effect_override)
 			visual_effect_icon = used_item.attack_effect_override
 	..()
-	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
+
+/// Helper proc that causes the mob to do a jittering animation by jitter_amount.
+/// `jitteriness` will only apply up to 300 (maximum jitter effect).
 /mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
-	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = (ANIMATION_RELATIVE|ANIMATION_PARALLEL))
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	var/loc_temp = T0C
-	if(istype(loc, /obj/mecha))
+	if(istype(loc, /obj/structure/closet/critter))
+		return environment.temperature
+	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
+		return  M.return_temperature()
 	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		loc_temp = coffin.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
+		return coffin.return_temperature()
+	if(isspacepod(loc))
 		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
+		return S.return_temperature()
+	if(istype(loc, /obj/structure/transit_tube_pod))
+		return environment.temperature
+	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return heat_turf.temperature
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			return environment.temperature
 		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
+			return C.air_contents.temperature
+	if(environment)
+		return environment.temperature
+	return T0C
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
 	return initial(pixel_x)
@@ -1081,12 +1360,12 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
+	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || issmall(src))) //can we butcher it?
 		var/sharpness = is_sharp(I)
 		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
+			if(do_after(user, 8 SECONDS / sharpness, src, NONE) && Adjacent(I))
 				harvest(user)
 			return 1
 
@@ -1101,27 +1380,6 @@
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
 
-/mob/living/movement_delay(ignorewalk = 0)
-	. = ..()
-	if(isturf(loc))
-		var/turf/T = loc
-		. += T.slowdown
-	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
-	if(S)
-		. += S.slowdown_value
-	if(forced_look)
-		. += 3
-	if(ignorewalk)
-		. += CONFIG_GET(number/run_speed)
-	else
-		switch(m_intent)
-			if(MOVE_INTENT_RUN)
-				if(get_drowsiness() > 0)
-					. += 6
-				. += CONFIG_GET(number/run_speed)
-			if(MOVE_INTENT_WALK)
-				. += CONFIG_GET(number/walk_speed)
-
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
@@ -1129,33 +1387,16 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
-	if(!AM || !src)
-		return FALSE
-	if(!(AM.can_be_pulled(src, state, force, show_message)))
-		return FALSE
+
+/mob/living/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(incapacitated())
-		return
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
-	AM.add_fingerprint(src)
-	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-			return
-		stop_pulling()
-		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-	pulling = AM
-	AM.pulledby = src
+		return FALSE
+
+	. = ..()
+
 	if(pullin)
-		pullin.update_icon(src)
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
-		if(!iscarbon(src))
-			M.LAssailant = null
-		else
-			M.LAssailant = usr
+		pullin.update_icon(UPDATE_ICON_STATE)
+
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
@@ -1220,7 +1461,7 @@
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1241,106 +1482,186 @@
 			sync_lighting_plane_alpha()
 
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	stop_pulling()
 	return ..()
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
-
-/mob/living/can_ventcrawl(atom/clicked_on, override = FALSE)
-	if(QDELETED(src))
-		return FALSE
-
-	if(!ventcrawler)
-		return FALSE
-
-	if(!clicked_on || QDELETED(clicked_on))
-		return FALSE
-
-	if(!Adjacent(clicked_on))
-		return FALSE
-
-	if(incapacitated())
-		to_chat(src, span_warning("Вы не можете сделать этого в текущем состоянии!"))
-		return FALSE
-
-	if(has_buckled_mobs())
-		to_chat(src, span_warning("Пока на вас другие существа, вы не можете заползти в вентиляцию!"))
-		return FALSE
-
-	if(buckled)
-		to_chat(src, span_warning("Пока вы пристегнуты, вы не можете заползти в вентиляцию!"))
-		return FALSE
-
-	var/obj/machinery/atmospherics/unary/vent_found = clicked_on
-
-	if(!is_type_in_list(vent_found, GLOB.ventcrawl_machinery) || !vent_found.can_crawl_through())
-		return FALSE
-
-	if(!vent_found.parent)
-		return FALSE
-
-	if(!length(vent_found.parent.members))
-		to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
-		return FALSE
-
-	return TRUE
-
-
-/mob/living/handle_ventcrawl(atom/clicked_on)
-
-	if(!can_ventcrawl(clicked_on))
-		return FALSE
-
-	visible_message(span_notice("[src.name] начина[pluralize_ru(src.gender,"ет","ют")] лезть в вентиляцию..."), \
-					span_notice("Вы начинаете лезть в вентиляцию..."))
-
-	if(!do_after(src, 4.5 SECONDS, target = src))
-		return FALSE
-
-	if(!can_ventcrawl(clicked_on))
-		return FALSE
-
-	visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", \
-					"Вы залезли в вентиляцию.")
-	loc = clicked_on
-	add_ventcrawl(clicked_on)
-	return TRUE
-
-
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine, obj/machinery/atmospherics/target_move)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
+/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
 		return
-	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
-	var/list/totalMembers = list()
-	totalMembers |= pipeline.members
-	totalMembers |= pipeline.other_atmosmch
-	for(var/obj/machinery/atmospherics/A in totalMembers)
-		if(!A.pipe_image)
-			A.update_pipe_image()
-		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
-
-
-/mob/living/proc/remove_ventcrawl()
-	if(client)
-		for(var/image/current_image in pipes_shown)
-			client.images -= current_image
-		client.eye = src
-
-	pipes_shown.len = 0
-
-
-/mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client)
-		pipes_shown.Cut()
+	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+	if(mob_hurt)
 		return
-	if(length(pipes_shown) && !target_move)
-		if(!is_ventcrawling(src))
-			remove_ventcrawl()
+	if(!self_hurt)
+		take_organ_damage(damage)
+	C.take_organ_damage(damage)
+	C.Weaken(3 SECONDS)
+	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+					span_userdanger("Вы жестко врезаетесь в [name]!"))
+
+
+/mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
+	return "Unknown"
+
+
+/**
+ * Can this mob see in the dark
+ *
+ * Cursed version of checking lighting_cutoffs, just making orientation on nightvision see_in_dark analog
+ *
+**/
+/mob/proc/has_nightvision()
+	return nightvision >= 4
+
+/mob/living/run_examinate(atom/target)
+	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
+
+	if(user_staring_effect || hindered_inspection(target))
+		return
+
+	if(isturf(target) && !(sight & SEE_TURFS) && !(target in view(client ? client.view : world.view, src)))
+		// shift-click catcher may issue examinate() calls for out-of-sight turfs
+		return
+
+	var/turf/examine_turf = get_turf(target)
+
+	if(examine_turf && !(examine_turf.luminosity || examine_turf.dynamic_lumcount) && \
+		get_dist(src, examine_turf) > 1 && \
+		!has_nightvision()) // If you aren't blind, it's in darkness (that you can't see) and farther then next to you
+		return
+
+	var/examine_time = target.get_examine_time()
+	if(examine_time && target != src)
+		var/visible_gender = target.get_visible_gender()
+		var/visible_species = "Unknown"
+
+		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
+		var/near_target = examine_distance_check(target)
+
+		if(isliving(target))
+			var/mob/living/target_living = target
+			visible_species = target_living.get_visible_species()
+
+			if(ishuman(target))	// Yep. Only humans affected by catched looks.
+				var/datum/status_effect/staring/target_staring_effect = target_living.has_status_effect(STATUS_EFFECT_STARING)
+				if(target_staring_effect)
+					target_staring_effect.catch_look(src)
+
+		user_staring_effect = apply_status_effect(STATUS_EFFECT_STARING, examine_time, target, visible_gender, visible_species)
+		if(do_after(src, examine_time, src, ALL))
+			if(hindered_inspection(target) || (near_target && !examine_distance_check(target)))
+				return
+			..()
 	else
-		if(is_ventcrawling(src))
-			if(target_move)
-				remove_ventcrawl()
-			add_ventcrawl(loc, target_move)
+		..()
+
+
+/mob/living/proc/examine_distance_check(atom/target)
+	if(target in view(client.maxview(), client.eye))
+		return TRUE
+
+
+/mob/living/proc/hindered_inspection(atom/target)
+	if(QDELETED(src) || QDELETED(target))
+		return TRUE
+	face_atom(target)
+	if(!has_vision(information_only = TRUE))
+		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		return TRUE
+	return FALSE
+
+/**
+  * Sets the mob's direction lock towards a given atom.
+  *
+  * Arguments:
+  * * a - The atom to face towards.
+  * * track - If TRUE, updates our direction relative to the atom when moving.
+  */
+/mob/living/proc/set_forced_look(atom/A, track = FALSE)
+	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
+	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+
+/**
+  * Clears the mob's direction lock if enabled.
+  *
+  * Arguments:
+  * * quiet - Whether to display a chat message.
+  */
+/mob/living/proc/clear_forced_look(quiet = FALSE)
+	if(!forced_look)
+		return
+	forced_look = null
+	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
+	if(!quiet)
+		to_chat(src, span_notice("Cancelled direction lock."))
+	clear_alert("direction_lock")
+
+/mob/living/setDir(new_dir)
+	var/old_dir = dir
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
+		return
+	return ..()
+
+
+///Reports the event of the change in value of the buckled variable.
+/mob/living/proc/set_buckled(new_buckled)
+	if(new_buckled == buckled)
+		return
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BUCKLED, new_buckled)
+	. = buckled
+	buckled = new_buckled
+
+	update_canmove()
+
+	/*
+	if(buckled)
+		if(!HAS_TRAIT(buckled, TRAIT_NO_IMMOBILIZE))
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+		switch(buckled.buckle_lying)
+			if(NO_BUCKLE_LYING) // The buckle doesn't force a lying angle.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+			if(0) // Forcing to a standing position.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_body_position(STANDING_UP)
+				set_lying_angle(0)
+			else // Forcing to a lying position.
+				ADD_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_body_position(LYING_DOWN)
+				set_lying_angle(buckled.buckle_lying)
+	else
+		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), BUCKLED_TRAIT)
+		if(.) // We unbuckled from something.
+			var/atom/movable/old_buckled = .
+			if(old_buckled.buckle_lying == 0 && (resting || HAS_TRAIT(src, TRAIT_FLOORED))) // The buckle forced us to stay up (like a chair)
+				set_lying_down() // We want to rest or are otherwise floored, so let's drop on the ground.
+	*/
+
+
+/mob/living/proc/update_density()
+	if(HAS_TRAIT(src, TRAIT_UNDENSE))
+		set_density(FALSE)
+	else
+		set_density(TRUE)
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
+/mob/living/proc/on_handsblocked_start()
+	drop_from_hands()
+	stop_pulling()
+	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
+/mob/living/proc/on_handsblocked_end()
+	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
+

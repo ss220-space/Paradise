@@ -9,6 +9,7 @@
 		target.throw_at(throw_target, 4, 4, user)
 		target.SetWeakened(1 SECONDS)
 		target.apply_damage(20, BRUTE)
+		objective_damage(user, target, 20, BRUTE)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(user), 'sound/weapons/blunthit_mimejutsu.ogg', 10, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with [src] : Silent Palm", ATKLOG_ALL)

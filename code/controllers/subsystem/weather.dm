@@ -3,13 +3,14 @@
 #define WIND_DOWN_STAGE 3
 #define END_STAGE 4
 
-//Used for all kinds of weather, ex. lavaland ash storms.
+/// Used for all kinds of weather, ex. lavaland ash storms.
 SUBSYSTEM_DEF(weather)
 	name = "Weather"
 	flags = SS_BACKGROUND
 	wait = 10
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Ash storms will no longer trigger.  No immediate action is needed."
+	ss_id = "weather"
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
@@ -31,11 +32,11 @@ SUBSYSTEM_DEF(weather)
 	for(var/z in eligible_zlevels)
 		var/possible_weather = eligible_zlevels[z]
 		var/datum/weather/W = pickweight(possible_weather)
-		run_weather(W, list(text2num(z)))
 		eligible_zlevels -= z
-		var/randTime = rand(3000, 6000)
-		addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
-		next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
+		if(run_weather(W, list(text2num(z))))
+			var/randTime = rand(3000, 6000)
+			addtimer(CALLBACK(src, PROC_REF(make_eligible), z, possible_weather), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE) //Around 5-10 minutes between weathers
+			next_hit_by_zlevel["[z]"] = world.time + randTime + initial(W.telegraph_duration)
 
 
 /datum/controller/subsystem/weather/Initialize()
@@ -69,7 +70,7 @@ SUBSYSTEM_DEF(weather)
 		CRASH("run_weather called with invalid z_levels: [z_levels || "null"]")
 
 	var/datum/weather/W = new weather_datum_type(z_levels)
-	W.telegraph()
+	return W.telegraph()
 
 
 /datum/controller/subsystem/weather/proc/make_eligible(z, possible_weather)

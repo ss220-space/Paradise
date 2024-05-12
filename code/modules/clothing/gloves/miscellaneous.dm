@@ -87,7 +87,12 @@
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
 	item_state = "lgloves"
-	flags = NODROP
+
+
+/obj/item/clothing/gloves/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
@@ -99,9 +104,9 @@
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
 	return cell
 
-/obj/item/clothing/gloves/color/yellow/stun/New()
-	..()
-	update_icon()
+/obj/item/clothing/gloves/color/yellow/stun/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/stun/Destroy()
 	QDEL_NULL(cell)
@@ -120,7 +125,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -132,12 +137,13 @@
 			return TRUE
 	return FALSE
 
-/obj/item/clothing/gloves/color/yellow/stun/update_icon()
-	..()
-	overlays.Cut()
-	overlays += "gloves_wire"
+
+/obj/item/clothing/gloves/color/yellow/stun/update_overlays()
+	. = ..()
+	. += "gloves_wire"
 	if(cell)
-		overlays += "gloves_cell"
+		. += "gloves_cell"
+
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -147,7 +153,7 @@
 				return
 			cell = W
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 	else
@@ -161,7 +167,7 @@
 		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
 		cell.forceMove(get_turf(loc))
 		cell = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/gloves/color/yellow/stun/emp_act()
 	if(!ishuman(loc))
@@ -175,6 +181,28 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	var/accepted_intents = list(INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
+	var/mob/living/owner
+
+/obj/item/clothing/gloves/fingerless/rapid/equipped(mob/user, slot, initial)
+	owner = user
+	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
+		owner.dirslash_enabled = TRUE
+		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	. = ..()
+
+/obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
+	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	owner.dirslash_enabled = initial(owner.dirslash_enabled)
+	. = ..()
+
+/obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
+	set name = "Enable/Disable direction slash"
+	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
+	set category = "Object"
+	var/mob/living/L = usr
+	L.dirslash_enabled = !L.dirslash_enabled
+	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
@@ -209,6 +237,10 @@
 	extra_knock_chance = 5
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
+	razor_damage_low += increase
+	razor_damage_high += increase
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -270,10 +302,9 @@
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
-	species_exception = list(/datum/species/monkey)
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/gloves.dmi',)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')
 
 /obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
 	. = FALSE

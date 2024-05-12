@@ -1,3 +1,7 @@
+# You can use the "$include" directive to split your configs however you want
+
+$include testing.txt
+
 ## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
 # SERVERNAME spacestation13
 
@@ -88,6 +92,9 @@ LOG_WORLD_OUTPUT
 ## log admin warning messages
 LOG_ADMINWARN
 
+## Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
+# REPORT_ACTIVE_TURFS
+
 ## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
 #LIST_AFK_MINIMUM 5
 
@@ -104,6 +111,7 @@ AUTO_DESPAWN_AFK 0
 ##
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
+PROBABILITY ANTAG-PARADISE 3
 PROBABILITY EXTEND-A-TRAITORMONGOUS 3
 PROBABILITY TRAITOR 3
 PROBABILITY TRAITORCHAN 3
@@ -133,6 +141,7 @@ PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
 
+MINPLAYERS ANTAG-PARADISE 10
 MINPLAYERS EXTEND-A-TRAITORMONGOUS 0
 MINPLAYERS TRAITOR 0
 MINPLAYERS TRAITORCHAN 10
@@ -161,6 +170,32 @@ MINPLAYERS NUCLEAR 30
 MINPLAYERS ABDUCTION 15
 MINPLAYERS DEVIL 2
 MINPLAYERS DEVILAGENTS 25
+
+## List of minor antags in ANTAG-PARADISE gamemode. Only listed here antags will be spawned as main antags
+#ANTAG_PARADISE_MAIN_ANTAGS TRAITOR
+#ANTAG_PARADISE_MAIN_ANTAGS THIEF
+#ANTAG_PARADISE_MAIN_ANTAGS VAMPIRE
+#ANTAG_PARADISE_MAIN_ANTAGS CHANGELING
+
+## Chances for ANTAG-PARADISE gamemode subtypes.
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_DOUBLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_TRIPPLE 10
+#ANTAG_PARADISE_MODE_SUBTYPES ANTAG_RANDOM 10
+
+## Relative weights for each antag in gamemode subtypes for ANTAG-PARADISE gamemode. Works in pair with ANTAG_PARADISE_MODE_SUBTYPES.
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_SINGLE 6
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_DOUBLE 4
+#ANTAG_PARADISE_SUBTYPE_WEIGHTS ANTAG_TRIPPLE 2
+
+## Weights for all special antags in ANTAG-PARADISE gamemode. Traitor Hijacker, Malfunctioning AI and Space Ninja currently. If Nothing is chosen special antag will not spawn.
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS HIJACKER 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS MALFAI 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NINJA 10
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NOTHING 30
+
+## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
+#ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 10
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
@@ -569,7 +604,7 @@ RESPAWN_DELAY_DRONE 10
 ## Disable splitting logs by Round_ID.
 #FULL_DAY_LOGS
 
-# Allow head to departments to assign civilian to his departament around Head of Personal
+# Allow head to departments to assign civilian to his departament around Head of Personnel
 #ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
 
 # Do not write world logs to DreamDaemon log window/stdout on Unix
@@ -616,3 +651,5 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Disable the loading of Lavaland
 # DISABLE_LAVALAND
 
+## If the number of players is more or same than this, then we apply the highpop jobs config.
+JOBS_HIGH_POP_MODE_AMOUNT 80

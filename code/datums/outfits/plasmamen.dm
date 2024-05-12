@@ -12,6 +12,24 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
+/datum/outfit/plasmaman/syndicate_officer
+	name = "Syndicate Officer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/syndicate
+	uniform = /obj/item/clothing/under/plasmaman/syndicate
+
+/datum/outfit/plasmaman/specops_officer
+	name = "Centcomm Officer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/centcomm
+	uniform = /obj/item/clothing/under/plasmaman/centcomm
+
+/datum/outfit/plasmaman/nt_rep
+	name = "NanoTrasen Representative Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/nt_rep
+	uniform = /obj/item/clothing/under/plasmaman/nt
+
 /datum/outfit/plasmaman/nt
 	name = "NanoTrasen Plasmaman"
 

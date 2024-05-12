@@ -14,6 +14,9 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/mecha/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -152,7 +155,7 @@
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		return loc
 	return FALSE
 

@@ -35,25 +35,27 @@
 	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	. = ..()
+	if(!.)
+		return FALSE
 	L.AdjustSilence(10 SECONDS)
 	if(!poisonable)
-		return ..()
+		return TRUE
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
-		return ..()
-	var/inject_target = pick("chest", "head")
+		return TRUE
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("terror_black_toxin", 33) // inject our special poison
-		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
+		visible_message(span_danger("[src] buries its long fangs deep into the [inject_target] of [target]!"))
 	else
 		L.reagents.add_reagent("terror_black_toxin", 20)
-		visible_message("<span class='danger'>[src] pierces armour and buries its long fangs deep into the [inject_target] of [target]!</span>")
-	L.attack_animal(src)
+		visible_message(span_danger("[src] pierces armour and buries its long fangs deep into the [inject_target] of [target]!"))
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
 		step_away(src, L)
 		step_away(src, L)
 		LoseTarget()
 		step_away(src, L)
-		visible_message("<span class='notice'>[src] jumps away from [L]!</span>")
+		visible_message(span_notice("[src] jumps away from [L]!"))
 
 
 /obj/structure/spider/terrorweb/widow
@@ -63,7 +65,7 @@
 /obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
-			var/inject_target = pick("chest","head")
+			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
 				C.reagents.add_reagent("terror_black_toxin", 45)

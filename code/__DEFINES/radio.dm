@@ -1,5 +1,4 @@
 
-#define DISPLAY_FREQ 1435 //status displays
 #define ATMOS_FIRE_FREQ 1437 //air alarms
 #define ENGINE_FREQ 1438 //engine components
 #define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control
@@ -29,6 +28,10 @@
 #define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
+// Event channels
+#define EVENT_ALPHA_FREQ 1522
+#define EVENT_BETA_FREQ 1532
+#define EVENT_GAMMA_FREQ 1542
 
 // Department channels
 #define PUB_FREQ 1459 //standard radio chat

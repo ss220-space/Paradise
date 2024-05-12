@@ -42,8 +42,9 @@
 
 	var/rev_cooldown = 0
 
-	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/list/spell_list
 	var/datum/martial_art/martial_art
+	var/list/known_martial_arts = list()
 
 	var/role_alt_title
 
@@ -57,8 +58,6 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-
-	var/datum/ninja/ninja				//ninja holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -86,7 +85,7 @@
 
 	var/ambition_limit = 6 //Лимит амбиций
 
-	var/list/curses = list()
+	var/list/curses
 
 
 /datum/mind/New(new_key)
@@ -173,10 +172,12 @@
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.remove(current)
+			if(old_current)
+				MA.remove_verbs(old_current)
+			if(!MA.temporary)
+				MA.teach(current)
 
 	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
@@ -184,7 +185,15 @@
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
+	// essential mob updates
+	new_character.update_blind_effects()
+	new_character.update_blurry_effects()
+	new_character.update_sight()
+	new_character.hud_used?.reload_fullscreen()
+	new_character.reload_huds()
+
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
+	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 
 /datum/mind/proc/store_memory(new_text)
@@ -278,11 +287,20 @@
 /**
  * Completely remove the given objective from the src mind and it's antag datums.
  */
-/datum/mind/proc/remove_objective(datum/objective/objective)
+/datum/mind/proc/remove_objective(datum/objective/objective, qdel_on_remove = FALSE)
 	for(var/datum/antagonist/antag in antag_datums)
 		antag.objectives -= objective
 	objectives -= objective
-	qdel(objective)
+	if(qdel_on_remove)
+		qdel(objective)
+
+
+/**
+ * Completely remove ALL objectives from the src mind and it's antag datums.
+ */
+/datum/mind/proc/remove_all_objectives(qdel_on_remove = FALSE)
+	for(var/datum/objective/objective in get_all_objectives())
+		remove_objective(objective, qdel_on_remove)
 
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
@@ -425,12 +443,12 @@
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
-				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies["hearts"]]</a>"
-				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies["lungs"]]</a>"
-				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies["livers"]]</a>"
-				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies["kidneys"]]</a>"
-				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies["eyes"]]</a>"
-				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies["ears"]]</a>"
+				. += "<br><b>Trophies:</b><br>Hearts: <a href='?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies[INTERNAL_ORGAN_HEART]]</a>"
+				. += " | Lungs: <a href='?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies[INTERNAL_ORGAN_LUNGS]]</a>"
+				. += " | Livers: <a href='?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies[INTERNAL_ORGAN_LIVER]]</a>"
+				. += "<br>Kidneys: <a href='?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies[INTERNAL_ORGAN_KIDNEYS]]</a>"
+				. += " | Eyes: <a href='?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies[INTERNAL_ORGAN_EYES]]</a>"
+				. += " | Ears: <a href='?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies[INTERNAL_ORGAN_EARS]]</a>"
 		if(!length(vamp.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
@@ -483,17 +501,20 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
-/datum/mind/proc/memory_edit_ninja(mob/living/carbon/human/H)
+
+/datum/mind/proc/memory_edit_ninja()
 	. = _memory_edit_header("ninja")
-	if(src in SSticker.mode.space_ninjas)
+	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+	if(ninja_datum)
 		. += "<b><font color='red'>Ninja</font></b>|<a href='?src=[UID()];ninja=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];ninja=dojo'>To dojo</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];ninja=dressup'>dress up</a>, <a href='?src=[UID()];ninja=name'>let choose name</a>."
-		if(objectives.len==0)
+		if(!length(ninja_datum.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];ninja=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];ninja=ninja'>ninja</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_NINJA)
+
 
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
@@ -675,6 +696,7 @@
 	var/out = {"<meta charset="UTF-8"><B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]<br>"}
 	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a><br>"
+	out += "Special role: [special_role].<br>" //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
 	out += "Factions and special roles:<br>"
 
 	var/list/sections = list(
@@ -713,7 +735,7 @@
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
 		/** Space Ninja **/
-		sections["ninja"] = memory_edit_ninja(H)
+		sections["ninja"] = memory_edit_ninja()
 		/** THIEF ***/
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
@@ -831,7 +853,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
+		var/new_role = tgui_input_list(usr, "Select new role", "Assigned role", GLOB.joblist)
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -919,7 +941,7 @@
 			// Кастомная цель//
 			"custom")
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in objective_types
+		var/new_obj_type = tgui_input_list(usr, "Select objective type:", "Objective type", objective_types)
 		if(!new_obj_type)
 			return
 
@@ -988,7 +1010,9 @@
 						if("protect")
 							description = "Protect"
 						if("steal brain")
-							description = "Steal the brain of"
+							var/mob/living/target = new_target
+							var/obj/item/organ/internal/brains = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+							description = "Steal the [brains ? brains.name : "brain"] of"
 						if("prevent from escape")
 							description = "Prevent from escaping alive or free"
 						if("pain hunter")
@@ -1001,7 +1025,7 @@
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
 				if(possible_targets.len)
-					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+					var/mob/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
 					new_objective.owner = src
@@ -1037,10 +1061,10 @@
 				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
 					new_objective = new /datum/objective/find_and_scan
 					var/datum/objective/find_and_scan/scan_objective = new_objective
-					var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+					var/list/roles = scan_objective.available_roles.Copy()
 					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
-						for(var/i = 0, i < 3 , i++)
-							var/role = input("Select role:", "Objective role") as null|anything in roles
+						for(var/i in 1 to 3)
+							var/role = tgui_input_list(usr, "Select role:", "Objective role", roles)
 							if(role)
 								roles -= role
 								scan_objective.possible_roles += role
@@ -1088,7 +1112,7 @@
 					//Выдача бомбы
 					var/obj/item/grenade/plastic/c4/ninja/charge = new
 					var/mob/living/carbon/human/bomber = current
-					bomber.equip_or_collect(charge, slot_l_store)
+					bomber.equip_or_collect(charge, ITEM_SLOT_POCKET_LEFT)
 					charge.detonation_objective = bomb_objective
 
 			if("set up")
@@ -1105,7 +1129,7 @@
 
 				var/new_target = null
 				var/target_pick = null
-				if(length(possible_targets) > 0)
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
 						target_pick = pick(possible_targets)
 					else
@@ -1114,7 +1138,7 @@
 					new_objective.explanation_text = "Любым способом подставьте [new_objective.target.current.real_name], [new_objective.target.assigned_role], чтобы его лишили свободы. Но не убили!"
 
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					to_chat(usr, span_warning("No possible target found. Defaulting to a Free objective."))
 					new_target = "Free objective"
 
 			if("steal")
@@ -1182,7 +1206,6 @@
 				if(!steal.select_target())
 					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
-
 
 			if("get money")
 				new_objective = new /datum/objective/get_money
@@ -1564,7 +1587,7 @@
 					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
-					domutcheck(current)
+					current.check_genes()
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
@@ -1739,7 +1762,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("hearts", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_HEART, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s hearts trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s hearts trophies by [new_total].")
 
@@ -1752,7 +1775,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("lungs", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_LUNGS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s lungs trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s lungs trophies by [new_total].")
 
@@ -1765,7 +1788,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("livers", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_LIVER, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s livers trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s livers trophies by [new_total].")
 
@@ -1778,7 +1801,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("kidneys", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s kidneys trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s kidneys trophies by [new_total].")
 
@@ -1791,7 +1814,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("eyes", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_EYES, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s eyes trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s eyes trophies by [new_total].")
 
@@ -1804,7 +1827,7 @@
 				if(isnull(new_total))
 					return
 
-				vamp.adjust_trophies("ears", new_total)
+				vamp.adjust_trophies(INTERNAL_ORGAN_EARS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
 
@@ -2361,47 +2384,65 @@
 				remove_ninja_role()
 				log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(current)]")
 				add_conversion_logs(current, "De-ninjad")
+
 			if("ninja")
-				if(!(src in SSticker.mode.space_ninjas))
-					SSticker.mode.space_ninjas += src
-					special_role = SPECIAL_ROLE_SPACE_NINJA
-					assigned_role = SPECIAL_ROLE_SPACE_NINJA
-					var/mob/living/carbon/human/ninja_mob = current
-					if(istype(ninja_mob.wear_suit, /obj/item/clothing/suit/space/space_ninja) && !ninja)
-						SSticker.mode.give_ninja_datum(src)
-					SSticker.mode.update_ninja_icons_added(src)
-					SSticker.mode.greet_ninja(src)
-					log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
-					message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
+				if(isninja(src))
+					return
+				var/datum/antagonist/ninja/ninja_datum = new
+				ninja_datum.allow_rename = FALSE
+				ninja_datum.give_equip = FALSE
+				ninja_datum.give_objectives = FALSE
+				ninja_datum.generate_antags = FALSE
+				add_antag_datum(ninja_datum)
+				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Ninja\"")
+				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Ninja\"")
+
 			if("dojo")
 				current.forceMove(pick(GLOB.ninjastart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] tp dojo")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to dojo")
+
 			if("dressup")
-				SSticker.mode.equip_space_ninja(src.current)
-				SSticker.mode.give_ninja_datum(src)			//Учитывая то, что этот датум хранит в себе референс к частям костюма, его надо генерить туть
-				SSticker.mode.basic_ninja_needs_check(src)
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum)
+					return
+
+				ninja_datum.equip_ninja()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
+
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), current)
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum)
+					return
+
+				ninja_datum.allow_rename = TRUE
+				INVOKE_ASYNC(ninja_datum, TYPE_PROC_REF(/datum/antagonist/ninja, name_ninja))
 				log_admin("[key_name(usr)] has allowed ninja [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed ninja [key_name_admin(current)] to name themselves")
+
 			if("autoobjectives")
-				if(!ninja)
-					to_chat(usr, "<span class='notice'>Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!</span>")
+				var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+				if(!ninja_datum?.my_suit)
+					to_chat(usr,span_warning("Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
 					return
-				var/list/objective_types = list("generic", "protector", "hacker", "killer")
+				var/list/objective_types = list(NINJA_TYPE_GENERIC, NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
 				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
-				if(objective_type != "generic")
+				if(objective_type != NINJA_TYPE_GENERIC)
 					if(alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?","ВАЖНО!","Да","Нет") == "Нет")
+						return
+					if(ninja_datum.antags_done)
+						to_chat(usr, span_warning("Антагонисты уже были сгенерированы!"))
 						return
 				if(!objective_type)
 					if(alert(usr, "Рандомный выбор типа целей имеет ВЫСОКИЙ шанс сгенерировать дополнительных антагонистов в раунд. Начать генерацию?","ВАЖНО!","Да","Нет") == "Нет")
 						return
-				SSticker.mode.forge_ninja_objectives(src, objective_type)
-				SSticker.mode.basic_ninja_needs_check(src)
-				to_chat(usr, "<span class='notice'>Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную.</span>")
+					if(ninja_datum.antags_done)
+						to_chat(usr, span_warning("Антагонисты уже были сгенерированы, случайная генерация более невозможна!"))
+						return
+
+				ninja_datum.make_objectives_generate_antags(objective_type)
+				to_chat(usr, span_notice("Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную."))
 				log_admin("[key_name(usr)] has automatically forged ninja objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged ninja objectives for [key_name_admin(current)]")
 
@@ -2419,46 +2460,20 @@
 				log_and_message_admins("has opened [S]'s law manager.")
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
-				if(istype(R))
-					R.emagged = 0
-					if(R.module)
-						if(R.activated(R.module.emag))
-							R.module_active = null
-						if(R.module_state_1 == R.module.emag)
-							R.module_state_1 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_2 == R.module.emag)
-							R.module_state_2 = null
-							R.contents -= R.module.emag
-						else if(R.module_state_3 == R.module.emag)
-							R.module_state_3 = null
-							R.contents -= R.module.emag
-					R.clear_supplied_laws()
-					R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
+				if(!istype(R))
+					return
+				R.unemag()
+				log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
 			if("unemagcyborgs")
-				if(isAI(current))
-					var/mob/living/silicon/ai/ai = current
-					for(var/mob/living/silicon/robot/R in ai.connected_robots)
-						R.emagged = 0
-						if(R.module)
-							if(R.activated(R.module.emag))
-								R.module_active = null
-							if(R.module_state_1 == R.module.emag)
-								R.module_state_1 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_2 == R.module.emag)
-								R.module_state_2 = null
-								R.contents -= R.module.emag
-							else if(R.module_state_3 == R.module.emag)
-								R.module_state_3 = null
-								R.contents -= R.module.emag
-						R.clear_supplied_laws()
-						R.laws = new /datum/ai_laws/crewsimov
-					log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
-					message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
+				if(!isAI(current))
+					return
+				var/mob/living/silicon/ai/ai = current
+				for(var/mob/living/silicon/robot/R in ai.connected_robots)
+					R.unemag()
+				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
+				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
@@ -2515,7 +2530,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		announce_objectives()
+		var/list/messages = prepare_announce_objectives()
+		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -2721,13 +2737,18 @@
 		SSticker.mode.shadows -= src
 		special_role = null
 		current.spellremove(current)
-		current.remove_language("Shadowling Hivemind")
+		current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	else if(src in SSticker.mode.shadowling_thralls)
 		SSticker.mode.remove_thrall(src,0)
 
+
 /datum/mind/proc/remove_ninja_role()
-	if(src in SSticker.mode.space_ninjas)
-		SSticker.mode.remove_ninja(src, usr, TRUE)
+	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
+	if(!ninja_datum)
+		return
+
+	remove_antag_datum(ninja_datum)
+
 
 /datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
 	remove_revolutionary_role()
@@ -2765,11 +2786,14 @@
 			return A
 
 
-/datum/mind/proc/announce_objectives()
-	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/line in splittext(gen_objective_text(), "<br>"))
-			to_chat(current, line)
+/datum/mind/proc/prepare_announce_objectives(title = TRUE)
+	if(!current)
+		return
+	var/list/text = list()
+	if(title)
+		text.Add("<span class='notice'>Your current objectives:</span>")
+	text.Add(gen_objective_text())
+	return text
 
 
 /datum/mind/proc/find_syndicate_uplink()
@@ -2826,7 +2850,7 @@
 		SSticker.mode.forge_syndicate_objectives(src)
 		SSticker.mode.greet_syndicate(src)
 
-		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
+		current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
 
 		var/mob/living/carbon/human/H = current
 		qdel(H.belt)
@@ -2856,10 +2880,10 @@
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
 		if(!GLOB.wizardstart.len)
-			current.loc = pick(GLOB.latejoin)
+			current.forceMove(pick(GLOB.latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(GLOB.wizardstart)
+			current.forceMove(pick(GLOB.wizardstart))
 
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
@@ -2869,25 +2893,25 @@
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
 
-/datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective = null)
-	if(!(src in SSticker.mode.space_ninjas))
-		SSticker.mode.space_ninjas += src
-		special_role = SPECIAL_ROLE_SPACE_NINJA
-		assigned_role = SPECIAL_ROLE_SPACE_NINJA
-		var/mob/living/carbon/human/ninja_mob = current
-		if(!GLOB.ninjastart.len)
-			ninja_mob.loc = pick(GLOB.latejoin)
-			to_chat(ninja_mob, "HOT INSERTION, GO GO GO")
-		else
-			ninja_mob.loc = pick(GLOB.ninjastart)
-		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/space_ninja, name_ninja), ninja_mob)
-		SSticker.mode.update_ninja_icons_added(src)
-		SSticker.mode.greet_ninja(src)
-		SSticker.mode.equip_space_ninja(ninja_mob)
-		SSticker.mode.give_ninja_datum(src)
-		//"generic" only, we don't want to spawn other antag's
-		SSticker.mode.forge_ninja_objectives(src, "generic", custom_objective)
-		SSticker.mode.basic_ninja_needs_check(src)
+
+/datum/mind/proc/make_Space_Ninja(datum/objective/custom_objective)
+	if(isninja(src))
+		return
+
+	var/datum/antagonist/ninja/ninja_datum = new
+	ninja_datum.give_objectives = FALSE
+	ninja_datum.generate_antags = FALSE
+	add_antag_datum(ninja_datum)
+
+	if(!length(GLOB.ninjastart))
+		current.forceMove(pick(GLOB.latejoin))
+		to_chat(current, "HOT INSERTION, GO GO GO")
+	else
+		current.forceMove(pick(GLOB.ninjastart))
+
+	//"generic" only, we don't want to spawn other antag's
+	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)
+
 
 /datum/mind/proc/make_Rev()
 	SSticker.mode.head_revolutionaries += src
@@ -2950,17 +2974,22 @@
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
-	spell_list += S
-	S.action.Grant(current)
 
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
-	if(!spell)
+/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+	if(!istype(spell))
 		return
-	for(var/obj/effect/proc_holder/spell/S in spell_list)
-		if(istype(S, spell))
-			qdel(S)
-			spell_list -= S
+	LAZYADD(spell_list, spell)
+	spell.action.Grant(current)
+
+
+/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
+	if(!ispath(instance_or_path))
+		instance_or_path = instance_or_path.type
+	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+		if(spell.type == instance_or_path)
+			LAZYREMOVE(spell_list, spell)
+			qdel(spell)
+
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
 	if(old_current && old_current.actions)
@@ -2969,21 +2998,25 @@
 				A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
-/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		S.action.Grant(new_character)
 
-/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		for(var/type in exceptions)
-			if(istype(S, type))
-				continue
-		S.cooldown_handler?.recharge_duration = delay
-		spawn(0)
-			S.cooldown_handler?.start_recharge()
-		S.updateButtonIcon()
+/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
+	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+		spell.action.Grant(new_character)
+
+
+/datum/mind/proc/disrupt_spells(delay, list/exceptions)
+	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+		var/exception = FALSE
+		for(var/typepath in exceptions)
+			if(istype(spell, typepath))
+				exception = TRUE
+				break
+		if(exception)
+			continue
+		if(spell.cooldown_handler)
+			spell.cooldown_handler.recharge_duration = delay
+			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
@@ -3069,7 +3102,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Civilian"	//defualt
+		mind.assigned_role = JOB_TITLE_CIVILIAN	//defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
@@ -3108,12 +3141,12 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_role = JOB_TITLE_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Cyborg"
+	mind.assigned_role = JOB_TITLE_CYBORG
 	if(is_taipan(z))
 		give_taipan_hud()
 		GLOB.taipan_players_active += mind

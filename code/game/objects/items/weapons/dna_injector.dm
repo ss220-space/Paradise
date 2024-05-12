@@ -1,10 +1,10 @@
 /obj/item/dnainjector
 	name = "DNA-Injector"
 	desc = "This injects the person with DNA."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnainjector"
-	item_state = "dnainjector"
-	belt_icon = "dna_injector"
+	item_state = "autoinjector"
+	belt_icon = "autoinjector"
 	var/block = 0
 	var/datum/dna2/record/buf = null
 	throw_speed = 3
@@ -32,6 +32,16 @@
 /obj/item/dnainjector/Destroy()
 	QDEL_NULL(buf)
 	return ..()
+
+
+/obj/item/dnainjector/update_icon_state()
+	icon_state = "[initial(icon_state)][used ? "0" : ""]"
+
+
+/obj/item/dnainjector/update_desc(updates = ALL)
+	. = ..()
+	desc = used ? "[initial(desc)] This one is used up." : initial(desc)
+
 
 /obj/item/dnainjector/proc/GetRealBlock(selblock)
 	if(selblock == 0)
@@ -67,47 +77,61 @@
 	else
 		return buf.dna.SetUIValue(real_block,val)
 
-/obj/item/dnainjector/proc/inject(mob/living/M, mob/user)
+
+/obj/item/dnainjector/proc/inject(mob/living/carbon/human/target, mob/user)
 	if(used)
 		return
-	if(istype(M,/mob/living))
-		M.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
-	var/mob/living/carbon/human/H
-	if(istype(M, /mob/living/carbon/human))
-		H = M
 
-	if(!buf)
-		log_runtime(EXCEPTION("[src] used by [user] on [M] failed to initialize properly."), src)
+	if(isliving(target))
+		target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+
+	if(!ishuman(target))
 		return
 
-	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
-			var/prev_ue = M.dna.unique_enzymes
-			// UI in syringe.
-			if(buf.types & DNA2_BUF_UI)
-				if(!block) //isolated block?
-					M.dna.UI = buf.dna.UI.Copy()
-					M.dna.UpdateUI()
-					M.UpdateAppearance()
-					if(buf.types & DNA2_BUF_UE) //unique enzymes? yes
+	if(!buf)
+		log_runtime(EXCEPTION("[src] used by [user] on [target] failed to initialize properly."), src)
+		return
 
-						M.real_name = buf.dna.real_name
-						M.name = buf.dna.real_name
-						M.dna.real_name = buf.dna.real_name
-						M.dna.unique_enzymes = buf.dna.unique_enzymes
-				else
-					M.dna.SetUIValue(block,src.GetValue())
-					M.UpdateAppearance()
-			if(buf.types & DNA2_BUF_SE)
-				if(!block) //isolated block?
-					M.dna.SE = buf.dna.SE.Copy()
-					M.dna.UpdateSE()
-				else
-					M.dna.SetSEValue(block,src.GetValue())
-				domutcheck(M, null, forcedmutation ? MUTCHK_FORCED : 0)
-				M.update_mutations()
-			if(H)
-				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
+	used = TRUE
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+	INVOKE_ASYNC(src, PROC_REF(async_update), target)	//Some mutations have sleeps in them, like monkey
+
+
+/obj/item/dnainjector/proc/async_update(mob/living/carbon/human/target)
+	// prevents drained people from having their DNA changed
+	if(!target.dna || (NOCLONE in target.mutations) || (NO_DNA in target.dna.species.species_traits))
+		return
+
+	var/datum/dna/target_dna = target.dna
+	var/prev_UE = target_dna.unique_enzymes
+
+	// UI in syringe
+	if(buf.types & DNA2_BUF_UI)
+		if(!block) //isolated block?
+			target_dna.UI = buf.dna.UI.Copy()
+			target_dna.UpdateUI()
+			target.UpdateAppearance()
+
+			if(buf.types & DNA2_BUF_UE) //unique enzymes? yes
+				target.real_name = buf.dna.real_name
+				target.name = buf.dna.real_name
+				target_dna.real_name = buf.dna.real_name
+				target_dna.unique_enzymes = buf.dna.unique_enzymes
+		else
+			target_dna.SetUIValue(block, GetValue())
+			target.UpdateAppearance()
+
+	// SE in syringe
+	if(buf.types & DNA2_BUF_SE)
+		if(!block) //isolated block?
+			target_dna.SE = buf.dna.SE.Copy()
+			target_dna.UpdateSE()
+		else
+			target_dna.SetSEValue(block, GetValue())
+		target.check_genes(forcedmutation ? MUTCHK_FORCED : NONE)
+
+	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
+
 
 /obj/item/dnainjector/attack(mob/M, mob/user)
 	if(used)
@@ -140,7 +164,7 @@
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M, NONE))
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
@@ -150,9 +174,6 @@
 	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
 
 	inject(M, user)
-	used = TRUE
-	icon_state = "dnainjector0"
-	desc += " This one is used up."
 
 /obj/item/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"
@@ -232,7 +253,7 @@
 	..()
 
 /obj/item/dnainjector/telemut/darkbundle
-	name = "DNA injector"
+	name = "DNA-injector"
 	desc = "Good. Let the hate flow through you."
 
 
@@ -680,7 +701,7 @@
 	..()
 
 /obj/item/dnainjector/anticomic
-	name = "DNA-Injector (Ant-Comic)"
+	name = "DNA-Injector (Anti-Comic)"
 	desc = "Honk...?"
 	datatype = DNA2_BUF_SE
 	value = 0x001

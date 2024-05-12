@@ -37,30 +37,35 @@
 	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
 	L.Slowed(4 SECONDS)
 	if(!poisonable)
-		return ..()
+		return TRUE
 	if(L.reagents.has_reagent("frostoil", 100))
-		return ..()
-	var/inject_target = pick("chest", "head")
+		return TRUE
+	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("frostoil", 20)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
 		L.reagents.add_reagent("frostoil", 10)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
-	L.attack_animal(src)
+	return TRUE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/Move(atom/newloc, dir, step_x, step_y)  //moves slow while not in web, but fast while in. does not regenerate if not in web
 	. = ..()
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
 	if(W)
 		if(speed == 1)
-			speed = -0.4
+			set_varspeed(-0.4)
 			regeneration = 3
 	else if(speed != 1)
 		regeneration = 0
-		speed = 1
+		set_varspeed(1)
 
 /obj/structure/spider/terrorweb/queen/builder
 	max_integrity = 35

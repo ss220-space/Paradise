@@ -104,12 +104,13 @@
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
-	broken_states = list()
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+/turf/simulated/floor/vines/broken_states()
+	return list()
 
 //All of this shit is useless for vines
 
@@ -273,7 +274,7 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(istype(target, /turf/simulated/wall/r_wall))
+	if(isreinforcedwallturf(target))
 		// Too tough to pierce - should lead to interesting spread patterns
 		return
 	// Bust through windows or other stuff blocking the way
@@ -323,7 +324,7 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = TRUE
+		holder.set_density(TRUE)
 	holder.max_integrity = 100
 	holder.obj_integrity = holder.max_integrity
 
@@ -535,7 +536,7 @@
 	eat(user)
 
 /obj/structure/spacevine_controller
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/list/obj/structure/spacevine/vines = list()
 	var/list/growth_queue = list()
 	var/spread_multiplier = 5
@@ -679,7 +680,7 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!istype(stepturf, /turf/space) && stepturf.Enter(src))
+			if(!isspaceturf(stepturf) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
@@ -701,11 +702,12 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(isvineimmune(mover))
-		. = TRUE
-	else
-		. = ..()
+		return TRUE
+
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

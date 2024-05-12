@@ -23,8 +23,8 @@
 	. = ..()
 	if(!summoner)
 		return
-	if(!(NO_SHOCK in summoner.mutations))
-		summoner.mutations.Add(NO_SHOCK)
+	if(!(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE)))
+		ADD_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
 
 /mob/living/simple_animal/hostile/guardian/beam/New()
 	..()
@@ -105,6 +105,6 @@
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
-    if(summoner && (NO_SHOCK in summoner.mutations))
-        summoner.mutations.Remove(NO_SHOCK)
+    if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
+        REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
     return ..()

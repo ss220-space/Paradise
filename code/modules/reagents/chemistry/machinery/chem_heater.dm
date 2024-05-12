@@ -44,22 +44,22 @@
 				if(auto_eject)
 					eject_beaker()
 
+
+/obj/machinery/chem_heater/update_icon_state()
+	icon_state = "mixer[beaker ? "1" : "0"]b"
+
+
+
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
 		if(user && Adjacent(user) && !issilicon(user))
 			user.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
-		icon_state = "mixer0b"
 		on = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
-/obj/machinery/chem_heater/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))
@@ -74,7 +74,7 @@
 			add_fingerprint(user)
 			beaker = I
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-			icon_state = "mixer1b"
+			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
 			return
 
@@ -99,6 +99,8 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ghost(mob/user)
@@ -130,7 +132,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	if(user.stat || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
