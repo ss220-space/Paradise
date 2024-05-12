@@ -424,17 +424,17 @@
 	// 	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
-		underlays += emissive_appearance(icon, "dispover-full")
+		underlays += emissive_appearance(icon, "dispover-full", src)
 		return
 
 	// charging and ready light
 	switch(mode)
 		if(CHARGING)
 			. += "dispover-charge"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 		if(CHARGED)
 			. += "dispover-ready"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 
 
 // timed process

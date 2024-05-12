@@ -212,7 +212,7 @@
 		if(broken_overlay)
 			. += broken_overlay
 		if(broken_lightmask_overlay)
-			underlays += emissive_appearance(icon, broken_lightmask_overlay)
+			underlays += emissive_appearance(icon, broken_lightmask_overlay, src)
 		if(panel_overlay && panel_open)
 			. += panel_overlay
 		return
@@ -234,7 +234,7 @@
 			. += deny_lightmask
 
 	if(!lightmask_used && lightmask_overlay)
-		underlays += emissive_appearance(icon, lightmask_overlay)
+		underlays += emissive_appearance(icon, lightmask_overlay, src)
 
 	if(panel_overlay && panel_open)
 		. += panel_overlay
@@ -2902,7 +2902,7 @@
 		else if(flick_sequence & FLICK_DENY)
 			. += deny_overlay
 
-	underlays += emissive_appearance(icon, "nta_lightmask")
+	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
 
 /obj/machinery/vending/nta/ertarmory/blue

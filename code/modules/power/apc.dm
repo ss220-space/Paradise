@@ -447,7 +447,7 @@
 	underlays.Cut()
 
 	if(update_state & UPSTATE_BLUESCREEN)
-		underlays += emissive_appearance(icon, "emit_apcemag")
+		underlays += emissive_appearance(icon, "emit_apcemag", src)
 		return
 
 	if((stat & (BROKEN|MAINT)) || !(update_state & UPSTATE_ALLGOOD))
@@ -457,8 +457,8 @@
 	var/image/statover_charg = status_overlays_charging[charging + 1]
 	. += statover_lock
 	. += statover_charg
-	underlays += emissive_appearance(icon, statover_lock.icon_state)
-	underlays += emissive_appearance(icon, statover_charg.icon_state)
+	underlays += emissive_appearance(icon, statover_lock.icon_state, src)
+	underlays += emissive_appearance(icon, statover_charg.icon_state, src)
 
 	if(!operating)
 		return
@@ -469,9 +469,9 @@
 	. += statover_equip
 	. += statover_light
 	. += statover_envir
-	underlays += emissive_appearance(icon, statover_equip.icon_state)
-	underlays += emissive_appearance(icon, statover_light.icon_state)
-	underlays += emissive_appearance(icon, statover_envir.icon_state)
+	underlays += emissive_appearance(icon, statover_equip.icon_state, src)
+	underlays += emissive_appearance(icon, statover_light.icon_state, src)
+	underlays += emissive_appearance(icon, statover_envir.icon_state, src)
 
 
 /obj/machinery/power/apc/proc/check_updates()

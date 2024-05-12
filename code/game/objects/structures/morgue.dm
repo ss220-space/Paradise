@@ -114,7 +114,7 @@
 
 	if(!connected)
 		. += "morgue_[status]"
-		underlays += emissive_appearance(icon, "morgue_[status]")
+		underlays += emissive_appearance(icon, "morgue_[status]", src)
 
 	if(name != initial(name))
 		. += "morgue_label"
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
+		underlays += emissive_appearance(icon, "crema_active_lightmask", src)
 		return
 
 	if(length(contents))

@@ -27,7 +27,7 @@
 		crawl.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
-	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
+	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay", src))
 
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)

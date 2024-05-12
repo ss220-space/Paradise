@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	if(ringing)
-		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
+		underlays += emissive_appearance(icon, "holopad_ringing_lightmask", src)
 	else if(total_users)
-		underlays += emissive_appearance(icon, "holopad1_lightmask")
+		underlays += emissive_appearance(icon, "holopad1_lightmask", src)
 
 
 /obj/machinery/hologram/holopad/obj_break()
