@@ -101,7 +101,7 @@
 // It's hard, and potentially expensive. be careful
 /datum/plane_master_group/proc/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
 	// Check if this feature is disabled for the client, in which case don't use scale.
-	if(!(our_hud?.mymob?.client?.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS))
+	if(!(our_hud?.mymob?.client?.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ))
 		use_scale = FALSE
 
 	// No offset? piss off

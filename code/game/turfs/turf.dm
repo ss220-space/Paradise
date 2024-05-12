@@ -3,7 +3,7 @@
 	level = 1
 	luminosity = 1
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE	// Important for interaction with and visualization of openspace.
+	vis_flags = VIS_INHERIT_ID	// Important for interaction with and visualization of openspace.
 
 	var/intact = TRUE
 	var/turf/baseturf = /turf/baseturf_bottom
