@@ -425,7 +425,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
-	user.sight |= (SEE_TURFS|BLIND)
+	user.add_sight(SEE_TURFS|BLIND)
 	. = ..()
 
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.

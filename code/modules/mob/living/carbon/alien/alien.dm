@@ -334,8 +334,8 @@ Des: Removes all infected images from the alien.
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = SEE_MOBS
+	set_invis_see(initial(see_invisible))
+	set_sight(SEE_MOBS)
 	if(nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
@@ -347,11 +347,11 @@ Des: Removes all infected images from the alien.
 			return
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
-		sight |= cyber_eyes.vision_flags
+		add_sight(cyber_eyes.vision_flags)
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
-			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 

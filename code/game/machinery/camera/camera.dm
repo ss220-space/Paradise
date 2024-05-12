@@ -431,11 +431,11 @@
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
-		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		user.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		user.sight = initial(user.sight)
+		user.set_sight(initial(user.sight))
 		user.nightvision = initial(user.nightvision)
 		user.lighting_alpha = initial(user.lighting_alpha)
 

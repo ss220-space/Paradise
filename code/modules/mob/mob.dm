@@ -1220,7 +1220,7 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-/mob/proc/set_sight(datum/vision_override/O)
+/mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
@@ -1346,6 +1346,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /mob/proc/slip(weaken_amount, obj/slipped_on, lube_flags, tilesSlipped)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, weaken_amount, slipped_on, lube_flags, tilesSlipped)
- 
+
 /mob/proc/IsLying()
 	return FALSE

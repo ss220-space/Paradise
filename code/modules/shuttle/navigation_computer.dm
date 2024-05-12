@@ -318,9 +318,9 @@
 		return
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
-	user.sight = SEE_TURFS
+	user.set_sight(SEE_TURFS)
 
-	..()
+	..() // what the fuck
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate

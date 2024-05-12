@@ -1488,15 +1488,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 
 	if(aiRestorePowerRoutine)
-		sight = sight &~ SEE_TURFS
-		sight = sight &~ SEE_MOBS
-		sight = sight &~ SEE_OBJS
+		clear_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		nightvision = 0
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

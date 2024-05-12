@@ -42,7 +42,7 @@
 		hud_used.show_hud(hud_used.hud_version)
 
 	next_move = 1
-	sight |= SEE_SELF
+	add_sight(SEE_SELF)
 
 	// DO NOT CALL PARENT HERE
 	// BYOND's internal implementation of login does two things

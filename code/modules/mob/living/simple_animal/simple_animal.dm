@@ -619,12 +619,10 @@
 	can_have_ai = FALSE
 
 /mob/living/simple_animal/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	nightvision = 8
-	see_invisible = SEE_INVISIBLE_OBSERVER
-	sync_lighting_plane_alpha()
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
+	..()
 
 /mob/living/simple_animal/update_sight()
 	if(!client)
@@ -634,17 +632,17 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)

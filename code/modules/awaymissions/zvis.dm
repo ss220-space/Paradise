@@ -276,7 +276,7 @@
 		nvs = SIGN(nvs)
 	// need a mob for view() to work correctly
 	var/mob/M = new(near_viewpoint)
-	M.see_invisible = SEE_INVISIBLE_LIVING
+	M.set_invis_see(SEE_INVISIBLE_LIVING)
 	near_render_block = view(M, world.view)
 	qdel(M)
 	for(var/A in near_render_block)

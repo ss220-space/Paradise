@@ -10,9 +10,9 @@
 	. = ..()
 	if(iscarbon(arrived))
 		var/mob/living/carbon/C = arrived
-		C.see_invisible = initial(C.see_invisible)
+		C.set_invis_see(initial(C.see_invisible))
 		C.nightvision = initial(C.nightvision)
-		C.sight = initial(C.sight)
+		C.set_sight(initial(C.sight))
 		C.lighting_alpha = initial(C.lighting_alpha)
 		C.sync_lighting_plane_alpha()
 		C.AddComponent(/datum/component/vision_reset)
@@ -36,9 +36,9 @@
 	RegisterSignal(my_mob, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(change_vision))
 
 /datum/component/vision_reset/proc/change_vision()
-	my_mob.see_invisible = initial(my_mob.see_invisible)
+	my_mob.set_invis_see(initial(my_mob.see_invisible))
 	my_mob.nightvision = initial(my_mob.nightvision)
-	my_mob.sight = initial(my_mob.sight)
+	my_mob.set_sight(initial(my_mob.sight))
 	my_mob.lighting_alpha = initial(my_mob.lighting_alpha)
 	my_mob.sync_lighting_plane_alpha()
 

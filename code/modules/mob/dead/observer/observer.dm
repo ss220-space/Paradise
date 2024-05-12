@@ -41,8 +41,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	verbs += list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -617,20 +617,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/update_sight()
 	if (!ghostvision)
-		see_invisible = SEE_INVISIBLE_LIVING
+		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 
 	updateghostimages()
 	. = ..()
 
 /mob/dead/observer/proc/updateghostsight()
 	if(!seedarkness)
-		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+		set_invis_see(SEE_INVISIBLE_OBSERVER_NOLIGHTING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 		if(!ghostvision)
-			see_invisible = SEE_INVISIBLE_LIVING
+			set_invis_see(SEE_INVISIBLE_LIVING)
 
 	updateghostimages()
 

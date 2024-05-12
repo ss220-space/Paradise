@@ -41,10 +41,10 @@
 /datum/action/innate/shadow/darkvision/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(!H.vision_type)
-		H.set_sight(/datum/vision_override/nightvision)
+		H.set_vision_override(/datum/vision_override/nightvision)
 		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
 	else
-		H.set_sight(null)
+		H.set_vision_override(null)
 		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)

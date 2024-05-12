@@ -10,6 +10,24 @@
 		bodytemperature = clamp(amount, min_temp, max_temp)
 		return TRUE
 
+/// Sight here is the mob.sight var, which tells byond what to actually show to our client
+/// See [code\__DEFINES\sight.dm] for more details
+/mob/proc/set_sight(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(sight == new_value)
+		return
+	var/old_sight = sight
+	sight = new_value
+
+	SEND_SIGNAL(src, COMSIG_MOB_SIGHT_CHANGE, new_value, old_sight)
+
+/mob/proc/add_sight(new_value)
+	set_sight(sight | new_value)
+
+/mob/proc/clear_sight(new_value)
+	set_sight(sight & ~new_value)
+
+
 /// see invisibility is the mob's capability to see things that ought to be hidden from it
 /// Can think of it as a primitive version of changing the alpha of planes
 /// We mostly use it to hide ghosts, no real reason why
