@@ -15,7 +15,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	plane = GAME_PLANE
 	max_integrity = 200 //How much health it has.
-	can_buckle = 1
+	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE
 	///The creature currently caught in the net

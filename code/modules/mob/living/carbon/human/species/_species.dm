@@ -586,7 +586,7 @@
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
-		else if(target.lying_angle)
+		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
@@ -1177,8 +1177,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_thunk(mob/living/carbon/human/H)
 	return FALSE
 
-/datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
-	return FALSE
 
 /**
   * Species-specific runechat colour handler

@@ -71,8 +71,8 @@
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
 
-	if(!mob.canmove)
-		return
+	if(!(L.mobility_flags & MOBILITY_MOVE))
+		return FALSE
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
@@ -336,8 +336,12 @@
 
 
 /mob/proc/Move_Pulled(atom/target)
-	if(!canmove || HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
 		return
+	if(isliving(src))	// temporary
+		var/mob/living/l_mob = src
+		if(!(l_mob.mobility_flags & MOBILITY_MOVE))
+			return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
 		return

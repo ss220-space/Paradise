@@ -536,14 +536,12 @@
 		if(200 to INFINITY)
 			newsize = 1.5
 
-	H.resize = newsize/current_size
 	current_size = newsize
-	H.update_transform()
+	H.update_transform(newsize/current_size)
 	return ..()
 
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
-	M.resize = 1/current_size
-	M.update_transform()
+	M.update_transform(1/current_size)
 	..()
 
 /datum/reagent/pax

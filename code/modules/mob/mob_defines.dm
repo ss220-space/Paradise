@@ -216,8 +216,6 @@
 
 	var/last_logout = 0
 
-	var/resize = 1 //Badminnery resize
-
 	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types

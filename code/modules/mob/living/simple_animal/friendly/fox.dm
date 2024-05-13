@@ -15,6 +15,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"

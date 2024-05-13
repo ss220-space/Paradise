@@ -209,19 +209,23 @@
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] встряхива[pluralize_ru(M.gender,"ет","ют")] [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.", \
 				"<span class='notice'>Вы трясете [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.</span>")
-			if(lying_angle) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				if(buckled)
+					to_chat(M, span_warning("You need to unbuckle [src] first to do that!"))
+					return
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
+				set_resting(FALSE, instant = TRUE)
 				AdjustSleeping(-10 SECONDS)
-				if(!AmountSleeping())
-					StopResting()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
 				adjustStaminaLoss(-10)
+				if(body_position != STANDING_UP && !resting && !buckled)
+					get_up(instant = TRUE)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -594,8 +598,9 @@
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 
-/mob/living/carbon/fall(forced)
-    loc?.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+/mob/living/carbon/on_fall()
+	. = ..()
+	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 
 /mob/living/carbon/resist_buckle()
@@ -623,27 +628,8 @@
 
 
 /mob/living/carbon/resist_fire()
-	fire_stacks -= 5
-	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
-	update_canmove()
-	spin(32,2)
-	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
-		"<span class='notice'>Вы остановились, упали и катаетесь!</span>")
-	sleep(30)
-	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src.name] успешно потушился!</span>", \
-			"<span class='notice'>Вы потушились.</span>")
-		ExtinguishMob()
+	return !!apply_status_effect(STATUS_EFFECT_DROPNROLL)
 
-
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
-		if(buckled)
-			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
-		else
-			return -6
-	else
-		return initial(pixel_y)
 
 /mob/living/carbon/emp_act(severity)
 	..()
@@ -869,7 +855,7 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/get_pull_push_speed_modifier(current_delay)
-	if(!canmove)
+	if(!(mobility_flags & MOBILITY_MOVE))
 		return pull_push_speed_modifier * 1.2
 	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
@@ -892,4 +878,21 @@ so that different stomachs can handle things in different ways VB*/
 		update_move_intent_slowdown()
 		return
 	return ..()
+
+
+/mob/living/carbon/lying_angle_on_lying_down(new_lying_angle)
+	if(!new_lying_angle)
+		set_lying_angle(pick(90, 270))
+	else
+		set_lying_angle(new_lying_angle)
+
+
+/mob/living/carbon/set_body_position(new_value)
+	. = ..()
+	if(isnull(.))
+		return .
+	if(new_value == LYING_DOWN)
+		add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 

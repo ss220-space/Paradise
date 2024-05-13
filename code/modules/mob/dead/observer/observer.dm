@@ -15,7 +15,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE
-	canmove = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around

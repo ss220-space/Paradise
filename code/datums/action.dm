@@ -43,6 +43,12 @@
 		button.locked = TRUE
 	owner.update_action_buttons()
 
+	if(check_flags & AB_CHECK_CONSCIOUS)
+		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_LYING)
+		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_IMMOBILE)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_HANDS_BLOCKED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 
@@ -65,8 +71,12 @@
 
 	// Clean up our check_flag signals
 	UnregisterSignal(user, list(
+		COMSIG_MOB_STATCHANGE,
+		COMSIG_LIVING_SET_BODY_POSITION,
 		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
 		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
 	))
 
 	return TRUE
@@ -114,15 +124,11 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	var/owner_is_living = isliving(owner)
-	var/mob/living/living_owner = owner
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
-	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && owner_is_living && (living_owner.IsStunned() || living_owner.IsWeakened()))
-		return FALSE
-	if((check_flags & AB_CHECK_LYING) && owner_is_living && living_owner.lying_angle)
+	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
 		return FALSE
@@ -183,7 +189,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	/// Whether action trigger should call attack self proc.
 	var/attack_self = TRUE
 	var/use_itemicon = TRUE
@@ -600,7 +606,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()

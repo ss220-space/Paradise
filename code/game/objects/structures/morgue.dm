@@ -284,7 +284,7 @@
 		var/mob/living/target = grab.affecting
 		qdel(grab)
 		target.pulledby?.stop_pulling()
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 		target.forceMove(loc)
 		return
 	user.drop_transfer_item_to_loc(I, loc)
@@ -302,7 +302,7 @@
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 
@@ -700,7 +700,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		var/mob/living/target = grab.affecting
 		qdel(grab)
 		target.pulledby?.stop_pulling()
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 		target.forceMove(loc)
 		return
 	user.drop_transfer_item_to_loc(I, loc)
@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 

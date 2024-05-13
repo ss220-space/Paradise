@@ -113,7 +113,7 @@
 	var/datum/surgery/procedure
 
 	if(!length(available_surgeries))
-		if(target.lying_angle || target.resting || target.stat)
+		if(target.body_position == LYING_DOWN)
 			to_chat(user, span_notice("There aren't any surgeries you can perform there right now."))
 		else
 			to_chat(user, span_notice("You can't perform any surgeries there while [target] is standing."))

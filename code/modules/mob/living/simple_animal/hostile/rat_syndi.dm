@@ -16,6 +16,7 @@
 	pull_force = 1000
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	can_hide = 1
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -80,11 +81,11 @@
 	. = ..()
 	if(resting)
 		if(prob(1))
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))

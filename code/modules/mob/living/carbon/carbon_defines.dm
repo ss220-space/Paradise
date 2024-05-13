@@ -3,6 +3,7 @@
 	pressure_resistance = 15
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
 	blood_volume = BLOOD_VOLUME_NORMAL
+	rotate_on_lying = TRUE
 	var/list/stomach_contents
 	var/list/processing_patches
 	var/list/internal_organs	= list()

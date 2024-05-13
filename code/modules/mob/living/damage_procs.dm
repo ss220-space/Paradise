@@ -325,8 +325,7 @@
 /mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(staminaloss + amount, 0), 120)
@@ -338,15 +337,13 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(amount, 0), 120)
@@ -356,10 +353,9 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 
 
 /mob/living/proc/getMaxHealth()

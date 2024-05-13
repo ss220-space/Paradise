@@ -2040,10 +2040,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth) + shock_reduction
 
-/mob/living/carbon/human/WakeUp(updating = TRUE)
-	if(dna.species.spec_WakeUp(src))
-		return
-	..()
 
 /**
   * Helper to get the mobs runechat colour span

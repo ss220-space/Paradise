@@ -6,7 +6,7 @@
 /datum/martial_combo/ninja_martial_art/neck_slice/perform_combo(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/ninja_martial_art/creeping_widow)
 	if(!ishuman(target))	// Комбо работает только на гуманоидов
 		return MARTIAL_COMBO_DONE_BASIC_HIT
-	if(target.IsWeakened() || target.resting || target.stat)
+	if(target.stat || target.body_position == LYING_DOWN)
 		if(creeping_widow.my_energy_katana && user.get_inactive_hand() == creeping_widow.my_energy_katana)
 			if(creeping_widow.has_focus)
 				user.say("悪気はないんだ...")

@@ -436,7 +436,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
-	target.pixel_y = initial(target.pixel_y) + 9
+	target.pixel_y = target.base_pixel_y + 9
 	if(target.layer < layer)
 		target.layer = layer + 0.01
 
@@ -444,7 +444,7 @@
 /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
 	target.layer = initial(target.layer)
-	target.pixel_y = initial(target.pixel_y)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 // called to unload the bot

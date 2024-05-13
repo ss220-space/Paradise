@@ -117,9 +117,8 @@
 			unbuckle_all_mobs(force = TRUE)
 */
 	. = ..()
-	if(client)
+	if(. && client)
 		reset_perspective()
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 
 /**

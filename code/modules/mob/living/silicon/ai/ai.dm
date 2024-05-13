@@ -141,7 +141,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
 	set_anchored(TRUE)
-	canmove = FALSE
 	set_density(TRUE)
 	loc = loc
 
@@ -625,8 +624,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-/mob/living/silicon/ai/update_canmove()
-	return FALSE
 
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
