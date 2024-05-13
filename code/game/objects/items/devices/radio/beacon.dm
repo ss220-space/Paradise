@@ -165,7 +165,7 @@
 								/obj/item/grenade/clusterbuster/n2o = 1,									// 10 TK
 								/obj/item/storage/box/syndie_kit/space = 1,									// 20 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-			"Payday" = list(	"Name" = "\improper 'PayDay' bundle",	// 136.6-138.6 TK
+			"PayDay" = list(	"Name" = "\improper 'PayDay' bundle",	// 136.6-138.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
 								/obj/item/gun/projectile/revolver = 1,										// 50 TK
