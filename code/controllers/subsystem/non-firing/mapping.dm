@@ -180,6 +180,7 @@ SUBSYSTEM_DEF(mapping)
 	plane_to_offset["[FLOAT_PLANE]"] = 0
 	plane_offset_blacklist = list()
 	render_offset_blacklist = list()
+	critical_planes = list()
 	create_plane_offsets(0, 0)
 
 // Do not confuse with seedRuins()
@@ -445,11 +446,16 @@ SUBSYSTEM_DEF(mapping)
 
 	generate_offset_lists(old_max + 1, max_plane_offset)
 	SEND_SIGNAL(src, COMSIG_PLANE_OFFSET_INCREASE, old_max, max_plane_offset)
+	// Sanity check
+	if(max_plane_offset > MAX_EXPECTED_Z_DEPTH)
+		stack_trace("We've loaded a map deeper then the max expected z depth. Preferences won't cover visually disabling all of it!")
 
 /// Takes an offset to generate misc lists to, and a base to start from
 /// Use this to react globally to maintain parity with plane offsets
 /datum/controller/subsystem/mapping/proc/generate_offset_lists(gen_from, new_offset)
 	create_plane_offsets(gen_from, new_offset)
+	for(var/offset in gen_from to new_offset)
+		GLOB.fullbright_overlays += create_fullbright_overlay(offset)
 
 /datum/controller/subsystem/mapping/proc/create_plane_offsets(gen_from, new_offset)
 	for(var/plane_offset in gen_from to new_offset)
@@ -468,6 +474,9 @@ SUBSYSTEM_DEF(mapping)
 				render_offset_blacklist[render_target] = TRUE
 				if(plane_offset != 0)
 					continue
+
+			if(initial(master_type.critical) & PLANE_CRITICAL_DISPLAY)
+				critical_planes[string_plane] = TRUE
 
 			plane_offset_to_true[string_plane] = plane_to_use
 			plane_to_offset[string_plane] = plane_offset

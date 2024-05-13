@@ -24,22 +24,31 @@
 // It will also stream the chunk that the new loc is in.
 
 /mob/camera/aiEye/setLoc(turf/destination, force_update = FALSE)
-	if(ai)
-		if(!isturf(ai.loc) || !destination)
-			return
-		abstract_move(destination)
-		if(use_static)
-			ai.camera_visibility(src)
-		if(ai.client)
-			ai.client.eye = src
-		update_parallax_contents()
-		//Holopad
-		if(istype(ai.current, /obj/machinery/hologram/holopad))
-			var/obj/machinery/hologram/holopad/H = ai.current
-			H.move_hologram(ai, destination)
+	if(!ai)
+		return
+	if(!isturf(ai.loc))
+		return
+	destination = get_turf(destination)
+	if(!force_update && (destination == get_turf(src)))
+		return //we are already here!
+	abstract_move(destination)
+	if(use_static)
+		ai.camera_visibility(src)
+	if(ai.client)
+		ai.client.set_eye(src)
+	update_parallax_contents()
+	//Holopad
+	if(istype(ai.current, /obj/machinery/hologram/holopad))
+		var/obj/machinery/hologram/holopad/H = ai.current
+		H.move_hologram(ai, destination)
 
 /mob/camera/aiEye/Move()
 	return 0
+
+/mob/camera/ai_eye/zMove(dir, turf/target, z_move_flags = NONE, recursions_left = 1, list/falling_movs)
+	. = ..()
+	if(.)
+		setLoc(loc, force_update = TRUE)
 
 /mob/camera/aiEye/proc/GetViewerClient()
 	if(ai)

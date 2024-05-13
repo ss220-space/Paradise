@@ -56,7 +56,7 @@
 	var/reference
 
 /datum/weakref/New(datum/thing)
-	reference = UID(thing)
+	reference = UID_of(thing)
 
 /datum/weakref/Destroy(force)
 	var/datum/target = resolve()

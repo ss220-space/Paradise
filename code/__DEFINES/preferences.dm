@@ -109,3 +109,10 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// Defines for how detailed multi-z is.
+// The lower values should improve perfomance
+#define MULTIZ_DETAIL_DEFAULT -1
+#define MULTIZ_DETAIL_HIGH 2
+#define MULTIZ_DETAIL_MEDIUM 1
+#define MULTIZ_DETAIL_LOW 0

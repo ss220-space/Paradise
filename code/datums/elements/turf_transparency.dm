@@ -41,13 +41,17 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 /// Exists to be placed on the turf of walls and such to hold the vis_contents of the tile below
 /// Otherwise the lower turf might get shifted around, which is dumb. do this instead.
 /obj/effect/abstract/z_holder
-	var/datum/z_pillar/pillar
-	var/turf/show_for
-	appearance_flags = PIXEL_SCALE
+	name = null
+	invisibility = 0
+	layer = OBJ_LAYER
 	plane = HUD_PLANE
 	anchored = TRUE
 	move_resist = INFINITY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = PIXEL_SCALE
+
+	var/datum/z_pillar/pillar
+	var/turf/show_for
 
 /obj/effect/abstract/z_holder/Destroy()
 	if(pillar)
@@ -181,8 +185,6 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 		return ELEMENT_INCOMPATIBLE
 
 	var/turf/our_turf = target
-
-	our_turf.layer = OPENSPACE_LAYER
 
 	RegisterSignal(target, COMSIG_TURF_MULTIZ_DEL, PROC_REF(on_multiz_turf_del))
 	RegisterSignal(target, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_turf_new))

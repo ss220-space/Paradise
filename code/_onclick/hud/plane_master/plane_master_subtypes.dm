@@ -5,6 +5,7 @@
 	plane = CLICKCATCHER_PLANE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 	multiz_scaled = FALSE
+	critical = PLANE_CRITICAL_DISPLAY
 
 /atom/movable/screen/plane_master/clickcatcher/Initialize(mapload, datum/plane_master_group/home, offset)
 	. = ..()
@@ -24,6 +25,8 @@
 		<br>If you want something to look as if it has parallax on it, draw it to this plane."
 	plane = PLANE_SPACE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_relay_planes = list(RENDER_PLANE_GAME, EMISSIVE_MASK_PLANE)
+	critical = PLANE_CRITICAL_FUCKO_PARALLAX // goes funny when touched. no idea why I don't trust byond
 
 ///Contains space parallax
 /atom/movable/screen/plane_master/parallax
@@ -56,6 +59,33 @@
 		if(offset != 0)
 			// Overlay so we don't multiply twice, and thus fuck up our rendering
 			add_relay_to(GET_NEW_PLANE(plane, offset), BLEND_OVERLAY)
+
+// Hacky shit to ensure parallax works in perf mode
+/atom/movable/screen/plane_master/parallax/outside_bounds(mob/relevant)
+	if(offset == 0)
+		remove_relay_from(GET_NEW_PLANE(RENDER_PLANE_GAME, 0))
+		is_outside_bounds = TRUE // I'm sorry :(
+		return
+	// If we can't render, and we aren't the bottom layer, don't render us
+	// This way we only multiply against stuff that's not fullwhite space
+	var/atom/movable/screen/plane_master/parent_parallax = home.our_hud.get_plane_master(PLANE_SPACE_PARALLAX)
+	var/turf/viewing_turf = get_turf(relevant)
+	if(!viewing_turf || offset != GET_LOWEST_STACK_OFFSET(viewing_turf.z))
+		parent_parallax.remove_relay_from(plane)
+	else
+		parent_parallax.add_relay_to(plane, BLEND_OVERLAY)
+	return ..()
+
+/atom/movable/screen/plane_master/parallax/inside_bounds(mob/relevant)
+	if(offset == 0)
+		add_relay_to(GET_NEW_PLANE(RENDER_PLANE_GAME, 0))
+		is_outside_bounds = FALSE
+		return
+	// Always readd, just in case we lost it
+	var/atom/movable/screen/plane_master/parent_parallax = home.our_hud.get_plane_master(PLANE_SPACE_PARALLAX)
+	parent_parallax.add_relay_to(plane, BLEND_OVERLAY)
+	return ..()
+
 
 /atom/movable/screen/plane_master/gravpulse
 	name = "Gravpulse"
@@ -141,6 +171,7 @@
 	render_relay_planes = list(RENDER_PLANE_LIGHTING)
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	critical = PLANE_CRITICAL_DISPLAY
 
 /// This will not work through multiz, because of a byond bug with BLEND_MULTIPLY
 /// Bug report is up, waiting on a fix
@@ -154,6 +185,7 @@
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
+	critical = PLANE_CRITICAL_DISPLAY
 
 /**
  * Handles emissive overlays and emissive blockers.
@@ -172,6 +204,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = EMISSIVE_RENDER_TARGET
 	render_relay_planes = list()
+	critical = PLANE_CRITICAL_DISPLAY
 
 /atom/movable/screen/plane_master/emissive/Initialize()
 	. = ..()
@@ -235,14 +268,6 @@
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	allows_offsetting = FALSE
-
-/atom/movable/screen/plane_master/sound_effect_visual
-	name = "Sound Effect Visuals"
-	documentation = "Holds anything that is a game visual, but is displayed over fullscreen effects. \
-		<br>Displayed over fullscreen effects, but still under runechat and the HUD."
-	plane = SOUND_EFFECT_VISUAL_PLANE
-	render_relay_planes = list(RENDER_PLANE_NON_GAME)
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
 /atom/movable/screen/plane_master/runechat

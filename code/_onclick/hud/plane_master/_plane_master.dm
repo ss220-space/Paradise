@@ -48,6 +48,18 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	/// Planes with this set should NEVER be relay'd into each other, as that will cause visual fuck
 	var/multiz_scaled = TRUE
 
+	/// Bitfield that describes how this plane master will render if its z layer is being "optimized"
+	/// If a plane master is NOT critical, it will be completely dropped if we start to render outside a client's multiz boundary prefs
+	/// Of note: most of the time we will relay renders to non critical planes in this stage. so the plane master will end up drawing roughly "in order" with its friends
+	/// This is NOT done for parallax and other problem children, because the rules of BLEND_MULTIPLY appear to not behave as expected :(
+	/// This will also just make debugging harder, because we do fragile things in order to ensure things operate as epected. I'm sorry
+	/// Compile time
+	/// See [code\__DEFINES\layers.dm] for our bitflags
+	var/critical = NONE
+
+	/// If this plane master is outside of our visual bounds right now
+	var/is_outside_bounds = FALSE
+
 /atom/movable/screen/plane_master/Initialize(mapload, datum/plane_master_group/home, offset = 0)
 	. = ..()
 	src.offset = offset
@@ -113,7 +125,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /// Returns TRUE if the call is allowed, FALSE otherwise
 /atom/movable/screen/plane_master/proc/show_to(mob/mymob)
 	SHOULD_CALL_PARENT(TRUE)
-	if(force_hidden)
+	if(force_hidden || is_outside_bounds)
 		return FALSE
 
 	var/client/our_client = mymob?.client
@@ -161,3 +173,41 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		hide_plane(our_mob)
 	else
 		unhide_plane(our_mob)
+/atom/movable/screen/plane_master/proc/outside_bounds(mob/relevant)
+	if(force_hidden || is_outside_bounds)
+		return
+	is_outside_bounds = TRUE
+	// If we're of critical importance, AND we're below the rendering layer
+	if(critical & PLANE_CRITICAL_DISPLAY)
+		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
+			return
+		var/client/our_client = relevant.client
+		if(!our_client)
+			return
+		for(var/atom/movable/render_plane_relay/relay as anything in relays)
+			if(!relay.critical_target)
+				our_client.screen -= relay
+
+		// We here assume that your render target starts with *
+		if(render_target)
+			render_target = copytext_char(render_target, 2)
+		return
+	hide_from(relevant)
+
+/atom/movable/screen/plane_master/proc/inside_bounds(mob/relevant)
+	is_outside_bounds = FALSE
+	if(critical & PLANE_CRITICAL_DISPLAY)
+		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
+			return
+		var/client/our_client = relevant.client
+		if(!our_client)
+			return
+		for(var/atom/movable/render_plane_relay/relay as anything in relays)
+			if(!relay.critical_target)
+				our_client.screen += relay
+
+		// We here assume that your render target starts with *
+		if(render_target)
+			render_target = "*[render_target]"
+		return
+	show_to(relevant)
