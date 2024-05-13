@@ -125,7 +125,7 @@
 	name = "Взмах хвостом"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
-	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 
 /datum/action/innate/tail_cut/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))

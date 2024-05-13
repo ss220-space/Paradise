@@ -88,7 +88,7 @@
 	name = "Жало врина"
 	desc = "Подготовка жала к ужаливанию."
 	button_icon_state = "wryn_sting_off"		//Default Button State
-	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 	var/button_on = FALSE
 
 //What happens when you click the Button?

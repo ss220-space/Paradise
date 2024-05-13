@@ -24,6 +24,7 @@
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
 #define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"

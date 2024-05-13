@@ -124,15 +124,13 @@
 /datum/dna/gene/basic/midget/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags |= PASSTABLE
-	mutant.resize = 0.8
-	mutant.update_transform()
+	mutant.update_transform(0.8)
 
 
 /datum/dna/gene/basic/midget/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags &= ~PASSTABLE
-	mutant.resize = 1.25
-	mutant.update_transform()
+	mutant.update_transform(1.25)
 
 
 // OLD HULK BEHAVIOR

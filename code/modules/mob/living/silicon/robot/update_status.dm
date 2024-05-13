@@ -14,15 +14,16 @@
 	if(stat != DEAD)
 		if(health <= -maxHealth) //die only once
 			death()
+			update_headlamp(TRUE, 0)
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || IsParalyzed() || IsSleeping() || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
-			if(stat == CONSCIOUS)
-				KnockOut()
-				update_headlamp()
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
+			if(stat != UNCONSCIOUS)
+				set_stat(UNCONSCIOUS)
+				update_headlamp(TRUE, 0)
 		else
-			if(stat == UNCONSCIOUS)
-				WakeUp()
-				update_headlamp()
+			if(stat != CONSCIOUS)
+				set_stat(CONSCIOUS)
+				update_headlamp(FALSE, 0)
 	else
 		if(health > 0)
 			update_revive()

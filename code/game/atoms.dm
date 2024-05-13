@@ -1124,8 +1124,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/living/carbon/faller)
 	return
+
 
 /atom/proc/singularity_act()
 	return

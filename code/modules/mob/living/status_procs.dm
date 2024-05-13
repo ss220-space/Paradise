@@ -92,23 +92,6 @@
 #define IS_PARALYZE_IMMUNE(source, ignore_canparalyse) ((source.status_flags & GODMODE) || (!ignore_canparalyse && !(source.status_flags & CANPARALYSE)))
 
 
-// RESTING
-
-/mob/living/proc/StartResting(updating = 1)
-	var/val_change = !resting
-	resting = TRUE
-
-	if(updating && val_change)
-		update_canmove()
-
-/mob/living/proc/StopResting(updating = 1)
-	var/val_change = !!resting
-	resting = FALSE
-
-	if(updating && val_change)
-		update_canmove()
-
-
 // SCALAR STATUS EFFECTS
 
 /**
@@ -383,10 +366,14 @@
 	if(IS_PARALYZE_IMMUNE(src, ignore_canparalyse))
 		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
-	if(P)
-		P.duration = world.time + amount
-	else if(amount > 0)
-		P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
+	if(amount <= 0)
+		if(P)
+			qdel(P)
+	else
+		if(P)
+			P.duration = world.time + amount
+		else if(amount > 0)
+			P = apply_status_effect(STATUS_EFFECT_PARALYZED, amount)
 	return P
 
 /mob/living/proc/AdjustParalysis(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canparalyze = FALSE)
@@ -444,12 +431,14 @@
 	if(status_flags & GODMODE)
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
-	if(amount <= 0 && S)
-		qdel(S)
-	if(S)
-		S.duration = amount + world.time
-	else if(amount > 0)
-		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
+	if(amount <= 0)
+		if(S)
+			qdel(S)
+	else
+		if(S)
+			S.duration = amount + world.time
+		else
+			S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
@@ -558,7 +547,7 @@
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
 		return S.duration - world.time
-	return FALSE
+	return 0
 
 /mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
 	if(IS_STUN_IMMUNE(src, ignore_canstun))
@@ -600,6 +589,64 @@
 		S = apply_status_effect(STATUS_EFFECT_STUN, amount)
 	return S
 
+
+/* KNOCKDOWN */
+
+/mob/living/proc/IsKnockdown() //If we're knocked down
+	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
+
+
+/mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
+	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
+	if(K)
+		return K.duration - world.time
+	return 0
+
+
+/mob/living/proc/Knockdown(amount, ignore_canstun = FALSE) //Can't go below remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_status_effect(amount, ignore_canstun, KNOCKDOWN))
+		return
+	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
+	if(K)
+		K.duration = max(world.time + amount, K.duration)
+	else if(amount > 0)
+		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
+	return K
+
+
+/mob/living/proc/SetKnockdown(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
+	if(amount <= 0)
+		if(K)
+			qdel(K)
+	else
+		if(absorb_status_effect(amount, ignore_canstun, KNOCKDOWN))
+			return
+		if(K)
+			K.duration = world.time + amount
+		else
+			K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
+	return K
+
+
+/mob/living/proc/AdjustKnockdown(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(IS_STUN_IMMUNE(src, ignore_canstun))
+		return
+	if(absorb_status_effect(amount, ignore_canstun, KNOCKDOWN))
+		return
+	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
+	if(K)
+		K.duration += amount
+	else if(amount > 0)
+		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
+	return K
+
+
+/* IMMOBILIZED */
 /mob/living/proc/IsImmobilized()
 	return has_status_effect(STATUS_EFFECT_IMMOBILIZED)
 

@@ -57,5 +57,3 @@
 /mob/proc/update_stamina_hud()
 	return
 
-/mob/proc/update_canmove()
-	return 1

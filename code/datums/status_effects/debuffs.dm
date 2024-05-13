@@ -5,7 +5,7 @@
 	duration = -1
 	alert_type = null
 
-/datum/status_effect/cultghost/tick()
+/datum/status_effect/cultghost/tick(seconds_between_ticks)
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
 
@@ -72,7 +72,7 @@
 	source_UID = source.UID()
 
 
-/datum/status_effect/shadow_boxing/tick()
+/datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
@@ -118,7 +118,7 @@
 	owner.underlays += bleed_underlay
 	return ..()
 
-/datum/status_effect/saw_bleed/tick()
+/datum/status_effect/saw_bleed/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		qdel(src)
 	else
@@ -164,7 +164,7 @@
 	duration = 130
 	alert_type = null
 
-/datum/status_effect/stamina_dot/tick()
+/datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
 
 /datum/status_effect/bluespace_slowdown
@@ -235,13 +235,13 @@
 	return ..()
 
 
-/datum/status_effect/mark_prey/tick()
+/datum/status_effect/mark_prey/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		qdel(src)
 		return
 
 	if(owner.resting)	// abuses are not allowed
-		owner.StopResting()
+		owner.set_resting(FALSE, instant = TRUE)
 
 	if(t_hearts && prob(t_hearts * 10))	// 60% on MAX
 		owner.adjustFireLoss(t_hearts)	// 6 MAX
@@ -369,7 +369,7 @@
 	return ..()
 
 
-/datum/status_effect/transient/confusion/tick()
+/datum/status_effect/transient/confusion/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return .
@@ -402,7 +402,7 @@
 	strength = 1
 	. = ..()
 
-/datum/status_effect/transient/disoriented/tick()
+/datum/status_effect/transient/disoriented/tick(seconds_between_ticks)
 	if(QDELETED(src) || QDELETED(owner))
 		return FALSE
 	. = TRUE
@@ -428,7 +428,7 @@
 		animate(owner.client, 0.2 SECONDS, pixel_x = -px_diff, pixel_y = -py_diff, flags = ANIMATION_PARALLEL)
 	return ..()
 
-/datum/status_effect/transient/dizziness/tick()
+/datum/status_effect/transient/dizziness/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return
@@ -478,7 +478,7 @@
 #undef DROWSY_MULTIPLICATIVE_SLOWDOWN
 
 
-/datum/status_effect/transient/drowsiness/tick()
+/datum/status_effect/transient/drowsiness/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return .
@@ -523,7 +523,7 @@
 		owner.mind.martial_art.remove(owner)
 	return ..()
 
-/datum/status_effect/transient/drunkenness/tick()
+/datum/status_effect/transient/drunkenness/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return
@@ -627,7 +627,6 @@
 	. = ..()
 	if(. && (needs_update_stat || issilicon(owner)))
 		owner.update_stat()
-	owner?.update_canmove()
 
 
 /datum/status_effect/incapacitating/on_apply()
@@ -637,18 +636,23 @@
 
 
 /datum/status_effect/incapacitating/on_remove()
-	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
-		owner.update_stat()
 	if(traits_to_apply)
 		owner.remove_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
-	owner.update_canmove()
+	if(needs_update_stat || issilicon(owner))
+		owner.update_stat()
 	return ..()
 
 
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
-	traits_to_apply = list(TRAIT_HANDS_BLOCKED)
+	traits_to_apply = list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
+
+
+//KNOCKDOWN - force victim to lying down position
+/datum/status_effect/incapacitating/knockdown
+	id = "knockdown"
+	traits_to_apply = list(TRAIT_FLOORED)
 
 
 //IMMOBILIZED - prevents movement, victim can still stand and act
@@ -660,21 +664,25 @@
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
-	traits_to_apply = list(TRAIT_HANDS_BLOCKED)
+	traits_to_apply = list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
 
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+
 
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
 
-/datum/status_effect/incapacitating/sleeping/tick()
+
+/datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(!iscarbon(owner))
 		return
 
@@ -754,7 +762,7 @@
 	. = ..()
 	owner.do_jitter_animation(strength / 20, 1)
 
-/datum/status_effect/transient/jittery/tick()
+/datum/status_effect/transient/jittery/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return
@@ -787,7 +795,7 @@
 	id = "hallucination"
 	var/next_hallucination = 0
 
-/datum/status_effect/transient/hallucination/tick()
+/datum/status_effect/transient/hallucination/tick(seconds_between_ticks)
 	. = ..()
 	if(!.)
 		return
@@ -861,7 +869,7 @@
 
 
 // Blur lessens the closer we are to expiring, so we update per tick.
-/datum/status_effect/transient/eye_blurry/tick(seconds_per_tick, times_fired)
+/datum/status_effect/transient/eye_blurry/tick(seconds_between_ticks)
 	. = ..()
 	if(.)
 		update_blur()
@@ -923,7 +931,7 @@
 	id = "disgust"
 	tick_interval = 2 SECONDS
 
-/datum/status_effect/transient/disgust/tick()
+/datum/status_effect/transient/disgust/tick(seconds_between_ticks)
 	. = ..()
 
 	if(!.)
@@ -996,7 +1004,7 @@
 		return FALSE
 	return ..()
 
-/datum/status_effect/taming/tick()
+/datum/status_effect/taming/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		qdel(src)
 
@@ -1037,7 +1045,7 @@
 	source_UID = source.UID()
 	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 1)
 
-/datum/status_effect/bubblegum_curse/tick()
+/datum/status_effect/bubblegum_curse/tick(seconds_between_ticks)
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(!attacker || attacker.loc == null)
 		qdel(src)
@@ -1151,7 +1159,7 @@
 	return ..()
 
 
-/atom/movable/screen/alert/status_effect/bubblegum_curse/process()
+/atom/movable/screen/alert/status_effect/bubblegum_curse/process(seconds_per_tick)
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#ce3030", 6, 20)
 	if(new_filter)

@@ -269,9 +269,7 @@
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
-		setStaminaLoss(0, FALSE)
-		update_stamina()
-		update_stamina_hud()
+		setStaminaLoss(0)
 		stam_regen_start_time = null
 
 	// Keep SSD people asleep

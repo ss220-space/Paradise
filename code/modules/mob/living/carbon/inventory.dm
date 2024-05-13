@@ -351,7 +351,7 @@
 	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
 		return FALSE
 
-	if(lying_angle && !(I.item_flags & ABSTRACT))
+	if(body_position == LYING_DOWN && !(I.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == "HAND_LEFT" && !has_left_hand())

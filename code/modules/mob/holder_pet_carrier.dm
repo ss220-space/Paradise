@@ -107,7 +107,6 @@
 			animal.forceMove(drop_loc)
 			contains_pet = FALSE
 			update_appearance(UPDATE_OVERLAYS|UPDATE_NAME|UPDATE_DESC)
-			animal.resting = FALSE
 		return TRUE
 	return FALSE
 

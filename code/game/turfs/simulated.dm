@@ -40,10 +40,10 @@
 	..()
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
-		if(!Hulk.lying_angle)
+		if(Hulk.body_position != LYING_DOWN)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-			if(!Hulk.lying_angle)
+			if(Hulk.body_position != LYING_DOWN)
 				playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
