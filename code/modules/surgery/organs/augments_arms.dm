@@ -436,7 +436,7 @@
 	desc = "Insert into a nearby APC to draw power from it."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -466,7 +466,7 @@
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
-	while(do_after(H, 10, target = A))
+	while(do_after(H, 1 SECONDS, A))
 		if(loc != H)
 			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break

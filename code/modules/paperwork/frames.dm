@@ -223,7 +223,7 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 10 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
 			transfer_fingerprints_to(frame)
@@ -241,7 +241,7 @@
 			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
 			return 1
 		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
-		if(do_after(user, 150, target = src))
+		if(do_after(user, 15 SECONDS, src))
 			if(explosive || !tilted)
 				return
 			add_fingerprint(user)

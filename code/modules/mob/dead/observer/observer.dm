@@ -239,8 +239,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
-	return 1
+/mob/dead/observer/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/dead/observer/Move(NewLoc, direct)
 	if(world.time < last_movement)
@@ -269,7 +269,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	Moved(oldloc, direct)
 
-/mob/dead/observer/can_use_hands()	return 0
 
 /mob/dead/observer/Stat()
 	..()
@@ -484,20 +483,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
-/* Now a spell.  See spells.dm
-/mob/dead/observer/verb/boo()
-	set category = "Ghost"
-	set name = "Boo!"
-	set desc= "Scare your crew members because of boredom!"
-
-	if(bootime > world.time) return
-	bootime = world.time + 600
-	var/obj/machinery/light/L = locate(/obj/machinery/light) in view(1, src)
-	if(L)
-		L.flicker()
-	//Maybe in the future we can add more <i>spooky</i> code here!
-	return
-*/
 
 /mob/dead/observer/memory()
 	set hidden = 1

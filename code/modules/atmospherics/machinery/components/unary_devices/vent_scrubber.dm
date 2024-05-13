@@ -11,7 +11,9 @@
 	idle_power_usage = 10
 	active_power_usage = 60
 
-	can_unwrench = 1
+	can_unwrench = TRUE
+
+	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
 
 	var/area/initial_loc
 
@@ -29,8 +31,6 @@
 
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
-
-	var/welded = 0
 
 	var/area_uid
 	var/radio_filter_out
@@ -352,18 +352,18 @@
 	id_tag = new_tag
 	broadcast_status()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
-	return !welded
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
-	if(!welded || !(do_after(user, 20, target = src)))
+	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
-	user.visible_message(span_warning("[user] furiously claws at [src]!"), span_notice("You manage to clear away the stuff blocking the scrubber."), span_italics("You hear loud scraping noises."))
-	welded = FALSE
-	update_icon()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
-	pipe_image.plane = ABOVE_HUD_PLANE
+	user.visible_message(
+		span_warning("[user] furiously claws at [src]!"),
+		span_notice("You manage to clear away the stuff blocking the scrubber."),
+		span_italics("You hear loud scraping noises."),
+	)
+	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
@@ -377,18 +377,23 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
+		return .
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		if(!welded)
-			welded = TRUE
-			user.visible_message(span_notice("[user] welds [src] shut!"),\
-				span_notice("You weld [src] shut!"))
-		else
-			welded = FALSE
-			user.visible_message(span_notice("[user] unwelds [src]!"),\
-				span_notice("You unweld [src]!"))
-		update_icon()
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	set_welded(!welded)
+	if(welded)
+		user.visible_message(
+			span_notice("[user] welds [src] shut!"),
+			span_notice("You weld [src] shut!"),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] unwelds [src]!"),
+			span_notice("You unweld [src]!"),
+		)
+

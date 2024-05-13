@@ -179,7 +179,7 @@
 		playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, FALSE)
 		add_attack_logs(user, C, "whips tail, dealing [damage_deal] [type_of_damage] damage!")
 
-		if(user.restrained() && prob(50))
+		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
 			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
 			return
@@ -209,7 +209,7 @@
 			to_chat(user, span_warning("У вас слабый хвост!"))
 		return FALSE
 
-	if((user.restrained() && user.pulledby) || user.buckled)
+	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled)
 		if(show_message)
 			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
 		return FALSE

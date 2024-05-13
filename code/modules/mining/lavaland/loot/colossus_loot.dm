@@ -26,7 +26,7 @@
 	icon_state = "anomaly_crystal"
 	light_range = 8
 	use_power = NO_POWER_USE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -261,10 +261,10 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "mends"
-	density = 0
+	density = FALSE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	speak_emote = list("warps")
@@ -323,7 +323,7 @@
 		for(var/i in T)
 			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
-				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
+				if(!W.admin_spawned && !(W.flags & HOLOGRAM) && !(W.item_flags & ABSTRACT))
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
@@ -351,7 +351,7 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
@@ -372,7 +372,7 @@
 /obj/structure/closet/stasis/Entered(atom/A)
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
-		L.notransform = 1
+		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		L.mutations |= MUTE
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
@@ -385,7 +385,7 @@
 	for(var/mob/living/L in src)
 		L.mutations -=MUTE
 		L.status_flags &= ~GODMODE
-		L.notransform = 0
+		REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)

@@ -16,7 +16,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	opacity = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
@@ -63,7 +63,7 @@
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

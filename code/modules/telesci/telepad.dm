@@ -91,7 +91,7 @@
 
 
 /obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 		new /obj/item/stack/sheet/glass(loc)
 	..()

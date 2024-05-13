@@ -3,14 +3,14 @@
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
 			add_fingerprint(user)
 			return
@@ -18,7 +18,7 @@
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								 "<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
@@ -50,7 +50,7 @@
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(material_drop_type)
 			var/drop_amt = oreAmount
 			if(!disassembled)
@@ -269,10 +269,10 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")

@@ -65,7 +65,7 @@
 
 
 /obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		try_free_content(null, user)
 
 
@@ -175,7 +175,7 @@
 
 	if(opened && L.loc == src)
 		spawn(0)
-			if(do_after(L, (breakout_time_open), target = target_atom))
+			if(do_after(L, (breakout_time_open), target_atom))
 				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
 					to_chat(L, span_warning("Побег прерван!"))
 					return
@@ -189,7 +189,7 @@
 		O.show_message(span_danger("[name] начинает трястись!"), 1)
 
 	spawn(0)
-		if(do_after(L, (breakout_time), target = target_atom))
+		if(do_after(L, (breakout_time), target_atom))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				to_chat(L, span_warning("Побег прерван!"))
 				return
@@ -212,7 +212,7 @@
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
 	set category = "Object"
 
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	change_state()
@@ -223,7 +223,7 @@
 	set desc = "Вытаскивает животное из переноски."
 	set category = "Object"
 
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	try_free_content(null, usr)
@@ -237,7 +237,7 @@
 	var/mob/living/carbon/human/user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated(FALSE, TRUE, TRUE))
+	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
@@ -245,7 +245,7 @@
 		return FALSE
 
 	if(opened && (istype(over_object, /obj/structure/table) || isfloorturf(over_object) \
-		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
+		&& length(contents) && loc == user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && user.Adjacent(over_object)))
 
 		if(alert(user, "Вытащить питомца из [name] на [over_object.name]?", "Подтверждение", "Да", "Нет") != "Да")
 			return FALSE

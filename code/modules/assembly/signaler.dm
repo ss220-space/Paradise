@@ -39,7 +39,7 @@
 
 
 /obj/item/assembly/signaler/AltClick(mob/user)
-	if(!isliving(user) || user.incapacitated() || user.restrained() || !Adjacent(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return ..()
 	to_chat(user, span_notice("You activate [src]."))
 	activate()
@@ -96,7 +96,7 @@
 /obj/item/assembly/signaler/Topic(href, href_list)
 	..()
 
-	if(usr.incapacitated() || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		usr << browse(null, "window=radio")
 		onclose(usr, "radio")
 		return

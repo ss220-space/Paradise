@@ -582,7 +582,7 @@ About the new airlock wires panel:
 		to_chat(user, span_warning("This paint job can only be applied to non-glass airlocks."))
 		return
 
-	if(do_after(user, 20, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
 		painter.paint(user)
 		icon = initial(airlock.icon)
@@ -778,7 +778,7 @@ About the new airlock wires panel:
 	user.visible_message(
 		span_warning("[user] grabs the door with both hands and opens it with ease!"),
 		span_notice("You easily open depowered door."),
-		span_hear("You hear groaning metal..."),
+		span_italics("You hear groaning metal..."),
 	)
 
 
@@ -999,7 +999,7 @@ About the new airlock wires panel:
 						to_chat(user, span_warning("You need at least 2 metal sheets to reinforce [src]."))
 						return
 					to_chat(user, span_notice("You start reinforcing [src]..."))
-					if(do_after(user, 20, 1, target = src))
+					if(do_after(user, 2 SECONDS, src))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message(span_notice("[user] reinforces \the [src] with metal."),
@@ -1013,7 +1013,7 @@ About the new airlock wires panel:
 						to_chat(user, span_warning("You need at least 2 plasteel sheets to reinforce [src]."))
 						return
 					to_chat(user, span_notice("You start reinforcing [src]..."))
-					if(do_after(user, 20, 1, target = src))
+					if(do_after(user, 2 SECONDS, src))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message(span_notice("[user] reinforces \the [src] with plasteel."),
@@ -1244,13 +1244,13 @@ About the new airlock wires panel:
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-		if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density)
+		if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-		if(do_after_once(user, 4 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density) // faster because of ITS A MECH
+		if(do_after(user, 4 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
@@ -1263,7 +1263,7 @@ About the new airlock wires panel:
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-	if(do_after_once(user, 5 SECONDS * gettoolspeedmod(user), target = src) && !open(TRUE) && density)
+	if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 
@@ -1292,7 +1292,7 @@ About the new airlock wires panel:
 	set_opacity(FALSE)
 	update_freelook_sight()
 	sleep(4)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1331,7 +1331,7 @@ About the new airlock wires panel:
 	layer = CLOSED_DOOR_LAYER
 	if(!override)
 		sleep(1)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 	if(!override)
 		sleep(4)
@@ -1452,7 +1452,7 @@ About the new airlock wires panel:
 						span_noticealien("You begin digging your claws into [src] with all your might!"),\
 						span_warning("You hear groaning metal..."))
 
-	if(do_after(user, time_to_action, TRUE, src))
+	if(do_after(user, time_to_action, src))
 		var/returns = is_opening ? open(TRUE) : close(TRUE)
 		if(!returns) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, span_warning("Despite your efforts, [src] managed to resist your attempts!"))
@@ -1494,7 +1494,7 @@ About the new airlock wires panel:
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(flags & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
@@ -1507,7 +1507,7 @@ About the new airlock wires panel:
 		update_icon()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
 			DA = new assemblytype(loc)
@@ -1629,7 +1629,7 @@ About the new airlock wires panel:
 	if(our_rcd.checkResource(20, user))
 		to_chat(user, "Deconstructing airlock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(20, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)

@@ -292,7 +292,7 @@
 	name = "wall locker"
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "wall-locker"
-	density = 1
+	density = TRUE
 
 	//too small to put a man in
 	large = FALSE

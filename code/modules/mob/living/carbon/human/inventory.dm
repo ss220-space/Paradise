@@ -50,7 +50,7 @@
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = FALSE)
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
@@ -59,7 +59,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(toggle_off && internal && !get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+	if(toggle_off && internal && !has_airtight_items())
 		internal = null
 		update_action_buttons_icon()
 
@@ -75,10 +75,14 @@
 /**
  * Handles stuff to update when a mob equips/unequips a headgear.
  */
-/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE)
+/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE, toggle_off = FALSE)
 	check_item = check_item || head
 	if(!check_item)
 		return
+
+	if(toggle_off && internal && !has_airtight_items())
+		internal = null
+		update_action_buttons_icon()
 
 	if(forced || (check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || (initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
@@ -138,6 +142,8 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
+			if(I.breakouttime) //when unequipping a straightjacket
+				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
 		if(invdrop && !dna.species.nojumpsuit)
@@ -173,7 +179,7 @@
 	else if(I == head)
 		head = null
 		if(!QDELETED(src))
-			update_head(I)
+			update_head(I, toggle_off = TRUE)
 
 	else if(I == r_ear)
 		r_ear = null
@@ -295,11 +301,11 @@
 			update_inv_neck()
 
 		if(ITEM_SLOT_HANDCUFFED)
-			handcuffed = I
+			set_handcuffed(I)
 			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			set_legcuffed(I)
 			update_legcuffed_status()
 
 		if(ITEM_SLOT_HAND_LEFT)
@@ -355,6 +361,8 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
+			if(I.breakouttime) //when equipping a straightjacket
+				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
 			w_uniform = I
@@ -625,6 +633,6 @@
 /mob/living/carbon/human/equipped_speed_mods()
 	. = ..()
 	for(var/obj/item/thing as anything in get_equipped_items())
-		if(!thing.is_speedslimepotioned)
+		if(!(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
 

@@ -45,7 +45,7 @@
 	if(!neck_cut_in_progress && istype(grab) && grab.state >= GRAB_NECK && grab.affecting == defender && defender.dna && !(NO_BLOOD in defender.dna.species.species_traits))
 		attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
 		neck_cut_in_progress = TRUE
-		if(do_after(attacker, neck_cut_delay, target = defender))
+		if(do_after(attacker, neck_cut_delay, defender))
 			if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 				defender.blood_volume = max(0, defender.blood_volume - (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-70% of max blood volume
 				for(var/i in 1 to 2)

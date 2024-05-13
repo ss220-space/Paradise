@@ -163,9 +163,8 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	H.mutations += SOBER
-	H.check_mutations = 1
+	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
+
 
 /datum/job/officer
 	title = JOB_TITLE_OFFICER

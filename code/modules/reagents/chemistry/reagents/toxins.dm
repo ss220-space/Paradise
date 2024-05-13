@@ -259,8 +259,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
@@ -268,6 +267,7 @@
 	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
+		M.check_genes()
 	return ..()
 
 
@@ -1254,8 +1254,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
@@ -1269,8 +1268,7 @@
 		randmutg(M)
 		did_mutation = TRUE
 	if(did_mutation)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 	return ..()
 
 /datum/reagent/ants

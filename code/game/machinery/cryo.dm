@@ -8,7 +8,7 @@
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
@@ -17,6 +17,7 @@
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
 	on = FALSE
+	vent_movement = VENTCRAWL_CAN_SEE
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
@@ -92,9 +93,10 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
-	if(node) return
+	if(node)
+		return
 	for(var/cdir in GLOB.cardinal)
-		node = findConnecting(cdir)
+		node = find_connecting(cdir)
 		if(node)
 			break
 
@@ -128,7 +130,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -484,7 +486,7 @@
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/living/carbon/user)
-	if(user && (!iscarbon(user) || user.incapacitated() || user.restrained() || !Adjacent(user)))
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	go_out()
 	add_fingerprint(user)
@@ -506,12 +508,12 @@
 	else
 		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
 			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
-	return
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
@@ -536,7 +538,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	put_mob(usr)
@@ -558,9 +560,6 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
-
-/obj/machinery/atmospherics/unary/cryo_cell/can_crawl_through()
-	return // can't ventcrawl in or out of cryo.
 
 /obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
 	return FALSE // you can't see the pipe network when inside a cryo cell.

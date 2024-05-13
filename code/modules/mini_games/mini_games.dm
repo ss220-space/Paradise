@@ -17,8 +17,8 @@
 /obj/minigame_anchor
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "thunderdome-bomb"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
 	opacity = 0
 	layer = BELOW_MOB_LAYER

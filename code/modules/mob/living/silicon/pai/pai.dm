@@ -6,8 +6,9 @@
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
+	can_buckle_to = FALSE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -170,12 +171,6 @@
 	active_software = installed_software["mainmenu"] // Default us to the main menu
 	ram = min(initial(ram) + extra_memory, 170)
 
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
-
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -203,13 +198,6 @@
 		return 1
 	return 0
 
-/mob/living/silicon/pai/restrained()
-	if(istype(loc,/obj/item/paicard))
-		return 0
-	..()
-
-/mob/living/silicon/pai/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	return
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -539,7 +527,7 @@
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = 0 //this is reset every canmove update otherwise
+	set_density(FALSE) //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
@@ -603,7 +591,7 @@
 	return H
 
 /mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(user) || !Adjacent(user))
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
 		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))

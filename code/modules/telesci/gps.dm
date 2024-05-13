@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	toggle_gps(user)
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 
 	var/mob/user = usr
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	attack_self(user)
@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."

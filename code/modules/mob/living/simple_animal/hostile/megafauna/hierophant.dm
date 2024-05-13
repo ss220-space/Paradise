@@ -374,13 +374,13 @@ Difficulty: Hard
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(1)
 	visible_message("<span class='hierophant_warning'>[src] fades out!</span>")
-	density = FALSE
+	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(2)
 	forceMove(T)
 	SLEEP_CHECK_DEATH(1)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(1)
-	density = TRUE
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	visible_message("<span class='hierophant_warning'>[src] fades in!</span>")
 	SLEEP_CHECK_DEATH(1) //at this point the blasts we made detonate
 	blinking = FALSE
@@ -786,7 +786,7 @@ Difficulty: Hard
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
 			H.timer = world.time + 51
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")

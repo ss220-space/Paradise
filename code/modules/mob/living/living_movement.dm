@@ -99,6 +99,29 @@
 /mob/living/mob_negates_gravity()
 	return HAS_TRAIT_FROM(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
 
+
+/mob/living/forceMove(atom/destination)
+	if(buckled)
+		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
+	if(has_buckled_mobs())
+		for(var/buckled_mob in buckled_mobs)
+			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
+	if(pulling && !currently_z_moving)
+		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
+
+/*
+	if(!currently_z_moving)
+		stop_pulling()
+		buckled?.unbuckle_mob(src, force = TRUE)
+		if(has_buckled_mobs())
+			unbuckle_all_mobs(force = TRUE)
+*/
+	. = ..()
+	if(client)
+		reset_perspective()
+	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
+
 /**
  * We want to relay the zmovement to the buckled atom when possible
  * and only run what we can't have on buckled.zMove() or buckled.can_z_move() here.

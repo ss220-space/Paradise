@@ -39,7 +39,7 @@
 			if(iscarbon(AM))
 				return
 			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 25 * toolspeed * gettoolspeedmod(user), target = AM))
+			if(do_after(user, 2.5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
 				if(!user.drop_item_ground(src))
 					return
 				src.target = AM

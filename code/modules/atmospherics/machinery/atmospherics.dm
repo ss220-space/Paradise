@@ -26,6 +26,10 @@ Pipelines + Other Objects -> Pipe network
 	var/can_be_undertile = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
+	/// Whether its currently welded
+	var/welded = FALSE
+	/// The bitflag that's being checked on ventcrawling. Default is to allow ventcrawling and seeing pipes.
+	var/vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE
 
 	// Vars below this point are all pipe related
 	// I know not all subtypes are pipes, but this helps
@@ -40,8 +44,9 @@ Pipelines + Other Objects -> Pipe network
 	var/initialize_directions = 0
 	/// Pipe colour, not used for all subtypes
 	var/pipe_color
-	/// Pipe image, not used for all subtypes
-	var/image/pipe_image
+	/// The image of the pipe/device used for ventcrawling
+	var/image/pipe_vision_img
+
 
 
 /obj/machinery/atmospherics/New()
@@ -64,14 +69,21 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
+
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
-	for(var/mob/living/L in src) //ventcrawling is serious business
-		L.remove_ventcrawl()
-		L.forceMove(get_turf(src))
-	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
+	for(var/mob/living/mob in contents) //ventcrawling is serious business
+		mob.stop_ventcrawling()
+	QDEL_NULL(pipe_vision_img) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
+
+
+/obj/machinery/atmospherics/examine(mob/living/user)
+	. = ..()
+	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && is_ventcrawler(user))
+		. += span_info("Alt-click to crawl through it.")
+
 
 /obj/machinery/atmospherics/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -89,9 +101,11 @@ Pipelines + Other Objects -> Pipe network
 			plane = GAME_PLANE
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
+
 /obj/machinery/atmospherics/proc/update_pipe_image()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
-	pipe_image.plane = HUD_PLANE
+	pipe_vision_img = image(src, loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
+	SET_PLANE(pipe_vision_img, HUD_PLANE, src)
+
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
 	if(!SSair.icon_manager)
@@ -145,6 +159,16 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+
+/**
+ * Getter of a list of pipenets
+ *
+ * called in relaymove() to create the image for vent crawling
+ */
+/obj/machinery/atmospherics/proc/return_pipenets()
+	return list()
+
+
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
@@ -153,13 +177,6 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
-
-/**
- * Whether or not this atmos machine has multiple pipenets attached to it
- * Used to determine if a ventcrawler should update their vision or not
- */
-/obj/machinery/atmospherics/proc/is_pipenet_split()
-	return FALSE
 
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
@@ -191,7 +208,6 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/safefromgusts = FALSE
 		var/I = int_air ? int_air.return_pressure() : 0
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
@@ -202,23 +218,19 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src) && !QDELETED(src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				span_notice("You have unfastened \the [src]."), \
 				span_italics("You hear ratcheting."))
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.gustprotection && usermagboots.magpulse)
-					safefromgusts = TRUE
-
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				if(safefromgusts)
+				if(HAS_TRAIT(user, TRAIT_GUSTPROTECTION))
 					to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
 				else
-					unsafe_pressure_release(user,internal_pressure)
+					unsafe_pressure_release(user, internal_pressure)
 			deconstruct(TRUE)
 	else
 		if(T.transparent_floor == TURF_TRANSPARENT)
@@ -244,7 +256,7 @@ Pipelines + Other Objects -> Pipe network
 	user.throw_at(general_direction, pressures/10, pressures/50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
-	if(can_unwrench && !(flags & NODECONSTRUCT))
+	if(can_unwrench && !(obj_flags & NODECONSTRUCT))
 		var/obj/item/pipe/stored = new(loc, null, null, src)
 		if(!disassembled)
 			stored.obj_integrity = stored.max_integrity * 0.5
@@ -277,53 +289,91 @@ Pipelines + Other Objects -> Pipe network
 		A.addMember(src)
 	build_network()
 
-// Find a connecting /obj/machinery/atmospherics in specified direction.
-/obj/machinery/atmospherics/proc/findConnecting(direction)
-	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-		var/can_connect = check_connect_types(target, src)
-		if(can_connect && (target.initialize_directions & get_dir(target,src)))
+
+/**
+ * Find a connecting /obj/machinery/atmospherics in specified direction, called by relaymove()
+ * used by ventcrawling mobs to check if they can move inside a pipe in a specific direction
+ * Arguments:
+ * * direction - the direction we are checking against
+ */
+/obj/machinery/atmospherics/proc/find_connecting(direction)
+	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
+		if(!(target.initialize_directions & get_dir(target, src)) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
+			continue
+		if(check_connect_types(target, src))
 			return target
 
-// Ventcrawling
-#define VENT_SOUND_DELAY 30
+
+#define VENT_SOUND_DELAY (3 SECONDS)
+
+/// Ventrcrawling
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-	direction &= initialize_directions
-	if(!direction || !(direction in GLOB.cardinal)) //cant go this way.
+	if(!direction) //cant go this way.
 		return
 
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
 
-	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
-	if(target_move)
-		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery) && target_move.can_crawl_through())
-			user.remove_ventcrawl()
-			user.forceMove(target_move.loc) //handles entering and so on
-			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
-		else if(target_move.can_crawl_through())
-			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
-				user.update_pipe_vision(target_move)
-			user.loc = target_move
-			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
-			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
-				user.last_played_vent = world.time
-				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
-			if(user.light_system == STATIC_LIGHT)
-				user.update_light() //if we can see through pipes - then why we can't glow through them?
-	else
-		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
-			user.remove_ventcrawl()
-			user.forceMove(src.loc)
-			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
-	user.canmove = FALSE
-	spawn(1)
-		user.canmove = TRUE
+	// We want to support holding two directions at once, so we do this
+	var/obj/machinery/atmospherics/target_move
+	for(var/check_dir in GLOB.cardinals_multiz)
+		if(!(direction & check_dir))
+			continue
+		var/obj/machinery/atmospherics/temp_target = find_connecting(check_dir)
+		if(!temp_target)
+			continue
+		target_move = temp_target
+		// If you're at a fork with two directions held, we will always prefer the direction you didn't last use
+		// This way if you find a direction you've not used before, you take it, and if you don't, you take the other
+		if(user.last_vent_dir == check_dir)
+			continue
+		user.last_vent_dir = check_dir
+		break
+
+	if(!target_move)
+		if(direction & initialize_directions)
+			user.stop_ventcrawling()
+		return
+
+	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
+		return
+
+	//user.forceMove(target_move)
+	user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
+
+	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
+	if(length(pipenetdiff))
+		user.update_pipe_vision()
+
+	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
+		user.last_played_vent = world.time
+		playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
+
+	//Would be great if this could be implemented when someone alt-clicks the image.
+	if(target_move.vent_movement & VENTCRAWL_ENTRANCE_ALLOWED)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living, handle_ventcrawl), target_move)
+
+	var/client/our_client = user.client
+	if(!our_client)
+		return
+
+	our_client.set_eye(target_move)
+	// Let's smooth out that movement with an animate yeah?
+	// If the new x is greater (move is left to right) we get a negative offset. vis versa
+	our_client.pixel_x = (x - target_move.x) * world.icon_size
+	our_client.pixel_y = (y - target_move.y) * world.icon_size
+	animate(our_client, pixel_x = 0, pixel_y = 0, time = 0.03 SECONDS)
+	our_client.move_delay = world.time + 0.03 SECONDS
+
+#undef VENT_SOUND_DELAY
+
 
 /obj/machinery/atmospherics/AltClick(mob/living/user)
-	user.handle_ventcrawl(src)
+	if((vent_movement & VENTCRAWL_ALLOWED) && istype(user))
+		user.handle_ventcrawl(src)
+		return
+	return ..()
 
-/obj/machinery/atmospherics/proc/can_crawl_through()
-	return 1
 
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
@@ -398,4 +448,14 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	if(user)
 		to_chat(user, span_notice("You toggle [src] [on ? "on" : "off"]."))
+
+
+/obj/machinery/atmospherics/proc/set_welded(new_value)
+	if(welded == new_value)
+		return
+
+	. = welded
+	welded = new_value
+	update_icon()
+	update_pipe_image()
 

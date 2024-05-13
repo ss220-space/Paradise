@@ -325,7 +325,7 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
+			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						start_cuffing(target)
@@ -589,13 +589,13 @@
 
 
 /mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)
 			stun_attack(A)
-		else if(C.canBeHandcuffed() && !C.handcuffed)
+		else if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 			start_cuffing(A)
 	else
 		..()
@@ -617,7 +617,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, TRUE, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[lasercolor]ed209-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 0.2 SECONDS)
 	var/threat = C.assess_threat(src)
@@ -653,7 +653,7 @@
 	if(!Adjacent(C) || !isturf(C.loc) || C.handcuffed)
 		return
 
-	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 	back_to_idle()
 
 

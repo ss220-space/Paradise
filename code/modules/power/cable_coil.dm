@@ -135,7 +135,7 @@
 			if(get_amount() < 10)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 				return
-			if(do_after(user, 2 SECONDS, target = user))
+			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 					return
@@ -169,7 +169,7 @@
 		return FALSE
 
 	if(target == user)
-		if(!do_mob(user, target, 1 SECONDS))
+		if(!do_after(user, 1 SECONDS, target, NONE))
 			return FALSE
 
 	var/cable_used = 0

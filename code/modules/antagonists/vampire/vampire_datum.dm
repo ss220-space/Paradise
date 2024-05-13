@@ -232,7 +232,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_mob(owner.current, target, time_per_action))
+	while(do_after(owner.current, time_per_action, target, NONE))
 		cycle_counter++
 		owner.current.face_atom(target)
 

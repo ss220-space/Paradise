@@ -35,8 +35,3 @@
 	. = ..(mapload, /datum/species/monkey/unathi)
 	tts_seed = "Witchdoctor"
 	//holder_type = /obj/item/holder/stok
-
-/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	. = ..()
-	if(prob(50) && (has_gravity() || grav_ignore))
-		drop_item_ground(shoes, force = TRUE)

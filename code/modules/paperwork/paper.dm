@@ -116,7 +116,7 @@
 
 
 /obj/item/paper/AltClick(mob/living/carbon/human/user)
-	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(is_pen(user.get_active_hand()))
 		rename(user)
@@ -172,7 +172,7 @@
 		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
 			"<span class='notice'>You hold up a paper and try to show it to [target]. </span>")
 
-		if(do_mob(user, target, 0.7 SECONDS))
+		if(do_after(user, 0.7 SECONDS, target, NONE))
 			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
 				"<span class='notice'>You hold up a paper and show it to [target]. </span>")
 			target.examinate(src)
@@ -185,7 +185,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [target]'s face clean with \the [src].</span>",
 								"<span class='notice'>You begin to wipe off [target]'s face.</span>")
-			if(!do_after(user, 1 SECONDS, target = target) || !do_after(target, 1 SECONDS, FALSE)) // user needs to keep their active hand, target does not.
+			if(!do_after(user, 1 SECONDS, target) || !do_after(target, 1 SECONDS, timed_action_flags = DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) // user needs to keep their active hand, target does not.
 				return
 			user.visible_message("<span class='notice'>[user] wipes [target]'s face clean with \the [src].</span>",
 				"<span class='notice'>You wipe off [target]'s face.</span>")
@@ -209,7 +209,7 @@
 		"<span class='notice'>You start chewing the corner of [src].</span>",
 		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
-	if(!do_after(doggo, 10 SECONDS, FALSE, src))
+	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
@@ -362,7 +362,7 @@
 
 /obj/item/paper/Topic(href, href_list)
 	..()
-	if(!usr || (usr.stat || usr.restrained()))
+	if(!usr || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(href_list["auto_write"])

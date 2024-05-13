@@ -132,7 +132,7 @@
 		to_chat(user, span_warning("There is no weapon charging. Click again to retry."))
 		return
 	to_chat(user, span_notice("You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds."))
-	if(!do_after(user, user.hijack_time, FALSE, src))
+	if(!do_after(user, user.hijack_time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		return
 	if(!charging)
 		to_chat(src, span_warning("Failed to hijack [src]"))
@@ -151,7 +151,7 @@
 		to_chat(user, span_notice("You are now inside [charging]. Click on a hijacked APC to return."))
 		user.forceMove(charging)
 		return
-	if(!do_after(user, user.hijack_time, FALSE, src))
+	if(!do_after(user, user.hijack_time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		return
 	if(!charging)
 		to_chat(src, span_warning("Failed to hijack [src]."))
@@ -170,7 +170,7 @@
 		user.do_hijack_robot(occupant)
 		return
 	to_chat(R, span_userdanger(">ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS"))
-	if(!do_after(user, user.hijack_time, FALSE, src))
+	if(!do_after(user, user.hijack_time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		return
 	if(isrobot(occupant))
 		user.do_hijack_robot(occupant)
@@ -236,7 +236,7 @@
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
 		if(prob(50))
-			F.MakeSlippery(TURF_WET_WATER)
+			F.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if(prob(50))
 			visible_message(span_warning("Something flies out of [src]! It seems to be acting oddly."))
 			if(!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))

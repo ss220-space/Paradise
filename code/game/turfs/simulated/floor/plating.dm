@@ -57,7 +57,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
-			if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, C.usesound, 80, 1)
@@ -85,7 +85,7 @@
 			to_chat(user, span_warning("You need two sheets to build a [C.name] floor!"))
 			return TRUE
 		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/glass/plasma)
@@ -194,7 +194,7 @@
 	if(C.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
@@ -203,7 +203,7 @@
 
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
 		to_chat(user, span_notice("You begin insulating [src]..."))
-		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
+		if(do_after(user, 4 SECONDS, src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
 			to_chat(user, span_notice("You finish insulating [src]."))
 			var/obj/item/stack/sheet/plasteel/W = C
 			W.use(1)
@@ -387,7 +387,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
-			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), src))
 				if(metal.get_amount() >= 2)
 					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
 					playsound(src, metal.usesound, 80, TRUE)
@@ -441,7 +441,7 @@
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_PERMAFROST, INFINITY)
+	MakeSlippery(TURF_WET_PERMAFROST, INFINITY, 0, INFINITY, TRUE)
 
 /turf/simulated/floor/plating/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return

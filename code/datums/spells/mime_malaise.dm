@@ -23,7 +23,7 @@
 
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -52,7 +52,5 @@
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime/nodrop, ITEM_SLOT_MASK)
 		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, ITEM_SLOT_CLOTH_OUTER)
-		dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
-		genemutcheck(src, GLOB.muteblock, null, MUTCHK_FORCED)
-		dna.default_blocks.Add(GLOB.muteblock)
+		force_gene_block(GLOB.muteblock, TRUE, TRUE)
 

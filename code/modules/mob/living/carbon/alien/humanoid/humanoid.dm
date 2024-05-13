@@ -1,7 +1,7 @@
 /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien_s"
-
+	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
@@ -13,7 +13,7 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
-	pass_flags = PASSTABLE
+
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
@@ -26,12 +26,6 @@
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	update_icons()
-
-/mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
-	if(..())
-		return 1
-
-	return 0
 
 
 // Determines if mob has and can use his hands like a human
@@ -73,11 +67,6 @@
 
 	take_overall_damage(b_loss, f_loss)
 
-/mob/living/carbon/alien/humanoid/restrained()
-	if(handcuffed)
-		return 1
-	return 0
-
 
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
 
@@ -85,26 +74,26 @@
 	user.set_machine(src)
 
 	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
 	// No need to even show this right now since its unused.
 
-	/*dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	/*dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.item_flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += "<tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_CLOTH_OUTER]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"*/
+	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_CLOTH_OUTER]'>[(wear_suit && !(wear_suit.item_flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"*/
 
 	dat += "<tr><td><B>Chitin pouches:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_POCKET_LEFT]'>"
-	if(l_store && !(l_store.flags&ABSTRACT))
+	if(l_store && !(l_store.item_flags&ABSTRACT))
 		dat += "Left (Full)"
 	else
 		dat += "<font color=grey>Left (Empty)</font>"
 
 	dat += "</A>&nbsp;<A href='?src=[UID()];item=[ITEM_SLOT_POCKET_RIGHT]'>"
-	if(r_store && !(r_store.flags&ABSTRACT))
+	if(r_store && !(r_store.item_flags&ABSTRACT))
 		dat += "Right (Full)"
 	else
 		dat += "<font color=grey>Right (Empty)</font>"
@@ -122,12 +111,11 @@
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/carbon/alien/humanoid/canBeHandcuffed()
-	return 1
 
-/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
-	..(I, cuff_break = TRUE)
+/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
+	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
+	return ..(I, cuff_break = TRUE)
+
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
 	if(leaping)
@@ -169,4 +157,15 @@
 
 	if(legcuffed)
 		. += span_warning("[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!")
+
+
+/mob/living/carbon/alien/humanoid/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+	var/list/items = ..()
+	if(!include_pockets)
+		return items
+	if(r_store)
+		items += r_store
+	if(l_store)
+		items += l_store
+	return items
 
