@@ -14,8 +14,8 @@
 	speak_chance = 2
 	turns_per_move = 5
 	pull_force = 1000
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = 1
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB

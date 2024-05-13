@@ -606,17 +606,13 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			H.reagents.add_reagent("spaceacillin", 20)
 			logmsg = "a heal over time."
 		if("Permanent Regeneration")
-			H.dna.SetSEState(GLOB.regenerateblock, 1)
-			genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
-			H.update_mutations()
+			H.force_gene_block(GLOB.regenerateblock, TRUE)
 			H.gene_stability = 100
 			logmsg = "permanent regeneration."
 		if("Super Powers")
 			var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
 			for(var/gene in default_genes)
-				H.dna.SetSEState(gene, 1)
-				genemutcheck(H, gene,  null, MUTCHK_FORCED)
-				H.update_mutations()
+				H.force_gene_block(gene, TRUE)
 			H.gene_stability = 100
 			logmsg = "superpowers."
 		if("Scarab Guardian")
@@ -765,7 +761,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.reagents.add_reagent("mutagen", 10)
 			evilcookie.desc = "It has a faint green glow."
 			evilcookie.bitesize = 100
-			evilcookie.flags = DROPDEL
+			evilcookie.item_flags |= DROPDEL
 			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
 			H.drop_l_hand()
 			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
@@ -775,7 +771,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			evilcookie.reagents.add_reagent("hell_water", 25)
 			evilcookie.desc = "Sulphur-flavored."
 			evilcookie.bitesize = 100
-			evilcookie.flags = DROPDEL
+			evilcookie.item_flags |= DROPDEL
 			ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
 			H.drop_l_hand()
 			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)

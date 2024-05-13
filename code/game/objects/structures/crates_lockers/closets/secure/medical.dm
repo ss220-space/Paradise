@@ -186,7 +186,7 @@
 	overlay_locker = "m_locker"
 	overlay_unlocked = "m_unlocked"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	wall_mounted = 1
 	req_access = list(ACCESS_MEDICAL)
 

@@ -87,7 +87,7 @@
 	..()
 
 /obj/machinery/door/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -108,7 +108,7 @@
 			if(world.time - M.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
 			M.last_bumped = world.time
-			if(M.restrained() && !check_access(null))
+			if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !check_access(null))
 				return
 			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
@@ -277,7 +277,7 @@
 	if(!cleaning)
 		return
 	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, src))
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
@@ -288,7 +288,7 @@
 		add_fingerprint(user)
 		try_to_crowbar(user, I)
 		return 1
-	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return 1
 	return ..()
@@ -404,7 +404,7 @@
 	do_animate("opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	sleep(0.5 SECONDS)
 	layer = initial(layer)
 	update_icon()
@@ -434,7 +434,7 @@
 	do_animate("closing")
 	layer = closingLayer
 	sleep(0.5 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	sleep(0.5 SECONDS)
 	update_icon()
 	if(visible && !glass)

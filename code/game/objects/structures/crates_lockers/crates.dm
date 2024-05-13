@@ -214,11 +214,16 @@
 
 
 /obj/structure/closet/crate/secure/AltClick(mob/living/user)
-	if(iscarbon(user) && !user.incapacitated() && Adjacent(user))
+	if(Adjacent(user))
 		togglelock(user)
 
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
+/obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
@@ -232,6 +237,7 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
+	add_fingerprint(user)
 
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
@@ -239,12 +245,8 @@
 	set category = null
 	set name = "Toggle Lock"
 
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
 	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
-		src.add_fingerprint(usr)
-		src.togglelock(usr)
+		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
@@ -260,10 +262,10 @@
 		manifest = null
 		update_icon()
 		return
-	add_fingerprint(user)
 	if(locked)
 		togglelock(user)
 	else
+		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
 
 

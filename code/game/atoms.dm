@@ -547,6 +547,40 @@
 	return
 
 
+/**
+ * Adds a special overlay to any atom.
+ * This overlay will always persist even when an atom is updating its overlays.
+ *
+ * Arguments:
+ * * overlay_to_add - should be an image, mutable_appearance or icon
+ * * id - string ID of our overlay, should be unique, otherwise it will remove all overlays with the same ID
+ * * timer (optional) - if set overlay will be removed after passed time
+ */
+/atom/proc/add_persistent_overlay(overlay_to_add, id, timer)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
+
+
+/**
+ * Removes a persistent overlay from an atom if it exists.
+ *
+ * Arguments:
+ * * id - string ID of the overlay we should remove
+ */
+/atom/proc/remove_persistent_overlay(id)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+		return
+	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
+	if(!islist(all_persistent))
+		all_persistent = list(all_persistent)
+	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
+		if(existing.dupe_id == id)
+			existing.remove_persistent_overlay()
+
+
 /atom/Topic(href, href_list)
 	. = ..()
 	if(.)
@@ -682,15 +716,8 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-/**
-	Base proc, intended to be overriden.
-
-	This should only be called from one place: inside the slippery component.
-	Called after a human mob slips on this atom.
-
-	If you want the person who slipped to have something special done to them, put it here.
-*/
-/atom/proc/after_slip(mob/living/carbon/human/H)
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M)
@@ -1283,7 +1310,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""
@@ -1337,18 +1364,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-/*
-	Setter for the `density` variable.
-	Arguments:
-	* new_value - the new density you would want it to set.
-	Returns: Either null if identical to existing density, or the new density if different.
-*/
-/atom/proc/set_density(new_value)
-	if(density == new_value)
-		return
-	. = density
-	density = new_value
-
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
@@ -1356,11 +1371,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
 
 
 /**
@@ -1474,5 +1484,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/area/turf_area = gravity_turf.loc
 
-	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || length(GLOB.gravity_generators["[gravity_turf.z]"]))
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
+
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
 

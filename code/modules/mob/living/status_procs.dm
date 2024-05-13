@@ -357,7 +357,10 @@
 	SetLoseBreath(directional_bounded_sum(AmountLoseBreath(), amount, bound_lower, bound_upper))
 
 // PARALYSE
-/mob/living/proc/IsParalyzed()
+/mob/proc/IsParalyzed()
+	return FALSE
+
+/mob/living/IsParalyzed()
 	return has_status_effect(STATUS_EFFECT_PARALYZED)
 
 /mob/living/proc/AmountParalyzed()
@@ -545,7 +548,10 @@
 	SetClockSlur(directional_bounded_sum(AmountClockSlurring(), amount, bound_lower, bound_upper))
 
 /* STUN */
-/mob/living/proc/IsStunned() //If we're stunned
+/mob/proc/IsStunned()
+	return FALSE
+
+/mob/living/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)
 
 /mob/living/proc/AmountStun() //How many deciseconds remain in our stun
@@ -655,7 +661,10 @@
 
 // WEAKEN
 
-/mob/living/proc/IsWeakened()
+/mob/proc/IsWeakened()
+	return FALSE
+
+/mob/living/IsWeakened()
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
@@ -817,10 +826,8 @@
 	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
-	if(dna && dna.GetSEState(block))
-		dna.SetSEState(block, 0, 1) //Fix the gene
-		genemutcheck(src, block,null, MUTCHK_FORCED)
-		dna.UpdateSE()
+	if(dna?.GetSEState(block))
+		force_gene_block(block, FALSE)
 
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.

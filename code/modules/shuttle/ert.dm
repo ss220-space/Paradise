@@ -4,7 +4,7 @@
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away;specops_custom"
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/machinery/computer/shuttle/ert/can_call_shuttle(mob/user, action)
 	if(action == "move")
@@ -24,5 +24,5 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	access_mining = FALSE

@@ -1074,6 +1074,10 @@ proc/dd_sortedObjectList(list/incoming)
 		if(safe)
 			return i
 
+///uses sort_list() but uses the var's name specifically
+/proc/sort_names(list/list_to_sort)
+	return sort_list(list_to_sort, cmp = /proc/cmp_name_asc)
+
 ///compare two lists, returns TRUE if they are the same
 /proc/compare_list(list/l, list/d)
 	if(!islist(l) || !islist(d))
@@ -1087,3 +1091,4 @@ proc/dd_sortedObjectList(list/incoming)
 			return FALSE
 
 	return TRUE
+

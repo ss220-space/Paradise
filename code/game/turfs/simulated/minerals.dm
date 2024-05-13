@@ -76,7 +76,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
@@ -125,7 +125,7 @@
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
 	to_chat(M, span_notice("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
-	if(do_after(M, 40, target = src))
+	if(do_after(M, 4 SECONDS, src))
 		to_chat(M, span_notice("You tunnel into the rock."))
 		attempt_drill(M)
 
@@ -201,7 +201,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time * P.toolspeed, target = src))
+		if(do_after(user, mine_time * P.toolspeed, src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				gets_drilled(user)

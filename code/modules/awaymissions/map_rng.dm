@@ -4,7 +4,7 @@
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	opacity = 0
 	var/template_name = null
 	var/datum/map_template/template = null

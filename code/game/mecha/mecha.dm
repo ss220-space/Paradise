@@ -334,7 +334,7 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = NONE)
 	. = ..()
 	if(.)
 		return TRUE
@@ -345,12 +345,21 @@
 		toggle_strafe(silent = TRUE)
 
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180)))
-				if(occupant)
-					to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+	if(!backup)
+		return FALSE
+
+	//get_spacemove_backup() already checks if a returned turf is solid, so we can just go
+	if(!istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
+
+	last_pushoff = world.time
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir)))
+		backup.last_pushoff = world.time
+		if(occupant)
+			to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+
+	return TRUE
+
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
@@ -923,7 +932,7 @@
 			to_chat(user, span_notice("You can't access the mech's modification port while it is occupied."))
 			return
 		var/obj/item/mecha_modkit/M = W
-		if(do_after_once(user, M.install_time, target = src))
+		if(do_after(user, M.install_time, src, max_interact_count = 1))
 			M.install(src, user)
 		else
 			to_chat(user, span_notice("You stop installing [M]."))
@@ -1233,7 +1242,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1267,7 +1276,7 @@
 
 
 /obj/mecha/proc/put_in(mob/user)
-	if(do_after(user, mech_enter_time * gettoolspeedmod(user), target = src))
+	if(do_after(user, mech_enter_time * gettoolspeedmod(user), src))
 		if(obj_integrity <= 0)
 			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(occupant)
@@ -1322,7 +1331,7 @@
 		to_chat(user, span_warning("Access denied. [name] is secured with an ID lock."))
 		return FALSE
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 4 SECONDS, src))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else

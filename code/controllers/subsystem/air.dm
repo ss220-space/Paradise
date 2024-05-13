@@ -404,7 +404,7 @@ SUBSYSTEM_DEF(air)
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
-
+	vis_flags = NONE // Resets vision flags inherited from parent objects
 
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"

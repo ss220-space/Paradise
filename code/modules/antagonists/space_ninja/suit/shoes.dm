@@ -15,7 +15,6 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "ninja_boots"
 	item_state = "ninja_boots"
-	flags = NOSLIP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 15, "bomb" = 30, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	cold_protection = FEET
@@ -25,4 +24,4 @@
 	permeability_coefficient = 0.01
 	strip_delay = 120
 	slowdown = 0
-	clothing_traits = list(TRAIT_NEGATES_GRAVITY)
+	clothing_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER)

@@ -909,17 +909,11 @@
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-			if(!(block in M.dna.default_blocks))
-				M.dna.SetSEState(block, FALSE, TRUE)
-				genemutcheck(M, block, null, MUTCHK_FORCED)
-		M.dna.UpdateSE()
+			if(!LAZYIN(M.dna.default_blocks, block))
+				M.force_gene_block(block, FALSE)
 
 		M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
-		// Might need to update appearance for hulk etc.
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.update_mutations()
 	return ..()
 
 /datum/reagent/medicine/antihol
@@ -1221,8 +1215,7 @@
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		if(T.wet)
-			T.MakeDry(TURF_WET_LUBE)
+		T.MakeDry(TURF_WET_LUBE)
 
 //Liquid Solder: Mannitol
 /datum/reagent/medicine/liquid_solder

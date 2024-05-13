@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 	///////Interactions!!///////
 	if(href_list["interaction"])
-		if (usr.stat == DEAD || usr.stat == UNCONSCIOUS || usr.restrained())
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			return
 
 		//CONDITIONS
@@ -179,7 +179,7 @@
 					P.custom_emote(message = "<span class='danger'>показыва[pluralize_ru(H.gender,"ет","ют")] [P] язык!</span>")
 
 		else if (href_list["interaction"] == "pullwing")
-			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
+			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 				if(!P.bodyparts_by_name[BODY_ZONE_WING])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья  КОТОРЫХ НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))
@@ -204,7 +204,7 @@
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья!")
 
 		else if (href_list["interaction"] == "pull")
-			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
+			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 				if(!P.bodyparts_by_name[BODY_ZONE_TAIL])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост КОТОРОГО НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))

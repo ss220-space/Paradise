@@ -17,14 +17,16 @@
 	. = ..()
 	atvcover = mutable_appearance(icon, atvcover, ABOVE_MOB_LAYER)
 
-/obj/vehicle/atv/post_buckle_mob(mob/living/M)
-	add_overlay(atvcover)
-	return ..()
 
-/obj/vehicle/atv/post_unbuckle_mob(mob/living/M)
-	if(!has_buckled_mobs())
-		cut_overlay(atvcover)
-	return ..()
+/obj/vehicle/atv/post_buckle_mob(mob/living/target)
+	. = ..()
+	add_overlay(atvcover)
+
+
+/obj/vehicle/atv/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	cut_overlay(atvcover)
+
 
 /obj/vehicle/atv/handle_vehicle_layer()
 	if(dir == SOUTH)
@@ -40,7 +42,7 @@
 	name = "mounted turret"
 	scan_range = 7
 	emp_vulnerable = 1
-	density = 0
+	density = FALSE
 
 /obj/vehicle/atv/turret/Initialize(mapload)
 	. = ..()

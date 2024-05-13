@@ -60,8 +60,7 @@
 
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
-	..()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	//update_inv_head()

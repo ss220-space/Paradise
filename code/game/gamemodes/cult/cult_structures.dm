@@ -125,7 +125,7 @@
 	return message
 
 /obj/structure/cult/functional/cult_conceal()
-	density = FALSE
+	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden objs
@@ -134,7 +134,7 @@
 	update_light()
 
 /obj/structure/cult/functional/cult_reveal()
-	density = initial(density)
+	set_density(initial(density))
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)

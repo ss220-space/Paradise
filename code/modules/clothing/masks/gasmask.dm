@@ -2,7 +2,7 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
@@ -51,7 +51,7 @@
 	weldingvisortoggle(user)
 
 
-/obj/item/clothing/mask/gas/welding/adjustmask(mob/user)
+/obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
 
 
@@ -86,7 +86,7 @@
 	adjustmask(user)
 
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(mob/user)
+/obj/item/clothing/mask/gas/explorer/adjustmask(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
@@ -104,7 +104,7 @@
 	permeability_coefficient = null
 	flags_cover &= ~MASKCOVERSMOUTH
 	flags_inv &= ~HIDENAME
-	flags &= ~AIRTIGHT
+	clothing_flags &= ~AIRTIGHT
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -113,7 +113,7 @@
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
@@ -203,8 +203,8 @@
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	magical = TRUE
 
+
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 
 
 /obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
@@ -267,8 +267,8 @@
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	magical = TRUE
 
+
 /obj/item/clothing/mask/gas/mime/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 
 
 /obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
@@ -302,8 +302,8 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
+
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)

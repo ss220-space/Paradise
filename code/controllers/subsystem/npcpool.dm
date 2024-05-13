@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(npcpool)
 			GLOB.simple_animals[AI_ON] -= SA
 			continue
 
-		if(!SA.ckey && !SA.notransform)
+		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)

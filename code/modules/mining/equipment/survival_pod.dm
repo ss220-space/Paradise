@@ -198,7 +198,7 @@
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
@@ -206,7 +206,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			var/obj/item/gps/gps = new(loc)
 			gps.add_fingerprint(user)
 			qdel(src)
@@ -231,7 +231,7 @@
 	light_color = "#DDFFD3"
 	max_n_of_items = 10
 	pixel_y = -4
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)
@@ -254,7 +254,7 @@
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
-	return isitem(O) && !(O.flags & ABSTRACT)
+	return isitem(O) && !(O.item_flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
@@ -271,7 +271,7 @@
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
@@ -289,7 +289,7 @@
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
@@ -299,7 +299,7 @@
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			deconstruct()
 			return ..()
 
@@ -307,7 +307,7 @@
 	name = "tiny fan"
 	desc = "A tiny fan, releasing a thin gust of air."
 	layer = TURF_LAYER+0.1
-	density = 0
+	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
@@ -335,14 +335,14 @@
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = 0
+	density = FALSE
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			var/obj/item/stack/rods/rods = new(loc)
 			rods.add_fingerprint(user)
 			qdel(src)

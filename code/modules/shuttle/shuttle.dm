@@ -489,7 +489,7 @@
 	remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	roadkill(L0, L1, S1.dir)
+	shuttle_smash(L0, L1, S1.dir)
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
@@ -623,42 +623,6 @@
 				if(A.locked)
 					A.unlock()
 
-/obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
-	for(var/i in 1 to L0.len)
-		var/turf/T0 = L0[i]
-		var/turf/T1 = L1[i]
-		if(!T0 || !T1)
-			continue
-
-		for(var/atom/movable/AM in T1)
-			if(AM.pulledby)
-				AM.pulledby.stop_pulling()
-			if(ismob(AM))
-				var/mob/mobile_docking_port = AM
-				if(mobile_docking_port.buckled)
-					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(20 SECONDS)
-							L.ex_act(2)
-
-			// Move unanchored atoms
-			if(!AM.anchored)
-				step(AM, dir)
-			else
-				if(AM.simulated) // Don't qdel lighting overlays, they are static
-					qdel(AM)
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()

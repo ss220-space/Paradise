@@ -142,7 +142,7 @@
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
-	if(do_after(src, delay_web, target = loc))
+	if(do_after(src, delay_web, loc))
 		if(loc != mylocation)
 			return
 		else if(isspaceturf(loc))
@@ -160,7 +160,7 @@
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
-	density = 0 // prevents it blocking all movement
+	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	creates_cover = TRUE
 	icon_state = "stickyweb1"
@@ -254,7 +254,7 @@
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
 		walk(src,0)
-		if(do_after(src, 40, target = cocoon_target.loc))
+		if(do_after(src, 4 SECONDS, cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
 					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
@@ -305,20 +305,16 @@
 		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
 	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
-	if(do_after(src, 43, target = loc))
+	if(do_after(src, 4.3 SECONDS, loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
-				P.welded = 0
-				P.update_icon()
-				P.update_pipe_image()
+				P.set_welded(FALSE)
 				forceMove(P.loc)
 				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
-				C.welded = 0
-				C.update_icon()
-				C.update_pipe_image()
+				C.set_welded(FALSE)
 				forceMove(C.loc)
 				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
 				return

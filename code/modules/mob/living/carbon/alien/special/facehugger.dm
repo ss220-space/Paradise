@@ -15,8 +15,8 @@
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
-	flags = AIRTIGHT
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	clothing_flags = AIRTIGHT
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'

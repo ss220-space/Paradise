@@ -9,7 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_2 = BLOCKS_LIGHT_2
+	flags = BLOCKS_LIGHT
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
@@ -89,15 +89,15 @@
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
 
+
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
-	if(!destination)
-		return
-	if(!ismob(destination.loc))
-		for(var/mob/player in mobs_viewing)
-			if(player == destination)
-				continue
-			hide_from(player)
+	if(!destination || ismob(destination.loc))
+		return .
+	for(var/mob/player in mobs_viewing)
+		if(player == destination)
+			continue
+		hide_from(player)
 
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -140,7 +140,7 @@
 
 
 /obj/item/storage/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		open(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -311,7 +311,7 @@
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
-	if(!istype(W) || (W.flags & ABSTRACT)) //Not an item
+	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return
 
 	if(loc == W)
@@ -385,7 +385,7 @@
 	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
 							span_notice("Вы начинаете снимать [W.name]..."))
-		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
 			return FALSE
 
 	return TRUE
@@ -439,7 +439,6 @@
 	W.pixel_y = initial(W.pixel_y)
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
-	W.in_inventory = TRUE
 	update_icon()
 	return TRUE
 
@@ -468,7 +467,6 @@
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
 			W.mouse_opacity = initial(W.mouse_opacity)
-			W.in_inventory = FALSE
 			W.remove_outline()
 
 		W.forceMove(new_location)
@@ -483,8 +481,8 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/A, loc)
-	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
+/obj/item/storage/Exited(atom/movable/AM, atom/newLoc)
+	remove_from_storage(AM, newLoc) //worry not, comrade; this only gets called once
 	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
@@ -559,7 +557,7 @@
 	set name = "Empty Contents"
 	set category = "Object"
 
-	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
+	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	drop_inventory(usr)

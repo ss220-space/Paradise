@@ -58,7 +58,7 @@
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
-/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting)
+/turf/simulated/floor/plating/asteroid/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
 	return
 
 /turf/simulated/floor/plating/asteroid/MakeDry(wet_setting)
@@ -95,7 +95,7 @@
 		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))

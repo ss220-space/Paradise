@@ -41,12 +41,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_NORMAL
-	density = 1
+	density = TRUE
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
 	can_strip = 0
+	can_buckle_to = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -141,7 +142,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	rename_character(null, pickedName)
 	set_anchored(TRUE)
 	canmove = FALSE
-	density = 1
+	set_density(TRUE)
 	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
@@ -647,8 +648,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return 1
 	return 0
 
-/mob/living/silicon/ai/restrained()
-	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
@@ -993,7 +992,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
 		display.emotion = emote
-		display.update_icon()
+		display.update_icon(UPDATE_OVERLAYS)
 
 	for(var/obj/machinery/machine in GLOB.machines) //change status
 		if(istype(machine, /obj/machinery/ai_status_display))
@@ -1247,7 +1246,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
@@ -1255,7 +1254,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
@@ -1318,8 +1317,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
-/mob/living/silicon/ai/can_buckle()
-	return FALSE
 
 /mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || !is_in_chassis())

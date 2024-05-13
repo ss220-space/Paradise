@@ -185,7 +185,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		qdel(stand_icon)
 
 	update_misc_effects()
-	update_hands_HUD()
 	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
 	var/list/standing = list()
 	var/icon_key = generate_icon_render_key()
@@ -328,6 +327,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
 	apply_overlay(MARKINGS_LAYER)
 
+
 //HEAD ACCESSORY OVERLAY
 /mob/living/carbon/human/proc/update_head_accessory()
 	//Reset our head accessory
@@ -335,34 +335,32 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ)
+	if(!head_organ || !head_organ.dna || !head_organ.ha_style)
 		return
 
 	//masks and helmets can obscure our head accessory
 	if((head && (head.flags_inv & HIDEHAIR)) || (wear_mask && (wear_mask.flags_inv & HIDEHAIR)))
 		return
 
+	var/datum/sprite_accessory/head_accessory/head_accessory = GLOB.head_accessory_styles_list[head_organ.ha_style]
+	if(!head_accessory || !(head_accessory.species_allowed && (head_organ.dna.species.name in head_accessory.species_allowed)))
+		return
+
 	//base icons
-	var/icon/head_accessory_standing = new /icon('icons/mob/clothing/body_accessory.dmi',"accessory_none_s")
-	if(head_organ.ha_style && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed)
-			if(head_organ.dna.species.name in head_accessory_style.species_allowed)
-				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-				if(head_accessory_style.do_colouration)
-					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
-				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
-														   //Having it this way preserves animations. Useful for animated antennae.
+	var/icon/head_accessory_standing = icon('icons/mob/clothing/body_accessory.dmi', "accessory_none_s")
+	var/icon/head_accessory_s = icon(head_accessory.icon, "[head_accessory.icon_state]_s")
+	if(head_accessory.do_colouration)
+		head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+	//head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
+	//Having it this way preserves animations. Useful for animated antennae.
+	head_accessory_standing = head_accessory_s
 
-				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
-					overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
-					apply_overlay(HEAD_ACC_OVER_LAYER)
-				else
-					overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
-					apply_overlay(HEAD_ACCESSORY_LAYER)
-		else
-			//warning("Invalid ha_style for [species.name]: [ha_style]")
-
+	if(head_accessory.over_hair) //Select which layer to use based on the properties of the head accessory style.
+		overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
+		apply_overlay(HEAD_ACC_OVER_LAYER)
+	else
+		overlays_standing[HEAD_ACCESSORY_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACCESSORY_LAYER)
+		apply_overlay(HEAD_ACCESSORY_LAYER)
 
 
 //HAIR OVERLAY
@@ -371,49 +369,50 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HAIR_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ)
+	if(!head_organ || !head_organ.dna || !head_organ.h_style)
 		return
 
 	//masks and helmets can obscure our hair, unless we're a synthetic
-	if((head?.flags_inv & HIDEHAIR) || (wear_mask?.flags_inv & HIDEHAIR))
+	if((head && (head.flags_inv & (HIDEHAIR|HIDEHEADHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR))))
+		return
+
+	var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[head_organ.h_style]
+	if(!hair || !((hair.species_allowed && (head_organ.dna.species.name in hair.species_allowed)) || (head_organ.dna.species.bodyflags & ALL_RPARTS)))
 		return
 
 	//base icons
 	var/mutable_appearance/MA = new()
 	MA.appearance_flags = KEEP_TOGETHER
 	MA.layer = -HAIR_LAYER
-	if(head_organ.h_style && !(head?.flags_inv & HIDEHEADHAIR))
-		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[head_organ.h_style]
-		if(hair?.species_allowed && ((dna.species.name in hair.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
-			// Base hair
-			var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
-			if(istype(dna.species, /datum/species/slime))
-				img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
-			else if(hair.do_colouration)
-				img_hair.color = COLOR_MATRIX_ADD(head_organ.hair_colour)
-			MA.overlays += img_hair
 
-			// Gradient
-			var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[head_organ.h_grad_style]
-			if(gradient)
-				var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
-				var/icon/icn_gradient = icon(gradient.icon, "full")
-				var/list/icn_color = ReadRGB(head_organ.h_grad_colour)
-				icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
-				icn_gradient.ChangeOpacity(head_organ.h_grad_alpha / 200)
-				icn_gradient.AddAlphaMask(icn_alpha_mask)
-				icn_gradient.Shift(EAST, head_organ.h_grad_offset_x)
-				icn_gradient.Shift(NORTH, head_organ.h_grad_offset_y)
-				icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+	// Base hair
+	var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
+	if(head_organ.dna.species.name == SPECIES_SLIMEPERSON)
+		img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
+	else if(hair.do_colouration)
+		img_hair.color = COLOR_MATRIX_ADD(head_organ.hair_colour)
+	MA.overlays += img_hair
 
-				MA.overlays += icn_gradient
+	// Gradient
+	var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[head_organ.h_grad_style]
+	if(gradient)
+		var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
+		var/icon/icn_gradient = icon(gradient.icon, "full")
+		var/list/icn_color = ReadRGB(head_organ.h_grad_colour)
+		icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
+		icn_gradient.ChangeOpacity(head_organ.h_grad_alpha / 200)
+		icn_gradient.AddAlphaMask(icn_alpha_mask)
+		icn_gradient.Shift(EAST, head_organ.h_grad_offset_x)
+		icn_gradient.Shift(NORTH, head_organ.h_grad_offset_y)
+		icn_gradient.AddAlphaMask(icon(hair.icon, "[hair.icon_state]_s"))
+		MA.overlays += icn_gradient
 
-			// Secondary style
-			if(hair.secondary_theme)
-				var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
-				if(!hair.no_sec_colour)
-					img_secondary.color = COLOR_MATRIX_ADD(head_organ.sec_hair_colour)
-				MA.overlays += img_secondary
+	// Secondary style
+	if(hair.secondary_theme)
+		var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
+		if(!hair.no_sec_colour)
+			img_secondary.color = COLOR_MATRIX_ADD(head_organ.sec_hair_colour)
+		MA.overlays += img_secondary
 
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
@@ -426,42 +425,41 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FHAIR_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ)
+	if(!head_organ || !head_organ.dna || !head_organ.f_style)
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
-	if((head && (head.flags_inv & HIDEHAIR)) || (wear_mask && ((wear_mask.flags_inv & HIDEHAIR) || (wear_mask.flags & HIDEFACIALHAIR))))
+	if((head && (head.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))))
+		return
+
+	var/datum/sprite_accessory/facial_hair/facial_hair = GLOB.facial_hair_styles_list[head_organ.f_style]
+	//If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+	if(!facial_hair || !((facial_hair.species_allowed && (head_organ.dna.species.name in facial_hair.species_allowed)) || (head_organ.dna.species.bodyflags & ALL_RPARTS)))
 		return
 
 	//base icons
-	var/icon/face_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
-	if(head_organ.f_style)
-		var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
-		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
-				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
-					facial_s.Blend("[skin_colour]A0", ICON_AND)
-				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(head_organ.facial_colour, ICON_ADD)
+	var/icon/face_standing = icon('icons/mob/human_face.dmi', "bald_s")
 
-				if(facial_hair_style.secondary_theme)
-					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-					if(!facial_hair_style.no_sec_colour)
-						facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
-					facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
+	var/icon/facial_s = icon(facial_hair.icon, "[facial_hair.icon_state]_s")
+	if(head_organ.dna.species.name == SPECIES_SLIMEPERSON) // I am el worstos
+		facial_s.Blend("[skin_colour]A0", ICON_AND)
+	else if(facial_hair.do_colouration)
+		facial_s.Blend(head_organ.facial_colour, ICON_ADD)
 
-				face_standing.Blend(facial_s, ICON_OVERLAY)
+	if(facial_hair.secondary_theme)
+		var/icon/facial_secondary_s = icon(facial_hair.icon, "[facial_hair.icon_state]_[facial_hair.secondary_theme]_s")
+		if(!facial_hair.no_sec_colour)
+			facial_secondary_s.Blend(head_organ.sec_facial_colour, ICON_ADD)
+		facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
-				if(facial_hair_style.over_hair) //Select which layer to use based on the properties of the facial hair style.
-					overlays_standing[FHAIR_OVER_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_OVER_LAYER)
-					apply_overlay(FHAIR_OVER_LAYER)
-				else
-					overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
-					apply_overlay(FHAIR_LAYER)
-		else
-			//warning("Invalid f_style for [species.name]: [f_style]")
+	face_standing.Blend(facial_s, ICON_OVERLAY)
 
+	if(facial_hair.over_hair) //Select which layer to use based on the properties of the facial hair style.
+		overlays_standing[FHAIR_OVER_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_OVER_LAYER)
+		apply_overlay(FHAIR_OVER_LAYER)
+	else
+		overlays_standing[FHAIR_LAYER] = mutable_appearance(face_standing, layer = -FHAIR_LAYER)
+		apply_overlay(FHAIR_LAYER)
 
 
 /mob/living/carbon/human/update_mutations()
@@ -517,7 +515,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 	cut_overlays()
 	update_mutantrace(update_hair = FALSE)

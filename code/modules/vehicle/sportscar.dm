@@ -13,14 +13,16 @@
 	. = ..()
 	carcover = mutable_appearance(icon, "sportscar_cover", ABOVE_MOB_LAYER)
 
-/obj/vehicle/car/post_buckle_mob(mob/living/M)
-	add_overlay(carcover)
-	return ..()
 
-/obj/vehicle/car/post_unbuckle_mob(mob/living/M)
-	if(!has_buckled_mobs())
-		cut_overlay(carcover)
-	return ..()
+/obj/vehicle/car/post_buckle_mob(mob/living/target)
+	. = ..()
+	add_overlay(carcover)
+
+
+/obj/vehicle/car/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	cut_overlay(carcover)
+
 
 /obj/vehicle/car/handle_vehicle_offsets()
 	..()

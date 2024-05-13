@@ -547,16 +547,16 @@
 
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
 
 
 /obj/structure/computerframe/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
@@ -700,7 +700,7 @@
 
 			C.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -722,7 +722,7 @@
 
 			G.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))

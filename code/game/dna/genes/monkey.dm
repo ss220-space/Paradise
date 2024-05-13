@@ -14,12 +14,13 @@
 	return ishuman(mutant) && ismonkeybasic(mutant)
 
 
-/datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, connected, flags)
+/datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
+
 	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		mutant.drop_item_ground(item, force = TRUE)
 
-	mutant.SetStunned(2 SECONDS)
+	ADD_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_primitive_form = mutant.dna.species.primitive_form // cache this
 	if(has_primitive_form)
@@ -27,8 +28,10 @@
 
 	new /obj/effect/temp_visual/monkeyify(mutant.loc)
 	sleep(2.2 SECONDS)
+	if(QDELETED(mutant))
+		return
 
-	mutant.SetStunned(0)
+	REMOVE_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_primitive_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
@@ -38,7 +41,7 @@
 	to_chat(mutant, "<B>You are now a [mutant.dna.species.name].</B>")
 
 
-/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, connected, flags)
+/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 
 	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
@@ -46,7 +49,7 @@
 			continue
 		mutant.drop_item_ground(item, force = TRUE)
 
-	mutant.SetStunned(2 SECONDS)
+	ADD_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	mutant.invisibility = INVISIBILITY_ABSTRACT
 	var/has_greater_form = mutant.dna.species.greater_form //cache this
 	if(has_greater_form)
@@ -54,8 +57,10 @@
 
 	new /obj/effect/temp_visual/monkeyify/humanify(mutant.loc)
 	sleep(2.2 SECONDS)
+	if(QDELETED(mutant))
+		return
 
-	mutant.SetStunned(0)
+	REMOVE_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
 	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.

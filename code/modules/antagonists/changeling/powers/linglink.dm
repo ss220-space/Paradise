@@ -74,7 +74,7 @@
 			if(3)
 				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
 
-		if(!do_mob(user, target, 2 SECONDS) || !can_sting(user, TRUE))
+		if(!do_after(user, 2 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Linking process was interrupted!"))
 			cling?.is_linking = FALSE
 			return FALSE

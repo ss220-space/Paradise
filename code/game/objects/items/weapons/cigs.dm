@@ -170,7 +170,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	icon_state = lit ? icon_on : icon_off
 	item_state = lit ? icon_on : initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/mask/cigarette/update_name(updates = ALL)

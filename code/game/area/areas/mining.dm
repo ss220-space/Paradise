@@ -41,6 +41,7 @@
 
 /area/mine/unexplored/cere
 	sound_environment = SOUND_AREA_ASTEROID
+	ignore_gravgen = TRUE
 
 /area/mine/unexplored/cere/ai
 	name = "AI Asteroid"

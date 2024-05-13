@@ -15,6 +15,9 @@
 
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't control your hands!!"))
+		return FALSE
 	if(attached_hand)
 		discharge_hand(user, TRUE)
 		return FALSE

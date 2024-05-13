@@ -60,7 +60,7 @@
 	if(!ismachineperson(user) || is_used)
 		return
 	to_chat(user, "<span class='notice'>Installation sequence initialized. It will take some time...</span>")
-	if(do_after(user, 10 SECONDS, target = user))
+	if(do_after(user, 10 SECONDS, user))
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
 		F.teach(H)

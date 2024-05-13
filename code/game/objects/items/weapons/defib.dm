@@ -113,7 +113,7 @@
 
 
 /obj/item/defibrillator/CtrlClick(mob/user)
-	if(!ishuman(user) || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
@@ -177,6 +177,9 @@
 	set name = "Toggle Paddles"
 	set category = "Object"
 	set src in oview(1)
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	toggle_paddles(usr)
 
@@ -329,7 +332,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
 	/// Active defib this is connected to.

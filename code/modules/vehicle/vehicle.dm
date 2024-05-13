@@ -8,7 +8,7 @@
 	anchored = FALSE
 	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	max_integrity = 300
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	var/key_type
@@ -65,7 +65,9 @@
 	return ..()
 
 /obj/vehicle/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(inserted_key && user.Adjacent(user))
@@ -117,23 +119,14 @@
 
 
 //BUCKLE HOOKS
-/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
-	if(istype(buckled_mob))
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-	. = ..()
-
-
-/obj/vehicle/user_buckle_mob(mob/living/M, mob/user)
-	if(user.incapacitated())
-		return
-	for(var/atom/movable/A in get_turf(src))
-		if(A.density)
-			if(A != src && A != M)
-				return
-	M.forceMove(get_turf(src))
-	..()
+/obj/vehicle/post_buckle_mob(mob/living/target)
 	handle_vehicle_offsets()
+
+
+/obj/vehicle/post_unbuckle_mob(mob/living/target)
+	target.pixel_x = 0
+	target.pixel_y = 0
+
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
 	if(has_buckled_mobs())
@@ -202,7 +195,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = NONE)
 	if(has_gravity())
 		return TRUE
 
@@ -218,5 +211,5 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE

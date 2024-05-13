@@ -52,7 +52,7 @@ Uncontrollable Aggression
 						aggressor.say(pick("ААААААААААА!!!!", "ГРРР!!!", "СУКА!! БЛЯТЬ!!!", "ЁБАНЫЕ ГОВНЮКИ!!", "ВАААААААГХХ!!"))
 
 	if(A.stage >= 5 && prob(50))
-		if(aggressor.incapacitated())
+		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
 			aggressor.visible_message(span_danger("[aggressor] spasms and twitches!"))
 			return
 		aggressor.visible_message(span_danger("[aggressor] thrashes around violently!"))

@@ -17,7 +17,8 @@
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
-	buckle_lying = FALSE
+	buckle_lying = 0
+	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
 	radio_channel = "Supply"
 
@@ -89,10 +90,6 @@
 
 /mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
 	return FALSE
-
-
-/mob/living/simple_animal/bot/mulebot/can_buckle()
-	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
@@ -210,6 +207,9 @@
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
 		return TRUE
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	switch(href_list["op"])
 		if("lock")
@@ -378,7 +378,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
-	if(!istype(AM) || user.incapacitated() || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return FALSE
 
 	load(AM)
@@ -435,16 +435,16 @@
 	return FALSE
 
 
-/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + 9
-	if(M.layer < layer)
-		M.layer = layer + 0.01
+/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
+	target.pixel_y = initial(target.pixel_y) + 9
+	if(target.layer < layer)
+		target.layer = layer + 0.01
 
 
-/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
+	target.layer = initial(target.layer)
+	target.pixel_y = initial(target.pixel_y)
 
 
 // called to unload the bot
@@ -917,6 +917,8 @@
 
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

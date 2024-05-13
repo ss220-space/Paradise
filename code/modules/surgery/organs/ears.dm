@@ -25,8 +25,8 @@
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if((H.l_ear && H.l_ear.flags_2 & HEALS_EARS_2) || (H.r_ear && H.r_ear.flags_2 & HEALS_EARS_2))
-			C.AdjustDeaf(-1 SECONDS)
+		if((H.l_ear && (H.l_ear.item_flags & HEALS_EARS)) || (H.r_ear && (H.r_ear.item_flags & HEALS_EARS)))
+			H.AdjustDeaf(-1 SECONDS)
 			heal_internal_damage(0.1)
 
 
