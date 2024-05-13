@@ -360,6 +360,8 @@
 
 #define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
 
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
 // Body position defines.
 /// Mob is standing up, usually associated with lying_angle value of 0.
@@ -369,7 +371,6 @@
 
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
-
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -392,4 +393,3 @@
 // Return values for [/mob/living/proc/handle_ventcrawl()]
 #define VENTCRAWL_IN_SUCCESS 1
 #define VENTCRAWL_OUT_SUCCESS 2
-

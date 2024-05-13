@@ -11,8 +11,6 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/fallback_map = new /datum/map/delta
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
-	///What primary cave theme we have picked for cave generation today.
-	var/cave_theme
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
 	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
@@ -69,8 +67,6 @@ SUBSYSTEM_DEF(mapping)
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
-	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
-	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
 	// Load the station
@@ -100,8 +96,12 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		// Run map generation after ruin generation to prevent issues
+		run_map_terrain_generation()
 		if(lavaland_theme)
 			lavaland_theme.setup()
+		// now that the terrain is generated, including rivers, we can safely populate it with objects and mobs
+		run_map_terrain_population()
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 		if(time_spent >= 10)
@@ -335,6 +335,16 @@ SUBSYSTEM_DEF(mapping)
 			log_world("Failed to place [current_pick.name] ruin.")
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+/// Generate the turfs of the area
+/datum/controller/subsystem/mapping/proc/run_map_terrain_generation()
+	for(var/area/A in world)
+		A.RunTerrainGeneration()
+
+/// Populate the turfs of the area
+/datum/controller/subsystem/mapping/proc/run_map_terrain_population()
+	for(var/area/A in world)
+		A.RunTerrainPopulation()
 
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages(z_list)
 	for(var/z_level in 1 to length(z_list))

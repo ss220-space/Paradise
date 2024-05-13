@@ -493,11 +493,6 @@
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 
-// Lavaland cave design defines
-
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"
-
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
+
