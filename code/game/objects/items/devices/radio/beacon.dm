@@ -152,7 +152,7 @@
 								/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail = 1,	// 0 TK
 								/obj/item/storage/box/syndie_kit/emp = 1,									// 10 TK
 								/obj/item/CQC_manual = 1),													// 50 TK
-			"Sabotager" = list(	"Name" = "\improper 'Sabotage' bundle",	// 195-197 TK
+			"Sabotage" = list(	"Name" = "\improper 'Sabotage' bundle",	// 195-197 TK
 								"Desc" = "Wreak havoc and destruction on the station with this kit.",
 								/obj/item/grenade/plastic/c4 = 2,											// 10 TK
 								/obj/item/camera_bug = 1,													// 5 TK
