@@ -16,7 +16,6 @@
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
-	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
 	///The last time we pushed off something
@@ -48,8 +47,6 @@
 	var/max_buckled_mobs = 1
 	/// Whether things buckled to this atom can be pulled while they're buckled
 	var/buckle_prevents_pull = FALSE
-
-	var/buckle_offset = 0	// will be removed later
 
 	/**
 	  * In case you have multiple types, you automatically use the most useful one.
@@ -216,11 +213,7 @@
 		return
 
 	pulling.pulledby = null
-	var/mob/living/ex_pulled = pulling
 	pulling = null
-	if(isliving(ex_pulled))
-		var/mob/living/L = ex_pulled
-		L.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 
 /**

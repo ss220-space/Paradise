@@ -173,7 +173,7 @@
 				add_attack_logs(M, src, "attacked")
 				updatehealth()
 			if(INTENT_DISARM)
-				if(!lying_angle && !ascended) //No stealing the arch devil's pitchfork.
+				if(body_position == STANDING_UP && !ascended) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out

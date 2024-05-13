@@ -196,21 +196,30 @@
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
-/mob/living/simple_animal/StartResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_resting
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
 
-/mob/living/simple_animal/StopResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
+/mob/living/simple_animal/post_lying_down()
+	if(stat == DEAD)
+		return
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting)
+		return
+	icon_state = icon_resting
+	if(collar_type)
+		collar_type = "[initial(collar_type)]_rest"
+		regenerate_icons()
+
+
+/mob/living/simple_animal/post_get_up()
+	if(stat == DEAD)
+		return
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting)
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = initial(collar_type)
+		regenerate_icons()
+
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
@@ -219,7 +228,7 @@
 		if(health <= 0)
 			death()
 		else
-			WakeUp()
+			set_stat(CONSCIOUS)
 	..()
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -229,7 +238,7 @@
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
 	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
+		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
@@ -467,12 +476,10 @@
 
 /mob/living/simple_animal/revive()
 	..()
-	density = initial(density)
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-	update_canmove()
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
@@ -580,38 +587,6 @@
 	. = ..()
 	if(pcollar)
 		. |= pcollar.GetAccess()
-
-/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
-		drop_r_hand()
-		drop_l_hand()
-		canmove = FALSE
-	else if(buckled)
-		canmove = FALSE
-	else
-		canmove = TRUE
-	if(!canmove)
-		walk(src, 0) //stop mid walk
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
-/mob/living/simple_animal/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/changed = FALSE
-
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed = TRUE
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(!changed)
-		return
-
-	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
-	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, easing = EASE_IN|EASE_OUT)
 
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion

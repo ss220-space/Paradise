@@ -389,21 +389,18 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	//REST
 	else if((findtext(message, GLOB.rest_words)))
-		for(var/V in listeners)
-			var/mob/living/L = V
-			if(!L.resting)
-				L.lay_down()
+		for(var/mob/living/listener as anything in listeners)
+			listener.set_resting(TRUE, instant = TRUE)
 		next_command = world.time + cooldown_meme
 
 	//GET UP
 	else if((findtext(message, GLOB.getup_words)))
-		for(var/V in listeners)
-			var/mob/living/L = V
-			if(L.resting)
-				L.lay_down() //aka get up
-			L.SetStunned(0)
-			L.SetWeakened(0)
-			L.SetParalysis(0) //i said get up i don't care if you're being tazed
+		for(var/mob/living/listener as anything in listeners)
+			listener.SetStunned(0)
+			listener.SetWeakened(0)
+			listener.SetParalysis(0) //i said get up i don't care if you're being tazed
+			listener.set_resting(FALSE, instant = TRUE)
+			listener.get_up(instant = TRUE)
 		next_command = world.time + cooldown_damage
 
 	//SIT

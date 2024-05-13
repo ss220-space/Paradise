@@ -10,6 +10,7 @@
 	health = 25
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	rotate_on_lying = FALSE
 
 	tts_seed = "Templar"
 

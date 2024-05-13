@@ -829,8 +829,6 @@
 
 	return
 
-/mob/living/simple_animal/borer/can_use_vents()
-	return
 
 /mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
 

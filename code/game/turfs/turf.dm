@@ -551,12 +551,12 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/living/faller, forced)
-	faller.lying_angle = pick(90, 270)
-	if(!forced)
-		return
-	if(faller.has_gravity())
+
+/turf/handle_fall(mob/living/carbon/faller)
+	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
+	faller.drop_from_hands()
+
 
 /turf/singularity_act()
 	if(intact)

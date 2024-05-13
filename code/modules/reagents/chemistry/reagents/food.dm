@@ -922,7 +922,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return

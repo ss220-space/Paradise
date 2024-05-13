@@ -52,6 +52,7 @@
 #include "code\__DEFINES\diseases.dm"
 #include "code\__DEFINES\dmjit.dm"
 #include "code\__DEFINES\dna.dm"
+#include "code\__DEFINES\do_afters.dm"
 #include "code\__DEFINES\emotes_defines.dm"
 #include "code\__DEFINES\error_handler.dm"
 #include "code\__DEFINES\flags.dm"

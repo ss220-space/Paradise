@@ -359,7 +359,7 @@
 		parrot_state = PARROT_WANDER
 		return
 
-	if(!isturf(loc) || !canmove || buckled)
+	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move.
 
 

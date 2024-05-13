@@ -837,8 +837,6 @@
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)
-		return FALSE
 	if(stat == DEAD)
 		return FALSE
 	if(anchored)
@@ -848,10 +846,6 @@
 	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
 	return TRUE
-
-/mob/proc/fall(var/forced)
-	drop_l_hand()
-	drop_r_hand()
 
 /mob/proc/facedir(ndir)
 	if(!canface())
@@ -1184,21 +1178,26 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+
+///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)
 	set waitfor = FALSE
-	if(!spintime || !speed || spintime > 100)
-		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
+	var/our_dir = dir
+	if((spintime < 1) || (speed < 1) || !spintime || !speed)
+		return
+
 	while(spintime >= speed)
 		sleep(speed)
-		switch(dir)
+		switch(our_dir)
 			if(NORTH)
-				setDir(EAST)
+				our_dir = EAST
 			if(SOUTH)
-				setDir(WEST)
+				our_dir = WEST
 			if(EAST)
-				setDir(SOUTH)
+				our_dir = SOUTH
 			if(WEST)
-				setDir(NORTH)
+				our_dir = NORTH
+		setDir(our_dir)
 		spintime -= speed
 
 /mob/proc/is_literate()
