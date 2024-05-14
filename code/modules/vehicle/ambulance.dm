@@ -125,7 +125,7 @@
 	var/obj/vehicle/ambulance/amb = over_object
 	if(amb.bed)
 		amb.bed = null
-		balloon_alert(usr, "You unhook the bed to the ambulance.")
+		balloon_alert(usr, "unhooked the bed to the ambulance.")
 	else
 		amb.bed = src
-		balloon_alert(usr, "You hook the bed to the ambulance.")
+		balloon_alert(usr, "hooked the bed to the ambulance.")

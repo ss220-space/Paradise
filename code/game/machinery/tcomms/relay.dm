@@ -181,7 +181,7 @@
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else
-				balloon_alert(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
+				to_chat(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
 
 		// Set network ID
 		if("network_id")

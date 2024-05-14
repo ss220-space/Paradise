@@ -112,22 +112,22 @@
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
-		user.balloon_alert(user, "<span class='warning'>You're already using [src]!</span>")
+		user.balloon_alert(user, "You're already using [src]!")
 		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		C.balloon_alert(user, "<span class='warning'>Error: User located in container.</span>")
+		C.balloon_alert(user, "Error: User located in container.")
 		return FALSE
 	if(rcell.charge < chargecost)
-		user.balloon_alert(user, "<span class='warning'>Insufficient charge.</span>")
+		user.balloon_alert(user, "Insufficient charge.")
 		return FALSE
 	if(!pad)
-		user.balloon_alert(user, "<span class='warning'>Error: No telepad selected.</span>")
+		user.balloon_alert(user, "Error: No telepad selected.")
 		return FALSE
 	if(!is_level_reachable(C.z))
-		user.balloon_alert(user, "<span class='warning'>Warning: No telepads in range!</span>")
+		user.balloon_alert(user, "Warning: No telepads in range!")
 		return FALSE
 	if(C.anchored)
-		user.balloon_alert(user, "<span class ='warning'>Error: [C.name] is anchored!</span>")
+		user.balloon_alert(user, "Error: [C.name] is anchored!")
 		return FALSE
 
 	teleport(user, C, pad)
@@ -135,7 +135,7 @@
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	user.balloon_alert(user, "<span class='notice'>Teleporting [C]...</span>")
+	user.balloon_alert(user, "Teleporting [C]...")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
@@ -146,4 +146,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	user.balloon_alert(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	user.balloon_alert(user, "success! [round(rcell.charge/chargecost)] charge\s left.")

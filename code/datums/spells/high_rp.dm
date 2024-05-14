@@ -10,7 +10,7 @@
 /obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..(target, special)
 	if(target)
-		to_chat(target, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
+		to_chat(target, "нужно дышать, иначе задохнусь!")
 
 /mob/living/carbon/human/proc/curse_high_rp(delay = 300, oxyloss = 45)
 	var/mob/living/carbon/human/H = src
@@ -23,14 +23,14 @@
 
 /obj/item/organ/internal/high_rp_tumor/on_life()
 	if(world.time > (last_pump + (pump_delay - pump_window)))
-		owner.balloon_alert(owner, "Мне начинает не хватать воздуха.")
+		owner.balloon_alert(owner, "не хватает воздуха!")
 		warned = 1
 
 	if(world.time > (last_pump + pump_delay))
 		var/mob/living/carbon/human/H = owner
 		H.setOxyLoss(H.oxyloss + oxy_loss)
 		H.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
-		H.balloon_alert(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
+		H.balloon_alert(H, "нужно дышать, иначе задохнусь!")
 		last_pump = world.time
 		warned = 0
 
@@ -47,10 +47,10 @@
 		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target
 
 		if(world.time < (hrp_tumor.last_pump + (hrp_tumor.pump_delay - hrp_tumor.pump_window))) //no spam
-			owner.balloon_alert(owner, "<span class='userdanger'>Слишком рано!</span>")
+			owner.balloon_alert(owner, "слишком рано!")
 			hrp_tumor.owner.setOxyLoss(hrp_tumor.owner.oxyloss + hrp_tumor.oxy_loss/5)
 			return
 
 		hrp_tumor.last_pump = world.time
-		owner.balloon_alert(owner, "<span class = 'notice'>Вы дышите.</span>")
+		owner.balloon_alert(owner, "вы дышите.")
 		owner.custom_emote(EMOTE_VISIBLE, "дыш%(ит,ат)%.")

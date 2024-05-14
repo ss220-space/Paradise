@@ -65,7 +65,7 @@
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		balloon_alert(AM, span_danger("You feel a series of tiny pricks!"))
+		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
 
 /obj/machinery/optable/process()
 	update_patient()
@@ -117,14 +117,14 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		user.balloon_alert(user, span_notice("You deconstruct the table."))
+		user.balloon_alert(user, "table deconstructed.")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		balloon_alert(usr, span_notice("The table is already occupied!"))
+		balloon_alert(usr, span_notice("already occupied!"))
 		return FALSE
 	else
 		return TRUE

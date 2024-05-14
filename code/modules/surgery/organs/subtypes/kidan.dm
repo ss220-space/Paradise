@@ -35,7 +35,7 @@
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			owner.balloon_alert(owner, span_warning("You're too hungry to be bioluminescent!"))
+			owner.balloon_alert(owner, "too hungry to bioluminescent!")
 			return
 
 		if(owner.stat)
@@ -67,7 +67,7 @@
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		owner.balloon_alert(owner, span_warning("You're too hungry to be bioluminescent!"))
+		owner.balloon_alert(owner, "too hungry to bioluminescent!")
 		return 0
 
 	if(!colour)

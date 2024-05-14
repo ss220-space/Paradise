@@ -58,11 +58,11 @@
 	var/mob/living/carbon/human/U = user
 
 	if(!wielded)
-		user.balloon_alert(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
+		user.balloon_alert(user, "need both hands to garrote [M]!")
 		return
 
 	if(!ishuman(M))
-		user.balloon_alert(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
+		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
 		return
 
 	if(M == U)
@@ -70,7 +70,7 @@
 		return
 
 	if(M.dir != U.dir)
-		user.balloon_alert(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
+		user.balloon_alert(user, "<span class='warning'>bad angle!</span>")
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.

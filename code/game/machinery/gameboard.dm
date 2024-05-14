@@ -46,10 +46,10 @@
 	if(.)
 		return
 	if(in_use)
-		balloon_alert(user, "This gameboard is already in use!")
+		balloon_alert(user, "already in use!")
 		return
 	if(!anchored)
-		balloon_alert(user, "The gameboard is not secured!")
+		balloon_alert(user, "gameboard is not secured!")
 		return
 	interact(user)
 

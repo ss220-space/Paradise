@@ -54,7 +54,7 @@
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
-		user.balloon_alert(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
+		user.balloon_alert(user, "[src] is now [armed ? "armed" : "disarmed"]")
 
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.

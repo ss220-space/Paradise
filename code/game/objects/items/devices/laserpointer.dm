@@ -55,9 +55,9 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			user.balloon_alert(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			user.balloon_alert(user, "installed a [diode.name] in [src].")
 		else
-			user.balloon_alert(user, "<span class='notice'>[src] already has a cell.</span>")
+			user.balloon_alert(user, "[src] already has a cell")
 		return
 
 	return ..()
@@ -65,7 +65,7 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(diode)
-		user.balloon_alert(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+		user.balloon_alert(user, "removed [diode.name] from the [src].")
 		diode.forceMove(get_turf(loc))
 		diode = null
 
@@ -78,16 +78,16 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		user.balloon_alert(user, "<span class='notice'>Nothing happens!</span>")
+		user.balloon_alert(user, "nothing happens!")
 		return
 	if(!user.IsAdvancedToolUser())
-		user.balloon_alert(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		user.balloon_alert(user, "You are too clumsy!")
 		return
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		user.balloon_alert(user, "<span class='notice'>It's still charging.</span>")
+		user.balloon_alert(user, "it's still charging.")
 		return
 
 	var/outmsg
@@ -157,7 +157,7 @@
 	if(outmsg)
 		user.balloon_alert(user, outmsg)
 	else
-		user.balloon_alert(user, "<span class='info'>You point [src] at [target].</span>")
+		user.balloon_alert(user, "pointed at [target].")
 
 	energy -= 1
 	if(energy <= max_energy)
