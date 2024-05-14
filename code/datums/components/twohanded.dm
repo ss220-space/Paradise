@@ -205,7 +205,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			user.balloon_alert((user, "You feel broken bones moving in your arms")
+			user.balloon_alert(user, "You feel broken bones moving in your arms")
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())

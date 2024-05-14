@@ -48,7 +48,7 @@
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(trash_bag)
-			balloon_alert(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
+			balloon_alert(user, "[src] already has a trashbag hooked!")
 			return
 		if(!user.drop_from_active_hand())
 			return
