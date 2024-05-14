@@ -105,9 +105,6 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(use_starlight)
-		static_lighting = CONFIG_GET(flag/starlight)
-
 	if(requires_power)
 		luminosity = 0
 	else

@@ -77,10 +77,6 @@
 	plane = RENDER_PLANE_GAME
 	render_relay_planes = list(RENDER_PLANE_MASTER)
 
-/atom/movable/screen/plane_master/rendering_plate/game_plate/Initialize(mapload)
-	. = ..()
-	add_filter("displacer", 1, displacement_map_filter(render_source = OFFSET_RENDER_TARGET(GRAVITY_PULSE_RENDER_TARGET, offset), size = 10))
-
 // Blackness renders weird when you view down openspace, because of transforms and borders and such
 // This is a consequence of not using lummy's grouped transparency, but I couldn't get that to work without totally fucking up
 // Sight flags, and shooting vis_contents usage to the moon. So we're doin it different.

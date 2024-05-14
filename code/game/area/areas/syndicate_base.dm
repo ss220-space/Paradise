@@ -172,9 +172,11 @@
 
 /area/syndicate/unpowered/syndicate_space_base/turrets
 	name = "Syndicate Space Turrets"
-	use_starlight = TRUE
 	sound_environment = SOUND_AREA_SPACE
 	icon_state = "taipan_turrets"
+	static_lighting = TRUE
+	base_lighting_alpha = 0
+	base_lighting_color = null
 
 /area/syndicate/unpowered/syndicate_space_base/vault
 	name = "Syndicate Space Vault"

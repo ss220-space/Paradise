@@ -11,11 +11,8 @@
 #define CLICKCATCHER_PLANE -80
 
 
-#define PLANE_SPACE -21
+#define PLANE_SPACE -25
 #define PLANE_SPACE_PARALLAX -20
-
-#define GRAVITY_PULSE_PLANE -12
-#define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
 #define RENDER_PLANE_TRANSPARENT -11 //Transparent plane that shows openspace underneath the floor
 

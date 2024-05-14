@@ -17,6 +17,8 @@
 	if(!apply_parallax_pref())
 		for(var/atom/movable/screen/plane_master/parallax as anything in get_true_plane_masters(PLANE_SPACE_PARALLAX))
 			parallax.hide_plane(mymob)
+		for(var/atom/movable/screen/plane_master/plane_master as anything in get_true_plane_masters(PLANE_SPACE))
+			plane_master.enable_alpha() // I don't know what causes alpha to disable in first place
 		return
 
 	for(var/atom/movable/screen/plane_master/parallax as anything in get_true_plane_masters(PLANE_SPACE_PARALLAX))

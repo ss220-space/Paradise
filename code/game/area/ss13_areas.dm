@@ -42,9 +42,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space"
 	requires_power = TRUE
 	always_unpowered = TRUE
-	static_lighting = FALSE
-	base_lighting_color = COLOR_WHITE
-	base_lighting_alpha = 255
+	static_lighting = TRUE
+	base_lighting_alpha = 0
+	base_lighting_color = null
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
@@ -56,7 +56,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/nearstation
 	icon_state = "space_near"
-	use_starlight = TRUE
 
 /area/space/planetary
 	icon_state = "space_planet"
@@ -1612,9 +1611,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	requires_power = FALSE
 	valid_territory = FALSE
-	use_starlight = TRUE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	static_lighting = TRUE
+	base_lighting_alpha = 0
+	base_lighting_color = null
 
 /area/solar/auxport
 	name = "\improper North-West Solar Array"

@@ -45,7 +45,7 @@
 /mob/camera/aiEye/Move()
 	return 0
 
-/mob/camera/ai_eye/zMove(dir, turf/target, z_move_flags = NONE, recursions_left = 1, list/falling_movs)
+/mob/camera/aiEye/zMove(dir, turf/target, z_move_flags = NONE, recursions_left = 1, list/falling_movs)
 	. = ..()
 	if(.)
 		setLoc(loc, force_update = TRUE)

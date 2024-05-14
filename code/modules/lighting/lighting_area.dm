@@ -21,8 +21,6 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 	var/base_lighting_color = null
 	///Whether this area allows static lighting and thus loads the lighting objects
 	var/static_lighting = TRUE
-	///Whther this area is iluminated by starlight
-	var/use_starlight = FALSE
 
 /area/proc/set_base_lighting(new_base_lighting_color = -1, new_alpha = -1)
 	if(base_lighting_alpha == new_alpha && base_lighting_color == new_base_lighting_color)
@@ -42,6 +40,8 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 		if("base_lighting_alpha")
 			set_base_lighting(new_alpha = var_value)
 			return TRUE
+		if("static_lighting")
+			update_static_lighting(var_value)
 	return ..()
 
 /area/proc/update_base_lighting()
@@ -72,3 +72,15 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 		T.add_overlay(lighting_effect)
 		T.luminosity = 1
 	area_has_base_lighting = TRUE
+
+/area/proc/update_static_lighting(new_static_value)
+	if(new_static_value == static_lighting)
+		return
+	if(new_static_value)
+		for(var/turf/T in src)
+			T.lighting_build_overlay()
+			CHECK_TICK
+	else
+		for(var/turf/T in src)
+			T.lighting_clear_overlay()
+			CHECK_TICK
