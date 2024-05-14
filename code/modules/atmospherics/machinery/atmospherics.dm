@@ -104,7 +104,8 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_vision_img = image(src, loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
-	SET_PLANE(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, get_turf(src))
+	var/turf/T = get_turf(src)
+	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, T)
 
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
@@ -356,6 +357,12 @@ Pipelines + Other Objects -> Pipe network
 	var/client/our_client = user.client
 	if(!our_client)
 		return
+
+	var/turf/old_turf = get_turf(src)
+	var/turf/new_turf = get_turf(target_move)
+	if(old_turf?.z != new_turf?.z)
+		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
+		on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 	our_client.set_eye(target_move)
 	// Let's smooth out that movement with an animate yeah?

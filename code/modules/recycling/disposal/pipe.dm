@@ -14,7 +14,7 @@
 	max_integrity = 200
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	damage_deflection = 10
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	/// The last time a sound was played from this
 	var/last_sound

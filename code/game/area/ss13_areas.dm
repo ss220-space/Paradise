@@ -81,7 +81,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	valid_territory = FALSE
 	has_gravity = STANDARD_GRAVITY
-	static_lighting = FALSE
+	static_lighting = TRUE
 	base_lighting_alpha = 255
 	base_lighting_color = COLOR_WHITE
 	parallax_movedir = NORTH
@@ -1613,7 +1613,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
-	static_lighting = TRUE
+	static_lighting = FALSE
 	base_lighting_alpha = 0
 	base_lighting_color = null
 

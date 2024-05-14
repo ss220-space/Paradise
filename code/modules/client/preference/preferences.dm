@@ -580,7 +580,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(MULTIZ_DETAIL_DEFAULT)
 					dat += "Default"
 				if(MULTIZ_DETAIL_LOW)
-					dat += "Medium"
+					dat += "Low"
 				if(MULTIZ_DETAIL_MEDIUM)
 					dat += "Medium"
 				if(MULTIZ_DETAIL_HIGH)
@@ -2526,6 +2526,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
 					if(!new_parallax)
 						return
+					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && new_parallax == PARALLAX_DISABLE)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with non-default Multi-Z settings. Please turn on \"Parallax\" in order to limit Multi-Z."))
+						return
+
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
@@ -2538,9 +2542,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"High" = MULTIZ_DETAIL_HIGH,
 					)
 
+					to_chat(user, span_warning("Be warned, setting Multi-z detail to non-Default, may cause quality loss(such as obscured turfs won't be in black)."))
 					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
 					if(!new_value)
 						return
+					if(parallax == PARALLAX_DISABLE && new_value != MULTIZ_DETAIL_DEFAULT)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with disabled parallax. Please set \"Multi-Z Detail\" to default in order to disable Parallax."))
+						return
+
 					multiz_detail = multiz_det_styles[new_value]
 					var/datum/hud/my_hud = parent.mob?.hud_used
 					if(!my_hud)

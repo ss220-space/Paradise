@@ -29,7 +29,7 @@
 	response_harm = "punches their fist through"
 	deathmessage = "fizzles out into faint sparks, leaving only a slight trail of smoke..."
 	level = 1
-	plane = GAME_PLANE
+	plane = FLOOR_PLANE
 	layer = ABOVE_PLATING_LAYER
 
 	maxHealth = 50
@@ -179,7 +179,7 @@
 
 	for(var/obj/structure/cable/C in T)
 		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
-		cable_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 		cable_images[T] += cable_image
 		client?.images += cable_image
 
@@ -657,7 +657,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-	apc_image.plane = ABOVE_LIGHTING_PLANE
+	SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
 
@@ -712,7 +712,7 @@
 
 			var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
 			// good visibility here
-			cable_image.plane = ABOVE_LIGHTING_PLANE
+			SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 			LAZYADD(cable_images[cable_turf], cable_image)
 			client.images += cable_image
 
@@ -724,7 +724,7 @@
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
 		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-		apc_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
