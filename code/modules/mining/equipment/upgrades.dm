@@ -63,8 +63,7 @@
 		if(/obj/item/gun/energy/kinetic_accelerator/experimental)
 			var/obj/item/gun/energy/kinetic_accelerator/gun = target
 			if(gun.bayonet)
-				gun.bayonet.forceMove(drop_location())
-				gun.clear_bayonet()
+				gun.set_bayonet(null)
 			if(gun.gun_light)
 				for(var/obj/item/flashlight/seclite/S in gun)
 					S.loc = get_turf(user)

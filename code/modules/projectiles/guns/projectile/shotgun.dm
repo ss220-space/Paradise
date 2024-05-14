@@ -214,8 +214,8 @@
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
 	bolt_open = FALSE
 	can_bayonet = TRUE
-	knife_x_offset = 27
-	knife_y_offset = 13
+	bayonet_x_offset = 27
+	bayonet_y_offset = 13
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
