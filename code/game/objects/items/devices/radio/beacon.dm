@@ -241,7 +241,7 @@
 								/obj/item/ammo_box/magazine/m10mm/fire = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
 								/obj/item/storage/box/sec = 1),												// 0 TK
-			"Meta Ops" = list(	"Name" = "\improper 'MetaOps' bundle",	// 140-187 TK
+			"MetaOps" = list(	"Name" = "\improper 'MetaOps' bundle",	// 140-187 TK
 								"Desc" = "Wreak chaos and disguise yourself as a nuclear operative.",
 								/obj/item/clothing/suit/space/hardsuit/syndi/elite = 1,						// 50 TK
 								/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff = 1,			// 0-45 TK
