@@ -2,8 +2,8 @@
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 
 	var/obj/machinery/atmospherics/binary/circulator/cold_circ
@@ -18,9 +18,9 @@
 
 /obj/machinery/power/generator/New()
 	..()
-	update_desc()
+	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/machinery/power/generator/update_desc()
+/obj/machinery/power/generator/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 
@@ -60,25 +60,28 @@
 		hot_circ = null
 
 	power_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	updateDialog()
 
-/obj/machinery/power/generator/power_change()
+
+/obj/machinery/power/generator/power_change(forced = FALSE)
 	if(!anchored)
 		stat |= NOPOWER
-	else
-		..()
+		update_icon(UPDATE_OVERLAYS)
+		return
+	if(!..())
+		return
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/generator/update_icon()
+
+/obj/machinery/power/generator/update_overlays()
+	. = ..()
 	if(stat & (NOPOWER|BROKEN))
-		overlays.Cut()
-	else
-		overlays.Cut()
+		return
+	if(lastgenlev != 0)
+		. += "teg-op[lastgenlev]"
+	. += "teg-oc[lastcirc]"
 
-		if(lastgenlev != 0)
-			overlays += image('icons/obj/engines_and_power/power.dmi', "teg-op[lastgenlev]")
-
-		overlays += image('icons/obj/engines_and_power/power.dmi', "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -141,7 +144,7 @@
 	if((genlev != lastgenlev) || (circ != lastcirc))
 		lastgenlev = genlev
 		lastcirc = circ
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 	updateDialog()
 
@@ -177,13 +180,13 @@
 		hot_dir = SOUTH
 	connect()
 	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(!anchored)
 		disconnect()
 		power_change()
@@ -246,6 +249,3 @@
 			connect()
 	return 1
 
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()

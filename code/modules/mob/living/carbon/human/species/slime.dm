@@ -9,9 +9,9 @@
 #define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
-	name = "Slime People"
+	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
-	language = "Bubblish"
+	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -28,7 +28,7 @@
 	male_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	reagent_tag = PROCESS_ORG
@@ -44,6 +44,8 @@
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/slime,
 		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/slime,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/slime
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/unbreakable),
@@ -143,7 +145,11 @@
 
 
 /datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !(DEAF in user.mutations) && !HAS_TRAIT(user, TRAIT_DEAF)
+	return !HAS_TRAIT(user, TRAIT_DEAF)
+
+
+/datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
+	return NO_VISION_ORGAN
 
 
 /datum/action/innate/slimecolor
@@ -218,11 +224,7 @@
 			chosen_limb_rus = "правой кисти"
 
 	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-			to_chat(H, "<span class='warning'>Вы не можете регенерировать недостающие конечности в текущем состоянии</span>")
-			return
-
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, H, IGNORE_LYING|IGNORE_STUNNED|IGNORE_HELD_ITEM))
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
 			to_chat(H, "<span class='warning'>Вы слишком голодны чтобы регенерировать!</span>")
 			return
@@ -248,7 +250,7 @@
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
 		var/obj/item/organ/external/new_limb = new limb_path(H)
-		new_limb.open = 0 // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
+		new_limb.open = ORGAN_CLOSED // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		H.adjustBruteLoss(stored_brute)
 		H.adjustFireLoss(stored_burn)
 		H.update_body()
@@ -295,7 +297,7 @@
 	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 	if(new_style)
 		H.visible_message("<span class='notice'>Волосы на голове [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей прическе.</span>")
-		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))
 			H.change_hair(new_style)
 			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
 			H.visible_message("<span class='notice'>[H] изменил свою прическу.</span>", "<span class='notice'>Вы изменили свою прическу.</span>")
@@ -318,7 +320,7 @@
 	var/new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
 	if(new_style)
 		H.visible_message("<span class='notice'>Волосы на лице [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей бороде.</span>")
-		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))
 			H.change_facial_hair(new_style)
 			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
 			H.visible_message("<span class='notice'>[H] изменил свою бороду.</span>", "<span class='notice'>Вы изменили свою бороду.</span>")

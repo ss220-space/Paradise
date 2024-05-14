@@ -8,8 +8,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	name = "Circuit Imprinter"
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
-	icon_open = "circuit_imprinter_t"
-	icon_closed = "circuit_imprinter"
+	base_icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER
 
 	categories = list(
@@ -38,8 +37,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_circuit_imprinter"
-		icon_open = "syndie_circuit_imprinter_t"
-		icon_closed = "syndie_circuit_imprinter"
+		base_icon_state = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
@@ -53,8 +51,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_circuit_imprinter"
-		icon_open = "syndie_circuit_imprinter_t"
-		icon_closed = "syndie_circuit_imprinter"
+		base_icon_state = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
@@ -73,7 +70,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	T = clamp(T, 1, 4)
 	efficiency_coeff = 1 / (2 ** (T - 1))
 
-/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, var/M)
+/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
 	var/A = materials.amount(M)
@@ -82,12 +79,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O, mob/user, params)
 	if(shocked)
 		add_fingerprint(user)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, O))
 		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_imprinter = null
@@ -98,7 +95,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
+		if(O.tool_behaviour == TOOL_CROWBAR)
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)

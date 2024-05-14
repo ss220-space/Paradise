@@ -27,6 +27,12 @@
 	circuit = /obj/item/circuitboard/powermonitor/secret
 	is_secret_monitor = TRUE
 
+/obj/machinery/computer/monitor/secret/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "power_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb11"
+
 /obj/machinery/computer/monitor/New()
 	..()
 	GLOB.power_monitors += src
@@ -47,8 +53,8 @@
 	QDEL_NULL(power_monitor)
 	return ..()
 
-/obj/machinery/computer/monitor/power_change()
-	..()
+/obj/machinery/computer/monitor/power_change(forced = FALSE)
+	. = ..()
 	if(is_secret_monitor)
 		return
 	if(!(stat & (NOPOWER|BROKEN)))

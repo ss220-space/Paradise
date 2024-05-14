@@ -26,7 +26,6 @@
 /mob/living/silicon/robot/syndicate/saboteur/ninja/New(loc)
 	..()
 	mmi = new /obj/item/mmi/robotic_brain/ninja(src)
-	mmi.icon_state = "wanter"
 
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	. = ..()
@@ -61,7 +60,7 @@
 /obj/item/gun/energy/shuriken_emitter/borg/equip_to_best_slot(mob/M)
 	return
 
-/obj/item/gun/energy/shuriken_emitter/borg/can_shoot()
+/obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
 	return TRUE
 
 /obj/item/ammo_casing/energy/shuriken/borg

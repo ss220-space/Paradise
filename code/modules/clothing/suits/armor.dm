@@ -11,13 +11,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 20, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -47,49 +47,58 @@
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	icon_state = "armor"
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
+
+/obj/item/clothing/suit/armor/vest/security/update_icon_state()
+	icon_state = "armor[attached_badge ? "sec" : ""]"
+
+
+/obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
+	. = ..()
+	if(attached_badge)
+		desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+	else
+		desc = initial(desc)
+
+
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge)
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge && user.drop_transfer_item_to_loc(I, src))
+		add_fingerprint(user)
+		attached_badge = I
+		var/datum/action/item_action/remove_badge/holoaction = new(src)
+		holoaction.Grant(user)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You attach [attached_badge] to [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
-
 		for(var/datum/action/item_action/remove_badge/action in actions)
-			src.actions.Remove(action)
+			LAZYREMOVE(actions, action)
 			action.Remove(user)
-
-		icon_state = "armor"
-		user.update_inv_wear_suit()
-		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
 		attached_badge = null
-
+		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_equipped_item()
+		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
 		return
 	..()
+
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
@@ -200,19 +209,19 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
-	hide_tail_by_species = list("Vox")
+	hide_tail_by_species = list(SPECIES_VOX)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/riot/knight
@@ -221,34 +230,34 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
-	hide_tail_by_species = list("Vulpkanin")
+	hide_tail_by_species = list(SPECIES_VULPKANIN)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/riot/knight/templar
@@ -259,8 +268,8 @@
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/vest/durathread
@@ -279,9 +288,23 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 70
 	put_on_delay = 50
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -321,38 +344,45 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 
+
+/obj/item/clothing/suit/armor/reactive/update_icon_state()
+	icon_state =  "reactive[active ? "" : "off"]"
+	item_state =  "reactive[active ? "" : "off"]"
+
+
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
-	active = !(active)
 	if(emp_d)
-		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
+		to_chat(user, span_warning("[src] is disabled from an electromagnetic pulse!"))
 		return
+	active = !active
+	update_icon(UPDATE_ICON_STATE)
+	add_fingerprint(user)
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
-		icon_state = "reactive"
-		item_state = "reactive"
+		to_chat(user, span_notice("[src] is now active."))
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
-		icon_state = "reactiveoff"
-		item_state = "reactiveoff"
-		add_fingerprint(user)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		to_chat(user, span_notice("[src] is now inactive."))
+	update_equipped_item()
+
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	active = FALSE
 	emp_d = TRUE
-	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
-	if(istype(loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/C = loc
-		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_warning("[src] starts malfunctioning!"))
+		update_equipped_item()
 	..()
+
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
 	emp_d = FALSE
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		update_equipped_item()
+		to_chat(user, span_notice("Looks like [src] returns its functionality."))
+
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
@@ -368,7 +398,7 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue
@@ -446,7 +476,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -461,24 +491,24 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	hide_tail_by_species = list("Vox")
+	hide_tail_by_species = list(SPECIES_VOX)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	hide_tail_by_species = list("Vox", "Vulpkanin")
+	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"
@@ -486,8 +516,8 @@
 	icon_state = "tdred"
 	item_state = "tdred"
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/armor/tdome/green
@@ -496,8 +526,8 @@
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 //Non-hardsuit ERT armor.
@@ -525,11 +555,11 @@
 	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	hide_tail_by_species = list("Vox", "Vulpkanin")
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
+	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 //Engineer
@@ -576,14 +606,14 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	hide_tail_by_species = list("Vulpkanin")
+	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -593,8 +623,8 @@
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags = BLOCKHAIR
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/goliath
@@ -613,8 +643,32 @@
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
 	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/hooded/goliath/wizard
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	hoodtype = /obj/item/clothing/head/hooded/goliath/wizard
+	magical = TRUE
+
+/obj/item/clothing/head/hooded/goliath/wizard
+	name = "shaman skull"
+	icon_state = "shamskull"
+	item_state = "shamskull"
+	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
+	armor = list("melee" = 60, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 60)
+	magical = TRUE
+
+//mob_size using for crusher mark
+/obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
+	. = ..()
+	if(istype(user) && slot == ITEM_SLOT_HEAD)
+		user.mob_size = MOB_SIZE_LARGE
+
+/obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
+	if(istype(user)&& slot == ITEM_SLOT_HEAD)
+		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -626,14 +680,14 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	hide_tail_by_species = list("Vulpkanin")
+	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/makeshift_armor
 	name = "makeshift armor"
@@ -641,7 +695,7 @@
 	icon_state = "makeshift_armor"
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
-	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 //Dredd
 
@@ -649,4 +703,8 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
-	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		)
+

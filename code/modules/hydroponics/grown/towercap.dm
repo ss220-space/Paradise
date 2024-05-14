@@ -155,13 +155,19 @@
 	icon_state = "bonfire"
 	density = FALSE
 	anchored = TRUE
-	buckle_lying = FALSE
-	var/burning = 0
+	buckle_lying = 0
+	pass_flags_self = PASSTABLE|LETPASSTHROW
+	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+
+/obj/structure/bonfire/update_icon_state()
+	icon_state = "bonfire[burning ? "_on_fire" : ""]"
+
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
@@ -184,7 +190,7 @@
 	if(burning)
 		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!")
 		return
-	if(!has_buckled_mobs() && do_after(user, 50, target = src))
+	if(!has_buckled_mobs() && do_after(user, 5 SECONDS, src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
 			L.pixel_x += rand(1,4)
@@ -202,9 +208,9 @@
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && CheckOxygen())
-		icon_state = "bonfire_on_fire"
-		burning = 1
-		set_light(6, l_color = "#ED9200")
+		burning = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		set_light(6, l_color = "#ED9200", l_on = TRUE)
 		Burn()
 		START_PROCESSING(SSobj, src)
 
@@ -241,15 +247,16 @@
 
 /obj/structure/bonfire/extinguish()
 	if(burning)
-		icon_state = "bonfire"
-		burning = 0
-		set_light(0)
+		burning = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(..())
-		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
-	if(..())
-		buckled_mob.pixel_y -= 13
+/obj/structure/bonfire/post_buckle_mob(mob/living/target)
+	target.pixel_y += 13
+
+
+/obj/structure/bonfire/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= 13
+

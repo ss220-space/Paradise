@@ -37,7 +37,9 @@
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
-	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
+	var/list/inv_slots[SLOT_HUD_AMOUNT]			// /obj/screen/inventory objects, ordered by their slot ID.
+	/// List of obj/screen/inventory/hand objects
+	var/list/hand_slots
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
@@ -58,6 +60,8 @@
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(mymob)
 
+	hand_slots = list()
+
 	for(var/mytype in subtypesof(/obj/screen/plane_master))
 		var/obj/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
@@ -66,7 +70,6 @@
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
-
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -82,6 +85,7 @@
 	action_intent = null
 	zone_select = null
 	move_intent = null
+	hand_slots.Cut()
 
 	QDEL_LIST(toggleable_inventory)
 
@@ -160,10 +164,8 @@
 				mymob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			if(inv_slots[slot_l_hand])
-				mymob.client.screen += inv_slots[slot_l_hand]	//we want the hands to be visible
-			if(inv_slots[slot_r_hand])
-				mymob.client.screen += inv_slots[slot_r_hand]	//we want the hands to be visible
+			for(var/obj/screen/inventory/hand/hand_box as anything in hand_slots)
+				mymob.client.screen += hand_box	//we want the hands to be visible
 			if(action_intent)
 				mymob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
@@ -234,3 +236,12 @@
 
 /datum/hud/proc/update_locked_slots()
 	return
+
+
+/mob/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
+	QDEL_NULL(hud_used)
+	create_mob_hud()
+	update_action_buttons_icon()
+	if(hud_used)
+		hud_used.show_hud(hud_used.hud_version)
+

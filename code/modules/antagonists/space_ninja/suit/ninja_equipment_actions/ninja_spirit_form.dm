@@ -44,7 +44,7 @@
 			ninja.visible_message(span_warning("[ninja.name] looks very unstable and strange!"), span_notice("You now can pass almost through everything.")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
 			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
-		ninja.pass_flags |= PASS_EVERYTHING
+		ninja.pass_flags |= PASSEVERYTHING
 		drop_restraints()
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
 			ninja_action.use_action()
@@ -84,13 +84,12 @@
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/restraint
 	if(ninja.handcuffed)
-		restraint = ninja.get_item_by_slot(slot_handcuffed)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
 	if(ninja.legcuffed)
-		restraint = ninja.get_item_by_slot(slot_legcuffed)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
+	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))

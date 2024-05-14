@@ -6,8 +6,8 @@
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 
@@ -24,6 +24,7 @@
 		if(I > MAX_ICON_STATES_FOR_NOTICES)
 			break
 		. += image(src.icon, icon_state = "[src.icon_state][I]")
+
 
 //attaching papers!!
 /obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)
@@ -60,7 +61,7 @@
 	qdel(src)
 
 /obj/structure/noticeboard/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/wood(loc, 5)
 		..()
 
@@ -68,7 +69,7 @@
 	..()
 	usr.set_machine(src)
 	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))	//For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/paper/paper = locateUID(href_list["remove"])
 		if(istype(paper) && paper.loc == src)
@@ -79,7 +80,7 @@
 			update_icon(UPDATE_OVERLAYS)
 
 	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //For when a player is handcuffed while they have the notice window open
 			return
 		var/obj/item/paper/paper = locateUID(href_list["write"])
 		if(istype(paper) && paper.loc == src) //ifthe paper's on the board

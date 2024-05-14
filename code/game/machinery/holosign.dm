@@ -5,8 +5,8 @@
 	icon = 'icons/obj/holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
-	anchored = 1
-	var/lit = 0
+	anchored = TRUE
+	var/lit = FALSE
 	var/id = null
 	var/on_icon = "sign_on"
 
@@ -14,18 +14,17 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	lit = !lit
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/holosign/update_icon()
-	if(!lit)
-		icon_state = "sign_off"
-	else
-		icon_state = on_icon
+/obj/machinery/holosign/update_icon_state()
+	icon_state = lit ? on_icon : "sign_off"
 
-/obj/machinery/holosign/power_change()
+/obj/machinery/holosign/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(stat & NOPOWER)
-		lit = 0
-	update_icon()
+		lit = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
@@ -40,7 +39,7 @@
 	desc = "A remote control switch for holosign."
 	var/id = null
 	var/active = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
@@ -62,10 +61,7 @@
 	use_power(5)
 
 	active = !active
-	if(active)
-		icon_state = "light1"
-	else
-		icon_state = "light0"
+	update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/holosign/M in GLOB.machines)
 		if(M.id == src.id)
@@ -73,4 +69,7 @@
 				M.toggle()
 				return
 
-	return
+
+/obj/machinery/holosign_switch/update_icon_state()
+	icon_state = "light[active]"
+

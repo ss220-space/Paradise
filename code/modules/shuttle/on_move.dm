@@ -3,7 +3,7 @@
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		onTransitZ(oldT.z, newT.z)
-	if(light)
+	if(light && light_system == STATIC_LIGHT)
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)

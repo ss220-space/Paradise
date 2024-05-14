@@ -13,14 +13,13 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/mob/owner
 
-/datum/action/New(var/Target)
+/datum/action/New(Target)
 	target = Target
 	button = new
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	button.desc = desc
 
 /datum/action/Destroy()
 	if(owner)
@@ -37,12 +36,15 @@
 			return FALSE
 		Remove(owner)
 	owner = user
-	user.actions += src
+	owner.actions += src
 
-	if(user.client)
-		user.client.screen += button
+	if(owner.client)
+		owner.client.screen += button
 		button.locked = TRUE
-	user.update_action_buttons()
+	owner.update_action_buttons()
+
+	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 
 	return TRUE
 
@@ -54,13 +56,26 @@
 
 	if(user.client)
 		user.client.screen -= button
+		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	user.actions -= src
 	user.update_action_buttons()
 
+	// Clean up our check_flag signals
+	UnregisterSignal(user, list(
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+	))
+
 	return TRUE
+
+
+/// A general use signal proc that reacts to an event and updates JUST our button
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+	UpdateButtonIcon()
 
 
 /datum/action/proc/Trigger(left_click = TRUE)
@@ -99,23 +114,20 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	if(check_flags & AB_CHECK_RESTRAINED)
-		if(owner.restrained())
-			return FALSE
-	if(check_flags & AB_CHECK_STUNNED)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			if(L.IsStunned() || L.IsWeakened())
-				return FALSE
-	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
-	if(check_flags & AB_CHECK_TURF)
-		if(!isturf(owner.loc))
-			return FALSE
+	var/owner_is_living = isliving(owner)
+	var/mob/living/living_owner = owner
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && owner_is_living && (living_owner.IsStunned() || living_owner.IsWeakened()))
+		return FALSE
+	if((check_flags & AB_CHECK_LYING) && owner_is_living && living_owner.lying_angle)
+		return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
+		return FALSE
+	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
+		return FALSE
 	return TRUE
 
 /datum/action/proc/IsMayActive()
@@ -171,7 +183,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	/// Whether action trigger should call attack self proc.
 	var/attack_self = TRUE
 	var/use_itemicon = TRUE
@@ -180,7 +192,7 @@
 /datum/action/item_action/New(Target, custom_icon, custom_icon_state)
 	..()
 	var/obj/item/I = target
-	I.actions += src
+	LAZYADD(I.actions, src)
 	if(custom_icon && custom_icon_state)
 		use_itemicon = FALSE
 		icon_icon = custom_icon
@@ -188,7 +200,7 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	LAZYREMOVE(I.actions, src)
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE)
@@ -508,11 +520,11 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	desc = "Use the instrument specified."
 
 /datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
@@ -588,7 +600,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
@@ -614,7 +626,7 @@
 
 /datum/action/item_action/accessory/herald
 	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it"
+	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action
@@ -757,7 +769,7 @@
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic

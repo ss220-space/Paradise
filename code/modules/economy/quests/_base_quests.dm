@@ -34,6 +34,10 @@
 	var/order_date
 	/// Time when the order was accepted
 	var/order_time
+	/// List of quest modificators
+	var/list/modificators
+	/// How many times we add time for order
+	var/time_add_count = -1
 
 /datum/cargo_quests_storage/proc/generate(easy_mode)
 	if(!quest_difficulty)
@@ -59,8 +63,8 @@
 
 	if(!quest_type)
 		var/list/possible_types = list()
-		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
-			for(var/datum/cargo_quest/quest in current_quests)
+		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
+			for(var/datum/cargo_quest/quest as anything in current_quests)
 				possible_types += quest.type
 		else
 			for(var/path in subtypesof(/datum/cargo_quest) - /datum/cargo_quest/thing)
@@ -71,10 +75,10 @@
 			possible_types.Remove(customer.cant_order)
 		quest_type = pick(possible_types)
 
-	for(var/datum/cargo_quest/quest in current_quests)
+	for(var/datum/cargo_quest/quest as anything in current_quests)
 		if(quest.type != quest_type)
 			continue
-		quest.generate_goal(difficultly = quest_difficulty.diff_flag)
+		quest.add_goal(difficultly = quest_difficulty.diff_flag)
 		quest.update_interface_icon()
 		return
 
@@ -84,43 +88,54 @@
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
-	var/timeleft = time_start + quest_time - world.time
-	deltimer(quest_check_timer)
-	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + 3 MINUTES, TIMER_STOPPABLE)
+	add_time()
 	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
+/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+	var/timeleft = time_start + quest_time - world.time
+	deltimer(quest_check_timer)
+	quest_time += time
+	quest_check_timer = addtimer(CALLBACK(SScargo_quests, TYPE_PROC_REF(/datum/controller/subsystem/cargo_quests, remove_quest), UID()), timeleft + time, TIMER_STOPPABLE)
+	time_add_count++
+
 /datum/cargo_quests_storage/proc/check_quest_completion(obj/structure/bigDelivery/closet, failed_quest_length, mismatch_content, quest_len)
-	var/old_reward = reward
-	var/list/modificators = list()
+	var/new_reward = reward
+	modificators = list()
 
 	if(closet.cc_tag != customer.departament_name)
-		reward -= old_reward * 0.2
+		new_reward -= reward * 0.2
 		modificators["departure_mismatch"] = TRUE
 
 	if(mismatch_content)
-		reward -= old_reward * 0.3 * mismatch_content
+		new_reward -= reward * 0.3 * mismatch_content
 		modificators["content_mismatch"] = mismatch_content
 
 	if(failed_quest_length)
-		reward -= old_reward * (1/quest_len) * failed_quest_length
+		new_reward -= reward * (1/quest_len) * failed_quest_length
 		modificators["content_missing"] = failed_quest_length
 		modificators["quest_len"] = quest_len
 
 	if(!failed_quest_length && !fast_failed)
-		reward += old_reward * 0.4
+		new_reward += reward * 0.4
 		modificators["quick_shipment"] = TRUE
-		if(closet.cc_tag == customer.departament_name)
-			customer.set_sale()
 
-	if(reward <= 0)
-		reward = 1
+	if(time_add_count)
+		new_reward -= time_add_count * reward * 0.1
 
-	reward = round(reward)
-	SScargo_quests.remove_quest(UID(), complete = TRUE, modificators = modificators, old_reward = old_reward)
+	if(!modificators["departure_mismatch"] && !failed_quest_length && !mismatch_content)
+		if(fast_failed)
+			customer.set_sale(modificator = 1)
+		else
+			customer.set_sale(modificator = 2)
 
-	return reward
+	if(new_reward <= 0)
+		new_reward = 1
+
+	new_reward = round(new_reward)
+
+	return new_reward
 
 /datum/cargo_quest
 	/// Quest name, using in interface.
@@ -129,10 +144,12 @@
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
 	var/list/desc = list()
-	/// Quest interface icons, using in interface.
-	var/list/interface_icons = list()
-	/// Quest interface icon states, using in interface.
-	var/list/interface_icon_states = list()
+	/// Quest base icon, using in interface.
+	var/interface_icon
+	/// Quest base icon state, using in interface.
+	var/interface_icon_state
+	/// Quest interface images, using in interface.
+	var/list/interface_images = list()
 	/// Requested order's item types, unless otherwise specified.
 	var/list/req_items = list()
 	///possible difficultly
@@ -141,20 +158,29 @@
 
 /datum/cargo_quest/New(storage)
 	q_storage = storage
-	generate_goal(difficultly = q_storage.quest_difficulty.diff_flag)
+	add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
 	update_interface_icon()
 
-/datum/cargo_quest/proc/generate_goal(difficultly)
+/datum/cargo_quest/proc/generate_goal_list(difficultly)
+	return
+
+/datum/cargo_quest/proc/add_goal(difficultly)
 	return
 
 /datum/cargo_quest/proc/length_quest()
 	return
 
 /datum/cargo_quest/proc/update_interface_icon()
-	return
-
+	if(interface_icon && interface_icon_state)
+		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
 
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return
+
+/datum/cargo_quest/proc/after_check()
+	return TRUE
+
+/datum/cargo_quest/proc/completed_quest()
+	return TRUE
 
 #undef MIN_PLAYERS_FOR_MIX

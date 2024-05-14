@@ -26,7 +26,7 @@
 		return 0
 	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() || R.diseases?.len)
+		if(R.getBruteLoss() || R.getFireLoss() || LAZYLEN(R.diseases))
 			R.heal_overall_damage(15, 15)
 			R.CureAllDiseases(FALSE)
 			use(1)
@@ -35,7 +35,7 @@
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
+	if(ishuman(M)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 

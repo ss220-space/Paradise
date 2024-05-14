@@ -9,7 +9,7 @@
 
 /mob/living/carbon/brain/New()
 	..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 
 /mob/living/carbon/brain/Destroy()
@@ -82,7 +82,7 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 		if(client.statpanel == "Status")
 			//Knowing how well-off your mech is doing is really important as an MMI
-			if(istype(src.loc, /obj/mecha))
+			if(ismecha(src.loc))
 				var/obj/mecha/M = src.loc
 				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
 				stat("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")

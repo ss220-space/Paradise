@@ -3,8 +3,8 @@
 	desc = "For those documents you don't want seen."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/max_paper = 15
 	var/paperamount = 0
 	var/list/shred_amounts = list(
@@ -20,7 +20,7 @@
 
 /obj/machinery/papershredder/attackby(obj/item/W, mob/user, params)
 
-	if(istype(W, /obj/item/storage))
+	if(isstorage(W))
 		add_fingerprint(user)
 		empty_bin(user, W)
 		return
@@ -43,7 +43,7 @@
 					SP.loc = get_turf(src)
 					SP.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), 1, 1)
 				paperamount = max_paper
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
 			return
 	..()
@@ -54,7 +54,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else
@@ -65,7 +65,7 @@
 	set category = "Object"
 	set src in range(1)
 
-	if(usr.stat || usr.restrained() || !usr.incapacitated() || usr.lying)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!paperamount)
@@ -99,7 +99,7 @@
 
 	else
 		to_chat(user, "<span class='notice'>You empty \the [src].</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/papershredder/proc/get_shredded_paper()
 	if(!paperamount)
@@ -107,7 +107,7 @@
 	paperamount--
 	return new /obj/item/shredded_paper(get_turf(src))
 
-/obj/machinery/papershredder/update_icon()
+/obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
 /obj/item/shredded_paper/attackby(obj/item/W as obj, mob/user)

@@ -23,9 +23,9 @@
 		var/obj/item/clothing/suit/armor/abductor/vest/V = locate() in H
 		if(V)
 			console.vest = V
-			V.flags |= NODROP
+			ADD_TRAIT(V, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(slot_back)
+		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)
 			console.gizmo = G
 			G.console = console

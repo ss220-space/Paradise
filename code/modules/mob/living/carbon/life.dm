@@ -1,7 +1,7 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(damageoverlaytemp)
@@ -97,6 +97,8 @@
 	if(breath)
 		loc.assume_air(breath)
 		air_update_turf()
+		if(ishuman(src) && !internal && environment.temperature < 278 && environment.return_pressure() > 20)
+			new /obj/effect/frosty_breath(loc, src)
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
@@ -188,19 +190,19 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
-/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal)
-		if(internal.loc != src)
-			internal = null
-		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
-				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
-					internal = null //turn off internals
 
-		if(internal)
-			return internal.remove_air_volume(volume_needed)
-		else
-			update_action_buttons_icon()
+/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
+	if(!internal)
+		return
+
+	if(internal.loc != src || !has_airtight_items())
+		internal = null
+
+	if(!internal)
+		update_action_buttons_icon()
+		return
+
+	return internal.remove_air_volume(volume_needed)
 
 
 /mob/living/carbon/proc/handle_organs()
@@ -259,17 +261,18 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				adjust_nutrition(10)
+				//Vampires don't get nutrition from devouring mobs
+				if(!isvampire(src))
+					adjust_nutrition(10)
 
 //this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
-	if(stam_regen_start_time <= world.time)
-		if(stam_paralyzed)
-			update_stamina()
-		if(staminaloss)
-			setStaminaLoss(0, FALSE)
-			update_stamina_hud()
+	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
+		setStaminaLoss(0, FALSE)
+		update_stamina()
+		update_stamina_hud()
+		stam_regen_start_time = null
 
 	// Keep SSD people asleep
 	if(player_logged)

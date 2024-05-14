@@ -25,7 +25,7 @@
 	user.update_blurry_effects()
 	user.UpdateAppearance() //Ensures that the user's appearance matches their DNA.
 	user.regenerate_icons()
-	user.lying = FALSE
+	user.lying_angle = 0
 	user.resting = FALSE
 	user.update_canmove()
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.

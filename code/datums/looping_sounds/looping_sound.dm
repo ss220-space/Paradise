@@ -59,7 +59,7 @@
 /datum/looping_sound/proc/start(atom/add_thing)
 	GLOB.looping_sounds += src
 	if(add_thing)
-		LAZYADDOR(output_atoms, add_thing)
+		LAZYOR(output_atoms, add_thing)
 	if(!muted)
 		return
 	muted = FALSE

@@ -94,6 +94,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("Standard airlock assembly", /obj/structure/door_assembly, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	null,
+	new /datum/stack_recipe("Button frame", /obj/item/mounted/frame/door_control, time = 50),
 	new /datum/stack_recipe("Mass driver button frame", /obj/item/mounted/frame/driver_button, time = 50, on_floor = TRUE),
 	new /datum/stack_recipe("Light switch frame", /obj/item/mounted/frame/light_switch, time = 50, on_floor = TRUE),
 	new /datum/stack_recipe("Light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
@@ -105,6 +106,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("Intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe("Shower", /obj/item/mounted/shower, 5, time = 7, on_floor = TRUE),
+	new /datum/stack_recipe("Stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/metal
@@ -275,6 +277,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 		new /datum/stack_recipe("Bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("Book bag", /obj/item/storage/bag/books, 4),
 		new /datum/stack_recipe("Chemistry bag", /obj/item/storage/bag/chemistry, 4),
+		new /datum/stack_recipe("Construction bag", /obj/item/storage/bag/construction, 4),
 		new /datum/stack_recipe("Fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("Mining satchel", /obj/item/storage/bag/ore, 4),
 		new /datum/stack_recipe("Plant bag", /obj/item/storage/bag/plants, 4),
@@ -382,10 +385,11 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
+	new /datum/stack_recipe("glowstick box", /obj/item/storage/fancy/glowsticks_box/empty, 2),
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
+	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
 			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
@@ -517,9 +521,9 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockwork, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
 	)),
 ))
 
@@ -535,9 +539,9 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		new /datum/stack_recipe("Bronze ashtray", /obj/item/storage/ashtray/bronze, 2, one_per_turf = TRUE, on_floor = TRUE),
 		null,
 		new /datum/stack_recipe("Clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),
-		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, window_checks = TRUE),
-		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, window_checks = TRUE),
+		new /datum/stack_recipe/window("Brass windoor", /obj/machinery/door/window/clockwork_fake, 2, time = 30, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Directional brass window", /obj/structure/window/reinforced/clockworkfake, on_floor = TRUE, check_direction = TRUE),
+		new /datum/stack_recipe/window("Fulltile brass window", /obj/structure/window/reinforced/clockworkfake/fulltile, 2, on_floor = TRUE, is_fulltile = TRUE),
 	)),
 ))
 

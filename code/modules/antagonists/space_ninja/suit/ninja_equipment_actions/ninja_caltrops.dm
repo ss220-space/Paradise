@@ -2,7 +2,7 @@
 
 	name = "Energy Caltrops"
 	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 1 SECONDS
 	use_itemicon = FALSE
@@ -45,7 +45,7 @@
 			for(direct in list(WEST,NORTHWEST,NORTH))
 				possible_turfs += get_step(src,direct)
 		for(var/turf/spawn_turf in possible_turfs)
-			if(!istype(spawn_turf, /turf/simulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
+			if(!iswallturf(spawn_turf) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
 		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
 			ninja_action.use_action()
@@ -74,7 +74,7 @@
 
 /obj/structure/energy_caltrops/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 5, 10, 100, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_LEGS|CALTROP_BYPASS_WALKERS)
+	AddComponent(/datum/component/caltrop, 5, 10, 100, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_FOOTS|CALTROP_BYPASS_WALKERS)
 	for(var/obj/structure/energy_caltrops/other_caltrop in src.loc.contents)
 		if(other_caltrop!=src)
 			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!
@@ -85,8 +85,8 @@
 	return FALSE
 
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
+	if(istype(L) && has_gravity())
+		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		add_attack_logs(L, src, "Stepped on Caltrop")
 		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE)

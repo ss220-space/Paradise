@@ -14,10 +14,12 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
-	flags = NOSHARPENING
+	item_flags = NOSHARPENING
 	toolspeed = 1
 	light_power = 2
-	var/brightness_on = 2
+	light_range = 2
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
@@ -38,6 +40,23 @@
 						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 	return BRUTELOSS|FIRELOSS
 
+
+/obj/item/melee/energy/update_icon_state()
+	if(!active)
+		icon_state = initial(icon_state)
+		set_light_on(FALSE)
+		return
+	if(icon_state_on)
+		icon_state = icon_state_on
+		set_light_on(TRUE)
+		set_light_color(light_color == item_color ? colormap[item_color] : null)
+	else
+		icon_state = "sword[item_color]"
+		set_light_on(TRUE)
+		set_light_color(colormap[item_color])
+	update_equipped_item(update_speedmods = FALSE)
+
+
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
@@ -48,14 +67,6 @@
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
-		if(attack_verb_on.len)
-			attack_verb = attack_verb_on
-		if(icon_state_on)
-			icon_state = icon_state_on
-			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
-		else
-			icon_state = "sword[item_color]"
-			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -66,17 +77,12 @@
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
 			attack_verb = list()
-		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 	add_fingerprint(user)
-	return
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/melee/energy/axe
 	name = "energy axe"
@@ -119,7 +125,7 @@
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
-	var/hacked = 0
+	var/hacked = FALSE
 
 /obj/item/melee/energy/sword/New()
 	..()
@@ -158,6 +164,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -201,32 +208,24 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(drop_location())
-			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = 1
-				newSaber.item_color = "rainbow"
+			var/obj/item/twohanded/dualsaber/newSaber = new(drop_location())
+			if(hacked) // That's right, we'll only check the "original" esword.
+				newSaber.hacked = TRUE
+				newSaber.blade_color = "rainbow"
 			user.temporarily_remove_item_from_inventory(W)
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber, ignore_anim = FALSE)
-	else if(istype(W, /obj/item/multitool))
-		if(hacked == 0)
-			hacked = 1
-			item_color = "rainbow"
-			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
-
-			if(active)
-				icon_state = "swordrainbow"
-				// Updating overlays, copied from welder code.
-				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
-				if(user.r_hand == src)
-					user.update_inv_r_hand()
-				else if(user.l_hand == src)
-					user.update_inv_l_hand()
-
-		else
+	else if(W.tool_behaviour == TOOL_MULTITOOL)
+		if(hacked)
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+			return
+
+		hacked = TRUE
+		item_color = "rainbow"
+		to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -235,7 +234,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -293,7 +292,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -337,12 +336,6 @@
 		throw_speed = 4
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
-		if(icon_state_on)
-			icon_state = icon_state_on
-			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
-		else
-			icon_state = "sword[item_color]"
-			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
@@ -353,17 +346,10 @@
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
 			attack_verb = list()
-		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
 /obj/item/melee/energy/cleaving_saw/examine(mob/user)

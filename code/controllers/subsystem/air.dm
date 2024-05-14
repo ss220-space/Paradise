@@ -71,9 +71,9 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
-	if(length(active_turfs))
-		log_debug("Failed sanity check: active_turfs is not empty before initialization ([length(active_turfs)])")
 	setup_allturfs()
+	if(CONFIG_GET(flag/report_active_turfs) && length(active_turfs))
+		throw_error_on_active_roundstart_turfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
@@ -322,13 +322,18 @@ SUBSYSTEM_DEF(air)
 			add_to_active(S)
 
 
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
-	for(var/thing in turfs_to_init)
-		var/turf/T = thing
-		if(T.blocks_air)
+/datum/controller/subsystem/air/proc/setup_allturfs()
+	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
+	// Clear active turfs - faster than removing every single turf in the world
+	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
+	active_turfs.Cut()
+	var/time = -1 //If it was 0, the very first turfs wouldn't go properly through init. See LINDA_system.dm#95
+	for(var/turf/T as anything in turfs_to_init)
+		if(T.blocks_air || !T.init_air)
 			continue
-		T.Initialize_Atmos(times_fired)
-		CHECK_TICK
+		T.Initialize_Atmos(time)
+		if(CHECK_TICK)
+			time--
 
 
 /turf/simulated/proc/resolve_active_graph()
@@ -399,7 +404,7 @@ SUBSYSTEM_DEF(air)
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
-
+	vis_flags = NONE // Resets vision flags inherited from parent objects
 
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"
@@ -413,6 +418,22 @@ SUBSYSTEM_DEF(air)
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
 
+/datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
+	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level
+	var/list/active_turfs_we_care_about = list()
+	var/z_level_to_exclude = 0
+	if(!CONFIG_GET(flag/disable_lavaland))
+		z_level_to_exclude = level_name_to_num(MINING)
+	for(var/turf/T in active_turfs)
+		if(T.z != z_level_to_exclude)
+			active_turfs_we_care_about += T
+	if(!length(active_turfs_we_care_about))
+		return
+	log_debug("Turfs were active before init! Please check the runtime logger for information on the specific turfs.")
+	stack_trace("Failed sanity check: active_turfs is not empty before init ([length(active_turfs)], turfs are as follows:)")
+	for(var/turf/shouldnt_be_active in active_turfs_we_care_about)
+		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
+		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

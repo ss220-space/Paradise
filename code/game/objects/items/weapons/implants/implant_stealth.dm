@@ -31,7 +31,7 @@
 	desc = "Find inner peace, here, in the box."
 	background_icon_state = "bg_agent"
 	button_icon_state = "deploy_box"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_STUNNED|AB_CHECK_RESTRAINED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING
 	use_itemicon = FALSE
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
@@ -155,7 +155,8 @@
 		qdel(src)
 
 
-/obj/structure/closet/cardboard/agent/update_icon()	// When the box is opened, it's deleted, so we never need to update this.
+// When the box is opened, it's deleted, so we never need to update this.
+/obj/structure/closet/cardboard/agent/update_icon_state()
 	return
 
 

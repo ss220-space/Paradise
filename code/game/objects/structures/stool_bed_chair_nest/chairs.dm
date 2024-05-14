@@ -5,7 +5,7 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
-	buckle_lying = FALSE // you sit in a chair, not lay
+	buckle_lying = 0 // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
@@ -32,15 +32,6 @@
 	. = ..()
 	handle_rotation()
 
-/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	. = ..()
-	if(. && !movable)
-		anchored = TRUE
-
-/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
-	anchored = initial(anchored)
-	. = ..()
-
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
@@ -60,7 +51,7 @@
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -69,16 +60,14 @@
 
 /obj/structure/chair/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs() || anchored)
-			return
-		if(usr.incapacitated())
+
+/obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			to_chat(usr, span_warning("You can't do that right now!"))
 			return
 		if(!usr.has_right_hand() && !usr.has_left_hand())
@@ -87,13 +76,18 @@
 		if(usr.get_active_hand() && usr.get_inactive_hand())
 			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
 			return
-		if(!ishuman(usr))
-			return
-		usr.visible_message(span_notice("[usr] grabs \the [src]."), span_notice("You grab \the [src]."))
-		var/C = new item_chair(drop_location())
-		usr.put_in_hands(C, ignore_anim = FALSE)
-		transfer_fingerprints_to(C)
+		usr.visible_message(
+			span_notice("[usr] grabs [src]."),
+			span_notice("You grab [src]."),
+		)
+		var/new_chair = new item_chair(drop_location())
+		transfer_fingerprints_to(new_chair)
+		usr.put_in_hands(new_chair, ignore_anim = FALSE)
 		qdel(src)
+		return FALSE
+
+	return ..()
+
 
 /obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
@@ -101,12 +95,13 @@
 	else
 		rotate()
 
+
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
+		for(var/mob/living/buckled_mob as anything in buckled_mobs)
 			buckled_mob.setDir(direction)
+
 
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
@@ -114,40 +109,49 @@
 	else
 		layer = OBJ_LAYER
 
-/obj/structure/chair/post_buckle_mob(mob/living/M)
-	. = ..()
+
+/obj/structure/chair/post_buckle_mob(mob/living/target)
 	handle_layer()
 
-/obj/structure/chair/post_unbuckle_mob()
-	. = ..()
+
+/obj/structure/chair/post_unbuckle_mob(mob/living/target)
 	handle_layer()
+
 
 /obj/structure/chair/setDir(newdir)
 	..()
 	handle_rotation(newdir)
 
-/obj/structure/chair/verb/rotate()
+
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
+
+
+/obj/structure/chair/proc/rotate(mob/living/user)
+	if(user)
+		if(isobserver(user))
+			if(!CONFIG_GET(flag/ghost_interaction))
+				return FALSE
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+			return FALSE
+
+	setDir(turn(dir, 90))
+	handle_rotation()
+	return TRUE
+
+
+/obj/structure/chair/AltClick(mob/living/user)
+	rotate(user)
+
+
+/obj/structure/chair/verb/rotate_chair()
 	set name = "Rotate Chair"
 	set category = "Object"
 	set src in oview(1)
 
-	if(CONFIG_GET(flag/ghost_interaction))
-		add_fingerprint(usr)
-		setDir(turn(dir, 90))
-		handle_rotation()
-		return
+	rotate(usr)
 
-	if(usr.incapacitated())
-		return
-
-	add_fingerprint(usr)
-	setDir(turn(dir, 90))
-	handle_rotation()
-
-/obj/structure/chair/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	rotate()
 
 // CHAIR TYPES
 
@@ -192,13 +196,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/comfy/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -288,7 +295,7 @@
 	anchored = TRUE
 	item_chair = null
 	comfort = 0.6
-	var/image/armrest = null
+	var/mutable_appearance/armrest
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()
@@ -302,13 +309,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/sofa/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -416,8 +426,12 @@
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
 		return
+	var/turf/T = get_turf(loc)
+	if(density || isopenspaceturf(T))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
 
-	for(var/obj/A in get_turf(loc))
+	for(var/obj/A in get_turf(T))
 		if(istype(A, /obj/structure/chair))
 			to_chat(user, span_danger("There is already [A] here."))
 			return
@@ -514,10 +528,10 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!in_range(src, user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	add_fingerprint(user)
 	turns = 0

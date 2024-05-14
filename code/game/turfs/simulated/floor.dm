@@ -23,21 +23,20 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "dont_use_this_floor"
+	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
+	explosion_vertical_block = 1
 	var/lava = 0
 	var/broken = 0
 	var/burnt = 0
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
-	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	var/list/burnt_states = list("floorscorched1", "floorscorched2")
-	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
+	var/prying_tool = TOOL_CROWBAR //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
 
 	footstep = FOOTSTEP_FLOOR
@@ -53,11 +52,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		icon_regular_floor = icon_state
 		floor_regular_dir = dir
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
-//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if(!( locate(/obj/machinery/mass_driver, src) ))
-//			return 0
-//	return ..()
+
+/// Returns a list of every turf state considered "broken".
+/// Will be randomly chosen if a turf breaks at runtime.
+/turf/simulated/floor/proc/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/// Returns a list of every turf state considered "burnt".
+/// Will be randomly chosen if a turf is burnt at runtime.
+/turf/simulated/floor/proc/burnt_states()
+	return list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
@@ -117,12 +121,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
 
-/turf/simulated/floor/update_icon()
+/turf/simulated/floor/update_overlays()
+	. = ..()
 	update_visuals()
-	overlays -= current_overlay
 	if(current_overlay)
-		overlays.Add(current_overlay)
-	return 1
+		. += current_overlay
 
 /turf/simulated/floor/proc/break_tile_to_plating()
 	var/turf/simulated/floor/plating/T = make_plating(FALSE)
@@ -131,14 +134,14 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/break_tile()
 	if(broken)
 		return
-	current_overlay = pick(broken_states)
+	current_overlay = pick(broken_states())
 	broken = TRUE
 	update_icon()
 
 /turf/simulated/floor/burn_tile()
 	if(burnt)
 		return
-	current_overlay = pick(burnt_states)
+	current_overlay = pick(burnt_states())
 	burnt = TRUE
 	update_icon()
 
@@ -152,7 +155,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!istype(src, /turf/simulated/floor))
+	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()
@@ -233,7 +236,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(T.turf_type == type)
 		return
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
+	if(!thing || prying_tool != thing.tool_behaviour)
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
@@ -292,7 +295,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing floor...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -315,7 +318,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(3, user))
 				to_chat(user, "Building Wall...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(!our_rcd.useResource(3, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -331,7 +334,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(10, user))
 				to_chat(user, "Building Airlock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(10, user))
@@ -358,7 +361,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			to_chat(user, "Constructing window...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-			if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 				to_chat(user, span_warning("ERROR! Construction interrupted!"))
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
@@ -388,7 +391,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(8, user))
 				to_chat(user, "Building Firelock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(8, user))

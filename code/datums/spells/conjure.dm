@@ -15,6 +15,8 @@
 	var/list/newVars = list()
 	/// Go Go Gadget Inheritance
 	var/delay = 1
+	/// If TRUE, spell can be used while owner stunned
+	var/can_use_stunned = FALSE
 
 	var/cast_sound = 'sound/items/welder.ogg'
 
@@ -33,7 +35,8 @@
 			targets -= T
 	playsound(get_turf(src), cast_sound, 50, 1)
 
-	if(do_after(user, delay, target = user))
+	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|IGNORE_STUNNED|IGNORE_WEAKENED : DEFAULT_DOAFTER_IGNORE
+	if(do_after(user, delay, user, timed_action_flags))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break

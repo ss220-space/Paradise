@@ -158,7 +158,7 @@
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty)
 	. = ..()
-	if(istype(naughty, /obj/mecha))
+	if(ismecha(naughty))
 		var/obj/mecha/robot = naughty
 		if(robot.occupant)
 			naughty = robot.occupant

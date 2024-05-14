@@ -1,12 +1,12 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1
@@ -87,7 +87,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -358,14 +358,14 @@
 	return 0
 
 
-/mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
-		return 1
+/mob/proc/abiotic(full_body = FALSE)
+	if(full_body && ((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)) || (back || wear_mask)))
+		return TRUE
 
-	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
-		return 1
+	if((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)))
+		return TRUE
 
-	return 0
+	return FALSE
 
 //converts intent-strings into numbers and back
 GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
@@ -523,13 +523,14 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
 						source.plane = FLOAT_PLANE
-						A.overlays += source
+						A.add_overlay(source)
 						source.layer = old_layer
 						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE
-						A.overlays += alert_overlay
+						A.add_overlay(alert_overlay)
+
 
 /**
   * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.
@@ -583,7 +584,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
@@ -847,5 +848,28 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
+	return TRUE
+
+
+/mob/proc/can_pass_adjacent(atom/adjacent, list/types_to_exclude)
+	if(!isturf(loc))
+		return FALSE
+	if(!adjacent)
+		return FALSE
+	if(!isturf(adjacent))
+		adjacent = get_turf(adjacent)
+		if(!adjacent)
+			return FALSE
+	if(adjacent.density)
+		return FALSE
+	if(!in_range(loc, adjacent))
+		return FALSE
+	for(var/atom/check_atom in adjacent)
+		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+			continue
+		if(check_atom.density)
+			return FALSE
+		if(!check_atom.CanPass(src, loc))
+			return FALSE
 	return TRUE
 

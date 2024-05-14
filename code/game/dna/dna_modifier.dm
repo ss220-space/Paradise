@@ -111,17 +111,12 @@
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
-	go_out()
-
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
 	set category = null
 	set name = "Eject DNA Scanner"
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	eject_occupant(usr)
 	add_fingerprint(usr)
@@ -147,7 +142,7 @@
 	set category = null
 	set name = "Enter DNA Scanner"
 
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
 		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
@@ -168,18 +163,18 @@
 	add_fingerprint(usr)
 	SStgui.update_uis(src)
 
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
+/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!istype(O))
 		return
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
@@ -189,23 +184,23 @@
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
-		return
+		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
-		return
+		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
+		return TRUE
 	if(L == user)
 		visible_message("[user] climbs into the [src].")
 	else
 		visible_message("[user] puts [L.name] into the [src].")
 	put_in(L)
-	if(user.pulling == L)
-		user.stop_pulling()
+	L.pulledby?.stop_pulling()
+	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -250,6 +245,7 @@
 	if(default_deconstruction_crowbar(user, I))
 		for(var/obj/thing in contents) // in case there is something in the scanner
 			thing.forceMove(loc)
+		return TRUE
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
@@ -606,7 +602,7 @@
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
-					domutcheck(connected.occupant, connected)
+					connected.occupant.check_genes()
 				else
 					randmuti(connected.occupant)
 					connected.occupant.UpdateAppearance()
@@ -661,7 +657,7 @@
 
 					//testing("Irradiated SE block [real_SE_block]:[selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
-					domutcheck(connected.occupant, connected)
+					connected.occupant.check_genes()
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
@@ -672,7 +668,7 @@
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
 						randmutb(connected.occupant)
-						domutcheck(connected.occupant, connected)
+						connected.occupant.check_genes()
 					else
 						randmuti(connected.occupant)
 						//testing("Random identity mut!")
@@ -754,7 +750,7 @@
 					else if(buf.types & DNA2_BUF_SE)
 						connected.occupant.dna.SE = buf.dna.SE.Copy()
 						connected.occupant.dna.UpdateSE()
-						domutcheck(connected.occupant, connected)
+						connected.occupant.check_genes()
 				if("createInjector")
 					if(!injector_ready)
 						return
@@ -805,7 +801,6 @@
 	I.name += " ([buf.name])"
 	if(copy_buffer)
 		I.buf = buf.copy()
-		I.icon_state = "[I.icon_state]-big"
 	if(connected)
 		I.damage_coeff = connected.damage_coeff
 	return I

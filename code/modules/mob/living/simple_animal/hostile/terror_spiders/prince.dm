@@ -30,7 +30,7 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	var/delimb_chance = 10
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
-	ventcrawler = 0
+	ventcrawler_trait = null
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
@@ -62,7 +62,5 @@
 			L.adjustStaminaLoss(35)
 	else
 		. = ..()
-		if(.)
-			L.adjustStaminaLoss(35) //3 hits for stam crit
 
 

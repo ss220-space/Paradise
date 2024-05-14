@@ -25,8 +25,12 @@
 	if(user.HasDisease(/datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
-			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
-			flags ^= NODROP
+			var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			if(prev_has)
+				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			else
+				ADD_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
+			to_chat(user, "<span class='warning'>His Grace [prev_has ? "releases from" : "binds to"] your hand!</span>")
 	else if(!activated && loc == user)
 		if(link_user(user))
 			to_chat(user, "<span class='notice'>Call to His Grace again if you wish it bound to your hand!</span>")
@@ -80,11 +84,11 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !victim.restrained() && !victim.IsWeakened())
+			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !victim.IsWeakened())
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
-			if(!do_mob(user, victim, 30))
+			if(!do_after(user, 3 SECONDS, victim, NONE))
 				return
 
 			user.visible_message("<span class='userdanger'>[user] has fed [victim] to [src]!</span>")

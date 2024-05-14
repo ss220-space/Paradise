@@ -7,6 +7,7 @@
 	poweralm = FALSE
 	report_alerts = FALSE
 	requires_power = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/USSP_gorky17/solmaintnorth
 	name = "Gorky17 North sol maintenance"
@@ -309,9 +310,7 @@
 	set name = "Enter name"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.incapacitated())
-		return
-	if(!ishuman(usr))
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)
@@ -342,7 +341,7 @@
 /////////////////// Paper notes
 
 /obj/item/paper/gorky17
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \
@@ -579,7 +578,7 @@
 			for(var/obj/item/I in A.contents)
 				qdel(I)
 			qdel(A)
-		if(istype(A, /obj/structure/safe) || istype(A, /obj/item/gun))
+		if(istype(A, /obj/structure/safe) || isgun(A))
 			qdel(A)
 
 /obj/item/bombcore/sdg17/defuse()
@@ -599,5 +598,6 @@
 		add_game_logs("[key_name(bourgeois)] entered [src], without authorization. Self-destruction mechanism activated")
 		bomb.payload?.adminlog = "[bomb] detonated in [src]. Self-destruction activated by [key_name(bourgeois)]!"
 		bomb.activate()
-		for(var/obj/machinery/power/apc/propaganda in range(50, get_turf(bomb)))
-			playsound(propaganda, 'sound/effects/self_destruct_17sec.ogg', 100)
+		for(var/obj/machinery/power/apc/propaganda in GLOB.apcs)
+			if(propaganda.z == bomb.z && get_dist(get_turf(bomb), propaganda) < 50)
+				playsound(propaganda, 'sound/effects/self_destruct_17sec.ogg', 100)

@@ -56,7 +56,7 @@
 		parent_organ_zone = BODY_ZONE_R_LEG
 		transform = null
 	SetSlot()
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
+	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg."))
 
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -111,7 +111,7 @@
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/RemoveEffect()
 	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE)
-	if(left.implant_ability)
+	if(left?.implant_ability)
 		left.implant_ability.Remove(owner)
 		left.implant_ability = null
 
@@ -125,33 +125,38 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED //lying jumps is real
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED //lying jumps is real
+
 
 /datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
 	if(recharging_time > world.time)
-		to_chat(owner, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
+		return
+
+	if(owner.throwing)
+		to_chat(owner, span_warning("You can't jump in the middle of another jump!"))
 		return
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
 
 	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
 		last_jump.Invoke()
-	var/isflying = owner.flying
-	owner.flying = TRUE
-	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), owner, isflying)
+	ADD_TRAIT(owner, TRAIT_MOVE_FLYING, IMPLANT_JUMP_BOOTS_TRAIT)
+	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), owner)
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
-		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		owner.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
+		owner.visible_message(span_warning("[owner] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(owner, "<span class='warning'>Something prevents you from dashing forward!</span>")
-		after_jump(owner, isflying)
+		to_chat(owner, span_warning("Something prevents you from dashing forward!"))
+		after_jump(owner)
 
-/datum/action/bhop/proc/after_jump(mob/owner, isflying)
-	owner.flying = isflying
+
+/datum/action/bhop/proc/after_jump(mob/owner)
+	REMOVE_TRAIT(owner, TRAIT_MOVE_FLYING, IMPLANT_JUMP_BOOTS_TRAIT)
 	last_jump = null
 
 

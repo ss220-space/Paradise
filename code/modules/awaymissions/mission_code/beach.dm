@@ -4,8 +4,8 @@
 	icon_state = "extinguish"
 	opacity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 
 	var/water_frequency = 15

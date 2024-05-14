@@ -4,8 +4,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze for the GC
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -22,8 +22,8 @@
 		return FALSE
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
@@ -33,8 +33,8 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze them while they get GC'd
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
@@ -51,7 +51,7 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
-	stat = DEAD
+	set_stat(DEAD)
 	..()
 
 	timeofdeath = world.time

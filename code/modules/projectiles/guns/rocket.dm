@@ -24,8 +24,11 @@
 	rockets = null
 	return ..()
 
-/obj/item/gun/rocketlauncher/update_icon()
+/obj/item/gun/throw/update_icon_state()
 	return
+
+/obj/item/gun/throw/update_overlays()
+	return list()
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
@@ -39,7 +42,7 @@
 	else
 		return ..()
 
-/obj/item/gun/rocketlauncher/can_shoot()
+/obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len
 
 /obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")

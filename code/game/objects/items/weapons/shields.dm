@@ -24,7 +24,7 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -37,7 +37,7 @@
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 
-/obj/item/shield/riot/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
 		if(cooldown < world.time - 25)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
@@ -123,21 +123,21 @@
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
 
-/obj/item/shield/energy/update_icon()
+/obj/item/shield/energy/update_icon_state()
 	icon_state = "eshield[active]"
 
 /obj/item/shield/energy/syndie
 	icon_state = "syndieshield0"
 	desc = "Reverse-engineered shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere. Property of Gorlex marauders."
 
-/obj/item/shield/energy/syndie/update_icon()
+/obj/item/shield/energy/syndie/update_icon_state()
 	icon_state = "syndieshield[active]"
 
 /obj/item/shield/riot/tele
@@ -160,9 +160,14 @@
 		return ..()
 	return FALSE
 
+
+/obj/item/shield/riot/tele/update_icon_state()
+	icon_state = "teleriot[active]"
+
+
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
-	icon_state = "teleriot[active]"
+	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 
 	if(active)
@@ -170,18 +175,15 @@
 		throwforce = 5
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_BACK
+		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = null
+		slot_flags = NONE
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_equipped_item()
 	add_fingerprint(user)
-	return
+

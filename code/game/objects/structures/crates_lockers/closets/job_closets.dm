@@ -27,6 +27,8 @@
 	new /obj/item/clothing/under/sl_suit(src)
 	new /obj/item/clothing/under/rank/bartender(src)
 	new /obj/item/clothing/under/rank/bartender(src)
+	new /obj/item/clothing/under/rank/bartender/skirt(src)
+	new /obj/item/clothing/under/rank/bartender/skirt(src)
 	new /obj/item/clothing/under/dress/dress_saloon
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/suit/wcoat(src)
@@ -127,8 +129,8 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/clothing/accessory/head_strip/lawyers_badge(src)
+	new /obj/item/clothing/accessory/head_strip/lawyers_badge(src)
 
 //Paramedic
 

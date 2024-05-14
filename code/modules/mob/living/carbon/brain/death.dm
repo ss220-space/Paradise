@@ -12,8 +12,8 @@
 	// can we muster a parent call here?
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 

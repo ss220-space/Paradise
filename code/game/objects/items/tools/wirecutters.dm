@@ -5,7 +5,7 @@
 	icon_state = "cutters"
 	belt_icon = "wirecutters"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7
@@ -24,6 +24,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
+
+/obj/item/wirecutters/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()

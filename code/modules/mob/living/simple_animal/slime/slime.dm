@@ -4,8 +4,9 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gender = NEUTER
+	can_buckle_to = FALSE
 	var/datum/slime_age/age_state = new /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
@@ -29,7 +30,7 @@
 	healable = 0
 	gender = NEUTER
 
-	see_in_dark = 8
+	nightvision = 8
 
 	// canstun and canknockdown don't affect slimes because they ignore stun and knockdown variables
 	// for the sake of cleanliness, though, here they are.
@@ -99,7 +100,7 @@
 	set_colour(new_colour)
 	. = ..()
 	set_nutrition(new_set_nutrition)
-	add_language("Bubblish")
+	add_language(LANGUAGE_SLIME)
 
 /mob/living/simple_animal/slime/Destroy()
 	for(var/A in actions)
@@ -153,30 +154,31 @@
 	else
 		icon_state = icon_dead
 
-/mob/living/simple_animal/slime/movement_delay()
-	if(bodytemperature >= 330.23) // 135 F or 57.08 C
-		return -1	// slimes become supercharged at high temperatures
 
+/mob/living/simple_animal/slime/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
+	var/mod = 0
+	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		var/health_deficiency = (maxHealth - health)
+		if(health_deficiency >= 45)
+			mod += (health_deficiency / 25)
+		if(health <= 0)
+			mod += 2
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_health_mod, multiplicative_slowdown = mod)
 
-	var/health_deficiency = (maxHealth - health)
-	if(health_deficiency >= 45)
-		. += (health_deficiency / 25)
 
-	if(bodytemperature < 183.222)
-		. += (283.222 - bodytemperature) / 10 * 1.75
+/mob/living/simple_animal/slime/adjust_bodytemperature(amount, min_temp = 0, max_temp = INFINITY)
+	. = ..()
+	var/mod = 0
+	if(bodytemperature >= 330.23) // 135 F or 57.08 C
+		mod = -1 // slimes become supercharged at high temperatures
+	else if(bodytemperature < 283.222)
+		mod = ((283.222 - bodytemperature) / 10) * 1.75
+	if(mod)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod, multiplicative_slowdown = mod)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/slime_temp_mod)
 
-	if(reagents)
-		if(reagents.has_reagent("morphine")) // morphine slows slimes down
-			. *= 2
-
-		if(reagents.has_reagent("frostoil")) // Frostoil also makes them move VEEERRYYYYY slow
-			. *= 5
-
-	if(health <= 0) // if damaged, the slime moves twice as slow
-		. *= 2
-
-	. += CONFIG_GET(number/slime_delay)
 
 /mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
@@ -236,8 +238,8 @@
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
 
-/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
-	return 2
+/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/slime/Stat()
 	if(..())
@@ -372,6 +374,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
+			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -392,6 +395,10 @@
 		if(prob(10 + force_effect))
 			discipline_slime(user)
 	..()
+
+/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
+	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -462,11 +469,6 @@
 /mob/living/simple_animal/slime/pet
 	docile = TRUE
 
-/mob/living/simple_animal/slime/can_unbuckle()
-	return FALSE
-
-/mob/living/simple_animal/slime/can_buckle()
-	return FALSE
 
 /mob/living/simple_animal/slime/get_mob_buckling_height(mob/seat)
 	if(..())
@@ -498,12 +500,13 @@
 	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder, new_set_nutrition = 2000)
 
 
-/mob/living/simple_animal/slime/can_ventcrawl(atom/clicked_on, override = FALSE)
+/mob/living/simple_animal/slime/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
 	if(buckled)
-		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете залезть в вентиляцию пока кормитесь!"))
 		return FALSE
-
 	return ..()
+
 
 /mob/living/simple_animal/slime/invalid
 	var/dead_for_sure = FALSE

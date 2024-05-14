@@ -125,7 +125,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(require_twohands && (slot == slot_l_hand || slot == slot_r_hand)) // force equip the item
+	if(require_twohands && (slot & ITEM_SLOT_HANDS)) // force equip the item
 		wield(user)
 	if(!require_twohands && wielded && !user.is_in_hands(parent))
 		unwield(user)
@@ -172,7 +172,7 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/check = parent
-	var/abstract_check = !(check.flags & ABSTRACT)
+	var/abstract_check = !(check.item_flags & ABSTRACT)
 	if(wielded)
 		return
 
@@ -241,7 +241,7 @@
 	if(sharpening)
 		parent_item.force += sharpening.damage_increase
 	if(sharp_when_wielded)
-		parent_item.sharp = TRUE
+		parent_item.set_sharpness(TRUE)
 
 	var/original_name = parent_item.name
 	parent_item.name = "[original_name] (Wielded)"
@@ -308,7 +308,7 @@
 	else
 		parent_item.force = force_unwielded
 	if(sharp_when_wielded)
-		parent_item.sharp = FALSE
+		parent_item.set_sharpness(FALSE)
 
 	// update the items name to remove the wielded status
 	var/sf = findtext(parent_item.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
@@ -329,7 +329,7 @@
 
 		// Show message if requested
 		if(show_message)
-			var/abstract_check = !(item.flags & ABSTRACT)
+			var/abstract_check = !(item.item_flags & ABSTRACT)
 			if(isrobot(parent))
 				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
 			else
@@ -415,13 +415,13 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	wielded = FALSE // Off Hand tracking of wielded status
 
 /obj/item/twohanded/offhand/Initialize(mapload)
 	. = ..()
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/twohanded/offhand/Destroy()
 	wielded = FALSE

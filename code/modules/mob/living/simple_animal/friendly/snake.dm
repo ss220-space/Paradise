@@ -29,7 +29,7 @@
 	response_disarm = "shoos"
 	response_harm   = "steps on"
 	faction = list("hostile")
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -81,8 +81,8 @@
 	speak_chance = 5
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
 	speak_emote = list("hisses")
-	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
-	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
+	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
+	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
@@ -201,7 +201,7 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
-					if(inventory_head.flags & NODROP)
+					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_head)
@@ -252,7 +252,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 
@@ -293,12 +293,12 @@
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("Шшш", "Тсс!", "Тц тц тц!", "ШШшшШШшшШ!")
 	speak_emote = list("hisses")
-	emote_hear = list("Зевает", "Шипит", "Дурачится", "Толкается")
-	emote_see = list("Высовывает язык", "Кружится", "Трясёт хвостом")
+	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
+	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 
 ///Этот код скопирован с кода для корги и обнуляет показатели которые ему даёт риг. Если когда нибудь змейке дадут риг, раскомментируете///
 /*
-	set_light(0)
+	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)

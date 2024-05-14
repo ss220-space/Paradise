@@ -19,37 +19,36 @@
 	icon_state = "broom"
 	item_state = "broom0"
 
+
+/obj/item/twohanded/staff/broom/update_icon_state()
+	item_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_WIELDED)]"
+	update_equipped_item(update_speedmods = FALSE)
+
+
 /obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)
-	item_state = "broom[wielded ? 1 : 0]"
-	force = wielded ? 5 : 3
-	attack_verb = wielded ? list("rammed into", "charged at") : list("bludgeoned", "whacked", "cleaned")
-	if(user)
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
-		if(user.mind in SSticker.mode.wizards)
-			user.flying = wielded ? 1 : 0
-			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
-				user.say("QUID 'ITCH")
-				animate(user, pixel_y = pixel_y + 10 , time = 10, loop = 1, easing = SINE_EASING)
-			else
-				animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
-				animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
-				animate(user)
-				if(user.lying)//aka. if they have just been stunned
-					user.pixel_y -= 6
-		else
-			if(wielded)
-				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
+	force =  5
+	attack_verb = list("rammed into", "charged at")
+	if(!user)
+		return
+
+	update_icon(UPDATE_ICON_STATE)
+	if(user.mind && (user.mind in SSticker.mode.wizards))
+		ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_BROOM_TRAIT)
+		user.say("QUID 'ITCH")
+
+	to_chat(user, span_notice("You hold [src] between your legs."))
 
 
 /obj/item/twohanded/staff/broom/unwield(obj/item/source, mob/living/carbon/user)
-	user.flying = FALSE
-	user.update_gravity(user.mob_has_gravity())
-	animate(user)
+	force = 3
+	attack_verb = list("bludgeoned", "whacked", "cleaned")
+	if(!user)
+		return
+	update_icon(UPDATE_ICON_STATE)
+	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_BROOM_TRAIT)
 
 
-/obj/item/twohanded/staff/broom/attackby(var/obj/O, mob/user)
+/obj/item/twohanded/staff/broom/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/twohanded/staff/broom/horsebroom(get_turf(src))
 		user.temporarily_remove_item_from_inventory(O)
@@ -65,9 +64,6 @@
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
 
-/obj/item/twohanded/staff/broom/horsebroom/attack_self(mob/user as mob)
-	..()
-	item_state = "horsebroom[wielded ? 1 : 0]"
 
 /obj/item/twohanded/staff/stick
 	name = "stick"

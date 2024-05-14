@@ -43,7 +43,7 @@
 			if(ROLE_THUNDERDOME in GLOB.special_roles)
 				owner.client?.prefs?.be_special ^= ROLE_THUNDERDOME
 				if(CONFIG_GET(flag/sql_enabled))
-					owner.client?.prefs?.save_preferences()
+					owner.client?.prefs?.save_preferences(owner.client)
 				return
 
 		if("toggle_notifications")

@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			if((T in flood_turfs) || !FT.CanAtmosPass(T, FALSE))
 				continue
 			flood_images += image(image_icon,T,image_state,MOB_LAYER)
 			flood_turfs += T
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 		if(4) //Stunprod + cablecuff
-			target.playsound_local(null, 'sound/weapons/Egloves.ogg', 40, 1)
+			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, 1)
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 			sleep(20)
 			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, 1)
@@ -557,7 +557,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat || H.lying)
+		if(H.stat || H.lying_angle)
 			continue
 		clone = H
 		break
@@ -592,8 +592,8 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	icon_state = null
 	name = ""
 	desc = ""
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	opacity = 0
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
@@ -763,7 +763,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		people += H
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
-		target.hear_say(message_to_multilingual(pick(speak_messages), pick(person.languages)), speaker = person)
+		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)
@@ -775,7 +775,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			if(H.stat != DEAD)
 				humans += H
 		person = pick(humans)
-		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+		target.hear_radio(message_to_multilingual(pick(radio_messages), safepick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
@@ -980,7 +980,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					slots_free -= ui_lhand
 				if(r_hand)
 					slots_free -= ui_rhand
-				if(istype(src,/mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(!H.belt)
 						slots_free += ui_belt

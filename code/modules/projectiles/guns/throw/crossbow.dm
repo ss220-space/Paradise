@@ -32,7 +32,8 @@
 	if(cell && severity)
 		emp_act(severity)
 
-/obj/item/gun/throw/crossbow/update_icon()
+
+/obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
 		if(!to_launch)
 			icon_state = "[initial(icon_state)]"
@@ -40,16 +41,18 @@
 			icon_state = "[initial(icon_state)]-nocked"
 	else
 		icon_state = "[initial(icon_state)]-drawn"
-	overlays.Cut()
-	var/bolt_type = "bolt"
-	if(to_launch)
-		if(tension)
-			bolt_type += "_tighten"
-		else
-			bolt_type += "_untighten"
-		var/obj/item/arrow/bolt = to_launch
-		bolt_type += "_[bolt.overlay_prefix]"
-		overlays += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
+
+
+/obj/item/gun/throw/crossbow/update_overlays()
+	. = ..()
+
+	if(!to_launch)
+		return
+
+	var/bolt_type = "bolt[tension ? "_tighten" : "_untighten"]"
+	var/obj/item/arrow/bolt = to_launch
+	bolt_type += "_[bolt.overlay_prefix]"
+	. += image('icons/obj/weapons/crossbow_rod.dmi', bolt_type)
 
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
@@ -58,6 +61,8 @@
 		. += span_notice("\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
 	else
 		. += span_notice("It has an empty mount for a battery cell.")
+	if(src in user)
+		. += span_info("You can <b>Alt-Click</b> to change the draw tension.")
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -101,7 +106,7 @@
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
 	if(cell && cell.charge > 499) //I really hope there is no way to get 499.5 charge or something
-		if(do_after(user, 5 * drawtension, target = user))
+		if(do_after(user, 0.5 SECONDS * drawtension, user))
 			tension = drawtension
 			if(to_launch)
 				modify_projectile(to_launch, 1)
@@ -134,16 +139,21 @@
 	to_chat(user, span_notice("You jimmy [cell] out of [src] with [I]."))
 	cell = null
 
+
+/obj/item/gun/throw/crossbow/AltClick(mob/user)
+	if(src in user)
+		set_tension()
+
+
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"
 	set category = "Object"
-	set src in range(0)
+	set src in usr
 
-	var/mob/user = usr
-	if(user.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
-	if(!choice)
+	if(!choice || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(choice)
@@ -158,10 +168,15 @@
 		if(XBOW_TENSION_FULL)
 			drawtension = maxtension
 
+	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
+
+
 /obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
 	tension = 0
 	update_icon()
+
+
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
@@ -251,7 +266,7 @@
 
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/lighter) || istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/lighter) || I.tool_behaviour == TOOL_WELDER)
 		fire_up()
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)

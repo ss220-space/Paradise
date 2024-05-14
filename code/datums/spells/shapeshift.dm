@@ -102,7 +102,7 @@
 /obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
 	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
 		"<span class='danger'>You begin channeling the transformation.</span>")
-	if(!do_after(caster, 5 SECONDS, FALSE, caster))
+	if(!do_after(caster, 5 SECONDS, caster, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
 		return
 	return ..()

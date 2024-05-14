@@ -17,8 +17,8 @@
 /obj/minigame_anchor
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "thunderdome-bomb"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
 	opacity = 0
 	layer = BELOW_MOB_LAYER
@@ -51,10 +51,10 @@
 					var/old_plane = source.plane
 					source.layer = FLOAT_LAYER
 					source.plane = FLOAT_PLANE
-					A.overlays += source
+					A.add_overlay(source)
 					source.layer = old_layer
 					source.plane = old_plane
 				else
 					alert_overlay.layer = FLOAT_LAYER
 					alert_overlay.plane = FLOAT_PLANE
-					A.overlays += alert_overlay
+					A.add_overlay(alert_overlay)

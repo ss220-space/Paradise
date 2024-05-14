@@ -9,8 +9,10 @@
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
-	if(notransform)
+
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
+
 	if(..())
 		if(buckled)
 			handle_feeding()
@@ -79,7 +81,7 @@
 						if(Target.Adjacent(src))
 							Target.attack_slime(src)
 					break
-				if(!Target.lying && prob(80))
+				if(!Target.lying_angle && prob(80))
 
 					if(Target.client && Target.health >= 20)
 						if(!Atkcool)
@@ -106,7 +108,7 @@
 				AIproc = 0
 				break
 
-		var/sleeptime = movement_delay()
+		var/sleeptime = cached_multiplicative_slowdown
 		if(sleeptime <= 0)
 			sleeptime = 1
 
@@ -280,9 +282,9 @@
 	update_canmove()
 	if(Tempstun)
 		if(!buckled) // not while they're eating!
-			canmove = 0
+			canmove = FALSE
 	else
-		canmove = 1
+		canmove = TRUE
 
 	if(attacked > 50)
 		attacked = 50

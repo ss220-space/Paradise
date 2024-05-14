@@ -38,7 +38,7 @@
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 1
-	ventcrawler = 0
+	ventcrawler_trait = null
 	attack_damage = 30
 	disarm_stamina_damage = 34
 	armour_penetration = 30
@@ -84,14 +84,18 @@
 
 
 /mob/living/carbon/alien/humanoid/praetorian/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	if(stat == DEAD)
 		icon_state = "prat_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || lying_angle || resting)
 		icon_state = "prat_sleep"
 	else
 		icon_state = "prat_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 

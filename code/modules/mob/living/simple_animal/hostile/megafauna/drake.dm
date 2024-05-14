@@ -68,6 +68,12 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/mass_fire,
 							   /datum/action/innate/megafauna_attack/lava_swoop)
 
+
+/mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
+
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
 	icon_icon = 'icons/obj/wizard.dmi'
@@ -100,7 +106,7 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "Here there be dragons."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/dragon/OpenFire()
 	if(swooping)
@@ -270,7 +276,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
 	SLEEP_CHECK_DEATH(0)
@@ -308,7 +314,7 @@ Difficulty: Medium
 		return
 	stop_automated_movement = TRUE
 	swooping |= SWOOP_DAMAGEABLE
-	density = FALSE
+	ADD_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	icon_state = "shadow"
 	visible_message("<span class='boldwarning'>[src] swoops up high!</span>")
 
@@ -385,7 +391,7 @@ Difficulty: Medium
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 
-	density = TRUE
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	SLEEP_CHECK_DEATH(1)
 	swooping &= ~SWOOP_DAMAGEABLE
 	SetRecoveryTime(swoop_cooldown)
@@ -423,8 +429,8 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
-	return 1
+/mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /obj/effect/temp_visual/lava_warning
 	icon_state = "lavastaff_warn"
@@ -458,7 +464,7 @@ Difficulty: Medium
 		M.take_damage(45, BRUTE, "melee", 1)
 
 	// changes turf to lava temporarily
-	if(!T.density && !istype(T, /turf/simulated/floor/plating/lava))
+	if(!T.density && !islava(T))
 		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)
@@ -476,7 +482,7 @@ Difficulty: Medium
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass()
+/obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/temp_visual/lava_safe

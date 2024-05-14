@@ -7,6 +7,11 @@
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 3
+	light_color = "#F70027"
 
 /obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
@@ -17,7 +22,7 @@
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
 	button_icon_state = "docwagon2"
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
@@ -38,29 +43,28 @@
 
 	if(A.soundloop.muted)
 		A.soundloop.start()
-		A.set_light(4,3,"#F70027")
+		A.set_light_on(TRUE)
 	else
 		A.soundloop.stop()
-		A.set_light(0)
+		A.set_light_on(FALSE)
 
 
 /datum/looping_sound/ambulance_alarm
-    start_length = 0
-    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
-    mid_length = 14
-    volume = 100
+	start_length = 0
+	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
+	mid_length = 14
+	volume = 100
 
 
-/obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
-    . = ..()
-    if(has_buckled_mobs())
-        AA.Grant(M)
-    else
-        AA.Remove(M)
+/obj/vehicle/ambulance/post_buckle_mob(mob/living/target)
+	. = ..()
+	AA.Grant(target)
 
-/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
-	AA.Remove(M)
-	return ..()
+
+/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	AA.Remove(target)
+
 
 /obj/item/key/ambulance
 	name = "ambulance key"
@@ -112,13 +116,15 @@
 	. = ..()
 	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
 
-/obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
-	..()
-	if(istype(over_object, /obj/vehicle/ambulance))
-		var/obj/vehicle/ambulance/amb = over_object
-		if(amb.bed)
-			amb.bed = null
-			to_chat(usr, "You unhook the bed to the ambulance.")
-		else
-			amb.bed = src
-			to_chat(usr, "You hook the bed to the ambulance.")
+/obj/structure/bed/amb_trolley/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!istype(over_object, /obj/vehicle/ambulance) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
+	var/obj/vehicle/ambulance/amb = over_object
+	if(amb.bed)
+		amb.bed = null
+		to_chat(usr, "You unhook the bed to the ambulance.")
+	else
+		amb.bed = src
+		to_chat(usr, "You hook the bed to the ambulance.")

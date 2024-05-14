@@ -8,10 +8,16 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/baseturf_helper/LateInitialize()
+	initialize_replacements()
+
+/obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
 	for(var/turf/T in get_area_turfs(thearea, z))
 		replace_baseturf(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	if(thing.baseturf != thing.type)
@@ -20,6 +26,10 @@
 /obj/effect/baseturf_helper/space
 	name = "space baseturf editor"
 	baseturf = /turf/space
+
+/obj/effect/baseturf_helper/plating
+	name = "plating baseturf editor"
+	baseturf = /turf/simulated/floor/plating
 
 /obj/effect/baseturf_helper/asteroid
 	name = "asteroid baseturf editor"
@@ -56,6 +66,10 @@
 /obj/effect/baseturf_helper/lava_land/surface
 	name = "lavaland baseturf editor"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+
+/obj/effect/baseturf_helper/lava_land/surface/basalt
+	name = "lavaland basalt baseturf editor"
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'

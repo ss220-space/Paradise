@@ -228,7 +228,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/simulated/floor/T in orange(4, loc))
+			for(var/turf/T as anything in RECT_TURFS(4, 4, loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isfloorturf(t))
@@ -269,6 +269,11 @@
 		var/turf/T = get_step(src, spawndir)
 		if(T)
 			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
+
+/obj/effect/temp_visual/goliath_tentacle/full_cross/Initialize(mapload, new_spawner)
+	. = ..()
+	for(var/dir in GLOB.cardinal)
+		new /obj/effect/temp_visual/goliath_tentacle(get_step(src, dir), spawner)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"

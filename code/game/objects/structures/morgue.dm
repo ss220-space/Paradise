@@ -41,8 +41,7 @@
 
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
-	update_icon(update_state())
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	update_state()
 
 
 /obj/structure/morgue/Destroy()
@@ -106,7 +105,7 @@
 			return update_icon(UPDATE_OVERLAYS)
 
 	status = UNREVIVABLE
-	update_icon(UPDATE_OVERLAYS)
+	return update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/morgue/update_overlays()
@@ -139,12 +138,18 @@
 	return ..()
 
 
-/obj/structure/morgue/wirecutter_act(mob/user)
-	if(name != initial(name))
-		to_chat(user, span_notice("You cut the tag off the morgue."))
-		name = initial(name)
-		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+/obj/structure/morgue/wirecutter_act(mob/user, obj/item/I)
+	if(name == initial(name))
+		return FALSE
+
+	. = TRUE
+
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+
+	to_chat(user, span_notice("You cut the tag off the morgue."))
+	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/morgue/attack_hand(mob/user)
@@ -184,7 +189,7 @@
 
 
 /obj/structure/morgue/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
@@ -207,7 +212,7 @@
 
 
 /obj/structure/morgue/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
@@ -256,6 +261,7 @@
 	icon_state = "morgue_tray"
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/structure/morgue/morgue
@@ -285,13 +291,13 @@
 
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!(istype(dropping)) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
@@ -305,21 +311,18 @@
 	return TRUE
 
 
-/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSTABLE))
+/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
-	return FALSE
 
 
 /obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(checkpass(caller, PASSTABLE))
+		. = TRUE
 
 
 /mob/proc/update_morgue()
@@ -393,11 +396,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(cremating)
-		set_light(1, LIGHTING_MINIMUM_POWER)
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
-	else
-		set_light(0)
 
 	if(connected)
 		return
@@ -406,6 +404,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
+		underlays += emissive_appearance(icon, "crema_active_lightmask")
 		return
 
 	if(length(contents))
@@ -509,13 +508,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/relaymove(mob/user)
-	if(user.incapacitated() || cremating)
+	if(cremating || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
 
 /obj/machinery/crematorium/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || cremating)
+	if(cremating || !iscarbon(user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
@@ -535,7 +534,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -678,6 +677,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon_state = "crema_tray"
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSTABLE|LETPASSTHROW
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 350
 	var/obj/machinery/crematorium/crematorium
@@ -707,13 +707,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if(!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
@@ -727,7 +727,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return TRUE
 
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 

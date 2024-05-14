@@ -6,6 +6,7 @@
 	base_cooldown = 10 SECONDS
 	cooldown_min = 2 SECONDS //20 deciseconds reduction per rank
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"
 
@@ -49,6 +50,7 @@
 	name = "Greater Knock"
 	desc = "On first cast, will remove access restrictions on all airlocks on the station, and announce this spell's use to the station. On any further cast, will open all doors in sight. Cannot be refunded once bought!"
 
+	action_icon_state = "greater_knock"
 	base_cooldown = 20 SECONDS
 	cooldown_min = 20 SECONDS
 	invocation = "MAIOR OXIN FIERA"

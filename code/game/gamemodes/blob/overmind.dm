@@ -3,8 +3,7 @@
 	real_name = "Blob Overmind"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
-
-	see_in_dark = 8
+	nightvision = 8
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -52,6 +51,7 @@
 	sync_mind()
 	blob_help()
 	update_health_hud()
+	sync_lighting_plane_alpha()
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core && hud_used)
@@ -89,8 +89,7 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#008000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
+	var/rendered = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> <span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 
 	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))

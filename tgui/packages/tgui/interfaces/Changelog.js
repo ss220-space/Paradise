@@ -272,7 +272,7 @@ export class Changelog extends Component {
                         <Table.Row key={changeType + change}>
                           {icon}
                           <Table.Cell className="Changelog__Cell">
-                            <a href={"https://github.com/ss220-space/Paradise/pull/" + prMatch[0].substring(1)}> {change} </a>
+                            <a href={"https://github.com/ss220-space/Paradise/pull/" + prMatch[0].substring(1)}> {change.charAt(0).toUpperCase() + change.slice(1)} </a>
                           </Table.Cell>
                         </Table.Row>
                       ) || (

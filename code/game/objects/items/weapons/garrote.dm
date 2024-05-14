@@ -15,16 +15,15 @@
 
 /obj/item/twohanded/garrote/Destroy()
 	if(strangling)
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 	strangling = null
 	return ..()
 
-/obj/item/twohanded/garrote/update_icon()
+/obj/item/twohanded/garrote/update_icon_state()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
 		icon_state = "garrot_unwrap"
 		return
-
-	icon_state = "garrot_[wielded ? "un" : ""]wrap"
+	icon_state = "garrot_[HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
 
 /obj/item/twohanded/garrote/improvised // Made via tablecrafting
 	name = "garrote"
@@ -32,21 +31,20 @@
 	icon_state = "garrot_I_wrap"
 	improvised = 1
 
-/obj/item/twohanded/garrote/improvised/update_icon()
+/obj/item/twohanded/garrote/improvised/update_icon_state()
 	if(strangling)
 		icon_state = "garrot_I_unwrap"
 		return
-
-	icon_state = "garrot_I_[wielded ? "un" : ""]wrap"
+	icon_state = "garrot_I_[HAS_TRAIT(src, TRAIT_WIELDED) ? "un" : ""]wrap"
 
 
 /obj/item/twohanded/garrote/unwield(obj/item/source, mob/living/carbon/user)
 	if(strangling)
 		usr.visible_message("<span class='info'>[usr] removes the [src] from [strangling]'s neck.</span>", \
 				"<span class='warning'>You remove the [src] from [strangling]'s neck.</span>")
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 
@@ -54,7 +52,7 @@
 	if(garrote_time > world.time) // Cooldown
 		return
 
-	if(!istype(user, /mob/living/carbon/human)) // spap_hand is a proc of /mob/living, user is simply /mob
+	if(!ishuman(user)) // spap_hand is a proc of /mob/living, user is simply /mob
 		return
 
 	var/mob/living/carbon/human/U = user
@@ -63,7 +61,7 @@
 		to_chat(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
+	if(!ishuman(M))
 		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
 		return
 
@@ -102,7 +100,7 @@
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
 	strangling = M
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
@@ -110,19 +108,18 @@
 				  "<span class='userdanger'>[U] begins garroting you with the [src]![improvised ? "" : " You are unable to speak!"]</span>", \
 				  "You hear struggling and wire strain against flesh!")
 
-	return
 
 /obj/item/twohanded/garrote/process()
 	if(!strangling)
 		// Our mark got gibbed or similar
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 
 
-	if(!istype(loc, /mob/living/carbon/human))
+	if(!ishuman(loc))
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 
@@ -139,9 +136,9 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 		return
@@ -150,9 +147,9 @@
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
-		strangling.garroted_by.Remove(src)
+		LAZYREMOVE(strangling.garroted_by, src)
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 		return
@@ -164,8 +161,7 @@
 		return
 
 
-	if(!(src in strangling.garroted_by))
-		strangling.garroted_by+=src
+	LAZYOR(strangling.garroted_by, src)
 	strangling.Silence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
 

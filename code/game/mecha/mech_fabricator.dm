@@ -214,7 +214,7 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, dir))
-	if(istype(A, /obj/item))
+	if(isitem(A))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
@@ -250,7 +250,7 @@
 /obj/machinery/mecha_part_fabricator/proc/sync_timer_finish()
 	syncing = FALSE
 	var/area/A = get_area(src)
-	for(var/obj/machinery/computer/rdconsole/RDC in A) // These computers should have their own global..
+	for(var/obj/machinery/computer/rdconsole/RDC in A.machinery_cache) // These computers should have their own global..
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)

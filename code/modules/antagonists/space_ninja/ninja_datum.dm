@@ -167,25 +167,25 @@
 	for(var/obj/item/item in (human_ninja.contents - (human_ninja.bodyparts|human_ninja.internal_organs)))
 		human_ninja.drop_item_ground(item, force = TRUE, silent = TRUE)
 
-	human_ninja.equip_to_slot(new /obj/item/clothing/under/ninja, slot_w_uniform, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/glasses/ninja, slot_glasses, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/mask/gas/space_ninja, slot_wear_mask, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/shoes/space_ninja, slot_shoes, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/gloves/space_ninja, slot_gloves, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/clothing/head/helmet/space/space_ninja, slot_head, initial = TRUE)
-	human_ninja.equip_to_slot(new /obj/item/tank/internals/emergency_oxygen/ninja, slot_r_store, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/under/ninja, ITEM_SLOT_CLOTH_INNER, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/glasses/ninja, ITEM_SLOT_EYES, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/mask/gas/space_ninja, ITEM_SLOT_MASK, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/shoes/space_ninja, ITEM_SLOT_FEET, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/gloves/space_ninja, ITEM_SLOT_GLOVES, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/clothing/head/helmet/space/space_ninja, ITEM_SLOT_HEAD, initial = TRUE)
+	human_ninja.equip_to_slot(new /obj/item/tank/internals/emergency_oxygen/ninja, ITEM_SLOT_POCKET_RIGHT, initial = TRUE)
 
 	var/obj/item/storage/backpack/ninja/my_backpack = new
-	human_ninja.equip_to_slot(my_backpack, slot_back, initial = TRUE)
+	human_ninja.equip_to_slot(my_backpack, ITEM_SLOT_BACK, initial = TRUE)
 
 	var/obj/item/radio/headset/ninja/my_headset = new
-	human_ninja.equip_to_slot(my_headset, slot_r_ear, initial = TRUE)
+	human_ninja.equip_to_slot(my_headset, ITEM_SLOT_EAR_RIGHT, initial = TRUE)
 
 	my_katana = new
-	human_ninja.equip_to_slot(my_katana, slot_belt, initial = TRUE)
+	human_ninja.equip_to_slot(my_katana, ITEM_SLOT_BELT, initial = TRUE)
 
 	my_suit = new
-	human_ninja.equip_to_slot(my_suit, slot_wear_suit, initial = TRUE)
+	human_ninja.equip_to_slot(my_suit, ITEM_SLOT_CLOTH_OUTER, initial = TRUE)
 	my_suit.preferred_clothes_gender = human_ninja.gender
 	my_suit.n_headset = my_headset
 	my_suit.n_backpack = my_backpack
@@ -222,7 +222,7 @@
 		var/warning = cell.charge >= check_percentage ? "" : "_warning"
 		hud.ninja_energy_display.icon_state = "ninja_energy_display_[my_suit.color_choice][warning]"
 		hud.ninja_energy_display.maptext = "<div align='center' valign='middle' style='position:relative;'><font color='#FFFFFF' size='1'>[round(cell.charge)]</font></div>"
-		hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : 100
+		hud.ninja_energy_display.invisibility = my_suit.show_charge_UI ? 0 : INVISIBILITY_ABSTRACT
 
 	// concentration level
 	if(!hud.ninja_focus_display && owner.martial_art && istype(owner.martial_art, /datum/martial_art/ninja_martial_art))
@@ -237,7 +237,7 @@
 	// martial art update
 	if(creeping_widow && my_suit)
 		hud.ninja_focus_display.icon_state = creeping_widow.has_focus ? "focus_active_[my_suit.color_choice]" : "focus"
-		hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : 100
+		hud.ninja_focus_display.invisibility = my_suit.show_concentration_UI ? 0 : INVISIBILITY_ABSTRACT
 
 
 /**
@@ -553,7 +553,7 @@
 		maroon_objective.target = protect_objective.target	// swapping target
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
-		var/list/messages = list(maroon_objective.owner.prepare_announce_objectives())
+		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
 		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
 
 
@@ -649,12 +649,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/ninja)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/ninja)
 
 	if(!ismob(source))
 		return FALSE

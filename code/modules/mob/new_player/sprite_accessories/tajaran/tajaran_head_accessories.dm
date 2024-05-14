@@ -1,6 +1,6 @@
 /datum/sprite_accessory/head_accessory/tajara
     icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_accessories.dmi' // Nearly all head accessories are head markings, however this is the default for consistency sake
-    species_allowed = list("Tajaran")
+    species_allowed = list(SPECIES_TAJARAN)
 
 /datum/sprite_accessory/head_accessory/tajara/taj_ears
     name = "Tajaran Ears"

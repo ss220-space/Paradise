@@ -1,27 +1,28 @@
 #define AUTO_EJECT_DEAD		(1<<0)
 #define AUTO_EJECT_HEALTHY	(1<<1)
+#define OCCUPANT_PIXEL_BOUNCE_HIGH 28
+#define OCCUPANT_PIXEL_BOUNCE_LOW 22
 
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "криокапсула"
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	var/on = FALSE
+	on = FALSE
+	vent_movement = VENTCRAWL_CAN_SEE
 	var/temperature_archived
-	var/mob/living/carbon/occupant = null
-	var/obj/item/reagent_containers/glass/beaker = null
-	//if you don't want to dupe reagents
-	var/list/reagents_blacklist = list(
-		"stimulants"
-	)
+	var/mob/living/carbon/occupant
+	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
+	var/obj/effect/occupant_overlay
+	var/obj/item/reagent_containers/glass/beaker
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -34,12 +35,26 @@
 
 	light_color = LIGHT_COLOR_WHITE
 
-/obj/machinery/atmospherics/unary/cryo_cell/power_change()
+
+/obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
 	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
+	if(stat & (BROKEN|NOPOWER))
+		set_light_on(FALSE)
 	else
-		set_light(0)
+		set_light(2)
+
+
+/obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
+	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += span_warning("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!")
+		else
+			. += span_notice("You see [occupant.name] inside.")
+	. += span_notice("The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.")
+	. += span_notice("Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.")
+	. += span_info("<b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.")
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
@@ -78,14 +93,16 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
-	if(node) return
+	if(node)
+		return
 	for(var/cdir in GLOB.cardinal)
-		node = findConnecting(cdir)
+		node = find_connecting(cdir)
 		if(node)
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
 	QDEL_NULL(beaker)
+	QDEL_NULL(occupant_overlay)
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
@@ -110,16 +127,16 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user)
+/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
@@ -129,16 +146,17 @@
 		return
 	if(occupant)
 		to_chat(user, span_boldnotice("Криокапсула уже занята!"))
-		return
+		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		to_chat(user, span_danger("Субъект не должен держать в руках абиотические предметы."))
-		return
+		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] нельзя поместить в [src], поскольку к [genderize_ru(L.gender,"его","её","его","их")] голове прилеплен слайм."))
-		return
+		return TRUE
+	. = TRUE
 	if(put_mob(L))
 		add_fingerprint(user)
 		if(L == user)
@@ -338,59 +356,40 @@
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/update_icon()
-	handle_update_icon()
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/handle_update_icon() //making another proc to avoid spam in update_icon
-	overlays.Cut() //empty the overlay proc, just in case
+/obj/machinery/atmospherics/unary/cryo_cell/update_icon_state()
 	icon_state = "pod[on]" //set the icon properly every time
 
-	if(!src.occupant)
-		overlays += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
+
+/obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
+	. = ..()
+
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+
+	if(!occupant)
+		. += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
 
 	if(occupant)
-		var/mutable_appearance/pickle = mutable_appearance(occupant.icon, occupant.icon_state)
-		pickle.overlays = occupant.overlays
-		pickle.pixel_y = 22
+		occupant_overlay = new(get_turf(src))
+		occupant_overlay.icon = occupant.icon
+		occupant_overlay.icon_state = occupant.icon_state
+		occupant_overlay.overlays = occupant.overlays
+		occupant_overlay.pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW
+		occupant_overlay.layer = layer + 0.01
 
-		overlays += pickle
-		overlays += "lid[on]"
-		if(src.on && !running_bob_animation) //no bobbing if off
-			var/up = 0 //used to see if we are going up or down, 1 is down, 2 is up
-			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
-				running_bob_animation = 1
-				while(occupant)
-					overlays -= "lid[on]" //have to remove the overlays first, to force an update- remove cloning pod overlay
-					overlays -= pickle //remove mob overlay
+		if(on)
+			animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_HIGH)
+			animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
 
-					switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
+		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 
-						if(23) //inbetween state, for smoothness
-							switch(up) //this is set later in the switch, to keep track of where the mob is supposed to go
-								if(2) //2 is up
-									pickle.pixel_y = 24 //set to highest
-
-								if(1) //1 is down
-									pickle.pixel_y = 22 //set to lowest
-
-						if(22) //mob is at it's lowest
-							pickle.pixel_y = 23 //set to inbetween
-							up = 2 //have to go up
-
-						if(24) //mob is at it's highest
-							pickle.pixel_y = 23 //set to inbetween
-							up = 1 //have to go down
-
-					overlays += pickle //re-add the mob to the icon
-					overlays += "lid[on]" //re-add the overlay of the pod, they are inside it, not floating
-
-					sleep(7) //don't want to jiggle violently, just slowly bob
-				running_bob_animation = 0
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
 		return
+
 	if(occupant)
 		if(occupant.bodytemperature < T0C)
 			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
@@ -407,7 +406,7 @@
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
 			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
-				if(reagent.id in reagents_blacklist)
+				if(!reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
 					proportion = min(proportion, 1)
 					volume = 1
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
@@ -415,6 +414,7 @@
 	next_trans++
 	if(next_trans == 17)
 		next_trans = 0
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(!occupant)
@@ -438,14 +438,14 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261
+	var/turf/drop_loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(drop_loc)
+	occupant.set_bodytemperature(occupant.dna ? occupant.dna.species.body_temperature : BODYTEMP_NORMAL)
 	occupant = null
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
+	for(var/atom/movable/thing in (contents - component_parts - beaker))
+		thing.forceMove(drop_loc)
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -479,11 +479,18 @@
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
 	occupant = M
-//	M.metabslow = 1
 	add_fingerprint(usr)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
-	return 1
+	return TRUE
+
+
+/obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/living/carbon/user)
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+	go_out()
+	add_fingerprint(user)
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
 	set name = "Извлечь пациента"
@@ -501,12 +508,12 @@
 	else
 		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
 			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
-	return
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
@@ -531,7 +538,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	put_mob(usr)
@@ -554,11 +561,11 @@
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
 
-/obj/machinery/atmospherics/unary/cryo_cell/can_crawl_through()
-	return // can't ventcrawl in or out of cryo.
-
 /obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
 	return FALSE // you can't see the pipe network when inside a cryo cell.
 
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD
+#undef OCCUPANT_PIXEL_BOUNCE_HIGH
+#undef OCCUPANT_PIXEL_BOUNCE_LOW
+

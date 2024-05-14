@@ -51,7 +51,6 @@
 /atom/var/bottom_left_corner
 /atom/var/bottom_right_corner
 /atom/var/list/canSmoothWith = null // TYPE PATHS I CAN SMOOTH WITH~~~~~ If this is null and atom is smooth, it smooths only with itself
-/atom/movable/var/can_be_unanchored = FALSE
 /turf/var/list/fixed_underlay = null
 
 /proc/calculate_adjacencies(atom/A)
@@ -236,27 +235,28 @@
 	var/list/New = list()
 
 	if(A.top_left_corner != nw)
-		A.overlays -= A.top_left_corner
+		A.cut_overlay(A.top_left_corner)
 		A.top_left_corner = nw
 		New += nw
 
 	if(A.top_right_corner != ne)
-		A.overlays -= A.top_right_corner
+		A.cut_overlay(A.top_right_corner)
 		A.top_right_corner = ne
 		New += ne
 
 	if(A.bottom_right_corner != sw)
-		A.overlays -= A.bottom_right_corner
+		A.cut_overlay(A.bottom_right_corner)
 		A.bottom_right_corner = sw
 		New += sw
 
 	if(A.bottom_left_corner != se)
-		A.overlays -= A.bottom_left_corner
+		A.cut_overlay(A.bottom_left_corner)
 		A.bottom_left_corner = se
 		New += se
 
 	if(New.len)
-		A.overlays.Add(New)
+		A.add_overlay(New)
+
 
 /proc/find_type_in_direction(atom/source, direction)
 	var/turf/target_turf = get_step(source, direction)
@@ -307,13 +307,13 @@
 					queue_smooth(A)
 
 /atom/proc/clear_smooth_overlays()
-	overlays -= top_left_corner
+	cut_overlay(top_left_corner)
 	top_left_corner = null
-	overlays -= top_right_corner
+	cut_overlay(top_right_corner)
 	top_right_corner = null
-	overlays -= bottom_right_corner
+	cut_overlay(bottom_right_corner)
 	bottom_right_corner = null
-	overlays -= bottom_left_corner
+	cut_overlay(bottom_left_corner)
 	bottom_left_corner = null
 
 /atom/proc/replace_smooth_overlays(nw, ne, sw, se)
@@ -327,7 +327,8 @@
 	O += sw
 	bottom_right_corner = se
 	O += se
-	overlays.Add(O)
+
+	add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)

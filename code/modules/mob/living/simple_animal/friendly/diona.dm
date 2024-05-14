@@ -12,7 +12,7 @@
 	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -85,12 +85,14 @@
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
-	add_language("Rootspeak")
+	add_language(LANGUAGE_DIONA)
 	merge_action.Grant(src)
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
@@ -214,7 +216,7 @@
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
-		if(do_after_once(src, 20, target = G))
+		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
@@ -271,13 +273,13 @@
 		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
 
 
-/mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE)
+/mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
 	I.forceMove(drop_location())
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped()
+	I.dropped(src, null, silent)
 
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)

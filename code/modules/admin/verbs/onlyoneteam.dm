@@ -24,14 +24,14 @@
 
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
-		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), slot_r_hand)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), ITEM_SLOT_HAND_RIGHT)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), ITEM_SLOT_FEET)
 
 		if(!team_toggle)
 			GLOB.team_alpha += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -39,12 +39,12 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, slot_wear_id)
+			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 		else
 			GLOB.team_bravo += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -52,7 +52,7 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, slot_wear_id)
+			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 		team_toggle = !team_toggle
 		H.dna.species.after_equip_job(null, H)

@@ -12,6 +12,7 @@
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/backpack/cargo(src)
 	new /obj/item/clothing/suit/storage/cargotech(src)
+	new /obj/item/qm_quest_tablet/cargotech(src)
 
 
 /obj/structure/closet/secure_closet/quartermaster
@@ -22,6 +23,7 @@
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/storage/backpack/cargo(src)
 	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/radio/headset/heads/qm(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson(src)

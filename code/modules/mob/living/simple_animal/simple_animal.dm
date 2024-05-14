@@ -131,6 +131,7 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
+	update_simplemob_varspeed()
 	verbs -= /mob/verb/observe
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
@@ -234,7 +235,7 @@
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
 					var/anydir = pick(GLOB.cardinal)
 					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir, movement_delay())
+						Move(get_step(src,anydir), anydir, cached_multiplicative_slowdown)
 						turns_since_move = 0
 			return 1
 
@@ -282,7 +283,7 @@
 	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
-		bodytemperature += diff
+		adjust_bodytemperature(diff)
 
 	var/tox = environment.toxins
 	var/oxy = environment.oxygen
@@ -354,11 +355,18 @@
 
 	return verb
 
-/mob/living/simple_animal/movement_delay()
-	. = speed
-	if(forced_look)
-		. += 3
-	. += CONFIG_GET(number/animal_delay)
+
+/mob/living/simple_animal/proc/set_varspeed(var_value)
+	speed = var_value
+	update_simplemob_varspeed()
+
+
+/mob/living/simple_animal/proc/update_simplemob_varspeed()
+	if(speed == 0)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
+
+
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -377,7 +385,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	flying = FALSE
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
@@ -402,10 +409,10 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
-			regenerate_icons()
+		regenerate_icons()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -452,9 +459,11 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
-		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+		add_overlay(simple_mob_fire_olay)
+
 
 /mob/living/simple_animal/revive()
 	..()
@@ -462,9 +471,8 @@
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
-	density = initial(density)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 	update_canmove()
-	flying = initial(flying)
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
@@ -506,12 +514,12 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/show_inv(mob/user as mob)
+/mob/living/simple_animal/show_inv(mob/user)
 	if(!can_collar)
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
+	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.item_flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -520,14 +528,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_collar)
+		if(ITEM_SLOT_NECK)
 			return pcollar
 	. = ..()
 
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(slot_collar)
+		if(ITEM_SLOT_NECK)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -553,14 +561,14 @@
 	I.forceMove(src)
 
 	switch(slot)
-		if(slot_collar)
+		if(ITEM_SLOT_NECK)
 			add_collar(I)
 
 
 /mob/living/simple_animal/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
-		return
+		return .
 
 	if(I == pcollar)
 		pcollar = null
@@ -577,11 +585,11 @@
 	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
-		canmove = 0
+		canmove = FALSE
 	else if(buckled)
-		canmove = 0
+		canmove = FALSE
 	else
-		canmove = 1
+		canmove = TRUE
 	if(!canmove)
 		walk(src, 0) //stop mid walk
 
@@ -599,8 +607,12 @@
 		ntransform.Scale(resize)
 		resize = RESIZE_DEFAULT_SIZE
 
-	if(changed)
-		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+	if(!changed)
+		return
+
+	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
+	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, easing = EASE_IN|EASE_OUT)
+
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
@@ -610,7 +622,7 @@
 	sight |= SEE_TURFS
 	sight |= SEE_MOBS
 	sight |= SEE_OBJS
-	see_in_dark = 8
+	nightvision = 8
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	sync_lighting_plane_alpha()
 
@@ -623,7 +635,7 @@
 		return
 
 	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
+	nightvision = initial(nightvision)
 	sight = initial(sight)
 
 	if(client.eye != src)
@@ -663,11 +675,12 @@
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
 
+
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(!istype(P) || QDELETED(P) || pcollar)
-		return
+		return FALSE
 	if(user && !user.drop_transfer_item_to_loc(P, src))
-		return
+		return FALSE
 	pcollar = P
 	regenerate_icons()
 	if(user)
@@ -676,12 +689,17 @@
 		name = P.tagname
 		real_name = P.tagname
 	P.equipped(src)
+	return TRUE
+
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/simple_animal/Login()
 	..()

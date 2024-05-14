@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = "Machine"
+	name = SPECIES_MACNINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -10,7 +10,7 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	language = "Trinary"
+	language = LANGUAGE_TRINARY
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
@@ -54,7 +54,7 @@
 		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
 	)
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
@@ -90,6 +90,8 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.remove_from_hud(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_ping
 	H.verbs |= /mob/living/carbon/human/proc/emote_beep
 	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
@@ -101,6 +103,8 @@
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(H)
 	H.verbs -= /mob/living/carbon/human/proc/emote_ping
 	H.verbs -= /mob/living/carbon/human/proc/emote_beep
 	H.verbs -= /mob/living/carbon/human/proc/emote_buzz

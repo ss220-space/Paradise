@@ -76,6 +76,10 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/civ
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
@@ -135,15 +139,15 @@
 	item_state = "navy_goldf"
 	item_color = "navy_goldf"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/rank/centcom/captain
@@ -324,9 +328,9 @@
 	item_state = "r_suit"
 	item_color = "red_suitf"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/suit_jacket/navy
@@ -478,7 +482,7 @@
 	item_state = "shamanrags"
 	item_color = "shamanrags"
 	has_sensor = FALSE
-	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
 //dress
 
@@ -538,7 +542,7 @@
 	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
-	name = "head of personal dress uniform"
+	name = "head of personnel dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
@@ -782,12 +786,12 @@
 	item_color = "rocksouniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
-		"Wryn" = 'icons/mob/clothing/species/wryn/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi'
 	)
 
 /obj/item/clothing/under/assistantformal
@@ -860,30 +864,17 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
-	. = ..()
-
-	if(slot == slot_w_uniform)
-		if(!user.ventcrawler)
-			user.ventcrawler = 1
-
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, silent = FALSE)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
-	..()
+	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
 
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
-	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back, slot_handcuffed, slot_legcuffed, slot_l_hand, \
-										slot_r_hand, slot_belt, slot_head, slot_wear_suit)
+/obj/item/clothing/under/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	// Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
+	var/slots_must_be_empty = ITEM_SLOT_BACK|ITEM_SLOT_BELT|ITEM_SLOT_HEAD|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HANDS|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED
 
-	var/obj/item/slot_item
-	for(var/slot_id in slot_must_be_empty)
-		slot_item = user.get_item_by_slot(slot_id)
-		if(slot_item)
-			to_chat(user, span_warning("Вы не можете залезть в вентиляцию с [slot_item.name]."))
+	for(var/obj/item/item as anything in user.get_equipped_items(include_hands = TRUE))
+		if(item.slot_flags & slots_must_be_empty)
+			if(provide_feedback)
+				to_chat(user, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
 			return FALSE
 
 	return TRUE
@@ -896,12 +887,19 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_uniform"
 	item_color = "cursedclown"
-	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
+
+
+/obj/item/clothing/under/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
@@ -1044,15 +1042,15 @@
 	item_color = "colorize_skirt"
 	var/colour = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
@@ -1077,3 +1075,64 @@
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 	update_icon()
+
+
+/obj/item/clothing/under/ussptracksuit_red
+	name = "red track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_red"
+	item_state = "ussptracksuit_red"
+	item_color = "ussptracksuit_red"
+
+
+/obj/item/clothing/under/ussptracksuit_blue
+	name = "blue track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_blue"
+	item_state = "ussptracksuit_blue"
+	item_color = "ussptracksuit_blue"
+
+
+/obj/item/clothing/under/ussptracksuit_black
+	name = "black track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_black"
+	item_state = "ussptracksuit_black"
+	item_color = "ussptracksuit_black"
+
+
+/obj/item/clothing/under/ussptracksuit_white
+	name = "white track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_white"
+	item_state = "ussptracksuit_white"
+	item_color = "ussptracksuit_white"
+
+/obj/item/clothing/under/night_dress
+	name = "night dress"
+	desc = "A classic night dress."
+	displays_id = FALSE
+	over_shoes = TRUE
+	icon_state = "night_dress"
+	item_state = "night_dress"
+	item_color = "night_dress"
+
+/obj/item/clothing/under/night_dress/darkred
+	icon_state = "night_dress_darkred"
+	item_state = "night_dress_darkred"
+	item_color = "night_dress_darkred"
+
+/obj/item/clothing/under/night_dress/red
+	icon_state = "night_dress_red"
+	item_state = "night_dress_red"
+	item_color = "night_dress_red"
+
+/obj/item/clothing/under/night_dress/silver
+	icon_state = "night_dress_silver"
+	item_state = "night_dress_silver"
+	item_color = "night_dress_silver"
+
+/obj/item/clothing/under/night_dress/white
+	icon_state = "night_dress_white"
+	item_state = "night_dress_white"
+	item_color = "night_dress_white"

@@ -106,7 +106,7 @@
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
 		var/obj/item/item = A
-		if(item.in_inventory)
+		if(item.item_flags & (IN_INVENTORY|IN_STORAGE))
 			return
 
 	face_atom(A)
@@ -117,13 +117,13 @@
 	if(!modifiers["catcher"] && A.IsObscured())
 		return
 
-	if(istype(loc,/obj/mecha))
+	if(ismecha(loc))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
@@ -191,7 +191,7 @@
 /mob/proc/beforeRangedClick(atom/A, params)
 	return
 
-//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+//Is the atom obscured by a PREVENT_CLICK_UNDER object above it
 /atom/proc/IsObscured()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
 		return FALSE
@@ -223,10 +223,10 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
-	return
+
 
 /*
 	Ranged unarmed attack:
@@ -237,7 +237,8 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(atom/A, params)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 /*
 	Restrained ClickOn
 
@@ -274,11 +275,9 @@
 		return
 	var/face_dir = get_cardinal_dir(src, A)
 	if(!face_dir || forced_look == face_dir || A == src)
-		forced_look = null
-		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
+		clear_forced_look()
 		return
-	forced_look = face_dir
-	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
+	set_forced_look(A, FALSE)
 
 /*
 	Middle shift-control-click
@@ -288,13 +287,13 @@
 	return
 
 /mob/living/MiddleShiftControlClickOn(atom/A)
+	if(incapacitated())
+		return
 	var/face_uid = A.UID()
 	if(forced_look == face_uid || A == src)
-		forced_look = null
-		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
+		clear_forced_look()
 		return
-	forced_look = face_uid
-	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
+	set_forced_look(A, TRUE)
 
 // In case of use break glass
 /*
@@ -351,19 +350,19 @@
 		user.listed_turf = T
 		user.client.statpanel = T.name
 
-/atom/proc/AltClick(var/mob/user)
+/atom/proc/AltClick(mob/user)
 	turf_examine(user)
 
-/atom/proc/turf_examine(var/mob/user)
+/atom/proc/turf_examine(mob/user)
 	var/turf/T = get_turf(src)
 	if(T)
-		if(user.TurfAdjacent(T))
+		if(user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
 			user.listed_turf = T
 			user.client.statpanel = T.name
 			// If we had a method to force a `Stat` update, it would go here
 		else
 			user.listed_turf = null
-	return
+
 
 /mob/proc/TurfAdjacent(var/turf/T)
 	return T.Adjacent(src)
@@ -428,7 +427,10 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
+
+	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, direction)
 	dir = direction
+
 
 /obj/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'
@@ -457,7 +459,7 @@
 
 /obj/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
+	if(modifiers["middle"] && iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else

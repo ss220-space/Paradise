@@ -16,17 +16,18 @@
 	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
+	// Decides if it is shown by AI Detector or not
+	var/ai_detector_visible = TRUE
 
 
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/aiEye/setLoc(T)
+/mob/camera/aiEye/setLoc(turf/destination, force_update = FALSE)
 	if(ai)
-		if(!isturf(ai.loc))
+		if(!isturf(ai.loc) || !destination)
 			return
-		T = get_turf(T)
-		loc = T
+		abstract_move(destination)
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client)
@@ -35,7 +36,7 @@
 		//Holopad
 		if(istype(ai.current, /obj/machinery/hologram/holopad))
 			var/obj/machinery/hologram/holopad/H = ai.current
-			H.move_hologram(ai, T)
+			H.move_hologram(ai, destination)
 
 /mob/camera/aiEye/Move()
 	return 0
@@ -66,7 +67,7 @@
 		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
 			if(isturf(loc) || isturf(src))
-				AI.eyeobj.setLoc(src)
+				AI.eyeobj.setLoc(get_turf(src))
 
 // AI MOVEMENT
 
@@ -141,6 +142,21 @@
 		return //won't work if dead
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
+
+/mob/living/silicon/ai/move_up()
+	set name = "Move Upwards"
+	set category = "IC"
+
+	if(eyeobj.zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
+		to_chat(src, span_notice("You move upwards."))
+
+/mob/living/silicon/ai/move_down()
+	set name = "Move Down"
+	set category = "IC"
+
+	if(eyeobj.zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
+		to_chat(src, span_notice("You move down."))
+
 
 /mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(relay_speech)

@@ -92,6 +92,9 @@ LOG_WORLD_OUTPUT
 ## log admin warning messages
 LOG_ADMINWARN
 
+## Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
+# REPORT_ACTIVE_TURFS
+
 ## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
 #LIST_AFK_MINIMUM 5
 
@@ -601,7 +604,7 @@ RESPAWN_DELAY_DRONE 10
 ## Disable splitting logs by Round_ID.
 #FULL_DAY_LOGS
 
-# Allow head to departments to assign civilian to his departament around Head of Personal
+# Allow head to departments to assign civilian to his departament around Head of Personnel
 #ALLOW_HEAD_OF_DEPARTAMENTS_ASSIGN_CIVILIAN
 
 # Do not write world logs to DreamDaemon log window/stdout on Unix
@@ -648,3 +651,5 @@ DEFAULT_MAP /datum/map/cyberiad
 ## Disable the loading of Lavaland
 # DISABLE_LAVALAND
 
+## If the number of players is more or same than this, then we apply the highpop jobs config.
+JOBS_HIGH_POP_MODE_AMOUNT 80

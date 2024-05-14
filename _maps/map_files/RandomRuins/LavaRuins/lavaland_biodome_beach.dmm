@@ -437,8 +437,21 @@
 /area/ruin/powered/beach)
 "wf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
-	pixel_y = 7
+/obj/item/reagent_containers/food/drinks/zaza{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/zaza{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/zaza{
+	pixel_x = -4;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/zaza{
+	pixel_x = -10;
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)

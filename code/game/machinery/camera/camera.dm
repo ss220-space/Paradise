@@ -2,6 +2,7 @@
 	name = "security camera"
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/machines/monitors.dmi'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	icon_state = "camera"
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 5
@@ -34,16 +35,22 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload)
+/obj/machinery/camera/Initialize(mapload, list/networks)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = 1
-	assembly.update_icon()
+	assembly.set_anchored(TRUE)
+	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
-	GLOB.cameranet.addCamera(src)
+	if(networks)
+		network = networks
+	var/list/tempnetwork = difflist(network, GLOB.restricted_camera_networks)
+	if(tempnetwork.len)
+		GLOB.cameranet.addCamera(src)
+	else
+		GLOB.cameranet.removeCamera(src)
 	if(isturf(loc))
 		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
@@ -76,15 +83,14 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon()
 			stat |= EMPED
-			set_light(0)
-			update_icon()
+			set_light_on(FALSE)
+			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
 
-			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE | TIMER_DELETE_ME)
-			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE|TIMER_DELETE_ME)
+			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
 
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
@@ -96,7 +102,7 @@
 
 /obj/machinery/camera/proc/restore_from_emp()
 	stat &= ~EMPED
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
@@ -139,7 +145,7 @@
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
+	else if(isprox(I) && panel_open)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
@@ -152,7 +158,7 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
 		if (!can_use())
 			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return
@@ -235,20 +241,20 @@
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status && !(flags & NODECONSTRUCT))
+	if(status && !(obj_flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			if(!assembly)
 				assembly = new()
 			assembly.forceMove(drop_location())
 			assembly.state = 1
 			assembly.setDir(dir)
-			assembly.update_icon()
+			assembly.update_icon(UPDATE_ICON_STATE)
 			assembly = null
 		else
 			var/obj/item/I = new /obj/item/camera_assembly(loc)
@@ -256,13 +262,15 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon()
+
+/obj/machinery/camera/update_icon_state()
 	if(!status)
 		icon_state = "[initial(icon_state)]1"
 	else if(stat & EMPED)
 		icon_state = "[initial(icon_state)]emp"
 	else
 		icon_state = "[initial(icon_state)]"
+
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
@@ -274,7 +282,7 @@
 		else
 			myArea = null
 	else
-		set_light(0)
+		set_light_on(FALSE)
 		GLOB.cameranet.removeCamera(src)
 		if(isarea(myArea))
 			LAZYREMOVE(myArea.cameras, UID())
@@ -293,7 +301,7 @@
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
@@ -374,7 +382,7 @@
 			if(cam == src)
 				return
 	if(on)
-		set_light(AI_CAMERA_LUMINOSITY)
+		set_light(AI_CAMERA_LUMINOSITY, l_on = TRUE)
 	else
 		set_light(0)
 
@@ -401,11 +409,11 @@
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		user.see_in_dark = max(user.see_in_dark, 8)
+		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
 		user.sight = initial(user.sight)
-		user.see_in_dark = initial(user.see_in_dark)
+		user.nightvision = initial(user.nightvision)
 		user.lighting_alpha = initial(user.lighting_alpha)
 
 	..()
@@ -417,10 +425,13 @@
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = 0
-	assembly.update_icon()
+	assembly.set_anchored(FALSE)
+	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
 	if(GLOB.cameranet && get_turf(src) != prev_turf)
 		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)
+
+/obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
+	return

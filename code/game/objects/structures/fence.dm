@@ -16,6 +16,7 @@
 	desc = "A chain link fence. Not as effective as a wall, but generally it keeps people out."
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSFENCE|LETPASSTHROW
 
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "straight"
@@ -58,14 +59,12 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSFENCE))
+
+/obj/structure/fence/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isprojectile(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		return TRUE
-	if(!density)
-		return TRUE
-	return FALSE
+
 
 /*
 	Shock user with probability prb (if all connections & power are working)
@@ -133,7 +132,7 @@
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 			add_fingerprint(user)
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE

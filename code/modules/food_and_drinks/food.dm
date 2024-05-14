@@ -28,6 +28,8 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()

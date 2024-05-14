@@ -1,16 +1,17 @@
 //STRIKE TEAMS
 
 #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-GLOBAL_VAR_INIT(sent_strike_team, 0)
+GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 /client/proc/strike_team()
 	if(!SSticker)
 		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
 		return
-	if(GLOB.sent_strike_team == 1)
+	if(GLOB.sent_strike_team)
 		to_chat(usr, "<span class='userdanger'>CentComm is already sending a team.</span>")
-		return
-	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+		if(alert("Do you want to send another one??",,"Yes","No")!="Yes")
+			return
+	else if(alert("Do you want to send in the CentComm death squad?",,"Yes","No")!="Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
 
@@ -22,10 +23,6 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
-
-	if(GLOB.sent_strike_team)
-		to_chat(usr, "Looks like someone beat you to it.")
-		return
 
 	// Find the nuclear auth code
 	var/nuke_code
@@ -43,7 +40,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 
-	GLOB.sent_strike_team = 1
+	GLOB.sent_strike_team = TRUE
 
 	// Spawns commandos and equips them.
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader

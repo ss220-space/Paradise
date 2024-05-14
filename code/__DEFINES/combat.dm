@@ -34,22 +34,22 @@
 #define JITTER		"jitter"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS 1
-#define FIRELOSS 2
-#define TOXLOSS 4
-#define OXYLOSS 8
-#define SHAME 16
-#define OBLITERATION 32
+#define BRUTELOSS (1<<0)
+#define FIRELOSS (1<<1)
+#define TOXLOSS (1<<2)
+#define OXYLOSS (1<<3)
+#define SHAME (1<<4)
+#define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN	32
-#define IGNORE_SPEED_CHANGES	64
-#define GODMODE		128
+#define CANSTUN		(1<<0)
+#define CANWEAKEN	(1<<1)
+#define CANPARALYSE	(1<<2)
+#define CANPUSH		(1<<3)
+#define PASSEMOTES	(1<<4)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN	(1<<5)
+#define IGNORE_SPEED_CHANGES	(1<<6)
+#define GODMODE		(1<<7)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -146,3 +146,25 @@
 #define REFLECTABILITY_NEVER 0
 #define REFLECTABILITY_PHYSICAL 1
 #define REFLECTABILITY_ENERGY 2
+
+
+//Autofire component
+/// Compatible firemode is in the gun. Wait until it's held in the user hands.
+#define AUTOFIRE_STAT_IDLE (1<<0)
+/// Gun is active and in the user hands. Wait until user does a valid click.
+#define AUTOFIRE_STAT_ALERT	(1<<1)
+/// Gun is shooting.
+#define AUTOFIRE_STAT_FIRING (1<<2)
+
+#define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"
+	#define COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS (1<<0)
+#define COMSIG_AUTOFIRE_SHOT "autofire_shot"
+	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
+
+#define HELP_SLASH "Help"
+#define DISARM_SLASH "Disarm"
+#define GRAB_SLASH "Grab"
+#define HARM_SLASH "Harm"
+
+#define COMBO_STEPS "steps"
+#define COMBO_PROC "proc"

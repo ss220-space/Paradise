@@ -15,12 +15,15 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
+	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
 	tts_seed = null
 	friendly = "boops"
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
+
+	light_system = MOVABLE_LIGHT
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -173,7 +176,7 @@
 	if(disabling_timer_id || stat)
 		return FALSE
 	on = TRUE
-	set_light(initial(light_range))
+	set_light_on(TRUE)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -182,7 +185,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
-	set_light(0)
+	set_light_on(FALSE)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
@@ -198,12 +201,12 @@
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
-	add_language("Galactic Common", TRUE)
-	add_language("Sol Common", TRUE)
-	add_language("Tradeband", TRUE)
-	add_language("Gutter", TRUE)
-	add_language("Trinary", TRUE)
-	default_language = GLOB.all_languages["Galactic Common"]
+	add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
+	add_language(LANGUAGE_SOL_COMMON, TRUE)
+	add_language(LANGUAGE_TRADER, TRUE)
+	add_language(LANGUAGE_GUTTER, TRUE)
+	add_language(LANGUAGE_TRINARY, TRUE)
+	default_language = GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]
 
 	bot_core = new bot_core_type(src)
 	addtimer(CALLBACK(src, PROC_REF(add_bot_filter)), 3 SECONDS)
@@ -212,7 +215,6 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 		diag_hud.add_hud_to(src)
-		permanent_huds |= diag_hud
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -292,7 +294,8 @@
 		return
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		add_attack_logs(user, src, "emagged")
+		if(user)
+			add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!
@@ -395,7 +398,7 @@
 
 
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -442,7 +445,7 @@
 			to_chat(user, span_warning("Close the access panel before manipulating the personality slot!"))
 		else
 			to_chat(user, span_notice("You attempt to pull [paicard] free..."))
-			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(paicard)
 					user.visible_message(span_notice("[user] uses [W] to pull [paicard] out of [bot_name]!"),
 										span_notice("You pull [paicard] out of [bot_name] with [W]."))
@@ -498,7 +501,7 @@
 	pulse2.icon = 'icons/effects/effects.dmi'
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
-	pulse2.anchored = TRUE
+	pulse2.set_anchored(TRUE)
 	pulse2.dir = pick(GLOB.cardinal)
 	QDEL_IN(pulse2, 10)
 
@@ -1353,13 +1356,13 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /obj/effect/proc_holder/spell/bot_speed/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/bot/bot in targets)
-		bot.speed = 0.1
+		bot.set_varspeed(0.1)
 		addtimer(CALLBACK(bot, TYPE_PROC_REF(/mob/living/simple_animal/bot, reset_speed)), 45 SECONDS)
 
 
 /mob/living/simple_animal/bot/proc/reset_speed()
 	if(QDELETED(src))
 		return
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	to_chat(src, span_notice("Now you are moving at your normal speed."))
 

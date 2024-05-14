@@ -65,7 +65,7 @@
 				return
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
-				overlays.Cut()
+				cut_overlays()
 				return
 
 
@@ -259,7 +259,6 @@
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25
 	armour_penetration = 20
-	flags = NODROP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
@@ -293,16 +292,19 @@
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
 	var/size
 
+
 /obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
 	. = ..()
 	if(sh)
 		size = sh.icon_state
-	update_icon()
-
-/obj/item/kitchen/knife/glassshiv/update_icon()
 	if(!size)
 		size = pick("large", "medium", "small")
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/kitchen/knife/glassshiv/update_icon_state()
 	icon_state = "[size]_[initial(icon_state)]"
+
 
 /obj/item/kitchen/knife/glassshiv/plasma
 	name = "plasma glass shiv"

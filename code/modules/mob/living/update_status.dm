@@ -1,12 +1,12 @@
 /mob/living/update_blind_effects()
-	if(!has_vision(information_only=TRUE))
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		throw_alert("blind", /obj/screen/alert/blind)
-		return 1
-	else
+	if(has_vision(information_only = TRUE))
 		clear_fullscreen("blind")
 		clear_alert("blind")
-		return 0
+		return FALSE
+
+	overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+	throw_alert("blind", /obj/screen/alert/blind)
+	return TRUE
 
 
 /mob/living/update_blurry_effects()
@@ -46,13 +46,13 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	return !(DEAF in mutations) && !HAS_TRAIT(src, TRAIT_DEAF)
+	return !HAS_TRAIT(src, TRAIT_DEAF)
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(AmountBlinded() || (BLINDNESS in mutations) || stat)
+	return (information_only && stat == DEAD) || !(AmountBlinded() || (BLINDNESS in mutations) || stat || get_total_tint() >= 3)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
@@ -76,27 +76,31 @@
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsWeakened))
 		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsStunned))
 
-	if(stat || IsParalyzed() || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || IsParalyzed() || (!ignore_restraints && HAS_TRAIT(src, TRAIT_RESTRAINED)) || (!ignore_lying && lying_angle) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/living/update_canmove(delay_action_updates = 0)
 	var/fall_over = !can_stand()
-	var/buckle_lying = !(buckled && !buckled.buckle_lying)
 	if(fall_over || resting || IsStunned())
 		drop_r_hand()
 		drop_l_hand()
 	else
-		lying = 0
-		canmove = 1
+		lying_angle = 0
+		canmove = TRUE
 	if(buckled)
-		lying = 90 * buckle_lying
-	else if((fall_over || resting) && !lying)
+		if(buckled.buckle_lying != NO_BUCKLE_LYING)
+			lying_angle = buckled.buckle_lying
+	else if((fall_over || resting) && !lying_angle)
 		fall(fall_over)
 
 	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	density = !lying
-	if(lying)
+	if(lying_angle)
+		ADD_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
+
+	if(lying_angle)
 		if(layer == initial(layer))
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	else

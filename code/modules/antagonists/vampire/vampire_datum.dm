@@ -180,9 +180,11 @@
 
 
 #define BLOOD_GAINED_MODIFIER 0.5
+
 #define CLOSING_IN_TIME_MOD 0.2
 #define GRABBING_TIME_MOD 0.3
 #define BITE_TIME_MOD 0.15
+
 #define STATE_CLOSING_IN 1
 #define STATE_GRABBING 2
 #define STATE_BITE 3
@@ -230,7 +232,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_mob(owner.current, target, time_per_action))
+	while(do_after(owner.current, time_per_action, target, NONE))
 		cycle_counter++
 		owner.current.face_atom(target)
 
@@ -291,7 +293,7 @@
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
-	stop_sucking(target)
+	stop_sucking()
 
 
 /datum/antagonist/vampire/proc/getting_closer_animation(mob/living/carbon/human/target, stage, vampire_dir)
@@ -338,12 +340,13 @@
 	owner.current.do_item_attack_animation(target, ATTACK_EFFECT_BITE)
 
 
-/datum/antagonist/vampire/proc/stop_sucking(mob/living/carbon/human/target)
-	draining = null
-	to_chat(owner.current, span_notice("You stop draining [target.name] of blood."))
-	owner.current.pixel_x = 0
-	owner.current.pixel_y = 0
-	owner.current.layer = initial(owner.current.layer)
+/datum/antagonist/vampire/proc/stop_sucking()
+	if(draining)
+		to_chat(owner.current, span_notice("You stop draining [draining.name] of blood."))
+		draining = null
+		owner.current.pixel_x = 0
+		owner.current.pixel_y = 0
+		owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
 #undef CLOSING_IN_TIME_MOD
@@ -364,7 +367,7 @@
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
-	if(istype(spell, /datum/vampire_passive))
+	else if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
@@ -389,10 +392,12 @@
 /datum/antagonist/vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.spell_list.Remove(ability)
 		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = null
-		qdel(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell))
+			owner.RemoveSpell(ability)
+		else if(istype(ability, /datum/vampire_passive))
+			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 
@@ -549,15 +554,15 @@
 
 	if(!iscloaking || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)	// round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
 
 
@@ -583,12 +588,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
 
 	if(!ismob(source))
 		return FALSE
@@ -607,12 +609,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 
 	if(!isliving(source))
 		return FALSE

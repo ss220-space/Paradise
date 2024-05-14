@@ -14,12 +14,12 @@ jobs:
     steps:
     - name: Changelog bot install token
       id: changelog-bot
-      uses: getsentry/action-github-app-token@v2
+      uses: getsentry/action-github-app-token@v3
       with:
         app_id: ${{ secrets.CHANGELOGBOT_APPID }}
         private_key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
     - name: 'Update Branch'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'ss220-space/Paradise'
         token: ${{ steps.changelog-bot.outputs.token }}

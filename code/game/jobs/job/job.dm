@@ -188,41 +188,42 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
-		for(var/gear in H.client.prefs.loadout_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
-			if(G)
-				var/permitted = FALSE
+	if(allow_loadout && H.client)
+		for(var/gear in H.client.prefs.choosen_gears)
+			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
+			if(!istype(G))
+				continue
+			var/permitted = FALSE
 
-				if(G.allowed_roles)
-					if(name in G.allowed_roles)
-						permitted = TRUE
-				else
+			if(G.allowed_roles)
+				if(name in G.allowed_roles)
 					permitted = TRUE
+			else
+				permitted = TRUE
 
-				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
-					permitted = FALSE
+			if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+				permitted = FALSE
 
-				if(H.client.donator_level < G?.donator_tier)
-					permitted = FALSE
+			if(H.client.donator_level < G?.donator_tier)
+				permitted = FALSE
 
-				if(!permitted)
-					to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [gear]!</span>")
-					continue
+			if(!permitted)
+				to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+				continue
 
-				if(G.implantable) //only works for organ-implants
-					var/obj/item/organ/internal/I = new G.path
-					I.insert(H)
-					to_chat(H, span_notice("Implanting you with [gear]!"))
-					continue
+			if(G.implantable) //only works for organ-implants
+				var/obj/item/organ/internal/I = new G.path
+				I.insert(H)
+				to_chat(H, span_notice("Implanting you with [G.display_name]!"))
+				continue
 
-				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
-						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
-					else
-						gear_leftovers += G
+			if(G.slot)
+				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.loadout_gear[G.display_name]), G.slot))
+					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 				else
 					gear_leftovers += G
+			else
+				gear_leftovers += G
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)

@@ -4,6 +4,7 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/weapons/energy.dmi'
 	fire_sound_text = "laser blast"
+	gun_light_overlay = "flight"
 	ammo_x_offset = 2
 
 	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
@@ -17,6 +18,12 @@
 	var/charge_sections = 4
 	var/charge_tick = 0
 	var/charge_delay = 4
+	/// Used when updating icon and overlays
+	var/new_icon_state
+	/// If the item uses a shared set of overlays instead of being based on icon_state
+	var/overlay_set
+	/// Used when updating icon and overlays to determine the energy pips
+	var/ratio
 
 	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
@@ -174,17 +181,24 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
+
 /obj/item/gun/energy/attack_self(mob/living/user)
-	if(ammo_type.len > 1)
+	. = ..()
+	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 
+
 /obj/item/gun/energy/can_shoot(mob/living/user)
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/check_charge = cell.charge >= shot.e_cost
-	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
+	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
-	return check_charge
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	. = cell.charge >= shot.e_cost
+
+	if(!.)
+		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
+
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -229,54 +243,66 @@
 		chambered = null
 	newshot()
 	update_icon()
-	if(istype(user,/mob/living/carbon/human)) //This has to be here or else if you toggle modes by clicking the gun in hand
-		var/mob/living/carbon/human/H = user //Otherwise the mob icon doesn't update, blame shitty human update_icons() code
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-	return
 
-/obj/item/gun/energy/update_icon()
-	overlays.Cut()
-	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+
+/obj/item/gun/energy/update_icon(updates = ALL)
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
+
+
+/obj/item/gun/energy/update_icon_state()
+	icon_state = initial(icon_state)
+	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/iconState = "[icon_state]_charge"
-	var/itemState = null
+	new_icon_state = "[icon_state]_charge"
+	var/new_item_state = null
 	if(!initial(item_state))
-		itemState = icon_state
+		new_item_state = icon_state
 	if(modifystate)
-		overlays += "[icon_state]_[shot.select_name]"
-		iconState += "_[shot.select_name]"
-		if(itemState)
-			itemState += "[shot.select_name]"
+		new_icon_state += "_[shot.select_name]"
+		if(new_item_state)
+			new_item_state += "[shot.select_name]"
+	if(new_item_state)
+		new_item_state += "[ratio]"
+		item_state = new_item_state
+	if(current_skin)
+		icon_state = current_skin
+
+
+/obj/item/gun/energy/update_overlays()
+	. = ..()
+	var/overlay_name = overlay_set ? overlay_set : icon_state
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(modifystate)
+		. += "[overlay_name]_[shot.select_name]"
 	if(cell.charge < shot.e_cost)
-		overlays += "[icon_state]_empty"
+		. += "[overlay_name]_empty"
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				overlays += image(icon = icon, icon_state = iconState, pixel_x = ammo_x_offset * (i -1))
+				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
 		else
-			overlays += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(gun_light && can_flashlight)
-		var/iconF = "flight"
+			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+	if(gun_light && gun_light_overlay)
+		var/iconF = gun_light_overlay
 		if(gun_light.on)
-			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	if(bayonet && can_bayonet)
-		overlays += knife_overlay
-	if(itemState)
-		itemState += "[ratio]"
-		item_state = itemState
+			iconF = "[gun_light_overlay]_on"
+		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+	if(bayonet && knife_overlay)
+		. += knife_overlay
+
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()
 
+
 /obj/item/gun/energy/suicide_act(mob/user)
-	if(can_shoot())
+	if(can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with the [name]!"))
-			playsound(loc, fire_sound, 50, 1, -1)
+			playsound(loc, fire_sound, 50, TRUE, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
 			update_icon()
@@ -286,8 +312,9 @@
 			return OXYLOSS
 	else
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
+
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	switch(var_name)

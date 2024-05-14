@@ -9,8 +9,8 @@ RLF
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rlf"
 	opacity = 0
-	density = 0
-	anchored = 0.0
+	density = FALSE
+	anchored = FALSE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 

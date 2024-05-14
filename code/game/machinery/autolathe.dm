@@ -6,13 +6,13 @@
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
-	density = 1
+	density = TRUE
 
 	var/operating = 0.0
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = 1.0
+	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
 	var/hacked = 0
@@ -273,7 +273,7 @@
 					"You hear the chatter of a floppy drive.")
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
-				if(do_after(user, 14.4, target = src))
+				if(do_after(user, 1.4 SECONDS, src))
 					add_fingerprint(user)
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)
@@ -376,8 +376,7 @@
 	if(can_build(D, multiplier))
 		being_built = list(D, multiplier)
 		use_power(power)
-		icon_state = "autolathe"
-		flick("autolathe_n",src)
+		flick("autolathe_n", src)
 		if(is_stack)
 			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
 			materials.use_amount(materials_used)

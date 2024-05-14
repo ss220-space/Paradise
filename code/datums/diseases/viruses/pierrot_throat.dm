@@ -57,4 +57,4 @@
 
 			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
 				affected_mob.drop_item_ground(affected_mob.wear_mask, force = TRUE)
-				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)
+				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), ITEM_SLOT_MASK)

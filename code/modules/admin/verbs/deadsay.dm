@@ -43,7 +43,7 @@
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
 	if(!check_rights(R_ADMIN|R_MOD))

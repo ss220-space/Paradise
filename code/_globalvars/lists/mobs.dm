@@ -43,3 +43,5 @@ GLOBAL_LIST_EMPTY(emote_list)
 
 GLOBAL_LIST_EMPTY(uplink_items)
 
+GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
+

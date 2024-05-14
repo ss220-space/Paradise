@@ -3,8 +3,8 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE
@@ -25,15 +25,17 @@
 		if(get_dist(src, p) > 1 && !istype(p, /mob/living/silicon))
 			close_game(p)
 
-/obj/machinery/gameboard/power_change()
-	. = ..()
-	update_icon()
+/obj/machinery/gameboard/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(3, 3)
+		set_light(3, 3, l_on = TRUE)
 
-/obj/machinery/gameboard/update_icon()
+
+/obj/machinery/gameboard/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "gboard_off"
 	else

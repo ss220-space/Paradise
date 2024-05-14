@@ -158,7 +158,7 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return FALSE
 
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
+		if(R.check_direction && !valid_build_direction(usr.loc, usr.dir, is_fulltile = R.is_fulltile))
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
 			return FALSE
 
@@ -202,7 +202,7 @@
 				to_chat(usr, "<span class='warning'>This area already has beacon!</span>")
 				return FALSE
 		if(R.result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)
-			if(MAX_COG_FABRICATORS >= GLOB.clockwork_fabricators.len)
+			if(GLOB.clockwork_fabricators.len >= MAX_COG_FABRICATORS)
 				to_chat(usr, "<span class='warning'>You can't build more than [MAX_COG_FABRICATORS] fabricators!</span>")
 				return FALSE
 			if(usr.type == /mob/living/silicon/robot/cogscarab)
@@ -210,7 +210,7 @@
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			if(!do_after(usr, R.time, usr))
 				return FALSE
 
 		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
@@ -238,12 +238,12 @@
 			src = null //dont kill proc after qdel()
 			usr.temporarily_remove_item_from_inventory(oldsrc, force = TRUE)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -291,21 +291,17 @@
 
 
 /obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) || amount < 1 || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!</span>"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(user))
-		return
-	if(amount < 1)
 		return
 	//get amount from user
 	var/max = get_amount()
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
 		return
-	if(!Adjacent(user, 1))
+	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)
@@ -478,7 +474,7 @@
 		return FALSE
 	if(check.throwing)	// no merging for items in middle air
 		return FALSE
-	if(istype(loc, /obj/machinery)) // no merging items in machines that aren't both in componentparts
+	if(ismachinery(loc)) // no merging items in machines that aren't both in componentparts
 		var/obj/machinery/machine = loc
 		if(!(src in machine.component_parts) || !(check in machine.component_parts))
 			return FALSE

@@ -36,8 +36,8 @@ SUBSYSTEM_DEF(spacedrift)
 				return
 			continue
 
-		if(!AM.loc || AM.loc != AM.inertia_last_loc || AM.Process_Spacemove(0))
-			AM.inertia_dir = 0
+		if(!AM.loc || AM.loc != AM.inertia_last_loc || AM.Process_Spacemove(NONE))
+			AM.inertia_dir = NONE
 
 		if(!AM.inertia_dir)
 			AM.inertia_last_loc = null
@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(spacedrift)
 		AM.inertia_moving = FALSE
 		AM.inertia_next_move = world.time + AM.inertia_move_delay
 		if(AM.loc == old_loc)
-			AM.inertia_dir = 0
+			AM.inertia_dir = NONE
 
 		AM.setDir(old_dir)
 		AM.inertia_last_loc = AM.loc

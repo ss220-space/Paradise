@@ -72,7 +72,7 @@
 	trigger()
 
 /obj/effect/portal_sensor/process()
-	check_light()
+	// check_light()
 	if(triggered_this_tick >= trigger_limit)
 		call(owner, "trigger")(arglist(params))
 	triggered_this_tick = 0
@@ -82,6 +82,7 @@
 	if(triggered_this_tick < trigger_limit)
 		call(owner, "trigger")(arglist(params))
 
+/* Знаю что это отключено и свет будет ужесан. Таков рефактор.
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
@@ -99,6 +100,7 @@
 		if(light_hash != -1)
 			light_hash = -1
 			trigger()
+*/
 
 // for second floor showing floor below
 /turf/simulated/floor/indestructible/upperlevel
@@ -125,7 +127,7 @@
 		sensor = new(lower_turf, src)
 
 /turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
-	if(isliving(AM) || istype(AM, /obj))
+	if(isliving(AM) || isobj(AM))
 		if(isliving(AM))
 			var/mob/living/M = AM
 			M.emote("scream")
@@ -155,7 +157,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
+	anchored = TRUE
 
 	var/id = null				// id of other portal turf we connect to
 
@@ -197,7 +199,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "loadingarea"
 	opacity = 1
-	density = 1
+	density = TRUE
 	invisibility = 0
 	appearance_flags = TILE_BOUND | KEEP_TOGETHER
 	var/dist = 6				// dist that we render out
@@ -291,7 +293,7 @@
 			near_render_block -= T
 
 /obj/effect/view_portal/visual/Bumped(atom/movable/thing)
-	if((istype(thing, /obj) || isliving(thing)) && other && teleport)
+	if((isobj(thing) || isliving(thing)) && other && teleport)
 		if(!near_render_block)
 			setup_near()
 
@@ -300,7 +302,7 @@
 		var/ox = thing.x - x
 		var/oy = thing.y - y
 		if(istype(M) && M.client)
-			M.notransform = 1
+			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			// cover up client-side map loading
 			M.screen_loc = "CENTER"
 			M.client.screen += M
@@ -319,7 +321,8 @@
 				M.screen_loc = initial(M.screen_loc)
 			thing.forceMove(get_turf(other.loc))
 			if(istype(M) && M.client)
-				M.notransform = 0
+				REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+
 
 /obj/effect/view_portal/visual/attack_ghost(mob/user)
 	user.forceMove(get_turf(other.loc))
@@ -327,7 +330,7 @@
 /obj/effect/view_portal/visual/proc/trigger(near, turf/T)
 	var/obj/effect/view_portal_dummy/D = tiles[T]
 	if(D)
-		D.overlays.Cut()
+		D.cut_overlays()
 	else
 		D = new(src, near, T)
 		tiles[T] = D
@@ -342,7 +345,7 @@
 			var/image/I = image(A, layer = D.layer + A.layer * 0.01, dir = A.dir)
 			I.pixel_x = A.pixel_x
 			I.pixel_y = A.pixel_y
-			D.overlays += I
+			D.add_overlay(I)
 
 // tile of rendered other side for narnia portal
 /obj/effect/view_portal_dummy

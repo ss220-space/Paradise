@@ -209,9 +209,8 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
-		S.thermite = TRUE
-		S.overlays.Cut()
-		S.overlays += image('icons/effects/effects.dmi', icon_state = "thermite")
+		S.melting_olay = mutable_appearance('icons/effects/effects.dmi', icon_state = "thermite")
+		S.add_overlay(S.melting_olay)
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -356,7 +355,7 @@
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature -= 30
+		M.adjust_bodytemperature(-30)
 	return ..()
 
 /datum/reagent/cryostylane/process()
@@ -374,7 +373,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery(TURF_WET_ICE)
+		T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 	if(volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -398,7 +397,7 @@
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature += 30
+		M.adjust_bodytemperature(30)
 	return ..()
 
 /datum/reagent/pyrosium/process()

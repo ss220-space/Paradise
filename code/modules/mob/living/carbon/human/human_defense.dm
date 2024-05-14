@@ -38,7 +38,7 @@ emp_act
 
 
 	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
-		if(!lying && !(HULK in mutations) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
+		if(!lying_angle && !(HULK in mutations) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
 			var/checks_passed = TRUE
 			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
 				var/datum/martial_art/ninja_martial_art/creeping_widow = mind.martial_art
@@ -53,7 +53,7 @@ emp_act
 			return FALSE
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!lying && !(HULK in mutations) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
+		if(!lying_angle && !(HULK in mutations) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
 				// Pacifists can deflect projectiles, but not reflect them.
@@ -87,7 +87,7 @@ emp_act
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
 		return
-	if(!S.is_robotic() || S.open == 2)
+	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
 	. = TRUE
 	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
@@ -218,30 +218,32 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/block_chance_modifier = round(damage / -3) - shields_penetration
 
-	if(l_hand && !istype(l_hand, /obj/item/clothing))
+	if(l_hand && !isclothing(l_hand))
 		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
-	if(r_hand && !istype(r_hand, /obj/item/clothing))
+			return TRUE
+	if(r_hand && !isclothing(r_hand))
 		var/final_block_chance = r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
 		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(neck)
 		var/final_block_chance = neck.block_chance - (clamp((armour_penetration-neck.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
+			return TRUE
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
-			return 1
-	return 0
+			return TRUE
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/proc/check_martial_art_defense(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(mind && mind.martial_art)
@@ -419,12 +421,7 @@ emp_act
 		return FALSE
 
 	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
-		newmeat.name = real_name + newmeat.name
-		newmeat.subjectname = real_name
-		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
-		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
+		new dna.species.meat_type(get_turf(loc), src)
 		add_mob_blood(src)
 		--meatleft
 		to_chat(user, span_warning("You hack off a chunk of meat from [name]."))
@@ -478,7 +475,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = TRUE
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -529,7 +526,6 @@ emp_act
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
-	return TRUE
 
 /**
  * This proc handles being hit by a thrown atom.
@@ -766,13 +762,6 @@ emp_act
 	else
 		..()
 
-/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
-	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing/shoes/magboots))
-		var/obj/item/clothing/shoes/magboots/S = shoes
-		if(S.flags & NOSLIP)
-			return FALSE
-	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

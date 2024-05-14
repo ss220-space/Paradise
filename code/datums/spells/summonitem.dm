@@ -5,6 +5,7 @@
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	invocation = "GAR YOK"
 	invocation_type = "whisper"
 	level_max = 0 //cannot be improved
@@ -29,9 +30,11 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
-				if(ABSTRACT in item.flags)
-					continue
-				if(NODROP in item.flags)
+				if(isitem(item))
+					var/obj/item/I = item
+					if(I.item_flags & ABSTRACT)
+						continue
+				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item
 				message += "You mark [item] for recall.</span>"

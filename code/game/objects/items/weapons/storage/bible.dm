@@ -85,10 +85,10 @@
 	else
 		M.LAssailant = user
 
-	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
+	if(!ishuman(user) || ismonkeybasic(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!user.mind?.isholy)
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
 		user.take_organ_damage(0, 10)
 		return
@@ -180,21 +180,6 @@
 	icon_state = choice_icons["state"]
 	item_state = choice_icons["inhand"]
 	customisable = FALSE
-
-	// Carpet symbol icons are currently broken, so commented out until it's fixed
-	/*var/carpet_dir
-	switch(choice)
-		if("Bible")
-			carpet_dir = 2
-		if("Koran")
-			carpet_dir = 4
-		if("Scientology")
-			carpet_dir = 8
-	if(carpet_dir)
-		for(var/area/chapel/main/A in world)
-			for(var/turf/T in A.contents)
-				if(T.icon_state == "carpetsymbol")
-					T.dir = carpet_dir*/
 
 	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
 

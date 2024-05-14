@@ -23,7 +23,7 @@
 		/obj/item/clothing/head/cardborg
 	)
 
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -127,9 +127,6 @@
 		return
 	. = ..()
 
-/mob/living/silicon/proc/hat_icons()
-	if(inventory_head)
-		overlays += get_hat_overlay()
 
 /mob/living/silicon/Topic(href, href_list)
 	if(..())
@@ -160,23 +157,6 @@
 	if(usr != src)
 		return 1
 
-/mob/living/silicon/regenerate_icons()
-	overlays.Cut()
-	..()
-
-	if(inventory_head)
-		var/image/head_icon
-
-		if(!hat_icon_state)
-			hat_icon_state = inventory_head.icon_state
-		if(!hat_alpha)
-			hat_alpha = inventory_head.alpha
-		if(!hat_color)
-			hat_color = inventory_head.color
-
-		head_icon = get_hat_overlay()
-
-		add_overlay(head_icon)
 
 /mob/living/silicon/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -203,7 +183,7 @@
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return 0
 		return 0
 
@@ -239,7 +219,7 @@
 
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
-		if(inventory_head.flags & NODROP)
+		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
 			return TRUE
 
@@ -264,6 +244,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null

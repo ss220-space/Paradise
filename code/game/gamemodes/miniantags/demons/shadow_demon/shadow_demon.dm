@@ -27,6 +27,7 @@
 		crawl.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
+	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
 
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
@@ -49,17 +50,20 @@
 			thrown_alert = TRUE
 			throw_alert("light", /obj/screen/alert/lightexposure)
 		animate(src, alpha = 255, time = 0.5 SECONDS)
-		speed = initial(speed)
+		set_varspeed(initial(speed))
 	else
 		if(thrown_alert)
 			thrown_alert = FALSE
 			clear_alert("light")
 		animate(src, alpha = 125, time = 0.5 SECONDS)
-		speed = -0.3
+		set_varspeed(-0.3)
 	return lum_count
 
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/target)
+	if(!can_unarmed_attack())
+		return
+
 	if(!ishuman(target))
 		if(isitem(target))
 			target.extinguish_light(TRUE)
@@ -78,7 +82,7 @@
 
 	visible_message(span_danger("[src] begins wrapping [h_target] in shadowy threads."))
 	wrapping = TRUE
-	if(!do_after(src, 4 SECONDS, FALSE, target = h_target))
+	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 
@@ -133,7 +137,7 @@
 
 
 /obj/structure/shadowcocoon/AltClick(mob/user)
-	if(!isdemon(user))
+	if(!isdemon(user) || user.incapacitated())
 		return ..()
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))
@@ -183,7 +187,7 @@
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon()
+/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 

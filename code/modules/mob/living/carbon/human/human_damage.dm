@@ -16,6 +16,28 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])", should_log)
+	update_movespeed_damage_modifiers()
+
+
+/mob/living/carbon/human/update_stamina()
+	. = ..()
+	update_movespeed_damage_modifiers()
+
+
+/mob/living/carbon/human/proc/update_movespeed_damage_modifiers()
+	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+		return
+
+	var/health_deficiency = max((maxHealth - health), staminaloss) - shock_reduction()
+	if(health_deficiency >= 40)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = health_deficiency / 75)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, multiplicative_slowdown = health_deficiency / 25)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)

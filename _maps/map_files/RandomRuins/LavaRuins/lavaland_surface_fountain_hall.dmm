@@ -234,7 +234,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "Nk" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium,
+/obj/item/reagent_containers/food/snacks/grown/geranium,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
 "Nv" = (
@@ -248,11 +248,11 @@
 /area/ruin/unpowered/misc_lavaruin)
 "NV" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily{
+/obj/item/reagent_containers/food/snacks/grown/lily{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/lily,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
 "Ob" = (

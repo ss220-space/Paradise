@@ -12,9 +12,10 @@
 	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
-	overlays.Cut()
+	cut_overlays()
+
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
 
 	if(stat == DEAD)
 		//If we mostly took damage from fire
@@ -31,7 +32,7 @@
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
 
-	else if(lying || resting)
+	else if(lying_angle || resting)
 		icon_state = "alien[caste]_sleep"
 	else if(m_intent == MOVE_INTENT_RUN)
 		icon_state = "alien[caste]_running"
@@ -51,12 +52,15 @@
 			var/old_icon = icon
 			icon = alt_icon
 			alt_icon = old_icon
-		pixel_x = get_standard_pixel_x_offset(lying)
-		pixel_y = get_standard_pixel_y_offset(lying)
+		pixel_x = get_standard_pixel_x_offset(lying_angle)
+		pixel_y = get_standard_pixel_y_offset(lying_angle)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
-	..()
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	//update_inv_head()
@@ -69,24 +73,24 @@
 	update_transform()
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
-	if(lying > 0)
-		lying = 90 //Anything else looks lousy
+	if(lying_angle > 0)
+		lying_angle = 90 //Anything else looks lousy
 	..()
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/update_fire()
-	overlays -= overlays_standing[X_FIRE_LAYER]
+	cut_overlay(overlays_standing[X_FIRE_LAYER])
 	if(on_fire)
 		overlays_standing[X_FIRE_LAYER] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning", "layer"= -X_FIRE_LAYER)
-		overlays += overlays_standing[X_FIRE_LAYER]
+		add_overlay(overlays_standing[X_FIRE_LAYER])
 		return
 	else
 		overlays_standing[X_FIRE_LAYER] = null
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
-		inv.update_icon()
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
+		inv?.update_appearance()
 
 	if(wear_suit)
 		if(client && hud_used && hud_used.hud_shown)
@@ -130,23 +134,19 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_pockets()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv
+		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_LEFT) + 1]
+		inv?.update_appearance()
+		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_POCKET_RIGHT) + 1]
+		inv?.update_appearance()
 
-		inv = hud_used.inv_slots[slot_l_store]
-		if(inv)
-			inv.update_icon()
+		if(hud_used.hud_shown)
+			if(l_store)
+				client.screen += l_store
+				l_store.screen_loc = ui_alien_storage_l
 
-		inv = hud_used.inv_slots[slot_r_store]
-		if(inv)
-			inv.update_icon()
-
-		if(l_store)
-			client.screen += l_store
-			l_store.screen_loc = ui_alien_storage_l
-
-		if(r_store)
-			client.screen += r_store
-			r_store.screen_loc = ui_alien_storage_r
+			if(r_store)
+				client.screen += r_store
+				r_store.screen_loc = ui_alien_storage_r
 
 
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()

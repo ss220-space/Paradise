@@ -33,8 +33,10 @@
 		if((O in user) && is_type_in_list(O, own_blacklist))
 			continue
 		if(is_type_in_list(O, types_allowed))
-			if(O.flags & ABSTRACT)
-				continue
+			if(isitem(O))
+				var/obj/item/I = O
+				if(I.item_flags & ABSTRACT)
+					continue
 			if(isanimal(O))
 				var/mob/living/simple_animal/SA = O
 				if(!SA.gold_core_spawnable)

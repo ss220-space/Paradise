@@ -15,7 +15,7 @@
 	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
@@ -196,7 +196,7 @@
 	icon_dead = "kitten_dead"
 	icon_resting = "kitten_sit"
 	gender = NEUTER
-	density = 0
+	density = FALSE
 	pass_flags = PASSMOB
 	collar_type = "kitten"
 
@@ -220,7 +220,7 @@
 
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

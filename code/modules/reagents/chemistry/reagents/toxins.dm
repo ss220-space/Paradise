@@ -105,7 +105,7 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
+	if(!isslimeperson(M) && prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,6) / 2, FALSE) // avg 0.2 toxin per cycle
 	else if(prob(40))
@@ -116,6 +116,24 @@
 	merge_diseases_data(mix_data)
 	if(data && mix_data && mix_data["colour"])
 		color = mix_data["colour"]
+
+/datum/reagent/slimejelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
+
+			if(V.spread_flags < BLOOD)
+				continue
+
+			if(method == REAGENT_TOUCH)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
+
+	if(method == REAGENT_INGEST && iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.get_blood_id() == id)
+			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.reagents.del_reagent(id)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
@@ -241,8 +259,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
@@ -250,6 +267,7 @@
 	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
+		M.check_genes()
 	return ..()
 
 
@@ -272,6 +290,8 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
+	if(isnucleation(M))
+		return ..()
 	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))
@@ -1234,8 +1254,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
@@ -1249,8 +1268,7 @@
 		randmutg(M)
 		did_mutation = TRUE
 	if(did_mutation)
-		domutcheck(M, null)
-		M.UpdateAppearance()
+		M.check_genes()
 	return ..()
 
 /datum/reagent/ants
@@ -1356,3 +1374,26 @@
 		if(prob(25))
 			M.fakevomit(1)
 	return ..() | update_flags
+
+/datum/reagent/metalic_dust
+	name = "Metalic dust"
+	id = "metalicdust"
+	description = "Metal dust with large pieces of various metals and technical liquids."
+	reagent_state = SOLID
+	color = "#353434"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 5
+	taste_description = span_warning("METAL DUST OH GOD")
+
+/datum/reagent/metalic_dust/on_mob_life(mob/living/M)
+	M.emote("scream")
+	to_chat(M, span_warning("OH SHIT!!!!"))
+	M.AdjustWeakened(2 SECONDS)
+	M.EyeBlurry(1 SECONDS)
+	M.adjustBruteLoss(rand(5, 10))
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		for(var/obj/item/organ/internal/organ in C.get_organs_zone(BODY_ZONE_PRECISE_GROIN))
+			organ.receive_damage(rand(5, 10))
+
+	return ..()

@@ -13,7 +13,7 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
@@ -21,62 +21,50 @@
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 
-/obj/item/shared_storage/red/New()
-	..()
+/obj/item/shared_storage/red/Initialize(mapload)
+	. = ..()
 	if(!bag)
-		var/obj/item/storage/backpack/shared/S = new(src)
+		var/obj/item/storage/backpack/shared/shared_storage = new(src)
 		var/obj/item/shared_storage/blue = new(loc)
+		bag = shared_storage
+		blue.bag = shared_storage
 
-		bag = S
-		blue.bag = S
 
 /obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
 	if(bag)
 		bag.loc = user
 		bag.attackby(W, user, params)
+		add_fingerprint(user)
+
+
+/obj/item/shared_storage/proc/open_bag(mob/user)
+	if(bag)
+		bag.loc = user
+		bag.attack_hand(user)
+		add_fingerprint(user)
+
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
-	if(!iscarbon(user))
-		return
-	if(src == user.l_hand || src == user.r_hand)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
-	else
-		..()
+	if(!bag || !iscarbon(user) || !user.is_in_hands(src))
+		return ..()
+
+	open_bag(user)
+
+
+/obj/item/shared_storage/AltClick(mob/user)
+	if(!bag || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return ..()
+
+	open_bag(user)
+
+
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
-	if(!iscarbon(user))
-		return
-	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.loc = user
-			bag.attack_hand(user)
-	else
-		..()
+	if(!iscarbon(user) || !bag || loc != user || !user.back || user.back != src)
+		return ..()
 
-/obj/item/shared_storage/MouseDrop(atom/over_object)
-	if(iscarbon(usr))
-		var/mob/M = usr
+	open_bag(user)
 
-		if(!over_object)
-			return
-
-		if(istype(M.loc, /obj/mecha))
-			return
-
-		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
-
-			if(istype(over_object, /obj/screen/inventory/hand))
-				if(!M.drop_item_ground(src))
-					return
-				M.put_in_active_hand(src)
-			else if(bag)
-				bag.loc = usr
-				bag.attack_hand(usr)
-
-			add_fingerprint(M)
 
 //Book of Babel
 
@@ -104,7 +92,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -137,7 +125,7 @@
 	name = "jacob's ladder"
 	desc = "A celestial ladder that violates the laws of physics."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder00"
+	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
 	var/turf/T = get_turf(src)
@@ -242,20 +230,32 @@
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
+
+
+/obj/item/wisp_lantern/update_icon_state()
+	if(!wisp)
+		icon_state = "lantern"
+		return
+	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
+
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
-		icon_state = "lantern"
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(wisp.loc == src)
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		icon_state = "lantern"
-		spawn() wisp.orbit(user, 20) // spawn prevents endless loop in .orbit from blocking code execution here
-		set_light(0)
+		wisp.forceMove(user)
+		update_icon(UPDATE_ICON_STATE)
+		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
+		set_light_on(FALSE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
@@ -267,17 +267,18 @@
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
-		set_light(initial(light_range))
+		set_light_on(TRUE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
-		icon_state = "lantern-blue"
+		update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
@@ -322,7 +323,7 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
-	if(do_after(user, 1.5 SECONDS, target = user))
+	if(do_after(user, 1.5 SECONDS, user))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(1, 0, user.loc)
 		smoke.start()
@@ -359,7 +360,7 @@
 	item_state = "chain"
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	force = 18
 
 /obj/item/ammo_casing/magic/hook
@@ -390,13 +391,13 @@
 /obj/item/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
+		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
-			L.forceMove(get_turf(firer))
-			L.density = old_density
+			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
+			L.forceMove(firer_turf)
+			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)
@@ -443,7 +444,7 @@
 	effect.desc = "It's shaped an awful lot like [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
@@ -459,7 +460,7 @@
 		return
 
 	user.status_flags &= ~GODMODE
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
 	user.visible_message(span_danger("[user] pops back into reality!"))
 	effect.can_destroy = TRUE

@@ -111,19 +111,30 @@
 	return data
 
 /obj/machinery/computer/security/ui_static_data()
-	var/list/data = list()
-	data["mapRef"] = map_name
-	data["stationLevel"] = level_name_to_num(MAIN_STATION)
-	return data
+	var/list/static_data = list()
+	static_data["mapRef"] = map_name
+	var/list/station_level_numbers = list()
+	var/list/station_level_names = list()
+	for(var/z_level in levels_by_trait(STATION_LEVEL))
+		station_level_numbers += z_level
+		station_level_names += check_level_trait(z_level, STATION_LEVEL)
+	static_data["stationLevelNum"] = station_level_numbers
+	static_data["stationLevelName"] = station_level_names
+	return static_data
 
 /obj/machinery/computer/security/ui_act(action, params)
 	if(..())
 		return
 
+	. = TRUE
+
 	if(action == "switch_camera")
 		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
+		if(isnull(C))
+			to_chat(usr, span_warning("ERROR. [c_tag] camera was not found."))
+			return
 		active_camera?.computers_watched_by -= src
 		active_camera = C
 		active_camera.computers_watched_by += src
@@ -132,11 +143,11 @@
 		// Show static if can't use the camera
 		if(!active_camera?.can_use())
 			show_camera_static()
-			return TRUE
+			return
 
 		update_camera_view()
 
-		return TRUE
+		return
 
 /obj/machinery/computer/security/proc/update_camera_view()
 	if(!active_camera || !active_camera.can_use())
@@ -194,6 +205,19 @@
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
+
+
+// Other computer monitors.
+/obj/machinery/computer/security/telescreen
+	name = "telescreen"
+	desc = "Used for watching camera networks."
+	icon_state = "telescreen_console"
+	icon_screen = "telescreen"
+	icon_keyboard = null
+	density = FALSE
+	circuit = /obj/item/circuitboard/camera/telescreen
+
+
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -213,28 +237,27 @@
 		if("West")
 			pixel_x = -32
 
-// Other computer monitors.
-/obj/machinery/computer/security/telescreen
-	name = "telescreen"
-	desc = "Used for watching camera networks."
-	icon_state = "telescreen_console"
-	icon_screen = "telescreen"
-	icon_keyboard = null
-	light_range_on = 0
-	density = 0
-	circuit = /obj/item/circuitboard/camera/telescreen
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
+	light_power_on = LIGHTING_MINIMUM_POWER
 	network = list("news")
-	luminosity = 0
 	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	/// Icon utilised when feeds_on is true
+	var/icon_screen_on = "entertainment"
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
+
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	icon_screen = feeds_on ? icon_screen_on : initial(icon_screen)
+	return ..()
+
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"
@@ -290,3 +313,15 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldframe"
+	icon_state = "frame-sec"
+	icon_keyboard = "kb15"
+
+/obj/machinery/computer/security/old_frame/macintosh
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "sec_oldcomp"
+	icon_state = "oldcomp"
+	icon_keyboard = null

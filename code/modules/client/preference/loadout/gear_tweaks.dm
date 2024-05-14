@@ -7,6 +7,9 @@
 /datum/gear_tweak/proc/get_default()
 	return
 
+/datum/gear_tweak/proc/update_gear_intro()
+	return
+
 /datum/gear_tweak/proc/tweak_gear_data(var/metadata, var/datum/gear_data)
 	return
 
@@ -16,25 +19,32 @@
 /*
 * Color adjustment
 */
-GLOBAL_DATUM_INIT(gear_tweak_free_color_choice, /datum/gear_tweak/color, new())
 
 /datum/gear_tweak/color
 	var/list/valid_colors
+	var/datum/gear/parent
 
-/datum/gear_tweak/color/New(var/list/colors)
+/datum/gear_tweak/color/New(var/list/colors, datum/gear/parent)
 	valid_colors = colors
+	src.parent = parent
 	..()
 
 /datum/gear_tweak/color/get_contents(var/metadata)
 	return "Color: <font color='[metadata]'>&#9899;</font>"
 
 /datum/gear_tweak/color/get_default()
-	return valid_colors ? valid_colors[1] : COLOR_GRAY
+	return valid_colors ? valid_colors[1] : COLOR_WHITE
 
 /datum/gear_tweak/color/get_metadata(var/user, var/metadata)
 	if(valid_colors)
-		return input(user, "Choose an item color.", "Character Preference", metadata) as null|anything in valid_colors
-	return input(user, "Choose an item color.", "Global Preference", metadata) as color|null
+		metadata = input(user, "Choose an item color.", "Character Preference", metadata) as null|anything in valid_colors
+	else
+		metadata = input(user, "Choose an item color.", "Global Preference", metadata) as color|null
+	update_gear_intro(metadata)
+	return metadata
+
+/datum/gear_tweak/color/update_gear_intro(var/color)
+	parent.update_gear_icon(color)
 
 /datum/gear_tweak/color/tweak_item(var/obj/item/I, var/metadata)
 	if(valid_colors && !(metadata in valid_colors))
@@ -46,10 +56,16 @@ GLOBAL_DATUM_INIT(gear_tweak_free_color_choice, /datum/gear_tweak/color, new())
 */
 
 /datum/gear_tweak/path
-	var/list/valid_paths
+	var/list/valid_paths = list()
+	var/datum/gear/parent
 
-/datum/gear_tweak/path/New(var/list/paths)
-	valid_paths = paths
+/datum/gear_tweak/path/New(var/list/paths, datum/gear/parent, name = FALSE)
+	if(name)
+		for(var/atom/path as anything in paths)
+			valid_paths[initial(path.name)] = path
+	else
+		valid_paths = paths
+	src.parent = parent
 	..()
 
 /datum/gear_tweak/path/get_contents(var/metadata)
@@ -59,7 +75,13 @@ GLOBAL_DATUM_INIT(gear_tweak_free_color_choice, /datum/gear_tweak/color, new())
 	return valid_paths[1]
 
 /datum/gear_tweak/path/get_metadata(var/user, var/metadata)
-	return input(user, "Choose a type.", "Character Preference", metadata) as null|anything in valid_paths
+	metadata = input(user, "Choose a type.", "Character Preference", metadata) as null|anything in valid_paths
+	update_gear_intro(metadata)
+	return metadata
+
+/datum/gear_tweak/path/update_gear_intro(var/path)
+	parent.path = valid_paths[path]
+	parent.update_gear_icon()
 
 /datum/gear_tweak/path/tweak_gear_data(var/metadata, var/datum/gear_data/gear_data)
 	if(!(metadata in valid_paths))

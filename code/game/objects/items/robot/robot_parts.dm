@@ -4,7 +4,7 @@
 	item_state = "buildpipe"
 	icon_state = "blank"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
@@ -22,6 +22,8 @@
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
@@ -204,7 +206,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
-	if(istype(W, /obj/item/multitool))
+	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(check_completion())
 			Interact(user)
 		else
@@ -225,7 +227,7 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+			if(jobban_isbanned(M.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(M.brainmob,"nonhumandept"))
 				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
 				return
 
@@ -314,7 +316,7 @@
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 
-			O.job = "Cyborg"
+			O.job = JOB_TITLE_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -345,7 +347,7 @@
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
 
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
 
@@ -363,10 +365,10 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+	if(living_user.incapacitated() || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
-	if(!istype(item_in_hand, /obj/item/multitool))
+	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
 		return
 

@@ -1,6 +1,7 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	has_dirslash = FALSE
+	weight = 8 //Higher weight, since you can choose to put on or take off the gloves
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
@@ -25,12 +26,15 @@
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger(left_click = TRUE)
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, span_warning("You don't know how to do that right now."))
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Neck Chop stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
@@ -41,12 +45,15 @@
 	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger(left_click = TRUE)
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, span_warning("You don't know how to do that right now."))
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
@@ -57,12 +64,15 @@
 	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger(left_click = TRUE)
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
+		to_chat(owner, span_warning("You don't know how to do that right now."))
+		return
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Lung Punch stance!</span>")
-	var/mob/living/carbon/human/H = owner
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
@@ -93,7 +103,7 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
 	var/bonus_damage = 10
-	if(D.IsWeakened() || D.resting || D.lying)
+	if(D.IsWeakened() || D.resting || D.lying_angle)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 
@@ -114,12 +124,12 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(prob(60))
 		if(D.hand)
-			if(istype(D.l_hand, /obj/item))
+			if(isitem(D.l_hand))
 				var/obj/item/I = D.l_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
 		else
-			if(istype(D.r_hand, /obj/item))
+			if(isitem(D.r_hand))
 				var/obj/item/I = D.r_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
@@ -142,23 +152,20 @@
 /obj/item/clothing/gloves/color/black/krav_maga/check_item_eat(mob/target, mob/user)
 	return FALSE
 
-/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.teach(user, TRUE)
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_gloves)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
 
-/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.remove(user)
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
-		style.remove(H)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
 	name = "krav maga gloves"

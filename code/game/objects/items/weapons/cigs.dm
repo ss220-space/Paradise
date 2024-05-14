@@ -18,7 +18,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_EARS|SLOT_MASK
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_EARS
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -32,23 +32,24 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+
 	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 	equip_sound = 'sound/items/handling/generic_equip5.ogg'
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Draconid" =  'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 
@@ -122,7 +123,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(S.active)
 			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
 
-	else if(istype(I, /obj/item/assembly/igniter))
+	else if(isigniter(I))
 		light("<span class='notice'>[user] fiddles with [I], and manages to light [user.p_their()] [name].</span>")
 
 	else if(istype(I, /obj/item/gun/magic/wand/fireball))
@@ -151,12 +152,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='notice'>[user] lights [user.p_their()] [name] with [N]. Someone please give [user.p_their()] zippo..</span>")
 
 
-	//can't think of any other way to update the overlays :<
-	user.update_inv_wear_mask()
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
-
-
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	..()
 	if(!proximity)
@@ -172,46 +167,58 @@ LIGHTERS ARE IN LIGHTERS.DM
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 
+/obj/item/clothing/mask/cigarette/update_icon_state()
+	icon_state = lit ? icon_on : icon_off
+	item_state = lit ? icon_on : initial(item_state)
+	update_equipped_item(update_speedmods = FALSE)
+
+
+/obj/item/clothing/mask/cigarette/update_name(updates = ALL)
+	. = ..()
+	name = lit ? "lit [initial(name)]" : initial(name)
+
+
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
-	if(!lit)
-		lit = TRUE
-		name = "lit [name]"
-		attack_verb = list("burnt", "singed")
-		hitsound = 'sound/items/welder.ogg'
-		damtype = "fire"
-		force = 4
-		if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
-			var/datum/effect_system/reagents_explosion/e = new()
-			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
-			e.start()
-			if(ismob(loc))
-				var/mob/M = loc
-				M.temporarily_remove_item_from_inventory(src, force = TRUE)
-			qdel(src)
-			return
-		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
-			var/datum/effect_system/reagents_explosion/e = new()
-			e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
-			e.start()
-			if(ismob(loc))
-				var/mob/M = loc
-				M.temporarily_remove_item_from_inventory(src, force = TRUE)
-			qdel(src)
-			return
-		reagents.set_reacting(TRUE)
-		reagents.handle_reactions()
-		icon_state = icon_on
-		item_state = icon_on
-		if(flavor_text)
-			var/turf/T = get_turf(src)
-			T.visible_message(flavor_text)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_mask == src) // Don't update if it's just in their hand
-				H.wear_mask_update(src)
-		set_light(2, 0.25, "#E38F46")
-		START_PROCESSING(SSobj, src)
-		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+	if(lit)
+		return
+
+	lit = TRUE
+	attack_verb = list("burnt", "singed")
+	hitsound = 'sound/items/welder.ogg'
+	damtype = FIRE
+	force = 4
+
+	if(check_reagents_explosion())
+		return
+
+	reagents.set_reacting(TRUE)
+	reagents.handle_reactions()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+	if(flavor_text)
+		var/turf/T = get_turf(src)
+		T.visible_message(flavor_text)
+	START_PROCESSING(SSobj, src)
+	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+
+
+/obj/item/clothing/mask/cigarette/proc/check_reagents_explosion()
+	var/reagent = ""
+	var/reagent_divisor = 2.5
+	if(reagents.get_reagent_amount("plasma"))
+		reagent = "plasma"
+	else if(reagents.get_reagent_amount("fuel"))
+		reagent = "fuel"
+		reagent_divisor = 5
+	if(!reagent)
+		return FALSE
+
+	var/datum/effect_system/reagents_explosion/explosion = new
+	explosion.set_up(round(reagents.get_reagent_amount(reagent) / reagent_divisor, 1), get_turf(src), 0, 0)
+	if(ismob(loc))
+		var/mob/user = loc
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+	qdel(src)
+	return TRUE
 
 
 /obj/item/clothing/mask/cigarette/process()
@@ -259,7 +266,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
-	set_light(0)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
@@ -403,16 +409,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!lit)
 		lit = TRUE
-		damtype = "fire"
-		icon_state = icon_on
-		item_state = icon_on
+		damtype = FIRE
+		update_icon(UPDATE_ICON_STATE)
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_mask == src) // Don't update if it's just in their hand
-				H.wear_mask_update(src)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -420,13 +421,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime--
 	if(smoketime < 1)
 		new /obj/effect/decal/cleanable/ash(location)
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		if(ismob(loc))
 			var/mob/living/M = loc
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
-			lit = FALSE
-			icon_state = icon_off
-			item_state = icon_off
-			M.update_inv_wear_mask()
 		STOP_PROCESSING(SSobj, src)
 		return
 	smoke()
@@ -435,8 +434,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = FALSE
-		icon_state = icon_off
-		item_state = icon_off
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(smoketime <= 0)

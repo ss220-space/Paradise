@@ -6,7 +6,7 @@
 	icon_state = "leap_off"
 
 /obj/screen/alien/leap/Click()
-	if(istype(usr, /mob/living/carbon/alien/humanoid))
+	if(isalienhunter(usr))
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
@@ -53,7 +53,7 @@
 	static_inventory += using
 	move_intent = using
 
-	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
+	if(isalienhunter(mymob))
 		mymob.leap_icon = new /obj/screen/alien/leap()
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
 		mymob.leap_icon.screen_loc = ui_alien_leap
@@ -65,16 +65,18 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
 	inv_box.name = "l_hand"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
 	using = new /obj/screen/swap_hand()
 	using.name = "hand"
@@ -95,7 +97,7 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_l
-	inv_box.slot_id = slot_l_store
+	inv_box.slot_id = ITEM_SLOT_POCKET_LEFT
 	static_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory()
@@ -103,7 +105,7 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_r
-	inv_box.slot_id = slot_r_store
+	inv_box.slot_id = ITEM_SLOT_POCKET_RIGHT
 	static_inventory += inv_box
 
 //end of equippable shit
@@ -143,16 +145,15 @@
 	alien_plasma_display = new /obj/screen/alien/plasma_display()
 	infodisplay += alien_plasma_display
 
-	zone_select = new /obj/screen/zone_sel/alien()
-	zone_select.hud = src
-	zone_select.update_icon(UPDATE_OVERLAYS)
+	zone_select = new /obj/screen/zone_sel/alien(null, src)
 	static_inventory += zone_select
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
+
 
 /datum/hud/alien/persistent_inventory_update()
 	if(!mymob)
