@@ -106,8 +106,6 @@
 /obj/item/gun/Initialize()
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
-	if(gun_light)
-		verbs |= /obj/item/gun/proc/toggle_gunlight_verb
 	build_zooming()
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
