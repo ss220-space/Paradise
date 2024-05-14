@@ -108,7 +108,7 @@
 	var/list/selected = list()
 	var/list/unselected = list()
 	var/list/static/bundles = list(
-			"Spy" = list(	"Name" = "\improper 'Bloody Spy' Bundle",	// 220-222 TK
+			"Bloody Spy" = list(	"Name" = "\improper 'Bloody Spy' Bundle",	// 220-222 TK
 								"Desc" = "Complete your objectives quietly with this compilation of stealthy items.",
 								/obj/item/storage/box/syndie_kit/chameleon = 1,								// 20 TK
 								/obj/item/door_remote/omni/access_tuner = 1,								// 30 TK
@@ -152,7 +152,7 @@
 								/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail = 1,	// 0 TK
 								/obj/item/storage/box/syndie_kit/emp = 1,									// 10 TK
 								/obj/item/CQC_manual = 1),													// 50 TK
-			"Sabotager" = list(	"Name" = "\improper 'Sabotage' bundle",	// 195-197 TK
+			"Sabotage" = list(	"Name" = "\improper 'Sabotage' bundle",	// 195-197 TK
 								"Desc" = "Wreak havoc and destruction on the station with this kit.",
 								/obj/item/grenade/plastic/c4 = 2,											// 10 TK
 								/obj/item/camera_bug = 1,													// 5 TK
@@ -165,7 +165,7 @@
 								/obj/item/grenade/clusterbuster/n2o = 1,									// 10 TK
 								/obj/item/storage/box/syndie_kit/space = 1,									// 20 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-			"Payday" = list(	"Name" = "\improper 'PayDay' bundle",	// 136.6-138.6 TK
+			"PayDay" = list(	"Name" = "\improper 'PayDay' bundle",	// 136.6-138.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
 								/obj/item/gun/projectile/revolver = 1,										// 50 TK
