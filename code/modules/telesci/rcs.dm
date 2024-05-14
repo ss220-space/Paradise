@@ -50,7 +50,7 @@
   */
 /obj/item/rcs/attack_self(mob/user)
 	if(teleporting)
-		user.balloon_alert(user, "<span class='warning'>Error: [name] is in use.</span>")
+		user.balloon_alert(user, "Error: [name] is in use.")
 		return
 
 	var/list/L = list() // List of avaliable telepads
@@ -106,7 +106,7 @@
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
 		if(user)
-			user.balloon_alert(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+			user.balloon_alert(user, "Warning: Safeties disabled.")
 		return
 
 

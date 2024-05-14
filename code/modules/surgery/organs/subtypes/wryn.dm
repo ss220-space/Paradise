@@ -55,10 +55,10 @@
 
 		if(do_after(usr, 50, target = usr))
 			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-				owner.balloon_alert(owner, span_notice("Место уже занято!"))
+				owner.balloon_alert(owner, "Место уже занято!")
 				return
 			host.adjustWax(-50)
-			host.visible_message(span_alert("[host] выделяет кучу воска и формирует из неё [choice]!"))
+			host.visible_message(("[host] выделяет кучу воска и формирует из неё [choice]!"))
 			switch(choice)
 				if("соты")
 					new /obj/structure/wryn/wax/wall(host.loc)
@@ -66,7 +66,7 @@
 					new /obj/structure/wryn/wax/window(host.loc)
 
 	else
-		owner.balloon_alert(owner, span_notice("Не хватает воска!"))
+		owner.balloon_alert(owner, "Не хватает воска!")
 
 	return
 

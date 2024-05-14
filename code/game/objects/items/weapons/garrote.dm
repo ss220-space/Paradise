@@ -70,7 +70,7 @@
 		return
 
 	if(M.dir != U.dir)
-		user.balloon_alert(user, "<span class='warning'>bad angle!</span>")
+		user.balloon_alert(user, "bad angle!")
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.

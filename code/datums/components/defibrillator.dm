@@ -138,7 +138,7 @@
 		return
 
 	if(on_cooldown)
-		user.balloon_alert(user,"[defib_ref] is recharging.")
+		user.balloon_alert(user, "[defib_ref] is recharging.")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)

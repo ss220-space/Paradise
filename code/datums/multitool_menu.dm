@@ -48,7 +48,7 @@
 
 /datum/multitool_menu_host/proc/notify_if_no_access(mob/user)
 	if(!multitool.allowed(user))
-		user.balloon_alert(user, "<span class='warning'>Access denied.</span>")
+		user.balloon_alert(user, "Access denied.")
 		return TRUE
 	return FALSE
 
