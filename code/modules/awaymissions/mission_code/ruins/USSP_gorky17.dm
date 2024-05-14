@@ -96,7 +96,9 @@
 	icon_state = "away"
 	requires_power = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
@@ -220,7 +222,7 @@
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	use_starlight = TRUE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE

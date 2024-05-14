@@ -10,7 +10,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE
 	intact = FALSE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
@@ -41,9 +41,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	// We make the assumption that the space plane will never be blacklisted, as an optimization
+	if(SSmapping.max_plane_offset)
+		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
 
 	if (light_power && light_range)
 		update_light()

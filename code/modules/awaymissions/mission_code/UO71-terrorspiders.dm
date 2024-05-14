@@ -50,7 +50,9 @@
 	fire = TRUE
 	requires_power = FALSE
 	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
@@ -58,7 +60,9 @@
 	fire = TRUE
 	requires_power = FALSE
 	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/prince
 	name = "UO71 Prince Containment"
@@ -66,14 +70,18 @@
 	fire = TRUE
 	requires_power = FALSE
 	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
 	requires_power = FALSE
 	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"

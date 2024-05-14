@@ -98,9 +98,9 @@
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		add_overlay(overlay)
 
 	if(light_power && light_range)
 		update_light()
@@ -286,7 +286,7 @@
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
+	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
@@ -342,6 +342,14 @@
 
 	dynamic_lumcount = old_dynamic_lumcount
 
+	if(W.always_lit)
+		// We are guarenteed to have these overlays because of how generation works
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.add_overlay(overlay)
+	else if (old_always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.cut_overlay(overlay)
+
 	// we need to refresh gravity for all living mobs to cover possible gravity change
 	for(var/mob/living/mob in contents)
 		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
@@ -354,14 +362,6 @@
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
-
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()

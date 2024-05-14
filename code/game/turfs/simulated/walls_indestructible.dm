@@ -271,4 +271,4 @@
 // used with /effect/view_portal in order to get rid of dynamic lighting.
 /turf/simulated/wall/indestructible/invisible/view_portal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE
