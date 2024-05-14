@@ -1,7 +1,8 @@
-#define SNIFF 1
-#define SHAKE 2
-#define SCRATCH 3
-#define WASHUP 4
+#define SNIFF	 1
+#define SHAKE	 2
+#define SCRATCH	 3
+#define WASHUP	 4
+#define ASSSHAKE 5
 
 /mob/living/simple_animal/mouse
 	name = "mouse"
@@ -82,7 +83,7 @@
 	if(resting)
 		if(prob(1))
 			if(is_available_for_anim())
-				var/anim = pick(SNIFF, SCRATCH, SHAKE, WASHUP)
+				var/anim = pick(SNIFF, SCRATCH, SHAKE, WASHUP, ASSSHAKE)
 				do_idle_animation(anim)
 			StopResting()
 		else if(prob(5))
@@ -115,6 +116,7 @@
 		verbs += /mob/living/simple_animal/mouse/proc/shake
 		verbs += /mob/living/simple_animal/mouse/proc/scratch
 		verbs += /mob/living/simple_animal/mouse/proc/washup
+		verbs += /mob/living/simple_animal/mouse/proc/ass_shake
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
@@ -227,14 +229,21 @@
 
 	emote("mwashup", intentional = TRUE)
 
+/mob/living/simple_animal/mouse/proc/ass_shake()
+	set name = "Крутить жопой"
+	set desc = "Крутит жопой"
+	set category = "Мышь"
+
+	emote("massshake", intentional = TRUE)
+
 /datum/emote/living/simple_animal/mouse/idle
 	key = "msniff"
 	key_third_person = "msniffs"
 	message = "нюха%(ет,ют)%!"
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("гортанные", "громкие")
-	cooldown = 1 MINUTES
-	audio_cooldown = 1 MINUTES
+	cooldown = 10 SECONDS
+	audio_cooldown = 10 SECONDS
 	var/anim_type = SNIFF
 	volume = 1
 
@@ -262,6 +271,12 @@
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
 	anim_type = WASHUP
+
+/datum/emote/living/simple_animal/mouse/idle/ass_shake
+	key = "massshake"
+	key_third_person = "massshakes"
+	message = "крут%(ит,ят)% жопой!"
+	anim_type = ASSSHAKE
 
 /*
  * Mouse types
@@ -517,3 +532,4 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 #undef SHAKE
 #undef SCRATCH
 #undef WASHUP
+#undef ASSSHAKE

@@ -400,6 +400,11 @@
 	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
 	icon_state = "poster37"
 
+/obj/structure/sign/poster/contraband/lostcat
+	name = "Lost Cat"
+	desc = "Kisik got lost. Armed and dangerous."
+	icon_state = "poster38"
+
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
