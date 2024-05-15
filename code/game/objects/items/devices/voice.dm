@@ -32,7 +32,7 @@
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
 	if(inform_about_toggle)
-		to_chat(user, span_notice("You toggle [src] [active ? "on" : "off"]."))
+		user.balloon_alert(user, "toggled  [src] [active ? "on" : "off"].")
 
 	for(var/X in actions)
 		var/datum/action/A = X

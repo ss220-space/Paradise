@@ -80,16 +80,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points < cost)
-		to_chat(user, span_warning("There are insufficient supply points for this request."))
+		user.balloon_alert(user, "insufficient supply points!")
 		return FALSE
 	if(credits_cost && SSshuttle.cargo_money_account.money < credits_cost)
-		to_chat(user, span_warning("There are not enough money on cargo account for this request."))
+		user.balloon_alert(user, "not enough money on cargo account!")
 		return FALSE
 	if(!length(required_tech))
 		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
-			to_chat(user, span_warning("You have not sent the necessary technological disks to Centcomm."))
+			user.balloon_alert(user, "haven't sent necessary technological disks!")
 			return FALSE
 	return TRUE
 

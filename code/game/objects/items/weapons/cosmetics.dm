@@ -71,7 +71,7 @@
 
 
 /obj/item/lipstick/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
+	user.balloon_alert(user, "twisted  [src] [open ? "closed" : "open"].")
 	open = !open
 	update_icon()
 

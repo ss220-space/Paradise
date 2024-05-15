@@ -35,7 +35,7 @@
 
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
-	to_chat(user, span_notice("You tear the tape off [I]!"))
+	user.balloon_alert(user, "teared the tape off [I]!")
 	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
 	new /obj/item/trash/tapetrash(user.loc)
 	I.update_icon()
@@ -62,7 +62,7 @@
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
 		if(target_direction in GLOB.diagonals)
-			to_chat(user, span_warning("You can't reach [target_turf]."))
+			user.balloon_alert(user, "can't reach [target_turf].")
 			return
 		if(target_direction & EAST)
 			x_offset = 16
@@ -78,7 +78,7 @@
 			y_offset = -16
 	if(!user.drop_item_ground(I))
 		return
-	to_chat(user, span_notice("You stick [I] to [target_turf]."))
+	user.balloon_alert(user, "stick [I] to [target_turf].")
 	I.pixel_x = x_offset
 	I.pixel_y = y_offset
 
