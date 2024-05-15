@@ -585,6 +585,10 @@
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
 ///When a carbon slips. Called on /turf/simulated/handle_slip()
 #define COMSIG_ON_CARBON_SLIP "carbon_slip"
+///called on /carbon when attempting to pick up an item, from base of /mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
+#define COMSIG_CARBON_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
+	/// Can't pick up
+	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)

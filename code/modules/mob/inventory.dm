@@ -283,14 +283,6 @@
 	return FALSE
 
 
-/*
-/mob/living/put_in_hand_check(obj/item/I, hand_id)
-	if(istype(I) && ((mobility_flags & MOBILITY_PICKUP) || (I.flags & ABSTRACT)))
-		return TRUE
-	return FALSE
-*/
-
-
 /**
  * Specal proc for special mobs that use "hands" in weird ways.
  */
@@ -300,13 +292,18 @@
 
 /**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
- * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
+ * Puts an item into hand by `hand_id` (ITEM_SLOT_HAND_LEFT / ITEM_SLOT_HAND_RIGHT) and calls all necessary triggers/updates.
+ *
+ * Returns `TRUE` on success.
  */
 /mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always 'TRUE' if there is no item, since we are using helpers with this proc in 'if()' statements
 	if(!I)
 		return TRUE
+
+	if(QDELING(I))
+		return FALSE
 
 	if(!force && !put_in_hand_check(I, hand_id))
 		return FALSE
@@ -315,38 +312,35 @@
 		I.do_pickup_animation(src)
 
 	var/hand_item
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		hand_item = l_hand
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		hand_item = r_hand
 	if(hand_item)
 		drop_item_ground(hand_item, force = TRUE, silent = silent)
 
+	I.pulledby?.stop_pulling()
 	I.forceMove(src)
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
 
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		l_hand = I
-		I.equipped(src, ITEM_SLOT_HAND_LEFT, silent)
-		update_inv_l_hand()
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		r_hand = I
-		I.equipped(src, ITEM_SLOT_HAND_RIGHT, silent)
-		update_inv_r_hand()
 
-	if(pulling == I)
-		stop_pulling()
-
-	// Qdel or loc change on equip happened
-	if(QDELETED(I) || I.loc != src)
-		if(hand_id == "HAND_LEFT")
+	// Equip failed / item qdeled / loc changed
+	if(!I.equipped(src, hand_id, silent) || QDELETED(I) || I.loc != src)
+		if(hand_id == ITEM_SLOT_HAND_LEFT)
 			l_hand = null
-			update_inv_l_hand()
-		else if(hand_id == "HAND_RIGHT")
+		else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 			r_hand = null
-			update_inv_r_hand()
 		return FALSE
+
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
+		update_inv_l_hand()
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
+		update_inv_r_hand()
 
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
@@ -358,14 +352,14 @@
  * Puts item into `l_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_l_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_LEFT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_LEFT, force, ignore_anim, silent)
 
 
 /**
  * Puts item into `r_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_r_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_RIGHT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_RIGHT, force, ignore_anim, silent)
 
 
 /**
@@ -569,7 +563,7 @@
 		if(client)
 			client.screen -= I
 		I.layer = initial(I.layer)
-		SET_PLANE_EXPLICIT(I, initial(I.plane), src)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
 		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
 				I.move_to_null_space()

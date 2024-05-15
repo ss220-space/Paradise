@@ -345,22 +345,22 @@
 	if(!istype(I))
 		return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, I, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+		return FALSE
+
 	if(I.item_flags & NOPICKUP)
 		return FALSE
 
 	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
 		return FALSE
 
-	if(body_position == LYING_DOWN && !(I.item_flags & ABSTRACT))
+	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
 		return FALSE
 
-	if(hand_id == "HAND_LEFT" && !has_left_hand())
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
 		return FALSE
 
-	if(hand_id == "HAND_RIGHT" && !has_right_hand())
-		return FALSE
-
-	return hand_id == "HAND_LEFT" ? !l_hand : !r_hand
+	return hand_id == ITEM_SLOT_HAND_LEFT ? !l_hand : !r_hand
 
 
 /**
@@ -381,16 +381,17 @@
 	if(!I)
 		return TRUE
 
-	if(QDELETED(I))
+	if(QDELING(I))
 		return FALSE
 
 	if(!real_human_being())	// Not a real hero :'(
-		I.forceMove(drop_location())
-		I.pixel_x = initial(I.pixel_x)
-		I.pixel_y = initial(I.pixel_y)
+		var/drop_loc = drop_location()
+		I.forceMove(drop_loc)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		I.dropped(src, null, silent)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+		I.dropped(src, NONE, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -426,9 +427,10 @@
 		qdel(I)
 		return FALSE
 
-	I.forceMove(drop_location())
+	var/drop_loc = drop_location()
+	I.forceMove(drop_loc)
 	I.layer = initial(I.layer)
-	I.plane = initial(I.plane)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
 	I.dropped(src, NONE, silent)
 
 	return FALSE

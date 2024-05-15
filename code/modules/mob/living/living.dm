@@ -1653,6 +1653,7 @@
 			var/atom/movable/old_buckled = .
 			if(old_buckled.buckle_lying == 0) // The buckle forced us to stay up (like a chair)
 				if(HAS_TRAIT(src, TRAIT_FLOORED)) // We want to rest or are otherwise floored, so let's drop on the ground.
+					on_fall()
 					set_body_position(LYING_DOWN)
 				else if(resting)
 					set_lying_down()
@@ -1706,8 +1707,8 @@
 /// Proc to append behavior to the condition of being floored. Called when the condition starts.
 /mob/living/proc/on_floored_start()
 	if(body_position == STANDING_UP) //force them on the ground
-		set_body_position(LYING_DOWN)
 		on_fall()
+		set_body_position(LYING_DOWN)
 
 
 /// Proc to append behavior to the condition of being floored. Called when the condition ends.
@@ -1727,7 +1728,6 @@
 		body_position_pixel_y_offset = PIXEL_Y_OFFSET_LYING
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
-	drop_from_hands()
 
 
 /// Special interaction on lying down, to transform its sprite by a rotation. Used on carbon level.
