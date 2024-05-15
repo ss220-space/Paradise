@@ -385,7 +385,7 @@
 		return FALSE
 
 	if(!real_human_being())	// Not a real hero :'(
-		var/drop_loc = drop_location()
+		var/atom/drop_loc = drop_location()
 		I.forceMove(drop_loc)
 		I.pixel_x = I.base_pixel_x
 		I.pixel_y = I.base_pixel_y
@@ -427,7 +427,7 @@
 		qdel(I)
 		return FALSE
 
-	var/drop_loc = drop_location()
+	var/atom/drop_loc = drop_location()
 	I.forceMove(drop_loc)
 	I.layer = initial(I.layer)
 	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
