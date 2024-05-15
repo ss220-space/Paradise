@@ -1,4 +1,6 @@
 /area
+	var/list/motioncameras = list()
+	var/list/motionTargets = list()
 	var/fire = null
 	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
 	var/atmosalm = ATMOS_ALARM_NONE
@@ -128,6 +130,13 @@
 		add_overlay(/obj/effect/fullbright)
 
 	reg_in_areas_in_z()
+
+	if(mapload) //ai_motion_camera
+		for(var/obj/machinery/camera/M in src)
+			if(M.isMotion())
+				motioncameras.Add(M)
+				M.AddComponent(/datum/component/proximity_monitor)
+				M.set_area_motion(src)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -543,6 +552,11 @@
 	if(!isliving(arrived))
 		return
 
+	if(ismob(arrived) && length(motioncameras))//ai motion camera alarm activate
+		for(var/X in motioncameras)
+			var/obj/machinery/camera/cam = X
+			cam.newTarget(arrived)
+
 	var/mob/living/arrived_living = arrived
 	if(!arrived_living.client)
 		return
@@ -561,6 +575,14 @@
 /area/Exited(atom/movable/departed)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
+
+	if(!isliving(departed))
+		return
+
+	if(ismob(departed) && length(motioncameras)) //ai motion camera alarm deactivate
+		for(var/X in motioncameras)
+			var/obj/machinery/camera/cam = X
+			cam.lostTargetRef(departed.UID())
 
 
 /area/proc/gravitychange()
