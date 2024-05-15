@@ -416,7 +416,7 @@
 	name = "Syndie Locker Mech"
 	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 30
+	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
