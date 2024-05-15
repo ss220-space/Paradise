@@ -275,7 +275,7 @@
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
-	var/drop_loc = drop_location()
+	var/atom/drop_loc = drop_location()
 	I.forceMove(drop_loc)
 	I.pixel_x = I.base_pixel_x
 	I.pixel_y = I.base_pixel_y
