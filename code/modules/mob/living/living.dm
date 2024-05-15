@@ -366,12 +366,16 @@
 
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(.)
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(mover.pass_flags & pass_flags_self)
+		return TRUE
+	if(mover.throwing)
+		return (pass_flags_self & LETPASSTHROW) || !density || body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
+	if(mover in buckled_mobs)
 		return TRUE
 	if(isprojectile(mover))
-		return !density || body_position == LYING_DOWN
-	if(mover.throwing)
-		return !density || body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
+		return projectile_allow_through(mover, border_dir)
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
@@ -381,6 +385,15 @@
 		if(mover in buckled_mobs)
 			return TRUE
 	return !mover.density || body_position == LYING_DOWN
+
+
+/// Special projectiles handling for living mobs
+/mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
+	if(stat == DEAD)	// default behavior if DEAD
+		return !density || body_position == LYING_DOWN
+	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
+		return FALSE
+	return prob(67)	// 33% to hit lying mobs
 
 
 /mob/living/proc/set_pull_offsets(mob/living/user, grab_state = GRAB_PASSIVE)
