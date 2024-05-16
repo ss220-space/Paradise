@@ -1171,7 +1171,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				M.create_chat_message(src, message, FALSE, TRUE)
+				M.create_chat_message(src, message, list("italics"))
 
 			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
@@ -1588,4 +1588,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	base_pixel_y = new_value
 
 	pixel_y = pixel_y + base_pixel_y - .
+
+
+/atom/proc/get_visible_name(add_id_name = TRUE)
+	return name
+
+
+/atom/proc/GetVoice()
+	return name
+
+
+/atom/proc/GetTTSVoice()
+	return tts_seed
 

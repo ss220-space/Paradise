@@ -281,7 +281,6 @@ em				{font-style: normal;font-weight: bold;}
 .yell				{font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #B800B1;}
-/* .radio				{color: #20b142;} */
 .deptradio			{color: #993399;}
 .comradio				{color: #526aff;}
 .syndradio			{color: #8f4a4b;}
@@ -312,7 +311,6 @@ em				{font-style: normal;font-weight: bold;}
 .alert				{color: #d82020;}
 h1.alert, h2.alert			{color: #a4bad6;}
 .ghostalert			{color: #cc00c6;font-style: italic; font-weight: bold;}
-.emote				{font-style: italic;}
 .selecteddna			{color: #a4bad6; 	background-color: #001B1B}
 
 .attack				{color: #be2020;}
@@ -465,6 +463,11 @@ h1.alert, h2.alert			{color: #a4bad6;}
 .adminticket			{color: #3daf21; font-weight: bold}
 
 .adminticketalt 			{color: #ccb847; font-weight: bold}
+
+/* Empty spans */
+.radio,
+.emote {
+}
 
 /* Syndicate codewords */
 span.body .codephrases 		{color: #5555FF;}
