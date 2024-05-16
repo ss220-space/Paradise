@@ -32,7 +32,7 @@
 			dna.species.handle_death(FALSE, src)
 
 	//Update our name based on whether our face is obscured/disfigured
-	name = get_visible_name()
+	name = get_visible_name(FALSE)
 	pulse = handle_pulse(times_fired)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
