@@ -2538,22 +2538,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 
 //AI
-
-/area/ai_monitored
-	sound_environment = SOUND_AREA_STANDARD_STATION
-/area/ai_monitored/storage/eva
-	name = "EVA Storage"
-	icon_state = "eva"
-	ambientsounds = HIGHSEC_SOUNDS
-
-/area/ai_monitored/storage/secure
-	name = "Secure Storage"
-	icon_state = "storage"
-
-/area/ai_monitored/storage/emergency
-	name = "Emergency Storage"
-	icon_state = "storage"
-
 /area/turret_protected/
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
