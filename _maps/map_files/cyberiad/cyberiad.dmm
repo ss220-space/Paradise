@@ -9156,7 +9156,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ayo" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -16226,7 +16226,7 @@
 /area/crew_quarters/dorms)
 "aRw" = (
 /turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aRx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16570,7 +16570,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aSD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17019,7 +17019,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aTR" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -17820,7 +17820,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aVP" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -17846,7 +17846,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aVS" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow,
@@ -18919,7 +18919,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aYv" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18963,7 +18963,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "aYz" = (
 /obj/machinery/camera{
 	c_tag = "Chapel North"
@@ -19580,14 +19580,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bai" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/suit_storage_unit/mime,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "baj" = (
 /obj/structure/rack{
 	dir = 8;
@@ -19605,7 +19605,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bak" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -19653,7 +19653,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bar" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -19666,7 +19666,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bas" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -19683,7 +19683,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bat" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -19701,7 +19701,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bau" = (
 /turf/simulated/wall,
 /area/library)
@@ -19729,7 +19729,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bax" = (
 /obj/machinery/dnaforensics,
 /turf/simulated/floor/plasteel{
@@ -19792,7 +19792,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "baE" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -20167,7 +20167,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bbL" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/status_display{
@@ -20178,7 +20178,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bbM" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	anchored = 1
@@ -20190,7 +20190,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bbO" = (
 /obj/machinery/portable_atmospherics/canister/oxygen{
 	anchored = 1
@@ -20202,7 +20202,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bbQ" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/ai_status_display{
@@ -20212,7 +20212,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bbR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -20923,14 +20923,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdz" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdA" = (
 /obj/structure/rack{
 	dir = 8;
@@ -20941,7 +20941,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdB" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/light{
@@ -20954,7 +20954,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -21104,7 +21104,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdP" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -21138,7 +21138,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -21211,7 +21211,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdY" = (
 /obj/machinery/mass_driver{
 	dir = 4;
@@ -21236,7 +21236,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bea" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -21281,7 +21281,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bef" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -21300,7 +21300,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "beh" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/arrival/station)
@@ -21602,7 +21602,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "beY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -21694,13 +21694,13 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/sign/securearea,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -22444,7 +22444,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "E.V.A. Maintenance";
@@ -22949,7 +22949,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -23133,11 +23133,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "biu" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "biv" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
@@ -23288,7 +23288,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "biM" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass{
@@ -23316,7 +23316,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "biN" = (
 /obj/structure/table/reinforced,
 /obj/item/assembly/signaler,
@@ -23340,7 +23340,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "biO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -24860,7 +24860,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bmx" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -25722,7 +25722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bos" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -55284,7 +55284,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cJB" = (
 /obj/machinery/computer/monitor{
 	name = "Engine Power Monitoring Computer"
@@ -58942,7 +58942,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cRO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -62875,7 +62875,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dag" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
@@ -62976,7 +62976,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dat" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -63127,7 +63127,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "daV" = (
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
 	dir = 8;
@@ -63291,7 +63291,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dbx" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -63399,7 +63399,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dbR" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -77190,7 +77190,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "mjt" = (
 /obj/item/target,
 /turf/simulated/floor/plasteel/airless,
@@ -81153,7 +81153,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qAr" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
