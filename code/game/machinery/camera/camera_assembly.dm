@@ -88,8 +88,9 @@
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
 	var/obj/machinery/camera/C = null
-	if(IsMotion(upgrades))
+	if(IsMotion(upgrades)) //Check to create the right camera
 		C = new /obj/machinery/camera/motion(loc, uniquelist(tempnetwork))
+		camera_area.AddMotionCameraInList(C)
 	else
 		C = new /obj/machinery/camera(loc, uniquelist(tempnetwork))
 
@@ -98,8 +99,7 @@
 
 	C.auto_turn()
 	C.c_tag = input
-	if(C.type == /obj/machinery/camera/motion)
-		camera_area.AddMotionCameraInList(C)
+
 	for(var/i = 5; i >= 0; i -= 1)
 		var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )
 		if(direct != "LEAVE IT")
