@@ -1521,10 +1521,10 @@
 
 	return list(0, update_flags)
 
-/datum/reagent/medicine/penthrite
-	name = "Penthrite"
-	id = "penthrite"
-	description = "An expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down. Overdose will cause heart attacks."
+/datum/reagent/medicine/adv_lava_extract
+	name = "Modified Lavaland Extract"
+	id = "adv_lava_extract"
+	description = "A very expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down, healing patient in process. Overdose will cause heart attacks."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
 	overdose_threshold = 10
@@ -1532,75 +1532,48 @@
 	taste_description = "bad idea"
 	can_synth = FALSE
 
-/obj/screen/alert/penthrite
+/obj/screen/alert/adv_lava_extract
 	name = "Strong Heartbeat"
 	desc = "Your heart beats with great force! Be carefull not to cause heart attack."
 	icon_state = "penthrite"
 
-/datum/reagent/medicine/penthrite/on_mob_add(mob/living/carbon/human/user)
+/datum/reagent/medicine/adv_lava_extract/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
-	user.throw_alert("penthrite", /obj/screen/alert/penthrite)
+	user.throw_alert("penthrite", /obj/screen/alert/adv_lava_extract)
 
-/datum/reagent/medicine/penthrite/on_mob_life(mob/living/M)
+/datum/reagent/medicine/adv_lava_extract/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(-3, FALSE)
-	update_flags |= M.adjustToxLoss(-2, FALSE)
-	update_flags |= M.adjustBruteLoss(-2, FALSE)
-	update_flags |= M.adjustFireLoss(-2, FALSE)
-	M.SetSlowed(0)
+	update_flags |= M.adjustOxyLoss(-3.5, FALSE)
+	update_flags |= M.adjustToxLoss(-2.5, FALSE)
+	update_flags |= M.adjustBruteLoss(-3, FALSE)
+	update_flags |= M.adjustFireLoss(-3, FALSE)
+	if(prob(50))
+		M.AdjustLoseBreath(-2 SECONDS)
 	M.SetConfused(0)
 	M.SetSleeping(0)
+	if(M.getFireLoss() > 35)
+		update_flags |= M.adjustFireLoss(-4, FALSE)
 	if(M.health < 0)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/penthrite/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/adv_lava_extract/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustOxyLoss(4, FALSE)
 	update_flags |= M.adjustToxLoss(3, FALSE)
 	update_flags |= M.adjustBruteLoss(5, FALSE)
 	update_flags |= M.adjustFireLoss(5, FALSE)
 	update_flags |= M.adjustStaminaLoss(10, FALSE)
+	if(M.getFireLoss())
+		update_flags |= M.adjustFireLoss(5, FALSE) //It only makes existing burns worse
 	if(ishuman(M) && prob(7))
 		var/mob/living/carbon/human/H = M
 		if(!H.undergoing_cardiac_arrest())
 			H.set_heartattack(TRUE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/penthrite/on_mob_delete(mob/living/carbon/human/user)
+/datum/reagent/medicine/adv_lava_extract/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
 	user.clear_alert("penthrite")
-
-
-
-/datum/reagent/medicine/oxandrolone
-	name = "Oxandrolone"
-	id = "oxandrolone"
-	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones. Overdose will worsen existing burns."
-	overdose_threshold = 10
-	reagent_state = LIQUID
-	color = "#1E8BFF"
-	taste_description = "bad idea"
-	can_synth = FALSE
-
-/datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(M.getFireLoss() > 35)
-		update_flags |= M.adjustFireLoss(-4, FALSE)
-	else
-		update_flags |= M.adjustFireLoss(-0.5, FALSE)
-	return ..() | update_flags
-
-/datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(M.getFireLoss())
-		update_flags |= M.adjustFireLoss(5, FALSE) //It only makes existing burns worse
-	return ..() | update_flags
-
-/datum/reagent/medicine/omnizine/dangerous
-	name = "condensed omnizine"
-	id = "omnizine_cond"
-	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries. This one is definetely worse than usual."
-	overdose_threshold = 10

@@ -326,9 +326,9 @@
 	name = "luxury medipen"
 	desc = "Cutting edge bluespace technology allowed Nanotrasen to compact 50 of volume into a single medipen. Contains rare and powerful chemicals used to aid in exploration of very hard enviroments.  <br><span class='boldwarning'>WARNING: more than one pen injection in quick succession WILL result in quick death.</span>"
 	icon_state = "redinjector"
-	volume = 60
-	amount_per_transfer_from_this = 60
-	list_reagents = list("salbutamol" = 10, "penthrite" = 10, "omnizine_cond" = 10,  "teporone" = 10, "hydrocodone" = 10, "oxandrolone" = 10)
+	volume = 40
+	amount_per_transfer_from_this = 40
+	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/M, mob/user)
 	if(lavaland_equipment_pressure_check(get_turf(user)))

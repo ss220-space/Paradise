@@ -68,6 +68,7 @@
 		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											700),
 		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										600),
 		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		800),
+		EQUIPMENT("Luxury Medipen",					/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury,1500),
 	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
