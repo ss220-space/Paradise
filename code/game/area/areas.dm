@@ -134,11 +134,13 @@
 	if(mapload) //ai_motion_camera
 		for(var/obj/machinery/camera/M in src)
 			if(M.isMotion())
-				motioncameras.Add(M)
-				M.AddComponent(/datum/component/proximity_monitor)
-				M.set_area_motion(src)
+				AddMotionCameraInList(M)
 
 	return INITIALIZE_HINT_LATELOAD
+/area/proc/AddMotionCameraInList(var/obj/machinery/camera/motion/M)
+	motioncameras.Add(M)
+	M.AddComponent(/datum/component/proximity_monitor)
+	M.set_area_motion(src)
 
 /area/LateInitialize()
 	. = ..()

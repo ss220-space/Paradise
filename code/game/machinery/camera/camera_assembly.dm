@@ -23,6 +23,12 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
+/obj/item/camera_assembly/proc/IsMotion(list/upgrades_list)
+	for(var/obj/I in upgrades_list)
+		if(I.type == /obj/item/assembly/prox_sensor)
+			return TRUE
+	return FALSE
+
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
@@ -81,13 +87,19 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork))
+	var/obj/machinery/camera/C = null
+	if(IsMotion(upgrades))
+		C = new /obj/machinery/camera/motion(loc, uniquelist(tempnetwork))
+	else
+		C = new /obj/machinery/camera(loc, uniquelist(tempnetwork))
+
 	loc = C
 	C.assembly = src
 
 	C.auto_turn()
 	C.c_tag = input
-
+	if(C.type == /obj/machinery/camera/motion)
+		camera_area.AddMotionCameraInList(C)
 	for(var/i = 5; i >= 0; i -= 1)
 		var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )
 		if(direct != "LEAVE IT")
