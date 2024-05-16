@@ -1,5 +1,7 @@
 /datum/map_generator/cave_generator
 	var/name = "Cave Generator"
+	///Our little trick to make loading screen more unified
+	var/false_name = "Mapping"
 	///Weighted list of the types that spawns if the turf is simulated
 	var/weighted_simulated_turf_types = list(/turf/simulated/floor/plating/asteroid/airless = 1)
 	///Expanded list of the types that spawns if the turf is open
@@ -84,7 +86,7 @@
 		new_turf = new new_turf(gen_turf)
 
 	var/message = "[name] terrain generation finished in [(REALTIMEOFDAY - start_time)/10]s!"
-	to_chat(world, span_boldannounce("[message]"))
+	to_chat(world, span_boldannounce("<small>\[[false_name]]</small> [message]"))
 	log_world(message)
 
 /datum/map_generator/cave_generator/populate_terrain(list/turfs, area/generate_in)
@@ -158,5 +160,5 @@
 				spawned_something = TRUE
 
 	var/message = "[name] terrain population finished in [(REALTIMEOFDAY - start_time)/10]s!"
-	to_chat(world, "<span class='boldannounce'>[message]</span>")
+	to_chat(world, span_boldannounce("<small>\[[false_name]]</small> [message]"))
 	log_world(message)
