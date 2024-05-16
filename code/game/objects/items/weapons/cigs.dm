@@ -286,7 +286,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 
 /obj/item/clothing/mask/cigarette/syndicate
-	list_reagents = list("nicotine" = 40, "omnizine" = 20)
+	list_reagents = list("nicotine" = 40, "syndiezine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	list_reagents = list("thc" = 40, "cbd" = 20)
