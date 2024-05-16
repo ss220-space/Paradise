@@ -339,7 +339,7 @@
 	if(!do_after(user, 5 SECONDS, target = M)) //5 seconds release and...
 		return
 
-	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.5 //half of the reagents
+	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.3 //1/3 of the reagents
 	return ..()
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
