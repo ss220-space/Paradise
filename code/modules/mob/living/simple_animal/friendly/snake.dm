@@ -116,7 +116,7 @@
 			shh(-1, M)
 
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_lying_down()
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_lying_on_rest()
 	. = ..()
 	if(inventory_head)
 		regenerate_icons()

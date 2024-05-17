@@ -113,7 +113,7 @@
 		on_fall()
 		set_body_position(LYING_DOWN)
 	else if(resting)
-		set_lying_down()
+		set_lying_on_rest()
 
 
 /// Called when [TRAIT_HANDS_BLOCKED] is added to the mob.
