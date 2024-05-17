@@ -14,7 +14,7 @@
 	// You shouldn't need this, but if you ever do and it's widespread, reconsider what you're doing.
 	plane = HUD_PLANE
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
-	var/datum/hud/hud = null
+	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 	/**
 	 * Map name assigned to this object.
@@ -29,6 +29,11 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+
+/atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(hud_owner && istype(hud_owner))
+		hud = hud_owner
 
 /atom/movable/screen/Destroy()
 	master = null
@@ -259,9 +264,8 @@
 	var/hovering
 
 
-/atom/movable/screen/zone_sel/Initialize(mapload, hud, icon, alpha, color)
+/atom/movable/screen/zone_sel/Initialize(mapload, datum/hud/hud_owner, icon, alpha, color)
 	. = ..()
-	src.hud = hud	// Don't forget to always put here the created HUD '/datum/hud/'.
 	hover_overlays_cache = list()
 	selecting_overlays_cache = list()
 	if(icon)
@@ -270,7 +274,7 @@
 		src.alpha = alpha
 	if(color)
 		src.color = color
-	src.hud.mymob.zone_selected = selecting
+	hud.mymob.zone_selected = selecting
 	update_icon(UPDATE_OVERLAYS)
 
 

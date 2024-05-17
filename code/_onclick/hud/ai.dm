@@ -167,97 +167,97 @@
 
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/language_menu
+	using = new /atom/movable/screen/language_menu(null, src)
 	using.screen_loc = ui_borg_lanugage_menu
 	static_inventory += using
 
 //AI core
-	using = new /atom/movable/screen/ai/aicore()
+	using = new /atom/movable/screen/ai/aicore(null, src)
 	using.screen_loc = ui_ai_core
 	static_inventory += using
 
 //Camera list
-	using = new /atom/movable/screen/ai/camera_list()
+	using = new /atom/movable/screen/ai/camera_list(null, src)
 	using.screen_loc = ui_ai_camera_list
 	static_inventory += using
 
 //Track
-	using = new /atom/movable/screen/ai/camera_track()
+	using = new /atom/movable/screen/ai/camera_track(null, src)
 	using.screen_loc = ui_ai_track_with_camera
 	static_inventory += using
 
 //Camera light
-	using = new /atom/movable/screen/ai/camera_light()
+	using = new /atom/movable/screen/ai/camera_light(null, src)
 	using.screen_loc = ui_ai_camera_light
 	static_inventory += using
 
 //Crew Monitorting
-	using = new  /atom/movable/screen/ai/crew_monitor()
+	using = new  /atom/movable/screen/ai/crew_monitor(null, src)
 	using.screen_loc = ui_ai_crew_monitor
 	static_inventory += using
 
 //Crew Manifest
-	using = new /atom/movable/screen/ai/crew_manifest()
+	using = new /atom/movable/screen/ai/crew_manifest(null, src)
 	using.screen_loc = ui_ai_crew_manifest
 	static_inventory += using
 
 //Alerts
-	using = new /atom/movable/screen/ai/alerts()
+	using = new /atom/movable/screen/ai/alerts(null, src)
 	using.screen_loc = ui_ai_alerts
 	static_inventory += using
 
 //Announcement
-	using = new /atom/movable/screen/ai/announcement()
+	using = new /atom/movable/screen/ai/announcement(null, src)
 	using.screen_loc = ui_ai_announcement
 	static_inventory += using
 
 //Shuttle
-	using = new /atom/movable/screen/ai/call_shuttle()
+	using = new /atom/movable/screen/ai/call_shuttle(null, src)
 	using.screen_loc = ui_ai_shuttle
 	static_inventory += using
 
 //Laws
-	using = new /atom/movable/screen/ai/state_laws()
+	using = new /atom/movable/screen/ai/state_laws(null, src)
 	using.screen_loc = ui_ai_state_laws
 	static_inventory += using
 
 //PDA message
-	using = new /atom/movable/screen/ai/pda_msg_send()
+	using = new /atom/movable/screen/ai/pda_msg_send(null, src)
 	using.screen_loc = ui_ai_pda_send
 	static_inventory += using
 
 //PDA log
-	using = new /atom/movable/screen/ai/pda_msg_show()
+	using = new /atom/movable/screen/ai/pda_msg_show(null, src)
 	using.screen_loc = ui_ai_pda_log
 	static_inventory += using
 
 //Take image
-	using = new /atom/movable/screen/ai/image_take()
+	using = new /atom/movable/screen/ai/image_take(null, src)
 	using.screen_loc = ui_ai_take_picture
 	static_inventory += using
 
 //View images
-	using = new /atom/movable/screen/ai/image_view()
+	using = new /atom/movable/screen/ai/image_view(null, src)
 	using.screen_loc = ui_ai_view_images
 	static_inventory += using
 
 //Medical/Security sensors
-	using = new /atom/movable/screen/ai/sensors()
+	using = new /atom/movable/screen/ai/sensors(null, src)
 	using.screen_loc = ui_ai_sensor
 	static_inventory += using
 
 //Intent
-	using = new /atom/movable/screen/act_intent/robot/AI()
+	using = new /atom/movable/screen/act_intent/robot/AI(null, src)
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
 
 //Move Up
-	using = new /atom/movable/screen/ai/move_up()
+	using = new /atom/movable/screen/ai/move_up(null, src)
 	using.screen_loc = ui_ai_up
 	static_inventory += using
 
 //Move Down
-	using = new /atom/movable/screen/ai/move_down()
+	using = new /atom/movable/screen/ai/move_down(null, src)
 	using.screen_loc = ui_ai_down
 	static_inventory += using

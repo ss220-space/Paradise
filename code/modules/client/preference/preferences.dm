@@ -2395,14 +2395,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					var/actual_new_range = viewrange_options[new_range]
 
-					viewrange = actual_new_range
-
-					if(actual_new_range != parent.view)
-						parent.view = actual_new_range
-						parent.fit_viewport()
-						// Update the size of the click catcher
-						var/list/actualview = getviewsize(parent.view)
-						parent.void.UpdateGreed(actualview[1],actualview[2])
+					if(actual_new_range == parent.view)
+						return
+					parent.change_view(actual_new_range)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))

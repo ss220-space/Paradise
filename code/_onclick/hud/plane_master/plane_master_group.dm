@@ -88,7 +88,7 @@
 		for(var/plane_offset in starting_offset to ending_offset)
 			if(plane_offset != 0 && !initial(mytype.allows_offsetting))
 				continue
-			var/atom/movable/screen/plane_master/instance = new mytype(null, src, plane_offset)
+			var/atom/movable/screen/plane_master/instance = new mytype(null, null, src, plane_offset)
 			plane_masters["[instance.plane]"] = instance
 			prep_plane_instance(instance)
 
@@ -102,7 +102,7 @@
 /datum/plane_master_group/proc/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
 	// Check if this feature is disabled for the client, in which case don't use scale.
 	var/mob/our_mob = our_hud?.mymob
-	if(!(our_mob?.client?.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ))
+	if(!(our_mob?.canon_client?.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ))
 		use_scale = FALSE
 
 	// No offset? piss off
@@ -122,7 +122,7 @@
 		scale_by = 1
 
 	var/list/offsets = list()
-	var/multiz_boundary = our_mob?.client?.prefs?.multiz_detail
+	var/multiz_boundary = our_mob?.canon_client?.prefs?.multiz_detail
 	// We accept negatives so going down "zooms" away the drop above as it goes
 	for(var/offset in -SSmapping.max_plane_offset to SSmapping.max_plane_offset)
 		// Multiz boundaries disable transforms

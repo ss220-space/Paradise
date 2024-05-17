@@ -137,7 +137,7 @@
 	..()
 	var/atom/movable/screen/using
 
-	blobpwrdisplay = new /atom/movable/screen()
+	blobpwrdisplay = new /atom/movable/screen(null, src)
 	blobpwrdisplay.name = "blob power"
 	blobpwrdisplay.icon_state = "block"
 	blobpwrdisplay.screen_loc = ui_health
@@ -146,54 +146,52 @@
 	SET_PLANE_EXPLICIT(blobpwrdisplay, ABOVE_HUD_PLANE, mymob)
 	static_inventory += blobpwrdisplay
 
-	blobhealthdisplay = new /atom/movable/screen()
+	blobhealthdisplay = new /atom/movable/screen(null, src)
 	blobhealthdisplay.name = "blob health"
 	blobhealthdisplay.icon_state = "block"
 	blobhealthdisplay.screen_loc = ui_internal
 	static_inventory += blobhealthdisplay
 
-	using = new /atom/movable/screen/blob/BlobHelp()
+	using = new /atom/movable/screen/blob/BlobHelp(null, src)
 	using.screen_loc = "WEST:6,NORTH:-3"
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/JumpToNode()
+	using = new /atom/movable/screen/blob/JumpToNode(null, src)
 	using.screen_loc = ui_inventory
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/JumpToCore()
+	using = new /atom/movable/screen/blob/JumpToCore(null, src)
 	using.screen_loc = ui_zonesel
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/Blobbernaut()
+	using = new /atom/movable/screen/blob/Blobbernaut(null, src)
 	using.screen_loc = ui_id
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/StorageBlob()
+	using = new /atom/movable/screen/blob/StorageBlob(null, src)
 	using.screen_loc = ui_belt
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/ResourceBlob()
+	using = new /atom/movable/screen/blob/ResourceBlob(null, src)
 	using.screen_loc = ui_back
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/NodeBlob()
+	using = new /atom/movable/screen/blob/NodeBlob(null, src)
 	using.screen_loc = using.screen_loc = ui_rhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/FactoryBlob()
+	using = new /atom/movable/screen/blob/FactoryBlob(null, src)
 	using.screen_loc = using.screen_loc = ui_lhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/ReadaptChemical()
+	using = new /atom/movable/screen/blob/ReadaptChemical(null, src)
 	using.screen_loc = ui_storage1
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/RelocateCore()
+	using = new /atom/movable/screen/blob/RelocateCore(null, src)
 	using.screen_loc = ui_storage2
 	static_inventory += using
 
-	using = new /atom/movable/screen/blob/Split()
+	using = new /atom/movable/screen/blob/Split(null, src)
 	using.screen_loc = ui_acti
 	static_inventory += using

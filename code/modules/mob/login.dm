@@ -26,6 +26,9 @@
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
+	if(!client)
+		return FALSE
+	canon_client = client
 	GLOB.player_list |= src
 	last_known_ckey = ckey
 	update_Login_details()

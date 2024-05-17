@@ -8,6 +8,13 @@
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
 
+	/// The current client inhabiting this mob. Managed by login/logout
+	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
+	/// We need to do this because the mob on logout never actually has a reference to client
+	/// We also need to clear this var/do other cleanup in client/Destroy, since that happens before logout
+	/// HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+	var/client/canon_client
+
 	see_in_dark = DEFAULT_SEE_IN_DARK
 
 	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay

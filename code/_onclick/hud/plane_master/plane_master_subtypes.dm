@@ -7,7 +7,7 @@
 	multiz_scaled = FALSE
 	critical = PLANE_CRITICAL_DISPLAY
 
-/atom/movable/screen/plane_master/clickcatcher/Initialize(mapload, datum/plane_master_group/home, offset)
+/atom/movable/screen/plane_master/clickcatcher/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(offset_increased))
 	offset_increased(SSmapping, 0, SSmapping.max_plane_offset)
@@ -41,7 +41,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	multiz_scaled = FALSE
 
-/atom/movable/screen/plane_master/parallax/Initialize(mapload, datum/plane_master_group/home, offset)
+/atom/movable/screen/plane_master/parallax/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	if(offset != 0)
 		// You aren't the source? don't change yourself
@@ -194,7 +194,7 @@
 	render_relay_planes = list()
 	critical = PLANE_CRITICAL_DISPLAY
 
-/atom/movable/screen/plane_master/emissive/Initialize()
+/atom/movable/screen/plane_master/emissive/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	add_filter("emissive_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_MASK_RENDER_TARGET, offset)))
 	add_filter("em_block_masking", 2, color_matrix_filter(GLOB.em_mask_matrix))
@@ -206,7 +206,7 @@
 	plane = PIPECRAWL_IMAGES_PLANE
 	start_hidden = TRUE
 
-/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload)
+/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	// Makes everything on this plane slightly brighter
 	// Has a nice effect, makes thing stand out
@@ -269,7 +269,7 @@
 	if(!.)
 		return
 	remove_filter("AO")
-	if(istype(mymob) && (mymob.client?.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
+	if(istype(mymob) && (mymob.canon_client?.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 /*

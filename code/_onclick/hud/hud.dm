@@ -282,7 +282,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
-	update_parallax_pref(mymob)
+	update_parallax_pref()
 	plane_masters_update()
 
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)

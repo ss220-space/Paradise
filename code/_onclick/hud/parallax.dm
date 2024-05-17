@@ -1,7 +1,6 @@
 /client
 	var/list/parallax_layers
 	var/list/parallax_layers_cached
-	var/static/list/parallax_static_layers_tail = newlist(/atom/movable/screen/parallax_pmaster, /atom/movable/screen/parallax_space_whitifier)
 	var/atom/movable/movingmob
 	var/turf/previous_turf
 	var/dont_animate_parallax //world.time of when we can state animate()ing parallax again
@@ -24,19 +23,19 @@
 
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, C.view)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_2(null, C.view)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, C.view)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, src)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_2(null, src)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, src)
 		if(SSparallax.random_layer)
-			C.parallax_layers_cached += new SSparallax.random_layer
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, C.view)
+			C.parallax_layers_cached += new SSparallax.random_layer(null, src)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, src)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
 	if(length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
 
-	C.screen |= (C.parallax_layers + C.parallax_static_layers_tail)
+	C.screen |= (C.parallax_layers)
 	// We could do not do parallax for anything except the main plane group
 	// This could be changed, but it would require refactoring this whole thing
 	// And adding non client particular hooks for all the inputs, and I do not have the time I'm sorry :(
@@ -51,7 +50,7 @@
 
 /datum/hud/proc/remove_parallax()
 	var/client/C = mymob.client
-	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
+	C.screen -= (C.parallax_layers_cached)
 	for(var/atom/movable/screen/plane_master/plane_master as anything in get_true_plane_masters(PLANE_SPACE))
 		plane_master.color = initial(plane_master.color)
 	C.parallax_layers = null
@@ -248,6 +247,8 @@
 			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
 				M.hud_used.update_parallax()
 
+// We need parallax to always pass its args down into initialize, so we immediate init it
+INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer
 	icon = 'icons/effects/parallax.dmi'
 	var/speed = 1
@@ -261,12 +262,19 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
-/atom/movable/screen/parallax_layer/New(view)
+/atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner)
 	..()
-	if(!view)
-		view = world.view
+	var/client/boss = hud_owner?.mymob?.canon_client
+	if(!boss) // If this typepath all starts to harddel your culprit is likely this
+		return INITIALIZE_HINT_QDEL
+	// I do not want to know bestie
+	var/view = boss.view || world.view
 	update_o(view)
+	RegisterSignal(boss, COMSIG_VIEW_SET, PROC_REF(on_view_change))
 
+/atom/movable/screen/parallax_layer/proc/on_view_change(datum/source, new_size)
+	SIGNAL_HANDLER
+	update_o(new_size)
 
 /atom/movable/screen/parallax_layer/proc/update_o(view)
 	if(!view)
@@ -324,7 +332,7 @@
 	icon_state = "space_gas"
 
 
-/atom/movable/screen/parallax_layer/random/space_gas/New(view)
+/atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, datum/hud/hud_owner)
 	..()
 	add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
 
@@ -341,7 +349,7 @@
 	speed = 3
 	layer = 30
 
-/atom/movable/screen/parallax_layer/planet/Initialize(mapload)
+/atom/movable/screen/parallax_layer/planet/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	if(SSmapping.lavaland_theme?.planet_icon_state)
 		icon_state = SSmapping.lavaland_theme.planet_icon_state
@@ -356,25 +364,3 @@
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
-
-
-/atom/movable/screen/parallax_pmaster
-	appearance_flags = PLANE_MASTER
-	plane = PLANE_SPACE_PARALLAX
-	blend_mode = BLEND_MULTIPLY
-	mouse_opacity = FALSE
-	screen_loc = "CENTER-7,CENTER-7"
-
-
-/atom/movable/screen/parallax_space_whitifier
-	appearance_flags = PLANE_MASTER
-	plane = PLANE_SPACE
-	color = list(
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		0, 0, 0, 0,
-		1, 1, 1, 1,
-		0, 0, 0, 0
-		)
-	screen_loc = "CENTER-7,CENTER-7"
-

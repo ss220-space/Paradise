@@ -593,7 +593,7 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 5 MINUTES // longer than any infection should be
 
 
-/atom/movable/screen/alert/ghost/Initialize(mapload)
+/atom/movable/screen/alert/ghost/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	var/image/I = image('icons/mob/mob.dmi', icon_state = "ghost", layer = FLOAT_LAYER, dir = SOUTH)
 	I.layer = FLOAT_LAYER

@@ -1141,7 +1141,7 @@
 	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
 	icon_state = "bubblegumjumpscare"
 
-/atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
+/atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

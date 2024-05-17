@@ -60,7 +60,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	/// If this plane master is outside of our visual bounds right now
 	var/is_outside_bounds = FALSE
 
-/atom/movable/screen/plane_master/Initialize(mapload, datum/plane_master_group/home, offset = 0)
+/atom/movable/screen/plane_master/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset = 0)
 	. = ..()
 	src.offset = offset
 	true_alpha = alpha
@@ -128,7 +128,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	if(force_hidden || is_outside_bounds)
 		return FALSE
 
-	var/client/our_client = mymob?.client
+	var/client/our_client = mymob?.canon_client
 	if(!our_client)
 		return TRUE
 

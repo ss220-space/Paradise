@@ -6,31 +6,31 @@
 	..()
 	var/atom/movable/screen/using
 
-	guardianhealthdisplay = new /atom/movable/screen/healths/guardian()
+	guardianhealthdisplay = new /atom/movable/screen/healths/guardian(null, src)
 	infodisplay += guardianhealthdisplay
 
-	using = new /atom/movable/screen/act_intent/guardian()
+	using = new /atom/movable/screen/act_intent/guardian(null, src)
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
 
-	using = new /atom/movable/screen/guardian/Manifest()
+	using = new /atom/movable/screen/guardian/Manifest(null, src)
 	using.screen_loc = ui_rhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/Recall()
+	using = new /atom/movable/screen/guardian/Recall(null, src)
 	using.screen_loc = ui_lhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/ToggleMode()
+	using = new /atom/movable/screen/guardian/ToggleMode(null, src)
 	using.screen_loc = ui_storage1
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/ToggleLight()
+	using = new /atom/movable/screen/guardian/ToggleLight(null, src)
 	using.screen_loc = ui_inventory
 	static_inventory += using
 
-	using = new /atom/movable/screen/guardian/Communicate()
+	using = new /atom/movable/screen/guardian/Communicate(null, src)
 	using.screen_loc = ui_back
 	static_inventory += using
 

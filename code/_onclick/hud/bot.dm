@@ -19,15 +19,14 @@
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/bot/radio()
+	using = new /atom/movable/screen/bot/radio(null, src)
 	static_inventory += using
 
-	mymob.healths = new /atom/movable/screen/healths/bot()
+	mymob.healths = new /atom/movable/screen/healths/bot(null, src)
 	mymob.healths.screen_loc = ui_borg_health
 	infodisplay += mymob.healths
 
-	mymob.pullin = new /atom/movable/screen/pull()
-	mymob.pullin.hud = src
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = 'icons/mob/screen_bot.dmi'
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_bot_pull

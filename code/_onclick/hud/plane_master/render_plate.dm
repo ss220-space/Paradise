@@ -88,7 +88,7 @@
 	plane = RENDER_PLANE_TRANSPARENT
 	appearance_flags = PLANE_MASTER
 
-/atom/movable/screen/plane_master/rendering_plate/transparent/Initialize(mapload, datum/plane_master_group/home, offset)
+/atom/movable/screen/plane_master/rendering_plate/transparent/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
 	// Don't display us if we're below everything else yeah?
 	AddComponent(/datum/component/plane_hide_highest_offset)
@@ -107,7 +107,7 @@
 	if(!.)
 		return
 	remove_filter("AO")
-	if(istype(mymob) && mymob.client?.prefs?.toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
+	if(istype(mymob) && mymob.canon_client?.prefs?.toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
 ///Contains all lighting objects
@@ -135,7 +135,7 @@
  * A color matrix filter is applied to the emissive plane to mask out anything that isn't whatever the emissive color is.
  * This is then used to alpha mask the lighting plane.
  */
-/atom/movable/screen/plane_master/rendering_plate/lighting/Initialize(mapload)
+/atom/movable/screen/plane_master/rendering_plate/lighting/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_RENDER_TARGET, offset), flags = MASK_INVERSE))
 	add_filter("object_lighting", 2, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(O_LIGHTING_VISUAL_RENDER_TARGET, offset), flags = MASK_INVERSE))
@@ -236,7 +236,7 @@
 	render_relay_planes += target_plane
 	if(!relays_generated && isnull(blend_override))
 		return
-	var/client/display_lad = home?.our_hud?.mymob?.client
+	var/client/display_lad = home?.our_hud?.mymob?.canon_client
 	generate_relay_to(target_plane, show_to = display_lad, blend_override = blend_override)
 
 /proc/get_plane_master_render_base(name)
@@ -284,7 +284,7 @@
 	relays -= existing_relay
 	if(!length(relays) && !initial(render_target))
 		render_target = null
-	var/client/lad = home?.our_hud?.mymob?.client
+	var/client/lad = home?.our_hud?.mymob?.canon_client
 	if(lad)
 		lad.screen -= existing_relay
 

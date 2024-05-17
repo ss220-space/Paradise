@@ -74,27 +74,27 @@
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/swarmer/FabricateTrap()
+	using = new /atom/movable/screen/swarmer/FabricateTrap(null, src)
 	using.screen_loc = ui_rhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/Barricade()
+	using = new /atom/movable/screen/swarmer/Barricade(null, src)
 	using.screen_loc = ui_lhand
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/Replicate()
+	using = new /atom/movable/screen/swarmer/Replicate(null, src)
 	using.screen_loc = ui_zonesel
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/RepairSelf()
+	using = new /atom/movable/screen/swarmer/RepairSelf(null, src)
 	using.screen_loc = ui_storage1
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/ToggleLight()
+	using = new /atom/movable/screen/swarmer/ToggleLight(null, src)
 	using.screen_loc = ui_back
 	static_inventory += using
 
-	using = new /atom/movable/screen/swarmer/ContactSwarmers()
+	using = new /atom/movable/screen/swarmer/ContactSwarmers(null, src)
 	using.screen_loc = ui_inventory
 	static_inventory += using
 

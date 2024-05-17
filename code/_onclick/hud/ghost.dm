@@ -46,7 +46,7 @@
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "template"
 
-/atom/movable/screen/ghost/respawn_list/Initialize(mapload)
+/atom/movable/screen/ghost/respawn_list/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	update_hidden_state()
 
@@ -102,41 +102,38 @@
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/ghost/jumptomob()
+	using = new /atom/movable/screen/ghost/jumptomob(null, src)
 	using.screen_loc = ui_ghost_jumptomob
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/orbit()
+	using = new /atom/movable/screen/ghost/orbit(null, src)
 	using.screen_loc = ui_ghost_orbit
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/reenter_corpse()
+	using = new /atom/movable/screen/ghost/reenter_corpse(null, src)
 	using.screen_loc = ui_ghost_reenter_corpse
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/teleport()
+	using = new /atom/movable/screen/ghost/teleport(null, src)
 	using.screen_loc = ui_ghost_teleport
 	static_inventory += using
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/respawn_list()
+	using = new /atom/movable/screen/ghost/respawn_list(null, src)
 	using.screen_loc = ui_ghost_respawn_list
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/respawn_mob()
+	using = new /atom/movable/screen/ghost/respawn_mob(null, src)
 	using.screen_loc = ui_ghost_respawn_mob
 	toggleable_inventory += using
 
-	using = new /atom/movable/screen/ghost/mini_games()
+	using = new /atom/movable/screen/ghost/mini_games(null, src)
 	using.screen_loc = ui_ghost_minigames
 	toggleable_inventory += using
 
-	using = new /atom/movable/screen/ghost/respawn_pai()
+	using = new /atom/movable/screen/ghost/respawn_pai(null, src)
 	using.screen_loc = ui_ghost_respawn_pai
 	toggleable_inventory += using
-
-	for(var/atom/movable/screen/S in (static_inventory + toggleable_inventory))
-		S.hud = src
 
 /datum/hud/ghost/show_hud()
 	mymob.client.screen = list()
