@@ -17,7 +17,7 @@
 	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT)
 		if(!stat)
 			enter_stamcrit()
-	else if(HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, STAMINA_TRAIT))
+	else if(IsStamcrited())
 		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
 	else
 		return

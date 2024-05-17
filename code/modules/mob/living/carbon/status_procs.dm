@@ -1,9 +1,9 @@
-/mob/living/carbon/IsWeakened(include_stamcrit = TRUE)
-	return ..() || (include_stamcrit && HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, STAMINA_TRAIT))
+/mob/living/carbon/proc/IsStamcrited()
+	return HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, STAMINA_TRAIT)
 
 
 /mob/living/carbon/proc/enter_stamcrit()
-	if(HAS_TRAIT_FROM(src, TRAIT_IMMOBILIZED, STAMINA_TRAIT)) //Already in stamcrit
+	if(IsStamcrited()) //Already in stamcrit
 		return
 	if(!(status_flags & CANWEAKEN))
 		return
