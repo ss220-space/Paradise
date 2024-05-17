@@ -197,7 +197,7 @@
 	med_hud_set_health()
 
 
-/mob/living/simple_animal/post_lying_down()
+/mob/living/simple_animal/post_lying_on_rest()
 	if(stat == DEAD)
 		return
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)

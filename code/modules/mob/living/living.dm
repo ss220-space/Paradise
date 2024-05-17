@@ -1713,7 +1713,7 @@
 					on_fall()
 					set_body_position(LYING_DOWN)
 				else if(resting)
-					set_lying_down()
+					set_lying_on_rest()
 
 
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
@@ -1835,7 +1835,7 @@
 		else
 			if(!silent)
 				to_chat(src, span_notice("You lay down."))
-			set_lying_down(instant)
+			set_lying_on_rest(instant)
 	else
 		if(body_position == STANDING_UP)
 			if(!silent)
@@ -1858,7 +1858,7 @@
 
 
 /// Change the [body_position] to [LYING_DOWN] and update associated behavior.
-/mob/living/proc/set_lying_down(instant = FALSE)
+/mob/living/proc/set_lying_on_rest(instant = FALSE)
 	set waitfor = FALSE
 
 	if(!instant && !do_after(src, 1 SECONDS, src, IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_RESTRAINED, extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, lying_down_checks_callback)), interaction_key = DOAFTER_SOURCE_LYING_DOWN, max_interact_count = 1, cancel_message = null))
@@ -1867,11 +1867,11 @@
 		return
 
 	set_body_position(LYING_DOWN)
-	post_lying_down()
+	post_lying_on_rest()
 
 
 /// Any post effects like icons changes place here
-/mob/living/proc/post_lying_down()
+/mob/living/proc/post_lying_on_rest()
 	return
 
 
