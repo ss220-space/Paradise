@@ -440,6 +440,17 @@
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))
+		if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.l_ear == src || H.r_ear == src)
+			if(H.head != null)
+				if(H.head.flags_inv & HIDEHEADSETS)
+					to_chat(user, "<span class='cultitalic'>Your helmet prevents you from doing this!</span>")
+					return
+			if(H.wear_mask != null)
+				if(H.wear_mask.flags_inv & HIDEHEADSETS)
+					to_chat(user, "<span class='cultitalic'>Your mask prevents you from doing this!</span>")
+					return
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
@@ -462,9 +473,11 @@
 		if(H.l_ear == src || H.r_ear == src)
 			if(H.head != null)
 				if(H.head.flags_inv & HIDEHEADSETS)
+					to_chat(user, "<span class='cultitalic'>Your helmet prevents you from doing this!</span>")
 					return
 			if(H.wear_mask != null)
 				if(H.wear_mask.flags_inv & HIDEHEADSETS)
+					to_chat(user, "<span class='cultitalic'>Your mask prevents you from doing this!</span>")
 					return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
