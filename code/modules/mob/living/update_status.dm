@@ -82,14 +82,6 @@
 /mob/living/proc/update_stamina()
 	return
 
-/mob/living/vv_edit_var(var_name, var_value)
-	. = ..()
-	switch(var_name)
-		if("maxHealth")
-			updatehealth("var edit")
-		if("resize")
-			update_transform()
-
 
 /mob/living/proc/update_disgust_alert()
 	switch(AmountDisgust())

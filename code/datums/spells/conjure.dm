@@ -58,7 +58,7 @@
 				for(var/varName in newVars)
 					if(varName in summoned_object.vars)
 						summoned_object.vars[varName] = newVars[varName]
-				summoned_object.admin_spawned = TRUE
+				summoned_object.flags |= ADMIN_SPAWNED
 
 				if(summon_lifespan)
 					QDEL_IN(summoned_object, summon_lifespan)
