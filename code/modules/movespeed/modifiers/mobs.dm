@@ -175,7 +175,7 @@
 
 
 /datum/movespeed_modifier/carbon_crawling
-	multiplicative_slowdown = 4
+	multiplicative_slowdown = 5
 	flags = IGNORE_NOSLOW
 
 
