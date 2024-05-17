@@ -163,7 +163,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	for(var/v in files.known_tech)
 		var/datum/tech/KT = files.known_tech[v]
 		if(KT.level < KT.max_level)
-			KT.level=KT.max_level
+			KT.level = KT.max_level
 	files.RefreshResearch()
 
 /obj/machinery/computer/rdconsole/New()

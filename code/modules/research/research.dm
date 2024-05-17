@@ -226,7 +226,7 @@ research holder datum.
 	var/desc = "description"			//General description of what it does and what it makes.
 	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
 	var/level = 1						//A simple number scale of the research level. Level 0 = Secret tech.
-	var/max_level = 1          // Maximum level this can be at (for job objectives)
+	var/max_level = 1          // Maximum level this can be at (for admins and coders)
 	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
 
@@ -237,78 +237,79 @@ research holder datum.
 	name = "Materials Research"
 	desc = "Development of new and improved materials."
 	id = "materials"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 
 /datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 
 /datum/tech/plasmatech
 	name = "Plasma Research"
 	desc = "Research into the mysterious substance colloqually known as 'plasma'."
 	id = "plasmatech"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 	rare = 3
 
 /datum/tech/powerstorage
 	name = "Power Manipulation Technology"
 	desc = "The various technologies behind the storage and generation of electicity."
 	id = "powerstorage"
-	max_level = 7
+	max_level = 9 // loot from(/is) ratvar's cult mob
 
 /datum/tech/bluespace
 	name = "'Blue-space' Research"
 	desc = "Research into the sub-reality known as 'blue-space'."
 	id = "bluespace"
-	max_level = 7
+	max_level = 10 // can be obtained after summoning geometer of blood (nars-Ian)
 	rare = 2
 
 /datum/tech/biotech
 	name = "Biological Technology"
 	desc = "Research into the deeper mysteries of life and organic substances."
 	id = "biotech"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 
 /datum/tech/combat
 	name = "Combat Systems Research"
 	desc = "The development of offensive and defensive systems."
 	id = "combat"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 
 /datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
-	max_level = 7
+	max_level = 8 // debug part/Science T-ray scanner or brs reward
 
 /datum/tech/programming
 	name = "Data Theory Research"
 	desc = "The development of new computer and artificial intelligence and data storage systems."
 	id = "programming"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 
 /datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
 	name = "Toxins Research"
 	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
 	id = "toxins"
-	max_level = 7
+	max_level = 8 // debug part/cargo
 	rare = 2
 
 /datum/tech/syndicate
 	name = "Illegal Technologies Research"
 	desc = "The study of technologies that violate standard Nanotrasen regulations."
 	id = "syndicate"
-	max_level = 0 // Don't count towards maxed research, since it's illegal.
+	max_level = 8 // debug part/mindslave bio-chip, redspace teleporter
 	rare = 4
 
 /datum/tech/abductor
 	name = "Alien Technologies Research"
 	desc = "The study of technologies used by the advanced alien race known as Abductors."
 	id = "abductor"
-	rare = 5
 	level = 0
+	max_level = 8 // debug part
+	rare = 5
 
 /*
 datum/tech/arcane
