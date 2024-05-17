@@ -804,7 +804,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		T.ChangeTurf(chosen)
 	else
 		var/atom/A = new chosen(usr.loc)
-		A.admin_spawned = TRUE
+		A.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
