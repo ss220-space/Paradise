@@ -1489,22 +1489,54 @@
 		if(A.light_range > 0)
 			A.extinguish_light(force)
 
+
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if("stat")
-			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
-				GLOB.dead_mob_list -= src
-				GLOB.alive_mob_list += src
-			if((stat < DEAD) && (var_value == DEAD))//Kill he
-				GLOB.alive_mob_list -= src
-				GLOB.dead_mob_list += src
+		if(NAMEOF(src, maxHealth))
+			if(!isnum(var_value) || var_value <= 0)
+				return FALSE
+		if(NAMEOF(src, health)) //this doesn't work. gotta use procs instead.
+			return FALSE
+		if(NAMEOF(src, resting))
+			set_resting(var_value)
+			. = TRUE
+		if(NAMEOF(src, lying_angle))
+			set_lying_angle(var_value)
+			. = TRUE
+		if(NAMEOF(src, buckled))
+			set_buckled(var_value)
+			. = TRUE
+		if(NAMEOF(src, num_legs))
+			set_num_legs(var_value)
+			. = TRUE
+		if(NAMEOF(src, usable_legs))
+			set_usable_legs(var_value)
+			. = TRUE
+		if(NAMEOF(src, num_hands))
+			set_num_hands(var_value)
+			. = TRUE
+		if(NAMEOF(src, usable_hands))
+			set_usable_hands(var_value)
+			. = TRUE
+		if(NAMEOF(src, body_position))
+			set_body_position(var_value)
+			. = TRUE
+		if(NAMEOF(src, current_size))
+			if(var_value == 0) //prevents divisions of and by zero.
+				return FALSE
+			update_transform(var_value/current_size)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
 	. = ..()
+
 	switch(var_name)
-		if("maxHealth")
-			updatehealth()
-		if("resize")
-			update_transform(var_value)
-		if("lighting_alpha")
+		if(NAMEOF(src, maxHealth))
+			updatehealth("var edit")
+		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
 

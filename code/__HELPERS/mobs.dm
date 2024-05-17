@@ -412,7 +412,8 @@
 
 	for(var/j in 1 to amount)
 		var/atom/X = new spawn_type(arglist(new_args))
-		X.admin_spawned = admin_spawn
+		if(admin_spawn)
+			X.flags |= ADMIN_SPAWNED
 
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))

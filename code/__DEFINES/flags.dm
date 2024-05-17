@@ -19,6 +19,8 @@
 #define BLOCKS_LIGHT (1<<4)
 /// Whether this atom is only a hologram object
 #define HOLOGRAM (1<<5)
+/// Was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED (1<<6)
 
 
 // Update flags for [/atom/proc/update_appearance]
