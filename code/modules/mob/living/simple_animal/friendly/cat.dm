@@ -128,7 +128,7 @@
 	set_resting(TRUE)
 
 
-/mob/living/simple_animal/pet/cat/post_lying_down()
+/mob/living/simple_animal/pet/cat/post_lying_on_rest()
 	if(stat == DEAD)
 		return
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)

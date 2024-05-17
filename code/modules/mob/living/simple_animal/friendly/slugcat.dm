@@ -172,7 +172,9 @@
 		add_overlay(get_emissive_block())
 
 
-/mob/living/simple_animal/pet/slugcat/post_lying_down()
+/mob/living/simple_animal/pet/slugcat/post_lying_on_rest()
+	if(stat == DEAD)
+		return
 	drop_hand()
 	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
