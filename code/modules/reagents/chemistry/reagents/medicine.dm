@@ -1328,7 +1328,7 @@
 	color = "#332300"
 	overdose_threshold = 25
 	harmless = FALSE
-	taste_description = "taste of metal with tobacco"
+	taste_description = "metal with tobacco"
 
 /datum/reagent/medicine/syndiezine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
