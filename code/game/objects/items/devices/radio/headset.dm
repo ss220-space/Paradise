@@ -459,12 +459,13 @@
 	. = TRUE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.head != null)
-			if(H.head.flags_inv & HIDEHEADSETS)
-				return
-		if(H.wear_mask != null)
-			if(H.wear_mask.flags_inv & HIDEHEADSETS)
-				return
+		if(H.l_ear == src || H.r_ear == src)
+			if(H.head != null)
+				if(H.head.flags_inv & HIDEHEADSETS)
+					return
+			if(H.wear_mask != null)
+				if(H.wear_mask.flags_inv & HIDEHEADSETS)
+					return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	user.set_machine(src)
