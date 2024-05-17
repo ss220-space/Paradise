@@ -102,7 +102,6 @@
 		else if(dir_to_center & (EAST|WEST))
 			throw_dist = base_x_throw_distance - x_component + 1
 
-		did_not_stand_back.Stun(3 SECONDS)
 		did_not_stand_back.Weaken(6 SECONDS)
 		did_not_stand_back.throw_at(
 			target = get_edge_target_turf(did_not_stand_back, dir_to_center),

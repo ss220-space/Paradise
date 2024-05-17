@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Main variables
 	var/owner = null
-	var/default_cartridge = FALSE // Access level defined by cartridge
+	var/default_cartridge = null // Access level defined by cartridge
 	var/special_pen = null //special variable for nonstandart pens in new PDAs
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null

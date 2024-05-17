@@ -65,7 +65,7 @@
 		return
 	var/turf/T = user.loc
 	if(!isturf(T))
-		return
+		return ..()
 
 	if(istype(I, /obj/item/pickaxe))
 		var/obj/item/pickaxe/P = I
@@ -81,7 +81,7 @@
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
-	if(istype(I, /obj/item/pen/survival))
+	else if(istype(I, /obj/item/pen/survival))
 		var/obj/item/pen/survival/P = I
 		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
