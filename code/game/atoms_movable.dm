@@ -935,12 +935,15 @@
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
+	// we will register on turf to avoid image changes with attacked_atom transforms
+	var/turf/image_loc = get_turf(attacked_atom)
 	if(visual_effect_icon)
-		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
+		attack_image = image('icons/effects/effects.dmi', image_loc, visual_effect_icon, attacked_atom.layer + 0.1)
+		if(ismob(src) && ismob(attacked_atom))
+			var/mob/attacker = src
+			attack_image.color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	else if(used_item)
-		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
-		attack_image.plane = GAME_PLANE
-
+		attack_image = image(icon = used_item, loc = image_loc, layer = attacked_atom.layer + 0.1)
 		// Scale the icon.
 		attack_image.transform *= 0.4
 		// The icon should not rotate.
@@ -949,14 +952,14 @@
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_image.pixel_y = -16
+			attack_image.pixel_y = -12
 		else if(direction & SOUTH)
-			attack_image.pixel_y = 16
+			attack_image.pixel_y = 12
 
 		if(direction & EAST)
-			attack_image.pixel_x = -16
+			attack_image.pixel_x = -14
 		else if(direction & WEST)
-			attack_image.pixel_x = 16
+			attack_image.pixel_x = 14
 
 		if(!direction) // Attacked self?!
 			attack_image.pixel_y = 12
@@ -965,21 +968,18 @@
 	if(!attack_image)
 		return
 
+	SET_PLANE(attack_image, attacked_atom.plane, image_loc)
+
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/viewer in viewers(attacked_atom))
 		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
-			viewing |= viewer.client
+			viewing += viewer.client
 
 	flick_overlay(attack_image, viewing, 0.7 SECONDS)
-	var/matrix/initial_transform = matrix(transform)
-	var/image_color = "#ffffff"
-	if(ismob(src) && ismob(attacked_atom) && !used_item)
-		var/mob/attacker = src
-		image_color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-
+	var/matrix/initial_transform = new(transform)
 	// And animate the attack!
-	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS, color = image_color)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
 
