@@ -1219,6 +1219,18 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 
+/// Returns a modifier of all items considered as crutches in hands.
+/mob/living/proc/get_crutches()
+	. = 0
+	// Canes and crutches help you stand (if the latter is ever added)
+	// One cane mitigates a broken leg+foot, or a missing foot.
+	// Two canes are needed for a lost leg. If you are missing both legs or you are lying, canes aren't gonna help you.
+	if(body_position == LYING_DOWN)
+		return .
+	. += l_hand?.is_crutch()
+	. += r_hand?.is_crutch()
+
+
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)

@@ -704,16 +704,6 @@
 			. += thing.slowdown
 
 
-/// Returns a modifier of all items considered as crutches in hands.
-/mob/proc/get_crutches()
-	. = 0
-	// Canes and crutches help you stand (if the latter is ever added)
-	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	. += l_hand?.is_crutch()
-	. += r_hand?.is_crutch()
-
-
 /mob/proc/covered_with_thick_material(check_zone, full_body_check = FALSE)
 	return FALSE
 
