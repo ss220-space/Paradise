@@ -17,8 +17,6 @@
 	if(!apply_parallax_pref())
 		for(var/atom/movable/screen/plane_master/parallax as anything in get_true_plane_masters(PLANE_SPACE_PARALLAX))
 			parallax.hide_plane(mymob)
-		for(var/atom/movable/screen/plane_master/plane_master as anything in get_true_plane_masters(PLANE_SPACE))
-			plane_master.enable_alpha() // I don't know what causes alpha to disable in first place
 		return
 
 	for(var/atom/movable/screen/plane_master/parallax as anything in get_true_plane_masters(PLANE_SPACE_PARALLAX))
@@ -43,22 +41,13 @@
 	// This could be changed, but it would require refactoring this whole thing
 	// And adding non client particular hooks for all the inputs, and I do not have the time I'm sorry :(
 	for(var/atom/movable/screen/plane_master/plane_master as anything in get_true_plane_masters(PLANE_SPACE))
-		if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-			plane_master.color = rgb(0, 0, 0, 0)
-		else
-			plane_master.color = list(1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,)
-		plane_master.appearance_flags |= NO_CLIENT_COLOR
-
-
-	for(var/atom/movable/screen/plane_master/parallax_plane_master in get_true_plane_masters(PLANE_SPACE_PARALLAX))
-		if(C.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-			parallax_plane_master.blend_mode = BLEND_ADD
-		else
-			parallax_plane_master.blend_mode = BLEND_MULTIPLY
-
+		plane_master.color = list(
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			1, 1, 1, 1,
+			0, 0, 0, 0
+			)
 
 /datum/hud/proc/remove_parallax()
 	var/client/C = mymob.client

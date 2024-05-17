@@ -573,7 +573,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax Darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Multi-Z Detail:</b> <a href='?_src_=prefs;preference=multiz_detail'>"
 			switch (multiz_detail)
@@ -2526,7 +2525,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
 					if(!new_parallax)
 						return
-					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && new_parallax == PARALLAX_DISABLE)
+					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && parallax_styles[new_parallax] == PARALLAX_DISABLE)
 						to_chat(user, span_warning("Due to technical difficulties you can't set with non-default Multi-Z settings. Please turn on \"Parallax\" in order to limit Multi-Z."))
 						return
 
@@ -2542,11 +2541,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"High" = MULTIZ_DETAIL_HIGH,
 					)
 
-					to_chat(user, span_warning("Be warned, setting Multi-z detail to non-Default, may cause quality loss(such as obscured turfs won't be in black)."))
 					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
 					if(!new_value)
 						return
-					if(parallax == PARALLAX_DISABLE && new_value != MULTIZ_DETAIL_DEFAULT)
+					if(parallax == PARALLAX_DISABLE && multiz_det_styles[new_value] != MULTIZ_DETAIL_DEFAULT)
 						to_chat(user, span_warning("Due to technical difficulties you can't set with disabled parallax. Please set \"Multi-Z Detail\" to default in order to disable Parallax."))
 						return
 
@@ -2558,11 +2556,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/group_key as anything in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
-
-				if("parallax_darkness")
-					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-					parent.mob?.hud_used?.update_parallax_pref()
-
 
 				if("parallax_multiz")
 					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
