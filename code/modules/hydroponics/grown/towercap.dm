@@ -155,7 +155,7 @@
 	icon_state = "bonfire"
 	density = FALSE
 	anchored = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	pass_flags_self = PASSTABLE|LETPASSTHROW
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
@@ -190,7 +190,7 @@
 	if(burning)
 		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!")
 		return
-	if(!has_buckled_mobs() && do_after(user, 50, target = src))
+	if(!has_buckled_mobs() && do_after(user, 5 SECONDS, src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
 			L.pixel_x += rand(1,4)
@@ -252,10 +252,11 @@
 		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(..())
-		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
-	if(..())
-		buckled_mob.pixel_y -= 13
+/obj/structure/bonfire/post_buckle_mob(mob/living/target)
+	target.pixel_y += 13
+
+
+/obj/structure/bonfire/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= 13
+

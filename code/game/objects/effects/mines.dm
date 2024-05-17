@@ -1,7 +1,7 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
@@ -74,7 +74,7 @@
 		if(NO_DNA in V.dna.species.species_traits)
 			return
 	randmutb(victim)
-	domutcheck(victim ,null)
+	victim.check_genes()
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
@@ -108,7 +108,7 @@
 	desc = "pick me up"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = 0
+	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -143,7 +143,7 @@
 
 	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
-	chainsaw.flags |= DROPDEL
+	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)

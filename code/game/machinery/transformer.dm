@@ -5,7 +5,7 @@
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.
@@ -218,10 +218,9 @@
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
-			domutcheck(H,null,1)
 		else
 			randmutg(H) // Applies good mutation
-			domutcheck(H,null,1)
+		H.check_genes(MUTCHK_FORCED)
 
 
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
@@ -322,8 +321,8 @@
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 	H.UpdateAppearance()
-	domutcheck(H, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.check_genes(MUTCHK_FORCED)
+
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))

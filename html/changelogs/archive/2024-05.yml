@@ -1,0 +1,89 @@
+'2024-05-01':
+  Dimach:
+  - tweak: gravity change stun disable (#4999)
+'2024-05-02':
+  MstrKabach:
+  - tweak: some new boards in EngiVend (#5000)
+'2024-05-04':
+  Daeberdir:
+  - bugfix: minebot lamp can be enabled. (#4992)
+  MstrKabach:
+  - add: hermit lives matter (#5004)
+  NightDawnFox:
+  - bugfix: no more "don't use" tiles on lava ship (#5005)
+  Vladisvell:
+  - bugfix: Atmos themes are now rendered correctly (#5008)
+  Zwei:
+  - bugfix: Changeling Ashwalker Speed Fix (#4979)
+'2024-05-06':
+  Vladisvell:
+  - bugfix: Atmos fog no longer forbids actions upon objects (#5014)
+'2024-05-07':
+  Den109G:
+  - bugfix: Sound egloves.ogg properly works (#5019)
+  Honker9999999:
+  - tweak: Reduced event "Nothing" frequency for mundane and moderate events (#5010)
+  MrVivor:
+  - bugfix: Inhand SSSP jumpsuit bugfix (#5007)
+  MstrKabach:
+  - imageadd: Resprited sugar, flour and rice packs (#5011)
+  - add: wryn flag (#5017)
+  SAAD:
+  - bugfix: Removed corrupted floor apprearances from Terror Spider gate  (#5013)
+  - bugfix: Platings in Delta's space no longer contain air (#5012)
+  mrWhiteFox365:
+  - server: Update QM fax (#4988)
+'2024-05-09':
+  Vladisvell:
+  - bugfix: Dinnerware vending machine in Cyberiad maintanences now dispenses items
+      correctly (#5026)
+'2024-05-10':
+  Antoonij:
+  - add: drask cooling (#5002)
+  Daeberdir:
+  - tweak: '''Syndicate'' named Stechkin supply packs. (#4993)'
+  - bugfix: hardsuits really hardsuits in cargopacks. (#5031)
+  Den109G:
+  - qol: Special role now visible in TP (#4976)
+  MrVivor:
+  - bugfix: invisible BS suit on unathi (#5020)
+  NightDawnFox:
+  - tweak: add one more tape roll in brig (#5027)
+  Valtor:
+  - add: Species passive health regeneration (#5018)
+  Vladisvell:
+  - add: Light system rework (#5001)
+  Zwei:
+  - bugfix: Autofire Fix (#4956)
+  - bugfix: No Throw Impact Effects With Items (#5021)
+  - refactor: No Transform Trait (#4961)
+  pilygun:
+  - tweak: Cargo toxins update (#5003)
+  - add: New cargo job titles (#5009)
+  - balance: Cargo quests, garbage disposal and price balance 2 (#5023)
+  - tweak: Gatfruit in uplink update (#4994)
+'2024-05-11':
+  Daeberdir:
+  - bugfix: Delta-map missclick revert. (#5030)
+  Rerik007:
+  - refactor: porting slippery and wet floor components from tg (#4814)
+  Zwei:
+  - tweak: Unnecessary Lights Removed (#4832)
+  - refactor: Updated Buckled Handling (#4857)
+  - refactor: Process Spacemove Refining (#4871)
+  - tweak: Areas Can Ignore Gravgen Effects (#4929)
+  - tweak: Cardboard Box Refining (#4978)
+  - add: Shuttle Smash (#4952)
+  - tweak: Updated Cyborg VTEC and Jetpack Modules (#4984)
+  - bugfix: Fixed Turf Gravity Recalculation (#4998)
+  - bugfix: Taperoll and Persistent Overlay Fix (#5016)
+  - qol: Possibility To Cancel End Round Call (#5028)
+  - refactor: Genes Pretty (#4901)
+  - tweak: New Gravity Effect (#4953)
+  - unknown: All Flags Sorted (#4989)
+  - refactor: Density Setter And Undense Trait (#4865)
+  - refactor: Unified Procs do_after/do_after_once/do_mob (#4969)
+  - unknown: Blueprints Rework (#4881)
+  - unknown: Ventcrawling Update (#4891)
+  - unknown: Hands Blocked Trait (#4977)
+  - bugfix: Allow Pickup Anсhored Items (#5034)

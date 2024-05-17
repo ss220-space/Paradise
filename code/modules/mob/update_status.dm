@@ -46,13 +46,6 @@
 /mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
 	return FALSE
 
-/mob/proc/restrained(ignore_grab)
-	// All are created free
-	return FALSE
-
-/mob/proc/get_restraining_item()
-	return null
-
 // Procs that update other things about the mob
 
 /mob/proc/update_stat()

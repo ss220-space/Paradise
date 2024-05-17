@@ -102,8 +102,8 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 /proc/update_station_firealarms()
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
 		if(is_station_contact(alarm.z))
-			alarm.update_icon()
 			alarm.update_fire_light()
+			alarm.update_icon()
 
 
 /proc/get_security_level()

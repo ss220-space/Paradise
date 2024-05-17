@@ -354,7 +354,7 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
-	if(!do_after(user, modded_time, target = target))
+	if(!do_after(user, modded_time, target))
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 

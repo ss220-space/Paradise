@@ -9,7 +9,7 @@
 	bubble_icon = "alienroyal"
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	ventcrawler = 0
+	ventcrawler_trait = null
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"

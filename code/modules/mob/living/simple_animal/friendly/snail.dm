@@ -14,8 +14,8 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
-	ventcrawler = 2
-	density = 0
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	gender = NEUTER
@@ -30,8 +30,8 @@
 	reagents = new()
 	holder_type = /obj/item/holder/snail
 
-/mob/living/simple_animal/snail/Process_Spacemove(var/movement_dir = 0)
-	return 1
+/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/snail/Move(atom/newloc, direct, movetime)
 	var/oldLoc = src.loc
@@ -76,8 +76,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
-	ventcrawler = 0
-	density = 1
+	density = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE
 	status_flags = CANPARALYSE | CANPUSH
 	mob_size = MOB_SIZE_SMALL

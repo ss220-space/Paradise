@@ -381,7 +381,7 @@
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
 
-		if(!do_mob(user, target, 5 SECONDS) || !special_check(user, TRUE, TRUE))
+		if(!do_after(user, 5 SECONDS, target, NONE) || !special_check(user, TRUE, TRUE))
 			to_chat(user, span_warning("Our dissection of [target] has been interrupted!"))
 			is_dissecting = FALSE
 			return
@@ -574,7 +574,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
-	flags = ABSTRACT | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
@@ -1004,7 +1004,7 @@
 	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 	vampire_animal.canmove = FALSE
 	user.forceMove(vampire_animal)
@@ -1038,7 +1038,7 @@
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_italics("You hear an eerie rustle of many wings..."))
 
-	user.density = FALSE
+	user.set_density(FALSE)
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE
@@ -1066,7 +1066,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
 	original_body.update_canmove()
 	is_transformed = FALSE
@@ -1431,7 +1431,7 @@
 	color = "#7F0000"
 	anchored = TRUE
 	resistance_flags = NONE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'

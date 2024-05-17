@@ -55,11 +55,11 @@
 			update_inv_pockets()
 
 		if(ITEM_SLOT_HANDCUFFED)
-			handcuffed = I
+			set_handcuffed(I)
 			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			set_legcuffed(I)
 			update_legcuffed_status()
 
 	return I.equipped(src, slot, initial)

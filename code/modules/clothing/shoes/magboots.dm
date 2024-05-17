@@ -18,19 +18,15 @@
 	var/slowdown_passive = SHOES_SLOWDOWN
 	/// Slowdown applied when magpulse is active. This is added onto slowdown_passive
 	var/slowdown_active = 2
-	/// This is for unsafe_unwrenching protection
-	var/gustprotection = FALSE
-	/// This is for lube protection when magpulse
-	var/lubeprotection = FALSE
 	/// A list of traits we apply when we get activated
-	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY)
+	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
 	icon_state = "atmosmagboots0"
 	base_icon_state = "atmosmagboots"
-	gustprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/security
 	name = "combat magboots"
@@ -62,12 +58,10 @@
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		attach_clothing_traits(active_traits)
-		flags |= NOSLIP
 		slowdown = slowdown_active
 	else
 		STOP_PROCESSING(SSobj, src)
 		detach_clothing_traits(active_traits)
-		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
@@ -84,7 +78,7 @@
 	name = "advanced magboots"
 	icon_state = "advmag0"
 	base_icon_state = "advmag"
-	gustprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -103,7 +97,7 @@
 	icon_state = "advsyndiemag0"
 	base_icon_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
-	lubeprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
@@ -136,7 +130,7 @@
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")

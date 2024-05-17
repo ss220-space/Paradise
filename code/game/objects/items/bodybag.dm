@@ -46,7 +46,7 @@
 
 /obj/structure/closet/body_bag/close()
 	if(..())
-		density = FALSE
+		set_density(FALSE)
 		return TRUE
 	return FALSE
 
@@ -62,7 +62,7 @@
 
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !opened && !length(contents) && usr.Adjacent(src))
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		usr.visible_message(
 			span_notice("[usr] folds up [src]."),
 			span_notice("You fold up [src]."),

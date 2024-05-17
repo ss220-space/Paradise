@@ -33,7 +33,7 @@
 	return TRUE
 
 /obj/machinery/computer/extinguish_light(force = FALSE)
-	if(light_range)
+	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
@@ -91,7 +91,7 @@
 	else
 		if(icon_screen)
 			. += "[icon_screen]"
-		if(light)
+		if(light_on)
 			underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard && abductor)
@@ -123,7 +123,7 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/computer/obj_break(damage_flag)
-	if(circuit && !(flags & NODECONSTRUCT)) //no circuit, no breaking
+	if(circuit && !(obj_flags & NODECONSTRUCT)) //no circuit, no breaking
 		if(!(stat & BROKEN))
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 			stat |= BROKEN
@@ -142,7 +142,7 @@
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
 			var/obj/structure/computerframe/A
 			if(abductor)
@@ -193,7 +193,7 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	if(circuit && !(flags & NODECONSTRUCT))
+	if(circuit && !(obj_flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 

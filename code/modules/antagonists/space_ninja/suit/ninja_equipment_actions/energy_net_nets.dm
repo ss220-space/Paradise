@@ -48,8 +48,10 @@
 /obj/structure/energy_net/has_prints()
 	return FALSE
 
-/obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+
+/obj/structure/energy_net/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
 	return//We only want our target to be buckled
 
-/obj/structure/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
+
+/obj/structure/energy_net/user_unbuckle_mob(mob/living/target, mob/living/user)
 	return//The net must be destroyed to free the target

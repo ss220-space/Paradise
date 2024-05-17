@@ -136,7 +136,7 @@
 	if(!istype(target_uplink))
 		return FALSE
 
-	if(buyer.stat || buyer.restrained())
+	if(buyer.stat || HAS_TRAIT(buyer, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(!ishuman(buyer))
@@ -448,6 +448,13 @@
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
 	item = /obj/item/bee_briefcase
+	cost = 22
+	job = list(JOB_TITLE_BOTANIST)
+
+/datum/uplink_item/jobspecific/gatfruit
+	name = "Gatfruit seeds"
+	desc = "Seeds of the Gatfruit plant, the fruits eaten will produce a .36 caliber revolver! It also contains chemicals 10% sulfur, 10% carbon, 7% nitrogen, 5% potassium."
+	item = /obj/item/seeds/gatfruit
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
 

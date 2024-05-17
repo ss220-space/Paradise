@@ -23,7 +23,7 @@
 	can_buckle = TRUE
 	anchored = TRUE
 	density = FALSE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	layer = ABOVE_MOB_LAYER
 	var/blade_status = GUILLOTINE_BLADE_RAISED
 	var/blade_sharpness = GUILLOTINE_BLADE_MAX_SHARP // How sharp the blade is
@@ -31,9 +31,6 @@
 	var/force_clap = FALSE //You WILL clap if I want you to
 	var/current_action = NONE// What's currently happening to the guillotine
 
-/obj/structure/guillotine/Initialize(mapload)
-	LAZYINITLIST(buckled_mobs)
-	return ..()
 
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
@@ -101,7 +98,7 @@
 						                 "<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = GUILLOTINE_ACTION_INUSE
 
-					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
+					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, src) && blade_status == GUILLOTINE_BLADE_RAISED)
 						add_fingerprint(user)
 						current_action = NONE
 						blade_status = GUILLOTINE_BLADE_DROPPING
@@ -178,7 +175,7 @@
 			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
 				blade_status = GUILLOTINE_BLADE_SHARPENING
 				add_fingerprint(user)
-				if(do_after(user, 7, target = src))
+				if(do_after(user, 0.7 SECONDS, src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
 						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
@@ -233,32 +230,32 @@
 		new /obj/item/stack/cable_coil(T, 10)
 		qdel(src)
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+
+/obj/structure/guillotine/is_user_buckle_possible(mob/living/target, mob/user, check_loc = TRUE)
 	if(!anchored)
-		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
+		to_chat(user, span_warning("The [src] needs to be wrenched to the floor!"))
 		return FALSE
 
-	if(!ishuman(M))
-		to_chat(usr, "<span class='warning'>It doesn't look like [M.p_they()] can fit into this properly!</span>")
+	if(!ishuman(target))
+		to_chat(user, span_warning("It doesn't look like [target.p_they()] can fit into this properly!"))
 		return FALSE // Can't decapitate non-humans
 
 	if(blade_status != GUILLOTINE_BLADE_RAISED)
-		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
+		to_chat(user, span_warning("You need to raise the blade before buckling someone in!"))
 		return FALSE
 
-	return ..(M, force, FALSE)
+	return ..(target, user, FALSE)
 
-/obj/structure/guillotine/post_buckle_mob(mob/living/M)
-	if(!ishuman(M))
-		return
-	M.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
-	M.layer += GUILLOTINE_LAYER_DIFF
-	..()
 
-/obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
-	M.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
-	M.layer -= GUILLOTINE_LAYER_DIFF
-	..()
+/obj/structure/guillotine/post_buckle_mob(mob/living/target)
+	target.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
+	target.layer += GUILLOTINE_LAYER_DIFF
+
+
+/obj/structure/guillotine/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
+	target.layer -= GUILLOTINE_LAYER_DIFF
+
 
 #undef GUILLOTINE_BLADE_MAX_SHARP
 #undef GUILLOTINE_DECAP_MIN_SHARP

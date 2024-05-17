@@ -32,11 +32,14 @@
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
-	if(usr.incapacitated())
-		return
+
 	on = !on
 
 	var/mob/living/carbon/human/user = usr
@@ -103,7 +106,6 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank

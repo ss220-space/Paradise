@@ -8,7 +8,7 @@
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 3
-	ventcrawler = 0
+	ventcrawler_trait = null
 	attack_damage = 40
 	disarm_stamina_damage = 50
 	armour_penetration = 50

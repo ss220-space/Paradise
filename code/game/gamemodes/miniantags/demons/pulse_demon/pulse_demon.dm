@@ -48,6 +48,7 @@
 	pass_flags = PASSDOOR
 	stop_automated_movement = TRUE
 	has_unlimited_silicon_privilege = TRUE
+	can_buckle_to = FALSE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE
 	loot = list(/obj/item/organ/internal/heart/demon/pulse)
@@ -638,7 +639,7 @@
 	apc_being_hijacked = A
 	A.being_hijacked = TRUE
 	A.update_icon()
-	if(do_after(src, hijack_time, target = A))
+	if(do_after(src, hijack_time, A))
 		if(is_valid_apc(A))
 			finish_hijack_apc(A, remote)
 		else
@@ -751,6 +752,8 @@
 		try_shock_mob(L)
 
 /mob/living/simple_animal/demon/pulse_demon/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isliving(A))
 		try_attack_mob(A)
 	else if(isitem(A) && !is_under_tile())
@@ -818,9 +821,6 @@
 	return TRUE // interacting with machines
 
 /mob/living/simple_animal/demon/pulse_demon/can_be_pulled()
-	return FALSE
-
-/mob/living/simple_animal/demon/pulse_demon/can_buckle()
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

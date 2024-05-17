@@ -193,10 +193,9 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+/mob/living/silicon/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	. = ..()
-
-	if(. && inventory_head)
+	if(. == VENTCRAWL_IN_SUCCESS && inventory_head)
 		drop_hat()
 		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
@@ -401,3 +400,16 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	return TRUE
+
+
+/mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
+	return FALSE
+
+
+/mob/living/silicon/on_handsblocked_start()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_handsblocked_end()
+	return // AIs and borgs have no hands
+

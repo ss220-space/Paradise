@@ -10,6 +10,7 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALIEN
 
 	var/nightvision_enabled = FALSE
 	nightvision = 4
@@ -33,7 +34,6 @@
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	dirslash_enabled = TRUE
-	ventcrawler = 1
 
 	var/can_evolve = FALSE
 	var/evolution_points = 0
@@ -166,14 +166,6 @@
 		clear_alert("alien_fire")
 
 
-/mob/living/carbon/alien/can_ventcrawl(atom/clicked_on, override = FALSE)
-	if(!override && ventcrawler == 1 && (get_active_hand() || get_inactive_hand()))
-		to_chat(src, span_warning("Вы не можете ползать по вентиляции с предметами в руках."))
-		return FALSE
-
-	return ..(clicked_on, override = TRUE)
-
-
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
@@ -221,8 +213,9 @@
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 
 	update_sight()
-	if(ventcrawler)
-		update_pipe_vision(loc)
+	if(is_ventcrawling(src))
+		update_pipe_vision()
+
 
 /mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -283,10 +276,6 @@ Des: Removes all infected images from the alien.
 			if(dd_hasprefix_case(I.icon_state, "infected"))
 				qdel(I)
 	return
-
-
-/mob/living/carbon/alien/canBeHandcuffed()
-	return TRUE
 
 
 /mob/living/carbon/proc/get_plasma()

@@ -9,7 +9,7 @@
 
 /obj/item/grab
 	name = "grab"
-	flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
 	var/obj/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
@@ -431,7 +431,7 @@
 
 		user.visible_message("<span class='danger'>[user.name] пыта[pluralize_ru(user.gender,"ет","ют")]ся поглотить [affecting.name]!</span>")
 
-		if(!do_after(user, checktime(user, affecting), target = user))//target = affecting))
+		if(!do_after(user, checktime(user, affecting), user))
 			user.visible_message("<span class='notice'>[user.name] прекраща[pluralize_ru(user.gender,"ет","ют")] поглощать [affecting.name]!</span>")
 			return FALSE
 

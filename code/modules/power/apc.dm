@@ -634,7 +634,7 @@
 		user.visible_message("[user.name] adds cables to the APC frame.", \
 							"<span class='notice'>You start adding cables to the APC frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(C.get_amount() < 10 || !C)
 				return
 			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
@@ -660,7 +660,7 @@
 		user.visible_message("[user.name] inserts the power control board into [src].", \
 							"<span class='notice'>You start to insert the power control board into the frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(!has_electronics())
 				add_fingerprint(user)
 				electronics_state = APC_ELECTRONICS_INSTALLED
@@ -675,7 +675,7 @@
 		if(!(stat & BROKEN) && opened== APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
 							"<span class='notice'>You begin to replace APC's cover...</span>")
-			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
+			if(do_after(user, 2 SECONDS, src)) // replacing cover is quicker than replacing whole frame
 				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
 				qdel(W)
@@ -687,7 +687,7 @@
 			return
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
 							"<span class='notice'>You begin to replace the damaged APC frame...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
 			qdel(W)
@@ -707,7 +707,7 @@
 			playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
 			user.visible_message("[user] starts slicing [src]'s cover lock.", \
 			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
-			if(!do_after(user, 4 SECONDS, target = src))
+			if(!do_after(user, 4 SECONDS, src))
 				return
 			add_fingerprint(user)
 			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
@@ -718,7 +718,7 @@
 			user.visible_message("<span class='warning'>[user] presses [W] into [src]!</span>", \
 			"<span class='clock'>You hold [W] in place within [src], and it slowly begins to warm up...</span>")
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-			if(!do_after(user, 7 SECONDS, target = src))
+			if(!do_after(user, 7 SECONDS, src))
 				return
 			add_fingerprint(user)
 			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
@@ -737,7 +737,7 @@
 
 /obj/machinery/power/apc/AltClick(mob/user)
 	var/mob/living/carbon/human/human = user
-	if(!istype(human))
+	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!Adjacent(human) || (get_turf(user) != user.loc))
@@ -752,7 +752,7 @@
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
-	if(!can_use(usr) || (is_locked(usr)))
+	if(!can_use(user) || is_locked(user))
 		return
 	toggle_breaker(user)
 
@@ -822,7 +822,7 @@
 			update_icon()
 	else if(stat & BROKEN)
 		if(!opened)
-			if(do_after(user, gettoolspeedmod(user)*(3 SECONDS)*I.toolspeed, FALSE, src))
+			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 				to_chat(user, span_notice("You pry out broken frame."))
 				opened = APC_COVER_OFF
 				update_icon()
@@ -895,7 +895,7 @@
 	. = ..()
 
 /obj/machinery/power/apc/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		set_broken()
 
 
@@ -904,7 +904,7 @@
 
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			set_broken()
 		if(opened != APC_COVER_OFF)
@@ -1135,6 +1135,8 @@
 
 	var/mob/living/carbon/human/h_user = user
 	if(ishuman(h_user))
+		if(h_user.incapacitated() || HAS_TRAIT(h_user, TRAIT_HANDS_BLOCKED))
+			return FALSE
 		if(h_user.getBrainLoss() >= 60)
 			h_user.visible_message(span_danger("[h_user] stares cluelessly at [src] and drools."))
 			return FALSE

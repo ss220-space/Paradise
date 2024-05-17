@@ -4,7 +4,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 	var/obj/item/seeds/seed
@@ -491,7 +491,7 @@
 		if(!cleaning)
 			return
 		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
 			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)

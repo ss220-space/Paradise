@@ -4,7 +4,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdapainter"
 	base_icon_state = "pdapainter"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
@@ -98,7 +98,7 @@
 	default_welder_repair(user, I)
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			stat |= BROKEN
 			update_icon()

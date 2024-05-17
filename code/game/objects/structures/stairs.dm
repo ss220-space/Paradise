@@ -145,12 +145,15 @@
 /obj/structure/stairs_frame/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
 	add_fingerprint(usr)
 	setDir(turn(dir, 90))
-	return
+
 
 /obj/structure/stairs_frame/examine(mob/living/carbon/human/user)
 	. = ..()
@@ -201,7 +204,7 @@
 	if(istype(stack, /obj/item/stack/sheet/metal))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
+		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs(loc)
 			new_stairs.setDir(dir)
 			qdel(src)
@@ -209,7 +212,7 @@
 	if(istype(stack, /obj/item/stack/sheet/wood))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
+		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs/wood(loc)
 			new_stairs.setDir(dir)
 			qdel(src)

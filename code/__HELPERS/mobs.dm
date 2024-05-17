@@ -281,153 +281,118 @@
 	update_all_mob_security_hud()
 	return 1
 
-/proc/do_mob(mob/living/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
-	if(!user || !target)
-		return 0
-	var/user_loc = user.loc
 
-	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
-		drifting = 1
-
-	var/target_loc = target.loc
-
-	var/holding = user.get_active_hand()
-	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, time, target)
-
-	var/endtime = world.time+time
-	var/starttime = world.time
-	. = 1
-	while(world.time < endtime)
-		sleep(1)
-		if(progress && !QDELETED(progbar))
-			progbar.update(world.time - starttime)
-		if(!user || !target)
-			. = 0
-			break
-		if(only_use_extra_checks)
-			if(check_for_true_callbacks(extra_checks))
-				. = 0
-				break
-			continue
-
-		if(drifting && !user.inertia_dir)
-			drifting = 0
-			user_loc = user.loc
-
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || check_for_true_callbacks(extra_checks))
-			. = 0
-			break
-	if(progress)
-		qdel(progbar)
-
-/*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
- *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
+/**
+ * Timed action involving one mob user. Target is optional.
+ * Checks that `user` does not move, change hands, get stunned, etc. for the given `delay`.
  *
- *	Example usage:
+ * Arguments:
+ * * user - The mob performing the action.
+ * * delay - The time in deciseconds. Use the SECONDS define for readability. `1 SECONDS` is 10 deciseconds.
+ * * target - The target of the action. This is where the progressbar will display.
+ * * timed_action_flags - Flags to control the behavior of the timed action.
+ * * progress - Whether to display a progress bar `TRUE` or `FALSE`.
+ * * extra_checks - Additional checks to perform before the action is executed.
+ * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
+ * * max_interact_count - The maximum amount of interactions allowed.
+ * * cancel_message - Message shown to the user if they exceeds max interaction count.
  *
- *	if(do_after(user, 50, target = sometarget, extra_checks = list(callback_check1, callback_check2)))
- *		do_stuff()
- *
- *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
- *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
+ * Returns `TRUE` on success, `FALSE` on failure.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE
-	var/atom/Tloc = null
-	if(target)
-		Tloc = target.loc
 
-	var/turf/Uturf = get_turf(user)
+	if(!isnum(delay))
+		CRASH("do_after was passed a non-number delay: [delay || "null"].")
+
+	if(!interaction_key && target)
+		interaction_key = target //Use the direct ref to the target
+	if(interaction_key) //Do we have a interaction_key now?
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		if(current_interaction_count >= max_interact_count) //We are at our peak
+			if(cancel_message)
+				to_chat(user, "[cancel_message]")
+			return FALSE
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
+
+	var/atom/user_loc = user.loc
+	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(!user.Process_Spacemove(NONE) && user.inertia_dir)
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
-
-	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
-	if(holding)
-		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
+	var/obj/item/gripper/gripper = holding
+	var/gripper_check = FALSE
+	if(!(timed_action_flags & IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
+		gripper_check = TRUE
 
 	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, delay, target)
+
+	if(progress && user.client)
+		progbar = new(user, delay, target || user)
+
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
 
-	// By default, checks for weakness and stunned get added to the extra_checks list.
-	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
-	if(use_default_checks)
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
-		if(istype(holding, /obj/item/gripper/))
-			var/obj/item/gripper/gripper = holding
-			if(!(gripper.isEmpty()))
-				extra_checks += CALLBACK(gripper, TYPE_PROC_REF(/obj/item/gripper, isEmpty))
-
 	while(world.time < endtime)
-		sleep(1)
-		if(progress && !QDELETED(progbar))
+		stoplag(1)
+
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
-		if(drifting && !user.inertia_dir)
+		if(QDELETED(user))
+			. = FALSE
+			break
+
+		if(drifting && (!(timed_action_flags & IGNORE_SPACE_DRIFT) || !user.inertia_dir))
 			drifting = FALSE
-			Uturf = get_turf(user)
+			user_loc = user.loc
 
-		if(!user || user.stat || (!drifting && get_turf(user) != Uturf) || check_for_true_callbacks(extra_checks))
+		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
+			|| (!(timed_action_flags & IGNORE_CONSCIOUSNESS) && user.stat) \
+			|| (!(timed_action_flags & IGNORE_STUNNED) && user.IsStunned()) \
+			|| (!(timed_action_flags & IGNORE_WEAKENED) && user.IsWeakened()) \
+			|| (!(timed_action_flags & IGNORE_PARALYZED) && user.IsParalyzed()) \
+			|| (!(timed_action_flags & IGNORE_LYING) && user.IsLying()) \
+			|| (!(timed_action_flags & IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
+			|| (gripper_check && gripper?.isEmpty()) \
+			|| extra_checks?.Invoke())
 			. = FALSE
 			break
 
-		if(Tloc && (!target || Tloc != target.loc))
+		if(target && (user != target) && \
+			(QDELETED(target) || (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
 			. = FALSE
 			break
 
-		if(needhand)
-			//This might seem like an odd check, but you can still need a hand even when it's empty
-			//i.e the hand is used to pull some item/tool out of the construction
-			if(!holdingnull)
-				if(!holding)
-					. = FALSE
-					break
-			if(user.get_active_hand() != holding)
-				. = FALSE
-				break
-	if(progress)
-		qdel(progbar)
+	if(!QDELETED(progbar))
+		progbar.end_progress()
 
-// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
+	if(interaction_key)
+		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+		if(reduced_interaction_count > 0) // Not done yet!
+			LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+			return .
+		// all out, let's clear er out fully
+		LAZYREMOVE(user.do_afters, interaction_key)
+
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
+
+
+/// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
 	for(var/datum/callback/CB in extra_checks)
 		if(CB.Invoke())
 			return TRUE
 	return FALSE
 
-#define DOAFTERONCE_MAGIC "Magic~~"
-GLOBAL_LIST_INIT(do_after_once_tracker, list())
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, attempt_cancel_message = "Attempt cancelled.")
-	if(!user || !target)
-		return
-
-	var/cache_key = "[user.UID()][target.UID()]"
-	if(GLOB.do_after_once_tracker[cache_key])
-		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
-		return FALSE
-	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, /proc/do_after_once_checks, cache_key)))
-	GLOB.do_after_once_tracker[cache_key] = FALSE
-
-/proc/do_after_once_checks(cache_key)
-	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
-		GLOB.do_after_once_tracker[cache_key] = FALSE
-		return TRUE
-	return FALSE
 
 /proc/is_species(A, species_datum)
 	. = FALSE

@@ -41,8 +41,8 @@
 	charge_tick = 1
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	force = 10
 	ninja_weapon = TRUE
 	var/cost = 500
@@ -104,12 +104,12 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/target_living = target
+		var/turf/firer_turf = get_turf(firer)
 		if(!target_living.anchored && target_living.loc)
 			target_living.visible_message(span_danger("[target_living] is snagged by [firer]'s chain!"))
-			var/old_density = target_living.density
-			target_living.density = FALSE // Ensures the hook does not hit the target multiple times
-			target_living.forceMove(get_turf(firer))
-			target_living.density = old_density
+			ADD_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
+			target_living.forceMove(firer_turf)
+			REMOVE_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/projectile/johyo/Destroy()
 	QDEL_NULL(chain)

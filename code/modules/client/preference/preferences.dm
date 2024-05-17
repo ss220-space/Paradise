@@ -2797,59 +2797,46 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.reagents.addiction_list.Add(new_reagent)
 
 	if(disabilities & DISABILITY_FLAG_FAT)
-		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
+		character.force_gene_block(GLOB.fatblock, TRUE, TRUE)
 		character.overeatduration = 600
-		character.dna.default_blocks.Add(GLOB.fatblock)
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLOB.glassesblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.glassesblock)
+		character.force_gene_block(GLOB.glassesblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.blindblock)
+		character.force_gene_block(GLOB.blindblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.deafblock)
+		character.force_gene_block(GLOB.deafblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
-		character.dna.SetSEState(GLOB.colourblindblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.colourblindblock)
+		character.force_gene_block(GLOB.colourblindblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.muteblock)
+		character.force_gene_block(GLOB.muteblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
-		character.dna.SetSEState(GLOB.nervousblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.nervousblock)
+		character.force_gene_block(GLOB.nervousblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_SWEDISH)
-		character.dna.SetSEState(GLOB.swedeblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.swedeblock)
+		character.force_gene_block(GLOB.swedeblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_AULD_IMPERIAL)
-		character.dna.SetSEState(GLOB.auld_imperial_block, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.auld_imperial_block)
+		character.force_gene_block(GLOB.auld_imperial_block, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
-		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.lispblock)
+		character.force_gene_block(GLOB.lispblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
-		character.dna.SetSEState(GLOB.dizzyblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.dizzyblock)
+		character.force_gene_block(GLOB.dizzyblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
-		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.wingdingsblock)
+		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

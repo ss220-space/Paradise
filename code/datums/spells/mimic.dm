@@ -73,7 +73,7 @@
 		to_chat(user, span_warning("You start to forget the form of [available_forms[next_override_index]] to learn a new one."))
 
 	to_chat(user, span_sinister("You start remembering the form of [A]."))
-	if(!do_after(user, 2 SECONDS, FALSE, user))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("You lose focus."))
 		return
 
@@ -110,7 +110,7 @@
 		restore_form(user)
 		return
 	to_chat(user, span_sinister("You start becoming [what]."))
-	if(!do_after(user, 2 SECONDS, FALSE, user))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("You lose focus."))
 		return
 	take_form(available_forms[what], user)

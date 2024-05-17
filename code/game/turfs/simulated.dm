@@ -1,4 +1,3 @@
-#define WATER_WEAKEN_TIME 4 SECONDS //Weaken time for slipping on water
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -21,7 +20,7 @@
 	. = ..()
 
 	if(volume >= 3)
-		MakeSlippery()
+		MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
@@ -31,87 +30,32 @@
 		assume_air(lowertemp)
 		qdel(hotspot)
 
-/*
- * Makes a turf slippery using the given parameters
- * @param wet_setting The type of slipperyness used
- * @param time Time the turf is slippery. If null it will pick a random time between 790 and 820 ticks. If INFINITY then it won't dry up ever
-*/
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, time = null) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
-	if(wet >= wet_setting)
-		return
-	wet = wet_setting
-	if(wet_setting != TURF_DRY)
-		if(wet_overlay)
-			cut_overlay(wet_overlay)
-			wet_overlay = null
-		var/turf/simulated/floor/F = src
-		if(istype(F))
-			if(wet_setting >= TURF_WET_ICE)
-				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
-			else
-				wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
-		else
-			if(wet_setting >= TURF_WET_ICE)
-				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
-			else
-				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
-		wet_overlay.plane = FLOOR_OVERLAY_PLANE
-		add_overlay(wet_overlay)
-	if(time == INFINITY)
-		return
-	if(!time)
-		time =	rand(790, 820)
-	addtimer(CALLBACK(src, PROC_REF(MakeDry), wet_setting), time)
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
+	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent, should_display_overlay)
 
-/turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
-	if(wet > wet_setting)
-		return
-	wet = TURF_DRY
-	if(wet_overlay)
-		cut_overlay(wet_overlay)
+/turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
+	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
 
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
-	if(!ignoreRest)
-		if(ishuman(A))
-			var/mob/living/carbon/human/M = A
-			if(M.lying_angle)
-				return 1
-
-			if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
-				return ..()
-
-			switch(src.wet)
-				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
-						M.inertia_dir = NONE
-						return
-
-				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 4 SECONDS, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
-
-
-				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4 SECONDS, tilesSlipped = 0, walkSafely = 0))
-						M.inertia_dir = NONE
-						if(prob(5))
-							var/obj/item/organ/external/affected = M.get_organ(BODY_ZONE_HEAD)
-							if(affected)
-								M.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
-								M.visible_message(span_warning("<b>[M]</b> hits their head on the ice!"))
-								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
-
-				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
 		if(!Hulk.lying_angle)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
-	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-		if(!Hulk.lying_angle)
-			playsound(src, "clownstep", CHANNEL_BUZZ)
+		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+			if(!Hulk.lying_angle)
+				playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
+
+
+/turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
+	. = ..()
+	ASSERT(istype(copy_to_turf, /turf/simulated))
+	var/datum/component/wet_floor/slip = GetComponent(/datum/component/wet_floor)
+	if(slip)
+		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)
+		new_wet_floor_component.InheritComponent(slip)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
     . = ..()
@@ -167,6 +111,7 @@
         SSair.add_to_active(src)
 
 /turf/simulated/proc/is_shielded()
+	return
 
 // for floors and walls to go inside our turf
 /turf/simulated/zPassIn(direction)
@@ -195,4 +140,57 @@
 /turf/simulated/zAirOut(direction, turf/source)
 	return (!blocks_air && (direction == UP))
 
-#undef WATER_WEAKEN_TIME
+/turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube_flags, tilesSlipped)
+	if(slipper.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return FALSE
+	if(!slipper.has_gravity())
+		return FALSE
+
+	var/slide_distance = tilesSlipped
+	if(lube_flags & SLIDE)
+		slide_distance = 4
+	if(lube_flags & SLIDE_ICE)
+		// Ice slides only go 1 tile, this is so you will slip across ice until you reach a non-slip tile
+		slide_distance = 1
+	else if(HAS_TRAIT(slipper, TRAIT_NO_SLIP_SLIDE))
+		// Stops sliding
+		slide_distance = 0
+
+	var/obj/buckled_obj
+	if(slipper.buckled)
+		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
+			return FALSE
+		buckled_obj = slipper.buckled
+	else
+		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
+			return FALSE
+
+	if(buckled_obj)
+		buckled_obj.unbuckle_mob(slipper)
+		// This is added onto the end so they slip "out of their chair" (one tile)
+		lube_flags |= SLIDE_ICE
+		slide_distance = 1
+
+	if(slide_distance)
+		slipper.slide_distance = slide_distance
+		for(var/i in 1 to slide_distance)
+			spawn(i)
+				if(slipper.slide_distance < 0)
+					return
+				slipper.slide_distance--
+				step(slipper, slipper.dir)
+
+
+
+	if(!(lube_flags & SLIDE_ICE))
+		// Ice slides are intended to be combo'd so don't give the feedback
+		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
+		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
+
+	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
+
+	slipper.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
+	slipper.Weaken(weaken_amount)
+	slipper.stop_pulling()
+
+	return TRUE

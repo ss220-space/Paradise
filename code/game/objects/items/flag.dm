@@ -5,7 +5,7 @@
 	icon_state = "ntflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
@@ -42,7 +42,7 @@
 		custom_fire_overlay = initial(custom_fire_overlay)
 	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/flag/proc/updateFlagIcon()
@@ -141,6 +141,11 @@
 	name = "NIAN flag"
 	desc = "A flag proudly proclaiming the superior heritage of Nian."
 	icon_state = "nianflag"
+
+/obj/item/flag/species/wryn
+	name = "Wryn flag"
+	desc = "A flag proudly proclaiming the superior heritage of Wryn."
+	icon_state = "wrynflag"
 
 //Department Flags
 

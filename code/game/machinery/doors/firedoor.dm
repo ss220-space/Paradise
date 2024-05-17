@@ -9,8 +9,12 @@
 	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
+	light_on = FALSE
+	light_range = 1.4
+	light_power = 0.3
+	light_color = COLOR_RED_LIGHT
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
@@ -32,9 +36,11 @@
 	var/active_alarm = FALSE
 	var/list/affecting_areas
 
+
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()
+
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -85,14 +91,13 @@
 	if(stat & (NOPOWER|BROKEN))
 		set_light_on(FALSE)
 		return
-	if(active_alarm)
-		set_light(1, 0.5, COLOR_RED_LIGHT, l_on = TRUE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
+	set_light_on(active_alarm)
+
 
 /obj/machinery/door/firedoor/extinguish_light(force = FALSE)
-	set_light_on(FALSE)
-	update_icon(UPDATE_OVERLAYS)
+	if(light_on)
+		set_light_on(FALSE)
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/door/firedoor/power_change(forced = FALSE)
@@ -124,7 +129,7 @@
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	if(do_after(user, manual_open_time, target = src))
+	if(do_after(user, manual_open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
@@ -232,7 +237,7 @@
 	if(welded)
 		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
-		if(light)
+		if(light_on)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 
@@ -285,7 +290,7 @@
 		close()
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
@@ -330,7 +335,7 @@
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -404,7 +409,7 @@
 				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
 									 span_notice("You begin reinforcing [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 60 * C.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 6 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					add_fingerprint(user)
@@ -423,7 +428,7 @@
 				user.visible_message(span_notice("[user] begins wiring [src]..."), \
 									 span_notice("You begin adding wires to [src]..."))
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 60 * B.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 6 SECONDS * B.toolspeed * gettoolspeedmod(user), src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					add_fingerprint(user)
@@ -439,7 +444,7 @@
 				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
 									 span_notice("You begin adding a circuit board to [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 40 * C.toolspeed * gettoolspeedmod(user), target = src))
+				if(!do_after(user, 4 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return

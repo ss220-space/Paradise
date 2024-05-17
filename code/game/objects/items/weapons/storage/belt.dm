@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	flags_2 = BLOCKS_LIGHT_2
+	flags = BLOCKS_LIGHT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
@@ -711,7 +711,7 @@
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 // -------------------------------------
@@ -993,7 +993,7 @@
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/belt/claymore/populate_contents()

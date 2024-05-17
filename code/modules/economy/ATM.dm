@@ -40,7 +40,7 @@ log transactions
 	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 
 /obj/machinery/atm/Initialize()
-	..()
+	. = ..()
 	reconnect_database()
 	update_icon()
 
@@ -91,13 +91,9 @@ log transactions
 
 
 /obj/machinery/atm/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/atm/update_overlays()

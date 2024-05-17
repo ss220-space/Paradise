@@ -40,9 +40,13 @@
 
 	var/holder = null //The holder for blood crawling
 
-	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
+	/// Allows living mobs to have innate ventcrawl trait defined here.
+	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE / TRAIT_VENTCRAWLER_ALIEN
+	var/ventcrawler_trait
 	var/list/icon/pipes_shown
 	var/last_played_vent
+	/// The last direction we moved in a vent. Used to make holding two directions feel nice
+	var/last_vent_dir = NONE
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 
@@ -105,4 +109,7 @@
 	var/lying_prev = 0
 	/// Does the mob rotate when lying
 	var/rotate_on_lying = FALSE
+
+	/// Is this mob allowed to be buckled/unbuckled to/from things?
+	var/can_buckle_to = TRUE
 

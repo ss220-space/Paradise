@@ -4,12 +4,15 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity)
+/mob/living/carbon/human/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
+
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
 	var/obj/item/clothing/gloves/G = gloves // not typecast specifically enough in defines
-	if(proximity && istype(G) && G.Touch(A, 1))
+	if(proximity_flag && istype(G) && G.Touch(A, proximity_flag))
 		return
 
 
@@ -32,6 +35,7 @@
 
 
 /atom/proc/attack_hand(mob/user)
+	. = FALSE
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
@@ -60,27 +64,60 @@
 	if(isturf(A) && get_dist(src, A) <= 1)
 		Move_Pulled(A)
 
+
+/**
+ * Checks if this mob is in a valid state to punch someone.
+ *
+ * (Potentially) gives feedback to the mob if they cannot.
+ */
+/mob/living/proc/can_unarmed_attack()
+	return !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED)
+
+
+/mob/living/carbon/human/can_unarmed_attack()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!get_active_hand()) //can't attack without a hand.
+		var/obj/item/organ/external/limb = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		if(!limb)
+			to_chat(src, span_warning("You look at your arm and sigh."))
+			return FALSE
+		if(!limb.is_usable())
+			to_chat(src, span_warning("Your [limb.name] is in no condition to be used."))
+			return FALSE
+
+	return TRUE
+
+
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(var/atom/A)
+/mob/living/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
 	A.attack_animal(src)
 
-/mob/living/simple_animal/hostile/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/hostile/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
 	target = A
 	AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
 	return
 
-/mob/living/RestrainedClickOn(var/atom/A)
+/mob/living/RestrainedClickOn(atom/A)
 	return
 
 /*
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/UnarmedAttack(atom/A)
+/mob/living/carbon/alien/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
 	A.attack_alien(src)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
@@ -90,7 +127,9 @@
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
+/mob/living/carbon/alien/larva/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
 	A.attack_larva(src)
 
 /atom/proc/attack_larva(mob/user)
@@ -100,7 +139,9 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/simple_animal/slime/UnarmedAttack(atom/A)
+/mob/living/simple_animal/slime/UnarmedAttack(atom/A, proximity_flag)
+	if(!can_unarmed_attack())
+		return
 	A.attack_slime(src)
 
 /atom/proc/attack_slime(mob/user)
@@ -116,6 +157,8 @@
 /mob/new_player/ClickOn()
 	return
 
+
 // pAIs are not intended to interact with anything in the world
-/mob/living/silicon/pai/UnarmedAttack(var/atom/A)
+/mob/living/silicon/pai/UnarmedAttack(atom/A, proximity_flag)
 	return
+

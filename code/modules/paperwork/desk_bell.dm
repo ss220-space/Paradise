@@ -17,7 +17,7 @@
 	var/ring_sound = 'sound/machines/bell.ogg'
 
 /obj/item/desk_bell/attack_hand(mob/living/user)
-	if(in_inventory && ishuman(user))
+	if((item_flags & IN_INVENTORY) && ishuman(user))
 		if(!user.get_active_hand())
 			user.put_in_hands(src)
 			return TRUE
@@ -35,7 +35,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(over_object != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
 	set_anchored(FALSE)
@@ -65,7 +65,7 @@
 // Deconstruct and Anchor
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
-	if(user.a_intent == INTENT_HARM && !in_inventory)
+	if(user.a_intent == INTENT_HARM && !(item_flags & IN_INVENTORY))
 		visible_message("<span class='notice'>[user] begins taking apart [src]...</span>", "<span class='notice'>You begin taking apart [src]...</span>")
 		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
 			visible_message("<span class='notice'>[user] takes apart [src].</span>", "<span class='notice'>You take apart [src].</span>")
@@ -73,7 +73,7 @@
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
 			qdel(src)
 			return TRUE
-	if(!in_inventory)
+	if(!(item_flags & IN_INVENTORY))
 		if(!anchored)
 			user.visible_message("[user] begins securing [src]...", "You begin securing [src]...")
 			if(!tool.use_tool(src, user, 3 SECONDS, volume = tool.tool_volume))

@@ -28,26 +28,21 @@
 /obj/item/clothing/neck/poncho/update_icon_state()
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
 
+
 /obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
-	if(!iscarbon(user))
-		..()
-	else if(user.neck != src)
-		..()
-	else
-		flip(user)
+	if(!(src in user))
+		return ..()
+	flip(user)
+
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
 	set name = "Flip poncho"
 	set category = "Object"
 	set desc = "Flip poncho behind your back"
+	set src in usr
 
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/human/user = usr
-	if(user.neck != src)
-		to_chat(user, span_warning("Poncho must be equipped before flipping!"))
-		return
-	flip(user)
+	flip(usr)
+
 
 /obj/item/clothing/neck/poncho/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -63,9 +58,14 @@
 			flipped = FALSE
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/neck/poncho/proc/flip(mob/user)
-	if(user.incapacitated())
+/obj/item/clothing/neck/poncho/proc/flip(mob/living/carbon/human/user)
+	if(!ishuman(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
+		return
+	if(user.neck != src)
+		to_chat(user, span_warning("Poncho must be equipped before flipping!"))
 		return
 	flipped = !flipped
 	update_icon(UPDATE_ICON_STATE)

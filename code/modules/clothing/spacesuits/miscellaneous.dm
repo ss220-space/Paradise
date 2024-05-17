@@ -111,8 +111,7 @@
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	flags_inv = NONE
-	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
-	flags_cover = null
+	flags_cover = NONE
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -190,7 +189,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
 	species_restricted = null
@@ -211,7 +210,7 @@
 	icon_state = "santa"
 	item_state = "santa"
 	slowdown = 0
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 	sprite_sheets = list(
@@ -231,7 +230,7 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
