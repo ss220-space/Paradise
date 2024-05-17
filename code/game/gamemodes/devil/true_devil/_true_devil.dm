@@ -11,13 +11,12 @@
 	gender = NEUTER
 	health = 350
 	maxHealth = 350
-	density = TRUE
-	pass_flags =  0
-	var/ascended = FALSE
-	sight = (SEE_TURFS | SEE_OBJS)
+	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
 	universal_understand = TRUE
 	universal_speak = TRUE //The devil speaks all languages meme
+	var/ascended = FALSE
 	var/mob/living/oldform
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
