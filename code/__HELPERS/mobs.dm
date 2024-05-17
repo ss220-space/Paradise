@@ -330,14 +330,15 @@
 		gripper_check = TRUE
 
 	var/datum/progressbar/progbar
+	var/endtime = world.time + delay
+	var/starttime = world.time
 
-	if(progress && user.client)
+	// progress bar will not show up if there is no delay at all
+	if(progress && user.client && starttime < endtime)
 		progbar = new(user, delay, target || user)
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
-	var/endtime = world.time + delay
-	var/starttime = world.time
 	. = TRUE
 
 	while(world.time < endtime)
