@@ -409,6 +409,17 @@
 	var/mob/living/carbon/human/H = target
 	var/pain_mod = get_pain_modifier(H)
 
+/* this is broken, uncomment after separation IC-SLEEP from other method's sleep (like ether)
+	// don't let people sit on the optable and sleep verb
+	var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
+	if(S)
+		H.SetSleeping(0) // wake up people who are napping through the surgery
+		if(pain_mod < 0.95)
+			to_chat(H, span_danger("The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!"))
+		else
+			// Still wake people up, but they shouldn't be as alarmed.
+			to_chat(H, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
+*/
 	return pain_mod //operating on conscious people is hard.
 
 /**
