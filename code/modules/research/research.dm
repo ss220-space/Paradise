@@ -289,7 +289,7 @@ research holder datum.
 	id = "programming"
 	max_level = 8 // debug part/cargo
 
-/datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
+/datum/tech/toxins //not meant to be raised by deconstruction, do not give objects toxins as an origin_tech //guess what we've done? put it in cargo
 	name = "Toxins Research"
 	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
 	id = "toxins"
