@@ -1,6 +1,6 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
-	dyeable = TRUE
+	washable = TRUE
 
 
 /obj/item/clothing/under/color/random/Initialize(mapload)

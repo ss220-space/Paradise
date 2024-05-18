@@ -16,7 +16,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	dyeable = TRUE
+	washable = TRUE
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"

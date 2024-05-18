@@ -523,7 +523,7 @@
 	flags_inv = HIDENAME|HIDEFACIALHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
-	dyeable = TRUE
+	washable = TRUE
 	can_toggle = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
