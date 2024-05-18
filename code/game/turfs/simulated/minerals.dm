@@ -87,7 +87,7 @@
 			return
 		last_act = world.time
 		to_chat(user, span_notice("You start picking with your pen..."))
-		playsound('sound/effects/picaxe1.ogg', 20, 1)
+		playsound(user, 'sound/effects/picaxe1.ogg', 20, TRUE)
 
 		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
