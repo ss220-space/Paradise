@@ -121,7 +121,7 @@
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
 	if((d > TK_MAXRANGE)||(user.z != focus.z)) // both in range and on same z-level
-		balloon_alert(user, "can't TK, too far!")
+		balloon_alert(user, "не схватить, слишком далеко!")
 		return
 
 	if(!focus)

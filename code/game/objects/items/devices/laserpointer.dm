@@ -78,16 +78,16 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		user.balloon_alert(user, "nothing happens!")
+		user.balloon_alert(user, "ничего не происходит!")
 		return
 	if(!user.IsAdvancedToolUser())
-		user.balloon_alert(user, "You are too clumsy!")
+		user.balloon_alert(user, "вы слишком неуклюжий для этого!")
 		return
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		user.balloon_alert(user, "it's still charging.")
+		user.balloon_alert(user, "идёт перезарядка")
 		return
 
 	var/outmsg
@@ -155,7 +155,7 @@
 		I.pixel_y = target.pixel_y + rand(-5,5)
 
 	if(outmsg)
-		user.balloon_alert(user, outmsg)
+		to_chat(user, outmsg)
 	else
 		user.balloon_alert(user, "pointed at [target].")
 

@@ -73,12 +73,12 @@
 /obj/item/gun/energy/kinetic_accelerator/proc/deattach_modkits(mob/user)
 	var/notification
 	if(!LAZYLEN(modkits))
-		notification = span_notice("no modifications installed.")
+		notification = "нет модификаций!"
 	else
 		for(var/obj/item/borg/upgrade/modkit/MK in modkits)
 			modkit_predeattach(MK, loc)	// God bless anyone who have time for turning modkits back to `/obj/item/modkit`.
 			MK.uninstall(src)
-		notification = span_notice("pried modifications out.")
+		notification = "модификации сняты"
 
 	if(user)
 		balloon_alert(user, notification)
@@ -202,7 +202,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	else if(isliving(loc))
-		balloon_alert(loc, "charges up")
+		balloon_alert(loc, "заряжен")
 	update_icon()
 	overheat = FALSE
 

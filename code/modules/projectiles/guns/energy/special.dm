@@ -407,10 +407,10 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		balloon_alert(user, "there is no bluespace crystal!")
+		balloon_alert(user, "внутри нет блюспейс кристалла!")
 		return
 	if(!has_core)
-		balloon_alert(user, "there is no flux core!")
+		balloon_alert(user, "внутри нет ядра потоковой аномалии!")
 		return
 	return ..()
 

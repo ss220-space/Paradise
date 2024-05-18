@@ -90,7 +90,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		user.balloon_alert(user, "[safety ? "disable" : "enable"] it's safety protocols.")
+		user.balloon_alert(user, "протоколы безопасности [safety ? "выключены" : "включены"].")
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
@@ -138,7 +138,7 @@
 		return
 
 	if(on_cooldown)
-		user.balloon_alert(user, "[defib_ref] is recharging.")
+		user.balloon_alert(user, "дефибриллятор все ещё заряжается")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
@@ -146,9 +146,9 @@
 
 	if(!istype(target))
 		if(robotic)
-			user.balloon_alert(user, "can't defib robots.")
+			user.balloon_alert(user, "на роботах не сработает")
 		else
-			user.balloon_alert(user, "can't defib that.")
+			user.balloon_alert(user, "\"это\" нельзя дефибриллировать")
 		return
 
 	if(should_cause_harm && combat && heart_attack_chance == 100)

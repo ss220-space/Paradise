@@ -44,7 +44,7 @@
 	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
 		var/mob/living/pulled_mob = user.pulling
 		if(!do_teleport(user, target_turf))
-			user.balloon_alert(user, "dash blocked!")
+			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
 		var/obj/spot1 = new phaseout(starting_turf, user.dir)
 		playsound(target_turf, dash_sound, 25, TRUE)
@@ -70,4 +70,4 @@
 	if(!owner)
 		return
 	owner.update_action_buttons_icon()
-	owner.balloon_alert(owner, "[current_charges]/[max_charges] dash charges")
+	owner.balloon_alert(owner, "[current_charges]/[max_charges] зарядов доступно")

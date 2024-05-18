@@ -10,6 +10,13 @@
 
 /**
  * Creates text that will float from the atom upwards to the viewer.
+ * When you add new balloons, make sure to use less text, as possible, starting with small letter
+ *
+ *
+ * Russian is preferable in all new balloons, but..
+ * In order not to make bad translation like classical "вы slip на banana peel"
+ * Use english in every balloon, where any [variables] are used
+ *
  *
  * Args:
  * * mob/viewer: The mob the text will be shown to. Nullable (But only in the form of it won't runtime).

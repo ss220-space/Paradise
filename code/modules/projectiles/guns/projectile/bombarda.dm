@@ -20,7 +20,7 @@
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		balloon_alert(user, "loaded shell")
+		balloon_alert(user, "заряд вставлен")
 		A.update_icon()
 		update_icon()
 

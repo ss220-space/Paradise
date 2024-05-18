@@ -35,7 +35,7 @@
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			owner.balloon_alert(owner, "too hungry to bioluminescent!")
+			owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 			return
 
 		if(owner.stat)
@@ -63,11 +63,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		owner.balloon_alert(owner, "cannot alter your bioluminescence now!")
+		owner.balloon_alert(owner, "не получится изменить свечение!")
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		owner.balloon_alert(owner, "too hungry to bioluminescent!")
+		owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 		return 0
 
 	if(!colour)

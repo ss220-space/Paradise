@@ -117,14 +117,14 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		user.balloon_alert(user, "table deconstructed.")
+		user.balloon_alert(user, "стол разобран")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		balloon_alert(usr, span_notice("already occupied!"))
+		balloon_alert(usr, span_notice("уже занято!"))
 		return FALSE
 	else
 		return TRUE

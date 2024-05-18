@@ -99,7 +99,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		balloon_alert(user, "There is no bolt to draw!")
+		balloon_alert(user, "нет заряженного болта!")
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
@@ -119,22 +119,22 @@
 		return ..()
 
 	if(cell)
-		balloon_alert(user, "cell already installed")
+		balloon_alert(user, "внутри уже есть батарейка!")
 		return
 
 	user.drop_transfer_item_to_loc(I, src)
 	cell = I
-	balloon_alert(user, "cell installed")
+	balloon_alert(user, "батарейка установлена")
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		balloon_alert(user, "there is no cell")
+		balloon_alert(user, "внутри нет батарейки!")
 		return
 
 	cell.forceMove(get_turf(src))
-	balloon_alert(user, "cell removed")
+	balloon_alert(user, "батарейка удалена")
 	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
@@ -262,7 +262,7 @@
 	overlay_prefix = "flame"
 	w_class = WEIGHT_CLASS_SMALL
 	if(user)
-		balloon_alert(user, "rod fired up!")
+		balloon_alert(user, "болт подожжен!")
 	flamed = TRUE
 	addtimer(CALLBACK(src, PROC_REF(fire_down)), fire_duration)
 

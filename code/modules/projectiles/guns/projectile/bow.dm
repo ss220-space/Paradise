@@ -64,7 +64,7 @@
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		balloon_alert(user, "you ready \the [A]")
+		balloon_alert(user, "тетива натянута")
 		chamber_round()
 		update_state()
 

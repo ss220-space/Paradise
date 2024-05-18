@@ -32,7 +32,7 @@
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
 	if(inform_about_toggle)
-		user.balloon_alert(user, "toggled  [src] [active ? "on" : "off"].")
+		user.balloon_alert(user, "устройство [active ? "включено" : "выключено"]")
 
 	for(var/X in actions)
 		var/datum/action/A = X

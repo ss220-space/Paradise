@@ -38,12 +38,12 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(magazine)
-				balloon_alert(user, "magazine swapped")
+				balloon_alert(user, "магазин заменен")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 			else
-				balloon_alert(user, "magazine loaded")
+				balloon_alert(user, "магазин вставлен")
 			if(alarmed)
 				alarmed = 0
 			user.drop_transfer_item_to_loc(AM, src)
@@ -64,11 +64,11 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		balloon_alert(user, "switched to semi-automatic")
+		balloon_alert(user, "переключено на полу-автоматический")
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		balloon_alert(user, "switched to [burst_size]-round burst")
+		balloon_alert(user, "переключено на очередь по [burst_size] выстрела")
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
@@ -262,10 +262,10 @@
 			select = 1
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			balloon_alert(user, "switched to [burst_size]-round burst")
+			balloon_alert(user, "переключено на очередь по [burst_size] выстрела")
 		if(1)
 			select = 0
-			balloon_alert(user, "switched to grenades")
+			balloon_alert(user, "переключено на подствольный гранатомет")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 

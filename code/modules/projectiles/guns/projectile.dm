@@ -101,13 +101,13 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				balloon_alert(user, "magazine loaded")
+				balloon_alert(user, "магазин заряжен")
 				return TRUE
 			else if(!can_tactical)
-				balloon_alert(user, "already loaded!")
+				balloon_alert(user, "уже заряжено!")
 				return TRUE
 			else
-				balloon_alert(user, "magazine swapped!")
+				balloon_alert(user, "магазин сменён!")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
@@ -166,16 +166,16 @@
 		magazine.update_icon()
 		magazine = null
 		update_weight()
-		balloon_alert(user, "magazine unloaded")
+		balloon_alert(user, "магазин вынут")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		balloon_alert(user, "unloaded round")
+		balloon_alert(user, "патрон вытащен")
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
-		balloon_alert(user, "it's empty!")
+		balloon_alert(user, "оно пустое!")
 	update_icon()
 	return
 

@@ -26,7 +26,7 @@
 
 /obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		user.balloon_alert(user, "no target found in range.")
+		user.balloon_alert(user, "рядом нет подходящих целей!")
 		return
 
 	var/mob/living/carbon/human/target = targets[1]
