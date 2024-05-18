@@ -159,4 +159,3 @@
 
 	var/message = "[name] terrain population finished in [(REALTIMEOFDAY - start_time)/10]s!"
 	log_startup_progress_global("Mapping", message)
-	log_world(message)
