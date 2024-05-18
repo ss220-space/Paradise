@@ -70,7 +70,7 @@
 	damage = 45
 	armour_penetration = 5
 
-/obj/item/projectile/bullet/saw/updated
+/obj/item/projectile/bullet/saw/weak
 	damage = 30
 
 /obj/item/projectile/bullet/saw/bleeding
@@ -153,7 +153,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/mm556x45/weak
-	projectile_type = /obj/item/projectile/bullet/saw/updated
+	projectile_type = /obj/item/projectile/bullet/saw/weak
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
