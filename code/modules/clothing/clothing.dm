@@ -43,7 +43,6 @@
 	var/cooldown = 0
 	var/species_disguise
 	var/magical = FALSE
-	var/dyeable = FALSE
 	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.
 	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
@@ -822,6 +821,7 @@ BLIND     // can't see anything
 	hide_tail_by_species = null
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	faction_restricted = list("ashwalker")
+	undyeable = TRUE
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
 
@@ -927,6 +927,10 @@ BLIND     // can't see anything
 	var/list/accessories
 	/// Whether we can roll down this uniform.
 	var/can_adjust = TRUE
+
+
+/obj/item/clothing/under/rank
+	dying_key = DYE_REGISTRY_UNDER
 
 
 /obj/item/clothing/under/rank/Initialize(mapload)

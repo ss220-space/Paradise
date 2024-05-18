@@ -104,6 +104,7 @@
 	flags = CONDUCT
 	fire_resist = T0C+5200
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	undyeable = TRUE
 
 
 /obj/item/clothing/suit/greatcoat
@@ -173,6 +174,7 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
+	undyeable = TRUE
 
 
 /obj/item/clothing/suit/hastur
