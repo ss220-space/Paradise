@@ -97,11 +97,13 @@
 		var/y_component = abs(did_not_stand_back.y - deploy_location.y)
 		if(ISDIAGONALDIR(dir_to_center))
 			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, throw_dist))
 		else if(dir_to_center & (NORTH|SOUTH))
 			throw_dist = base_y_throw_distance - y_component + 1
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, base_y_throw_distance))
 		else if(dir_to_center & (EAST|WEST))
 			throw_dist = base_x_throw_distance - x_component + 1
-
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, base_x_throw_distance))
 		did_not_stand_back.Weaken(6 SECONDS)
 		did_not_stand_back.throw_at(
 			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
