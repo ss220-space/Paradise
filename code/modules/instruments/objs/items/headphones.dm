@@ -47,7 +47,7 @@
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "headphones[on]"
 	item_state = "headphones[on]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)

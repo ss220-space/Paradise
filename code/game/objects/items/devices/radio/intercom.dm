@@ -137,7 +137,7 @@
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() >= 5)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-			if(do_after(user, 10 * coil.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 1 && coil.use(5))
+			if(do_after(user, 1 SECONDS * coil.toolspeed * gettoolspeedmod(user), src) && buildstage == 1 && coil.use(5))
 				to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 				buildstage = 2
 			return 1
@@ -146,7 +146,7 @@
 			return
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 0)
+		if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1
@@ -227,10 +227,8 @@
 	if(!current_area)
 		return
 	if(on)
-		set_light(1, LIGHTING_MINIMUM_POWER)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 	else
-		set_light(0)
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**
@@ -245,10 +243,8 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
-		set_light_on(FALSE)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	update_icon()
 
 /obj/item/intercom_electronics

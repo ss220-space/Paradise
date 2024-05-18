@@ -278,7 +278,7 @@
 		H.LAssailant = null
 	else
 		H.LAssailant = owner.current
-	while(do_mob(owner.current, H, 5 SECONDS))
+	while(do_after(owner.current, 5 SECONDS, H, NONE))
 		if(!isvampire(owner))
 			to_chat(owner.current, span_userdanger("Ваши клыки исчезают!"))
 			return

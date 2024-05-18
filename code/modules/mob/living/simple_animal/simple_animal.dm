@@ -409,7 +409,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
 		regenerate_icons()
@@ -471,7 +471,7 @@
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
-	density = initial(density)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 	update_canmove()
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
@@ -519,7 +519,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
+	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.item_flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)

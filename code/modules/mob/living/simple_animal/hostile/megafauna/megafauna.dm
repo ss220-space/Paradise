@@ -184,11 +184,13 @@
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
 
+
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
-		C.density = FALSE //I hate it.
-		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
+		C.set_density(FALSE) //I hate it.
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
+
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

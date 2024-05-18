@@ -596,11 +596,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/AltClick(mob/user)
+	if(!iscarbon(user) && !isrobot(user))
+		return
 	if(!Adjacent(user))
 		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	broadcasting = !broadcasting
@@ -611,7 +611,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	listening = !listening

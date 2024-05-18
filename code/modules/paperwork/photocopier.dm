@@ -9,7 +9,7 @@
 	icon_state = "bigscanner"
 	var/insert_anim = "bigscanner1"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
@@ -419,21 +419,21 @@
 	return P
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(toner > 0)
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user, params)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user) || target == ass)
 		return
 	add_fingerprint(user)
-	if(target == user && !user.incapacitated())
+	if(target == user)
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-		if(target.anchored) return
-		if(!ishuman(user)) return
+	else if(target != user)
+		if(target.anchored || !ishuman(user))
+			return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target

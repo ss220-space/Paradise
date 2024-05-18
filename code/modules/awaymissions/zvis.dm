@@ -86,7 +86,7 @@
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
-		var/datum/lighting_object/O = T.lighting_object
+		var/atom/movable/lighting_object/O = T.lighting_object
 		var/hash = 0
 
 		for(var/lighting_corner in O)
@@ -199,7 +199,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "loadingarea"
 	opacity = 1
-	density = 1
+	density = TRUE
 	invisibility = 0
 	appearance_flags = TILE_BOUND | KEEP_TOGETHER
 	var/dist = 6				// dist that we render out
@@ -302,7 +302,7 @@
 		var/ox = thing.x - x
 		var/oy = thing.y - y
 		if(istype(M) && M.client)
-			M.notransform = 1
+			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			// cover up client-side map loading
 			M.screen_loc = "CENTER"
 			M.client.screen += M
@@ -321,7 +321,8 @@
 				M.screen_loc = initial(M.screen_loc)
 			thing.forceMove(get_turf(other.loc))
 			if(istype(M) && M.client)
-				M.notransform = 0
+				REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+
 
 /obj/effect/view_portal/visual/attack_ghost(mob/user)
 	user.forceMove(get_turf(other.loc))

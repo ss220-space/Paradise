@@ -144,7 +144,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	desc = "This hand of yours glows with an awesome power!"
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
@@ -352,7 +352,7 @@
 	icon_state = "chainsaw1"
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	sharp = TRUE
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
@@ -414,7 +414,7 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
@@ -465,8 +465,8 @@
 	sharp = TRUE
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
-	slot_flags = null
-	flags = HANDSLOW
+	slot_flags = NONE
+	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
@@ -530,7 +530,7 @@
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, target = M))
+	if(do_after(user, 15 SECONDS, M))
 		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
@@ -700,7 +700,7 @@
 		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
 		return
 	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
-	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
+	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
 			return

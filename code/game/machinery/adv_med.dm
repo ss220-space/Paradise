@@ -117,7 +117,7 @@
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
 		return FALSE //not human
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE //user shouldn't be doing things
 	if(H.anchored)
 		return FALSE //mob is anchored???
@@ -177,7 +177,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
@@ -186,7 +186,7 @@
 	set category = "Object"
 	set name = "Eject Body Scanner"
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out()
 	add_fingerprint(usr)

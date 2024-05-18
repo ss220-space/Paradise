@@ -141,8 +141,8 @@
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 500
-	range = MECHA_MELEE | MECHA_RANGED
-	flags_2 = NO_MAT_REDEMPTION_2
+	range = MECHA_MELEE|MECHA_RANGED
+	item_flags = NO_MAT_REDEMPTION
 	var/obj/item/rcd/mecha_ref/rcd_holder
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'

@@ -32,10 +32,10 @@
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
 
-/obj/item/gun/projectile/shotgun/can_shoot()
+/obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
-		return 0
-	return (chambered.BB ? 1 : 0)
+		return FALSE
+	return (chambered.BB ? TRUE : FALSE)
 
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
 	if(recentpump)
@@ -122,7 +122,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		post_sawoff()
 		return 1
@@ -165,7 +165,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		qdel(A)
 		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
 		post_unsaw(user)
@@ -290,7 +290,7 @@
 	icon_state = "arcane_barrage"
 	item_state = "arcane_barrage"
 	slot_flags = null
-	flags = NOBLUDGEON | DROPDEL | ABSTRACT
+	item_flags = NOBLUDGEON|DROPDEL|ABSTRACT
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
@@ -356,7 +356,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	. = ..()
-	if(user.incapacitated() || !Adjacent(user) || !istype(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 	pump()
 

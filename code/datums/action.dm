@@ -36,12 +36,15 @@
 			return FALSE
 		Remove(owner)
 	owner = user
-	user.actions += src
+	owner.actions += src
 
-	if(user.client)
-		user.client.screen += button
+	if(owner.client)
+		owner.client.screen += button
 		button.locked = TRUE
-	user.update_action_buttons()
+	owner.update_action_buttons()
+
+	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 
 	return TRUE
 
@@ -60,7 +63,19 @@
 	user.actions -= src
 	user.update_action_buttons()
 
+	// Clean up our check_flag signals
+	UnregisterSignal(user, list(
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+	))
+
 	return TRUE
+
+
+/// A general use signal proc that reacts to an event and updates JUST our button
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+	UpdateButtonIcon()
 
 
 /datum/action/proc/Trigger(left_click = TRUE)
@@ -101,7 +116,7 @@
 		return FALSE
 	var/owner_is_living = isliving(owner)
 	var/mob/living/living_owner = owner
-	if((check_flags & AB_CHECK_HANDS_BLOCKED) && owner.restrained())
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
 		return FALSE

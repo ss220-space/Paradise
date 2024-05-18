@@ -138,7 +138,7 @@
 	user.balloon_alert(user, "Teleporting [C]...")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
+	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), C))
 		teleporting = FALSE
 		return
 

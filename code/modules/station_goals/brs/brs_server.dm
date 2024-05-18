@@ -198,7 +198,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
-	if((!panel_open) || (flags & NODECONSTRUCT))
+	if((!panel_open) || (obj_flags & NODECONSTRUCT))
 		return FALSE
 	. = TRUE
 

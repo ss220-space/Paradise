@@ -194,7 +194,7 @@
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message(span_notice("[user] starts drilling a hole in [src]..."), span_notice("You start drilling a hole in [src]..."), span_italics("You hear drilling."))
-			if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+			if(!do_after(user, our_rpd.walldelay, src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
@@ -207,7 +207,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -276,7 +276,7 @@
 	visuals.icon = 'icons/effects/fire.dmi'
 	visuals.icon_state = "2"
 	visuals.set_anchored(TRUE)
-	visuals.density = TRUE
+	visuals.set_density(TRUE)
 	visuals.layer = FLY_LAYER
 
 	if(user)
@@ -465,7 +465,8 @@
 		to_chat(user, span_notice("You begin slicing through the outer plating."))
 		playsound(src, I.usesound, 100, 1)
 
-		if(do_after(user, istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 120 * I.toolspeed * gettoolspeedmod(user) : 60 * I.toolspeed * gettoolspeedmod(user), target = src))
+		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src))
 			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] slices apart [src]!"), span_warning("You hear metal being sliced apart."))
@@ -479,7 +480,8 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, span_notice("You begin to drill though the wall."))
 
-		if(do_after(user, isdiamond ? 480 * I.toolspeed * gettoolspeedmod(user) : 240 * I.toolspeed * gettoolspeedmod(user), target = src)) // Diamond pickaxe has 0.25 toolspeed, so 120/60
+		var/delay = isdiamond ? 48 SECONDS : 24 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
 			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] drills through [src]!"), span_italics("You hear the grinding of metal."))
@@ -488,7 +490,8 @@
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrates the wall."))
 		var/obj/item/pickaxe/drill/jackhammer/jh = I
-		if(do_after(user, isdiamond ? 600 * jh.wall_toolspeed * gettoolspeedmod(user) : 300 * jh.wall_toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 60/30
+		var/delay = isdiamond ? 60 SECONDS : 30 SECONDS
+		if(do_after(user, delay * jh.wall_toolspeed * gettoolspeedmod(user), src)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
 			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))
@@ -496,8 +499,8 @@
 
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall."))
-
-		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+		var/delay = isdiamond ? 6 SECONDS : 3 SECONDS
+		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
 			to_chat(user, span_notice("Your [I.name] melts the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] melts [src]!"),span_italics("You hear the hissing of steam."))
@@ -523,7 +526,7 @@
 				span_notice("You start drilling a hole in [src]."),
 				span_italics("You hear a drill."))
 
-			if(do_after(user, 80 * P.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 8 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
 				user.visible_message(
 					span_notice("[user] drills a hole in [src] and pushes [P] into the void."),
 					span_notice("You finish drilling [src] and push [P] into the void."),

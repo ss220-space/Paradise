@@ -144,7 +144,7 @@
 		return FALSE
 	if(target != user && (!Adjacent(user) && !user.Adjacent(target)))
 		return FALSE
-	if(!isliving(user) || user.incapacitated())
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!ishuman(target))
 		to_chat(user, span_warning("[src] cannot hold this!"))
@@ -169,7 +169,7 @@
 		return FALSE
 	if(occupant == user) // so that the guy inside can't eject himself -Agouri
 		return FALSE
-	if(user && (!ishuman(user) || user.incapacitated()))
+	if(user && (!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	occupant.forceMove(loc)
 	add_fingerprint(user)

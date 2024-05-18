@@ -32,7 +32,7 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-	magichead.flags |= DROPDEL	//curses!
+	magichead.item_flags |= DROPDEL	//curses!
 	ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 	magichead.flags_inv = NONE	//so you can still see their face
 	magichead.voicechange = TRUE	//NEEEEIIGHH

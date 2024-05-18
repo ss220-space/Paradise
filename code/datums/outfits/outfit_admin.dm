@@ -1309,9 +1309,7 @@
 	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
-	H.dna.SetSEState(GLOB.jumpblock, TRUE)
-	genemutcheck(H, GLOB.jumpblock, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.gene_stability = 100
 
 /datum/outfit/admin/wizard

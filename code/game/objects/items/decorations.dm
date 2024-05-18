@@ -6,9 +6,10 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
+
 /obj/item/decorations/sticky_decorations/New()
 	. = ..()
-	AddComponent(/datum/component/ducttape, src, null, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
+	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
 
 
 
@@ -225,7 +226,7 @@
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
 
@@ -235,7 +236,7 @@
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	pixel_x = -16
 
 /obj/structure/decorative_structures/fireplace/Initialize(mapload)
@@ -245,7 +246,7 @@
 	set_light(6, ,"#ffb366")
 
 /obj/structure/decorative_structures/garland
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	max_integrity = 100
 	icon_state = "xmaslights"
@@ -313,7 +314,7 @@
 /obj/structure/decorative_structures/corpse
 	name = "Bloody body"
 	icon_state = "deadbody2"
-	density = 0
+	density = FALSE
 	max_integrity = 5
 	var/bloodtiles = 8  // number of tiles with blood while pulling
 
@@ -461,4 +462,4 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
+	density = FALSE

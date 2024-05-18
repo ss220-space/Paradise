@@ -15,7 +15,7 @@
 	var/cleanspeed = 50 //slower than mop
 
 /obj/item/soap/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
@@ -27,7 +27,7 @@
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
-		if(do_after(user, cleanspeed, target = target) && target)
+		if(do_after(user, cleanspeed, target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			if(issimulatedturf(target.loc))
 				clean_turf(target.loc)
@@ -35,12 +35,12 @@
 			qdel(target)
 	else if(issimulatedturf(target))
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		if(do_after(user, cleanspeed, target = target))
+		if(do_after(user, cleanspeed, target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			clean_turf(target)
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		if(do_after(user, cleanspeed, target = target))
+		if(do_after(user, cleanspeed, target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
@@ -188,7 +188,7 @@
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>")
 	else
 		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
-		if(do_after(user, cleanspeed, target = target))
+		if(do_after(user, cleanspeed, target))
 			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
 			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)

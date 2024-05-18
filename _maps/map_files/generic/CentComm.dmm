@@ -1758,12 +1758,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "aPL" = (
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 2;
-	id_tag = "ert_vis_turret";
-	locked = 1;
-	opacity = 0
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -1986,11 +1983,8 @@
 	},
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
-	id_tag = "ert_vis_turret";
-	locked = 1;
-	opacity = 0
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6553,11 +6547,8 @@
 	},
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
-	id_tag = "ert_vis_turret";
-	locked = 1;
-	opacity = 0
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
@@ -21893,11 +21884,8 @@
 	},
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/invincible{
-	density = 0;
-	id_tag = "ert_vis_turret";
-	locked = 1;
-	opacity = 0
+/obj/machinery/door/poddoor/shutters/preopen/invincible{
+	id_tag = "ert_vis_turret"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25385,12 +25373,8 @@
 	name = "Shuttle Hatch";
 	req_access = list(109)
 	},
-/obj/machinery/door/poddoor/impassable{
-	density = 0;
+/obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ert_enter_control";
-	layer = 5;
-	locked = 1;
-	opacity = 0;
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{

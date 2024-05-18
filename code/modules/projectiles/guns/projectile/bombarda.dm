@@ -40,7 +40,7 @@
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
 
-/obj/item/gun/projectile/bombarda/can_shoot()
+/obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)

@@ -29,7 +29,7 @@
 		revert_cast(user)
 		return
 	to_chat(user, "<span class='sinister'>You begin regurgitating up some acidic puke!</span>")
-	if(!do_after(user, 2 SECONDS, FALSE, user))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		to_chat(user, "<span class='warning'>You swallow the acid again.</span>")
 		revert_cast(user)
 		return
@@ -43,10 +43,9 @@
 /obj/effect/proc_holder/spell/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)
 	if(istype(unary, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = unary
-		scrubber.welded = FALSE
+		scrubber.set_welded(FALSE)
 	else if(istype(unary, /obj/machinery/atmospherics/unary/vent_pump))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = unary
-		vent.welded = FALSE
-	unary.update_icon()
+		vent.set_welded(FALSE)
 	unary.cut_overlay(GLOB.acid_overlay)
 

@@ -210,7 +210,7 @@
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			if(!do_after(usr, R.time, usr))
 				return FALSE
 
 		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
@@ -291,21 +291,17 @@
 
 
 /obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) || amount < 1 || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!</span>"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(user))
-		return
-	if(amount < 1)
 		return
 	//get amount from user
 	var/max = get_amount()
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
 		return
-	if(!Adjacent(user, 1))
+	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)

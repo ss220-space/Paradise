@@ -19,7 +19,7 @@
 	while(!maxcapacity && src)
 		drain = (round((rand(ninja_gloves.mindrain, ninja_gloves.maxdrain))/2))
 		var/drained = 0
-		if(wire_powernet && do_after(ninja ,10, target = src))
+		if(wire_powernet && do_after(ninja, 1 SECONDS, src))
 			drained = min(drain, delayed_surplus())
 			add_delayedload(drained)
 			for(var/obj/machinery/power/terminal/affected_terminal in wire_powernet.nodes)

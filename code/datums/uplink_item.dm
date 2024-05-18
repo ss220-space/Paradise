@@ -136,7 +136,7 @@
 	if(!istype(target_uplink))
 		return FALSE
 
-	if(buyer.stat || buyer.restrained())
+	if(buyer.stat || HAS_TRAIT(buyer, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(!ishuman(buyer))
@@ -451,6 +451,13 @@
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
 
+/datum/uplink_item/jobspecific/gatfruit
+	name = "Gatfruit seeds"
+	desc = "Seeds of the Gatfruit plant, the fruits eaten will produce a .36 caliber revolver! It also contains chemicals 10% sulfur, 10% carbon, 7% nitrogen, 5% potassium."
+	item = /obj/item/seeds/gatfruit
+	cost = 22
+	job = list(JOB_TITLE_BOTANIST)
+
 //Engineer
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
@@ -634,7 +641,7 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "Stechkin Pistol"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20

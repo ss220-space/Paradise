@@ -102,6 +102,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "x" = (
 /obj/structure/railing/wooden/endr,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "y" = (
@@ -151,6 +152,7 @@
 /area/lavaland/surface/outdoors)
 "M" = (
 /obj/structure/railing/wooden,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "N" = (
@@ -199,10 +201,12 @@
 /area/ruin/unpowered/misc_lavaruin)
 "W" = (
 /obj/structure/railing/wooden/endl,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "X" = (
 /obj/effect/mob_spawn/human/corpse,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -215,8 +219,8 @@ a
 a
 a
 a
-f
-f
+y
+y
 "}
 (2,1,1) = {"
 a
@@ -228,7 +232,7 @@ a
 a
 a
 a
-f
+y
 "}
 (3,1,1) = {"
 a
@@ -240,7 +244,7 @@ Q
 Q
 Q
 x
-f
+y
 "}
 (4,1,1) = {"
 a
@@ -276,7 +280,7 @@ H
 k
 Q
 x
-f
+y
 "}
 (7,1,1) = {"
 a
@@ -288,7 +292,7 @@ G
 Q
 Q
 M
-f
+y
 "}
 (8,1,1) = {"
 f
@@ -300,7 +304,7 @@ H
 F
 Q
 M
-f
+y
 "}
 (9,1,1) = {"
 f
@@ -312,7 +316,7 @@ B
 i
 Q
 M
-f
+y
 "}
 (10,1,1) = {"
 f
@@ -324,7 +328,7 @@ H
 p
 Q
 M
-f
+y
 "}
 (11,1,1) = {"
 f
@@ -336,7 +340,7 @@ R
 Q
 Q
 M
-f
+y
 "}
 (12,1,1) = {"
 f

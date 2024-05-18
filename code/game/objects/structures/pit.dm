@@ -21,7 +21,7 @@
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
 		visible_message("<span class='notice'>\The [user] starts [open ? "filling" : "digging open"] \the [src]</span>")
-		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			visible_message("<span class='notice'>\The [user] [open ? "fills" : "digs open"] \the [src]!</span>")
 			if(open)
 				close(user)
@@ -35,7 +35,7 @@
 			to_chat(user, "<span class='notice'>There's already a grave marker here.</span>")
 		else
 			visible_message("<span class='notice'>\The [user] starts making a grave marker on top of \the [src]</span>")
-			if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				visible_message("<span class='notice'>\The [user] finishes the grave marker</span>")
 				var/obj/item/stack/sheet/wood/plank = W
 				plank.use(2)
@@ -122,7 +122,7 @@
 	if(open)
 		return
 
-	if(escapee.stat || escapee.restrained())
+	if(escapee.incapacitated() || HAS_TRAIT(escapee, TRAIT_HANDS_BLOCKED))
 		return
 
 	escapee.changeNext_click(CLICK_CD_CLICK_ABILITY)
@@ -132,7 +132,7 @@
 	for(var/i in 1 to (6*breakout_time * 2)) //minutes * 6 * 5seconds * 2
 		playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
 
-		if(!do_after(escapee, 50))
+		if(!do_after(escapee, 5 SECONDS))
 			to_chat(escapee, "<span class='warning'>You have stopped digging.</span>")
 			return
 		if(open)
@@ -215,7 +215,7 @@
 /obj/structure/gravemarker/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/hatchet))
 		visible_message("<span class = 'warning'>\The [user] starts hacking away at \the [src] with \the [W].</span>")
-		if(do_after(user, 30))
+		if(do_after(user, 3 SECONDS))
 			visible_message("<span class = 'warning'>\The [user] hacks \the [src] apart.</span>")
 			new /obj/item/stack/sheet/wood(src)
 			new /obj/item/stack/sheet/wood(src)

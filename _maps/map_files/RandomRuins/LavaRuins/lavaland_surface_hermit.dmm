@@ -61,6 +61,7 @@
 /obj/item/seeds/plump,
 /obj/item/seeds/plump,
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
+/obj/item/seeds/tower,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "n" = (
@@ -75,6 +76,7 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/ore,
 /obj/item/storage/firstaid/regular,
+/obj/item/hatchet/wooden,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "q" = (
@@ -189,6 +191,10 @@
 /area/ruin/powered)
 "X" = (
 /obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/ruin/powered)
+"Y" = (
+/obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 
@@ -343,7 +349,7 @@ f
 i
 g
 f
-f
+Y
 o
 o
 o

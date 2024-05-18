@@ -30,7 +30,7 @@
 	maxbodytemp = 500
 
 	can_hide = 1
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
 

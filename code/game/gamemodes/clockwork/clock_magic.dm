@@ -122,7 +122,7 @@
 		if(clock_structure_in_range)
 			time_cast /= 2
 
-		if(do_after(owner, time_cast, target = owner))
+		if(do_after(owner, time_cast, owner))
 			item.deplete_spell() // to clear up actions if have
 			item.enchant_type = spell_enchant.enchantment
 			if(spell_enchant.spell_action)
@@ -152,7 +152,7 @@
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
 
-		if(do_after(owner, 50, target = owner))
+		if(do_after(owner, 5 SECONDS, owner))
 			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 			midas_spell.Grant(owner, src)
 			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
@@ -212,7 +212,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clocked_hand"
 	item_state = "clocked_hand"
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0
@@ -302,7 +302,7 @@
 			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 90, target = candidate))
+			if(do_after(user, 9 SECONDS, candidate))
 				candidate.emp_act(EMP_HEAVY)
 				candidate.ratvar_act(weak = TRUE)
 				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
@@ -317,7 +317,7 @@
 			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!</span>")
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 90, target = candidate))
+			if(do_after(user, 9 SECONDS, candidate))
 				candidate.ratvar_act()
 				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
 				channeling = FALSE

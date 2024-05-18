@@ -104,7 +104,7 @@
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
-	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = T))
+	if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), T))
 		if(!user.drop_transfer_item_to_loc(src, user.loc))
 			return
 		set_anchored(TRUE)

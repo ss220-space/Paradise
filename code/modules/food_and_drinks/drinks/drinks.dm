@@ -79,7 +79,7 @@
 		return
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params) //CHUG! CHUG! CHUG!
-	if(!iscarbon(over_object))
+	if(!iscarbon(over_object) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
@@ -93,7 +93,7 @@
 			"<span class='notice'>You start chugging [src].</span>",
 			"<span class='notice'>You hear what sounds like gulping.</span>")
 		chugging = TRUE
-		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
+		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_message = span_warning("You stop chugging [src].")))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")

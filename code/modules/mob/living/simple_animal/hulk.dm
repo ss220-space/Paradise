@@ -164,11 +164,8 @@
 
 	if(mind && original_body)
 		mind.transfer_to(original_body)
-	original_body.mutations.Remove(HULK)
-	original_body.dna.SetSEState(GLOB.hulkblock,0)
-	genemutcheck(original_body, GLOB.hulkblock,null,MUTCHK_FORCED)
+	original_body.force_gene_block(GLOB.hulkblock, FALSE)
 	to_chat(original_body, "<span class='danger'>You suddenly feel very weak.</span>")
-	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
 /mob/living/proc/hulk_scream(obj/target, chance)

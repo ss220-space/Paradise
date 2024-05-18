@@ -9,6 +9,10 @@
 
 
 /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma/Click(mob/living/carbon/user = usr)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't control your hands!"))
+		return
+
 	if(attached_hand)
 		return ..()
 
@@ -62,7 +66,7 @@
 	if(target == user)
 		return ..()
 
-	if(!proximity || !isalien(target) || !iscarbon(user) || user.incapacitated())
+	if(!proximity || !isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/carbon/transfering_to = target

@@ -722,7 +722,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_warning("[user] begins to cut open [src]."),
 			span_notice("You begin to cut open [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, target = src) && length(contents) && !QDELETED(src) && !QDELETED(user))
+		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
 			drop_organs()
 	else
 		return ..()

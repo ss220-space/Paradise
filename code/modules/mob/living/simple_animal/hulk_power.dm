@@ -145,7 +145,7 @@
 							H.Weaken(4 SECONDS)
 			if(i > 20)
 				user.canmove = FALSE
-				user.density = 0
+				ADD_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 				for(var/mob/living/M in T.contents)
 					if(!M.lying_angle)
 						var/turf/target = get_turf(get_step(user,cur_dir))
@@ -191,7 +191,7 @@
 			else if(i < 30)
 				step(user, cur_dir)
 			sleep(1)
-		user.density = 1
+		REMOVE_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 		user.canmove = TRUE
 		user.layer = prevLayer
 	else
@@ -265,8 +265,8 @@
 		if(tile)
 			tile.break_tile()
 		var/o=3
+		ADD_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 		for(var/i=0, i<14, i++)
-			user.density = 0
 			user.canmove = FALSE
 			o++
 			if(o == 4)
@@ -306,7 +306,7 @@
 						spawn(i)
 							if(i < 3) M.pixel_y += 8
 							else M.pixel_y -= 8
-		user.density = 1
+		REMOVE_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 		user.canmove = TRUE
 		user.layer = prevLayer
 	else
