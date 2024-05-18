@@ -2516,8 +2516,8 @@
 "go" = (
 /obj/structure/closet/secure_closet{
 	icon_state = "fridge";
-	overlay_unlocked = "f_unlocked"
-	overlay_locked = "f_locked"
+	overlay_unlocked = "f_unlocked";
+	overlay_locked = "f_locked";
 	locked = 0;
 	name = "meat fridge";
 	req_access = list(201)
