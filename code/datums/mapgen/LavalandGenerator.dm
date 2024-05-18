@@ -83,5 +83,5 @@
 			new_turf = T.ChangeTurf(new_turf)
 
 	var/message = "Lavaland Auxiliary generation finished in [(REALTIMEOFDAY - start_time)/10]s!"
-	to_chat(world, span_boldannounce("<small>\[[false_name]]</small> [message]"))
+	log_startup_progress_global("Mapping", message)
 	log_world(message)
