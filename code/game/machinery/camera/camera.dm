@@ -35,14 +35,18 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload, list/networks)
+/obj/machinery/camera/Initialize(mapload, list/networks, list/upgrades, var/obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
-	assembly = new(src)
-	assembly.state = 4
-	assembly.set_anchored(TRUE)
-	assembly.update_icon(UPDATE_ICON_STATE)
-
+	if(input_assembly == null)
+		assembly = new(src)
+		assembly.state = 4
+		assembly.set_anchored(TRUE)
+		assembly.update_icon(UPDATE_ICON_STATE)
+		if(upgrades != null)
+			assembly.upgrades = upgrades
+	else
+		assembly = input_assembly
 	GLOB.cameranet.cameras += src
 	if(networks)
 		network = networks
@@ -56,6 +60,13 @@
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
+	for(var/obj/I in assembly.upgrades)
+		if(I.type == /obj/item/assembly/prox_sensor)
+			upgradeMotion()
+		if(I.type == /obj/item/stack/sheet/mineral/plasma)
+			upgradeEmpProof()
+		if(I.type == /obj/item/analyzer)
+			upgradeXRay()
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A

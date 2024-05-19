@@ -23,26 +23,6 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
-/obj/item/camera_assembly/proc/isMotion(list/upgrades_list)
-	for(var/obj/item/assembly/prox_sensor/I in upgrades)
-		return TRUE
-	return FALSE
-
-/obj/item/camera_assembly/proc/isEmpProof(list/upgrades_list)
-	for(var/obj/item/stack/sheet/mineral/plasma/I in upgrades_list)
-		return TRUE
-	return FALSE
-
-/obj/item/camera_assembly/proc/isXRay(list/upgrades_list)
-	for(var/obj/item/analyzer/I in upgrades_list)
-		return TRUE
-	return FALSE
-
-/obj/item/camera_assembly/proc/isAll(list/upgrades_list)
-	if(isMotion(upgrades_list) && isXRay(upgrades_list) && isEmpProof(upgrades_list))
-		return TRUE
-	return FALSE
-
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
@@ -101,20 +81,8 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = null
-	if(isAll(upgrades)) //Check to create the right camera
-		C = new /obj/machinery/camera/all(loc, uniquelist(tempnetwork))
-	else if(isMotion(upgrades))
-		C = new /obj/machinery/camera/motion(loc, uniquelist(tempnetwork))
-	else if(isXRay(upgrades))
-		C = new /obj/machinery/camera/xray(loc, uniquelist(tempnetwork))
-	else if(isEmpProof(upgrades))
-		C = new /obj/machinery/camera/emp_proof(loc, uniquelist(tempnetwork))
-	else
-		C = new /obj/machinery/camera(loc, uniquelist(tempnetwork))
+	var/obj/machinery/camera/C = new /obj/machinery/camera(loc, uniquelist(tempnetwork),,src)
 	loc = C
-	C.assembly = src
-
 	C.auto_turn()
 	C.c_tag = input
 

@@ -3,35 +3,36 @@
 // EMP
 
 /obj/machinery/camera/emp_proof/Initialize(mapload)
-	. = ..()
-	upgradeEmpProof()
-
+	var/list/upgrades = list()
+	upgrades.Add(new /obj/item/stack/sheet/mineral/plasma)
+	. = ..(mapload,,upgrades)
 // X-RAY
 
 /obj/machinery/camera/xray
-	icon_state = "xraycam" // Thanks to Krutchen for the icons.
 
 /obj/machinery/camera/xray/Initialize(mapload)
-	. = ..()
-	upgradeXRay()
+	var/list/upgrades = list()
+	upgrades.Add(new /obj/item/analyzer)
+	. = ..(mapload,,upgrades)
 
 // MOTION
 /obj/machinery/camera/motion
 	name = "motion-sensitive security camera"
 
 /obj/machinery/camera/motion/Initialize(mapload)
-	. = ..()
-	upgradeMotion()
-
+	var/list/upgrades = list()
+	upgrades.Add(new /obj/item/assembly/prox_sensor)
+	. = ..(mapload,,upgrades)
 // ALL UPGRADES
 /obj/machinery/camera/all
-	icon_state = "xraycam" //mapping icon.
+
 
 /obj/machinery/camera/all/Initialize(mapload)
-	. = ..()
-	upgradeMotion()
-	upgradeEmpProof()
-	upgradeXRay()
+	var/list/upgrades = list()
+	upgrades.Add(new /obj/item/analyzer)
+	upgrades.Add(new /obj/item/assembly/prox_sensor)
+	upgrades.Add(new /obj/item/stack/sheet/mineral/plasma)
+	. = ..(mapload,,upgrades)
 
 // AUTONAME
 
@@ -72,22 +73,18 @@
 // UPGRADE PROCS
 
 /obj/machinery/camera/proc/upgradeEmpProof()
-	assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(assembly))
 	setPowerUsage()
 
 /obj/machinery/camera/proc/upgradeXRay()
-	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
+	icon_state = "xraycam"
 	setPowerUsage()
 	//Update what it can see.
 	GLOB.cameranet.updateVisibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
-	if(isMotion())
-		return
 	if(name == initial(name))
 		name = "motion-sensitive security camera"
-	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, src)
