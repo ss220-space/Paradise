@@ -131,16 +131,7 @@
 
 	reg_in_areas_in_z()
 
-	if(mapload) //ai_motion_camera
-		for(var/obj/machinery/camera/M in src)
-			if(M.isMotion())
-				AddMotionCameraInList(M)
-
 	return INITIALIZE_HINT_LATELOAD
-/area/proc/AddMotionCameraInList(var/obj/machinery/camera/motion/M)
-	motioncameras.Add(M)
-	M.AddComponent(/datum/component/proximity_monitor)
-	M.set_area_motion(src)
 
 /area/LateInitialize()
 	. = ..()
@@ -582,8 +573,7 @@
 		return
 
 	if(ismob(departed) && length(motioncameras)) //ai motion camera alarm deactivate
-		for(var/X in motioncameras)
-			var/obj/machinery/camera/cam = X
+		for(var/obj/machinery/camera/cam as anything in motioncameras)
 			cam.lostTargetRef(departed.UID())
 
 
@@ -594,6 +584,10 @@
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
 
+/area/proc/AddMotionCameraInList(var/obj/machinery/camera/M)
+	LAZYADD(motioncameras, M)
+	M.AddComponent(/datum/component/proximity_monitor)
+	M.set_area_motion(src)
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)

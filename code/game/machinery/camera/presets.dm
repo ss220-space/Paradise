@@ -25,13 +25,13 @@
 
 // ALL UPGRADES
 /obj/machinery/camera/all
-	icon_state = "xraycamera" //mapping icon.
+	icon_state = "xraycam" //mapping icon.
 
 /obj/machinery/camera/all/Initialize(mapload)
 	. = ..()
+	upgradeMotion()
 	upgradeEmpProof()
 	upgradeXRay()
-	upgradeMotion()
 
 // AUTONAME
 
@@ -91,6 +91,7 @@
 	setPowerUsage()
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, src)
+	src.myArea.AddMotionCameraInList(src)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

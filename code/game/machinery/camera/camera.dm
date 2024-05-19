@@ -71,7 +71,7 @@
 		LAZYREMOVE(myArea.cameras, UID())
 	var/area/A = get_area(src)
 	if(istype(A))
-		A.motioncameras -= src
+		LAZYREMOVE(A.motioncameras, src) //Removing the camera from the list of cameras that can respond to movement.
 	area_motion = null
 	cancelCameraAlarm()
 	cancelAlarm()
