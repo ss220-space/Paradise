@@ -574,10 +574,6 @@
 	return TRUE
 
 
-/mob
-	var/can_unEquip_message_delay = 0
-
-
 /**
  * General checks for do_unEquip proc: TRAIT_NODROP, obscurity and component blocking possibility.
  * Set 'silent' to `FALSE` if you want to get warning messages.
@@ -590,15 +586,13 @@
 
 	// TRAIT_NODROP
 	if(!force && HAS_TRAIT(I, TRAIT_NODROP))
-		if(!silent && !(I.item_flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS))
-			can_unEquip_message_delay = world.time
+		if(!silent && !(I.item_flags & ABSTRACT) && !isrobot(src))
 			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I.name]."))
 		return FALSE
 
 	// Checking clothing obscuration
 	if(!force && (get_slot_by_item(I) & check_obscured_slots()))
-		if(!silent && (world.time > can_unEquip_message_delay + 0.3 SECONDS))
-			can_unEquip_message_delay = world.time
+		if(!silent)
 			to_chat(src, span_warning("Вы не можете снять [I.name], слот закрыт другой одеждой."))
 		return FALSE
 
