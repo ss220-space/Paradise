@@ -255,7 +255,7 @@
 
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
+	return dna.species.can_equip(I, slot, src, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
 
 /**
@@ -396,27 +396,6 @@
 			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 	return I.equipped(src, slot, initial)
-
-
-/**
- * Check for slot obscuration by suit or headgear
- */
-/mob/living/carbon/human/proc/has_obscured_slot(slot)
-	switch(slot)
-		if(ITEM_SLOT_CLOTH_INNER)
-			return wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT)
-		if(ITEM_SLOT_GLOVES)
-			return wear_suit && (wear_suit.flags_inv & HIDEGLOVES)
-		if(ITEM_SLOT_FEET)
-			return wear_suit && (wear_suit.flags_inv & HIDESHOES)
-		if(ITEM_SLOT_MASK)
-			return head && (head.flags_inv & HIDEMASK)
-		if(ITEM_SLOT_EYES)
-			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
-		if(ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_EARS)
-			return head && (head.flags_inv & HIDEHEADSETS) || wear_mask && (wear_mask.flags_inv & HIDEHEADSETS)
-		else
-			return FALSE
 
 
 /**

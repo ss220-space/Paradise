@@ -472,11 +472,11 @@
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	var/image/object_overlay
 
-/atom/movable/screen/inventory/MouseEntered()
+/atom/movable/screen/inventory/MouseEntered(location, control, params)
 	..()
 	add_overlays()
 
-/atom/movable/screen/inventory/MouseExited()
+/atom/movable/screen/inventory/MouseExited(location, control, params)
 	..()
 	cut_overlay(object_overlay)
 	QDEL_NULL(object_overlay)
@@ -495,13 +495,12 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = FALSE, bypass_incapacitated = TRUE))
-		item_overlay.color = "#ff0000"
+	if(holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_incapacitated = TRUE))
+		item_overlay.color = COLOR_GREEN
 	else
-		item_overlay.color = "#00ff00"
+		item_overlay.color = COLOR_RED
 
 	cut_overlay(object_overlay)
-	QDEL_NULL(object_overlay)
 	object_overlay = item_overlay
 	add_overlay(object_overlay)
 
