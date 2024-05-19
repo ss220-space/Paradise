@@ -443,14 +443,9 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.l_ear == src || H.r_ear == src)
-				if(H.head != null)
-					if(H.head.flags_inv & HIDEHEADSETS)
-						to_chat(user, "<span class='cultitalic'>Your helmet prevents you from doing this!</span>")
-						return
-				if(H.wear_mask != null)
-					if(H.wear_mask.flags_inv & HIDEHEADSETS)
-						to_chat(user, "<span class='cultitalic'>Your mask prevents you from doing this!</span>")
-						return
+				if(H.check_obscured_slots())
+					to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+					return
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
@@ -471,14 +466,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_ear == src || H.r_ear == src)
-			if(H.head != null)
-				if(H.head.flags_inv & HIDEHEADSETS)
-					to_chat(user, "<span class='cultitalic'>Your helmet prevents you from doing this!</span>")
-					return
-			if(H.wear_mask != null)
-				if(H.wear_mask.flags_inv & HIDEHEADSETS)
-					to_chat(user, "<span class='cultitalic'>Your mask prevents you from doing this!</span>")
-					return
+			if(H.check_obscured_slots())
+				to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+				return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	user.set_machine(src)
