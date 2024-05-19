@@ -495,7 +495,7 @@
 		return ITEM_SLOT_POCKET_RIGHT
 	if(item == s_store)
 		return ITEM_SLOT_SUITSTORE
-	return null
+	return NONE
 
 
 /mob/living/carbon/human/get_all_slots()
