@@ -360,7 +360,6 @@
 			|| (!(timed_action_flags & IGNORE_CONSCIOUSNESS) && user.stat) \
 			|| (!(timed_action_flags & IGNORE_STUNNED) && user.IsStunned()) \
 			|| (!(timed_action_flags & IGNORE_WEAKENED) && user.IsWeakened()) \
-			|| (!(timed_action_flags & IGNORE_PARALYZED) && user.IsParalyzed()) \
 			|| (!(timed_action_flags & IGNORE_LYING) && user.IsLying()) \
 			|| (!(timed_action_flags & IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
 			|| (gripper_check && gripper?.isEmpty()) \
