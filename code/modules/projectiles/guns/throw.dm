@@ -47,14 +47,14 @@
 		if(get_ammocount() < max_capacity)
 			user.drop_transfer_item_to_loc(I, src)
 			loaded_projectiles += I
-			balloon_alert(user, "loaded [I]")
+			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 			if(!to_launch)
 				process_chamber()
 			to_chat(user, notify_ammo_count())
 		else
-			balloon_alert(user, "cannot hold any more projectiles")
+			to_chat(user, "<span class='warning'>[src] cannot hold any more projectiles.</span>")
 	else
-		balloon_alert(user, "cannot load [I]")
+		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
 
 /obj/item/gun/throw/process_chamber()
 	if(!to_launch && loaded_projectiles.len)

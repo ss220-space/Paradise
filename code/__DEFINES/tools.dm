@@ -50,15 +50,15 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 //Welder messages and other stuff
 #define HEALPERWELD 15
 #define WELDER_ATTEMPT_WELD_MESSAGE			user.visible_message("<span class='notice'>[user] begins welding [src]...</span>", "<span class='notice'>You begin welding [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_WELD_SUCCESS_MESSAGE			user.balloon_alert(user, "finished welding [src]!")
+#define WELDER_WELD_SUCCESS_MESSAGE			to_chat(user, "<span class='notice'>You finish welding [src]!</span>")
 #define WELDER_ATTEMPT_REPAIR_MESSAGE		user.visible_message("<span class='notice'>[user] begins repairing the damage on [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_REPAIR_SUCCESS_MESSAGE		user.balloon_alert(user, "repaired the damage on [src]!")
+#define WELDER_REPAIR_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You repair the damage on [src]!</span>")
 #define WELDER_ATTEMPT_SLICING_MESSAGE		user.visible_message("<span class='notice'>[user] begins slicing through [src]...</span>", "<span class='notice'>You begin slicing through [src]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_SLICING_SUCCESS_MESSAGE		user.balloon_alert(user, "sliced clean through [src]!")
+#define WELDER_SLICING_SUCCESS_MESSAGE		to_chat(user, "<span class='notice'>You slice clean through [src]!</span>")
 #define WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE	user.visible_message("<span class='notice'>[user] begins slicing [src] free from [get_turf(src)]...</span>", "<span class='notice'>You begin slicing [src] free from [get_turf(src)]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE	user.balloon_alert(user, "sliced [src] clear of [get_turf(src)]!")
+#define WELDER_FLOOR_SLICE_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You slice [src] clear of [get_turf(src)]!</span>")
 #define WELDER_ATTEMPT_FLOOR_WELD_MESSAGE	user.visible_message("<span class='notice'>[user] begins welding [src] to [get_turf(src)]...</span>", "<span class='notice'>You begin welding [src] to [get_turf(src)]...</span>", "<span class='warning'>You hear welding.</span>")
-#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	user.balloon_alert(user, "welded [src] to [get_turf(src)]!")
+#define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You weld [src] to [get_turf(src)]!</span>")
 
 //Wrench messages
 #define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")

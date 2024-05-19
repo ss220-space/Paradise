@@ -54,7 +54,7 @@
 	if(num_unloaded)
 		balloon_alert(user, "unloaded [num_unloaded] shell\s")
 	else
-		balloon_alert(user, "it's empty")
+		balloon_alert(user, "оно пустое!")
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -258,7 +258,7 @@
 		if(num_unloaded)
 			balloon_alert(user, "unloaded [num_unloaded] shell\s")
 		else
-			balloon_alert(user, "it's empty")
+			balloon_alert(user, "оно пустое!")
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -271,12 +271,12 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			balloon_alert(user, "can't shoot anything but yourself!")
+			balloon_alert(user, "из этого можно стрелять только по себе!")
 		return
 
 	if(ishuman(user))
 		if(!spun)
-			balloon_alert(user, "spin chamber!")
+			balloon_alert(user, "прокрутите барабан!")
 			return
 
 		spun = FALSE
@@ -369,11 +369,11 @@
 		if("Barrel")
 			if(!do_after(user, 8 SECONDS, src, NONE))
 				return
-			balloon_alert(user, "unscrewed [barrel]")
+			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
 			user.put_in_hands(barrel)
 			barrel = null
 		if("Magazine")
-			balloon_alert(user, "unscrewed [magazine]")
+			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
 			user.put_in_hands(magazine)
 			magazine = null
 			verbs -= /obj/item/gun/projectile/revolver/verb/spin
@@ -390,9 +390,9 @@
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 	if(!magazine || !barrel)
-		balloon_alert(user, "Attach cylinder and barrel first")
+		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
 	else
-		balloon_alert(user, "you [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine]"]")
+		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
 		unscrewed = !unscrewed
 		update_icon(UPDATE_OVERLAYS)
 
@@ -400,7 +400,7 @@
 	if(unscrewed)
 		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
 			if(magazine)
-				balloon_alert(user, "there is already [magazine]")
+				to_chat(user, span_notice("[src] already have [magazine]."))
 			else if(user.drop_transfer_item_to_loc(A, src))
 				magazine = A
 				verbs += /obj/item/gun/projectile/revolver/verb/spin
@@ -408,7 +408,7 @@
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
-				balloon_alert(user, "there is already [barrel]")
+				to_chat(user, span_notice("[src] already have [barrel]."))
 			else if(do_after(user, 8 SECONDS, src, NONE))
 
 				if(user.drop_transfer_item_to_loc(A, src))
@@ -482,7 +482,7 @@
 	if(num_unloaded)
 		balloon_alert(user, "unloaded [num_unloaded] shell\s")
 	else
-		balloon_alert(user, "it's empty")
+		balloon_alert(user, "оно пустое!")
 
 // IMPROVISED SHOTGUN //
 
@@ -506,11 +506,11 @@
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			balloon_alert(user, "made a sling!")
+			balloon_alert(user, "вы сделали самодельный ремень!")
 			slung = TRUE
 			update_icon()
 		else
-			balloon_alert(user, "need more cable lenght!")
+			balloon_alert(user, "недостаточная длина кабеля!")
 			return
 	else
 		return ..()

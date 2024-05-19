@@ -114,7 +114,7 @@
 				reload(AM, user)
 				return TRUE
 		else
-			balloon_alert(user, "[AM.name] doesn't fit!")
+			balloon_alert(user, "магазин не подходит!")
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -122,7 +122,7 @@
 			if(!suppressed)
 				if(!user.drop_transfer_item_to_loc(A, src))
 					return
-				balloon_alert(user, "[S] attached!")
+				balloon_alert(user, "глушитель установлен!")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -132,10 +132,10 @@
 				update_icon()
 				return
 			else
-				balloon_alert(user, "already has a supressor!")
+				balloon_alert(user, "уже есть глушитель!")
 				return
 		else
-			balloon_alert(user, "[S] doesn't fit!")
+			balloon_alert(user, "глушитель не подходит!")
 			return
 	else
 		return ..()
@@ -148,7 +148,7 @@
 				..()
 				return
 
-			balloon_alert(user, "[suppressed] removed")
+			balloon_alert(user, "глушитель снят!")
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -209,10 +209,10 @@
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		balloon_alert(user, "already shortened!")
+		balloon_alert(user, "уже укорочено!")
 		return
 	if(bayonet)
-		balloon_alert(user, "[bayonet] must be removed!")
+		balloon_alert(user, "снимите навесы с оружия!")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))

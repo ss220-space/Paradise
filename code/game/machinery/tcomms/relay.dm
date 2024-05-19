@@ -187,7 +187,7 @@
 		if("network_id")
 			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			balloon_alert(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
+			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
 			network_id = new_id
 
 		// Only do these hrefs if we are linked to prevent bugs/exploits

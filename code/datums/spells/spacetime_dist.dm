@@ -50,7 +50,7 @@
 	. = ..()
 	var/list/turf/to_switcharoo = targets
 	if(!length(to_switcharoo))
-		user.balloon_alert(user, "нити не любят, когда их путают.")
+		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
 		return
 
 	ready = FALSE

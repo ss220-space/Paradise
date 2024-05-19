@@ -100,10 +100,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		balloon_alert(user, "Already shortened!")
+		balloon_alert(user, "уже укорочена!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		balloon_alert(user, "Remove gun from the bag!")
+		balloon_alert(user, "вытащите оружие из рюкзака!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -143,10 +143,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
-		balloon_alert(user, "It's not shortened!")
+		balloon_alert(user, "оно не укорочено!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		balloon_alert(user, "Remove gun from the bag!")
+		balloon_alert(user, "вытащите оружие из рюкзака!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -240,7 +240,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/A, mob/user, params)
 	if(!bolt_open)
-		balloon_alert(user, "The bolt is closed")
+		balloon_alert(user, "затвор закрыт!")
 		return
 	. = ..()
 
@@ -349,9 +349,9 @@
 	alternate_magazine = current_mag
 	toggled = !toggled
 	if(toggled)
-		balloon_alert(user, "switched to tube B")
+		balloon_alert(user, "переключено на трубу А")
 	else
-		balloon_alert(user, "Switched to tube A")
+		balloon_alert(user, "переключено на трубу B")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)

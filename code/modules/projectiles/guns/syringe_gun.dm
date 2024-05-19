@@ -45,7 +45,7 @@
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		balloon_alert(user, "it's empty")
+		balloon_alert(user, "оно пустое!")
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -60,7 +60,7 @@
 	user.put_in_hands(S)
 	syringes.Remove(S)
 	process_chamber()
-	balloon_alert(user, "unloaded [S]")
+	balloon_alert(user, "шприц вытащен!")
 	return TRUE
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
@@ -69,12 +69,12 @@
 		if(in_clip < max_syringes)
 			if(!user.drop_transfer_item_to_loc(A, src))
 				return
-			balloon_alert(user, "loaded [A]")
+			balloon_alert(user, "шприц заряжен!")
 			syringes.Add(A)
 			process_chamber() // Chamber the syringe if none is already
 			return TRUE
 		else
-			balloon_alert(user, "can't hold more syringes!")
+			balloon_alert(user, "внутри нет места!")
 	else
 		return ..()
 

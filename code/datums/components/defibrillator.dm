@@ -90,7 +90,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		user.balloon_alert(user, "протоколы безопасности [safety ? "выключены" : "включены"].")
+		user.balloon_alert(user, "протоколы безопасности [safety ? "де" : ""]активированы!")
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE

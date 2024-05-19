@@ -117,7 +117,7 @@
 #define CHAT_LAYER_MAX 12.9999
 
 /// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 14.5
+#define BALLOON_CHAT_PLANE 14
 
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15

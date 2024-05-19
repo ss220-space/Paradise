@@ -55,9 +55,9 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			user.balloon_alert(user, "installed a [diode.name] in [src].")
+			user.balloon_alert(user, "вы вставили диод внутрь")
 		else
-			user.balloon_alert(user, "[src] already has a cell")
+			user.balloon_alert(user, "уже есть диод!")
 		return
 
 	return ..()
@@ -65,7 +65,7 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(diode)
-		user.balloon_alert(user, "removed [diode.name] from the [src].")
+		user.balloon_alert(user, "вы вытащили диод из устройства")
 		diode.forceMove(get_turf(loc))
 		diode = null
 
@@ -157,7 +157,7 @@
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		user.balloon_alert(user, "pointed at [target].")
+		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
 
 	energy -= 1
 	if(energy <= max_energy)

@@ -235,7 +235,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(!isnull(user) && shot.select_name)
-		balloon_alert(user, "switched to [shot.select_name]")
+		balloon_alert(user, "switched to [shot.select_name]") //no need for translation here
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)

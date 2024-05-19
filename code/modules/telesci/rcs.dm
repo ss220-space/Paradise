@@ -50,7 +50,7 @@
   */
 /obj/item/rcs/attack_self(mob/user)
 	if(teleporting)
-		user.balloon_alert(user, "Error: [name] is in use.")
+		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
 		return
 
 	var/list/L = list() // List of avaliable telepads
@@ -106,28 +106,28 @@
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
 		if(user)
-			user.balloon_alert(user, "Warning: Safeties disabled.")
+			user.balloon_alert(user, "протокол безопасности отключен!")
 		return
 
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
-		user.balloon_alert(user, "You're already using [src]!")
+		user.balloon_alert(user, "уже используется!")
 		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		C.balloon_alert(user, "Error: User located in container.")
+		C.balloon_alert(user, "вы находитесь внутри контейнера!")
 		return FALSE
 	if(rcell.charge < chargecost)
-		user.balloon_alert(user, "Insufficient charge.")
+		user.balloon_alert(user, "мало заряда!")
 		return FALSE
 	if(!pad)
-		user.balloon_alert(user, "Error: No telepad selected.")
+		user.balloon_alert(user, "телепад не выбран!")
 		return FALSE
 	if(!is_level_reachable(C.z))
-		user.balloon_alert(user, "Warning: No telepads in range!")
+		user.balloon_alert(user, "нет телепадов в радиусе действия!")
 		return FALSE
 	if(C.anchored)
-		user.balloon_alert(user, "Error: [C.name] is anchored!")
+		user.balloon_alert(user, "данный предмет прикреплен к полу!")
 		return FALSE
 
 	teleport(user, C, pad)
@@ -135,7 +135,7 @@
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	user.balloon_alert(user, "Teleporting [C]...")
+	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), C))
@@ -146,4 +146,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	user.balloon_alert(user, "success! [round(rcell.charge/chargecost)] charge\s left.")
+	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")

@@ -167,22 +167,22 @@
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "already charged!")
+			balloon_alert(user, "уже заряжено!")
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
 		cell.give(1000)
 		on_recharge()
-		balloon_alert(user, "[A] inserted")
+		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "already charged!")
+			balloon_alert(user, "уже заряжено!")
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
 		cell.give(500)
 		on_recharge()
-		balloon_alert(user, "[A] inserted")
+		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
 		return ..()
 
@@ -383,12 +383,12 @@
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			balloon_alert(user, "[O] already installed!")
+			balloon_alert(user, "БС кристалл уже вставлен!")
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
 			return
-		balloon_alert(user, "inserted [O]")
+		balloon_alert(user, "вы вставили БС кристалл!")
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -396,9 +396,9 @@
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(has_core)
-			balloon_alert(user, "[O] already installed!")
+			balloon_alert(user, "ядро аномалии уже вставлено!")
 			return
-		balloon_alert(user, "inserted [O]")
+		balloon_alert(user, "вы вставили ядро аномалии!")
 		has_core = TRUE
 		qdel(O)
 		update_icon(UPDATE_ICON_STATE)

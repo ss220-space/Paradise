@@ -49,7 +49,7 @@
 		balloon_alert(user, "уже используется!")
 		return
 	if(!anchored)
-		balloon_alert(user, "игровая доска не закреплена!")
+		balloon_alert(user, "не закреплено!")
 		return
 	interact(user)
 

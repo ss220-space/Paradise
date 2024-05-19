@@ -54,7 +54,7 @@
 	if(ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
-		user.balloon_alert(user, "[src] is now [armed ? "armed" : "disarmed"]")
+		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.

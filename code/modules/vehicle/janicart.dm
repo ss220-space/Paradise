@@ -48,12 +48,12 @@
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(trash_bag)
-			balloon_alert(user, "[src] already has a trashbag hooked!")
+			balloon_alert(user, "уже есть мусорный мешок!")
 			return
 		if(!user.drop_from_active_hand())
 			return
 		I.forceMove(src)
-		balloon_alert(user, "hooked the trashbag onto [src].")
+		balloon_alert(user, "мешок прикреплен!")
 		trash_bag = I
 		update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/janiupgrade))
@@ -62,7 +62,7 @@
 			return
 		floorbuffer = TRUE
 		qdel(I)
-		balloon_alert(user,"<span class='notice'>upgraded [src] with [I].</span>")
+		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
 	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
 		trash_bag.attackby(I, user)

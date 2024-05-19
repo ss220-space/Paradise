@@ -52,5 +52,5 @@
 			return
 
 		hrp_tumor.last_pump = world.time
-		owner.balloon_alert(owner, "вы дышите.")
+		owner.balloon_alert(owner, "вы дышите!")
 		owner.custom_emote(EMOTE_VISIBLE, "дыш%(ит,ат)%.")

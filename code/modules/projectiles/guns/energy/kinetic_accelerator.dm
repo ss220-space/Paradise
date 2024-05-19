@@ -398,7 +398,7 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			balloon_alert(user, "modkit installed")
+			balloon_alert(user, "модификация установлена!")
 			playsound(loc, usesound, 100, TRUE)
 			user.drop_transfer_item_to_loc(src, KA)
 			LAZYADD(KA.modkits, src)
