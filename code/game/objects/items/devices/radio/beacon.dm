@@ -179,7 +179,7 @@
 								/obj/item/clothing/mask/gas/clown_hat = 1,									// 0 TK
 								/obj/item/thermal_drill/diamond_drill/syndicate = 1,						// 5 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-			"Implanter" = list(	"Name" = "\improper 'Bio-chip' bundle",	// 140-152 TK
+			"Bio-сhip" = list(	"Name" = "\improper 'Bio-chip' bundle",	// 140-152 TK
 								"Desc" = "A few useful bio-chips to give you some options for when you inevitably get captured by the Security.",
 								/obj/item/implanter/stealth = 1,											// 40 TK
 								/obj/item/implanter/freedom = 1,											// 20 TK
@@ -204,7 +204,7 @@
 								/obj/item/storage/belt/military/traitor/hacker = 1,							// 10 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/flashlight/emp = 1),												// 20 TK
-			"Dark Lord" = list(	"Name" = "\improper 'Darklord' bundle",	// 100-122 TK
+			"Darklord" = list(	"Name" = "\improper 'Darklord' bundle",	// 100-122 TK
 								"Desc" = "Turn your anger into hate and your hate into suffering with a mix of energy swords and magical powers. DO IT.",
 /*								/obj/item/t_scanner = 1,
 								/obj/item/clothing/gloves/color/yellow/power = 1, */	// Plan B fot 'coming soon' Martial Art.
