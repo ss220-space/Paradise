@@ -589,17 +589,17 @@
 		return TRUE
 
 	// TRAIT_NODROP
-	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
-		if(!(I.item_flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
+	if(!force && HAS_TRAIT(I, TRAIT_NODROP))
+		if(!silent && !(I.item_flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS))
 			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I.name]."))
 		return FALSE
 
 	// Checking clothing obscuration
-	if(I.is_obscured_for_unEquip(src) && !force)
-		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
+	if(!force && (get_slot_by_item(I) & check_obscured_slots()))
+		if(!silent && (world.time > can_unEquip_message_delay + 0.3 SECONDS))
 			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
+			to_chat(src, span_warning("Вы не можете снять [I.name], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking
@@ -607,6 +607,14 @@
 		return FALSE
 
 	return TRUE
+
+
+/**
+ * Collects all the bitflags from the obscured slots.
+ * Works only for humans and checks only suits, headgear and masks currently.
+ */
+/mob/proc/check_obscured_slots()
+	. = NONE
 
 
 /**
