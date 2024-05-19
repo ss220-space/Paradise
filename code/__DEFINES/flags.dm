@@ -208,17 +208,15 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define IGNORE_LYING (1<<4)
 /// Can do the action even if the user is restrained.
 #define IGNORE_RESTRAINED (1<<5)
-/// Can do the action even if the user is paralyzed.
-#define IGNORE_PARALYZED (1<<6)
 /// Can do the action even if the user is stunned.
-#define IGNORE_STUNNED (1<<7)
+#define IGNORE_STUNNED (1<<6)
 /// Can do the action even if the user is weakened.
-#define IGNORE_WEAKENED (1<<8)
+#define IGNORE_WEAKENED (1<<7)
 /// Can do the action even if the item is no longer being held.
-#define IGNORE_HELD_ITEM (1<<9)
+#define IGNORE_HELD_ITEM (1<<8)
 /// If actively held item is cyborg gripper we will not check whether its empty during the process.
-#define IGNORE_EMPTY_GRIPPER (1<<10)
+#define IGNORE_EMPTY_GRIPPER (1<<9)
 
 /// All ignore flags considered as default old do_after behavior.
-#define DEFAULT_DOAFTER_IGNORE (IGNORE_LYING|IGNORE_PARALYZED|IGNORE_RESTRAINED)
+#define DEFAULT_DOAFTER_IGNORE (IGNORE_LYING|IGNORE_RESTRAINED)
 
