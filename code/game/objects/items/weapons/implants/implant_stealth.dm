@@ -71,7 +71,7 @@
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
 	box.create_fake_box()
 	owner.forceMove(box)
-	RegisterSignal(box, COMSIG_PARENT_QDELETING, PROC_REF(start_cooldown))
+	RegisterSignal(box, COMSIG_QDELETING, PROC_REF(start_cooldown))
 
 
 /datum/action/item_action/agent_box/proc/start_cooldown(datum/source)

@@ -65,7 +65,7 @@
 	return TRUE
 
 
-/datum/antagonist/ninja/Destroy(force, ...)
+/datum/antagonist/ninja/Destroy(force)
 	owner.offstation_role = FALSE
 	human_ninja = null
 	creeping_widow = null

@@ -580,14 +580,14 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	if(!all_persistent)
 		return
-	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
 	if(!islist(all_persistent))
 		all_persistent = list(all_persistent)
 	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
 		if(existing.dupe_id == id)
-			existing.remove_persistent_overlay()
+			qdel(existing)
 
 
 /atom/Topic(href, href_list)

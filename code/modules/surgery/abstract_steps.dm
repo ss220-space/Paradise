@@ -62,7 +62,7 @@
 
 	..()
 
-/datum/surgery_step/proxy/Destroy(force, ...)
+/datum/surgery_step/proxy/Destroy(force)
 	QDEL_LIST(branches_init)
 	return ..()
 
