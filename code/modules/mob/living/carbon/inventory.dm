@@ -470,7 +470,7 @@
 		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
-	return null
+	return NONE
 
 
 /mob/living/carbon/get_all_slots()

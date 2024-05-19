@@ -561,22 +561,17 @@
 	if(!(slot_id & ITEM_SLOT_HANDS))
 		return FALSE
 
-	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
-
-		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
-			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
-								span_notice("Вы начинаете снимать [I.name]..."))
+	if(I.loc == user)
+		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
+			user.visible_message(
+				span_notice("[user] начинает снимать [I.name]..."),
+				span_notice("Вы начинаете снимать [I.name]..."),
+			)
 			if(!do_after(user, I.equip_delay_self, user, max_interact_count = 1, cancel_message = span_warning("Снятие [I.name] было прервано!")))
-				return FALSE
-
-			if((slot_id == ITEM_SLOT_HAND_LEFT && user.l_hand) || (slot_id == ITEM_SLOT_HAND_RIGHT && user.r_hand))
 				return FALSE
 
 		if(!user.drop_item_ground(I))
 			return FALSE
-
-	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
-		return FALSE
 
 	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(I, ignore_anim = FALSE)))
