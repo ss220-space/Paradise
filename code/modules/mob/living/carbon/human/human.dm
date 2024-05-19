@@ -1026,8 +1026,8 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/proc/check_obscured_slots()
-	. = NONE
+/mob/living/carbon/human/check_obscured_slots()
+	. = ..()
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
@@ -1061,7 +1061,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if((ITEM_SLOT_CLOTH_INNER & check_obscured_slots()) && skipface)
+	if(skipface && (ITEM_SLOT_CLOTH_INNER & check_obscured_slots()))
 		return PLURAL
 	return gender
 
