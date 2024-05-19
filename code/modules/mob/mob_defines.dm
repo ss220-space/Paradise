@@ -2,7 +2,7 @@
 	density = TRUE
 	layer = MOB_LAYER
 	glide_size = 1.5
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
