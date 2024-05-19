@@ -61,7 +61,7 @@
 	if(!istype(I))
 		return FALSE
 
-	if(I.equip_delay_self)
+	if(I.equip_delay_self > 0)
 		if(!silent)
 			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
@@ -675,7 +675,7 @@
 		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
 		return ITEM_SLOT_HAND_RIGHT
-	return null
+	return NONE
 
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage

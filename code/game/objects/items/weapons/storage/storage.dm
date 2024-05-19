@@ -321,11 +321,10 @@
 		return FALSE
 
 	if(usr)
-		var/turf/item = get(W, /turf)
-		var/turf/storage = get(src, /turf)
-		if(!item || !storage)
-			return FALSE
-		if(get_dist(item, storage) > 1)
+		var/turf/item_turf = get_turf(W)
+		var/turf/storage_turf = get_turf(src)
+		// Its ok to move items to/from nullspace, since its not a player action
+		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
 			if(!stop_messages)
 				to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
 			return FALSE
@@ -382,10 +381,15 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
-		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
-							span_notice("Вы начинаете снимать [W.name]..."))
+	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(
+			span_notice("[usr] начинает снимать [W.name]..."),
+			span_notice("Вы начинаете снимать [W.name]..."),
+		)
 		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
+			return FALSE
+
+		if(!usr.drop_item_ground(W))
 			return FALSE
 
 	return TRUE
