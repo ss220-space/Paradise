@@ -35,3 +35,21 @@
 /obj/structure/pianoclassic/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
+
+/obj/structure/ghostpiano
+	parent_type = /obj/structure/musician
+	name = "cursed piano"
+	desc = "<span class=warning'> You feel an evil presence watching you </span> "
+	icon = 'icons/obj/musician.dmi'
+	icon_state = "minipiano"
+	anchored = TRUE
+	density = TRUE
+	allowed_instrument_ids = "crgrand1"
+
+/obj/structure/ghostpiano/New()
+	..()
+	set_light(3, -3, "F6E9D6")
+	set_light(1, 5, "4A61D6")
+
+/obj/structure/ghostpiano/attack_ghost(mob/dead/observer/user)
+	ui_interact(user)
