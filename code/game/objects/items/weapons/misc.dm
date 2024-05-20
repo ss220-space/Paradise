@@ -153,18 +153,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "nunchuck"
 
-/obj/item/nunchuck/dropped()
-	..()
+/obj/item/nunchuck/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/nunchuck/update_icon()
+/obj/item/nunchuck/update_icon_state()
 	if(active)
 		icon_state = "nunchuck_active"
 	else
 		icon_state = "nunchuck"
-	..()
-
 
 /obj/item/nunchuck/attack_self(mob/user)
 	if(active)
@@ -178,24 +176,20 @@
 			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/nunchuck/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = FALSE)
-	if(active)
-		if(HAS_TRAIT(src, TRAIT_NODROP))
-			to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
-			user.adjustStaminaLoss(30)
-			return
-		user.temporarily_remove_item_from_inventory(src)
-		if(user.put_in_inactive_hand(src))
-			if(user.a_intent == INTENT_HARM)
-				target.apply_damage(10, BRUTE, def_zone)
-				target.adjustStaminaLoss(10)
-			else
-				target.adjustStaminaLoss(15)
-			user.changeNext_move(4)
-			active = TRUE // it set in dropped() to false every time. Not best way for sure
-			update_icon(UPDATE_ICON_STATE)
+	if(!active)
+		return ..()
+	if(!user.temporarily_remove_item_from_inventory(src) || !user.put_in_inactive_hand(src))
+		user.drop_item_ground(src)
+		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
+		user.adjustStaminaLoss(30)
+		return
+	else
+		if(user.a_intent == INTENT_HARM)
+			target.apply_damage(10, BRUTE, def_zone)
+			target.adjustStaminaLoss(10)
 		else
-			user.drop_item_ground(src)
-			to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
-			user.adjustStaminaLoss(30)
-			return
+			target.adjustStaminaLoss(15)
+		user.changeNext_move(4)
+		active = TRUE // it set in dropped() to false every time. Not best way for sure
+		update_icon(UPDATE_ICON_STATE)
 	..()
