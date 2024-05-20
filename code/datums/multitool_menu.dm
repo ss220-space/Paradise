@@ -161,7 +161,7 @@
 	Used to check if we still need to apply changes (returns true if we don't), e.g. after input() call.
 	*/
 	if(!multitool)
-		to_chat(user, span_warning("You are unable to reach [holder ? holder : "the thing"].))
+		to_chat(user, span_warning("You are unable to reach [holder ? holder : "the thing"]."))
 		return TRUE
 	return FALSE
 
