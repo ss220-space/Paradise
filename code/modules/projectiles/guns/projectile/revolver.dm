@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, TRUE)
 		if(num_loaded)
-			balloon_alert(user, "loaded [num_loaded] shell\s")
+			balloon_alert(user, "заряжено [num_loaded] [declension_ru(num_loaded, "патрон",  "патрона",  "патронов")]")
 			A.update_icon()
 			update_icon()
 			chamber_round(FALSE)
@@ -52,9 +52,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "unloaded [num_unloaded] shell\s")
+		balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
 	else
-		balloon_alert(user, "оно пустое!")
+		balloon_alert(user, "уже разряжено!")
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -256,9 +256,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			balloon_alert(user, "unloaded [num_unloaded] shell\s")
+			balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
 		else
-			balloon_alert(user, "оно пустое!")
+			balloon_alert(user, "уже разряжено!")
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -271,7 +271,7 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			balloon_alert(user, "из этого можно стрелять только по себе!")
+			balloon_alert(user, "не подходящая цель!")
 		return
 
 	if(ishuman(user))
@@ -480,9 +480,9 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "unloaded [num_unloaded] shell\s")
+		balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
 	else
-		balloon_alert(user, "оно пустое!")
+		balloon_alert(user, "уже разряжено!")
 
 // IMPROVISED SHOTGUN //
 
@@ -506,11 +506,11 @@
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			balloon_alert(user, "вы сделали самодельный ремень!")
+			balloon_alert(user, "присоединён самодельный ремень!")
 			slung = TRUE
 			update_icon()
 		else
-			balloon_alert(user, "недостаточная длина кабеля!")
+			balloon_alert(user, "нужно больше кабеля!")
 			return
 	else
 		return ..()

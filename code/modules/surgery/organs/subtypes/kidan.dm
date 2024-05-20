@@ -63,7 +63,7 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		owner.balloon_alert(owner, "не получится изменить свечение!")
+		owner.balloon_alert(owner, "не в текущем состоянии!")
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)

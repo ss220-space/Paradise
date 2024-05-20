@@ -21,7 +21,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, 1)
 		if(num_loaded)
-			balloon_alert(user, "loaded [num_loaded] shell\s")
+			balloon_alert(user, "заряжено [num_loaded] [declension_ru(num_loaded, "патрон",  "патрона",  "патронов")]")
 			A.update_icon()
 			update_icon()
 
@@ -100,10 +100,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		balloon_alert(user, "уже укорочена!")
+		balloon_alert(user, "уже укорочено!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		balloon_alert(user, "вытащите оружие из рюкзака!")
+		balloon_alert(user, "не подходящее место!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -143,10 +143,10 @@
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
-		balloon_alert(user, "оно не укорочено!")
+		balloon_alert(user, "операция провалилась!")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		balloon_alert(user, "вытащите оружие из рюкзака!")
+		balloon_alert(user, "не подходящее место!")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -349,9 +349,9 @@
 	alternate_magazine = current_mag
 	toggled = !toggled
 	if(toggled)
-		balloon_alert(user, "переключено на трубу А")
+		balloon_alert(user, "переключено на первый ствол")
 	else
-		balloon_alert(user, "переключено на трубу B")
+		balloon_alert(user, "переключено на второй ствол")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)

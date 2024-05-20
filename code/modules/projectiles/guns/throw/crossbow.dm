@@ -101,7 +101,7 @@
 	if(user.incapacitated())
 		return
 	if(!to_launch)
-		balloon_alert(user, "нет заряженного болта!")
+		balloon_alert(user, "отсутствует болт!")
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
@@ -121,22 +121,22 @@
 		return ..()
 
 	if(cell)
-		balloon_alert(user, "внутри уже есть батарейка!")
+		balloon_alert(user, "уже установлено!")
 		return
 
 	user.drop_transfer_item_to_loc(I, src)
 	cell = I
-	balloon_alert(user, "батарейка установлена")
+	balloon_alert(user, "установлено")
 	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
 	if(!cell)
-		balloon_alert(user, "внутри нет батарейки!")
+		balloon_alert(user, "батарейка отсутствует!")
 		return
 
 	cell.forceMove(get_turf(src))
-	balloon_alert(user, "батарейка удалена")
+	balloon_alert(user, "батарейка извлечена")
 	cell = null
 
 

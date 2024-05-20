@@ -18,7 +18,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
-	balloon_alert(user, "вы [cover_open ? "от" : "за"]крыли крышку")
+	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
@@ -30,7 +30,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
-		balloon_alert(user, "закройте крышку перед стрельбой!")
+		balloon_alert(user, "крышка не закрыта!")
 	else
 		..()
 		update_icon()
@@ -57,7 +57,7 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
-				balloon_alert(user, "сначала откройте крышку!")
+				balloon_alert(user, "крышка закрыта!")
 				return
 	return ..()
 
