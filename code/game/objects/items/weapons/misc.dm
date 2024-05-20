@@ -177,7 +177,7 @@
 			active = TRUE
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/nunchuck/attack(mob/living/target, mob/living/user, def_zone, FALSE)
+/obj/item/nunchuck/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = FALSE)
 	if(active)
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
@@ -199,5 +199,3 @@
 			user.adjustStaminaLoss(30)
 			return
 	..()
-
-
