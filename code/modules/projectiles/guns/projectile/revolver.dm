@@ -52,7 +52,7 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
 
@@ -256,7 +256,7 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
+			balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 		else
 			balloon_alert(user, "уже разряжено!")
 
@@ -480,7 +480,7 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
 
