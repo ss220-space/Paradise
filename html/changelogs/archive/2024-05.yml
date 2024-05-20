@@ -87,3 +87,20 @@
   - unknown: Ventcrawling Update (#4891)
   - unknown: Hands Blocked Trait (#4977)
   - bugfix: Allow Pickup Anсhored Items (#5034)
+'2024-05-12':
+  Zwei:
+  - bugfix: Transfer Amount Verb Fix (#5035)
+  - bugfix: Temporal Fixes (#5040)
+'2024-05-13':
+  MstrKabach:
+  - bugfix: Central Command shutters have "open" sprite (#5025)
+  NightDawnFox:
+  - refactor: (porting) new rust-g mapgen from TG (#4780)
+  ROPY28:
+  - add: Space Botany ruin (#4808)
+'2024-05-19':
+  mrWhiteFox365:
+  - tweak: RnD_Light_fix (#5061)
+'2024-05-20':
+  Den109G:
+  - bugfix: Atmos no longer divide by zero (#5072)
