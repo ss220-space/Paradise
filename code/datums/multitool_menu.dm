@@ -142,7 +142,7 @@
 		return
 	holder.add_fingerprint(user)
 	if(inoperable())
-		user.balloon_alert(user, "оно не работает!")
+		to_chat(user,  span_warning("You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable."))
 		return
 	src.multitool = multitool
 	src.multitool.menu.interact(user, src)
@@ -161,7 +161,7 @@
 	Used to check if we still need to apply changes (returns true if we don't), e.g. after input() call.
 	*/
 	if(!multitool)
-		user.balloon_alert(user, "до этого не дотянуться!")
+		to_chat(user, span_warning("You are unable to reach [holder ? holder : "the thing"].))
 		return TRUE
 	return FALSE
 
