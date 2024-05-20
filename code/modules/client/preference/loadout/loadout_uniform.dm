@@ -367,3 +367,22 @@
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
 
+/datum/gear/uniform/steampunkdress
+	display_name = "Victorian blue-white dress"
+	description = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
+	path = /obj/item/clothing/under/steampunkdress
+
+/datum/gear/uniform/dress50s
+	display_name = "Old Soviet dress"
+	description = "Платье в  горошек под манер старой моды, кажется такое носят женщины в СССП."
+	path = /obj/item/clothing/under/dress50s
+
+/datum/gear/uniform/galifepants
+	display_name = "Check breeches"
+	description = "Штаны широкого фасона в бёдрах."
+	path = /obj/item/clothing/under/pants/galifepants
+
+/datum/gear/uniform/sandpants
+	display_name = "Long sand pants"
+	description = "Штаны песочного оттенка с расширением на конце штанин."
+	path = /obj/item/clothing/under/pants/sandpants

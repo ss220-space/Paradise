@@ -589,3 +589,19 @@
 	can_cut_open = FALSE
 	icon_state = "commandos_boots"
 	item_state = "commandos_boots"
+
+/obj/item/clothing/shoes/leather_boots
+	name = "High leather boots"
+	desc = "Стройные сапоги сделанные из кожи."
+	icon_state = "leather_boots"
+	item_state = "leather_boots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
+		)

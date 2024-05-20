@@ -324,10 +324,51 @@
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
 
+/datum/sprite_accessory/undershirt/shirt_colorized/turtleneck
+	name = "Turtleneck"
+	icon_state = "turtleneck"
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
+/datum/sprite_accessory/undershirt/shirt_colorized/sweater
+	name = "Sweater"
+	icon_state = "sweater"
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
 /datum/sprite_accessory/undershirt/shirt_colorized/female
 	name = "Female Colorized Shirt"
 	icon_state = "female_shirt"
 	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/shirt_colorized/female/female_cuttedshirt
+	name = "Cutted shirt"
+	icon_state = "female_cuttedshirt"
+	gender = FEMALE
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
+/datum/sprite_accessory/undershirt/shirt_colorized/female/female_longslevshirt
+	name = "Long sleeve shirt"
+	icon_state = "female_longslevshirt"
+	gender = FEMALE
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
+	)
+
 //end plain color shirts
 
 //graphic shirts

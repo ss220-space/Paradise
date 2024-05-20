@@ -298,3 +298,18 @@
 	path = /obj/item/toy/plushie/beaver
 	donator_tier = 3
 	cost = 1
+
+/datum/gear/donor/hijab
+	donator_tier = 1
+	cost = 1
+	display_name = "hijab"
+	description = "Тёмное одеяние скрывающее тело и лицо."
+	path = /obj/item/clothing/suit/hooded/hijab
+
+/datum/gear/donor/steampunkdress
+	donator_tier = 1
+	cost = 1
+	display_name = "victorian blue-white dress"
+	description = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
+	path = /obj/item/clothing/under/steampunkdress
+

@@ -14,3 +14,8 @@
 /datum/gear/gloves/goldring
 	display_name = "Gold ring"
 	path = /obj/item/clothing/gloves/ring/gold
+
+/datum/gear/gloves/brown_short_gloves
+	display_name = "Short leather gloves"
+	description = "Короткие кожаные перчатки облегающие руки."
+	path = /obj/item/clothing/gloves/brown_short_gloves
