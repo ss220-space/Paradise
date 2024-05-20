@@ -547,7 +547,7 @@
 			if(old_bayonet.loc == src)
 				old_bayonet.forceMove(get_turf(src))
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
 
