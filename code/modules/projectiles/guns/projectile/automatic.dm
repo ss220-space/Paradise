@@ -68,7 +68,7 @@
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрон",  "патрона",  "патронов")]")
+		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
@@ -262,7 +262,7 @@
 			select = 1
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрон",  "патрона",  "патронов")]")
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 		if(1)
 			select = 0
 			balloon_alert(user, "подствольный гранатомёт")

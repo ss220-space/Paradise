@@ -21,7 +21,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, 1)
 		if(num_loaded)
-			balloon_alert(user, "заряжено [num_loaded] [declension_ru(num_loaded, "патрон",  "патрона",  "патронов")]")
+			balloon_alert(user, "[declension_ru(num_loaded, "заряжен [num_loaded] патрон",  "заряжено [num_loaded] патрона",  "заряжено [num_loaded] патронов")]")
 			A.update_icon()
 			update_icon()
 

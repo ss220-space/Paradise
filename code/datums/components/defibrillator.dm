@@ -138,7 +138,7 @@
 		return
 
 	if(on_cooldown)
-		user.balloon_alert(user, "дефибриллятор все ещё заряжается")
+		user.balloon_alert(user, "всё ещё заряжается!")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)

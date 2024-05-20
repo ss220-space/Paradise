@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
-			user.balloon_alert(user, "не хватает нужных уровней исследования!")
+			user.balloon_alert(user, "повысьте уровни технологий!")
 			return FALSE
 	return TRUE
 

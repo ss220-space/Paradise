@@ -71,7 +71,7 @@
 
 
 /obj/item/lipstick/attack_self(mob/user)
-	user.balloon_alert(user, "крышка  [src] [open ? "за" : "от"]кручена")
+	user.balloon_alert(user, "колпачок [open ? "надет" : "снят"]")
 	open = !open
 	update_icon()
 

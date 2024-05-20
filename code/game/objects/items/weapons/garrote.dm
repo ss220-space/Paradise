@@ -70,7 +70,7 @@
 		return
 
 	if(M.dir != U.dir)
-		user.balloon_alert(user, "нужно со спины!")
+		user.balloon_alert(user, "используйте сзади!")
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.

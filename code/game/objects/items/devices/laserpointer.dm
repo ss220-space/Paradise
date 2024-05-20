@@ -55,9 +55,9 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			user.balloon_alert(user, "вы вставили диод внутрь")
+			user.balloon_alert(user, "установлено")
 		else
-			user.balloon_alert(user, "уже есть диод!")
+			user.balloon_alert(user, "уже установлено!")
 		return
 
 	return ..()
@@ -65,7 +65,7 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(diode)
-		user.balloon_alert(user, "вы вытащили диод из устройства")
+		user.balloon_alert(user, "микролазер извлечён")
 		diode.forceMove(get_turf(loc))
 		diode = null
 
@@ -78,10 +78,10 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		user.balloon_alert(user, "ничего не происходит!")
+		user.balloon_alert(user, "не функционирует!")
 		return
 	if(!user.IsAdvancedToolUser())
-		user.balloon_alert(user, "вы слишком неуклюжий для этого!")
+		user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 	add_fingerprint(user)
 

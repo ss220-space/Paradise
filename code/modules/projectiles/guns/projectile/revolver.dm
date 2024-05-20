@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, TRUE)
 		if(num_loaded)
-			balloon_alert(user, "заряжено [num_loaded] [declension_ru(num_loaded, "патрон",  "патрона",  "патронов")]")
+			balloon_alert(user, "[declension_ru(num_loaded, "заряжен [num_loaded] патрон",  "заряжено [num_loaded] патрона",  "заряжено [num_loaded] патронов")]")
 			A.update_icon()
 			update_icon()
 			chamber_round(FALSE)
@@ -52,7 +52,7 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
+		balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
 
@@ -256,7 +256,7 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
+			balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
 		else
 			balloon_alert(user, "уже разряжено!")
 
@@ -480,7 +480,7 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		balloon_alert(user, "разряжено [num_unloaded] [declension_ru(num_unloaded, "патрон",  "патрона",  "патронов")]")
+		balloon_alert(user, "[declension_ru(num_loaded, "разряжен [num_loaded] патрон",  "разряжено [num_loaded] патрона",  "разряжено [num_loaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
 

@@ -10,7 +10,7 @@
 /obj/item/organ/internal/high_rp_tumor/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..(target, special)
 	if(target)
-		to_chat(target, "нужно дышать, иначе задохнусь!")
+		to_chat(target, "нужно дышать!")
 
 /mob/living/carbon/human/proc/curse_high_rp(delay = 300, oxyloss = 45)
 	var/mob/living/carbon/human/H = src
@@ -30,7 +30,7 @@
 		var/mob/living/carbon/human/H = owner
 		H.setOxyLoss(H.oxyloss + oxy_loss)
 		H.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
-		H.balloon_alert(H, "нужно дышать, иначе задохнусь!")
+		H.balloon_alert(H, "нужно дышать!")
 		last_pump = world.time
 		warned = 0
 

@@ -243,8 +243,8 @@
 			"anti-vehicle" = "тяжелый лазер",
 			"DESTROY" = "режим УНИЧТОЖЕНИЯ",
 			"ANNIHILATE" = "режим ИСТРЕБЛЕНИЯ",
-			"bluetag" = "блютег",
-			"redtag" = "рэдтег",
+			"bluetag" = "синий режим",
+			"redtag" = "красный режим",
 			"precise" = "точный выстрел", //both used in multi-lens scattershot
 			"scatter" = "рассеянный выстрел",
 			"stun" = "тазер",
@@ -274,8 +274,7 @@
 			"spraydown" = "режим распыления",
 			"spike" = "стрельба шипами",
 			"kinetic" = "кинетический выстрел",
-			"accelerator" = "ускорительный лазер",
-
+			"accelerator" = "ускоренный выстрел",
 		)
 
 		balloon_alert(user, "[gun_modes_ru[shot.select_name]]")
