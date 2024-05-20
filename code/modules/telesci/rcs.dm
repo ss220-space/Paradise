@@ -115,19 +115,19 @@
 		user.balloon_alert(user, "уже используется!")
 		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		C.balloon_alert(user, "вы находитесь внутри контейнера!")
+		C.balloon_alert(user, "покиньте контейнер!")
 		return FALSE
 	if(rcell.charge < chargecost)
-		user.balloon_alert(user, "мало заряда!")
+		user.balloon_alert(user, "не хватает заряда!")
 		return FALSE
 	if(!pad)
 		user.balloon_alert(user, "телепад не выбран!")
 		return FALSE
 	if(!is_level_reachable(C.z))
-		user.balloon_alert(user, "нет телепадов в радиусе действия!")
+		user.balloon_alert(user, "телепады не обнаружены!")
 		return FALSE
 	if(C.anchored)
-		user.balloon_alert(user, "данный предмет прикреплен к полу!")
+		user.balloon_alert(user, "прикреплено к полу!")
 		return FALSE
 
 	teleport(user, C, pad)

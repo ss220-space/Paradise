@@ -87,7 +87,7 @@
 			host.visible_message(span_alert("[owner] выделяет кучу воска и формирует из неё пол!"))
 			new /obj/structure/wryn/floor(owner.loc)
 	else
-		owner.balloon_alert(owner, "не хватает воска!")
+		owner.balloon_alert(owner, "недостаточно воска!")
 	return
 
 /datum/action/innate/toggle_producing
