@@ -509,7 +509,7 @@
 				old_gun_light.forceMove(get_turf(src))
 			old_gun_light.update_brightness()
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
 
