@@ -81,7 +81,7 @@
     var/atox = 0
     var/asleep = 0
     var/ab = 0
-    var/atemp = 0
+    var/atemp = TCMB
 
     var/turf_count = 0
 
