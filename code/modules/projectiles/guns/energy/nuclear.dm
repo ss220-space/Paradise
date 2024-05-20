@@ -64,7 +64,7 @@
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
 	if(. && !isertmindshielded(user))
-		balloon_alert(usr, "у вас нет импланта ERT Mindshield!")
+		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 
 /obj/item/gun/energy/gun/pdw9
@@ -82,7 +82,7 @@
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot(mob/user)
 	. = ..()
 	if(. && !isertmindshielded(user))
-		balloon_alert(usr, "у вас нет импланта ERT Mindshield!")
+		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 
 /obj/item/gun/energy/gun/turret

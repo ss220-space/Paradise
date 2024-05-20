@@ -101,20 +101,20 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				balloon_alert(user, "магазин заряжен")
+				balloon_alert(user, "заряжено")
 				return TRUE
 			else if(!can_tactical)
 				balloon_alert(user, "уже заряжено!")
 				return TRUE
 			else
-				balloon_alert(user, "магазин сменён!")
+				balloon_alert(user, "заряжено")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
 				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
-			balloon_alert(user, "магазин не подходит!")
+			balloon_alert(user, "не совместимо!")
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -122,7 +122,7 @@
 			if(!suppressed)
 				if(!user.drop_transfer_item_to_loc(A, src))
 					return
-				balloon_alert(user, "глушитель установлен!")
+				balloon_alert(user, "установлено")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -132,10 +132,10 @@
 				update_icon()
 				return
 			else
-				balloon_alert(user, "уже есть глушитель!")
+				balloon_alert(user, "уже установлено!")
 				return
 		else
-			balloon_alert(user, "глушитель не подходит!")
+			balloon_alert(user, "не совместимо!")
 			return
 	else
 		return ..()
@@ -166,16 +166,16 @@
 		magazine.update_icon()
 		magazine = null
 		update_weight()
-		balloon_alert(user, "магазин вынут")
+		balloon_alert(user, "магазин извлечён")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		balloon_alert(user, "патрон вытащен")
+		balloon_alert(user, "патрон извлечён")
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
-		balloon_alert(user, "оно пустое!")
+		balloon_alert(user, "уже разряжено!")
 	update_icon()
 	return
 
@@ -212,7 +212,7 @@
 		balloon_alert(user, "уже укорочено!")
 		return
 	if(bayonet)
-		balloon_alert(user, "снимите навесы с оружия!")
+		balloon_alert(user, "мешает штык-нож!")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))

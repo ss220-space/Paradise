@@ -73,7 +73,7 @@
 /obj/item/gun/energy/kinetic_accelerator/proc/deattach_modkits(mob/user)
 	var/notification
 	if(!LAZYLEN(modkits))
-		notification = "нет модификаций!"
+		notification = "модификации отсутствуют!"
 	else
 		for(var/obj/item/borg/upgrade/modkit/MK in modkits)
 			modkit_predeattach(MK, loc)	// God bless anyone who have time for turning modkits back to `/obj/item/modkit`.

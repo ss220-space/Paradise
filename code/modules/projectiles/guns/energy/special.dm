@@ -383,12 +383,12 @@
 /obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			balloon_alert(user, "БС кристалл уже вставлен!")
+			balloon_alert(user, "уже установлено!")
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
 			return
-		balloon_alert(user, "вы вставили БС кристалл!")
+		balloon_alert(user, "установлено")
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -396,9 +396,9 @@
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(has_core)
-			balloon_alert(user, "ядро аномалии уже вставлено!")
+			balloon_alert(user, "уже установлено!")
 			return
-		balloon_alert(user, "вы вставили ядро аномалии!")
+		balloon_alert(user, "установлено")
 		has_core = TRUE
 		qdel(O)
 		update_icon(UPDATE_ICON_STATE)
@@ -407,10 +407,10 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		balloon_alert(user, "внутри нет блюспейс кристалла!")
+		balloon_alert(user, "отсутствует блюспейс кристалл!")
 		return
 	if(!has_core)
-		balloon_alert(user, "внутри нет ядра потоковой аномалии!")
+		balloon_alert(user, "отсутствует ядро аномалии!")
 		return
 	return ..()
 
