@@ -29,7 +29,7 @@
 	response_harm = "punches their fist through"
 	deathmessage = "fizzles out into faint sparks, leaving only a slight trail of smoke..."
 	level = 1
-	plane = FLOOR_PLANE
+	plane = FLOOR_PLANE // I hate this
 	layer = ABOVE_PLATING_LAYER
 
 	maxHealth = 50

@@ -455,9 +455,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
-/mob/dead/observer/orbit()
+/mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 

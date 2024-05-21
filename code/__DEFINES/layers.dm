@@ -21,7 +21,6 @@
 #define WALL_PLANE -9
 #define GAME_PLANE -8
 
-#define GAME_PLANE_UPPER -6
 #define WALL_PLANE_UPPER -5
 
 #define ABOVE_GAME_PLANE -2
@@ -58,9 +57,9 @@
 #define RENDER_PLANE_LIGHTING 16
 
 ///Things that should render ignoring lighting
-#define ABOVE_LIGHTING_PLANE 1
+#define ABOVE_LIGHTING_PLANE 17
 
-///---------------- MISC -----------------------
+//---------------- MISC -----------------------
 
 ///Pipecrawling images
 #define PIPECRAWL_IMAGES_PLANE 20
@@ -73,7 +72,7 @@
 
 #define FULLSCREEN_PLANE 23
 
-///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
+//--------------- FULLSCREEN RUNECHAT BUBBLES ------------
 
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 30

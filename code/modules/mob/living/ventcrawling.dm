@@ -157,15 +157,15 @@
  * We move first and then call update. Dont flip this around
  */
 /mob/living/proc/update_pipe_vision()
-	if(isnull(client))
+	if(isnull(client)) // we don't care about pipe vision if we have no client
 		return
 
-	if(LAZYLEN(pipes_shown))
+	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
 		for(var/current_image in pipes_shown)
 			client.images -= current_image
 		LAZYNULL(pipes_shown)
-
-	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
+		for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+			pipecrawl.hide_plane(src)
 		return
 
 	var/list/total_members = list()
@@ -176,6 +176,9 @@
 
 	if(!length(total_members))
 		return
+
+	for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+		pipecrawl.unhide_plane(src)
 
 	for(var/obj/machinery/atmospherics/pipenet_part as anything in total_members)
 		if(!(pipenet_part.vent_movement & VENTCRAWL_CAN_SEE))
