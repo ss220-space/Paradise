@@ -118,7 +118,7 @@
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(ignore_restraints = TRUE)
+	var/can_help_themselves = !incapacitated(INC_IGNORE_RESTRAINED)
 	if(levels <= 1 && can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -465,7 +465,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(incapacitated(ignore_lying = TRUE))
+	if(incapacitated())
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
@@ -1007,7 +1007,7 @@
 *///////////////////////
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	return !((next_move > world.time) || incapacitated(INC_IGNORE_RESTRAINED))
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -1861,7 +1861,7 @@
 /mob/living/proc/set_lying_on_rest(instant = FALSE)
 	set waitfor = FALSE
 
-	if(!instant && !do_after(src, 1 SECONDS, src, IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM|IGNORE_RESTRAINED, extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, lying_down_checks_callback)), interaction_key = DOAFTER_SOURCE_LYING_DOWN, max_interact_count = 1, cancel_message = null))
+	if(!instant && !do_after(src, 1 SECONDS, src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_HELD_ITEM|DA_IGNORE_RESTRAINED, extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, lying_down_checks_callback)), interaction_key = DOAFTER_SOURCE_LYING_DOWN, max_interact_count = 1, cancel_message = null))
 		return
 	if(lying_down_checks_callback())
 		return
@@ -1885,7 +1885,7 @@
 /mob/living/proc/get_up(instant = FALSE)
 	set waitfor = FALSE
 
-	if(!instant && !do_after(src, 1 SECONDS, src, IGNORE_USER_LOC_CHANGE|IGNORE_LYING|IGNORE_HELD_ITEM|IGNORE_RESTRAINED, extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, get_up_checks_callback)), interaction_key = DOAFTER_SOURCE_GETTING_UP, max_interact_count = 1, cancel_message = null))
+	if(!instant && !do_after(src, 1 SECONDS, src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING|DA_IGNORE_HELD_ITEM|DA_IGNORE_RESTRAINED, extra_checks = CALLBACK(src, TYPE_PROC_REF(/mob/living, get_up_checks_callback)), interaction_key = DOAFTER_SOURCE_GETTING_UP, max_interact_count = 1, cancel_message = null))
 		return
 	if(get_up_checks_callback())
 		return

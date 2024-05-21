@@ -43,7 +43,7 @@
 /mob/proc/can_speak()
 	return 1
 
-/mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/proc/incapacitated(ignore_flags)
 	return FALSE
 
 // Procs that update other things about the mob

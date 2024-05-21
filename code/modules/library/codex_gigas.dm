@@ -43,7 +43,7 @@
 		correctness -= U.getBrainLoss() *0.5 //Brain damage makes researching hard.
 		speed += U.getBrainLoss() * 0.3 SECONDS
 		user.visible_message("[user] opens [title] and begins reading intently.")
-		if(do_after(U, speed, U, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(U, speed, U, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			var/usedName = devilName
 			if(!prob(correctness))
 				usedName += "x"

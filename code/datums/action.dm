@@ -51,7 +51,8 @@
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_HANDS_BLOCKED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
-
+	if(check_flags & AB_CHECK_INCAPACITATED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	return TRUE
 
 
@@ -75,8 +76,10 @@
 		COMSIG_LIVING_SET_BODY_POSITION,
 		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
 		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
 		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
 		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED),
 	))
 
 	return TRUE
@@ -127,6 +130,8 @@
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
@@ -189,7 +194,7 @@
 
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	/// Whether action trigger should call attack self proc.
 	var/attack_self = TRUE
 	var/use_itemicon = TRUE
@@ -606,7 +611,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()

@@ -646,7 +646,7 @@
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
-	traits_to_apply = list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
 
 
 //KNOCKDOWN - force victim to lying down position
@@ -664,14 +664,14 @@
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
-	traits_to_apply = list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
 
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 	needs_update_stat = TRUE
-	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
 
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
@@ -679,7 +679,7 @@
 	id = "sleeping"
 	tick_interval = 2 SECONDS
 	needs_update_stat = TRUE
-	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
 
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)

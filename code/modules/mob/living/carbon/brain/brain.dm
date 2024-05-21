@@ -28,7 +28,7 @@
 	return
 
 
-/mob/living/carbon/brain/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
 
 
