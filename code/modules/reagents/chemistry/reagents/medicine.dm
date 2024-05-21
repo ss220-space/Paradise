@@ -954,10 +954,9 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		M.status_flags &= ~status
+		M.status_flags &= ~(CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags |= (CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
@@ -966,7 +965,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= (CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 	..()
 
 /datum/reagent/medicine/stimulative_agent
@@ -1528,13 +1527,12 @@
 /datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.setStaminaLoss(0, FALSE)
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-	M.status_flags &= ~status
+	M.status_flags &= ~(CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 
 	return ..() | update_flags
 
 /datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	M.status_flags |= (CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 	..()
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)

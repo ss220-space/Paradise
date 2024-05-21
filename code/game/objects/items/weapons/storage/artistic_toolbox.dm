@@ -164,7 +164,7 @@
 		progenitor.servantlinks.Remove(src)
 	progenitor = null
 	if(affected_mob)
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		affected_mob.status_flags |= (CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 	return ..()
 
 /datum/disease/memetic_madness/stage_act()
@@ -178,8 +178,7 @@
 		affected_mob.adjustFireLoss(-12)
 		affected_mob.adjustToxLoss(-5)
 		affected_mob.setStaminaLoss(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		affected_mob.status_flags &= ~status
+		affected_mob.status_flags &= ~(CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 		affected_mob.AdjustDizzy(-20 SECONDS)
 		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)
@@ -211,7 +210,7 @@
 		progenitor.hunger += min(max((progenitor.force / 10), 1), 10)
 
 	else
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		affected_mob.status_flags |= (CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE)
 
 	if(stage == 4)
 		if(get_dist(get_turf(progenitor), get_turf(affected_mob)) <= 7)
