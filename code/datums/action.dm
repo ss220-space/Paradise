@@ -131,7 +131,7 @@
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT))
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
