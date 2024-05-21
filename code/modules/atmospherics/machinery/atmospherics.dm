@@ -339,8 +339,8 @@ Pipelines + Other Objects -> Pipe network
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 
-	//user.forceMove(target_move)
-	user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
+	user.abstract_move(target_move)
+	// user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
 
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
 	if(length(pipenetdiff))
@@ -362,7 +362,7 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/new_turf = get_turf(target_move)
 	if(old_turf?.z != new_turf?.z)
 		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
-		on_changed_z_level(old_turf, new_turf, same_z_layer)
+		user.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 	our_client.set_eye(target_move)
 	// Let's smooth out that movement with an animate yeah?

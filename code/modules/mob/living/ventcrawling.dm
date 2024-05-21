@@ -139,9 +139,11 @@
 /mob/living/proc/stop_ventcrawling(message = TRUE)
 	if(!is_ventcrawling(src))
 		return FALSE
-	forceMove(get_turf(src))
+	var/turf/new_turf = get_turf(src)
+	forceMove(new_turf)
 	REMOVE_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
+	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
 			span_notice("[name] вылез[genderize_ru(gender, "", "ла", "ло", "ли")] из вентиляции!"),
