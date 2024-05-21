@@ -463,10 +463,10 @@
 		return
 
 	gun_light.on = !gun_light.on
-	if(user && !silent)
-		to_chat(user, span_notice("You toggle the gun light [gun_light.on ? "on": "off"]."))
 	if(!silent)
 		playsound(loc, 'sound/weapons/empty.ogg', 100, TRUE)
+		if(user)
+			to_chat(user, span_notice("You toggle the gun light [gun_light.on ? "on": "off"]."))
 	gun_light.set_light_on(gun_light.on)
 	update_icon()
 	update_equipped_item(update_speedmods = FALSE)
