@@ -16,7 +16,7 @@
 			death()
 			update_headlamp(TRUE, 0)
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || HAS_TRAIT(src, TRAIT_INCAPACITATED) || getOxyLoss() > maxHealth * 0.5)
 			if(stat != UNCONSCIOUS)
 				set_stat(UNCONSCIOUS)
 				update_headlamp(TRUE, 0)
