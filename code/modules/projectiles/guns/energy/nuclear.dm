@@ -32,7 +32,6 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE
-	actions_types = list(/datum/action/item_action/toggle_gunlight)
 
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
