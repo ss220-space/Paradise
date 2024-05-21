@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DA_IGNORE_LYING (1<<4)
 /// Can do the action even if the user is restrained.
 #define DA_IGNORE_RESTRAINED (1<<5)
-/// Can do the action even if the user is incapacitated (weakened/stunned/stamcrited currently).
+/// Can do the action even if the user is incapacitated (weakened/stunned/stamcrited/paralyzed/sleeping).
 #define DA_IGNORE_INCAPACITATED (1<<6)
 /// Can do the action even if the item is no longer being held.
 #define DA_IGNORE_HELD_ITEM (1<<7)
