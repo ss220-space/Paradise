@@ -202,16 +202,19 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DA_IGNORE_SPACE_DRIFT (1<<1)
 /// Can do the action even if the target moves location.
 #define DA_IGNORE_TARGET_LOC_CHANGE (1<<2)
+/// Can do the action even if the user is UNCONSCIOUS or DEAD.
+#define DA_IGNORE_CONSCIOUSNESS (1<<3)
 /// Can do the action even if the user is lying.
-#define DA_IGNORE_LYING (1<<3)
+#define DA_IGNORE_LYING (1<<4)
 /// Can do the action even if the user is restrained.
-#define DA_IGNORE_RESTRAINED (1<<4)
-/// Can do the action even if the user is incapacitated (unconscious/dead/weakened/stunned/stamcrited/paralyzed/sleeping).
-#define DA_IGNORE_INCAPACITATED (1<<5)
+#define DA_IGNORE_RESTRAINED (1<<5)
+/// Can do the action even if the user is incapacitated (weakened/stunned/stamcrited/paralyzed/sleeping).
+#define DA_IGNORE_INCAPACITATED (1<<6)
 /// Can do the action even if the item is no longer being held.
-#define DA_IGNORE_HELD_ITEM (1<<6)
+#define DA_IGNORE_HELD_ITEM (1<<7)
 /// If actively held item is cyborg gripper we will not check whether its empty during the process.
-#define DA_IGNORE_EMPTY_GRIPPER (1<<7)
+#define DA_IGNORE_EMPTY_GRIPPER (1<<8)
+
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
 
