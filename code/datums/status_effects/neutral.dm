@@ -234,7 +234,7 @@
 		return FALSE
 
 	var/actual_interval = initial(tick_interval)
-	if(!owner.Knockdown(actual_interval * 2, ignore_canstun = TRUE) || owner.body_position != LYING_DOWN)
+	if(!owner.Knockdown(actual_interval * 2, ignore_canknockdown = TRUE) || owner.body_position != LYING_DOWN)
 		to_chat(owner, span_warning("You try to stop, drop, and roll - but you can't get on the ground!"))
 		return FALSE
 
@@ -263,7 +263,7 @@
 		return
 
 	var/actual_interval = initial(tick_interval)
-	if(!owner.Knockdown(actual_interval * 1.2, ignore_canstun = TRUE))
+	if(!owner.Knockdown(actual_interval * 1.2, ignore_canknockdown = TRUE))
 		stop_rolling()
 		return
 
