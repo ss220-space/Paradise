@@ -165,6 +165,7 @@
 		icon_state = "nunchuck"
 
 /obj/item/nunchuck/attack_self(mob/user)
+	. = ..()
 	if(active)
 		to_chat(user, span_notice("Вы прекратили крутить нунчаки."))
 		active = FALSE
@@ -183,13 +184,12 @@
 		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
 		user.adjustStaminaLoss(30)
 		return
+	if(user.a_intent == INTENT_HARM)
+		target.apply_damage(10, BRUTE, def_zone)
+		target.adjustStaminaLoss(10)
 	else
-		if(user.a_intent == INTENT_HARM)
-			target.apply_damage(10, BRUTE, def_zone)
-			target.adjustStaminaLoss(10)
-		else
-			target.adjustStaminaLoss(15)
-		user.changeNext_move(4)
-		active = TRUE // it set in dropped() to false every time. Not best way for sure
-		update_icon(UPDATE_ICON_STATE)
-	..()
+		target.adjustStaminaLoss(15)
+	user.changeNext_move(4)
+	active = TRUE // it set in dropped() to false every time. Not best way for sure
+	update_icon(UPDATE_ICON_STATE)
+	return ..()
