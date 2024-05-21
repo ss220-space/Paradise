@@ -35,18 +35,16 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload, list/networks, list/upgrades, var/obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/Initialize(mapload, list/networks, var/obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
 	if(input_assembly == null)
 		assembly = new(src)
-		assembly.state = 4
-		assembly.set_anchored(TRUE)
-		assembly.update_icon(UPDATE_ICON_STATE)
-		if(upgrades != null)
-			assembly.upgrades = upgrades
 	else
 		assembly = input_assembly
+	assembly.state = 4
+	assembly.set_anchored(TRUE)
+	assembly.update_icon(UPDATE_ICON_STATE)
 	GLOB.cameranet.cameras += src
 	if(networks)
 		network = networks
@@ -60,13 +58,8 @@
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
-	for(var/obj/I in assembly.upgrades)
-		if(I.type == /obj/item/assembly/prox_sensor)
-			upgradeMotion()
-		if(I.type == /obj/item/stack/sheet/mineral/plasma)
-			upgradeEmpProof()
-		if(I.type == /obj/item/analyzer)
-			upgradeXRay()
+	camera_upgrade()
+
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
@@ -110,6 +103,17 @@
 					to_chat(M, "The screen bursts into static.")
 			..()
 
+/obj/machinery/camera/proc/camera_upgrade()
+	if(isXRay(src) && !(icon_state == "xraycam" || icon_state == "xraycam1" || icon_state == "xraycamemp"))
+		update_icon(UPDATE_ICON_STATE)
+		//Update what it can see.
+		GLOB.cameranet.updateVisibility(src, 0)
+	if(isMotion(src) && name == initial(name))
+		name = "motion-sensitive security camera"
+		// Add it to machines that process
+		START_PROCESSING(SSmachines, src)
+		myArea.AddMotionCameraInList(src)
+	setPowerUsage()
 
 /obj/machinery/camera/proc/restore_from_emp()
 	stat &= ~EMPED
@@ -149,11 +153,10 @@
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isEmpProof())
-			var/obj/item/stack/sheet/mineral/plasma/P = I
-			upgradeEmpProof()
+			assembly.upgrades.Add(I)
 			add_fingerprint(user)
 			to_chat(user, "[msg]")
-			P.use(1)
+			I.use(1)
 		else
 			to_chat(user, "[msg2]")
 	else if(isprox(I) && panel_open)
@@ -161,7 +164,22 @@
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isMotion())
-			upgradeMotion()
+			assembly.upgrades.Add(I)
+			camera_upgrade()
+			add_fingerprint(user)
+			to_chat(user, "[msg]")
+			qdel(I)
+		else
+			to_chat(user, "[msg2]")
+
+	else if(istype(I, /obj/item/analyzer) && panel_open)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
+			return
+		if(!isXRay())
+			assembly.upgrades.Add(I)
+			camera_upgrade()
+			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
 			to_chat(user, "[msg]")
 			qdel(I)
@@ -275,13 +293,28 @@
 
 
 /obj/machinery/camera/update_icon_state()
-	if(!status)
-		icon_state = "[initial(icon_state)]1"
-	else if(stat & EMPED)
-		icon_state = "[initial(icon_state)]emp"
+	if(assembly != null)
+		if(isXRay(src))
+			if(!status)
+				icon_state = "xraycam1"
+			else if(stat & EMPED)
+				icon_state = "xraycamemp"
+			else
+				icon_state = "xraycam"
+		else
+			if(!status)
+				icon_state = "camera1"
+			else if(stat & EMPED)
+				icon_state = "cameraemp"
+			else
+				icon_state = "camera"
 	else
-		icon_state = "[initial(icon_state)]"
-
+		if(!status)
+			icon_state = "camera1"
+		else if(stat & EMPED)
+			icon_state = "cameraemp"
+		else
+			icon_state = "camera"
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status

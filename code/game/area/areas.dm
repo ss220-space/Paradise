@@ -1,6 +1,4 @@
 /area
-	var/list/motioncameras = list()
-	var/list/motionTargets = list()
 	var/fire = null
 	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
 	var/atmosalm = ATMOS_ALARM_NONE
@@ -70,6 +68,8 @@
 
 	///Used for perfomance in machinery manipulation operations
 	var/list/machinery_cache
+	var/list/motioncameras
+	var/list/motionTargets = list()
 
 	var/firedoors_last_closed_on = 0
 
@@ -545,9 +545,8 @@
 	if(!isliving(arrived))
 		return
 
-	if(ismob(arrived) && length(motioncameras))//ai motion camera alarm activate
-		for(var/X in motioncameras)
-			var/obj/machinery/camera/cam = X
+	if(LAZYLEN(motioncameras))//ai motion camera alarm activate
+		for(var/obj/machinery/camera/cam as anything in motioncameras)
 			cam.newTarget(arrived)
 
 	var/mob/living/arrived_living = arrived
@@ -572,7 +571,7 @@
 	if(!isliving(departed))
 		return
 
-	if(ismob(departed) && length(motioncameras)) //ai motion camera alarm deactivate
+	if(LAZYLEN(motioncameras)) //ai motion camera alarm deactivate
 		for(var/obj/machinery/camera/cam as anything in motioncameras)
 			cam.lostTargetRef(departed.UID())
 

@@ -739,16 +739,15 @@
 			var/upgraded = FALSE
 
 			if(!C.isXRay())
-				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
+				C.assembly.upgrades.Add(new /obj/item/analyzer(C.assembly))
 				upgraded = TRUE
 
 			if(!C.isEmpProof())
-				C.upgradeEmpProof()
+				C.assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(C.assembly))
 				upgraded = TRUE
 
 			if(upgraded)
+				C.camera_upgrade()
 				upgraded_cameras++
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()

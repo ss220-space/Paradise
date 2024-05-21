@@ -1,39 +1,37 @@
 // PRESETS
 
 // EMP
+/obj/machinery/camera/emp_proof
 
-/obj/machinery/camera/emp_proof/Initialize(mapload)
-	var/list/upgrades = list()
-	upgrades.Add(new /obj/item/stack/sheet/mineral/plasma)
-	. = ..(mapload,,upgrades)
+/obj/machinery/camera/emp_proof/Initialize(mapload, networks, input_assembly)
+	var/obj/item/camera_assembly/new_assembly = new(src)
+	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
+	. = ..(input_assembly = new_assembly)
 // X-RAY
 
 /obj/machinery/camera/xray
 
-/obj/machinery/camera/xray/Initialize(mapload)
-	var/list/upgrades = list()
-	upgrades.Add(new /obj/item/analyzer)
-	. = ..(mapload,,upgrades)
-
+/obj/machinery/camera/xray/Initialize(mapload, networks, input_assembly)
+	var/obj/item/camera_assembly/new_assembly = new(src)
+	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
+	. = ..(input_assembly = new_assembly)
 // MOTION
 /obj/machinery/camera/motion
-	name = "motion-sensitive security camera"
 
-/obj/machinery/camera/motion/Initialize(mapload)
-	var/list/upgrades = list()
-	upgrades.Add(new /obj/item/assembly/prox_sensor)
-	. = ..(mapload,,upgrades)
+/obj/machinery/camera/motion/Initialize(mapload, networks, input_assembly)
+	var/obj/item/camera_assembly/new_assembly = new(src)
+	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
+	. = ..(input_assembly = new_assembly)
 // ALL UPGRADES
 /obj/machinery/camera/all
 
 
-/obj/machinery/camera/all/Initialize(mapload)
-	var/list/upgrades = list()
-	upgrades.Add(new /obj/item/analyzer)
-	upgrades.Add(new /obj/item/assembly/prox_sensor)
-	upgrades.Add(new /obj/item/stack/sheet/mineral/plasma)
-	. = ..(mapload,,upgrades)
-
+/obj/machinery/camera/all/Initialize(mapload, networks, input_assembly)
+	var/obj/item/camera_assembly/new_assembly = new(src)
+	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
+	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
+	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
+	. = ..(input_assembly = new_assembly)
 // AUTONAME
 
 /obj/machinery/camera/autoname
@@ -70,25 +68,6 @@
 	var/O = locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
 	return O
 
-// UPGRADE PROCS
-
-/obj/machinery/camera/proc/upgradeEmpProof()
-	setPowerUsage()
-
-/obj/machinery/camera/proc/upgradeXRay()
-	icon_state = "xraycam"
-	setPowerUsage()
-	//Update what it can see.
-	GLOB.cameranet.updateVisibility(src, 0)
-
-// If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
-/obj/machinery/camera/proc/upgradeMotion()
-	if(name == initial(name))
-		name = "motion-sensitive security camera"
-	setPowerUsage()
-	// Add it to machines that process
-	START_PROCESSING(SSmachines, src)
-	src.myArea.AddMotionCameraInList(src)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1
