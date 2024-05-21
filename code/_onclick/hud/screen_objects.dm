@@ -176,7 +176,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	if(usr.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -211,7 +211,7 @@
 
 
 /atom/movable/screen/storage/MouseDrop_T(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+	if(!user || !master || !istype(I) || user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return FALSE
 
 	if(is_ventcrawling(user))

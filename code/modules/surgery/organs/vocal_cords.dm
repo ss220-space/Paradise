@@ -102,17 +102,16 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	..()
 	cords = target
 
+
 /datum/action/item_action/organ_action/colossus/IsAvailable()
+	. = ..()
+	if(!.)
+		return .
 	if(world.time < cords.next_command)
-		return FALSE
-	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
 		return FALSE
-	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(owner.stat)
-			return FALSE
-	return TRUE
+
 
 /datum/action/item_action/organ_action/colossus/Trigger(left_click = TRUE)
 	. = ..()

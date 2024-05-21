@@ -185,7 +185,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [target]'s face clean with \the [src].</span>",
 								"<span class='notice'>You begin to wipe off [target]'s face.</span>")
-			if(!do_after(user, 1 SECONDS, target) || !do_after(target, 1 SECONDS, timed_action_flags = DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)) // user needs to keep their active hand, target does not.
+			if(!do_after(user, 1 SECONDS, target) || !do_after(target, 1 SECONDS, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) // user needs to keep their active hand, target does not.
 				return
 			user.visible_message("<span class='notice'>[user] wipes [target]'s face clean with \the [src].</span>",
 				"<span class='notice'>You wipe off [target]'s face.</span>")
@@ -209,7 +209,7 @@
 		"<span class='notice'>You start chewing the corner of [src].</span>",
 		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
-	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.

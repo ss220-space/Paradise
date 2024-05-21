@@ -222,7 +222,7 @@
 //Actions for sentient minebots
 
 /datum/action/innate/minedrone
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
