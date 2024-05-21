@@ -20,12 +20,12 @@
 	block = GLOB.muteblock
 
 
-/datum/dna/gene/disability/mute/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/mute/activate(mob/living/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
 
 
-/datum/dna/gene/disability/mute/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/mute/deactivate(mob/living/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
 

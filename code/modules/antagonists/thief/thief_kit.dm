@@ -88,10 +88,10 @@
 /obj/item/thief_kit/interact(mob/user)
 	if(!ishuman(user))
 		to_chat(user, "Вы даже не гуманоид... Вы не понимаете как это открыть")
-		return 0
+		return FALSE
 
-	if(user.stat || user.restrained())
-		return 0
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	if(loc == user || (in_range(src, user) && isturf(loc)))
 		ui_interact(user)

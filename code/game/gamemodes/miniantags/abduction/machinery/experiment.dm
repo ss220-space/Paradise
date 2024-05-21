@@ -26,7 +26,7 @@
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user, params)
 	if(stat)
 		return
-	if(user.incapacitated() || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
 	if(isabductor(target))
 		return

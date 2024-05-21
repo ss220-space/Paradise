@@ -46,7 +46,8 @@
 	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
-	do_mob(src, B.host, delay, only_use_extra_checks = TRUE)
+	if(!do_after(src, delay, B.host, ALL))
+		return
 	return_control(B)
 	host_resisting = FALSE
 
@@ -81,11 +82,11 @@
 	friendly = "prods"
 	wander = 0
 	mob_size = MOB_SIZE_TINY
-	density = 0
+	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	faction = list("creature")
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
@@ -304,6 +305,8 @@
 		return ..()
 
 /mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
+	if(!can_unarmed_attack())
+		return
 	if(istype(M))
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
@@ -345,7 +348,7 @@
 	infesting = TRUE
 	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
 
-	if(!do_mob(user, target, 5 SECONDS))
+	if(!do_after(user, 5 SECONDS, target, NONE))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
 		infesting = FALSE
 		return
@@ -538,7 +541,7 @@
 		to_chat(src, span_danger("Вы решили остаться в носителе."))
 
 	// If we cast the spell a second time, it will be canceled
-	if(!do_mob(src, host, 20 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_leaving), src))))
+	if(!do_after(src, 20 SECONDS, host, ALL, extra_checks = CALLBACK(src, PROC_REF(borer_leaving), src)))
 		return
 
 	to_chat(src, "Вы выкручиваетесь из уха носителя и падаете на пол.")
@@ -606,7 +609,7 @@
 	var/delay = 300+(host.getBrainLoss()*5)
 
 	// If we cast the spell a second time, it will be canceled
-	if(!do_mob(src, host, delay, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(borer_assuming), src))))
+	if(!do_after(src, delay, host, ALL, extra_checks = CALLBACK(src, PROC_REF(borer_assuming), src)))
 		bonding = FALSE
 		return
 

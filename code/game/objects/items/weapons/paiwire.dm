@@ -3,7 +3,7 @@
 	name = "data cable"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/obj/machinery/machine
 	var/list/allowed_types = list(/obj/machinery/door, /obj/machinery/power/apc, /obj/machinery/alarm, /obj/machinery/computer/rdconsole)
 

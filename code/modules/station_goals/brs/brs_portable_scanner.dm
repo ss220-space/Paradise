@@ -244,10 +244,8 @@
 				return
 
 	// Update density
-	if(anchored)
-		density = TRUE
-	else
-		density = FALSE
+	set_density(anchored)
+
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE

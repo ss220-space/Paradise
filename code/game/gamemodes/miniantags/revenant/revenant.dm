@@ -33,7 +33,7 @@
 	friendly = "touches"
 	status_flags = 0
 	wander = 0
-	density = 0
+	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -77,7 +77,7 @@
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
-		notransform = 0
+		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
 	update_icon(UPDATE_ICON_STATE)
 
@@ -217,7 +217,7 @@
 		return FALSE
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	revealed = 1
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
@@ -297,7 +297,7 @@
 		return
 	if(time <= 0)
 		return
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	if(!unstun_time)
 		to_chat(src, "<span class='revendanger'>You cannot move!</span>")
 		unstun_time = world.time + time
@@ -308,7 +308,7 @@
 
 /mob/living/simple_animal/revenant/update_icon_state()
 	if(revealed)
-		if(notransform)
+		if(HAS_TRAIT_FROM(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT))
 			if(draining)
 				icon_state = icon_drain
 			else

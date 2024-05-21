@@ -41,7 +41,7 @@
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
@@ -90,7 +90,7 @@
 	if(!SSticker)
 		return
 	var/mob/living/M = moving_atom
-	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
+	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)
@@ -171,7 +171,7 @@
 	update_icon()
 	sleep(1 SECONDS)
 
-	density = FALSE
+	set_density(FALSE)
 
 	air_update_turf(TRUE)
 	update_freelook_sight()
@@ -192,7 +192,7 @@
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
-	density = TRUE
+	set_density(TRUE)
 	update_icon()
 	air_update_turf(TRUE)
 	update_freelook_sight()
@@ -210,7 +210,7 @@
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && !disassembled)
+	if(!(obj_flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
@@ -288,7 +288,7 @@
 	return ..()
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(density || operating)
@@ -303,7 +303,7 @@
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
 	if(operating)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

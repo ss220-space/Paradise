@@ -58,7 +58,7 @@
 
 
 /obj/item/implantpad/AltClick(mob/living/user)
-	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	eject_case(user)
 

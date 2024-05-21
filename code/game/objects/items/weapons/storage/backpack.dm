@@ -61,7 +61,7 @@
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	resistance_flags = FIRE_PROOF
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 
@@ -73,7 +73,7 @@
 			var/list/play_records = params2list(user.client.prefs.exp)
 			var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 			if (user.mind.special_role || livingtime > 9000)
-				if(do_after(user, 30, target=src))
+				if(do_after(user, 3 SECONDS, src))
 					investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
 					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
 					qdel(W)
@@ -121,7 +121,7 @@
 		if(21 to INFINITY)
 			icon_state = "giftbag2"
 
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/backpack/cultpack
@@ -391,7 +391,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	strap_side_straight = !strap_side_straight
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"

@@ -102,7 +102,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -116,7 +116,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")

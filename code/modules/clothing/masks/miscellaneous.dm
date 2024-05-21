@@ -72,7 +72,7 @@
 		if(ishuman(usr))
 			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
 							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
-			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
+			if(do_after(usr, POCKET_STRIP_DELAY, wearer, NONE))
 				if(locked)
 					success = do_unlock(usr)
 				else
@@ -94,7 +94,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
 	mute = MUZZLE_MUTE_MUFFLE
-	flags = DROPDEL
+	item_flags = DROPDEL
 	var/trashtype = /obj/item/trash/tapetrash
 
 	sprite_sheets = list(
@@ -123,7 +123,9 @@
 	user.transfer_fingerprints_to(trash_gag)
 	user.put_in_active_hand(trash_gag, ignore_anim = FALSE)
 	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
-	user.emote("scream")
+	if(user.has_pain())
+		// we have to use timer, since an item is still on user, while this proc is called
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, emote), "scream"), 0)
 
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
@@ -516,11 +518,11 @@
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags_inv = HIDENAME
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_MASK
-	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
+	w_class = WEIGHT_CLASS_TINY
+	flags_inv = HIDENAME|HIDEFACIALHAIR
+	adjusted_slot_flags = ITEM_SLOT_HEAD
+	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
 	dyeable = TRUE
 	can_toggle = TRUE
 	sprite_sheets = list(
@@ -541,17 +543,10 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
+
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/bandana/adjustmask(mob/user)
-	..()
-	var/mob/living/carbon/human/H = usr
-	if(H.l_hand && H.r_hand)
-		user.drop_item_ground(src)
-	else
-		user.drop_item_ground(src)
-		user.put_in_hands(src)
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
@@ -622,7 +617,7 @@
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = AIRTIGHT
+	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 
 

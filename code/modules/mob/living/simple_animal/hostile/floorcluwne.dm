@@ -183,14 +183,14 @@
 	else
 		layer = GAME_PLANE
 		invisibility = INVISIBILITY_MAXIMUM
-		mouse_opacity = 0
-		density = FALSE
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		ADD_TRAIT(src, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
 	layer = MOB_LAYER
 	invisibility = FALSE
-	mouse_opacity = 1
-	density = TRUE
+	mouse_opacity = MOUSE_OPACITY_ICON
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, color, mob/living/carbon/human/H)
@@ -227,7 +227,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(3))
@@ -255,7 +255,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(5))
@@ -336,7 +336,7 @@
 	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
 	for(var/I in 1 to get_dist(src, H))
 
-		if(do_after(src, 10, target = H))
+		if(do_after(src, 1 SECONDS, H))
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
 			H.emote("scream")
@@ -346,12 +346,12 @@
 	if(get_dist(src,H) <= 1)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
-		if(do_after(src, 50, target = H) && eating)
+		if(do_after(src, 5 SECONDS, H) && eating)
 			H.BecomeBlind()
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
-			H.mouse_opacity = 0
-			H.density = FALSE
+			H.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+			ADD_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
@@ -374,7 +374,7 @@
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
-	if(do_after(src, 50, target = H))
+	if(do_after(src, 5 SECONDS, H))
 		if(prob(50) || smiting)
 			H.makeCluwne()
 
@@ -388,7 +388,7 @@
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
-	H.density = initial(H.density)
+	REMOVE_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 	H.set_anchored(initial(H.anchored))
 
 	eating = FALSE

@@ -84,6 +84,9 @@
 /obj/machinery/atmospherics/unary/returnPipenet()
 	return parent
 
+/obj/machinery/atmospherics/unary/return_pipenets()
+	return list(parent)
+
 /obj/machinery/atmospherics/unary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent)
 		parent = New

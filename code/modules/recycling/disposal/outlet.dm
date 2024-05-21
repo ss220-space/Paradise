@@ -75,7 +75,7 @@
 		C.ptype = PIPE_DISPOSALS_OUTLET
 		C.update()
 		C.set_anchored(TRUE)
-		C.density = TRUE
+		C.set_density(TRUE)
 		transfer_fingerprints_to(C)
 		qdel(src)
 
@@ -97,5 +97,5 @@
 	C.ptype = PIPE_DISPOSALS_OUTLET
 	C.update()
 	C.set_anchored(FALSE)
-	C.density = TRUE
+	C.set_density(TRUE)
 	qdel(src)

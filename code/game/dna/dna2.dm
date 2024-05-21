@@ -44,7 +44,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// Lazylist of all blocks toggled at roundstart
+	var/list/default_blocks
 	var/tts_seed_dna
 
 // Make a copy of this strand.
@@ -454,4 +455,4 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
 
 	destination.UpdateAppearance()
-	domutcheck(destination, null, MUTCHK_FORCED)
+	destination.check_genes(MUTCHK_FORCED)

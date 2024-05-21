@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "tribble1"
 	w_class = 1
 	var/gestation = 0
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 /obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()

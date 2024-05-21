@@ -83,7 +83,7 @@
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
 			if(!uniform_check(H, user, U))
 				return TRUE
-			if(do_after(user, 40, target=H) && H.w_uniform == U)
+			if(do_after(user, 4 SECONDS, H) && H.w_uniform == U)
 				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
 				U.attackby(src, user)
 		else
@@ -423,9 +423,7 @@
 	set name = "Holobadge"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr))
-		return
-	if(usr.stat)
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/obj/item/clothing/accessory/holobadge/holobadge_ref = null
@@ -442,8 +440,8 @@
 	if(!holobadge_ref.stored_name)
 		to_chat(usr, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
-	if(isliving(usr))
-		usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>",
+
+	usr.visible_message("<span class='warning'>[usr] displays [usr.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>",
 		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [holobadge_ref.stored_name], NT Security.</span>")
 
 ///////////

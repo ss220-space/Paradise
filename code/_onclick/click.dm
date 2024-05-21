@@ -106,7 +106,7 @@
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
 		var/obj/item/item = A
-		if(item.in_inventory)
+		if(item.item_flags & (IN_INVENTORY|IN_STORAGE))
 			return
 
 	face_atom(A)
@@ -123,7 +123,7 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
@@ -191,7 +191,7 @@
 /mob/proc/beforeRangedClick(atom/A, params)
 	return
 
-//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+//Is the atom obscured by a PREVENT_CLICK_UNDER object above it
 /atom/proc/IsObscured()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
 		return FALSE
@@ -223,10 +223,10 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
-	return
+
 
 /*
 	Ranged unarmed attack:
@@ -350,19 +350,19 @@
 		user.listed_turf = T
 		user.client.statpanel = T.name
 
-/atom/proc/AltClick(var/mob/user)
+/atom/proc/AltClick(mob/user)
 	turf_examine(user)
 
-/atom/proc/turf_examine(var/mob/user)
+/atom/proc/turf_examine(mob/user)
 	var/turf/T = get_turf(src)
 	if(T)
-		if(user.TurfAdjacent(T))
+		if(user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
 			user.listed_turf = T
 			user.client.statpanel = T.name
 			// If we had a method to force a `Stat` update, it would go here
 		else
 			user.listed_turf = null
-	return
+
 
 /mob/proc/TurfAdjacent(var/turf/T)
 	return T.Adjacent(src)

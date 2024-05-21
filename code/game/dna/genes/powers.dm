@@ -48,12 +48,12 @@
 		return FALSE
 
 
-/datum/dna/gene/basic/increaserun/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/increaserun/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.ignore_slowdown(RUN)
 
 
-/datum/dna/gene/basic/increaserun/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/increaserun/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.unignore_slowdown(RUN)
 
@@ -121,14 +121,14 @@
 	block = GLOB.smallsizeblock
 
 
-/datum/dna/gene/basic/midget/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/midget/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags |= PASSTABLE
 	mutant.resize = 0.8
 	mutant.update_transform()
 
 
-/datum/dna/gene/basic/midget/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/midget/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags &= ~PASSTABLE
 	mutant.resize = 1.25
@@ -149,32 +149,21 @@
 	block = GLOB.hulkblock
 
 
-/datum/dna/gene/basic/hulk/activate(mob/living/mutant)
+/datum/dna/gene/basic/hulk/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
+	mutant.update_body(TRUE)
 
 
-/datum/dna/gene/basic/hulk/deactivate(mob/living/mutant)
+/datum/dna/gene/basic/hulk/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
+	mutant.update_body(TRUE)
 
 
 /datum/dna/gene/basic/hulk/OnDrawUnderlays(mob/M, g)
-	if(HULK in M.mutations)
-		return "hulk_[g]_s"
-	return FALSE
+	return "hulk_[g]_s"
 
-/datum/dna/gene/basic/hulk/OnMobLife(mob/living/carbon/human/M)
-	if(!istype(M))
-		return
-	if((HULK in M.mutations) && M.health <= 0)
-		M.mutations.Remove(HULK)
-		M.dna.SetSEState(GLOB.hulkblock,0)
-		genemutcheck(M, GLOB.hulkblock,null,MUTCHK_FORCED)
-		M.update_mutations()		//update our mutation overlays
-		M.update_body()
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
-		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
 /datum/dna/gene/basic/xray
 	name = "X-Ray Vision"
@@ -189,13 +178,13 @@
 	block = GLOB.xrayblock
 
 
-/datum/dna/gene/basic/xray/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/xray/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_sight()
 	mutant.update_icons() //Apply eyeshine as needed.
 
 
-/datum/dna/gene/basic/xray/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/xray/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_sight()
 	mutant.update_icons() //Remove eyeshine as needed.

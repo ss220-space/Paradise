@@ -279,8 +279,16 @@
 /**
  * Nonliving mobs don't have hands
  */
-/mob/proc/put_in_hand_check(obj/item/I)
+/mob/proc/put_in_hand_check(obj/item/I, hand_id)
 	return FALSE
+
+
+/*
+/mob/living/put_in_hand_check(obj/item/I, hand_id)
+	if(istype(I) && ((mobility_flags & MOBILITY_PICKUP) || (I.flags & ABSTRACT)))
+		return TRUE
+	return FALSE
+*/
 
 
 /**
@@ -488,7 +496,7 @@
 	var/shift_x
 	var/shift_y
 
-	if(ignore_pixel_shift || (I.flags & NO_PIXEL_RANDOM_DROP))
+	if(ignore_pixel_shift || (I.item_flags & NO_PIXEL_RANDOM_DROP))
 		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
 		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
 	else
@@ -562,7 +570,7 @@
 			client.screen -= I
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
-		if(!no_move && !(I.flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
+		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
 				I.move_to_null_space()
 			else
@@ -588,7 +596,7 @@
 
 	// TRAIT_NODROP
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
-		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
+		if(!(I.item_flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
 			can_unEquip_message_delay = world.time
 			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
 		return FALSE
@@ -698,7 +706,7 @@
 /mob/proc/equipped_speed_mods()
 	. = 0
 	for(var/obj/item/thing in list(get_active_hand(), get_inactive_hand()))
-		if(thing && (thing.flags & HANDSLOW) && !thing.is_speedslimepotioned)
+		if(thing && (thing.item_flags & SLOWS_WHILE_IN_HAND) && !(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
 
 
@@ -710,4 +718,8 @@
 	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
 	. += l_hand?.is_crutch()
 	. += r_hand?.is_crutch()
+
+
+/mob/proc/covered_with_thick_material(check_zone, full_body_check = FALSE)
+	return FALSE
 

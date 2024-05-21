@@ -113,29 +113,25 @@
 
 	var/hp_percent = round(obj_integrity * 100 / max_integrity)
 	switch(hp_percent)
-		if(76 to INFINITY)
-			return
-		if(51 to 75)
-			. += "crack1"
+		if(-INFINITY to 25)
+			. += "crack3"
 		if(26 to 50)
 			. += "crack2"
-		if(1 to 25)
-			. += "crack3"
+		if(51 to 75)
+			. += "crack1"
 
 
 /obj/machinery/newscaster/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-	update_icon(UPDATE_OVERLAYS)
-
-
-/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
+	. = ..()
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -173,14 +169,14 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/newscaster/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		update_icon(UPDATE_OVERLAYS)
@@ -722,7 +718,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	eject_photo(usr)

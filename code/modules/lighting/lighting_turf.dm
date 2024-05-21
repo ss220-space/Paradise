@@ -4,7 +4,7 @@
 
 	var/tmp/lighting_corners_initialised = FALSE
 
-	var/tmp/datum/lighting_object/lighting_object // Our lighting object.
+	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
 	///Lighting Corner datums.
 	var/tmp/datum/lighting_corner/lighting_corner_NE
 	var/tmp/datum/lighting_corner/lighting_corner_SE
@@ -32,7 +32,7 @@
 	if(!IS_DYNAMIC_LIGHTING(A) && !light_sources)
 		return
 
-	new/datum/lighting_object(src)
+	new/atom/movable/lighting_object(src)
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
@@ -89,6 +89,21 @@
 		reconsider_lights()
 
 /turf/proc/change_area(area/old_area, area/new_area)
+
+	old_area.contents -= src
+	new_area.contents += src
+
+	var/old_force_no_grav = force_no_gravity
+	if(istype(new_area, /area/space))
+		force_no_gravity = TRUE
+	else
+		force_no_gravity = FALSE
+
+	if(old_force_no_grav != force_no_gravity)
+		//inform atoms on the turf that their area has changed
+		for(var/mob/living/mob in contents)
+			mob.refresh_gravity()
+
 	if(SSlighting.initialized)
 		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
 			if(new_area.dynamic_lighting)

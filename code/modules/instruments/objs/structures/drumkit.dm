@@ -7,7 +7,7 @@
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	allowed_instrument_ids = "drumkit"
 
 /obj/structure/musician/drumkit/Initialize(mapload)
@@ -65,28 +65,25 @@
 					buckled_mob.pixel_x = -2
 					buckled_mob.pixel_y = 0
 
-//BUCKLE HOOKS
-/obj/structure/musician/drumkit/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall)
-	song.stop_playing()
-	SStgui.close_uis(src)
-	if(istype(buckled_mob))
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-	. = ..()
 
-/obj/structure/musician/drumkit/user_buckle_mob(mob/living/M, mob/user)
+//BUCKLE HOOKS
+/obj/structure/musician/drumkit/is_user_buckle_possible(mob/living/target, mob/user, check_loc = TRUE)
 	if(!anchored)
 		to_chat(user, span_warning("The musical instrument needs to be anchored to the floor!"))
-		return
-	if(user.incapacitated())
-		return
-	for(var/atom/movable/A in get_turf(src))
-		if(A.density)
-			if(A != src && A != M)
-				return
-	M.forceMove(get_turf(src))
-	..()
+		return FALSE
+	return ..()
+
+
+/obj/structure/musician/drumkit/post_buckle_mob(mob/living/target)
 	handle_offsets()
+
+
+/obj/structure/musician/drumkit/post_unbuckle_mob(mob/living/target)
+	song.stop_playing()
+	SStgui.close_uis(src)
+	target.pixel_x = 0
+	target.pixel_y = 0
+
 
 /obj/structure/musician/drumkit/examine(mob/user)
 	. = ..()
@@ -96,16 +93,19 @@
 /obj/structure/musician/drumkit/AltClick(mob/living/user)
 	rotate(user)
 
+
 /obj/structure/musician/drumkit/proc/rotate(mob/living/user)
-	if(anchored)
-		to_chat(user, span_warning("The musical instrument is anchored to the floor!"))
-		return FALSE
 	if(user)
 		if(isobserver(user))
 			if(!CONFIG_GET(flag/ghost_interaction))
 				return FALSE
-		else if(!isliving(user) || user.incapacitated() || !Adjacent(user))
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 			return FALSE
+
+	if(anchored)
+		if(user)
+			to_chat(user, span_warning("The musical instrument is anchored to the floor!"))
+		return FALSE
 
 	setDir(turn(dir, 90))
 	handle_layer()

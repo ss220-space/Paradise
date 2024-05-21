@@ -76,7 +76,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/gun/projectile/automatic/can_shoot()
+/obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
 
 /obj/item/gun/projectile/automatic/proc/empty_alarm()

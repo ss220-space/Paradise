@@ -393,3 +393,14 @@
 	description = "Its old space USSP Banya.... She looks very abandoned."
 	cost = 2
 	allow_duplicates = FALSE
+
+
+/datum/map_template/ruin/space/spacebotany
+	id = "spacebotany"
+	suffix = "spacebotany.dmm"
+	name = "Space Botany"
+	description = "An abandoned botanical station that once produced various biological weapons and engaged in various dubious developments. \
+	However, it seems that hardly anyone is left on it now.. Or not?"
+	allow_duplicates = FALSE
+	cost = 2
+

@@ -60,7 +60,8 @@
 			if(prob(prob))
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
-		domutcheck(M, null)
+		M.check_genes()
+
 
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)

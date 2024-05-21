@@ -29,10 +29,15 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+		var/selected_zone = user.zone_selected
+		var/obj/item/organ/external/affecting = H.get_organ(selected_zone)
 
 		if(isgolem(M))
 			to_chat(user, "<span class='danger'>This can't be used on golems!</span>")
+			return TRUE
+
+		if(H.covered_with_thick_material(selected_zone))
+			to_chat(user, "<span class='danger'>There is no thin material to inject into.</span>")
 			return TRUE
 
 		if(!affecting)
@@ -43,14 +48,22 @@
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 			return TRUE
 
-		if(M == user && !unique_handling)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
-			if(!do_mob(user, H, self_delay))
+		if(H == user && !unique_handling)
+			user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_themselves()]...</span>")
+			if(!do_after(user, self_delay, H, NONE))
 				return TRUE
 
-		if(H.head && H.head.flags & THICKMATERIAL)
-			if(H.wear_suit && H.wear_suit.flags & THICKMATERIAL)
-				to_chat(user, "<span class='danger'>There is no thin material to inject into.")
+			var/obj/item/organ/external/affecting_rechecked = H.get_organ(selected_zone)
+			if(!affecting_rechecked)
+				to_chat(user, "<span class='danger'>That limb is missing!</span>")
+				return TRUE
+
+			if(H.covered_with_thick_material(selected_zone))
+				to_chat(user, "<span class='danger'>There is no thin material to inject into.</span>")
+				return TRUE
+
+			if(affecting_rechecked.is_robotic())
+				to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 				return TRUE
 
 		return
@@ -317,9 +330,9 @@
 			span_italics("You hear something being wrapped."),
 		)
 
-	if(target == user && !do_mob(user, target, self_delay))
+	if(target == user && !do_after(user, self_delay, target, NONE))
 		return TRUE
-	else if(!do_mob(user, target, other_delay))
+	else if(!do_after(user, other_delay, target, NONE))
 		return TRUE
 
 	user.visible_message(

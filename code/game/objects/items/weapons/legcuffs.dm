@@ -51,7 +51,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
+	if(ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
@@ -144,7 +144,7 @@
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 
-		if(moving_human.set_legcuffed(src)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+		if(moving_human.apply_restraints(src, ITEM_SLOT_LEGCUFFED)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 		return
@@ -194,7 +194,7 @@
 
 /obj/item/restraints/legcuffs/bola/update_icon_state()
 	item_state = spinning ? "[initial(item_state)]_spin" : initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
@@ -226,7 +226,8 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
-	if(do_mob(user, user, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), user))))
+
+	if(do_after(user, 1 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
 		throw_speed += round(max_speed / max_spins)
 		spin_cycle++
@@ -289,13 +290,13 @@
 
 	target.visible_message(span_danger("[src] ensnares [target]!"))
 	to_chat(target, span_userdanger("[src] ensnares you!"))
-	target.set_legcuffed(src)
+	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)
-		flags |= DROPDEL
+		item_flags |= DROPDEL
 
 
 

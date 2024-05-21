@@ -45,22 +45,24 @@
 
 
 /// Called when the gene activates.  Do your magic here.
-/datum/dna/gene/proc/activate(mob/living/mutant, connected, flags)
-	set waitfor = FALSE
+/datum/dna/gene/proc/activate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYOR(mutant.active_genes, type)
 	mutant.gene_stability -= instability
+	if(OnDrawUnderlays())
+		mutant.update_mutations()
 
 
 /**
 * Called when the gene deactivates.  Undo your magic here.
 * Only called when the block is deactivated.
 */
-/datum/dna/gene/proc/deactivate(mob/living/mutant, connected, flags)
-	set waitfor = FALSE
+/datum/dna/gene/proc/deactivate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(mutant.active_genes, type)
 	mutant.gene_stability += instability
+	if(OnDrawUnderlays())
+		mutant.update_mutations()
 
 
 // This section inspired by goone's bioEffects.
@@ -90,7 +92,7 @@
 * @params g Gender (m or f)
 */
 /datum/dna/gene/proc/OnDrawUnderlays(mob/M, g)
-	return FALSE
+	return
 
 
 /////////////////////
@@ -131,7 +133,7 @@
 	return prob(activation_prob)
 
 
-/datum/dna/gene/basic/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations |= mutation
 	for(var/trait in traits_to_add)
@@ -141,7 +143,7 @@
 		to_chat(mutant, span_notice("[msg]"))
 
 
-/datum/dna/gene/basic/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations -= mutation
 	for(var/trait in traits_to_add)

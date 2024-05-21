@@ -12,7 +12,7 @@
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
 
-	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon) && !LAZYLEN(user.grabbed_by))
 		to_chat(user, span_warning("We are already free!"))
 		return FALSE
 

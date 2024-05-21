@@ -47,7 +47,7 @@
 /mob/proc/update_inv_head()
 	return
 
-/mob/proc/update_head(obj/item/I, forced)
+/mob/proc/update_head(obj/item/I, forced, toggle_off = FALSE)
 	return
 
 /mob/proc/update_inv_gloves()

@@ -46,7 +46,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
-		if(!do_mob(user, target, 15 SECONDS) || !can_sting(user, TRUE))
+		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE
 			return FALSE

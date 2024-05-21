@@ -143,7 +143,7 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
@@ -236,7 +236,7 @@
 	update_freelook_sight()
 
 	sleep(0.4 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 
 	sleep(0.1 SECONDS)
@@ -262,7 +262,7 @@
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 
 	sleep(0.4 SECONDS)
@@ -540,7 +540,7 @@
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT) && status != BURST)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
 

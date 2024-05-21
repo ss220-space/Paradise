@@ -424,7 +424,7 @@
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
 		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
 
-	else if(!M.restrained())
+	else if(!M.incapacitated() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/C in orange(1, M))
 			if(C)
 				if(C == M)

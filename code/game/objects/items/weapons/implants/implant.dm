@@ -11,7 +11,7 @@
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	item_color = "black"
-	flags = DROPDEL  // By default, don't let implants be harvestable.
+	item_flags = DROPDEL  // By default, don't let implants be harvestable.
 
 	/// Which implant overlay should be used for implant cases. This should point to a state in implants.dmi
 	var/implant_state = "implant-default"

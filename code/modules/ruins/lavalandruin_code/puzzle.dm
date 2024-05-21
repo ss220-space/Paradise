@@ -287,7 +287,7 @@
 
 /obj/effect/sliding_puzzle/prison/dispense_reward()
 	prisoner.forceMove(get_turf(src))
-	prisoner.notransform = FALSE
+	REMOVE_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	prisoner = null
 
 //Some armor so it's harder to kill someone by mistake.
@@ -327,7 +327,7 @@
 		return FALSE
 
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
-	prisoner.notransform = TRUE
+	ADD_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(cube))
 	prisoner.forceMove(cube)
 	to_chat(prisoner,"<span class='userdanger'>You're trapped by the prison cube! You will remain trapped until someone solves it.</span>")
 

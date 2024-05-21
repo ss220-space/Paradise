@@ -108,6 +108,13 @@
 
 /datum/movespeed_modifier/robot_vtec_upgrade
 	multiplicative_slowdown = -1
+	movetypes = GROUND
+	blacklisted_movetypes = (FLYING|FLOATING)
+
+
+/datum/movespeed_modifier/robot_jetpack_upgrade
+	multiplicative_slowdown = -1
+	movetypes = (FLYING|FLOATING)
 
 
 /datum/movespeed_modifier/slime_health_mod

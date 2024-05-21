@@ -31,17 +31,6 @@
 	var/special = null
 	item_state = "card-id"
 
-/obj/item/card/data/verb/label(t as text)
-	set name = "Label Disk"
-	set category = "Object"
-	set src in usr
-
-	if(t)
-		src.name = text("Data Disk- '[]'", t)
-	else
-		src.name = "Data Disk"
-	src.add_fingerprint(usr)
-	return
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
@@ -70,8 +59,8 @@
 	icon_state = "emag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=3"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/emag/attack()
 	return
@@ -88,11 +77,11 @@
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
-	flags = NOBLUDGEON
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4, 4, 100, 0, FALSE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
 
 /obj/item/card/cmag/attack()
 	return
@@ -298,7 +287,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(guest_pass)

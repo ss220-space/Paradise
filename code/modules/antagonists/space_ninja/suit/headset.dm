@@ -3,7 +3,7 @@
 	desc = "Headset developed by a fearfull Spider Clan. \
 	It is able to hear and translate binary communications between cyborgs, and can copy radio channels from other headsets and encryption keys! \
 	Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "headset_green"
 	ks2type = /obj/item/encryptionkey/spider_clan
@@ -19,7 +19,7 @@
 /obj/item/radio/headset/ninja/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/radio/headset))
 		var/obj/item/radio/headset/target_headset = W
-		if(!do_after(user, 2 SECONDS, FALSE, user))
+		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>Сканирование прервано!</span>")
 			return
 		to_chat(user, span_notice("Вы сканируете \"[target_headset.name]\" и копируете доступные в нём каналы в память вашего собственного наушника."))

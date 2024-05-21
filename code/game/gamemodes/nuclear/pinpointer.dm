@@ -236,7 +236,7 @@
 
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(modelocked)
@@ -512,7 +512,7 @@
 
 
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/list/name_counts = list()
@@ -626,7 +626,7 @@
 
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))

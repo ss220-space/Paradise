@@ -123,7 +123,8 @@
 	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
-
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	drop_gripped_item()
 
 /obj/item/gripper/attack_self(mob/user)

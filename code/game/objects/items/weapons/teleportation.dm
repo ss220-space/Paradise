@@ -50,7 +50,7 @@
 	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
-	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
+	if(!t1 || !user.is_in_active_hand(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(active_portals >= 3)
 		user.show_message(span_notice("[src] is recharging!"))

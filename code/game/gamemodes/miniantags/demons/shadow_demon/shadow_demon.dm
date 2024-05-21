@@ -61,6 +61,9 @@
 
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/target)
+	if(!can_unarmed_attack())
+		return
+
 	if(!ishuman(target))
 		if(isitem(target))
 			target.extinguish_light(TRUE)
@@ -79,7 +82,7 @@
 
 	visible_message(span_danger("[src] begins wrapping [h_target] in shadowy threads."))
 	wrapping = TRUE
-	if(!do_after(src, 4 SECONDS, FALSE, target = h_target))
+	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 
@@ -134,7 +137,7 @@
 
 
 /obj/structure/shadowcocoon/AltClick(mob/user)
-	if(!isdemon(user))
+	if(!isdemon(user) || user.incapacitated())
 		return ..()
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))
