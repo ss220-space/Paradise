@@ -91,10 +91,11 @@
 /**
  * Checks if we have incapacitating immunity. Godmode always passes this check.
  *
+ * Arguments:
  * * check_flags - bitflag of status flags that must be set in order for the incapacitating effect to succeed. Passing NONE will always return `FALSE`.
  * * force_apply - whether we ignore incapacitating immunity with the exception of godmode.
  *
- * Returns `TRUE` if immune, FALSE otherwise
+ * Returns `TRUE` if immune, `FALSE` otherwise
  */
 /mob/living/proc/check_incapacitating_immunity(check_flags = CANSTUN, force_apply = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
