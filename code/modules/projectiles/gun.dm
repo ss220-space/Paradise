@@ -468,7 +468,7 @@
 		if(user)
 			to_chat(user, span_notice("You toggle the gun light [gun_light.on ? "on": "off"]."))
 	gun_light.set_light_on(gun_light.on)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
 
