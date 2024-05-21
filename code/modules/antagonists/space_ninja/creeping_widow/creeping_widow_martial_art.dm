@@ -78,7 +78,7 @@
 	if(grab_item)
 		grab_item.state = GRAB_AGGRESSIVE //Instant aggressive grab
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed")
-	if(!defender.stat && !defender.IsWeakened())
+	if(!defender.stat && defender.body_position != LYING_DOWN)
 		if(attacker.dir == defender.dir && has_focus)
 			has_focus = FALSE
 			var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"

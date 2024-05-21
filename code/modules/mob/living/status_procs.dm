@@ -715,7 +715,7 @@
 	return has_status_effect(STATUS_EFFECT_WEAKENED)
 
 /mob/living/proc/AmountWeakened() //How many deciseconds remain in our Weakened status effect
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		return P.duration - world.time
 	return 0
@@ -725,7 +725,7 @@
 		return
 	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		P.duration = max(world.time + amount, P.duration)
 	else if(amount > 0)
@@ -735,7 +735,7 @@
 /mob/living/proc/SetWeakened(amount, ignore_canweaken = FALSE) //Sets remaining duration
 	if(IS_WEAKEN_IMMUNE(src, ignore_canweaken))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(amount <= 0)
 		if(P)
 			qdel(P)
@@ -753,7 +753,7 @@
 		return
 	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
 		return
-	var/datum/status_effect/incapacitating/weakened/P = IsWeakened(FALSE)
+	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
 		P.duration += amount
 	else if(amount > 0)

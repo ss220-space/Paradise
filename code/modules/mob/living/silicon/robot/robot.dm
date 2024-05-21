@@ -1135,7 +1135,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
 
-	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
 		var/eyes_olay
 		if(custom_panel in custom_eye_names)
 			if(isclocker(src) && SSticker.mode.power_reveal)

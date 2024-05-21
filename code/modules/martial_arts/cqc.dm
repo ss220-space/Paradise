@@ -102,7 +102,7 @@
 	var/obj/item/I = null
 
 	if(prob(50))
-		if(!D.stat || !D.IsWeakened() || !restraining)
+		if(!D.stat || D.body_position != LYING_DOWN || !restraining)
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
