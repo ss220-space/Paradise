@@ -1310,6 +1310,7 @@
 		visible_message(span_boldnotice("BOBR KURWA!"))
 		COOLDOWN_START(src, cooldown, 3 SECONDS)
 	..()
+
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
 
