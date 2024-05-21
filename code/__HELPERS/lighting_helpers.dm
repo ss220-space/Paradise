@@ -1,6 +1,6 @@
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE] dyed to be the [EMISSIVE_COLOR]. Order of application matters: Default generated blockers are overlays, and will block its own emissive underlays. If you want an object to be both a blocker, and have their own emissive, it has to be an overlay instead. Grayscale lightmasks are visible in the BYOND right-click and Examine pane, unless they're covered up by another overlay.
 /proc/emissive_appearance(icon, icon_state = "", atom/offset_spokesman, layer = FLOAT_LAYER, alpha = 255, appearance_flags = NONE, offset_const)
-	return mutable_appearance(icon, icon_state, layer, offset_spokesman, EMISSIVE_PLANE, alpha, appearance_flags|EMISSIVE_APPEARANCE_FLAGS, EMISSIVE_COLOR, offset_const)
+	return mutable_appearance(icon, icon_state, layer, offset_spokesman, EMISSIVE_PLANE, 255, appearance_flags|EMISSIVE_APPEARANCE_FLAGS, EMISSIVE_COLOR, offset_const)
 
 
 /// Produces a mutable appearance glued to the [EMISSIVE_PLANE] dyed to be the [EM_BLOCK_COLOR].

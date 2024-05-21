@@ -86,6 +86,10 @@
 	parent_parallax.add_relay_to(plane, BLEND_OVERLAY)
 	return ..()
 
+// Needs to handle rejoining on a lower z level, so we NEED to readd old planes
+/atom/movable/screen/plane_master/parallax/check_outside_bounds()
+	// If we're outside bounds AND we're the 0th plane, we need to show cause parallax is hacked to hell
+	return offset != 0 && is_outside_bounds
 
 /atom/movable/screen/plane_master/floor
 	name = "Floor"

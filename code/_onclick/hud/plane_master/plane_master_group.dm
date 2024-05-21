@@ -112,7 +112,6 @@
 	// Each time we go "down" a visual z level, we'll reduce the scale by this amount
 	// Chosen because mothblocks liked it, didn't cause motion sickness while also giving a sense of height
 	var/scale_by = 0.965
-	// If our mob can see through walls
 	if(!use_scale)
 		// This is a workaround for two things
 		// First of all, if a mob can see objects but not turfs, they will not be shown the holder objects we use for
@@ -147,8 +146,6 @@
 		if(!plane.allows_offsetting)
 			continue
 		var/visual_offset = plane.offset - new_offset
-		// we get like 47 -> 42 from just no AO/displace on lower levels. 39 with no FOV blocking
-		// 31 with only barebones lower planes
 
 		// Basically uh, if we're showing something down X amount of levels, or up any amount of levels
 		if(multiz_boundary != MULTIZ_PERFORMANCE_DISABLE && (visual_offset > multiz_boundary || visual_offset < 0))

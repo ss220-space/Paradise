@@ -217,9 +217,6 @@
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
-		L.update_status(mymob)
-		if(L.view_sized != C.view)
-			L.update_o(C.view)
 
 		if(L.absolute)
 			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
@@ -254,7 +251,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	var/speed = 1
 	var/offset_x = 0
 	var/offset_y = 0
-	var/view_sized
 	var/absolute = FALSE
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
@@ -263,8 +259,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 
 
 /atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner)
-	..()
-	var/client/boss = hud_owner?.mymob?.canon_client
+	. = ..()
+	// Parallax layers are independant of hud, they care about client
+	// Not doing this will just create a bunch of hard deletes
+	hud = null
+	var/client/boss = hud_owner?.mymob?.client
 	if(!boss) // If this typepath all starts to harddel your culprit is likely this
 		return INITIALIZE_HINT_QDEL
 	// I do not want to know bestie
@@ -296,13 +295,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 
 	cut_overlays()
 	add_overlay(new_overlays)
-	// Cache this
-	view_sized = view
-
-
-/atom/movable/screen/parallax_layer/proc/update_status(mob/M)
-	return
-
 
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"
@@ -354,13 +346,32 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	if(SSmapping.lavaland_theme?.planet_icon_state)
 		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
-/atom/movable/screen/parallax_layer/planet/update_status(mob/M)
-	var/turf/T = get_turf(M)
-	if(is_station_level(T.z))
+	var/client/boss = hud_owner?.mymob?.client
+	if(!boss)
+		return
+
+	var/static/list/connections = list(
+		COMSIG_MOVABLE_Z_CHANGED = PROC_REF(on_z_change),
+		COMSIG_MOB_LOGOUT = PROC_REF(on_mob_logout),
+	)
+	AddComponent(/datum/component/connect_mob_behalf, boss, connections)
+	on_z_change(hud_owner?.mymob)
+
+/atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
+	SIGNAL_HANDLER
+	var/client/boss = source.client
+	on_z_change(boss.mob)
+
+/atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
+	SIGNAL_HANDLER
+	var/client/boss = source.client
+	var/turf/posobj = get_turf(boss?.eye)
+	if(!posobj)
+		return
+	if(is_station_level(posobj.z))
 		invisibility = 0
 	else
 		invisibility = INVISIBILITY_ABSTRACT
-
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
