@@ -5,7 +5,7 @@
 /mob/living/carbon/proc/enter_stamcrit()
 	if(IsStamcrited()) //Already in stamcrit
 		return
-	if(!(status_flags & CANWEAKEN))
+	if(check_incapacitating_immunity(CANWEAKEN))
 		return
 	if(absorb_status_effect(0, status_effect = WEAKEN)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return

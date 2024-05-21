@@ -176,7 +176,7 @@
 
 /mob/living/carbon/alien/Weaken(amount, ignore_canweaken)
 	. = ..()
-	if(. && !(status_flags & CANWEAKEN) && amount && !large)
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
@@ -184,7 +184,7 @@
 
 /mob/living/carbon/alien/SetWeakened(amount, ignore_canweaken)
 	. = ..()
-	if(. && !(status_flags & CANWEAKEN) && amount && !large)
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
