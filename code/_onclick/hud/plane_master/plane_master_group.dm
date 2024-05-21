@@ -11,7 +11,6 @@
 	var/list/atom/movable/screen/plane_master/plane_masters = list()
 	/// The visual offset we are currently using
 	var/active_offset = 0
-
 	/// What, if any, submap we render onto
 	var/map = ""
 	/// Controls the screen_loc that owned plane masters will use when generating relays. Due to a Byond bug, relays using the CENTER positional loc
@@ -167,11 +166,7 @@
 /// This is because it's annoying to get turfs to position inside it correctly
 /// If you wanna try someday feel free, but I can't manage it
 /datum/plane_master_group/popup
-
-/datum/plane_master_group/popup/attach_to(datum/hud/viewing_hud)
 	relay_loc = "LEFT,TOP"
-	rebuild_plane_masters()
-	return ..()
 
 /datum/plane_master_group/popup/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
 	return ..(source, new_offset, FALSE)

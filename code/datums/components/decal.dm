@@ -7,7 +7,9 @@
 
 	var/first_dir // This only stores the dir arg from init
 
-/datum/component/decal/Initialize(_icon, _icon_state, _dir, _plane=FLOAT_PLANE, _cleanable = CLEAN_GOD, _color, _layer = TURF_LAYER, _description, _alpha = 255)
+/datum/component/decal/Initialize(_icon, _icon_state, _dir, _plane=FLOAT_PLANE, _cleanable = CLEAN_GOD, _color, _layer = TURF_DECAL_LAYER, _description, _alpha = 255)
+	if(!isturf(parent))
+		return COMPONENT_INCOMPATIBLE
 	if(!generate_appearance(_icon, _icon_state, _dir, _plane, _layer, _color, _alpha))
 		return COMPONENT_INCOMPATIBLE
 	first_dir = _dir
@@ -41,13 +43,13 @@
 /datum/component/decal/proc/generate_appearance(_icon, _icon_state, _dir, _plane, _layer, _color, _alpha)
 	if(!_icon || !_icon_state)
 		return FALSE
-	if(!isatom(parent))
+	if(!isturf(parent))
 		return FALSE
-	var/atom/atom_source = parent
 	// It has to be made from an image or dir breaks because of a byond bug
 	var/temp_image = image(_icon, null, _icon_state, _layer, _dir)
 	pic = new(temp_image)
-	SET_PLANE_EXPLICIT(pic, _plane, atom_source)
+	var/atom/atom_source = parent
+	SET_PLANE_EXPLICIT(pic, PLANE_TO_TRUE(_plane), atom_source)
 	pic.color = _color
 	pic.alpha = _alpha
 	return TRUE

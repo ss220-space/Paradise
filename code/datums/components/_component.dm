@@ -316,12 +316,16 @@
 		var/proctype = C.signal_procs[src][sigtype]
 		return NONE | CallAsync(C, proctype, arguments)
 	. = NONE
-	for(var/I in target)
-		var/datum/C = I
-		if(!C.signal_enabled)
+	// This exists so that even if one of the signal receivers unregisters the signal,
+	// all the objects that are receiving the signal get the signal this final time.
+	// AKA: No you can't cancel the signal reception of another object by doing an unregister in the same signal.
+	var/list/queued_calls = list()
+	for(var/datum/listening_datum as anything in target)
+		if(!listening_datum.signal_enabled)
 			continue
-		var/proctype = C.signal_procs[src][sigtype]
-		. |= CallAsync(C, proctype, arguments)
+		queued_calls[listening_datum] = listening_datum.signal_procs[src][sigtype]
+	for(var/datum/listening_datum as anything in queued_calls)
+		. |= CallAsync(listening_datum, queued_calls[listening_datum], arguments)
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
 /**

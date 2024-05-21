@@ -1,3 +1,5 @@
+#define DEFAULT_MAP_SIZE 15
+
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
@@ -14,7 +16,6 @@
 	var/list/watchers = list()
 
 	// Stuff needed to render the map
-	var/const/default_map_size = 15
 	var/atom/movable/screen/map_view/cam_screen
 	/// All the plane masters that need to be applied.
 	var/atom/movable/screen/background/cam_background
@@ -36,8 +37,8 @@
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
-	qdel(cam_screen)
-	qdel(cam_background)
+	QDEL_NULL(cam_screen)
+	QDEL_NULL(cam_background)
 	active_camera = null
 	return ..()
 
@@ -126,17 +127,14 @@
 		active_camera.computers_watched_by += src
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
-		// Show static if can't use the camera
-		if(!active_camera?.can_use())
-			show_camera_static()
-			return
-
 		update_camera_view()
 
 		return
 
 /obj/machinery/computer/security/proc/update_camera_view()
-	if(!active_camera || !active_camera.can_use())
+	// Show static if can't use the camera
+	if(!active_camera?.can_use())
+		show_camera_static()
 		return
 	var/list/visible_turfs = list()
 	for(var/turf/T in view(active_camera.view_range, get_turf(active_camera)))
@@ -189,7 +187,7 @@
 /obj/machinery/computer/security/proc/show_camera_static()
 	cam_screen.vis_contents.Cut()
 	cam_background.icon_state = "scanline2"
-	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
+	cam_background.fill_rect(1, 1, DEFAULT_MAP_SIZE, DEFAULT_MAP_SIZE)
 
 
 
@@ -311,3 +309,5 @@
 	icon_screen = "sec_oldcomp"
 	icon_state = "oldcomp"
 	icon_keyboard = null
+
+#undef DEFAULT_MAP_SIZE

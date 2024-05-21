@@ -55,8 +55,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view)
 	return pop_planes
 
 /atom/movable/screen/map_view/proc/hide_from(mob/hide_from)
-	hide_from?.client.clear_map(assigned_map)
-	var/client_ref = WEAKREF(hide_from?.client)
+	hide_from?.canon_client.clear_map(assigned_map)
+	var/client_ref = WEAKREF(hide_from?.canon_client)
 
 	// Make sure we clear the *right* hud
 	var/datum/weakref/hud_ref = viewers_to_huds[client_ref]
