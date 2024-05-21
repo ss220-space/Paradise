@@ -357,7 +357,6 @@
 
 		if((!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
 			|| (!(timed_action_flags & DA_IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
-			|| (!(timed_action_flags & DA_IGNORE_CONSCIOUSNESS) && user.stat) \
 			|| (!(timed_action_flags & DA_IGNORE_LYING) && user.IsLying()) \
 			|| (!(timed_action_flags & DA_IGNORE_INCAPACITATED) && HAS_TRAIT(user, TRAIT_INCAPACITATED)) \
 			|| (!(timed_action_flags & DA_IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
