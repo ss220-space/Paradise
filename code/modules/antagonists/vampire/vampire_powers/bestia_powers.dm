@@ -543,7 +543,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(ignore_grab = TRUE))
+	if(user.incapacitated(INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -714,7 +714,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE) || user.buckled || (iscarbon(user) && user.legcuffed))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -943,7 +943,7 @@
 				to_chat(user, span_warning("You are already using another metamorphosis!"))
 			return FALSE
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE

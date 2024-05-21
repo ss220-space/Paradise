@@ -170,7 +170,7 @@
 
 /datum/action/innate/regrow
 	name = "Regrow limbs"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "slime_renew"
 
@@ -224,7 +224,7 @@
 			chosen_limb_rus = "правой кисти"
 
 	H.visible_message("<span class='notice'>[H] замирает и концентрируется на [genderize_ru(H.gender,"его","её","своей","их")] потерянной [chosen_limb_rus]...</span>", "<span class='notice'>Вы концентрируетесь на отращивании [chosen_limb_rus]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд, нужно подождать в спокойствии.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, H, IGNORE_LYING|IGNORE_STUNNED|IGNORE_HELD_ITEM))
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, H, DA_IGNORE_INCAPACITATED|DA_IGNORE_HELD_ITEM))
 		if(H.nutrition < SLIMEPERSON_MINHUNGER)
 			to_chat(H, "<span class='warning'>Вы слишком голодны чтобы регенерировать!</span>")
 			return

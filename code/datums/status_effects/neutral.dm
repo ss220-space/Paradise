@@ -258,7 +258,7 @@
 
 
 /datum/status_effect/stop_drop_roll/tick(seconds_between_ticks)
-	if(HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || owner.IsWeakened() || owner.IsStunned())
+	if(HAS_TRAIT(owner, TRAIT_IMMOBILIZED) || HAS_TRAIT(owner, TRAIT_INCAPACITATED))
 		qdel(src)
 		return
 

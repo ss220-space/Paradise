@@ -345,7 +345,7 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.incapacitated(ignore_restraints = TRUE) || user.buckled)
+	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 	var/turf/turf_to_check = get_turf(user)

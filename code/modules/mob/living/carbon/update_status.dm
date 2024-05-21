@@ -18,7 +18,7 @@
 		if(!stat)
 			enter_stamcrit()
 	else if(IsStamcrited())
-		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
+		remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
 	else
 		return
 	update_stamina_hud()
