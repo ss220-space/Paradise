@@ -80,6 +80,17 @@
 	if(wryn_sting)
 		wryn_sting.Remove(H)
 
+/datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	var/comb_deafness = H.client.prefs.speciesprefs
+	if(comb_deafness)
+		var/obj/item/organ/internal/wryn/hivenode/node = H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
+		node.remove(H)
+		qdel(node)
+	else
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+		head_organ.h_style = "Antennae"
+		H.update_hair()
+
 /* Wryn Sting Action Begin */
 
 //Define the Sting Action
