@@ -1142,7 +1142,7 @@
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
 	AI.eyeobj?.forceMove(src)
-	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/ai_eye, update_visibility))
+	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.canmove = TRUE //Much easier than adding AI checks! Be sure to set this back to FALSE if you decide to allow an AI to leave a mech somehow.

@@ -162,10 +162,12 @@
 	if(isnull(client)) // we don't care about pipe vision if we have no client
 		return
 
-	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
+	if(LAZYLEN(pipes_shown))
 		for(var/current_image in pipes_shown)
 			client.images -= current_image
 		LAZYNULL(pipes_shown)
+
+	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
 		for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
 			pipecrawl.hide_plane(src)
 		return
