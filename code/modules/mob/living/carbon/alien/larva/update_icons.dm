@@ -11,13 +11,14 @@
 	else if(evolution_points > 50)
 		state = 1
 
+	var/incapacitated = HAS_TRAIT(src, TRAIT_INCAPACITATED)
 	if(stat == DEAD)
 		icon_state = "larva[state]_dead"
 	else if(handcuffed || legcuffed) //This should be an overlay. Who made this an icon_state?
 		icon_state = "larva[state]_cuff"
-	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
+	else if(!incapacitated && body_position == LYING_DOWN)
 		icon_state = "larva[state]_sleep"
-	else if(IsStunned())
+	else if(incapacitated)
 		icon_state = "larva[state]_stun"
 	else
 		icon_state = "larva[state]"

@@ -140,14 +140,14 @@
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_UI)
 	unset_machine()
-	update_action_buttons(TRUE)
+	update_action_buttons()
 
 
 /// Called when [TRAIT_UI_BLOCKED] is removed from the mob.
 /mob/living/proc/on_ui_blocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_UI
-	update_action_buttons(TRUE)
+	update_action_buttons()
 
 
 /// Called when [TRAIT_INCAPACITATED] is added to the mob.
