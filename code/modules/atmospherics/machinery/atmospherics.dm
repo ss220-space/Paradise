@@ -358,12 +358,6 @@ Pipelines + Other Objects -> Pipe network
 	if(!our_client)
 		return
 
-	var/turf/old_turf = get_turf(src)
-	var/turf/new_turf = get_turf(target_move)
-	if(old_turf?.z != new_turf?.z)
-		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
-		user.on_changed_z_level(old_turf, new_turf, same_z_layer)
-
 	our_client.set_eye(target_move)
 	// Let's smooth out that movement with an animate yeah?
 	// If the new x is greater (move is left to right) we get a negative offset. vis versa

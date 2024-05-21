@@ -1141,7 +1141,8 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
-	AI.cancel_camera()
+	AI.eyeobj?.forceMove(src)
+	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/ai_eye, update_visibility))
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.canmove = TRUE //Much easier than adding AI checks! Be sure to set this back to FALSE if you decide to allow an AI to leave a mech somehow.
@@ -1413,6 +1414,9 @@
 		mob_container = brain.container
 	else if(isAI(occupant))
 		var/mob/living/silicon/ai/AI = occupant
+		//stop listening to this signal, as the static update is now handled by the eyeobj's setLoc
+		AI.eyeobj?.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+		AI.eyeobj?.forceMove(newloc) //kick the eye out as well
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
 			if(!istype(newloc, /obj/item/aicard))

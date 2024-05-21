@@ -19,6 +19,15 @@
 	// Decides if it is shown by AI Detector or not
 	var/ai_detector_visible = TRUE
 
+/mob/camera/aiEye/Initialize(mapload)
+	. = ..()
+	setLoc(loc, TRUE)
+
+/// Used in cases when the eye is located in a movable object (i.e. mecha)
+/mob/camera/aiEye/proc/update_visibility()
+	SIGNAL_HANDLER
+	if(use_static)
+		ai.camera_visibility(src)
 
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.

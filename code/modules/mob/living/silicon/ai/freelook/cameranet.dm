@@ -70,18 +70,20 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 
 	for(var/mob/camera/aiEye/eye as anything in moved_eyes)
-		// 0xf = 15
-		var/static_range = eye.static_visibility_range
-		var/x1 = max(1, eye.x - static_range)
-		var/y1 = max(1, eye.y - static_range)
-		var/x2 = min(world.maxx, eye.x + static_range)
-		var/y2 = min(world.maxy, eye.y + static_range)
-
 		var/list/visibleChunks = list()
+		// 0xf = 15
+		var/turf/eye_turf = get_turf(eye)
+		if(eye.loc)
+			var/static_range = eye.static_visibility_range
+			var/x1 = max(1, eye_turf.x - static_range)
+			var/y1 = max(1, eye_turf.y - static_range)
+			var/x2 = min(world.maxx, eye_turf.x + static_range)
+			var/y2 = min(world.maxy, eye_turf.y + static_range)
 
-		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
-			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				visibleChunks |= getCameraChunk(x, y, eye.z)
+
+			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
+				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
+					visibleChunks |= getCameraChunk(x, y, eye_turf.z)
 
 		var/list/remove = eye.visibleCameraChunks - visibleChunks
 		var/list/add = visibleChunks - eye.visibleCameraChunks

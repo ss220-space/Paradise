@@ -1343,7 +1343,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 
 	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
+	client.set_eye(eyeobj)
 	return TRUE
 
 

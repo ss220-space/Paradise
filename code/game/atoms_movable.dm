@@ -378,6 +378,13 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/new_turf = get_turf(src)
+
+	if(old_turf?.z != new_turf?.z)
+		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
+		on_changed_z_level(old_turf, new_turf, same_z_layer)
+
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
 	return TRUE
@@ -483,11 +490,6 @@
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
 
-			var/turf/old_turf = get_turf(oldloc)
-			var/turf/new_turf = get_turf(destination)
-			if(old_turf?.z != new_turf?.z)
-				var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
-				on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 		. = TRUE
 
