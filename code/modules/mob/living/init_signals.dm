@@ -18,6 +18,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UI_BLOCKED), PROC_REF(on_ui_blocked_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_UI_BLOCKED), PROC_REF(on_ui_blocked_trait_loss))
+
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_loss))
 
@@ -130,6 +133,21 @@
 	SIGNAL_HANDLER
 	mobility_flags |= (MOBILITY_USE|MOBILITY_PICKUP|MOBILITY_STORAGE)
 	on_handsblocked_end()
+
+
+/// Called when [TRAIT_UI_BLOCKED] is added to the mob.
+/mob/living/proc/on_ui_blocked_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags &= ~(MOBILITY_UI)
+	unset_machine()
+	update_action_buttons(TRUE)
+
+
+/// Called when [TRAIT_UI_BLOCKED] is removed from the mob.
+/mob/living/proc/on_ui_blocked_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags |= MOBILITY_UI
+	update_action_buttons(TRUE)
 
 
 /// Called when [TRAIT_INCAPACITATED] is added to the mob.

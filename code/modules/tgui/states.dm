@@ -63,19 +63,19 @@
 /mob/proc/shared_ui_interaction(src_object)
 	if(!client) // Close UIs if mindless.
 		return STATUS_CLOSE
-	else if(stat) // Disable UIs if unconcious.
+	else if(stat || HAS_TRAIT(src, TRAIT_UI_BLOCKED)) // Disable UIs if unconcious or blocked.
 		return STATUS_DISABLED
 	else if(incapacitated()) // Update UIs if incapicitated but concious.
 		return STATUS_UPDATE
 	return STATUS_INTERACTIVE
 
 /mob/living/silicon/ai/shared_ui_interaction(src_object)
-	if(lacks_power()) // Disable UIs if the AI is unpowered.
+	if(lacks_power() || HAS_TRAIT(src, TRAIT_UI_BLOCKED)) // Disable UIs if the AI is unpowered.
 		return STATUS_DISABLED
 	return ..()
 
 /mob/living/silicon/robot/shared_ui_interaction(src_object)
-	if(!cell || cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
+	if(!cell || cell.charge <= 0 || lockcharge || HAS_TRAIT(src, TRAIT_UI_BLOCKED)) // Disable UIs if the Borg is unpowered or locked.
 		return STATUS_DISABLED
 	return ..()
 
