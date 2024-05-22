@@ -771,6 +771,17 @@
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
+
+/datum/status_effect/transient/jittery/get_examine_text()
+	switch(strength)
+		if(600 SECONDS to INFINITY)
+			return span_warning("<b>[owner.p_they(TRUE)] [owner.p_are()] convulsing violently!</b>")
+		if(400 SECONDS to 600 SECONDS)
+			return span_warning("[owner.p_they(TRUE)] [owner.p_are()] extremely jittery.")
+		if(200 SECONDS to 400 SECONDS)
+			return span_warning("[owner.p_they(TRUE)] [owner.p_are()] twitching ever so slightly.")
+
+
 /datum/status_effect/transient/stammering
 	id = "stammer"
 
