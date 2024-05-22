@@ -330,9 +330,10 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air, oldType = old_type)
-		if(issimulatedturf(W))
-			var/turf/simulated/new_turf = W
-			new_turf.assimilate_air(old_air)
+		//Turf air assimilation is currently disabled until we find out what causes nan atmos
+		//if(issimulatedturf(W))
+		//	var/turf/simulated/new_turf = W
+		//	new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
 
