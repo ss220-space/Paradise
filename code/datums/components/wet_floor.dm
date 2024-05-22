@@ -136,8 +136,9 @@
 			decrease = INFINITY
 	decrease = max(0, decrease)
 	if((is_wet() & TURF_WET_ICE) && t > T0C) //Ice melts into water!
-		add_wet(TURF_WET_WATER, max_time_left())
+		var/timeleft = max_time_left()
 		dry(null, TURF_WET_ICE)
+		add_wet(TURF_WET_WATER, timeleft)
 	dry(null, ALL, FALSE, decrease)
 	check()
 	last_process = world.time
