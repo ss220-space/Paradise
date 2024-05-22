@@ -28,9 +28,7 @@
 
 /obj/machinery/camera/all/Initialize(mapload, networks, input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
-	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
-	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
-	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
+	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly), new /obj/item/assembly/prox_sensor(new_assembly), new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // AUTONAME
 

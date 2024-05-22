@@ -35,13 +35,13 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload, list/networks, var/obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
-	if(input_assembly == null)
-		assembly = new(src)
-	else
+	if(input_assembly)
 		assembly = input_assembly
+	else
+		assembly = new(src)
 	assembly.state = 4
 	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
@@ -149,11 +149,13 @@
 	var/msg2 = span_notice("The camera already has that upgrade!")
 
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(!user.drop_from_active_hand())
+		if(HAS_TRAIT(I, TRAIT_NODROP))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		if(!isEmpProof())
-			assembly.upgrades.Add(I)
+			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src.assembly, 1)
+			new_stack.update_icon(UPDATE_ICON_STATE)
+			assembly.upgrades.Add(new_stack)
 			add_fingerprint(user)
 			to_chat(user, "[msg]")
 			I.use(1)
@@ -171,7 +173,6 @@
 			qdel(I)
 		else
 			to_chat(user, "[msg2]")
-
 	else if(istype(I, /obj/item/analyzer) && panel_open)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
@@ -294,27 +295,18 @@
 
 /obj/machinery/camera/update_icon_state()
 	if(assembly != null)
-		if(isXRay(src))
-			if(!status)
-				icon_state = "xraycam1"
-			else if(stat & EMPED)
-				icon_state = "xraycamemp"
-			else
-				icon_state = "xraycam"
-		else
-			if(!status)
-				icon_state = "camera1"
-			else if(stat & EMPED)
-				icon_state = "cameraemp"
-			else
-				icon_state = "camera"
+		icon_state = isXRay(src) ? "xraycam" : initial(icon_state)
+		if(!status)
+			icon_state = "[icon_state]1"
+		else if(stat & EMPED)
+			icon_state = "[icon_state]emp"
 	else
 		if(!status)
-			icon_state = "camera1"
+			icon_state = "[initial(icon_state)]1"
 		else if(stat & EMPED)
-			icon_state = "cameraemp"
+			icon_state = "[initial(icon_state)]emp"
 		else
-			icon_state = "camera"
+			icon_state = "[initial(icon_state)]"
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
