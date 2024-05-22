@@ -26,6 +26,7 @@
 #define WEAKEN		"weaken"
 #define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
+#define SLEEP		"sleep"
 #define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"

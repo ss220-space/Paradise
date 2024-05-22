@@ -71,9 +71,9 @@
 			H.dna.species.clone_mod *= 0.1
 			H.dna.species.stamina_mod *= 0.1
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
-		owner.add_status_effect_absorption("blooddrunk_weaken", INFINITY, 4, status_effect = WEAKEN)
-		owner.add_status_effect_absorption("blooddrunk_stun", INFINITY, 4, status_effect = STUN)
+		owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN), priority = 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
@@ -87,11 +87,8 @@
 		H.dna.species.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
-	if(islist(owner.status_effect_absorption))
-		if(owner.status_effect_absorption["blooddrunk_stun"])
-			owner.status_effect_absorption -= "blooddrunk_stun"
-		if(owner.status_effect_absorption["blooddrunk_weaken"])
-			owner.status_effect_absorption -= "blooddrunk_weaken"
+	owner.remove_status_effect_absorption(id, list(STUN, WEAKEN, KNOCKDOWN))
+
 
 /datum/status_effect/exercised
 	id = "Exercised"

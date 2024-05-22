@@ -523,23 +523,22 @@
 ///from base of mob/update_transform()
 #define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
 
-//ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-// none of these are called as of right now, as there is nothing listening for them.
 ///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Stun() (amount, ignore_canstun)
+///from base of mob/living/Weaken() (amount, ignore_canweaken)
 #define COMSIG_LIVING_STATUS_WEAKEN "living_weaken"
-///from base of mob/living/Knockdown() (amount, ignore_canstun)
-///#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown" // one day
-///from base of mob/living/Paralyse() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_PARALYSE "living_paralyse"
+///from base of mob/living/Knockdown() (amount, ignore_canknockdown)
+#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
+///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
+#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)									//For all of them
+/// from mob/living/check_incapacitating_immunity(): (check_flags, force_apply)
+#define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
+	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
+
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
@@ -589,6 +588,8 @@
 #define COMSIG_CARBON_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
 	/// Can't pick up
 	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
+/// from /mob/living/carbon/enter_stamcrit()
+#define COMSIG_CARBON_ENTER_STAMCRIT "carbon_enter_stamcrit"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
