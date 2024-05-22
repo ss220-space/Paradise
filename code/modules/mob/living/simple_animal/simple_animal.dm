@@ -671,7 +671,8 @@
 	..()
 	if(AIStatus == AI_Z_OFF && old_turf?.z)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
-	toggle_ai(initial(AIStatus))
+	if(!QDELETED(src))
+		toggle_ai(initial(AIStatus))
 
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)

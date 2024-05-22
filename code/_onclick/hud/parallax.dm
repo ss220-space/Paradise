@@ -346,7 +346,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	if(SSmapping.lavaland_theme?.planet_icon_state)
 		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
-	var/client/boss = hud_owner?.mymob?.client
+	var/client/boss = hud_owner?.mymob?.canon_client
 	if(!boss)
 		return
 

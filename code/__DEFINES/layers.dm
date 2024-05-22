@@ -21,8 +21,6 @@
 #define WALL_PLANE -9
 #define GAME_PLANE -8
 
-#define WALL_PLANE_UPPER -5
-
 #define ABOVE_GAME_PLANE -2
 
 #define RENDER_PLANE_GAME_WORLD -1
@@ -196,8 +194,6 @@
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define ABOVE_MOB_LAYER 4.1
 #define WALL_OBJ_LAYER 4.25
-
-// WALL_PLANE_UPPER layers
 #define EDGED_TURF_LAYER 4.3
 #define ON_EDGED_TURF_LAYER 4.35
 #define LARGE_MOB_LAYER 4.4

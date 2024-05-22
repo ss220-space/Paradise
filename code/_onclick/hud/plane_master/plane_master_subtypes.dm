@@ -109,13 +109,6 @@
 	plane = GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
-/atom/movable/screen/plane_master/wall_upper
-	name = "Upper wall"
-	documentation = "There are some walls that want to render above most things (mostly minerals since they shift over.\
-		<br>We draw them to their own plane so we can hijack them for our emissive mask stuff"
-	plane = WALL_PLANE_UPPER
-	render_relay_planes = list(RENDER_PLANE_GAME_WORLD, EMISSIVE_MASK_PLANE)
-
 /atom/movable/screen/plane_master/game_world_above
 	name = "Upper Game"
 	documentation = "For stuff you want to draw like the game plane, but not ever below its contents"
