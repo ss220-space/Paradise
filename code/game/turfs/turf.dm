@@ -299,10 +299,11 @@
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
-	var/old_air
-	if(issimulatedturf(src))
-		var/turf/simulated/old_turf = src
-		old_air = old_turf.air
+	//Turf air assimilation is currently disabled until we find out what causes nan atmos
+	//var/old_air
+	//if(issimulatedturf(src))
+	//	var/turf/simulated/old_turf = src
+	//	old_air = old_turf.air
 
 	BeforeChange()
 
