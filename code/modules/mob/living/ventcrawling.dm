@@ -124,8 +124,7 @@
 		span_notice("[name] залез[genderize_ru(gender, "", "ла", "ло", "ли")] в вентиляцию!"),
 		span_notice("Вы залезли в вентиляцию."),
 	)
-	//forceMove(ventcrawl_target)
-	loc = ventcrawl_target
+	abstract_move(ventcrawl_target)
 	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
 
