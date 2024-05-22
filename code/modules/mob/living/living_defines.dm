@@ -76,8 +76,6 @@
 
 	var/deathgasp_on_death = FALSE
 
-	/// List of status effect absorption sources this mob has
-	var/status_effect_absorption
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
 
