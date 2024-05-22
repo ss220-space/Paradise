@@ -193,12 +193,16 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
+
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_status_effect_absorption("miner_weaken", 10, INFINITY, status_effect = WEAKEN)
-	target.add_status_effect_absorption("miner_stun", 10, INFINITY, status_effect = STUN)
-	..()
-	target.status_effect_absorption -= "miner_weaken"
-	target.status_effect_absorption -= "miner_stun"
+	target.add_status_effect_absorption(
+		source = "miner",
+		effect_type = list(WEAKEN, STUN, KNOCKDOWN),
+		duration = 1 SECONDS,
+		priority = INFINITY,
+	)
+	return ..()
+
 
 /obj/item/projectile/kinetic/miner
 	damage = 20

@@ -379,9 +379,9 @@
 
 
 /mob/living/proc/Paralyse(amount, ignore_canparalyse = FALSE)
-	if(check_incapacitating_immunity(CANPARALYSE, ignore_canparalyse))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_PARALYZE, amount, ignore_canparalyse) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canparalyse, PARALYZE))
+	if(check_incapacitating_immunity(CANPARALYSE, ignore_canparalyse))
 		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
 	if(P)
@@ -392,6 +392,8 @@
 
 
 /mob/living/proc/SetParalysis(amount, ignore_canparalyse = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_PARALYZE, amount, ignore_canparalyse) & COMPONENT_NO_EFFECT)
+		return
 	if(check_incapacitating_immunity(CANPARALYSE, ignore_canparalyse))
 		return
 	var/datum/status_effect/incapacitating/paralyzed/P = IsParalyzed()
@@ -399,8 +401,6 @@
 		if(P)
 			qdel(P)
 	else
-		if(absorb_status_effect(amount, ignore_canparalyse, PARALYZE))
-			return
 		if(P)
 			P.duration = world.time + amount
 		else if(amount > 0)
@@ -438,9 +438,11 @@
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))
 
+
 // SLEEPING
 /mob/living/proc/IsSleeping()
 	return has_status_effect(STATUS_EFFECT_SLEEPING)
+
 
 /mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
@@ -448,7 +450,10 @@
 		return S.duration - world.time
 	return 0
 
+
 /mob/living/proc/Sleeping(amount)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
+		return
 	if(status_flags & GODMODE)
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
@@ -458,10 +463,13 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
+
 /mob/living/proc/SetSleeping(amount)
-	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
 		return
 	if(status_flags & GODMODE)
+		return
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(amount <= 0)
@@ -474,7 +482,12 @@
 			S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount)
 	return S
 
+
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_EFFECT)
+		return
+	if(status_flags & GODMODE)
+		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration = -1
@@ -482,8 +495,10 @@
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S
 
+
 /mob/living/proc/AdjustSleeping(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSleeping(directional_bounded_sum(AmountSleeping(), amount, bound_lower, bound_upper))
+
 
 // SLOWED
 /mob/living/proc/IsSlowed()
@@ -586,9 +601,9 @@
 
 
 /mob/living/proc/Stun(amount, ignore_canstun = FALSE) //Can't go below remaining duration
-	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canstun, STUN))
+	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
@@ -599,6 +614,8 @@
 
 
 /mob/living/proc/SetStunned(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
+		return
 	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
@@ -606,8 +623,6 @@
 		if(S)
 			qdel(S)
 	else
-		if(absorb_status_effect(amount, ignore_canstun, STUN))
-			return
 		if(S)
 			S.duration = world.time + amount
 		else
@@ -616,9 +631,9 @@
 
 
 /mob/living/proc/AdjustStunned(amount, ignore_canstun = FALSE) //Adds to remaining duration
-	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STUN, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canstun, STUN))
+	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/stun/S = IsStunned()
 	if(S)
@@ -642,9 +657,9 @@
 
 
 /mob/living/proc/Knockdown(amount, ignore_canknockdown = FALSE) //Can't go below remaining duration
-	if(check_incapacitating_immunity(CANKNOCKDOWN, ignore_canknockdown))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canknockdown, KNOCKDOWN))
+	if(check_incapacitating_immunity(CANKNOCKDOWN, ignore_canknockdown))
 		return
 	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
 	if(K)
@@ -655,6 +670,8 @@
 
 
 /mob/living/proc/SetKnockdown(amount, ignore_canknockdown = FALSE) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
+		return
 	if(check_incapacitating_immunity(CANKNOCKDOWN, ignore_canknockdown))
 		return
 	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
@@ -662,8 +679,6 @@
 		if(K)
 			qdel(K)
 	else
-		if(absorb_status_effect(amount, ignore_canknockdown, KNOCKDOWN))
-			return
 		if(K)
 			K.duration = world.time + amount
 		else
@@ -672,9 +687,9 @@
 
 
 /mob/living/proc/AdjustKnockdown(amount, ignore_canknockdown = FALSE) //Adds to remaining duration
-	if(check_incapacitating_immunity(CANKNOCKDOWN, ignore_canknockdown))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_KNOCKDOWN, amount, ignore_canknockdown) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canknockdown, KNOCKDOWN))
+	if(check_incapacitating_immunity(CANKNOCKDOWN, ignore_canknockdown))
 		return
 	var/datum/status_effect/incapacitating/knockdown/K = IsKnockdown()
 	if(K)
@@ -689,10 +704,10 @@
 	return has_status_effect(STATUS_EFFECT_IMMOBILIZED)
 
 
-/mob/living/proc/Immobilize(amount, ignore_immobilize = FALSE)
-	if(check_incapacitating_immunity(CANSTUN, ignore_immobilize))
+/mob/living/proc/Immobilize(amount, ignore_canstun = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_immobilize, IMMOBILIZE))
+	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
 	if(I)
@@ -702,16 +717,16 @@
 	return I
 
 
-/mob/living/proc/SetImmobilized(amount, ignore_immobilize = FALSE) //Sets remaining duration
-	if(check_incapacitating_immunity(CANSTUN, ignore_immobilize))
+/mob/living/proc/SetImmobilized(amount, ignore_canstun = FALSE) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
+		return
+	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
 	if(amount <= 0)
 		if(I)
 			qdel(I)
 	else
-		if(absorb_status_effect(amount, ignore_immobilize, IMMOBILIZE))
-			return
 		if(I)
 			I.duration = world.time + amount
 		else
@@ -719,10 +734,10 @@
 	return I
 
 
-/mob/living/proc/AdjustImmobilized(amount, ignore_immobilize = FALSE) //Adds to remaining duration
-	if(check_incapacitating_immunity(CANSTUN, ignore_immobilize))
+/mob/living/proc/AdjustImmobilized(amount, ignore_canstun = FALSE) //Adds to remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_IMMOBILIZE, amount, ignore_canstun) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_immobilize, IMMOBILIZE))
+	if(check_incapacitating_immunity(CANSTUN, ignore_canstun))
 		return
 	var/datum/status_effect/incapacitating/immobilized/I = IsImmobilized()
 	if(I)
@@ -765,9 +780,9 @@
 
 
 /mob/living/proc/Weaken(amount, ignore_canweaken = FALSE) //Can't go below remaining duration
-	if(check_incapacitating_immunity(CANWEAKEN, ignore_canweaken))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
+	if(check_incapacitating_immunity(CANWEAKEN, ignore_canweaken))
 		return
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
@@ -778,6 +793,8 @@
 
 
 /mob/living/proc/SetWeakened(amount, ignore_canweaken = FALSE) //Sets remaining duration
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
+		return
 	if(check_incapacitating_immunity(CANWEAKEN, ignore_canweaken))
 		return
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
@@ -785,8 +802,6 @@
 		if(P)
 			qdel(P)
 	else
-		if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
-			return
 		if(P)
 			P.duration = world.time + amount
 		else
@@ -795,9 +810,9 @@
 
 
 /mob/living/proc/AdjustWeakened(amount, ignore_canweaken = FALSE) //Adds to remaining duration
-	if(check_incapacitating_immunity(CANWEAKEN, ignore_canweaken))
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_WEAKEN, amount, ignore_canweaken) & COMPONENT_NO_EFFECT)
 		return
-	if(absorb_status_effect(amount, ignore_canweaken, WEAKEN))
+	if(check_incapacitating_immunity(CANWEAKEN, ignore_canweaken))
 		return
 	var/datum/status_effect/incapacitating/weakened/P = IsWeakened()
 	if(P)
@@ -971,45 +986,7 @@
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
 
-///////////////////////////////////// STATUS EFFECT ABSORPTION /////////////////////////////////////
-
-/mob/living/proc/add_status_effect_absorption(key, duration, priority, message, self_message, examine_message, status_effect)
-//adds a status effect absorption with a key, a duration in deciseconds, its priority, and the messages it makes when you're status effected/examined, if any
-	if(!islist(status_effect_absorption))
-		status_effect_absorption = list()
-	if(status_effect_absorption[key])
-		status_effect_absorption[key]["end_time"] = world.time + duration
-		status_effect_absorption[key]["priority"] = priority
-		status_effect_absorption[key]["stuns_absorbed"] = 0
-		status_effect_absorption[key]["status_effect"] = status_effect
-	else
-		status_effect_absorption[key] = list("end_time" = world.time + duration, "priority" = priority, "stuns_absorbed" = 0, \
-		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message, "status_effect" = status_effect)
-
-/mob/living/proc/absorb_status_effect(amount, ignoring_flag_presence, status_effect)
-	if(amount < 0 || stat || ignoring_flag_presence || !islist(status_effect_absorption))
-		return FALSE
-	if(!amount)
-		amount = 0
-	var/priority_absorb_key
-	var/highest_priority
-	for(var/i in status_effect_absorption)
-		if(status_effect_absorption[i]["status_effect"] != status_effect)
-			continue
-		if(status_effect_absorption[i]["end_time"] > world.time && (!priority_absorb_key || status_effect_absorption[i]["priority"] > highest_priority))
-			priority_absorb_key = status_effect_absorption[i]
-			highest_priority = priority_absorb_key["priority"]
-	if(priority_absorb_key)
-		if(amount) //don't spam up the chat for continuous status effects
-			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
-				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
-					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-				else if(priority_absorb_key["visible_message"])
-					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
-				else if(priority_absorb_key["self_message"])
-					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-			priority_absorb_key["status_effect_absorbed"] += amount
-		return TRUE
 
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH
+
