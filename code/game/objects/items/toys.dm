@@ -1304,20 +1304,19 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gender = MALE
 	COOLDOWN_DECLARE(cooldown)
+	var/sounded = FALSE
 
 /obj/item/toy/plushie/beaver/attack_self(mob/user)
 	if(COOLDOWN_FINISHED(src, cooldown))
 		visible_message(span_boldnotice("BOBR KURWA!"))
 		COOLDOWN_START(src, cooldown, 3 SECONDS)
-	..()
+		if(sounded)
+			playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
+	. = ..()
 
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
-
-/obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
-	if(COOLDOWN_FINISHED(src, cooldown))
-		playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
-	..()
+	sounded = TRUE
 
 /*
  * Foam Armblade
