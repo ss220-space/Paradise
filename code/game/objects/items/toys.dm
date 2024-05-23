@@ -1309,11 +1309,12 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
-	if(COOLDOWN_FINISHED(src, cooldown))
-		visible_message(span_boldnotice("BOBR KURWA!"))
-		playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
-		COOLDOWN_START(src, cooldown, 3 SECONDS)
 	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	user.visible_message(span_boldnotice("BOBR KURWA!"))
+	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /*
  * Foam Armblade
