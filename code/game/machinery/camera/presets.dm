@@ -55,16 +55,13 @@
 // CHECKS
 
 /obj/machinery/camera/proc/isEmpProof()
-	var/O = locate(/obj/item/stack/sheet/mineral/plasma) in assembly.upgrades
-	return O
+	return locate(/obj/item/stack/sheet/mineral/plasma) in assembly.upgrades
 
 /obj/machinery/camera/proc/isXRay()
-	var/O = locate(/obj/item/analyzer) in assembly.upgrades
-	return O
+	return locate(/obj/item/analyzer) in assembly.upgrades
 
 /obj/machinery/camera/proc/isMotion()
-	var/O = locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
-	return O
+	return locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
 
 
 /obj/machinery/camera/proc/setPowerUsage()

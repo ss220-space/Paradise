@@ -23,6 +23,7 @@
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
 	var/list/computers_watched_by = list()
+	var/isAlreadyUpgradeXray = FALSE
 
 	//OTHER
 
@@ -102,9 +103,11 @@
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
-
+// apply the improvements inserted into the camera
+// Use this if you have added improvements to assembly.upgrades
 /obj/machinery/camera/proc/camera_upgrade()
-	if(isXRay(src) && !(icon_state == "xraycam" || icon_state == "xraycam1" || icon_state == "xraycamemp"))
+	if(isXRay(src) && !isAlreadyUpgradeXray)
+		isAlreadyUpgradeXray = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		//Update what it can see.
 		GLOB.cameranet.updateVisibility(src, 0)
@@ -148,44 +151,25 @@
 	var/msg = span_notice("You attach [I] into the assembly inner circuits.")
 	var/msg2 = span_notice("The camera already has that upgrade!")
 
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
-		if(HAS_TRAIT(I, TRAIT_NODROP))
-			to_chat(user, span_warning("[I] is stuck to your hand!"))
+	if(panel_open && is_type_in_list(I, assembly.possible_upgrades))
+		if(is_type_in_list(I, assembly.upgrades))
+			to_chat(user, "[msg2]")
 			return
-		if(!isEmpProof())
-			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src.assembly, 1)
-			new_stack.update_icon(UPDATE_ICON_STATE)
-			assembly.upgrades.Add(new_stack)
-			add_fingerprint(user)
-			to_chat(user, "[msg]")
+		if(isstack(I))
+			if(!user.can_unEquip(I))
+				to_chat(user, span_warning("[I] is stuck to your hand!"))
+				return
+			var/obj/item/stack/sheet/mineral/plasma/upgrade = new(assembly, 1)
+			upgrade.update_icon(UPDATE_ICON_STATE)
+			assembly.upgrades.Add(upgrade)
 			I.use(1)
-		else
-			to_chat(user, "[msg2]")
-	else if(isprox(I) && panel_open)
-		if(!user.drop_transfer_item_to_loc(I, src))
+			return
+		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
-		if(!isMotion())
-			assembly.upgrades.Add(I)
-			camera_upgrade()
-			add_fingerprint(user)
-			to_chat(user, "[msg]")
-			qdel(I)
-		else
-			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/analyzer) && panel_open)
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, span_warning("[I] is stuck to your hand!"))
-			return
-		if(!isXRay())
-			assembly.upgrades.Add(I)
-			camera_upgrade()
-			update_icon(UPDATE_ICON_STATE)
-			add_fingerprint(user)
-			to_chat(user, "[msg]")
-			qdel(I)
-		else
-			to_chat(user, "[msg2]")
+		assembly.upgrades.Add(I)
+		camera_upgrade()
+		to_chat(user, "[msg]")
 
 	// OTHER
 	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
@@ -295,7 +279,7 @@
 
 /obj/machinery/camera/update_icon_state()
 	if(assembly != null)
-		icon_state = isXRay(src) ? "xraycam" : initial(icon_state)
+		icon_state = isAlreadyUpgradeXray ? "xraycam" : initial(icon_state)
 		if(!status)
 			icon_state = "[icon_state]1"
 		else if(stat & EMPED)
@@ -370,7 +354,7 @@
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
 	var/turf/pos = get_turf(src)
-	if(isXRay())
+	if(isAlreadyUpgradeXray)
 		see = range(view_range, pos)
 	else
 		see = hear(view_range, pos)
@@ -443,7 +427,7 @@
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	if(isXRay() && isAI(user))
+	if(isAlreadyUpgradeXray && isAI(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

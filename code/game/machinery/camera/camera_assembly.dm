@@ -37,7 +37,7 @@
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
 		if(isstack(I))
-			if(HAS_TRAIT(I, TRAIT_NODROP))
+			if(!user.can_unEquip(I))
 				to_chat(user, span_warning("[I] is stuck!"))
 				return
 			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
