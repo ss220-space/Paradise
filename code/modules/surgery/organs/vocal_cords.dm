@@ -465,7 +465,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, 1)
 		if(owner.mind && owner.mind.assigned_role == JOB_TITLE_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
-				C.slip("your feet", 14 SECONDS * power_multiplier)
+				C.slip(14 SECONDS * power_multiplier)
 			next_command = world.time + cooldown_stun
 		else
 			next_command = world.time + cooldown_meme

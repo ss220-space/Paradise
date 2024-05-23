@@ -33,8 +33,8 @@
 	if(!n || !direct) // why did we never check this before?
 		return FALSE
 
-	if(mob.notransform)
-		return 0 //This is sota the goto stop mobs from moving var
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
 
 	if(mob.control_object)
 		return Move_object(direct)
@@ -48,9 +48,6 @@
 
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, n, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
-
-	if(moving)
-		return 0
 
 	var/mob/living/L = mob	//Already checked for isliving earlier
 	if(L.incorporeal_move)//Move though walls
@@ -90,9 +87,9 @@
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
-	if(mob.restrained() && mob.pulledby) // Why being pulled while cuffed prevents you from moving
+	if(HAS_TRAIT(mob, TRAIT_RESTRAINED) && mob.pulledby) // Why being pulled while cuffed prevents you from moving
 		var/mob/puller = mob.pulledby
-		if(!puller.incapacitated() && mob.Adjacent(puller))
+		if(!puller.incapacitated() && !HAS_TRAIT(puller, TRAIT_HANDS_BLOCKED) && mob.Adjacent(puller))
 			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
 			move_delay = world.time + 1 SECONDS
 			return FALSE
@@ -234,31 +231,49 @@
 		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
-				to_chat(L, "<span class='warning'>Святые силы блокируют ваш путь.</span>")
-				L.notransform = 1
+				to_chat(L, span_warning("Святые силы блокируют ваш путь."))
+				ADD_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
 				spawn(2)
-					L.notransform = 0
+					REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
 			else
 				L.forceMove(get_step(L, direct))
 				L.dir = direct
 	return 1
 
 
-///Process_Spacemove
-///Called by /client/Move()
-///For moving in space
-///Return 1 for movement 0 for none
-/mob/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return 1
+/**
+ * Handles mob/living movement in space (or no gravity)
+ *
+ * Called by /client/Move()
+ *
+ * return TRUE for movement or FALSE for none
+ *
+ * You can move in space if you have a spacewalk ability
+ */
+/mob/Process_Spacemove(movement_dir = NONE)
+	. = ..()
+	if(.)
+		return .
+
+	if(buckled)
+		return TRUE
+
 	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			var/opposite_dir = turn(movement_dir, 180)
-			if(backup.newtonian_move(opposite_dir)) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='notice'>Вы отталкиваетесь от [backup] для продолжения движения.</span>")
-		return 1
-	return 0
+	if(!backup)
+		return FALSE
+
+	if(!istype(backup) || !movement_dir || backup.anchored)
+		return TRUE
+
+	// last pushoff exists for one reason
+	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
+	last_pushoff = world.time
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir))) //You're pushing off something movable, so it moves
+		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
+		backup.last_pushoff = world.time
+		to_chat(src, span_info("Вы отталкиваетесь от [backup] для продолжения движения."))
+
+	return TRUE
 
 
 /mob/get_spacemove_backup(moving_direction)
@@ -285,12 +300,12 @@
 				continue
 
 		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
-		if(!rebound.density || pass_allowed)
+		if(!rebound.density && pass_allowed)
 			continue
-		/*
 		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
 		if(rebound.last_pushoff == world.time)
 			continue
+		/*
 		if(continuous_move && !pass_allowed)
 			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
 			// If you're moving toward it and you're both going the same direction, stop
@@ -321,7 +336,7 @@
 
 
 /mob/proc/Move_Pulled(atom/target)
-	if(!canmove || restrained() || !pulling)
+	if(!canmove || HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
@@ -503,15 +518,13 @@
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, UP)
 
-	var/mob/living/L = src
-	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
 			to_chat(src, "<span class='notice'>[buckled] is is not capable of flight.<span>")
 		else
 			to_chat(src, "<span class='notice'>You are not Superman.<span>")
 		return
-
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move upwards."))
 
@@ -533,8 +546,7 @@
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, DOWN)
 
-	var/mob/living/L = src
-	var/ventcrawling_flag = (istype(L) && L.ventcrawler) ? ZMOVE_VENTCRAWLING : 0
+	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("You move down."))
 	return FALSE

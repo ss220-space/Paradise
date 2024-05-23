@@ -5,7 +5,7 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 

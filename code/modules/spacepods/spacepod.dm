@@ -15,7 +15,7 @@
 	name = "\improper space pod"
 	desc = "A space pod meant for space travel."
 	icon = 'icons/goonstation/48x48/pods.dmi'
-	density = 1 //Dense. To raise the heat.
+	density = TRUE //Dense. To raise the heat.
 	opacity = 0
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
@@ -394,7 +394,7 @@
 		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
 				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
@@ -474,7 +474,7 @@
 		if(istype(target))
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				target.Stun(2 SECONDS)
 				if(pilot)
 					eject_pilot()
@@ -666,7 +666,7 @@
 	set src = usr.loc
 	set popup_menu = 0
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != src.pilot)
@@ -733,82 +733,80 @@
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		return 1
 
-/obj/spacepod/MouseDrop_T(atom/A, mob/user, params)
-	if(user == pilot || (user in passengers))
-		return
+/obj/spacepod/MouseDrop_T(mob/living/dropping, mob/living/user, params)
+	if(user == pilot || (user in passengers) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
-	if(istype(A,/mob))
-		var/mob/M = A
-		if(!isliving(M))
-			return
-
+	. = TRUE
+	if(isliving(dropping))
 		occupant_sanity_check()
 
-		if(M != user && unlocked && (M.stat == DEAD || M.incapacitated()))
+		if(dropping != user && unlocked && (dropping.stat == DEAD || dropping.incapacitated()))
 			if(passengers.len >= max_passengers && !pilot)
-				to_chat(usr, "<span class='danger'><b>That person can't fly the pod!</b></span>")
-				return 0
+				to_chat(user, "<span class='danger'><b>That person can't fly the pod!</b></span>")
+				return .
 			if(passengers.len < max_passengers)
-				visible_message("<span class='danger'>[user.name] starts loading [M.name] into the pod!</span>")
-				if(do_after(user, 50, target = M))
-					moved_other_inside(M)
-			return
+				visible_message("<span class='danger'>[user.name] starts loading [dropping.name] into the pod!</span>")
+				if(do_after(user, 5 SECONDS, dropping))
+					moved_other_inside(dropping)
+			return .
 
-		if(M == user)
+		if(dropping == user)
 			enter_pod(user)
-			return
 
-	if(istype(A, /obj/structure/ore_box) && equipment_system.cargo_system && istype(equipment_system.cargo_system,/obj/item/spacepod_equipment/cargo/ore)) // For loading ore boxes
-		load_cargo(user, A)
+	else if(isobj(dropping))
+		load_cargo(user, dropping)
+
+
+/obj/spacepod/proc/load_cargo(mob/user, obj/object)
+	var/obj/item/spacepod_equipment/cargo/cargo = equipment_system.cargo_system
+	if(!cargo)
 		return
-
-	if(istype(A, /obj/structure/closet/crate) && equipment_system.cargo_system && istype(equipment_system.cargo_system, /obj/item/spacepod_equipment/cargo/crate)) // For loading crates
-		load_cargo(user, A)
-
-/obj/spacepod/proc/load_cargo(mob/user, var/obj/O)
-	var/obj/item/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
-	if(!C.storage)
-		to_chat(user, "<span class='notice'>You begin loading [O] into [src]'s [equipment_system.cargo_system]</span>")
-		if(do_after(user, 40, target = src))
-			C.storage = O
-			O.forceMove(C)
-			to_chat(user, "<span class='notice'>You load [O] into [src]'s [equipment_system.cargo_system]!</span>")
+	var/valid_cargo = FALSE
+	if(istype(cargo, /obj/item/spacepod_equipment/cargo/ore))
+		if(istype(object, /obj/structure/ore_box))
+			valid_cargo = TRUE
+	else if(istype(cargo, /obj/item/spacepod_equipment/cargo/crate))
+		if(istype(object, /obj/structure/closet/crate))
+			valid_cargo = TRUE
+	if(!valid_cargo)
+		return
+	if(!cargo.storage)
+		to_chat(user, "<span class='notice'>You begin loading [object] into [src]'s [cargo]</span>")
+		if(do_after(user, 4 SECONDS, src))
+			cargo.storage = object
+			object.forceMove(cargo)
+			to_chat(user, "<span class='notice'>You load [object] into [src]'s [cargo]!</span>")
 		else
-			to_chat(user, "<span class='warning'>You fail to load [O] into [src]'s [equipment_system.cargo_system]</span>")
+			to_chat(user, "<span class='warning'>You fail to load [object] into [src]'s [cargo]</span>")
 	else
-		to_chat(user, "<span class='warning'>[src] already has \an [C.storage]</span>")
+		to_chat(user, "<span class='warning'>[src] already has \an [cargo.storage]</span>")
+
 
 /obj/spacepod/proc/enter_pod(mob/user)
-	if(usr.stat != CONSCIOUS)
-		return 0
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	if(equipment_system.lock_system && !unlocked)
 		to_chat(user, "<span class='warning'>[src]'s doors are locked!</span>")
-		return 0
+		return FALSE
 
-	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
-		to_chat(usr, "They are too far away to put inside")
-		return 0
-
-	if(!istype(user))
-		return 0
+	if(get_dist(src, user) > 2)
+		to_chat(user, "They are too far away to put inside")
+		return FALSE
 
 	var/fukkendisk = user.GetTypeInAllContents(/obj/item/disk/nuclear)
-
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		return 0
-	if(!ishuman(user))
-		return 0
-
 	if(fukkendisk)
 		to_chat(user, "<span class='danger'><B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b></span>")
-		return 0
+		return FALSE
 
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[user] will not fit into [src] because [user.p_they()] [user.p_have()] creatures attached to [user.p_them()]!</span>")
-		return
+		return FALSE
 
 	move_inside(user)
+	return TRUE
+
 
 /obj/spacepod/proc/move_inside(mob/living/user)
 	if(!istype(user))
@@ -818,7 +816,7 @@
 
 	if(passengers.len <= max_passengers)
 		visible_message("<span class='notice'>[user] starts to climb into [src].</span>")
-		if(do_after(user, 40, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			if(!pilot || pilot == null)
 				user.stop_pulling()
 				pilot = user
@@ -861,35 +859,31 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	var/mob/user = usr
-	if(!istype(user))
-		return
-
 	if(usr.stat != CONSCIOUS) // unconscious people can't let themselves out
 		return
 
 	occupant_sanity_check()
 
-	if(usr.restrained())
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
-		if(pilot)
+		if(pilot && pilot != usr)
 			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
-		if(!do_after(usr, 1200, target = src))
+		if(!do_after(usr, 2 MINUTES, src))
 			return
 
-	if(user == pilot)
+	if(usr == pilot)
 		eject_pilot()
-		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
-	else if(user in passengers)
-		eject_passenger(user)
-		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
+		to_chat(usr, "<span class='notice'>You climb out of [src].</span>")
+	else if(usr in passengers)
+		eject_passenger(usr)
+		to_chat(usr, "<span class='notice'>You climb out of [src].</span>")
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr in passengers && usr != src.pilot)
@@ -909,7 +903,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != src.pilot)
@@ -944,7 +938,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != src.pilot)
@@ -961,7 +955,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != src.pilot)
@@ -977,7 +971,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != src.pilot)
@@ -1001,11 +995,11 @@
 	set src = usr.loc
 	var/mob/user = usr
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 4 SECONDS, src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
 		if(true_contents.len > 0)
@@ -1020,17 +1014,6 @@
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
 
-/obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
-	var/delayfraction = delay/numticks
-
-	var/turf/T = user.loc
-
-	for(var/i = 0, i<numticks, i++)
-		sleep(delayfraction)
-		if(!src || !user || !user.canmove || !(user.loc == T))
-			return 0
-
-	return 1
 
 // Fun fact, these procs are just copypastes from mech code
 // And have been for the past 4 years

@@ -228,6 +228,9 @@
 	if(!..())
 		return FALSE
 
+	if(robot.ionpulse_on)
+		robot.toggle_ionpulse(silent = TRUE)
+
 	robot.ionpulse = FALSE
 	return TRUE
 

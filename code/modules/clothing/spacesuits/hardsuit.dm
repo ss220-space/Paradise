@@ -88,6 +88,8 @@
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	if(suit)
 		suit.RemoveHelmet(usr)
 	else
@@ -194,6 +196,8 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	RemoveHelmet(usr)
 	. = ..()
 
@@ -371,7 +375,7 @@
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
-	visor_flags = STOPSPRESSUREDMAGE
+	visor_clothing_flags = STOPSPRESSUREDMAGE
 	var/combat_rad = 50
 
 
@@ -410,19 +414,19 @@
 		to_chat(user, span_notice("You switch your hardsuit to [on ? "EVA mode, sacrificing speed for space protection." : "combat mode and can now run at full speed."]"))
 		playsound(loc, 'sound/items/rig_deploy.ogg', 110, TRUE)
 	if(on)
-		flags |= visor_flags
+		clothing_flags |= visor_clothing_flags
 		flags_cover |= (HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv |= visor_flags_inv
 		cold_protection |= HEAD
 		armor.rad = 100
 	else
-		flags &= ~visor_flags
+		clothing_flags &= ~visor_clothing_flags
 		flags_cover &= ~(HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv
 		cold_protection &= ~HEAD
 		armor.rad = combat_rad
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-	user?.update_head(src)
+	user?.update_head(src, toggle_off = !on)
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 	update_linked_hardsuit(toggle)
@@ -437,12 +441,12 @@
 
 	if(linkedsuit.on)
 		linkedsuit.slowdown = 1
-		linkedsuit.flags |= STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE
 		linkedsuit.cold_protection |= (UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = 100
 	else
 		linkedsuit.slowdown = 0
-		linkedsuit.flags &= ~STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE
 		linkedsuit.cold_protection &= ~(UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = combat_rad
 
@@ -622,7 +626,6 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "medical"
 	flash_protect = 0
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/hardsuit/medical
@@ -788,7 +791,7 @@
 	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 

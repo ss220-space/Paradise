@@ -50,22 +50,21 @@
 
 
 /datum/looping_sound/ambulance_alarm
-    start_length = 0
-    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
-    mid_length = 14
-    volume = 100
+	start_length = 0
+	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
+	mid_length = 14
+	volume = 100
 
 
-/obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
-    . = ..()
-    if(has_buckled_mobs())
-        AA.Grant(M)
-    else
-        AA.Remove(M)
+/obj/vehicle/ambulance/post_buckle_mob(mob/living/target)
+	. = ..()
+	AA.Grant(target)
 
-/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
-	AA.Remove(M)
-	return ..()
+
+/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	AA.Remove(target)
+
 
 /obj/item/key/ambulance
 	name = "ambulance key"
@@ -119,7 +118,7 @@
 
 /obj/structure/bed/amb_trolley/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(!. || !istype(over_object, /obj/vehicle/ambulance))
+	if(!istype(over_object, /obj/vehicle/ambulance) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	var/obj/vehicle/ambulance/amb = over_object

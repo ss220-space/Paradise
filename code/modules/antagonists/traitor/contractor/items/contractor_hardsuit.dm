@@ -122,8 +122,8 @@
 	charge_tick = 1
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON|NOPICKUP
 	force = 0
 	var/obj/item/clothing/suit/space/hardsuit/contractor/suit = null
 	var/datum/action/item_action/advanced/hook_upgrade/hook_action  = null
@@ -175,15 +175,14 @@
 	. = ..()
 	if(blocked >= 100)
 		return 0
+	var/turf/firer_turf = get_turf(firer)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-
-			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
-			L.forceMove(get_turf(firer))
-			L.density = old_density
+			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
+			L.forceMove(firer_turf)
+			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 			firer.drop_item_ground(src)
 
 

@@ -29,7 +29,7 @@
 	response_disarm = "shoos"
 	response_harm   = "steps on"
 	faction = list("hostile")
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -252,7 +252,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 

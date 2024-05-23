@@ -4,11 +4,11 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
-	flags_2 = CHECK_RICOCHET_2
+	flags = CHECK_RICOCHET
 	var/list/ui_users = list()
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
@@ -45,7 +45,7 @@
 		AC.ui_interact(user)
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		icon_state = "mirror_broke"
 		if(!mapload)
 			playsound(src, "shatter", 70, TRUE)
@@ -70,7 +70,7 @@
 	qdel(src)
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			new /obj/item/shard( src.loc )
 	qdel(src)
@@ -179,12 +179,7 @@
 					else
 						ADD_TRAIT(user, TRAIT_MUTE, "mirror")
 			if(voice_mutation)
-				if(H.dna.GetSEState(voice_mutation))
-					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
-				else
-					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+				H.force_gene_block(voice_mutation, !H.dna.GetSEState(voice_mutation))
 
 			if(voice_choice)
 				curse(user)

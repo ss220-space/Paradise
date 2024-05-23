@@ -53,7 +53,7 @@
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
-	if(P.lit && !user.restrained())
+	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
@@ -105,12 +105,14 @@
 	set category = "Object"
 	set src in usr
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_NAME_LEN))
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
+	if((loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
-	add_fingerprint(usr)
-	return
+		add_fingerprint(usr)
 
 
 /**************
@@ -169,6 +171,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
 	set category = "Object"
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize

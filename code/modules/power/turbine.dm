@@ -33,7 +33,7 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
 	var/datum/gas_mixture/gas_contained
@@ -53,7 +53,7 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/opened = 0
 	var/obj/machinery/power/compressor/compressor

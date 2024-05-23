@@ -95,7 +95,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A

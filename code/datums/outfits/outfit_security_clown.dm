@@ -102,11 +102,7 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	if(!ismachineperson(H))
-		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(GLOB.comicblock)
-	H.check_mutations = TRUE
+	H.force_gene_block(GLOB.comicblock, TRUE, TRUE)
 	H.add_language(LANGUAGE_CLOWN)
 
 	var/clownsecurity_rank = pick("Офицер", "Кадет", "Новобранец", "Рядовой", "Ефрейтор", "Сержант", "Детектив", "Оперуполномоченный", "Расследователь", "Охранник", "Полевой офицер")

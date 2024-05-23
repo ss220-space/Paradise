@@ -183,13 +183,14 @@
 
 
 /obj/item/gun/energy/attack_self(mob/living/user)
-	if(length(ammo_type) > 1)
+	. = ..()
+	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 
 
 /obj/item/gun/energy/can_shoot(mob/living/user)
-	if(sibyl_mod && !sibyl_mod.check_auth(user))
+	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -245,8 +246,8 @@
 
 
 /obj/item/gun/energy/update_icon(updates = ALL)
-	..()
-	update_equipped_item()
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/gun/energy/update_icon_state()
@@ -287,8 +288,8 @@
 		if(gun_light.on)
 			iconF = "[gun_light_overlay]_on"
 		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/energy/ui_action_click()

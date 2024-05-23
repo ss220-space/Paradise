@@ -114,7 +114,7 @@
 
 
 /obj/item/taperecorder/AltClick(mob/living/user)
-	if(istype(user) && in_range(user, src) && mytape && !user.incapacitated())
+	if(istype(user) && mytape && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
 						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
@@ -401,7 +401,7 @@
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You start winding the tape back in."))
-		if(!do_after(user, 120 * I.toolspeed, target = user))
+		if(!do_after(user, 12 SECONDS * I.toolspeed, user))
 			return
 		to_chat(user, span_notice("You wind the tape back in!"))
 		fix()
@@ -415,7 +415,7 @@
 /obj/item/tape/proc/ruin(mob/user)
 	if(user)
 		to_chat(user, span_notice("You start pulling the tape out."))
-		if(!do_after(user, 1 SECONDS, target = user))
+		if(!do_after(user, 1 SECONDS, user))
 			return
 		to_chat(user, span_notice("You pull the tape out of [src]."))
 
@@ -436,7 +436,7 @@
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(ruined)
 		return

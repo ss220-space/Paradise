@@ -1,0 +1,8202 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"ae" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/seeds/kudzu,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"ak" = (
+/turf/simulated/floor/plating/airless,
+/area/space)
+"at" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"ax" = (
+/obj/structure/sign/radiation,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"az" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Med)
+"aG" = (
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"aJ" = (
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-y"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/GardenMaint)
+"aN" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"aT" = (
+/obj/structure/table,
+/obj/item/storage/box/syringes{
+	pixel_x = -6
+	},
+/obj/item/storage/box/autoinjectors{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"bc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"be" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Chem)
+"bf" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"bp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"bv" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"bE" = (
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"bI" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"bQ" = (
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"bX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"bZ" = (
+/obj/item/paper,
+/obj/item/paper,
+/obj/item/paper,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"ca" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"ch" = (
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"cw" = (
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/glass,
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/obj/item/seeds/tomato/killer,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"cx" = (
+/obj/effect/decal/cleanable/glass,
+/turf/space,
+/area/space)
+"cy" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"cM" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"cS" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"cU" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"da" = (
+/obj/machinery/door/airlock/wood,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"df" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/libraryscanner,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"dj" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"dk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"dm" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"dr" = (
+/obj/structure/flora/ausbushes,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"dv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper/spacebotany/note2,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"dw" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"dE" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/ants,
+/obj/machinery/gibber,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"dJ" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"dP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"dS" = (
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"dT" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/space,
+/area/space)
+"dV" = (
+/obj/structure/flora/ausbushes/palebush,
+/mob/living/simple_animal/hostile/tree/jungle,
+/obj/item/seeds/wheat/rice,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"dW" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"ec" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"ee" = (
+/obj/structure/closet/cabinet,
+/obj/item/storage/backpack/duffel/syndie/med,
+/obj/item/seeds/cherry/bomb,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"eg" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"eh" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"ej" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"em" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"es" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"eE" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"eF" = (
+/obj/item/bedsheet/syndie,
+/obj/structure/bed,
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"eP" = (
+/obj/item/paper,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"eQ" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Garden)
+"eT" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"fc" = (
+/obj/item/shard,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"fd" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/flour,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"fe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/radiation,
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 10
+	},
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"fg" = (
+/obj/structure/closet/toolcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"fh" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Dorm)
+"fq" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"ft" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"fA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"fL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"gc" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"gg" = (
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"gl" = (
+/obj/structure/sign/poster/contraband/smoke,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"gm" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"gp" = (
+/obj/item/storage/box/monkeycubes,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"gw" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"gA" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"gB" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"gD" = (
+/obj/structure/sign/poster/official/safety_internals,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"gE" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"gH" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"gJ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"gP" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
+/obj/structure/railing,
+/obj/machinery/door/window/northleft,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"gR" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/EastGarden)
+"gV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"gX" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner";
+	dir = 8
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"ha" = (
+/obj/structure/sign/poster/contraband/red_rum,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"hd" = (
+/obj/machinery/disposal/deliveryChute,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"hf" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"hg" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"hw" = (
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"hA" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"hC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"hF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"hJ" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"hO" = (
+/obj/structure/sign/radiation,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Vault)
+"hR" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space/syndicate,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"hT" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Garden)
+"hW" = (
+/obj/item/seeds/tower,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"hY" = (
+/obj/structure/flora/junglebush/b,
+/obj/effect/decal/ants,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"hZ" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHEAST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"ia" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"ie" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/space/spacebotany/Med)
+"if" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"ik" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/storage/box/syringes,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"ir" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/ants,
+/obj/item/cigbutt{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/obj/item/cigbutt{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/obj/item/cigbutt/cigarbutt,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/obj/effect/decal/remains/robot,
+/obj/item/paper/spacebotany/note3,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"iw" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"iA" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/hydroponics/constructable,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"iB" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"iD" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"iF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"iM" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"iN" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"iW" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"jf" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"ji" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"jj" = (
+/obj/random/tool,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"jo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"jC" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"jE" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"jM" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"jQ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/suit/space/syndicate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"jR" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"kc" = (
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j1 (WEST)"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"kh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"ki" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"km" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"kw" = (
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"kE" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"kF" = (
+/obj/machinery/juicer,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"kI" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"kK" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"kL" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"kN" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"la" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"lb" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/space/spacebotany/Med)
+"lh" = (
+/obj/structure/flora/ausbushes/genericbush,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"lm" = (
+/obj/structure/window/full/basic,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"lq" = (
+/obj/structure/computerframe,
+/turf/space,
+/area/space)
+"lv" = (
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"lF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"lO" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"lW" = (
+/obj/structure/table/reinforced,
+/obj/machinery/smartfridge/disks,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"mo" = (
+/obj/machinery/light/small,
+/obj/structure/spacevine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"mt" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreencorner"
+	},
+/area/ruin/space/spacebotany/Chem)
+"mD" = (
+/obj/machinery/computer/operating{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/space/spacebotany/Med)
+"mG" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"mL" = (
+/obj/structure/spacevine,
+/obj/effect/decal/ants,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/seeds/firelemon,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"mO" = (
+/obj/item/shard,
+/turf/space,
+/area/space)
+"mU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/slot_machine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"mV" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"mW" = (
+/obj/structure/sign/poster/official/cohiba_robusto_ad,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"mZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"ne" = (
+/mob/living/simple_animal/hostile/tree/palm,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"nf" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"ng" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"nh" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space)
+"ns" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"nx" = (
+/obj/effect/decal/ants,
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"ny" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"nz" = (
+/obj/structure/flora/ausbushes/hell,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"nD" = (
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"nI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/stairs/old,
+/area/ruin/space/spacebotany/GardenMaint)
+"nQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"nS" = (
+/obj/structure/grille,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"nV" = (
+/obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"nW" = (
+/obj/machinery/door/airlock/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"nY" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"og" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"oi" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"oj" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space)
+"ol" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26;
+	req_access = list()
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"ox" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"oB" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"oH" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"oI" = (
+/obj/item/trash/can,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"oJ" = (
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"oK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"oU" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	tag = "icon-pipe-j1 (EAST)"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"oX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"oY" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"oZ" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"pf" = (
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 5;
+	pixel_y = -5
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"po" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"pt" = (
+/obj/random/toolbox,
+/obj/structure/rack,
+/obj/item/storage/toolbox/surgery{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"pE" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"pO" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner";
+	dir = 1
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"pP" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"pS" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/power/port_gen/pacman/super,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"pV" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"pZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"ql" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"qu" = (
+/obj/effect/decal/cleanable/flour,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"qw" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"qz" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"qZ" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"ra" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"rg" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/space,
+/area/space)
+"rh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"rq" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"rw" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"rF" = (
+/obj/random/tool,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"rH" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/ants,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"rM" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"rP" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"sa" = (
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"sn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"so" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"sq" = (
+/obj/structure/table,
+/obj/item/reagent_containers/dropper,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"sG" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"sM" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"sQ" = (
+/obj/machinery/light/small,
+/obj/structure/table,
+/obj/item/storage/box/monkeycubes,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"sU" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/spacebotany/Med)
+"sV" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"sZ" = (
+/obj/structure/closet,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"tg" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"tm" = (
+/obj/item/reagent_containers/glass/bucket,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"ts" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Chem)
+"tu" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"tz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"tG" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"tK" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/seeds/tomato/blue/bluespace,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"tP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"uc" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/EastGarden)
+"uk" = (
+/obj/structure/reagent_dispensers/oil,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"ut" = (
+/obj/structure/table/wood/fancy,
+/obj/item/pen,
+/obj/item/paper,
+/obj/item/pen/red{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/paper/spacebotany/note,
+/obj/item/paper/spacebotany/note1,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"uv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"uw" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"ux" = (
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-y"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"uK" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"uO" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"uR" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"uS" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"vb" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"vg" = (
+/obj/effect/decal/cleanable/ash,
+/obj/machinery/hydroponics,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"vi" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"vl" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"vt" = (
+/obj/item/shard,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"vu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"vw" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"vC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/spacevine,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"vJ" = (
+/turf/simulated/floor/plating,
+/area/space)
+"vL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26;
+	req_access = list()
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Chem)
+"vO" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"vR" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"vZ" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
+"wb" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"wd" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"wf" = (
+/obj/structure/sign/poster/contraband/revolver,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"wi" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Vault)
+"wj" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"wr" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"wC" = (
+/obj/machinery/door/window/westleft,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"wQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/floodlight,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"wS" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"wT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"wV" = (
+/obj/machinery/biogenerator,
+/obj/item/trash/plate,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"xh" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"xl" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/ants,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"xp" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/radiation{
+	pixel_y = -7
+	},
+/obj/item/clothing/head/radiation,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"xr" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"xu" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/WestGarden)
+"xx" = (
+/obj/machinery/light,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"xD" = (
+/obj/machinery/light,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/syringe{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"xG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"xH" = (
+/obj/structure/safe,
+/obj/item/slimepotion/sentience,
+/obj/item/lazarus_injector,
+/obj/item/seeds/gatfruit,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"xU" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/spacebotany/EastGarden)
+"yn" = (
+/obj/machinery/suit_storage_unit,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"yq" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"yw" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"yD" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26;
+	req_access = list()
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"yQ" = (
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"yZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"zn" = (
+/obj/effect/spawner/lootdrop/crate_spawner{
+	pixel_y = -2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"zu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"zy" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/spacebotany/Med)
+"zB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"zG" = (
+/obj/item/seeds/tomato/blue/bluespace,
+/turf/space,
+/area/space)
+"zL" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"zR" = (
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"zT" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/mob/living/simple_animal/hostile/tree/jungle,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"zU" = (
+/obj/machinery/hydroponics,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"zV" = (
+/obj/machinery/washing_machine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"zX" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"Ac" = (
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Am" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"An" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"Ap" = (
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"Aq" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"As" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"AA" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"AB" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"AC" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-y"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"AE" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"AI" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"AJ" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"AO" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"AR" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"AU" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"AX" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"AZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Ba" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"Bb" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Bc" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/random/tool,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Bu" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Garden)
+"BC" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"BH" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Chem)
+"BM" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"BQ" = (
+/obj/structure/sign/poster/official/high_class_martini,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"BU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/glass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/ruin/space/spacebotany/GardenMaint)
+"Ca" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"Cc" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"Cd" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"Ch" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Cp" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"CI" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"CK" = (
+/obj/item/paper,
+/turf/space,
+/area/space)
+"CX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Med)
+"Da" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/random/tool,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Db" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"Dh" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"DB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"DD" = (
+/obj/structure/flora/ausbushes/palebush,
+/obj/item/shovel,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"DE" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"DH" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"DL" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner";
+	dir = 1
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"DO" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Chem)
+"DS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"DU" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"DW" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"DX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner";
+	dir = 1
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"DZ" = (
+/obj/structure/sign/radiation,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"Ei" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Ej" = (
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Em" = (
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"En" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Ez" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"EC" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"ED" = (
+/obj/machinery/door/airlock/glass,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/EastGarden)
+"EI" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/ruin/space/spacebotany/Chem)
+"EN" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"ES" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space)
+"EW" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/spacevine,
+/obj/item/seeds/cherry/bomb,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"Fj" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"Fl" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Fp" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"FH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"FK" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"FQ" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	cell_type = 0;
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"FS" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"Gd" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -11
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Gf" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Gh" = (
+/obj/structure/rack,
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"Gi" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Gy" = (
+/obj/item/paper/spacebotany/report,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Vault)
+"GR" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Ha" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Hk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"HD" = (
+/obj/structure/flora/ausbushes/hell,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"HJ" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"HO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"HX" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"If" = (
+/obj/structure/flora/ausbushes/hell,
+/obj/item/seeds/tower,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"Is" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Iu" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"Iw" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"IH" = (
+/obj/structure/flora/ausbushes/leafybush,
+/mob/living/simple_animal/hostile/tree/jungle,
+/obj/item/seeds/wheat/meat,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"IK" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/EastGarden)
+"IP" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"IY" = (
+/obj/machinery/seed_extractor,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Ja" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"Jd" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Jh" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Jo" = (
+/obj/item/paper,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Jp" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"Jr" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/hydroponics/constructable,
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"JC" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/space/spacebotany/Med)
+"JG" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"JK" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"JO" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"JW" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"JY" = (
+/obj/item/reagent_containers/applicator{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/structure/spacevine,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/item/reagent_containers/applicator/dual,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"Kc" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Kh" = (
+/obj/item/trash/snack_bowl,
+/obj/structure/table,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"Kk" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"Km" = (
+/obj/machinery/door/airlock/medical/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreenfull"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Kw" = (
+/obj/machinery/door/window/westleft,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"KD" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Med)
+"KI" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"KJ" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"La" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 8
+	},
+/obj/item/pen,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Le" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"Lg" = (
+/mob/living/simple_animal/hostile/tree/jungle,
+/obj/item/seeds/wheat/buckwheat,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"Lk" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/green,
+/obj/item/clothing/suit/cyberpunk/white,
+/obj/item/clothing/under/color/white,
+/obj/item/clothing/shoes/brown{
+	pixel_y = -10
+	},
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Ll" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Ln" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"Ls" = (
+/obj/structure/spacevine,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"Lz" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"LA" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"LE" = (
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"LF" = (
+/obj/structure/spacevine,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"LI" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"LU" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/rum,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Me" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"Mf" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"Mi" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"Mj" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"Ms" = (
+/obj/item/cigbutt{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"Mx" = (
+/obj/structure/flora/junglebush/c,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"MA" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"ME" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/ants,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"MF" = (
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"MH" = (
+/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Hydro)
+"MK" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"MQ" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/spacebotany/WestGarden)
+"MX" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"MY" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Nj" = (
+/obj/item/trash/plate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"Nq" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Nz" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/GardenMaint)
+"NC" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"NL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/seeds/tomato/killer,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"NN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"NP" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"NR" = (
+/mob/living/simple_animal/hostile/tree/palm,
+/obj/item/seeds/plump/walkingmushroom,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"NS" = (
+/obj/machinery/vending/hydronutrients,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"NW" = (
+/obj/machinery/hydroponics,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"Oj" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Ok" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"Oo" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Os" = (
+/turf/space,
+/area/space)
+"OI" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"OJ" = (
+/obj/machinery/floodlight,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Garden)
+"OU" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"OZ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Pd" = (
+/obj/structure/sign/poster/contraband/free_tonto,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/spacebotany/Chem)
+"Ph" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"Pm" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	cell_type = 0;
+	dir = 8;
+	name = "west bump";
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Pq" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"PD" = (
+/obj/structure/sign/chemistry,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"PE" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"PG" = (
+/obj/structure/sign/poster/official/air1,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"PK" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Med)
+"PL" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"PO" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"PR" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"PV" = (
+/obj/structure/spacevine,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"Qg" = (
+/obj/structure/table,
+/obj/item/storage/box/pillbottles{
+	pixel_x = 8
+	},
+/obj/item/storage/box/iv_bags{
+	pixel_x = -4;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"Qh" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/suit/jacket/miljacket/patch,
+/obj/item/clothing/under/retro/science,
+/obj/item/clothing/under/color/white,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/clothing/suit/cyberpunk,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/purple,
+/obj/item/clothing/shoes/brown{
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Qn" = (
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"Qt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"Qv" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Garden)
+"QC" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"QF" = (
+/obj/effect/decal/cleanable/glass,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"QJ" = (
+/obj/machinery/bottler,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"QK" = (
+/obj/item/paper,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (EAST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"QM" = (
+/turf/template_noop,
+/area/template_noop)
+"QO" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"QT" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Dorm)
+"QW" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/space/spacebotany/Med)
+"QX" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"QZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/ash,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"Ra" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/door/airlock,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"Rc" = (
+/obj/effect/decal/ants,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 11;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Rd" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman/super,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"Re" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Rg" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/GardenMaint)
+"Rj" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/hydroponics,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"Rk" = (
+/obj/machinery/optable,
+/obj/machinery/shower{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/space/spacebotany/Med)
+"Rm" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/southleft,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"Rt" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Rw" = (
+/obj/random/powercell,
+/obj/structure/rack,
+/obj/item/soap/ducttape,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"Ry" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"RA" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"RD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"RK" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"RP" = (
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/space)
+"RR" = (
+/obj/structure/grille,
+/turf/space,
+/area/space)
+"RT" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"SC" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Dorm)
+"SD" = (
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/WestGarden)
+"SH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"SI" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/GardenMaint)
+"SK" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/ash,
+/obj/machinery/hydroponics,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"SR" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/EastGarden)
+"ST" = (
+/obj/structure/spacevine,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"SX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitegreencorner"
+	},
+/area/ruin/space/spacebotany/Chem)
+"SY" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/syringe/calomel{
+	pixel_x = -1;
+	pixel_y = -6
+	},
+/obj/item/reagent_containers/dropper,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"SZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Ta" = (
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"Tc" = (
+/obj/machinery/vending/hydroseeds,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Td" = (
+/obj/structure/spacevine,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"Tf" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Tl" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Tn" = (
+/obj/structure/table,
+/obj/item/seeds/tower/steel,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"Tr" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"Ts" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Garden)
+"Tt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Tu" = (
+/obj/structure/table,
+/obj/item/paper/spacebotany/report1,
+/obj/machinery/smartfridge/disks,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Tz" = (
+/obj/structure/chair{
+	desc = "Этот красивый стул был отлит из двух трофейных боргов синдиката.";
+	name = "Дизайнерский стул"
+	},
+/obj/effect/decal/cleanable/blood/gibs,
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"TB" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"TG" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"TJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"TU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/glass,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Ub" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Uc" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"Ui" = (
+/obj/item/paper,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Uk" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spacevine,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/spacebotany/Med)
+"Uo" = (
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Up" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"Uz" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"UE" = (
+/obj/effect/decal/ants,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"UN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"UQ" = (
+/obj/machinery/shieldgen,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"UV" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"Vb" = (
+/obj/machinery/door/airlock/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"Vd" = (
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Vf" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/spacevine,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Vh" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitegreen"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Vv" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/beach/sand,
+/area/ruin/space/spacebotany/EastGarden)
+"Vx" = (
+/obj/machinery/plantgenes,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"VK" = (
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"VM" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"VO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"VQ" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/ants,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/WestGarden)
+"VR" = (
+/obj/structure/closet/crate/hydroponics/prespawned,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"VS" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"VV" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"Wi" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/random_chem,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Med)
+"Wm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Wn" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"WD" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Hydro)
+"WU" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"WZ" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/random_spawners/oil_maybe,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Xg" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"Xk" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"Xl" = (
+/obj/item/stack/sheet/metal,
+/turf/space,
+/area/space)
+"Xp" = (
+/obj/machinery/light/small,
+/obj/structure/spacevine,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/spacebotany/Med)
+"Xr" = (
+/obj/machinery/door/airlock/medical/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/ruin/space/spacebotany/Med)
+"Xu" = (
+/obj/item/storage/box/bodybags,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/structure/closet/crate/medical,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/spacebotany/Med)
+"XJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "blue"
+	},
+/area/ruin/space/spacebotany/WestGarden)
+"XL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/Garden)
+"XT" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Garden)
+"XU" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"XV" = (
+/obj/structure/sign/poster/contraband/cc64k_ad,
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Chem)
+"Yp" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "greencorner"
+	},
+/area/ruin/space/spacebotany/Hydro)
+"Yr" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/decal/cleanable/ash,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
+"Yw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"Yz" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/ruin/space/spacebotany/Med)
+"YA" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"YI" = (
+/obj/structure/table_frame,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/item/trash/candle,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"YN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Med)
+"YO" = (
+/obj/machinery/door/airlock,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/spacebotany/Dorm)
+"YR" = (
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/obj/item/seeds/wheat/buckwheat,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"YS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/seeds/ambrosia/deus,
+/obj/item/seeds/ambrosia/deus{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/seeds/ambrosia/deus{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/seeds/ambrosia/deus{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/effect/decal/ants,
+/obj/item/seeds/coca,
+/obj/item/rollingpaper,
+/obj/item/seeds/fungus,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Chem)
+"Zc" = (
+/obj/item/trash/sosjerky,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Zi" = (
+/obj/structure/spacevine,
+/mob/living/simple_animal/hostile/killertomato/spacebotany,
+/obj/item/seeds/nettle/death,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"Zj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/phone{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/structure/table,
+/obj/item/paper/spacebotany/report,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreen";
+	tag = "icon-whitegreen (WEST)"
+	},
+/area/ruin/space/spacebotany/Chem)
+"Zs" = (
+/obj/structure/closet/secure_closet/medical3,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -5
+	},
+/obj/item/storage/firstaid/o2,
+/obj/item/storage/belt/medical,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/obj/item/storage/backpack/duffel/syndie/med,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHEAST)"
+	},
+/area/ruin/space/spacebotany/Med)
+"Zt" = (
+/obj/structure/chair/stool/bar/dark,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"Zx" = (
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/table,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/GardenMaint)
+"ZF" = (
+/mob/living/simple_animal/hostile/tree/jungle,
+/obj/item/seeds/wheat/oat,
+/turf/simulated/floor/grass,
+/area/ruin/space/spacebotany/Garden)
+"ZG" = (
+/turf/simulated/wall,
+/area/ruin/space/spacebotany/Hydro)
+"ZH" = (
+/obj/structure/falsewall/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Vault)
+"ZJ" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/GardenMaint)
+"ZM" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+"ZP" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"ZR" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"ZS" = (
+/obj/structure/rack,
+/obj/random/tool,
+/turf/simulated/floor/plating,
+/area/ruin/space/spacebotany/Hydro)
+"ZX" = (
+/obj/structure/spacevine,
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/spacebotany/Vault)
+"ZZ" = (
+/obj/effect/decal/cleanable/dirt/blackpowder,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
+
+(1,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}
+(2,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}
+(3,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}
+(4,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(5,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+oj
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(6,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(7,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+oj
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+oj
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(8,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(9,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+TG
+DE
+DE
+DE
+DE
+TG
+TG
+TG
+DE
+TG
+TG
+TG
+TG
+TG
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(10,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+oj
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(11,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+rg
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(12,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+rg
+rg
+DE
+pE
+SC
+pE
+DE
+oj
+DE
+Os
+Os
+Os
+Os
+Os
+nh
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(13,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+xu
+xu
+MQ
+xu
+xu
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+rg
+Os
+Os
+pE
+yZ
+pE
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(14,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+dw
+dw
+dw
+xu
+dw
+xu
+dw
+dw
+dw
+Os
+DE
+Os
+Os
+Os
+Os
+DE
+Os
+pE
+Pq
+DS
+gD
+pE
+pE
+DE
+DE
+DE
+DE
+Ph
+Ph
+Ph
+TG
+TG
+Ph
+Ph
+Ph
+DE
+Ph
+Ph
+Ph
+DE
+Ph
+Ph
+Ph
+TG
+TG
+TG
+Ph
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(15,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+TG
+DE
+ak
+dw
+dw
+pf
+lW
+xu
+dw
+xu
+HX
+gp
+dw
+dw
+ak
+DE
+TG
+TG
+TG
+DE
+DE
+jC
+xh
+wb
+IP
+jQ
+pE
+Os
+Os
+Os
+Os
+nh
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(16,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+xu
+dw
+iD
+pO
+Em
+xu
+Ub
+xu
+xG
+hA
+Tf
+dw
+xu
+Os
+Os
+Os
+Os
+Os
+Os
+iM
+ki
+tG
+tG
+jQ
+pE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(17,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+xu
+sM
+DL
+SK
+gX
+Pm
+XJ
+nV
+DX
+vg
+hA
+kF
+xu
+Os
+Os
+Os
+Os
+Os
+Os
+iM
+xh
+wb
+xh
+xx
+pE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Ph
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(18,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+xu
+AI
+la
+VQ
+em
+Nj
+zB
+vO
+em
+vi
+vO
+LI
+xu
+Os
+Os
+Os
+Os
+Os
+Os
+HO
+xh
+xh
+xh
+hR
+pE
+iM
+iM
+iM
+pE
+pE
+pE
+pE
+pE
+QT
+pE
+Os
+Os
+Os
+Ph
+Os
+Os
+Os
+Ph
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(19,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+dw
+Ch
+vO
+Rj
+vO
+NW
+tK
+zU
+SD
+NW
+zX
+Em
+dw
+Os
+Os
+Os
+Os
+Os
+Os
+HO
+wb
+wb
+xh
+hR
+ha
+km
+LU
+MK
+jC
+OI
+JG
+pE
+OI
+fd
+pE
+Os
+Os
+Os
+Ph
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(20,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+dw
+Ch
+wV
+NW
+ns
+vg
+QZ
+NW
+rq
+NW
+QJ
+bv
+dw
+Os
+Os
+Os
+Os
+Os
+Os
+pE
+PG
+gH
+pE
+pE
+pE
+PR
+Rc
+gw
+Jp
+jR
+sZ
+pE
+jR
+Qh
+pE
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(21,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+dw
+AO
+tu
+tu
+tu
+tu
+Kc
+gE
+tu
+tu
+tu
+UV
+dw
+Os
+Os
+Os
+Os
+Os
+Os
+Iu
+oi
+po
+ME
+ir
+wf
+Gi
+Gi
+km
+pE
+YO
+pE
+pE
+Vb
+pE
+pE
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(22,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+xu
+xu
+xu
+dw
+dw
+xu
+Fp
+xu
+dw
+jM
+xu
+xu
+xu
+DE
+TG
+TG
+TG
+DE
+DE
+BQ
+ch
+iF
+Lz
+Zc
+pE
+km
+Is
+Re
+AB
+cy
+cy
+AB
+Re
+ol
+pE
+Os
+Os
+Os
+az
+az
+az
+az
+az
+DE
+Ph
+Ph
+Ph
+TG
+TG
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(23,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+eQ
+Ok
+aN
+Cc
+aN
+Qt
+FQ
+rH
+AA
+AA
+Qv
+Bu
+Os
+Os
+Os
+Os
+Os
+Os
+VK
+oI
+WU
+Ms
+dm
+pE
+km
+NN
+fh
+fh
+da
+fh
+fh
+pE
+Vb
+pE
+Os
+Os
+Os
+az
+Xu
+kh
+Xg
+az
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(24,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+MF
+Qn
+Qn
+Qn
+Qn
+Qn
+Qn
+Qn
+Qn
+QO
+mZ
+Bu
+Os
+Os
+Os
+Os
+Os
+Os
+VK
+pZ
+UE
+Kh
+Iw
+Ra
+bI
+Gf
+fh
+yn
+SZ
+ut
+fh
+Lk
+ia
+pE
+Os
+Os
+Os
+az
+Rk
+dk
+Gh
+az
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(25,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+TB
+cS
+Qn
+Ln
+Qn
+zT
+Qn
+Qn
+dV
+Qn
+XL
+Bu
+VK
+Iu
+Os
+Os
+Iu
+VK
+VK
+ZR
+vR
+Zt
+fh
+wi
+hO
+wi
+fh
+ee
+Ac
+eF
+fh
+dj
+AR
+pE
+Os
+Os
+Os
+az
+mD
+Hk
+xD
+az
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(26,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+hT
+hg
+Qn
+Qn
+ZF
+Qn
+lh
+Qn
+Ln
+Qn
+Qn
+XL
+hT
+VK
+gB
+VK
+VK
+gB
+VK
+Iu
+bc
+nW
+ax
+wi
+xp
+vC
+Rd
+fh
+fh
+fh
+fh
+fh
+az
+az
+az
+az
+az
+CX
+CX
+ie
+wC
+Cd
+az
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(27,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+Bu
+hg
+Qn
+dr
+Qn
+HD
+Qn
+Qn
+Qn
+FS
+Qn
+ux
+XT
+Rg
+Nz
+aJ
+Rg
+Nz
+Rg
+TU
+nI
+AC
+Xk
+Tr
+RA
+rP
+so
+JK
+wd
+RT
+Me
+xl
+oU
+Xr
+lb
+PK
+oX
+uK
+sU
+yQ
+ft
+Zs
+az
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(28,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+hT
+MF
+Qn
+Qn
+Qn
+Qn
+Kk
+YR
+QO
+Qn
+Qn
+XL
+hT
+Iu
+Iu
+Ja
+Iu
+Iu
+Iu
+Iu
+tP
+BU
+DZ
+wi
+As
+lO
+fe
+wi
+wi
+wj
+wi
+wi
+hJ
+ZG
+az
+YN
+CX
+az
+az
+ec
+zy
+ji
+az
+az
+az
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(29,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+hg
+Qn
+Qn
+Qn
+cS
+Lg
+bE
+Qn
+Qn
+Qn
+VO
+hT
+qw
+vw
+TJ
+YA
+mU
+JO
+Iu
+dv
+AZ
+lv
+BH
+wi
+wi
+Gy
+wi
+Zi
+jE
+ZX
+wi
+Ei
+ZG
+Rw
+vl
+fg
+az
+aT
+EN
+gV
+dS
+Ls
+JY
+az
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+QM
+QM
+QM
+"}
+(30,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+MF
+bE
+Qn
+DD
+Qn
+Qn
+FS
+Qn
+IH
+Qn
+XL
+hT
+gJ
+vw
+oK
+vw
+bp
+vw
+Iu
+eP
+gm
+SX
+iW
+NP
+be
+YS
+wi
+wi
+iB
+wi
+wi
+Ll
+ZG
+pt
+EW
+yD
+az
+Qg
+fq
+Yz
+Hk
+JC
+hZ
+az
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(31,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Bu
+MF
+Qn
+Qn
+Qn
+QO
+Qn
+Qn
+Qn
+Qn
+Qn
+XL
+hT
+vw
+pS
+XU
+vw
+VM
+qw
+Iu
+Tl
+FH
+AX
+bf
+DO
+ts
+vL
+wi
+mV
+mV
+jE
+wi
+Yp
+ZG
+ZG
+OU
+ZG
+az
+az
+az
+QW
+LA
+es
+az
+az
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(32,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+hT
+Ts
+qz
+qz
+qz
+qz
+yw
+qz
+kc
+MA
+MA
+OJ
+hT
+zn
+vw
+BC
+qZ
+bp
+oZ
+Iu
+Tl
+Ui
+mt
+bQ
+eh
+gl
+mW
+wi
+dE
+ZP
+mo
+wi
+AU
+ZG
+Oo
+Td
+ox
+zG
+Os
+ji
+kL
+oH
+hZ
+JW
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(33,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+SR
+SR
+SR
+SR
+ED
+SR
+SR
+SR
+gR
+SR
+SR
+SR
+SR
+Iu
+DH
+Iu
+Iu
+Mi
+Iu
+SI
+nx
+Ez
+QK
+BH
+BH
+BH
+wi
+zL
+ca
+cw
+Ca
+wi
+wT
+ZG
+An
+VR
+ox
+Os
+Os
+ji
+ji
+Uk
+ji
+ji
+DE
+Ph
+DE
+TG
+TG
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(34,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+SR
+VV
+hf
+hf
+Mf
+EC
+hf
+Mf
+fA
+lF
+ZZ
+PE
+SR
+Tn
+BM
+Tt
+Ha
+nQ
+En
+XV
+Zj
+bZ
+La
+Pd
+Os
+Os
+wi
+ST
+Rm
+oJ
+Le
+wi
+UN
+ZG
+Yw
+sG
+ox
+Os
+Os
+Os
+ji
+Ry
+ji
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(35,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+IK
+uv
+Ap
+nz
+Ap
+Ap
+Ap
+Ap
+ne
+Ap
+Ap
+Wn
+SR
+kw
+En
+kI
+En
+YI
+AJ
+NP
+Vd
+Ez
+Jo
+BH
+xH
+Uc
+ZH
+Am
+hw
+eE
+PV
+wi
+Jd
+ZG
+yq
+gc
+ox
+Os
+Os
+Os
+ji
+uS
+ji
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(36,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+SR
+uv
+Up
+NR
+Ap
+Ap
+hY
+Ap
+nz
+Mx
+Ap
+ZM
+SR
+Zx
+qZ
+gP
+En
+gA
+eg
+NP
+at
+MY
+df
+BH
+Os
+Os
+wi
+FK
+Ta
+Kw
+ae
+wi
+hC
+ZG
+Oo
+iw
+ZG
+Os
+Os
+Os
+ji
+jo
+ji
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(37,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+IK
+vu
+Ap
+Ap
+Ap
+Ap
+Ap
+ne
+Ap
+Vv
+Ap
+kN
+SR
+zV
+BM
+ZJ
+BM
+En
+NP
+NP
+PD
+Km
+DW
+BH
+BH
+BH
+wi
+NL
+QX
+RK
+pP
+wi
+Vf
+ql
+Ba
+QC
+ZG
+Os
+Os
+Os
+ji
+uR
+ji
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(38,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+IK
+vu
+Ap
+Ap
+nz
+Up
+Ap
+oY
+Ap
+Ap
+Ap
+AE
+SR
+zV
+En
+Fl
+qZ
+NP
+DW
+Vh
+Cp
+Nq
+kE
+Nq
+aG
+NP
+wi
+wi
+wi
+wi
+wi
+wi
+Wm
+ZG
+Yw
+nf
+ZG
+Os
+Os
+Os
+KD
+Xp
+KD
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(39,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+SR
+vu
+Ap
+Ap
+ne
+Vv
+Ap
+Ap
+Ap
+If
+ne
+kN
+SR
+UQ
+qZ
+zu
+qZ
+NP
+Vh
+EI
+Yr
+Ez
+uw
+dJ
+GR
+NP
+Os
+Os
+ZG
+ZG
+ZG
+ZG
+nD
+ZG
+Bc
+Da
+ZG
+Os
+KD
+KD
+KD
+cU
+KD
+KD
+KD
+DE
+TG
+TG
+TG
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(40,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+SR
+dP
+Ap
+Ap
+hW
+Ap
+Ap
+Ap
+Up
+Ap
+Ap
+kN
+SR
+Iu
+VK
+rh
+Iu
+cM
+MX
+uw
+uw
+WZ
+gg
+zR
+tg
+NP
+Os
+Os
+ZG
+ZS
+kK
+ZG
+Aq
+ZG
+ZG
+ZG
+ZG
+Os
+KD
+Wi
+mG
+RD
+oB
+ik
+KD
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(41,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+SR
+SH
+PL
+PL
+PL
+ny
+PL
+ny
+DB
+KI
+og
+wr
+uc
+NC
+NC
+vZ
+NC
+Dh
+hd
+gg
+gg
+Ez
+gg
+gg
+OZ
+NP
+Os
+Os
+ZG
+NS
+Gd
+Bb
+rM
+vb
+Gd
+IY
+ZG
+Os
+KD
+SY
+hF
+Tz
+mG
+sQ
+KD
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(42,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+SR
+IK
+pV
+pV
+pV
+SR
+KJ
+SR
+sn
+pV
+pV
+IK
+SR
+ak
+ak
+ES
+ak
+NP
+ra
+gg
+qu
+gg
+HJ
+jf
+cM
+cM
+Os
+Os
+ZG
+Tc
+tm
+WD
+fL
+WD
+Oo
+Vx
+ZG
+Os
+KD
+Wi
+ty
+oB
+oB
+sq
+KD
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(43,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+DE
+DE
+DE
+DE
+vJ
+IK
+IK
+Fj
+uk
+SR
+IK
+SR
+CI
+eT
+IK
+IK
+ak
+Os
+Os
+Os
+Os
+NP
+HJ
+sa
+gg
+gg
+rw
+gg
+nY
+jj
+Os
+Os
+MH
+wQ
+LE
+Oj
+mL
+iA
+WD
+VS
+ZG
+Os
+KD
+KD
+KD
+iN
+KD
+KD
+KD
+TG
+TG
+TG
+TG
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(44,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+IK
+IK
+IK
+SR
+IK
+SR
+IK
+IK
+IK
+Os
+DE
+Os
+Os
+Os
+Os
+cM
+gg
+Ez
+Mj
+Mj
+Ez
+gg
+Db
+nS
+cx
+Os
+MH
+LF
+Rt
+Jr
+aa
+iA
+WD
+Tu
+ZG
+Os
+Os
+Os
+KD
+KD
+KD
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(45,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+SR
+SR
+xU
+SR
+SR
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+gg
+nS
+Mj
+gg
+QF
+nS
+vt
+cx
+Os
+Os
+ox
+iA
+Oo
+Oo
+ej
+bX
+Ej
+iA
+ox
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(46,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+CK
+Os
+RP
+RP
+mO
+Os
+Os
+Os
+Os
+ox
+iA
+tz
+ng
+lm
+dW
+sV
+iA
+ox
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(47,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+DE
+TG
+Ph
+TG
+DU
+DE
+rF
+fc
+DE
+Uz
+DE
+wS
+TG
+DE
+DE
+ox
+ox
+Jh
+uO
+if
+PO
+Uo
+ox
+ox
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+RR
+RR
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(48,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Xl
+Os
+Os
+Os
+Os
+ox
+ox
+ox
+ox
+ox
+ox
+ox
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(49,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+xr
+Os
+cx
+Os
+Os
+lq
+Os
+cx
+Os
+Os
+rg
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(50,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+rg
+Os
+Os
+Os
+Os
+rg
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+QM
+QM
+QM
+"}
+(51,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+rg
+Os
+Os
+Os
+Os
+dT
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Ph
+Os
+Os
+Os
+Os
+Os
+Os
+TG
+Os
+Os
+Os
+Os
+Os
+Os
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(52,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+TG
+TG
+TG
+TG
+TG
+DE
+DE
+TG
+TG
+TG
+TG
+TG
+TG
+DE
+DE
+TG
+TG
+TG
+TG
+DE
+DE
+DE
+TG
+Ph
+TG
+TG
+TG
+DE
+DE
+DE
+TG
+TG
+DE
+Ph
+Ph
+DE
+DE
+DE
+Ph
+DE
+Ph
+DE
+DE
+DE
+DE
+Ph
+Ph
+TG
+DE
+Ph
+DE
+DE
+DE
+DE
+DE
+Os
+Os
+QM
+QM
+QM
+"}
+(53,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+cx
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(54,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(55,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(56,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(57,1,1) = {"
+QM
+QM
+QM
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+Os
+QM
+QM
+QM
+"}
+(58,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}
+(59,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}
+(60,1,1) = {"
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+QM
+"}

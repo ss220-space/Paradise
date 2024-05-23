@@ -19,17 +19,17 @@
 /obj/item/proc/carbon_skip_catch_check(mob/living/carbon/user)
 	. = TRUE
 	if(!isturf(loc))
-		return
+		return .
 	if(!user.in_throw_mode)
-		return
+		return .
 	if(!user.canmove)
-		return
-	if(user.restrained())
-		return
+		return .
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return .
 	if(user.get_active_hand())
-		return
+		return .
 	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
-		return
+		return .
 	. = FALSE
 
 

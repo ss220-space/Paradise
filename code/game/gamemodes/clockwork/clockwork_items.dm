@@ -106,7 +106,7 @@
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-		if(do_after(user, 1.5 SECONDS, target = user) && destination)
+		if(do_after(user, 1.5 SECONDS, user) && destination)
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -187,7 +187,7 @@
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-			if(do_after(user, 1.5 SECONDS, target = user))
+			if(do_after(user, 1.5 SECONDS, user))
 				do_sparks(4, 0, user)
 				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -249,7 +249,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -392,7 +392,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -492,7 +492,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -979,7 +979,7 @@
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)

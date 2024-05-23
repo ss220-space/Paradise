@@ -228,7 +228,7 @@ REAGENT SCANNER
 	if(alerted && !was_alerted)
 		for(var/mob/living/alerted_mob in alerted)
 			if(!alerted_mob.stat)
-				alerted_mob.do_alert_animation(alerted_mob)
+				do_alert_animation(alerted_mob)
 				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
 		was_alerted = TRUE
 		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
@@ -260,7 +260,8 @@ REAGENT SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
@@ -622,6 +623,9 @@ REAGENT SCANNER
 	set name = "Вкл/Выкл локализацию"
 	set category = "Object"
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	mode = !mode
 	switch(mode)
 		if(1)
@@ -912,7 +916,7 @@ REAGENT SCANNER
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
-		if(do_after(user, scan_time, target = M))
+		if(do_after(user, scan_time, M))
 			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"

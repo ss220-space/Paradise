@@ -63,7 +63,7 @@
 			if(ctarget != user)
 				ctarget.visible_message(span_danger("[user] attempts to feed something to [ctarget]."), \
 							span_userdanger("[user] attempts to feed something to you."))
-				if(!do_mob(user, ctarget))
+				if(!do_after(user, 3 SECONDS, ctarget, NONE))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
@@ -184,7 +184,7 @@
 	set name = "Remove Assembly"
 	set category = "Object"
 	set src in usr
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")

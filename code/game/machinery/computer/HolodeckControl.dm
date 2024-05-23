@@ -364,7 +364,7 @@
 	return FALSE
 
 /obj/structure/table/holotable
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
 
 /obj/structure/table/holotable/wood
@@ -378,7 +378,7 @@
 	return FALSE
 
 /obj/structure/chair/stool/holostool
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -395,7 +395,7 @@
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
-	density = 1
+	density = TRUE
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
@@ -405,7 +405,7 @@
 	return FALSE
 
 /obj/structure/rack/holorack
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/item/holo
 	damtype = STAMINA
@@ -509,7 +509,7 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)

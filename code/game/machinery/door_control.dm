@@ -42,13 +42,12 @@
 
 /obj/machinery/door_control/Initialize(mapload, direction = null, building = FALSE)
 	. = ..()
-	power_change(forced = TRUE)
 	if(building)
 		open = TRUE
 		constructed = TRUE
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
-		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	update_icon()
 
 
 /obj/machinery/door_control/attack_ai(mob/user)
@@ -120,7 +119,7 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		open = FALSE
 		update_access()
-		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+		update_icon()
 		return
 
 	// Open the panel
@@ -132,7 +131,7 @@
 	SCREWDRIVER_OPEN_PANEL_MESSAGE
 	open = TRUE
 	constructed = TRUE
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	update_icon()
 
 /obj/machinery/door_control/wrench_act(mob/living/user, obj/item/I)
 	if(!open)
@@ -261,13 +260,9 @@
 
 
 /obj/machinery/door_control/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/door_control/update_icon_state()
@@ -294,7 +289,7 @@
 		else if(device)
 			. += "doorctrl-overlay-device"
 
-	if(stat & NOPOWER)
+	if(open || (stat & NOPOWER))
 		return
 
 	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")

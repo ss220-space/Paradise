@@ -173,13 +173,13 @@
 		spawn_blast(t)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	visible_message("<span class='hierophant'>[src] fades out!</span>")
-	set_density(FALSE)
+	ADD_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(turf/T)
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
-	set_density(TRUE)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	visible_message("<span class='hierophant'>[src] fades in!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)

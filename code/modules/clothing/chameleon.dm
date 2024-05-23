@@ -102,7 +102,7 @@
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
 			var/obj/item/I = V
-			if(chameleon_blacklist[V] || (initial(I.flags) & ABSTRACT) || !initial(I.icon_state))
+			if(chameleon_blacklist[V] || (initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
 				continue
 			var/chameleon_item_name = "[initial(I.name)] ([initial(I.icon_state)])"
 			var/copies = FALSE
@@ -422,7 +422,7 @@
 	item_state = "gas_alt"
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	flags = AIRTIGHT | BLOCK_GAS_SMOKE_EFFECT
+	clothing_flags = AIRTIGHT|BLOCK_GAS_SMOKE_EFFECT
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -505,7 +505,7 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
-	flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_WATER)
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
 	. = ..()

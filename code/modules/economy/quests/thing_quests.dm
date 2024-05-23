@@ -105,11 +105,11 @@
 		/obj/item/organ/internal/eyes/unathi = 170,
 		/obj/item/organ/internal/eyes/nian = 170,
 		/obj/item/organ/internal/liver/skrell = 170,
+	)
+	hard_items = list(
 		/obj/item/organ/internal/kidneys/grey = 175,
 		/obj/item/organ/internal/liver/kidan = 175,
 		/obj/item/organ/internal/lungs/slime = 185,
-	)
-	hard_items = list(
 		/obj/item/organ/internal/liver/grey = 200,
 		/obj/item/organ/internal/heart/slime = 210,
 		/obj/item/organ/external/wing/nian = 210,
@@ -129,73 +129,85 @@
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
 		/obj/item/organ/internal/xenos/neurotoxin = 850,
-		/obj/item/organ/internal/xenos/acidgland/queen = 900,
-		/obj/item/organ/internal/xenos/plasmavessel/queen = 900
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/foods
 	quest_type_name = "Food"
 	easy_items = list(
+		/obj/item/reagent_containers/food/snacks/friedegg = 10,
+		/obj/item/reagent_containers/food/snacks/tofuburger = 10,
 		/obj/item/reagent_containers/food/snacks/boiledpelmeni = 20,
-		/obj/item/reagent_containers/food/snacks/superbiteburger = 60,
-		/obj/item/reagent_containers/food/snacks/yakiimo = 40,
-		/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 40,
-		/obj/item/reagent_containers/food/snacks/sushi_Unagi = 40,
-		/obj/item/reagent_containers/food/snacks/sliceable/salami = 40,
-		/obj/item/reagent_containers/food/snacks/amanitajelly = 50,
-		/obj/item/reagent_containers/food/snacks/donut/chaos = 50,
-		/obj/item/reagent_containers/food/snacks/sliceable/noel = 50,
+		/obj/item/reagent_containers/food/snacks/omelette = 20,
+		/obj/item/reagent_containers/food/snacks/cheeseburger = 30,
+		/obj/item/reagent_containers/food/snacks/benedict = 30,
+		/obj/item/reagent_containers/food/snacks/monkeyburger = 30, 
+		/obj/item/reagent_containers/food/snacks/hotdog = 30,
+		/obj/item/reagent_containers/food/snacks/sausage = 20,
+		/obj/item/reagent_containers/food/snacks/pastatomato = 20,
+		/obj/item/reagent_containers/food/snacks/soup/tomatosoup = 20,
+		/obj/item/reagent_containers/food/snacks/meatballspaghetti = 30,
+		/obj/item/reagent_containers/food/snacks/smokedsausage = 30,
+		/obj/item/reagent_containers/food/snacks/lasagna = 40,
 		/obj/item/reagent_containers/food/snacks/candy/jellybean/purple = 50,
-		/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat = 50,
-		/obj/item/reagent_containers/food/snacks/fishburger = 60,
-		/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly = 60,
-		/obj/item/reagent_containers/food/snacks/candy/sucker = 60,
-		/obj/item/reagent_containers/food/snacks/appletart = 60,
-		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
-		/obj/item/reagent_containers/food/snacks/aesirsalad = 60,
-		/obj/item/reagent_containers/food/snacks/rofflewaffles = 60,
 		/obj/item/reagent_containers/food/snacks/muffin = 60,
-		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
-
 	)
-
 	normal_items = list(
-		/obj/item/reagent_containers/food/snacks/sashimi = 120,
-		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/human = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 70,
-		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 90,
-		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 90,
-		/obj/item/reagent_containers/food/snacks/vulpix/chilli = 80,
-		/obj/item/reagent_containers/food/snacks/vulpix/cheese = 80,
-		/obj/item/reagent_containers/food/snacks/vulpix = 80,
+		/obj/item/reagent_containers/food/snacks/yakiimo = 50,
+		/obj/item/reagent_containers/food/snacks/soup/beetsoup = 50,
+		/obj/item/reagent_containers/food/snacks/fishburger = 60,
+		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
+		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
+		/obj/item/reagent_containers/food/snacks/superbiteburger = 60, 
+		/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 60,
+		/obj/item/reagent_containers/food/snacks/sushi_Unagi = 60,
+		/obj/item/reagent_containers/food/snacks/sliceable/salami = 60,
+		/obj/item/reagent_containers/food/snacks/amanitajelly = 70,
 		/obj/item/reagent_containers/food/snacks/candy/jawbreaker = 70,
 		/obj/item/reagent_containers/food/snacks/plov = 70,
-		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 70,
-		/obj/item/reagent_containers/food/snacks/doner_mushroom = 90,
-		/obj/item/reagent_containers/food/snacks/doner_vegan = 90,
-		/obj/item/reagent_containers/food/snacks/tajaroni = 80,
-		/obj/item/reagent_containers/food/snacks/boiledslimecore = 70,
-		/obj/item/reagent_containers/food/snacks/sliceable/lizard = 70,
-		/obj/item/reagent_containers/food/snacks/shawarma = 100,
-		/obj/item/reagent_containers/food/snacks/dionaroast = 80,
+		/obj/item/reagent_containers/food/snacks/donut/chaos = 80,
+		/obj/item/reagent_containers/food/snacks/sliceable/noel = 80,
+		/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly = 90,
+		/obj/item/reagent_containers/food/snacks/aesirsalad = 90,
+		/obj/item/reagent_containers/food/snacks/candy/sucker = 60,
+		/obj/item/reagent_containers/food/snacks/appletart = 90,
 		/obj/item/reagent_containers/food/snacks/chawanmushi = 90,
-		/obj/item/reagent_containers/food/snacks/fruitcup = 90,
-		/obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow = 100,
-		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 100,
-		/obj/item/reagent_containers/food/snacks/fried_vox = 100,
-		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno = 110,
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
+	hard_items = list(
+		/obj/item/reagent_containers/food/snacks/sashimi = 120, 
+		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/human = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/skrell = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/tajaran = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/unathi = 100,
+		/obj/item/reagent_containers/food/snacks/meatsteak/vox = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/wryn = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/kidan = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/diona = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/nian = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/drask = 120,
+		/obj/item/reagent_containers/food/snacks/meatsteak/grey = 120,
+		/obj/item/reagent_containers/food/snacks/vulpix/chilli = 120,
+		/obj/item/reagent_containers/food/snacks/soup/stew = 130,
+		/obj/item/reagent_containers/food/snacks/vulpix/cheese = 130,
+		/obj/item/reagent_containers/food/snacks/vulpix = 130,
+		/obj/item/reagent_containers/food/snacks/weirdoliviersalad = 130,
+		/obj/item/reagent_containers/food/snacks/doner_mushroom = 130,
+		/obj/item/reagent_containers/food/snacks/doner_vegan = 130,
+		/obj/item/reagent_containers/food/snacks/tajaroni = 120,
+		/obj/item/reagent_containers/food/snacks/boiledslimecore = 120,
+		/obj/item/reagent_containers/food/snacks/sliceable/lizard = 120,
+		/obj/item/reagent_containers/food/snacks/shawarma = 150,
+		/obj/item/reagent_containers/food/snacks/dionaroast = 180,
+		/obj/item/reagent_containers/food/snacks/fruitcup = 120,
+		/obj/item/reagent_containers/food/snacks/candy/cotton/bad_rainbow = 200,
+		/obj/item/reagent_containers/food/snacks/candy/cotton/rainbow = 150,
+		/obj/item/reagent_containers/food/snacks/fried_vox = 120,
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno = 200,
+		/obj/item/reagent_containers/food/snacks/rofflewaffles = 150,
+	)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
@@ -252,7 +264,7 @@
 		/obj/item/stack/sheet/bluespace_crystal = list("reward" = 220, "amount" = 7),
 		/obj/item/stack/sheet/mineral/bananium = list("reward" = 340, "amount" = 4),
 		/obj/item/stack/sheet/mineral/tranquillite = list("reward" = 440, "amount" = 4),
-		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 280, "amount" = 20)
+		/obj/item/stack/sheet/mineral/adamantine = list("reward" = 600, "amount" = 5)
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
@@ -333,11 +345,6 @@
 		/obj/item/seeds/tomato/blue = 30,
 		/obj/item/seeds/sunflower/novaflower = 30,
 		/obj/item/seeds/carrot/parsnip = 30,
-		/obj/item/seeds/lavaland/cactus = 30,
-		/obj/item/seeds/lavaland/ember = 30,
-		/obj/item/seeds/lavaland/inocybe = 30,
-		/obj/item/seeds/lavaland/polypore = 30,
-		/obj/item/seeds/lavaland/porcini = 30,
 		/obj/item/seeds/tea/astra = 40,
 		/obj/item/seeds/soya/olive/charc = 40,
 		/obj/item/seeds/geranium = 40,
@@ -352,6 +359,9 @@
 		/obj/item/seeds/tomato/killer = 50,
 		/obj/item/seeds/cocoapod/vanillapod = 50,
 		/obj/item/seeds/plump/walkingmushroom = 50,
+
+	)
+	normal_items = list(
 		/obj/item/seeds/onion/red = 60,
 		/obj/item/seeds/firelemon = 60,
 		/obj/item/seeds/cannabis/white = 60,
@@ -376,17 +386,23 @@
 		/obj/item/seeds/potato/sweet = 80,
 		/obj/item/seeds/berry/death = 80,
 		/obj/item/seeds/banana/mime = 80,
-		/obj/item/seeds/angel = 90
+		/obj/item/seeds/angel = 90,
+		/obj/item/seeds/lavaland/cactus = 100,
+		/obj/item/seeds/lavaland/ember = 100,
+		/obj/item/seeds/lavaland/inocybe = 100,
+		/obj/item/seeds/lavaland/polypore = 100,
+		/obj/item/seeds/lavaland/porcini = 100,
 	)
+
 
 	very_hard_items = list(
 		/obj/item/seeds/kudzu = 460,
-		/obj/item/seeds/cherry/bomb = 740,
-		/obj/item/seeds/apple/poisoned = 740,
-		/obj/item/seeds/wheat/meat = 740,
-		/obj/item/seeds/gatfruit = 860
+		/obj/item/seeds/cherry/bomb = 640,
+		/obj/item/seeds/apple/poisoned = 640,
+		/obj/item/seeds/wheat/meat = 640,
+		/obj/item/seeds/gatfruit = 760
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_VERY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
@@ -395,29 +411,31 @@
 	req_items = list(/obj/item/disk/plantgene)
 	var/list/required_genes = list()
 	easy_items = list(
-		/datum/plant_gene/trait/plant_type/fungal_metabolism = 75,
-		/datum/plant_gene/trait/squash = 75,
-		/datum/plant_gene/trait/repeated_harvest = 75,
-		/datum/plant_gene/trait/maxchem = 75,
-		/datum/plant_gene/trait/stinging = 100,
-		/datum/plant_gene/trait/glow = 110,
+		/datum/plant_gene/trait/plant_type/fungal_metabolism = 60,
+		/datum/plant_gene/trait/squash = 60,
+		/datum/plant_gene/trait/repeated_harvest = 60,
+		/datum/plant_gene/trait/maxchem = 60,
+		/datum/plant_gene/trait/stinging = 90,
+		/datum/plant_gene/trait/glow = 100,
 	)
 	normal_items = list(
-		/datum/plant_gene/trait/battery = 125,
-		/datum/plant_gene/trait/slip = 125,
-		/datum/plant_gene/trait/cell_charge = 125,
-		/datum/plant_gene/trait/teleport = 150,
-		/datum/plant_gene/trait/plant_type/weed_hardy = 160,
-		/datum/plant_gene/trait/noreact = 180,
-		/datum/plant_gene/trait/glow/shadow = 180,
+		/datum/plant_gene/trait/battery = 110,
+		/datum/plant_gene/trait/glow/red = 110,
+		/datum/plant_gene/trait/slip = 110,
+		/datum/plant_gene/trait/cell_charge = 110,
+		/datum/plant_gene/trait/teleport = 130,
+		/datum/plant_gene/trait/plant_type/weed_hardy = 150,
+		/datum/plant_gene/trait/noreact = 160,
+		/datum/plant_gene/trait/glow/shadow = 160,
 	)
 	hard_items = list(
-		/datum/plant_gene/trait/plant_laughter = 220,
-		/datum/plant_gene/trait/fire_resistance = 220,
-		/datum/plant_gene/trait/glow/berry = 240,
+		/datum/plant_gene/trait/plant_laughter = 200,
+		/datum/plant_gene/trait/fire_resistance = 200,
+		/datum/plant_gene/trait/glow/berry = 210,
 		/datum/plant_gene/trait/smoke = 330,
-		/datum/plant_gene/trait/glow/red = 370,
+
 	)
+
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/botanygenes/add_goal(difficultly)
@@ -462,54 +480,56 @@
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
 	normal_items = list(
-		"LISP" = 100,
-		"MUTE" = 100,
-		"RAD" = 100,
-		"FAT" = 100,
-		"SWEDE" = 100,
-		"SCRAMBLE" = 100,
-		"WEAK" = 100,
-		"HORNS" = 100,
-		"COMIC" = 100,
-		"SOBER" = 150,
-		"PSYRESIST" = 150,
-		"SHADOW" = 150,
-		"CHAMELEON" = 150,
-		"CRYO" = 150,
-		"EAT" = 150,
-		"JUMP" = 150,
-		"IMMOLATE" = 150,
-		"EMPATH" = 150,
-		"POLYMORPH" = 150,
-		"STRONG" = 150,
+		"LISP" = 150,
+		"MUTE" = 150,
+		"RAD" = 150,
+		"FAT" = 150,
+		"SWEDE" = 150,
+		"SCRAMBLE" = 150,
+		"WEAK" = 150,
+		"HORNS" = 150,
+		"COMIC" = 150,
 	)
 
 	hard_items = list(
+		"SOBER" = 200,
+		"PSYRESIST" = 200,
+		"SHADOW" = 200,
+		"CHAMELEON" = 200,
+		"CRYO" = 200,
+		"EAT" = 200,
+		"JUMP" = 200,
+		"IMMOLATE" = 200,
+		"EMPATH" = 200,
+		"STRONG" = 200,
 		"BLINDNESS" = 200,
+		"POLYMORPH" = 200,
 		"COLOURBLIND" = 200,
 		"DEAF" = 200,
-		"HULK" = 250,
-		"TELE" = 250,
-		"FIRE" = 300,
-		"XRAY" = 300,
 		"CLUMSY" = 200,
 		"COUGH" = 200,
 		"GLASSES" = 200,
 		"EPILEPSY" = 200,
 		"WINGDINGS" = 200,
 		"BREATHLESS" = 250,
-		"REMOTEVIEW" = 300,
-		"REGENERATE" = 300,
-		"INCREASERUN" = 300,
-		"REMOTETALK" = 300,
-		"MORPH" = 300,
 		"COLD" = 200,
 		"HALLUCINATION" = 200,
+	)
+	very_hard_items = list(
 		"NOPRINTS" = 250,
 		"SHOCKIMMUNITY" = 200,
-		"SMALLSIZE" = 250
+		"SMALLSIZE" = 250,
+		"HULK" = 300,
+		"TELE" = 300,
+		"FIRE" = 350,
+		"XRAY" = 350,
+		"REMOTEVIEW" = 350,
+		"REGENERATE" = 350,
+		"INCREASERUN" = 350,
+		"REMOTETALK" = 350,
+		"MORPH" = 350,
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
 /datum/cargo_quest/thing/genes/length_quest()
 	return length(required_blocks)
@@ -564,52 +584,52 @@
 
 	var/list/required_symptoms = list()
 
-	easy_items = list(
-		/datum/symptom/shivering = 70,
-		/datum/symptom/fever = 70,
-		/datum/symptom/sneeze = 90,
-		/datum/symptom/itching = 90,
-		/datum/symptom/headache = 90,
-		/datum/symptom/cough = 90,
-		/datum/symptom/oxygen = 100,
-		/datum/symptom/painkiller = 110,
-		/datum/symptom/epinephrine = 110,
-		/datum/symptom/mind_restoration = 110,
-		/datum/symptom/heal = 110,
-	)
 	normal_items = list(
-		/datum/symptom/youth = 130,
-		/datum/symptom/blood = 150,
-		/datum/symptom/voice_change = 150,
-		/datum/symptom/damage_converter = 150,
-		/datum/symptom/sensory_restoration = 150,
-		/datum/symptom/hallucigen = 150,
-		/datum/symptom/viralevolution = 175,
-		/datum/symptom/viraladaptation = 175,
-		/datum/symptom/flesh_eating = 175,
-		/datum/symptom/heal/metabolism = 175,
-		/datum/symptom/fire = 190,
-		/datum/symptom/vomit = 200,
-		/datum/symptom/vitiligo = 200,
-		/datum/symptom/choking = 200,
-		/datum/symptom/heal/longevity = 200,
-		/datum/symptom/beard = 200
+		/datum/symptom/shivering = 90,
+		/datum/symptom/fever = 90,
+		/datum/symptom/sneeze = 130,
+		/datum/symptom/itching = 130,
+		/datum/symptom/headache = 130,
+		/datum/symptom/cough = 130,
+		/datum/symptom/oxygen = 140,
+		/datum/symptom/painkiller = 150,
+		/datum/symptom/epinephrine = 150,
+		/datum/symptom/mind_restoration = 150,
+		/datum/symptom/heal = 150,
+		/datum/symptom/youth = 170,
+		/datum/symptom/blood = 170,
+		/datum/symptom/voice_change = 170,
+		/datum/symptom/damage_converter = 170,
+		/datum/symptom/sensory_restoration = 170,
+		/datum/symptom/hallucigen = 170,
+
 	)
 
 	hard_items = list(
-		/datum/symptom/booze = 225,
-		/datum/symptom/weight_loss = 225,
-		/datum/symptom/weakness = 225,
-		/datum/symptom/revitiligo = 225,
-		/datum/symptom/visionloss = 225,
-		/datum/symptom/dizzy = 225,
-		/datum/symptom/shedding = 225,
-		/datum/symptom/vomit/projectile = 275,
-		/datum/symptom/vomit/blood = 275,
-		/datum/symptom/deafness = 275,
-		/datum/symptom/confusion = 275
+		/datum/symptom/viralevolution = 200,
+		/datum/symptom/viraladaptation = 200,
+		/datum/symptom/flesh_eating = 200,
+		/datum/symptom/heal/metabolism = 200,
+		/datum/symptom/fire = 210,
+		/datum/symptom/vomit = 240,
+		/datum/symptom/vitiligo = 250,
+		/datum/symptom/choking = 250,
+		/datum/symptom/heal/longevity = 250,
+		/datum/symptom/beard = 250,
+		/datum/symptom/booze = 285,
+		/datum/symptom/weight_loss = 285,
+		/datum/symptom/weakness = 285,
+		/datum/symptom/revitiligo = 285,
+		/datum/symptom/visionloss = 285,
+		/datum/symptom/dizzy = 285,
+		/datum/symptom/shedding = 285,
+		/datum/symptom/vomit/projectile = 300,
+		/datum/symptom/vomit/blood = 300,
+		/datum/symptom/deafness = 300,
+		/datum/symptom/confusion = 300,
+
 	)
-	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
+	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD)
 
 /datum/cargo_quest/thing/virus/length_quest()
 	return length(required_symptoms)

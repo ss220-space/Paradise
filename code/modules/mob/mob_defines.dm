@@ -1,5 +1,5 @@
 /mob
-	density = 1
+	density = TRUE
 	layer = MOB_LAYER
 	glide_size = 1.5
 	animate_movement = 2
@@ -59,7 +59,6 @@
 	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/notransform = null	//Carbon
 	var/hand = null			// 0 - right hand is active, 1 - left hand is active
 	var/real_name = null
 	var/flavor_text = ""
@@ -221,7 +220,11 @@
 	var/list/actions = list()
 	var/list/datum/action/chameleon_item_actions
 
+	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
+
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
+	var/list/do_afters
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 

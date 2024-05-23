@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
 
 /obj/structure/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
 /obj/structure/window/wrench_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(anchored)
 		return
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(!disassembled)
 		playsound(src, breaksound, 70, 1)
-		if(!(flags & NODECONSTRUCT))
+		if(!(obj_flags & NODECONSTRUCT))
 			for(var/i in debris)
 				var/obj/item/I = i
 				I.forceMove(loc)
@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -421,7 +421,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -441,12 +441,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/AltClick(mob/user)
 
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+		return
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 
 	if(anchored)
@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return TRUE
 
 /obj/structure/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_nearby_icons()
 	return ..()

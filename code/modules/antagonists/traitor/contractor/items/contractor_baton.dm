@@ -160,9 +160,9 @@
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		target.visible_message("<span class='danger'>[user] begins restraining [target] with contractor baton!</span>", \
 		"<span class='userdanger'>[user] is trying to put handcuffs on you!</span>")
-		if(do_mob(user, target, 10))
+		if(do_after(user, 1 SECONDS, target, NONE))
 			if(!target.handcuffed)
-				target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(target))
+				target.apply_restraints(new /obj/item/restraints/handcuffs/cable(null), ITEM_SLOT_HANDCUFFED, TRUE)
 				to_chat(user, "<span class='notice'>You shackle [target].</span>")
 				add_attack_logs(user, target, "shackled")
 				cuffs--

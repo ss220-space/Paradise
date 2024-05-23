@@ -20,8 +20,8 @@
 	flight_x_offset = 15
 	flight_y_offset = 9
 	can_bayonet = TRUE
-	knife_x_offset = 20
-	knife_y_offset = 12
+	bayonet_x_offset = 20
+	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
@@ -148,7 +148,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
 	. = ..()
-	if(!can_shoot())
+	if(!can_shoot(user))
 		attempt_reload()
 
 

@@ -81,7 +81,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/turf/T = get_turf(src)
 	if(usr)
 		investigate_log("was deconstructed by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
 			new/obj/item/stack/cable_coil(T, 2, TRUE, color)
 		else

@@ -42,7 +42,6 @@
 		name = "light switch([area.name])"
 
 	on = area.lightswitch
-	light_switch_light()
 	update_icon()
 
 
@@ -57,13 +56,6 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
-
-
-/obj/machinery/light_switch/proc/light_switch_light()
-	if(stat & (NOPOWER|BROKEN))
-		set_light_on(FALSE)
-		return
-	set_light(1, LIGHTING_MINIMUM_POWER, on ? COLOR_APC_GREEN : COLOR_APC_RED, TRUE)
 
 
 /obj/machinery/light_switch/update_icon_state()
@@ -96,7 +88,6 @@
 	playsound(src, 'sound/machines/lightswitch.ogg', 10, TRUE)
 	add_fingerprint(user)
 	on = !on
-	light_switch_light()
 	update_icon()
 
 
@@ -108,9 +99,8 @@
 		handle_output()
 
 	if(light_connect)
-		for(var/obj/machinery/light_switch/light_switch in area.machinery_cache)
+		for(var/obj/machinery/light_switch/light_switch in (area.machinery_cache - src))
 			light_switch.on = on
-			light_switch.light_switch_light()
 			light_switch.update_icon()
 		area?.power_change()
 
@@ -148,8 +138,6 @@
 /obj/machinery/light_switch/power_change(forced = FALSE)
 	if(!..() || !otherarea)
 		return
-
-	light_switch_light()
 	update_icon()
 
 

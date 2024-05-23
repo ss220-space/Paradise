@@ -174,7 +174,7 @@
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
-	if(!do_after(user, 3 SECONDS * speed_multiplier * gettoolspeedmod(user), target = target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+	if(!do_after(user, 3 SECONDS * speed_multiplier * gettoolspeedmod(user), target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
 		return
 
@@ -188,9 +188,7 @@
 		log_debug("Ghost of name [ghost.name] is bound to [target.real_name], but lacks a client. Deleting ghost.")
 		QDEL_NULL(ghost)
 
-
-
-	if(!do_after(user, 2 SECONDS * speed_multiplier * gettoolspeedmod(user), target = target)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+	if(!do_after(user, 2 SECONDS * speed_multiplier * gettoolspeedmod(user), target)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
 		return
 

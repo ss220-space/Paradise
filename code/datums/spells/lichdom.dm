@@ -101,14 +101,14 @@
 		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
 		return
 
-	if((item.flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP))
+	if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP))
 		to_chat(user, span_warning("[item.name] can not be used for the ritual..."))
 		return
 
 	to_chat(user, span_warning("You begin to focus your very being into [item]..."))
 
 	focusing = TRUE
-	if(!do_after(user, 5 SECONDS, target = user))
+	if(!do_after(user, 5 SECONDS, user))
 		focusing = FALSE
 		return
 	focusing = FALSE

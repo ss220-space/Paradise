@@ -13,6 +13,8 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 
+	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
+
 	can_unwrench = TRUE
 	var/open = FALSE
 
@@ -35,7 +37,6 @@
 	var/internal_pressure_bound_default = INTERNAL_PRESSURE_BOUND
 	var/pressure_checks_default = PRESSURE_CHECKS
 
-	var/welded = FALSE // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
 	frequency = ATMOS_VENTSCRUB
@@ -141,8 +142,7 @@
 			visible_message(span_danger("The welded cover of [src] bursts open!"))
 			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
-			welded = FALSE
-			update_icon()
+			set_welded(FALSE)
 		return FALSE
 
 	var/datum/gas_mixture/environment = loc.return_air()
@@ -322,18 +322,18 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/unary/vent_pump/can_crawl_through()
-	return !welded
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
-	if(!welded || !(do_after(user, 20, target = src)))
+	if(!welded || !do_after(user, 2 SECONDS, src))
 		return
-	user.visible_message(span_warning("[user] furiously claws at [src]!"), span_notice("You manage to clear away the stuff blocking the vent."), span_italics("You hear loud scraping noises."))
-	welded = FALSE
-	update_icon()
-	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
-	pipe_image.plane = ABOVE_HUD_PLANE
+	user.visible_message(
+		span_warning("[user] furiously claws at [src]!"),
+		span_notice("You manage to clear away the stuff blocking the vent."),
+		span_italics("You hear loud scraping noises."),
+	)
+	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
+
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
@@ -363,32 +363,36 @@
 	. = TRUE
 	if(open)
 		to_chat(user, span_notice("Now closing the vent."))
-		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			playsound(loc, I.usesound, 100, 1)
 			open = 0
 			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 	else
 		to_chat(user, span_notice("Now opening the vent."))
-		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			playsound(loc, I.usesound, 100, 1)
 			open = 1
 			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 
+
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
+		return .
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		if(!welded)
-			welded = TRUE
-			user.visible_message(span_notice("[user] welds [src] shut!"),\
-				span_notice("You weld [src] shut!"))
-		else
-			welded = FALSE
-			user.visible_message(span_notice("[user] unwelds [src]!"),\
-				span_notice("You unweld [src]!"))
-		update_icon()
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	set_welded(!welded)
+	if(welded)
+		user.visible_message(
+			span_notice("[user] welds [src] shut!"),
+			span_notice("You weld [src] shut!"),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] unwelds [src]!"),
+			span_notice("You unweld [src]!"),
+		)
 
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()

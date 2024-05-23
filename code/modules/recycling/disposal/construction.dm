@@ -7,7 +7,7 @@
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "conpipe-s"
 	anchored = FALSE
-	density = 0
+	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
 	max_integrity = 200
@@ -91,7 +91,8 @@
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if(usr.stat)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 		return
 
 	if(anchored)
@@ -103,12 +104,8 @@
 	update()
 
 /obj/structure/disposalconstruct/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
+	if(Adjacent(user))
+		rotate()
 
 /obj/structure/disposalconstruct/verb/flip()
 	set category = "Object"
@@ -201,17 +198,17 @@
 		set_anchored(FALSE)
 		if(ispipe)
 			level = 2
-			density = 0
+			set_density(FALSE)
 		else
-			density = 1
+			set_density(TRUE)
 		to_chat(user, "You detach the [nicetype] from the underfloor.")
 	else
 		set_anchored(TRUE)
 		if(ispipe)
 			level = 1 // We don't want disposal bins to disappear under the floors
-			density = 0
+			set_density(FALSE)
 		else
-			density = 1 // We don't want disposal bins or outlets to go density 0
+			set_density(TRUE) // We don't want disposal bins or outlets to go density FALSE
 		to_chat(user, "You attach the [nicetype] to the underfloor.")
 	playsound(src.loc, I.usesound, 100, 1)
 	update()

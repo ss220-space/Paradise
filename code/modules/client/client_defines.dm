@@ -17,9 +17,9 @@
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
-	var/move_delay		= 1
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
+	var/move_delay = 0
 	var/current_move_delay = 0
-	var/moving			= null
 	var/area			= null
 	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 

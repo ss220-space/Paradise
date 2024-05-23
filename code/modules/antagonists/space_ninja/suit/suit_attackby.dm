@@ -31,7 +31,7 @@
 			return
 		if(new_cell.maxcharge > old_cell.maxcharge)
 			to_chat(ninja, span_notice("Higher maximum capacity detected.\nUpgrading..."))
-			if(do_after(ninja,s_delay, target = src))
+			if(do_after(ninja,s_delay, src))
 				// Отбираем батарейку у игрока
 				if(!ninja.temporarily_remove_item_from_inventory(new_cell))
 					return

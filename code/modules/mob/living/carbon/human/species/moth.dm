@@ -12,6 +12,7 @@
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")
+	species_traits = list(HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
 	reagent_tag = PROCESS_ORG
@@ -124,15 +125,21 @@
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
-	var/turf/A = get_turf(H)
-	if(isspaceturf(A))
-		return FALSE
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.get_organ(BODY_ZONE_WING))
-		return FALSE
-	var/datum/gas_mixture/current = A.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
+
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+	. = FALSE
+	var/turf/user_turf = get_turf(user)
+	if(!user_turf)
+		return .
+	if(isspaceturf(user_turf))
+		return .
+	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
+		return .
+	//as long as there's reasonable pressure and no gravity, flight is possible
+	var/datum/gas_mixture/current = user_turf.return_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
 		return TRUE
+
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
@@ -175,7 +182,7 @@
 		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
-	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return

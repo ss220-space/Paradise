@@ -4,7 +4,7 @@
 /// The item is magically cursed
 #define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
 /// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID_of(target)]"
 /// Trait applied by element
 #define ELEMENT_TRAIT(source) "element_trait_[source]"
 /// A trait given by a specific status effect (not sure why we need both but whatever!)
@@ -22,6 +22,10 @@
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
 
+#define CINEMATIC_TRAIT "cinematic"
+
+#define CHASM_TRAIT "chasm_trait"
+
 // unique trait sources
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
@@ -29,6 +33,7 @@
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
 #define NINJA_TRAIT "space-ninja"
+#define REVENANT_TRAIT "revenant"
 /// (B)admins only.
 #define ADMIN_TRAIT "admin"
 
@@ -63,13 +68,24 @@
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 
+#define INCORPOREAL_TRAIT "incorporeal"
+
+/// Will be removed once the transformation is complete.
+#define TEMPORARY_TRANSFORMATION_TRAIT "temporary_transformation"
+/// Considered "permanent" since we'll be deleting the old mob and the client will be inserted into a new one (without this trait)
+#define PERMANENT_TRANSFORMATION_TRAIT "permanent_transformation"
+
 /// Trait given by your current speed
 #define SPEED_TRAIT "speed_trait"
 
 /// Trait associated to being cuffed
 #define HANDCUFFED_TRAIT "handcuffed_trait"
+/// trait associated to not having fine manipulation appendages such as hands
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit_trait"
+/// Trait associated to lying down (having a [lying_angle] of a different value than zero).
+#define LYING_DOWN_TRAIT "lying-down"
 
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"
@@ -79,6 +95,19 @@
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"
+
+#define FULTON_TRAIT "fulton"
+
+#define FLOOR_CLUWNE_TRAIT "floor_cluwne"
+
+#define DRAGON_SWOOP_TRAIT "dragon_swoop"
+
+#define PANDORA_TEPELORT_TRAIT "pandora_teleport"
+
+/// Trait given by living mob death
+#define SIMPLE_MOB_DEATH_TRAIT "simple_mob_death"
+
+#define VENTCRAWLING_TRAIT "ventcrawling"
 
 // sources for trait TRAIT_MOVE_FLYING
 #define ITEM_BROOM_TRAIT "item_broom_trait"

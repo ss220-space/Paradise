@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/species/shadowling/shadowling_clothes.dmi'
 	icon_state = "shadowling_uniform"
 	origin_tech = null
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	has_sensor = FALSE
 	displays_id = FALSE
 	onmob_sheets = list(
@@ -35,7 +35,8 @@
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
 	armor = list(melee = 25, bullet = 25, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
-	flags = ABSTRACT|DROPDEL|THICKMATERIAL|STOPSPRESSUREDMAGE
+	item_flags = ABSTRACT|DROPDEL
+	species_restricted = null
 
 
 /obj/item/clothing/suit/space/shadowling/Initialize(mapload)
@@ -51,8 +52,10 @@
 	onmob_sheets = list(
 		ITEM_SLOT_FEET_STRING = NONE
 	)
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|DROPDEL|NOSLIP
+
+	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
+	item_flags = ABSTRACT|DROPDEL
+	clothing_traits = list(TRAIT_NO_SLIP_ALL)
 
 
 /obj/item/clothing/shoes/shadowling/Initialize(mapload)
@@ -71,7 +74,7 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
 
 
@@ -91,7 +94,7 @@
 	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 
 /obj/item/clothing/gloves/shadowling/Initialize(mapload)
@@ -113,7 +116,8 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = ABSTRACT|DROPDEL|STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
+	item_flags = ABSTRACT|DROPDEL
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 
 
@@ -135,7 +139,7 @@
 	flash_protect = -1
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 
 /obj/item/clothing/glasses/shadowling/Initialize(mapload)
