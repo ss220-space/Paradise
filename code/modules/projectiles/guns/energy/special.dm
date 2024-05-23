@@ -114,7 +114,7 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
+	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
 

@@ -45,8 +45,8 @@
 
 /obj/item/gun/projectile/update_overlays()
 	. = ..()
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/proc/update_weight()
