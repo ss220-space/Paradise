@@ -440,6 +440,11 @@
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))
+		if(ishuman(user) && loc == user)
+			var/mob/living/carbon/human/H_user = user
+			if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
+				to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+				return
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
@@ -457,6 +462,11 @@
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(ishuman(user) && loc == user)
+		var/mob/living/carbon/human/H_user = user
+		if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
+			to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+			return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	user.set_machine(src)
