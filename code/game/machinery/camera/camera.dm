@@ -106,7 +106,7 @@
 // apply the improvements inserted into the camera
 // Use this if you have added improvements to assembly.upgrades
 /obj/machinery/camera/proc/camera_upgrade()
-	if(isXRay(src) && !isAlreadyUpgradeXray)
+	if(isXRay() && !isAlreadyUpgradeXray)
 		isAlreadyUpgradeXray = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		//Update what it can see.
