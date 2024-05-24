@@ -104,3 +104,42 @@
 '2024-05-20':
   Den109G:
   - bugfix: Atmos no longer divide by zero (#5072)
+  NightDawnFox:
+  - bugfix: making less fauna on lava (#5074)
+  - bugfix: updating mapgen names in loading screen (#5056)
+  pilygun:
+  - imageadd: Pai vend restock (#5066)
+'2024-05-22':
+  Den109G:
+  - bugfix: Sleeping patients staying sleepy during surgery (#5062)
+  LiquidPotroh:
+  - bugfix: Knife techniques desc fix (#5043)
+  NightDawnFox:
+  - add: automatic fire for l6 saw (#5058)
+  - balance: goliath are no longer stunlock you (#5055)
+  SHODAN:
+  - imageadd: update revolvers sprite (#5038)
+  TimChi:
+  - add: '"Anonimous mask" AI screen (#5042)'
+  VladikaZhabyat:
+  - tweak: Announcement about cultists (#5049)
+  Vladisvell:
+  - bugfix: Fixed nightvision for xenomorphs (#5047)
+  Zwei:
+  - bugfix: Guns Flashlight And Bayonet Fixes (#5050)
+  - tweak: Emissive Blocker Component Removal (#5045)
+  kukur:
+  - bugfix: Отвертка и новый механ шлемов (#5064)
+  pilygun:
+  - add: Syndiezine in syndicate cigarette (#5054)
+  - tweak: Syndie Locker Mech 25 TC (#5053)
+'2024-05-23':
+  BeebBeebBoob:
+  - config: WebMap links updated (#5077)
+  Rerik007:
+  - bugfix: ice correct melt into water (#5078)
+'2024-05-24':
+  Valtor:
+  - add: Soundless beaver plushie for t3 loadout (#5076)
+  Vladisvell:
+  - bugfix: Fixed PDA messenger not being able to send messages. (#5082)
