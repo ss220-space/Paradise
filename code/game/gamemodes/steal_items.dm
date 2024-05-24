@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/animal/floppa
 	id = "animal_floppa"
 	typepath = /mob/living/simple_animal/pet/cat/floppa
-	name = "рысь по кличке Big Floppa"
+	name = "каракала по кличке Big Floppa"
 
 /datum/theft_objective/animal/runtime
 	id = "animal_runtime"
