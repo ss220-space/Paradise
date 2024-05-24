@@ -362,7 +362,7 @@
 	..()
 	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
-/obj/item/clothing/mask/gas/sechailer/folded/Initialize()
+/obj/item/clothing/mask/gas/sechailer/folded
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "sechailer_up"
 	up = 1
