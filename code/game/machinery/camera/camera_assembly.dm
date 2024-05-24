@@ -92,7 +92,7 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork),src)
+	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork), src)
 	loc = C
 	C.auto_turn()
 	C.c_tag = input
