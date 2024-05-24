@@ -358,6 +358,19 @@
 								"dredd"			= "I am, the LAW!"
 								)
 
+/obj/item/clothing/mask/gas/sechailer/adjustmask(user)
+	..()
+	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/sechailer/folded/Initialize()
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "sechailer_up"
+	up = 1
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDENAME
+	clothing_flags &= ~AIRTIGHT
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
