@@ -127,7 +127,7 @@
 	if(last_text && world.time < last_text + 5)
 		return
 
-	if(!pda.can_use())
+	if(!pda.can_use(U))
 		return
 
 	last_text = world.time
