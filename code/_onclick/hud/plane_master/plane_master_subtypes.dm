@@ -196,6 +196,12 @@
 	add_filter("emissive_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_MASK_RENDER_TARGET, offset)))
 	add_filter("em_block_masking", 2, color_matrix_filter(GLOB.em_mask_matrix))
 
+/atom/movable/screen/plane_master/above_lighting
+	name = "Above lighting"
+	plane = ABOVE_LIGHTING_PLANE
+	documentation = "Anything on the game plane that needs a space to draw on that will be above the lighting plane.\
+		<br>Mostly little alerts and effects, also sometimes contains things that are meant to look as if they glow."
+
 /atom/movable/screen/plane_master/pipecrawl
 	name = "Pipecrawl"
 	documentation = "Holds pipecrawl images generated during well, pipecrawling.\
