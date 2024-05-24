@@ -111,7 +111,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		//Update what it can see.
 		GLOB.cameranet.updateVisibility(src, 0)
-	if(isMotion(src) && name == initial(name))
+	if(isMotion() && name == initial(name))
 		name = "motion-sensitive security camera"
 		// Add it to machines that process
 		START_PROCESSING(SSmachines, src)
