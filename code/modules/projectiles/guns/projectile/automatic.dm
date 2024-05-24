@@ -41,6 +41,7 @@
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
+				magazine.update_desc()
 				magazine = null
 			else
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")

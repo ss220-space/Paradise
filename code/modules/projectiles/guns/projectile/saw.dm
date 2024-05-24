@@ -47,6 +47,7 @@
 	else if(cover_open && magazine)
 		//drop the mag
 		magazine.update_icon()
+		magazine.update_desc()
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine = null

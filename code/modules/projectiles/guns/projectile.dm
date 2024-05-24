@@ -110,6 +110,7 @@
 				to_chat(user, span_notice("You perform a tactical reload on \the [src], replacing the magazine."))
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
+				magazine.update_desc()
 				magazine = null
 				reload(AM, user)
 				return TRUE
@@ -162,6 +163,7 @@
 	if(magazine)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
+		magazine.update_desc()
 		magazine.update_icon()
 		magazine = null
 		update_weight()
