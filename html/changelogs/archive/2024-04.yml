@@ -61,8 +61,6 @@
   aeternaclose:
   - add: Pai vending to Cerestation & Cyberiad (#4786)
 '2024-04-04':
-  Daeberdir:
-  - refactor: syndie bundles. (#4263)
   Honker9999999:
   - add: chang ad kit and so on (#4779)
   - add: cult_arm cinematic (#4746)
@@ -75,43 +73,40 @@
   - bugfix: Defiler terror spider no longer attacks twice (#4794)
   - bugfix: Shadowlings no longer can catch a disease (#4795)
   - add: Added bibki case (#4750)
-  - add: Admins now can add components and elements to objects (#4796)
   Zwei:
   - bugfix: Shadowling Items Deleted On Drop (#4792)
   - bugfix: Correct Layer For Vending Machines Panel Overlay (#4756)
   - bugfix: Adjust Temperature Fixes (#4774)
-  - bugfix: Rolling Paper Icons Fix (#4797)
   aeternaclose:
   - bugfix: Beartrap & Cyberiad Fixes (#4791)
 '2024-04-05':
+  Daeberdir:
+  - refactor: syndie bundles. (#4263)
   Honker9999999:
   - add: new loadouts (#4799)
   NotSoWizard:
   - add: Secbot and ED209 detainment speech cooldown (#4802)
   Rerik007:
   - bugfix: fixes access control eating and holding (#4778)
+  Vladisvell:
+  - add: Admins now can add components and elements to objects (#4796)
   Zwei:
+  - bugfix: Rolling Paper Icons Fix (#4797)
   - bugfix: Fractures Slowdown (#4806)
   - tweak: Hide PDA (#4803)
-  - refactor: Event Based Gravity System (#4783)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#4805)
 '2024-04-06':
   ArtemDerp:
   - add: t4 donor pins (#4709)
-  Den109G:
-  - tweak: gamemodes says station names (#4816)
   Honker9999999:
   - add: ling link update (#4798)
   MstrKabach:
   - add: 5 new cleaners (#4686)
-  Rerik007:
-  - bugfix: draw cards without cd (#4478)
   Valtor:
   - add: Nucleation debrain (#4788)
-  Vladisvell:
-  - balance: Explosion effect tweaks (#4495)
   Zwei:
+  - refactor: Event Based Gravity System (#4783)
   - bugfix: Correct Stamina Slowdown Update (#4811)
   - add: FullAuto Gun Mode Component (#4736)
   - bugfix: DNA Fixes (#4812)
@@ -121,10 +116,25 @@
   - add: t3 donor backpacks (#4703)
   BeebBeebBoob:
   - tweak: Now you can call deathsquad multiple times (#4824)
+  Den109G:
+  - tweak: gamemodes says station names (#4816)
   Etrnlmelancholy:
   - imageadd: unzhmih thick tape roll (#4823)
   MstrKabach:
   - tweak: multitool in toolbelt spawn (#4822)
+  Rerik007:
+  - bugfix: draw cards without cd (#4478)
+  Vladisvell:
+  - balance: Explosion effect tweaks (#4495)
+'2024-04-08':
+  ArtemDerp:
+  - add: t4 donor golden wheelchair kit (#4829)
+  Daeberdir:
+  - add: Blueshield + NT Represantive badges for donut loadaut. (#4834)
+  Mr-Vivor:
+  - add: t3 donor space cloak (#4831)
+  MstrKabach:
+  - add: R&D handheld body analyzer (#4825)
   Rerik007:
   - bugfix: access list electronics is null (#4821)
   - bugfix: fixes fail equipping thief kit (#4820)
@@ -135,15 +145,6 @@
   Zwei:
   - refactor: Dropped Proc Refactor (#4818)
   - bugfix: Remove Unnecessary Proc Calls (#4789)
-'2024-04-08':
-  ArtemDerp:
-  - add: t4 donor golden wheelchair kit (#4829)
-  Daeberdir:
-  - add: Blueshield + NT Represantive badges for donut loadaut. (#4834)
-  Mr-Vivor:
-  - add: t3 donor space cloak (#4831)
-  MstrKabach:
-  - add: R&D handheld body analyzer (#4825)
 '2024-04-09':
   ArtemDerp:
   - bugfix: deleted lonely nun hoods from hotel templates (#4836)
@@ -158,14 +159,14 @@
   aeternaclose:
   - add: Folder for event maps & event.dm  (#4833)
 '2024-04-10':
-  ArtemDerp:
-  - bugfix: cheese bage can be selected (#4849)
   Vladisvell:
   - add: Custom outfits are now correctly saved (#4835)
   - add: Cyborg's gripper now acts more like hand (#4807)
   Zwei:
   - bugfix: Gravity Fixes (#4845)
 '2024-04-11':
+  ArtemDerp:
+  - bugfix: cheese bage can be selected (#4849)
   Etrnlmelancholy:
   - qol: new 4k sprites from Pyotr Tchaikovsky (#4851)
   LiquidPotroh:
@@ -184,7 +185,6 @@
   Zwei:
   - bugfix: Space Turfs Has No Gravity (#4848)
   - refactor: Anchor Variable Setter (#4844)
-  - bugfix: Negate Gravity Fix (#4860)
 '2024-04-12':
   BeebBeebBoob:
   - bugfix: Multi-Z Patch(grav, cable, shuttle, tcomms) (#4862)
@@ -195,6 +195,8 @@
   Rerik007:
   - bugfix: now we check if bundle has been deleted (#4858)
   - refactor: surgery's code polishing, few fixes and tweaks (#4436)
+  Zwei:
+  - bugfix: Negate Gravity Fix (#4860)
 '2024-04-13':
   NightDawnFox:
   - balance: chasmland QoL features (#4712)
@@ -213,16 +215,14 @@
       (#4867)
   - add: get_edge_target_turf now works for all directions (#4872)
   - add: Supermatter crystal now heats according to thermodynamic laws. (#4066)
-  aeternaclose:
-  - unknown: Delta tube fix and remove chemical spray (#4876)
 '2024-04-14':
-  BeebBeebBoob:
-  - add: 'Adds event-map: Turrim (#4874)'
   WolfLox:
   - bugfix: fix helmet name (#4879)
-'2024-04-15':
   aeternaclose:
-  - bugfix: Lavaland ruins baseturf bugfix (#4870)
+  - unknown: Delta tube fix and remove chemical spray (#4876)
+'2024-04-15':
+  BeebBeebBoob:
+  - add: 'Adds event-map: Turrim (#4874)'
 '2024-04-16':
   BeebBeebBoob:
   - refactor: Refactored roundstart landmarks abit (#4887)
@@ -236,14 +236,14 @@
   - bugfix: beepskysmash permastun (#4889)
   Vladisvell:
   - bugfix: Borgs can now use plant dna manipulator (#4877)
+  aeternaclose:
+  - bugfix: Lavaland ruins baseturf bugfix (#4870)
 '2024-04-17':
   Aziz Chynaliev:
   - add: new TTS voice packs
   aeternaclose:
   - bugfix: Cere Qm unnecessary extinguisher_cabinet remove (#4900)
 '2024-04-18':
-  Epistaz:
-  - refactor: apply is_helpers to project (#4885)
   Ksaikok46:
   - tweak: dice of fate now gives syndie bundle beacon instead of empty box when roll
       "17" (#4902)
@@ -253,55 +253,53 @@
   - bugfix: rejuvenate organ now fix all wounds correctly (#4897)
   - bugfix: few small runtimes fixes (pt) (#4878)
   - bugfix: fixes duplicate arg name (#4894)
-  - add: portable orders monitor for cargotechs (#4898)
   Valtor:
   - bugfix: rus chars support to Wingdings disability (#4888)
-  Vladisvell:
-  - server: Changelogs now have capitalized descriptions (#4906)
-  - bugfix: Blood and cleanables are now rendered upon stone tiles (#4905)
   Zwei:
   - bugfix: Update Gravity On Turf Change (#4899)
-  - bugfix: Equipped Typo Fix (#4892)
-  - bugfix: Keep Items On Species Change (#4883)
-  github-actions[bot]:
-  - server: Automatic NanoMap Update (#4861)
 '2024-04-19':
   Aziz Chynaliev:
   - tweak: TTS - free weekend
+  Epistaz:
+  - refactor: apply is_helpers to project (#4885)
   NotSoWizard:
   - tweak: new QM's sechud icon (#4916)
   ROdenFL:
   - add: mouse idle animation (#4097)
+  Rerik007:
+  - add: portable orders monitor for cargotechs (#4898)
+  Vladisvell:
+  - server: Changelogs now have capitalized descriptions (#4906)
+  - bugfix: Blood and cleanables are now rendered upon stone tiles (#4905)
   Zwei:
+  - bugfix: Equipped Typo Fix (#4892)
+  - bugfix: Keep Items On Species Change (#4883)
   - bugfix: Access Tuner Icon Update Fix (#4908)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4861)
 '2024-04-20':
   Den109G:
   - bugfix: Make very clear, what tiles we DONT use (#4921)
   Honker9999999:
   - add: 0.4 delay for ion rifle (#4913)
-  ROdenFL:
-  - tweak: poncho loadout update (#4910)
-  Rerik007:
-  - bugfix: fix surgeryize organs (#4909)
   Shakalchik:
   - bugfix: Ninja gravity bug (#4918)
   Valtor:
   - qol: Brain name in "steal brain" goals (#4911)
-  Vladisvell:
-  - bugfix: bodybags can now be opened if got enough damage (#4923)
   Zwei:
   - refactor: All Inventory Slots Are Bitfields (#4893)
 '2024-04-21':
   Den109G:
   - refactor: DMI's for clothes is no longer hardcoded (#4907)
-  Ksaikok46:
-  - tweak: Changed BFL goal crate cost and its content, decreased BSH goal points
-      (#4931)
   LiquidPotroh:
   - bugfix: Syndicate bomb dont work in de-powered zones (#4928)
+  ROdenFL:
+  - tweak: poncho loadout update (#4910)
   Rerik007:
+  - bugfix: fix surgeryize organs (#4909)
   - bugfix: added missing cuffs icons (#4932)
   Vladisvell:
+  - bugfix: bodybags can now be opened if got enough damage (#4923)
   - bugfix: Item deletion now removes it from storage before being destroyed (#4925)
   Zwei:
   - bugfix: VTEC Ignores Speed Penalties (#4927)
@@ -318,6 +316,8 @@
   Helmsman:
   - tweak: holos check before cult god summon (#4939)
   Ksaikok46:
+  - tweak: Changed BFL goal crate cost and its content, decreased BSH goal points
+      (#4931)
   - tweak: Cryogenics reagents blacklist expansion (#4948)
   Rerik007:
   - bugfix: fix that you can start operate anywhere (#4934)
