@@ -583,7 +583,7 @@
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
 
-/area/proc/AddMotionCameraInList(var/obj/machinery/camera/M)
+/area/proc/AddMotionCameraInList(obj/machinery/camera/M)
 	LAZYADD(motioncameras, M)
 	M.AddComponent(/datum/component/proximity_monitor)
 	M.set_area_motion(src)
