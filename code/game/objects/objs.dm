@@ -2,7 +2,8 @@
 	//var/datum/module/mod		//not used
 	var/obj_flags = NONE
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
-	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
+	/// Used by R&D to determine what research bonuses it grants. Keep in sync with /datum/tech's max_level!
+	var/origin_tech = null
 	var/crit_fail = FALSE
 	animate_movement = 2
 	var/sharp = FALSE		// whether this object cuts
