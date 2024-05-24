@@ -105,11 +105,11 @@
 
 	if(activated)
 		playsound(owner.loc, sound_on, 50, TRUE)
-		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты выдвинул","Вы выдвинули")] лезвия из хвоста."))
+		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты","Вы")] выдвину[genderize_ru(owner.gender,"л","ла","ло","ли")] лезвия из хвоста."))
 
 	else
 		playsound(owner.loc, sound_off, 50, TRUE)
-		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты убрал","Вы убрали")] лезвия."))
+		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты","Вы")] убра[genderize_ru(owner.gender,"л","ла","ло","ли")] лезвия."))
 
 	update_icon(UPDATE_ICON_STATE)
 	owner.update_action_buttons()
@@ -154,7 +154,7 @@
 		return
 
 	if(user.getStaminaLoss() >= 50) // I want to move this to IsAvailable(), but haven't figured out how to synchronise stamina regen with update_action_buttons yet
-		to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты слишком устал!","Вы слишком устали!")]"))
+		to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты","Вы")] слишком уста[genderize_ru(user.gender,"л","ла","ло","ли")]!"))
 		return
 
 	user.changeNext_click(CLICK_CD_MELEE)
@@ -193,7 +193,7 @@
 			return
 
 		if(user.getStaminaLoss() >= 60)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты выбился","Вы выбились")] из сил!"))
+			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты","Вы")] выбил[genderize_ru(user.gender,"ся","ась","ось","ись")] из сил!"))
 			return
 
 /datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
