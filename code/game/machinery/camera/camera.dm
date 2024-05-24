@@ -23,7 +23,6 @@
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
 	var/list/computers_watched_by = list()
-	var/isAlreadyUpgradeXray = FALSE
 
 	//OTHER
 
@@ -47,6 +46,8 @@
 	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 	GLOB.cameranet.cameras += src
+	for(var/obj/item/upgrade as anything in assembly.upgrades)
+		upgrade.camera_upgrade(src)
 	if(networks)
 		network = networks
 	var/list/tempnetwork = difflist(network, GLOB.restricted_camera_networks)
@@ -59,7 +60,6 @@
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
-	camera_upgrade()
 
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
@@ -67,7 +67,7 @@
 
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
-	toggle_cam(null, FALSE) //kick anyone viewing out
+	grey_noise() //kick anyone viewing out
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
@@ -103,20 +103,6 @@
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
 			..()
-// apply the improvements inserted into the camera
-// Use this if you have added improvements to assembly.upgrades
-/obj/machinery/camera/proc/camera_upgrade()
-	if(isXRay() && !isAlreadyUpgradeXray)
-		isAlreadyUpgradeXray = TRUE
-		update_icon(UPDATE_ICON_STATE)
-		//Update what it can see.
-		GLOB.cameranet.updateVisibility(src, 0)
-	if(isMotion() && name == initial(name))
-		name = "motion-sensitive security camera"
-		// Add it to machines that process
-		START_PROCESSING(SSmachines, src)
-		myArea.AddMotionCameraInList(src)
-	setPowerUsage()
 
 /obj/machinery/camera/proc/restore_from_emp()
 	stat &= ~EMPED
@@ -163,12 +149,13 @@
 			upgrade.update_icon(UPDATE_ICON_STATE)
 			assembly.upgrades.Add(upgrade)
 			I.use(1)
+			to_chat(user, "[msg]")
 			return
 		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		assembly.upgrades.Add(I)
-		camera_upgrade()
+		I.camera_upgrade(src)
 		to_chat(user, "[msg]")
 
 	// OTHER
@@ -254,6 +241,33 @@
 		return damage_amount
 	. = ..()
 
+/// Camera upgrading stuff.
+/obj/item/proc/camera_upgrade(obj/machinery/camera/target)
+	target.setPowerUsage()
+
+
+/obj/item/analyzer/camera_upgrade(obj/machinery/camera/target)
+	..()
+	target.update_icon(UPDATE_ICON_STATE)
+	//Update what it can see.
+	GLOB.cameranet.updateVisibility(target, FALSE)
+
+
+/obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target)
+	..()
+	if(target.name == initial(target.name))
+		target.update_appearance(UPDATE_NAME)
+	// Add it to machines that process
+	START_PROCESSING(SSmachines, target)
+	target.myArea.AddMotionCameraInList(target)
+
+/obj/machinery/camera/update_name(updates)
+	. = ..()
+	if(isMotion())
+		name = "motion-sensitive security camera"
+
+
+
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(obj_flags & NODECONSTRUCT))
 		triggerCameraAlarm()
@@ -278,19 +292,11 @@
 
 
 /obj/machinery/camera/update_icon_state()
-	if(assembly != null)
-		icon_state = isAlreadyUpgradeXray ? "xraycam" : initial(icon_state)
-		if(!status)
-			icon_state = "[icon_state]1"
-		else if(stat & EMPED)
-			icon_state = "[icon_state]emp"
-	else
-		if(!status)
-			icon_state = "[initial(icon_state)]1"
-		else if(stat & EMPED)
-			icon_state = "[initial(icon_state)]emp"
-		else
-			icon_state = "[initial(icon_state)]"
+	icon_state = isXRay() ? "xraycam" : initial(icon_state)
+	if(!status)
+		icon_state = "[icon_state]1"
+	else if(stat & EMPED)
+		icon_state = "[icon_state]emp"
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
@@ -321,8 +327,10 @@
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
+	grey_noise()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/camera/proc/grey_noise()
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
@@ -354,7 +362,7 @@
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
 	var/turf/pos = get_turf(src)
-	if(isAlreadyUpgradeXray)
+	if(isXRay())
 		see = range(view_range, pos)
 	else
 		see = hear(view_range, pos)
@@ -427,7 +435,7 @@
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	if(isAlreadyUpgradeXray && isAI(user))
+	if(isXRay() && isAI(user))
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

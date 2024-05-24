@@ -736,19 +736,23 @@
 	for(var/V in GLOB.cameranet.cameras)
 		var/obj/machinery/camera/C = V
 		if(C.assembly)
-			var/upgraded = FALSE
+			var/list/obj/item/upgrades
 
 			if(!C.isXRay())
 				C.assembly.upgrades.Add(new /obj/item/analyzer(C.assembly))
-				upgraded = TRUE
+				LAZYADD(upgrades, new /obj/item/analyzer(C.assembly))
 
 			if(!C.isEmpProof())
 				C.assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(C.assembly))
-				upgraded = TRUE
+				LAZYADD(upgrades, new /obj/item/stack/sheet/mineral/plasma(C.assembly))
 
-			if(upgraded)
-				C.camera_upgrade()
+			if(LAZYLEN(upgrades))
+				for(var/obj/item/upgrade as anything in upgrades)
+					C.assembly.upgrades.Add(upgrade)
+					upgrade.camera_upgrade(C)
 				upgraded_cameras++
+
+
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 
