@@ -25,9 +25,9 @@
 	var/examine_text
 	/// The typepath to the alert thrown by the status effect when created.
 	/// Status effect "name"s and "description"s are shown to the owner here.
-	var/alert_type = /obj/screen/alert/status_effect
+	var/alert_type = /atom/movable/screen/alert/status_effect
 	/// The alert itself, created in [proc/on_creation] (if alert_type is specified).
-	var/obj/screen/alert/status_effect/linked_alert
+	var/atom/movable/screen/alert/status_effect/linked_alert
 	/// Used to define if the status effect should be using SSfastprocess or SSprocessing
 	var/processing_speed = STATUS_EFFECT_FAST_PROCESS
 

@@ -1477,7 +1477,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(wires?.is_cut(WIRE_BORG_LOCKED))
 		state = TRUE
 	if(state)
-		throw_alert(ALERT_LOCKED, /obj/screen/alert/locked)
+		throw_alert(ALERT_LOCKED, /atom/movable/screen/alert/locked)
 	else
 		clear_alert(ALERT_LOCKED)
 	set_lockcharge(state)
