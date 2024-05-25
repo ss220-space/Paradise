@@ -98,18 +98,18 @@
 /obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, actiontype, leftclick)
 
 	if(implant_emp_downtime) // 100 sec cooldown after EMP
-		to_chat(owner, span_warning("[pluralize_ru(owner.gender,"Твой","Ваш")] имплант всё ещё перегружен после ЭМИ!"))
+		to_chat(owner, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))
 		return
 
 	activated = !activated
 
 	if(activated)
 		playsound(owner.loc, sound_on, 50, TRUE)
-		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты","Вы")] выдвину[genderize_ru(owner.gender,"л","ла","ло","ли")] лезвия из хвоста."))
+		to_chat(owner, span_notice("Вы выдвинули лезвия из хвоста."))
 
 	else
 		playsound(owner.loc, sound_off, 50, TRUE)
-		to_chat(owner, span_notice("[pluralize_ru(owner.gender,"Ты","Вы")] убра[genderize_ru(owner.gender,"л","ла","ло","ли")] лезвия."))
+		to_chat(owner, span_notice("Вы убрали лезвия."))
 
 	update_icon(UPDATE_ICON_STATE)
 	owner.update_action_buttons()
@@ -154,7 +154,7 @@
 		return
 
 	if(user.getStaminaLoss() >= 50) // I want to move this to IsAvailable(), but haven't figured out how to synchronise stamina regen with update_action_buttons yet
-		to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты","Вы")] слишком уста[genderize_ru(user.gender,"л","ла","ло","ли")]!"))
+		to_chat(user, span_warning("Вы слишком устали!"))
 		return
 
 	user.changeNext_click(CLICK_CD_MELEE)
@@ -171,7 +171,7 @@
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
 				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
-					 span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 
 				var/all_objectives = user?.mind?.get_all_objectives()
 				if(C.mind && all_objectives)
@@ -189,11 +189,11 @@
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
 			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
-								 span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
+								 span_danger("Вы теряете равновесие!"))
 			return
 
 		if(user.getStaminaLoss() >= 60)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты","Вы")] выбил[genderize_ru(user.gender,"ся","ась","ось","ись")] из сил!"))
+			to_chat(user, span_warning("Вы выбились из сил!"))
 			return
 
 /datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
@@ -205,7 +205,7 @@
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
 		if(show_message)
-			to_chat(user, span_warning("У [pluralize_ru(user.gender,"тебя","вас")] НЕТ ХВОСТА!"))
+			to_chat(user, span_warning("У вас НЕТ ХВОСТА!"))
 		return FALSE
 
 	var/active_implant = FALSE
@@ -214,17 +214,17 @@
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
 		if(show_message)
-			to_chat(user, span_warning("У [pluralize_ru(user.gender,"тебя","вас")] слабый хвост!"))
+			to_chat(user, span_warning("У вас слабый хвост!"))
 		return FALSE
 
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled)
 		if(show_message)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Тебе","Вам")] нужно больше свободы движений для взмаха хвостом!"))
+			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		if(show_message)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
+			to_chat(user, span_warning("Вы не хотите никому навредить.."))
 		return FALSE
 
 	return TRUE
