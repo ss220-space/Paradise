@@ -337,7 +337,24 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define SLEEP_CHECK_DEATH(A, X) \
+	sleep(X); \
+	if(QDELETED(A)) return; \
+	if(ismob(A)) { \
+		var/mob/sleep_check_death_mob = A; \
+		if(sleep_check_death_mob.stat == DEAD) return; \
+	}
+
+/// Until a condition is true, sleep. If target is qdeleted or dead, return.
+#define UNTIL_DEATH_CHECK(target, expression) \
+	while(!(expression)) { \
+		stoplag(); \
+		if(QDELETED(target)) return; \
+		if(ismob(target)) { \
+			var/mob/sleep_check_death_mob = target; \
+			if(sleep_check_death_mob.stat == DEAD) return; \
+		}; \
+	};
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))

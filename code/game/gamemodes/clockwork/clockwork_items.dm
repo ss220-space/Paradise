@@ -693,8 +693,8 @@
 	if(enchant_type)
 		. += "clockwork_robe_overlay_[enchant_type]"
 
-/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/activate/enchant)
+/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/activate/enchant))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/carbon = user

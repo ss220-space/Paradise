@@ -238,35 +238,36 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir = NONE)
+/mob/dead/observer/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-/mob/dead/observer/Move(NewLoc, direct)
-	if(world.time < last_movement)
-		return
-	last_movement = world.time + 0.5 // cap to 20fps
-	glide_size = 8
 
-	update_parallax_contents()
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = 8)
 	setDir(direct)
 	ghostimage.setDir(dir)
 
-	var/oldloc = loc
+	if(glide_size_override)
+		set_glide_size(glide_size_override)
 
-	if(NewLoc)
-		forceMove(NewLoc)
+	if(newloc)
+		abstract_move(newloc)
+		update_parallax_contents()
 	else
-		forceMove(get_turf(src))  //Get out of closets and such as a ghost
-		if((direct & NORTH) && y < world.maxy)
-			y++
-		else if((direct & SOUTH) && y > 1)
-			y--
-		if((direct & EAST) && x < world.maxx)
-			x++
-		else if((direct & WEST) && x > 1)
-			x--
+		var/turf/destination = get_turf(src)
 
-	Moved(oldloc, direct)
+		if((direct & NORTH) && y < world.maxy)
+			destination = get_step(destination, NORTH)
+
+		else if((direct & SOUTH) && y > 1)
+			destination = get_step(destination, SOUTH)
+
+		if((direct & EAST) && x < world.maxx)
+			destination = get_step(destination, EAST)
+
+		else if((direct & WEST) && x > 1)
+			destination = get_step(destination, WEST)
+
+		abstract_move(destination)//Get out of closets and such as a ghost
 
 
 /mob/dead/observer/Stat()

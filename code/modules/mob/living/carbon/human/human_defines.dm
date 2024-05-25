@@ -4,7 +4,7 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD)
 	pressure_resistance = 25

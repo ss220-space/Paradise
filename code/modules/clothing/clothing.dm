@@ -834,6 +834,7 @@ BLIND     // can't see anything
 	. = ..()
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
+		jetpack.our_suit = src
 
 
 /obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
@@ -849,6 +850,7 @@ BLIND     // can't see anything
 	jetpack.turn_off(user)
 	jetpack.forceMove(drop_location())
 	jetpack = null
+	jetpack.our_suit = null
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 
 
@@ -864,6 +866,7 @@ BLIND     // can't see anything
 	if(jetpack)
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Remove(user)
+		jetpack.turn_off(user)
 
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
@@ -880,6 +883,7 @@ BLIND     // can't see anything
 
 		if(user.drop_transfer_item_to_loc(I, src))
 			jetpack = I
+			jetpack.our_suit = src
 			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
 			return
 	return ..()

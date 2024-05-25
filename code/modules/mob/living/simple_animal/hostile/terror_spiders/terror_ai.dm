@@ -129,7 +129,7 @@
 				else
 					spider_steps_taken++
 					CreatePath(entry_vent)
-					step_to(src,entry_vent)
+					step_with_glide(entry_vent)
 					if(spider_debug)
 						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
@@ -138,7 +138,7 @@
 			last_break_light = world.time
 			for(var/obj/machinery/light/L in range(1, src))
 				if(!L.status)
-					step_to(src,L)
+					step_with_glide(L)
 					L.on = 1
 					L.break_light_tube()
 					do_attack_animation(L)

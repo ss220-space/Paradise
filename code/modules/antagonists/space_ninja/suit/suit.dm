@@ -404,18 +404,18 @@
 
 	ninja.adjust_bodytemperature(BODYTEMP_NORMAL - ninja.bodytemperature)
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action)
 	if(!isninja(ninja) && !anyone)
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()
 		return FALSE
-	if(action == /datum/action/item_action/advanced/ninja/SpiderOS)
+	if(istype(action, /datum/action/item_action/advanced/ninja/SpiderOS))
 		ui_interact(ninja)
 		return TRUE
 	if(!s_initialized)
 		to_chat(ninja, span_warning("<b>ERROR</b>: suit offline. Please activate suit."))
 		return FALSE
-	switch(action)
+	switch(action.type)
 		if(/datum/action/item_action/advanced/ninja/ninja_autodust)
 			ninja_toggle_autodust()
 			return TRUE

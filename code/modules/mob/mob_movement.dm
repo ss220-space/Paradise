@@ -1,10 +1,170 @@
-/client/verb/toggle_throw_mode()
-	set hidden = 1
-	if(iscarbon(mob))
-		var/mob/living/carbon/C = mob
-		C.toggle_throw_mode()
+/**
+ * Move a client in a direction
+ *
+ * Huge proc, has a lot of functionality
+ *
+ * Mostly it will despatch to the mob that you are the owner of to actually move
+ * in the physical realm
+ *
+ * Things that stop you moving as a mob:
+ * * world time being less than your next move_delay
+ * * not being in a mob, or that mob not having a loc
+ * * missing the new_loc and direct parameters
+ * * having TRAIT_NO_TRANSFORM
+ * * being in remote control of an object (calls Move_object instead)
+ * * being dead (it ghosts you instead)
+ *
+ * Things that stop you moving as a mob living (why even have OO if you're just shoving it all
+ * in the parent proc with istype checks right?):
+ * * having incorporeal_move set (calls Process_Incorpmove() instead)
+ * * being in remote control of a movable, (calls remote_control() instead)
+ * * being grabbed
+ * * being buckled  (relaymove() is called to the buckled atom instead)
+ * * having your loc be some other mob (relaymove() is called on that mob instead)
+ * * Not having MOBILITY_MOVE
+ * * Failing Process_Spacemove() call
+ *
+ * At this point, if the mob is is confused, then a random direction and target turf will be calculated for you to travel to instead
+ *
+ * Now the parent call is made (to the byond builtin move), which moves you
+ *
+ * Some final move delay calculations (doubling if you moved diagonally successfully)
+ *
+ * if mob throwing is set I believe it's unset at this point via a call to finalize
+ *
+ * Finally if you're pulling an object and it's dense, you are turned 180 after the move
+ * (if you ask me, this should be at the top of the move so you don't dance around)			// LATER
+ *
+ */
+/client/Move(new_loc, direct)
+	if(world.time < move_delay)	//do not move anything ahead of this check please
+		return FALSE
+
+	input_data.desired_move_dir_add = NONE
+	input_data.desired_move_dir_sub = NONE
+
+	var/old_move_delay = move_delay
+	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
+
+	if(!direct || !new_loc)
+		return FALSE
+
+	if(!mob || !mob.loc)
+		return FALSE
+
+	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
+		return FALSE //This is sota the goto stop mobs from moving var
+
+	if(mob.control_object)
+		return Move_object(direct)
+
+	if(!isliving(mob))
+		return mob.Move(new_loc, direct)
+
+	if(mob.stat == DEAD)
+		mob.ghostize()
+		return FALSE
+
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+		return FALSE
+
+	var/mob/living/living_mob = mob	//Already checked for isliving earlier
+	if(living_mob.incorporeal_move)//Move though walls
+		Process_Incorpmove(direct)
+		return FALSE
+
+	if(mob.remote_control) //we're controlling something, our movement is relayed to it
+		return mob.remote_control.relaymove(mob, direct)
+
+	if(isAI(mob))
+		if(istype(mob.loc, /obj/item/aicard))
+			return mob.loc.relaymove(mob, direct) // aicards have special relaymove stuff
+		return AIMove(new_loc, direct, mob)
+
+	if(Process_Grab())
+		return FALSE
+
+	if(mob.buckled) //if we're buckled to something, tell it we moved.
+		return mob.buckled.relaymove(mob, direct)
+
+	if(!(living_mob.mobility_flags & MOBILITY_MOVE))
+		return FALSE
+
+	if(!mob.lastarea)
+		mob.lastarea = get_area(mob.loc)
+
+	if(ismovable(mob.loc)) //Inside an object, tell it we moved
+		return mob.loc.relaymove(mob, direct)
+
+	if(!mob.Process_Spacemove(direct))
+		return FALSE
+
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+		return FALSE
+
+	if(mob.pulledby && HAS_TRAIT(mob, TRAIT_RESTRAINED)) // Why being pulled while cuffed prevents you from moving
+		var/mob/puller = mob.pulledby
+		if(!puller.incapacitated() && !HAS_TRAIT(puller, TRAIT_HANDS_BLOCKED) && mob.Adjacent(puller))
+			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
+			move_delay = world.time + 1 SECONDS
+			return FALSE
+		puller.stop_pulling()
+
+	//We are now going to move
+	var/add_delay = mob.cached_multiplicative_slowdown
+
+	if(mob.pulling && mob.has_gravity())
+		var/mob/living/silicon/robot/robot = mob
+		if(!(STRONG in living_mob.mutations) && !isconstruct(living_mob) && !istype(living_mob, /mob/living/simple_animal/hostile/clockwork) && !istype(living_mob, /mob/living/simple_animal/hostile/guardian) && !(isrobot(mob) && (/obj/item/borg/upgrade/vtec in robot.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
+			add_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(add_delay))
+
+	if(locate(/obj/item/grab, mob))
+		add_delay += 7
+
+	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
+	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
+
+	//If the move was recent, count using old_move_delay
+	//We want fractional behavior and all
+	if(old_move_delay + world.tick_lag > world.time)
+		//Yes this makes smooth movement stutter if add_delay is too fractional
+		//Yes this is better then the alternative
+		move_delay = old_move_delay
 	else
-		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
+		move_delay = world.time
+
+	//Basically an optional override for our glide size
+	//Sometimes you want to look like you're moving with a delay you don't actually have yet
+	visual_delay = 0
+	var/old_dir = mob.dir
+
+	. = ..()
+
+	if(mob.loc == new_loc)
+		mob.last_movement = world.time
+		if(ISDIAGONALDIR(direct)) //moved diagonally successfully
+			add_delay *= sqrt(2)
+
+	var/after_glide = 0
+	if(visual_delay)
+		after_glide = visual_delay
+	else
+		after_glide = DELAY_TO_GLIDE_SIZE(add_delay)
+
+	mob.set_glide_size(after_glide)
+
+	move_delay += add_delay
+
+	if(.) // If mob is null here, we deserve the runtime
+		mob.throwing?.finalize()
+
+		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
+		// as a result of player input and not because they were pulled or any other magic.
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
+
+		for(var/obj/object in mob.contents)
+			object.on_mob_move(direct, mob)
+
 
 /client/proc/Move_object(direct)
 	if(mob.control_object.density)
@@ -17,123 +177,6 @@
 		if(new_turf)
 			mob.control_object.forceMove(new_turf)
 
-
-/client/Move(n, direct)
-	if(world.time < move_delay)
-		return
-
-	input_data.desired_move_dir_add = NONE
-	input_data.desired_move_dir_sub = NONE
-
-	var/old_move_delay = move_delay
-	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
-	if(!mob || !mob.loc)
-		return 0
-
-	if(!n || !direct) // why did we never check this before?
-		return FALSE
-
-	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
-		return FALSE //This is sota the goto stop mobs from moving var
-
-	if(mob.control_object)
-		return Move_object(direct)
-
-	if(!isliving(mob))
-		return mob.Move(n, direct)
-
-	if(mob.stat == DEAD)
-		mob.ghostize()
-		return 0
-
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, n, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
-		return FALSE
-
-	var/mob/living/L = mob	//Already checked for isliving earlier
-	if(L.incorporeal_move)//Move though walls
-		move_delay = world.time + 0.5 // cap to 20fps
-		L.glide_size = 8
-		Process_Incorpmove(direct)
-		return FALSE
-
-	if(mob.remote_control) //we're controlling something, our movement is relayed to it
-		return mob.remote_control.relaymove(mob, direct)
-
-	if(isAI(mob))
-		if(istype(mob.loc, /obj/item/aicard))
-			var/obj/O = mob.loc
-			return O.relaymove(mob, direct) // aicards have special relaymove stuff
-		return AIMove(n, direct, mob)
-
-	if(Process_Grab())
-		return
-
-	if(mob.buckled) //if we're buckled to something, tell it we moved.
-		return mob.buckled.relaymove(mob, direct)
-
-	if(!(L.mobility_flags & MOBILITY_MOVE))
-		return FALSE
-
-	if(!mob.lastarea)
-		mob.lastarea = get_area(mob.loc)
-
-	if(isobj(mob.loc) || ismob(mob.loc)) //Inside an object, tell it we moved
-		var/atom/O = mob.loc
-		return O.relaymove(mob, direct)
-
-	if(!mob.Process_Spacemove(direct))
-		return 0
-
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
-		return FALSE
-
-	if(HAS_TRAIT(mob, TRAIT_RESTRAINED) && mob.pulledby) // Why being pulled while cuffed prevents you from moving
-		var/mob/puller = mob.pulledby
-		if(!puller.incapacitated() && !HAS_TRAIT(puller, TRAIT_HANDS_BLOCKED) && mob.Adjacent(puller))
-			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
-			move_delay = world.time + 1 SECONDS
-			return FALSE
-		puller.stop_pulling()
-
-	//We are now going to move
-	current_move_delay = mob.cached_multiplicative_slowdown
-
-	if(!istype(get_turf(mob), /turf/space) && mob.pulling)
-		var/mob/living/M = mob
-		var/mob/living/silicon/robot/R = mob
-		if(!(STRONG in M.mutations) && !isconstruct(M) && !istype(M, /mob/living/simple_animal/hostile/clockwork) && !istype(M, /mob/living/simple_animal/hostile/guardian) && !(istype(R) && (/obj/item/borg/upgrade/vtec in R.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
-			current_move_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(current_move_delay))
-
-	if(old_move_delay + world.tick_lag > world.time)
-		move_delay = old_move_delay
-	else
-		move_delay = world.time
-	mob.last_movement = world.time
-
-	if(locate(/obj/item/grab, mob))
-		current_move_delay += 7
-
-	. = mob.SelfMove(n, direct, current_move_delay)
-	mob.setDir(direct)
-
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		current_move_delay *= SQRT_2 //Will prevent mob diagonal moves from smoothing accurately, sadly
-
-	move_delay += current_move_delay
-
-	if(mob.pulledby)
-		mob.pulledby.stop_pulling()
-
-	if(mob && .)
-		if(mob.throwing)
-			mob.throwing.finalize()
-
-		for(var/obj/O in mob)
-			O.on_mob_move(direct, mob)
-
-
-/mob/proc/SelfMove(turf/n, direct, movetime)
-	return Move(n, direct, movetime)
 
 ///Process_Grab()
 ///Called by client/Move()
@@ -176,9 +219,19 @@
 	return FALSE
 
 
-///Process_Incorpmove
-///Called by client/Move()
-///Allows mobs to run though walls
+/**
+ * Allows mobs to ignore density and phase through objects
+ *
+ * Called by client/Move()
+ *
+ * The behaviour depends on the incorporeal_move value of the mob
+ *
+ * * INCORPOREAL_MOVE_BASIC - forceMoved to the next tile with no stop
+ * * INCORPOREAL_NINJA  - the same but leaves a cool effect path
+ * * INCORPOREAL_REVENANT - the same but blocked by holy tiles
+ *
+ * You'll note this is another mob living level proc living at the client level
+ */
 /client/proc/Process_Incorpmove(direct)
 	var/turf/mobloc = get_turf(mob)
 	if(!isliving(mob))
@@ -186,8 +239,10 @@
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_NORMAL)
-			L.forceMove(get_step(L, direct))
-			L.dir = direct
+			var/T = get_step(L, direct)
+			if(T)
+				L.forceMove(T)
+			L.setDir(direct)
 		if(INCORPOREAL_NINJA)
 			if(prob(50))
 				var/locx
@@ -215,30 +270,31 @@
 							return
 					else
 						return
-				L.glide_size = L.glide_size * 2
-				L.forceMove(locate(locx,locy,mobloc.z))
-				spawn(0)
+				var/target = locate(locx,locy,mobloc.z)
+				if(target)
+					L.forceMove(target)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T as anything in get_line(mobloc, L.loc))
+					for(var/turf/T in get_line(mobloc, L.loc))
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
-						if(limit<=0)
+						if(limit <= 0)
 							break
 			else
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
-				L.forceMove(get_step(L, direct))
-			L.dir = direct
+				var/T = get_step(L, direct)
+				if(T)
+					L.forceMove(T)
+			L.setDir(direct)
 		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
-			if(stepTurf.flags & NOJAUNT)
-				to_chat(L, span_warning("Святые силы блокируют ваш путь."))
-				ADD_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
-				spawn(2)
-					REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, INCORPOREAL_TRAIT)
-			else
-				L.forceMove(get_step(L, direct))
-				L.dir = direct
-	return 1
+			if(stepTurf)
+				if(stepTurf.flags & NOJAUNT)
+					move_delay += 0.5 SECONDS
+					to_chat(L, span_warning("Святые силы блокируют Ваш путь."))
+					return
+				L.forceMove(stepTurf)
+			L.setDir(direct)
+	return TRUE
 
 
 /**
@@ -250,7 +306,7 @@
  *
  * You can move in space if you have a spacewalk ability
  */
-/mob/Process_Spacemove(movement_dir = NONE)
+/mob/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return .
@@ -258,25 +314,25 @@
 	if(buckled)
 		return TRUE
 
-	var/atom/movable/backup = get_spacemove_backup(movement_dir)
+	var/atom/movable/backup = get_spacemove_backup(movement_dir, continuous_move)
 	if(!backup)
 		return FALSE
 
-	if(!istype(backup) || !movement_dir || backup.anchored)
+	if(continuous_move || !istype(backup) || !movement_dir || backup.anchored)
 		return TRUE
 
 	// last pushoff exists for one reason
 	// to ensure pushing a mob doesn't just lead to it considering us as backup, and failing
 	last_pushoff = world.time
-	if(backup.newtonian_move(REVERSE_DIR(movement_dir))) //You're pushing off something movable, so it moves
+	if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE)) //You're pushing off something movable, so it moves
 		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
 		backup.last_pushoff = world.time
-		to_chat(src, span_info("Вы отталкиваетесь от [backup] для продолжения движения."))
+		to_chat(src, span_info("Вы отталкиваетесь от [backup.name] для продолжения движения."))
 
 	return TRUE
 
 
-/mob/get_spacemove_backup(moving_direction)
+/mob/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/atom/pushover as anything in range(1, get_turf(src)))
 		if(pushover == src)
 			continue
@@ -305,7 +361,6 @@
 		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
 		if(rebound.last_pushoff == world.time)
 			continue
-		/*
 		if(continuous_move && !pass_allowed)
 			var/datum/move_loop/move/rebound_engine = SSmove_manager.processing_on(rebound, SSspacedrift)
 			// If you're moving toward it and you're both going the same direction, stop
@@ -314,7 +369,6 @@
 		else if(!pass_allowed)
 			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
 				continue
-		*/
 		if(rebound.anchored)
 			return rebound
 		if(pulling == rebound)
@@ -499,6 +553,15 @@
 	set instant = TRUE
 	if(mob)
 		mob.toggle_move_intent()
+
+
+/client/verb/toggle_throw_mode()
+	set hidden = 1
+	if(iscarbon(mob))
+		var/mob/living/carbon/C = mob
+		C.toggle_throw_mode()
+	else
+		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 
 /mob/proc/toggle_move_intent()

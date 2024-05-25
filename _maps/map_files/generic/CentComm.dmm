@@ -1765,7 +1765,7 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "aQh" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/motorcycle{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -6811,7 +6811,7 @@
 	},
 /area/centcom/zone3)
 "dxs" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -44128,7 +44128,7 @@
 /area/centcom/supply)
 "vwk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -44637,7 +44637,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "vLc" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/motorcycle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -46609,7 +46609,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/centcom/specops)
 "wGg" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/motorcycle{
 	dir = 8
 	},
 /turf/simulated/floor/wood{

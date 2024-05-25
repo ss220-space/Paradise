@@ -226,7 +226,7 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
 		return FALSE
 	. = ..()
@@ -353,11 +353,11 @@ Difficulty: Medium
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
-	SLEEP_CHECK_DEATH(2)
+	SLEEP_CHECK_DEATH(src, 2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
-	SLEEP_CHECK_DEATH(1)
+	SLEEP_CHECK_DEATH(src, 1)
 	dashing = FALSE
 	return TRUE
 

@@ -2,49 +2,69 @@
 	name = "Speedbike"
 	icon = 'icons/obj/vehicles/bike.dmi'
 	icon_state = "speedbike_blue"
-	layer = MOB_LAYER - 0.1
-	vehicle_move_delay = 0
+	vehicle_move_delay = 0.15 SECONDS
 	pull_push_speed_modifier = 1
 	var/overlay_state = "cover_blue"
-	var/mutable_appearance/overlay
+	var/mutable_appearance/cover_overlay
+
 
 /obj/vehicle/space/speedbike/Initialize(mapload)
 	. = ..()
-	overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
-	add_overlay(overlay)
+	cover_overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
 
-/obj/vehicle/space/speedbike/Move(newloc,move_dir)
-	if(has_buckled_mobs())
-		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc)
+
+/obj/vehicle/space/speedbike/Destroy()
+	cover_overlay = null
+	return ..()
+
+
+/obj/vehicle/space/speedbike/update_overlays()
 	. = ..()
+	if(!has_buckled_mobs())
+		return .
+	. += cover_overlay
+
+
+/obj/vehicle/space/speedbike/handle_vehicle_icons()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/vehicle/space/speedbike/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+	if(has_buckled_mobs())
+		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc, direct)
+	return ..()
+
 
 /obj/vehicle/space/speedbike/handle_vehicle_layer()
-	switch(dir)
-		if(NORTH,SOUTH)
-			pixel_x = -16
-			pixel_y = -16
-		if(EAST,WEST)
-			pixel_x = -18
-			pixel_y = 0
+	return
+
 
 /obj/vehicle/space/speedbike/handle_vehicle_offsets()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.setDir(dir)
-			switch(dir)
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = -8
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -10
-					buckled_mob.pixel_y = 5
-				if(WEST)
-					buckled_mob.pixel_x = 10
-					buckled_mob.pixel_y = 5
+	switch(dir)
+		if(NORTH, SOUTH)
+			pixel_x = -16
+			pixel_y = -16
+		if(EAST, WEST)
+			pixel_x = -18
+			pixel_y = 0
+	if(!has_buckled_mobs())
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
+		switch(dir)
+			if(NORTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = -8
+			if(SOUTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = 4
+			if(EAST)
+				buckled_mob.pixel_x = -10
+				buckled_mob.pixel_y = 5
+			if(WEST)
+				buckled_mob.pixel_x = 10
+				buckled_mob.pixel_y = 5
+
 
 /obj/vehicle/space/speedbike/red
 	icon_state = "speedbike_red"
