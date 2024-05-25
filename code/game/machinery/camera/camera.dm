@@ -149,8 +149,6 @@
 			upgrade.update_icon(UPDATE_ICON_STATE)
 			assembly.upgrades.Add(upgrade)
 			I.use(1)
-			to_chat(user, "[msg]")
-			return
 		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
@@ -242,18 +240,18 @@
 	. = ..()
 
 /// Camera upgrading stuff.
-/obj/item/proc/camera_upgrade(obj/machinery/camera/target)
+/obj/item/proc/camera_upgrade(obj/machinery/camera/target, power_use_update = FALSE)
 	target.setPowerUsage()
 
 
-/obj/item/analyzer/camera_upgrade(obj/machinery/camera/target)
+/obj/item/analyzer/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
 	target.update_icon(UPDATE_ICON_STATE)
 	//Update what it can see.
 	GLOB.cameranet.updateVisibility(target, FALSE)
 
 
-/obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target)
+/obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
 	if(target.name == initial(target.name))
 		target.update_appearance(UPDATE_NAME)

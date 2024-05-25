@@ -733,23 +733,20 @@
 	AI.update_sight()
 	var/upgraded_cameras = 0
 
-	for(var/V in GLOB.cameranet.cameras)
-		var/obj/machinery/camera/C = V
-		if(C.assembly)
-			var/list/obj/item/upgrades
+	for(var/obj/machinery/camera/camera_target as anything in GLOB.cameranet.cameras)
+		if(camera_target.assembly)
+			var/list/obj/item/upgrade_check
 
-			if(!C.isXRay())
-				C.assembly.upgrades.Add(new /obj/item/analyzer(C.assembly))
-				LAZYADD(upgrades, new /obj/item/analyzer(C.assembly))
+			if(!camera_target.isXRay())
+				LAZYADD(upgrade_check, new /obj/item/analyzer(camera_target.assembly))
 
-			if(!C.isEmpProof())
-				C.assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(C.assembly))
-				LAZYADD(upgrades, new /obj/item/stack/sheet/mineral/plasma(C.assembly))
+			if(!camera_target.isEmpProof())
+				LAZYADD(upgrade_check, new /obj/item/stack/sheet/mineral/plasma(camera_target.assembly))
 
-			if(LAZYLEN(upgrades))
-				for(var/obj/item/upgrade as anything in upgrades)
-					C.assembly.upgrades.Add(upgrade)
-					upgrade.camera_upgrade(C)
+			if(LAZYLEN(upgrade_check))
+				for(var/obj/item/upgrade as anything in upgrade_check)
+					camera_target.assembly.upgrades.Add(upgrade)
+					upgrade.camera_upgrade(camera_target)
 				upgraded_cameras++
 
 
