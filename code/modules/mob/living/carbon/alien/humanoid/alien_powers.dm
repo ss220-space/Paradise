@@ -9,18 +9,18 @@
 	if(!IsAvailable())
 		return
 
-	if(!host.nightvision)
+	if(!host.nightvision_enabled)
 		host.nightvision = 8
 		host.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		host.nightvision = TRUE
+		host.nightvision_enabled = TRUE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
 		host.update_sight()
 		return
 
-	if(host.nightvision)
+	if(host.nightvision_enabled)
 		host.nightvision = initial(host.nightvision)
 		host.lighting_alpha = initial(host.lighting_alpha)
-		host.nightvision = FALSE
+		host.nightvision_enabled = FALSE
 		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
 		host.update_sight()
 		return

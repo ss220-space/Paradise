@@ -1030,7 +1030,7 @@
             gun.attackby(MA, user)
             if(magazine)
                 magazine.loc = src
-                magazine.update_icon()
+                magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
             return
 
 /obj/item/storage/box/sec
