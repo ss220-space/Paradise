@@ -1057,6 +1057,10 @@
 	if(world.time < next_move)
 		return 0
 	var/moveship = 1
+	if(has_gravity(loc))
+		move_delay = 4
+	else
+		move_delay = initial(move_delay)
 	if(battery && battery.charge >= 1 && health && empcounter == 0)
 		if(!(direction & (UP|DOWN)))
 			src.dir = direction
