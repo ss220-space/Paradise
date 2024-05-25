@@ -217,6 +217,7 @@
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
+		L.update_status(mymob)
 
 		if(L.absolute)
 			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
@@ -296,6 +297,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	cut_overlays()
 	add_overlay(new_overlays)
 
+
+/atom/movable/screen/parallax_layer/proc/update_status(mob/M)
+	return
+
+
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
@@ -354,21 +360,22 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 		COMSIG_MOVABLE_Z_CHANGED = PROC_REF(on_z_change),
 		COMSIG_MOB_LOGOUT = PROC_REF(on_mob_logout),
 	)
-	AddComponent(/datum/component/connect_mob_behalf, boss, connections)
-	on_z_change(hud_owner?.mymob)
+	AddComponent(/datum/component/connect_mob_behalf, boss, connections) // I have a feeling that this shit doesn't work
+	update_status(hud_owner?.mymob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER
 	var/client/boss = source.canon_client
-	on_z_change(boss.mob)
+	update_status(boss.mob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
 	var/client/boss = source.client
-	var/turf/posobj = get_turf(boss?.eye)
-	if(!posobj)
-		return
-	if(is_station_level(posobj.z))
+	update_status(boss.mob)
+
+/atom/movable/screen/parallax_layer/planet/update_status(mob/M)
+	var/turf/T = get_turf(M)
+	if(is_station_level(T.z))
 		invisibility = 0
 	else
 		invisibility = INVISIBILITY_ABSTRACT

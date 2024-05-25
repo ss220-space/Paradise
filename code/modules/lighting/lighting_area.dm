@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 	var/base_lighting_color = null
 	///Whether this area allows static lighting and thus loads the lighting objects
 	var/static_lighting = TRUE
+	///Whether this area is iluminated by starlight
+	var/use_starlight = FALSE
 
 /area/proc/set_base_lighting(new_base_lighting_color = -1, new_alpha = -1)
 	if(base_lighting_alpha == new_alpha && base_lighting_color == new_base_lighting_color)

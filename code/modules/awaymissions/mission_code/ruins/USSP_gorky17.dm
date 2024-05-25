@@ -225,9 +225,7 @@
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
-	static_lighting = TRUE
-	base_lighting_alpha = 0
-	base_lighting_color = null
+	use_starlight = TRUE
 
 
 

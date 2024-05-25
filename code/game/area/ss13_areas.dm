@@ -42,9 +42,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space"
 	requires_power = TRUE
 	always_unpowered = TRUE
-	static_lighting = TRUE
-	base_lighting_alpha = 0
-	base_lighting_color = null
+	use_starlight = TRUE
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
@@ -59,6 +57,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/planetary
 	icon_state = "space_planet"
+	use_starlight = FALSE
 	static_lighting = TRUE
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 	sound_environment = SOUND_AREA_ASTEROID
@@ -1611,9 +1610,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
-	static_lighting = FALSE
-	base_lighting_alpha = 0
-	base_lighting_color = null
+	use_starlight = TRUE
 
 /area/solar/auxport
 	name = "\improper North-West Solar Array"
@@ -2728,6 +2725,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Beach"
 	icon_state = "beach"
 	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
 

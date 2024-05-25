@@ -361,7 +361,14 @@
 
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-		lighting_object = old_lighting_object
+		var/area/A = loc
+		if(!A.use_starlight)
+			// Should have a lighting object if we never had one
+			lighting_object = old_lighting_object || new /atom/movable/lighting_object(src)
+		else
+			W.add_overlay(A.lighting_effect)
+		if(A.use_starlight && old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
