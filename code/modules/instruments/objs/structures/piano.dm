@@ -39,7 +39,7 @@
 /obj/structure/ghostpiano
 	parent_type = /obj/structure/musician
 	name = "cursed piano"
-	desc = "<span class=warning'> You feel an evil presence watching you </span> "
+	desc = "<b>You feel an evil presence watching you...</b>"
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "minipiano"
 	anchored = TRUE
