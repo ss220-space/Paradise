@@ -81,6 +81,11 @@
 	H.meatleft = initial(H.meatleft)
 
 
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
+	. = ..()
+	H.force_gene_block(GLOB.monkeyblock, !remove)
+
+
 /datum/species/monkey/can_understand(mob/other)
 	return istype(other, /mob/living/simple_animal/hostile/gorilla)
 
