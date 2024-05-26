@@ -12036,10 +12036,7 @@
 /area/hallway/primary/fore)
 "aFB" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/storage/fancy/donut_box,
-/obj/item/clipboard,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -12068,7 +12065,6 @@
 	pixel_x = 28
 	},
 /obj/item/reagent_containers/food/drinks/flask/detflask,
-/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -13457,6 +13453,11 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/table,
+/obj/item/book/manual/security_space_law,
+/obj/item/clipboard,
+/obj/item/storage/fancy/donut_box,
+/obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
