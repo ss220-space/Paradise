@@ -90,6 +90,16 @@
 		tint = up ? tint_up : initial(tint)
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/clothing/mask/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDENAME
+	clothing_flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 // Aurora forensics port.
 /obj/item/clothing/clean_blood()
@@ -1150,13 +1160,3 @@ BLIND     // can't see anything
 	if(istype(wearer))
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
-
-/obj/item/clothing/mask/proc/force_adjust_mask()
-	up = !up
-	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = null
-	permeability_coefficient = null
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	clothing_flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
