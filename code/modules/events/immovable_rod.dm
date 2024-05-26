@@ -66,26 +66,27 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/singularity_pull()
 	return
 
-/obj/effect/immovablerod/Bump(atom/clong)
+/obj/effect/immovablerod/Bump(atom/clong, yes)
+	if(!yes)
+		return
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		audible_message("ЛЯЗГ")
 
-	if(clong && prob(25))
-		x = clong.x
-		y = clong.y
+	x = clong.x
+	y = clong.y
 
 	if(istype(clong, /turf) || isobj(clong))
 		if(clong.density)
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 	else if(istype(clong, /mob))
 		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
+			H.visible_message(span_danger("[H.name] пронизан незыблемым стержнем!") , span_userdanger("Стержень пронзает тебя!") , span_danger("Вы слышите ЛЯЗГ!"))
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
 	var/tiles_moved = 0
