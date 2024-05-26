@@ -414,9 +414,9 @@
 
 /datum/uplink_item/jobspecific/lockermech
 	name = "Syndie Locker Mech"
-	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
+	desc = "A massive and incredibly deadly Syndicate exosuit(Not really)."
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 30
+	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
@@ -1992,7 +1992,7 @@
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
-	desc = "Strong flavor, dense smoke, infused with omnizine."
+	desc = "Strong flavor, dense smoke, infused with syndiezine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 

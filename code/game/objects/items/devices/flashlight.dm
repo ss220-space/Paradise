@@ -51,7 +51,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
 
