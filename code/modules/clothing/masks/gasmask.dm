@@ -95,8 +95,6 @@
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
-
-
 /obj/item/clothing/mask/proc/force_adjust_mask()
 	up = !up
 	update_icon(UPDATE_ICON_STATE)
@@ -106,7 +104,6 @@
 	flags_inv &= ~HIDENAME
 	clothing_flags &= ~AIRTIGHT
 	w_class = WEIGHT_CLASS_SMALL
-/obj/item/clothing/mask/proc/force_adjust_mask()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
