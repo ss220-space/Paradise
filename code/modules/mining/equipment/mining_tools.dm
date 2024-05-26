@@ -133,6 +133,7 @@
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
+	hitsound = 'sound/effects/WeaponSounds_uax-0000000006.ogg'
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 0.8
 
