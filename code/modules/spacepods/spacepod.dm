@@ -4,7 +4,7 @@
 #define WINDOW			2
 #define RIM	    		3
 #define PAINT			4
-#define SPACE_SPEED		1.5
+#define NO_GRAVITY_SPEED 1.5
 #define GRAVITY_SPEED	4
 
 /obj/item/pod_paint_bucket
@@ -64,7 +64,7 @@
 
 	var/unlocked = TRUE
 
-	var/move_delay = SPACE_SPEED
+	var/move_delay = NO_GRAVITY_SPEED
 	var/next_move = 0
 	var/can_paint = TRUE
 
@@ -1062,7 +1062,7 @@
 	if(has_gravity(loc))
 		move_delay = GRAVITY_SPEED
 	else
-		move_delay = SPACE_SPEED
+		move_delay = NO_GRAVITY_SPEED
 	if(battery && battery.charge >= 1 && health && empcounter == 0)
 		if(!(direction & (UP|DOWN)))
 			src.dir = direction
@@ -1129,5 +1129,5 @@
 #undef POD_LIGHT
 #undef RIM
 #undef PAINT
-#undef SPACE_SPEED
+#undef NO_GRAVITY_SPEED
 #undef GRAVITY_SPEED
