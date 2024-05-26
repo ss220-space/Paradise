@@ -347,8 +347,9 @@
 								)
 
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
-	..()
-	w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+	. = ..()
+	if(.)
+		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
 	. = ..()
