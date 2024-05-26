@@ -97,7 +97,7 @@
 	force_adjust_mask()
 
 
-/obj/item/clothing/mask/gas/proc/force_adjust_mask()
+/obj/item/clothing/mask/proc/force_adjust_mask()
 	up = !up
 	update_icon(UPDATE_ICON_STATE)
 	gas_transfer_coefficient = null
