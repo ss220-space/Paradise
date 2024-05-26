@@ -529,8 +529,6 @@ BLIND     // can't see anything
 			if(initial(flags_cover) & MASKCOVERSMOUTH)
 				flags_cover |= MASKCOVERSMOUTH
 
-
-
 	// special head and mask slots post handling
 	if(user.wear_mask == src || user.head == src)
 		user.wear_mask_update(src, toggle_off = up)
