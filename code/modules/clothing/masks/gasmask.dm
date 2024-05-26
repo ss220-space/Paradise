@@ -106,6 +106,7 @@
 	flags_inv &= ~HIDENAME
 	clothing_flags &= ~AIRTIGHT
 	w_class = WEIGHT_CLASS_SMALL
+/obj/item/clothing/mask/proc/force_adjust_mask()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
