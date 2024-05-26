@@ -90,17 +90,6 @@
 		tint = up ? tint_up : initial(tint)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/mask/proc/force_adjust_mask()
-	up = !up
-	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = null
-	permeability_coefficient = null
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	clothing_flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
-
-
 // Aurora forensics port.
 /obj/item/clothing/clean_blood()
 	. = ..()
@@ -538,6 +527,16 @@ BLIND     // can't see anything
 			//If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 			if(initial(flags_cover) & MASKCOVERSMOUTH)
 				flags_cover |= MASKCOVERSMOUTH
+
+/obj/item/clothing/mask/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDENAME
+	clothing_flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
 
 	// special head and mask slots post handling
 	if(user.wear_mask == src || user.head == src)
