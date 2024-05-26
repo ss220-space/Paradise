@@ -872,7 +872,7 @@
 	var/slots_must_be_empty = ITEM_SLOT_BACK|ITEM_SLOT_BELT|ITEM_SLOT_HEAD|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HANDS|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED
 
 	for(var/obj/item/item as anything in user.get_equipped_items(include_hands = TRUE))
-		if(item.slot_flags & slots_must_be_empty)
+		if(user.get_slot_by_item(item) & slots_must_be_empty)	// we need to get exact slot, since some items can fit into different slots
 			if(provide_feedback)
 				to_chat(user, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
 			return FALSE

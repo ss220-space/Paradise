@@ -59,7 +59,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED))
 		var/item_allowed = FALSE
-		for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE))
 			if(item.used_for_ventcrawling(src, provide_feedback))
 				item_allowed = TRUE
 				break
