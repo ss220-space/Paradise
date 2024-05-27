@@ -85,7 +85,7 @@
 			return FALSE
 		if(!can_ventcrawl(ventcrawl_target))
 			return FALSE
-		return stop_ventcrawling()
+		return stop_ventcrawling(ventcrawl_target)
 
 	//Entrance here
 	if(!can_ventcrawl(ventcrawl_target, entering = TRUE))
