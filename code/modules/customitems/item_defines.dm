@@ -1675,3 +1675,23 @@
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	species_restricted = list(SPECIES_VOX)
+
+/obj/item/pdapivo
+	name = "PDA PIVO case"
+	desc = "Чехол на пда в виде кружки пива."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "pdapivo"
+
+/obj/item/pdapivo/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/pda))
+		to_chat(user, "<span class='notice'>Ты одел чехол на свой ПДА.</span>")
+		var/obj/item/pda/pdapivo = target
+		pdapivo.icon_state = "pdapivo"
+		pdapivo.ttone = "beer"
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>Ты не можешь одеть чеход на [target]!</span>")
