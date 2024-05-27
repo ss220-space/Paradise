@@ -193,11 +193,12 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
+/mob/living/silicon/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-	if(. == VENTCRAWL_IN_SUCCESS && inventory_head)
-		drop_hat()
-		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+	if(. && inventory_head)
+		drop_hat(drop_on_turf = TRUE)
+		if(message)
+			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
