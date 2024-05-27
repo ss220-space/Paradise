@@ -23,7 +23,7 @@
 		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return
 
-	if(!istype(target) || !target.mind || issmall(target) || has_no_DNA(target))
+	if(!istype(target) || !target.mind || ismonkeybasic(target) || has_no_DNA(target))
 		to_chat(user, span_warning("[target] is not compatible with this ability."))
 		return FALSE
 
@@ -63,9 +63,13 @@
 		cling.absorb_dna(target)
 	cling.trim_dna()
 
-	var/mob/dead/observer/ghost = target.ghostize(FALSE)
+	var/mob/dead/observer/ghost = target.mind?.get_ghost(TRUE)
+	if(!ghost)
+		ghost = target.ghostize(FALSE)
+
 	user.mind.transfer_to(target)
 	user.update_action_buttons(TRUE)
+
 	if(ghost?.mind)
 		ghost.mind.transfer_to(user)
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
