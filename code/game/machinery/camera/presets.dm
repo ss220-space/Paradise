@@ -2,27 +2,27 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/Initialize(mapload, networks, input_assembly)
+/obj/machinery/camera/emp_proof/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // X-RAY
 
 
-/obj/machinery/camera/xray/Initialize(mapload, networks, input_assembly)
+/obj/machinery/camera/xray/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // MOTION
 
-/obj/machinery/camera/motion/Initialize(mapload, networks, input_assembly)
+/obj/machinery/camera/motion/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // ALL UPGRADES
 
 
-/obj/machinery/camera/all/Initialize(mapload, networks, input_assembly)
+/obj/machinery/camera/all/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly), new /obj/item/assembly/prox_sensor(new_assembly), new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
