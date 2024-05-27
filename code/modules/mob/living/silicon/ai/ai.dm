@@ -431,6 +431,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Borb",
 		"Catamari",
 		"Anonymous",
+		"Hippy",
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -537,6 +538,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-borb"
 		if("Catamari")
 			icon_state = "ai-catamari"
+		if("Hippy")
+			icon_state = "ai-hippy"
 		if("Anonymous")
 			icon_state = "ai-anon"
 		else
