@@ -334,9 +334,9 @@
 /turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
-			return GLOB.plmaster
+			return GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
 		if("sleeping_agent")
-			return GLOB.slmaster
+			return GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
 	return null
 
 /turf/simulated/proc/tile_graphic()

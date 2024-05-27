@@ -1544,10 +1544,9 @@
 	var/mutable_appearance/MA
 	if(hair_style)
 		var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
+		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	else
-		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER)
-	MA.plane = ABOVE_LIGHTING_PLANE
+		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.

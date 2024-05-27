@@ -427,7 +427,7 @@
 	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"))
 	if(target.vision_type) //Turns off their darksight if it's still active.
 		to_chat(target, span_boldannounce("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
-		target.set_sight(null)
+		target.set_vision_override(null)
 	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message(span_warning("A strange black mass falls from [target]'s [E]!"))
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))

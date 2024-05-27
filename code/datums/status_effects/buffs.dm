@@ -3,9 +3,9 @@
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 30
-	alert_type = /obj/screen/alert/status_effect/shadow_mend
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
 
-/obj/screen/alert/status_effect/shadow_mend
+/atom/movable/screen/alert/status_effect/shadow_mend
 	name = "Shadow Mend"
 	desc = "Shadowy energies wrap around your wounds, sealing them at a price. After healing, you will slowly lose health every three seconds for thirty seconds."
 	icon_state = "shadow_mend"
@@ -29,11 +29,11 @@
 	id = "void_price"
 	duration = 30 SECONDS
 	tick_interval = 3 SECONDS
-	alert_type = /obj/screen/alert/status_effect/void_price
+	alert_type = /atom/movable/screen/alert/status_effect/void_price
 	/// This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
 	var/price = 3
 
-/obj/screen/alert/status_effect/void_price
+/atom/movable/screen/alert/status_effect/void_price
 	name = "Void Price"
 	desc = "Black tendrils cinch tightly against you, digging wicked barbs into your flesh."
 	icon_state = "shadow_mend"
@@ -50,9 +50,9 @@
 	id = "blooddrunk"
 	duration = 10
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 
-/obj/screen/alert/status_effect/blooddrunk
+/atom/movable/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
@@ -113,7 +113,7 @@
 	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1 SECONDS
-	alert_type = /obj/screen/alert/status_effect/banana_power
+	alert_type = /atom/movable/screen/alert/status_effect/banana_power
 	/// Basic heal per tick.
 	var/basic_heal_amt = 10
 	/// This diminishes the healing from eating bananas the higher it is.
@@ -165,7 +165,7 @@
 		qdel(src)
 
 
-/obj/screen/alert/status_effect/banana_power
+/atom/movable/screen/alert/status_effect/banana_power
 	name = "Banana power"
 	desc = "Your body has been infused with banana juices, you will heal damage over time!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -274,7 +274,7 @@
 			itemUser.adjustBrainLoss(-1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 
-/obj/screen/alert/status_effect/regenerative_core
+/atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
 	desc = "You can move faster than your broken body could normally handle!"
 	icon_state = "regenerative_core"
@@ -284,7 +284,7 @@
 	id = "Regenerative Core"
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /obj/screen/alert/status_effect/regenerative_core
+	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 
 
 /datum/status_effect/regenerative_core/on_apply()
@@ -454,9 +454,9 @@
 	duration = -1
 	tick_interval = 2 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /obj/screen/alert/status_effect/hope
+	alert_type = /atom/movable/screen/alert/status_effect/hope
 
-/obj/screen/alert/status_effect/hope
+/atom/movable/screen/alert/status_effect/hope
 	name = "Hope."
 	desc = "A ray of hope beyond dispair."
 	icon_state = "hope"
@@ -566,11 +566,11 @@
 	id = "bloodswell"
 	duration = 30 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/blood_swell
+	alert_type = /atom/movable/screen/alert/status_effect/blood_swell
 	var/bonus_damage_applied = FALSE
 
 
-/obj/screen/alert/status_effect/blood_swell
+/atom/movable/screen/alert/status_effect/blood_swell
 	name = "Blood Swell"
 	desc = "Your body has been infused with crimson magics, your resistance to attacks has greatly increased!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -617,7 +617,7 @@
 
 /datum/status_effect/blood_rush
 	id = "bloodrush"
-	alert_type = /obj/screen/alert/status_effect/blood_rush
+	alert_type = /atom/movable/screen/alert/status_effect/blood_rush
 	duration = 10 SECONDS
 
 
@@ -630,7 +630,7 @@
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/blood_rush)
 
 
-/obj/screen/alert/status_effect/blood_rush
+/atom/movable/screen/alert/status_effect/blood_rush
 	name = "Blood Rush"
 	desc = "Your body is infused with blood magic, boosting your movement speed."
 	icon = 'icons/mob/actions/actions.dmi'
@@ -681,7 +681,7 @@
 							"Don't forget how you got this amulet, hunter.")
 	to_chat(owner, "<span class='warning'>[pick(war_messages)]</span>")
 
-/obj/screen/alert/status_effect/dash
+/atom/movable/screen/alert/status_effect/dash
 	name = "Dash"
 	desc = "You have the ability to dash!"
 	icon = 'icons/mob/actions/actions.dmi'
@@ -691,7 +691,7 @@
 	id = "dash"
 	duration = 5 SECONDS
 	tick_interval = 0
-	alert_type = /obj/screen/alert/status_effect/dash
+	alert_type = /atom/movable/screen/alert/status_effect/dash
 
 
 /datum/status_effect/drill_payback
@@ -707,13 +707,13 @@
 	return ..()
 
 /datum/status_effect/drill_payback/on_apply()
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(payback_phase_2)), 2.7 SECONDS)
 	return TRUE
 
 /datum/status_effect/drill_payback/proc/payback_phase_2()
 	owner.clear_fullscreen("payback")
-	owner.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
 
 /datum/status_effect/drill_payback/tick()
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) // No privelegies for that who leave his target.

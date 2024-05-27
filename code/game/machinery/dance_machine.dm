@@ -84,7 +84,7 @@
 	underlays.Cut()
 
 	if(active)
-		underlays += emissive_appearance(icon, "disco_lightmask")
+		underlays += emissive_appearance(icon, "disco_lightmask", src)
 
 
 /obj/machinery/disco/attack_hand(mob/user)

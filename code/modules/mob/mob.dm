@@ -396,6 +396,17 @@
 	return
 */
 
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	if(canon_client?.movingmob)
+		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
+		canon_client.movingmob = null
+
+	canon_client = null
 
 /mob/verb/memory()
 	set name = "Notes"
@@ -1220,25 +1231,22 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-/mob/proc/set_sight(datum/vision_override/O)
+/mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
 	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
-	if(hud_used)
-		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		var/obj/screen/plane_master/o_light_visual/vis = hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"]
-		if(L)
-			L.alpha = lighting_alpha
-		if(vis)
-			vis.alpha = lighting_alpha
+	if(!hud_used)
+		return
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
-	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	var/atom/movable/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
 	if(S)
 		var/suffix = ""
 		var/nighvision_coeff = nightvision
@@ -1350,6 +1358,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /mob/proc/slip(weaken_amount, obj/slipped_on, lube_flags, tilesSlipped)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, weaken_amount, slipped_on, lube_flags, tilesSlipped)
- 
+
 /mob/proc/IsLying()
 	return FALSE

@@ -114,7 +114,7 @@
 
 	if(!connected)
 		. += "morgue_[status]"
-		underlays += emissive_appearance(icon, "morgue_[status]")
+		underlays += emissive_appearance(icon, "morgue_[status]", src)
 
 	if(name != initial(name))
 		. += "morgue_label"
@@ -221,7 +221,7 @@
 
 /obj/structure/morgue/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/structure/morgue/ex_act(severity)
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
+		underlays += emissive_appearance(icon, "crema_active_lightmask", src)
 		return
 
 	if(length(contents))
@@ -522,7 +522,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/machinery/crematorium/verb/cremate_verb()

@@ -1077,11 +1077,11 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
 
 	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
-	var/obj/screen/alert/gravity_alert = LAZYACCESS(alerts, ALERT_GRAVITY)
+	var/atom/movable/screen/alert/gravity_alert = LAZYACCESS(alerts, ALERT_GRAVITY)
 	switch(gravity)
 		if(-INFINITY to NEGATIVE_GRAVITY)
-			if(!istype(gravity_alert, /obj/screen/alert/negative))
-				throw_alert(ALERT_GRAVITY, /obj/screen/alert/negative)
+			if(!istype(gravity_alert, /atom/movable/screen/alert/negative))
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/negative)
 				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
 				var/matrix/flipped_matrix = transform
 				flipped_matrix.b = -flipped_matrix.b
@@ -1089,26 +1089,26 @@
 				animate(src, transform = flipped_matrix, pixel_y = pixel_y+4, time = 0.5 SECONDS, easing = EASE_OUT)
 				base_pixel_y += 4
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
-			if(!istype(gravity_alert, /obj/screen/alert/weightless))
-				throw_alert(ALERT_GRAVITY, /obj/screen/alert/weightless)
+			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
 				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
 		if(0.01 to STANDARD_GRAVITY)
 			if(gravity_alert)
 				clear_alert(ALERT_GRAVITY)
 		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
-			throw_alert(ALERT_GRAVITY, /obj/screen/alert/highgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/highgravity)
 		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
-			throw_alert(ALERT_GRAVITY, /obj/screen/alert/veryhighgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/veryhighgravity)
 
 	// If we had no gravity alert, or the same alert as before, go home
 	if(!gravity_alert || LAZYACCESS(alerts, ALERT_GRAVITY) == gravity_alert)
 		return
 
 	// By this point we know that we do not have the same alert as we used to
-	if(istype(gravity_alert, /obj/screen/alert/weightless))
+	if(istype(gravity_alert, /atom/movable/screen/alert/weightless))
 		REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
 
-	else if(istype(gravity_alert, /obj/screen/alert/negative))
+	else if(istype(gravity_alert, /atom/movable/screen/alert/negative))
 		REMOVE_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
 		var/matrix/flipped_matrix = transform
 		flipped_matrix.b = -flipped_matrix.b
@@ -1190,7 +1190,7 @@
 	return "You can't fit into that vent."
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
@@ -1403,25 +1403,26 @@
 		stop_pulling()
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
-	if(registered_z != new_z)
-		if(registered_z)
-			SSmobs.clients_by_zlevel[registered_z] -= src
-		if(client)
-			if(new_z)
-				SSmobs.clients_by_zlevel[new_z] += src
-				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-					if (SA)
-						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
-					else
-						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
-			registered_z = new_z
-		else
-			registered_z = null
+	if(registered_z == new_z)
+		return
+	if(registered_z)
+		SSmobs.clients_by_zlevel[registered_z] -= src
+	if(isnull(client))
+		registered_z = null
+		return
+	if(new_z)
+		SSmobs.clients_by_zlevel[new_z] += src
+		for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+			var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
+			if (SA)
+				SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+			else
+				SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+	registered_z = new_z
 
-/mob/living/onTransitZ(old_z,new_z)
+/mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	update_z(new_z)
+	update_z(new_turf?.z)
 
 /mob/living/proc/owns_soul()
 	if(mind)
@@ -1582,7 +1583,7 @@
 	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
 	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
-	throw_alert("direction_lock", /obj/screen/alert/direction_lock)
+	throw_alert("direction_lock", /atom/movable/screen/alert/direction_lock)
 
 /**
   * Clears the mob's direction lock if enabled.

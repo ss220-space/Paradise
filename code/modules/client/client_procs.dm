@@ -454,6 +454,7 @@
 
 /client/Destroy()
 	SSdebugview.stop_processing(src)
+	mob.become_uncliented()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -1065,6 +1066,19 @@
 	var/list/actualview = getviewsize(view)
 	void.UpdateGreed(actualview[1],actualview[2])
 
+/client/proc/change_view(new_size)
+	if (isnull(new_size))
+		CRASH("change_view called without argument.")
+
+	view = new_size
+	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
+	apply_clickcatcher()
+	mob.hud_used?.reload_fullscreen()
+	if (isliving(mob))
+		var/mob/living/M = mob
+		M.update_damage_hud()
+	fit_viewport()
+
 /client/proc/send_ssd_warning(mob/M)
 	if(!CONFIG_GET(flag/ssd_warning))
 		return FALSE
@@ -1385,7 +1399,9 @@
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)
 		return
+	var/atom/old_eye = eye
 	eye = new_eye
+	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
   * Checks if the client has accepted TOS

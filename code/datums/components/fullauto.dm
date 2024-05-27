@@ -146,7 +146,7 @@
 	if(get_dist(source.mob, _target) < 2) //Adjacent clicking.
 		return
 
-	if(isnull(location) || istype(_target, /obj/screen)) //Clicking on a screen object.
+	if(isnull(location) || is_screen_atom(_target)) //Clicking on a screen object.
 		if(_target.plane != CLICKCATCHER_PLANE) //The clickcatcher is a special case. We want the click to trigger then, under it.
 			return //If we click and drag on our worn backpack, for example, we want it to open instead.
 		_target = parse_caught_click_modifiers(modifiers, get_turf(source.eye), source)

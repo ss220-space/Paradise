@@ -24,6 +24,9 @@
 	/// Datum level flags
 	var/datum_flags = NONE
 
+	/// A weak reference to another datum
+	var/datum/weakref/weak_reference
+
 #ifdef TESTING
 	var/running_find_references
 	var/last_find_references = 0

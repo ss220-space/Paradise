@@ -146,7 +146,7 @@
 	if(icon_addon)
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
@@ -480,10 +480,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += base_icon_state
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -662,7 +662,7 @@
 		return
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /**

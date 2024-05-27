@@ -349,7 +349,7 @@
 		return FALSE
 
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	return TRUE
 
@@ -569,7 +569,7 @@
 		if(client)
 			client.screen -= I
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), src)
 		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
 				I.move_to_null_space()
