@@ -651,7 +651,7 @@
 	if(wear_pda)
 		. |= ITEM_SLOT_PDA
 	if(w_uniform)
-		. |= ITEM_SLOT_CLOTH_OUTER
+		. |= ITEM_SLOT_CLOTH_INNER
 	if(include_pockets)
 		if(r_store)
 			. |= ITEM_SLOT_POCKET_RIGHT
