@@ -96,7 +96,7 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 /obj/item/clothing/under/pants/galifepants
-	name = "Check breeches"
+	name = "check breeches"
 	desc = "Штаны широкого фасона в бёдрах."
 	icon_state = "galifepants"
 	item_state = "galifepants"
@@ -115,7 +115,7 @@
 		)
 
 /obj/item/clothing/under/pants/sandpants
-	name = "Long sand pants"
+	name = "long sand pants"
 	desc = "Штаны песочного оттенка с расширением на конце штанин."
 	icon_state = "sandpants"
 	item_state = "sandpants"

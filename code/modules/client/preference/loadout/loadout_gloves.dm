@@ -16,5 +16,5 @@
 	path = /obj/item/clothing/gloves/ring/gold
 
 /datum/gear/gloves/brown_short_gloves
-	display_name = "Short leather gloves"
+	display_name = "short leather gloves"
 	path = /obj/item/clothing/gloves/brown_short_gloves

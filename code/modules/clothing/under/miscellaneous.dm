@@ -1138,7 +1138,7 @@
 	item_color = "night_dress_white"
 
 /obj/item/clothing/under/steampunkdress
-	name = "Victorian blue-white dress"
+	name = "victorian blue-white dress"
 	desc = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
 	over_shoes = TRUE
 	icon_state = "steampunkdress"
@@ -1158,7 +1158,7 @@
 
 
 /obj/item/clothing/under/dress50s
-	name = "Old Soviet dress"
+	name = "old Soviet dress"
 	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
 	over_shoes = TRUE
 	icon_state = "dress50s"

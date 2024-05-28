@@ -358,7 +358,7 @@
 	)
 
 /datum/sprite_accessory/undershirt/shirt_colorized/female/female_longslevshirt
-	name = "Long sleeve shirt"
+	name = "Female Colorized Long Sleeve Shirt"
 	icon_state = "female_longslevshirt"
 	sprite_sheets = list(
 	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
