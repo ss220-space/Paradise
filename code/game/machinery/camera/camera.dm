@@ -290,7 +290,7 @@
 
 
 /obj/machinery/camera/update_icon_state()
-	icon_state = isXRay() ? "xraycam" : initial(icon_state)
+	icon_state = isXRay() ? "xray[initial(icon_state)]" : initial(icon_state)
 	if(!status)
 		icon_state = "[icon_state]1"
 	else if(stat & EMPED)
