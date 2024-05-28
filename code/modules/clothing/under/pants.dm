@@ -116,7 +116,7 @@
 
 /obj/item/clothing/under/pants/sandpants
 	name = "long sand pants"
-	desc = "Штаны песочного оттенка с расширением на конце штанин."
+	desc = "Брюки песочного цвета, расклешённые от колена."
 	icon_state = "sandpants"
 	item_state = "sandpants"
 	item_color = "sandpants"

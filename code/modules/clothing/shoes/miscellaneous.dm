@@ -591,7 +591,7 @@
 	item_state = "commandos_boots"
 
 /obj/item/clothing/shoes/leather_boots
-	name = "High leather boots"
+	name = "high leather boots"
 	desc = "Стройные сапоги сделанные из кожи."
 	icon_state = "leather_boots"
 	item_state = "leather_boots"

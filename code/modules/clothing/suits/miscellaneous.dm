@@ -1236,7 +1236,7 @@
 	icon_state = "triadkillers"
 
 /obj/item/clothing/suit/hooded/hijab
-	name = "Hijab"
+	name = "hijab"
 	desc = "Тёмное одеяние скрывающее тело."
 	icon_state = "hijab"
 	flags_inv = HIDETAIL
@@ -1254,7 +1254,7 @@
 		)
 
 /obj/item/clothing/head/hooded/hijab
-	name = "Hijab hood"
+	name = "hijab hood"
 	desc = "Тёмное одеяние скрывающее лицо."
 	icon_state = "hijab_head"
 	flags_inv = HIDEHEADSETS|HIDENAME|HIDEHAIR

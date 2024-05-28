@@ -357,8 +357,8 @@
 		return TRUE
 
 /obj/item/clothing/gloves/brown_short_gloves
-	name = "Short leather gloves"
-	desc = "Короткие кожаные перчатки облегающие руки."
+	name = "short leather gloves"
+	desc = "Короткие облегающие перчатки из кожи."
 	icon_state = "brown_short_gloves"
 	item_state = "brown_short_gloves"
 	sprite_sheets = list(
