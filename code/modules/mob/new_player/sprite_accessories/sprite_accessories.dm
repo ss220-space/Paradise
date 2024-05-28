@@ -348,9 +348,8 @@
 	gender = FEMALE
 
 /datum/sprite_accessory/undershirt/shirt_colorized/female/female_cuttedshirt
-	name = "Cutted shirt"
+	name = "Female Colorized Cutted Shirt"
 	icon_state = "female_cuttedshirt"
-	gender = FEMALE
 	sprite_sheets = list(
 	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
@@ -361,7 +360,6 @@
 /datum/sprite_accessory/undershirt/shirt_colorized/female/female_longslevshirt
 	name = "Long sleeve shirt"
 	icon_state = "female_longslevshirt"
-	gender = FEMALE
 	sprite_sheets = list(
 	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',

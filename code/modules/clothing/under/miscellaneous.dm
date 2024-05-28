@@ -1159,7 +1159,7 @@
 
 /obj/item/clothing/under/dress50s
 	name = "Old Soviet dress"
-	desc = "Платье в  горошек под манер старой моды, кажется такое носят женщины в СССП."
+	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
 	over_shoes = TRUE
 	icon_state = "dress50s"
 	item_state = "dress50s"

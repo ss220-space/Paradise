@@ -68,5 +68,4 @@
 
 /datum/gear/shoes/leather_boots
 	display_name = "High leather boots"
-	description = "Стройные сапоги сделанные из кожи."
 	path = /obj/item/clothing/shoes/leather_boots
