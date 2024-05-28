@@ -443,7 +443,7 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -544,7 +544,7 @@
 	taste_description = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
