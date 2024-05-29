@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
-	plane = GAME_PLANE
+	plane = GHOST_PLANE
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE
@@ -41,8 +41,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	verbs += list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -303,7 +303,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
 		if(source)
-			var/obj/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /obj/screen/alert/notify_cloning)
+			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
 				if(client && client.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
@@ -455,9 +455,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
-/mob/dead/observer/orbit()
+/mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
@@ -617,20 +617,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/update_sight()
 	if (!ghostvision)
-		see_invisible = SEE_INVISIBLE_LIVING
+		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 
 	updateghostimages()
 	. = ..()
 
 /mob/dead/observer/proc/updateghostsight()
 	if(!seedarkness)
-		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+		set_invis_see(SEE_INVISIBLE_OBSERVER_NOLIGHTING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 		if(!ghostvision)
-			see_invisible = SEE_INVISIBLE_LIVING
+			set_invis_see(SEE_INVISIBLE_LIVING)
 
 	updateghostimages()
 

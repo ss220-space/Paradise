@@ -307,7 +307,7 @@
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
 ///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
-///from base of atom/movable/onTransitZ(): (old_z, new_z)
+///from base of atom/movable/on_changed_z_level(): (turf/old_turf, turf/new_turf, same_z_layer)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 ///called when the movable is placed in an unaccessible area, used for stationloving: ()
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded"
@@ -363,8 +363,19 @@
 ///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
 #define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
 	#define COMPONENT_BLOCK_MAGIC (1<<0)
+
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
+///from base of hud/show_to(): (datum/hud/hud_source)
+#define COMSIG_MOB_HUD_REFRESHED "mob_hud_refreshed"
+
+///from base of mob/set_sight(): (new_sight, old_sight)
+#define COMSIG_MOB_SIGHT_CHANGE "mob_sight_changed"
+///from base of mob/set_invis_see(): (new_invis, old_invis)
+#define COMSIG_MOB_SEE_INVIS_CHANGE "mob_see_invis_change"
+///from base of mob/set_see_in_dark(): (new_range, old_range)
+#define COMSIG_MOB_SEE_IN_DARK_CHANGE "mob_see_in_dark_change"
+
 ///from base of atom/attack_hand(): (mob/user)
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /obj/item/attack(): (mob/M, mob/user)
@@ -447,6 +458,13 @@
 
 /// from /mob/proc/slip(): (weaken, obj/slipped_on, lube_flags [mobs.dm], tilesSlipped)
 #define COMSIG_MOB_SLIPPED "mob_slipped"
+
+/// From base of /mob/proc/reset_perspective() : ()
+#define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
+/// from base of /client/proc/set_eye() : (atom/old_eye, atom/new_eye)
+#define COMSIG_CLIENT_SET_EYE "client_set_eye"
+// from /client/proc/change_view() : (new_size)
+#define COMSIG_VIEW_SET "view_set"
 
 // /mob/living signals
 
@@ -533,6 +551,9 @@
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/// from base of /client/proc/handle_popup_close() : (window_id)
+#define COMSIG_POPUP_CLEARED "popup_cleared"
 
 // /mob/living/carbon signals
 
@@ -1025,3 +1046,7 @@
 #define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
+
+// HUD:
+/// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
+#define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"

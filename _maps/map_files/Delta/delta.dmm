@@ -58731,8 +58731,8 @@
 "hRD" = (
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 5";
-	name = "Cell 5 Flasher";
+	id = "Cell 4";
+	name = "Cell 4 Flasher";
 	pixel_y = -28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -82909,8 +82909,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 4";
-	name = "Cell 4 Flasher";
+	id = "Cell 5";
+	name = "Cell 5 Flasher";
 	pixel_y = 28
 	},
 /obj/item/radio/intercom/locked/prison{

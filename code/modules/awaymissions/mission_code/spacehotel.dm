@@ -3,7 +3,9 @@
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"

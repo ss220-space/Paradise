@@ -140,11 +140,9 @@
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	see_invisible = SEE_INVISIBLE_OBSERVER
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
 	sync_lighting_plane_alpha()
 
 /mob/living/proc/handle_critical_condition()
@@ -178,7 +176,7 @@
 				healths.icon_state = "health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 
@@ -216,7 +214,7 @@
 	if(healths)
 		..()
 	if(healthdoll)
-		var/obj/screen/healthdoll/living/livingdoll = healthdoll
+		var/atom/movable/screen/healthdoll/living/livingdoll = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -242,7 +240,7 @@
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
 			livingdoll.add_filter("inset_drop_shadow", 2, drop_shadow_filter(size = -1))
 	if(severity > 0)
-		overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
 

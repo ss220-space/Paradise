@@ -171,6 +171,7 @@
 			if(viewer.client)
 				passed_clients += viewer.client
 	var/image/image = image('icons/obj/cardboard_boxes.dmi', source, "cardboard_special", source.layer + 0.01)
+	SET_PLANE_EXPLICIT(image, ABOVE_LIGHTING_PLANE, source)
 	image.alpha = 0
 	flick_overlay(image, passed_clients, 1.5 SECONDS)
 	animate(image, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)

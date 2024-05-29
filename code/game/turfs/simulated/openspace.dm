@@ -1,16 +1,3 @@
-GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdrop, new)
-
-/atom/movable/openspace_backdrop
-	name = "openspace_backdrop"
-	anchored = TRUE
-	icon = 'icons/turf/space.dmi'
-	icon_state = "grey"
-	plane = OPENSPACE_BACKDROP_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = SPLASHSCREEN_LAYER
-	//I don't know why the others are aligned but I shall do the same.
-	vis_flags = VIS_INHERIT_ID
-
 /turf/simulated/openspace
 	name = "open space"
 	desc = "Watch your step!"
@@ -50,15 +37,12 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	. = ..()
 	if(!GET_TURF_BELOW(src))
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
-	plane = OPENSPACE_PLANE
-	layer = OPENSPACE_LAYER
-	vis_contents += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/simulated/openspace/LateInitialize()
 	. = ..()
-	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
+	AddElement(/datum/element/turf_z_transparency)
 
 /turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)

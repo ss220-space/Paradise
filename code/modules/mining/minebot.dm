@@ -255,7 +255,7 @@
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 

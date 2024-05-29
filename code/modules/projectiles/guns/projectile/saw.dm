@@ -27,7 +27,7 @@
 
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/50, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 
@@ -117,7 +117,7 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45/weak
 	caliber = "mm55645"
-	max_ammo = 200
+	max_ammo = 100
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
@@ -140,7 +140,7 @@
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
 /obj/item/ammo_box/magazine/mm556x45/update_icon_state()
-	icon_state = "a762-[round(ammo_count(), 40)]"
+	icon_state = "a762-[round(ammo_count(), 20)]"
 
 //casings//
 

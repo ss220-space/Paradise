@@ -25,7 +25,7 @@
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
 		adjust_alien_plasma(breath.toxins*250)
-		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
+		throw_alert("alien_tox", /atom/movable/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
 
