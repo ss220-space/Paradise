@@ -1,10 +1,9 @@
 /obj
-	var/obj_flags = NONE
 	//var/datum/module/mod		//not used
+	var/obj_flags = NONE
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = 2
-	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
@@ -28,7 +27,6 @@
 	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
@@ -40,10 +38,7 @@
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
+		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -53,6 +48,8 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -144,7 +141,7 @@
 
 		// check for TK users
 
-		if(istype(usr, /mob/living/carbon/human))
+		if(ishuman(usr))
 			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
 				if(!(usr in nearby))
 					if(usr.client && usr.machine == src)
@@ -229,11 +226,11 @@
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-			anchored = !anchored
+			set_anchored(!anchored)
 		return TRUE
 	return FALSE
 
@@ -288,6 +285,16 @@
 /obj/proc/is_mob_spawnable() //Called by spawners_menu methods to determine if you can use an object through spawn-menu
 	//just override it to return TRUE in your object if you want to use it through spawn menu
 	return
+
+/// Set whether the item should be sharp or not
+/obj/proc/set_sharpness(new_sharp_val)
+	if(sharp == new_sharp_val)
+		return
+	sharp = new_sharp_val
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
+	if(!sharp && new_sharp_val)
+		AddComponent(/datum/component/surgery_initiator)
+
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

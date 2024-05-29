@@ -76,6 +76,10 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/civ
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, что бы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
@@ -860,30 +864,17 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial)
-	. = ..()
-
-	if(slot == SLOT_HUD_JUMPSUIT)
-		if(!user.ventcrawler)
-			user.ventcrawler = 1
-
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, silent = FALSE)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
-	..()
+	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
 
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
-	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(SLOT_HUD_BACK, SLOT_HUD_HANDCUFFED, SLOT_HUD_LEGCUFFED, SLOT_HUD_LEFT_HAND, \
-										SLOT_HUD_RIGHT_HAND, SLOT_HUD_BELT, SLOT_HUD_HEAD, SLOT_HUD_OUTER_SUIT)
+/obj/item/clothing/under/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	// Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
+	var/slots_must_be_empty = ITEM_SLOT_BACK|ITEM_SLOT_BELT|ITEM_SLOT_HEAD|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HANDS|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED
 
-	var/obj/item/slot_item
-	for(var/slot_id in slot_must_be_empty)
-		slot_item = user.get_item_by_slot(slot_id)
-		if(slot_item)
-			to_chat(user, span_warning("Вы не можете залезть в вентиляцию с [slot_item.name]."))
+	for(var/obj/item/item as anything in user.get_equipped_items(include_hands = TRUE))
+		if(item.slot_flags & slots_must_be_empty)
+			if(provide_feedback)
+				to_chat(user, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
 			return FALSE
 
 	return TRUE
@@ -896,12 +887,19 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_uniform"
 	item_color = "cursedclown"
-	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi'
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
+
+
+/obj/item/clothing/under/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"

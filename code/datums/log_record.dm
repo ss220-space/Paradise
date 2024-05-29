@@ -31,7 +31,7 @@
 	else if(isatom(subject))
 		var/atom/A = subject
 		. = A.name
-	else if(istype(subject, /datum))
+	else if(isdatum(subject))
 		var/datum/D = subject
 		return D.type
 	else

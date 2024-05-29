@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
@@ -220,7 +220,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
 	if(reskin_allowed)
-		if(istype(W, /obj/item/pen))
+		if(is_pen(W))
 			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
 			if(!t)
 				return
@@ -326,9 +326,9 @@
 	name = "protoype nanite autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with body repair. Nanomachines son."
 	icon_state = "bonepen"
-	amount_per_transfer_from_this = 30
-	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("nanocalcium" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())

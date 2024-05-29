@@ -6,8 +6,9 @@
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
+	can_buckle_to = FALSE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -170,12 +171,6 @@
 	active_software = installed_software["mainmenu"] // Default us to the main menu
 	ram = min(initial(ram) + extra_memory, 170)
 
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
-
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -203,13 +198,6 @@
 		return 1
 	return 0
 
-/mob/living/silicon/pai/restrained()
-	if(istype(loc,/obj/item/paicard))
-		return 0
-	..()
-
-/mob/living/silicon/pai/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	return
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -298,7 +286,7 @@
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.drop_item_ground(card)
-	else if(istype(card.loc, /obj/item/pda))
+	else if(is_pda(card.loc))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
 
@@ -429,9 +417,9 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 
 	if(client.eye != src)
@@ -440,19 +428,18 @@
 			return
 
 	if(sight_mode & SILICONMESON)
-		sight |= SEE_TURFS
+		add_sight(SEE_TURFS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONTHERM)
-		sight |= SEE_MOBS
+		add_sight(SEE_MOBS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONNIGHTVISION)
 		nightvision = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	..()
 
 
 //Overriding this will stop a number of headaches down the track.
@@ -539,7 +526,7 @@
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = 0 //this is reset every canmove update otherwise
+	set_density(FALSE) //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
@@ -590,7 +577,7 @@
 		icon_state = "[chassis]"
 		resting = 0
 	if(custom_sprite)
-		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.onmob_sheets[ITEM_SLOT_HEAD_STRING] = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.item_state = "[icon_state]_hand"
@@ -603,7 +590,7 @@
 	return H
 
 /mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(user) || !Adjacent(user))
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
 		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))

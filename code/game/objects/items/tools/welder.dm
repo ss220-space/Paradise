@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	var/force_enabled = 15
 	throwforce = 5
@@ -45,6 +45,7 @@
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)

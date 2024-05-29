@@ -292,20 +292,20 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = FALSE
-		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 	else
 		clear_alert("not_enough_oxy")
 		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = FALSE
-		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = FALSE
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 		clear_alert("not_enough_tox")
@@ -409,7 +409,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
 		regenerate_icons()
@@ -471,7 +471,7 @@
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
-	density = initial(density)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
 	update_canmove()
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
@@ -514,12 +514,12 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/show_inv(mob/user as mob)
+/mob/living/simple_animal/show_inv(mob/user)
 	if(!can_collar)
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
+	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.item_flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -528,14 +528,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_NECK)
 			return pcollar
 	. = ..()
 
-/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_NECK)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -557,18 +557,18 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 	I.forceMove(src)
 
 	switch(slot)
-		if(SLOT_HUD_COLLAR)
+		if(ITEM_SLOT_NECK)
 			add_collar(I)
 
 
 /mob/living/simple_animal/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
-		return
+		return .
 
 	if(I == pcollar)
 		pcollar = null
@@ -619,12 +619,10 @@
 	can_have_ai = FALSE
 
 /mob/living/simple_animal/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	nightvision = 8
-	see_invisible = SEE_INVISIBLE_OBSERVER
-	sync_lighting_plane_alpha()
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
+	..()
 
 /mob/living/simple_animal/update_sight()
 	if(!client)
@@ -634,17 +632,17 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
+	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
@@ -669,10 +667,11 @@
 		toggle_ai(AI_ON)
 
 
-/mob/living/simple_animal/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	if(AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+	if(AIStatus == AI_Z_OFF && old_turf?.z)
+		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
+	if(!QDELETED(src))
 		toggle_ai(initial(AIStatus))
 
 

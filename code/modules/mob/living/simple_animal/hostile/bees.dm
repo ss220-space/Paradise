@@ -53,7 +53,7 @@
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
 
-/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)

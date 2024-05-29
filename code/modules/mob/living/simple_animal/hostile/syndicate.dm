@@ -136,9 +136,9 @@
 					depotarea.saw_double_agent(M)
 			depotarea.declare_started()
 		seen_enemy_name = target.name
-		if(istype(target, /obj/mecha))
+		if(ismecha(target))
 			depotarea.saw_mech(target)
-		if(istype(target, /obj/spacepod))
+		if(isspacepod(target))
 			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
@@ -300,7 +300,7 @@
 	wander = 0
 	alert_on_spacing = FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 
@@ -314,7 +314,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -337,7 +337,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib

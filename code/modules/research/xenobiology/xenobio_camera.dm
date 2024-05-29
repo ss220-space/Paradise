@@ -1,8 +1,6 @@
 //Xenobio control console
 /mob/camera/aiEye/remote/xenobio
 	visible_icon = 1
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "camera_target"
 	ai_detector_visible = FALSE // The Xenobio Console does not trigger the AI Detector
 	/// Area that the xenobio camera eye is allowed to travel
 	var/allowed_area = null
@@ -12,13 +10,21 @@
 	var/area/A = get_area(loc)
 	allowed_area = A.name
 
-/mob/camera/aiEye/remote/xenobio/setLoc(t)
-	var/area/new_area = get_area(t)
+/mob/camera/aiEye/remote/xenobio/setLoc(turf/destination, force_update = FALSE)
+	var/area/new_area = get_area(destination)
 	if(!new_area)
 		return
 	if(new_area.name != allowed_area && !new_area.xenobiology_compatible)
 		return
 	return ..()
+
+/mob/camera/aiEye/remote/xenobio/can_z_move(direction, turf/start, turf/destination, z_move_flags = NONE, mob/living/rider)
+	. = ..()
+	if(!.)
+		return
+	var/area/new_area = get_area(.)
+	if(new_area && new_area.name != allowed_area && !(new_area && new_area.xenobiology_compatible))
+		return FALSE
 
 #define MAX_SLIME_IN_CONSOLE 5
 
@@ -27,6 +33,7 @@
 	*
 	* Camera overview console for xenobiology, handles slime management and xenobio actions
 */
+
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
 	desc = "A computer used for remotely handling slimes."

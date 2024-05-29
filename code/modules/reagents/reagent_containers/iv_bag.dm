@@ -28,12 +28,12 @@
 /obj/item/reagent_containers/iv_bag/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/pickup(mob/user)
+/obj/item/reagent_containers/iv_bag/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/iv_bag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack_self(mob/user)
@@ -72,8 +72,8 @@
 		end_processing()
 		return
 
-	// injection_limb.open = 2 after scalpel->hemostat->retractor
-	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < 2)
+	// injection_limb.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
+	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN)
 		end_processing()
 		return
 
@@ -102,7 +102,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -116,7 +116,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
@@ -152,7 +152,7 @@
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		switch(mode)
 			if(IV_DRAW)
 				. += "draw"

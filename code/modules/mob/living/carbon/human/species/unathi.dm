@@ -96,6 +96,7 @@
 /datum/species/unathi/ashwalker
 	name = SPECIES_ASHWALKER_BASIC
 	name_plural = "Ash Walkers"
+	inherent_factions = list("ashwalker")
 
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
@@ -126,23 +127,22 @@
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
 
+
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-	speedylegs(H)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
 	SIGNAL_HANDLER
 
 	if(is_mining_level(H.z))
-		speed_mod = initial(speed_mod)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 	else
-		speed_mod = 0
-	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
@@ -252,7 +252,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	punchdamagehigh = 18
 	punchstunthreshold = 18	//+8 claws of powergaming
 	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
-	no_equip = list(SLOT_HUD_SHOES) //everyone have to pay for
+	no_equip = list(ITEM_SLOT_FEET) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
@@ -267,16 +267,13 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 /datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
-	var/obj/shoes = C.get_item_by_slot(SLOT_HUD_SHOES)
-	if(shoes && C.can_unEquip(shoes))
-		C.drop_item_ground(shoes)
 	var/obj/item/organ/external/head/head_organ = C.get_organ(BODY_ZONE_HEAD)
 	head_organ?.ha_style = "Drake"
 	C.change_eye_color("#A02720")
 	C.update_dna()
 	C.update_inv_head()
 	C.update_inv_wear_suit() //update sprites for digi legs
-	C.weather_immunities |= "ash"
+	C.weather_immunities += "ash"	// += since we can get this from other sources
 	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(!fire)
 		fire = new

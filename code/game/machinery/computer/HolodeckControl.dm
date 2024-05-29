@@ -240,7 +240,7 @@
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			return 0
 
 	return 1
@@ -357,14 +357,14 @@
 /turf/simulated/floor/holofloor/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE
 
 /obj/structure/table/holotable/has_prints()
 	return FALSE
 
 /obj/structure/table/holotable
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
 
 /obj/structure/table/holotable/wood
@@ -378,7 +378,7 @@
 	return FALSE
 
 /obj/structure/chair/stool/holostool
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -395,7 +395,7 @@
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
-	density = 1
+	density = TRUE
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
@@ -405,7 +405,7 @@
 	return FALSE
 
 /obj/structure/rack/holorack
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/item/holo
 	damtype = STAMINA
@@ -481,7 +481,7 @@
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		to_chat(user, span_notice("[src] can now be concealed."))
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -509,7 +509,7 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -518,12 +518,12 @@
 		if(G.state<2)
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
-		G.affecting.loc = src.loc
+		G.affecting.forceMove(loc)
 		G.affecting.Weaken(10 SECONDS)
 		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
 		qdel(W)
 		return
-	else if(istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(isitem(W) && get_dist(src,user)<2)
 		user.drop_from_active_hand(src)
 		visible_message(span_notice("[user] dunks [W] into the [src]!"))
 		return
@@ -544,7 +544,7 @@
 
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM,/obj/item/projectile))
+	if(isitem(AM) && !isprojectile(AM))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message(span_warning("Swish! [AM] lands in [src]."))

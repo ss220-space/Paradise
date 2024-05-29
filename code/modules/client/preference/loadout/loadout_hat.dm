@@ -1,6 +1,6 @@
 /datum/gear/hat
 	subtype_path = /datum/gear/hat
-	slot = SLOT_HUD_HEAD
+	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat
@@ -22,6 +22,10 @@
 /datum/gear/hat/flatcap
 	display_name = "flat cap"
 	path = /obj/item/clothing/head/flatcap
+
+/datum/gear/hat/ushanka
+	display_name = "ushanka"
+	path = /obj/item/clothing/head/ushanka
 
 /datum/gear/hat/witch
 	display_name = "witch hat"

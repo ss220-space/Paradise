@@ -75,7 +75,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -318,12 +318,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	set_anchored(!anchored)
 	if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	else if(!anchored)
-		anchored = TRUE
 		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)
@@ -483,7 +482,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
 	var/mode = "dispense"

@@ -239,15 +239,13 @@
 			if(scanner == src)
 				continue
 			if(scanner.anchored)
-				anchored = FALSE
+				set_anchored(FALSE)
 				update_icon(UPDATE_ICON_STATE)
 				return
 
 	// Update density
-	if(anchored)
-		density = TRUE
-	else
-		density = FALSE
+	set_density(anchored)
+
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -256,17 +256,19 @@
 			var/mouth_covered = FALSE
 			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.wear_mask
+				if(isclothing(victim.wear_mask))
+					var/obj/item/clothing/cloth = victim.wear_mask
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.wear_mask
 			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
@@ -274,10 +276,12 @@
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.head
+				if(isclothing(victim.head))
+					var/obj/item/clothing/cloth = victim.head
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = TRUE
 				if(!safe_thing)
@@ -496,7 +500,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
@@ -1118,5 +1122,24 @@
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/animal_feed
+	name = "Animal Feed"
+	id = "afeed"
+	description = "Food that pets are fed."
+	color = "#ac3308"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "animal feed"
 
-
+/datum/reagent/consumable/animal_feed/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+		M.AdjustDisgust(-5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_notice("You feel delicious yummy snack taste!"))
+	else
+		M.AdjustDisgust(5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_warning("Yuack! What a terrible taste!"))
+	return ..() | update_flags

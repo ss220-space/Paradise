@@ -229,14 +229,11 @@
 	name = "Toggle Light"
 	button_icon_state = "mech_lights_off"
 
-/datum/action/innate/minedrone/toggle_light/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 
-	if(user.light_on)
-		user.set_light_on(FALSE)
-	else
-		user.set_light_range(6)
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+/datum/action/innate/minedrone/toggle_light/Activate()
+	owner.set_light_on(!owner.light_on)
+	to_chat(owner, span_notice("You toggle your light [owner.light_on ? "on" : "off"]."))
+
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
@@ -258,7 +255,7 @@
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 

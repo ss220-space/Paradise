@@ -72,7 +72,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/alien/resin/wall
@@ -143,7 +143,7 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
@@ -236,7 +236,7 @@
 	update_freelook_sight()
 
 	sleep(0.4 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 
 	sleep(0.1 SECONDS)
@@ -262,7 +262,7 @@
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 
 	sleep(0.4 SECONDS)
@@ -385,16 +385,16 @@
 	var/turf/E = get_step(src, EAST)
 	var/turf/W = get_step(src, WEST)
 	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
+		if(isfloorturf(N))
 			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
 	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
+		if(isfloorturf(S))
 			add_overlay(weedImageCache[WEED_NORTH_EDGING])
 	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
+		if(isfloorturf(E))
 			add_overlay(weedImageCache[WEED_WEST_EDGING])
 	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
+		if(isfloorturf(W))
 			add_overlay(weedImageCache[WEED_EAST_EDGING])
 
 
@@ -540,7 +540,7 @@
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT) && status != BURST)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
 

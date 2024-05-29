@@ -45,7 +45,7 @@
 			for(direct in list(WEST,NORTHWEST,NORTH))
 				possible_turfs += get_step(src,direct)
 		for(var/turf/spawn_turf in possible_turfs)
-			if(!istype(spawn_turf, /turf/simulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
+			if(!iswallturf(spawn_turf) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
 		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
 			ninja_action.use_action()
@@ -85,7 +85,7 @@
 	return FALSE
 
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
+	if(istype(L) && has_gravity())
 		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		add_attack_logs(L, src, "Stepped on Caltrop")

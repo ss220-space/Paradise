@@ -122,8 +122,8 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), SLOT_HUD_OUTER_SUIT)
-	user.equip_to_slot_or_del(new helmet_type(user), SLOT_HUD_HEAD)
+	user.equip_to_slot_or_del(new suit_type(user), ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(new helmet_type(user), ITEM_SLOT_HEAD)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -153,7 +153,7 @@
 	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter"
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
@@ -171,6 +171,7 @@
 
 /obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 
 
@@ -208,7 +209,7 @@
 								span_italics("You hear a metal screeching sound."))
 
 			playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, TRUE)
-			if(!do_after(user, 3 SECONDS, target = airlock ))
+			if(!do_after(user, 3 SECONDS, airlock))
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
@@ -317,7 +318,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
-	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
@@ -332,6 +333,7 @@
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
@@ -475,7 +477,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/user = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
 			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
@@ -585,14 +587,15 @@
 /obj/item/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	icon_state = "ling_shield"
 	block_chance = 50
 	var/remaining_uses //Set by the changeling ability.
 
 
-/obj/item/shield/changeling/New()
-	..()
+/obj/item/shield/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!"), \
 							span_warning("We inflate our hand into a strong shield."), \
@@ -639,10 +642,13 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL | HIDETAIL
+	clothing_flags = STOPSPRESSUREDMAGE
+	flags_inv = HIDETAIL
+	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -651,8 +657,9 @@
 		)
 
 
-/obj/item/clothing/suit/space/changeling/New()
-	..()
+/obj/item/clothing/suit/space/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!"), \
 							span_warning("We inflate our flesh, creating a spaceproof suit!"), \
@@ -670,15 +677,23 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
+	clothing_flags = STOPSPRESSUREDMAGE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
+	item_flags = DROPDEL
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 	species_restricted = null
+	faction_restricted = null
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
+
+
+/obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
 
 /***************************************\
@@ -705,12 +720,14 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
+	species_restricted = null
+	faction_restricted = null
 	hide_tail_by_species = list(SPECIES_VULPKANIN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -721,8 +738,9 @@
 		)
 
 
-/obj/item/clothing/suit/armor/changeling/New()
-	..()
+/obj/item/clothing/suit/armor/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), \
 							span_warning("We harden our flesh, creating a suit of armor!"), \
@@ -733,7 +751,15 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = BLOCKHAIR | NODROP | DROPDEL
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
+	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	species_restricted = null
+	faction_restricted = null
+
+
+/obj/item/clothing/head/helmet/changeling/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+

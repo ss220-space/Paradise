@@ -212,7 +212,7 @@
 		if(broken_overlay)
 			. += broken_overlay
 		if(broken_lightmask_overlay)
-			underlays += emissive_appearance(icon, broken_lightmask_overlay)
+			underlays += emissive_appearance(icon, broken_lightmask_overlay, src)
 		if(panel_overlay && panel_open)
 			. += panel_overlay
 		return
@@ -234,7 +234,7 @@
 			. += deny_lightmask
 
 	if(!lightmask_used && lightmask_overlay)
-		underlays += emissive_appearance(icon, lightmask_overlay)
+		underlays += emissive_appearance(icon, lightmask_overlay, src)
 
 	if(panel_overlay && panel_open)
 		. += panel_overlay
@@ -251,7 +251,7 @@
 
 
 /obj/machinery/vending/extinguish_light(force = FALSE)
-	if(light)
+	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
 
@@ -937,27 +937,6 @@
 		return
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
-
-/obj/machinery/vending/onTransitZ()
-	return
-/*
- * Vending machine types
- */
-
-/*
-
-/obj/machinery/vending/[vendors name here]   // --vending machine template   :)
-	name = ""
-	desc = ""
-	icon = ''
-	icon_state = ""
-	vend_delay = 15
-	products = list()
-	contraband = list()
-	premium = list()
-
-*/
-
 
 /obj/machinery/vending/assist
 
@@ -1911,7 +1890,7 @@
 	deny_overlay = "engivend_deny"
 
 	req_access = list(11,24) // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/access_control = 10,/obj/item/assembly/control/airlock = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend
@@ -2298,6 +2277,8 @@
 		/obj/item/toy/pet_rock = 5,
 		/obj/item/pet_carrier/normal = 3,
 		/obj/item/pet_carrier = 5,
+		/obj/item/reagent_containers/food/condiment/animalfeed = 5,
+		/obj/item/reagent_containers/glass/pet_bowl = 3,
 	)
 
 	prices = list(
@@ -2316,6 +2297,8 @@
 		/obj/item/toy/pet_rock = 100,
 		/obj/item/pet_carrier/normal = 250,
 		/obj/item/pet_carrier = 100,
+		/obj/item/reagent_containers/food/condiment/animalfeed = 100,
+		/obj/item/reagent_containers/glass/pet_bowl = 50,
 	)
 
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
@@ -2898,7 +2881,7 @@
 		else if(flick_sequence & FLICK_DENY)
 			. += deny_overlay
 
-	underlays += emissive_appearance(icon, "nta_lightmask")
+	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
 
 /obj/machinery/vending/nta/ertarmory/blue

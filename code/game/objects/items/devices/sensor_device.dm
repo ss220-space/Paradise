@@ -5,7 +5,7 @@
 	icon_state = "scanner"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
 	var/datum/ui_module/crew_monitor/crew_monitor
 
@@ -27,7 +27,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(user.incapacitated() || !ishuman(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
 	if(over_object == user)

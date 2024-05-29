@@ -22,7 +22,7 @@
 
 /obj/item/twohanded/staff/broom/update_icon_state()
 	item_state = "[initial(icon_state)][HAS_TRAIT(src, TRAIT_WIELDED)]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)

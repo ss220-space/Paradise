@@ -60,10 +60,9 @@
 	set name = "Spin Chamber"
 	set category = "Object"
 	set desc = "Click to spin your revolver's chamber."
+	set src in usr
 
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M, src))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
@@ -76,7 +75,7 @@
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 
-/obj/item/gun/projectile/revolver/can_shoot()
+/obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)
 
 
@@ -114,8 +113,8 @@
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
-	flags = ABSTRACT | NODROP | DROPDEL
-	slot_flags = null
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
 	fire_sound = null
 	fire_sound_text = null
 	lefthand_file = null
@@ -124,6 +123,11 @@
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+
+
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/gun/projectile/revolver/fingergun/fake
@@ -238,7 +242,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
-	if(!spun && can_shoot())
+	if(!spun && can_shoot(user))
 		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 		Spin()
 	else
@@ -363,7 +367,7 @@
 
 	switch(choice)
 		if("Barrel")
-			if(!do_mob(user, src, 8 SECONDS))
+			if(!do_after(user, 8 SECONDS, src, NONE))
 				return
 			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
 			user.put_in_hands(barrel)
@@ -405,7 +409,7 @@
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
 				to_chat(user, span_notice("[src] already have [barrel]."))
-			else if(do_mob(user, src, 8 SECONDS))
+			else if(do_after(user, 8 SECONDS, src, NONE))
 				if(user.drop_transfer_item_to_loc(A, src))
 					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
 					barrel = A
@@ -428,7 +432,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
@@ -500,7 +504,7 @@
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
-			slot_flags = SLOT_FLAG_BACK
+			slot_flags = ITEM_SLOT_BACK
 			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
 			slung = TRUE
 			update_icon()

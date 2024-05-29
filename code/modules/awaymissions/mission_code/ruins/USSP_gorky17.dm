@@ -7,6 +7,7 @@
 	poweralm = FALSE
 	report_alerts = FALSE
 	requires_power = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/USSP_gorky17/solmaintnorth
 	name = "Gorky17 North sol maintenance"
@@ -95,7 +96,9 @@
 	icon_state = "away"
 	requires_power = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
@@ -219,10 +222,10 @@
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
+	use_starlight = TRUE
 
 
 
@@ -309,9 +312,7 @@
 	set name = "Enter name"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.incapacitated())
-		return
-	if(!ishuman(usr))
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)
@@ -579,7 +580,7 @@
 			for(var/obj/item/I in A.contents)
 				qdel(I)
 			qdel(A)
-		if(istype(A, /obj/structure/safe) || istype(A, /obj/item/gun))
+		if(istype(A, /obj/structure/safe) || isgun(A))
 			qdel(A)
 
 /obj/item/bombcore/sdg17/defuse()

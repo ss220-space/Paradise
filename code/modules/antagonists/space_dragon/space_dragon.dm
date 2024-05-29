@@ -95,7 +95,7 @@
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 
-/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 
@@ -150,9 +150,9 @@
 		to_chat(src, span_warning("Вы начинаете рвать стену на части..."))
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		var/timetotear = 2 SECONDS
-		if(istype(target, /turf/simulated/wall/r_wall))
+		if(isreinforcedwallturf(target))
 			timetotear = 4 SECONDS
-		if(do_after(src, timetotear, target = thewall))
+		if(do_after(src, timetotear, thewall))
 			if(!iswallturf(thewall))
 				return
 			thewall.dismantle_wall(TRUE)
@@ -163,7 +163,7 @@
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			to_chat(src, span_warning("Вы начинаете глотать [L] целиком..."))
-			if(!do_after(src, 3 SECONDS, target = L))
+			if(!do_after(src, 3 SECONDS, L))
 				return
 			if(eat(L))
 				adjustHealth(-L.maxHealth * 0.5)

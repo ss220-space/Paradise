@@ -1288,7 +1288,7 @@
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
-		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
+		H.equip_to_slot_or_del(C, ITEM_SLOT_BACKPACK)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1309,9 +1309,7 @@
 	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
-	H.dna.SetSEState(GLOB.jumpblock, TRUE)
-	genemutcheck(H, GLOB.jumpblock, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.gene_stability = 100
 
 /datum/outfit/admin/wizard
@@ -1414,4 +1412,5 @@
 		B.desc = "Sometimes, someone's just gotta die."
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
-		R.flags |= NODROP
+		ADD_TRAIT(R, TRAIT_NODROP, INNATE_TRAIT)
+

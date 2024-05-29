@@ -18,7 +18,7 @@
 	attacktext = "бьёт"
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
@@ -36,7 +36,7 @@
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -160,6 +160,8 @@
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
+		if(!hat_icon_file)
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 
@@ -228,7 +230,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
 		return FALSE
@@ -256,7 +258,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
-		if(inventory_head.flags & NODROP)
+		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!"))
 			return TRUE
 
@@ -281,13 +283,14 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
 		return FALSE
@@ -326,7 +329,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
-		if(inventory_hand.flags & NODROP)
+		if(HAS_TRAIT(inventory_hand, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_hand.name] застрял в лапах [src]! Его невозможно отнять!"))
 			return TRUE
 

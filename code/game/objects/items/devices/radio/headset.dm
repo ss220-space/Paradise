@@ -17,7 +17,7 @@
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -84,7 +84,7 @@
 /obj/item/radio/headset/alt
 	name = "bowman headset"
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -98,7 +98,7 @@
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
@@ -124,14 +124,14 @@
 	ks2type = /obj/item/encryptionkey/syndicate/taipan
 	freerange = TRUE
 	freqlock = FALSE
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 
 /obj/item/radio/headset/syndicate/taipan
 	name = "syndicate taipan headset"
 	icon_state = "taipan_headset"
 	item_state = "taipan_headset"
 	ks1type = /obj/item/encryptionkey/syndicate/taipan
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 
 /obj/item/radio/headset/syndicate/taipan/New()
 	. = ..()
@@ -166,14 +166,14 @@
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
 /obj/item/radio/headset/headset_brigphys
 	name = "brig physician's bowman headset"
 	desc = "This is used by your elite security's medical personnel. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 	ks2type = /obj/item/encryptionkey/headset_medsec
@@ -188,7 +188,7 @@
 /obj/item/radio/headset/headset_iaa/alt
 	name = "internal affairs bowman headset"
 	desc = "This is used by your elite legal team. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
@@ -244,7 +244,7 @@
 /obj/item/radio/headset/heads/captain/alt
 	name = "\proper the captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -265,7 +265,7 @@
 /obj/item/radio/headset/heads/hos/alt
 	name = "\proper the head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -289,6 +289,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
+
+/obj/item/radio/headset/heads/qm
+	name = "quartermaster's headset"
+	desc = "Smelling of tobacco and gunpowder, this headset has likely seen many backroom deals."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"
@@ -326,7 +333,7 @@
 /obj/item/radio/headset/heads/magistrate/alt
 	name = "\proper magistrate's bowman headset"
 	desc = "The headset of the Magistrate. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -340,7 +347,7 @@
 /obj/item/radio/headset/heads/blueshield/alt
 	name = "\proper blueshield's bowman headset"
 	desc = "The headset of the Blueshield. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -355,7 +362,7 @@
 /obj/item/radio/headset/ert/alt
 	name = "emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
@@ -374,7 +381,7 @@
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
 	desc = "The headset of final authority. Protects ears from flashbangs. Can transmit even if telecomms are down."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
@@ -433,6 +440,11 @@
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/encryptionkey))
+		if(ishuman(user) && loc == user)
+			var/mob/living/carbon/human/H_user = user
+			if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
+				to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+				return
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
@@ -450,6 +462,11 @@
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(ishuman(user) && loc == user)
+		var/mob/living/carbon/human/H_user = user
+		if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
+			to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+			return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	user.set_machine(src)
@@ -568,7 +585,7 @@
 		valid_headset_types = list()
 		for(var/headset in subtypesof(/obj/item/radio/headset))
 			var/obj/item/radio/headset/temp = headset
-			if(initial(temp.flags) & EARBANGPROTECT)
+			if(initial(temp.item_flags) & BANGPROTECT_MINOR)
 				if(headset in forbidden_headset_typecache)
 					continue
 				valid_headset_types[initial(temp.name)] = temp
@@ -584,7 +601,7 @@
 		to_chat(user, span_notice("You decided not to convert your headset yet."))
 		return
 	var/obj/item/radio/headset/headset = target
-	headset.flags |= EARBANGPROTECT
+	headset.item_flags |= BANGPROTECT_MINOR
 	to_chat(user, span_notice("You selected [headset_name]. Now it's protected against loud noises."))
 	var/headset_path = valid_headset_types[headset_name]
 	var/obj/item/radio/headset/mask = headset_path

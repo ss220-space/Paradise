@@ -64,7 +64,7 @@
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
-	if(spy_spider_attached || !((slot_flags & SLOT_FLAG_OCLOTHING	) || (slot_flags & SLOT_FLAG_ICLOTHING	)))
+	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_CLOTH_OUTER) || (slot_flags & ITEM_SLOT_CLOTH_INNER)))
 		to_chat(user, "<span class='warning'>Ты не находишь места для жучка!</span>")
 		return TRUE
 	var/obj/item/radio/spy_spider/spy_spider = I
@@ -119,7 +119,7 @@
 		return TRUE
 
 	var/attempt_cancel_message = "<span class='warning'>Ты не успеваешь установить жучок.</span>"
-	if(!do_after_once(user, 3 SECONDS, TRUE, src, TRUE, attempt_cancel_message))
+	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_message = attempt_cancel_message))
 		return TRUE
 
 	user.temporarily_remove_item_from_inventory(spy_spider)

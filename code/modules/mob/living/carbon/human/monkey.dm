@@ -7,6 +7,11 @@
 	icon = null
 	. = ..(mapload, species)
 
+/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species)
+	. = ..()
+	dna.SetSEState(GLOB.monkeyblock, TRUE)
+	LAZYOR(active_genes, /datum/dna/gene/monkey)
+
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	tts_seed = "Sniper"
@@ -30,8 +35,3 @@
 	. = ..(mapload, /datum/species/monkey/unathi)
 	tts_seed = "Witchdoctor"
 	//holder_type = /obj/item/holder/stok
-
-/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	. = ..()
-	if(prob(50) && (has_gravity(src) || grav_ignore))
-		drop_item_ground(shoes, force = TRUE)

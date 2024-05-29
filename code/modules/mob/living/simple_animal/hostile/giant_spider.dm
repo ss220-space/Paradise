@@ -226,7 +226,7 @@
 						if(L.stat != DEAD)
 							continue
 						large_cocoon = 1
-						L.loc = C
+						L.forceMove(C)
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						fed++

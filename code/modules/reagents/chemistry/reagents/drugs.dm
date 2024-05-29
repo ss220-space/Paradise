@@ -7,8 +7,8 @@
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+	if(isturf(M.loc) && !isspaceturf(M.loc))
+		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -44,8 +44,8 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && !istype(M.loc, /turf/space))
-		if(M.canmove && !M.restrained())
+	if(isturf(M.loc) && !isspaceturf(M.loc))
+		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))

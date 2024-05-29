@@ -398,7 +398,7 @@
 
 
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -445,7 +445,7 @@
 			to_chat(user, span_warning("Close the access panel before manipulating the personality slot!"))
 		else
 			to_chat(user, span_notice("You attempt to pull [paicard] free..."))
-			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(paicard)
 					user.visible_message(span_notice("[user] uses [W] to pull [paicard] out of [bot_name]!"),
 										span_notice("You pull [paicard] out of [bot_name] with [W]."))
@@ -501,7 +501,7 @@
 	pulse2.icon = 'icons/effects/effects.dmi'
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
-	pulse2.anchored = TRUE
+	pulse2.set_anchored(TRUE)
 	pulse2.dir = pick(GLOB.cardinal)
 	QDEL_IN(pulse2, 10)
 

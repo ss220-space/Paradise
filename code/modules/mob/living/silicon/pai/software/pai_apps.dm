@@ -357,7 +357,7 @@
 		last_message_time = world.time
 
 	to_chat(pai_holder, span_warning("Начался взлом объекта. Необходимо избегать любого передвижения для сохранения сигнала. Время ожидания: [hack_time/10] секунд."))
-	if(!do_after_once(pai_holder, hack_time, target = machinery))
+	if(!do_after(pai_holder, hack_time, machinery, max_interact_count = 1))
 		to_chat(pai_holder, span_notice("Ошибка. Взлом объекта завершён."))
 		cleanup_hack()
 		return
@@ -365,7 +365,7 @@
 		if(istype(machinery, /obj/machinery/door))
 			var/obj/machinery/door/D = machinery
 			D.open()
-		else if(istype(machinery, /obj/machinery/power/apc))
+		else if(isapc(machinery))
 			var/obj/machinery/power/apc/apc = machinery
 			apc.locked = FALSE
 			apc.update_icon()

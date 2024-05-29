@@ -13,6 +13,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TURF_COVERED "turf_covered"
 ///Turf slowdown will be ignored when this trait is added to a turf.
 #define TRAIT_TURF_IGNORE_SLOWDOWN "turf_ignore_slowdown"
+///Mobs won't slip on a wet turf while it has this trait
+#define TRAIT_TURF_IGNORE_SLIPPERY "turf_ignore_slippery"
 
 //mob traits
 #define TRAIT_PACIFISM "pacifism"
@@ -33,6 +35,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
+/// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
+/// Will block movement, `Life()` (!!!), and other stuff based on the mob.
+#define TRAIT_NO_TRANSFORM "block_transformations"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
 /// This mob heals from cult pylons.
@@ -59,12 +64,53 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 
-//item traits
+/// Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [SLIP_IGNORE_NO_SLIP_WATER] set
+#define TRAIT_NO_SLIP_WATER "noslip_water"
+/// Stops the mob from slipping on permafrost ice (not any other ice) (but anything with [SLIDE_ICE] set)
+#define TRAIT_NO_SLIP_ICE "noslip_ice"
+/// Stop the mob from sliding around from being slipped, but not the slip part.
+/// DOES NOT include ice slips.
+#define TRAIT_NO_SLIP_SLIDE "noslip_slide"
+/// Stops all slipping and sliding from ocurring
+#define TRAIT_NO_SLIP_ALL "noslip_all"
+/// Give us unsafe_unwrenching protection
+#define TRAIT_GUSTPROTECTION "gustprotection"
+
+/// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
+#define TRAIT_UNDENSE "undense"
+
+/* Traits for ventcrawling.
+ * Both give access to ventcrawling, but *_NUDE requires the user to be
+ * wearing no clothes and holding no items. If both present, *_ALWAYS
+ * takes precedence.
+ */
+#define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
+#define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+/// Overrides above traits to allow aliens to use their pockets
+#define TRAIT_VENTCRAWLER_ALIEN "ventcrawler_alien"
+/// If this trait is present all equipped items will be checked for ventcrawling possibilities.
+/// Takes precedence over all traits above
+#define TRAIT_VENTCRAWLER_ITEM_BASED "ventcrawler_item"
+
+/// Negates our gravity, letting us move normally on floors in 0-g
+#define TRAIT_NEGATES_GRAVITY "negates_gravity"
+/// We are ignoring gravity
+#define TRAIT_IGNORING_GRAVITY "ignores_gravity"
+/// We have some form of forced gravity acting on us
+#define TRAIT_FORCED_GRAVITY "forced_gravity"
+
+//***** ITEM TRAITS *****//
 #define TRAIT_CMAGGED "cmagged"
 /// The items needs two hands to be carried
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
 #define TRAIT_WIELDED "wielded"
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define TRAIT_SURGICAL "surgical_tool"
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
+/// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
+#define TRAIT_NODROP "nodrop"
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

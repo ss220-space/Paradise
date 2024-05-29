@@ -6,14 +6,15 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
+	supervisors = "the captain"
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#9f8545"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	alt_titles = list("Chief Supply Manager")
 	money_factor = 6
 	outfit = /datum/outfit/job/qm
 
@@ -23,7 +24,7 @@
 
 	uniform = /obj/item/clothing/under/rank/cargo
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/headset_cargo
+	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
 	l_pocket = /obj/item/lighter/zippo/qm
 	id = /obj/item/card/id/qm
@@ -44,10 +45,11 @@
 	spawn_positions = 2
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list(JOB_TITLE_HOP)
+	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Supply Manager","Loader")
 	money_factor = 2
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -71,7 +73,7 @@
 	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list(JOB_TITLE_HOP)
+	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -96,6 +98,7 @@
 		/obj/item/kitchen/knife/combat/survival = 1,
 		/obj/item/mining_voucher = 1,
 		/obj/item/stack/marker_beacon/ten = 1,
+		/obj/item/wormhole_jaunter = 1,
 		/obj/item/survivalcapsule = 1
 	)
 
@@ -110,7 +113,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = SLOT_HUD_SUIT_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/kitchen/knife/combat/survival = 1,
@@ -162,11 +165,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.soberblock)
-	H.check_mutations = 1
-
+	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
 
 /datum/job/chef
@@ -314,14 +313,8 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
-	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.clumsyblock)
-	if(!ismachineperson(H))
-		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(GLOB.comicblock)
-	H.check_mutations = TRUE
+	H.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
+	H.force_gene_block(GLOB.comicblock, TRUE, TRUE)
 	H.add_language(LANGUAGE_CLOWN)
 
 //action given to antag clowns

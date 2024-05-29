@@ -184,7 +184,7 @@
 	icon_state = "lavastaff"
 	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -230,7 +230,7 @@
 			animate(L, alpha = 255, time = create_delay)
 			user.visible_message("<span class='danger'>[user] points [src] at [T]!</span>")
 			timer = world.time + create_delay + 1
-			if(do_after(user, create_delay, target = T))
+			if(do_after(user, create_delay, T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)

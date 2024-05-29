@@ -4,7 +4,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdapainter"
 	base_icon_state = "pdapainter"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
@@ -76,7 +76,7 @@
 		add_fingerprint(user)
 		power_change()
 		return
-	if(istype(I, /obj/item/pda))
+	if(is_pda(I))
 		if(storedpda)
 			to_chat(user, "В аппарате уже есть PDA.")
 			return
@@ -98,7 +98,7 @@
 	default_welder_repair(user, I)
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			stat |= BROKEN
 			update_icon()

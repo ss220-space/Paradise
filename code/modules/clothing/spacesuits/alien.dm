@@ -94,7 +94,7 @@
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
@@ -207,43 +207,30 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
 		)
 
+/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)
+	. = ..()
+	if(magpulse)
+		ADD_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
+	else
+		REMOVE_TRAIT(src, TRAIT_NODROP, "[CLOTHING_TRAIT]_[UID_of(src)]")
+
 
 /obj/item/clothing/shoes/magboots/vox/update_icon_state()
 	return
 
 
-/obj/item/clothing/shoes/magboots/vox/attack_self(mob/user, forced = FALSE)
-	toggle_magpulse(user, forced)
-
-
-/obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, forced)
-	if(magpulse)
-		flags &= ~NOSLIP
-		flags &= ~NODROP
-		slowdown = slowdown_passive
-		if(!forced)
-			to_chat(user, "You relax your deathgrip on the flooring.")
-	else
-		flags |= NOSLIP
-		flags |= NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
-		slowdown = slowdown_active
-		if(!forced)
-			to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-	magpulse = !magpulse
-	user.update_gravity(user.mob_has_gravity())
-
-
 /obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
 //In case they somehow come off while enabled.
-/obj/item/clothing/shoes/magboots/vox/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/shoes/magboots/vox/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(magpulse)
-		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
-		toggle_magpulse(user, forced = TRUE)
+	if(slot == ITEM_SLOT_FEET && magpulse)
+		if(!silent)
+			user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
+		toggle_magpulse(user, silent = TRUE)
 
 
 /obj/item/clothing/shoes/magboots/vox/examine(mob/user)

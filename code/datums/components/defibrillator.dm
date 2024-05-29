@@ -174,7 +174,7 @@
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
-	if(!do_after(user, 3 SECONDS * speed_multiplier * gettoolspeedmod(user), target = target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+	if(!do_after(user, 3 SECONDS * speed_multiplier * gettoolspeedmod(user), target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
 		return
 
@@ -188,9 +188,7 @@
 		log_debug("Ghost of name [ghost.name] is bound to [target.real_name], but lacks a client. Deleting ghost.")
 		QDEL_NULL(ghost)
 
-
-
-	if(!do_after(user, 2 SECONDS * speed_multiplier * gettoolspeedmod(user), target = target)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+	if(!do_after(user, 2 SECONDS * speed_multiplier * gettoolspeedmod(user), target)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
 		return
 
@@ -241,7 +239,7 @@
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
-	if(time_dead > DEFIB_TIME_LIMIT)
+	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
 		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation."))
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)

@@ -2,7 +2,7 @@
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
@@ -43,35 +43,51 @@
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
 
-/obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
-	var/mob/living/carbon/C = user
-	if(!istype(C))
-		return FALSE
 
-	if(C.internal == src)
-		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
-		C.internal = null
-	else
-		if(!C.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
-			if(!C.wear_mask) // Do we have a mask equipped?
-				return FALSE
+/obj/item/tank/proc/toggle_internals(mob/living/carbon/user, silent = FALSE)
+	if(!iscarbon(user))
+		return
 
-			var/obj/item/clothing/mask/M = C.wear_mask
-			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
-			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
-				if(!silent)
-					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
-				return FALSE
-			if(M.up) // If the mask is equipped but pushed down
-				M.adjustmask(C) // Adjust it back
-
+	if(user.internal == src)
 		if(!silent)
-			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
-			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
-		C.internal = src
-	C.update_action_buttons_icon()
+			to_chat(user, span_notice("You close [src] valve."))
+		user.internal = null
+		user.update_action_buttons_icon()
+		return
+
+	// Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+	if(!user.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+		var/internals_allowed = FALSE
+		if(isclothing(user.wear_mask))
+			var/obj/item/clothing/cloth = user.wear_mask
+			if(cloth.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
+
+			// If the mask is equipped but pushed down
+			var/obj/item/clothing/mask/our_mask = user.wear_mask
+			if(!internals_allowed && istype(our_mask) && our_mask.up && (initial(our_mask.clothing_flags) & AIRTIGHT))
+				our_mask.adjustmask(user) // Adjust it back
+				internals_allowed = TRUE
+
+		if(!internals_allowed && isclothing(user.head))
+			var/obj/item/clothing/our_helmet = user.head
+			if(our_helmet.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
+
+		if(!internals_allowed)
+			if(!silent)
+				to_chat(user, span_warning("You are not wearing a suitable mask or helmet."))
+			return
+
+	if(!silent)
+		if(user.internal)
+			to_chat(user, span_notice("You switch your internals to [src]."))
+		else
+			to_chat(user, span_notice("You open [src] valve."))
+
+	user.internal = src
+	user.update_action_buttons_icon()
+
 
 /obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
@@ -80,7 +96,7 @@
 		return
 
 	var/obj/icon = src
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(!in_range(src, user))
@@ -131,7 +147,7 @@
 	..()
 
 	add_fingerprint(user)
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(istype(W, /obj/item/assembly_holder))

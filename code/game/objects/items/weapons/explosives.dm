@@ -1,15 +1,17 @@
+#define BOMB_OVERLAY_ID "bomb_overlay_id"
+
 /obj/item/grenade/plastic
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
 	item_state = "plastic-explosive"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	det_time = 10 SECONDS
 	display_timer = 0
 	origin_tech = "syndicate=1"
 	toolspeed = 1
 	var/atom/target
-	var/image_overlay
+	var/mutable_appearance/image_overlay
 	var/obj/item/assembly_holder/nadeassembly
 	var/assemblyattacher
 	var/notify_admins = TRUE
@@ -17,7 +19,7 @@
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
-	image_overlay = image('icons/obj/weapons/grenade.dmi', "[item_state]2")
+	image_overlay = mutable_appearance('icons/obj/weapons/grenade.dmi', "[item_state]2")
 
 
 /obj/item/grenade/plastic/Destroy()
@@ -68,13 +70,15 @@
 		nadeassembly.attack_self(user)
 		return
 	var/newtime = input(usr, "Please set the timer (in seconds).", "Timer", det_time/10) as null|num
-	if(isnull(newtime))
+	if(isnull(newtime) || !user.is_in_active_hand(src))
 		return
-	if(user.is_in_active_hand(src))
-		newtime = round(newtime)
-		det_time = clamp(newtime SECONDS, initial(det_time), 10 MINUTES)
-		to_chat(user, "Timer set for [newtime] seconds.")
-
+	newtime = newtime SECONDS
+	var/init_timer = initial(det_time)
+	if(newtime < init_timer || newtime > 10 MINUTES)
+		to_chat(user, span_warning("Timer cannot be lower than [init_timer / 10] seconds or higher than 10 minutes."))
+		return
+	det_time = newtime
+	to_chat(user, "Timer set for [newtime / 10] seconds.")
 
 
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
@@ -88,7 +92,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
 
-	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = AM))
+	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
 		return
 
 	if(!user.drop_item_ground(src))
@@ -101,7 +105,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time/10] second fuse")
 		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time/10] second fuse", user)
 
-	AddComponent(/datum/component/persistent_overlay, image_overlay, target)
+	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
 	if(!nadeassembly)
 		to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time/10].</span>")
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
@@ -195,7 +199,6 @@
 				location = get_turf(target)
 			else
 				location = get_atom_on_turf(target)
-			target.cut_overlay(image_overlay)
 	else
 		location = get_atom_on_turf(src)
 	if(location)
@@ -229,7 +232,6 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.cut_overlay(image_overlay)
 	else
 		location = get_turf(src)
 	if(location)
@@ -300,3 +302,7 @@
 		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 	qdel(src)
+
+
+#undef BOMB_OVERLAY_ID
+

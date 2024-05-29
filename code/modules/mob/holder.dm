@@ -5,7 +5,7 @@
 	icon = 'icons/obj/objects.dmi'
 	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	origin_tech = "biotech=2"
 
 
@@ -59,7 +59,7 @@
 		M.drop_item_ground(src)
 		to_chat(M, "[src.name] вырывается из вашей хватки!")
 		to_chat(L, "Вы вырываетесь из хвата [M.name]!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
 	L.resting = FALSE
@@ -78,7 +78,7 @@
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human/human_to_ask = over_object //changed to human to avoid stupid issues like xenos holding animals.
-	if(!istype(human_to_ask) || !Adjacent(human_to_ask) || !holder_type)
+	if(!istype(human_to_ask) || human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)
 		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
@@ -315,7 +315,7 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snake"
-	slot_flags = SLOT_FLAG_HEAD | SLOT_FLAG_NECK
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
 /obj/item/holder/parrot
 	name = "pet"

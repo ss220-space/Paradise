@@ -13,7 +13,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
 	var/on = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -125,13 +125,15 @@ REAGENT SCANNER
 			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
 				continue
 
-		var/image/I = new(loc = get_turf(in_turf_atom))
+		var/turf/T = get_turf(in_turf_atom)
+		var/image/I = new(loc = T)
 		var/mutable_appearance/MA = new(in_turf_atom)
 		MA.alpha = isliving(in_turf_atom) ? 255 : 128
 		MA.dir = in_turf_atom.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
+		SET_PLANE_EXPLICIT(MA, GAME_PLANE, T)
 		I.appearance = MA
 		t_ray_images += I
 
@@ -228,7 +230,7 @@ REAGENT SCANNER
 	if(alerted && !was_alerted)
 		for(var/mob/living/alerted_mob in alerted)
 			if(!alerted_mob.stat)
-				alerted_mob.do_alert_animation(alerted_mob)
+				do_alert_animation(alerted_mob)
 				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
 		was_alerted = TRUE
 		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
@@ -260,8 +262,9 @@ REAGENT SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
-	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -403,7 +406,7 @@ REAGENT SCANNER
 		return "<span class='highlight'>[jointext(., "<br>")]</span>"
 
 	var/mob/living/carbon/human/scan_subject = null
-	if (istype(target, /mob/living/carbon/human))
+	if (ishuman(target))
 		scan_subject = target
 	else if (istype(target, /obj/structure/closet/body_bag))
 		var/obj/structure/closet/body_bag/B = target
@@ -622,6 +625,9 @@ REAGENT SCANNER
 	set name = "Вкл/Выкл локализацию"
 	set category = "Object"
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	mode = !mode
 	switch(mode)
 		if(1)
@@ -675,7 +681,7 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -810,9 +816,10 @@ REAGENT SCANNER
 	name = "handheld body analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
+	base_icon_state = "bodyanalyzer"
 	item_state = "healthanalyser"
 	desc = "A handheld scanner capable of deep-scanning an entire body."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
@@ -826,6 +833,11 @@ REAGENT SCANNER
 	var/usecharge = 750
 	var/scan_time = 10 SECONDS //how long does it take to scan
 	var/scan_cd = 60 SECONDS //how long before we can scan again
+
+/obj/item/bodyanalyzer/rnd
+	icon_state = "bodyscan_0"
+	item_state = "portable_bodyscan"
+	base_icon_state = "bodyscan"
 
 /obj/item/bodyanalyzer/get_cell()
 	return cell
@@ -855,21 +867,21 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/update_icon_state()
 	if(!cell)
-		icon_state = "bodyanalyzer_0"
+		icon_state = "[base_icon_state]_0"
 		return
 	if(ready)
-		icon_state = "bodyanalyzer_1"
+		icon_state = "[base_icon_state]_1"
 	else
-		icon_state = "bodyanalyzer_2"
+		icon_state = "[base_icon_state]_2"
 
 
 /obj/item/bodyanalyzer/update_overlays()
 	. = ..()
 	var/percent = cell.percent()
 	var/overlayid = round(percent / 10)
-	. += "bodyanalyzer_charge[overlayid]"
+	. += "[base_icon_state]_charge[overlayid]"
 	if(printing)
-		. += "bodyanalyzer_printing"
+		. += "[base_icon_state]_printing"
 
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
@@ -906,7 +918,7 @@ REAGENT SCANNER
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
-		if(do_after(user, scan_time, target = M))
+		if(do_after(user, scan_time, M))
 			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"

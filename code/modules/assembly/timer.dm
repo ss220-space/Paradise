@@ -107,7 +107,7 @@
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()
-	if(usr.incapacitated() || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		usr << browse(null, "window=timer")
 		onclose(usr, "timer")
 		return

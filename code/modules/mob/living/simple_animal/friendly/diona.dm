@@ -12,7 +12,7 @@
 	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -90,7 +90,9 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
@@ -106,7 +108,7 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+			throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 			forceMove(M)
 		else
 			get_scooped(M)
@@ -137,7 +139,7 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 		return TRUE
 	else
 		return FALSE
@@ -214,7 +216,7 @@
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
-		if(do_after_once(src, 20, target = G))
+		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
@@ -277,7 +279,7 @@
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = initial(I.layer)
 	I.plane = initial(I.plane)
-	I.dropped()
+	I.dropped(src, null, silent)
 
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)

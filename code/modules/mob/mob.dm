@@ -234,32 +234,67 @@
 			validtargets[result_name] = M
 	return validtargets
 
-// If you're looking for `reset_perspective`, that's a synonym for this proc.
-/mob/proc/reset_perspective(atom/A)
-	if(client)
-		if(istype(A, /atom/movable))
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
-		else
-			if(isturf(loc))
-				client.eye = client.mob
-				client.perspective = MOB_PERSPECTIVE
-			else
-				client.perspective = EYE_PERSPECTIVE
-				client.eye = loc
-		return 1
 
-/mob/living/reset_perspective(atom/A)
+/**
+ * Reset the attached clients perspective (viewpoint)
+ *
+ * reset_perspective(null) set eye to common default : mob on turf, loc otherwise
+ * reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
+ */
+/mob/proc/reset_perspective(atom/new_eye)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!client)
+		return
+
+	if(new_eye)
+		if(ismovable(new_eye))
+			//Set the new eye unless it's us
+			if(new_eye != src)
+				client.perspective = EYE_PERSPECTIVE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+
+		else if(isturf(new_eye))
+			//Set to the turf unless it's our current turf
+			if(new_eye != loc)
+				client.perspective = EYE_PERSPECTIVE
+				client.set_eye(new_eye)
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+		else
+			return TRUE //no setting eye to stupid things like areas or whatever
+	else
+		//Reset to common defaults: mob if on turf, otherwise current loc
+		if(isturf(loc))
+			client.set_eye(client.mob)
+			client.perspective = MOB_PERSPECTIVE
+		else
+			client.perspective = EYE_PERSPECTIVE
+			client.set_eye(loc)
+
+	return TRUE
+
+
+/mob/living/reset_perspective(atom/new_eye)
 	. = ..()
 	if(.)
 		// Above check means the mob has a client
 		update_sight()
-		if(client.eye != src)
-			var/atom/AT = client.eye
-			AT.get_remote_view_fullscreens(src)
-		else
-			clear_fullscreen("remote_view", 0)
+		update_fullscreen()
 		update_pipe_vision()
+
+
+/// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
+/mob/living/proc/update_fullscreen()
+	if(client.eye && client.eye != src)
+		var/atom/client_eye = client.eye
+		client_eye.get_remote_view_fullscreens(src)
+	else
+		clear_fullscreen("remote_view", 0)
+
 
 /mob/dead/reset_perspective(atom/A)
 	. = ..()
@@ -272,8 +307,8 @@
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -361,6 +396,17 @@
 	return
 */
 
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	if(canon_client?.movingmob)
+		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
+		canon_client.movingmob = null
+
+	canon_client = null
 
 /mob/verb/memory()
 	set name = "Notes"
@@ -567,7 +613,7 @@
 	set category = "OOC"
 	reset_perspective(null)
 	unset_machine()
-	if(istype(src, /mob/living))
+	if(isliving(src))
 		if(src:cameraFollow)
 			src:cameraFollow = null
 
@@ -632,9 +678,6 @@
 		return FALSE
 	show_inv(user)
 
-
-/mob/proc/can_use_hands()
-	return
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
@@ -794,13 +837,17 @@
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)						return 0
-	if(client.moving)					return 0
-	if(stat==2)							return 0
-	if(anchored)						return 0
-	if(notransform)						return 0
-	if(restrained())					return 0
-	return 1
+	if(!canmove)
+		return FALSE
+	if(stat == DEAD)
+		return FALSE
+	if(anchored)
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		return FALSE
+	return TRUE
 
 /mob/proc/fall(var/forced)
 	drop_l_hand()
@@ -933,7 +980,7 @@
 	if(stat==DEAD)
 		return
 	var/turf/location = loc
-	if(istype(location, /turf/simulated))
+	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
 				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
@@ -965,14 +1012,6 @@
 	dir = angle2dir(rotation+dir2angle(dir))
 
 
-/mob/proc/can_ventcrawl(atom/clicked_on, override = FALSE)
-	return FALSE
-
-
-/mob/proc/handle_ventcrawl(atom/clicked_on)
-	return FALSE // Only living mobs can ventcrawl
-
-
 /**
   * Buckle to another mob
   *
@@ -980,30 +1019,35 @@
   *
   * Turns you to face the other mob too
   */
-/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(M.buckled)
-		return 0
-	var/turf/T = get_turf(src)
-	if(M.loc != T)
-		var/old_density = density
-		density = FALSE
-		var/can_step = step_towards(M, T)
-		density = old_density
-		if(!can_step)
-			return 0
+/mob/is_buckle_possible(mob/living/target, force = FALSE, check_loc = TRUE)
+	if(target.buckled)
+		return FALSE
 	return ..()
 
+
+/**
+ * Buckle a living mob to this mob. Also turns you to face the other mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ */
+/mob/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
+	if(target.buckled)
+		return FALSE
+	return ..()
+
+
 ///Call back post buckle to a mob to offset your visual height
-/mob/post_buckle_mob(mob/living/M)
-	var/height = M.get_mob_buckling_height(src)
-	M.pixel_y = initial(M.pixel_y) + height
-	if(M.layer < layer)
-		M.layer = layer + 0.1
+/mob/post_buckle_mob(mob/living/target)
+	target.pixel_y += target.get_mob_buckling_height(src)
+	if(target.layer < layer)
+		target.layer = layer + 0.01
+
 
 ///Call back post unbuckle from a mob, (reset your visual height here)
-/mob/post_unbuckle_mob(mob/living/M)
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
+/mob/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= target.get_mob_buckling_height(src)
+	target.layer = initial(target.layer)
+
 
 ///returns the height in pixel the mob should have when buckled to another mob.
 /mob/proc/get_mob_buckling_height(mob/seat)
@@ -1012,14 +1056,6 @@
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
-
-///can the mob be buckled to something by default?
-/mob/proc/can_buckle()
-	return 1
-
-///can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
-	return 1
 
 
 //Can the mob see reagents inside of containers?
@@ -1195,25 +1231,22 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-/mob/proc/set_sight(datum/vision_override/O)
+/mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
 	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
-	if(hud_used)
-		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		var/obj/screen/plane_master/o_light_visual/vis = hud_used.plane_masters["[O_LIGHTING_VISUAL_PLANE]"]
-		if(L)
-			L.alpha = lighting_alpha
-		if(vis)
-			vis.alpha = lighting_alpha
+	if(!hud_used)
+		return
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
-	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	var/atom/movable/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
 	if(S)
 		var/suffix = ""
 		var/nighvision_coeff = nightvision
@@ -1314,3 +1347,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 
+/**
+ * Called when this mob slips over, override as needed
+ *
+ * weaken_amount - time (in deciseconds) the slip leaves them on the ground
+ * slipped_on - optional, what'd we slip on? if not set, we assume they just fell over
+ * lube - bitflag of "lube flags", see [mobs.dm] for more information
+ * tilesSlipped - how many tiles will we slip through.
+ */
+/mob/proc/slip(weaken_amount, obj/slipped_on, lube_flags, tilesSlipped)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, weaken_amount, slipped_on, lube_flags, tilesSlipped)
+
+/mob/proc/IsLying()
+	return FALSE

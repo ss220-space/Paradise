@@ -15,7 +15,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/poison/giant_spider,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "at" = (
 /turf/simulated/mineral/plasma,
@@ -39,7 +39,7 @@
 "bi" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/insectguts,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "bG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -51,7 +51,7 @@
 "bM" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "cI" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
@@ -92,7 +92,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "do" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -112,7 +112,7 @@
 	dir = 6
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "dR" = (
 /turf/simulated/mineral/iron,
@@ -186,7 +186,7 @@
 	dir = 1
 	},
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "fN" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
@@ -254,7 +254,7 @@
 "gM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "gO" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -296,14 +296,14 @@
 	},
 /area/ae13/energy)
 "hy" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "hV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "ib" = (
 /obj/item/storage/belt/utility{
@@ -335,7 +335,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "ik" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
@@ -357,12 +357,12 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "iV" = (
 /obj/structure/chair/comfy/shuttle{
@@ -391,7 +391,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/contractor_flare,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "jT" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -545,16 +545,16 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "nV" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "nX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "ok" = (
 /obj/structure/cable{
@@ -564,7 +564,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -578,7 +578,7 @@
 	start_charge = 0
 	},
 /obj/structure/cable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -589,7 +589,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "oQ" = (
 /obj/structure/alien/weeds,
@@ -677,7 +677,7 @@
 "pW" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "qe" = (
 /obj/effect/decal/cleanable/dirt,
@@ -685,12 +685,12 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "qj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "qk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -711,7 +711,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "qM" = (
 /obj/structure/rack,
@@ -735,7 +735,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "ru" = (
 /turf/simulated/floor/plasteel{
@@ -758,7 +758,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "sc" = (
 /obj/structure/cable{
@@ -767,7 +767,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "si" = (
 /obj/structure/closet/crate/secure/unknownchemicals,
@@ -818,7 +818,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/effect/gluttony,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "tt" = (
 /obj/structure/alien/weeds,
@@ -833,7 +833,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "tx" = (
 /obj/effect/spawner/lootdrop/bluespace_tap/organic,
@@ -948,7 +948,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "uS" = (
 /obj/structure/table/reinforced,
@@ -976,7 +976,7 @@
 /area/ae13/command)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "vo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -990,13 +990,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/built,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "vw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/engineering,
 /obj/item/clothing/gloves/color/yellow/fake,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "vx" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1035,7 +1035,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "wy" = (
 /obj/structure/alien/weeds,
@@ -1146,7 +1146,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "yD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1266,12 +1266,12 @@
 "Aw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/contractor_flare,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "Az" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/stripes/box,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "AB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1294,7 +1294,7 @@
 /area/ae13/hall)
 "AE" = (
 /obj/item/stack/cable_coil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "AF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1304,7 +1304,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/energy)
 "AR" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1330,7 +1330,7 @@
 	frequency = 1331;
 	id_tag = "syndie_cargo_left_shuttle_pump"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "BN" = (
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -1338,7 +1338,7 @@
 "BT" = (
 /obj/effect/contractor_flare,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "Ca" = (
 /obj/structure/alien/weeds,
@@ -1349,19 +1349,19 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "Ck" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Cz" = (
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
 /obj/effect/contractor_flare,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "CG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1376,7 +1376,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Db" = (
 /obj/structure/cable,
@@ -1407,11 +1407,11 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "Dq" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "DH" = (
 /obj/machinery/bodyscanner,
@@ -1463,7 +1463,7 @@
 /obj/structure/shuttle/engine/large{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "EE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1471,7 +1471,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "EM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1531,18 +1531,18 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "FN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "FR" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1562,12 +1562,12 @@
 "Gc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Ge" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "Gp" = (
 /obj/structure/alien/weeds,
@@ -1587,7 +1587,7 @@
 	},
 /area/ae13/energy)
 "GP" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "GW" = (
 /obj/item/stack/sheet/bluespace_crystal,
@@ -1668,7 +1668,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "JN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1700,7 +1700,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Kd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1740,7 +1740,7 @@
 "Kw" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "Ky" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -1824,12 +1824,12 @@
 /area/ae13/miner)
 "Mf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Mp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "Mq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1858,7 +1858,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1875,7 +1875,7 @@
 "Ni" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "No" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -1883,7 +1883,7 @@
 	frequency = 1331;
 	id_tag = "syndie_cargo_right_shuttle_pump"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Nr" = (
 /obj/structure/alien/weeds,
@@ -1984,7 +1984,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "Pf" = (
 /turf/simulated/wall/shuttle,
@@ -2040,7 +2040,7 @@
 /area/ae13/miner)
 "Qg" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "Qi" = (
 /obj/structure/ore_box,
@@ -2091,7 +2091,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Ru" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2137,10 +2137,7 @@
 /area/ae13/epicenter)
 "RJ" = (
 /obj/effect/gibspawner/xeno,
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "RS" = (
 /obj/machinery/mineral/ore_redemption,
@@ -2172,7 +2169,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Sr" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -2183,7 +2180,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "SK" = (
 /obj/structure/chair/comfy/shuttle{
@@ -2256,7 +2253,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/engineering,
 /obj/item/clothing/gloves/color/yellow,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Tk" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -2366,7 +2363,7 @@
 "TM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/body,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "TO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -2374,7 +2371,7 @@
 	frequency = 1331;
 	id_tag = "synd_pump_bottom"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2391,7 +2388,7 @@
 	icon_state = "portal";
 	name = "bluespace portal"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Us" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -2400,7 +2397,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "UA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2411,7 +2408,7 @@
 	tag = ""
 	},
 /obj/effect/mob_spawn/headcrab,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "UW" = (
 /obj/machinery/light{
@@ -2426,7 +2423,7 @@
 /area/ae13/epicenter)
 "UY" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Va" = (
 /obj/structure/sign/poster/official/state_laws,
@@ -2440,16 +2437,16 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "VG" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/medbay)
 "VJ" = (
 /obj/structure/shuttle/engine/large{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/energy)
 "VX" = (
 /obj/structure/alien/weeds,
@@ -2465,7 +2462,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/command)
 "Wh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2482,7 +2479,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "Wy" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -2495,7 +2492,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/hall)
 "WM" = (
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -2553,12 +2550,12 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Ye" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flamethrower/full/tank,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "Yg" = (
 /obj/structure/rack,
@@ -2582,7 +2579,7 @@
 "Yq" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/miner)
 "Yy" = (
 /turf/simulated/wall/shuttle/nodiagonal,
@@ -2595,7 +2592,7 @@
 "YV" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Zc" = (
 /obj/structure/alien/weeds,

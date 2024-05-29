@@ -503,3 +503,5 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /turf/template_noop
 	name = "Turf Passthrough"
 	icon_state = "noop" // now turf passthrought won't mess with other structures like lattice or plates in space on ruin maps in map editor. it was too much annoyng before the change. noop icon added in areas.dmi as well
+	blocks_air = FALSE
+	init_air = FALSE

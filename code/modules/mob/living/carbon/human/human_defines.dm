@@ -6,7 +6,7 @@
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 	deathgasp_on_death = TRUE
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD)
 	pressure_resistance = 25
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	num_legs = 0 //Populated on init through list/bodyparts
@@ -70,8 +70,6 @@
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
-
-	var/check_mutations=0 // Check mutations on next life tick
 
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE

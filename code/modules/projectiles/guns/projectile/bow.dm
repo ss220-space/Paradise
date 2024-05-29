@@ -5,8 +5,8 @@
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
-	flags = HANDSLOW
-	slot_flags = SLOT_FLAG_BACK
+	item_flags = SLOWS_WHILE_IN_HAND
+	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
@@ -43,7 +43,7 @@
 	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
 
 
-/obj/item/gun/projectile/bow/dropped(mob/user, silent = FALSE)
+/obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
@@ -68,7 +68,7 @@
 		chamber_round()
 		update_state()
 
-/obj/item/gun/projectile/bow/can_shoot()
+/obj/item/gun/projectile/bow/can_shoot(mob/user)
 	. = ..()
 	if(!ready_to_fire)
 		return FALSE

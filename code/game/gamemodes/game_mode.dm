@@ -281,7 +281,7 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -289,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -317,7 +317,7 @@
 /**
  * Works like get_players_for_role, but for alive mobs.
  */
-/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -325,7 +325,7 @@
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.prefs?.skip_antag \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -687,6 +687,31 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/datum/game_mode/proc/apocalypse()
+	set_security_level(SEC_LEVEL_DELTA)
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(50 SECONDS)
+	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(30 SECONDS)
+	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
+	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
+	if(!N && !R)
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+		SSshuttle.emergency.request(null, 0.3)
+		SSshuttle.emergency.canRecall = FALSE
+		return
+	if(SSticker.cultdat.name == "Cult of Nar'Sie")
+		if(N.soul_devoured > 20)
+			play_cinematic(/datum/cinematic/cult_arm, world)
+			sleep(15 SECONDS)
+			SSticker.force_ending = TRUE
+			return
+	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+	sleep(8 SECONDS)
+	SSticker.force_ending = TRUE
+	qdel(R)
+	qdel(N)
 
 
 #undef NUKE_INTACT

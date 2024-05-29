@@ -6,7 +6,7 @@
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -30,7 +30,7 @@
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -49,7 +49,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 40
 	throwforce = 10
 	sharp = 1
@@ -79,7 +79,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 40
 	throwforce = 10
 	sharp = 1
@@ -96,8 +96,6 @@
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
 
-/obj/item/katana/cursed
-	slot_flags = null
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
@@ -169,7 +167,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
+	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
 
 		if(!remove_item_from_storage(user))
@@ -281,7 +279,7 @@
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
-	if(do_after(user, 90, target = user))
+	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1
 	..()
@@ -390,7 +388,7 @@
 
 /obj/item/melee/baseball_bat/homerun/central_command/proc/toggle(mob/living/user)
 	on = !on
-	slot_flags = on ? NONE : SLOT_FLAG_BELT
+	slot_flags = on ? NONE : ITEM_SLOT_BELT
 	force = on ? force_on : initial(force)
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
@@ -430,7 +428,7 @@
 	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 18
 	throwforce = 10
 	armour_penetration = 15

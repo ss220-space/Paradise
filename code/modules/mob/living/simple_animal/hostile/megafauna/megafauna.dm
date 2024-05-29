@@ -106,7 +106,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
@@ -184,11 +184,13 @@
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
 
+
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
-		C.density = FALSE //I hate it.
-		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
+		C.set_density(FALSE) //I hate it.
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
+
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
@@ -199,7 +201,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE

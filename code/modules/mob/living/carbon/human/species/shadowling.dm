@@ -9,7 +9,7 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, VIRUSIMMUNE) //Can't use guns due to muzzle flash
 	burn_mod = 1.25
 	heatmod = 1.5
 
@@ -30,7 +30,7 @@
 		var/turf/T = H.loc
 		light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
+			H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
 			if(is_species(H, /datum/species/shadow/ling/lesser))
 				H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
 			else

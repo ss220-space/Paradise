@@ -72,7 +72,7 @@
 			brainmob.container = src
 			brainmob.forceMove(src)
 			brainmob.set_stat(CONSCIOUS)
-			brainmob.see_invisible = initial(brainmob.see_invisible)
+			brainmob.set_invis_see(initial(brainmob.see_invisible))
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -94,7 +94,7 @@
 		else
 			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
 				"<span class='notice'>You start to install the [O] into [src]...</span>")
-			if(do_after(user, 20, target=src))
+			if(do_after(user, 2 SECONDS, src))
 				if(user.drop_transfer_item_to_loc(O, src))
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
 						"<span class='notice'>You install [O] in [src].</span>")
@@ -212,7 +212,7 @@
 	mmi = null
 	return ..()
 
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	// A copy/paste of the item action icon code
 	current_button.cut_overlays()
 	if(target)
@@ -253,12 +253,12 @@
 // Also neatly handles basically every case where a brain
 // is inserted or removed from an MMI
 /obj/item/mmi/Entered(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
 	..()
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Remove(A)
 
 /obj/item/mmi/syndie

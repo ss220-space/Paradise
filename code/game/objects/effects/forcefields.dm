@@ -5,7 +5,7 @@
 	icon_state = "m_shield"
 	anchored = TRUE
 	opacity = 0
-	density = 1
+	density = TRUE
 	var/lifetime = 30 SECONDS
 
 /obj/effect/forcefield/New()
@@ -13,7 +13,7 @@
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 
-/obj/effect/forcefield/CanAtmosPass(turf/T)
+/obj/effect/forcefield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/forcefield/wizard

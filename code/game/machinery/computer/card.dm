@@ -43,6 +43,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/cyborg,
 		/datum/job/captain,
 		/datum/job/hop,
+		/datum/job/qm,
 		/datum/job/hos,
 		/datum/job/chief_engineer,
 		/datum/job/rd,
@@ -130,7 +131,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
@@ -770,6 +771,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = LIGHT_COLOR_RED
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
+
+/obj/machinery/computer/card/minor/qm
+	name = "supply management console"
+	target_dept = TARGET_DEPT_SUP
+	icon_screen = "idqm"
+	light_color = COLOR_BROWN_ORANGE
+	req_access = list(ACCESS_QM)
+	circuit = /obj/item/circuitboard/card/minor/qm
 
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"

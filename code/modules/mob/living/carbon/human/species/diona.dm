@@ -21,7 +21,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -103,7 +103,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)

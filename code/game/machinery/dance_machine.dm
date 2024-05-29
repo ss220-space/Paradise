@@ -46,7 +46,7 @@
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
 
-/obj/machinery/disco/New()
+/obj/machinery/disco/Initialize(mapload)
 	. = ..()
 	selection = songs[1]
 
@@ -64,10 +64,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored && !isinspace())
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 	else if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
@@ -84,7 +84,7 @@
 	underlays.Cut()
 
 	if(active)
-		underlays += emissive_appearance(icon, "disco_lightmask")
+		underlays += emissive_appearance(icon, "disco_lightmask", src)
 
 
 /obj/machinery/disco/attack_hand(mob/user)
@@ -137,7 +137,6 @@
 					return
 				active = TRUE
 				update_icon()
-				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
 				dance_setup()
 				START_PROCESSING(SSobj, src)
 				lights_spin()
@@ -491,7 +490,6 @@
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
-		set_light_on(FALSE)
 		stop = world.time + 100
 
 

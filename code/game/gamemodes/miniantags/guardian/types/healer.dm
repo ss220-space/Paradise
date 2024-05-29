@@ -97,7 +97,7 @@
 	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
-		if(istype(beacon_loc, /turf/simulated/floor))
+		if(isfloorturf(beacon_loc))
 			var/turf/simulated/floor/F = beacon_loc
 			F.icon = 'icons/turf/floors.dmi'
 			F.name = "bluespace recieving pad"
@@ -128,7 +128,7 @@
 		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
 	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
-	if(do_mob(src, A, 50))
+	if(do_after(src, 5 SECONDS, A, NONE))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
@@ -189,7 +189,7 @@
 			to_chat(user, "Это не ваш хозяин.")
 			return 0
 	to_chat(user, "Проверка ран хозяина..")
-	if(do_after(user, cast_time, target = summoner))
+	if(do_after(user, cast_time, summoner))
 		if(prob(chance_to_mend))
 			var/list/injures[] = list()
 			injures["bleedings"] = summoner.check_internal_bleedings()

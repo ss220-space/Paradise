@@ -36,10 +36,10 @@
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
 				return
-			if(istype(AM, /mob/living/carbon))
+			if(iscarbon(AM))
 				return
 			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 25 * toolspeed * gettoolspeedmod(user), target = AM))
+			if(do_after(user, 2.5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
 				if(!user.drop_item_ground(src))
 					return
 				src.target = AM
@@ -146,9 +146,9 @@
 	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 4)
 		new /obj/item/grenade/plastic/miningcharge/lesser(src)
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 2)
 		new /obj/item/grenade/plastic/miningcharge(src)
 	new /obj/item/detonator(src)
 

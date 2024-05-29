@@ -103,7 +103,7 @@
 
 	if(ishuman(target))
 		var/temp_diff = temperature - target.bodytemperature
-		if(target.bodytemperature < temperature)
+		if(temperature < target.bodytemperature)
 			// This returns a 0 - 1 value, which corresponds to the percentage of protection
 			// based on what you're wearing and what you're exposed to
 			var/thermal_protection = target.get_cold_protection(temperature)
@@ -168,10 +168,9 @@
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					randmutb(M)
-					domutcheck(M,null)
 				else
 					randmutg(M)
-					domutcheck(M,null)
+				M.check_genes()
 			else
 				M.adjustFireLoss(rand(5,15))
 				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
@@ -343,7 +342,7 @@
 
 /obj/item/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		M.adjust_bodytemperature(-50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!

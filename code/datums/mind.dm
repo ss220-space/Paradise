@@ -696,6 +696,7 @@
 	var/out = {"<meta charset="UTF-8"><B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]<br>"}
 	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
 	out += "Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a><br>"
+	out += "Special role: [special_role].<br>" //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
 	out += "Factions and special roles:<br>"
 
 	var/list/sections = list(
@@ -1009,7 +1010,9 @@
 						if("protect")
 							description = "Protect"
 						if("steal brain")
-							description = "Steal the brain of"
+							var/mob/living/target = new_target
+							var/obj/item/organ/internal/brains = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+							description = "Steal the [brains ? brains.name : "brain"] of"
 						if("prevent from escape")
 							description = "Prevent from escaping alive or free"
 						if("pain hunter")
@@ -1109,7 +1112,7 @@
 					//Выдача бомбы
 					var/obj/item/grenade/plastic/c4/ninja/charge = new
 					var/mob/living/carbon/human/bomber = current
-					bomber.equip_or_collect(charge, SLOT_HUD_LEFT_STORE)
+					bomber.equip_or_collect(charge, ITEM_SLOT_POCKET_LEFT)
 					charge.detonation_objective = bomb_objective
 
 			if("set up")
@@ -1584,7 +1587,7 @@
 					current.dna = cling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
-					domutcheck(current)
+					current.check_genes()
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
@@ -2847,7 +2850,7 @@
 		SSticker.mode.forge_syndicate_objectives(src)
 		SSticker.mode.greet_syndicate(src)
 
-		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
+		current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
 
 		var/mob/living/carbon/human/H = current
 		qdel(H.belt)
@@ -2877,10 +2880,10 @@
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
 		if(!GLOB.wizardstart.len)
-			current.loc = pick(GLOB.latejoin)
+			current.forceMove(pick(GLOB.latejoin))
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(GLOB.wizardstart)
+			current.forceMove(pick(GLOB.wizardstart))
 
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
@@ -2901,10 +2904,10 @@
 	add_antag_datum(ninja_datum)
 
 	if(!length(GLOB.ninjastart))
-		current.loc = pick(GLOB.latejoin)
+		current.forceMove(pick(GLOB.latejoin))
 		to_chat(current, "HOT INSERTION, GO GO GO")
 	else
-		current.loc = pick(GLOB.ninjastart)
+		current.forceMove(pick(GLOB.ninjastart))
 
 	//"generic" only, we don't want to spawn other antag's
 	ninja_datum.make_objectives_generate_antags(NINJA_TYPE_GENERIC, custom_objective)

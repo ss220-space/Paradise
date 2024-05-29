@@ -6,6 +6,7 @@
 
 /area/syndicate_depot/core
 	icon_state = "red"
+	has_gravity = STANDARD_GRAVITY
 
 	var/local_alarm = FALSE // Level 1: Local alarm tripped, bot spawned, red fire overlay activated
 	var/called_backup = FALSE // Level 2: Remote alarm tripped. Bot may path through depot. Backup spawned.

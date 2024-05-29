@@ -8,7 +8,7 @@
 
 /datum/hud/construct/armoured/New(mob/owner)
 	..()
-	mymob.healths = new /obj/screen()
+	mymob.healths = new /atom/movable/screen(null, src)
 	mymob.healths.icon = 'icons/mob/screen_construct.dmi'
 	mymob.healths.icon_state = "juggernaut_health0"
 	mymob.healths.name = "health"
@@ -21,7 +21,7 @@
 
 /datum/hud/construct/builder/New(mob/owner)
 	..()
-	mymob.healths = new /obj/screen()
+	mymob.healths = new /atom/movable/screen(null, src)
 	mymob.healths.icon = 'icons/mob/screen_construct.dmi'
 	mymob.healths.icon_state = "artificer_health0"
 	mymob.healths.name = "health"
@@ -34,7 +34,7 @@
 
 /datum/hud/construct/wraith/New(mob/owner)
 	..()
-	mymob.healths = new /obj/screen()
+	mymob.healths = new /atom/movable/screen(null, src)
 	mymob.healths.icon = 'icons/mob/screen_construct.dmi'
 	mymob.healths.icon_state = "wraith_health0"
 	mymob.healths.name = "health"
@@ -47,7 +47,7 @@
 
 /datum/hud/construct/harvester/New(mob/owner)
 	..()
-	mymob.healths = new /obj/screen()
+	mymob.healths = new /atom/movable/screen(null, src)
 	mymob.healths.icon = 'icons/mob/screen_construct.dmi'
 	mymob.healths.icon_state = "harvester_health0"
 	mymob.healths.name = "health"
@@ -56,8 +56,7 @@
 
 /datum/hud/construct/New(mob/owner)
 	..()
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.hud = src
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = 'icons/mob/screen_construct.dmi'
 	mymob.pullin.icon_state = "pull0"
 	mymob.pullin.name = "pull"

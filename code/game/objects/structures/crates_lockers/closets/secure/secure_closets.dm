@@ -60,7 +60,9 @@
 
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(opened)
@@ -79,9 +81,12 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
+	add_fingerprint(user)
+
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
+
 
 /obj/structure/closet/secure_closet/AltClick(mob/user)
 	if(Adjacent(user))
@@ -89,22 +94,19 @@
 
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
-	add_fingerprint(user)
 	if(locked)
 		togglelock(user)
 	else
+		add_fingerprint(user)
 		toggle(user)
+
 
 /obj/structure/closet/secure_closet/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = "Object"
 	set name = "Toggle Lock"
 
-	if(usr.incapacitated()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
 	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
-		add_fingerprint(usr)
 		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
@@ -136,6 +138,9 @@
 	if(!locked && !welded)
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
+	if(user.incapacitated(ignore_restraints = TRUE))
+		return
+
 	//okay, so the closet is either welded or locked... resist!!!
 	visible_message(
 		span_danger("[src] begins to shake violently!"),
@@ -145,11 +150,11 @@
 
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
-	if(!do_after(user, CLOSET_BREAKOUT_TIME, target = src))
+	if(!do_after(user, CLOSET_BREAKOUT_TIME, src))
 		return
 
 	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-	if(!src || !user || user.incapacitated() || user.loc != src || opened)
+	if(!src || !user || user.incapacitated(ignore_restraints = TRUE) || user.loc != src || opened)
 		return
 
 	//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

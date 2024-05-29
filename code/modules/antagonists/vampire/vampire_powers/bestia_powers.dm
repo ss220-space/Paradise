@@ -381,7 +381,7 @@
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
 
-		if(!do_mob(user, target, 5 SECONDS) || !special_check(user, TRUE, TRUE))
+		if(!do_after(user, 5 SECONDS, target, NONE) || !special_check(user, TRUE, TRUE))
 			to_chat(user, span_warning("Our dissection of [target] has been interrupted!"))
 			is_dissecting = FALSE
 			return
@@ -574,7 +574,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
-	flags = ABSTRACT | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
@@ -1004,7 +1004,7 @@
 	vampire.stop_sucking()
 	original_body = user
 	vampire_animal.status_flags |= GODMODE
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 	vampire_animal.canmove = FALSE
 	user.forceMove(vampire_animal)
@@ -1038,7 +1038,7 @@
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_italics("You hear an eerie rustle of many wings..."))
 
-	user.density = FALSE
+	user.set_density(FALSE)
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
 	original_body.canmove = FALSE
@@ -1066,7 +1066,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
 	original_body.update_canmove()
 	is_transformed = FALSE
@@ -1431,7 +1431,7 @@
 	color = "#7F0000"
 	anchored = TRUE
 	resistance_flags = NONE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -1657,21 +1657,9 @@
 			if(QDELETED(body_part))
 				continue
 
-			if(body_part.is_robotic())
-				body_part.status = ORGAN_ROBOT
-			else
-				var/fractured = body_part.has_fracture()
-				var/bleeding = body_part.has_internal_bleeding()
-				body_part.status = NONE
-				if(fractured)	// we have separate method to mend fractures
-					body_part.status |= ORGAN_BROKEN
-				if(bleeding)	// and stop internal bleedings too
-					body_part.status |= ORGAN_INT_BLEED
-
-
+			body_part.heal_status_wounds(ORGAN_DISFIGURED|ORGAN_DEAD|ORGAN_MUTATED)
 			body_part.germ_level = 0
-			body_part.open = FALSE
-			body_part.undisfigure()
+			body_part.open = ORGAN_CLOSED
 
 			for(var/obj/item/organ/internal/organ as anything in body_part.internal_organs)
 				if(QDELETED(organ))
@@ -1980,21 +1968,21 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
-			sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+			add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(client.eye != src)

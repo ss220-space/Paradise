@@ -117,7 +117,7 @@
 
 /obj/machinery/door/airlock/Bumped(atom/movable/moving_atom)
 	..(moving_atom)
-	if(istype(moving_atom, /obj/mecha))
+	if(ismecha(moving_atom))
 		var/obj/mecha/mecha = moving_atom
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)

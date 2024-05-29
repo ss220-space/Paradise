@@ -1,12 +1,13 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN	(1<<0)
-#define ORGAN_ROBOT		(1<<1)
-#define ORGAN_SPLINTED	(1<<2)
-#define ORGAN_DEAD		(1<<3)
-#define ORGAN_MUTATED	(1<<4)
-#define ORGAN_INT_BLEED	(1<<5)
+#define ORGAN_BROKEN		(1<<0)
+#define ORGAN_ROBOT			(1<<1)
+#define ORGAN_SPLINTED		(1<<2)
+#define ORGAN_DEAD			(1<<3)
+#define ORGAN_MUTATED		(1<<4)
+#define ORGAN_INT_BLEED		(1<<5)
+#define ORGAN_DISFIGURED	(1<<6)
 
 #define PROCESS_ACCURACY 10
 
@@ -332,7 +333,7 @@
 
 #define isexternalorgan(A)		(istype((A), /obj/item/organ/external))
 
-#define hasorgans(A)	(ishuman(A))
+#define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
@@ -359,6 +360,8 @@
 
 #define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
 
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
 // Body position defines.
 /// Mob is standing up, usually associated with lying_angle value of 0.
@@ -369,3 +372,24 @@
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
 
+// Slip flags, also known as lube flags
+/// The mob will not slip if they're walking intent
+#define NO_SLIP_WHEN_WALKING (1<<0)
+/// Slipping on this will send them sliding a few tiles down
+#define SLIDE (1<<1)
+/// Ice slides only go one tile and don't knock you over, they're intended to cause a "slip chain"
+/// where you slip on ice until you reach a non-slippable tile (ice puzzles)
+#define SLIDE_ICE (1<<2)
+/// [TRAIT_NO_SLIP_WATER] does not work on this slip. ONLY [TRAIT_NO_SLIP_ALL] will
+#define SLIP_IGNORE_NO_SLIP_WATER (1<<3)
+/// Slip works even if you're already on the ground
+///#define SLIP_WHEN_CRAWLING (1<<4)
+/// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
+#define SLIPPERY_TURF (1<<4)
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+// Return values for [/mob/living/proc/handle_ventcrawl()]
+#define VENTCRAWL_IN_SUCCESS 1
+#define VENTCRAWL_OUT_SUCCESS 2

@@ -24,7 +24,7 @@
 	var/sample_type
 	inuse = 1
 	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
-	if(do_after(user, 2 SECONDS, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		if(H.wear_mask)
 			to_chat(user, "<span class='warning'>\The [H] is wearing a mask.</span>")
 			inuse = 0
@@ -94,7 +94,7 @@
 	if(!proximity || istype(A, /obj/machinery/dnaforensics))
 		return
 
-	if(istype(A,/mob/living))
+	if(isliving(A))
 		return
 
 	if(is_used())
@@ -104,11 +104,11 @@
 	add_fingerprint(user)
 	inuse = 1
 	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
-	if(do_after(user, 2 SECONDS, target =src))
+	if(do_after(user, 2 SECONDS, src))
 		var/list/choices = list()
 		if(A.blood_DNA)
 			choices |= "Blood"
-		if(istype(A, /obj/item/clothing))
+		if(isclothing(A))
 			choices |= "Gunshot Residue"
 
 		var/choice

@@ -3,11 +3,14 @@
 	level = 1
 	luminosity = 1
 
+	vis_flags = VIS_INHERIT_ID	// Important for interaction with and visualization of openspace.
+
 	var/intact = TRUE
-	var/turf/baseturf = /turf/space
+	var/turf/baseturf = /turf/baseturf_bottom
 	/// negative for faster, positive for slower
 	var/slowdown = 0
-	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+	/// It's a check that determines if the turf is transparent to reveal the stuff(pipes, safe, cables and e.t.c.) without looking on intact
+	var/transparent_floor = TURF_NONTRANSPARENT
 
 	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
@@ -29,13 +32,15 @@
 	//Properties for both
 	var/temperature = T20C
 
-	var/blocks_air = 0
+	//If set TRUE, won't init gas_mixture/air and shouldn't interact with atmos.
+	var/blocks_air = FALSE
+	// If this turf should initialize atmos adjacent turfs or not
+	// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
 
 	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
 	flags = 0
-
-	var/image/obscured	//camerachunks
 
 	var/changing_turf = FALSE
 
@@ -57,6 +62,9 @@
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
+	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
+	var/force_no_gravity = FALSE
+
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -67,27 +75,41 @@
 	if(layer == MAP_EDITOR_TURF_LAYER)
 		layer = real_layer
 
+	/// We do NOT use the shortcut here, because this is faster
+	if(SSmapping.max_plane_offset)
+		if(!SSmapping.plane_offset_blacklist["[plane]"])
+			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+			var/turf/T = GET_TURF_ABOVE(src)
+			if(T)
+				T.multiz_turf_new(src, DOWN)
+			T = GET_TURF_BELOW(src)
+			if(T)
+				T.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
-	vis_contents.Cut()
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	if(length(vis_contents))
+		vis_contents.Cut()
 
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)
-	visibilityChanged()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		add_overlay(overlay)
 
 	if(light_power && light_range)
 		update_light()
 
 	if(opacity)
 		has_opaque_atom = TRUE
+
+	if(istype(loc, /area/space))
+		force_no_gravity = TRUE
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -96,6 +118,12 @@
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
+
+	var/turf/V = GET_TURF_ABOVE(src)
+	V?.multiz_turf_del(src, DOWN)
+	V = GET_TURF_BELOW(src)
+	V?.multiz_turf_del(src, UP)
+
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -104,13 +132,9 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()
@@ -247,35 +271,66 @@
 
 //Creates a new turf
 /turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!path)
-		return
+	switch(path)
+		if(null)
+			return
+		if(/turf/baseturf_bottom)
+			path = check_level_trait(z, ZTRAIT_BASETURF) || /turf/space
+			if (!ispath(path))
+				path = text2path(path)
+				if (!ispath(path))
+					warning("Z-level [z] has invalid baseturf '[check_level_trait(z, ZTRAIT_BASETURF)]'")
+					path = /turf/space
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
+	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
-	var/old_obscured = obscured
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_type = type
+	var/old_air
+	if(issimulatedturf(src))
+		var/turf/simulated/old_turf = src
+		old_air = old_turf.air
 
 	BeforeChange()
 
 	var/old_baseturf = baseturf
+
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path)
+
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
+	//We do this here so anything that doesn't want to persist can clear itself
+	var/list/old_comp_lookup = comp_lookup?.Copy()
+	var/list/old_signal_procs = signal_procs?.Copy()
 	var/turf/W = new path(src)
+
+	// WARNING WARNING
+	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
+	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
+	if(old_comp_lookup)
+		LAZYOR(W.comp_lookup, old_comp_lookup)
+	if(old_signal_procs)
+		LAZYOR(W.signal_procs, old_signal_procs)
+
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
 
 	if(!defer_change)
-		W.AfterChange(ignore_air)
+		W.AfterChange(ignore_air, oldType = old_type)
+		if(issimulatedturf(W))
+			var/turf/simulated/new_turf = W
+			new_turf.assimilate_air(old_air)
+
 	W.blueprint_data = old_blueprint_data
 
 	recalc_atom_opacity()
@@ -287,17 +342,33 @@
 
 	dynamic_lumcount = old_dynamic_lumcount
 
+	if(W.always_lit)
+		// We are guarenteed to have these overlays because of how generation works
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.add_overlay(overlay)
+	else if (old_always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.cut_overlay(overlay)
+
+	// we need to refresh gravity for all living mobs to cover possible gravity change
+	for(var/mob/living/mob in contents)
+		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
+			if(!isgroundlessturf(src))
+				ADD_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+			else
+				REMOVE_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+		mob.refresh_gravity()
+
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-		lighting_object = old_lighting_object
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
-
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+		var/area/A = loc
+		if(!A.use_starlight)
+			// Should have a lighting object if we never had one
+			lighting_object = old_lighting_object || new /atom/movable/lighting_object(src)
+		else
+			W.add_overlay(A.lighting_effect)
+		if(A.use_starlight && old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -308,7 +379,8 @@
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
-	obscured = old_obscured
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
 
 	return W
 
@@ -319,7 +391,7 @@
 	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
-/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType = null) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
 
@@ -356,10 +428,6 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
-// Defined here to avoid runtimes
-/turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
-	return
-
 /turf/proc/burn_down()
 	return
 
@@ -394,7 +462,7 @@
 	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
+			if(!CanAtmosPass(T, FALSE))
 				L.Add(T)
 	return L
 
@@ -444,7 +512,7 @@
 			continue
 		if(istype(T) && !T.density)
 			if(!ID)
-				if(!CanAtmosPass(T))
+				if(!CanAtmosPass(T, FALSE))
 					L.Add(T)
 			else
 				if(!LinkBlockedWithAccess(src, T, ID))
@@ -494,7 +562,7 @@
 	faller.lying_angle = pick(90, 270)
 	if(!forced)
 		return
-	if(has_gravity(src))
+	if(faller.has_gravity())
 		playsound(src, "bodyfall", 50, TRUE)
 
 /turf/singularity_act()
@@ -506,10 +574,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
-/turf/proc/visibilityChanged()
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
@@ -549,9 +613,9 @@
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
-	I.plane = GAME_PLANE
-	I.layer = OBJ_LAYER
 	I.appearance = AM.appearance
+	SET_PLANE(I, GAME_PLANE, src)
+	I.layer = GHOST_LAYER + AM.layer
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
 	I.setDir(AM.dir)
@@ -584,6 +648,85 @@
 	SSair.add_to_active(T0, TRUE)
 
 /turf/AllowDrop()
+	return TRUE
+
+//The zpass procs exist to be overriden, not directly called
+//use can_z_pass for that
+///If we'd allow anything to travel into us
+/turf/proc/zPassIn(direction)
+	return FALSE
+
+///If we'd allow anything to travel out of us
+/turf/proc/zPassOut(direction)
+	return FALSE
+
+//direction is direction of travel of air
+/turf/proc/zAirIn(direction, turf/source)
+	return FALSE
+
+//direction is direction of travel of air
+/turf/proc/zAirOut(direction, turf/source)
+	return FALSE
+
+/turf/proc/multiz_turf_del(turf/T, dir)
+	SEND_SIGNAL(src, COMSIG_TURF_MULTIZ_DEL, T, dir)
+
+/turf/proc/multiz_turf_new(turf/T, dir)
+	SEND_SIGNAL(src, COMSIG_TURF_MULTIZ_NEW, T, dir)
+
+///Called each time the target falls down a z level possibly making their trajectory come to a halt. see __DEFINES/movement.dm.
+/turf/proc/zImpact(atom/movable/falling, levels = 1, turf/prev_turf, flags = NONE)
+	var/list/falling_movables = falling.get_z_move_affected()
+	var/list/falling_mov_names
+	for(var/atom/movable/falling_mov as anything in falling_movables)
+		falling_mov_names += falling_mov.name
+	for(var/i in contents)
+		var/atom/thing = i
+		flags |= thing.intercept_zImpact(falling_movables, levels)
+		if(flags & FALL_STOP_INTERCEPTING)
+			break
+	if(prev_turf && !(flags & FALL_NO_MESSAGE))
+		for(var/mov_name in falling_mov_names)
+			prev_turf.visible_message(span_danger("[mov_name] falls through [prev_turf]!"))
+	if(!(flags & FALL_INTERCEPTED) && zFall(falling, levels + 1)) // Can we fall down? If so return false
+		return FALSE
+	for(var/atom/movable/falling_mov as anything in falling_movables)
+		if(!(flags & FALL_RETAIN_PULL))
+			falling_mov.stop_pulling()
+		if(!(flags & FALL_INTERCEPTED))
+			falling_mov.onZImpact(src, levels)
+		if(falling_mov.pulledby && (falling_mov.z != falling_mov.pulledby.z || get_dist(falling_mov, falling_mov.pulledby) > 1))
+			falling_mov.pulledby.stop_pulling()
+	return TRUE
+
+/// Precipitates a movable (plus whatever buckled to it) to lower z levels if possible and then calls zImpact()
+/turf/proc/zFall(atom/movable/falling, levels = 1, force = FALSE, falling_from_move = FALSE)
+	var/turf/target = get_step_multiz(src, DOWN)
+	if(!target)
+		return FALSE
+	var/isliving = isliving(falling)
+	if(!isliving && !isobj(falling))
+		return FALSE
+	var/atom/movable/living_buckled
+	if(isliving)
+		var/mob/living/falling_living = falling
+		//relay this mess to whatever the mob is buckled to.
+		if(falling_living.buckled)
+			living_buckled = falling
+			falling = falling_living.buckled
+	if(!falling_from_move && falling.currently_z_moving)
+		return FALSE
+	if(!force && !falling.can_z_move(DOWN, src, target, ZMOVE_FALL_FLAGS))
+		falling.set_currently_z_moving(FALSE, TRUE)
+		living_buckled?.set_currently_z_moving(FALSE, TRUE)
+		return FALSE
+
+	// So it doesn't trigger other zFall calls. Cleared on zMove.
+	falling.set_currently_z_moving(CURRENTLY_Z_FALLING)
+	living_buckled?.set_currently_z_moving(CURRENTLY_Z_FALLING)
+
+	falling.zMove(null, target, ZMOVE_CHECK_PULLEDBY)
+	target.zImpact(falling, levels, src)
 	return TRUE
 
 
@@ -637,37 +780,6 @@
 	C.Weaken(3 SECONDS)
 
 
-/turf/proc/CanEnter(atom/mover, exclude_mobs = FALSE, list/ignore_atoms, type_list = FALSE)
-	var/border_dir = get_dir(src, mover)
-
-	if(!CanPass(mover, border_dir))
-		return FALSE
-
-	if(isturf(mover.loc))
-		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover.loc)
-			if(obstacle == mover)
-				continue
-			if(!obstacle.CanExit(mover, movement_dir))
-				return FALSE
-
-	var/list/large_dense = contents.Copy()
-	if(length(ignore_atoms))
-		for(var/thing in large_dense)
-			if(!type_list && (thing in large_dense))
-				large_dense -= thing
-			else if(type_list && is_type_in_list(thing, ignore_atoms))
-				large_dense -= thing
-
-	for(var/atom/movable/obstacle in large_dense)
-		if(ismob(obstacle) && exclude_mobs)
-			continue
-		if(!obstacle.CanPass(mover, border_dir))
-			return FALSE
-
-	return TRUE
-
-
 /**
  * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
  *
@@ -677,21 +789,28 @@
  *
  * Arguments:
  * * exclude_mobs - If `TRUE`, ignores dense mobs on the turf.
- * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf. Also if source atom is in turf contents proc will check if it can exit.
  * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
  * * type_list - are we checking for types of atoms to ignore and not physical atoms
  */
-/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, atom/source_atom = null, list/ignore_atoms, type_list = FALSE)
 	if(density)
 		return TRUE
 
-	if(locate(/mob/living/silicon/ai) in src) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+	// Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+	if(locate(/mob/living/silicon/ai) in contents)
 		return TRUE
 
-	if(source_atom && !CanEnter(source_atom, exclude_mobs, ignore_atoms, type_list))
-		return TRUE
+	// in case of source_atom we are also checking if it can exit its turf contents
+	if(source_atom && isturf(source_atom.loc) && source_atom.loc != src)
+		var/movement_dir = get_dir(source_atom, src)
+		for(var/obj/obstacle in source_atom.loc)
+			if(obstacle == source_atom)
+				continue
+			if(!obstacle.CanExit(source_atom, movement_dir))
+				return TRUE
 
-	for(var/atom/movable/movable_content as anything in src)
+	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves
 		if((movable_content == source_atom))
 			continue
@@ -705,8 +824,8 @@
 		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
 		// it cannot pass through the thing on the turf, we consider the turf blocked.
 		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
-			//if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
-			//	continue
+			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+				continue
 			return TRUE
-	return FALSE
 
+	return FALSE

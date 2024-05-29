@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		return
 	playsound(loc, I.usesound, 50, 1)
 	to_chat(user, span_notice("You begin to unfasten [src]..."))
-	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+	if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
 		new /obj/item/pipe_gsensor(loc)
 		qdel(src)

@@ -12,12 +12,12 @@
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
 
-	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon) && !LAZYLEN(user.grabbed_by))
 		to_chat(user, span_warning("We are already free!"))
 		return FALSE
 
 	if(user.handcuffed)
-		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		var/obj/item/restraints/handcuffs/handcuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(handcuffs))
 			return FALSE
 
@@ -28,7 +28,7 @@
 		used = TRUE
 
 	if(user.legcuffed && !used)
-		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		var/obj/item/restraints/legcuffs/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(legcuffs))
 			return FALSE
 
@@ -39,7 +39,7 @@
 		used = TRUE
 
 	if(user.wear_suit?.breakouttime && !used)
-		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(SLOT_HUD_OUTER_SUIT)
+		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		if(!istype(res_suit))
 			return FALSE
 

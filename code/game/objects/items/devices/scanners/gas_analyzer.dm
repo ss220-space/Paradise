@@ -12,7 +12,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -40,10 +40,10 @@
 	return BRUTELOSS
 
 /obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")

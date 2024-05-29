@@ -61,6 +61,10 @@
 /// Speed boost for gargantua vampires.
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush
 
+/// Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
+#define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -84,6 +88,8 @@
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
+
+#define STATUS_EFFECT_BLOODLETTING /datum/status_effect/saw_bleed/bloodletting //nerfed version
 
 #define STATUS_EFFECT_STAMINADOT /datum/status_effect/stamina_dot
 

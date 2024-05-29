@@ -6,7 +6,7 @@
 	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
@@ -98,7 +98,7 @@
 					if(open)
 						GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
 						swirlie = GM
-						if(do_after(user, 30, 0, target = src))
+						if(do_after(user, 3 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 							GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 							if(iscarbon(GM))
 								var/mob/living/carbon/C = GM
@@ -157,14 +157,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = FALSE
+				set_anchored(FALSE)
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = TRUE
+				set_anchored(TRUE)
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -215,7 +215,7 @@
 
 /obj/structure/toilet/golden_toilet
 	name = "Золотой унитаз"
-	desc = "Поговаривают, что 7 веков назад у каждого арабского шейха был такой унитаз."
+	desc = "Поговаривают, что 7 веков назад у каждого арабского шейха был такой унитаз. Им явно кто-то пользовался..."
 	icon_state = "gold_toilet00"
 
 /obj/structure/toilet/golden_toilet/update_icon_state()
@@ -236,7 +236,7 @@
 	desc = "The HU-452, an experimental urinal."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 
 
@@ -269,7 +269,7 @@
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 			pixel_x = 0
 			pixel_y = 0
 	else
@@ -278,7 +278,7 @@
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 			pixel_x = 0
 			pixel_y = 32
 
@@ -350,7 +350,7 @@
 		soundloop.stop()
 		var/turf/simulated/source_turf = loc
 		if(istype(source_turf) && !source_turf.density)
-			source_turf.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
+			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
@@ -560,7 +560,7 @@
 						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
 	busy = 1
 
-	if(!do_after(user, 40, target = src))
+	if(!do_after(user, 4 SECONDS, src))
 		busy = 0
 		return
 
@@ -632,14 +632,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = FALSE
+				set_anchored(FALSE)
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = TRUE
+				set_anchored(TRUE)
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -683,15 +683,15 @@
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
 
-/obj/structure/sink/puddle/attack_hand(mob/M as mob)
+/obj/structure/sink/puddle/attack_hand(mob/M)
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/shovel) && user.a_intent == INTENT_HARM)
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			Destroy()
 			return
 	icon_state = "puddle-splash"
@@ -760,10 +760,10 @@
 		to_chat(user, "<span class='warning'>There's already \an [result_name] here.</span>")
 		return
 	user.visible_message("<span class='notice'>[user] begins assembling a new [result_name].</span>", "<span class='notice'>You begin assembling a new [result_name].</span>")
-	if(do_after(user, 30, target = user))
+	if(do_after(user, 3 SECONDS, user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
-		S.anchored = FALSE
+		S.set_anchored(FALSE)
 		S.dir = user.dir
 		S.update_icon(UPDATE_ICON_STATE)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)

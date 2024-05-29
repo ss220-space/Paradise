@@ -32,12 +32,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_DEVIL = 14
 ))
 
-/proc/player_old_enough_antag(client/C, role)
+/proc/player_old_enough_antag(client/C, role, req_job_rank)
 	if(available_in_days_antag(C, role))
-		return 0	//available_in_days>0 = still some days required = player not old enough
+		return FALSE	//available_in_days>0 = still some days required = player not old enough
 	if(role_available_in_playtime(C, role))
-		return 0	//available_in_playtime>0 = still some more playtime required = they are not eligible
-	return 1
+		return FALSE	//available_in_playtime>0 = still some more playtime required = they are not eligible
+	if(!req_job_rank)
+		return TRUE
+	var/datum/job/job = SSjobs.GetJob(req_job_rank)
+	if(!job)
+		stack_trace("Invalid job title: [req_job_rank]")
+		return FALSE
+	if(job.available_in_playtime(C))
+		return TRUE
+
 
 /proc/available_in_days_antag(client/C, role)
 	if(!C)
@@ -237,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
 
 	var/discord_id = null
 	var/discord_name = null
@@ -564,7 +573,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Multi-Z Detail:</b> <a href='?_src_=prefs;preference=multiz_detail'>"
+			switch (multiz_detail)
+				if(MULTIZ_DETAIL_DEFAULT)
+					dat += "Default"
+				if(MULTIZ_DETAIL_LOW)
+					dat += "Low"
+				if(MULTIZ_DETAIL_MEDIUM)
+					dat += "Medium"
+				if(MULTIZ_DETAIL_HIGH)
+					dat += "High"
+				else
+					dat += "ERROR"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -2373,14 +2395,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					var/actual_new_range = viewrange_options[new_range]
 
+					if(actual_new_range == parent.view)
+						return
 					viewrange = actual_new_range
-
-					if(actual_new_range != parent.view)
-						parent.view = actual_new_range
-						parent.fit_viewport()
-						// Update the size of the click catcher
-						var/list/actualview = getviewsize(parent.view)
-						parent.void.UpdateGreed(actualview[1],actualview[2])
+					parent.change_view(actual_new_range)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -2488,8 +2506,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(GAME_PLANE))
+							plane_master.show_to(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2503,13 +2521,51 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
 					if(!new_parallax)
 						return
+					/*
+					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && parallax_styles[new_parallax] == PARALLAX_DISABLE)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with non-default Multi-Z settings. Please turn on \"Parallax\" in order to limit Multi-Z."))
+						return
+					*/
+
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
-				if("parallax_darkness")
-					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-					parent.mob?.hud_used?.update_parallax_pref()
+				if("multiz_detail")
+					var/multiz_det_styles = list(
+						"Default" = MULTIZ_DETAIL_DEFAULT,
+						"Low" = MULTIZ_DETAIL_LOW,
+						"Medium" = MULTIZ_DETAIL_MEDIUM,
+						"High" = MULTIZ_DETAIL_HIGH,
+					)
+
+					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
+					if(!new_value)
+						return
+					/*
+					if(parallax == PARALLAX_DISABLE && multiz_det_styles[new_value] != MULTIZ_DETAIL_DEFAULT)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with disabled parallax. Please set \"Multi-Z Detail\" to default in order to disable Parallax."))
+						return
+					*/
+
+					multiz_detail = multiz_det_styles[new_value]
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+
+				if("parallax_multiz")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
 
 				if("keybindings")
 					if(!keybindings_overrides)
@@ -2789,67 +2845,52 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.reagents.addiction_list.Add(new_reagent)
 
 	if(disabilities & DISABILITY_FLAG_FAT)
-		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
+		character.force_gene_block(GLOB.fatblock, TRUE, TRUE)
 		character.overeatduration = 600
-		character.dna.default_blocks.Add(GLOB.fatblock)
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLOB.glassesblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.glassesblock)
+		character.force_gene_block(GLOB.glassesblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.blindblock)
+		character.force_gene_block(GLOB.blindblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.deafblock)
+		character.force_gene_block(GLOB.deafblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
-		character.dna.SetSEState(GLOB.colourblindblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.colourblindblock)
+		character.force_gene_block(GLOB.colourblindblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.muteblock)
+		character.force_gene_block(GLOB.muteblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
-		character.dna.SetSEState(GLOB.nervousblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.nervousblock)
+		character.force_gene_block(GLOB.nervousblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_SWEDISH)
-		character.dna.SetSEState(GLOB.swedeblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.swedeblock)
+		character.force_gene_block(GLOB.swedeblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_AULD_IMPERIAL)
-		character.dna.SetSEState(GLOB.auld_imperial_block, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.auld_imperial_block)
+		character.force_gene_block(GLOB.auld_imperial_block, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
-		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.lispblock)
+		character.force_gene_block(GLOB.lispblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
-		character.dna.SetSEState(GLOB.dizzyblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.dizzyblock)
+		character.force_gene_block(GLOB.dizzyblock, TRUE, TRUE)
 
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
-		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLOB.wingdingsblock)
+		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)
 	character.UpdateAppearance()
 
 	// Do the initial caching of the player's body icons.
-	character.force_update_limbs()
-	character.update_eyes()
 	character.regenerate_icons()
 
 /datum/preferences/proc/open_load_dialog(mob/user)

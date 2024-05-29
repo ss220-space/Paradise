@@ -74,10 +74,10 @@
 		if(T.Adjacent(user))
 			for(var/B in T)
 				var/atom/movable/AM = B
-				if(AM.flags_2 & HOLOGRAM_2)
+				if(AM.flags & HOLOGRAM)
 					continue
 				. += AM
-	for(var/slot in list(SLOT_HUD_RIGHT_STORE, SLOT_HUD_LEFT_STORE))
+	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
 
@@ -86,9 +86,9 @@
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
 	for(var/obj/item/I in get_environment(user))
-		if(I.flags_2 & HOLOGRAM_2)
+		if(I.flags & HOLOGRAM)
 			continue
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			.["other"][I.type] += S.amount
 		else
@@ -106,7 +106,7 @@
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
 	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
 					possible_tools += SI
@@ -131,7 +131,7 @@
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
@@ -155,7 +155,7 @@
 	if(!check_pathtools(user, R, contents))
 		return ", missing tool."
 
-	if(!do_after(user, R.time, target = user))
+	if(!do_after(user, R.time, user))
 		return "."
 	contents = get_surroundings(user)
 

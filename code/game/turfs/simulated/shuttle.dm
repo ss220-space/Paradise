@@ -4,6 +4,7 @@
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
 	explosion_block = 3
+	explosion_vertical_block = 2
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(
 		/turf/simulated/wall/shuttle, /obj/machinery/door/airlock/shuttle,
@@ -178,6 +179,7 @@
 
 /turf/simulated/floor/shuttle/transparent_floor
 	icon_state = "transparent"
+	transparent_floor = TURF_TRANSPARENT
 
 /turf/simulated/floor/shuttle/transparent_floor/Initialize()
 	..()

@@ -61,7 +61,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv1.screen_loc
 		contents += O
 		set_actions(O)
@@ -69,7 +69,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv2.screen_loc
 		contents += O
 		set_actions(O)
@@ -77,7 +77,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv3.screen_loc
 		contents += O
 		set_actions(O)
@@ -124,7 +124,7 @@
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
 		return TRUE // The gripper is special because it has a normal item inside that we can drop.
-	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
+	return FALSE // All robot inventory items have NODROP trait, so they should return FALSE.
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.

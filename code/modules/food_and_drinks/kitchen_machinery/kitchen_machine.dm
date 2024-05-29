@@ -5,7 +5,7 @@
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	layer = 2.9
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -74,14 +74,12 @@
 	if(!broken && O.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
 		playsound(src, O.usesound, 50, 1)
+		set_anchored(!anchored)
 		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
+		else
+			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
+		return
 
 	if(default_deconstruction_crowbar(user, O))
 		return
@@ -89,13 +87,13 @@
 	if(broken > 0)
 		if(broken == 2 && O.tool_behaviour == TOOL_SCREWDRIVER) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && O.tool_behaviour == TOOL_WRENCH) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
 				broken = 0 // Fix it!
@@ -108,7 +106,7 @@
 	else if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = NO_DIRT // It's clean!
@@ -123,7 +121,7 @@
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
 		add_fingerprint(user)
-		if(istype(O,/obj/item/stack))
+		if(isstack(O))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
 				var/obj/item/stack/to_add = S.split_stack(user, 1)

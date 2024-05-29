@@ -330,6 +330,7 @@
 	if(!istype(owner))
 		return
 
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ_zone)
@@ -359,6 +360,14 @@
 /obj/item/organ/proc/surgeryize()
 	return
 
+/**
+ * Checks if organ has damage that can be cured in the "mend organs" operation.
+ * Returns TRUE if there is damage, otherwise FALSE.
+ */
+/obj/item/organ/proc/has_damage()
+	if(damage)
+		return TRUE
+	return FALSE
 
 /obj/item/organ/proc/is_robotic()
 	return (status & ORGAN_ROBOT)

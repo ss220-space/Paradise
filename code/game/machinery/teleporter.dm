@@ -322,10 +322,14 @@
 	var/accurate = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
+	light_range = 2
+	light_color = "#f1f1bd"
+	light_on = FALSE
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -347,6 +351,7 @@
 /obj/machinery/teleport/hub/Initialize()
 	..()
 	link_power_station()
+	update_icon()
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -377,7 +382,7 @@
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !istype(moving_atom, /obj/spacepod))
+	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
@@ -430,12 +435,19 @@
 	underlays.Cut()
 
 	if(power_station && power_station.engaged && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
+
+
+/obj/machinery/teleport/hub/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_lighting()
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/teleport/hub/proc/update_lighting()
 	if(power_station && power_station.engaged && !panel_open)
-		set_light(2, 1, "#f1f1bd", l_on = TRUE)
+		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
 
@@ -526,7 +538,7 @@
 	underlays.Cut()
 
 	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
 /obj/machinery/teleport/perma/proc/update_lighting()
@@ -571,11 +583,13 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	link_console_and_hub()
 
-/obj/machinery/teleport/station/Initialize()
-	..()
+
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	link_console_and_hub()
+	update_icon()
+
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
@@ -684,19 +698,9 @@
 
 
 /obj/machinery/teleport/station/power_change(forced = FALSE)
-	if(!..())
-		return
-
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-
-	update_icon()
-
-	if(teleporter_hub)
-		teleporter_hub.update_icon()
-		teleporter_hub.update_lighting()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/teleport/station/update_icon_state()
@@ -713,5 +717,5 @@
 	underlays.Cut()
 
 	if(!(stat & NOPOWER) && !panel_open)
-		underlays += emissive_appearance(icon, "controller_lightmask")
+		underlays += emissive_appearance(icon, "controller_lightmask", src)
 

@@ -20,8 +20,8 @@
 	flight_x_offset = 15
 	flight_y_offset = 9
 	can_bayonet = TRUE
-	knife_x_offset = 20
-	knife_y_offset = 12
+	bayonet_x_offset = 20
+	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
@@ -148,11 +148,11 @@
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
 	. = ..()
-	if(!can_shoot())
+	if(!can_shoot(user))
 		attempt_reload()
 
 
-/obj/item/gun/energy/kinetic_accelerator/dropped(mob/user, silent = FALSE)
+/obj/item/gun/energy/kinetic_accelerator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand calls `dropped()`.
@@ -503,6 +503,8 @@
 	modifier = -14 // Makes the cooldown 3 seconds (with no cooldown mods) if you miss. Don't miss.
 	cost = 50
 
+/obj/item/borg/upgrade/modkit/cooldown/repeater/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	var/valid_repeat = FALSE
@@ -582,6 +584,14 @@
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
 	modifier = 0.2
 
+/obj/item/borg/upgrade/modkit/aoe/turfs/borg
+	compatibility = COMPATIBILITY_CYBORG
+
+/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs/borg
+	compatibility = COMPATIBILITY_CYBORG
+
+/obj/item/borg/upgrade/modkit/aoe/mobs/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 // Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
@@ -614,6 +624,8 @@
 	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
+/obj/item/borg/upgrade/modkit/resonator_blasts/borg
+	compatibility = COMPATIBILITY_CYBORG
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(target_turf && !ismineralturf(target_turf)) // Don't make fields on mineral turfs.

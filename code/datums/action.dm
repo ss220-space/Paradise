@@ -4,7 +4,7 @@
 	var/obj/target = null
 	var/check_flags = 0
 	var/invisibility = FALSE
-	var/obj/screen/movable/action_button/button = null
+	var/atom/movable/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/background_icon
@@ -36,12 +36,15 @@
 			return FALSE
 		Remove(owner)
 	owner = user
-	user.actions += src
+	owner.actions += src
 
-	if(user.client)
-		user.client.screen += button
+	if(owner.client)
+		owner.client.screen += button
 		button.locked = TRUE
-	user.update_action_buttons()
+	owner.update_action_buttons()
+
+	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 
 	return TRUE
 
@@ -60,7 +63,19 @@
 	user.actions -= src
 	user.update_action_buttons()
 
+	// Clean up our check_flag signals
+	UnregisterSignal(user, list(
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+	))
+
 	return TRUE
+
+
+/// A general use signal proc that reacts to an event and updates JUST our button
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+	UpdateButtonIcon()
 
 
 /datum/action/proc/Trigger(left_click = TRUE)
@@ -101,7 +116,7 @@
 		return FALSE
 	var/owner_is_living = isliving(owner)
 	var/mob/living/living_owner = owner
-	if((check_flags & AB_CHECK_HANDS_BLOCKED) && owner.restrained())
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
 		return FALSE
@@ -154,7 +169,7 @@
 	img.plane = FLOAT_PLANE + 1
 	button.add_overlay(img)
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(icon_icon && button_icon_state)
 		var/image/img = image(icon_icon, current_button, button_icon_state)
@@ -196,7 +211,7 @@
 		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	if(use_itemicon)
 		if(target)
 			var/obj/item/I = target
@@ -500,7 +515,7 @@
 		owner.research_scanner = 0
 	..()
 
-/datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/toggle_research_scanner/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
@@ -683,7 +698,7 @@
 		button.cut_overlay(I)
 
 
-/datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/spell_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, button_icon_state)
@@ -749,7 +764,7 @@
 		owner.research_scanner = 0
 	..()
 
-/datum/action/innate/research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/innate/research_scanner/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")

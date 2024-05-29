@@ -21,7 +21,7 @@
 /obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
 	. = ..()
 	I.play_tool_sound(src, I.tool_volume)
-	anchored = !anchored
+	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "un" : ""]wrenched [src]"))
 
 /obj/structure/garland/attackby(obj/item/P, mob/user, params)
@@ -36,10 +36,10 @@
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
 	w_class = WEIGHT_CLASS_SMALL
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	body_parts_covered = HEAD
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
-	flags_inv = null
+	flags_inv = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -60,13 +60,12 @@
 	icon_state = "red_furcoat"
 	item_state = "red_furcoat"
 	resistance_flags = INDESTRUCTIBLE
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	w_class = WEIGHT_CLASS_NORMAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL|WING
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/magic/staff/frost)
 	slowdown = FALSE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
-	flags_inv = null
+	flags_inv = NONE
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
@@ -97,7 +96,7 @@
 	. = ..()
 	visible_message(span_darkmblue("[user] raises up [src], forming blizzard around it."), \
 	 span_darkmblue("You raise up [src] and start forming snowy blizzard..."))
-	if(do_after(user, 5 SECONDS, target = user))
+	if(do_after(user, 5 SECONDS, user))
 		for(var/turf/simulated/T in range(4, user))
 			if(T.density)
 				continue

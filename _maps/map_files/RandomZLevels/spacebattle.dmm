@@ -3585,7 +3585,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4012,7 +4012,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "lq" = (
 /obj/machinery/light/small{
@@ -4077,7 +4077,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "lD" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "lF" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -6003,7 +6003,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "rn" = (
 /obj/machinery/door/airlock/highsecurity,
@@ -6156,8 +6156,8 @@
 /area/awaymission/spacebattle/cruiser)
 "rE" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -7155,9 +7155,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -7409,7 +7407,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/transit_tube,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "uW" = (
 /obj/structure/window/plasmareinforced{
@@ -7903,7 +7901,7 @@
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "wo" = (
 /obj/structure/cable{
@@ -8399,8 +8397,8 @@
 /area/awaymission/spacebattle/hallway1)
 "xx" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -9313,9 +9311,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "zQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "zR" = (
@@ -10214,9 +10210,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Cs" = (
@@ -11226,7 +11220,7 @@
 	icon_state = "TheSingGen";
 	layer = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway11)
 "Fg" = (
 /obj/structure/cable{
@@ -11705,14 +11699,12 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "Gr" = (
@@ -12453,9 +12445,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "IB" = (
@@ -15982,9 +15972,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Se" = (
@@ -16575,9 +16563,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "TQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "TR" = (
@@ -17126,7 +17112,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/hallway3)
 "Vm" = (
 /obj/structure/cable{
@@ -17914,8 +17900,8 @@
 /area/awaymission/spacebattle/cruiser)
 "Xz" = (
 /obj/structure/closet{
-	density = 0;
 	custom_door_overlay = "yellow";
+	density = 0;
 	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
@@ -18282,7 +18268,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/awaymission/spacebattle/storage)
 "YC" = (
 /obj/effect/decal/syndie_logo{

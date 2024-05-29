@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		T.MakeSlippery(TURF_WET_LUBE)
+		T.MakeSlippery(TURF_WET_LUBE, 120 SECONDS)
 
 
 /datum/reagent/space_cleaner
@@ -152,13 +152,13 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		return
 	if(volume < 3)
 		return
-	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
+	if(!data["donor"] || ishuman(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(istype(data["donor"], /mob/living/carbon/alien))
+	else if(isalien(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	taste_description = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
-	if(istype(T) && T.wet)
+	if(istype(T))
 		T.MakeDry(TURF_WET_WATER)
 
 /datum/reagent/drying_agent/reaction_obj(obj/O, volume)

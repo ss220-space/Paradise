@@ -43,6 +43,8 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
+	//Value used in multiz_explosions. it set here, so may some objects that cover the floor, may also impact the explosion
+	var/explosion_vertical_block = 0
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
@@ -58,6 +60,15 @@
 
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
+
+	/// Lazylist of all images (hopefully attached to us) to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	var/list/image/update_on_z
+
+	/// Lazylist of all overlays attached to us to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
+	var/list/image/update_overlays_on_z
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -125,7 +136,7 @@
 
 //Note: the following functions don't call the base for optimization and must copypasta:
 // /turf/Initialize
-// /turf/open/space/Initialize
+// /turf/simulated/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -145,6 +156,8 @@
 
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -262,10 +275,14 @@
 			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
-			if(istype(M.loc, /mob/living))
+			if(isliving(M.loc))
 				var/mob/living/L = M.loc
 				L.drop_item_ground(M)
 			M.forceMove(src)
+
+/atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
+	SHOULD_CALL_PARENT(TRUE)
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, falling_movables, levels)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -541,6 +558,40 @@
 	return
 
 
+/**
+ * Adds a special overlay to any atom.
+ * This overlay will always persist even when an atom is updating its overlays.
+ *
+ * Arguments:
+ * * overlay_to_add - should be an image, mutable_appearance or icon
+ * * id - string ID of our overlay, should be unique, otherwise it will remove all overlays with the same ID
+ * * timer (optional) - if set overlay will be removed after passed time
+ */
+/atom/proc/add_persistent_overlay(overlay_to_add, id, timer)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
+
+
+/**
+ * Removes a persistent overlay from an atom if it exists.
+ *
+ * Arguments:
+ * * id - string ID of the overlay we should remove
+ */
+/atom/proc/remove_persistent_overlay(id)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+		return
+	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
+	if(!islist(all_persistent))
+		all_persistent = list(all_persistent)
+	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
+		if(existing.dupe_id == id)
+			existing.remove_persistent_overlay()
+
+
 /atom/Topic(href, href_list)
 	. = ..()
 	if(.)
@@ -615,7 +666,7 @@
 
 /atom/proc/unemag()
 	return
-	
+
 /atom/proc/cmag_act(mob/user)
 	return
 
@@ -652,7 +703,7 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 
@@ -676,15 +727,8 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-/**
-	Base proc, intended to be overriden.
-
-	This should only be called from one place: inside the slippery component.
-	Called after a human mob slips on this atom.
-
-	If you want the person who slipped to have something special done to them, put it here.
-*/
-/atom/proc/after_slip(mob/living/carbon/human/H)
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M)
@@ -1134,6 +1178,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
@@ -1277,7 +1322,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""
@@ -1331,18 +1376,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-/*
-	Setter for the `density` variable.
-	Arguments:
-	* new_value - the new density you would want it to set.
-	Returns: Either null if identical to existing density, or the new density if different.
-*/
-/atom/proc/set_density(new_value)
-	if(density == new_value)
-		return
-	. = density
-	density = new_value
-
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
@@ -1350,11 +1383,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
 
 
 /**
@@ -1416,4 +1444,67 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	return TRUE
+
+
+/**
+ * Returns `TRUE` if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
+ * HEY JACKASS, LISTEN
+ * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
+ * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
+ * for them to use. If you add more to it, make sure you do that, or things will behave strangely
+ *
+ * Gravity situations:
+ * * Gravity if global admin override
+ * * Gravity if the z-level has trait ZTRAIT_GRAVITY
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admin override
+		return GLOB.gravity_is_on
+
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)//no gravity in nullspace
+			return FALSE
+
+	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
+		return TRUE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
+	var/area/turf_area = gravity_turf.loc
+
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
+
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
 

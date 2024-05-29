@@ -17,12 +17,6 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
-		if(CONFIG_GET(flag/starlight))
-			for(var/I in GLOB.all_areas)
-				var/area/A = I
-				if(A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-					A.luminosity = 0
-
 		create_all_lighting_objects()
 
 	fire(FALSE, TRUE)
@@ -94,7 +88,7 @@ SUBSYSTEM_DEF(lighting)
 	queue = objects_queue
 	while(i < length(queue)) //we don't use for loop here because i cannot be changed during an iteration
 		i += 1
-		var/datum/lighting_object/O = queue[i]
+		var/atom/movable/lighting_object/O = queue[i]
 
 		if(QDELETED(O))
 			continue

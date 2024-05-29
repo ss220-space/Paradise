@@ -9,8 +9,9 @@
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
-	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
@@ -166,7 +167,7 @@
 							var/blood_type = R.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
-			if(istype(scan_atom, /obj/item/clothing))
+			if(isclothing(scan_atom))
 				var/obj/item/clothing/scanned_clothing = scan_atom
 				if(scanned_clothing.spy_spider_attached)
 					found_spy_device = TRUE

@@ -139,7 +139,7 @@
 
 
 /obj/machinery/light_construct/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
 	qdel(src)
 
@@ -320,9 +320,9 @@
 	if(status != LIGHT_OK || !on)
 		return
 	if(nightshift_enabled || emergency_mode || fire_mode)
-		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
 	else
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -527,7 +527,7 @@
 
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/machinery/light_construct/newlight = null
 		var/cur_stage = 2
 		if(!disassembled)
@@ -823,7 +823,7 @@
 	AddComponent(/datum/component/caltrop, force)
 
 /obj/item/light/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity(loc))
+	if(istype(L) && L.has_gravity())
 		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)

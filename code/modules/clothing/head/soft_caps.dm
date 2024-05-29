@@ -20,10 +20,10 @@
 
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/clothing/head/soft/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/head/soft/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(flipped)
 		flipped = FALSE

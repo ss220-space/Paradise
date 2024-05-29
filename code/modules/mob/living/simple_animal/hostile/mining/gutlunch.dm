@@ -22,7 +22,7 @@
 	response_harm   = "squishes"
 	friendly = "pinches"
 	a_intent = INTENT_HELP
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS
 	gender = NEUTER
@@ -62,7 +62,7 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
-	if(isturf(the_target) || !the_target) // bail out on invalids
+	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
 		return FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it

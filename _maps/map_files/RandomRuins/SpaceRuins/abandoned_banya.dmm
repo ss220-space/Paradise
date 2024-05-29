@@ -82,8 +82,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/noticeboard{
-	pixel_y = -1;
-	pixel_x = -32
+	pixel_x = -32;
+	pixel_y = -1
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -116,7 +116,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Arrival USSP Hatch"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating/airless,
 /area/ruin/USSP_SpaceBanya)
 "eu" = (
 /turf/simulated/floor/wood{
@@ -176,8 +176,8 @@
 /obj/structure/table_frame/wood,
 /obj/item/fan,
 /obj/item/paper/ussp{
-	name = "Прайс Лист";
-	info = "Прайс Лист с текущимвввви расценками услуг: Парилка и купание - 450 кредитов.  Обед - 150. Баня, сауна, обед и выпивка - 999 кредитов. "
+	info = "Прайс Лист с текущимвввви расценками услуг: Парилка и купание - 450 кредитов.  Обед - 150. Баня, сауна, обед и выпивка - 999 кредитов. ";
+	name = "Прайс Лист"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -263,8 +263,8 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "lE" = (
@@ -277,8 +277,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "mh" = (
@@ -310,8 +310,8 @@
 "op" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
-	icon_state = "wood-broken7"
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
 	},
 /area/ruin/USSP_SpaceBanya)
 "ow" = (
@@ -770,8 +770,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
-	icon_state = "wood-broken7"
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Fa" = (
@@ -856,8 +856,8 @@
 "JI" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
-	icon_state = "wood-broken3"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/ruin/USSP_SpaceBanya)
 "Lc" = (
@@ -873,7 +873,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/vintage,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/USSP_SpaceBanya)
 "Lj" = (
 /obj/machinery/computer/monitor,
@@ -950,7 +950,7 @@
 	name = "Arrival USSP Hatch"
 	},
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plating/airless,
 /area/ruin/USSP_SpaceBanya)
 "QL" = (
 /obj/structure/table/reinforced,
@@ -980,7 +980,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/USSP_SpaceBanya)
 "RV" = (
 /obj/effect/decal/cleanable/flour,
@@ -1024,8 +1024,8 @@
 /area/ruin/USSP_SpaceBanya)
 "Uf" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	dir = 9
+	dir = 9;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -1137,8 +1137,8 @@
 "Xm" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/coin/gold{
-	pixel_y = 7;
-	pixel_x = -12
+	pixel_x = -12;
+	pixel_y = 7
 	},
 /obj/item/gun/magic/wand,
 /turf/simulated/floor/wood/oak,
@@ -1200,8 +1200,8 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/item/coin/silver{
-	inhand_y_dimension = 56;
 	inhand_x_dimension = 34;
+	inhand_y_dimension = 56;
 	pixel_x = -8;
 	pixel_y = 5
 	},
@@ -1220,8 +1220,8 @@
 "ZM" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/coin/silver{
-	inhand_y_dimension = 56;
 	inhand_x_dimension = 34;
+	inhand_y_dimension = 56;
 	pixel_x = 15;
 	pixel_y = 5
 	},

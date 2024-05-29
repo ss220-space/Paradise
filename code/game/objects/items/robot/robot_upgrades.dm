@@ -162,17 +162,17 @@
 	if(!..())
 		return FALSE
 
-	if(robot.magpulse)
+	if(HAS_TRAIT_FROM(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT))
 		return FALSE
 
-	robot.magpulse = TRUE
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
-	robot.magpulse = initial(robot.magpulse)
+	REMOVE_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/disablercooler
@@ -227,6 +227,9 @@
 /obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+
+	if(robot.ionpulse_on)
+		robot.toggle_ionpulse(silent = TRUE)
 
 	robot.ionpulse = FALSE
 	return TRUE

@@ -1,3 +1,9 @@
+/mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+		thunk()
+
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))
@@ -10,11 +16,12 @@
 	return considering
 
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return TRUE
+/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE)
+	. = ..()
+	if(.)
+		return .
 
-	var/jetpacks = list()
+	var/list/jetpacks = list()
 
 	if(istype(back, /obj/item/tank/jetpack))
 		jetpacks += back
@@ -23,23 +30,13 @@
 	if(istype(space_suit) && space_suit.jetpack)
 		jetpacks += space_suit.jetpack
 
-	for(var/obj/item/tank/jetpack/jetpack in jetpacks)
+	for(var/obj/item/tank/jetpack/jetpack as anything in jetpacks)
 		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
 
-	if(dna.species.spec_Process_Spacemove(src))
+	if(dna.species.spec_Process_Spacemove(src, movement_dir))
 		return TRUE
 
-	return FALSE
-
-/mob/living/carbon/human/mob_has_gravity()
-	. = ..()
-	if(!.)
-		if(mob_negates_gravity())
-			. = 1
-
-/mob/living/carbon/human/mob_negates_gravity()
-	return shoes && shoes.negates_gravity()
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
@@ -59,7 +56,7 @@
 				if(dna.species.fragile_bones_chance && prob(30))
 					playsound(src, "bonebreak", 10, TRUE)
 
-	if(!has_gravity(loc))
+	if(!has_gravity())
 		return
 
 	var/obj/item/clothing/shoes/S = shoes
@@ -97,6 +94,7 @@
 	. = ..()
 	if(isnull(.))
 		return .
+	update_fractures_slowdown()
 	/*
 	if(. == 0)
 		if(usable_legs != 0) //From having no usable legs to having some.
@@ -113,22 +111,24 @@
 	. = ..()
 	if(isnull(.))
 		return .
-	/*
+
 	if(. == 0)
 		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, LACKING_MANIPULATION_APPENDAGES_TRAIT)
-		if(usable_hands != 0) //From having no usable hands to having some.
-			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+		//if(usable_hands != 0) //From having no usable hands to having some.
+		//	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(usable_hands == 0 && default_num_hands > 0) //From having usable hands to no longer having them.
 		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LACKING_MANIPULATION_APPENDAGES_TRAIT)
-		if(!usable_legs && !(movement_type & (FLYING | FLOATING)))
-			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
-	*/
+		//if(!usable_legs && !(movement_type & (FLYING|FLOATING)))
+		//	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+
+	update_hands_HUD()
 
 
 /mob/living/carbon/human/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
 	. = ..()
 	if(movement_type & (FLYING|FLOATING) && !(old_movement_type & (FLYING|FLOATING)))
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
 		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 		update_obesity_slowdown()
 
@@ -139,6 +139,7 @@
 		update_obesity_slowdown()
 		update_hunger_slowdown()
 		update_limbless_slowdown()
+		update_fractures_slowdown()
 
 		/*
 		var/limbless_slowdown = 0
@@ -157,3 +158,29 @@
 			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 		*/
 
+
+/// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
+/mob/living/carbon/human/proc/thunk()
+	if(buckled || incorporeal_move || mob_negates_gravity())
+		return
+
+	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
+		return
+
+	if(m_intent != MOVE_INTENT_RUN)
+		return
+
+	to_chat(src, span_userdanger("Gravity exhausts you!"))
+	adjustStaminaLoss(35)
+
+/mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & (SLIDE_ICE|SLIDE)))
+		return FALSE
+
+	return ..()

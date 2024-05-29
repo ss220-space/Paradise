@@ -10,8 +10,8 @@
 	icon_state = "drone"
 	health = 35
 	maxHealth = 35
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 
@@ -95,7 +95,7 @@
 	if(hud_used)
 		var/datum/hud/hud = hud_used
 		if(!hud.wind_up_timer)
-			hud.wind_up_timer = new /obj/screen/wind_up_timer()
+			hud.wind_up_timer = new /atom/movable/screen/wind_up_timer()
 			hud.infodisplay += hud.wind_up_timer
 			hud.show_hud(hud.hud_version)
 
@@ -225,7 +225,7 @@
 	if(is_type_in_list(AM, pullable_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
@@ -335,7 +335,7 @@
 	user.playsound_local(src, 'sound/machines/blender.ogg', 20, 1)
 	for(var/obj/item/A in grabbed_items)
 		if(A.materials[MAT_METAL])
-			if(istype(A, /obj/item/stack))
+			if(isstack(A))
 				var/obj/item/stack/S = A
 				metal_amount += S.materials[MAT_METAL] * S.amount
 			else

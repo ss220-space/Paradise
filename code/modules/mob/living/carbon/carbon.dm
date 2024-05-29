@@ -70,7 +70,7 @@
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
 
-				if(istype(src, /mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
 					if(istype(organ))
@@ -412,15 +412,22 @@
 	dna = newDNA
 
 
-/mob/living/carbon/can_ventcrawl(atom/clicked_on, override = FALSE)
-	if(!override && ventcrawler == 1)
-		var/list/weared_items = get_all_slots()
-		for(var/obj/item/item in weared_items)
-			if(item)
-				to_chat(src, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
-				return FALSE
+/mob/living/carbon/can_ventcrawl(obj/machinery/atmospherics/ventcrawl_target, provide_feedback = TRUE, entering = FALSE)
+	. = ..()
+	if(!. || !entering)
+		return .
 
-	return ..()
+	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
+	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами в руках!"))
+		return FALSE
+
+	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		if(provide_feedback)
+			to_chat(src, span_warning("Вы не можете ползать по вентиляции c предметами!"))
+		return FALSE
 
 
 //Throwing stuff
@@ -519,13 +526,13 @@
 
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
+	if(!target || !isturf(loc) || is_screen_atom(target))
 		throw_mode_off()
 		return
 
 	var/obj/item/I = get_active_hand()
 
-	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
+	if(!I || I.override_throw(src, target) || HAS_TRAIT(I, TRAIT_NODROP))
 		throw_mode_off()
 		return
 
@@ -550,7 +557,7 @@
 
 				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+	else if(!(I.item_flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
 		drop_item_ground(I, silent = TRUE)
 
@@ -592,23 +599,27 @@
 
 
 /mob/living/carbon/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	var/obj/item/I
-	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
-		var/breakouttime = I.breakouttime
-		var/displaytime = breakouttime / 10
-		visible_message("<span class='warning'>[src.name] пыта[pluralize_ru(src.gender,"ет","ют")]ся себя отстегнуть!</span>", \
-					"<span class='notice'>Вы пытаетесь себя отстегнуть... (Это займет около [displaytime] секунд и вам не нужно двигаться.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		var/breakouttime = 60 SECONDS
+		var/obj/item/restraints = handcuffed
+		if(wear_suit?.breakouttime)
+			restraints = wear_suit
+		if(restraints)
+			breakouttime = restraints.breakouttime
+		visible_message(
+			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть... (Это займет [breakouttime / 10] секунд и Вам нельзя двигаться."),
+		)
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
 			if(!buckled)
 				return
-			buckled.user_unbuckle_mob(src,src)
+			buckled.user_unbuckle_mob(src, src)
 		else
 			if(src && buckled)
-				to_chat(src, "<span class='warning'>Вам не удалось себя отстегнуть!</span>")
+				to_chat(src, span_warning("Вам не удалось себя отстегнуть!"))
 	else
-		buckled.user_unbuckle_mob(src,src)
+		buckled.user_unbuckle_mob(src, src)
 
 
 /mob/living/carbon/resist_fire()
@@ -649,43 +660,12 @@
 		if(glands)
 			stat(null, "Wax: [glands.wax]")
 
-
-/mob/living/carbon/proc/slip(description, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
-	if((movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
+/mob/living/carbon/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
+	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
 
-	if(lying_angle && !tilesSlipped)
-		return FALSE
-
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		var/turf/simulated/T = get_turf(H)
-		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
-			return FALSE
-		if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for lubeprotection magboots and lube slip
-			var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-			if((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse && humanmagboots.lubeprotection)
-				return FALSE
-		if(!has_gravity(H) && !grav_ignore)
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip (no grav && no lubeprotection)
-				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
-				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
-					return FALSE
-			else
-				return FALSE
-
-	if(tilesSlipped)
-		for(var/i in 1 to tilesSlipped)
-			spawn(i)
-				step(src, dir)
-
-	stop_pulling()
-	to_chat(src, "<span class='notice'>Вы [slipVerb] на [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
-	// Something something don't run with scissors
-	moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-	Weaken(weaken)
-	return TRUE
+	..()
+	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
 /mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
@@ -746,12 +726,12 @@
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
 	else
 		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
-		return 0
+		return FALSE
 	if(!toEat.instant_application)
-		if(!do_mob(user, src))
-			return 0
+		if(!do_after(user, 3 SECONDS, src, NONE))
+			return FALSE
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
-	return 1
+	return TRUE
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
@@ -775,19 +755,21 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(!iscarbon(src))
+	if(dna && (NO_BREATHE in dna.species.species_traits))
 		return FALSE
 
-	if(NO_BREATHE in src.dna?.species?.species_traits)
-		return FALSE
-
-	if(!wear_mask)
+	if(!wear_mask && !head)
 		return TRUE
 
-	if(!(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT) && internal == null)
+	var/obj/item/clothing/our_mask = wear_mask
+	var/obj/item/clothing/our_helmet = head
+	if(!internal \
+		&& !(isclothing(our_mask) && (our_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)) \
+		&& !(isclothing(our_helmet) && (our_helmet.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)))
 		return TRUE
 
 	return FALSE
+
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
@@ -795,9 +777,9 @@ so that different stomachs can handle things in different ways VB*/
 		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 
@@ -836,17 +818,17 @@ so that different stomachs can handle things in different ways VB*/
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 	nightvision = initial(nightvision)
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
-		sight |= cyber_eyes.vision_flags
+		add_sight(cyber_eyes.vision_flags)
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
-			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
@@ -856,11 +838,10 @@ so that different stomachs can handle things in different ways VB*/
 			return
 
 	if(XRAY in mutations)
-		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	..()
 
 
 /mob/living/carbon/ExtinguishMob()

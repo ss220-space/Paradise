@@ -32,14 +32,15 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-	magichead.flags |= NODROP | DROPDEL	//curses!
-	magichead.flags_inv = null	//so you can still see their face
+	magichead.item_flags |= DROPDEL	//curses!
+	ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
+	magichead.flags_inv = NONE	//so you can still see their face
 	magichead.voicechange = TRUE	//NEEEEIIGHH
 	target.visible_message(	"<span class='danger'>[target]'s face  lights up in fire, and after the event a horse's head takes its place!</span>", \
 							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
 	if(!target.drop_item_ground(target.wear_mask))
 		qdel(target.wear_mask)
-	target.equip_to_slot_or_del(magichead, SLOT_HUD_WEAR_MASK)
+	target.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)
 
 	target.flash_eyes()
 

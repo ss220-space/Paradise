@@ -424,7 +424,7 @@
 	if(..())
 		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
@@ -1037,16 +1037,17 @@
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."
 
-/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user as mob)
-	if(istype(user, /mob/living/carbon/human))
+/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
+	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP | DROPDEL	//curses!
-		magichead.flags_inv = null	//so you can still see their face
+		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
+		magichead.item_flags |= DROPDEL	//curses!
+		magichead.flags_inv = NONE	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_or_del(magichead, SLOT_HUD_WEAR_MASK)
+		user.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
@@ -1057,7 +1058,7 @@
 	icon_state = "bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
 
-/obj/item/spellbook/oneuse/charge/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
 	empulse(src, 1, 1)
@@ -1068,7 +1069,7 @@
 	icon_state = "booksummons"
 	desc = "This book is bright and garish, very hard to miss."
 
-/obj/item/spellbook/oneuse/summonitem/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)

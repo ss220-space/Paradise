@@ -45,7 +45,7 @@
 	offset_y = icon_offsets["y"]
 
 	bar = image('icons/effects/progressbar.dmi', bar_loc, "prog_bar_0", ABOVE_HUD_LAYER, pixel_x = offset_x)
-	bar.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(bar, ABOVE_HUD_PLANE, User)
 	bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	user = User
 

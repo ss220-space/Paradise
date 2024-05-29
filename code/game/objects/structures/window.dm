@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
 
 /obj/structure/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!can_be_reached(user))
@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
-			anchored = !anchored
+			set_anchored(!anchored)
 			air_update_turf(TRUE)
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
@@ -287,13 +287,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
-		anchored = !anchored
+		set_anchored(!anchored)
 		air_update_turf(TRUE)
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
 /obj/structure/window/wrench_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(anchored)
 		return
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(!disassembled)
 		playsound(src, breaksound, 70, 1)
-		if(!(flags & NODECONSTRUCT))
+		if(!(obj_flags & NODECONSTRUCT))
 			for(var/i in debris)
 				var/obj/item/I = i
 				I.forceMove(loc)
@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -421,7 +421,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(anchored)
@@ -441,12 +441,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/AltClick(mob/user)
 
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
+		return
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 
 	if(anchored)
@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return TRUE
 
 /obj/structure/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_nearby_icons()
 	return ..()
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	setDir(ini_dir)
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T)
+/obj/structure/window/CanAtmosPass(turf/T, vertical)
 	if(!anchored || !density)
 		return TRUE
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
@@ -684,12 +684,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/abductor/Initialize(mapload, direct)
 	..()
 	AddComponent(/datum/component/obj_regenerate)
+
 /obj/structure/window/full
 	glass_amount = 2
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+
+/obj/structure/window/full/CanAtmosPass(turf/T, vertical)
+	if(!anchored || !density)
+		return TRUE
+	return FALSE
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
