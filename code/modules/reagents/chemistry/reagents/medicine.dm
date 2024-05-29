@@ -1080,8 +1080,8 @@
 	if(!normal_temperature)
 		normal_temperature = BODYTEMP_NORMAL
 	var/difference = M.bodytemperature - normal_temperature
-	var/current_effect = difference > 0 ? -temperature_effect : temperature_effect
 	if(abs(difference) > temperature_effect)
+		var/current_effect = difference > 0 ? -temperature_effect : temperature_effect
 		M.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
