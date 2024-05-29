@@ -233,30 +233,53 @@
 
 	antags_weights = list()
 
-	var/list/antag_weight_config = CONFIG_GET(keyed_list/antag_paradise_main_antags)
-	antag_weight_config = antag_weight_config.Copy()
+	var/list/single_weights_config = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
+	single_weights_config = single_weights_config.Copy()
+	for(var/antag in single_weights_config)
+		if(players < antag_required_players[antag] || single_weights_config[antag] <= 0)
+			single_weights_config -= antag
 
-	for(var/antag in antag_weight_config)
-		if(players < antag_required_players[antag])
-			antag_weight_config -= antag
-
-	if(!length(antag_weight_config))
+	if(!length(single_weights_config))
 		return
 
 	var/mode_type = pick_weight_classic(CONFIG_GET(keyed_list/antag_paradise_mode_subtypes))
 	if(mode_type == ANTAG_RANDOM)
-		for(var/antag in antag_weight_config)
+		var/list/random_mode_whitelist = CONFIG_GET(str_list/antag_paradise_random_antags_whitelist)
+		for(var/antag in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
+			if(!(antag in random_mode_whitelist))
+				continue
 			antags_weights[antag] = rand(1, 100)
 		return
 
 	var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
-	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_SINGLE]
-	if(!length(antag_weight_config) || mode_type == ANTAG_SINGLE)
+	var/list/choosen_antags = list()
+	var/single_antag = pick_weight_classic(single_weights_config)
+	choosen_antags += single_antag
+	antags_weights[single_antag] = subtype_weights[ANTAG_SINGLE]
+	if(mode_type == ANTAG_SINGLE)
 		return
-	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_DOUBLE]
-	if(!length(antag_weight_config) || mode_type == ANTAG_DOUBLE)
+
+	var/list/double_weights_config = CONFIG_GET(keyed_list/antag_paradise_double_antags_weights)
+	double_weights_config = double_weights_config.Copy() - choosen_antags
+	for(var/antag in double_weights_config)
+		if(players < antag_required_players[antag] || double_weights_config[antag] <= 0)
+			double_weights_config -= antag
+	if(!length(double_weights_config))
 		return
-	antags_weights[pick_weight_n_take(antag_weight_config)] = subtype_weights[ANTAG_TRIPPLE]
+	var/double_antag = pick_weight_classic(double_weights_config)
+	choosen_antags += double_antag
+	antags_weights[double_antag] = subtype_weights[ANTAG_DOUBLE]
+	if(mode_type == ANTAG_DOUBLE)
+		return
+
+	var/list/tripple_weights_config = CONFIG_GET(keyed_list/antag_paradise_tripple_antags_weights)
+	tripple_weights_config = tripple_weights_config.Copy() - choosen_antags
+	for(var/antag in tripple_weights_config)
+		if(players < antag_required_players[antag] || tripple_weights_config[antag] <= 0)
+			tripple_weights_config -= antag
+	if(!length(tripple_weights_config))
+		return
+	antags_weights[pick_weight_classic(tripple_weights_config)] = subtype_weights[ANTAG_TRIPPLE]
 
 
 /datum/game_mode/antag_paradise/post_setup()
