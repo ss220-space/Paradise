@@ -1,6 +1,7 @@
 /turf
-	var/dynamic_lighting = TRUE
 	luminosity = 1
+	///Bool, whether this turf will always be illuminated no matter what area it is in
+	var/always_lit = FALSE
 
 	var/tmp/lighting_corners_initialised = FALSE
 
@@ -27,10 +28,6 @@
 /turf/proc/lighting_build_overlay()
 	if(lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
-
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(A) && !light_sources)
-		return
 
 	new/atom/movable/lighting_object(src)
 
@@ -105,11 +102,16 @@
 			mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
-			if(new_area.dynamic_lighting)
+		if(new_area.static_lighting != old_area.static_lighting)
+			if(new_area.static_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+	//Inherit overlay of new area
+	if(old_area.lighting_effect)
+		cut_overlay(old_area.lighting_effect)
+	if(new_area.lighting_effect)
+		add_overlay(new_area.lighting_effect)
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)

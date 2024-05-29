@@ -523,7 +523,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over_object, /obj/screen))
+	if(is_screen_atom(over_object))
 		return FALSE
 
 	if(over_object == user || loc != user || !ishuman(user))
@@ -589,7 +589,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over_object, /obj/screen))
+	if(is_screen_atom(over_object))
 		return FALSE
 
 	if(over_object == user || loc != user || !ishuman(user))

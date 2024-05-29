@@ -7,6 +7,7 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
+	plane = WALL_PLANE
 	var/rotting = 0
 
 	var/damage = 0

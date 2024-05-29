@@ -26,10 +26,6 @@
 	zpos = z
 	flags = traits
 
-	if(length(GLOB.default_lighting_underlays_by_z) < zpos)
-		GLOB.default_lighting_underlays_by_z.len = zpos
-	GLOB.default_lighting_underlays_by_z[zpos] = mutable_appearance(LIGHTING_ICON, "transparent", z, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
-
 	build_space_destination_arrays()
 	set_linkage(transition_type)
 	set_navbeacon()
@@ -142,11 +138,11 @@
 
 //create docking ports for navigation consoles to jump to
 /datum/space_level/proc/set_navbeacon()
-	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(src)
+	var/turf/placing_turf = locate(200, 200, zpos)
+	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(placing_turf)
 	D.name = name
 	D.id = "nav_z[zpos]"
 	D.register()
-	D.forceMove(locate(200, 200, zpos))
 
 GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
 GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))

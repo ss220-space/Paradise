@@ -560,7 +560,7 @@
 		return ..()
 	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
@@ -568,18 +568,18 @@
 	var/streak
 
 
-/obj/screen/combo/proc/clear_streak()
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
 
-/obj/screen/combo/update_icon(updates, _streak)
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
 
 
-/obj/screen/combo/update_overlays()
+/atom/movable/screen/combo/update_overlays()
 	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
@@ -588,7 +588,7 @@
 		. += intent_icon
 
 
-/obj/screen/combo/update_icon_state()
+/atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return

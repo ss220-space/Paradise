@@ -285,7 +285,7 @@
 	I.screen_loc = null
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	switch(slot)
 		if(ITEM_SLOT_BACK)

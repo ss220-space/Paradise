@@ -61,6 +61,15 @@
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
+	/// Lazylist of all images (hopefully attached to us) to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	var/list/image/update_on_z
+
+	/// Lazylist of all overlays attached to us to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
+	var/list/image/update_overlays_on_z
+
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
@@ -147,6 +156,8 @@
 
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -1167,6 +1178,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
