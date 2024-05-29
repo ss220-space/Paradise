@@ -170,7 +170,6 @@ MINPLAYERS NUCLEAR 30
 MINPLAYERS ABDUCTION 15
 MINPLAYERS DEVIL 2
 MINPLAYERS DEVILAGENTS 25
-antag_paradise_random_mode_whitelist
 
 ## List of minor antags in ANTAG-PARADISE gamemode. Antags from this config will be picked for primary role (ANTAG_SINGLE), using correspoding weights.
 #ANTAG_PARADISE_SINGLE_ANTAGS TRAITOR 60
