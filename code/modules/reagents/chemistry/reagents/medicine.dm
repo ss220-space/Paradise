@@ -1076,14 +1076,12 @@
 	var/temperature_effect = 40
 
 /datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
-	var/normal_temperature = M?.dna?.species?.body_temperature
+	var/normal_temperature = M?.dna?.species.body_temperature
 	if(!normal_temperature)
 		normal_temperature = BODYTEMP_NORMAL
 	var/difference = M.bodytemperature - normal_temperature
-	var/current_effect = difference > 0 ? -40 : 40
-	if(abs(difference) < 40)
-		M.bodytemperature = normal_temperature
-	else
+	var/current_effect = difference > 0 ? -temperature_effect : temperature_effect
+	if(abs(difference) > temperature_effect)
 		M.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -1327,7 +1325,7 @@
 	update_flags |= M.adjustToxLoss(2.5, FALSE)
 	return list(0, update_flags)
 
-/datum/reagent/medicine/syndiezine 
+/datum/reagent/medicine/syndiezine
 	name = "Syndiezine"
 	id = "syndiezine"
 	description = "Попытка синдиката вывести синтетический аналог реагента кровь земли. Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."
@@ -1491,7 +1489,7 @@
 /datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isplasmaman(M))
-		var/normal_temperature = M?.dna?.species?.body_temperature
+		var/normal_temperature = M?.dna?.species.body_temperature
 		if(!normal_temperature)
 			normal_temperature = BODYTEMP_NORMAL
 		if(M.bodytemperature < normal_temperature)
