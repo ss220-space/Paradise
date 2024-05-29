@@ -48332,11 +48332,6 @@
 /area/quartermaster/storage)
 "fvg" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "fvo" = (
@@ -116528,6 +116523,10 @@
 	},
 /obj/item/taperecorder,
 /obj/item/storage/briefcase,
+/obj/item/hand_labeler,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "vmb" = (
