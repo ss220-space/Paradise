@@ -62,7 +62,7 @@
 	if(!skip_ungibable_search)
 		drop_ungibbable_items(stationary_turf)
 	for(var/mob/living/victim in contents)
-		victim.shuttle_crush_react(stationary_turf, mobile_dir, skip_ungibable_search)
+		victim.shuttle_crush_react(stationary_turf, mobile_dir)
 	gib()
 
 
@@ -122,7 +122,7 @@
 	var/atom/movable/user = master?.loc
 	master?.disrupt()
 	if(ismovable(user))
-		user.shuttle_crush_react(stationary_turf, mobile_dir, skip_ungibable_search)
+		user.shuttle_crush_react(stationary_turf, mobile_dir)
 
 
 /obj/effect/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
