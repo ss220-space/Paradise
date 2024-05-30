@@ -20,7 +20,8 @@
 
 		for(var/i=1, i<=deliveryamt, i++)
 			var/atom/movable/x = new spawner_type
-			x.admin_spawned = admin_spawned
+			if(flags & ADMIN_SPAWNED)
+				x.flags |= ADMIN_SPAWNED
 			x.loc = T
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)

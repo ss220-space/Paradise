@@ -89,7 +89,7 @@
 	desc = "Toggles between crawling and standing up. Use <b>Alt+Click</b> on self."
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = "gorilla_toggle"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 
 
 /datum/action/innate/gorilla/gorilla_toggle/Activate()

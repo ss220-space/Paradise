@@ -62,7 +62,6 @@
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
-	L.resting = FALSE
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -70,7 +69,6 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-	return
 
 //Mob procs and vars for scooping up
 /mob/living

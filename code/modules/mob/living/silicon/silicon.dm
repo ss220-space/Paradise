@@ -413,3 +413,19 @@
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs and borgs have no hands
 
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
+

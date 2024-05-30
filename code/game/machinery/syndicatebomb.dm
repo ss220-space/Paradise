@@ -423,7 +423,7 @@
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
 		var/atom/movable/X = new summon_path
-		X.admin_spawned = TRUE
+		X.flags |= ADMIN_SPAWNED
 		X.loc = get_turf(src)
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)

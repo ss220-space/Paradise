@@ -8,3 +8,6 @@
 #define ALERT_HANDCUFFED "handcuffed"
 #define ALERT_LEGCUFFED "legcuffed"
 
+/** Silicon related */
+#define ALERT_LOCKED "locked"
+

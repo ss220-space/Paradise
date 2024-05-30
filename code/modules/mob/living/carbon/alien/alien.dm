@@ -53,7 +53,6 @@
 	..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/lay_down
 	night_vision_action = new
 	night_vision_action.Grant(src)
 
@@ -82,8 +81,13 @@
 		/obj/item/organ/internal/ears
 	)
 
+
 /mob/living/carbon/alien/Stat()
 	..()
+	statpanel("Status")
+	stat(null, "Intent: [a_intent]")
+	stat(null, "Move Mode: [m_intent]")
+	show_stat_emergency_shuttle_eta()
 	if(can_evolve)
 		stat(null, "Evolution progress: [evolution_points]/[max_evolution_points]")
 
@@ -169,24 +173,42 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
-	statpanel("Status")
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
-	show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/Weaken(amount, ignore_canweaken)
-	..()
-	if(!(status_flags & CANWEAKEN) && amount && !large)
+	. = ..()
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+
 
 /mob/living/carbon/alien/SetWeakened(amount, ignore_canweaken)
-	..()
-	if(!(status_flags & CANWEAKEN) && amount && !large)
+	. = ..()
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+	else if(amount == 0)
+		move_delay_add = 0
+		remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
+
+
+/mob/living/carbon/alien/update_stamina()
+	return
+
+
+/mob/living/carbon/alien/lying_angle_on_movement(direct)
+	return
+
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	update_icons()
+
+
+/mob/living/carbon/alien/on_standing_up()
+	. = ..()
+	update_icons()
 
 
 /mob/living/carbon/alien/proc/update_alien_speed()
@@ -318,8 +340,6 @@ Des: Removes all infected images from the alien.
 /mob/living/carbon/alien/larva/update_plasma_display(mob/owner, update_buttons = FALSE)
 	return
 
-/mob/living/carbon/alien/can_use_vents()
-	return
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)

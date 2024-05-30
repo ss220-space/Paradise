@@ -1,7 +1,7 @@
 // No args for restraints because robots don't have those
-/mob/living/silicon/robot/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || lockcharge || IsWeakened() || IsStunned() || IsParalyzed() || !is_component_functioning("actuator"))
-		return TRUE
+/mob/living/silicon/robot/incapacitated(ignore_flags)
+	return lockcharge || HAS_TRAIT(src, TRAIT_INCAPACITATED) || !is_component_functioning("actuator")
+
 
 /mob/living/silicon/robot/has_vision(information_only = FALSE)
 	return ..(information_only) && ((stat == DEAD && information_only) || is_component_functioning("camera"))
@@ -14,15 +14,16 @@
 	if(stat != DEAD)
 		if(health <= -maxHealth) //die only once
 			death()
+			update_headlamp(TRUE, 0)
 			return
-		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || IsParalyzed() || IsSleeping() || IsStunned() || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
-			if(stat == CONSCIOUS)
-				KnockOut()
-				update_headlamp()
+		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || HAS_TRAIT(src, TRAIT_INCAPACITATED) || getOxyLoss() > maxHealth * 0.5)
+			if(stat != UNCONSCIOUS)
+				set_stat(UNCONSCIOUS)
+				update_headlamp(TRUE, 0)
 		else
-			if(stat == UNCONSCIOUS)
-				WakeUp()
-				update_headlamp()
+			if(stat != CONSCIOUS)
+				set_stat(CONSCIOUS)
+				update_headlamp(FALSE, 0)
 	else
 		if(health > 0)
 			update_revive()

@@ -296,10 +296,6 @@
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
-	var/old_air
-	if(issimulatedturf(src))
-		var/turf/simulated/old_turf = src
-		old_air = old_turf.air
 
 	BeforeChange()
 
@@ -327,9 +323,6 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air, oldType = old_type)
-		if(issimulatedturf(W))
-			var/turf/simulated/new_turf = W
-			new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
 
@@ -558,12 +551,12 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/living/faller, forced)
-	faller.lying_angle = pick(90, 270)
-	if(!forced)
-		return
-	if(faller.has_gravity())
+
+/turf/handle_fall(mob/living/carbon/faller)
+	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
+	faller.drop_from_hands()
+
 
 /turf/singularity_act()
 	if(intact)

@@ -55,6 +55,7 @@
 	response_harm = "squashes"
 	friendly = "nudges"
 	density = FALSE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)

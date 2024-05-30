@@ -315,14 +315,11 @@
 				addiction_list.Remove(R)
 				qdel(R)
 
-	if(update_flags & STATUS_UPDATE_HEALTH)
+	if(update_flags & (STATUS_UPDATE_HEALTH|STATUS_UPDATE_STAMINA))
 		M.updatehealth("reagent metabolism")
 	else if(update_flags & STATUS_UPDATE_STAT)
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
-	if(update_flags & STATUS_UPDATE_STAMINA)
-		M.update_stamina()
-		M.update_stamina_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)

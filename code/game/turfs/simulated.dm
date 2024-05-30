@@ -40,10 +40,10 @@
 	..()
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
-		if(!Hulk.lying_angle)
+		if(Hulk.body_position != LYING_DOWN)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-			if(!Hulk.lying_angle)
+			if(Hulk.body_position != LYING_DOWN)
 				playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
@@ -58,57 +58,53 @@
 		new_wet_floor_component.InheritComponent(slip)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-    . = ..()
-    queue_smooth_neighbors(src)
+	. = ..()
+	queue_smooth_neighbors(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType)
-    ..()
-    RemoveLattice()
+	..()
+	RemoveLattice()
+	if(!ignore_air)
+		assimilate_air()
 
 //////Assimilate Air//////
-/turf/simulated/proc/assimilate_air(datum/gas_mixture/old_air)
-    if(blocks_air || !air || planetary_atmos) // We are wall, or do not care.
-        return
-    if(old_air) // We are floor and prev(old) turf was also floor
-        air.copy_from(old_air) // We just transfer the old air to our new air and call it a day
-        if(SSair)
-            SSair.add_to_active(src)
-        return
-	// We become floor from wall or space turf.
-    var/aoxy = 0
-    var/anitro = 0
-    var/aco = 0
-    var/atox = 0
-    var/asleep = 0
-    var/ab = 0
-    var/atemp = TCMB
+/turf/simulated/proc/assimilate_air()
+	if(blocks_air || !air) // Fuck off
+		return
+	var/aoxy = 0
+	var/anitro = 0
+	var/aco = 0
+	var/atox = 0
+	var/asleep = 0
+	var/ab = 0
+	var/atemp = TCMB
 
-    var/turf_count = 0
+	var/turf_count = 0
 
-    for(var/turf/T in atmos_adjacent_turfs)
-        if(isspaceturf(T))//Counted as no air
-            turf_count++//Considered a valid turf for air calcs
-            continue
-        else if(issimulatedturf(T))
-            var/turf/simulated/S = T
-            if(S.air)//Add the air's contents to the holders
-                aoxy += S.air.oxygen
-                anitro += S.air.nitrogen
-                aco += S.air.carbon_dioxide
-                atox += S.air.toxins
-                asleep += S.air.sleeping_agent
-                ab += S.air.agent_b
-                atemp += S.air.temperature
-            turf_count++
-    air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-    air.nitrogen = (anitro / max(turf_count, 1))
-    air.carbon_dioxide = (aco / max(turf_count, 1))
-    air.toxins = (atox / max(turf_count, 1))
-    air.sleeping_agent = (asleep / max(turf_count, 1))
-    air.agent_b = (ab / max(turf_count, 1))
-    air.temperature = (atemp / max(turf_count, 1))
-    if(SSair)
-        SSair.add_to_active(src)
+	for(var/turf/T in atmos_adjacent_turfs)
+		if(isspaceturf(T))//Counted as no air
+			turf_count++//Considered a valid turf for air calcs
+			continue
+		else if(isfloorturf(T))
+			var/turf/simulated/S = T
+			if(S.air)//Add the air's contents to the holders
+				aoxy += S.air.oxygen
+				anitro += S.air.nitrogen
+				aco += S.air.carbon_dioxide
+				atox += S.air.toxins
+				asleep += S.air.sleeping_agent
+				ab += S.air.agent_b
+				atemp += S.air.temperature
+			turf_count++
+	air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
+	air.nitrogen = (anitro / max(turf_count, 1))
+	air.carbon_dioxide = (aco / max(turf_count, 1))
+	air.toxins = (atox / max(turf_count, 1))
+	air.sleeping_agent = (asleep / max(turf_count, 1))
+	air.agent_b = (ab / max(turf_count, 1))
+	air.temperature = (atemp / max(turf_count, 1))
+	if(SSair)
+		SSair.add_to_active(src)
 
 /turf/simulated/proc/is_shielded()
 	return
@@ -162,6 +158,8 @@
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
+		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			return FALSE
 		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
 			return FALSE
 
@@ -180,8 +178,6 @@
 				slipper.slide_distance--
 				step(slipper, slipper.dir)
 
-
-
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
 		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
@@ -190,7 +186,11 @@
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
 
 	slipper.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-	slipper.Weaken(weaken_amount)
-	slipper.stop_pulling()
+	if(lube_flags & SLIDE_ICE)
+		// They need to be kept upright to maintain the combo effect (So don't knockdown)
+		slipper.Immobilize(1 SECONDS)
+	else
+		slipper.stop_pulling()
+		slipper.Weaken(weaken_amount)
 
 	return TRUE

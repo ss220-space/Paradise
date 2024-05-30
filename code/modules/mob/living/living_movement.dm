@@ -117,9 +117,8 @@
 			unbuckle_all_mobs(force = TRUE)
 */
 	. = ..()
-	if(client)
+	if(. && client)
 		reset_perspective()
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
 
 
 /**
@@ -166,7 +165,7 @@
 
 ///Checks if the user is incapacitated or on cooldown.
 /mob/living/proc/can_look_up()
-	return !(incapacitated(TRUE) || !isturf(loc))
+	return !(incapacitated(INC_IGNORE_RESTRAINED) || !isturf(loc))
 
 /**
  * look_up Changes the perspective of the mob to any openspace turf above the mob

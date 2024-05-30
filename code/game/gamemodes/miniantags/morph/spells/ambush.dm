@@ -49,7 +49,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/morph_ambush
 
 
-/datum/status_effect/morph_ambush/tick()
+/datum/status_effect/morph_ambush/tick(seconds_between_ticks)
 	STOP_PROCESSING(SSfastprocess, src)
 	var/mob/living/simple_animal/hostile/morph/M = owner
 	M.perfect_ambush()

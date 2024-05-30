@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(M.a_intent == INTENT_DISARM)
-		if(!lying_angle)
+		if(body_position != LYING_DOWN)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_hand()
 			if(I)

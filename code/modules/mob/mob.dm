@@ -35,6 +35,34 @@
 	update_movespeed()
 
 
+/mob/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, machine))
+			set_machine(var_value)
+			. = TRUE
+		if(NAMEOF(src, nutrition))
+			set_nutrition(var_value)
+			. = TRUE
+		if(NAMEOF(src, stat))
+			set_stat(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	var/slowdown_edit = (var_name == NAMEOF(src, cached_multiplicative_slowdown))
+	var/diff
+	if(slowdown_edit && isnum(cached_multiplicative_slowdown) && isnum(var_value))
+		remove_movespeed_modifier(/datum/movespeed_modifier/admin_varedit)
+		diff = var_value - cached_multiplicative_slowdown
+
+	. = ..()
+
+	if(. && slowdown_edit && isnum(diff))
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
+
+
 /atom/proc/prepare_huds()
 	hud_list = list()
 	for(var/hud in hud_possible)
@@ -105,39 +133,37 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/M in get_mobs_in_view(3, src))
-			if(M.see_invisible < invisibility)
+		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
+			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
-			if(self_message && M == src)
+			if(self_message && mob == src)
 				msg = self_message
-			if(M.loc != loc)
+			if(mob.loc != loc)
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
-			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 		return
 
-	for(var/mob/M in get_mobs_in_view(7, src))
-		if(M.see_invisible < invisibility)
+	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
-		if(self_message && M == src)
+		if(self_message && mob == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message)
-	for(var/mob/M in get_mobs_in_view(7, src))
-		if(!M.client)
-			continue
-		M.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
+	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
 // Show a message to all mobs in earshot of this one
@@ -837,8 +863,6 @@
 
 // facing verbs
 /mob/proc/canface()
-	if(!canmove)
-		return FALSE
 	if(stat == DEAD)
 		return FALSE
 	if(anchored)
@@ -848,10 +872,6 @@
 	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
 	return TRUE
-
-/mob/proc/fall(var/forced)
-	drop_l_hand()
-	drop_r_hand()
 
 /mob/proc/facedir(ndir)
 	if(!canface())
@@ -1184,21 +1204,26 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+
+///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)
 	set waitfor = FALSE
-	if(!spintime || !speed || spintime > 100)
-		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
+	var/our_dir = dir
+	if((spintime < 1) || (speed < 1) || !spintime || !speed)
+		return
+
 	while(spintime >= speed)
 		sleep(speed)
-		switch(dir)
+		switch(our_dir)
 			if(NORTH)
-				setDir(EAST)
+				our_dir = EAST
 			if(SOUTH)
-				setDir(WEST)
+				our_dir = WEST
 			if(EAST)
-				setDir(SOUTH)
+				our_dir = SOUTH
 			if(WEST)
-				setDir(NORTH)
+				our_dir = NORTH
+		setDir(our_dir)
 		spintime -= speed
 
 /mob/proc/is_literate()

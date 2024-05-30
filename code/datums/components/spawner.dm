@@ -44,7 +44,8 @@
 	spawn_delay = world.time + spawn_time
 	var/chosen_mob_type = pickweight(mob_types)
 	var/mob/living/simple_animal/L = new chosen_mob_type(P.loc)
-	L.admin_spawned = P.admin_spawned
+	if(P.flags & ADMIN_SPAWNED)
+		L.flags |= ADMIN_SPAWNED
 	spawned_mobs += L
 	L.nest = src
 	L.faction = src.faction
