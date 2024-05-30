@@ -64,17 +64,13 @@
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType)
     ..()
     RemoveLattice()
+	if(!ignore_air)
+		Assimilate_Air()
 
 //////Assimilate Air//////
-/turf/simulated/proc/assimilate_air(datum/gas_mixture/old_air)
-    if(blocks_air || !air || planetary_atmos) // We are wall, or do not care.
+/turf/simulated/proc/assimilate_air()
+    if(blocks_air || !air || planetary_atmos) // Fuck off
         return
-    if(old_air) // We are floor and prev(old) turf was also floor
-        air.copy_from(old_air) // We just transfer the old air to our new air and call it a day
-        if(SSair)
-            SSair.add_to_active(src)
-        return
-	// We become floor from wall or space turf.
     var/aoxy = 0
     var/anitro = 0
     var/aco = 0
@@ -89,7 +85,7 @@
         if(isspaceturf(T))//Counted as no air
             turf_count++//Considered a valid turf for air calcs
             continue
-        else if(issimulatedturf(T))
+        else if(isfloorturf(T))
             var/turf/simulated/S = T
             if(S.air)//Add the air's contents to the holders
                 aoxy += S.air.oxygen
