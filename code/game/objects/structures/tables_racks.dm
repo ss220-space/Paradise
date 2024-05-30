@@ -823,7 +823,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.incapacitated() || user.resting)
+	if(user.incapacitated())
 		return
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -166,9 +166,8 @@
 
 
 /client/vv_edit_var(var_name, var_value)
-	switch(var_name)
+	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
-		if("tos_consent")
-			return FALSE
+		return FALSE
 	return ..()

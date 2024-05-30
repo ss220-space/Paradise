@@ -12,43 +12,22 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
-// /client/proc/can_vv_get(var_name)
-// 	return TRUE
 
-/datum/proc/vv_edit_var(var_name, var_value) //called whenever a var is edited
-	switch(var_name)
-		if("vars")
-			return FALSE
-		if("var_edited")
-			return FALSE
-	var_edited = TRUE
+/// Called when a var is edited with the new value to change to
+/datum/proc/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, vars))
+		return FALSE
 	vars[var_name] = var_value
+	datum_flags |= DF_VAR_EDITED
+	return TRUE
 
-	. = TRUE
-
-
-/client/vv_edit_var(var_name, var_value) //called whenever a var is edited
-	switch(var_name)
-		if("vars")
-			return FALSE
-		if("var_edited")
-			return FALSE
-	var_edited = TRUE
-	vars[var_name] = var_value
-
-	. = TRUE
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("vars")
+		if(NAMEOF(src, vars))
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
-/client/vv_get_var(var_name)
-	switch(var_name)
-		if("vars")
-			return debug_variable(var_name, list(), 0, src)
-	return debug_variable(var_name, vars[var_name], 0, src)
 
 /datum/proc/can_vv_delete()
 	return TRUE
@@ -169,11 +148,11 @@
 	var/varedited_line = ""
 	if(isatom(D))
 		var/atom/A = D
-		if(A.admin_spawned)
+		if(A.flags & ADMIN_SPAWNED)
 			varedited_line += "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
 
 
-	if(!islist && D.var_edited)
+	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line += "<br><font size='1' color='red'><b>Var Edited</b></font>"
 
 
@@ -824,7 +803,7 @@
 		var/obj/A = locateUID(href_list["makespeedy"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		A.makeSpeedProcess()
 		log_and_message_admins("has made [A] speed process")
 		return TRUE
@@ -835,7 +814,7 @@
 		var/obj/A = locateUID(href_list["makenormalspeed"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		A.makeNormalProcess()
 		log_and_message_admins("has made [A] process normally")
 		return TRUE
@@ -846,7 +825,7 @@
 		var/obj/A = locateUID(href_list["modifyarmor"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		var/list/armorlist = A.armor.getList()
 		var/list/displaylist
 

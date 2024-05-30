@@ -176,7 +176,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	if(usr.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -211,7 +211,7 @@
 
 
 /atom/movable/screen/storage/MouseDrop_T(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+	if(!user || !master || !istype(I) || user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return FALSE
 
 	if(is_ventcrawling(user))
@@ -472,11 +472,11 @@
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	var/image/object_overlay
 
-/atom/movable/screen/inventory/MouseEntered()
+/atom/movable/screen/inventory/MouseEntered(location, control, params)
 	..()
 	add_overlays()
 
-/atom/movable/screen/inventory/MouseExited()
+/atom/movable/screen/inventory/MouseExited(location, control, params)
 	..()
 	cut_overlay(object_overlay)
 	QDEL_NULL(object_overlay)
@@ -495,13 +495,12 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = FALSE, bypass_incapacitated = TRUE))
-		item_overlay.color = "#ff0000"
+	if(holding.mob_can_equip(user, slot_id, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_incapacitated = TRUE))
+		item_overlay.color = COLOR_GREEN
 	else
-		item_overlay.color = "#00ff00"
+		item_overlay.color = COLOR_RED
 
 	cut_overlay(object_overlay)
-	QDEL_NULL(object_overlay)
 	object_overlay = item_overlay
 	add_overlay(object_overlay)
 
@@ -562,22 +561,17 @@
 	if(!(slot_id & ITEM_SLOT_HANDS))
 		return FALSE
 
-	if(I.is_equipped() && !user.is_general_slot(user.get_slot_by_item(I)))
-
-		if(I.equip_delay_self && !user.is_general_slot(user.get_slot_by_item(I)))
-			user.visible_message(span_notice("[user] начинает снимать [I.name]..."), \
-								span_notice("Вы начинаете снимать [I.name]..."))
+	if(I.loc == user)
+		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
+			user.visible_message(
+				span_notice("[user] начинает снимать [I.name]..."),
+				span_notice("Вы начинаете снимать [I.name]..."),
+			)
 			if(!do_after(user, I.equip_delay_self, user, max_interact_count = 1, cancel_message = span_warning("Снятие [I.name] было прервано!")))
-				return FALSE
-
-			if((slot_id == ITEM_SLOT_HAND_LEFT && user.l_hand) || (slot_id == ITEM_SLOT_HAND_RIGHT && user.r_hand))
 				return FALSE
 
 		if(!user.drop_item_ground(I))
 			return FALSE
-
-	else if(user.is_general_slot(user.get_slot_by_item(I)) && !user.drop_item_ground(I))
-		return FALSE
 
 	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
 		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(I, ignore_anim = FALSE)))

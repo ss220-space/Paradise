@@ -81,7 +81,7 @@
 
 
 /mob/living/silicon/pai/do_suicide()
-	if(canmove || resting)
+	if(mobility_flags & MOBILITY_MOVE)
 		close_up()
 	card.removePersonality()
 	visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), blind_message = span_notice("[src] bleeps electronically."))

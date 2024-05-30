@@ -17,6 +17,7 @@
 	turns_per_move = 5
 	nightvision = 6
 	mob_size = MOB_SIZE_SMALL
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
@@ -31,6 +32,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	tts_seed = "Valerian"
 	holder_type = /obj/item/holder/cat2
+	var/sitting = FALSE
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
@@ -119,27 +121,57 @@
 	set category = "IC"
 
 	if(resting)
-		StopResting()
+		set_resting(FALSE)
 		return
 
-	resting = TRUE
-	custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
-	icon_state = "[icon_living]_[icon_sit]"
-	collar_type = "[initial(collar_type)]_[icon_sit]"
-	update_canmove()
+	sitting = TRUE
+	set_resting(TRUE)
+
+
+/mob/living/simple_animal/pet/cat/post_lying_on_rest()
+	if(stat == DEAD)
+		return
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting || !icon_sit)
+		return
+	if(sitting)
+		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+		icon_state = "[icon_living]_[icon_sit]"
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_[icon_sit]"
+			regenerate_icons()
+	else
+		icon_state = icon_resting
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_rest"
+			regenerate_icons()
+
+
+/mob/living/simple_animal/pet/cat/post_get_up()
+	sitting = FALSE
+	if(stat == DEAD)
+		return
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting || !icon_sit)
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = initial(collar_type)
+		regenerate_icons()
 
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(EMOTE_VISIBLE, pick("вытягива%(ет,ют)%ся, чтобы почистить желудок.", "виля%(ет,ют)% хвостом.", "лож%(ит,ат)%ся."))
-			StartResting()
+			if(!resting)
+				custom_emote(EMOTE_VISIBLE, pick("вытягива%(ет,ют)%ся, чтобы почистить желудок.", "виля%(ет,ют)% хвостом.", "лож%(ит,ат)%ся."))
+				set_resting(TRUE, instant = TRUE)
 		else if(prob(1))
 			sit()
 		else if(prob(1))
 			if(resting)
 				custom_emote(EMOTE_VISIBLE, pick("поднима%(ет,ют)%ся и мяука%(ет,ют)%.", "подскакива%(ет,ют)%.", "переста%(ёт,ют)% валяться."))
-				StopResting()
+				set_resting(FALSE, instant = TRUE)
 			else
 				custom_emote(EMOTE_VISIBLE, pick("вылизыва%(ет,ют)% шерсть.", "подёргива%(ет,ют)% усами.", "отряхива%(ет,ют)% шерсть."))
 
@@ -321,7 +353,6 @@
 	icon_resting = "iriska"
 	gender = FEMALE
 	mob_size = MOB_SIZE_LARGE	//THICK!!!
-	//canmove = FALSE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
 	tts_seed = "Huntress"
 	maxHealth = 40	//Sooooo faaaat...

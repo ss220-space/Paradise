@@ -40,10 +40,10 @@
 	..()
 	var/mob/living/simple_animal/Hulk = A
 	if(istype(A, /mob/living/simple_animal/hulk))
-		if(!Hulk.lying_angle)
+		if(Hulk.body_position != LYING_DOWN)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
-			if(!Hulk.lying_angle)
+			if(Hulk.body_position != LYING_DOWN)
 				playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
@@ -158,6 +158,8 @@
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
+		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			return FALSE
 		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
 			return FALSE
 
@@ -176,8 +178,6 @@
 				slipper.slide_distance--
 				step(slipper, slipper.dir)
 
-
-
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
 		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
@@ -186,7 +186,11 @@
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
 
 	slipper.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-	slipper.Weaken(weaken_amount)
-	slipper.stop_pulling()
+	if(lube_flags & SLIDE_ICE)
+		// They need to be kept upright to maintain the combo effect (So don't knockdown)
+		slipper.Immobilize(1 SECONDS)
+	else
+		slipper.stop_pulling()
+		slipper.Weaken(weaken_amount)
 
 	return TRUE

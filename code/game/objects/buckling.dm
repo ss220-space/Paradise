@@ -253,7 +253,7 @@
  */
 /atom/movable/proc/is_user_buckle_possible(mob/living/target, mob/living/carbon/user, check_loc = TRUE)
 	// Standard adjacency and other checks.
-	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || target.anchored)
+	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || target.anchored)
 		return FALSE
 
 	if(iscarbon(user) && user.usable_hands <= 0)

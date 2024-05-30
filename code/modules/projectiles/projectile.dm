@@ -42,7 +42,7 @@
 	var/spread = 0
 	/// If set to `TRUE` [/obj/item/hardsuit_taser_proof] upgrage will block this projectile.
 	var/shockbull = FALSE
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 

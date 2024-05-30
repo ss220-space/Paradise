@@ -175,7 +175,7 @@
 
 /obj/machinery/mineral/equipment_vendor/vv_edit_var(var_name, var_value)
 	// Gotta update the static data in case an admin VV's the items for some reason..!
-	if(var_name == "prize_list")
+	if(var_name == NAMEOF(src, prize_list))
 		dirty_items = TRUE
 	return ..()
 
