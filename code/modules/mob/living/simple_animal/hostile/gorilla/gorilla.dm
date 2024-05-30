@@ -384,7 +384,7 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "каргорилла"
 	icon = 'icons/mob/cargorillia.dmi'
-	desc = "Ручной самец гориллы, приписанный к департаменту грузоперевозок. Похоже у него набито тату \"Я люблю Маму\"."
+	desc = "Ручной самец гориллы, приписанный к отделу грузоперевозок. Похоже у него набито тату \"Я люблю Маму\"."
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -409,7 +409,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
 	. = ..()
-	to_chat(src, span_boldnotice("Вы \"[name]\" - одомашненная горилла и питомец департамента карго. Вы преданная и трудолюбивая горилла и любите свою работу. Вы хорошая горилла, и карго любит Вас."))
+	to_chat(src, span_boldnotice("Вы \"[name]\" - одомашненная горилла и питомец отдела грузоперевозок. Вы преданная и трудолюбивая горилла и любите свою работу. Вы хорошая горилла, и карго любит Вас."))
 	to_chat(src, span_boldnotice("В интенте \"HELP\" Вы можете подбирать ящики, щёлкнув по ним, и бросить их, щелкнув по открытому полу. Вы можете переносить [crate_limit] [declension_ru(crate_limit, "ящик", "ящика", "ящиков")] единовременно. В интенте \"HARM\" Вы можете толкать ящики, но не ломать их. Также Вы можете закрывать или открывать ящики используя Alt+Click."))
 	to_chat(src, span_boldnotice("Легенды гласят, что бананы заключают в себе просвещение..."))
 
