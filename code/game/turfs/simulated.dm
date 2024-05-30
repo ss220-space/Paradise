@@ -65,7 +65,7 @@
 	..()
 	RemoveLattice()
 	if(!ignore_air)
-		Assimilate_Air()
+		assimilate_air()
 
 //////Assimilate Air//////
 /turf/simulated/proc/assimilate_air()
