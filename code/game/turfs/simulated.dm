@@ -69,7 +69,7 @@
 
 //////Assimilate Air//////
 /turf/simulated/proc/assimilate_air()
-    if(blocks_air || !air || planetary_atmos) // Fuck off
+    if(blocks_air || !air) // Fuck off
         return
     var/aoxy = 0
     var/anitro = 0
