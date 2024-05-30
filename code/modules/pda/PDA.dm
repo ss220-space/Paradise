@@ -305,6 +305,18 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
 
+/obj/item/pda/attackby(obj/item/W as obj, mob/user as mob, params)
+	..()
+
+	if(istype(W, /obj/item/pda_case/))
+		var/obj/item/pda_case/pdacase = W
+		to_chat(user, "Ты надел чехол на ПДА.")
+		icon_state = pdacase.pdacase_icon_state
+		item_state = pdacase.pdacase_item_state
+		ttone = pdacase.pdacase_ttone
+		qdel(pdacase)
+		qdel(W)
+
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
@@ -384,3 +396,21 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
+
+// PDA skins
+
+/obj/item/pda_case
+	name = "PDA Silicone сase"
+	desc = "Прозрачный силиконовый чехол."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "pda_case"
+	var/pdacase_icon_state = "pda-clear"
+	var/pdacase_item_state = "pda-clear"
+	var/pdacase_ttone = "beep"
+
+/obj/item/pda_case/pivo
+	name = "PDA PIVO case"
+	icon_state = "pda_case_pivo"
+	desc = "Чехол на ПДА в виде кружки пива."
+	pdacase_icon_state = "pda-pivo"
+	pdacase_ttone = "beer"

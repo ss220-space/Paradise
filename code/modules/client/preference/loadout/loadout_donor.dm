@@ -298,3 +298,9 @@
 	path = /obj/item/toy/plushie/beaver
 	donator_tier = 3
 	cost = 1
+
+/datum/gear/donor/pdapivo
+	display_name = "pda pivo case"
+	path = /obj/item/pda_case/pivo
+	donator_tier = 1
+	cost = 1
