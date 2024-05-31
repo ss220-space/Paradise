@@ -72,6 +72,11 @@
 
 	if(steps != 0 && !LM.has_gravity(T)) // don't need to step as often when you hop around
 		return
+
+	if(LM.body_position == LYING_DOWN) //play crawling sound if we're lying
+		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume, TRUE, falloff_distance = 1)
+		return
+
 	return T
 
 /datum/component/footstep/proc/play_simplestep()
