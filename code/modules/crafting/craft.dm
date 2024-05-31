@@ -202,7 +202,7 @@
 				part_reagent = new thing()
 				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in (surroundings))
+			for(var/obj/item/reagent_containers/container in surroundings)
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
