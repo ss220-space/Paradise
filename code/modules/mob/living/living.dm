@@ -386,7 +386,7 @@
 			return TRUE
 		if(!moving_mob.density || moving_mob.body_position == LYING_DOWN)
 			return TRUE
-	return !density || body_position == LYING_DOWN
+	return !mover.density || body_position == LYING_DOWN
 
 
 /// Special projectiles handling for living mobs
