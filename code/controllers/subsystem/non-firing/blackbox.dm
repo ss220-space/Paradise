@@ -269,6 +269,7 @@ SUBSYSTEM_DEF(blackbox)
   * * L - The human or cyborg to be logged
   */
 /datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
+	set waitfor = FALSE
 	if(sealed)
 		return
 	if(!SSdbcore.IsConnected())

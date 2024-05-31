@@ -384,7 +384,7 @@
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return !mover.density || body_position == LYING_DOWN
+	return !density || body_position == LYING_DOWN
 
 
 /// Special projectiles handling for living mobs
@@ -1432,7 +1432,7 @@
 
 
 /mob/living/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(incapacitated())
+	if(incapacitated() || body_position == LYING_DOWN)
 		return FALSE
 
 	. = ..()
@@ -1782,6 +1782,13 @@
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_lying_down(new_lying_angle)
+
+	// TEMPORARY WORKAROUND
+	stop_pulling()
+	for(var/obj/item/grab/grab in contents)
+		qdel(grab)
+	// TEMPORARY WORKAROUND END
+
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)

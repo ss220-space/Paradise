@@ -624,15 +624,15 @@
 		duration = set_duration
 	if(!duration)
 		return FALSE
-	. = ..()
-	if(. && (needs_update_stat || issilicon(owner)))
-		owner.update_stat()
+	return ..()
 
 
 /datum/status_effect/incapacitating/on_apply()
 	. = ..()
 	if(traits_to_apply)
 		owner.add_traits(traits_to_apply, TRAIT_STATUS_EFFECT(id))
+	if(needs_update_stat || issilicon(owner))
+		owner.update_stat()
 
 
 /datum/status_effect/incapacitating/on_remove()
@@ -647,6 +647,12 @@
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
+
+
+/datum/status_effect/incapacitating/stun/on_apply()
+	if(issilicon(owner))
+		traits_to_apply |= TRAIT_KNOCKEDOUT
+	return ..()
 
 
 //KNOCKDOWN - force victim to lying down position
@@ -665,6 +671,12 @@
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_FLOORED)
+
+
+/datum/status_effect/incapacitating/weakened/on_apply()
+	if(issilicon(owner))
+		traits_to_apply |= TRAIT_KNOCKEDOUT
+	return ..()
 
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
