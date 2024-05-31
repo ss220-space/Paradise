@@ -454,7 +454,7 @@
 
 /client/Destroy()
 	SSdebugview.stop_processing(src)
-	mob.become_uncliented()
+	mob?.become_uncliented()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src

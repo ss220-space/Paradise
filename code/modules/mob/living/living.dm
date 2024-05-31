@@ -198,7 +198,7 @@
 		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [M.name], сбивая друг друга с ног!</span>", \
 					 "<span class='userdanger'>Вы жестко врезаетесь в [M.name]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
-		return
+		return TRUE
 
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
@@ -378,11 +378,13 @@
 		return projectile_allow_through(mover, border_dir)
 	if(buckled == mover)
 		return TRUE
-	if(ismob(mover))
-		var/mob/moving_mob = mover
+	if(isliving(mover))
+		var/mob/living/moving_mob = mover
 		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
 			return FALSE
-		if(mover in buckled_mobs)
+		if(moving_mob in buckled_mobs)
+			return TRUE
+		if(!moving_mob.density || moving_mob.body_position == LYING_DOWN)
 			return TRUE
 	return !density || body_position == LYING_DOWN
 
