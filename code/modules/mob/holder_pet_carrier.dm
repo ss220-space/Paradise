@@ -65,7 +65,7 @@
 
 
 /obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		try_free_content(null, user)
 
 
@@ -107,7 +107,6 @@
 			animal.forceMove(drop_loc)
 			contains_pet = FALSE
 			update_appearance(UPDATE_OVERLAYS|UPDATE_NAME|UPDATE_DESC)
-			animal.resting = FALSE
 		return TRUE
 	return FALSE
 

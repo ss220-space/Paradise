@@ -7,6 +7,12 @@
 	var/mutable_appearance/chair_overlay
 	var/move_delay = null
 
+
+/obj/structure/chair/wheelchair/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT)
+
+
 /obj/structure/chair/wheelchair/handle_rotation()
 	if(chair_overlay)
 		cut_overlay(chair_overlay)

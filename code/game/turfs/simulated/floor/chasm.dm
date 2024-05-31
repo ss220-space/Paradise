@@ -238,7 +238,6 @@
 		var/mob/living/L = AM
 		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 		L.Stun(400 SECONDS)
-		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha

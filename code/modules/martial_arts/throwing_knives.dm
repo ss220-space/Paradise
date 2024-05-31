@@ -24,7 +24,7 @@
 
 /datum/martial_art/throwing/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
 	if(can_use(defender)	\
-	&& !defender.incapacitated(FALSE, TRUE)	\
+	&& !defender.incapacitated(INC_IGNORE_GRABBED)	\
 	&& (is_type_in_list(defender.get_active_hand(), knife_types, FALSE) || is_type_in_list(defender.get_inactive_hand(), knife_types, FALSE))	\
 	&& prob(block_chance))
 		if(visible_message || self_message)

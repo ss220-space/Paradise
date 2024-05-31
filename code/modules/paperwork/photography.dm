@@ -257,9 +257,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			// If what we got back is actually a picture, draw it.
 			if(isicon(img))
 				// Check if we're looking at a mob that's lying down
-				if(isliving(A) && A:lying_angle)
-					// If they are, apply that effect to their picture.
-					img.BecomeLying()
+				if(isliving(A))
+					var/mob/living/living = A
+					if(living.body_position == LYING_DOWN)
+						// If they are, apply that effect to their picture.
+						img.BecomeLying()
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset

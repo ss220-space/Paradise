@@ -53,12 +53,12 @@
 		return
 
 	var/mob/living/LM = parent
-	if(!T.footstep || LM.lying_angle || !LM.canmove || LM.resting || LM.buckled || LM.throwing || (LM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || istype(LM.loc, /obj/machinery/atmospherics))
+	if(!T.footstep || !(LM.mobility_flags & MOBILITY_STAND) || LM.buckled || LM.throwing || (LM.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || is_ventcrawling(LM))
 		return
 
 	if(ishuman(LM))
 		var/mob/living/carbon/human/H = LM
-		if(!H.get_organ(BODY_ZONE_L_LEG) && !H.get_organ(BODY_ZONE_R_LEG))
+		if(!H.usable_legs)
 			return
 		if(H.m_intent == MOVE_INTENT_WALK)
 			return// stealth

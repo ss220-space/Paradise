@@ -9,10 +9,8 @@
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0
 	var/pounce_cooldown = 0
-	var/pounce_cooldown_time = 30
-	var/leap_on_click = 0
-	var/custom_pixel_x_offset = 0 //for admin fuckery.
-	var/custom_pixel_y_offset = 0
+	var/pounce_cooldown_time = 3 SECONDS
+	var/leap_on_click = FALSE
 
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -68,8 +66,6 @@
 	take_overall_damage(b_loss, f_loss)
 
 
-/mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
-
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)
 
@@ -113,28 +109,17 @@
 
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
+	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, TRUE)  //Alien roars when starting to break free
 	return ..(I, cuff_break = TRUE)
 
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_y_offset)
-		return custom_pixel_y_offset
-	else
-		return initial(pixel_y)
+/mob/living/carbon/alien/humanoid/lying_angle_on_lying_down(new_lying_angle)
+	set_lying_angle(90)	// it had to be 90, looks silly otherwise
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_x_offset)
-		return custom_pixel_x_offset
-	else
-		return initial(pixel_x)
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
+
 
 /mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
 	..()

@@ -11,7 +11,7 @@
 /datum/keybinding/living/rest/down(client/C)
 	. = ..()
 	var/mob/living/M = C.mob
-	M.lay_down()
+	M.toggle_resting()
 
 /datum/keybinding/living/resist
 	name = "Сопротивляться"

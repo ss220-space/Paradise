@@ -396,7 +396,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying_angle)
+		return (livingtarget.stat != CONSCIOUS || livingtarget.body_position == LYING_DOWN)
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()

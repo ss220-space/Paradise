@@ -9,7 +9,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
-	status_flags = CANSTUN|CANWEAKEN|CANPUSH
+	status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
 	a_intent = INTENT_HARM
@@ -222,7 +222,7 @@
 //Actions for sentient minebots
 
 /datum/action/innate/minedrone
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light

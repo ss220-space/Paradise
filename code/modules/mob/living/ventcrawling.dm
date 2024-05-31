@@ -19,24 +19,11 @@
 				to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 			return FALSE
 
-	if(incapacitated())
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_IMMOBILIZED) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции в текущем состоянии!"))
 		return FALSE
-	/*
-	if(stat)
-		if(provide_feedback)
-			to_chat(src, span_warning("You must be conscious to do this!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You currently can't move into the vent!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You need to be able to use your hands to ventcrawl!"))
-		return
-	*/
+
 	if(has_buckled_mobs())
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции, пока на вас находятся другие существа!"))

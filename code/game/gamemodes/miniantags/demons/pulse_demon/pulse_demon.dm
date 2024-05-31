@@ -213,15 +213,22 @@
 	mind.special_role = SPECIAL_ROLE_DEMON
 	give_objectives()
 
+
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("glow_color")
-			update_glow()
-		if("charge")
-			// automatically adjusts maxcharge to allow the new value
-			adjust_charge(var_value - charge, TRUE)
-			return TRUE
-	return ..()
+	if(var_name == NAMEOF(src, charge))
+		// automatically adjusts maxcharge to allow the new value
+		adjust_charge(var_value - charge, TRUE)
+		. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	. = ..()
+
+	if(var_name == NAMEOF(src, glow_color))
+		update_glow()
+
 
 /mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
 	var/old_location = loc
@@ -620,7 +627,7 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)

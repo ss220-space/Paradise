@@ -1189,14 +1189,8 @@
 			M.AdjustEyeBlurry(20 SECONDS)
 		if(70 to INFINITY)
 			M.AdjustEyeBlurry(20 SECONDS)
-			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-				fakerevive(M)
 	return ..() | update_flags
 
-/datum/reagent/capulettium/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
-	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1209,10 +1203,11 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(4 SECONDS)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH) && !M.resting)
-		fakerevive(M)
-	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && M.resting)
+	if(M.resting)
 		fakedeath(M)
+	else
+		fakerevive(M)
+
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)

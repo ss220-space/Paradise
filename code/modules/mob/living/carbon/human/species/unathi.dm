@@ -297,7 +297,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 40 SECONDS
-	check_flags = AB_CHECK_HANDS_BLOCKED
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 
 /datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner

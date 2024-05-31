@@ -84,40 +84,6 @@
 		if(old_has_opaque_atom != T.has_opaque_atom)
 			T.reconsider_lights()
 
-/atom/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if (NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-		if (NAMEOF(src, light_on))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_on = var_value)
-			else
-				set_light_on(var_value)
-			return TRUE
-
-	return ..()
-
 
 /atom/proc/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	return

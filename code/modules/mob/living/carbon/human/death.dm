@@ -3,7 +3,6 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
@@ -51,7 +50,6 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
@@ -76,7 +74,6 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 

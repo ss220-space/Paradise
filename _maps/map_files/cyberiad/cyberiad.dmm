@@ -9275,6 +9275,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "ayB" = (
@@ -12035,9 +12036,7 @@
 /area/hallway/primary/fore)
 "aFB" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/storage/fancy/donut_box,
+/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -12066,7 +12065,6 @@
 	pixel_x = 28
 	},
 /obj/item/reagent_containers/food/drinks/flask/detflask,
-/obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -12390,6 +12388,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -12397,9 +12396,6 @@
 /area/security/detectives_office)
 "aGF" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
-/obj/item/storage/box/bodybags,
 /obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13426,6 +13422,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/item/taperecorder,
+/obj/item/storage/box/evidence,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "aJl" = (
@@ -13455,6 +13453,11 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/table,
+/obj/item/book/manual/security_space_law,
+/obj/item/clipboard,
+/obj/item/storage/fancy/donut_box,
+/obj/item/clothing/glasses/sunglasses,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"

@@ -36,14 +36,20 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 
 /area/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if("base_lighting_color")
+		if(NAMEOF(src, base_lighting_color))
 			set_base_lighting(new_base_lighting_color = var_value)
-			return TRUE
-		if("base_lighting_alpha")
+			. = TRUE
+		if(NAMEOF(src, base_lighting_alpha))
 			set_base_lighting(new_alpha = var_value)
-			return TRUE
-		if("static_lighting")
+			. = TRUE
+		if(NAMEOF(src, static_lighting))
 			update_static_lighting(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
 	return ..()
 
 /area/proc/update_base_lighting()
