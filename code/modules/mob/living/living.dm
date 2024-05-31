@@ -384,7 +384,7 @@
 			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return !mover.density || body_position == LYING_DOWN
+	return !density || body_position == LYING_DOWN
 
 
 /// Special projectiles handling for living mobs

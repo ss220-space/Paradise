@@ -180,8 +180,8 @@
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	//Status effects
-	var/list/status_examines = get_status_effect_examinations()
-	if(length(status_examines))
+	var/status_examines = get_status_effect_examinations()
+	if(status_examines)
 		msg += status_examines
 
 	var/appears_dead = FALSE
