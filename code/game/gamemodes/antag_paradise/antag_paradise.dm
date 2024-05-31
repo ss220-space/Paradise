@@ -233,15 +233,6 @@
 
 	antags_weights = list()
 
-	var/list/single_weights_config = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
-	single_weights_config = single_weights_config.Copy()
-	for(var/antag in single_weights_config)
-		if(players < antag_required_players[antag] || single_weights_config[antag] <= 0)
-			single_weights_config -= antag
-
-	if(!length(single_weights_config))
-		return
-
 	var/mode_type = pick_weight_classic(CONFIG_GET(keyed_list/antag_paradise_mode_subtypes))
 	if(mode_type == ANTAG_RANDOM)
 		var/list/random_mode_whitelist = CONFIG_GET(str_list/antag_paradise_random_antags_whitelist)
@@ -251,6 +242,13 @@
 			antags_weights[antag] = rand(1, 100)
 		return
 
+	var/list/single_weights_config = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
+	single_weights_config = single_weights_config.Copy()
+	for(var/antag in single_weights_config)
+		if(players < antag_required_players[antag] || single_weights_config[antag] <= 0)
+			single_weights_config -= antag
+	if(!length(single_weights_config))
+		return
 	var/list/subtype_weights = CONFIG_GET(keyed_list/antag_paradise_subtype_weights)
 	var/list/choosen_antags = list()
 	var/single_antag = pick_weight_classic(single_weights_config)
