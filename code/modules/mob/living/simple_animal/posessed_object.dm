@@ -63,8 +63,12 @@
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
+	if(QDELETED(src))
+		return
+
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
-		death(1)
+		death(gibbed = TRUE)
+		return
 
 	if( possessed_item.loc != src )
 		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
@@ -80,7 +84,11 @@
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
 		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
-		forceMove(get_turf(src))
+		var/turf/source_turf = get_turf(src)
+		if(source_turf)
+			forceMove(source_turf)
+		else
+			move_to_null_space()
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
 			possessed_item.forceMove(src)
 
