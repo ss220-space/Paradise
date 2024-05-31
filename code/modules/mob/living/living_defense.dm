@@ -277,7 +277,7 @@
 // End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src || anchored)
+	if(user == src || anchored || user.body_position == LYING_DOWN)
 		return 0
 	if(!(status_flags & CANPUSH))
 		return 0

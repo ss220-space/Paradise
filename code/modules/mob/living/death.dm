@@ -55,7 +55,7 @@
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp")
+		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
 
 	if(HAS_TRAIT(src, TRAIT_SECDEATH))
 		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)
