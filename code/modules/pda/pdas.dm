@@ -40,7 +40,7 @@
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()
-	AddComponent(/datum/component/slippery, 10 SECONDS, lube_flags = (NO_SLIP_WHEN_WALKING | SLIDE))
+	AddComponent(/datum/component/slippery, 10 SECONDS, lube_flags = (NO_SLIP_WHEN_WALKING|SLIDE))
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
