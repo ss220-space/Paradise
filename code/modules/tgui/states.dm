@@ -79,7 +79,7 @@
 		return STATUS_DISABLED
 	return ..()
 
-/mob/living/carbon/human/shared_ui_interaction(obj/item/src_object)
+/mob/living/carbon/shared_ui_interaction(obj/item/src_object)
 	. = ..()
 	if(. == STATUS_DISABLED && !stat && !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && isitem(src_object) && (src_object.item_flags & DENY_UI_BLOCKED))
 		return STATUS_INTERACTIVE
