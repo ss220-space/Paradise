@@ -182,7 +182,7 @@
 	//Status effects
 	var/list/status_examines = get_status_effect_examinations()
 	if(length(status_examines))
-		. += status_examines
+		msg += status_examines
 
 	var/appears_dead = FALSE
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
