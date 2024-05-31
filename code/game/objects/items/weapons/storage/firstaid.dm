@@ -283,7 +283,7 @@
 
 /obj/item/storage/firstaid/crew/nucleation
 	name = "nucleation first aid kit"
-	desc = "A standart issued first aid kit for crewmembers with 'nucleation' disease . NanoTrasen appreciates you!"
+	desc = "A standart issued first aid kit for 'SMDS' affected crewmembers. NanoTrasen appreciates you!"
 
 /obj/item/storage/firstaid/crew/nucleation/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/radium(src)
