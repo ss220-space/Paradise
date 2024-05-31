@@ -409,7 +409,7 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
-			M.toggle_resting()
+			M.set_resting(!M.resting, instant = TRUE)
 		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
