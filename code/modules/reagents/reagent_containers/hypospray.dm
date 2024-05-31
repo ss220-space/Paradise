@@ -358,10 +358,8 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium
 	name = "Radium autoinjector"
-	desc = "A small medipen used for basic nucleation treatment"
+	desc = "A small medipen used for basic nucleation treatment."
 	icon_state = "ablueinjector"
-	amount_per_transfer_from_this = 10
-	volume = 10
 	list_reagents = list("radium" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
