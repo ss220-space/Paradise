@@ -82,6 +82,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Holocigar trait to make a mob BADASS
+#define TRAIT_BADASS "trait_badass"
 
 /* Traits for ventcrawling.
  * Both give access to ventcrawling, but *_NUDE requires the user to be
@@ -115,6 +117,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
 /// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define TRAIT_NODROP "nodrop"
+
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

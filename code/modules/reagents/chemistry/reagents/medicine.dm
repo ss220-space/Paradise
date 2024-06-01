@@ -400,6 +400,8 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
@@ -1328,7 +1330,7 @@
 	update_flags |= M.adjustToxLoss(2.5, FALSE)
 	return list(0, update_flags)
 
-/datum/reagent/medicine/syndiezine 
+/datum/reagent/medicine/syndiezine
 	name = "Syndiezine"
 	id = "syndiezine"
 	description = "Попытка синдиката вывести синтетический аналог реагента кровь земли. Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."

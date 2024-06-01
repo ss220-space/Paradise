@@ -217,8 +217,10 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			handle_suicide(user, target, params)
-			return
+			if(HAS_TRAIT(user, TRAIT_BADASS))
+				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+			else
+				handle_suicide(user, target, params)
 
 
 	//Exclude lasertag guns from the CLUMSY check.
@@ -244,7 +246,8 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += dual_wield_spread * G.weapon_weight
+				if(!HAS_TRAIT(user, TRAIT_BADASS))
+					bonus_spread += 24 * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
