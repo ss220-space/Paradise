@@ -7,15 +7,15 @@
 		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 /client/proc/Move_object(direct)
-	if(mob && mob.control_object)
-		if(mob.control_object.density)
-			step(mob.control_object, direct)
-			if(!mob.control_object)
-				return
-			mob.control_object.setDir(direct)
-		else
-			mob.control_object.forceMove(get_step(mob.control_object, direct))
-	return
+	if(mob.control_object.density)
+		step(mob.control_object, direct)
+		if(!mob.control_object)
+			return
+		mob.control_object.setDir(direct)
+	else
+		var/new_turf = get_step(mob.control_object, direct)
+		if(new_turf)
+			mob.control_object.forceMove(new_turf)
 
 
 /client/Move(n, direct)
@@ -71,8 +71,8 @@
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
 
-	if(!mob.canmove)
-		return
+	if(!(L.mobility_flags & MOBILITY_MOVE))
+		return FALSE
 
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
@@ -140,7 +140,7 @@
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
 	if(LAZYLEN(mob.grabbed_by))
-		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
+		if(mob.incapacitated(INC_IGNORE_GRABBED)) // Can't break out of grabs if you're incapacitated
 			return TRUE
 		var/list/grabbing = list()
 
@@ -336,8 +336,12 @@
 
 
 /mob/proc/Move_Pulled(atom/target)
-	if(!canmove || HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
 		return
+	if(isliving(src))	// temporary
+		var/mob/living/l_mob = src
+		if(!(l_mob.mobility_flags & MOBILITY_MOVE))
+			return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
 		return

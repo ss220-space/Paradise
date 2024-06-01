@@ -18,6 +18,8 @@
 	dies_at_threshold = TRUE
 	var/touched_supermatter = FALSE
 
+	speciesbox = /obj/item/storage/box/survival_nucleation
+
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
 

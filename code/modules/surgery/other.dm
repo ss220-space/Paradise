@@ -407,11 +407,12 @@
 		to_chat(target, span_shadowling("<b><i>NOT LIKE THIS!</i></b>"))
 		user.visible_message(span_warning("[target] suddenly slams upward and knocks down [user]!"), \
 							 span_userdanger("[target] suddenly bolts up and slams you with tremendous force!"))
-		user.StopResting() //Remove all stuns
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)
 		user.SetParalysis(0)
+		user.set_resting(FALSE, instant = TRUE)
+		user.get_up(instant = TRUE)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			C.Weaken(12 SECONDS)

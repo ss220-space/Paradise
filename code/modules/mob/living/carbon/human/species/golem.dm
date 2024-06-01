@@ -262,7 +262,7 @@
 /datum/action/innate/ignite
 	name = "Ignite"
 	desc = "Подожгите себя и достигните взрыва!"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "sacredflame"
 
 /datum/action/innate/ignite/Activate()
@@ -719,7 +719,7 @@
 
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming

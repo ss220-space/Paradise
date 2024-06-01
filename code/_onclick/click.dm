@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		return
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents

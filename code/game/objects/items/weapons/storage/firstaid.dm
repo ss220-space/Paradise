@@ -281,6 +281,19 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/crew/nucleation
+	name = "nucleation first aid kit"
+	desc = "A standart issued first aid kit for 'SMDS' affected crewmembers. NanoTrasen appreciates you!"
+
+/obj/item/storage/firstaid/crew/nucleation/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector/radium(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /*
  * Pill Bottles
  */

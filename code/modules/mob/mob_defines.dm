@@ -2,7 +2,7 @@
 	density = TRUE
 	layer = MOB_LAYER
 	glide_size = 1.5
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
@@ -169,7 +169,8 @@
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
-	var/status_flags = CANSTUN|CANWEAKEN|CANPARALYSE|CANPUSH	//bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
+	/// Bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
+	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH
 
 	var/area/lastarea = null
 
@@ -215,8 +216,6 @@
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
 	var/last_logout = 0
-
-	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
 

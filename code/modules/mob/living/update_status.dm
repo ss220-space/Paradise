@@ -64,64 +64,34 @@
 			return FALSE
 	return TRUE
 
-// Whether the mob is capable of standing or not
-/mob/living/proc/can_stand()
-	return !(IsWeakened() || IsParalyzed() || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 
-// Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
-	// By default, checks for weakness and stunned get added to the extra_checks list.
-	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
-	if(use_default_checks)
-		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsWeakened))
-		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsStunned))
-
-	if(stat || IsParalyzed() || (!ignore_restraints && HAS_TRAIT(src, TRAIT_RESTRAINED)) || (!ignore_lying && lying_angle) || check_for_true_callbacks(extra_checks))
+/**
+ * Checks if a mob is incapacitated.
+ * Normally being restrained or agressively grabbed counts as incapacitated
+ * unless there is a flag being used to check if it's ignored.
+ *
+ * Arguments:
+ * * ignore_flags (optional) bitflags that determine if special situations are exempt from being considered incapacitated
+ *
+ * bitflags: (see code/__DEFINES/flags.dm)
+ * * INC_IGNORE_RESTRAINED - mob in a restraint (handcuffs/straightjacket) is not considered incapacitated
+ * * INC_IGNORE_GRABBED - mob that is agressively grabbed is not considered incapacitated
+**/
+/mob/living/incapacitated(ignore_flags)
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return TRUE
 
-//Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/living/update_canmove(delay_action_updates = 0)
-	var/fall_over = !can_stand()
-	if(fall_over || resting || IsStunned())
-		drop_r_hand()
-		drop_l_hand()
-	else
-		lying_angle = 0
-		canmove = TRUE
-	if(buckled)
-		if(buckled.buckle_lying != NO_BUCKLE_LYING)
-			lying_angle = buckled.buckle_lying
-	else if((fall_over || resting) && !lying_angle)
-		fall(fall_over)
+	if(!(ignore_flags & INC_IGNORE_RESTRAINED) && HAS_TRAIT(src, TRAIT_RESTRAINED))
+		return TRUE
+	if(!(ignore_flags & INC_IGNORE_GRABBED) && LAZYLEN(grabbed_by))
+		for(var/obj/item/grab/grab as anything in grabbed_by)
+			if(grab.state > GRAB_PASSIVE)
+				return TRUE
+	return FALSE
 
-	canmove = !(fall_over || resting || IsStunned() || IsFrozen() || buckled || IsImmobilized())
-	if(lying_angle)
-		ADD_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
-	else
-		REMOVE_TRAIT(src, TRAIT_UNDENSE, LYING_DOWN_TRAIT)
-
-	if(lying_angle)
-		if(layer == initial(layer))
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	else
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 /mob/living/proc/update_stamina()
 	return
-
-/mob/living/vv_edit_var(var_name, var_value)
-	. = ..()
-	switch(var_name)
-		if("maxHealth")
-			updatehealth("var edit")
-		if("resize")
-			update_transform()
 
 
 /mob/living/proc/update_disgust_alert()

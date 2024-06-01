@@ -1,5 +1,5 @@
 #define POINT_TIME (2.5 SECONDS)
-#define BUBBLE_TIME (3 SECONDS)
+#define BUBBLE_TIME (4 SECONDS)
 
 
 /**
@@ -32,7 +32,7 @@
  * Create a bubble pointing at a particular icon and icon state.
  * pointed_atom - the atom at which being pointed
  */
-/atom/movable/proc/create_point_bubble(atom/pointed_atom)
+/atom/movable/proc/create_point_bubble(atom/pointed_atom, include_arrow = TRUE)
 	var/obj/effect/thought_bubble_effect = new
 
 	var/mutable_appearance/thought_bubble = mutable_appearance(
@@ -60,13 +60,14 @@
 	thought_bubble.pixel_y = 32
 	thought_bubble.alpha = 200
 
-	var/mutable_appearance/point_visual = mutable_appearance(
-		'icons/mob/screen_gen.dmi',
-		"arrow",
-	)
+	if(include_arrow)
+		var/mutable_appearance/point_visual = mutable_appearance(
+			'icons/mob/screen_gen.dmi',
+			"arrow",
+		)
 
-	point_visual.pixel_y = 7
-	thought_bubble.overlays += point_visual
+		point_visual.pixel_y = 7
+		thought_bubble.overlays += point_visual
 
 	// vis_contents is used to preserve mouse opacity
 	thought_bubble_effect.appearance = thought_bubble
@@ -76,7 +77,7 @@
 
 	thought_bubble_effect.alpha = 0
 	animate(thought_bubble_effect, alpha = 255, time = 0.5 SECONDS, easing = EASE_OUT)
-	animate(alpha = 255, time = 2.0 SECONDS)
+	animate(alpha = 255, time = BUBBLE_TIME - 1 SECONDS)
 	animate(alpha = 0, time = 0.5 SECONDS, easing = EASE_IN)
 
 

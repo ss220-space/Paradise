@@ -151,6 +151,7 @@
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
+	new /obj/item/clothing/head/helmet/detective(src)
 	new /obj/item/clothing/under/det(src)
 	new /obj/item/clothing/under/det/skirt(src)
 	new /obj/item/clothing/under/det/alt_a(src)
