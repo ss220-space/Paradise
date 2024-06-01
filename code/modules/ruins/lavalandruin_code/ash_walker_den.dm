@@ -107,7 +107,6 @@
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.faction += "ashwalker"
-	ADD_TRAIT(new_spawn, TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
 
 	to_chat(new_spawn, "<b>Добывайте для гнезда трупы гуманоидов и зверей. Щупальце поглотит их, порождая яйца новых пеплоходцев. Слава Некрополю!</b>")
 

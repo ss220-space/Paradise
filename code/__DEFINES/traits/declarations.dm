@@ -42,14 +42,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
+/// This mob heals from ash tendril
+#define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
-/// This mob heals from ash tendril
-#define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
 #define TRAIT_KNOCKEDOUT "knockedout"
