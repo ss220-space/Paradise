@@ -198,7 +198,7 @@
 		visible_message("<span class='danger'>[name] вреза[pluralize_ru(gender,"ет","ют")]ся в [M.name], сбивая друг друга с ног!</span>", \
 					 "<span class='userdanger'>Вы жестко врезаетесь в [M.name]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
-		return
+		return TRUE
 
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
@@ -378,11 +378,13 @@
 		return projectile_allow_through(mover, border_dir)
 	if(buckled == mover)
 		return TRUE
-	if(ismob(mover))
-		var/mob/moving_mob = mover
+	if(isliving(mover))
+		var/mob/living/moving_mob = mover
 		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
 			return FALSE
-		if(mover in buckled_mobs)
+		if(moving_mob in buckled_mobs)
+			return TRUE
+		if(!moving_mob.density || moving_mob.body_position == LYING_DOWN)
 			return TRUE
 	return !mover.density || body_position == LYING_DOWN
 
@@ -1432,7 +1434,7 @@
 
 
 /mob/living/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(incapacitated())
+	if(incapacitated() || body_position == LYING_DOWN)
 		return FALSE
 
 	. = ..()
@@ -1782,6 +1784,13 @@
 
 /// Proc to append behavior related to lying down.
 /mob/living/proc/on_lying_down(new_lying_angle)
+
+	// TEMPORARY WORKAROUND
+	stop_pulling()
+	for(var/obj/item/grab/grab in contents)
+		qdel(grab)
+	// TEMPORARY WORKAROUND END
+
 	if(layer == initial(layer)) //to avoid things like hiding larvas.
 		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)

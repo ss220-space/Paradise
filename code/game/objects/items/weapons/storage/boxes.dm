@@ -68,6 +68,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_nucleation
+	icon_state = "box_nucleation"
+
+/obj/item/storage/box/survival_nucleation/populate_contents()
+	new /obj/item/storage/firstaid/crew/nucleation(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 

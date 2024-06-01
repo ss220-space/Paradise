@@ -1421,7 +1421,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
-		if(!lockinorbit && loc != lastloc && loc != targetloc)
+		if(!targetloc || (!lockinorbit && loc != lastloc && loc != targetloc))
 			break
 		if(forceMove)
 			forceMove(targetloc)

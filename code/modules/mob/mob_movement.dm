@@ -7,15 +7,15 @@
 		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 /client/proc/Move_object(direct)
-	if(mob && mob.control_object)
-		if(mob.control_object.density)
-			step(mob.control_object, direct)
-			if(!mob.control_object)
-				return
-			mob.control_object.setDir(direct)
-		else
-			mob.control_object.forceMove(get_step(mob.control_object, direct))
-	return
+	if(mob.control_object.density)
+		step(mob.control_object, direct)
+		if(!mob.control_object)
+			return
+		mob.control_object.setDir(direct)
+	else
+		var/new_turf = get_step(mob.control_object, direct)
+		if(new_turf)
+			mob.control_object.forceMove(new_turf)
 
 
 /client/Move(n, direct)

@@ -90,6 +90,12 @@
 	//End bloody footprints
 
 
+/mob/living/carbon/human/on_fall()
+	. = ..()
+	if(HAS_TRAIT_FROM(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT) && has_pain())
+		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
+
+
 /mob/living/carbon/human/set_usable_legs(new_value)
 	. = ..()
 	if(isnull(.))
@@ -100,8 +106,6 @@
 			REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 			REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(usable_legs == 0 && !(movement_type & (FLYING|FLOATING))) //From having usable legs to no longer having them.
-		if(has_pain())
-			INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 		ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 		if(!usable_hands)
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
