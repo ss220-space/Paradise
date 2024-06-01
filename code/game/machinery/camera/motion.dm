@@ -31,6 +31,8 @@
 	if(isAI(target))
 		return FALSE
 	if(detectTime == 0)
+		if(can_see(src, target))
+			visible_message(span_warning("Тя палят"))
 		detectTime = world.time // start the clock
 	var/list/targets = getTargetList()
 	targets |= target.UID()
@@ -60,7 +62,7 @@
 
 /obj/machinery/camera/HasProximity(atom/movable/AM)
 	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.
-	if(!area_motion)
+	if(area_motion)
 		if(isliving(AM))
 			newTarget(AM)
 

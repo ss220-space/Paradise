@@ -545,9 +545,9 @@
 	if(!isliving(arrived))
 		return
 
-	if(LAZYLEN(motioncameras))//ai motion camera alarm activate
-		for(var/obj/machinery/camera/cam as anything in motioncameras)
-			cam.newTarget(arrived)
+	// if(LAZYLEN(motioncameras))//ai motion camera alarm activate
+	// 	for(var/obj/machinery/camera/cam as anything in motioncameras)
+	// 		cam.newTarget(arrived)
 
 	var/mob/living/arrived_living = arrived
 	if(!arrived_living.client)
@@ -585,7 +585,7 @@
 
 /area/proc/AddMotionCameraInList(obj/machinery/camera/M)
 	LAZYADD(motioncameras, M)
-	M.AddComponent(/datum/component/proximity_monitor)
+	M.AddComponent(/datum/component/proximity_monitor, 7, TRUE)
 	M.set_area_motion(src)
 
 /area/proc/prison_break()
