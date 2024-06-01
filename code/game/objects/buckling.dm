@@ -207,7 +207,7 @@
 
 	// Check for another dense objects in loc
 	var/turf/ground = loc
-	if(ground.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+	if(ground.is_blocked_turf(ignore_atoms = list(src, target)))
 		return FALSE
 
 	// Check if this atom can have things buckled to it.
