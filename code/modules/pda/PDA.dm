@@ -64,6 +64,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/retro_mode = 0
 	var/iconImage
 
+	///Stores type of pda case. Don't try to hold instances here.
+	var/obj/item/pda_case/current_case = null
 
 /*
  *	The Actual PDA
@@ -308,14 +310,20 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
-	if(istype(W, /obj/item/pda_case/))
+	if(istype(W, /obj/item/pda_case))
 		var/obj/item/pda_case/pdacase = W
 		to_chat(user, "Ты надел чехол на ПДА.")
-		icon_state = pdacase.pdacase_icon_state
-		item_state = pdacase.pdacase_item_state
-		ttone = pdacase.pdacase_ttone
+		current_case = pdacase.type
+		update_icon(UPDATE_ICON_STATE)
 		qdel(pdacase)
-		qdel(W)
+
+
+/obj/item/pda/update_icon_state()
+	if(current_case)
+		icon_state = initial(current_case.pdacase_icon_state)
+		item_state = initial(current_case.pdacase_item_state)
+		ttone = initial(current_case.pdacase_ttone)
+
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
