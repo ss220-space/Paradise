@@ -91,7 +91,7 @@
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
 
-	if(entity.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) //Let's not do typechecks and stuff on invisible things
 		return
 
 	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))

@@ -61,10 +61,6 @@
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
-
-/obj/machinery/camera/proc/set_area_motion(area/A)
-	area_motion = A
-
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
 	grey_noise() //kick anyone viewing out
@@ -77,7 +73,6 @@
 	var/area/A = get_area(src)
 	if(istype(A))
 		LAZYREMOVE(A.motioncameras, src) //Removing the camera from the list of cameras that can respond to movement.
-	area_motion = null
 	cancelCameraAlarm()
 	cancelAlarm()
 	LAZYCLEARLIST(computers_watched_by)
@@ -358,7 +353,7 @@
 		return 0
 	return 1
 
-/obj/machinery/camera/proc/can_see()
+/obj/machinery/camera/proc/camera_see()
 	var/list/see = null
 	var/turf/pos = get_turf(src)
 	var/turf/directly_above = GET_TURF_ABOVE(pos)

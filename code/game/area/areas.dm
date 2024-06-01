@@ -69,7 +69,6 @@
 	///Used for perfomance in machinery manipulation operations
 	var/list/machinery_cache
 	var/list/motioncameras
-	var/list/motionTargets = list()
 
 	var/firedoors_last_closed_on = 0
 
@@ -572,10 +571,6 @@
 	if(!isliving(departed))
 		return
 
-	if(LAZYLEN(motioncameras)) //ai motion camera alarm deactivate
-		for(var/obj/machinery/camera/cam as anything in motioncameras)
-			cam.lostTargetRef(departed.UID())
-
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
@@ -586,8 +581,7 @@
 
 /area/proc/AddMotionCameraInList(obj/machinery/camera/M)
 	LAZYADD(motioncameras, M)
-	M.AddComponent(/datum/component/proximity_monitor, 7, TRUE)
-	M.set_area_motion(src)
+	M.AddComponent(/datum/component/proximity_monitor, M.view_range, TRUE)
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)
