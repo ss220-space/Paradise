@@ -146,15 +146,12 @@
 		return FALSE
 	return TRUE
 
-/datum/action/proc/IsMayActive()
-	return FALSE
-
 
 /datum/action/proc/UpdateButtonIcon()
 	if(!button)
 		return FALSE
 
-	if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
+	if(owner?.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
 		button.alpha = owner.client.prefs.UI_style_alpha
 		button.color = owner.client.prefs.UI_style_color
 		button.icon = ui_style2icon(owner.client.prefs.UI_style)
@@ -171,8 +168,7 @@
 
 	ApplyIcon()
 
-	if(IsMayActive())
-		toggle_active_overlay()
+	toggle_active_overlay()
 
 	var/obj/effect/proc_holder/spell/spell = target
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
@@ -196,6 +192,7 @@
 
 /datum/action/proc/toggle_active_overlay()
 	return
+
 
 //Presets for item actions
 /datum/action/item_action
@@ -680,19 +677,10 @@
 	return FALSE
 
 
-/datum/action/spell_action/IsMayActive()
-	if(!target)
-		return FALSE
-
-	var/obj/effect/proc_holder/spell/spell = target
-	if(istype(spell) && spell.need_active_overlay)
-		return TRUE
-
-	return FALSE
-
-
 /datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/spell = target
+	if(!istype(spell) || !spell.need_active_overlay)
+		return
 	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_OFFSET_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	if(spell.active)
 		button.add_overlay(selector)
