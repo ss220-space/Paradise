@@ -313,7 +313,7 @@
 		return
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
-			if(issmall(M) && M.stat)
+			if(is_monkeybasic(M) && M.stat)
 				M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
@@ -404,7 +404,7 @@
 
 //Pick up monkey
 /mob/living/carbon/human/CtrlClick(mob/user)
-	if(issmall(src))
+	if(is_monkeybasic(src))
 		SEND_SIGNAL(user, COMSIG_XENO_MONKEY_CLICK_CTRL, src)
 	..()
 
@@ -513,7 +513,7 @@
 		to_chat(user, "<span class='notice'>There is no connected monkey recycler. Use a multitool to link one.</span>")
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		if(issmall(M) && M.stat)
+		if(is_monkeybasic(M) && M.stat)
 			M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)

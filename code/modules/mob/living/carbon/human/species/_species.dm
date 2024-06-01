@@ -118,7 +118,8 @@
 	var/race_key = 0
 	var/icon/icon_template
 
-	var/is_small
+	/// Indicates that this species belongs to lesser human forms.
+	var/is_monkeybasic = FALSE
 	var/show_ssd = 1
 	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
 	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
@@ -332,7 +333,7 @@
 
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
 
-			if(wearable && ("lesser form" in rectricted) && is_small)
+			if(wearable && ("lesser form" in rectricted) && is_monkeybasic)
 				wearable = FALSE
 
 			if(!wearable)
@@ -774,7 +775,7 @@
 		if(rectricted)
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
 
-			if(wearable && is_small && ("lesser form" in rectricted))
+			if(wearable && is_monkeybasic && ("lesser form" in rectricted))
 				wearable = FALSE
 
 			if(!wearable)

@@ -176,7 +176,7 @@
 	if(wielded)
 		return
 
-	if(issmall(user))
+	if(is_monkeybasic(user))
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time

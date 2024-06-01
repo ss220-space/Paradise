@@ -201,7 +201,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<br>"
 
 			//Monkey
-			if(issmall(M))
+			if(is_monkeybasic(M))
 				body += "<B>Monkeyized</B> | "
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
