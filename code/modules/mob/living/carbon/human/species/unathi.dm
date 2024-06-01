@@ -126,7 +126,7 @@
 		fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
-	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
+	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
@@ -135,7 +135,7 @@
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-	REMOVE_TRAIT(H, TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
+	REMOVE_TRAIT(H, TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
@@ -173,7 +173,6 @@
 	if(!fire)
 		fire = new
 		fire.Grant(C)
-	ADD_TRAIT(C,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
 
 
 //removes the heal spell
@@ -187,7 +186,6 @@
 	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Remove(C)
-	REMOVE_TRAIT(C,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
