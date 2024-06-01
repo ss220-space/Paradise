@@ -354,14 +354,7 @@
 
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-		var/area/A = loc
-		if(!A.use_starlight)
-			// Should have a lighting object if we never had one
-			lighting_object = old_lighting_object || new /atom/movable/lighting_object(src)
-		else
-			W.add_overlay(A.lighting_effect)
-		if(A.use_starlight && old_lighting_object)
-			qdel(old_lighting_object, force = TRUE)
+		lighting_object = old_lighting_object
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -374,6 +367,12 @@
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
+
+	// We will only run this logic if the tile is not on the prime z layer, since we use area overlays to cover that
+	if(SSmapping.z_level_to_plane_offset[z])
+		var/area/our_area = W.loc
+		if(our_area.lighting_effects)
+			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
 	return W
 
