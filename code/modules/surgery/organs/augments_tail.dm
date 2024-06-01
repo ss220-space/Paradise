@@ -125,7 +125,7 @@
 	name = "Взмах хвостом"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
-	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 
 /datum/action/innate/tail_cut/Trigger(left_click = TRUE)
 	if(IsAvailable(show_message = TRUE))
@@ -170,7 +170,14 @@
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] ударяет хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты хлещешь","Вы хлещете")] хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
+					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+
+				var/all_objectives = user?.mind?.get_all_objectives()
+				if(C.mind && all_objectives)
+					for(var/datum/objective/pain_hunter/objective in all_objectives)
+						if(C.mind == objective.target)
+							objective.take_damage(damage_deal, type_of_damage)
 
 		else  // Dealing damage to simplemobs, silicons
 			C.apply_damage_type(damage_deal, type_of_damage)
@@ -181,7 +188,8 @@
 
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), span_danger("[pluralize_ru(user.gender,"Ты теряешь","Вы теряете")] равновесие!"))
+			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
+								 span_danger("Вы теряете равновесие!"))
 			return
 
 		if(user.getStaminaLoss() >= 60)
@@ -212,6 +220,11 @@
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled)
 		if(show_message)
 			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
+		return FALSE
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		if(show_message)
+			to_chat(user, span_warning("Вы не хотите никому навредить.."))
 		return FALSE
 
 	return TRUE

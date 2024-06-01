@@ -403,20 +403,25 @@ SUBSYSTEM_DEF(air)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
+	plane = ABOVE_GAME_PLANE
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
 	vis_flags = NONE // Resets vision flags inherited from parent objects
 
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"
 
-
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
 
 
 /datum/controller/subsystem/air/proc/setup_overlays()
-	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
-	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
+	for(var/i in 0 to SSmapping.max_plane_offset)
+		var/obj/effect/overlay/turf/plasma/plasma = new
+		SET_PLANE_W_SCALAR(plasma, plasma.plane, i)
+		GLOB.plmaster["[i]"] += plasma
+		var/obj/effect/overlay/turf/sleeping_agent/sleeping_agent = new
+		SET_PLANE_W_SCALAR(sleeping_agent, sleeping_agent.plane, i)
+		GLOB.slmaster["[i]"] += sleeping_agent
 
 /datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level

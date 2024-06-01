@@ -389,10 +389,6 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
-	. = ..()
-	set_density(emagged ? TRUE : FALSE) //this is reset every canmove update otherwise
-
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()

@@ -1026,8 +1026,8 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/proc/check_obscured_slots()
-	. = NONE
+/mob/living/carbon/human/check_obscured_slots()
+	. = ..()
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
@@ -1061,7 +1061,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if((ITEM_SLOT_CLOTH_INNER & check_obscured_slots()) && skipface)
+	if(skipface && (ITEM_SLOT_CLOTH_INNER & check_obscured_slots()))
 		return PLURAL
 	return gender
 
@@ -1544,10 +1544,9 @@
 	var/mutable_appearance/MA
 	if(hair_style)
 		var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
+		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	else
-		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER)
-	MA.plane = ABOVE_LIGHTING_PLANE
+		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
@@ -2041,10 +2040,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth) + shock_reduction
 
-/mob/living/carbon/human/WakeUp(updating = TRUE)
-	if(dna.species.spec_WakeUp(src))
-		return
-	..()
 
 /**
   * Helper to get the mobs runechat colour span

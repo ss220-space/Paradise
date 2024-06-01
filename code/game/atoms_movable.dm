@@ -16,7 +16,6 @@
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
-	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
 
 	///The last time we pushed off something
@@ -48,8 +47,6 @@
 	var/max_buckled_mobs = 1
 	/// Whether things buckled to this atom can be pulled while they're buckled
 	var/buckle_prevents_pull = FALSE
-
-	var/buckle_offset = 0	// will be removed later
 
 	/**
 	  * In case you have multiple types, you automatically use the most useful one.
@@ -86,7 +83,7 @@
 	. = ..()
 
 
-/atom/movable/Initialize(mapload)
+/atom/movable/Initialize(mapload, ...)
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
@@ -96,6 +93,7 @@
 			blocker.dir = dir
 			blocker.alpha = alpha
 			blocker.appearance_flags |= appearance_flags
+			blocker.plane = GET_NEW_PLANE(EMISSIVE_PLANE, PLANE_TO_OFFSET(plane))
 			// Ok so this is really cursed, but I want to set with this blocker cheaply while
 			// still allowing it to be removed from the overlays list later.
 			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
@@ -157,6 +155,48 @@
 			return em_block
 
 
+/atom/movable/vv_edit_var(var_name, var_value)
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, step_x) = TRUE, NAMEOF_STATIC(src, step_y) = TRUE, NAMEOF_STATIC(src, step_size) = TRUE, NAMEOF_STATIC(src, bounds) = TRUE)
+	var/static/list/careful_edits = list(NAMEOF_STATIC(src, bound_x) = TRUE, NAMEOF_STATIC(src, bound_y) = TRUE, NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	var/static/list/not_falsey_edits = list(NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	if(banned_edits[var_name])
+		return FALSE //PLEASE no.
+	if(careful_edits[var_name] && (var_value % world.icon_size) != 0)
+		return FALSE
+	if(not_falsey_edits[var_name] && !var_value)
+		return FALSE
+
+	switch(var_name)
+		if(NAMEOF(src, x))
+			var/turf/T = locate(var_value, y, z)
+			if(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, y))
+			var/turf/T = locate(x, var_value, z)
+			if(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, z))
+			var/turf/T = locate(x, y, var_value)
+			if(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, loc))
+			if(isatom(var_value) || isnull(var_value))
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, anchored))
+			set_anchored(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	return ..()
+
+
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
 	return
@@ -215,11 +255,7 @@
 		return
 
 	pulling.pulledby = null
-	var/mob/living/ex_pulled = pulling
 	pulling = null
-	if(isliving(ex_pulled))
-		var/mob/living/L = ex_pulled
-		L.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 
 /**
@@ -377,6 +413,13 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/new_turf = get_turf(src)
+
+	if(old_turf?.z != new_turf?.z)
+		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
+		on_changed_z_level(old_turf, new_turf, same_z_layer)
+
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
 	return TRUE
@@ -482,10 +525,6 @@
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
 
-			var/turf/oldturf = get_turf(oldloc)
-			var/turf/destturf = get_turf(destination)
-			if(oldturf && destturf && oldturf.z != destturf.z)
-				onTransitZ(oldturf.z, destturf.z)
 
 		. = TRUE
 
@@ -609,11 +648,43 @@
 		return FALSE
 	return destination //used by some child types checks and zMove()
 
-/atom/movable/proc/onTransitZ(old_z,new_z)
-	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
-		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
+/**
+ * Called when a movable changes z-levels.
+ *
+ * Arguments:
+ * * old_turf - The previous turf they were on before.
+ * * new_turf - The turf they have now entered.
+ * * same_z_layer - If their old and new z levels are on the same level of plane offsets or not
+ * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed. NOTE, IF YOU SET THIS, YOU NEED TO MANUALLY SET PLANE OF THE CONTENTS LATER
+ */
+/atom/movable/proc/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_turf, new_turf, same_z_layer)
+
+	// If our turfs are on different z "layers", recalc our planes
+	if(!same_z_layer && !QDELETED(src))
+		SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
+		// a TON of overlays use planes, and thus require offsets
+		// so we do this. sucks to suck
+		update_appearance()
+
+		if(update_on_z)
+			// I so much wish this could be somewhere else. alas, no.
+			for(var/image/update as anything in update_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+		if(update_overlays_on_z)
+			// This EVEN more so
+			cut_overlay(update_overlays_on_z)
+			// This even more so
+			for(var/mutable_appearance/update in update_overlays_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+			add_overlay(update_overlays_on_z)
+
+	if(!notify_contents)
+		return
+
+	for (var/atom/movable/content as anything in src) // Notify contents of Z-transition.
+		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 
 
@@ -864,12 +935,15 @@
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
+	// we will register on turf to avoid image changes with attacked_atom transforms
+	var/turf/image_loc = get_turf(attacked_atom)
 	if(visual_effect_icon)
-		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
+		attack_image = image('icons/effects/effects.dmi', image_loc, visual_effect_icon, attacked_atom.layer + 0.1)
+		if(ismob(src) && ismob(attacked_atom))
+			var/mob/attacker = src
+			attack_image.color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	else if(used_item)
-		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
-		attack_image.plane = GAME_PLANE
-
+		attack_image = image(icon = used_item, loc = image_loc, layer = attacked_atom.layer + 0.1)
 		// Scale the icon.
 		attack_image.transform *= 0.4
 		// The icon should not rotate.
@@ -878,14 +952,14 @@
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_image.pixel_y = -16
+			attack_image.pixel_y = -12
 		else if(direction & SOUTH)
-			attack_image.pixel_y = 16
+			attack_image.pixel_y = 12
 
 		if(direction & EAST)
-			attack_image.pixel_x = -16
+			attack_image.pixel_x = -14
 		else if(direction & WEST)
-			attack_image.pixel_x = 16
+			attack_image.pixel_x = 14
 
 		if(!direction) // Attacked self?!
 			attack_image.pixel_y = 12
@@ -894,21 +968,18 @@
 	if(!attack_image)
 		return
 
+	SET_PLANE(attack_image, attacked_atom.plane, image_loc)
+
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/viewer in viewers(attacked_atom))
 		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
-			viewing |= viewer.client
+			viewing += viewer.client
 
 	flick_overlay(attack_image, viewing, 0.7 SECONDS)
-	var/matrix/initial_transform = matrix(transform)
-	var/image_color = "#ffffff"
-	if(ismob(src) && ismob(attacked_atom) && !used_item)
-		var/mob/attacker = src
-		image_color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-
+	var/matrix/initial_transform = new(transform)
 	// And animate the attack!
-	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS, color = image_color)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
 

@@ -31491,11 +31491,6 @@
 /area/toxins/xenobiology)
 "fcr" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "fcw" = (
@@ -32985,6 +32980,7 @@
 	pixel_x = 31;
 	pixel_y = 1
 	},
+/obj/item/clipboard,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "fBY" = (
@@ -36844,6 +36840,10 @@
 	},
 /obj/item/taperecorder,
 /obj/item/storage/briefcase,
+/obj/item/hand_labeler,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "gLH" = (

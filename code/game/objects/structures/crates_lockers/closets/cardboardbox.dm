@@ -21,10 +21,12 @@
 	var/move_speed_multiplier = 1
 	/// The cooldown timestamp used for alert animations.
 	COOLDOWN_DECLARE(recently_alerted_cd)
+	/// The cooldown timestamp used for movement.
+	COOLDOWN_DECLARE(recently_moved_cd)
 
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || user.incapacitated() || !isturf(loc) || !has_gravity())
+	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || !has_gravity())
 		return
 	var/turf/next_step = get_step(src, direction)
 	if(!next_step)
@@ -39,9 +41,10 @@
 	delay *= move_speed_multiplier
 
 	. = Move(next_step, direction, delay)
-	if(!user.client)
-		return
-	user.client.move_delay += ISDIAGONALDIR(direction) ? delay * SQRT_2 : delay
+	if(. && ISDIAGONALDIR(direction))
+		delay *= sqrt(2)
+
+	COOLDOWN_START(src, recently_moved_cd, delay)
 
 
 /obj/structure/closet/cardboard/open()
@@ -171,6 +174,7 @@
 			if(viewer.client)
 				passed_clients += viewer.client
 	var/image/image = image('icons/obj/cardboard_boxes.dmi', source, "cardboard_special", source.layer + 0.01)
+	SET_PLANE_EXPLICIT(image, ABOVE_LIGHTING_PLANE, source)
 	image.alpha = 0
 	flick_overlay(image, passed_clients, 1.5 SECONDS)
 	animate(image, pixel_z = 32, alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)

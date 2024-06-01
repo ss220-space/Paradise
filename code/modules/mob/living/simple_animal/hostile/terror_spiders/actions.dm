@@ -186,7 +186,7 @@
 
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
-		if(living_mover.lying_angle)
+		if(living_mover.body_position == LYING_DOWN)
 			return TRUE
 
 		if(prob(80))

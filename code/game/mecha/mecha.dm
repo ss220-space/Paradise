@@ -478,7 +478,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available, override = TRUE)
+			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
 			if(A)
 				A.target = possible_port
 		else
@@ -1141,10 +1141,10 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
-	AI.cancel_camera()
+	AI.eyeobj?.forceMove(src)
+	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.canmove = TRUE //Much easier than adding AI checks! Be sure to set this back to FALSE if you decide to allow an AI to leave a mech somehow.
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: span_notice("You have been uploaded to a mech's onboard computer.")]")
@@ -1208,7 +1208,7 @@
 
 	if(occupant)
 		occupant.clear_alert("mechaport")
-		occupant.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
+		occupant.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 
 	log_message("Connected to gas port.")
 	return TRUE
@@ -1309,7 +1309,7 @@
 		else if(!hasInternalDamage())
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
-			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		return TRUE
 	else
 		return FALSE
@@ -1355,7 +1355,6 @@
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1413,6 +1412,9 @@
 		mob_container = brain.container
 	else if(isAI(occupant))
 		var/mob/living/silicon/ai/AI = occupant
+		//stop listening to this signal, as the static update is now handled by the eyeobj's setLoc
+		AI.eyeobj?.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+		AI.eyeobj?.forceMove(newloc) //kick the eye out as well
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
 			if(!istype(newloc, /obj/item/aicard))
@@ -1446,7 +1448,6 @@
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
-			L.canmove = FALSE
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
@@ -1540,20 +1541,20 @@
 			if(0.75 to INFINITY)
 				occupant.clear_alert("charge")
 			if(0.5 to 0.75)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
 			if(0.25 to 0.5)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
 			if(0.01 to 0.25)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					occupant << sound(lowpowersound, volume = 50)
 					power_warned = TRUE
 			else
-				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)
 	else
-		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
+		occupant.throw_alert("charge", /atom/movable/screen/alert/mech_nocell)
 
 
 //////////////////////////////////////////
@@ -1647,13 +1648,14 @@
 
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
 		if(user == occupant)
-			user.sight |= occupant_sight_flags
+			user.add_sight(occupant_sight_flags)
 
 	..()
 

@@ -435,7 +435,7 @@
 	underlays.Cut()
 
 	if(power_station && power_station.engaged && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
 /obj/machinery/teleport/hub/power_change(forced = FALSE)
@@ -538,7 +538,7 @@
 	underlays.Cut()
 
 	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
 /obj/machinery/teleport/perma/proc/update_lighting()
@@ -717,5 +717,5 @@
 	underlays.Cut()
 
 	if(!(stat & NOPOWER) && !panel_open)
-		underlays += emissive_appearance(icon, "controller_lightmask")
+		underlays += emissive_appearance(icon, "controller_lightmask", src)
 

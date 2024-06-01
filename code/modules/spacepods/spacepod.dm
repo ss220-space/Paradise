@@ -4,6 +4,8 @@
 #define WINDOW			2
 #define RIM	    		3
 #define PAINT			4
+#define NO_GRAVITY_SPEED 1.5
+#define GRAVITY_SPEED	4
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
@@ -62,7 +64,7 @@
 
 	var/unlocked = TRUE
 
-	var/move_delay = 1.5
+	var/move_delay = NO_GRAVITY_SPEED
 	var/next_move = 0
 	var/can_paint = TRUE
 
@@ -1057,6 +1059,10 @@
 	if(world.time < next_move)
 		return 0
 	var/moveship = 1
+	if(has_gravity(loc))
+		move_delay = GRAVITY_SPEED
+	else
+		move_delay = NO_GRAVITY_SPEED
 	if(battery && battery.charge >= 1 && health && empcounter == 0)
 		if(!(direction & (UP|DOWN)))
 			src.dir = direction
@@ -1123,3 +1129,5 @@
 #undef POD_LIGHT
 #undef RIM
 #undef PAINT
+#undef NO_GRAVITY_SPEED
+#undef GRAVITY_SPEED
