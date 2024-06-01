@@ -366,26 +366,28 @@
 
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	// all this repeated spaghetti code is used to properly register projectiles
 	if(mover.pass_flags == PASSEVERYTHING)
 		return TRUE
 	if(mover.pass_flags & pass_flags_self)
 		return TRUE
-	if(mover.throwing)
-		return (pass_flags_self & LETPASSTHROW) || !density || body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
+	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
 	if(mover in buckled_mobs)
 		return TRUE
-	if(isprojectile(mover))
-		return projectile_allow_through(mover, border_dir)
+	var/is_projectile = isprojectile(mover)
+	if(!density || is_projectile)
+		if(is_projectile)
+			return projectile_allow_through(mover, border_dir)
+		return TRUE
+	if(mover.throwing)
+		return body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
 	if(buckled == mover)
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/moving_mob = mover
 		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
 			return FALSE
-		if(moving_mob in buckled_mobs)
-			return TRUE
-		if(!moving_mob.density || moving_mob.body_position == LYING_DOWN)
-			return TRUE
 	return !mover.density || body_position == LYING_DOWN
 
 
