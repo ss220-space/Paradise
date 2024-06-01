@@ -221,6 +221,7 @@
 				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
 			else
 				handle_suicide(user, target, params)
+			return
 
 
 	//Exclude lasertag guns from the CLUMSY check.
