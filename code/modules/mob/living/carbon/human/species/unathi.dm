@@ -173,7 +173,7 @@
 	if(!fire)
 		fire = new
 		fire.Grant(C)
-	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
+	ADD_TRAIT(C,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
 
 
 //removes the heal spell
@@ -187,7 +187,7 @@
 	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
 	if(fire)
 		fire.Remove(C)
-	REMOVE_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
+	REMOVE_TRAIT(C,TRAIT_HEALS_FROM_ASH_TENDRIL, INNATE_TRAIT)
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
