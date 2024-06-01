@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
 
 	var/discord_id = null
 	var/discord_name = null
@@ -572,7 +573,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Multi-Z Detail:</b> <a href='?_src_=prefs;preference=multiz_detail'>"
+			switch (multiz_detail)
+				if(MULTIZ_DETAIL_DEFAULT)
+					dat += "Default"
+				if(MULTIZ_DETAIL_LOW)
+					dat += "Low"
+				if(MULTIZ_DETAIL_MEDIUM)
+					dat += "Medium"
+				if(MULTIZ_DETAIL_HIGH)
+					dat += "High"
+				else
+					dat += "ERROR"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -2381,14 +2395,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					var/actual_new_range = viewrange_options[new_range]
 
+					if(actual_new_range == parent.view)
+						return
 					viewrange = actual_new_range
-
-					if(actual_new_range != parent.view)
-						parent.view = actual_new_range
-						parent.fit_viewport()
-						// Update the size of the click catcher
-						var/list/actualview = getviewsize(parent.view)
-						parent.void.UpdateGreed(actualview[1],actualview[2])
+					parent.change_view(actual_new_range)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -2496,8 +2506,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(GAME_PLANE))
+							plane_master.show_to(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2511,13 +2521,51 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
 					if(!new_parallax)
 						return
+					/*
+					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && parallax_styles[new_parallax] == PARALLAX_DISABLE)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with non-default Multi-Z settings. Please turn on \"Parallax\" in order to limit Multi-Z."))
+						return
+					*/
+
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
-				if("parallax_darkness")
-					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-					parent.mob?.hud_used?.update_parallax_pref()
+				if("multiz_detail")
+					var/multiz_det_styles = list(
+						"Default" = MULTIZ_DETAIL_DEFAULT,
+						"Low" = MULTIZ_DETAIL_LOW,
+						"Medium" = MULTIZ_DETAIL_MEDIUM,
+						"High" = MULTIZ_DETAIL_HIGH,
+					)
+
+					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
+					if(!new_value)
+						return
+					/*
+					if(parallax == PARALLAX_DISABLE && multiz_det_styles[new_value] != MULTIZ_DETAIL_DEFAULT)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with disabled parallax. Please set \"Multi-Z Detail\" to default in order to disable Parallax."))
+						return
+					*/
+
+					multiz_detail = multiz_det_styles[new_value]
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+
+				if("parallax_multiz")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
 
 				if("keybindings")
 					if(!keybindings_overrides)

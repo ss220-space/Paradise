@@ -95,7 +95,7 @@
 	if(hud_used)
 		var/datum/hud/hud = hud_used
 		if(!hud.wind_up_timer)
-			hud.wind_up_timer = new /obj/screen/wind_up_timer()
+			hud.wind_up_timer = new /atom/movable/screen/wind_up_timer()
 			hud.infodisplay += hud.wind_up_timer
 			hud.show_hud(hud.hud_version)
 

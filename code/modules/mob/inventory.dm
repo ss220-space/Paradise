@@ -61,7 +61,7 @@
 	if(!istype(I))
 		return FALSE
 
-	if(I.equip_delay_self)
+	if(I.equip_delay_self > 0)
 		if(!silent)
 			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
@@ -283,14 +283,6 @@
 	return FALSE
 
 
-/*
-/mob/living/put_in_hand_check(obj/item/I, hand_id)
-	if(istype(I) && ((mobility_flags & MOBILITY_PICKUP) || (I.flags & ABSTRACT)))
-		return TRUE
-	return FALSE
-*/
-
-
 /**
  * Specal proc for special mobs that use "hands" in weird ways.
  */
@@ -300,13 +292,18 @@
 
 /**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
- * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
+ * Puts an item into hand by `hand_id` (ITEM_SLOT_HAND_LEFT / ITEM_SLOT_HAND_RIGHT) and calls all necessary triggers/updates.
+ *
+ * Returns `TRUE` on success.
  */
 /mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always 'TRUE' if there is no item, since we are using helpers with this proc in 'if()' statements
 	if(!I)
 		return TRUE
+
+	if(QDELING(I))
+		return FALSE
 
 	if(!force && !put_in_hand_check(I, hand_id))
 		return FALSE
@@ -315,41 +312,38 @@
 		I.do_pickup_animation(src)
 
 	var/hand_item
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		hand_item = l_hand
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		hand_item = r_hand
 	if(hand_item)
 		drop_item_ground(hand_item, force = TRUE, silent = silent)
 
+	I.pulledby?.stop_pulling()
 	I.forceMove(src)
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
 
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		l_hand = I
-		I.equipped(src, ITEM_SLOT_HAND_LEFT, silent)
-		update_inv_l_hand()
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		r_hand = I
-		I.equipped(src, ITEM_SLOT_HAND_RIGHT, silent)
-		update_inv_r_hand()
 
-	if(pulling == I)
-		stop_pulling()
-
-	// Qdel or loc change on equip happened
-	if(QDELETED(I) || I.loc != src)
-		if(hand_id == "HAND_LEFT")
+	// Equip failed / item qdeled / loc changed
+	if(!I.equipped(src, hand_id, silent) || QDELETED(I) || I.loc != src)
+		if(hand_id == ITEM_SLOT_HAND_LEFT)
 			l_hand = null
-			update_inv_l_hand()
-		else if(hand_id == "HAND_RIGHT")
+		else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 			r_hand = null
-			update_inv_r_hand()
 		return FALSE
 
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
+		update_inv_l_hand()
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
+		update_inv_r_hand()
+
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	return TRUE
 
@@ -358,14 +352,14 @@
  * Puts item into `l_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_l_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_LEFT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_LEFT, force, ignore_anim, silent)
 
 
 /**
  * Puts item into `r_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_r_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_RIGHT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_RIGHT, force, ignore_anim, silent)
 
 
 /**
@@ -569,7 +563,7 @@
 		if(client)
 			client.screen -= I
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
 		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
 				I.move_to_null_space()
@@ -578,10 +572,6 @@
 		I.dropped(src, slot, silent)
 
 	return TRUE
-
-
-/mob
-	var/can_unEquip_message_delay = 0
 
 
 /**
@@ -595,17 +585,15 @@
 		return TRUE
 
 	// TRAIT_NODROP
-	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
-		if(!(I.item_flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
-			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
+	if(!force && HAS_TRAIT(I, TRAIT_NODROP))
+		if(!silent && !(I.item_flags & ABSTRACT) && !isrobot(src))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I.name]."))
 		return FALSE
 
 	// Checking clothing obscuration
-	if(I.is_obscured_for_unEquip(src) && !force)
-		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
-			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
+	if(!force && (get_slot_by_item(I) & check_obscured_slots()))
+		if(!silent)
+			to_chat(src, span_warning("Вы не можете снять [I.name], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking
@@ -613,6 +601,14 @@
 		return FALSE
 
 	return TRUE
+
+
+/**
+ * Collects all the bitflags from the obscured slots.
+ * Works only for humans and checks only suits, headgear and masks currently.
+ */
+/mob/proc/check_obscured_slots()
+	. = NONE
 
 
 /**
@@ -679,7 +675,7 @@
 		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
 		return ITEM_SLOT_HAND_RIGHT
-	return null
+	return NONE
 
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
@@ -708,16 +704,6 @@
 	for(var/obj/item/thing in list(get_active_hand(), get_inactive_hand()))
 		if(thing && (thing.item_flags & SLOWS_WHILE_IN_HAND) && !(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
-
-
-/// Returns a modifier of all items considered as crutches in hands.
-/mob/proc/get_crutches()
-	. = 0
-	// Canes and crutches help you stand (if the latter is ever added)
-	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	. += l_hand?.is_crutch()
-	. += r_hand?.is_crutch()
 
 
 /mob/proc/covered_with_thick_material(check_zone, full_body_check = FALSE)

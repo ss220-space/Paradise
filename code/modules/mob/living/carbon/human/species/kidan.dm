@@ -199,7 +199,7 @@
 // Innate action for creating pheromones and destroying current ones, owned by all kida
 /datum/action/innate/produce_pheromones
 	name = "Produce Pheromones"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "kidan_pheromones_static"
 
@@ -229,7 +229,7 @@
 				to_chat(H, "<span class='warning'>These pheromones were created by someone else, you are unable to dissipate them.</span>")
 				return
 			// These are ours and we now destroy them
-			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				// Log the action
 				H.create_log(MISC_LOG, "destroyed pheromones that had the message of \"[pheromones_to_destroy.encoded_message]\"")
 
@@ -261,7 +261,7 @@
 				return
 
 			// Create the pheromones
-			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(H, "<span class='notice'>You produce new pheromones with the message of \"[message_to_encode]\".</span>")
 				var/obj/effect/kidan_pheromones/pheromones_to_create = new get_turf(H)
 				pheromones_to_create.encoded_message = message_to_encode

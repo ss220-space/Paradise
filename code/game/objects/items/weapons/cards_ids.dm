@@ -81,7 +81,7 @@
 
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
 /obj/item/card/cmag/attack()
 	return

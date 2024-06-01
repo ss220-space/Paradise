@@ -22,10 +22,8 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(isliving(user))
-		var/mob/living/target = user
-		if(target.IsWeakened() || target.IsStunned())
-			return FALSE
+	if(user.IsWeakened() || user.IsStunned())
+		return FALSE
 
 	if(!isturf(user.loc) && !length(current_casters)) //Can't use inside of things, such as a mecha
 		return FALSE
@@ -102,7 +100,7 @@
 /obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
 	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
 		"<span class='danger'>You begin channeling the transformation.</span>")
-	if(!do_after(caster, 5 SECONDS, caster, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(caster, 5 SECONDS, caster, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
 		return
 	return ..()

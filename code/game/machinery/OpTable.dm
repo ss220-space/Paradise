@@ -10,7 +10,6 @@
 	active_power_usage = 5
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = NO_BUCKLE_LYING
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
@@ -50,7 +49,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
-	if(patient_carbon && patient_carbon.lying_angle)
+	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)
 		patient = patient_carbon
 	else
 		patient = null
@@ -84,8 +83,7 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
-	new_patient.resting = TRUE
-	new_patient.update_canmove()
+	new_patient.set_resting(TRUE, instant = TRUE)
 	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()

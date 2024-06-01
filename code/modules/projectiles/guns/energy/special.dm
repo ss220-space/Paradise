@@ -700,7 +700,7 @@
 
 /obj/item/gun/energy/dominator/update_icon(updates = ALL)
 	is_equipped = ismob(loc)
-	..()
+	. = ..()
 
 
 /obj/item/gun/energy/dominator/update_icon_state()

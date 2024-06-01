@@ -1,10 +1,15 @@
+#define BUTTON_LAYER_OFFSET_ICON (HUD_LAYER + 0.1)
+#define BUTTON_LAYER_OFFSET_UNAVAILABLE (HUD_LAYER + 0.2)
+#define BUTTON_LAYER_OFFSET_MAPTEXT (HUD_LAYER + 0.3)
+#define BUTTON_LAYER_OFFSET_SELECTOR (HUD_LAYER + 0.4)
+
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
 	var/invisibility = FALSE
-	var/obj/screen/movable/action_button/button = null
+	var/atom/movable/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/background_icon
@@ -43,9 +48,16 @@
 		button.locked = TRUE
 	owner.update_action_buttons()
 
+	if(check_flags & AB_CHECK_CONSCIOUS)
+		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_LYING)
+		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_IMMOBILE)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_HANDS_BLOCKED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
-
+	if(check_flags & AB_CHECK_INCAPACITATED)
+		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	return TRUE
 
 
@@ -65,8 +77,14 @@
 
 	// Clean up our check_flag signals
 	UnregisterSignal(user, list(
+		COMSIG_MOB_STATCHANGE,
+		COMSIG_LIVING_SET_BODY_POSITION,
 		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
 		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED),
 	))
 
 	return TRUE
@@ -114,15 +132,13 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	var/owner_is_living = isliving(owner)
-	var/mob/living/living_owner = owner
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		return FALSE
-	if((check_flags & AB_CHECK_IMMOBILE) && owner_is_living && living_owner.IsImmobilized())
+	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && owner_is_living && (living_owner.IsStunned() || living_owner.IsWeakened()))
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT))
 		return FALSE
-	if((check_flags & AB_CHECK_LYING) && owner_is_living && living_owner.lying_angle)
+	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
 		return FALSE
@@ -130,60 +146,57 @@
 		return FALSE
 	return TRUE
 
-/datum/action/proc/IsMayActive()
-	return FALSE
 
 /datum/action/proc/UpdateButtonIcon()
-	if(button)
-		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-			button.alpha = owner.client.prefs.UI_style_alpha
-			button.color = owner.client.prefs.UI_style_color
-			button.icon = ui_style2icon(owner.client.prefs.UI_style)
-			button.icon_state = "template"
+	if(!button)
+		return FALSE
+
+	if(owner?.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
+		button.alpha = owner.client.prefs.UI_style_alpha
+		button.color = owner.client.prefs.UI_style_color
+		button.icon = ui_style2icon(owner.client.prefs.UI_style)
+		button.icon_state = "template"
+	else
+		if(background_icon)
+			button.icon = background_icon
 		else
-			if(background_icon)
-				button.icon = background_icon
-			else
-				button.icon = button_icon
-			button.icon_state = background_icon_state
-		button.name = name
-		button.desc = desc
+			button.icon = button_icon
+		button.icon_state = background_icon_state
 
-		ApplyIcon(button)
+	button.name = name
+	button.desc = desc
 
-		if(IsMayActive())
-			toggle_active_overlay()
+	ApplyIcon()
 
-		var/obj/effect/proc_holder/spell/spell = target
-		if(istype(spell) && spell.cooldown_handler.should_draw_cooldown() || !IsAvailable())
-			apply_unavailable_effect()
-		else
-			return TRUE
+	toggle_active_overlay()
+
+	var/obj/effect/proc_holder/spell/spell = target
+	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
+		apply_unavailable_effect()
+		return FALSE
+	return TRUE
 
 
 /datum/action/proc/apply_unavailable_effect()
-	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
-	img.alpha = 200
-	img.appearance_flags = RESET_COLOR | RESET_ALPHA
-	img.color = "#000000"
-	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+	var/static/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_OFFSET_UNAVAILABLE, alpha = 200, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	button.add_overlay(unavailable_effect)
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
-	if(icon_icon && button_icon_state)
-		var/image/img = image(icon_icon, current_button, button_icon_state)
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		img.pixel_x = 0
-		img.pixel_y = 0
-		current_button.add_overlay(img)
+
+/datum/action/proc/ApplyIcon()
+	button.cut_overlays()
+	if(!icon_icon || !button_icon_state)
+		return
+	var/mutable_appearance/new_icon = mutable_appearance(icon_icon, button_icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
+
 
 /datum/action/proc/toggle_active_overlay()
 	return
 
+
 //Presets for item actions
 /datum/action/item_action
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	/// Whether action trigger should call attack self proc.
 	var/attack_self = TRUE
 	var/use_itemicon = TRUE
@@ -211,28 +224,17 @@
 		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	if(use_itemicon)
-		if(target)
-			var/obj/item/I = target
-			var/old_layer = I.layer
-			var/old_plane = I.plane
-			var/old_appearance_flags = I.appearance_flags
-			I.layer = FLOAT_LAYER //AAAH
-			I.plane = FLOAT_PLANE //^ what that guy said
-			I.appearance_flags |= RESET_COLOR | RESET_ALPHA
-			if(I.outline_filter)
-				I.filters -= I.outline_filter
-			current_button.cut_overlays()
-			current_button.add_overlay(I)
-			I.layer = old_layer
-			I.plane = old_plane
-			I.appearance_flags = old_appearance_flags
-			if(I.outline_filter)
-				I.filters -= I.outline_filter
-				I.filters += I.outline_filter
-	else
-		..()
+
+/datum/action/item_action/ApplyIcon()
+	button.cut_overlays()
+	if(!use_itemicon)
+		return ..()
+	if(!target)
+		return
+	var/mutable_appearance/new_icon = mutable_appearance(target.icon, target.icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	new_icon.copy_overlays(target)
+	button.add_overlay(new_icon)
+
 
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
@@ -502,7 +504,6 @@
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
-	button_icon_state = "scan_mode"
 
 /datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
 	if(IsAvailable())
@@ -515,12 +516,12 @@
 		owner.research_scanner = 0
 	..()
 
-/datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
-	if(button_icon && button_icon_state)
-		var/image/img = image(button_icon, current_button, "scan_mode")
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.add_overlay(img)
+
+/datum/action/item_action/toggle_research_scanner/ApplyIcon()
+	button.cut_overlays()
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
+
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
@@ -600,7 +601,7 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
@@ -676,57 +677,37 @@
 	return FALSE
 
 
-/datum/action/spell_action/IsMayActive()
-	if(!target)
-		return FALSE
-
-	var/obj/effect/proc_holder/spell/spell = target
-	if(istype(spell) && spell.need_active_overlay)
-		return TRUE
-
-	return FALSE
-
-
 /datum/action/spell_action/toggle_active_overlay()
 	var/obj/effect/proc_holder/spell/spell = target
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.appearance_flags |= RESET_COLOR | RESET_ALPHA
-	I.plane = FLOAT_PLANE + 1.2
+	if(!istype(spell) || !spell.need_active_overlay)
+		return
+	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_OFFSET_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	if(spell.active)
-		button.add_overlay(I)
+		button.add_overlay(selector)
 	else
-		button.cut_overlay(I)
+		button.cut_overlay(selector)
 
 
-/datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
-	if(button_icon && button_icon_state)
-		var/image/img = image(button_icon, current_button, button_icon_state)
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		img.pixel_x = 0
-		img.pixel_y = 0
-		current_button.add_overlay(img)
+/datum/action/spell_action/ApplyIcon()
+	button.cut_overlays()
+	if(!button_icon || !button_icon_state)
+		return
+	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
 
 
 /datum/action/spell_action/apply_unavailable_effect()
 	var/obj/effect/proc_holder/spell/spell = target
 	if(!istype(spell))
 		return ..()
-
-	var/alpha = spell.cooldown_handler.get_cooldown_alpha()
-
-	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
-	img.alpha = alpha
-	img.appearance_flags = RESET_COLOR | RESET_ALPHA
-	img.color = "#000000"
-	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_OFFSET_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	unavailable_effect.alpha = spell.cooldown_handler.get_cooldown_alpha()
+	button.add_overlay(unavailable_effect)
 	// Make a holder for the charge text
-	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	count_down_holder.plane = FLOAT_PLANE + 1.1
+	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	var/text = spell.cooldown_handler.statpanel_info()
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	button.add_overlay(count_down_holder)
+	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
+	button.add_overlay(maptext_holder)
 
 
 //Preset for general and toggled actions
@@ -751,7 +732,6 @@
 
 /datum/action/innate/research_scanner
 	name = "Toggle Research Scanner"
-	button_icon_state = "scan_mode"
 
 /datum/action/innate/research_scanner/Trigger(left_click = TRUE)
 	if(IsAvailable())
@@ -764,12 +744,12 @@
 		owner.research_scanner = 0
 	..()
 
-/datum/action/innate/research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
-	if(button_icon && button_icon_state)
-		var/image/img = image(button_icon, current_button, "scan_mode")
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
-		current_button.add_overlay(img)
+
+/datum/action/innate/research_scanner/ApplyIcon()
+	button.cut_overlays()
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
+
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic
@@ -782,6 +762,33 @@
 	if(target && procname)
 		call(target,procname)(usr)
 	return TRUE
+
+/datum/action/generic/configure_mmi_radio
+	name = "Configure MMI Radio"
+	desc = "Configure the radio installed in your MMI."
+	check_flags = AB_CHECK_CONSCIOUS
+	procname = "ui_interact"
+	var/obj/item/mmi = null
+
+
+/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
+	. = ..()
+	mmi = M
+
+
+/datum/action/generic/configure_mmi_radio/Destroy()
+	mmi = null
+	return ..()
+
+
+/datum/action/generic/configure_mmi_radio/ApplyIcon()
+	button.cut_overlays()
+	if(!mmi)
+		return
+	var/mutable_appearance/new_icon = mutable_appearance(mmi.icon, mmi.icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	new_icon.copy_overlays(mmi)
+	button.add_overlay(new_icon)
+
 
 // This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
 /datum/action/item_action/advanced
@@ -913,36 +920,34 @@
 				return 1
 			return 0
 
+
 /datum/action/item_action/advanced/apply_unavailable_effect()
 	var/progress = get_availability_percentage()
 	if(progress == 1)
 		no_count = TRUE
-	var/alpha = no_count ? 80 : 220 - 140 * progress
-	var/image/img = image(coold_overlay_icon, icon_state = coold_overlay_icon_state)
-	img.alpha = alpha
-	img.appearance_flags = RESET_COLOR | RESET_ALPHA
-	img.color = "#000000"
-	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+	var/mutable_appearance/unavailable_effect = mutable_appearance(coold_overlay_icon, coold_overlay_icon_state, BUTTON_LAYER_OFFSET_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	unavailable_effect.alpha = no_count ? 80 : 220 - 140 * progress
+	button.add_overlay(unavailable_effect)
 	if(!no_count && charge_type != ADV_ACTION_TYPE_CHARGES)
 		add_percentage_overlay(progress)
 	else if(charge_type == ADV_ACTION_TYPE_CHARGES)
 		add_charges_overlay()
 	no_count = FALSE //reset
 
+
 /datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
 	// Make a holder for the charge text
-	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	count_down_holder.plane = FLOAT_PLANE + 1.1
+	var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
 	button.add_overlay(count_down_holder)
 
+
 /datum/action/item_action/advanced/proc/add_charges_overlay()
 	// Make a holder for the charge text
-	var/image/charges_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	charges_holder.plane = FLOAT_PLANE + 1.1
+	var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
 	button.add_overlay(charges_holder)
+
 
 	//visuals only
 /datum/action/item_action/advanced/proc/toggle_button_on_off()
@@ -984,3 +989,10 @@
 	else
 		background_icon_state = icon_state_disabled
 	UpdateButtonIcon()
+
+
+#undef BUTTON_LAYER_OFFSET_ICON
+#undef BUTTON_LAYER_OFFSET_UNAVAILABLE
+#undef BUTTON_LAYER_OFFSET_MAPTEXT
+#undef BUTTON_LAYER_OFFSET_SELECTOR
+

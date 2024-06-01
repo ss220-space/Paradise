@@ -78,7 +78,7 @@
 	if(handcuffed)
 		drop_from_hands()
 		stop_pulling()
-		throw_alert(ALERT_HANDCUFFED, /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 	else
 		clear_alert(ALERT_HANDCUFFED)
 
@@ -91,7 +91,7 @@
 /mob/living/carbon/proc/update_hands_HUD()
 	if(!hud_used)
 		return
-	for(var/obj/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
+	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
 		hand_box.update_appearance()
 
 
@@ -107,7 +107,7 @@
 /// Updates move intent, popup alert and human legcuffed overlay.
 /mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
-		throw_alert(ALERT_LEGCUFFED, /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent == MOVE_INTENT_RUN)
 			toggle_move_intent()
 
@@ -129,7 +129,7 @@
 			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся сломать [I.name]!"),
 			span_notice("Вы пытаетесь сломать [I.name]... (Процесс займёт 5 секунд и Вам нельзя двигаться.)"),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось сломать [I.name]!"))
@@ -138,7 +138,7 @@
 			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся снять [I.name]!"),
 			span_notice("Вы пытаетесь снять [I.name]... (Процесс займёт [breakouttime / 10] секунд и Вам нельзя двигаться.)"),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось снять [I.name]!"))
@@ -181,7 +181,7 @@
 		span_notice("Вы пытаетесь избавиться от [I.name]... (Это займет [time / 10] секунд и вам нельзя двигаться.)"),
 	)
 
-	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
+	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
 		return
 
 	visible_message(
@@ -345,22 +345,22 @@
 	if(!istype(I))
 		return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, I, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+		return FALSE
+
 	if(I.item_flags & NOPICKUP)
 		return FALSE
 
 	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
 		return FALSE
 
-	if(lying_angle && !(I.item_flags & ABSTRACT))
+	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
 		return FALSE
 
-	if(hand_id == "HAND_LEFT" && !has_left_hand())
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
 		return FALSE
 
-	if(hand_id == "HAND_RIGHT" && !has_right_hand())
-		return FALSE
-
-	return hand_id == "HAND_LEFT" ? !l_hand : !r_hand
+	return hand_id == ITEM_SLOT_HAND_LEFT ? !l_hand : !r_hand
 
 
 /**
@@ -381,16 +381,17 @@
 	if(!I)
 		return TRUE
 
-	if(QDELETED(I))
+	if(QDELING(I))
 		return FALSE
 
 	if(!real_human_being())	// Not a real hero :'(
-		I.forceMove(drop_location())
-		I.pixel_x = initial(I.pixel_x)
-		I.pixel_y = initial(I.pixel_y)
+		var/atom/drop_loc = drop_location()
+		I.forceMove(drop_loc)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		I.dropped(src, null, silent)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+		I.dropped(src, NONE, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -426,9 +427,10 @@
 		qdel(I)
 		return FALSE
 
-	I.forceMove(drop_location())
+	var/atom/drop_loc = drop_location()
+	I.forceMove(drop_loc)
 	I.layer = initial(I.layer)
-	I.plane = initial(I.plane)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
 	I.dropped(src, NONE, silent)
 
 	return FALSE
@@ -468,7 +470,7 @@
 		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
-	return null
+	return NONE
 
 
 /mob/living/carbon/get_all_slots()

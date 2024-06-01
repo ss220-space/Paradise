@@ -207,10 +207,10 @@
 
 	if(!user.vision_type)
 		to_chat(user, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-		user.set_sight(/datum/vision_override/nightvision)
+		user.set_vision_override(/datum/vision_override/nightvision)
 	else
 		to_chat(user, "<span class='notice'>You return your vision to normal.</span>")
-		user.set_sight(null)
+		user.set_vision_override(null)
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/thrall

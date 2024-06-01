@@ -1,32 +1,61 @@
-//LOOK G-MA, I'VE JOINED CARBON PROCS THAT ARE IDENTICAL IN ALL CASES INTO ONE PROC, I'M BETTER THAN LIFE()
-//I thought about mob/living but silicons and simple_animals don't want this just yet.
-//Right now just handles lying down, but could handle other cases later.
-//IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
-/mob/living/carbon/update_transform()
+/**
+ * Called whenever the mob is to be resized or when lying/standing up for carbons.
+ * IMPORTANT: Multiple animate() calls do not stack well, so try to do them all at once if you can.
+ */
+/mob/living/proc/update_transform(resize = RESIZE_DEFAULT_SIZE)
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/final_pixel_y = pixel_y
+	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
+	/**
+	 * pixel x/y/w/z all discard values after the decimal separator.
+	 * That, coupled with the rendered interpolation, may make the
+	 * icons look awfuller than they already are, or not, whatever.
+	 * The solution to this nit is translating the missing decimals.
+	 * also flooring increases the distance from 0 for negative numbers.
+	 */
+	var/abs_pixel_y_offset = 0
+	var/translate = 0
+	if(current_size != RESIZE_DEFAULT_SIZE)
+		var/standing_offset = get_pixel_y_offset_standing(current_size)
+		abs_pixel_y_offset = abs(standing_offset)
+		translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * SIGN(standing_offset)
 	var/final_dir = dir
-	var/changed = 0
-	if(lying_angle != lying_prev)
-		changed++
-		ntransform.TurnTo(lying_prev, lying_angle)
-		if(lying_angle == 0) //Lying to standing
-			final_pixel_y = get_standard_pixel_y_offset()
-		else //if(lying != 0)
-			if(lying_prev == 0) //Standing to lying
-				pixel_y = get_standard_pixel_y_offset()
-				final_pixel_y = get_standard_pixel_y_offset(lying_angle)
-				if(dir & (EAST|WEST)) //Facing east or west
-					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
+	var/changed = FALSE
 
-		lying_prev = lying_angle	//so we don't try to animate until there's been another change.
+	if(lying_angle != lying_prev && rotate_on_lying)
+		changed = TRUE
+		if(lying_angle && lying_prev == 0)
+			if(translate)
+				ntransform.Translate(0, -translate)
+			if(dir & (EAST|WEST)) //Standing to lying and facing east or west
+				final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
+		else if(translate && !lying_angle && lying_prev != 0)
+			ntransform.Translate(translate * (lying_prev == 270 ? -1 : 1), 0)
+		///Done last, as it can mess with the translation.
+		ntransform.TurnTo(lying_prev, lying_angle)
 
 	if(resize != RESIZE_DEFAULT_SIZE)
-		changed++
+		changed = TRUE
+		var/is_vertical = !lying_angle || !rotate_on_lying
+		///scaling also affects translation, so we've to undo the old translate beforehand.
+		if(translate && is_vertical)
+			ntransform.Translate(0, -translate)
 		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
+		current_size *= resize
+		//Update the height of the maptext according to the size of the mob so they don't overlap.
+		var/old_maptext_offset = body_maptext_height_offset
+		body_maptext_height_offset = initial(maptext_height) * (current_size - 1) * 0.5
+		maptext_height += body_maptext_height_offset - old_maptext_offset
+		//Update final_pixel_y so our mob doesn't go out of the southern bounds of the tile when standing
+		if(is_vertical) //But not if the mob has been rotated.
+			//Make sure the body position y offset is also updated
+			body_position_pixel_y_offset = get_pixel_y_offset_standing(current_size)
+			abs_pixel_y_offset = abs(body_position_pixel_y_offset)
+			var/new_translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * SIGN(body_position_pixel_y_offset)
+			if(new_translate)
+				ntransform.Translate(0, new_translate)
+			final_pixel_y = base_pixel_y + body_position_pixel_y_offset
 
-	if(!changed)
+	if(!changed) //Nothing has been changed, nothing has to be done.
 		return
 
 	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
@@ -36,31 +65,27 @@
 	animate(src, transform = ntransform, time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 	handle_transform_change()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_POST_UPDATE_TRANSFORM, resize, lying_angle, is_opposite_angle)
 
-/mob/living/carbon/proc/handle_transform_change()
+
+/mob/living/proc/handle_transform_change()
 	return
 
 //update whether handcuffs appears on our hud.
 /mob/living/carbon/proc/update_hud_handcuffed()
 	if(!hud_used)
 		return
-	for(var/obj/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
+	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
 		hand_box.update_appearance()
 
 
 /mob/living/carbon/update_inv_r_hand()
-	if(handcuffed)
-		drop_r_hand()
-		return
 	if(r_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
 
 /mob/living/carbon/update_inv_l_hand()
-	if(handcuffed)
-		drop_l_hand()
-		return
 	if(l_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
@@ -73,7 +98,7 @@
 
 /mob/living/carbon/update_inv_back()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
 		inv?.update_appearance()
 
 	if(back)
