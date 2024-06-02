@@ -482,7 +482,6 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/jumper = user
-	var/turf/current_turf = get_turf(jumper)
 	if(jumper.shoes != src)
 		to_chat(user, span_warning("You need to wear [src] to use them!"))
 		return
@@ -492,7 +491,7 @@
 	if(user.throwing)
 		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
 		return
-	if(!current_turf.has_gravity())
+	if(!jumper.has_gravity())
 		to_chat(user, span_warning("You can't jump without gravity!"))
 		return
 

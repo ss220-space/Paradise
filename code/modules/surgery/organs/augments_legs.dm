@@ -129,7 +129,6 @@
 
 
 /datum/action/bhop/Trigger(left_click = TRUE)
-	var/turf/current_turf = get_turf(owner)
 	if(!IsAvailable())
 		return
 
@@ -137,7 +136,7 @@
 		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
-	if(!current_turf.has_gravity())
+	if(!owner.has_gravity())
 		to_chat(owner, span_warning("You can't jump without gravity!"))
 		return
 
