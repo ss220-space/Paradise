@@ -48,10 +48,10 @@
 	get_template()
 	if(used)
 		return FALSE
-	var/turf/UT = get_turf(usr)
+	var/turf/UT = get_turf(user)
 	if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
-		to_chat(usr, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
-		playsound(usr, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
+		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
 	loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 	used = TRUE
@@ -119,7 +119,7 @@
 		return
 
 	message_admins("[ADMIN_LOOKUPFLW(triggerer)] activated a bluespace capsule away from the mining level!")
-	add_game_logs("activated a bluespace capsule away from the mining level at [COORD(trigger_loc)]", usr)
+	add_game_logs("activated a bluespace capsule away from the mining level at [COORD(trigger_loc)]", triggerer)
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
