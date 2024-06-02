@@ -6653,8 +6653,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance/external{
-	name = "External Airlock Access";
-	req_access = list(12)
+	name = "External Airlock Access"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
@@ -8666,7 +8665,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance";
-	req_access = list(5, 12)
+	req_access = list(12,39)
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -11561,7 +11560,7 @@
 "bDS" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance";
-	req_access = list(12,24)
+	req_access = list(24)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
@@ -12908,8 +12907,7 @@
 /area/atmos/control)
 "bKX" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "External Airlock Access";
-	req_access = list(12)
+	name = "External Airlock Access"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
@@ -13217,8 +13215,7 @@
 /area/hallway/primary/starboard/south)
 "bMx" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "External Airlock Access";
-	req_access = list(12)
+	name = "External Airlock Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -14691,6 +14688,12 @@
 	icon_state = "dark"
 	},
 /area/atmos/distribution)
+"bTg" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Starboard Asteroid Maintenance Access"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "bTj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -15205,8 +15208,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den2)
@@ -15880,7 +15882,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	req_access = list(7,12)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -17934,8 +17936,7 @@
 /area/medical/genetics)
 "clB" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -20680,8 +20681,7 @@
 /area/medical/cmostore)
 "cGN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Maintenance Drone Dispensary";
-	req_access = list(12)
+	name = "Maintenance Drone Dispensary"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -21586,8 +21586,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -21598,8 +21597,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -22303,8 +22301,7 @@
 "cRV" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
@@ -22656,8 +22653,7 @@
 /area/bridge)
 "cUg" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access = list(12)
+	name = "Central Asteroid Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/floor/plating,
@@ -22780,8 +22776,7 @@
 /area/maintenance/turbine)
 "cUB" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access = list(12)
+	name = "Central Asteroid Maintenance"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -26046,8 +26041,7 @@
 /area/medical/medbay)
 "dwi" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -27127,8 +27121,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Starboard Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Starboard Asteroid Maintenance Access"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -29679,8 +29672,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating{
@@ -29940,8 +29932,7 @@
 /area/medical/research/restroom)
 "eCd" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Fore Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Fore Asteroid Maintenance Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -30540,15 +30531,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "eLQ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -30695,8 +30682,7 @@
 /area/chapel/office)
 "eNY" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -32462,8 +32448,7 @@
 /area/hallway/primary/port/north)
 "fsZ" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Starboard Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Starboard Asteroid Maintenance Access"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -33526,8 +33511,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -38585,8 +38569,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -38674,8 +38657,7 @@
 /area/medical/medbay)
 "hmt" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -39644,8 +39626,7 @@
 /area/maintenance/fore)
 "hyY" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Fore Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Fore Asteroid Maintenance Access"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -41456,8 +41437,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Starboard Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Starboard Asteroid Maintenance Access"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42030,7 +42010,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	req_access = list(7,12)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -45461,8 +45441,7 @@
 /area/assembly/chargebay)
 "jjN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access = list(12)
+	name = "Central Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/engineering)
@@ -49051,8 +49030,7 @@
 /area/hallway/primary/aft/west)
 "kjR" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -50299,8 +50277,7 @@
 /area/medical/cmo)
 "kBa" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access = list(12)
+	name = "Central Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
@@ -64171,8 +64148,7 @@
 /area/turret_protected/aisat_interior)
 "ovD" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -70124,7 +70100,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance";
-	req_access = list(5, 12)
+	req_access = list(12,39)
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -72808,8 +72784,7 @@
 /area/engine/engineering)
 "qQx" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/gambling_den2)
@@ -73271,7 +73246,7 @@
 "qWe" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Disposals";
-	req_access = list(12,31)
+	req_access = list(31)
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -77929,8 +77904,7 @@
 "smJ" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -80249,8 +80223,7 @@
 /area/medical/morgue)
 "sYc" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	name = "Aft Asteroid Maintenance"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -81466,6 +81439,12 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/scidock)
+"tpv" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint2)
 "tpw" = (
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
@@ -81689,8 +81668,7 @@
 /area/crew_quarters/bar)
 "tsI" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -83526,8 +83504,7 @@
 /area/security/range)
 "tST" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Fore Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Fore Asteroid Maintenance Access"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -85556,13 +85533,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "uAz" = (
-/obj/machinery/door/airlock/maintenance/external{
-	name = "External Airlock Access";
-	req_access = list(12)
+/obj/machinery/door/airlock/maintenance{
+	name = "Fore Asteroid Maintenance Access"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/port2)
+/area/maintenance/fsmaint3)
 "uAD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86713,8 +86688,7 @@
 /area/engine/engineering)
 "uRW" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "External Airlock Access";
-	req_access = list(12)
+	name = "External Airlock Access"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -92418,8 +92392,7 @@
 /area/storage/primary)
 "wBL" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access = list(12)
+	name = "Central Asteroid Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -93007,8 +92980,7 @@
 /area/hallway/primary/central)
 "wJU" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Port Asteroid Maintenance";
-	req_access = list(12)
+	name = "Port Asteroid Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -95208,8 +95180,7 @@
 /area/medical/virology/lab)
 "xtk" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Fore Asteroid Maintenance Access";
-	req_access = list(12)
+	name = "Fore Asteroid Maintenance Access"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -96969,8 +96940,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance";
-	req_access = list(12)
+	name = "Aft Asteroid Maintenance"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -109581,7 +109551,7 @@ bYI
 bYI
 sNu
 jDZ
-sNu
+pjT
 eLQ
 sNu
 sNu
@@ -115046,7 +115016,7 @@ hwB
 hwB
 hwB
 fJN
-czM
+tpv
 kFc
 ccW
 ccW
@@ -119839,7 +119809,7 @@ jzC
 qGz
 rlX
 rlX
-uAz
+mrp
 oij
 rEi
 dWF
@@ -121730,7 +121700,7 @@ dHN
 xPU
 wIq
 jiS
-czM
+tpv
 sJg
 dha
 ccW
@@ -126349,7 +126319,7 @@ nta
 cen
 mBm
 eMX
-czM
+tpv
 wsR
 czQ
 odu
@@ -150711,8 +150681,8 @@ vHH
 vHH
 isj
 itf
-bfo
-bfo
+bTg
+bTg
 aZN
 aZM
 aZM
@@ -151421,7 +151391,7 @@ cpC
 qlI
 cpC
 cpC
-umV
+uAz
 cpC
 hPQ
 gRY
@@ -153784,7 +153754,7 @@ lko
 lko
 fqw
 iab
-bfo
+bTg
 fqw
 gSQ
 mHu
@@ -154540,7 +154510,7 @@ dpT
 bil
 cdv
 vHH
-bfo
+bTg
 ekV
 gSQ
 lzj

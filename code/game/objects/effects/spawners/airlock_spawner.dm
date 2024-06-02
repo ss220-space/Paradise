@@ -111,7 +111,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 			the_button.pixel_y = 7
 		if(EAST)
 			the_button.pixel_x = 7
-			the_button.pixel_y = -25
+			the_button.pixel_y -= 25
 		if(SOUTH)
 			the_button.pixel_x -= 25
 			the_button.pixel_y -= 7
