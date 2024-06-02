@@ -72,7 +72,7 @@
 			brainmob.container = src
 			brainmob.forceMove(src)
 			brainmob.set_stat(CONSCIOUS)
-			brainmob.see_invisible = initial(brainmob.see_invisible)
+			brainmob.set_invis_see(initial(brainmob.see_invisible))
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -197,33 +197,6 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 
-/datum/action/generic/configure_mmi_radio
-	name = "Configure MMI Radio"
-	desc = "Configure the radio installed in your MMI."
-	check_flags = AB_CHECK_CONSCIOUS
-	procname = "ui_interact"
-	var/obj/item/mmi = null
-
-/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
-	. = ..()
-	mmi = M
-
-/datum/action/generic/configure_mmi_radio/Destroy()
-	mmi = null
-	return ..()
-
-/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.cut_overlays()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.add_overlay(I)
-		I.layer = old_layer
-		I.plane = old_plane
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)

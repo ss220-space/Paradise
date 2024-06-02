@@ -19,24 +19,11 @@
 				to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 			return FALSE
 
-	if(incapacitated())
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_IMMOBILIZED) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции в текущем состоянии!"))
 		return FALSE
-	/*
-	if(stat)
-		if(provide_feedback)
-			to_chat(src, span_warning("You must be conscious to do this!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You currently can't move into the vent!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You need to be able to use your hands to ventcrawl!"))
-		return
-	*/
+
 	if(has_buckled_mobs())
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции, пока на вас находятся другие существа!"))
@@ -124,8 +111,7 @@
 		span_notice("[name] залез[genderize_ru(gender, "", "ла", "ло", "ли")] в вентиляцию!"),
 		span_notice("Вы залезли в вентиляцию."),
 	)
-	//forceMove(ventcrawl_target)
-	loc = ventcrawl_target
+	abstract_move(ventcrawl_target)
 	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
 
@@ -139,9 +125,11 @@
 /mob/living/proc/stop_ventcrawling(message = TRUE)
 	if(!is_ventcrawling(src))
 		return FALSE
-	forceMove(get_turf(src))
+	var/turf/new_turf = get_turf(src)
+	forceMove(new_turf)
 	REMOVE_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
+	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
 			span_notice("[name] вылез[genderize_ru(gender, "", "ла", "ло", "ли")] из вентиляции!"),
@@ -157,7 +145,7 @@
  * We move first and then call update. Dont flip this around
  */
 /mob/living/proc/update_pipe_vision()
-	if(isnull(client))
+	if(isnull(client)) // we don't care about pipe vision if we have no client
 		return
 
 	if(LAZYLEN(pipes_shown))
@@ -166,6 +154,8 @@
 		LAZYNULL(pipes_shown)
 
 	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
+		for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+			pipecrawl.hide_plane(src)
 		return
 
 	var/list/total_members = list()
@@ -176,6 +166,9 @@
 
 	if(!length(total_members))
 		return
+
+	for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+		pipecrawl.unhide_plane(src)
 
 	for(var/obj/machinery/atmospherics/pipenet_part as anything in total_members)
 		if(!(pipenet_part.vent_movement & VENTCRAWL_CAN_SEE))

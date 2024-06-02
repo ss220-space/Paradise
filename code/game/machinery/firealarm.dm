@@ -102,10 +102,10 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(is_station_contact(z) && show_alert_level)
 
 		. += "overlay_[get_security_level()]"
-		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
+		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask", src)
 
 	if(!wiresexposed)
-		underlays += emissive_appearance(icon, "firealarm_lightmask")
+		underlays += emissive_appearance(icon, "firealarm_lightmask", src)
 
 
 /obj/machinery/firealarm/emag_act(mob/user)

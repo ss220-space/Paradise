@@ -3,7 +3,7 @@
 	explaination_text = "Trips the victim, rendering them prone and unable to move for a short time."
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.stat || target.IsWeakened())
+	if(target.stat || target.body_position == LYING_DOWN)
 		return FALSE
 	target.visible_message("<span class='warning'>[user] leg sweeps [target]!</span>", \
 					  	"<span class='userdanger'>[user] leg sweeps you!</span>")

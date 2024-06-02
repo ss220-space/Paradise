@@ -1295,23 +1295,25 @@
 	desc = "Faces into the floor!"
 	icon_state = "hampter_ert"
 
-/obj/item/toy/beaver
-	name = "Beaver plushie"
+/obj/item/toy/plushie/beaver
+	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
 	w_class = WEIGHT_CLASS_SMALL
 	gender = MALE
+
+/obj/item/toy/plushie/beaver/sounded //only adminspawn
+	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/beaver/attack_self(mob/user)
-
-	if(!COOLDOWN_FINISHED(src, cooldown))
-		return
-
-	playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
-	visible_message(span_boldnotice("BOBR KURWA!"))
+/obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	user.visible_message(span_boldnotice("BOBR KURWA!"))
+	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /*

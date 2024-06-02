@@ -21,7 +21,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Admin Room"
 	icon_state = "start"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
 
@@ -30,7 +32,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
 
@@ -38,7 +42,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "space"
 	requires_power = TRUE
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	use_starlight = TRUE
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
@@ -50,11 +54,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/nearstation
 	icon_state = "space_near"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 
 /area/space/planetary
 	icon_state = "space_planet"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	use_starlight = FALSE
+	static_lighting = TRUE
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 	sound_environment = SOUND_AREA_ASTEROID
 
@@ -76,7 +80,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	valid_territory = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = TRUE
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
@@ -404,7 +408,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "start area"
 	icon_state = "start"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
 	has_gravity = STANDARD_GRAVITY
 	ambientsounds = null
 
@@ -416,7 +420,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Centcom"
 	icon_state = "centcom"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	nad_allowed = TRUE
 	has_gravity = STANDARD_GRAVITY
 
@@ -460,7 +466,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/centcom/evac
 	name = "\improper Centcom Evacuation Emergency Shuttle"
 	icon_state = "centcom_evac"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/centcom/specops
 	name = "\improper Centcom Special Operations Forces"
@@ -484,13 +492,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "syndie-ship"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
 
 /area/syndicate_mothership/outside
 	name = "\improper Syndicate Controlled Territory"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	icon_state = "syndie-outside"
 
 /area/syndicate_mothership/control
@@ -520,7 +532,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "ussp_ship"
 	requires_power = TRUE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	ambientsounds = HIGHSEC_SOUNDS
 
 // Chrono
@@ -530,7 +544,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "chrono_ship"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	nad_allowed = TRUE
 
 //EXTRA
@@ -540,7 +556,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "event_zone"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	nad_allowed = TRUE
 
 /area/asteroid					// -- TLE
@@ -548,7 +566,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "asteroid"
 	requires_power = FALSE
 	valid_territory = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = MINING_SOUNDS
 
 /area/asteroid/cave				// -- TLE
@@ -568,7 +585,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "thunder"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 
 
@@ -622,7 +641,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
@@ -630,7 +651,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	no_teleportlocs = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 	nad_allowed = TRUE
 
@@ -646,7 +669,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ninja/outside
 	name = "\improper SpiderClan Territory"
 	icon_state = "ninja_outside"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	sound_environment = SOUND_AREA_ASTEROID
 
 /area/vox_station
@@ -654,7 +679,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 	no_teleportlocs = TRUE
 
 /area/trader_station
@@ -662,7 +689,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
@@ -672,7 +701,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "red"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/ussp_centcom/secretariat
 	name = "Soviet secretariat"
@@ -1414,7 +1445,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -1514,7 +1547,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/engine/engineering
 	name = "Engineering"
@@ -1576,9 +1608,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	requires_power = FALSE
 	valid_territory = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	use_starlight = TRUE
 
 /area/solar/auxport
 	name = "\improper North-West Solar Array"
@@ -2692,7 +2724,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaymission/beach
 	name = "Beach"
 	icon_state = "beach"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
 
@@ -2909,7 +2943,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "Special event area"
 	icon_state = "unknown"
 	requires_power = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	static_lighting = TRUE
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
 

@@ -276,7 +276,6 @@
 			target.setBrainLoss(defib_time_brain_damage)
 
 		target.update_revive(TRUE, TRUE)
-		target.KnockOut()
 		target.Paralyse(12 SECONDS)
 		target.emote("gasp")
 

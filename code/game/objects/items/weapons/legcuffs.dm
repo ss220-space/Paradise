@@ -139,7 +139,7 @@
 
 	if(ishuman(moving_thing))
 		var/mob/living/carbon/human/moving_human = moving_thing
-		if(moving_human.lying_angle)
+		if(moving_human.body_position == LYING_DOWN)
 			moving_human.apply_damage(trap_damage, BRUTE, BODY_ZONE_CHEST)
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))

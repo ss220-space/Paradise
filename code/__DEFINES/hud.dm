@@ -89,3 +89,9 @@
 //Just for comfortable thoughts_hud management.
 #define THOUGHTS_HUD_PRECISE 1
 #define THOUGHTS_HUD_DISPERSE -1
+
+// Plane group keys, used to group swaths of plane masters that need to appear in subwindows
+/// The primary group, holds everything on the main window
+#define PLANE_GROUP_MAIN "main"
+/// A secondary group, used when a client views a generic window
+#define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[screen.UID()]"

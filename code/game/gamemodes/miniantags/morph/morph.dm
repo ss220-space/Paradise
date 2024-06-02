@@ -325,7 +325,7 @@
 	vision_range = initial(vision_range)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
-	var/list/not_allowed = list(/obj/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
 	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)

@@ -175,7 +175,7 @@
 		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	if(LAZYLEN(embedded_objects))
-		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 
 	if(!ishuman(owner))
 		return
@@ -1165,7 +1165,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYOR(embedded_objects, thing)
 	thing.forceMove(src)
 	if(throw_alert)
-		owner?.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner?.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 
 
 #undef LIMB_SHARP_THRESH_INT_DMG

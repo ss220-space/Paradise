@@ -217,7 +217,7 @@
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	var/extra_force_applied = FALSE
-	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M && backstab_cooldown <= world.time)
+	if(on && user.dir == M.dir && !M.incapacitated(INC_IGNORE_RESTRAINED) && user != M && backstab_cooldown <= world.time)
 		backstab_cooldown = (world.time + 10 SECONDS)
 		force += backstab_damage
 		extra_force_applied = TRUE

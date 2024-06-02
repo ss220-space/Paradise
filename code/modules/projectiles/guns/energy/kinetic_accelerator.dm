@@ -20,8 +20,8 @@
 	flight_x_offset = 15
 	flight_y_offset = 9
 	can_bayonet = TRUE
-	knife_x_offset = 20
-	knife_y_offset = 12
+	bayonet_x_offset = 20
+	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
@@ -670,16 +670,14 @@
 	var/list/bounties_reaped
 
 
-/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, mob/living/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target))
-		var/mob/living/L = target
-		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
-		for(var/i in existing_marks)
-			var/datum/status_effect/syphon_mark/SM = i
-			if(SM.reward_target == src) // We want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward.
-				SM.reward_target = null
-				qdel(SM)
-		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
+		for(var/datum/status_effect/syphon_mark/syphon_mark_effect as anything in target.get_all_status_effect_of_id(STATUS_EFFECT_SYPHONMARK))
+			// We want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward.
+			if(syphon_mark_effect.reward_target == src)
+				syphon_mark_effect.reward_target = null
+				qdel(syphon_mark_effect)
+		target.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
 
 
 /obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)

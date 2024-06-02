@@ -141,7 +141,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
 	set_anchored(TRUE)
-	canmove = FALSE
 	set_density(TRUE)
 	loc = loc
 
@@ -429,7 +428,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Nadburn",
 		"Rainbowslime",
 		"Borb",
-		"Catamari"
+		"Catamari",
+		"Anonymous",
+		"Hippy",
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -536,6 +537,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-borb"
 		if("Catamari")
 			icon_state = "ai-catamari"
+		if("Hippy")
+			icon_state = "ai-hippy"
+		if("Anonymous")
+			icon_state = "ai-anon"
 		else
 			icon_state = "ai"
 	//else
@@ -622,8 +627,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-/mob/living/silicon/ai/update_canmove()
-	return FALSE
 
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
@@ -805,18 +808,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..(Proj)
 	return 2
 
-/mob/living/silicon/ai/reset_perspective(atom/A)
+/mob/living/silicon/ai/reset_perspective(atom/new_eye)
+	SHOULD_CALL_PARENT(FALSE) // I hate you all
 	if(camera_light_on)
 		light_cameras()
-	if(istype(A, /obj/machinery/camera))
-		current = A
+	if(istype(new_eye, /obj/machinery/camera))
+		current = new_eye
+	if(!client)
+		return
 
-	. = ..()
-	if(.)
-		if(!A && isturf(loc) && eyeobj)
-			client.set_eye(eyeobj)
-			client.perspective = MOB_PERSPECTIVE
-			eyeobj.get_remote_view_fullscreens(src)
+	if(ismovable(new_eye))
+		client.perspective = EYE_PERSPECTIVE
+		client.set_eye(new_eye)
+	else
+		if(isturf(loc))
+			if(eyeobj)
+				client.set_eye(eyeobj)
+				client.perspective = EYE_PERSPECTIVE
+			else
+				client.set_eye(client.mob)
+				client.perspective = MOB_PERSPECTIVE
+		else
+			client.perspective = EYE_PERSPECTIVE
+			client.set_eye(loc)
+	update_sight()
+	update_fullscreen()
+
+	// I am so sorry
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 
 /mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
@@ -1225,11 +1244,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
-		for(var/obj/machinery/camera/C in CC.cameras)
-			if(!C.can_use() || get_dist(C, eyeobj) > 7)
-				continue
-			visible |= C
+	for (var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
+		for (var/z_key in chunk.cameras)
+			for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
+				if (!camera.can_use() || get_dist(camera, eyeobj) > 7)
+					continue
+				visible |= camera
 
 	add = visible - lit_cameras
 	remove = lit_cameras - visible
@@ -1323,7 +1343,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 
 	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
+	client.set_eye(eyeobj)
 	return TRUE
 
 
@@ -1485,15 +1505,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 
 	if(aiRestorePowerRoutine)
-		sight = sight &~ SEE_TURFS
-		sight = sight &~ SEE_MOBS
-		sight = sight &~ SEE_OBJS
+		clear_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		nightvision = 0
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)

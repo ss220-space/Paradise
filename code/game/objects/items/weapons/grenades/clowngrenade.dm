@@ -33,7 +33,7 @@
 	. = ..()
 	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
 	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`.
-	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE, on_slip_callback = CALLBACK(src, PROC_REF(on_slip)))
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING), on_slip_callback = CALLBACK(src, PROC_REF(on_slip)))
 
 /obj/item/grown/bananapeel/traitorpeel/proc/on_slip(mob/living/carbon/target)
 	to_chat(target, span_warning("Your feet feel like they're on fire!"))

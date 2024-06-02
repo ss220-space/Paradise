@@ -220,7 +220,7 @@
 	. = ..()
 	underlays.Cut()
 	if(on && buildstage == 3)
-		underlays += emissive_appearance(icon, "intercom_lightmask")
+		underlays += emissive_appearance(icon, "intercom_lightmask", src)
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)

@@ -191,6 +191,10 @@
 
 /obj/item/tk_grab/update_overlays()
 	. = ..()
-	if(focus && focus.icon && focus.icon_state)
-		. += icon(focus.icon, focus.icon_state)
+	if(!focus)
+		return
 
+	var/mutable_appearance/focus_overlay = new(focus)
+	focus_overlay.layer = layer + 0.01
+	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
+	. += focus_overlay

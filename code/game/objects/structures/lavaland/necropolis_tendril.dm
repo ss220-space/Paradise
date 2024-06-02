@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	if(GLOB.tendrils.len>1)
 		last_tendril = FALSE
 
-	if(last_tendril && !admin_spawned)
+	if(last_tendril && !(flags & ADMIN_SPAWNED))
 		if(SSmedals.hub_enabled)
 			for(var/mob/living/L in view(7,src))
 				if(L.stat || !L.client)

@@ -940,6 +940,7 @@
 	harmless = FALSE
 	can_synth = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
+	var/absorption_applied = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -954,10 +955,13 @@
 		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
 		M.SetSleeping(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		M.status_flags &= ~status
+		if(!absorption_applied)
+			absorption_applied = TRUE
+			M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
 	else
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		if(absorption_applied)
+			absorption_applied = FALSE
+			M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
@@ -965,9 +969,12 @@
 
 	return ..() | update_flags
 
+
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
-	..()
+	. = ..()
+	if(absorption_applied)	// somehow???
+		M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+
 
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
@@ -1321,6 +1328,34 @@
 	update_flags |= M.adjustToxLoss(2.5, FALSE)
 	return list(0, update_flags)
 
+/datum/reagent/medicine/syndiezine 
+	name = "Syndiezine"
+	id = "syndiezine"
+	description = "Попытка синдиката вывести синтетический аналог реагента кровь земли. Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."
+	color = "#332300"
+	overdose_threshold = 25
+	harmless = FALSE
+	taste_description = "metal with tobacco"
+
+/datum/reagent/medicine/syndiezine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+	update_flags |= M.adjustFireLoss(-0.5, FALSE)
+	update_flags |= M.adjustOxyLoss(-4.5, FALSE)
+	update_flags |= M.adjustToxLoss(-0.5, FALSE)
+	update_flags |= M.adjustCloneLoss(-0.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-10, FALSE)
+	M.AdjustDruggy(10 SECONDS, 0, 15 SECONDS)
+	M.AdjustJitter(6 SECONDS, 0, 60 SECONDS) //See above
+	return ..() | update_flags
+
+/datum/reagent/medicine/syndiezine/overdose_process(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustHallucinate(5 SECONDS, 0, 60 SECONDS)
+	M.last_hallucinator_log = "[name] overdose"
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	return list(0, update_flags)
+
 /datum/reagent/medicine/corazone
 	name = "Corazone"
 	id = "corazone"
@@ -1500,14 +1535,14 @@
 /datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.setStaminaLoss(0, FALSE)
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-	M.status_flags &= ~status
+	M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
 
 	return ..() | update_flags
 
 /datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
-	..()
+	. = ..()
+	M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE

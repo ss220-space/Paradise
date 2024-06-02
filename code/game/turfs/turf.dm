@@ -3,7 +3,7 @@
 	level = 1
 	luminosity = 1
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE	// Important for interaction with and visualization of openspace.
+	vis_flags = VIS_INHERIT_ID	// Important for interaction with and visualization of openspace.
 
 	var/intact = TRUE
 	var/turf/baseturf = /turf/baseturf_bottom
@@ -42,8 +42,6 @@
 
 	flags = 0
 
-	var/image/obscured	//camerachunks
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -77,34 +75,35 @@
 	if(layer == MAP_EDITOR_TURF_LAYER)
 		layer = real_layer
 
+	/// We do NOT use the shortcut here, because this is faster
+	if(SSmapping.max_plane_offset)
+		if(!SSmapping.plane_offset_blacklist["[plane]"])
+			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+			var/turf/T = GET_TURF_ABOVE(src)
+			if(T)
+				T.multiz_turf_new(src, DOWN)
+			T = GET_TURF_BELOW(src)
+			if(T)
+				T.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
-	vis_contents.Cut()
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	if(length(vis_contents))
+		vis_contents.Cut()
 
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)
-	visibilityChanged()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		add_overlay(overlay)
 
 	if(light_power && light_range)
 		update_light()
-
-	var/turf/T = GET_TURF_ABOVE(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = GET_TURF_BELOW(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
-
 
 	if(opacity)
 		has_opaque_atom = TRUE
@@ -136,7 +135,6 @@
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()
@@ -288,21 +286,16 @@
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
+	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
-	var/old_obscured = obscured
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
-	var/old_air
-	if(issimulatedturf(src))
-		var/turf/simulated/old_turf = src
-		old_air = old_turf.air
 
 	BeforeChange()
 
@@ -330,9 +323,6 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air, oldType = old_type)
-		if(issimulatedturf(W))
-			var/turf/simulated/new_turf = W
-			new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
 
@@ -345,6 +335,14 @@
 
 	dynamic_lumcount = old_dynamic_lumcount
 
+	if(W.always_lit)
+		// We are guarenteed to have these overlays because of how generation works
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.add_overlay(overlay)
+	else if (old_always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.cut_overlay(overlay)
+
 	// we need to refresh gravity for all living mobs to cover possible gravity change
 	for(var/mob/living/mob in contents)
 		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
@@ -356,15 +354,14 @@
 
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-		lighting_object = old_lighting_object
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
-
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+		var/area/A = loc
+		if(!A.use_starlight)
+			// Should have a lighting object if we never had one
+			lighting_object = old_lighting_object || new /atom/movable/lighting_object(src)
+		else
+			W.add_overlay(A.lighting_effect)
+		if(A.use_starlight && old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -375,7 +372,8 @@
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
-	obscured = old_obscured
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
 
 	return W
 
@@ -553,12 +551,12 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/living/faller, forced)
-	faller.lying_angle = pick(90, 270)
-	if(!forced)
-		return
-	if(faller.has_gravity())
+
+/turf/handle_fall(mob/living/carbon/faller)
+	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
+	faller.drop_from_hands()
+
 
 /turf/singularity_act()
 	if(intact)
@@ -569,10 +567,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
-/turf/proc/visibilityChanged()
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)

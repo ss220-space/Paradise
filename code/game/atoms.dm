@@ -54,12 +54,19 @@
 
 	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
-	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
-
 	var/initialized = FALSE
 
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
+
+	/// Lazylist of all images (hopefully attached to us) to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	var/list/image/update_on_z
+
+	/// Lazylist of all overlays attached to us to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
+	var/list/image/update_overlays_on_z
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -147,6 +154,8 @@
 
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -1113,8 +1122,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/living/carbon/faller)
 	return
+
 
 /atom/proc/singularity_act()
 	return
@@ -1167,6 +1179,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
@@ -1205,12 +1218,72 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!GLOB.debug2)
-		admin_spawned = TRUE
-	. = ..()
+	var/old_light_flags = light_flags
 	switch(var_name)
-		if("color")
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_flags))
+			set_light_flags(var_value)
+			// I'm sorry
+			old_light_flags = var_value
+			. = TRUE
+
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, density))
+			set_density(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+
+	light_flags = old_light_flags
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	if(!GLOB.debug2)
+		flags |= ADMIN_SPAWNED
+
+	. = ..()
+
+	switch(var_name)
+		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
+			update_appearance()
 
 
 /atom/vv_get_dropdown()
@@ -1310,7 +1383,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""
@@ -1343,7 +1416,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
 		return null
-	else if (user.incapacitated(ignore_lying = TRUE))
+	else if (user.incapacitated())
 		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
 		return null
 
@@ -1495,4 +1568,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = density
 	density = new_value
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
+
+
+///Setter for the `base_pixel_x` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_x(new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+
+///Setter for the `base_pixel_y` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
 
