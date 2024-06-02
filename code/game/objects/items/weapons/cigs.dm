@@ -550,7 +550,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, span_notice("You feel more badass while smoking [src]."))
 
-/obj/item/clothing/mask/holo_cigar/dropped(mob/user, silent)
+/obj/item/clothing/mask/holo_cigar/dropped(mob/user, slot, silent)
 	. = ..()
 	has_smoked = FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
