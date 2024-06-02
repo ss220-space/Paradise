@@ -216,7 +216,7 @@
 	var/counter = 0
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		counter += bodypart.remove_all_embedded_objects(drop_loc, clear_alert = FALSE)
-	clear_alert("embeddedobject")
+	clear_alert(ALERT_EMBEDDED)
 	return counter
 
 

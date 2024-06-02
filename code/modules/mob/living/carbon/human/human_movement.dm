@@ -96,9 +96,9 @@
 		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 
 
-/mob/living/carbon/human/set_usable_legs(new_value)
+/mob/living/carbon/human/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
 
 	if(. == 0)
@@ -113,9 +113,9 @@
 	update_fractures_slowdown()
 
 
-/mob/living/carbon/human/set_usable_hands(new_value)
+/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
 
 	if(. == 0)

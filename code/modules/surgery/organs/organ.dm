@@ -347,7 +347,7 @@
 	return src
 
 
-/obj/item/organ/proc/replaced(mob/living/carbon/human/target)
+/obj/item/organ/proc/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	return // Nothing uses this, it is always overridden
 
 
