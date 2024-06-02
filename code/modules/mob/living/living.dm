@@ -393,7 +393,9 @@
 
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
-	if(stat == DEAD)	// default behavior if DEAD
+	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))	// default behavior for generic mobs
+		return !density
+	if(stat == DEAD)	// DEAD mobs are fine to skip if they are not dense or lying
 		return !density || body_position == LYING_DOWN
 	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
 		return FALSE
