@@ -351,7 +351,7 @@
 	if(I.item_flags & NOPICKUP)
 		return FALSE
 
-	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
