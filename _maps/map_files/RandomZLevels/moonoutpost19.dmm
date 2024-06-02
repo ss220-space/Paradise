@@ -7092,12 +7092,8 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "oK" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "fridge";
-	overlay_unlocked = "f_unlocked";
-	overlay_locked = "f_locked";
+/obj/structure/closet/secure_closet/freezer/meat/empty{
 	locked = 0;
-	name = "meat fridge";
 	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,

@@ -47,6 +47,9 @@
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey(src)
 
+/obj/structure/closet/secure_closet/freezer/meat/empty/populate_contents()
+	return
+
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
 	locked = FALSE
@@ -63,6 +66,9 @@
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
+
+/obj/structure/closet/secure_closet/freezer/fridge/empty/populate_contents()
+	return
 
 /obj/structure/closet/secure_closet/freezer/fridge/open
 	req_access = null

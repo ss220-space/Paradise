@@ -2140,12 +2140,8 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fH" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "fridge";
-	overlay_unlocked = "f_unlocked";
-	overlay_locked = "f_locked";
+/obj/structure/closet/secure_closet/freezer/meat/empty{
 	locked = 0;
-	name = "meat fridge";
 	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
@@ -3246,12 +3242,8 @@
 	},
 /area/awaymission/UO71/centralhall)
 "ir" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "fridge";
-	overlay_unlocked = "f_unlocked";
-	overlay_locked = "f_locked";
+/obj/structure/closet/secure_closet/freezer/fridge/empty{
 	locked = 0;
-	name = "refrigerator";
 	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/condiment/milk,
