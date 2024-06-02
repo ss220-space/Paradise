@@ -254,7 +254,7 @@
 				parts_used += part_atom
 
 	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
-		for(var/datum/reagent/reagent_to_delete in reagent_containers_for_deletion[container_to_clear])
+		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
 			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
 
 			if(amount_to_delete < reagent_to_delete.volume)
