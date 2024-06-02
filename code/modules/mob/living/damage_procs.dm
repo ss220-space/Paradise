@@ -8,7 +8,7 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, used_weapon = null)
+/mob/living/proc/apply_damage(damage = 0, brain_damage = 0, internal_organ_damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, used_weapon = null)
 	blocked = (100 - blocked) / 100
 	if(!damage || (blocked <= 0))
 		return FALSE
@@ -26,6 +26,10 @@
 			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
+	adjustBrainLoss(brain_damage)
+	for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
+      	organ.receive_damage(internal_damage)
+
 	updatehealth("apply damage")
 	return TRUE
 

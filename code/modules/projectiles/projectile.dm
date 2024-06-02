@@ -46,7 +46,12 @@
 
 	var/ignore_source_check = FALSE
 
+
 	var/damage = 10
+	/// The amount of brain damage dealt to target's brain on hit
+	var/brain_damage = 0
+	/// The amount of damage dealt to target's internal organs in body part on hit
+	var/internal_organ_damage = 0
 	/// How much damage should be decremented as the bullet moves.
 	var/tile_dropoff = 0
 	/// How much stamina damage should be decremented as the bullet moves.
