@@ -2026,6 +2026,12 @@
 	cost = 100
 	can_discount = FALSE
 
+/datum/uplink_item/badass/unocard
+	name = "Syndicate Reverse Card"
+	desc = "A standard-issued syndicate card with a tuned bluespace crystal installed. Special chip allows user to switch card with enemy gun when hit by projectile. Doesn't work on turrets or mech weapons."
+	item = /obj/item/syndicateReverseCard
+	cost = 10
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
 	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
