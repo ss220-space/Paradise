@@ -48,7 +48,7 @@
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above
 	back = /obj/item/storage/backpack
 	belt = /obj/item/gun/projectile/automatic/pistol/APS
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 	r_pocket = /obj/item/ammo_box/magazine/pistolm9mm
 	id = /obj/item/card/id/ussp_general
 	implants = list(/obj/item/implant/weapons_auth)
@@ -152,7 +152,7 @@
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 	id = /obj/item/card/id/ussp_security
 
 /datum/outfit/ussp_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

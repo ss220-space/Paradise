@@ -390,9 +390,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/baton
 	name = "Stun Batons Crate"
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded)
 	cost = 20
 	containername = "stun baton crate"
 
@@ -437,8 +437,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/telescopic
 	name = "Telescopic Baton Crate"
-	contains = list(/obj/item/melee/classic_baton/telescopic,
-					/obj/item/melee/classic_baton/telescopic)
+	contains = list(/obj/item/melee/baton/telescopic,
+					/obj/item/melee/baton/telescopic)
 	cost = 20
 	containername = "telescopic baton crate"
 
@@ -802,7 +802,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
 				/obj/item/clothing/head/helmet,
-				/obj/item/melee/baton/loaded,
+				/obj/item/melee/baton/security/loaded,
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 40 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
