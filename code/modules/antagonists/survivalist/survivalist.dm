@@ -14,7 +14,7 @@
 
 
 /datum/antagonist/survivalist/guns
-	greet_message = "Your own safety matters above all else, and the only way to ensure your safety is to stockpile weapons! Grab as many guns as possible, by any means necessary. Kill anyone who gets in your way."
+	greet_message = "Wreak havoc upon the station as much you can. You no longer obey the NT, you have enough power to do this!"
 
 
 /datum/antagonist/survivalist/guns/give_objectives()
@@ -24,7 +24,7 @@
 
 /datum/antagonist/survivalist/magic
 	name = "Amateur Magician"
-	greet_message = "Grow your newfound talent! Grab as many magical artefacts as possible, by any means necessary. Kill anyone who gets in your way."
+	greet_message = "Wreak havoc upon the station as much you can. You no longer obey the NT, you have enough power to do this!"
 
 
 /datum/antagonist/survivalist/magic/greet()
