@@ -14,6 +14,9 @@
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	switch(damagetype)
+		if(BRUTE || BURN || CLONE)
+			adjustBrainLoss(brain_damage)
+			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
 		if(BRUTE)
 			adjustBruteLoss(damage * blocked)
 		if(BURN)
@@ -26,8 +29,6 @@
 			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
-	adjustBrainLoss(brain_damage)
-	for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
       	organ.receive_damage(internal_damage)
 
 	updatehealth("apply damage")
