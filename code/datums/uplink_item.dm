@@ -2028,8 +2028,8 @@
 
 /datum/uplink_item/badass/unocard
 	name = "Syndicate Reverse Card"
-	desc = "A standard-issued syndicate card with a tuned bluespace crystal installed. Special chip allows user to switch card with enemy gun when hit by projectile. Doesn't work on turrets or mech weapons."
-	item = /obj/item/syndicateReverseCard
+	desc = "Hidden in an ordinary-looking playing card, this device will teleport an opponent's gun to your hand when they fire at you. Just make sure to hold this in your hand!"
+	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
 /datum/uplink_item/implants/macrobomb

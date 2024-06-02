@@ -24,7 +24,7 @@
 	flags = CONDUCT
 	item_flags = NO_PIXEL_RANDOM_DROP
 
-/obj/item/syndicateReverseCard
+/obj/item/syndicate_reverse_card
 	name = "Red Reverse"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "singlecard_down_syndicate"
@@ -33,18 +33,18 @@
 	var/used = FALSE //has this been used before? If not, give no hints about it's nature
 	description_antag = "Hold this in your hand when you are getting shot at to steal your opponent's gun. You'll lose this, so be careful!"
 
-/obj/item/syndicateReverseCard/update_icon_state()
+/obj/item/syndicate_reverse_card/update_icon_state()
 	. = ..()
 	if(used)
 		icon_state = "reverse_card"
 
-/obj/item/syndicateReverseCard/examine(mob/user)
+/obj/item/syndicate_reverse_card/examine(mob/user)
 	. = ..()
 	if(used)
 		. += "<span class='warning'>Something sinister is strapped to this card. It looks like it was once masked with some sort of cloaking field, which is now nonfunctional.</span>"
 
 
-/obj/item/syndicateReverseCard/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/syndicate_reverse_card/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!(attack_type == PROJECTILE_ATTACK))
 		return FALSE //this means the attack goes through
 	if(istype(hitby, /obj/item/projectile))
@@ -55,7 +55,7 @@
 				return TRUE //this means the attack is blocked
 	return FALSE
 
-/obj/item/syndicateReverseCard/proc/switcharoo(mob/firer, mob/user, obj/item/gun/target_gun) //this proc teleports the target_gun out of the firer's hands and into the user's. The firer gets the card.
+/obj/item/syndicate_reverse_card/proc/switcharoo(mob/firer, mob/user, obj/item/gun/target_gun) //this proc teleports the target_gun out of the firer's hands and into the user's. The firer gets the card.
 	//first, the sparks!
 	do_sparks(12, 1, user)
 	//next, we move the gun to the user and the card to the firer
