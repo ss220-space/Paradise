@@ -279,7 +279,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-			if(O.brute_dam > 20)
+			if(O.brute_dam > 20 && prob(33))
 				O.fracture()
 
 /obj/item/melee/arm_blade/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
