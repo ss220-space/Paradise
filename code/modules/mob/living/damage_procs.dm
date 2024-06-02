@@ -17,6 +17,7 @@
 		if(BRUTE || BURN || CLONE)
 			adjustBrainLoss(brain_damage)
 			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
+			    organ.receive_damage(internal_damage)
 		if(BRUTE)
 			adjustBruteLoss(damage * blocked)
 		if(BURN)
@@ -29,7 +30,6 @@
 			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
-      	organ.receive_damage(internal_damage)
 
 	updatehealth("apply damage")
 	return TRUE
