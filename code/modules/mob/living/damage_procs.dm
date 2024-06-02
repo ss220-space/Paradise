@@ -13,7 +13,7 @@
 	if(!damage || (blocked <= 0))
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
-	if(damagetype == any in(BRUTE, BURN, CLONE))
+	if(damagetype == BRUTE || damagetype == BURN || damagetype == CLONE)
 		adjustBrainLoss(brain_damage)
 		for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
 			organ.receive_damage(internal_organ_damage)
