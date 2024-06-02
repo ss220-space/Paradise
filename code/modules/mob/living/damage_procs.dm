@@ -26,6 +26,18 @@
 			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
+		if(BRUTESUICIDE)
+			adjustBruteLoss(damage * blocked)
+			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
+				organ.receive_damage(damage/3)
+		if(BURNSUICIDE)
+			adjustFireLoss(damage * blocked)
+			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
+				organ.receive_damage(damage/3)
+		if(CLONESUICIDE)
+			adjustCloneLoss(damage * blocked)
+			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
+				organ.receive_damage(damage/3)
 	updatehealth("apply damage")
 	return TRUE
 

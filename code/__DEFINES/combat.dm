@@ -9,6 +9,9 @@
 #define CLONE		"clone"
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
+#define BRUTESUICIDE"brute_suicide"
+#define BURNSUICIDE	"burn_suicide"
+#define CLONESUICIDE"clone_suicide"
 
 //damage flags
 #define MELEE 		"melee"
