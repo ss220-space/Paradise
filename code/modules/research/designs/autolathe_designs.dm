@@ -139,6 +139,14 @@
 	build_path = /obj/item/apc_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/access_board
+	name = "Access Control Electronics"
+	id = "access_board"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control
+	category = list("initial", "Electronics")
+
 /datum/design/airlock_board
 	name = "Airlock Electronics"
 	id = "airlock_board"
@@ -147,12 +155,12 @@
 	build_path = /obj/item/airlock_electronics
 	category = list("initial", "Electronics")
 
-/datum/design/syndie_airlock_board
-	name = "Suspicious Airlock Electronics"
-	id = "syndie_airlock_board"
+/datum/design/syndie_access_control
+	name = "Suspicious Access Control Electronics"
+	id = "syndie_access_board"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/airlock_electronics/syndicate
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	build_path = /obj/item/access_control/syndicate
 	category = list("hacked", "Electronics")
 
 /datum/design/firelock_board
@@ -187,6 +195,14 @@
 	build_path = /obj/item/intercom_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/airlock_controller
+	name = "Airlock Remote Controller"
+	id = "airlock_controller"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL=100, MAT_GLASS=50)
+	build_path = /obj/item/assembly/control/airlock
+	category = list("initial", "Electronics")
+
 /datum/design/earmuffs
 	name = "Earmuffs"
 	id = "earmuffs"
@@ -212,7 +228,7 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/floorpainter
-	name = "Floor painter"
+	name = "Floor Painter"
 	id = "floor_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
@@ -220,11 +236,19 @@
 	category = list("initial", "Miscellaneous")
 
 /datum/design/airlock_painter
-	name = "Airlock painter"
+	name = "Airlock Painter"
 	id = "airlock_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	build_path = /obj/item/airlock_painter
+	category = list("initial", "Miscellaneous")
+
+/datum/design/pet_bowl
+	name = "Pet Bowl"
+	id = "pet_bowl"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/glass/pet_bowl
 	category = list("initial", "Miscellaneous")
 
 /datum/design/metal

@@ -54,7 +54,7 @@
 		else
 			C.use(4)
 			playsound(holder, C.usesound, 50, 1)
-	else if(istype(used_atom, /obj/item/stack))
+	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
 			to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
@@ -112,7 +112,7 @@
 				if(!I.use(amount))
 					return 0
 		// STACKS
-		if(istype(used_atom,/obj/item/stack))
+		if(isstack(used_atom))
 			var/obj/item/stack/stack=used_atom
 			if(stack.get_amount() < amount)
 				to_chat(user, "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>")
@@ -233,7 +233,7 @@
 			if(istype(A,/obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C=A
 				C.amount=state["amount"]
-			if(istype(A,/obj/item/stack))
+			if(isstack(A))
 				var/obj/item/stack/S=A
 				S.amount=state["amount"]
 

@@ -8,7 +8,7 @@
 	icon_state = "term"
 	desc = "It's an underfloor wiring terminal for power equipment."
 	level = 1
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 
@@ -66,7 +66,7 @@
 								"<span class='notice'>You begin to cut the cables...</span>")
 
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			if(do_after(user, 50*W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(!master || master.can_terminal_dismantle())
 					if(prob(50) && electrocute_mob(user, powernet, src, 1, TRUE))
 						do_sparks(5, TRUE, master)

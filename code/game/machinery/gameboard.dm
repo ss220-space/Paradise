@@ -3,7 +3,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
@@ -30,9 +30,9 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(3, 3)
+		set_light(3, 3, l_on = TRUE)
 
 
 /obj/machinery/gameboard/update_icon_state()

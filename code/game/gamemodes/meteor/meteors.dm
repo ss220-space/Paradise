@@ -26,9 +26,9 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
-	while(!istype(pickedstart, /turf/space))
+	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinal)
-		var/level = level_name_to_num(MAIN_STATION)
+		var/level = pick(levels_by_trait(STATION_LEVEL))
 		pickedstart = spaceDebrisStartLoc(startSide, level)
 		pickedgoal = spaceDebrisFinishLoc(startSide, level)
 		max_i--
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new Me(pickedstart)
 	M.dest = pickedgoal
-	M.z_original = level_name_to_num(MAIN_STATION)
+	M.z_original = pick(levels_by_trait(STATION_LEVEL))
 	spawn(0)
 		walk_towards(M, M.dest, 1)
 	return
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	desc = "You should probably run instead of gawking at this."
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/hits = 4
 	var/hitpwr = 2 //Level of ex_act to be called on hit.
@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !istype(T, /turf/space))//randomly takes a 'hit' from ramming
+		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
 			get_hit()
 
 	return .
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 
 /obj/effect/meteor/gore/ram_turf(turf/T)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/gore/Bump(atom/A)
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 
 /obj/effect/meteor/goreops/ram_turf(turf/T)
-	if(!istype(T, /turf/space))
+	if(!isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/goreops/Bump(atom/A)

@@ -36,5 +36,15 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   top: 30px;
   left: 0;
   padding: 0.5rem;
-  width: 20%;
+  width: 20rem;
+}
+
+.NanoMap__zlevel {
+  z-index: 20;
+  background-color: $color-background;
+  position: absolute;
+  top: 30px;
+  left: 20.5rem;
+  padding: 0.5rem;
+  width: 20rem;
 }

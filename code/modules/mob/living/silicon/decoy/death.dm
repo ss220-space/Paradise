@@ -7,4 +7,5 @@
 	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
 		if(atoms_share_level(display, src))
 			display.mode = AI_DISPLAY_MODE_BSOD
+			display.update_icon(UPDATE_OVERLAYS)
 	gib()

@@ -109,7 +109,7 @@
 
 	if(. && istype(target, /obj/item/organ/internal/brain/diona))
 		var/is_dead = owner.is_dead()
-		if(is_dead || do_after(owner, 1 MINUTES, target = owner))
+		if(is_dead || do_after(owner, 1 MINUTES, owner))
 			var/obj/item/organ/internal/brain/diona/brain = target
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind

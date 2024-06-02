@@ -138,7 +138,6 @@
 		clumse_stuff(user)
 
 
-
 /obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
@@ -147,15 +146,14 @@
 		return check_cover(mover)
 	if(mover.throwing)
 		return TRUE
+	if(mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return TRUE
 	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		var/obj/structure/table/other_table = locate(/obj/structure/table) in get_turf(mover)
 		if(!other_table.flipped)
 			return TRUE
 	if(flipped)
 		return dir != border_dir
-	var/obj/structure/table/other_table = locate() in get_turf(mover)
-	if(other_table && !other_table.flipped)
-		return TRUE
 
 
 /obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
@@ -205,7 +203,7 @@
 		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
 		return FALSE
-	if(isrobot(user))
+	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!user.drop_item_ground(dropping))
 		return FALSE
@@ -249,10 +247,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
-		return
-
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
 			var/list/click_params = params2list(params)
@@ -264,11 +259,13 @@
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			item_placed(I)
 	else
+		if(isrobot(user))
+			return
 		return ..()
 
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
 		return
@@ -282,7 +279,7 @@
 
 
 /obj/structure/table/wrench_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!deconstruction_ready)
 		return
@@ -296,7 +293,7 @@
 
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 		if(!wrench_disassembly)
@@ -443,13 +440,9 @@
 
 /obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	if(!isliving(AM))
-		return
-
-	var/mob/living/check = AM
-	if(check.incorporeal_move || check.flying || check.floating)
 		return
 
 	// Don't break if they're just flying past
@@ -464,7 +457,9 @@
 		check_break(M)
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
-	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
+	if(M.incorporeal_move || (M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+	if(M.has_gravity() && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction)
@@ -485,7 +480,7 @@
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			..()
 			return
@@ -750,7 +745,7 @@
 				M.stop_pulling()
 
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 	qdel(src)
@@ -802,7 +797,7 @@
 	. = FALSE
 	if((!isitem(dropping)) || user.get_active_hand() != dropping)
 		return .
-	if(isrobot(user))
+	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(dropping.loc != loc && user.transfer_item_to_loc(dropping, src.loc))
 		add_fingerprint(user)
@@ -814,13 +809,13 @@
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!(I.flags & ABSTRACT) && user.transfer_item_to_loc(I, loc))
+	if(!(I.item_flags & ABSTRACT) && user.transfer_item_to_loc(I, loc))
 		add_fingerprint(user)
 
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -828,7 +823,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.IsWeakened() || user.resting || user.lying)
+	if(user.incapacitated())
 		return
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -867,12 +862,12 @@
 
 /obj/structure/rack/gunrack/proc/place_gun(obj/item/gun/our_gun, mob/user, params)
 	. = FALSE
-	if(!ishuman(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(!(istype(our_gun)))
 		to_chat(user, span_warning("This item doesn't fit!"))
 		return .
-	if(our_gun.flags & ABSTRACT)
+	if(our_gun.item_flags & ABSTRACT)
 		return .
 	if(!user.drop_item_ground(our_gun))
 		return .
@@ -921,12 +916,12 @@
 
 
 /obj/structure/rack/gunrack/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		var/obj/item/gunrack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	for(var/obj/item/I in loc.contents)
-		if(istype(I, /obj/item/gun))
+		if(isgun(I))
 			var/obj/item/gun/to_remove = I
 			to_remove.remove_from_rack()
 	qdel(src)
@@ -952,7 +947,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
@@ -967,8 +962,8 @@
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	qdel(src)
@@ -998,7 +993,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

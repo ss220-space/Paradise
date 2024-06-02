@@ -6,7 +6,7 @@
 /obj/structure/flora/tree
 	name = "tree"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -226,7 +226,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
@@ -241,6 +241,8 @@
 	var/l_range_init
 	/// Light power plant will get on init
 	var/l_power_init
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 
 
 /obj/item/twohanded/required/kirbyplants/New()
@@ -253,11 +255,13 @@
 	if(num == 9)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_LUMINOL)
+		set_light_on(TRUE)
 	else if(num == 20)
 		l_range_init = 2
 		l_power_init = 0.6
-		set_light(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_range_power_color(l_range_init, l_power_init, COLOR_WHEAT)
+		set_light_on(TRUE)
 
 
 /obj/item/twohanded/required/kirbyplants/Destroy()
@@ -267,10 +271,8 @@
 
 
 /obj/item/twohanded/required/kirbyplants/extinguish_light(force = FALSE)
-	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+	if(light_on)
+		set_light_on(FALSE)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the plant. Perhaps shining a light will force it to clear?"
 		START_PROCESSING(SSobj, src)
@@ -288,9 +290,7 @@
 
 /obj/item/twohanded/required/kirbyplants/proc/reset_light()
 	light_process = 0
-	light_power = l_power_init
-	light_range = l_range_init
-	update_light()
+	set_light_on(TRUE)
 	name = initial(name)
 	desc = initial(desc)
 	STOP_PROCESSING(SSobj, src)
@@ -304,8 +304,8 @@
 	I.override = 1
 	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
-/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, silent = FALSE)
-	..()
+/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/required/kirbyplants/dead
@@ -383,7 +383,7 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
+	density = TRUE
 	climbable = 1 // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
@@ -397,7 +397,7 @@
 	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
@@ -425,7 +425,7 @@
 						icon_state = "stump[rand(1,2)]"
 						name = "cleared foliage"
 						desc = "There used to be dense undergrowth here."
-						density = 0
+						set_density(FALSE)
 						stump = 1
 						pixel_x = rand(-6,6)
 						pixel_y = rand(-6,6)

@@ -99,7 +99,7 @@
 /mob/living/simple_animal/hostile/headcrab/Destroy()
 	if(contents)
 		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+			M.forceMove(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
@@ -107,9 +107,9 @@
 		cut_overlays()
 		add_overlay(human_overlays)
 		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]")
-		if(host_species == "Vox")
+		if(host_species == SPECIES_VOX)
 			I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]_vox")
-		else if(host_species == "Gray")
+		else if(host_species == SPECIES_GREY)
 			I = image('icons/mob/headcrab.dmi', icon_state = "[crab_head_overlay]_gray")
 		add_overlay(I)
 
@@ -169,7 +169,6 @@
 	if(iscarbon(target) && target.reagents)
 		var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 		var/mob/living/carbon/C = target
-		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
-			if(C.AmountEyeBlurry() < 120 SECONDS)
-				C.AdjustEyeBlurry(20 SECONDS)
-				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+		if(C.AmountEyeBlurry() < 120 SECONDS && (HAS_TRAIT(C, TRAIT_INCAPACITATED) || C.can_inject(null, FALSE, inject_target, FALSE)))
+			C.AdjustEyeBlurry(20 SECONDS)
+			visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")

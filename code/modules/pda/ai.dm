@@ -18,7 +18,7 @@
 	set name = "Send PDA Message"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
@@ -36,7 +36,7 @@
 	set name = "Show Message Log"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
@@ -53,7 +53,7 @@
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
@@ -65,7 +65,7 @@
 	set name = "Toggle Ringer"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent

@@ -6,7 +6,7 @@
 	icon_state = "dnaopen"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	var/obj/item/forensics/swab = null
 	var/scanning = 0
@@ -45,7 +45,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>Сканер начинает с жужением анализировать содержимое пробирки \the [swab].</span>")
 
-	if(!do_after(user, 25, src) || !swab)
+	if(!do_after(user, 2.5 SECONDS, src) || !swab)
 		to_chat(user, "<span class='notice'>Вы перестали анализировать \the [swab].</span>")
 		scanning = FALSE
 		update_icon(UPDATE_ICON_STATE)
@@ -78,7 +78,7 @@
 	return
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!swab)
 		to_chat(remover, "<span class='warning'>Внутри сканера нет образца!.</span>")
@@ -89,8 +89,8 @@
 	swab = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/dnaforensics/AltClick()
-	remove_sample(usr)
+/obj/machinery/dnaforensics/AltClick(mob/user)
+	remove_sample(user)
 
 /obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)

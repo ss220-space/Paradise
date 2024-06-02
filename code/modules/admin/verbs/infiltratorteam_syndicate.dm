@@ -133,16 +133,16 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/storage/backpack(src), ITEM_SLOT_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), ITEM_SLOT_CLOTH_INNER)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), ITEM_SLOT_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), ITEM_SLOT_BELT)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
 	G.name = "black gloves"
-	equip_to_slot_or_del(G, slot_gloves)
+	equip_to_slot_or_del(G, ITEM_SLOT_GLOVES)
 
 	// Implants:
 	// Uplink
@@ -159,11 +159,11 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Radio & PDA
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
+	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	equip_or_collect(new /obj/item/pda(src), ITEM_SLOT_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_FEET)
 
 	var/obj/item/card/id/syndicate/W = new(src)
 	if (flag_mgmt)
@@ -171,8 +171,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = JOB_TITLE_CIVILIAN
+	W.access += get_access(JOB_TITLE_CIVILIAN)
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"
@@ -183,6 +183,6 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		W.access += get_syndicate_access("Syndicate Operative")
 	W.name = "[real_name]'s ID Card ([W.assignment])"
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
+	equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 	return 1

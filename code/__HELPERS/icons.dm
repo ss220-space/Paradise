@@ -990,3 +990,13 @@ GLOBAL_LIST_EMPTY(icon_dimensions)
 		GLOB.icon_dimensions[icon_path] = list("width" = my_icon.Width(), "height" = my_icon.Height())
 	return GLOB.icon_dimensions[icon_path]
 
+
+///Flickers an overlay on an atom
+/atom/proc/flick_overlay_static(overlay_image, duration)
+	set waitfor = FALSE
+	if(!overlay_image)
+		return
+	add_overlay(overlay_image)
+	sleep(duration)
+	cut_overlay(overlay_image)
+

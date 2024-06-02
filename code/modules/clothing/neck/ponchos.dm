@@ -8,49 +8,44 @@
 	dyeable = TRUE
 	item_color = "classic"
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/neck.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/neck.dmi',
-		"Draconid" =  'icons/mob/clothing/species/unathi/neck.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
-		"Wryn" = 'icons/mob/clothing/species/wryn/neck.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
 	)
 
 /obj/item/clothing/neck/poncho/update_icon_state()
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
 
+
 /obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
-	if(!iscarbon(user))
-		..()
-	else if(user.neck != src)
-		..()
-	else
-		flip(user)
+	if(!(src in user))
+		return ..()
+	flip(user)
+
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
 	set name = "Flip poncho"
 	set category = "Object"
 	set desc = "Flip poncho behind your back"
+	set src in usr
 
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/human/user = usr
-	if(user.neck != src)
-		to_chat(user, span_warning("Poncho must be equipped before flipping!"))
-		return
-	flip(user)
+	flip(usr)
 
-/obj/item/clothing/neck/poncho/dropped(mob/user, silent = FALSE)
-	..()
+
+/obj/item/clothing/neck/poncho/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	if(flipped)
 		flipped = FALSE
 		update_icon(UPDATE_ICON_STATE)
@@ -63,9 +58,14 @@
 			flipped = FALSE
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/neck/poncho/proc/flip(mob/user)
-	if(user.incapacitated())
+/obj/item/clothing/neck/poncho/proc/flip(mob/living/carbon/human/user)
+	if(!ishuman(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
+		return
+	if(user.neck != src)
+		to_chat(user, span_warning("Poncho must be equipped before flipping!"))
 		return
 	flipped = !flipped
 	update_icon(UPDATE_ICON_STATE)
@@ -128,8 +128,13 @@
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "shameponcho"
 	item_color = "shame"
-	flags = NODROP
 	dyeable = FALSE
+
+
+/obj/item/clothing/neck/poncho/ponchoshame/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/neck/poncho/security
 	name = "corporate poncho"

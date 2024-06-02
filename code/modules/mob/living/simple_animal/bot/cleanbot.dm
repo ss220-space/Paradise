@@ -112,7 +112,7 @@
 		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 			if(prob(5)) //Spawns foam!
 				visible_message(span_danger("[src] whirs and bubbles violently, before releasing a plume of froth!"))
@@ -191,7 +191,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
-	anchored = TRUE
+	set_anchored(TRUE)
 	visible_message(span_notice("[src] begins to clean up [target]"))
 	mode = BOT_CLEANING
 	update_icon()
@@ -203,7 +203,7 @@
 		return
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
-		anchored = FALSE
+		set_anchored(FALSE)
 	mode = BOT_IDLE
 	update_icon()
 
@@ -276,6 +276,8 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else

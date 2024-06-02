@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/outside)
 "ab" = (
 /turf/simulated/mineral/random/labormineral,
@@ -3446,7 +3443,6 @@
 /area/awaymission/UO71/centralhall)
 "iX" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access = list(271)
@@ -4876,7 +4872,7 @@
 /area/awaymission/UO71/science)
 "lY" = (
 /obj/structure/sign/directions/medical{
-	pixel_y = -12
+	pixel_y = -20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -6944,7 +6940,6 @@
 /area/awaymission/UO71/medical)
 "qf" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Medical Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -9272,8 +9267,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 2;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9328,8 +9322,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 1;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9340,11 +9333,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	burnt = 1;
-	dir = 8;
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "uU" = (
 /obj/structure/cable{
@@ -10139,11 +10128,7 @@
 /obj/structure/sign/poster/official/build{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	burnt = 1;
-	dir = 8;
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "wL" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -10975,11 +10960,7 @@
 	},
 /obj/item/gun/energy/kinetic_accelerator,
 /obj/item/borg/upgrade/modkit/tracer,
-/turf/simulated/floor/plasteel{
-	burnt = 1;
-	dir = 8;
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yx" = (
 /turf/simulated/floor/plasteel,
@@ -11198,17 +11179,11 @@
 	},
 /area/awaymission/UO71/outside)
 "zd" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "zf" = (
 /turf/simulated/floor/plasteel,
@@ -11560,10 +11535,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "Lf" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/loot)
 "Lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12865,12 +12837,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13015,12 +12987,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13165,12 +13137,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13315,12 +13287,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13465,12 +13437,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13615,12 +13587,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -13765,15 +13737,15 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
 ab
 ab
 ab
+ab
+ab
+ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -13915,15 +13887,15 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
 ab
 ab
 ab
+ab
+ab
+ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14068,12 +14040,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
 ab
 ab
 ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14218,12 +14190,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
 ab
 ab
 ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14368,12 +14340,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
 ab
 ab
 ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14518,12 +14490,12 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
 ab
 ab
 ab
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14668,15 +14640,15 @@ ab
 ab
 ab
 ab
+ab
+ab
+ab
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ab
-ab
+aa
+aa
+aa
 aa
 "}
 (21,1,1) = {"
@@ -14818,9 +14790,9 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
+ab
+ab
+ab
 aa
 aa
 aa

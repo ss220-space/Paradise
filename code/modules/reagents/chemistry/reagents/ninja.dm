@@ -104,13 +104,9 @@
 				var/needs_update = mob_human.mutations.len > 0
 				if(needs_update)
 					for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-						if(!(block in mob_human.dna.default_blocks))
-							mob_human.dna.SetSEState(block, FALSE, TRUE)
-							genemutcheck(mob_human, block, null, MUTCHK_FORCED)
-					mob_human.dna.UpdateSE()
+						if(!LAZYIN(mob_human.dna.default_blocks, block))
+							mob_human.force_gene_block(block, FALSE)
 					mob_human.dna.struc_enzymes = mob_human.dna.struc_enzymes_original
-					// Might need to update appearance for hulk etc.
-					mob_human.update_mutations()
 		if(40 to INFINITY)
 			if(ishuman(our_mob))
 				var/mob/living/carbon/human/mob_human = our_mob

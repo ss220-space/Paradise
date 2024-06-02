@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -61,7 +61,7 @@
 			return
 		shock_field(mover)
 
-	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
+	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		bump_field(mover)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)

@@ -19,7 +19,7 @@
 	if(dirty)
 		if(istype(I, /obj/item/soap))
 			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
-			if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 				clean()
 				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
 				update_dialog(user)
@@ -31,7 +31,7 @@
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split_stack(user, 1)

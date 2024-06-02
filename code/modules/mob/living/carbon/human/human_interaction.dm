@@ -1,7 +1,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 	///////Interactions!!///////
 	if(href_list["interaction"])
-		if (usr.stat == DEAD || usr.stat == UNCONSCIOUS || usr.restrained())
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			return
 
 		//CONDITIONS
@@ -40,7 +40,7 @@
 
 		else if (href_list["interaction"] == "scratch")
 			if(((!istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && H.Adjacent(P))
-				if(H.zone_selected == BODY_ZONE_HEAD && !((P.dna.species.name == "Machine") || (P.dna.species.name == "Grey") || (P.dna.species.name == "Unathi")))
+				if(H.zone_selected == BODY_ZONE_HEAD && !((P.dna.species.name == SPECIES_MACNINEPERSON) || (P.dna.species.name == SPECIES_GREY) || (P.dna.species.name == SPECIES_UNATHI)))
 					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
@@ -179,7 +179,7 @@
 					P.custom_emote(message = "<span class='danger'>показыва[pluralize_ru(H.gender,"ет","ют")] [P] язык!</span>")
 
 		else if (href_list["interaction"] == "pullwing")
-			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
+			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 				if(!P.bodyparts_by_name[BODY_ZONE_WING])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья  КОТОРЫХ НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))
@@ -204,7 +204,7 @@
 						P.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья!")
 
 		else if (href_list["interaction"] == "pull")
-			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
+			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 				if(!P.bodyparts_by_name[BODY_ZONE_TAIL])
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост КОТОРОГО НЕТ!!!")
 					if (istype(P.loc, /obj/structure/closet))
@@ -213,12 +213,12 @@
 
 				var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 				if(istype(implant) && implant.activated)  // KEEP YOUR HANDS AWAY FROM ME!
-					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но неожиданно одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
-					H.emote("scream")
+					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но резко одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
+					if(H.has_pain())
+						H.emote("scream")
 					H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_R_HAND)
 					H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_L_HAND)
 					return
-
 
 				if (prob(30))
 					var/obj/item/organ/external/tail/tail = P.get_organ(BODY_ZONE_TAIL)

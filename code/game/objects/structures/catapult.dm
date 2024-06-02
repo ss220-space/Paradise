@@ -4,7 +4,7 @@
 	icon = 'icons/obj/catapult.dmi'
 	icon_state = "catapult"
 	resistance_flags = INDESTRUCTIBLE | UNACIDABLE | FIRE_PROOF | LAVA_PROOF | ACID_PROOF
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE

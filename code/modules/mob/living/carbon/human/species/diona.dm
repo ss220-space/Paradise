@@ -1,5 +1,5 @@
 /datum/species/diona
-	name = "Diona"
+	name = SPECIES_DIONA
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
@@ -21,7 +21,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -99,11 +99,11 @@
 	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(1, T.get_lumcount()) - 0.5
+		light_amount = min(1, T.get_lumcount()) - 0.1
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)

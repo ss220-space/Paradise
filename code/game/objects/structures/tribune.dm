@@ -19,7 +19,7 @@
 
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -28,7 +28,7 @@
 
 /obj/structure/tribune/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
@@ -55,6 +55,9 @@
 
 /obj/structure/tribune/AltClick(mob/user)
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")

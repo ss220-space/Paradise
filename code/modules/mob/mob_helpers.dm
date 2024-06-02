@@ -1,12 +1,12 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1
@@ -87,7 +87,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -358,14 +358,14 @@
 	return 0
 
 
-/mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
-		return 1
+/mob/proc/abiotic(full_body = FALSE)
+	if(full_body && ((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)) || (back || wear_mask)))
+		return TRUE
 
-	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
-		return 1
+	if((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)))
+		return TRUE
 
-	return 0
+	return FALSE
 
 //converts intent-strings into numbers and back
 GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
@@ -426,17 +426,6 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 			SetSleeping(40 SECONDS) //Short nap
 
-/mob/living/verb/lay_down()
-	set name = "Rest"
-	set category = "IC"
-
-	if(!resting)
-		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
-		StopResting()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -509,7 +498,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -584,7 +573,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname

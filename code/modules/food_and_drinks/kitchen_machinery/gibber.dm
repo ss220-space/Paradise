@@ -4,7 +4,7 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
@@ -33,7 +33,7 @@
 /obj/machinery/gibber/Destroy()
 	if(contents.len)
 		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
+			A.forceMove(get_turf(src))
 	if(occupant)
 		occupant = null
 	return ..()
@@ -121,7 +121,7 @@
 	return ..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
-	if(user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(target))
@@ -154,7 +154,7 @@
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
@@ -168,7 +168,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	go_out()
@@ -182,7 +182,7 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -212,14 +212,14 @@
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = TRUE
+	holder.set_anchored(TRUE)
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
 	holder2.add_overlay(gibberoverlay)
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = TRUE
+	holder2.set_anchored(TRUE)
 
 	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 
@@ -383,7 +383,7 @@
 		return //only using H as a shortcut to typecast
 
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O
@@ -391,18 +391,16 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now
-		H.drop_item_ground(O)
-		O.loc = loc
+		H.drop_transfer_item_to_loc(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
 			qdel(C)
-		H.drop_item_ground(C)
-		C.loc = loc
+		H.drop_transfer_item_to_loc(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
@@ -414,7 +412,7 @@
 		if(stealthmode)
 			qdel(O)
 		else if(istype(O))
-			O.loc = loc
+			O.forceMove(loc)
 			O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 			spats++
 			sleep(1)

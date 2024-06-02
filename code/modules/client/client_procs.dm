@@ -141,19 +141,19 @@
 						return
 					switch(href_list["KarmaBuy"])
 						if("1")
-							karma_purchase(karma,5,"job","Barber")
+							karma_purchase(karma,5,"job", JOB_TITLE_BARBER)
 						if("2")
-							karma_purchase(karma,5,"job","Brig Physician")
+							karma_purchase(karma,5,"job", JOB_TITLE_BRIGDOC)
 						if("3")
-							karma_purchase(karma,30,"job","Nanotrasen Representative")
+							karma_purchase(karma,30,"job", JOB_TITLE_REPRESENTATIVE)
 						if("5")
-							karma_purchase(karma,30,"job","Blueshield")
+							karma_purchase(karma,30,"job", JOB_TITLE_BLUESHIELD)
 						if("6")
-							karma_purchase(karma,30,"job","Mechanic")
+							karma_purchase(karma,30,"job", JOB_TITLE_MECHANIC)
 						if("7")
-							karma_purchase(karma,45,"job","Magistrate")
+							karma_purchase(karma,45,"job", JOB_TITLE_JUDGE)
 						if("9")
-							karma_purchase(karma,30,"job","Security Pod Pilot")
+							karma_purchase(karma,30,"job", JOB_TITLE_PILOT)
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
@@ -161,21 +161,21 @@
 						return
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							karma_purchase(karma,15,"species","Machine People","Machine")
+							karma_purchase(karma,15,"species","Machine People",SPECIES_MACNINEPERSON)
 						if("2")
-							karma_purchase(karma,30,"species","Kidan")
+							karma_purchase(karma,30,"species",SPECIES_KIDAN)
 						if("3")
-							karma_purchase(karma,30,"species","Grey")
+							karma_purchase(karma,30,"species",SPECIES_GREY)
 						if("4")
-							karma_purchase(karma,45,"species","Vox")
+							karma_purchase(karma,45,"species",SPECIES_VOX)
 						if("5")
-							karma_purchase(karma,45,"species","Slime People")
+							karma_purchase(karma,45,"species",SPECIES_SLIMEPERSON)
 						if("6")
-							karma_purchase(karma,45,"species","Plasmaman")
+							karma_purchase(karma,45,"species",SPECIES_PLASMAMAN)
 						if("7")
-							karma_purchase(karma,30,"species","Drask")
+							karma_purchase(karma,30,"species",SPECIES_DRASK)
 						if("8")
-							karma_purchase(karma,30,"species","Nian")
+							karma_purchase(karma,30,"species",SPECIES_MOTH)
 					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
@@ -316,7 +316,6 @@
 	else
 		prefs.parent = src
 
-
 	// Setup widescreen
 	view = prefs.viewrange
 
@@ -455,6 +454,7 @@
 
 /client/Destroy()
 	SSdebugview.stop_processing(src)
+	mob?.become_uncliented()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -668,7 +668,7 @@
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
-			"ip" = address,
+			"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 			"cid" = computer_id,
 			"rank" = admin_rank
 		))
@@ -969,8 +969,10 @@
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
 	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
+
 /client/proc/on_varedit()
-	var_edited = TRUE
+	datum_flags |= DF_VAR_EDITED
+
 
 /////////////////
 // DARKMODE UI //
@@ -1065,6 +1067,19 @@
 	generate_clickcatcher()
 	var/list/actualview = getviewsize(view)
 	void.UpdateGreed(actualview[1],actualview[2])
+
+/client/proc/change_view(new_size)
+	if (isnull(new_size))
+		CRASH("change_view called without argument.")
+
+	view = new_size
+	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
+	apply_clickcatcher()
+	mob.hud_used?.reload_fullscreen()
+	if (isliving(mob))
+		var/mob/living/M = mob
+		M.update_damage_hud()
+	fit_viewport()
 
 /client/proc/send_ssd_warning(mob/M)
 	if(!CONFIG_GET(flag/ssd_warning))
@@ -1181,7 +1196,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, "<span class='darkmblue'>Аккаунт Discord уже привязан! Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1192,7 +1207,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, "<span class='darkmblue'>Для завершения используйте команду <span class='boldannounce'>!привязать_аккаунт [token]</span> в канале <b>#дом-бота</b> в Discord-сообществе!</span>")
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1383,6 +1398,12 @@
 	else
 		SSambience.ambience_listening_clients -= src
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	var/atom/old_eye = eye
+	eye = new_eye
+	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
   * Checks if the client has accepted TOS

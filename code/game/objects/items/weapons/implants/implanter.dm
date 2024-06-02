@@ -43,7 +43,7 @@
 			target.visible_message(span_warning("[user] is attempting to bio-chip [target]."))
 
 		var/turf/target_turf = get_turf(target)
-		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target = target)))
+		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target)))
 			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
 				if(user == target)
 					to_chat(user, span_notice("You bio-chip yourself."))

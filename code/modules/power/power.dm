@@ -323,7 +323,7 @@
 		PN = power_source
 	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell = power_source
-	else if(istype(power_source, /obj/machinery/power/apc))
+	else if(isapc(power_source))
 		var/obj/machinery/power/apc/apc = power_source
 		cell = apc.cell
 		if(apc.terminal)

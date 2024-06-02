@@ -7,7 +7,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = FALSE
 	var/installed = FALSE
 	var/require_module = FALSE
 	var/module_type = null
@@ -122,7 +121,7 @@
 			if(ghost.mind && ghost.mind.current == robot)
 				robot.key = ghost.key
 
-	robot.stat = CONSCIOUS
+	robot.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= robot //please never forget this ever kthx
 	GLOB.alive_mob_list += robot
 	robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
@@ -141,7 +140,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed -= 1 // Gotta go fast.
+	robot.add_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)	// Gotta go fast.
 	return TRUE
 
 
@@ -149,7 +148,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed += 1
+	robot.remove_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
 	return TRUE
 
 
@@ -163,17 +162,17 @@
 	if(!..())
 		return FALSE
 
-	if(robot.magpulse)
+	if(HAS_TRAIT_FROM(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT))
 		return FALSE
 
-	robot.magpulse = TRUE
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
-	robot.magpulse = initial(robot.magpulse)
+	REMOVE_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/disablercooler
@@ -228,6 +227,9 @@
 /obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+
+	if(robot.ionpulse_on)
+		robot.toggle_ionpulse(silent = TRUE)
 
 	robot.ionpulse = FALSE
 	return TRUE

@@ -1,5 +1,5 @@
 /obj/structure/AIcore
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/ai.dmi'
@@ -35,7 +35,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, span_notice("You start to add cables to the frame..."))
-					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
+					if(do_after(user, 2 SECONDS, src) && state == SCREWED_CORE && C.use(5))
 						add_fingerprint(user)
 						to_chat(user, span_notice("You add cables to the frame."))
 						state = CABLED_CORE
@@ -49,7 +49,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, span_notice("You start to put in the glass panel..."))
-					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
+					if(do_after(user, 2 SECONDS, src) && state == CABLED_CORE && G.use(2))
 						add_fingerprint(user)
 						to_chat(user, span_notice("You put in the glass panel."))
 						state = GLASS_CORE
@@ -92,11 +92,11 @@
 					to_chat(user, span_warning("Sticking an inactive [M.name] into the frame would sort of defeat the purpose."))
 					return
 
-				if(jobban_isbanned(M.brainmob, "AI") || jobban_isbanned(M.brainmob, "nonhumandept"))
+				if(jobban_isbanned(M.brainmob, JOB_TITLE_AI) || jobban_isbanned(M.brainmob, "nonhumandept"))
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
 
-				var/datum/job/job_ai = SSjobs.name_occupations["AI"]
+				var/datum/job/job_ai = SSjobs.name_occupations[JOB_TITLE_AI]
 				if(job_ai.available_in_playtime(M.brainmob.client))
 					to_chat(user, span_warning("This [P] does not seem to fit."))
 					return
@@ -175,7 +175,7 @@
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
 				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-					A.rename_self("AI", 1)
+					A.rename_self(JOB_TITLE_AI, 1)
 					SSticker?.score?.save_silicon_laws(A, user, "AI construction", log_all_laws = TRUE)
 			SSblackbox.record_feedback("amount", "ais_created", 1)
 			qdel(src)

@@ -1,5 +1,5 @@
 /obj/structure/clockwork
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
@@ -13,7 +13,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 
 /obj/structure/clockwork/functional
 	max_integrity = 100
@@ -124,7 +124,7 @@
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
@@ -224,7 +224,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 	death_message = "<span class='danger'>The credence breaks in pieces as it dusts into nothing!</span>"
 	canbehidden = TRUE
 	choosable_items = list(
@@ -354,7 +354,7 @@
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -543,7 +543,7 @@
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return TRUE
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)

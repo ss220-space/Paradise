@@ -118,15 +118,15 @@
 
 	return connected
 
+
 /obj/machinery/hydroponics/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(wrenchable && !user.lying && Adjacent(user))
-		toggle_lid(user)
+	toggle_lid(user)
+
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
-	if(!user || user.stat || user.restrained())
+	if(!wrenchable || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	lid_closed = !lid_closed
@@ -285,13 +285,13 @@
 	if(self_sustaining)
 		if(istype(src, /obj/machinery/hydroponics/soil))
 			color = rgb(255, 175, 0)
-		set_light(3)
+		set_light(3, l_on = TRUE)
 	else
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
 			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
+			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color, l_on = TRUE)
 		else
-			set_light(0)
+			set_light_on(FALSE)
 
 	update_icon()
 
@@ -777,7 +777,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
+		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
@@ -816,7 +816,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -873,7 +873,7 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
+		attempt_harvest(user)
 		var/obj/item/storage/bag/plants/S = O
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
@@ -886,7 +886,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 25 * O.toolspeed * gettoolspeedmod(user), target = src) || (!myseed && !weedlevel))
+		if(!do_after(user, 2.5 SECONDS * O.toolspeed * gettoolspeedmod(user), src) || (!myseed && !weedlevel))
 			return
 		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
@@ -933,7 +933,7 @@
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(anchored)
 					return
-				anchored = TRUE
+				set_anchored(TRUE)
 				user.visible_message("[user] wrenches [src] into place.", \
 									"<span class='notice'>You wrench [src] in place.</span>")
 		else if(anchored)
@@ -942,13 +942,11 @@
 			if(I.use_tool(src, user, 20, volume = I.tool_volume))
 				if(!anchored)
 					return
-				anchored = FALSE
+				set_anchored(FALSE)
 				user.visible_message("[user] unwrenches [src].", \
 									"<span class='notice'>You unwrench [src].</span>")
 
-/obj/machinery/hydroponics/attack_hand(mob/user)
-	if(issilicon(user)) //How does AI know what plant is?
-		return
+/obj/machinery/hydroponics/proc/attempt_harvest(mob/user)
 	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
@@ -965,6 +963,12 @@
 		plant_hud_set_health()
 	else
 		examine(user)
+
+/obj/machinery/hydroponics/attack_hand(mob/user)
+	if(issilicon(user) && !istype(user.get_active_hand(), /obj/item/gripper))
+		return
+
+	attempt_harvest(user)
 
 /obj/machinery/hydroponics/proc/update_tray(mob/user = usr)
 	harvest = 0
@@ -1043,7 +1047,7 @@
 	name = "soil"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
-	density = 0
+	density = FALSE
 	use_power = NO_POWER_USE
 	wrenchable = 0
 

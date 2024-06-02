@@ -11,7 +11,7 @@
     name = "Shaved"
     icon_state = "bald"
     gender = NEUTER
-    species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
+    species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_VOX, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_GREY, SPECIES_VULPKANIN, SPECIES_SLIMEPERSON)
 
 /datum/sprite_accessory/facial_hair/watson
 	name = "Watson Mustache"
@@ -52,7 +52,7 @@
 /datum/sprite_accessory/facial_hair/elvis
 	name = "Elvis Sideburns"
 	icon_state = "elvis"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/facial_hair/abe
 	name = "Abraham Lincoln Beard"
@@ -141,6 +141,38 @@
 /datum/sprite_accessory/facial_hair/anchor
 	name = "Anchor"
 	icon_state = "anchor"
+
+/datum/sprite_accessory/facial_hair/massive
+	name = "Massive chinstrape"
+	icon_state = "massive_chinstrape_beard"
+
+/datum/sprite_accessory/facial_hair/flowing_fork
+	name = "Flowing fork"
+	icon_state = "fork_beard"
+
+/datum/sprite_accessory/facial_hair/mighty
+	name = "Mighty pelt"
+	icon_state = "mighty_pelt_beard"
+
+/datum/sprite_accessory/facial_hair/mighty_splited
+	name = "Mighty splited"
+	icon_state = "mighty_splited_beard"
+
+/datum/sprite_accessory/facial_hair/tremendous
+	name = "Tremendous wave"
+	icon_state = "tremendous_wave_beard"
+
+/datum/sprite_accessory/facial_hair/triple_trouble
+	name = "Triple Trouble"
+	icon_state = "triple_trouble_beard"
+
+/datum/sprite_accessory/facial_hair/curly_mustache
+	name = "Curly"
+	icon_state = "curly_mustache"
+
+/datum/sprite_accessory/facial_hair/dropy_crest
+	name = "Dropy Crest"
+	icon_state = "dropy_crest_mustache"
 
 //////////////////////////////
 //////START VG HAIRSTYLES/////

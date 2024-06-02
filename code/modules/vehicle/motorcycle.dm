@@ -13,14 +13,15 @@
 	. = ..()
 	bikecover = mutable_appearance(icon, "motorcycle_overlay_4d", ABOVE_MOB_LAYER)
 
-/obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
-	add_overlay(bikecover)
-	return ..()
 
-/obj/vehicle/motorcycle/post_unbuckle_mob(mob/living/M)
-	if(!has_buckled_mobs())
-		cut_overlay(bikecover)
-	return ..()
+/obj/vehicle/motorcycle/post_buckle_mob(mob/living/target)
+	. = ..()
+	add_overlay(bikecover)
+
+
+/obj/vehicle/motorcycle/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	cut_overlay(bikecover)
 
 
 /obj/vehicle/motorcycle/handle_vehicle_layer()

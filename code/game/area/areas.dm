@@ -31,7 +31,11 @@
 	var/static_light = 0
 	var/static_environ = 0
 
-	var/has_gravity = TRUE
+	/// Whether this area has a gravity by default.
+	var/has_gravity = FALSE
+	/// If `TRUE` this area will skip gravity generator's effect in its Z-level.
+	var/ignore_gravgen = FALSE
+
 	var/list/apc = list()
 	var/no_air = null
 
@@ -83,6 +87,10 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
+	var/datum/map_generator/cave_generator/map_generator
+
+	var/area_flags = 0
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -97,6 +105,12 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
+	if(use_starlight && CONFIG_GET(flag/starlight))
+		static_lighting = FALSE
+		base_lighting_alpha = 255
+		base_lighting_color = COLOR_WHITE
+
+
 	if(requires_power)
 		luminosity = 0
 	else
@@ -104,22 +118,17 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+		if(static_lighting)
 			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
-	if(!IS_DYNAMIC_LIGHTING(src))
-		add_overlay(/obj/effect/fullbright)
+	if(!static_lighting)
+		blend_mode = BLEND_MULTIPLY
 
 	reg_in_areas_in_z()
+
+	update_base_lighting()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -150,6 +159,29 @@
 		cameras += C
 	return cameras
 
+/// Generate turfs, including cool cave wall gen
+/area/proc/RunTerrainGeneration()
+	if(map_generator)
+		map_generator = new map_generator()
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
+
+/// Populate the previously generated terrain with mobs and objects
+/area/proc/RunTerrainPopulation()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.populate_terrain(turfs, src)
+
+/area/proc/test_gen()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/air_doors_close()
 	if(air_doors_activated)
@@ -245,7 +277,7 @@
 	if(!firedoors)
 		return
 	firedoors_last_closed_on = world.time
-	for(var/obj/machinery/door/firedoor/firedoor in firedoors)
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
 		if(!firedoor.is_operational())
 			continue
 		var/valid = TRUE
@@ -284,9 +316,6 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -309,9 +338,6 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -370,7 +396,8 @@
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -382,7 +409,8 @@
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -450,21 +478,21 @@
 			used += used_environ
 		if(TOTAL)
 			used += used_light + used_equip + used_environ
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			used += static_equip
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			used += static_light
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			used += static_environ
 	return used
 
 /area/proc/addStaticPower(value, powerchannel)
 	switch(powerchannel)
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			static_equip += value
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			static_light += value
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			static_environ += value
 
 /area/proc/clear_usage()
@@ -517,12 +545,6 @@
 		return
 
 	var/mob/living/arrived_living = arrived
-	if(!arrived_living.ckey)
-		return
-
-	if(!oldarea.has_gravity && newarea.has_gravity && arrived_living.m_intent == MOVE_INTENT_RUN) // Being ready when you change areas gives you a chance to avoid falling all together.
-		thunk(arrived_living)
-
 	if(!arrived_living.client)
 		return
 
@@ -541,54 +563,13 @@
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
-/area/proc/gravitychange(gravitystate = 0, area/our_area)
-	our_area.has_gravity = gravitystate
 
-	if(gravitystate)
-		for(var/mob/living/carbon/human/user in our_area)
-			thunk(user)
-
-
-/area/proc/thunk(mob/living/carbon/human/user)
-	if(!istype(user)) // Rather not have non-humans get hit with a THUNK
-		return
-
-	if(istype(user.shoes, /obj/item/clothing/shoes/magboots) && (user.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
-		return
-
-	if(user.dna.species.spec_thunk(user)) //Species level thunk overrides
-		return
-
-	if(user.buckled) //Can't fall down if you are buckled
-		return
-
-	if(isspaceturf(get_turf(user))) // Can't fall onto nothing.
-		return
-
-	if(user.m_intent == MOVE_INTENT_RUN)
-		user.Weaken(10 SECONDS)
-	else
-		user.Weaken(4 SECONDS)
-
-	to_chat(user, "Gravity!")
-
-
-/proc/has_gravity(atom/our_atom, turf/our_turf)
-	if(!our_turf)
-		our_turf = get_turf(our_atom)
-
-	var/area/our_area = get_area(our_turf)
-
-	if(isspaceturf(our_turf)) // Turf never has gravity
-		return FALSE
-	else if(our_area?.has_gravity) // Areas which always has gravity
-		return TRUE
-	else
-		// There's a gravity generator on our z level
-		// This would do well when integrated with the z level manager
-		if(our_turf && GLOB.gravity_generators["[our_turf.z]"] && length(GLOB.gravity_generators["[our_turf.z]"]))
-			return TRUE
-	return FALSE
+/area/proc/gravitychange()
+	for(var/mob/living/carbon/human/user in src)
+		var/prev_gravity = user.gravity_state
+		user.refresh_gravity()
+		if(!prev_gravity && user.gravity_state)
+			user.thunk()
 
 
 /area/proc/prison_break()

@@ -14,10 +14,12 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
-	flags = NOSHARPENING
+	item_flags = NOSHARPENING
 	toolspeed = 1
 	light_power = 2
-	var/brightness_on = 2
+	light_range = 2
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
@@ -42,15 +44,17 @@
 /obj/item/melee/energy/update_icon_state()
 	if(!active)
 		icon_state = initial(icon_state)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(icon_state_on)
 		icon_state = icon_state_on
-		set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
+		set_light_on(TRUE)
+		set_light_color(light_color == item_color ? colormap[item_color] : null)
 	else
 		icon_state = "sword[item_color]"
-		set_light(brightness_on, l_color = colormap[item_color])
-	update_equipped_item()
+		set_light_on(TRUE)
+		set_light_color(colormap[item_color])
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
@@ -160,6 +164,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -229,7 +234,7 @@
 	. = ..()
 	if(!.) // they did not block the attack
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -287,7 +292,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'

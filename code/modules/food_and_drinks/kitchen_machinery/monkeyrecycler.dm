@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	layer = 2.9
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
 		var/grabbed = G.affecting
-		if(istype(grabbed, /mob/living/carbon/human))
+		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
 				if(target.stat == 0)

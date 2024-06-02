@@ -26,7 +26,7 @@
 			owner?.adjustStaminaLoss(20)
 		if(2)
 			owner?.adjustStaminaLoss(10)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, вызывая усталость!</span>")
+	to_chat(owner, span_userdanger("Ваш [name] выходит из строя, вызывая усталость!"))
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -61,7 +61,7 @@
 	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, бросая то что держал!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% рука выходит из строя!")
 
 /obj/item/organ/external/arm/right
@@ -85,15 +85,54 @@
 	amputation_point = "left hip"
 	convertable_children = list(/obj/item/organ/external/foot)
 
+
+/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, не давая вам встать!"))
 		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% нога выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, заставив вас упасть на пол!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, заставив вас упасть на пол!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% нога выходит из строя!")
 	switch(severity)
 		if(1)
@@ -123,15 +162,97 @@
 	amputation_point = "left ankle"
 
 
+/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_legs(owner.num_legs + 1)
+	if(is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_legs(user.num_legs - 1)
+	if(is_usable())
+		user.set_usable_legs(user.usable_legs - 1)
+	user.update_fractures_slowdown()
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.shoes, force = TRUE)
+
+
+/obj/item/organ/external/foot/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+
+/obj/item/organ/external/foot/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+
+/obj/item/organ/external/foot/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+
+/obj/item/organ/external/foot/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
 	if(owner.IsWeakened())
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, не давая вам встать!"))
 		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% ступня выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, падая на пол!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, падая на пол!"))
 		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% ступня выходит из строя!")
 	switch(severity)
 		if(1)
@@ -139,10 +260,6 @@
 		if(2)
 			owner.AdjustWeakened(4 SECONDS)
 
-/obj/item/organ/external/foot/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner?.shoes)
-		owner.drop_item_ground(owner.shoes)
-	. = ..()
 
 /obj/item/organ/external/foot/right
 	limb_zone = BODY_ZONE_PRECISE_R_FOOT
@@ -165,6 +282,61 @@
 	amputation_point = "left wrist"
 	can_grasp = TRUE
 
+
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target)
+	. = ..()
+	owner.set_num_hands(owner.num_hands + 1)
+	if(is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_hands(user.num_hands - 1)
+	if(is_usable())
+		user.set_usable_hands(user.usable_hands - 1)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.gloves, force = TRUE)
+		user.drop_item_ground(user.l_hand, force = TRUE)
+		user.drop_item_ground(user.r_hand, force = TRUE)
+
+
+/obj/item/organ/external/hand/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
+/obj/item/organ/external/hand/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1)
+
+
+/obj/item/organ/external/hand/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1)
+
+
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
@@ -172,19 +344,9 @@
 	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
+		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, dropping what it was holding!"))
 		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% предмет, %(его,её,его,их)% кисть выходит из строя!")
 
-/obj/item/organ/external/hand/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
-		if(owner.gloves)
-			owner.drop_item_ground(owner.gloves)
-		if(owner.l_hand)
-			owner.drop_item_ground(owner.l_hand, force = TRUE)
-		if(owner.r_hand)
-			owner.drop_item_ground(owner.r_hand, force = TRUE)
-
-	. = ..()
 
 /obj/item/organ/external/hand/right
 	limb_zone = BODY_ZONE_PRECISE_R_HAND
@@ -228,34 +390,32 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+
 /obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
+	if(owner && special == ORGAN_MANIPULATION_DEFAULT)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
+		get_icon()
 		name = "[dna.real_name]'s head"
-		if(owner.glasses)
-			owner.drop_item_ground(owner.glasses)
-		if(owner.head)
-			owner.drop_item_ground(owner.head)
-		if(owner.l_ear)
-			owner.drop_item_ground(owner.l_ear)
-		if(owner.r_ear)
-			owner.drop_item_ground(owner.r_ear)
-		if(owner.wear_mask)
-			owner.drop_item_ground(owner.wear_mask)
+		owner.drop_item_ground(owner.head, force = TRUE)
+		owner.drop_item_ground(owner.wear_mask, force = TRUE)
+		owner.drop_item_ground(owner.glasses, force = TRUE)
+		owner.drop_item_ground(owner.l_ear, force = TRUE)
+		owner.drop_item_ground(owner.r_ear, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
 	. = ..()
 
-/obj/item/organ/external/head/replaced()
+
+/obj/item/organ/external/head/replaced(mob/living/carbon/human/target)
 	name = limb_zone
-	..()
+	. = ..()
 
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
-	..()
+	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
 
@@ -264,11 +424,11 @@
 	. = ..()
 	if(in_range(user, src) || istype(user, /mob/dead/observer))
 		if(!contents.len)
-			. += "<span class='notice'>Выглядит пустой.</span>"
+			. += span_notice("Выглядит пустой.")
 		else
-			. += "<span class='notice'>Выглядит относительно целой, внутри что-то есть.</span>"
+			. += span_notice("Выглядит относительно целой, внутри что-то есть.")
 	else
-		. += "<span class='notice'>Вы должны подойти ближе, чтобы осмотреть это.</span>"
+		. += span_notice("Вы должны подойти ближе, чтобы осмотреть это.")
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
@@ -299,7 +459,7 @@
 			owner.AdjustConfused(60 SECONDS)
 		if(2)
 			owner.AdjustConfused(40 SECONDS)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
+	to_chat(owner, span_userdanger("Ваш [name] выходит из строя, перегружая ваше управление!"))
 
 /obj/item/organ/external/tail
 	limb_zone = BODY_ZONE_TAIL

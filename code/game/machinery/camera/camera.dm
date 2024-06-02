@@ -40,7 +40,7 @@
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = TRUE
+	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 	GLOB.cameranet.cameras += src
@@ -84,7 +84,7 @@
 	if(!isEmpProof())
 		if(prob(150/severity))
 			stat |= EMPED
-			set_light(0)
+			set_light_on(FALSE)
 			update_icon(UPDATE_ICON_STATE)
 
 			GLOB.cameranet.removeCamera(src)
@@ -145,7 +145,7 @@
 			P.use(1)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
+	else if(isprox(I) && panel_open)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
@@ -158,7 +158,7 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
 		if (!can_use())
 			to_chat(user, span_warning("You can't show something to a disabled camera!"))
 			return
@@ -241,13 +241,13 @@
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status && !(flags & NODECONSTRUCT))
+	if(status && !(obj_flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			if(!assembly)
 				assembly = new()
@@ -282,11 +282,13 @@
 		else
 			myArea = null
 	else
-		set_light(0)
+		set_light_on(FALSE)
 		GLOB.cameranet.removeCamera(src)
 		if(isarea(myArea))
 			LAZYREMOVE(myArea.cameras, UID())
-	GLOB.cameranet.updateChunk(x, y, z)
+	// We are not guarenteed that the camera will be on a turf. account for that
+	var/turf/our_turf = get_turf(src)
+	GLOB.cameranet.updateChunk(our_turf.x, our_turf.y, our_turf.z)
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
@@ -334,10 +336,31 @@
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
 	var/turf/pos = get_turf(src)
+	var/turf/directly_above = GET_TURF_ABOVE(pos)
+	var/check_lower = pos != get_lowest_turf(pos)
+	var/check_higher = directly_above && directly_above.transparent_floor && (pos != get_highest_turf(pos))
+
 	if(isXRay())
 		see = range(view_range, pos)
 	else
 		see = hear(view_range, pos)
+	if(check_lower || check_higher)
+		for(var/turf/seen in see)
+			if(check_lower)
+				var/turf/visible = seen
+				while(visible && visible.transparent_floor)
+					var/turf/below = GET_TURF_BELOW(visible)
+					for(var/turf/adjacent in range(1, below))
+						see += adjacent
+						see += adjacent.contents
+					visible = below
+			if(check_higher)
+				var/turf/above = GET_TURF_ABOVE(seen)
+				while(above && above.transparent_floor)
+					for(var/turf/adjacent in range(1, above))
+						see += adjacent
+						see += adjacent.contents
+					above = GET_TURF_ABOVE(above)
 	return see
 
 /obj/machinery/camera/proc/update_computers_watched_by()
@@ -382,7 +405,7 @@
 			if(cam == src)
 				return
 	if(on)
-		set_light(AI_CAMERA_LUMINOSITY)
+		set_light(AI_CAMERA_LUMINOSITY, l_on = TRUE)
 	else
 		set_light(0)
 
@@ -404,16 +427,16 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))
-		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		user.see_in_dark = max(user.see_in_dark, 8)
+		user.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		user.nightvision = max(user.nightvision, 8)
 		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		user.sight = initial(user.sight)
-		user.see_in_dark = initial(user.see_in_dark)
+		user.set_sight(initial(user.sight))
+		user.nightvision = initial(user.nightvision)
 		user.lighting_alpha = initial(user.lighting_alpha)
 
 	..()
@@ -425,10 +448,13 @@
 /obj/machinery/camera/portable/Initialize(mapload)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = FALSE
+	assembly.set_anchored(FALSE)
 	assembly.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
 	if(GLOB.cameranet && get_turf(src) != prev_turf)
 		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)
+
+/obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
+	return

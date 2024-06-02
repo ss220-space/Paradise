@@ -59,10 +59,8 @@
 		if(AM in T.affecting)
 			return
 
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = FALSE
+	if(immobilize)
+		ADD_TRAIT(AM, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 
 	affecting.Add(AM)
 	while(AM && !stopthrow)
@@ -91,11 +89,9 @@
 
 
 	affecting.Remove(AM)
+	if(immobilize)
+		REMOVE_TRAIT(AM, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = TRUE
 
 /* Stops things thrown by a thrower, doesn't do anything */
 

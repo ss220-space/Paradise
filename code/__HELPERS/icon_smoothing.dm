@@ -51,7 +51,6 @@
 /atom/var/bottom_left_corner
 /atom/var/bottom_right_corner
 /atom/var/list/canSmoothWith = null // TYPE PATHS I CAN SMOOTH WITH~~~~~ If this is null and atom is smooth, it smooths only with itself
-/atom/movable/var/can_be_unanchored = FALSE
 /turf/var/list/fixed_underlay = null
 
 /proc/calculate_adjacencies(atom/A)
@@ -153,13 +152,13 @@
 /turf/simulated/wall/diagonal_smooth(adjacencies)
 	adjacencies = reverse_ndir(..())
 	if(adjacencies)
-		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
+		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
 		var/list/U = list(underlay_appearance)
 		if(fixed_underlay)
 			if(fixed_underlay["space"])
 				underlay_appearance.icon = 'icons/turf/space.dmi'
 				underlay_appearance.icon_state = SPACE_ICON_STATE
-				underlay_appearance.plane = PLANE_SPACE
+				SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 			else
 				underlay_appearance.icon = fixed_underlay["icon"]
 				underlay_appearance.icon_state = fixed_underlay["icon_state"]
@@ -328,8 +327,8 @@
 	O += sw
 	bottom_right_corner = se
 	O += se
-	add_overlay(O)
 
+	add_overlay(O)
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)

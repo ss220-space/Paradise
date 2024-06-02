@@ -44,18 +44,18 @@
 
 /obj/structure/railing/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		var/obj/item/stack/rods/stack = new buildstacktype(loc, buildstackamount)
 		transfer_fingerprints_to(stack)
 	..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
-		anchored = !anchored
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -64,12 +64,9 @@
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
-	if(. || mover.throwing || isprojectile(mover))
+	if(. || mover.throwing || isprojectile(mover) || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
-	var/mob/mob_mover = mover
-	if(istype(mob_mover) && mob_mover.flying)
-		return TRUE
-	if(border_dir == dir)
+	if(dir & border_dir)
 		return !density
 	return TRUE
 
@@ -90,14 +87,13 @@
 		return TRUE
 	if(isprojectile(mover))
 		return TRUE
-	var/mob/mob_mover = mover
-	if(istype(mob_mover) && mob_mover.flying)
+	if(mover.movement_type & (PHASING|MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
 	if(mover.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
 		return TRUE
 	if(currently_climbed)
 		return TRUE
-	if(dir == moving_direction)
+	if(dir & moving_direction)
 		return FALSE
 
 
@@ -131,10 +127,10 @@
 	add_fingerprint(user)
 
 /obj/structure/railing/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
@@ -164,7 +160,7 @@
 	icon_state = "railing_wood"
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
-	can_be_unanchored = 1
+	can_be_unanchored = TRUE
 	flags = ON_BORDER
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
@@ -180,6 +176,9 @@
 /obj/structure/railing/wooden/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
@@ -192,7 +191,7 @@
 
 /obj/structure/railing/wooden/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))

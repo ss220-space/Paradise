@@ -160,12 +160,12 @@
 
 /obj/machinery/brs_portable_scanner/proc/brs_light_update()
 	if(scanning_status == SCAN_NORMAL)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 		return
 	if(scanning_status == SCAN_CRITICAL)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
-	set_light(0)
+	set_light_on(FALSE)
 
 
 /obj/machinery/brs_portable_scanner/power_change(forced = FALSE)
@@ -239,15 +239,13 @@
 			if(scanner == src)
 				continue
 			if(scanner.anchored)
-				anchored = FALSE
+				set_anchored(FALSE)
 				update_icon(UPDATE_ICON_STATE)
 				return
 
 	// Update density
-	if(anchored)
-		density = TRUE
-	else
-		density = FALSE
+	set_density(anchored)
+
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE

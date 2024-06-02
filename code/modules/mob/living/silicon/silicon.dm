@@ -1,6 +1,5 @@
 /mob/living/silicon
 	gender = NEUTER
-	robot_talk_understand = 1
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
@@ -194,10 +193,9 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+/mob/living/silicon/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
 	. = ..()
-
-	if(. && inventory_head)
+	if(. == VENTCRAWL_IN_SUCCESS && inventory_head)
 		drop_hat()
 		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
@@ -389,7 +387,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -402,3 +400,32 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	return TRUE
+
+
+/mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
+	return FALSE
+
+
+/mob/living/silicon/on_handsblocked_start()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_handsblocked_end()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
+

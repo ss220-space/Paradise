@@ -17,7 +17,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
@@ -118,7 +118,7 @@
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
-	if((blocked != 100) && istype(target, /mob/living))
+	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
 		L.SetSleeping(40 SECONDS)
 

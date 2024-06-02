@@ -6,7 +6,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
-	department_head = list("Nanotrasen Navy Officer")
+	department_head = list(JOB_TITLE_CCOFFICER)
 	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
@@ -65,7 +65,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
@@ -76,14 +76,14 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
-			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	money_factor = 9
 	outfit = /datum/outfit/job/hop
@@ -110,13 +110,13 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 
 /datum/job/nanotrasenrep
-	title = JOB_TITLE_NANO
-	flag = JOB_FLAG_NANO
+	title = JOB_TITLE_REPRESENTATIVE
+	flag = JOB_FLAG_REPRESENTATIVE
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the command staff"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
@@ -166,7 +166,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#d1deff"
 	req_admin_notify = 1
 	is_command = 1
@@ -220,7 +220,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#edccd7"
 	req_admin_notify = 1
 	is_legal = 1
@@ -252,7 +252,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	l_pocket = /obj/item/flash
-	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -273,7 +273,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	spawn_positions = 2
 	is_legal = 1
 	supervisors = "the magistrate"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
@@ -295,7 +295,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/iaa
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
 	backpack_contents = list(

@@ -15,7 +15,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
-	var/level = level_name_to_num(MAIN_STATION)
+	var/level = pick(levels_by_trait(STATION_LEVEL))
 	var/turf/startT = spaceDebrisStartLoc(startside, level)
 	var/turf/endT = spaceDebrisFinishLoc(startside, level)
 	new /obj/effect/immovablerod/event(startT, endT)
@@ -26,7 +26,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "immrod"
 	throwforce = 100
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/z_original = 0
 	var/destination
@@ -75,12 +75,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		x = clong.x
 		y = clong.y
 
-	if(istype(clong, /turf) || istype(clong, /obj))
+	if(istype(clong, /turf) || isobj(clong))
 		if(clong.density)
 			clong.ex_act(2)
 
 	else if(istype(clong, /mob))
-		if(istype(clong, /mob/living/carbon/human))
+		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
 			H.visible_message("<span class='danger'>[H.name] пронизан незыблемым стержнем!</span>" , "<span class='userdanger'>Стержень пронзает тебя!</span>" , "<span class ='danger'>Вы слышите ЛЯЗГ!</span>")
 			H.adjustBruteLoss(160)

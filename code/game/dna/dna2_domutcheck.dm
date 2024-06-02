@@ -1,67 +1,114 @@
-// (Re-)Apply mutations.
-// TODO: Turn into a /mob proc, change inj to a bitflag for various forms of differing behavior.
-// M: Mob to mess with
-// connected: Machine we're in, type unchecked so I doubt it's used beyond monkeying
-// flags: See below, bitfield.
-/proc/domutcheck(mob/living/M, connected = null, flags = 0)
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!M || !M.dna)
-			return
-		if(!gene.block)
-			continue
-
-		domutation(gene, M, connected, flags)
-
-// Use this to force a mut check on a single gene!
-/proc/genemutcheck(mob/living/M, block, connected = null, flags = 0)
-	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			return
-	if(!M)
-		return
-	if(block < 0)
-		return
-
-	var/datum/dna/gene/gene = GLOB.assigned_gene_blocks[block]
-	domutation(gene, M, connected, flags)
+/**
+ * Checks all mob genes and activates/deactivates them
+ * depending on current block bounds.
+ *
+ * Arguments:
+ * * flags - flags to consider
+ */
+/mob/proc/check_genes(flags = NONE)
+	return
 
 
-/proc/domutation(datum/dna/gene/gene, mob/living/M, connected = null, flags = 0)
-	if(!gene || !istype(gene))
+/mob/living/carbon/human/check_genes(flags = NONE)	// only humans have the DNA now, subject to change later
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		update_gene_status(gene, flags)
+
+
+/**
+ * Checks provided DNA block and activates/deactivates it
+ * depending on current block bounds.
+ *
+ * Arguments:
+ * * block - block to check
+ * * flags - flags to consider
+ *
+ * Returns TRUE if any changes were made, FALSE otherwise
+ */
+/mob/proc/check_gene_block(block, flags = NONE)
+	return FALSE
+
+
+/mob/living/carbon/human/check_gene_block(block, flags = NONE)
+	return update_gene_status(GLOB.assigned_gene_blocks[block], flags)
+
+
+/**
+ * Actual meat of gene buisness
+ *
+ * Arguments:
+ * * gene - passed gene to check
+ * * flags - flags to consider
+ *
+ * Returns TRUE if any changes were made, FALSE otherwise
+ */
+/mob/living/carbon/human/proc/update_gene_status(datum/dna/gene/gene, flags = NONE)
+	// If human mob has no DNA its better runtime to tell us,
+	// since its involves some hacky code elsewhere
+	if(!dna)
+		CRASH("Mob [real_name] has no DNA assigned.")
+
+	var/datum/species/our_species = dna.species
+	// Another stuff that should never happen
+	if(!our_species)
+		CRASH("Mob [real_name] somehow has a DNA, but no species assigned.")
+
+	if((NO_DNA in our_species.species_traits))
 		return FALSE
 
-	// Current state
-	var/gene_active = M.dna.GetSEState(gene.block)
+	// Is our gene in activation bounds?
+	var/gene_in_bounds = dna.GetSEState(gene.block)
+	// Is our gene currently active?
+	var/gene_is_active = gene.is_active(src)
 
-	// Sanity checks, don't skip.
-	if(!gene.can_activate(M,flags) && gene_active)
-		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
+	// Stops mutating inherent species abilities,
+	// but allows us to activate them in the first place
+	if(gene_is_active && !(flags & MUTCHK_IGNORE_DEFAULT) && LAZYIN(our_species.default_genes, gene.type))
 		return FALSE
 
-	var/defaultgenes // Do not mutate inherent species abilities
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		defaultgenes = H.dna.species.default_genes
+	// Gene is in bounds but not active currently
+	if(gene_in_bounds && !gene_is_active)
+		// If our gene should be activated, we need to check for conditions
+		if(!gene.can_activate(src, flags))
+			return FALSE
+		// Some procs have sleeps in them, like monkafication
+		INVOKE_ASYNC(gene, TYPE_PROC_REF(/datum/dna/gene, activate), src, flags)
+		return TRUE
 
-		if((gene in defaultgenes) && gene_active)
-			return
+	// Same with deactivation stuff
+	if(!gene_in_bounds && gene_is_active)
+		if(!gene.can_deactivate(src, flags))
+			return FALSE
+		INVOKE_ASYNC(gene, TYPE_PROC_REF(/datum/dna/gene, deactivate), src, flags)
+		return TRUE
 
-	// Prior state
-	var/gene_prior_status = (gene.type in M.active_genes)
-	var/changed = gene_active != gene_prior_status
+	return FALSE
 
-	// If gene state has changed:
-	if(changed)
-		// Gene active (or ALWAYS ACTIVATE)
-		if(gene_active)
-			//testing("[gene.name] activated!")
-			gene.activate(M,connected,flags)
-			if(M)
-				M.active_genes |= gene.type
-		// If Gene is NOT active:
+
+/**
+ * Helper for the most used case of activation/deactivation of the single gene.
+ * Gene variable (`/datum/dna/var/default_genes`) is NOT the same as species variable (`/datum/species/var/default_genes`).
+ * Gene variable is used to mark roundstart genes, and its function is to prevent mutadone from reseting this gene currently.
+ * Species variable is used to prevent gene deactivation, unless MUTCHK_IGNORE_DEFAULT flag is present.
+ *
+ * Arguments:
+ * * block - block to manipulate with.
+ * * activate - `TRUE` for activate, `FALSE` for deactivate.
+ * * update_default_status - whether to add/removes this block in/from `gene default_genes` variable.
+ * * ignore_species_default - if `TRUE` gene will be always removed, even if it belongs to `species default_genes` variable.
+ */
+/mob/proc/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
+	return
+
+
+/mob/living/carbon/human/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
+	var/force_flags = MUTCHK_FORCED
+	if(ignore_species_default)
+		force_flags |= MUTCHK_IGNORE_DEFAULT
+	dna.SetSEState(block, activate, TRUE)
+	check_gene_block(block, force_flags)
+	if(update_default_status)
+		if(activate)
+			LAZYOR(dna.default_blocks, block)
 		else
-			//testing("[gene.name] deactivated!")
-			gene.deactivate(M,connected,flags)
-			if(M)
-				M.active_genes -= gene.type
+			LAZYREMOVE(dna.default_blocks, block)
+

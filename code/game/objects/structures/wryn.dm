@@ -40,13 +40,14 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/wryn/wax/CanAtmosPass()
+/obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
 	desc = "Thick wax solidified into a wall."
 	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/wryn/wax/window
 	name = "wax window"
@@ -70,6 +71,7 @@
 	max_integrity = 10
 	var/current_dir
 	var/static/list/floorImageCache
+	obj_flags = BLOCK_Z_OUT_DOWN
 
 
 /obj/structure/wryn/floor/update_overlays()

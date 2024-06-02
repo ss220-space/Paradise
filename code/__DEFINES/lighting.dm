@@ -1,3 +1,15 @@
+///Object doesn't use any of the light systems. Should be changed to add a light source to the object.
+#define NO_LIGHT_SUPPORT 0
+///Light made with the lighting datums, applying a matrix.
+#define STATIC_LIGHT 1
+///Light made by masking the lighting darkness plane.
+#define MOVABLE_LIGHT 2
+///Light made by masking the lighting darkness plane, and is directional.
+#define MOVABLE_LIGHT_DIRECTIONAL 3
+
+///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
+#define LIGHT_ATTACHED (1<<0)
+
 //Bay lighting engine shit, not in /code/modules/lighting because BYOND is being shit about it
 #define LIGHTING_INTERVAL       5 // frequency, in 1/10ths of a second, of the lighting process
 
@@ -74,13 +86,6 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE 192
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
-
-//lighting area defines
-#define DYNAMIC_LIGHTING_DISABLED 0 //dynamic lighting disabled (area stays at full brightness)
-#define DYNAMIC_LIGHTING_ENABLED 1 //dynamic lighting enabled
-#define DYNAMIC_LIGHTING_FORCED 2 //dynamic lighting enabled even if the area doesn't require power
-#define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //dynamic lighting enabled only if starlight is.
-#define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
 
 
 //code assumes higher numbers override lower numbers.

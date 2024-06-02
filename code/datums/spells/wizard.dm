@@ -309,7 +309,7 @@
 
 /obj/effect/proc_holder/spell/trigger/blind
 	name = "Blind"
-	desc = "This spell temporarily blinds a single person and does not require wizard garb."
+	desc = "This spell temporarily blinds people near you and does not require wizard garb."
 	school = "transmutation"
 	action_icon_state = "blind"
 	clothes_req = FALSE
@@ -327,19 +327,17 @@
 
 
 /obj/effect/proc_holder/spell/trigger/blind/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
+	var/datum/spell_targeting/aoe/T = new()
 	T.allowed_type = /mob/living
 	return T
 
 
 /obj/effect/proc_holder/spell/inflict_handler/blind
-	amt_eye_blind = 10
-	amt_eye_blurry = 20
+	amt_eye_blind = 10 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
 
-/obj/effect/proc_holder/spell/genetic/blind
-	duration = 30 SECONDS
+/obj/effect/proc_holder/spell/genetic/blind // 10 sec
 	sound = 'sound/magic/blind.ogg'
 
 

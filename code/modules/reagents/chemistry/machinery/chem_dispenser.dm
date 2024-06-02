@@ -75,7 +75,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -251,9 +251,6 @@
 		SStgui.update_uis(src)
 		return
 
-	if(isrobot(user))
-		return
-
 	if(beaker)
 		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
 		return
@@ -321,12 +318,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	set_anchored(!anchored)
 	if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	else if(!anchored)
-		anchored = TRUE
 		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)
@@ -486,7 +482,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
 	var/mode = "dispense"
@@ -623,13 +619,11 @@
 		. += chamber_contents
 
 
-/obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
-	if(isrobot(loc) && cell.charge < cell.maxcharge)
+/obj/item/handheld_chem_dispenser/process()
+	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge > recharge_rate / efficiency)
-			var/actual = min(recharge_rate / efficiency, cell.maxcharge - cell.charge)
-			R.cell.charge -= actual
-			cell.charge += actual
+		if(R && R.cell && R.cell.charge && (R.cell != cell))
+			cell = R.cell //Use robot's power source.
 
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE

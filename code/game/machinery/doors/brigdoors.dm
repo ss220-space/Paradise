@@ -16,7 +16,7 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
-	density = 0       		// can walk through it.
+	density = FALSE       		// can walk through it.
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
 	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
@@ -195,7 +195,7 @@
 		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
 		if(length(disp2) > DISPLAY_CHARS_PER_LINE)
 			disp2 = "Error"
-		var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_SIZE]';text-align:center;" valign="top">[uppertext(disp1)]<br>[uppertext(disp2)]</div>"}
+		var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[uppertext(disp1)]<br>[uppertext(disp2)]</div>"}
 		if(maptext != new_text)
 			maptext = new_text
 	else if(maptext)

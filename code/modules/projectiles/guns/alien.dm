@@ -36,7 +36,7 @@
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
-	if((blocked != 100) && istype(target, /mob/living/carbon/human))
+	if((blocked != 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(50)
 	..()
@@ -52,7 +52,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
-	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
+	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
 
 
 /obj/item/gun/energy/noisecannon/update_icon_state()

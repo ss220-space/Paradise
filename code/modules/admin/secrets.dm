@@ -38,6 +38,8 @@
 						<A href='?src=[UID()];secretsfun=power'>Make all areas powered</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsfun=unpower'>Make all areas unpowered</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsfun=quickpower'>Power all SMES</A><BR>
+						<B>Global Gravity State</B><BR>
+						<A href='?src=[UID()];secretsfun=gravity'>Currently: [isnull(GLOB.gravity_is_on) ? "Default Handling" : GLOB.gravity_is_on ? "ON" : "OFF"]</A><BR>
 						</center>
 					"}
 

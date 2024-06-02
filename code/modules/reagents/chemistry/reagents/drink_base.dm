@@ -22,8 +22,8 @@
 		M.AdjustSleeping(adj_sleepy)
 	if(adj_temp_hot)
 		if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-			M.bodytemperature = min(310, M.bodytemperature + (adj_temp_hot * TEMPERATURE_DAMAGE_COEFFICIENT))
+			M.adjust_bodytemperature(adj_temp_hot * TEMPERATURE_DAMAGE_COEFFICIENT)
 	if(adj_temp_cool)
 		if(M.bodytemperature > 310)//310 is the normal bodytemp. 310.055
-			M.bodytemperature = max(310, M.bodytemperature - (adj_temp_cool * TEMPERATURE_DAMAGE_COEFFICIENT))
+			M.adjust_bodytemperature(-(adj_temp_cool * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..() | update_flags

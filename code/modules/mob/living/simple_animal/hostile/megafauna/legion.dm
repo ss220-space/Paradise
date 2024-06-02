@@ -56,9 +56,12 @@ Difficulty: Medium
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
 
+
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
 	transform *= 2
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
@@ -119,7 +122,7 @@ Difficulty: Medium
 			retreat_distance = 0
 			minimum_distance = 0
 			move_to_delay = 2
-			speed = 0
+			set_varspeed(0)
 			charging = 1
 			ranged_cooldown = world.time + 3 SECONDS
 			SLEEP_CHECK_DEATH(3 SECONDS)
@@ -206,18 +209,15 @@ Difficulty: Medium
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
-/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
-	return 1
+/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(QDELETED(src))
 		return
 	if(.)
-		var/matrix/M = new
-		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
-		M.Scale(resize, resize)
-		transform = M
+		update_transform((enraged ? 0.33 : 1) + (health / maxHealth))
 		if(amount > 0 && (enraged || prob(33)))
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
 			if(enraged)

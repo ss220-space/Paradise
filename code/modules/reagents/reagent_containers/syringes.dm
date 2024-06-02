@@ -31,12 +31,12 @@
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/pickup(mob/user)
+/obj/item/reagent_containers/syringe/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/syringe/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	update_icon()
 
 /obj/item/reagent_containers/syringe/attack_self(mob/user)
@@ -79,7 +79,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
 					busy = TRUE
-					if(!do_mob(user, target))
+					if(!do_after(user, 3 SECONDS, target, NONE))
 						busy = FALSE
 						return
 					if(reagents.holder_full())
@@ -125,7 +125,7 @@
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_mob(user, L))
+					if(!do_after(user, 3 SECONDS, L, NONE))
 						return
 					if(!reagents.total_volume)
 						return
@@ -167,7 +167,7 @@
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
-	if(ismob(loc))
+	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
 		switch(mode)
 			if(SYRINGE_DRAW)
@@ -175,7 +175,7 @@
 			if(SYRINGE_INJECT)
 				injoverlay = "inject"
 		. += injoverlay
-		update_equipped_item()
+		update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/reagent_containers/syringe/antiviral

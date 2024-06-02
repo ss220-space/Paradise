@@ -11,11 +11,14 @@
 	and produces a calming effect on the individual. Nucleations are highly stigmatized, and are treated much in the same \
 	way as lepers were back on Earth."
 	language = LANGUAGE_SOL_COMMON
+	blood_color = "#ada776"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
 	var/touched_supermatter = FALSE
+
+	speciesbox = /obj/item/storage/box/survival_nucleation
 
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
@@ -33,15 +36,22 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
 
+
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
-	..()
-	H.light_color = "#1C1C00"
-	H.set_light(2)
+	. =..()
+	ADD_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
+	H.update_movespeed_damage_modifiers()
+	H.light_color = "#afaf21"
+	H.set_light_range(2)
+
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
+	REMOVE_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
+	H.update_movespeed_damage_modifiers()
 	H.light_color = null
-	H.set_light(0)
+	H.set_light_on(FALSE)
+
 
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")
@@ -55,6 +65,13 @@
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
+	if(H.health <= HEALTH_THRESHOLD_DEAD || !H.surgeries.len) // Needed to prevent brain gib on surgery debrain
+		death_explosion(H)
+		return
+	H.adjustBruteLoss(15)
+	H.do_jitter_animation(1000, 8)
+
+/datum/species/nucleation/proc/death_explosion(mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>Тело [H] взрывается, оставляя после себя множество микроскопических кристаллов!</span>")
 	explosion(T, 0, 0, 3, 6, cause = H) // Create a small explosion burst upon death

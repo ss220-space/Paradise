@@ -274,7 +274,7 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(istype(target, /turf/simulated/wall/r_wall))
+	if(isreinforcedwallturf(target))
 		// Too tough to pierce - should lead to interesting spread patterns
 		return
 	// Bust through windows or other stuff blocking the way
@@ -324,7 +324,7 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = TRUE
+		holder.set_density(TRUE)
 	holder.max_integrity = 100
 	holder.obj_integrity = holder.max_integrity
 
@@ -680,7 +680,7 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!istype(stepturf, /turf/space) && stepturf.Enter(src))
+			if(!isspaceturf(stepturf) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE

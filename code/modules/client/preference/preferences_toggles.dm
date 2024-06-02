@@ -190,18 +190,23 @@
 	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-/client/verb/Toggle_Parallax_Dark() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
-	set name = "Show/Hide Parallax in darkness"
+
+/client/verb/Toggle_Parallax_Multiz()
+	set name = "Show/Hide Parallax Multi-Z"
 	set category = "Preferences"
-	set desc = "If enabled, drawing parallax if you see in dark instead of black tiles."
-	prefs.toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+	set desc = "If enabled, creates 3D effect for Multi-Z."
+	prefs.toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
 	prefs.save_preferences(src)
-	if(prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
-		to_chat(src, "You will now see parallax in dark with nightvisions.")
-	else
-		to_chat(src, "You will no longer see parallax in dark with nightvisions.")
-	usr.hud_used?.update_parallax_pref()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Parallax Darkness") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	to_chat(src, "You will [prefs.toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "now" : "no longer"] see 3D effect of multi-z parallax.")
+	var/datum/hud/my_hud = usr?.hud_used
+	if(!my_hud)
+		return
+
+	for(var/group_key as anything in my_hud.master_groups)
+		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+		group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Parallax Multi-Z") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
 	set name = "Hear/Silence White Noise"

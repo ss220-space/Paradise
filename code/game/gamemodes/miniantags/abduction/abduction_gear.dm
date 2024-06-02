@@ -30,10 +30,15 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	flags ^= NODROP
+	var/prev_has = HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+	if(prev_has)
+		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+	else
+		ADD_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(ismob(loc))
-		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
+		to_chat(loc, span_notice("Your vest is now [prev_has ? "unlocked" : "locked"]."))
 
 
 /obj/item/clothing/suit/armor/abductor/vest/update_icon_state()
@@ -62,8 +67,8 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit) //we only give the mob the ability to activate the vest if he's actually wearing it.
-		return 1
+	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to activate the vest if he's actually wearing it.
+		return TRUE
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
 	disguise = entry
@@ -80,8 +85,7 @@
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		M.update_inv_hands()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -91,7 +95,6 @@
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
 		M.name_override = null
-		M.cut_overlays()
 		M.regenerate_icons()
 
 /obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -242,7 +245,7 @@
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
-	if(do_after(user, 100, target = target))
+	if(do_after(user, 10 SECONDS, target))
 		marked = target
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
@@ -288,7 +291,7 @@
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I, /obj/item/radio))
+		if(isradio(I))
 			var/obj/item/radio/R = I
 			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
 			R.emp_act(1)
@@ -429,7 +432,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -526,7 +529,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.IsStunned() || L.IsSleeping() || L.IsWeakened())
+	if(HAS_TRAIT(L, TRAIT_INCAPACITATED))
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
@@ -534,7 +537,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
 		L.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
+		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
 
@@ -542,15 +545,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
-	if(!C.handcuffed)
+	if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-		if(do_mob(user, C, 30))
+		if(do_after(user, 3 SECONDS, C, NONE))
 			if(C.handcuffed)
 				return
 
-			C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+			C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			add_attack_logs(user, C, "Handcuffed ([src])")
@@ -588,9 +591,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/restraints/handcuffs/energy/used
 	desc = "energy discharge"
-	flags = DROPDEL
+	item_flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, silent = FALSE)
+/obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
 							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
 	do_sparks(4, 0, user.loc)
@@ -611,7 +614,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/radio/headset/abductor
 	name = "alien headset"
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
-	flags = EARBANGPROTECT
+	item_flags = BANGPROTECT_MINOR
 	origin_tech = "magnets=2;abductor=3"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
@@ -696,8 +699,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "alienhelmet"
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 // Operating Table / Beds / Lockers
@@ -724,7 +726,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			P.use(1)
 			new /obj/structure/table/abductor(loc)
 			qdel(src)
@@ -735,7 +737,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			P.use(1)
 			new /obj/machinery/optable/abductor(loc)
 			qdel(src)

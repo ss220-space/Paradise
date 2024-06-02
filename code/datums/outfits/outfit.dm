@@ -44,6 +44,8 @@
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
+	if(QDELETED(I))
+		return
 	if(collect_not_del)
 		H.equip_or_collect(I, slot)
 	else
@@ -58,41 +60,41 @@
 
 	//Start with backpack,suit,uniform for additional slots
 	if(back)
-		equip_item(H, back, slot_back)
+		equip_item(H, back, ITEM_SLOT_BACK)
 	if(uniform)
-		equip_item(H, uniform, slot_w_uniform)
+		equip_item(H, uniform, ITEM_SLOT_CLOTH_INNER)
 	if(suit)
-		equip_item(H, suit, slot_wear_suit)
+		equip_item(H, suit, ITEM_SLOT_CLOTH_OUTER)
 	if(belt)
-		equip_item(H, belt, slot_belt)
+		equip_item(H, belt, ITEM_SLOT_BELT)
 	if(gloves)
-		equip_item(H, gloves, slot_gloves)
+		equip_item(H, gloves, ITEM_SLOT_GLOVES)
 	if(shoes)
-		equip_item(H, shoes, slot_shoes)
+		equip_item(H, shoes, ITEM_SLOT_FEET)
 	if(head)
-		equip_item(H, head, slot_head)
+		equip_item(H, head, ITEM_SLOT_HEAD)
 	if(mask)
-		equip_item(H, mask, slot_wear_mask)
+		equip_item(H, mask, ITEM_SLOT_MASK)
 	if(neck)
-		equip_item(H, neck, slot_neck)
+		equip_item(H, neck, ITEM_SLOT_NECK)
 	if(l_ear)
-		equip_item(H, l_ear, slot_l_ear)
+		equip_item(H, l_ear, ITEM_SLOT_EAR_LEFT)
 	if(r_ear)
-		equip_item(H, r_ear, slot_r_ear)
+		equip_item(H, r_ear, ITEM_SLOT_EAR_RIGHT)
 	if(glasses)
-		equip_item(H, glasses, slot_glasses)
+		equip_item(H, glasses, ITEM_SLOT_EYES)
 	if(id)
-		equip_item(H, id, slot_wear_id)
+		equip_item(H, id, ITEM_SLOT_ID)
 	if(suit_store)
-		equip_item(H, suit_store, slot_s_store)
+		equip_item(H, suit_store, ITEM_SLOT_SUITSTORE)
 
 	if(l_hand)
-		H.equip_to_slot_if_possible(new l_hand(H.loc), slot_l_hand, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
+		H.equip_to_slot_if_possible(new l_hand(H.loc), ITEM_SLOT_HAND_LEFT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 	if(r_hand)
-		H.equip_to_slot_if_possible(new r_hand(H.loc), slot_r_hand, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE)
+		H.equip_to_slot_if_possible(new r_hand(H.loc), ITEM_SLOT_HAND_RIGHT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 
 	if(pda)
-		equip_item(H, pda, slot_wear_pda)
+		equip_item(H, pda, ITEM_SLOT_PDA)
 
 	if(uniform)
 		for(var/path in accessories)
@@ -101,9 +103,9 @@
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			equip_item(H, l_pocket, slot_l_store)
+			equip_item(H, l_pocket, ITEM_SLOT_POCKET_LEFT)
 		if(r_pocket)
-			equip_item(H, r_pocket, slot_r_store)
+			equip_item(H, r_pocket, ITEM_SLOT_POCKET_RIGHT)
 
 		if(box)
 			if(!backpack_contents)
@@ -115,7 +117,7 @@
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
 			for(var/i in 1 to number)
-				H.equip_or_collect(new path(H), slot_in_backpack)
+				H.equip_or_collect(new path(H), ITEM_SLOT_BACKPACK)
 
 		for(var/path in cybernetic_implants)
 			new path(H)	// Just creating internal organ inside a human forcing it to call insert() proc.

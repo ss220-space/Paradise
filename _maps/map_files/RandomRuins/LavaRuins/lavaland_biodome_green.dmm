@@ -114,9 +114,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/ruin/powered/green_bio)
-"iZ" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/green_bio)
 "jG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -177,11 +174,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "nK" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet,
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "og" = (
@@ -271,9 +264,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
-"tj" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/green_bio)
 "tM" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/indestructible/grass,
@@ -358,9 +348,6 @@
 	icon_state = "white"
 	},
 /area/ruin/powered/green_bio)
-"Bb" = (
-/turf/simulated/floor/carpet,
-/area/ruin/powered/green_bio)
 "Bn" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -427,6 +414,10 @@
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
+/area/ruin/powered/green_bio)
+"Du" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "DN" = (
 /obj/structure/dresser,
@@ -587,10 +578,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "MD" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/powered/green_bio)
 "Ne" = (
 /obj/structure/window/reinforced{
@@ -633,9 +621,6 @@
 	},
 /obj/structure/railing/wooden/cornerr,
 /turf/simulated/floor/wood,
-/area/ruin/powered/green_bio)
-"Qt" = (
-/turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "QM" = (
 /obj/machinery/door/airlock/wood/glass,
@@ -722,15 +707,11 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "YL" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
 /obj/machinery/light/small{
 	dir = 8;
 	light_power = 3
 	},
+/obj/structure/closet,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "YQ" = (
@@ -1008,8 +989,8 @@ KN
 ol
 Sn
 oX
-iZ
-iZ
+Xs
+Xs
 zU
 gm
 ol
@@ -1373,7 +1354,7 @@ wV
 Xs
 Cl
 QM
-Bb
+Xs
 Cl
 KN
 ol
@@ -1407,13 +1388,13 @@ ol
 lT
 gm
 nK
-Qt
+Xs
 US
 gm
 Oy
 PE
 ol
-ol
+Du
 ol
 ol
 ol
@@ -1666,7 +1647,7 @@ ao
 ol
 gm
 BT
-tj
+Xs
 Cl
 iL
 gm
@@ -1815,7 +1796,7 @@ dB
 FN
 tM
 fN
-Bb
+Xs
 bF
 gm
 gm

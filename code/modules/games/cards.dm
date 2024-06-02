@@ -62,6 +62,22 @@
 /obj/item/deck/proc/build_deck()
 	return
 
+/obj/item/deck/afterattack(atom/target, mob/user, proximity, params)
+	if(!istype(target, /obj/item/cardhand))
+		return
+	var/success
+	for(var/obj/item/cardhand/cardhand in target.loc)
+		if(cardhand.parentdeck != src)
+			continue
+		for(var/datum/playingcard/card in cardhand.cards)
+			cards += card
+		qdel(cardhand)
+		success = TRUE
+
+	if(success)
+		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/deck/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/cardhand))
@@ -72,7 +88,7 @@
 
 		if(length(cardhand.cards) > 1)
 			var/confirm = alert("Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No" || !Adjacent(user) || user.incapacitated())
+			if(confirm == "No" || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 
 		for(var/datum/playingcard/card in cardhand.cards)
@@ -103,6 +119,7 @@
 /datum/action/item_action/draw_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
+		owner.changeNext_click(CLICK_CD_RAPID)
 		return D.draw_card(owner)
 	return ..()
 
@@ -148,7 +165,7 @@
 
 // Datum actions
 /obj/item/deck/proc/draw_card(mob/living/carbon/human/user)
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
@@ -176,7 +193,7 @@
 
 
 /obj/item/deck/proc/deal_card(mob/user = usr)
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
@@ -185,18 +202,18 @@
 
 	var/list/players = list()
 	for(var/mob/living/player in viewers(3))
-		if(!player.incapacitated())
+		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
 	var/mob/living/target = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
-	if(!user || !src || !target)
+	if(!user || !src || !target || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
 	deal_at(user, target, 1)
 
 
 /obj/item/deck/proc/deal_card_multi(mob/user = usr)
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
@@ -237,21 +254,23 @@
 	cardhand.throw_at(get_step(target,target.dir), 3, 1, cardhand)
 
 
-/obj/item/deck/attack_self()
-	deckshuffle()
+/obj/item/deck/attack_self(mob/user)
+	deckshuffle(user)
 
 
-/obj/item/deck/AltClick()
-	deckshuffle()
+/obj/item/deck/AltClick(mob/user)
+	if(Adjacent(user))
+		deckshuffle(user)
 
 
-/obj/item/deck/proc/deckshuffle()
-	var/mob/living/user = usr
-	if(cooldown < world.time - 1 SECONDS)
-		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		cooldown = world.time
+/obj/item/deck/proc/deckshuffle(mob/user)
+	if(cooldown < world.time - 1 SECONDS || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	cards = shuffle(cards)
+	user.visible_message(span_notice("[user] shuffles [src]."))
+	playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+	cooldown = world.time
 
 
 /obj/item/deck/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -449,7 +468,7 @@
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	var/pickablecards = list()
@@ -491,9 +510,12 @@
 /obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
 	var/maxcards = min(length(cards), 5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
-	if(discards > maxcards)
+	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	for(var/i in 1 to discards)
@@ -620,7 +642,7 @@
 	return I
 
 
-/obj/item/cardhand/dropped(mob/user, silent = FALSE)
+/obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user)
 		direction = user.dir

@@ -65,6 +65,6 @@ GLOBAL_LIST_EMPTY(asays)
 		</tbody>
 	</table>"}
 
-	var/datum/browser/popup = new(src, "asays", "<div align='center'>Current Round Asays</div>", 1200, 825)
+	var/datum/browser/popup = new(usr, "asays", "<div align='center'>Current Round Asays</div>", 1200, 825)
 	popup.set_content(output.Join())
 	popup.open(0)

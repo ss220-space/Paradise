@@ -75,7 +75,7 @@
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.attempt_drill()
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/M = target
 		M.take_damage(mech_damage, BRUTE, "melee", 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
@@ -349,7 +349,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
-		set_light(6)
+		set_light(6, l_on = TRUE)
 		qdel(core)
 		return TRUE
 

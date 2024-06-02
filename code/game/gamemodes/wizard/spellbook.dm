@@ -22,7 +22,7 @@
 	return LearnSpell(user, book, S)
 
 /datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
@@ -59,7 +59,7 @@
 		return FALSE
 	if(!S)
 		S = new spell_type()
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			return TRUE
 	return FALSE
@@ -72,11 +72,10 @@
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
 	var/spell_levels = 0
-	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
-			user.mind.spell_list.Remove(aspell)
-			qdel(aspell)
+			user.mind.RemoveSpell(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
 				QDEL_NULL(S)
 			return cost * (spell_levels + 1)
@@ -425,7 +424,7 @@
 	if(..())
 		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
@@ -915,7 +914,7 @@
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/knownspell as anything in user.mind.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE || user.mind.special_role == SPECIAL_ROLE_WIZARD)
@@ -1038,16 +1037,17 @@
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."
 
-/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user as mob)
-	if(istype(user, /mob/living/carbon/human))
+/obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
+	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP | DROPDEL	//curses!
-		magichead.flags_inv = null	//so you can still see their face
+		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
+		magichead.item_flags |= DROPDEL	//curses!
+		magichead.flags_inv = NONE	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_or_del(magichead, slot_wear_mask)
+		user.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")
@@ -1058,7 +1058,7 @@
 	icon_state = "bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
 
-/obj/item/spellbook/oneuse/charge/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly feels very warm!</span>")
 	empulse(src, 1, 1)
@@ -1069,7 +1069,7 @@
 	icon_state = "booksummons"
 	desc = "This book is bright and garish, very hard to miss."
 
-/obj/item/spellbook/oneuse/summonitem/recoil(mob/user as mob)
+/obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>[src] suddenly vanishes!</span>")
 	qdel(src)
@@ -1085,6 +1085,18 @@
 	spellname = "sacred flame"
 	icon_state = "booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."
+
+/obj/item/spellbook/oneuse/goliath_dash
+	spell = /obj/effect/proc_holder/spell/goliath_dash
+	spellname = "goliath dash"
+	icon_state = "bookgoliathdash"
+	desc = "Dash like a goliath!"
+
+/obj/item/spellbook/oneuse/watchers_look
+	spell = /obj/effect/proc_holder/spell/watchers_look
+	spellname = "watcher's look"
+	icon_state = "bookwatcherlook"
+	desc = "Shoot with your eyes like a watcher!"
 
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"

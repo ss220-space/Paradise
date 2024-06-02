@@ -508,7 +508,7 @@
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
-		if(hands_use_check && !user.can_use_hands() && iscarbon(user))
+		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
 			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
@@ -526,7 +526,7 @@
 			to_chat(user, span_warning("You have deadchat muted."))
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user) && !CONFIG_GET(flag/dsay_allowed))
-			to_chat(user, span_warning("Deadchat is globally muted"))
+			to_chat(user, span_warning("Deadchat is globally muted."))
 			return FALSE
 
 

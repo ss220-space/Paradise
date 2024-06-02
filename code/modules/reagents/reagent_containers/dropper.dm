@@ -34,7 +34,7 @@
 			return
 		if(user != C)
 			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
-			if(!do_mob(user, C, 30))
+			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -75,7 +75,7 @@
 			return
 
 		if(reagents.total_volume)
-			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 

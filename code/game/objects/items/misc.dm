@@ -14,14 +14,15 @@
 	icon_state = "ball"
 	name = "beach ball"
 	item_state = "beachball"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	force = 0.0
 	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
-	flags = CONDUCT | NO_PIXEL_RANDOM_DROP
+	flags = CONDUCT
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/syndicateReverseCard
 	name = "Red Reverse"
@@ -58,8 +59,8 @@
 	//first, the sparks!
 	do_sparks(12, 1, user)
 	//next, we move the gun to the user and the card to the firer
-	to_chat(user, "The [src] vanishes from your hands, and [target_gun] appears in them!")
-	to_chat(firer, "<span class='warning'>[target_gun] vanishes from your hands, and a [src] appears in them!</span>")
+	to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
+	to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
 	firer.drop_item_ground(target_gun, TRUE)
 	user.drop_item_ground(src)
 	user.put_in_hands(target_gun, force = TRUE)

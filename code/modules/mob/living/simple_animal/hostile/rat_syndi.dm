@@ -14,12 +14,13 @@
 	speak_chance = 2
 	turns_per_move = 5
 	pull_force = 1000
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	can_hide = 1
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	see_in_dark = 6
+	nightvision = 6
 	speak = list("Слава Синдикату!","Смерть НаноТрейзен!", "У вас есть сыр?")
 	speak_emote = list("squeeks","squeaks","squiks")
 	emote_hear = list("squeeks","squeaks","squiks")
@@ -80,11 +81,11 @@
 	. = ..()
 	if(resting)
 		if(prob(1))
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))

@@ -1,5 +1,5 @@
 /datum/species/skeleton
-	name = "Skeleton"
+	name = SPECIES_SKELETON
 	name_plural = "Skeletons"
 
 	blurb = "Spoopy and scary."

@@ -17,7 +17,7 @@
 	tts_seed = "pantheon"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 10
+	nightvision = 10
 	maxHealth = 10
 	health = 10
 	blood_volume = BLOOD_VOLUME_SURVIVE
@@ -25,8 +25,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	layer = MOB_LAYER

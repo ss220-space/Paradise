@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', open_sound_volume, TRUE, -3)
-	density = FALSE
+	set_density(FALSE)
 	after_open()
 	return TRUE
 
@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(closets)
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
-		if(istype(M, /mob/living/simple_animal/hostile/megafauna))
+		if(ismegafauna(M))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
-	density = ignore_density_closed ? FALSE : TRUE
+	set_density(ignore_density_closed ? FALSE : TRUE)
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
@@ -188,12 +188,12 @@ GLOBAL_LIST_EMPTY(closets)
 	open()
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
-	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
+	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
 
 /obj/structure/closet/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
@@ -263,11 +263,11 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	. = ..()
-	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
+	if(is_screen_atom(O))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
 		return
-	if(user.restrained() || user.stat || user.IsWeakened() || user.IsStunned() || user.IsParalyzed() || user.lying)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(closets)
 	set category = null
 	set name = "Toggle Open"
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 	spawn(0)
-		if(do_after(L,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+		if(do_after(L, breakout_time * 6 MINUTES, src))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
 	for(var/atom/A in contents)
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 /obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
-	if(istype(gorilla) && in_range(gorilla, src))
+	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()
@@ -459,7 +459,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
-	density = 0
+	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
@@ -520,4 +520,5 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
-	density = 0
+	if(.)
+		set_density(FALSE)

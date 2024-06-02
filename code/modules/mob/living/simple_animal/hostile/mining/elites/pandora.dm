@@ -173,13 +173,13 @@
 		spawn_blast(t)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	visible_message("<span class='hierophant'>[src] fades out!</span>")
-	set_density(FALSE)
+	ADD_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(turf/T)
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
-	set_density(TRUE)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	visible_message("<span class='hierophant'>[src] fades in!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
@@ -212,7 +212,6 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
@@ -222,7 +221,7 @@
 		var/mob/living/M = user
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, silent = FALSE)
 	. = ..()
 	if(isliving(user))
 		var/mob/living/M = user

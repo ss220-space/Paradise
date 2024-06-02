@@ -198,7 +198,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 2)
 	foodtype = GRAIN
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
 	sharp = TRUE

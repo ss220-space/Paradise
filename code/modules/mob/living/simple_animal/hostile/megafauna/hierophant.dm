@@ -88,6 +88,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	spawned_beacon = new(loc)
 	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 
@@ -142,7 +144,7 @@ Difficulty: Hard
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		target_slowness += L.movement_delay()
+		target_slowness += L.cached_multiplicative_slowdown
 	if(client)
 		target_slowness += 1
 
@@ -372,13 +374,13 @@ Difficulty: Hard
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(1)
 	visible_message("<span class='hierophant_warning'>[src] fades out!</span>")
-	density = FALSE
+	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(2)
 	forceMove(T)
 	SLEEP_CHECK_DEATH(1)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(1)
-	density = TRUE
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	visible_message("<span class='hierophant_warning'>[src] fades in!</span>")
 	SLEEP_CHECK_DEATH(1) //at this point the blasts we made detonate
 	blinking = FALSE
@@ -411,11 +413,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original, spread_speed)
 	hierophant_burst(src, original, burst_range, spread_speed)
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/float(on) //we don't want this guy to float, messes up his animations
-	if(throwing)
-		return
-	floating = on
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!enraged) //We do not want it to animate attacking as that breaks the cool animation. If it is not enraged, it can do it. However this only happens if admin controlled
@@ -789,7 +786,7 @@ Difficulty: Hard
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
 			H.timer = world.time + 51
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")

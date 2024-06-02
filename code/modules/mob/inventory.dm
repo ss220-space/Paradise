@@ -61,22 +61,22 @@
 	if(!istype(I))
 		return FALSE
 
-	if(I.equip_delay_self)
+	if(I.equip_delay_self > 0)
 		if(!silent)
 			to_chat(src, span_warning("Вы должны экипировать [I] вручную!"))
 		return FALSE
 
-	var/priority_list = list( \
-		slot_back, slot_wear_pda, slot_wear_id, \
-		slot_w_uniform, slot_wear_suit, slot_wear_mask, \
-		slot_neck, slot_glasses, slot_l_ear, \
-		slot_r_ear, slot_head, slot_belt, \
-		slot_s_store, slot_tie, slot_gloves, \
-		slot_shoes, slot_l_store, slot_r_store \
+	var/list/priority_list = list(
+		ITEM_SLOT_BACK, ITEM_SLOT_PDA, ITEM_SLOT_ID,
+		ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_MASK,
+		ITEM_SLOT_NECK, ITEM_SLOT_EYES, ITEM_SLOT_EAR_LEFT,
+		ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_HEAD, ITEM_SLOT_BELT,
+		ITEM_SLOT_SUITSTORE, ITEM_SLOT_ACCESSORY, ITEM_SLOT_GLOVES,
+		ITEM_SLOT_FEET, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT,
 	)
 
 	for(var/slot in priority_list)
-		if(equip_to_slot_if_possible(I, slot, FALSE, FALSE, force, force, TRUE))
+		if(equip_to_slot_if_possible(I, slot, FALSE, FALSE, force, force, force, TRUE))
 			return TRUE
 
 	if(drop_on_fail)
@@ -137,12 +137,14 @@
  * Used in job equipping so shit doesn't pile up at the start loc.
  */
 /mob/proc/equip_or_collect(obj/item/I, slot)
-	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE))
+	if(QDELETED(I))
+		return
+	if(I.mob_can_equip(src, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE))
 		//Mob can equip.  Equip it.
 		equip_to_slot(I, slot, initial = TRUE)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/storage))
+		if(isstorage(back))
 			//Now, B represents a container we can insert I into.
 			var/obj/item/storage/backpack = back
 			if(backpack.can_be_inserted(I, stop_messages = TRUE))
@@ -158,7 +160,7 @@
  * Used to equip people when the rounds starts and when events happen and such.
  */
 /mob/proc/equip_to_slot_or_del(obj/item/I, slot)
-	return equip_to_slot_if_possible(I, slot, qdel_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, disable_warning = TRUE, initial = TRUE)
+	return equip_to_slot_if_possible(I, slot, qdel_on_fail = TRUE, bypass_equip_delay_self = TRUE, bypass_obscured = TRUE, bypass_incapacitated = TRUE, disable_warning = TRUE, initial = TRUE)
 
 
 /**
@@ -171,11 +173,11 @@
  * * 'bypass_obscured' - set `TRUE` if you want to ignore clothing obscuration
  * * 'initial' - used to indicate whether our items is initial equipment (job datums etc) or just a player doing it
  */
-/mob/proc/equip_to_slot_if_possible(obj/item/I, slot, drop_on_fail = FALSE, qdel_on_fail = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, disable_warning = FALSE, initial = FALSE)
+/mob/proc/equip_to_slot_if_possible(obj/item/I, slot, drop_on_fail = FALSE, qdel_on_fail = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE, disable_warning = FALSE, initial = FALSE)
 	if(!istype(I) || QDELETED(I)) //This qdeleted is to prevent stupid behavior with things that qdel during init
 		return FALSE
 
-	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured))
+	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated))
 		if(drop_on_fail)
 			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 				drop_item_ground(I)
@@ -207,7 +209,7 @@
  * Returns if a certain item can be equipped to a certain slot.
  * Always call [obj/item/mob_can_equip()] instead of this proc.
  */
-/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	return FALSE
 
 
@@ -270,14 +272,14 @@
 /**
  * Only external organs and only for humans
  */
-/mob/proc/has_organ_for_slot()
+/mob/proc/has_organ_for_slot(slot_flag)
 	return FALSE
 
 
 /**
  * Nonliving mobs don't have hands
  */
-/mob/proc/put_in_hand_check(obj/item/I)
+/mob/proc/put_in_hand_check(obj/item/I, hand_id)
 	return FALSE
 
 
@@ -290,13 +292,18 @@
 
 /**
  * DO NO USE THIS PROC, there are plenty of helpers below: put_in_l_hand, put_in_active_hand, put_in_hands etc.
- * Puts an item into hand by `hand_id` ("HAND_LEFT" / "HAND_RIGHT") and calls all necessary triggers/updates. Returns `TRUE` on success.
+ * Puts an item into hand by `hand_id` (ITEM_SLOT_HAND_LEFT / ITEM_SLOT_HAND_RIGHT) and calls all necessary triggers/updates.
+ *
+ * Returns `TRUE` on success.
  */
 /mob/proc/put_in_hand(obj/item/I, hand_id, force = FALSE, ignore_anim = TRUE, silent = FALSE)
 
 	// Its always 'TRUE' if there is no item, since we are using helpers with this proc in 'if()' statements
 	if(!I)
 		return TRUE
+
+	if(QDELING(I))
+		return FALSE
 
 	if(!force && !put_in_hand_check(I, hand_id))
 		return FALSE
@@ -305,41 +312,38 @@
 		I.do_pickup_animation(src)
 
 	var/hand_item
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		hand_item = l_hand
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		hand_item = r_hand
 	if(hand_item)
 		drop_item_ground(hand_item, force = TRUE, silent = silent)
 
+	I.pulledby?.stop_pulling()
 	I.forceMove(src)
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
 
-	if(hand_id == "HAND_LEFT")
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
 		l_hand = I
-		I.equipped(src, slot_l_hand, silent)
-		update_inv_l_hand()
-	else if(hand_id == "HAND_RIGHT")
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 		r_hand = I
-		I.equipped(src, slot_r_hand, silent)
-		update_inv_r_hand()
 
-	if(pulling == I)
-		stop_pulling()
-
-	// Qdel or loc change on equip happened
-	if(QDELETED(I) || I.loc != src)
-		if(hand_id == "HAND_LEFT")
+	// Equip failed / item qdeled / loc changed
+	if(!I.equipped(src, hand_id, silent) || QDELETED(I) || I.loc != src)
+		if(hand_id == ITEM_SLOT_HAND_LEFT)
 			l_hand = null
-			update_inv_l_hand()
-		else if(hand_id == "HAND_RIGHT")
+		else if(hand_id == ITEM_SLOT_HAND_RIGHT)
 			r_hand = null
-			update_inv_r_hand()
 		return FALSE
 
+	if(hand_id == ITEM_SLOT_HAND_LEFT)
+		update_inv_l_hand()
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
+		update_inv_r_hand()
+
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	return TRUE
 
@@ -348,14 +352,14 @@
  * Puts item into `l_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_l_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_LEFT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_LEFT, force, ignore_anim, silent)
 
 
 /**
  * Puts item into `r_hand` if possible and calls all necessary triggers/updates. Returns `TRUE` on success.
  */
 /mob/proc/put_in_r_hand(obj/item/I, force = FALSE, ignore_anim = TRUE, silent = FALSE)
-	return put_in_hand(I, "HAND_RIGHT", force, ignore_anim, silent)
+	return put_in_hand(I, ITEM_SLOT_HAND_RIGHT, force, ignore_anim, silent)
 
 
 /**
@@ -384,7 +388,7 @@
  * Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
  *
  * Arguments
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'qdel_on_fail' qdels item if failed to pick in both hands.
  * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
  * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
@@ -439,12 +443,12 @@
  * Item will be dropped on turf below user, then forceMoved to `newloc`.
  * Returns `TRUE` if item is successfully transfered.
  * Returns `FALSE` if `newloc` is not specified or if its `null`.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * Thic proc is required if you expect transfer animation to be properly played,
  * since item loc should be turf only to properly register image.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -464,11 +468,11 @@
 /**
  * Used to drop an item (if it exists) to the ground.
  * Returns `TRUE` if item is successfully dropped.
- * Returns `FALSE` if item can not be dropped due to flag NODROP or if item slot is obscured.
+ * Returns `FALSE` if item can not be dropped due to TRAIT_NODROP or if item slot is obscured.
  * If item can be dropped, it will be forceMove()'d to the ground and the turf's Entered() will be called.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  * * 'ignore_pixel_shift' set to `TRUE` if you want to prevent item's visual position randomization.
@@ -486,7 +490,7 @@
 	var/shift_x
 	var/shift_y
 
-	if(ignore_pixel_shift || (I.flags & NO_PIXEL_RANDOM_DROP))
+	if(ignore_pixel_shift || (I.item_flags & NO_PIXEL_RANDOM_DROP))
 		shift_x = clamp(pixel_x, -shift_limit_x, shift_limit_x)
 		shift_y = clamp(pixel_y, -shift_limit_y, shift_limit_y)
 	else
@@ -503,7 +507,7 @@
  * If `newloc` is not a turf and you expect animation to register, use [drop_transfer_item_to_loc()] instead.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -517,7 +521,7 @@
  * Item MUST BE FORCEMOVE'D OR QDEL'D afterwards.
  *
  * Arguments:
- * * 'force' overrides flag NODROP and clothing obscuration.
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
  * * 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping if item was in jumpsuit slot. Only set to `FALSE` if it's going to be immediately replaced.
  * * 'silent' set to `TRUE` if you want to disable warning messages.
  */
@@ -531,7 +535,7 @@
  * You may override it, but do not modify the args.
  */
 /mob/proc/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
-	// 'force' overrides flag NODROP and clothing obscuration
+	// 'force' overrides TRAIT_NODROP and clothing obscuration
 	// 'no_move' is used when item is just gonna be immediately moved afterwards
 	// 'invdrop' prevents stuff in belt/id/pockets/PDA slots from dropping when item in jumsuit slot was removed
 	PROTECTED_PROC(TRUE)
@@ -542,6 +546,8 @@
 
 	if(!can_unEquip(I, force, silent, newloc, no_move, invdrop))
 		return FALSE
+
+	var/slot = get_slot_by_item(I)
 
 	if(I == r_hand)
 		r_hand = null
@@ -557,23 +563,19 @@
 		if(client)
 			client.screen -= I
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		if(!no_move && !(I.flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
+		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
+		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it
 			if(isnull(newloc))
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src, silent)
+		I.dropped(src, slot, silent)
 
 	return TRUE
 
 
-/mob
-	var/can_unEquip_message_delay = 0
-
-
 /**
- * General checks for do_unEquip proc: NODROP flag, obscurity and component blocking possibility.
+ * General checks for do_unEquip proc: TRAIT_NODROP, obscurity and component blocking possibility.
  * Set 'silent' to `FALSE` if you want to get warning messages.
  */
 /mob/proc/can_unEquip(obj/item/I, force = FALSE, silent = TRUE, atom/newloc, no_move = FALSE, invdrop = TRUE)
@@ -582,18 +584,16 @@
 	if(!I)
 		return TRUE
 
-	// NODROP flag
-	if((I.flags & NODROP) && !force)
-		if(!(I.flags & ABSTRACT) && !isrobot(src) && (world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
-			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I]."))
+	// TRAIT_NODROP
+	if(!force && HAS_TRAIT(I, TRAIT_NODROP))
+		if(!silent && !(I.item_flags & ABSTRACT) && !isrobot(src))
+			to_chat(src, span_warning("Неведомая сила не позволяет Вам снять [I.name]."))
 		return FALSE
 
 	// Checking clothing obscuration
-	if(I.is_obscured_for_unEquip(src) && !force)
-		if((world.time > can_unEquip_message_delay + 0.3 SECONDS) && !silent)
-			can_unEquip_message_delay = world.time
-			to_chat(src, span_warning("Вы не можете снять [I], слот закрыт другой одеждой."))
+	if(!force && (get_slot_by_item(I) & check_obscured_slots()))
+		if(!silent)
+			to_chat(src, span_warning("Вы не можете снять [I.name], слот закрыт другой одеждой."))
 		return FALSE
 
 	//Possible component blocking
@@ -604,11 +604,19 @@
 
 
 /**
+ * Collects all the bitflags from the obscured slots.
+ * Works only for humans and checks only suits, headgear and masks currently.
+ */
+/mob/proc/check_obscured_slots()
+	. = NONE
+
+
+/**
  * For wheter we want to check if mob manipulates an item in hands/backpack etc,
  * and not actually wearing it in any REAL equipment slot.
  */
 /mob/proc/is_general_slot(slot)
-	return slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store, slot_handcuffed, slot_legcuffed)
+	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED))
 
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -645,37 +653,59 @@
 	return id_cards
 
 
-/mob/proc/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(slot_wear_mask)
+/mob/proc/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(slot_back)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(slot_l_hand)
+		if(ITEM_SLOT_HAND_LEFT)
 			return l_hand
-		if(slot_r_hand)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return r_hand
 	return null
 
 
 /mob/proc/get_slot_by_item(item)
 	if(item == back)
-		return slot_back
+		return ITEM_SLOT_BACK
 	if(item == wear_mask)
-		return slot_wear_mask
+		return ITEM_SLOT_MASK
 	if(item == l_hand)
-		return slot_l_hand
+		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
-		return slot_r_hand
-	return null
+		return ITEM_SLOT_HAND_RIGHT
+	return NONE
 
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
 	for(var/obj/item/I in contents)
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(istype(SI, path))
 					return SI
 		else if(istype(I, path))
 			return I
+
+
+/mob/proc/update_equipment_speed_mods()
+	var/speedies = equipped_speed_mods()
+	if(speedies)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
+
+
+/// Gets the combined speed modification of all worn items
+/// Except base mob type doesnt really wear items
+/mob/proc/equipped_speed_mods()
+	. = 0
+	for(var/obj/item/thing in list(get_active_hand(), get_inactive_hand()))
+		if(thing && (thing.item_flags & SLOWS_WHILE_IN_HAND) && !(thing.item_flags & IGNORE_SLOWDOWN))
+			. += thing.slowdown
+
+
+/mob/proc/covered_with_thick_material(check_zone, full_body_check = FALSE)
+	return FALSE
+

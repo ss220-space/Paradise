@@ -1,3 +1,8 @@
+#define SNIFF 1
+#define SHAKE 2
+#define SCRATCH 3
+#define WASHUP 4
+
 /mob/living/simple_animal/mouse
 	name = "mouse"
 	real_name = "mouse"
@@ -17,7 +22,7 @@
 	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	maxHealth = 5
 	health = 5
 	blood_volume = BLOOD_VOLUME_SURVIVE
@@ -25,9 +30,10 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	var/non_standard = FALSE //for no "mouse_" with mouse_color
@@ -42,6 +48,11 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	var/static/list/animated_mouses = list(
+			/mob/living/simple_animal/mouse,
+			/mob/living/simple_animal/mouse/brown,
+			/mob/living/simple_animal/mouse/gray,
+			/mob/living/simple_animal/mouse/white)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -71,11 +82,26 @@
 	. = ..()
 	if(resting)
 		if(prob(1))
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
+			if(is_available_for_anim())
+				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
+
+/mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+	flick("mouse_[mouse_color]_idle[anim]",src)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), 2 SECONDS)
+
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+
+/mob/living/simple_animal/mouse/proc/is_available_for_anim()
+	. = FALSE
+	if(is_type_in_list(src, animated_mouses, FALSE))
+		return TRUE
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -83,6 +109,12 @@
 	pixel_y = rand(0, 10)
 
 	color_pick()
+
+	if(is_available_for_anim())
+		verbs += /mob/living/simple_animal/mouse/proc/sniff
+		verbs += /mob/living/simple_animal/mouse/proc/shake
+		verbs += /mob/living/simple_animal/mouse/proc/scratch
+		verbs += /mob/living/simple_animal/mouse/proc/washup
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
@@ -163,6 +195,73 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
+/*
+ * Mouse animation emotes
+ */
+
+/mob/living/simple_animal/mouse/proc/sniff()
+	set name = "Понюхать"
+	set desc = "Пытаешься что-то почуять"
+	set category = "Мышь"
+
+	emote("msniff", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shake()
+	set name = "Дрожать"
+	set desc = "Дрожит или дрыгается"
+	set category = "Мышь"
+
+	emote("mshake", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/scratch()
+	set name = "Почесаться"
+	set desc = "Чешется"
+	set category = "Мышь"
+
+	emote("mscratch", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/washup()
+	set name = "Умыться"
+	set desc = "Умывается"
+	set category = "Мышь"
+
+	emote("mwashup", intentional = TRUE)
+
+/datum/emote/living/simple_animal/mouse/idle
+	key = "msniff"
+	key_third_person = "msniffs"
+	message = "нюха%(ет,ют)%!"
+	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("гортанные", "громкие")
+	cooldown = 1 MINUTES
+	audio_cooldown = 1 MINUTES
+	var/anim_type = SNIFF
+	volume = 1
+
+/datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
+	return ..()
+
+/datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
+	return user.squeak_sound
+
+/datum/emote/living/simple_animal/mouse/idle/shake
+	key = "mshake"
+	key_third_person = "mshakes"
+	message = "дрож%(ит,ат)%!"
+	anim_type = SHAKE
+
+/datum/emote/living/simple_animal/mouse/idle/scratch
+	key = "mscratch"
+	key_third_person = "mscratches"
+	message = "чеш%(ет,ут)%ся!"
+	anim_type = SCRATCH
+
+/datum/emote/living/simple_animal/mouse/idle/washup
+	key = "mwashup"
+	key_third_person = "mwashesup"
+	message = "умыва%(ет,ют)%ся!"
+	anim_type = WASHUP
 
 /*
  * Mouse types
@@ -336,6 +435,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	icon_resting = "hamster_rest"
 	gender = MALE
 	non_standard = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
 	animal_species = /mob/living/simple_animal/mouse/hamster
@@ -413,3 +513,8 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 			death()
 			splat(user = AM)
 	..()
+
+#undef SNIFF
+#undef SHAKE
+#undef SCRATCH
+#undef WASHUP

@@ -5,7 +5,7 @@
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -13,7 +13,7 @@
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi'
 		)
 
 	/// If the paddles are currently attached to the unit.
@@ -65,7 +65,7 @@
 
 /obj/item/defibrillator/update_icon(updates = ALL)
 	update_power()
-	..()
+	. = ..()
 
 
 /obj/item/defibrillator/examine(mob/user)
@@ -113,7 +113,7 @@
 
 
 /obj/item/defibrillator/CtrlClick(mob/user)
-	if(!ishuman(user) || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
@@ -178,6 +178,9 @@
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	toggle_paddles(usr)
 
 
@@ -233,12 +236,12 @@
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	. = ..()
-	if(slot != slot_back)
+	if(slot != ITEM_SLOT_BACK)
 		retrieve_paddles(user)
 
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
-	return slot == slot_back
+	return slot == ITEM_SLOT_BACK
 
 
 /obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
@@ -259,11 +262,11 @@
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "biotech=5"
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
-	if(slot == slot_belt)
+	if(slot == ITEM_SLOT_BELT)
 		return TRUE
 
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)
@@ -329,7 +332,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
 	/// Active defib this is connected to.
@@ -413,7 +416,7 @@
 	return OXYLOSS
 
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user, silent = FALSE)
+/obj/item/twohanded/shockpaddles/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(defib)
 		defib.toggle_paddles(user)
@@ -445,7 +448,7 @@
 	var/safety = TRUE
 	var/heart_attack_probability = 10
 
-/obj/item/twohanded/shockpaddles/borg/dropped(mob/user, silent = FALSE)
+/obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	// No-op.
 

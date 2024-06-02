@@ -13,7 +13,7 @@
 /area/ruin/unpowered)
 "abT" = (
 /obj/item/stack/ore/uranium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aeB" = (
 /obj/item/stack/ore/diamond,
@@ -21,11 +21,11 @@
 /area/ruin/unpowered)
 "afh" = (
 /obj/item/stack/ore/diamond,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "afl" = (
 /obj/item/stack/ore/bananium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "agd" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -53,7 +53,7 @@
 /area/ruin/unpowered)
 "aiK" = (
 /obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ajs" = (
 /obj/machinery/door/airlock/syndicate/extmai,
@@ -133,7 +133,7 @@
 "aoH" = (
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/bananium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "apa" = (
 /obj/effect/turf_decal/stripes/line{
@@ -153,7 +153,7 @@
 "apy" = (
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aqi" = (
 /obj/item/stack/sheet/metal,
@@ -266,7 +266,7 @@
 /mob/living/simple_animal/mouse/brown{
 	faction = list("neutral","syndicate")
 	},
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "avh" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
@@ -9915,7 +9915,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "jbN" = (
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "jcc" = (
 /obj/structure/disposalpipe/segment{
@@ -23192,7 +23192,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "tJo" = (
 /obj/item/stack/ore/silver,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "tJw" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -23884,7 +23884,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "udL" = (
 /obj/effect/mob_spawn/human/clown/corpse,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "udO" = (
 /obj/structure/window/plastitanium,
@@ -24456,7 +24456,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "uyx" = (
 /obj/item/stack/ore/plasma,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "uyM" = (
 /obj/structure/table/wood,
@@ -25937,7 +25937,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "vob" = (
 /obj/item/stack/ore/gold,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "vop" = (
 /obj/structure/table/wood,
@@ -28292,7 +28292,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wTI" = (
 /obj/item/stack/ore/titanium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "wTW" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -28777,7 +28777,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "xmm" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "xnu" = (
 /obj/effect/turf_decal/tile/brown,
@@ -30038,7 +30038,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "ybu" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ybF" = (
 /obj/effect/turf_decal/tile/brown{

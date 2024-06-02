@@ -68,6 +68,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_nucleation
+	icon_state = "box_nucleation"
+
+/obj/item/storage/box/survival_nucleation/populate_contents()
+	new /obj/item/storage/firstaid/crew/nucleation(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 
@@ -308,9 +315,10 @@
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
 	icon_state = "implant"
+	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
+	for(var/I in 1 to 7)
 		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
@@ -660,7 +668,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -1009,7 +1017,7 @@
     item_state = "pouch"
     storage_slots = 2
     w_class = WEIGHT_CLASS_TINY
-    slot_flags = SLOT_BELT
+    slot_flags = ITEM_SLOT_BELT
     can_hold = list(/obj/item/ammo_box/magazine)
 
 /obj/item/storage/pouch/fast
@@ -1029,7 +1037,7 @@
             gun.attackby(MA, user)
             if(magazine)
                 magazine.loc = src
-                magazine.update_icon()
+                magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
             return
 
 /obj/item/storage/box/sec
@@ -1042,6 +1050,12 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Dominator kit"
@@ -1060,6 +1074,16 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/revolver_kit
+	name = "Revolver kit"
+	icon_state = "box_revolver"
+
+/obj/item/storage/box/revolver_kit/populate_contents()
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
@@ -1115,6 +1139,15 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

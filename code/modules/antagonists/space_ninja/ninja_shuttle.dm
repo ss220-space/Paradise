@@ -8,7 +8,7 @@
 	shuttleId = "ombra"
 	possible_destinations = "ombra_home;ombra_away;ombra_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/ninja
@@ -24,7 +24,7 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /area/shuttle/ninja
 	icon_state = "shuttlegrn"

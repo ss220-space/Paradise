@@ -12,7 +12,7 @@
 	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
-	var/id_tag = 1.0
+	var/id_tag
 	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
@@ -65,7 +65,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(!hasPower())
 				open()
 			else

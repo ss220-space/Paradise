@@ -23,7 +23,7 @@
 	return		//make sure this is never picked up
 
 
-/obj/item/storage/internal/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
+/obj/item/storage/internal/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	return FALSE	//make sure this is never picked up
 
 
@@ -39,7 +39,7 @@
  */
 /obj/item/storage/internal/proc/handle_mousedrop(mob/living/carbon/human/user, obj/over_object)
 	. = FALSE
-	if(over_object == user && ishuman(user) && !user.incapacitated() && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
+	if(over_object == user && ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
 		open(user)
 		master_item.add_fingerprint(user)
 		return TRUE

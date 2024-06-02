@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	attack_verb = list("clubbed", "beat", "pummeled")
@@ -113,7 +113,7 @@
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
@@ -141,7 +141,7 @@
 			"<span class='notice'>You start detaching the hierophant beacon...</span>")
 			timer = world.time + 51
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-			if(do_after(user, 50, target = user) && !beacon)
+			if(do_after(user, 5 SECONDS, user) && !beacon)
 				var/turf/T = get_turf(user)
 				playsound(T,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
@@ -178,7 +178,7 @@
 	beacon.update_icon(UPDATE_ICON_STATE)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE1 = new /obj/effect/temp_visual/hierophant/telegraph/edge(user.loc)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE2 = new /obj/effect/temp_visual/hierophant/telegraph/edge(beacon.loc)
-	if(do_after(user, 40, target = user) && user && beacon)
+	if(do_after(user, 4 SECONDS, user) && user && beacon)
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
@@ -193,7 +193,7 @@
 		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
 		playsound(beacon_turf,'sound/magic/wand_teleport.ogg', 200, TRUE)
 		playsound(source,'sound/machines/airlock_open.ogg', 200, TRUE)
-		if(!do_after(user, 3, target = user) || !user || !beacon || QDELETED(beacon)) //no walking away shitlord
+		if(!do_after(user, 0.3 SECONDS, user) || !user || !beacon || QDELETED(beacon)) //no walking away shitlord
 			teleporting = FALSE
 			if(user)
 				user.update_action_buttons_icon()
@@ -308,7 +308,6 @@
 	item_state = "hierophant_talisman_nonactive"
 	item_color = "hierophant_talisman_nonactive"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
-	slot_flags = SLOT_TIE
 	allow_duplicates = FALSE
 	var/possessed = FALSE
 	var/mob/living/simple_animal/shade/talisman/slave // Talisman
@@ -511,20 +510,20 @@
 	if(!ishuman(user) || !slave)
 		return
 	if(slave.master == user.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user)
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || !slave)
 		return
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -534,9 +533,9 @@
 		return
 	if(!slave)
 		return ..()
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
+	LAZYREMOVE(slave.mob_spell_list, spell_heal)
+	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+	LAZYREMOVE(slave.mob_spell_list, spell_message)
 	spell_heal.action.Remove(slave)
 	spell_teleport.action.Remove(slave)
 	spell_message.action.Remove(slave)
@@ -548,9 +547,9 @@
 	if(!slave)
 		return ..()
 	if(slave.master == usr.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)

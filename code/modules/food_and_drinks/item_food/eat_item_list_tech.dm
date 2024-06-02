@@ -161,6 +161,10 @@
 	max_bites = 10
 	nutritional_value = 5
 	is_only_grab_intent = TRUE
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 2
+	light_power = 1
 
 /obj/item/paicard
 	material_type = MATERIAL_CLASS_TECH

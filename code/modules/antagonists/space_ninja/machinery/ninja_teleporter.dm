@@ -5,7 +5,7 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 /obj/structure/ninjatele/attack_hand(mob/user as mob)
 	if(user.mind.special_role == SPECIAL_ROLE_SPACE_NINJA)

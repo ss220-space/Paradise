@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
@@ -76,8 +76,8 @@
 	consume(user)
 	return 1
 
-/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
-	return 0
+/obj/singularity/Process_Spacemove(movement_dir = NONE) //The singularity stops drifting for no man!
+	return FALSE
 
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
@@ -440,7 +440,7 @@
 
 /obj/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
-		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
+		if(isbrain(M)) //Ignore brains
 			continue
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
@@ -493,7 +493,7 @@
 
 /obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	var/distance = distance_to_singulo
