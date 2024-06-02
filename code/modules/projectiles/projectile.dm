@@ -46,7 +46,6 @@
 
 	var/ignore_source_check = FALSE
 
-
 	var/damage = 10
 	/// The amount of brain damage dealt to target's brain on hit
 	var/brain_damage = 0

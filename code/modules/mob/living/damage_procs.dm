@@ -30,7 +30,6 @@
 			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
-
 	updatehealth("apply damage")
 	return TRUE
 

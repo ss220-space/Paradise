@@ -622,7 +622,6 @@
 		chambered.BB.brain_damage = chambered.BB.damage*4
 		chambered.BB.damage *= 15
 
-
 	process_fire(target, user, 1, params)
 
 /////////////
