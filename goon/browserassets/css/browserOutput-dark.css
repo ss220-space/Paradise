@@ -281,6 +281,7 @@ em				{font-style: normal;font-weight: bold;}
 .yell				{font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #B800B1;}
+/* .radio				{color: #20b142;} */
 .deptradio			{color: #993399;}
 .comradio				{color: #526aff;}
 .syndradio			{color: #8f4a4b;}
@@ -465,7 +466,6 @@ h1.alert, h2.alert			{color: #a4bad6;}
 .adminticketalt 			{color: #ccb847; font-weight: bold}
 
 /* Empty spans */
-.radio,
 .emote {
 }
 

@@ -730,7 +730,7 @@
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			if(perpname != "Unknown")
 				for(var/datum/data/record/E in GLOB.data_core.general)
@@ -771,7 +771,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -795,7 +795,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -829,7 +829,7 @@
 			if(usr.incapacitated())
 				return
 			var/modified = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -855,7 +855,7 @@
 			if(usr.incapacitated())
 				return
 			var/read = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -879,7 +879,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = FALSE
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -913,7 +913,7 @@
 				return
 
 			var/skills
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			if(perpname)
 				for(var/datum/data/record/E in GLOB.data_core.general)
 					if(E.fields["name"] == perpname)
@@ -1607,7 +1607,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
