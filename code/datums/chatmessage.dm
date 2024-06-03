@@ -73,7 +73,7 @@
 
 
 /datum/chatmessage/Destroy()
-	if(!QDELING(owned_by))
+	if(!QDELETED(owned_by))
 		if(REALTIMEOFDAY < animate_start + animate_lifespan)
 			stack_trace("Del'd before we finished fading, with [(animate_start + animate_lifespan) - REALTIMEOFDAY] time left")
 
@@ -94,7 +94,8 @@
   */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 
 /**
@@ -271,7 +272,7 @@
 		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
 		for(var/listening_target in signal_targets)
 			RegisterSignal(listening_target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
-		RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
+			RegisterSignal(listening_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
 	else
 		// its always turf otherwise
 		message.loc = message_turf
@@ -313,7 +314,7 @@
 /datum/chatmessage/proc/adjust_message_loc(atom/movable/signal_movable, atom/old_loc, movement_dir, forced)
 	SIGNAL_HANDLER
 
-	if(QDELETED(src) || QDELETED(message_source))
+	if(QDELETED(owned_by) || QDELETED(src) || QDELETED(message_source))
 		return
 
 	var/turf/new_turf = get_turf(message_source)
