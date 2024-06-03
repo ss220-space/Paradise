@@ -64,6 +64,7 @@
 		var/mutable_appearance/point_visual = mutable_appearance(
 			'icons/mob/screen_gen.dmi',
 			"arrow",
+			thought_bubble.layer + 0.01
 		)
 
 		point_visual.pixel_y = 7
