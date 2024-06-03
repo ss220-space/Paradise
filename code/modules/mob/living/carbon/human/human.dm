@@ -1198,8 +1198,9 @@
   *
   * Arguments:
   * * new_species - The new species to assign.
+  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
   */
-/mob/living/carbon/human/proc/setup_dna(datum/species/new_species, flatten_SE = TRUE)
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
 	real_name = dna.species.get_random_name(gender)
@@ -1207,7 +1208,7 @@
 	mind?.name = real_name
 
 	// DNA ready
-	dna.ready_dna(src, flatten_SE)
+	dna.ready_dna(src, TRUE, monkeybasic)
 	dna.real_name = real_name
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()
