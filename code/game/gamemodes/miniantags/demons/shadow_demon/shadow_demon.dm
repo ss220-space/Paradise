@@ -82,7 +82,7 @@
 
 	visible_message(span_danger("[src] begins wrapping [h_target] in shadowy threads."))
 	wrapping = TRUE
-	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 

@@ -5,7 +5,6 @@
 		return FALSE
 	// hide and freeze for the GC
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -23,7 +22,6 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
@@ -34,7 +32,6 @@
 		return FALSE
 	// hide and freeze them while they get GC'd
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	QDEL_IN(src, 0)
@@ -47,7 +44,7 @@
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set
 /mob/living/death(gibbed)
-	if(!can_die())
+	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
@@ -57,14 +54,8 @@
 	timeofdeath = world.time
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
-	SetDizzy(0)
-	SetJitter(0)
-	SetLoseBreath(0)
-	SetDisgust(0)
-	SetEyeBlurry(0)
-
 	if(!gibbed && deathgasp_on_death)
-		emote("deathgasp")
+		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
 
 	if(HAS_TRAIT(src, TRAIT_SECDEATH))
 		playsound(loc, pick('sound/misc/die1.ogg', 'sound/misc/die2.ogg', 'sound/misc/die3.ogg', 'sound/misc/die4.ogg'), 80)
@@ -91,11 +82,6 @@
 		var/datum/soullink/S = s
 		S.sharerDies(gibbed, src)
 
-	if(!gibbed)
-		update_canmove()
-
-	GLOB.alive_mob_list -= src
-	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src

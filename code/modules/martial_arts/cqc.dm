@@ -61,7 +61,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 13
-	if(D.IsWeakened() || D.resting || D.lying_angle)
+	if(D.body_position == LYING_DOWN)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 
@@ -75,7 +75,7 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(A.resting && !D.stat && !D.IsWeakened())
+	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
@@ -102,7 +102,7 @@
 	var/obj/item/I = null
 
 	if(prob(50))
-		if(!D.stat || !D.IsWeakened() || !restraining)
+		if(!D.stat || D.body_position != LYING_DOWN || !restraining)
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")

@@ -159,7 +159,6 @@
 /proc/wabbajack(mob/living/M)
 	if(istype(M) && M.stat != DEAD && !HAS_TRAIT(M, TRAIT_NO_TRANSFORM))
 		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-		M.canmove = FALSE
 		M.icon = null
 		M.cut_overlays()
 		M.invisibility = INVISIBILITY_ABSTRACT
@@ -385,9 +384,8 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 10 SECONDS
-	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
+	var/slip_disable_time = 10 SECONDS
 
 /obj/item/projectile/magic/slipping/New()
 	..()
@@ -396,19 +394,18 @@
 /obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
-		if(!R.incapacitated())
+		if(!R.IsStunned())
 			to_chat(target, span_warning("You get splatted by [src], HONKING your sensors!"))
-			R.Stun(slip_stun)
+			R.Stun(slip_disable_time)
 	else if(isliving(target))
 		var/mob/living/L = target
 		playsound(L.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 		L.stop_pulling()
 		// Something something don't run with scissors
 		L.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
-		if(!L.IsStunned())
+		if(!L.IsWeakened())
 			to_chat(target, span_warning("You get splatted by [src]."))
-			L.Weaken(slip_weaken)
-			L.Stun(slip_stun)
+			L.Weaken(slip_disable_time)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage

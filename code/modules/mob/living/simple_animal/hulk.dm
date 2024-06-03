@@ -155,12 +155,11 @@
 	RH.transform = Mx
 
 	for(var/mob/M in contents)
-		M.loc = src.loc
+		M.forceMove(loc)
 		M.status_flags &= ~GODMODE
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(30 SECONDS)
-			L.update_canmove()
 
 	if(mind && original_body)
 		mind.transfer_to(original_body)

@@ -13,6 +13,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -274,12 +275,13 @@
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
-	I.forceMove(drop_location())
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
+	var/atom/drop_loc = drop_location()
+	I.forceMove(drop_loc)
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
 	I.layer = initial(I.layer)
-	I.plane = initial(I.plane)
-	I.dropped(src, null, silent)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+	I.dropped(src, NONE, silent)
 
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)

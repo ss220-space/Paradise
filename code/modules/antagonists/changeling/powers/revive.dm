@@ -6,7 +6,7 @@
 	bypass_fake_death = TRUE
 
 //Revive from regenerative stasis
-/datum/action/changeling/revive/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/revive/sting_action(mob/living/carbon/user)
 
 	to_chat(user, span_changeling("We have regenerated."))
 
@@ -24,10 +24,8 @@
 	user.update_blind_effects()
 	user.update_blurry_effects()
 	user.UpdateAppearance() //Ensures that the user's appearance matches their DNA.
-	user.regenerate_icons()
-	user.lying_angle = 0
-	user.resting = FALSE
-	user.update_canmove()
+	user.set_resting(FALSE, instant = TRUE)
+	user.get_up(TRUE)
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
 
 	cling.regenerating = FALSE

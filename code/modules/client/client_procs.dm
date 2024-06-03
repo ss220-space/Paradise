@@ -454,7 +454,7 @@
 
 /client/Destroy()
 	SSdebugview.stop_processing(src)
-	mob.become_uncliented()
+	mob?.become_uncliented()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -969,8 +969,10 @@
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
 	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
+
 /client/proc/on_varedit()
-	var_edited = TRUE
+	datum_flags |= DF_VAR_EDITED
+
 
 /////////////////
 // DARKMODE UI //

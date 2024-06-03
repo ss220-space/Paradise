@@ -79,7 +79,7 @@
 			ghostize()
 			qdel(src)
 	snapback()
-	if(summoned && !summoner && !admin_spawned)
+	if(summoned && !summoner && !(flags & ADMIN_SPAWNED))
 		to_chat(src, span_danger("Каким-то образом у вас нет призывателя! Вы исчезаете!"))
 		ghostize()
 		qdel(src)

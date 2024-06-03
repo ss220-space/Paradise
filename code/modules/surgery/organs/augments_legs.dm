@@ -125,14 +125,19 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED //lying jumps is real
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_IMMOBILE //lying jumps is real
 
 
 /datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
+
 	if(recharging_time > world.time)
 		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
+		return
+
+	if(!owner.has_gravity())
+		to_chat(owner, span_warning("You can't jump without gravity!"))
 		return
 
 	if(owner.throwing)

@@ -48332,11 +48332,6 @@
 /area/quartermaster/storage)
 "fvg" = (
 /obj/structure/closet/secure_closet/detective,
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "fvo" = (
@@ -58731,8 +58726,8 @@
 "hRD" = (
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 5";
-	name = "Cell 5 Flasher";
+	id = "Cell 4";
+	name = "Cell 4 Flasher";
 	pixel_y = -28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -82909,8 +82904,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /obj/machinery/flasher{
-	id = "Cell 4";
-	name = "Cell 4 Flasher";
+	id = "Cell 5";
+	name = "Cell 5 Flasher";
 	pixel_y = 28
 	},
 /obj/item/radio/intercom/locked/prison{
@@ -116528,6 +116523,10 @@
 	},
 /obj/item/taperecorder,
 /obj/item/storage/briefcase,
+/obj/item/hand_labeler,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/tapes,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "vmb" = (
