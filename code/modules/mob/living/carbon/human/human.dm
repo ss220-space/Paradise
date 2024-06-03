@@ -1100,6 +1100,7 @@
 			var/organ_path = species.has_organ[organ_slot]
 			new organ_path(src)
 
+	recalculate_limbs_status()
 	return TRUE
 
 
