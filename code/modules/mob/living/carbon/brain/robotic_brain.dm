@@ -148,7 +148,7 @@
 		radio_action.UpdateButtonIcon()
 
 
-/obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(. && imprinted_master)
 		to_chat(target, span_dangerbigger("You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost."))
