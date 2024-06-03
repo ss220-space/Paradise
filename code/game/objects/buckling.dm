@@ -83,7 +83,7 @@
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	target.set_buckled(src)
 	buckled_mobs |= target
-	target.throw_alert(ALERT_BUCKLED, /obj/screen/alert/restrained/buckled)
+	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
 	//target.set_glide_size(glide_size)
 
 	target.Move(loc)
@@ -207,7 +207,7 @@
 
 	// Check for another dense objects in loc
 	var/turf/ground = loc
-	if(ground.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+	if(ground.is_blocked_turf(ignore_atoms = list(src, target)))
 		return FALSE
 
 	// Check if this atom can have things buckled to it.
@@ -253,7 +253,7 @@
  */
 /atom/movable/proc/is_user_buckle_possible(mob/living/target, mob/living/carbon/user, check_loc = TRUE)
 	// Standard adjacency and other checks.
-	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || target.anchored)
+	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || target.anchored)
 		return FALSE
 
 	if(iscarbon(user) && user.usable_hands <= 0)

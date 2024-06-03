@@ -4,7 +4,7 @@
 	explaination_text = "Sends enemies flying backwards if you are focused."
 
 /datum/martial_combo/ninja_martial_art/palm_strike/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/ninja_martial_art/creeping_widow)
-	if(!target.stat && !target.IsWeakened() && !target.resting)
+	if(!target.stat && target.body_position != LYING_DOWN)
 		if(creeping_widow.has_focus)
 			user.say("クモのキック!")
 			creeping_widow.has_focus = 0

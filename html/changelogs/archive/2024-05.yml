@@ -87,3 +87,101 @@
   - unknown: Ventcrawling Update (#4891)
   - unknown: Hands Blocked Trait (#4977)
   - bugfix: Allow Pickup Anсhored Items (#5034)
+'2024-05-12':
+  Zwei:
+  - bugfix: Transfer Amount Verb Fix (#5035)
+  - bugfix: Temporal Fixes (#5040)
+'2024-05-13':
+  MstrKabach:
+  - bugfix: Central Command shutters have "open" sprite (#5025)
+  NightDawnFox:
+  - refactor: (porting) new rust-g mapgen from TG (#4780)
+  ROPY28:
+  - add: Space Botany ruin (#4808)
+'2024-05-19':
+  mrWhiteFox365:
+  - tweak: RnD_Light_fix (#5061)
+'2024-05-20':
+  Den109G:
+  - bugfix: Atmos no longer divide by zero (#5072)
+  NightDawnFox:
+  - bugfix: making less fauna on lava (#5074)
+  - bugfix: updating mapgen names in loading screen (#5056)
+  pilygun:
+  - imageadd: Pai vend restock (#5066)
+'2024-05-22':
+  Den109G:
+  - bugfix: Sleeping patients staying sleepy during surgery (#5062)
+  LiquidPotroh:
+  - bugfix: Knife techniques desc fix (#5043)
+  NightDawnFox:
+  - add: automatic fire for l6 saw (#5058)
+  - balance: goliath are no longer stunlock you (#5055)
+  SHODAN:
+  - imageadd: update revolvers sprite (#5038)
+  TimChi:
+  - add: '"Anonimous mask" AI screen (#5042)'
+  VladikaZhabyat:
+  - tweak: Announcement about cultists (#5049)
+  Vladisvell:
+  - bugfix: Fixed nightvision for xenomorphs (#5047)
+  Zwei:
+  - bugfix: Guns Flashlight And Bayonet Fixes (#5050)
+  - tweak: Emissive Blocker Component Removal (#5045)
+  kukur:
+  - bugfix: Отвертка и новый механ шлемов (#5064)
+  pilygun:
+  - add: Syndiezine in syndicate cigarette (#5054)
+  - tweak: Syndie Locker Mech 25 TC (#5053)
+'2024-05-23':
+  BeebBeebBoob:
+  - config: WebMap links updated (#5077)
+  Rerik007:
+  - bugfix: ice correct melt into water (#5078)
+'2024-05-24':
+  Valtor:
+  - add: Soundless beaver plushie for t3 loadout (#5076)
+  Vladisvell:
+  - bugfix: Fixed PDA messenger not being able to send messages. (#5082)
+'2024-05-25':
+  Sobolli:
+  - tweak: Changing the description of the thief's goal (#5085)
+  Valtor:
+  - bugfix: Incorrect display of ammo in the clip (#5083)
+'2024-05-27':
+  Aziz Chynaliev:
+  - config: WebMap links update
+  BeebBeebBoob:
+  - add: Multi-Z 2.0 (Includes 3D!) (#5037)
+  MrVivor:
+  - add: Spacepods slow down in areas with gravity (#5091)
+  Valtor:
+  - bugfix: small tail implants fixes (#5088)
+'2024-05-28':
+  Zwei:
+  - bugfix: Correct Flashers In Brig (#5107)
+'2024-05-29':
+  Den109G:
+  - bugfix: Hide tail works properly on plague and ERT suits (#5110)
+  MrVivor:
+  - add: new AI-Hippy screen (#5105)
+  NightDawnFox:
+  - balance: less ammo in l6 saw (#5111)
+  PiotrTheTchaikowsky:
+  - qol: Resprite for NTR and Black suit  (#5103)
+  Vladisvell:
+  - bugfix: Glowshrooms no longer grow on chasms (#5099)
+  - bugfix: Fixed inability to reply to pda messages. (#5096)
+  WolfLox:
+  - add: detective helmet + a little rearrangement in his cabinet (#5032)
+'2024-05-30':
+  BeebBeebBoob:
+  - bugfix: Fixes lavaland NaN air (I HOPE) (#5116)
+  Zwei:
+  - unknown: Crawling Implementation (#5044)
+'2024-05-31':
+  MstrKabach:
+  - qol: Correct bundles name from game and wiki (#5046)
+  Zwei:
+  - bugfix: Crawling Fixes N1 (#5120)
+  - bugfix: Crawling Fixes N2 (#5121)

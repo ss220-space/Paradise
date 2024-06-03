@@ -23,7 +23,9 @@
 	/// Turfs where the glowshroom cannot spread to
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
 		/turf/simulated/floor/plating/lava,
-		/turf/simulated/floor/beach/water))
+		/turf/simulated/floor/chasm,
+		/turf/simulated/floor/beach/water,
+		/turf/simulated/floor/indestructible/beach/water))
 	/// Internal seed of the glowshroom, stats are stored here
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 

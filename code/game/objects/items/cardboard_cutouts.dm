@@ -89,7 +89,7 @@
 		return
 	if(!new_appearance || !crayon)
 		return
-	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	alpha = 255

@@ -406,6 +406,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -433,6 +434,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"

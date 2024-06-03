@@ -190,7 +190,7 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, "Shadow") // only humanoids. And we don't have animal sprites.
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"

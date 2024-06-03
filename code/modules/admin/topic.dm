@@ -1248,10 +1248,8 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 			antags_list = antags_list.Copy()
-			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
-				antags_list[key] = !!(key in antags_list)
 
 		for(var/antag in antags_list)
 			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
@@ -1294,7 +1292,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -2878,7 +2876,7 @@
 					else
 						var/atom/O = new path(target)
 						if(O)
-							O.admin_spawned = TRUE
+							O.flags |= ADMIN_SPAWNED
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name

@@ -3,7 +3,7 @@
 		var/points_to_add = 1
 		if(locate(/obj/structure/alien/weeds) in loc)
 			points_to_add *= 2
-		if(lying_angle)
+		if(body_position == LYING_DOWN)
 			points_to_add *= 2
 		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
 		update_icons()
@@ -25,7 +25,7 @@
 
 	if(Toxins_pp > tox_detect_threshold) // Detect toxins in air
 		adjust_alien_plasma(breath.toxins*250)
-		throw_alert("alien_tox", /obj/screen/alert/alien_tox)
+		throw_alert("alien_tox", /atom/movable/screen/alert/alien_tox)
 
 		toxins_used = breath.toxins
 
@@ -45,9 +45,10 @@
 	//natural reduction of movement delay due to stun.
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - rand(1, 2))
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
-		return
-	remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
+		if(move_delay_add > 0)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+		else
+			remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
 
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code

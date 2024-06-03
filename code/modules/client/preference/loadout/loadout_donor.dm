@@ -292,3 +292,9 @@
 	donator_tier = 3
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+
+/datum/gear/donor/beaver
+	display_name = "Beaver Plushie"
+	path = /obj/item/toy/plushie/beaver
+	donator_tier = 3
+	cost = 1

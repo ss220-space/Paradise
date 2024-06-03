@@ -97,17 +97,16 @@
 	the_eye.eye_initialized = TRUE
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
-	for(var/V in shuttle_port.shuttle_areas)
-		var/area/A = V
-		for(var/turf/T in A)
-			if(T.z != origin.z)
+	for(var/area/shuttle_area as anything in shuttle_port.shuttle_areas)
+		for(var/turf/shuttle_turf in shuttle_area)
+			if(shuttle_turf.z != origin.z)
 				continue
 			var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
-			var/x_off = T.x - origin.x
-			var/y_off = T.y - origin.y
+			var/x_off = shuttle_turf.x - origin.x
+			var/y_off = shuttle_turf.y - origin.y
 			I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
 			I.layer = ABOVE_NORMAL_TURF_LAYER
-			I.plane = 0
+			SET_PLANE(I, ABOVE_GAME_PLANE, shuttle_turf)
 			I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			the_eye.placement_images[I] = list(x_off, y_off)
 
@@ -146,7 +145,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
+		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -187,12 +186,11 @@
 
 	QDEL_LIST(the_eye.placed_images)
 
-	for(var/V in the_eye.placement_images)
-		var/image/I = V
+	for(var/image/place_spots as anything in the_eye.placement_images)
 		var/image/newI = image('icons/effects/alphacolors.dmi', the_eye.loc, "blue")
-		newI.loc = I.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
+		newI.loc = place_spots.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
 		newI.layer = ABOVE_OPEN_TURF_LAYER
-		newI.plane = 0
+		SET_PLANE_EXPLICIT(newI, ABOVE_GAME_PLANE, place_spots)
 		newI.mouse_opacity = 0
 		the_eye.placed_images += newI
 
@@ -320,9 +318,9 @@
 		return
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
-	user.sight = SEE_TURFS
+	user.set_sight(SEE_TURFS)
 
-	..()
+	..() // what the fuck
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate

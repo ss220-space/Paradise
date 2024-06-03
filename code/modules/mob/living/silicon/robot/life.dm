@@ -63,7 +63,7 @@
 	emagged = new_state
 	update_icons()
 	if(emagged)
-		throw_alert("hacked", /obj/screen/alert/hacked)
+		throw_alert("hacked", /atom/movable/screen/alert/hacked)
 	else
 		clear_alert("hacked")
 
@@ -98,15 +98,15 @@
 			if(0.75 to INFINITY)
 				clear_alert("charge")
 			if(0.5 to 0.75)
-				throw_alert("charge", /obj/screen/alert/lowcell, 1)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
 			if(0.25 to 0.5)
-				throw_alert("charge", /obj/screen/alert/lowcell, 2)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
 			if(0.01 to 0.25)
-				throw_alert("charge", /obj/screen/alert/lowcell, 3)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
-				throw_alert("charge", /obj/screen/alert/emptycell)
+				throw_alert("charge", /atom/movable/screen/alert/emptycell)
 	else
-		throw_alert("charge", /obj/screen/alert/nocell)
+		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)
@@ -117,16 +117,6 @@
 				to_chat(src, "<span class='warning'><B>Weapon Lock Timed Out!</span>")
 			weapon_lock = 0
 			weaponlock_time = 120
-
-/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || buckled || lockcharge || stat || IsImmobilized())
-		canmove = FALSE
-	else
-		canmove = TRUE
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

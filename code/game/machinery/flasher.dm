@@ -60,7 +60,7 @@
 
 	if(anchored)
 		. += "[base_icon_state]-s"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 //Let the AI trigger them directly.

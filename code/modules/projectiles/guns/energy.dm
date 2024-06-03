@@ -288,8 +288,8 @@
 		if(gun_light.on)
 			iconF = "[gun_light_overlay]_on"
 		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/energy/ui_action_click()
@@ -317,13 +317,13 @@
 
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("selfcharge")
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
 	. = ..()
+	if(var_name == NAMEOF(src, selfcharge))
+		if(var_value)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
+
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

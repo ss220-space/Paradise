@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	. = ..()
-	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
+	if(is_screen_atom(O))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
 		return
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
 	for(var/atom/A in contents)

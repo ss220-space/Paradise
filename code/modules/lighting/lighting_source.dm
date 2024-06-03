@@ -65,11 +65,13 @@
 // Yes this doesn't align correctly on anything other than 4 width tabs.
 // If you want it to go switch everybody to elastic tab stops.
 // Actually that'd be great if you could!
-#define EFFECT_UPDATE(level)                \
-	if(needs_update == LIGHTING_NO_UPDATE) \
+#define EFFECT_UPDATE(level) \
+	if(needs_update == LIGHTING_NO_UPDATE) { \
 		SSlighting.sources_queue += src; \
-	if(needs_update < level)               \
-		needs_update            = level;    \
+	} \
+	if(needs_update < level) { \
+		needs_update = level; \
+	} \
 
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
@@ -109,6 +111,7 @@
 #define SETUP_CORNERS_CACHE(lighting_source) \
 	var/_turf_x = lighting_source.pixel_turf.x; \
 	var/_turf_y = lighting_source.pixel_turf.y; \
+	var/_turf_z = lighting_source.pixel_turf.z; \
 	var/_range_divisor = max(1, lighting_source.light_range); \
 	var/_light_power = lighting_source.light_power; \
 	var/_applied_lum_r = lighting_source.applied_lum_r; \
@@ -124,9 +127,17 @@
 	var/_applied_lum_b = lighting_source.applied_lum_b;
 
 #define LUM_FALLOFF(C) (1 - CLAMP01(sqrt((C.x - _turf_x) ** 2 + (C.y - _turf_y) ** 2 + LIGHTING_HEIGHT) / _range_divisor))
+// You may notice we still use squares here even though there are three components
+// Because z diffs are so functionally small, cubes and cube roots are too aggressive
+#define LUM_FALLOFF_MULTIZ(C) (1 - CLAMP01(sqrt((C.x - _turf_x) ** 2 + (C.y - _turf_y) ** 2 + abs(C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor))
 
 #define APPLY_CORNER(C)                      \
-	. = LUM_FALLOFF(C);          \
+	if(C.z == _turf_z) { 					 \
+		. = LUM_FALLOFF(C); 				 \
+	} 										 \
+	else { 									 \
+		. = LUM_FALLOFF_MULTIZ(C)			 \
+	} 										 \
 	. *= _light_power;                        \
 	var/OLD = effect_str[C];                 \
 	                                         \
@@ -182,6 +193,15 @@
 		gen_for.lighting_corner_NW = new /datum/lighting_corner(gen_for.x - 1, gen_for.y, gen_for.z); \
 	} \
 	gen_for.lighting_corners_initialised = TRUE;
+
+#define INSERT_CORNERS(insert_into, draw_from)             \
+	if (!draw_from.lighting_corners_initialised) {         \
+		GENERATE_MISSING_CORNERS(draw_from);               \
+	}                                                      \
+	insert_into[draw_from.lighting_corner_NE] = 0;         \
+	insert_into[draw_from.lighting_corner_SE] = 0;         \
+	insert_into[draw_from.lighting_corner_SW] = 0;         \
+	insert_into[draw_from.lighting_corner_NW] = 0;
 
 
 /datum/light_source/proc/update_corners()
@@ -248,18 +268,44 @@
 	var/list/datum/lighting_corner/corners = list()
 
 	if(source_turf)
+		var/uses_multiz = !!GET_LOWEST_STACK_OFFSET(source_turf.z)
 		var/oldlum = source_turf.luminosity
 		source_turf.luminosity = CEILING(light_range, 1)
-		for(var/turf/T in view(CEILING(light_range, 1), source_turf))
-			if(T.has_opaque_atom)
-				continue
-			if (!T.lighting_corners_initialised)
-				GENERATE_MISSING_CORNERS(T)
+		if(uses_multiz)
+			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+				if(IS_OPAQUE_TURF(T))
+					continue
+				INSERT_CORNERS(corners, T)
 
-			corners[T.lighting_corner_NE] = 0
-			corners[T.lighting_corner_SE] = 0
-			corners[T.lighting_corner_SW] = 0
-			corners[T.lighting_corner_NW] = 0
+				var/turf/below = GET_TURF_BELOW(T)
+				var/turf/previous = T
+				while(below)
+					// If we find a non transparent previous, end
+					if(!previous.transparent_floor)
+						break
+					if(IS_OPAQUE_TURF(below))
+						// If we're opaque but the tile above us is transparent, then we should be counted as part of the potential "space"
+						// Of this corner
+						break
+					// Now we do lighting things to it
+					INSERT_CORNERS(corners, below)
+					// ANNND then we add the one below it
+					previous = below
+					below = GET_TURF_BELOW(below)
+
+				var/turf/above = GET_TURF_ABOVE(T)
+				while(above)
+					// If we find a non transparent turf, end
+					if(!above.transparent_floor || IS_OPAQUE_TURF(above) || T.has_opaque_atom)
+						break
+					INSERT_CORNERS(corners, above)
+					above = GET_TURF_ABOVE(above)
+		else // Yes I know this could be acomplished with an if in the for loop, but it's fukin lighting code man
+			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
+				if(IS_OPAQUE_TURF(T) || T.has_opaque_atom)
+					continue
+				INSERT_CORNERS(corners, T)
+
 		source_turf.luminosity = oldlum
 
 	SETUP_CORNERS_CACHE(src)
