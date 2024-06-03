@@ -81,7 +81,11 @@
 			LAZYREMOVEASSOC(owned_by.seen_messages, message_turf, src)
 		owned_by.images.Remove(message)
 
-	signal_targets?.Cut()
+	if(signal_targets)
+		for(var/target in signal_targets)
+			UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+			UnregisterSignal(target, COMSIG_MOVABLE_Z_CHANGED)
+		signal_targets.Cut()
 	owned_by = null
 	message_source = null
 	message_turf = null
