@@ -284,7 +284,7 @@
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
-	if(M.bodytemperature > 310)
+	if(M.bodytemperature > BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
 	return ..()
@@ -528,8 +528,8 @@
 	taste_description = "FIRE"
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 330)
-		M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 20))
+		M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
@@ -693,8 +693,8 @@
 	taste_description = "poor life choices"
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 330)
-		M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 20))
+		M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
@@ -798,8 +798,8 @@
 	taste_description = "comforting warmth"
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 360)
-		M.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 50))
+		M.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/devilskiss
@@ -852,8 +852,8 @@
 	taste_description = "cold beer"
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
-	if(M.bodytemperature > 270)
-		M.adjust_bodytemperature(-(20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature > (BODYTEMP_NORMAL - 40))
+		M.adjust_bodytemperature(-(20 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 /datum/reagent/consumable/ethanol/grog
