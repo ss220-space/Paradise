@@ -26,6 +26,12 @@
   - qol: Folded masks in boxes (#5087)
   BeebBeebBoob:
   - bugfix: Multi-z Light (#5130)
+  Daeberdir:
+  - bugfix: Bold names for all command role titles. (#5108)
+  LiquidPotroh:
+  - bugfix: teporone stabilizing and species (#5112)
+  NightDawnFox:
+  - balance: no more jumps in space (and without gravity) (#5136)
   Valtor:
   - bugfix: airlock access deny sound with no power  (#5093)
   Vladisvell:
@@ -38,3 +44,7 @@
   - bugfix: Correct Ears Overlay Updates (#5051)
   - bugfix: DNA and Embedded Fixes (#5095)
   - bugfix: Ventcrawling With Clothing Fixed (#5101)
+  - bugfix: Changeling Swap Fix (#5106)
+  - bugfix: Antag Paradise Typo Fix (#5113)
+  - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
+  - bugfix: Shuttle Smash Skips Silicon Search (#5115)
