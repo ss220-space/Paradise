@@ -28,6 +28,7 @@
   - bugfix: Multi-z Light (#5130)
   Daeberdir:
   - bugfix: Bold names for all command role titles. (#5108)
+  - tweak: '''Current Map Excluded'' map vote. (#5151)'
   LiquidPotroh:
   - bugfix: teporone stabilizing and species (#5112)
   NightDawnFox:
@@ -48,3 +49,5 @@
   - bugfix: Antag Paradise Typo Fix (#5113)
   - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
   - bugfix: Shuttle Smash Skips Silicon Search (#5115)
+  - bugfix: Kudzu Spawn Respects Level Boundaries (#5152)
+  - refactor: Runechat Tweaks (#5060)
