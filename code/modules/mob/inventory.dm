@@ -305,7 +305,7 @@
 	if(QDELING(I))
 		return FALSE
 
-	if(!force && !put_in_hand_check(I, hand_id))
+	if(!put_in_hand_check(I, hand_id) && !force)
 		return FALSE
 
 	if(!ignore_anim)
