@@ -281,6 +281,9 @@
 
 		new organ_path(target)
 
+	// and now we need to recheck our limbs conditions
+	target.recalculate_limbs_status()
+
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
