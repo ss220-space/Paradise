@@ -62,15 +62,26 @@
 	if(!skip_ungibable_search)
 		drop_ungibbable_items(stationary_turf)
 	for(var/mob/living/victim in contents)
-		victim.shuttle_crush_react(stationary_turf, mobile_dir, skip_ungibable_search)
+		victim.shuttle_crush_react(stationary_turf, mobile_dir)
 	gib()
+
+
+/mob/living/silicon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
+	. = ..()	// we are skipping ungibable search, since silicons have no valuables to drop and this only cause bugs with brain removal
+
+
+/mob/living/silicon/robot/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = TRUE)
+	if(module)
+		var/obj/item/gripper/our_gripper = locate() in module.modules
+		our_gripper?.drop_ungibbable_items(stationary_turf)
+	return ..()
 
 
 /mob/living/silicon/ai/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
 
-/mob/living/carbon/brain/shuttle_crush_react(turf/stationary_turf, mobile_dir)
+/mob/living/carbon/brain/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
 
@@ -111,7 +122,7 @@
 	var/atom/movable/user = master?.loc
 	master?.disrupt()
 	if(ismovable(user))
-		user.shuttle_crush_react(stationary_turf, mobile_dir, skip_ungibable_search)
+		user.shuttle_crush_react(stationary_turf, mobile_dir)
 
 
 /obj/effect/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
