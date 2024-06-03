@@ -2886,7 +2886,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
 
-	character.dna.ready_dna(character, flatten_SE = 0)
+	character.dna.ready_dna(character, flatten_SE = FALSE)
 	character.sync_organ_dna(assimilate=1)
 	character.UpdateAppearance()
 

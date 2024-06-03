@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
