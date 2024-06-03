@@ -235,9 +235,13 @@
 
 	return TRUE
 
-/mob/living/silicon/proc/drop_hat()
+
+/mob/living/silicon/proc/drop_hat(drop_on_turf = FALSE)
 	if(inventory_head)
-		drop_item_ground(inventory_head)
+		if(drop_on_turf)
+			transfer_item_to_loc(inventory_head, get_turf(src))
+		else
+			drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
 

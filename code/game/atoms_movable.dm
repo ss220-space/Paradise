@@ -170,20 +170,24 @@
 		if(NAMEOF(src, x))
 			var/turf/T = locate(var_value, y, z)
 			if(T)
+				admin_teleport(T)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))
 			var/turf/T = locate(x, var_value, z)
 			if(T)
+				admin_teleport(T)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, z))
 			var/turf/T = locate(x, y, var_value)
 			if(T)
+				admin_teleport(T)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, loc))
 			if(isatom(var_value) || isnull(var_value))
+				admin_teleport(var_value)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, anchored))
@@ -195,6 +199,17 @@
 		return .
 
 	return ..()
+
+
+/// Proc to hook user-enacted teleporting behavior and keep logging of the event.
+/atom/movable/proc/admin_teleport(atom/new_location)
+	if(isnull(new_location))
+		log_admin("[key_name(usr)] teleported [key_name(src)] to nullspace")
+		move_to_null_space()
+	else
+		var/turf/location = get_turf(new_location)
+		log_admin("[key_name(usr)] teleported [key_name(src)] to [AREACOORD(location)]")
+		forceMove(new_location)
 
 
 //Returns an atom's power cell, if it has one. Overload for individual items.

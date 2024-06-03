@@ -156,7 +156,7 @@
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
-			last_vehicle_move *= 1.41
+			last_vehicle_move *= SQRT_2
 		last_vehicle_move += world.time
 
 		if(has_buckled_mobs())
