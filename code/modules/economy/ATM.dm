@@ -103,7 +103,7 @@ log transactions
 	if(stat & NOPOWER)
 		return
 
-	underlays += emissive_appearance(icon, "atm_lightmask")
+	underlays += emissive_appearance(icon, "atm_lightmask", src)
 
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)

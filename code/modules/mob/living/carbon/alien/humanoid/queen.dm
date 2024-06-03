@@ -76,13 +76,16 @@
 
 	if(stat == DEAD)
 		icon_state = "queen_dead"
-	else if(stat == UNCONSCIOUS || lying_angle || resting)
+	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
 		icon_state = "queen_sleep"
 	else
 		icon_state = "queen_s"
 
-	for(var/image/I in overlays_standing)
-		add_overlay(I)
+	update_inv_r_hand()
+	update_inv_l_hand()
+	update_inv_pockets()
+	update_fire()
 
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
+

@@ -58,15 +58,27 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
-	var/obj/item/flashlight/gun_light = null
+	/// Whether user can attach/detach flashlights to/from this gun.
+	var/can_flashlight = FALSE
+	/// Currently attached flashlight.
+	var/obj/item/flashlight/seclite/gun_light
+	/// Specified icon_state used to show flashlight overlay on this gun.
 	var/gun_light_overlay
-	var/can_flashlight = 0
+	/// Offsets flashlight's overlay pixel_x by this value.
+	var/flight_x_offset = 0
+	/// Offsets flashlight's overlay pixel_y by this value.
+	var/flight_y_offset = 0
 
-	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
+	/// Whether user can attach/detach bayonets to/from this gun.
+	var/can_bayonet = FALSE
+	/// Currently attached bayonet.
 	var/obj/item/kitchen/knife/bayonet
-	var/mutable_appearance/knife_overlay
-	var/knife_x_offset = 0
-	var/knife_y_offset = 0
+	/// Currently used bayonet overlay.
+	var/mutable_appearance/bayonet_overlay
+	/// Offsets bayonet's overlay pixel_x by this value.
+	var/bayonet_x_offset = 0
+	/// Offsets bayonet's overlay pixel_y by this value.
+	var/bayonet_y_offset = 0
 
 	var/can_holster = TRUE
 
@@ -74,8 +86,6 @@
 
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
 	var/ammo_y_offset = 0
-	var/flight_x_offset = 0
-	var/flight_y_offset = 0
 
 	//Zooming
 	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
@@ -96,8 +106,6 @@
 /obj/item/gun/Initialize()
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
-	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 	if(rusted_weapon)
 		malf_counter = rand(malf_low_bound, malf_high_bound)
@@ -110,10 +118,13 @@
 	return ..()
 
 
-/obj/item/gun/handle_atom_del(atom/A)
-	if(A == bayonet)
-		clear_bayonet()
+/obj/item/gun/handle_atom_del(atom/target)
+	if(target == bayonet)
+		set_bayonet(null)
+	else if(target == gun_light)
+		set_gun_light(null)
 	return ..()
+
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
@@ -382,123 +393,162 @@
 			return
 	return ..()
 
+
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
-		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return
-				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
-				set_gun_light(S)
-				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
-				if(loc == user)
-					A.Grant(user)
-				update_gun_light()
+				to_chat(user, span_notice("You click [I] into place on [src]."))
+				set_gun_light(I)
+			else
+				to_chat(user, span_warning("There is already [gun_light] attached to [src]!"))
+		else
+			to_chat(user, span_warning("You cannot attach [I] to [src]!"))
 
-	if(unique_rename)
-		if(is_pen(I))
+	else if(is_pen(I))
+		if(unique_rename)
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
-				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
-	if(istype(I, /obj/item/kitchen/knife))
-		var/obj/item/kitchen/knife/K = I
-		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
-			return ..()
-		if(!user.drop_transfer_item_to_loc(K, src))
+				to_chat(user, span_notice("You name the gun '[name]'. Say hello to your new friend."))
+		else
+			to_chat(user, span_warning("You cannot rename [src]!"))
+
+	else if(istype(I, /obj/item/kitchen/knife))
+		var/obj/item/kitchen/knife/knife = I
+		//ensure the gun has an attachment point available and that the knife is compatible with it.
+		if(!can_bayonet || !knife.bayonet_suitable)
+			to_chat(user, span_warning("You cannot attach [knife] to [src]!"))
 			return
-		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
-		bayonet = K
-		update_icon()
-		var/state = "bayonet"							//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))		//Snowflake state?
-			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/weapons/bayonets.dmi'
-		knife_overlay = mutable_appearance(bayonet_icons, state)
-		knife_overlay.pixel_x = knife_x_offset
-		knife_overlay.pixel_y = knife_y_offset
-		update_icon(UPDATE_OVERLAYS)
+		if(bayonet)
+			to_chat(user, span_warning("There is already [knife] attached to [src]!"))
+			return
+		if(!user.drop_transfer_item_to_loc(knife, src))
+			return
+		to_chat(user, span_notice("You attach [knife] to [src]'s bayonet lug."))
+		set_bayonet(knife)
+
 	else
 		return ..()
+
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(gun_light && can_flashlight)
-		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			set_gun_light(null)
-			S.forceMove_turf()
-			S.update_brightness(user)
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
+		to_chat(user, span_notice("You unscrew [gun_light] from [src]."))
+		set_gun_light(null)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove_turf()
-		clear_bayonet()
+		to_chat(user, span_notice("You unscrew [bayonet] from [src]."))
+		set_bayonet(null)
 
-/obj/item/gun/proc/toggle_gunlight()
+
+/obj/item/gun/proc/toggle_gunlight_verb()
 	set name = "Toggle Gun Light"
 	set category = "Object"
 	set desc = "Click to toggle your weapon's attached flashlight."
 
+	toggle_gunlight(usr)
+
+
+/obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
 		return
 
-	var/mob/living/carbon/human/user = usr
-	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
+	if(user && !isturf(user.loc))
+		if(!silent)
+			to_chat(user, span_warning("You cannot toggle the gun light while in [user.loc]!"))
+		return
+
 	gun_light.on = !gun_light.on
-	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
+	if(!silent)
+		playsound(loc, 'sound/weapons/empty.ogg', 100, TRUE)
+		if(user)
+			to_chat(user, span_notice("You toggle the gun light [gun_light.on ? "on": "off"]."))
+	gun_light.set_light_on(gun_light.on)
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item(update_speedmods = FALSE)
 
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
-	update_gun_light()
 
-
-///Called when gun_light value changes.
+/// Sets gun's flashlight and do all the necessary updates
 /obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
 	if(gun_light == new_light)
 		return
+
+	if(new_light && !istype(new_light))
+		CRASH("Wrong object passed as an argument ([isdatum(new_light) ? "[new_light.type]" : "[new_light]"])")
+
 	. = gun_light
 	gun_light = new_light
+
 	if(gun_light)
 		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		verbs |= /obj/item/gun/proc/toggle_gunlight_verb
 		if(gun_light.loc != src)
 			gun_light.forceMove(src)
-	else if(.)
-		var/obj/item/flashlight/seclite/old_gun_light = .
-		old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
-		if(old_gun_light.loc == src)
-			old_gun_light.forceMove(get_turf(src))
-
-/obj/item/gun/proc/update_gun_light()
-	if(gun_light)
-		if(gun_light.on)
-			gun_light.set_light_on(TRUE)
-		else
-			gun_light.set_light_on(FALSE)
-		update_icon()
+		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
+		if(!toggle_gunlight_action)
+			toggle_gunlight_action = new(src)
+			if(ismob(loc))
+				var/mob/user = loc
+				if(!(toggle_gunlight_action in user.actions))
+					toggle_gunlight_action.Grant(user)
 	else
-		gun_light.set_light_on(FALSE)
+		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
+
+		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
+		if(toggle_gunlight_action)
+			qdel(toggle_gunlight_action)
+
+		if(.)
+			var/obj/item/flashlight/seclite/old_gun_light = .
+			old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+			if(old_gun_light.loc == src)
+				old_gun_light.forceMove(get_turf(src))
+			old_gun_light.update_brightness()
 
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/gun/proc/clear_bayonet()
-	if(!bayonet)
-		return
-	bayonet = null
-	if(knife_overlay)
-		knife_overlay = null
-	update_icon(UPDATE_OVERLAYS)
-	return TRUE
-
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
-		gun_light.on = FALSE
-		update_gun_light()
+		toggle_gunlight(silent = TRUE)
 		visible_message(span_danger("[src]'s light fades and turns off."))
+
+
+/// Sets gun's bayonet and do all the necessary updates
+/obj/item/gun/proc/set_bayonet(obj/item/kitchen/knife/new_bayonet)
+	if(bayonet == new_bayonet)
+		return
+
+	if(new_bayonet && (!istype(new_bayonet) || !new_bayonet.bayonet_suitable))
+		CRASH("Wrong object passed as an argument ([isdatum(new_bayonet) ? "[new_bayonet.type]" : "[new_bayonet]"])")
+
+	. = bayonet
+	bayonet = new_bayonet
+
+	if(bayonet)
+		if(bayonet.loc != src)
+			bayonet.forceMove(src)
+
+		var/overlay_type = "bayonet"	//Generic state.
+		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))	//Snowflake state?
+			overlay_type = bayonet.icon_state
+		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
+		bayonet_overlay.pixel_x = bayonet_x_offset
+		bayonet_overlay.pixel_y = bayonet_y_offset
+	else
+		bayonet_overlay = null
+		if(.)
+			var/obj/item/kitchen/knife/old_bayonet = .
+			if(old_bayonet.loc == src)
+				old_bayonet.forceMove(get_turf(src))
+
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/gun/dropped(mob/user, slot, silent = FALSE)
@@ -579,7 +629,7 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 

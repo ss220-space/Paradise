@@ -10,7 +10,7 @@
 /obj/item/grab
 	name = "grab"
 	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
-	var/obj/screen/grab/hud = null
+	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
 	var/state = GRAB_PASSIVE
@@ -50,7 +50,7 @@
 
 	LAZYADD(affecting.grabbed_by, src)
 
-	hud = new /obj/screen/grab(src)
+	hud = new /atom/movable/screen/grab(src)
 	hud.icon_state = "reinforce"
 	icon_state = "grabbed"
 	hud.name = "reinforce grab"
@@ -209,7 +209,7 @@
 		return
 	if(affecting.buckled)
 		return
-	if(affecting.lying_angle && state != GRAB_KILL)
+	if(affecting.body_position == LYING_DOWN && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
@@ -252,7 +252,7 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/grab/proc/s_click(obj/screen/S)
+/obj/item/grab/proc/s_click(atom/movable/screen/S)
 	if(!confirm())
 		return
 	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
@@ -264,7 +264,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying_angle)
+	if(HAS_TRAIT(assailant, TRAIT_HANDS_BLOCKED) || assailant.body_position == LYING_DOWN)
 		qdel(src)
 		return
 
@@ -365,7 +365,7 @@
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
 					if(last_hit_zone == BODY_ZONE_HEAD) //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying_angle)
+						if(affecting.body_position == LYING_DOWN)
 							return
 						assailant.visible_message("<span class='danger'>[assailant] с размаха бь[pluralize_ru(assailant.gender,"ёт","ют")] [genderize_ru(assailant.gender,"его","её","своей","их")]  головой о череп [affecting]!</span>") //A visible message for what is going on.
 						var/damage = 5

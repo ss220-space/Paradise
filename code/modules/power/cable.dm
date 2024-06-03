@@ -33,7 +33,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	icon_state = "0-1"
 	var/d1 = 0
 	var/d2 = 1
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = WIRE_COLOR_RED
 
@@ -68,7 +68,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	var/turf/T = get_turf(src)			// hide if turf is not intact
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
-	if(level == 1 && !T.transparent_floor)
+	if(level == 1)
 		hide(T.intact)
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
@@ -104,6 +104,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		icon_state = "[d1]-[d2]-f"
 	else
 		icon_state = "[d1]-[d2]"
+	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
+	else
+		SET_PLANE_IMPLICIT(src, GAME_PLANE)
 
 
 ////////////////////////////////////////////

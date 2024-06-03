@@ -5,7 +5,7 @@
 	var/completed = 0					//завершение амбиции для конца раунда
 	var/description = "Пустая амбиция ((перешлите это разработчику))"
 	var/chance_generic_ambition = 40	//шанс выпадения ОБЩЕЙ амбиции
-	var/chance_other_departament_ambition = 30	//шанс выпадения амбиции чужого департамента
+	var/chance_other_departament_ambition = 30	//шанс выпадения амбиции чужого отдела
 
 /datum/ambition_objective/New(var/datum/mind/new_owner)
 	owner = new_owner

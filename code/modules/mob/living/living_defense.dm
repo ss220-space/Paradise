@@ -176,7 +176,7 @@
 						"<span class='userdanger'>[pluralize_ru(src.gender,"Ты загораешься","Вы загораетесь")]!</span>")
 		set_light_range(light_range + 3)
 		set_light_color("#ED9200")
-		throw_alert("fire", /obj/screen/alert/fire)
+		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
 		return TRUE
@@ -277,7 +277,7 @@
 // End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src || anchored)
+	if(user == src || anchored || user.body_position == LYING_DOWN)
 		return 0
 	if(!(status_flags & CANPUSH))
 		return 0

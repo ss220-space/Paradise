@@ -238,14 +238,6 @@
 	return diag_hud_set_botstat() //we use a different hud
 
 
-/mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
-	. = ..()
-	if(!on)
-		. = FALSE
-
-	canmove = .
-
-
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()

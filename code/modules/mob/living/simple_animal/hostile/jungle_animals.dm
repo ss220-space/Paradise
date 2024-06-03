@@ -13,6 +13,7 @@
 	icon_gib = "panther_dead"
 	speak_chance = 0
 	turns_per_move = 3
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"

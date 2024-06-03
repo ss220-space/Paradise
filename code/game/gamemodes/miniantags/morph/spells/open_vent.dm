@@ -29,7 +29,7 @@
 		revert_cast(user)
 		return
 	to_chat(user, "<span class='sinister'>You begin regurgitating up some acidic puke!</span>")
-	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(user, "<span class='warning'>You swallow the acid again.</span>")
 		revert_cast(user)
 		return

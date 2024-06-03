@@ -117,7 +117,7 @@
 	if(!drownee)
 		return
 
-	if(drownee && ((drownee.lying_angle && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
+	if(drownee && ((drownee.body_position == LYING_DOWN && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))

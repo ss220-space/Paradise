@@ -53,7 +53,15 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/obj/screen/click_catcher/void
+	/**
+	 * Assoc list with all the active maps - when a screen obj is added to
+	 * a map, it's put in here as well.
+	 *
+	 * Format: list(<mapname> = list(/atom/movable/screen))
+	 */
+	var/list/screen_maps = list()
+
+	var/atom/movable/screen/click_catcher/void
 
 	var/karma = 0
 	var/karma_spent = 0
@@ -68,7 +76,7 @@
 	var/click_intercept_time = 0
 
 	/// Overlay for showing debug info
-	var/obj/screen/debugtextholder/debug_text_overlay
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	var/datum/geoip_data/geoip = null
 
@@ -158,9 +166,8 @@
 
 
 /client/vv_edit_var(var_name, var_value)
-	switch(var_name)
+	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
-		if("tos_consent")
-			return FALSE
+		return FALSE
 	return ..()
