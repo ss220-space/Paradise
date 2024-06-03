@@ -202,13 +202,17 @@
 				part_reagent = new thing()
 				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
+			for(var/obj/item/reagent_containers/container in surroundings)
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
 
 				var/extracted_amount = min(contained_reagent.volume, needed_amount)
-				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
+				if(reagent_containers_for_deletion[container] == null)
+					reagent_containers_for_deletion[container] = list()
+
+				reagent_containers_for_deletion[container][contained_reagent] = extracted_amount
+
 				part_reagent.volume += extracted_amount
 				part_reagent.data += contained_reagent.data
 				needed_amount -= extracted_amount
@@ -250,15 +254,15 @@
 				parts_used += part_atom
 
 	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
-		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
-		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
+		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
+			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
 
-		if(amount_to_delete < reagent_to_delete.volume)
-			reagent_to_delete.volume -= amount_to_delete
-		else
-			container_to_clear.reagents.reagent_list -= reagent_to_delete
-		container_to_clear.reagents.conditional_update(container_to_clear)
-		container_to_clear.update_icon()
+			if(amount_to_delete < reagent_to_delete.volume)
+				reagent_to_delete.volume -= amount_to_delete
+			else
+				container_to_clear.reagents.reagent_list -= reagent_to_delete
+			container_to_clear.reagents.conditional_update(container_to_clear)
+			container_to_clear.update_icon()
 
 	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
 		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]

@@ -279,35 +279,38 @@
 	color = "#7DFF00"
 	taste_description = "slime"
 
+
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
 	START_PROCESSING(SSprocessing, src)
+
 
 /datum/reagent/stable_mutagen/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
-	if(!ishuman(M) || !M.dna)
-		return
-	if(isnucleation(M))
-		return ..()
-	M.apply_effect(1, IRRADIATE, negate_armor = 1)
-	if(current_cycle == 10 && islist(data))
-		if(istype(data["dna"], /datum/dna))
-			var/mob/living/carbon/human/H = M
-			var/datum/dna/D = data["dna"]
-			if(!D.species.is_small)
-				H.change_dna(D, TRUE, TRUE)
-				H.special_post_clone_handling()
 
+/datum/reagent/stable_mutagen/on_mob_life(mob/living/carbon/human/target)
+	if(isnucleation(target))
+		return ..()
+	target.apply_effect(1, IRRADIATE, negate_armor = TRUE)
+	if(current_cycle != 10 || !ishuman(target) || !target.dna || !islist(data) || !istype(data["dna"], /datum/dna))
+		return ..()
+	var/datum/dna/reagent_dna = data["dna"]
+	if(!reagent_dna.species.is_small)
+		target.change_dna(reagent_dna, TRUE, TRUE)
+		target.special_post_clone_handling()
 	return ..()
 
+
 /datum/reagent/stable_mutagen/process()
-	if(..())
-		var/datum/reagent/blood/B = locate() in holder.reagent_list
-		if(B && islist(B.data) && !data)
-			data = B.data.Copy()
+	. = ..()
+	if(data)
+		return .
+	var/datum/reagent/blood/blood = locate() in holder.reagent_list
+	if(blood && islist(blood.data))
+		data = blood.data.Copy()
+
 
 /datum/reagent/uranium
 	name ="Uranium"
