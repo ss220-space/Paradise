@@ -604,7 +604,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		//var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		var/extra_knock_chance = 0
 		if(user.gloves)
