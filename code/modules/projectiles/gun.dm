@@ -619,7 +619,7 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
-		chambered.BB.damage *= 20
+		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
 
