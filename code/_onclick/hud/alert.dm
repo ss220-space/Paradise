@@ -371,10 +371,22 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
 	icon_state = "fire"
 
+
 /atom/movable/screen/alert/fire/Click()
-	if(isliving(usr))
-		var/mob/living/L = usr
-		return L.resist()
+	if(!isliving(usr))
+		return FALSE
+
+	var/mob/living/living_user = usr
+	if(!living_user.can_resist())
+		return FALSE
+
+	living_user.changeNext_move(CLICK_CD_RESIST)
+
+	if(!(living_user.mobility_flags & MOBILITY_MOVE))
+		return FALSE
+
+	return living_user.resist_fire()
+
 
 /atom/movable/screen/alert/direction_lock
 	name = "Direction Lock"

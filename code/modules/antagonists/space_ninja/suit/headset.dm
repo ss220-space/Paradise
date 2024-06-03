@@ -19,7 +19,7 @@
 /obj/item/radio/headset/ninja/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/radio/headset))
 		var/obj/item/radio/headset/target_headset = W
-		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>Сканирование прервано!</span>")
 			return
 		to_chat(user, span_notice("Вы сканируете \"[target_headset.name]\" и копируете доступные в нём каналы в память вашего собственного наушника."))

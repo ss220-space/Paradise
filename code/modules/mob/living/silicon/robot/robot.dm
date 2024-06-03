@@ -89,7 +89,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
-	var/lockcharge //Used when locking down a borg to preserve cell charge
+	///Boolean of whether the borg is locked down or not
+	var/lockcharge = FALSE
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
@@ -128,6 +129,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	spark_system.attach(src)
 
 	add_language(LANGUAGE_BINARY, 1)
+
+	ADD_TRAIT(src, TRAIT_FORCED_STANDING, INNATE_TRAIT)
 
 	wires = new(src)
 
@@ -1132,7 +1135,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
 
-	if(stat != DEAD && !(IsParalyzed() || IsStunned() || IsWeakened() || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
 		var/eyes_olay
 		if(custom_panel in custom_eye_names)
 			if(isclocker(src) && SSticker.mode.power_reveal)
@@ -1402,7 +1405,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						cleaned_item.clean_blood()
 					else if(ishuman(A))
 						var/mob/living/carbon/human/cleaned_human = A
-						if(cleaned_human.lying_angle)
+						if(cleaned_human.body_position == LYING_DOWN)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
 								cleaned_human.update_inv_head()
@@ -1434,8 +1437,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/UnlinkSelf()
 	disconnect_from_ai()
 	lawupdate = 0
-	lockcharge = 0
-	canmove = TRUE
+	set_lockcharge(FALSE)
 	scrambledcodes = 1
 	//Disconnect it's camera so it's not so easily tracked.
 	QDEL_NULL(src.camera)
@@ -1467,18 +1469,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-/mob/living/silicon/robot/proc/SetLockdown(var/state = TRUE)
-	// They stay locked down if their wire is cut.
-	if(wires.is_cut(WIRE_BORG_LOCKED))
-		state = TRUE
+
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	if(isclocker(src))
 		return
+	// They stay locked down if their wire is cut.
+	if(wires?.is_cut(WIRE_BORG_LOCKED))
+		state = TRUE
 	if(state)
-		throw_alert("locked", /atom/movable/screen/alert/locked)
+		throw_alert(ALERT_LOCKED, /atom/movable/screen/alert/locked)
 	else
-		clear_alert("locked")
-	lockcharge = state
-	update_canmove()
+		clear_alert(ALERT_LOCKED)
+	set_lockcharge(state)
+
+
+///Reports the event of the change in value of the lockcharge variable.
+/mob/living/silicon/robot/proc/set_lockcharge(new_lockcharge)
+	if(new_lockcharge == lockcharge)
+		return
+	. = lockcharge
+	lockcharge = new_lockcharge
+	if(lockcharge)
+		if(!.)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
+	else if(.)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
+
 
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins

@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
@@ -730,6 +730,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	update_misc_effects()
 
+
 /mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
@@ -739,34 +740,43 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv?.update_icon()
 
 	if(l_ear || r_ear)
+		var/mutable_appearance/standing = new
+		standing.appearance_flags = KEEP_TOGETHER
+		standing.layer = -EARS_LAYER
+
 		if(l_ear)
-			if(client && hud_used && hud_used.hud_shown)
-				if(hud_used.inventory_shown)			//if the inventory is open ...
-					l_ear.screen_loc = ui_l_ear			//...draw the item in the inventory screen
-				client.screen += l_ear					//Either way, add the item to the HUD
+			if(client && hud_used?.hud_shown)
+				if(hud_used.inventory_shown)
+					l_ear.screen_loc = ui_l_ear
+				client.screen += l_ear
 
 			var/t_type = l_ear.item_state
 			if(!t_type)
 				t_type = l_ear.icon_state
+
 			if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
+				standing.overlays += mutable_appearance(l_ear.sprite_sheets[dna.species.name], "[t_type]")
 			else
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], "[t_type]", layer = -EARS_LAYER)
+				standing.overlays += mutable_appearance(l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], "[t_type]")
 
 		if(r_ear)
-			if(client && hud_used && hud_used.hud_shown)
-				if(hud_used.inventory_shown)			//if the inventory is open ...
-					r_ear.screen_loc = ui_r_ear			//...draw the item in the inventory screen
-				client.screen += r_ear					//Either way, add the item to the HUD
+			if(client && hud_used?.hud_shown)
+				if(hud_used.inventory_shown)
+					r_ear.screen_loc = ui_r_ear
+				client.screen += r_ear
 
 			var/t_type = r_ear.item_state
 			if(!t_type)
 				t_type = r_ear.icon_state
+
 			if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
+				standing.overlays += mutable_appearance(r_ear.sprite_sheets[dna.species.name], "[t_type]")
 			else
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.onmob_sheets[ITEM_SLOT_EAR_RIGHT_STRING], "[t_type]", layer = -EARS_LAYER)
-	apply_overlay(EARS_LAYER)
+				standing.overlays += mutable_appearance(r_ear.onmob_sheets[ITEM_SLOT_EAR_RIGHT_STRING], "[t_type]")
+
+		overlays_standing[EARS_LAYER] = standing
+		apply_overlay(EARS_LAYER)
+
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)

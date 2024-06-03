@@ -122,7 +122,7 @@
 	var/C = chassis.loc
 	set_ready_state(FALSE)
 	chassis.use_power(energy_drain)
-	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM)
+	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)
 	set_ready_state(TRUE)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE

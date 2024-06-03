@@ -158,7 +158,7 @@
 		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
-	return null
+	return NONE
 
 
 /mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_flag)

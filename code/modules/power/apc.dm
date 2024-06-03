@@ -822,7 +822,7 @@
 			update_icon()
 	else if(stat & BROKEN)
 		if(!opened)
-			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(user, span_notice("You pry out broken frame."))
 				opened = APC_COVER_OFF
 				update_icon()

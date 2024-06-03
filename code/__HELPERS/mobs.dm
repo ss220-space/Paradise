@@ -326,18 +326,19 @@
 	var/holding = user.get_active_hand()
 	var/obj/item/gripper/gripper = holding
 	var/gripper_check = FALSE
-	if(!(timed_action_flags & IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
+	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
 		gripper_check = TRUE
 
 	var/datum/progressbar/progbar
+	var/endtime = world.time + delay
+	var/starttime = world.time
 
-	if(progress && user.client)
+	// progress bar will not show up if there is no delay at all
+	if(progress && user.client && starttime < endtime)
 		progbar = new(user, delay, target || user)
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
-	var/endtime = world.time + delay
-	var/starttime = world.time
 	. = TRUE
 
 	while(world.time < endtime)
@@ -350,25 +351,23 @@
 			. = FALSE
 			break
 
-		if(drifting && (!(timed_action_flags & IGNORE_SPACE_DRIFT) || !user.inertia_dir))
+		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !user.inertia_dir))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
-			|| (!(timed_action_flags & IGNORE_CONSCIOUSNESS) && user.stat) \
-			|| (!(timed_action_flags & IGNORE_STUNNED) && user.IsStunned()) \
-			|| (!(timed_action_flags & IGNORE_WEAKENED) && user.IsWeakened()) \
-			|| (!(timed_action_flags & IGNORE_PARALYZED) && user.IsParalyzed()) \
-			|| (!(timed_action_flags & IGNORE_LYING) && user.IsLying()) \
-			|| (!(timed_action_flags & IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
+		if((!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & DA_IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
+			|| (!(timed_action_flags & DA_IGNORE_CONSCIOUSNESS) && user.stat) \
+			|| (!(timed_action_flags & DA_IGNORE_LYING) && user.IsLying()) \
+			|| (!(timed_action_flags & DA_IGNORE_INCAPACITATED) && HAS_TRAIT_NOT_FROM(user, TRAIT_INCAPACITATED, STAT_TRAIT)) \
+			|| (!(timed_action_flags & DA_IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
 			|| (gripper_check && gripper?.isEmpty()) \
 			|| extra_checks?.Invoke())
 			. = FALSE
 			break
 
 		if(target && (user != target) && \
-			(QDELETED(target) || (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
+			(QDELETED(target) || (!(timed_action_flags & DA_IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
 			. = FALSE
 			break
 
@@ -412,7 +411,8 @@
 
 	for(var/j in 1 to amount)
 		var/atom/X = new spawn_type(arglist(new_args))
-		X.admin_spawned = admin_spawn
+		if(admin_spawn)
+			X.flags |= ADMIN_SPAWNED
 
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))

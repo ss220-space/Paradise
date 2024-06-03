@@ -76,7 +76,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	// this happens before the parent call because `del_on_death` may be set
-	if(can_die() && !admin_spawned)
+	if(can_die() && !(flags & ADMIN_SPAWNED))
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
@@ -171,7 +171,7 @@
 	ranged_cooldown = world.time + buffer_time
 
 /mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+	if(!medal_type || (flags & ADMIN_SPAWNED) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 
 	for(var/mob/living/L in view(7,src))

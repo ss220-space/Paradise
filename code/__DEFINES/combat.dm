@@ -24,7 +24,9 @@
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
+#define SLEEP		"sleep"
 #define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
@@ -42,14 +44,15 @@
 #define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		(1<<0)
-#define CANWEAKEN	(1<<1)
-#define CANPARALYSE	(1<<2)
-#define CANPUSH		(1<<3)
-#define PASSEMOTES	(1<<4)      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN	(1<<5)
-#define IGNORE_SPEED_CHANGES	(1<<6)
-#define GODMODE		(1<<7)
+#define CANSTUN (1<<0)
+#define CANWEAKEN (1<<1)
+#define CANKNOCKDOWN (1<<2)
+#define CANPARALYSE (1<<3)
+#define CANPUSH	 (1<<4)
+#define PASSEMOTES (1<<5)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN (1<<6)
+#define IGNORE_SPEED_CHANGES (1<<7)
+#define GODMODE (1<<8)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

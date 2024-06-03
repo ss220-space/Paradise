@@ -13,7 +13,6 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 

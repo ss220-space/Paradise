@@ -11,6 +11,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
@@ -47,10 +48,10 @@
 		if(!wants_to_rest())
 			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
 	else if(wants_to_rest())
 		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
