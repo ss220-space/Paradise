@@ -496,6 +496,14 @@
 	return items
 
 
+/mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(wear_suit)
+		. |= ITEM_SLOT_CLOTH_OUTER
+	if(head)
+		. |= ITEM_SLOT_HEAD
+
+
 /mob/living/carbon/update_equipment_speed_mods()
 	. = ..()
 	update_limbless_slowdown()	// in case we get crutches
