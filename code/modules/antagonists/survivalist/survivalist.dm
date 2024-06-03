@@ -14,7 +14,7 @@
 
 
 /datum/antagonist/survivalist/guns
-	greet_message = "Устройте на станции как можно хаоса. Вы больше не подчиняетесь НТ и у вас есть достаточно средств, чтобы это сделать!"
+	greet_message = "Устройте на станции как можно больше хаоса. Вы больше не подчиняетесь НТ и у вас явно хватит на это сил!"
 
 
 /datum/antagonist/survivalist/guns/give_objectives()
@@ -24,7 +24,7 @@
 
 /datum/antagonist/survivalist/magic
 	name = "Amateur Magician"
-	greet_message = "Устройте на станции как можно хаоса. Вы больше не подчиняетесь НТ и у вас есть достаточно средств, чтобы это сделать!"
+	greet_message = "Устройте на станции как можно больше хаоса. Вы больше не подчиняетесь НТ и у вас явно хватит на это сил!"
 
 
 /datum/antagonist/survivalist/magic/greet()
