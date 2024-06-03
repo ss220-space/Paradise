@@ -225,9 +225,9 @@
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
-	use_starlight = TRUE
-
-
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /////////////// Safe with secret documets
 /obj/effect/spawner/lootdrop/randomsafe
