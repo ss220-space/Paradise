@@ -14,7 +14,7 @@
 
 
 /datum/antagonist/survivalist/guns
-	greet_message = "Wreak havoc upon the station as much you can. You no longer obey the NT, you have enough power to do this!"
+	greet_message = "Устройте на станции как можно хаоса. Вы больше не подчиняетесь НТ и у вас есть достаточно средств, чтобы это сделать!"
 
 
 /datum/antagonist/survivalist/guns/give_objectives()
@@ -24,12 +24,12 @@
 
 /datum/antagonist/survivalist/magic
 	name = "Amateur Magician"
-	greet_message = "Wreak havoc upon the station as much you can. You no longer obey the NT, you have enough power to do this!"
+	greet_message = "Устройте на станции как можно хаоса. Вы больше не подчиняетесь НТ и у вас есть достаточно средств, чтобы это сделать!"
 
 
 /datum/antagonist/survivalist/magic/greet()
-	..()
-	return . += span_notice("As a wonderful magician, you should remember that spellbooks don't mean anything if they are used up.")
+	. = ..()
+	. += span_notice("Будучи замечательным волшебником, вы должны помнить, что использованные книги заклинаний не имеют ценности.")
 
 
 /datum/antagonist/survivalist/magic/give_objectives()
