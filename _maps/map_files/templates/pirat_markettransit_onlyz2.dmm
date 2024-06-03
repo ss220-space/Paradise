@@ -9,7 +9,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "aP" = (
 /obj/structure/rack{
 	name = "rack 40k"
@@ -19,7 +19,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "bo" = (
 /obj/machinery/door_control{
 	id = "Trade_doc";
@@ -30,7 +30,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "br" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/syndicate{
@@ -48,19 +48,19 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "bs" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron1"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "co" = (
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "cW" = (
 /obj/structure/closet/crate/syndicate{
 	name = "crate 20k"
@@ -93,7 +93,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "dw" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -106,7 +106,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "er" = (
 /obj/structure/rack{
 	name = "rack 15k"
@@ -123,7 +123,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "ev" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/syndicate{
@@ -137,7 +137,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "fy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
@@ -152,13 +152,13 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "hk" = (
 /obj/effect/bump_teleporter{
 	id_target = "pirat_n1"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "hm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -171,7 +171,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "ir" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -185,7 +185,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "iA" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -200,14 +200,14 @@
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "iU" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "jj" = (
 /obj/machinery/door_control{
 	id = "Trade_exit";
@@ -222,7 +222,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "kH" = (
 /obj/structure/rack{
 	name = "rack 5k"
@@ -243,7 +243,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "ll" = (
 /obj/structure/rack{
 	name = "rack 30k"
@@ -264,7 +264,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "mx" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
@@ -274,17 +274,17 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "mV" = (
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "oP" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "oR" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
@@ -293,7 +293,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "ps" = (
 /obj/structure/mirror{
 	pixel_x = -26
@@ -314,12 +314,12 @@
 	hair_style = "Manbun"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "qt" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron7"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "qY" = (
 /obj/machinery/door_control{
 	id = "pirates_shutters";
@@ -327,7 +327,7 @@
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "rc" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -338,16 +338,16 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "rC" = (
 /turf/simulated/wall/indestructible/fakeglass,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "rF" = (
 /obj/effect/bump_teleporter{
 	id_target = "black_market2"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "rO" = (
 /obj/structure/rack{
 	name = "rack 5k"
@@ -370,12 +370,12 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "sA" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron4"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "tA" = (
 /turf/simulated/wall/indestructible/invisible,
 /area/space)
@@ -398,10 +398,10 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "uf" = (
 /turf/simulated/wall/indestructible/iron,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "us" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -412,7 +412,7 @@
 	invisibility = 70
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "uP" = (
 /obj/structure/rack{
 	name = "rack 30k"
@@ -422,7 +422,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "vc" = (
 /obj/structure/rack{
 	name = "rack 30k"
@@ -432,7 +432,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "vx" = (
 /obj/effect/mob_spawn/human/oldstation/oldsec{
 	desc = "A cryo pod.";
@@ -453,12 +453,12 @@
 	pixel_x = -26
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "vK" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron14"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Al" = (
 /obj/structure/rack{
 	name = "rack 10k"
@@ -477,13 +477,13 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "AK" = (
 /obj/effect/bump_teleporter{
 	id_target = "pirat_n2"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "AU" = (
 /obj/structure/rack{
 	name = "rack 40k"
@@ -496,7 +496,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "BJ" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/syndicate,
@@ -504,7 +504,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "BU" = (
 /obj/structure/rack{
 	name = "rack 20k"
@@ -514,7 +514,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Cj" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "Trade_exit";
@@ -528,7 +528,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Dw" = (
 /obj/structure/rack{
 	name = "rack 10k"
@@ -547,7 +547,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "DK" = (
 /obj/structure/rack{
 	name = "rack 20k"
@@ -563,7 +563,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Ee" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -592,19 +592,19 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "EM" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "ER" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron6"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Fe" = (
 /turf/space/transit/west,
 /area/space)
@@ -614,7 +614,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Hk" = (
 /obj/structure/rack{
 	name = "rack 10k"
@@ -630,12 +630,12 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "HC" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron10"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Ju" = (
 /obj/machinery/door/window/brigdoor{
 	req_access = list(165);
@@ -645,7 +645,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "JC" = (
 /obj/structure/rack{
 	name = "rack 50k"
@@ -655,14 +655,14 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Kg" = (
 /obj/structure/rack,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Ki" = (
 /obj/structure/rack{
 	name = "rack 5k"
@@ -679,7 +679,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Ky" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base";
@@ -689,40 +689,40 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "KH" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron11"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Lc" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron8"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "LD" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron3"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Nc" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron2"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Nt" = (
 /obj/effect/bump_teleporter{
 	id_target = "pirat_n3"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "NS" = (
 /obj/machinery/tcomms/relay,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "OB" = (
 /obj/structure/rack{
 	name = "rack 2k"
@@ -746,7 +746,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "OY" = (
 /obj/structure/closet/crate/syndicate{
 	name = "crate 30k"
@@ -759,7 +759,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Ph" = (
 /turf/space/transit/west{
 	icon_state = "speedspace_ew_1"
@@ -770,17 +770,17 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Qe" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron12"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Qi" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron9"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "QM" = (
 /obj/item/card/id/syndicate{
 	access = list(150,160,161,162,165,26)
@@ -799,7 +799,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "RJ" = (
 /obj/effect/bump_teleporter{
 	icon = 'icons/obj/stationobjs.dmi';
@@ -814,18 +814,18 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "RT" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "iron5"
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Sj" = (
 /obj/effect/bump_teleporter{
 	id_target = "pirat_n4"
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Sk" = (
 /obj/structure/rack{
 	name = "rack 2k"
@@ -853,21 +853,21 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "SC" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Tu" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "UJ" = (
 /turf/space,
 /area/space)
@@ -888,7 +888,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Xv" = (
 /obj/structure/rack{
 	name = "rack 40k"
@@ -897,10 +897,10 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Xz" = (
 /turf/simulated/wall/indestructible,
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Za" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "Trade_doc";
@@ -913,7 +913,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 "Zr" = (
 /obj/structure/rack{
 	name = "rack 50k"
@@ -922,7 +922,7 @@
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
 	},
-/area/awaycontent/a30)
+/area/ruin/space/pirate_base/black_market)
 
 (1,1,1) = {"
 ER
