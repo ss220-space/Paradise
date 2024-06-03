@@ -582,6 +582,8 @@
 	return FALSE
 
 /obj/structure/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
+	if(!is_location_within_transition_boundaries(location))
+		return
 	var/obj/structure/spacevine/SV = new(location)
 	growth_queue += SV
 	vines += SV
