@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Initial DNA setup.  I'm kind of wondering why the hell this doesn't just call the above.
 //    ready_dna is (hopefully) only used on mob creation, and sets the struc_enzymes_original and SE_original only once - Bone White
 
-/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = 1)
+/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = TRUE)
 
 	ResetUIFrom(character)
 

@@ -110,7 +110,7 @@
 			receive_damage(7, 1)
 
 
-/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
@@ -144,10 +144,10 @@
 	return S
 
 
-/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	insert(target)
+	insert(target, special)
 	return TRUE
 
 

@@ -174,7 +174,6 @@
 	name = "Syndicate Space Turrets"
 	sound_environment = SOUND_AREA_SPACE
 	icon_state = "taipan_turrets"
-	use_starlight = TRUE
 
 /area/syndicate/unpowered/syndicate_space_base/vault
 	name = "Syndicate Space Vault"

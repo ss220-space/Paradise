@@ -351,7 +351,7 @@
 	if(I.item_flags & NOPICKUP)
 		return FALSE
 
-	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
@@ -494,6 +494,14 @@
 	if(head)
 		items += head
 	return items
+
+
+/mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(wear_suit)
+		. |= ITEM_SLOT_CLOTH_OUTER
+	if(head)
+		. |= ITEM_SLOT_HEAD
 
 
 /mob/living/carbon/update_equipment_speed_mods()

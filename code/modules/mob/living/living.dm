@@ -1175,7 +1175,7 @@
 
 
 ///Proc to modify the value of usable_legs and hook behavior associated to this event.
-/mob/living/proc/set_usable_legs(new_value)
+/mob/living/proc/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	if(usable_legs == new_value)
 		return
 	if(new_value < 0) // Sanity check
@@ -1184,6 +1184,9 @@
 
 	. = usable_legs
 	usable_legs = new_value
+
+	if(special != ORGAN_MANIPULATION_DEFAULT)
+		return .
 
 	if(new_value > .) // Gained leg usage.
 		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
@@ -1206,11 +1209,14 @@
 
 
 ///Proc to modify the value of usable_hands and hook behavior associated to this event.
-/mob/living/proc/set_usable_hands(new_value)
+/mob/living/proc/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	if(usable_hands == new_value)
 		return
 	. = usable_hands
 	usable_hands = new_value
+
+	if(special != ORGAN_MANIPULATION_DEFAULT)
+		return .
 
 	if(new_value > .) // Gained hand usage.
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)

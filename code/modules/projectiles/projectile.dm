@@ -78,6 +78,7 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
+	var/knockdown = 0
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -212,7 +213,7 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")

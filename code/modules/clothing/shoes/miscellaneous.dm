@@ -491,6 +491,9 @@
 	if(user.throwing)
 		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
 		return
+	if(!jumper.has_gravity())
+		to_chat(user, span_warning("You can't jump without gravity!"))
+		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
