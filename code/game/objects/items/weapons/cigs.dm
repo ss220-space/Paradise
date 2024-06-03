@@ -519,7 +519,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/holo_cigar/update_icon_state()
-	. = ..()
 	icon_state = "holocigar[enabled ? "on" : "off"]"
 
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
@@ -546,15 +545,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
 	if(enabled && slot == ITEM_SLOT_MASK)
-		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
 			to_chat(user, span_notice("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/holo_cigar/dropped(mob/user, slot, silent)
 	. = ..()
 	has_smoked = FALSE
-	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
-		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
 		to_chat(user, span_notice("You feel less badass."))
 
 /obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
