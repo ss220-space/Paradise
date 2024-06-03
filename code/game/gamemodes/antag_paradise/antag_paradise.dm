@@ -295,7 +295,7 @@
 				antag.add_antag_datum(/datum/antagonist/thief)
 
 	for(var/datum/mind/antag as anything in pre_double_antags)
-		switch(pre_antags[antag])
+		switch(pre_double_antags[antag])
 			if(ROLE_VAMPIRE)
 				antag.add_antag_datum(/datum/antagonist/vampire)
 			if(ROLE_CHANGELING)
