@@ -98,7 +98,7 @@
 	icon_state = "box_min"
 
 /obj/item/storage/box/survival_mining/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/storage/firstaid/crew(src)
@@ -112,7 +112,7 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival_security/hos
@@ -854,7 +854,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -872,7 +872,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)

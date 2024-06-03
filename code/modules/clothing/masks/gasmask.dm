@@ -96,18 +96,6 @@
 	. = ..()
 	force_adjust_mask()
 
-
-/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
-	up = !up
-	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = null
-	permeability_coefficient = null
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	clothing_flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
-
-
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"
@@ -361,6 +349,14 @@
 								"dredd"			= "I am, the LAW!"
 								)
 
+/obj/item/clothing/mask/gas/sechailer/adjustmask(user)
+	. = ..()
+	if(.)
+		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
+	. = ..()
+	force_adjust_mask()
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
