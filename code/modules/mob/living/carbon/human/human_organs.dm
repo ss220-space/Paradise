@@ -246,3 +246,14 @@
 			embedded_items += thing
 	return embedded_items
 
+/mob/living/carbon/human/proc/remove_all_parasites()
+	var/list/bad_organs = list(
+		src.get_int_organ(/obj/item/organ/internal/body_egg),
+		src.get_int_organ(/obj/item/organ/internal/legion_tumour),
+	)
+	for(var/o in bad_organs)
+		var/obj/item/organ/bad_organ = o
+		if(!istype(bad_organ))
+			continue
+		bad_organ.remove(src)
+
