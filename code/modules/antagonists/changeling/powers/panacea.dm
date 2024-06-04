@@ -23,21 +23,9 @@
 			var/mob/living/carbon/c_user = user
 			c_user.vomit(FALSE)
 
-	var/list/bad_organs = list(
-		user.get_int_organ(/obj/item/organ/internal/body_egg),
-		user.get_int_organ(/obj/item/organ/internal/legion_tumour),
-	)
-
-	for(var/o in bad_organs)
-		var/obj/item/organ/bad_organ = o
-		if(!istype(bad_organ))
-			continue
-
-		bad_organ.remove(user)
-		if(iscarbon(user))
-			var/mob/living/carbon/human/c_user = user
-			c_user.vomit()
-		bad_organ.forceMove(get_turf(user))
+	if(iscarbon(user))
+		var/mob/living/carbon/human/c_user = user
+		c_user.remove_all_parasites(vomit_organs = TRUE)
 
 	user.reagents.add_reagent("mutadone", 2)
 	user.apply_status_effect(STATUS_EFFECT_PANACEA)

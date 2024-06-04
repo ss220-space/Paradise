@@ -246,7 +246,7 @@
 			embedded_items += thing
 	return embedded_items
 
-/mob/living/carbon/human/proc/remove_all_parasites()
+/mob/living/carbon/human/proc/remove_all_parasites(vomit_organs = FALSE)
 	var/list/bad_organs = list(
 		src.get_int_organ(/obj/item/organ/internal/body_egg),
 		src.get_int_organ(/obj/item/organ/internal/legion_tumour),
@@ -256,4 +256,8 @@
 		if(!istype(bad_organ))
 			continue
 		bad_organ.remove(src)
+		if(vomit_organs)
+			vomit()
+			bad_organ.forceMove(get_turf(src))
+
 
