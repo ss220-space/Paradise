@@ -13,7 +13,7 @@
 /// Approximate height in pixels of an 'average' line, used for height decay
 #define CHAT_MESSAGE_APPROX_LHEIGHT	11
 /// Max width of chat message in pixels
-#define CHAT_MESSAGE_WIDTH			96
+#define CHAT_MESSAGE_WIDTH			112
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
 /// Maximum precision of float before rounding errors occur (in this context)
@@ -257,7 +257,7 @@
 	message.pixel_y = starting_height
 	message.pixel_x = -target.base_pixel_x
 	message.maptext_width = CHAT_MESSAGE_WIDTH
-	message.maptext_height = mheight
+	message.maptext_height = mheight * 1.25 // We add extra because some characters are superscript, like actions
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
 	message.maptext = MAPTEXT(complete_text)
 
