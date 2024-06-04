@@ -2,7 +2,7 @@
 	name = "Cyberiad"
 	map_path = "_maps/map_files/cyberiad/cyberiad.dmm"
 
-	max_players = 100
+	max_players = 70
 
 	station_name  = "NSS Cyberiad"
 	station_short = "Cyberiad"
