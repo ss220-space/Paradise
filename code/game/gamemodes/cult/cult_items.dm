@@ -267,16 +267,26 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 4
+	claws_increment = 4
+
 
 /obj/item/whetstone/cult/update_icon_state()
-	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
+
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
-	..()
-	if(used)
-		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
+
+
+/obj/item/whetstone/cult/attack_self(mob/user)
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
+		qdel(src)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
