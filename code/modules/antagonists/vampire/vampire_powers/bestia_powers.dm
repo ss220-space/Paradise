@@ -1679,11 +1679,18 @@
 								span_userdanger("An invisible force throws you out of the coffin with a violent rage!"), \
 								span_italics("You hear the sound of a heavy blow!"))
 
-		var/obj/item/organ/internal/body_egg/egg = human_vampire.get_int_organ(/obj/item/organ/internal/body_egg)
-		if(egg)
-			egg.remove(human_vampire)
-			egg.forceMove(get_turf(human_vampire))
+		var/list/bad_organs = list(
+			human_vampire.get_int_organ(/obj/item/organ/internal/body_egg),
+			human_vampire.get_int_organ(/obj/item/organ/internal/legion_tumour),
+		)
 
+		for(var/o in bad_organs)
+			var/obj/item/organ/bad_organ = o
+			if(!istype(bad_organ))
+				continue
+
+			bad_organ.remove(human_vampire)
+			bad_organ.forceMove(get_turf(human_vampire))
 
 /**
  * Code is kindly stolen from the mecha. Spaceproof coffin ladies and gentlemen!
