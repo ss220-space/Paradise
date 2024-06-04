@@ -19,15 +19,16 @@
 	vote_type_text = "map"
 
 /datum/vote/map/New()
+	if(!SSmapping.map_datum)
+		CRASH("Map Vote triggered before the `map_datum` is defined!")
 	..()
 	no_dead_vote = FALSE
 
 /datum/vote/map/generate_choices()
-	for(var/x in subtypesof(/datum/map))
-		var/datum/map/M = x
-		if(initial(M.admin_only))
+	for(var/datum/map/possible_map as anything in (subtypesof(/datum/map) - SSmapping.map_datum.type))
+		if(initial(possible_map.admin_only))
 			continue
-		choices.Add("[initial(M.station_name)] ([initial(M.name)])")
+		choices.Add("[initial(possible_map.station_name)] ([initial(possible_map.name)])")
 
 /datum/vote/map/announce()
 	..()

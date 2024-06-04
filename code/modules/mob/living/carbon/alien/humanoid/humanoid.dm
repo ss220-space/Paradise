@@ -154,3 +154,13 @@
 		items += l_store
 	return items
 
+
+/mob/living/carbon/alien/humanoid/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(!include_pockets)
+		return .
+	if(r_store)
+		. |= ITEM_SLOT_POCKET_RIGHT
+	if(l_store)
+		. |= ITEM_SLOT_POCKET_LEFT
+

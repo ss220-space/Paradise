@@ -117,7 +117,7 @@
 	mob.setDir(direct)
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		current_move_delay *= 1.41 //Will prevent mob diagonal moves from smoothing accurately, sadly
+		current_move_delay *= SQRT_2 //Will prevent mob diagonal moves from smoothing accurately, sadly
 
 	move_delay += current_move_delay
 
