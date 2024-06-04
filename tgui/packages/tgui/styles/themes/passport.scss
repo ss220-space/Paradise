@@ -1,0 +1,99 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+
+@mixin passport($mcolor, $acolor, $tcolor, $pcolor, $gerbik){
+  font-family: 'Arial Narrow Bold';
+  font-style:   bold;
+  font-size:    small;
+  border: 2px solid black;
+  $main-color: $mcolor;
+  $alt-color: $acolor;
+  $place-color: $pcolor;
+  $text-color: $tcolor;
+  $gerb: $gerbik;
+  @include meta.load-css('../atomic/color.scss');
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss');
+  @include meta.load-css('../components/Divider.scss');
+
+  .TitleBar{
+    background-color: $alt-color;
+  }
+
+  $thickness: 2px !default;
+  $spacing: 6px;
+
+  .Divider--horizontal {
+    margin: $spacing 0;
+
+    &:not(.Divider--hidden) {
+      border-top: $thickness solid $alt-color;
+    }
+  }
+
+  .Divider--vertical {
+    height: 100%;
+    margin: 0 $spacing;
+
+    &:not(.Divider--hidden) {
+      border-left: $thickness solid $alt-color;
+    }
+  }
+
+
+  .Layout__content {
+    background-image: none;
+    border: 5px groove $alt-color;
+    margin: 0;
+    background-color: $main-color;
+    color: black,
+  }
+
+  .gerb_place{
+    border: 2px solid $alt-color;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: $place-color;
+    background-image: $gerb;
+  }
+
+  .stamp_place{
+    border: 2px solid $alt-color;
+    color: $text-color;
+    background-color: $place-color;
+    margin-left: 10px;
+  }
+
+  .work_place{
+    border: 2px solid $alt-color;
+    color: $text-color;
+    background-color: $place-color;
+    margin-top: 20px;
+  }
+
+  .rand{
+    margin-top: 10px;
+    font-size:medium;
+    font-style:oblique;
+  }
+
+  .up_half{
+    margin: 2px;
+  }
+
+  .down_half{
+    margin: 2px;
+  }
+
+  .picture{
+    border: 2px solid $alt-color;
+  }
+
+}

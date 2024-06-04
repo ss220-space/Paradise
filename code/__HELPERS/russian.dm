@@ -14,6 +14,10 @@ GLOBAL_LIST_INIT(rukeys, list(
 	"Ч" = "X", "С" = "C", "М" = "V", "И" = "B", "Т" = "N", "Ь" = "M",
 	"Б" = ",", "Ю" = ".",
 ))
+GLOBAL_LIST_INIT(russian_species, list("Человек", "Абдуктор" ,"Дионея", "Драск", "Голем",
+									   "Серый", "Кидан", "КПБ", "Обезьяна", "Ниан", "Нуклеация", "Плазмамен",
+									   "Тень", "Тенеморф", "Скелет", "Скрелл", "Слаймомен", "Таяран",
+									   "Унати", "Вокс", "Вульпканин", "Врин", "Неопределенная"))
 
 
 /proc/sanitize_english_key_to_russian(char)
@@ -28,6 +32,42 @@ GLOBAL_LIST_INIT(rukeys, list(
 	. = ""
 	for(var/i in 1 to length_char(text))
 		. += sanitize_english_key_to_russian(copytext_char(text, i, i+1))
+
+/proc/gender2rus(gender)
+	. = "Неопределенный"
+	switch(gender)
+		if("male")
+			. = "Мужской"
+		if("female")
+			. = "Женский"
+
+/proc/species2rus(species)
+	. = "Неопределенная"
+	switch(species)
+		if("Human")			. = "Человек"
+		if("Abductor")		. = "Абдуктор"
+		if("Diona")			. = "Дионея"
+		if("Drask")			. = "Драск"
+		if("Голем")			. = "Голем"
+		if("Gray")			. = "Серый"
+		if("Kidan")			. = "Кидан"
+		if("Machine")		. = "КПБ"
+		if("Monkey")		. = "Обезьяна"
+		if("Nian")			. = "Ниан"
+		if("Nucleation")	. = "Нуклеация"
+		if("Plasmaman")		. = "Плазмамен"
+		if("Shadow")		. = "Тень"
+		if("Shadowling")    . = "Тенеморф"
+		if("Skeleton")		. = "Скелет"
+		if("Skrell")		. = "Скрелл"
+		if("Slime People")	. = "Слаймомен"
+		if("Tajaran")		. = "Таяран"
+		if("Unathi")		. = "Унати"
+		if("Vox")			. = "Вокс"
+		if("Vulpkanin")		. = "Вульпканин"
+		if("Wryn")			. = "Врин"
+
+
 
 GLOBAL_LIST_INIT(specsymbols, list(
 	"!" = "1", "\"" = "2", "@" = "2", "№" = "3", "#" = "3",

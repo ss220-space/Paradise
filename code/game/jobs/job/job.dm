@@ -217,6 +217,10 @@
 				to_chat(H, span_notice("Implanting you with [G.display_name]!"))
 				continue
 
+			if(istype(G, /datum/gear/passport))
+				var/datum/gear/passport/passport = G
+				passport.set_info(H)
+
 			if(G.slot)
 				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.loadout_gear[G.display_name]), G.slot))
 					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")

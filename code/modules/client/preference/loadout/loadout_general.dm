@@ -83,6 +83,56 @@
 	display_name = "a fannypack"
 	path = /obj/item/storage/belt/fannypack
 
+/datum/gear/passport
+	display_name = "a passport"
+	path = /obj/item/passport
+	var/list/owner_info = list()
+
+/datum/gear/passport/proc/set_info(mob/living/carbon/human/H)
+	owner_info["name"] = H.real_name
+	owner_info["year"] = GLOB.game_year - H.age
+	owner_info["gender"] = gender2rus(H.gender)
+	owner_info["race"] = species2rus(H.dna.species.name)
+	var/icon/front = new(get_id_photo(H), dir = SOUTH)
+	var/icon/side = new(get_id_photo(H), dir = WEST)
+	owner_info["front"] = icon2base64(front)
+	owner_info["side"] = icon2base64(side)
+	owner_info["rand"] = generate_rand_message(H)
+	owner_info["work"] = list("station" = station_name(), "command" = command_name(), "system" = system_name())
+
+/datum/gear/passport/proc/generate_rand_message(mob/living/carbon/human/H)
+	var/list/message = list()
+	var/devided = FALSE
+	var/textmessage = ""
+	var/list/pieces = list(H.age, gender2rus(H.gender)) + splittext(H.name, " ")
+	while(length(textmessage) < 100)
+		if(!devided && length(textmessage) > 50)
+			message += "\n"
+			devided = TRUE
+			continue
+
+		var/piece = ""
+		var/type = rand(1,3)
+		switch(type)
+			if(1)
+				piece = pick_n_take(pieces)
+			if(2)
+				for(var/i in 1 to rand(1, 5))
+					message += "<"
+				continue
+			if(3)
+				piece = rand(1000, 999999)
+
+		message += piece
+		message += "<"
+		textmessage = message.Join()
+	return textmessage
+
+/datum/gear/passport/spawn_item(location, metadata)
+	var/obj/item/passport/passport = ..()
+	passport.owner_info = owner_info
+	return passport
+
 /datum/gear/wallet
 	display_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
