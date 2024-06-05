@@ -56,9 +56,9 @@
 
 	// This does more damage the more levels the falling object has fallen
 	if(!crushes_people && target_head)
-		poor_target.apply_damage(damage = fall_damage * levels, damage_type = BRUTE, def_zone = BODY_ZONE_HEAD)
+		poor_target.apply_damage(fall_damage * levels, def_zone = BODY_ZONE_HEAD)
 	else
-		poor_target.apply_damage(damage = fall_damage * levels, damage_type = BRUTE)
+		poor_target.apply_damage(fall_damage * levels)
 
 	var/fingers
 	if(isobj(source))
