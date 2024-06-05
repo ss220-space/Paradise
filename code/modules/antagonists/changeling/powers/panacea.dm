@@ -24,7 +24,7 @@
 			c_user.vomit(FALSE)
 
 	if(iscarbon(user))
-		var/mob/living/carbon/human/c_user = user
+		var/mob/living/carbon/c_user = user
 		c_user.remove_all_parasites(vomit_organs = TRUE)
 
 	user.reagents.add_reagent("mutadone", 2)

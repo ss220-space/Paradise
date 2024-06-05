@@ -889,3 +889,17 @@ so that different stomachs can handle things in different ways VB*/
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 
+/mob/living/carbon/proc/remove_all_parasites(vomit_organs = FALSE)
+	var/list/bad_organs = list(
+		src.get_int_organ(/obj/item/organ/internal/body_egg),
+		src.get_int_organ(/obj/item/organ/internal/legion_tumour),
+	)
+	var/turf/current_turf = get_turf(src)
+	for(var/obj/item/organ/bad_organ in bad_organs)
+		bad_organ.remove(src)
+		if(vomit_organs)
+			bad_organ.forceMove(current_turf) //if we are using in-game remove - vomit our parasite on the floor
+		else
+			qdel(bad_organ) //if not (rejuvinate/adminodrazine) - qdel it
+	if(vomit_organs && bad_organs.len)
+		vomit()
