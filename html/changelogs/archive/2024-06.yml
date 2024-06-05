@@ -1,0 +1,50 @@
+'2024-06-01':
+  Baldek0:
+  - bugfix: Translation error of term "department" (#5117)
+  Daeberdir:
+  - tweak: Better armor for military gas masks. (#5118)
+  MstrKabach:
+  - add: nucleation emergency box (#5119)
+  PiotrTheTchaikowsky:
+  - tweak: Toolbox throw damage up (Prictice PR for stydying) (#5097)
+  Zwei:
+  - bugfix: Crawling Fixes N3 (#5123)
+  - bugfix: Buttons Icons Fixes (#5122)
+  - bugfix: Crawling Fixes N4 (#5134)
+'2024-06-02':
+  Honker9999999:
+  - add: nunchucks (#5073)
+  NightDawnFox:
+  - bugfix: added missed knockdown in apply_effect() (#5142)
+  Vladisvell:
+  - qol: Added more info to discord round end notification admin webhook (#5089)
+  Zwei:
+  - bugfix: Projectiles Skip Mobs Not Capable Of Resting (#5139)
+  - bugfix: Correct Abstract Flag Check (#5140)
+'2024-06-03':
+  Arceniu:
+  - qol: Folded masks in boxes (#5087)
+  BeebBeebBoob:
+  - bugfix: Multi-z Light (#5130)
+  Daeberdir:
+  - bugfix: Bold names for all command role titles. (#5108)
+  LiquidPotroh:
+  - bugfix: teporone stabilizing and species (#5112)
+  NightDawnFox:
+  - balance: no more jumps in space (and without gravity) (#5136)
+  Valtor:
+  - bugfix: airlock access deny sound with no power  (#5093)
+  Vladisvell:
+  - bugfix: Fixed reagent crafting not spending reagents issue (#5124)
+  - bugfix: Kudzu vines no longer grow on transition or map borders (#5029)
+  - tweak: Diagonal movement adjustments (#5052)
+  Zwei:
+  - bugfix: No More Screams On Species Change (#5146)
+  - bugfix: Admin Move And Point Layer Fix (#5148)
+  - bugfix: Correct Ears Overlay Updates (#5051)
+  - bugfix: DNA and Embedded Fixes (#5095)
+  - bugfix: Ventcrawling With Clothing Fixed (#5101)
+  - bugfix: Changeling Swap Fix (#5106)
+  - bugfix: Antag Paradise Typo Fix (#5113)
+  - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
+  - bugfix: Shuttle Smash Skips Silicon Search (#5115)
