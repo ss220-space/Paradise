@@ -471,7 +471,7 @@
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_throw_impact))
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
-	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
+	target.apply_damage(damage = 17, damage_type = BRUTE, def_zone = BODY_ZONE_CHEST)
 	to_chat(target,  span_userdanger("You've been struck by [user]!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
@@ -479,7 +479,7 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
-	source.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	source.apply_damage(damage = 5, damage_type = BRUTE, def_zone = BODY_ZONE_CHEST)
 	if(ishostile(source))
 		var/mob/living/simple_animal/hostile/target = source
 		target.ranged_cooldown = world.time + 5 SECONDS
@@ -500,21 +500,21 @@
 		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
-				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+				additional_target.apply_damage(damage = 15, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 				to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
-	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.apply_damage(damage = 5, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
 	user.visible_message(span_warning("[user] lets [src] feast on [target]'s blood!"),
 		span_warning("You let [src] feast on [target], and it heals you, at a price!"))
-	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.apply_damage(damage = 15, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
 	user.visible_message(span_warning("[user] cuts [target]'s tendons!"),
 		span_notice("You tendon cut [target]!"))
 	to_chat(target, span_userdanger("Your tendons have been cut by [user]!"))
-	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.apply_damage(damage = 15, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
 	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
@@ -534,7 +534,7 @@
 		span_notice("You dash through [target]!"))
 	to_chat(target, span_userdanger("[user] dashes through you!"))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
-	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.apply_damage(damage = 17, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 1 to 9)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
@@ -542,7 +542,7 @@
 			break
 		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
-			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
+			additional_target.apply_damage(damage = 15, damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 			to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
@@ -551,7 +551,7 @@
 	user.visible_message(span_warning("[user] shatters [src] over [target]!"),
 		span_notice("You shatter [src] over [target]!"))
 	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
-	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
+	target.apply_damage(damage = (ishostile(target) ? 75 : 35), damage_type = BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.Weaken(3 SECONDS)
 	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
