@@ -27,7 +27,7 @@
 
 /datum/vote/map/proc/is_map_aviable(datum/map/possible_map)
 	var/current_players = GLOB.player_list.len
-	return possible_map.min_players < current_players && current_players < possible_map.max_players
+	return possible_map.min_players <= current_players && current_players <= possible_map.max_players
 
 /datum/vote/map/generate_choices()
 	for(var/datum/map/possible_map as anything in (subtypesof(/datum/map) - SSmapping.map_datum.type))
