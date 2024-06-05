@@ -897,17 +897,18 @@
 /area/hallway/primary/port/south)
 "aiL" = (
 /obj/machinery/power/treadmill{
-	id = "Cell 6"
+	id = "Cell 1"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 6";
+	id = "Cell 1";
 	pixel_y = -32
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
 /obj/machinery/flasher{
-	id = "Cell 6";
+	id = "Cell 1";
+	name = "Cell 1 Flasher";
 	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
@@ -5203,6 +5204,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5231,9 +5235,6 @@
 "aSH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -5481,6 +5482,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -8338,8 +8342,8 @@
 /area/hallway/primary/aft/east)
 "blb" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 2";
-	name = "Cell 2 Locker"
+	id = "Cell 5";
+	name = "General Population Cell B Locker"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14154,8 +14158,8 @@
 /area/storage/primary)
 "bRk" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 3";
-	name = "Cell 3 Locker"
+	id = "Cell 6";
+	name = "General Population Cell C Locker"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20539,19 +20543,14 @@
 	name = "Security Blast Door";
 	opacity = 0
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/orange,
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "cGc" = (
@@ -21324,8 +21323,8 @@
 "cLE" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	id = "Cell 6";
-	name = "Cell 6";
+	id = "Cell 1";
+	name = "Cell 1";
 	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
@@ -21728,6 +21727,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"cOa" = (
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "cOb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -22548,6 +22553,12 @@
 "cTr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -25795,9 +25806,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
 /obj/structure/chair,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/landmark/start/doctor,
@@ -27647,6 +27655,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
+"dNp" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "dNr" = (
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -28002,6 +28016,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
+"dRM" = (
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "dSi" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31164,8 +31188,8 @@
 /area/maintenance/starboardsolar)
 "eWj" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 1";
-	name = "Cell 1 Locker"
+	id = "Cell 4";
+	name = "General Population Cell A Locker"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -32970,8 +32994,8 @@
 /area/security/detectives_office)
 "fBY" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 6";
-	name = "Cell 6 Locker"
+	id = "Cell 1";
+	name = "Cell 1 Locker"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -33309,8 +33333,8 @@
 /area/hallway/spacebridge/serveng)
 "fFM" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 7";
-	name = "Cell 7 Locker"
+	id = "Cell 2";
+	name = "Cell 2 Locker"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -33727,8 +33751,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_1,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/door_timer/cell_4{
+	name = "General Population Cell A"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -34485,7 +34511,9 @@
 	},
 /area/hallway/primary/central)
 "fYO" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "fYR" = (
@@ -36156,11 +36184,19 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "gCm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/south)
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/prison/cell_block/A)
 "gCy" = (
 /obj/structure/closet/secure_closet/bar,
 /turf/simulated/floor/wood/fancy/light{
@@ -38849,17 +38885,18 @@
 /area/medical/cmostore)
 "hoY" = (
 /obj/machinery/power/treadmill{
-	id = "Cell 7"
+	id = "Cell 2"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 7";
+	id = "Cell 2";
 	pixel_y = -32
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
 /obj/machinery/flasher{
-	id = "Cell 7";
+	id = "Cell 2";
+	name = "Cell 2 Flasher";
 	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
@@ -39455,8 +39492,8 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/rdoffice)
 "hwE" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -40338,9 +40375,6 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hKn" = (
@@ -40983,7 +41017,7 @@
 /area/security/processing)
 "hTT" = (
 /obj/structure/cable/orange{
-	icon_state = "1-8"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -42439,11 +42473,22 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/garden)
 "ira" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/south)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/prison/cell_block/A)
 "irm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -47483,6 +47528,12 @@
 /obj/effect/landmark/event/blobstart,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"jKD" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "jKQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -49182,6 +49233,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door_timer/cell_1,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -49859,7 +49911,8 @@
 /area/hallway/primary/port/east)
 "kwK" = (
 /obj/machinery/flasher{
-	id = "Cell 1";
+	id = "Cell 4";
+	name = "General Population Cell A Flasher";
 	pixel_y = -21
 	},
 /obj/machinery/camera{
@@ -49977,16 +50030,18 @@
 /area/security/podbay)
 "kxT" = (
 /obj/machinery/flasher{
-	id = "Cell 2";
+	id = "Cell 5";
+	name = "General Population Cell B Flasher";
 	pixel_y = -21
 	},
 /obj/machinery/power/treadmill{
-	id = "Cell 2"
+	id = "Cell 5"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 2";
+	id = "Cell 5";
 	pixel_y = -36
 	},
+/obj/structure/cable/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -50710,8 +50765,8 @@
 /turf/space,
 /area/solar/starboardaux)
 "kIn" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/structure/closet/firecloset/full,
+/obj/item/coin/silver,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "kIt" = (
@@ -54943,8 +54998,15 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "lSE" = (
-/obj/structure/closet/firecloset/full,
-/obj/item/coin/silver,
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/storage/ashtray/glass{
+	pixel_x = 5;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "lSF" = (
@@ -55050,8 +55112,8 @@
 "lUn" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	id = "Cell 8";
-	name = "Cell 8";
+	id = "Cell 3";
+	name = "Cell 3";
 	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
@@ -55467,13 +55529,14 @@
 /area/hallway/primary/starboard/north)
 "lZx" = (
 /obj/machinery/power/treadmill{
-	id = "Cell 4"
+	id = "Cell 7"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 4";
+	id = "Cell 7";
 	pixel_y = -36
 	},
 /obj/machinery/light/small,
+/obj/structure/cable/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -57341,8 +57404,8 @@
 /area/magistrateoffice)
 "mCx" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 8";
-	name = "Cell 8 Locker"
+	id = "Cell 3";
+	name = "Cell 3 Locker"
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -57668,6 +57731,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/south)
+"mGP" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "mGR" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/bodyscanner{
@@ -59675,13 +59742,10 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/engineering)
 "njB" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/air,
 /obj/structure/sign/poster/official/space_a{
 	pixel_x = -32
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "njF" = (
@@ -60170,16 +60234,18 @@
 /area/atmos)
 "nqB" = (
 /obj/machinery/flasher{
-	id = "Cell 3";
+	id = "Cell 6";
+	name = "General Population Cell C Flasher";
 	pixel_y = -21
 	},
 /obj/machinery/power/treadmill{
-	id = "Cell 3"
+	id = "Cell 6"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 3";
+	id = "Cell 6";
 	pixel_y = -36
 	},
+/obj/structure/cable/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -60512,9 +60578,12 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/door_timer/cell_4,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door_timer/cell_7{
+	name = "General Population Cell D";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -61608,6 +61677,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "ceoffice"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
@@ -62808,7 +62880,6 @@
 	},
 /area/medical/virology/lab)
 "nZu" = (
-/obj/machinery/door_timer/cell_2,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -62817,6 +62888,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door_timer/cell_5{
+	name = "General Population Cell B"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -63212,11 +63286,22 @@
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "ogf" = (
-/obj/structure/chair{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/south)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/prison/cell_block/A)
 "ogk" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -64003,6 +64088,10 @@
 /turf/simulated/wall,
 /area/hallway/primary/aft/west)
 "osJ" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/south)
 "osN" = (
@@ -67470,6 +67559,12 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/chapel/main)
+"pqP" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "pqY" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -70645,8 +70740,8 @@
 /turf/space,
 /area/solar/starboard)
 "qkd" = (
-/obj/machinery/light/small{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -71170,12 +71265,19 @@
 	},
 /area/hallway/primary/port/north)
 "qrt" = (
-/obj/item/wrench,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/south)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/prison/cell_block/A)
 "qrE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door_control{
@@ -73100,8 +73202,8 @@
 /area/engine/break_room)
 "qUH" = (
 /obj/structure/closet/secure_closet/brig{
-	id = "Cell 4";
-	name = "Cell 4 Locker"
+	id = "Cell 7";
+	name = "General Population Cell D Locker"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74215,6 +74317,7 @@
 	dir = 1;
 	tag = "icon-pipe-j1 (EAST)"
 	},
+/obj/effect/turf_decal/number/number_5,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76816,9 +76919,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_7{
-	pixel_y = -32
-	},
+/obj/machinery/door_timer/cell_2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -77953,6 +78054,9 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -79007,17 +79111,15 @@
 	},
 /area/toxins/misc_lab)
 "sFx" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/door_timer/cell_8{
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
+	},
+/obj/machinery/door_timer/cell_3,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -80185,13 +80287,14 @@
 /area/hydroponics)
 "sXt" = (
 /obj/machinery/power/treadmill{
-	id = "Cell 1"
+	id = "Cell 4"
 	},
 /obj/machinery/treadmill_monitor{
-	id = "Cell 1";
+	id = "Cell 4";
 	pixel_y = -36
 	},
 /obj/machinery/light/small,
+/obj/structure/cable/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -83904,6 +84007,9 @@
 "uac" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -86508,6 +86614,9 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -86657,14 +86766,17 @@
 	},
 /area/quartermaster/office)
 "uRB" = (
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -87742,12 +87854,16 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "vmO" = (
-/obj/machinery/door_timer/cell_3,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door_timer/cell_6{
+	name = "General Population Cell C";
+	pixel_x = 0;
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -88334,8 +88450,8 @@
 "vvl" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	id = "Cell 7";
-	name = "Cell 7";
+	id = "Cell 2";
+	name = "Cell 2";
 	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
@@ -92556,6 +92672,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -94180,10 +94299,9 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "xdw" = (
-/obj/machinery/power/apc{
-	pixel_y = -24
+/obj/structure/chair{
+	dir = 4
 	},
-/obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "xdy" = (
@@ -94521,9 +94639,6 @@
 /area/maintenance/port)
 "xiZ" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/closet/secure_closet/hos,
 /obj/item/megaphone,
 /obj/item/reagent_containers/food/drinks/flask/barflask,
@@ -94894,6 +95009,11 @@
 	icon_state = "ramptop"
 	},
 /area/assembly/chargebay)
+"xol" = (
+/obj/structure/rack,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/south)
 "xos" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96097,7 +96217,8 @@
 /area/engine/engineering)
 "xGa" = (
 /obj/machinery/flasher{
-	id = "Cell 4";
+	id = "Cell 7";
+	name = "General Population Cell D Flasher";
 	pixel_y = -21
 	},
 /obj/machinery/camera{
@@ -97144,21 +97265,21 @@
 /area/hallway/primary/fore)
 "xUY" = (
 /obj/structure/cable/orange{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "Detective"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "brig_detprivacy";
+	name = "Detective Privacy Shutters";
+	opacity = 0
 	},
-/obj/machinery/door_timer/cell_6{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/security/prison/cell_block/A)
+/turf/simulated/floor/plating,
+/area/security/detectives_office)
 "xVe" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/door_control{
@@ -97546,17 +97667,18 @@
 /area/solar/port)
 "ydp" = (
 /obj/machinery/treadmill_monitor{
-	id = "Cell 8";
+	id = "Cell 3";
 	pixel_y = -32
 	},
 /obj/machinery/power/treadmill{
-	id = "Cell 8"
+	id = "Cell 3"
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
 /obj/machinery/flasher{
-	id = "Cell 8";
+	id = "Cell 3";
+	name = "Cell 3 Flasher";
 	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
@@ -112202,7 +112324,7 @@ rWw
 cTh
 gRu
 cTh
-gRu
+dNp
 iZb
 wzo
 wzo
@@ -112460,7 +112582,7 @@ cTh
 joi
 njB
 qkd
-gRu
+pqP
 kIn
 wzo
 rNK
@@ -112718,8 +112840,8 @@ hTL
 hTL
 gRu
 ryD
-ogf
-cTh
+gRu
+wzo
 rNK
 rNK
 rNK
@@ -112971,12 +113093,12 @@ sKh
 sJg
 koN
 kjR
-gCm
-qrt
-ira
-ira
+gRu
+gRu
+gRu
+gRu
 xdw
-cTh
+wzo
 rNK
 rNK
 rNK
@@ -113229,11 +113351,11 @@ qpu
 gEj
 sYc
 hTT
-gRu
-gRu
+hTT
+cOa
 gRu
 lSE
-iZb
+wzo
 rNK
 rNK
 rNK
@@ -113487,7 +113609,7 @@ cen
 cTh
 vHc
 mkA
-gRu
+hwE
 mna
 fYO
 wzo
@@ -113999,12 +114121,12 @@ cdb
 cdb
 cdb
 iZb
-iZb
-cTh
-cTh
-cTh
-cTh
-cTh
+xol
+mkA
+dRM
+jKD
+mGP
+wzo
 rNK
 rNK
 rNK
@@ -114255,13 +114377,13 @@ rWw
 cdb
 cdb
 cdb
-ccW
-cdb
-cdb
-cdb
-rNK
-rNK
-rNK
+iZb
+iZb
+iZb
+cTh
+cTh
+wzo
+wzo
 rNK
 rNK
 rNK
@@ -114512,8 +114634,8 @@ rWw
 rWw
 cdb
 cdb
-rNK
-rNK
+cdb
+cdb
 rNK
 rNK
 rNK
@@ -116168,7 +116290,7 @@ ctI
 dDD
 rnA
 jaG
-xUY
+xTG
 cLE
 kqU
 mIN
@@ -117205,7 +117327,7 @@ goe
 fYg
 xIV
 iVn
-fBA
+xUY
 fDt
 tUB
 glb
@@ -119255,7 +119377,7 @@ fND
 xla
 eWj
 cOh
-utC
+gCm
 sXt
 xla
 aSm
@@ -119512,7 +119634,7 @@ nZu
 xla
 blb
 cOh
-utC
+ira
 kxT
 xla
 syu
@@ -120283,7 +120405,7 @@ vmO
 xla
 bRk
 cOh
-utC
+ogf
 nqB
 xla
 fYg
@@ -120540,7 +120662,7 @@ nuI
 xla
 qUH
 cOh
-utC
+qrt
 lZx
 xla
 fYg
