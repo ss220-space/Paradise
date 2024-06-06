@@ -8,6 +8,8 @@
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
+	var/datum/action/innate/camera_multiz_up/move_up_action = new
+	var/datum/action/innate/camera_multiz_down/move_down_action = new
 	var/list/actions = list()
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
@@ -25,6 +27,16 @@
 		jump_action.Grant(user)
 		actions += jump_action
 
+	if(move_up_action)
+		move_up_action.target = user
+		move_up_action.Grant(user)
+		actions += move_up_action
+
+	if(move_down_action)
+		move_down_action.target = user
+		move_down_action.Grant(user)
+		actions += move_down_action
+
 /obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
 	if(!user)
 		return
@@ -40,6 +52,8 @@
 
 	current_user = null
 	user.unset_machine()
+	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
+		plane_static.hide_plane(user)
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
@@ -71,7 +85,7 @@
 		CreateEye()
 
 	if(!eyeobj.eye_initialized)
-		var/camera_location
+		var/turf/camera_location
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
@@ -88,7 +102,7 @@
 			user.unset_machine()
 	else
 		give_eye_control(user)
-		eyeobj.setLoc(eyeobj.loc)
+		eyeobj.setLoc(get_turf(eyeobj.loc))
 
 
 /obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
@@ -98,9 +112,13 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	// Who passes control like this god I hate static code
+	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
+		plane_static.unhide_plane(user)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
+	icon_state = "remote"
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 0
@@ -109,6 +127,7 @@
 	var/eye_initialized = 0
 	var/visible_icon = 0
 	var/image/user_image = null
+	ai_detector_visible = FALSE // Abductors dont trigger the Ai Detector
 
 /mob/camera/aiEye/remote/Destroy()
 	eye_user = null
@@ -116,9 +135,9 @@
 	return ..()
 
 /mob/camera/aiEye/remote/update_remote_sight(mob/living/user)
-	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
-	user.sight = SEE_TURFS | SEE_BLACKNESS
-	user.see_in_dark = 2
+	user.set_invis_see(SEE_INVISIBLE_LIVING) //can't see ghosts through cameras
+	set_sight(SEE_TURFS)
+	user.nightvision = 2
 	return 1
 
 /mob/camera/aiEye/remote/RemoveImages()
@@ -133,18 +152,19 @@
 		return eye_user.client
 	return null
 
-/mob/camera/aiEye/remote/setLoc(T)
+/mob/camera/aiEye/remote/setLoc(turf/destination, force_update = FALSE)
 	if(eye_user)
-		if(!isturf(eye_user.loc))
+		if(!isturf(eye_user.loc) || !destination)
 			return
-		T = get_turf(T)
-		loc = T
+		abstract_move(destination)
+
 		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient())
 		if(visible_icon)
 			if(eye_user.client)
 				eye_user.client.images -= user_image
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
+				SET_PLANE(user_image, ABOVE_GAME_PLANE, destination)
 				eye_user.client.images += user_image
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
@@ -159,15 +179,22 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
-		if(step)
-			src.setLoc(step)
+		var/turf/T = get_turf(get_step_multiz(src, direct))
+		if(T && can_move(T, user))
+			src.setLoc(T)
 
 	cooldown = world.timeofday + 5
 	if(acceleration)
 		sprint = min(sprint + 0.5, max_sprint)
 	else
 		sprint = initial
+
+/mob/camera/aiEye/remote/proc/can_move(turf/target_turf, mob/user)
+	var/dir = get_dir_multiz(get_turf(src), target_turf)
+	if(dir & (UP|DOWN))
+		if(!can_z_move(null, get_turf(src), target_turf, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK, user))
+			return FALSE
+	return TRUE
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
@@ -214,7 +241,35 @@
 	if(final)
 		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 		remote_eye.setLoc(get_turf(final))
-		C.overlay_fullscreen("flash", /obj/screen/fullscreen/flash/noise)
+		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/noise)
 		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
 		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+
+/datum/action/innate/camera_multiz_up
+	name = "Move up a floor"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "move_up"
+
+/datum/action/innate/camera_multiz_up/Activate()
+	if(!owner || !isliving(owner))
+		return
+	var/mob/camera/aiEye/remote/remote_eye = owner.remote_control
+	if(remote_eye.zMove(UP))
+		to_chat(owner, span_notice("You move upwards."))
+	else
+		to_chat(owner, span_notice("You couldn't move upwards!"))
+
+/datum/action/innate/camera_multiz_down
+	name = "Move down a floor"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "move_down"
+
+/datum/action/innate/camera_multiz_down/Activate()
+	if(!owner || !isliving(owner))
+		return
+	var/mob/camera/aiEye/remote/remote_eye = owner.remote_control
+	if(remote_eye.zMove(DOWN))
+		to_chat(owner, span_notice("You move downwards."))
+	else
+		to_chat(owner, span_notice("You couldn't move downwards!"))

@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
@@ -111,7 +111,9 @@
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
-	list_reagents = list("omnizine" = 30)
+	volume = 250
+	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,35,40,45,50)
+	list_reagents = list("omnizine" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/empty
@@ -218,7 +220,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
 	if(reskin_allowed)
-		if(istype(W, /obj/item/pen))
+		if(is_pen(W))
 			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
 			if(!t)
 				return
@@ -324,9 +326,9 @@
 	name = "protoype nanite autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with body repair. Nanomachines son."
 	icon_state = "bonepen"
-	amount_per_transfer_from_this = 30
-	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("nanocalcium" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
@@ -353,6 +355,12 @@
 	amount_per_transfer_from_this = 20
 	volume = 20
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/reagent_containers/hypospray/autoinjector/radium
+	name = "Radium autoinjector"
+	desc = "A small medipen used for basic nucleation treatment."
+	icon_state = "ablueinjector"
+	list_reagents = list("radium" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
 	name = "Charcoal autoinjector"

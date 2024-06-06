@@ -1,5 +1,5 @@
 /datum/species/monkey
-	name = "Monkey"
+	name = SPECIES_MONKEY
 	name_plural = "Monkeys"
 	blurb = "Ook."
 
@@ -8,16 +8,16 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	language = "Galactic Common"
-	default_language = "Chimpanzee"
-	species_traits = list(NO_EXAMINE)
+	language = LANGUAGE_GALACTIC_COMMON
+	default_language = LANGUAGE_MONKEY_HUMAN
+	species_traits = list(NO_EXAMINE, HAVE_REGENERATION)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(slot_belt, slot_gloves)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
+	no_equip = list(ITEM_SLOT_BELT, ITEM_SLOT_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
@@ -60,7 +60,7 @@
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
-	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
+	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
@@ -68,27 +68,37 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
+
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.meatleft = 5
 
+
+/datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.meatleft = initial(H.meatleft)
+
+
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
-	..()
-	if(!remove)
-		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+	. = ..()
+	H.force_gene_block(GLOB.monkeyblock, !remove)
+
+
+/datum/species/monkey/can_understand(mob/other)
+	return istype(other, /mob/living/simple_animal/hostile/gorilla)
+
 
 /datum/species/monkey/tajaran
-	name = "Farwa"
+	name = SPECIES_FARWA
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
 	greater_form = /datum/species/tajaran
-	default_language = "Farwa"
+	default_language = LANGUAGE_MONKEY_TAJARAN
 	blood_species = "Tajaran"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
@@ -125,15 +135,19 @@
 	)
 
 
+/datum/species/monkey/tajaran/can_understand(mob/other)
+	return
+
+
 /datum/species/monkey/vulpkanin
-	name = "Wolpin"
+	name = SPECIES_WOLPIN
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
 	greater_form = /datum/species/vulpkanin
-	default_language = "Wolpin"
+	default_language = LANGUAGE_MONKEY_VULPKANIN
 	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#000000"
@@ -169,15 +183,20 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/vulpkanin),
 	)
 
+
+/datum/species/monkey/vulpkanin/can_understand(mob/other)
+	return
+
+
 /datum/species/monkey/skrell
-	name = "Neara"
+	name = SPECIES_NEARA
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
 	greater_form = /datum/species/skrell
-	default_language = "Neara"
+	default_language = LANGUAGE_MONKEY_SKRELL
 	blood_species = "Skrell"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -221,8 +240,11 @@
 	..()
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
+/datum/species/monkey/skrell/can_understand(mob/other)
+	return
+
 /datum/species/monkey/unathi
-	name = "Stok"
+	name = SPECIES_STOK
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
@@ -230,7 +252,7 @@
 
 	tail = "stoktail"
 	greater_form = /datum/species/unathi
-	default_language = "Stok"
+	default_language = LANGUAGE_MONKEY_UNATHI
 	blood_species = "Unathi"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
@@ -266,3 +288,8 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey/unathi),
 	)
+
+
+/datum/species/monkey/unathi/can_understand(mob/other)
+	return
+

@@ -27,7 +27,8 @@
 	planet_icon_state = "planet"
 
 /datum/lavaland_theme/lava/setup()
-	spawn_rivers(level_name_to_num(MINING))
+	var/datum/river_spawner/lava_spawner = new(level_name_to_num(MINING))
+	lava_spawner.generate()
 
 /datum/lavaland_theme/plasma
 	name = "plasma"
@@ -35,8 +36,9 @@
 	planet_icon_state = "planet_plasma"
 
 /datum/lavaland_theme/plasma/setup()
-	spawn_rivers(level_name_to_num(MINING), nodes = 2)
-	spawn_rivers(level_name_to_num(MINING), nodes = 2)
+	var/datum/river_spawner/spawner = new(level_name_to_num(MINING))
+	spawner.generate(nodes = 2)
+	spawner.generate(nodes = 2) // twice
 
 /datum/lavaland_theme/chasm
 	name = "chasm"
@@ -44,16 +46,6 @@
 	planet_icon_state = "planet_canyon"
 
 /datum/lavaland_theme/chasm/setup()
-	spawn_rivers(
-		level_name_to_num(MINING),
-		nodes = 6,
-		turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava,
-		whitelist_area = /area/lavaland/surface/outdoors,
-		min_x = 50,
-		min_y = 7,
-		max_x = 250,
-		max_y = 225,
-		prob = 10,
-		prob_loss = 5
-	)
+	var/datum/river_spawner/spawner = new(level_name_to_num(MINING), spread_prob_ = 10, spread_prob_loss_ = 5)
+	spawner.generate(nodes = 6, min_x = 50, min_y = 7, max_x = 250, max_y = 225)
 

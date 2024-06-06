@@ -42,8 +42,8 @@
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ(BODY_ZONE_HEAD)
 	if(pocket.contents.len && !findtextEx(head.h_style, "Tentacles"))
-		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
-													"<span class='notice'>Something falls from your head!</span>")
+		owner.visible_message(span_notice("Something falls from [owner]'s head!"),
+													span_notice("Something falls from your head!"))
 		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
@@ -80,7 +80,7 @@
 /obj/item/organ/internal/heart/skrell
 	species_type = /datum/species/skrell
 	name = "skrell heart"
-	desc = "A stream lined heart"
+	desc = "A stream lined heart."
 	icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell

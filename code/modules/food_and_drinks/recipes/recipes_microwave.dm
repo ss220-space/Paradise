@@ -957,3 +957,13 @@
 		/obj/item/reagent_containers/food/snacks/egg
 	)
 	result = /obj/item/reagent_containers/food/snacks/quiche
+
+/datum/recipe/microwave/crayfish
+	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/crayfish_raw)
+	result = /obj/item/reagent_containers/food/snacks/crayfish_cooked
+
+/datum/recipe/microwave/crayfish_small
+	reagents = list("water" = 5, "sodiumchloride" = 1, "herbsmix" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/crayfish_raw_small)
+	result = /obj/item/reagent_containers/food/snacks/crayfish_cooked_small

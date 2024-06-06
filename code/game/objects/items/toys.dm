@@ -36,7 +36,7 @@
 /obj/item/toy/attackby(obj/item/K, mob/user, params)
 	. = ..()
 	if(unique_toy_rename)
-		if(istype(K, /obj/item/pen))
+		if(is_pen(K))
 			var/t = rename_interactive(user, K, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the toy [name]. Say hello to your new friend.</span>")
@@ -168,7 +168,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy swords
@@ -197,7 +197,7 @@
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -212,8 +212,9 @@
 			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... itself. You're not very smart, are you?</span>")
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
-		else if((W.flags & NODROP) || (flags & NODROP))
-			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
+		else if(HAS_TRAIT(W, TRAIT_NODROP) || HAS_TRAIT(src, TRAIT_NODROP))
+			var/source_no_drop = HAS_TRAIT(src, TRAIT_NODROP)
+			to_chat(user, "<span class='notice'>\the [source_no_drop ? src : W] is stuck to your hand, you can't attach it to \the [source_no_drop ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
 			var/obj/item/sword = new /obj/item/twohanded/dualsaber/toy(drop_location())
@@ -235,7 +236,7 @@
 	force_wielded = 0
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
-	brightness_on = 0
+	light_range = 0
 	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
 
@@ -252,7 +253,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -529,7 +530,7 @@
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
@@ -540,7 +541,7 @@
 	icon_state = "inflatable"
 	item_state = "inflatable"
 	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /*
  * Fake meteor
@@ -843,7 +844,7 @@
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
 	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
 		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
-		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
 	else
@@ -1294,6 +1295,27 @@
 	desc = "Faces into the floor!"
 	icon_state = "hampter_ert"
 
+/obj/item/toy/plushie/beaver
+	name = "beaver plushie"
+	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "beaver_plushie"
+	item_state = "beaver_plushie"
+	w_class = WEIGHT_CLASS_SMALL
+	gender = MALE
+
+/obj/item/toy/plushie/beaver/sounded //only adminspawn
+	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	user.visible_message(span_boldnotice("BOBR KURWA!"))
+	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
 /*
  * Foam Armblade
  */
@@ -1547,7 +1569,7 @@
 /obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(O.loc != user)
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else
@@ -1608,7 +1630,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -2049,18 +2071,15 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 		return
 	dir = turn(dir, 270)
-	return 1
+	return TRUE
+
 
 /obj/item/toy/desk/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
-		return
-	else
+	if(Adjacent(user))
 		rotate()
 
 /obj/item/toy/desk/officetoy

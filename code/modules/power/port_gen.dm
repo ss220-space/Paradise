@@ -6,8 +6,8 @@
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	use_power = NO_POWER_USE
 
 	var/active = 0
@@ -32,7 +32,7 @@
 /obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
 
 /obj/machinery/power/port_gen/process()
@@ -42,10 +42,10 @@
 	else
 		active = 0
 		handleInactive()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/powered()
-	return 1 //doesn't require an external power source
+	return TRUE //doesn't require an external power source
 
 /obj/machinery/power/port_gen/attack_hand(mob/user as mob)
 	if(..())
@@ -297,7 +297,7 @@
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
+			set_anchored(!anchored)
 
 		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open
@@ -373,7 +373,7 @@
 			if(!powernet) //only a warning, process will disable
 				atom_say("Не подключен к электросет+и.")
 			active = !active
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("eject_fuel")
 			DropFuel()
 		if("change_power")

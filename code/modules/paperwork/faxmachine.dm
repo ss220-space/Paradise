@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 
 /obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
-	var/text = paper.show_content(forceshow = 1, view = 0)
+	var/text = "[paper.header][paper.info][paper.footer]"
 	text = replacetext(text, "<BR>", "\n")
 	text = replacetext(text, "</U>", "__")
 	text = replacetext(text, "<B>", "**")

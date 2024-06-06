@@ -16,7 +16,6 @@
 	maxHealth = 20
 	health = 20
 	mob_size = MOB_SIZE_TINY
-	flying = TRUE
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
@@ -40,8 +39,11 @@
 	if(istype(L))
 		owner = L
 
-/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
-	return ..()	//No drifting in space for space carp!	//original comments do not steal
+
+/mob/living/simple_animal/hostile/scarybat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)

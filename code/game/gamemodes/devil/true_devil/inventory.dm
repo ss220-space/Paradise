@@ -29,7 +29,7 @@
 
 /mob/living/carbon/true_devil/proc/remove_overlay(cache_index)
 	if(devil_overlays[cache_index])
-		overlays -= devil_overlays[cache_index]
+		cut_overlay(devil_overlays[cache_index])
 		devil_overlays[cache_index] = null
 
 
@@ -38,6 +38,5 @@
 	if(I)
 		if(I in overlays)
 			return
-		var/list/new_overlays = overlays.Copy()
-		new_overlays += I
-		overlays = new_overlays
+		add_overlay(I)
+

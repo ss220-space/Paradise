@@ -1,9 +1,9 @@
 /datum/species/tajaran
-	name = "Tajaran"
+	name = SPECIES_TAJARAN
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
-	language = "Siik'tajr"
+	language = LANGUAGE_TAJARAN
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
@@ -24,7 +24,7 @@
 
 	primitive_form = /datum/species/monkey/tajaran
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP

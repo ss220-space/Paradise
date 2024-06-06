@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	no_spin = TRUE
+	no_spin_thrown = TRUE
 
 	var/obj/item/paper/internal_paper
 

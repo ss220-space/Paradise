@@ -41,7 +41,7 @@
 	if(new_master == M)
 		copy.is_master = TRUE
 
-	M.diseases += copy
+	LAZYADD(M.diseases, copy)
 	copy.affected_mob = M
 	GLOB.active_diseases += copy
 	copy.carrier = is_carrier

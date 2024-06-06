@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	flags =  CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	zoomable = TRUE
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -28,7 +28,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
 	flight_x_offset = 18
@@ -117,7 +117,7 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
+	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
 
@@ -348,7 +348,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE
 	zoomable = TRUE
@@ -365,7 +365,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
 	var/has_core = FALSE
@@ -463,7 +463,7 @@
 	icon = 'icons/obj/weapons/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
@@ -561,7 +561,7 @@
 			temperature = target_temperature
 		update_icon()
 
-		if(istype(loc, /mob/living/carbon))
+		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
@@ -669,7 +669,7 @@
 	item_state = null
 
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	flags =  CONDUCT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -703,7 +703,7 @@
 
 /obj/item/gun/energy/dominator/update_icon(updates = ALL)
 	is_equipped = ismob(loc)
-	..()
+	. = ..()
 
 
 /obj/item/gun/energy/dominator/update_icon_state()
@@ -742,7 +742,7 @@
 	update_icon()
 
 
-/obj/item/gun/energy/dominator/dropped(mob/user, silent = FALSE)
+/obj/item/gun/energy/dominator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	update_icon()
 
@@ -754,7 +754,7 @@
 	item_state = null
 	origin_tech = "combat=3;materials=3;powerstorage=2;magnets=2"
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	cell_type = /obj/item/stock_parts/cell/emittergun

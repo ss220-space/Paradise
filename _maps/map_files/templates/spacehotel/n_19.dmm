@@ -23,15 +23,15 @@
 	id = "mazeland";
 	radius = 1
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
 /area/template_noop)
 "e" = (
-/turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
-	},
+/turf/simulated/floor/indestructible/view_portal,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -56,8 +56,8 @@ a
 a
 b
 b
-e
-e
+b
+b
 b
 a
 "}
@@ -74,7 +74,7 @@ a
 a
 b
 b
-e
+b
 e
 b
 a

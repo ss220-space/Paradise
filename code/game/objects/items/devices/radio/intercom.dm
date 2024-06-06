@@ -137,7 +137,7 @@
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() >= 5)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-			if(do_after(user, 10 * coil.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 1 && coil.use(5))
+			if(do_after(user, 1 SECONDS * coil.toolspeed * gettoolspeedmod(user), src) && buildstage == 1 && coil.use(5))
 				to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 				buildstage = 2
 			return 1
@@ -146,7 +146,7 @@
 			return
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 0)
+		if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1
@@ -175,12 +175,11 @@
 		return
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
-	update_icon(UPDATE_ICON_STATE)
 	on = TRUE
 	b_stat = FALSE
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
-	update_icon(UPDATE_ICON_STATE)
+	update_icon()
 	update_operating_status()
 	for(var/i, i<= 5, i++)
 		wires.on_cut(i, 1)
@@ -221,7 +220,7 @@
 	. = ..()
 	underlays.Cut()
 	if(on && buildstage == 3)
-		underlays += emissive_appearance(icon, "intercom_lightmask")
+		underlays += emissive_appearance(icon, "intercom_lightmask", src)
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)
@@ -244,10 +243,8 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
-		set_light(0)
 	else
 		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
-		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/item/intercom_electronics

@@ -330,14 +330,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/debrain/find_target(list/target_blacklist)
-	..()
-	if(target?.current)
-		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
-		if(!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
-	else
-		explanation_text = "Free Objective"
-	return target
+    ..()
+    if(target?.current)
+        var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+        explanation_text = "Steal the [brains.name] of [target.current.real_name], the [target.assigned_role]."
+        if(!(target in SSticker.mode.victims))
+            SSticker.mode.victims.Add(target)
+    else
+        explanation_text = "Free Objective"
+    return target
 
 
 /datum/objective/debrain/check_completion()
@@ -891,11 +892,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
 	var/item = new item_path
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	for(var/datum/mind/player in get_owners())
@@ -995,7 +996,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(SSticker.current_state == GAME_STATE_SETTING_UP)
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(player.client && player.ready && !(player.mind in get_owners()))
-					if(player.client.prefs && (player.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
+					if(player.client.prefs && (player.client.prefs.species == SPECIES_MACNINEPERSON)) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 
@@ -1138,11 +1139,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blood/check_completion()
 	for(var/datum/mind/player in get_owners())
 		var/datum/antagonist/vampire/vampire = player.has_antag_datum(/datum/antagonist/vampire)
-		if(vampire.bloodtotal >= target_amount)
+		if(vampire && (vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire.bloodtotal >= target_amount)
+		if(g_vampire && (g_vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		return FALSE
@@ -1170,7 +1171,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Chief Engineer","Research Director","Chief Medical Officer","Head of Personal","Head of Security","Nanotrasen Representative","Magistrate","Roboticist","Chemist")
+	var/list/roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -1449,7 +1450,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/mob/ninja = owner.current
 	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
 	bomb_item.detonation_objective = src
-	ninja.equip_or_collect(bomb_item, slot_l_store)
+	ninja.equip_or_collect(bomb_item, ITEM_SLOT_POCKET_LEFT)
 
 
 /datum/objective/get_money
@@ -1539,7 +1540,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		update_killers()
 
 	for(var/datum/mind/user in owners)
-		var/list/messages = list(user.prepare_announce_objectives())
+		var/list/messages = user.prepare_announce_objectives()
 		to_chat(user.current, chat_box_red(messages.Join("<br>")))
 
 
@@ -1635,12 +1636,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/list/scanned_occupants = list()
 	var/scans_to_win = 3
 	var/list/available_roles = list(
-		"Clown", "Mime", "Cargo Technician",
-		"Shaft Miner", "Scientist", "Roboticist",
-		"Medical Doctor", "Geneticist", "Security Officer",
-		"Chemist", "Station Engineer", "Civilian",
-		"Botanist", "Chemist", "Virologist",
-		"Life Support Specialist",
+		JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_CARGOTECH,
+		JOB_TITLE_MINER, JOB_TITLE_SCIENTIST, JOB_TITLE_ROBOTICIST,
+		JOB_TITLE_DOCTOR, JOB_TITLE_GENETICIST, JOB_TITLE_OFFICER,
+		JOB_TITLE_CHEMIST, JOB_TITLE_ENGINEER, JOB_TITLE_CIVILIAN,
+		JOB_TITLE_BOTANIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_ATMOSTECH
 	)
 
 

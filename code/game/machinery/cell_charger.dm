@@ -3,7 +3,7 @@
 	desc = "It charges power cells."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "ccharger0"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 60
@@ -78,7 +78,7 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else

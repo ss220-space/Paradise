@@ -17,14 +17,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 	var/class
 
 /obj/effect/statclick/debug/Click()
-	if(!is_admin(usr) || !target)
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES) || !target)
 		return
 	if(!class)
 		if(istype(target, /datum/controller/subsystem))
 			class = "subsystem"
 		else if(istype(target, /datum/controller))
 			class = "controller"
-		else if(istype(target, /datum))
+		else if(isdatum(target))
 			class = "datum"
 		else
 			class = "unknown"

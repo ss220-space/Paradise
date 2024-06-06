@@ -1,13 +1,3 @@
-#define ASSIGNMENT_ANY "Any"
-#define ASSIGNMENT_AI "AI"
-#define ASSIGNMENT_CYBORG "Cyborg"
-#define ASSIGNMENT_ENGINEER "Engineer"
-#define ASSIGNMENT_BOTANIST "Botanist"
-#define ASSIGNMENT_JANITOR "Janitor"
-#define ASSIGNMENT_MEDICAL "Medical"
-#define ASSIGNMENT_SCIENTIST "Scientist"
-#define ASSIGNMENT_SECURITY "Security"
-
 #define ONE_EVENT 10000 //! 1 event in `cumulative_event_expectancy` units.
 #define MAX_EVENTS_PER_CHECK (ONE_EVENT * 6)
 
@@ -37,7 +27,7 @@
 	if(cumulative_event_expectancy == 0)
 		last_check = world.time
 		return
-	
+
 	if(cumulative_event_expectancy > MAX_EVENTS_PER_CHECK)
 		cumulative_event_expectancy = MAX_EVENTS_PER_CHECK
 
@@ -45,7 +35,7 @@
 	while(cumulative_event_expectancy >= ONE_EVENT)
 		cumulative_event_expectancy -= ONE_EVENT
 		start_event()
-	
+
 	// Less than one event expected
 	if(cumulative_event_expectancy > 0)
 		if(rand(ONE_EVENT) < cumulative_event_expectancy)
@@ -67,7 +57,7 @@
 	if(istype(picked_event_meta, /datum/event_meta/bluespace_rift_event_meta))
 		var/datum/event_meta/bluespace_rift_event_meta/t_meta = picked_event_meta
 		t_meta.rift = rift
-	
+
 	new picked_event_meta.event_type(picked_event_meta)
 
 /datum/brs_event_container/proc/pick_event()
@@ -79,7 +69,7 @@
 		var/event_weight = event_meta.get_weight(active_with_role)
 		if(event_meta.enabled && event_weight)
 			possible_events[event_meta] = event_weight
-	
+
 	var/picked_event_meta = pickweight(possible_events)
 	return picked_event_meta
 
@@ -110,12 +100,12 @@
 	)
 
 /**
-*	event_meta for bluespace rift events. Keeps a reference to the rift. 
+*	event_meta for bluespace rift events. Keeps a reference to the rift.
 */
 /datum/event_meta/bluespace_rift_event_meta
 	var/datum/bluespace_rift/rift
 
-/** 
+/**
 *	Base class.
 *	Event that affects things in the area around the rift. Should use bluespace_rift_event_meta.
 */
@@ -154,8 +144,8 @@
 	var/datum/event_meta/bluespace_rift_event_meta/t_meta = event_meta
 	t_meta.rift = null
 
-/** 
-*	Teleports random mobs around the rift not too far from where they were. 
+/**
+*	Teleports random mobs around the rift not too far from where they were.
 */
 /datum/event/bluespace_rift_event/teleport_living
 	// min/max objects that will be chosen to teleport
@@ -176,7 +166,7 @@
 	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift_objects)
 		for(var/mob/living/mob in range(RIFT_EVENT_RANGE(rift_obj.size), rift_obj))
 			objects_in_range |= mob
-	
+
 	// Set the number of objects that will be teleported
 	min_num_objects = min(min_num_objects, length(objects_in_range))
 	max_num_objects = min(max_num_objects, length(objects_in_range))
@@ -191,7 +181,7 @@
 	..()
 	objects_in_range = null
 
-/** 
+/**
 *	Makes random mobs around the rift switch their places.
 */
 /datum/event/bluespace_rift_event/teleport_living/shuffle
@@ -206,8 +196,8 @@
 		do_teleport(mob1, mob2)
 		do_teleport(mob2, mob1_was_here)
 
-/** 
-*	Teleports random mobs around the rift not too far from where they were. 
+/**
+*	Teleports random mobs around the rift not too far from where they were.
 */
 /datum/event/bluespace_rift_event/teleport_living/within_z
 
@@ -222,8 +212,8 @@
 			return
 		do_teleport(mob, turf)
 
-/** 
-*	Random number of explosions around the rift. 
+/**
+*	Random number of explosions around the rift.
 */
 /datum/event/bluespace_rift_event/explosions
 	// min/max total number of explosions
@@ -254,10 +244,10 @@
 		var/radius = rand(min_explosion_radius, max_explosion_radius)
 		var/epicenter = pick_n_take(turfs_in_range)
 		explosion(
-			epicenter, 
+			epicenter,
 			light_impact_range = radius,
-			flash_range = radius, 
-			flame_range =  radius, 
+			flash_range = radius,
+			flame_range =  radius,
 			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
 
@@ -265,8 +255,8 @@
 	..()
 	turfs_in_range = null
 
-/** 
-*	Random number of em pulses around the rift. 
+/**
+*	Random number of em pulses around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/em_pulses
 
@@ -275,14 +265,14 @@
 		var/radius = rand(min_explosion_radius, max_explosion_radius)
 		var/epicenter = pick_n_take(turfs_in_range)
 		empulse(
-			epicenter, 
+			epicenter,
 			heavy_range = radius,
-			light_range = radius, 
-			log =  TRUE, 
+			light_range = radius,
+			log =  TRUE,
 			cause = "Bluespace rift event \"[event_meta.name]\""
 		)
 
-/** 
+/**
 *	Random number of flashes around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/flashes
@@ -300,7 +290,7 @@
 			range = radius
 		)
 
-/** 
+/**
 *	Random number of smoke clouds around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/smoke
@@ -311,7 +301,7 @@
 		playsound(epicenter, 'sound/effects/smoke.ogg', 50, TRUE)
 		new /obj/effect/particle_effect/smoke/bad(epicenter)
 
-/** 
+/**
 *	Random number of sparks around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/sparks
@@ -327,7 +317,7 @@
 		var/epicenter = pick_n_take(turfs_in_range)
 		do_sparks(number_of_sparks, FALSE, epicenter)
 
-/** 
+/**
 *	Random number of random chemical effects around the rift.
 */
 /datum/event/bluespace_rift_event/explosions/random_chem_effect
@@ -357,7 +347,7 @@
 	..()
 	grenade_types = null
 
-/** 
+/**
 *	Random chemical effects that could harm.
 */
 /datum/event/bluespace_rift_event/explosions/random_chem_effect/dangerous
@@ -370,7 +360,7 @@
 		/obj/item/grenade/gluon,
 	)
 
-/** 
+/**
 *	Random chemical effects that could be clownish.
 */
 /datum/event/bluespace_rift_event/explosions/random_chem_effect/funny
@@ -380,7 +370,7 @@
 		/obj/item/grenade/bananade,
 	)
 
-/** 
+/**
 *	Just makes floors dirty.
 */
 /datum/event/bluespace_rift_event/explosions/random_chem_effect/dirt
@@ -388,7 +378,7 @@
 		/obj/item/grenade/chem_grenade/dirt,
 	)
 
-/** 
+/**
 *	Covers the area around the rift with snow.
 */
 /datum/event/bluespace_rift_event/snow
@@ -419,7 +409,7 @@
 		if(locate(/obj/effect/snowcloud, t_turf))
 			continue
 		new /obj/effect/snow(t_turf)
-		
+
 /datum/event/bluespace_rift_event/snow/end()
 	..()
 	turfs_in_range = null
@@ -430,12 +420,3 @@
 #undef ONE_EVENT
 #undef MAX_EVENTS_PER_CHECK
 
-#undef ASSIGNMENT_ANY
-#undef ASSIGNMENT_AI
-#undef ASSIGNMENT_CYBORG
-#undef ASSIGNMENT_ENGINEER
-#undef ASSIGNMENT_BOTANIST
-#undef ASSIGNMENT_JANITOR
-#undef ASSIGNMENT_MEDICAL
-#undef ASSIGNMENT_SCIENTIST
-#undef ASSIGNMENT_SECURITY

@@ -117,7 +117,7 @@
 
 /obj/machinery/door/airlock/Bumped(atom/movable/moving_atom)
 	..(moving_atom)
-	if(istype(moving_atom, /obj/mecha))
+	if(ismecha(moving_atom))
 		var/obj/mecha/mecha = moving_atom
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
@@ -145,7 +145,7 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
@@ -227,7 +227,7 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_button_standby"
 	name = "access button"
-	anchored = 1
+	anchored = TRUE
 	power_channel = ENVIRON
 
 	var/master_tag

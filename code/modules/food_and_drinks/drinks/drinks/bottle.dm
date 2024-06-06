@@ -431,14 +431,14 @@
 		add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		overlays += GLOB.fire_overlay
+		add_overlay(GLOB.fire_overlay)
 		if(!isGlass)
 			spawn(50)
 				if(active)
 					var/counter
 					var/target = loc
 					for(counter = 0, counter < 2, counter++)
-						if(istype(target, /obj/item/storage))
+						if(isstorage(target))
 							var/obj/item/storage/S = target
 							target = S.loc
 					if(istype(target, /atom))

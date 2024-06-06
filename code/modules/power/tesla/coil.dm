@@ -3,8 +3,8 @@
 	desc = "For the union!"
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "coil0"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 
 	var/power_loss = 2
 	var/input_power_multiplier = 1
@@ -38,7 +38,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+	else if(issignaler(W) && panel_open)
 		add_fingerprint(user)
 		wires.Interact(user)
 
@@ -109,8 +109,8 @@
 	desc = "Keep an area from being fried from Edison's Bane."
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 
 /obj/machinery/power/grounding_rod/Initialize(mapload)
 	. = ..()

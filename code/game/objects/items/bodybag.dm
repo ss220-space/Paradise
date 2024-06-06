@@ -57,7 +57,7 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
-	integrity_failure = FALSE
+	integrity_failure = 50
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
@@ -80,7 +80,7 @@
 
 /obj/structure/closet/body_bag/close()
 	if(..())
-		density = FALSE
+		set_density(FALSE)
 		return TRUE
 	return FALSE
 
@@ -111,6 +111,14 @@
 
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
+		usr.visible_message(
+			span_notice("[usr] folds up [src]."),
+			span_notice("You fold up [src]."),
+		)
+		new item_path(get_turf(src))
+		qdel(src)
+		return FALSE
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
 		if(attempt_fold(usr))
 			usr.visible_message(
@@ -132,6 +140,27 @@
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
 
+/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
+	return FALSE //Can't be weldled under any circumstances.
+
+/obj/item/bodybag/biohazard
+	name = "biohazard bodybag"
+	desc = "A folded bag designed for the storage and transportation of infected cadavers."
+	icon_state = "bodybag_biohazard_folded"
+
+/obj/structure/closet/body_bag/biohazard
+	name = "biohazard body bag"
+	desc = "A plastic bag designed for the storage and transportation of infected cadavers."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_biohazard_closed"
+	icon_closed = "bodybag_biohazard_closed"
+	icon_opened = "bodybag_biohazard_open"
+	item_path = /obj/item/bodybag/biohazard
+
+/obj/item/bodybag/biohazard/attack_self(mob/user)
+	var/obj/structure/closet/body_bag/biohazard/R = new /obj/structure/closet/body_bag/biohazard(user.loc)
+	R.add_fingerprint(user)
+	qdel(src)
 /obj/item/bodybag/bluespace
 	name = "bluespace body bag"
 	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."

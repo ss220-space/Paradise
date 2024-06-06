@@ -23,7 +23,7 @@
 /obj/structure/toilet/bluespace/update_overlays()
 	. = ..()
 	if(open)
-		overlays += image(icon, "bluespace_toilet_singularity")
+		. += image(icon, "bluespace_toilet_singularity")
 
 
 /obj/structure/toilet/bluespace/attack_hand(mob/living/user)
@@ -35,7 +35,7 @@
 			playsound(src, teleport_sound, 100, vary = TRUE)
 			teleport_sound_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, teleport_sound_cooldown, FALSE), 10 SECONDS)
-		if(do_after(user, 5 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			do_teleport(user, user, 7)
 			investigate_log("teleported [key_name_log(user)] to [COORD(user)]", INVESTIGATE_TELEPORTATION)
 

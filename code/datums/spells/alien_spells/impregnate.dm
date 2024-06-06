@@ -42,7 +42,7 @@
 		revert_cast(user)
 		return
 
-	if(!do_after_once(user, IMPREGNATION_PROCESS_TIME, target = human))
+	if(!do_after(user, IMPREGNATION_PROCESS_TIME, human, max_interact_count = 1))
 		to_chat(user, span_danger("Victim managed to escape!"))
 		revert_cast(user)
 		return

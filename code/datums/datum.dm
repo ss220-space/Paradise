@@ -15,14 +15,16 @@
 	  */
 	var/list/datum_components //for /datum/components
 	/// Status traits attached to this datum
-	var/list/status_traits
+	var/list/_status_traits
 	var/list/comp_lookup
 	var/list/list/datum/callback/signal_procs
 	var/signal_enabled = FALSE
-	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
 	/// Datum level flags
 	var/datum_flags = NONE
+
+	/// A weak reference to another datum
+	var/datum/weakref/weak_reference
 
 #ifdef TESTING
 	var/running_find_references

@@ -3,8 +3,8 @@
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	max_integrity = 300
@@ -45,7 +45,7 @@
 	qdel(src)
 
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			boom(FALSE, TRUE)
 	else
@@ -124,14 +124,14 @@
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
-		if(do_after(usr, 20, target = src))
+		if(do_after(usr, 2 SECONDS, src))
 			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
 			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
-			overlays.Cut()
+			cut_overlays()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
@@ -139,12 +139,12 @@
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
 			var/obj/item/assembly_holder/H = I
-			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
+			if(isigniter(H.a_left) || isigniter(H.a_right))
 				add_attack_logs(user, src, "rigged fuel tank with [I.name] for explosion", ATKLOG_FEW)
 				investigate_log("[key_name_log(user)] rigged [src.name] with [I.name] for explosion", INVESTIGATE_BOMB)
 
@@ -156,7 +156,7 @@
 				var/icon/test = getFlatIcon(H)
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
-				overlays += test
+				add_overlay(test)
 	else
 		return ..()
 
@@ -205,8 +205,8 @@
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -214,7 +214,7 @@
 	desc = "A machine that dispenses liquid to drink."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
-	anchored = 1
+	anchored = TRUE
 	tank_volume = 500
 	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
@@ -281,22 +281,22 @@
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	reagent_id = "virusfood"
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	accepts_rig = 0
 	tank_volume = 1000

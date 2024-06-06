@@ -14,15 +14,15 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "nudges"
-	density = 0
-	flying = TRUE
+	density = FALSE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Meepo"
 
-/mob/living/simple_animal/butterfly/New()
-	..()
+/mob/living/simple_animal/butterfly/Initialize(mapload)
+	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+	AddElement(/datum/element/simple_flying)

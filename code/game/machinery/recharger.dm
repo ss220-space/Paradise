@@ -28,6 +28,7 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	update_icon()
 
 
 /obj/machinery/recharger/RefreshParts()
@@ -159,14 +160,11 @@
 			B.cell.charge = 0
 	..(severity)
 
+
 /obj/machinery/recharger/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light(0)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/recharger/update_icon_state()
@@ -192,7 +190,7 @@
 	if((stat & NOPOWER) || panel_open)
 		return
 
-	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)

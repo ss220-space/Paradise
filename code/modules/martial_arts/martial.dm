@@ -124,7 +124,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying)
+	if(D.body_position == LYING_DOWN)
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -155,12 +155,12 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
+	else if(D.body_position == LYING_DOWN)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -202,9 +202,13 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	H.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
-	H.dirslash_enabled = initial(H.dirslash_enabled)
+	remove_verbs(H)
+	return TRUE
+
+/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
+	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
 ///	Returns the martial art with the highest weight from all the ones someone knows.
@@ -276,23 +280,20 @@
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.teach(user, TRUE)
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_gloves)
-		var/mob/living/carbon/human/H = user
-		style.teach(H, TRUE)
 
-/obj/item/clothing/gloves/boxing/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.remove(user)
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
-		style.remove(H)
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -302,28 +303,25 @@
 	name = "Пояс Истинного Чемпиона"
 	desc = "Вы - лучший! и Вы это знаете!"
 
-/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial)
+
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
+		return .
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
+		return .
+	style.teach(user, TRUE)
+	to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab."))
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_belt)
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
-			return
-		style.teach(H, TRUE)
-		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
-/obj/item/storage/belt/champion/wrestling/dropped(mob/user, silent = FALSE)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
+		return .
+	style.remove(user)
+	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_belt) == src)
-		style.remove(H)
-		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -428,7 +426,7 @@
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(user.mind && user.mind.assigned_role == "Chef")
+	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
 		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
@@ -489,7 +487,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
@@ -562,7 +560,7 @@
 		return ..()
 	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
@@ -570,18 +568,18 @@
 	var/streak
 
 
-/obj/screen/combo/proc/clear_streak()
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
 
-/obj/screen/combo/update_icon(updates, _streak)
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
 
 
-/obj/screen/combo/update_overlays()
+/atom/movable/screen/combo/update_overlays()
 	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
@@ -590,7 +588,7 @@
 		. += intent_icon
 
 
-/obj/screen/combo/update_icon_state()
+/atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return

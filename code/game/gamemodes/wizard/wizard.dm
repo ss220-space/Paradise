@@ -183,22 +183,22 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(spellbook, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -232,23 +232,23 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), slot_head)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(apprentice_book, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -270,7 +270,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
@@ -281,7 +281,7 @@
 	// Apprentices
 	if(!wizards_alive)
 		for(var/datum/mind/apprentice in apprentices)
-			if(!istype(apprentice.current,/mob/living/carbon))
+			if(!iscarbon(apprentice.current))
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue
@@ -338,11 +338,11 @@
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
-			if(wizard.spell_list)
+			if(LAZYLEN(wizard.spell_list))
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
-					text += "[S.name]"
+				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+					text += "[spell.name]"
 					if(wizard.spell_list.len > i)
 						text += ", "
 					i++
@@ -392,15 +392,15 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
-		qdel(spell_to_remove)
-		mind.spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+		mind.RemoveSpell(spell_to_remove)
+
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
-		qdel(spell_to_remove)
-		mob_spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+		RemoveSpell(spell_to_remove)
+
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

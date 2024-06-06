@@ -19,33 +19,34 @@
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
 
-/obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(slot == slot_gloves)
-		if(H.middleClickOverride)
-			old_mclick_override = H.middleClickOverride
-		H.middleClickOverride = mclick_override
-		if(!unlimited_power)
-			to_chat(H, "<span class='notice'>You feel electricity begin to build up in [src].</span>")
-		else
-			to_chat(H, "<span class='biggerdanger'>You feel like you have UNLIMITED POWER!!</span>")
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
 
-/obj/item/clothing/gloves/color/yellow/power/dropped(mob/user, silent = FALSE)
+	if(user.middleClickOverride)
+		old_mclick_override = user.middleClickOverride
+	user.middleClickOverride = mclick_override
+	if(!unlimited_power)
+		to_chat(user, span_notice("You feel electricity begin to build up in [src]."))
+	else
+		to_chat(user, span_dangerbigger("You feel like you have UNLIMITED POWER!!!"))
+
+
+/obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src && H.middleClickOverride == mclick_override)
-		if(old_mclick_override)
-			H.middleClickOverride = old_mclick_override
-			old_mclick_override = null
-		else
-			H.middleClickOverride = null
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES || user.middleClickOverride != mclick_override)
+		return .
+
+	if(old_mclick_override)
+		user.middleClickOverride = old_mclick_override
+		old_mclick_override = null
+	else
+		user.middleClickOverride = null
+
 
 /obj/item/clothing/gloves/color/yellow/power/unlimited
 	name = "UNLIMITED POWER gloves"
@@ -126,6 +127,23 @@
 	item_state = "goligloves"
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 50, "acid" = 50)
 	can_be_cut = FALSE
+
+/obj/item/clothing/gloves/color/black/ballistic
+	name = "armored gloves"
+	desc = "Pair of gloves with some protection"
+	icon_state = "armored_gloves"
+	item_state = "armored_gloves"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	can_be_cut = FALSE
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"

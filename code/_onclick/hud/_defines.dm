@@ -164,6 +164,9 @@
 #define ui_ai_core "SOUTH:6,RIGHT-1"
 #define ui_ai_sensor "SOUTH:6,RIGHT"
 
+#define ui_ai_up "TOP:-6,RIGHT-1"
+#define ui_ai_down "TOP:-6,RIGHT"
+
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"
 #define ui_bot_pull "EAST-2:26,SOUTH:7"

@@ -232,7 +232,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_mob(owner.current, target, time_per_action))
+	while(do_after(owner.current, time_per_action, target, NONE))
 		cycle_counter++
 		owner.current.face_atom(target)
 
@@ -367,7 +367,7 @@
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
-	if(istype(spell, /datum/vampire_passive))
+	else if(istype(spell, /datum/vampire_passive))
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
@@ -392,10 +392,12 @@
 /datum/antagonist/vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.spell_list.Remove(ability)
 		if(istype(ability, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = null
-		qdel(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell))
+			owner.RemoveSpell(ability)
+		else if(istype(ability, /datum/vampire_passive))
+			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 
@@ -531,7 +533,7 @@
 		return
 
 	if(!hud.vampire_blood_display)
-		hud.vampire_blood_display = new /obj/screen()
+		hud.vampire_blood_display = new /atom/movable/screen()
 		hud.vampire_blood_display.name = "Usable Blood"
 		hud.vampire_blood_display.icon_state = "blood_display"
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
@@ -552,15 +554,15 @@
 
 	if(!iscloaking || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
-		REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)	// round(255 * 0.15)
-		ADD_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+		owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
-	REMOVE_TRAIT(owner.current, TRAIT_GOTTAGONOTSOFAST, VAMPIRE_TRAIT)
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
 
 
@@ -586,12 +588,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/vampire) || our_mind.has_antag_datum(/datum/antagonist/goon_vampire)
 
 	if(!ismob(source))
 		return FALSE
@@ -610,12 +609,9 @@
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/mindslave/thrall) || our_mind.has_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 
 	if(!isliving(source))
 		return FALSE

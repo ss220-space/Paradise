@@ -1,13 +1,13 @@
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
-	title = "Chaplain"
-	flag = JOB_CHAPLAIN
+	title = JOB_TITLE_CHAPLAIN
+	flag = JOB_FLAG_CHAPLAIN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = TRUE
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)

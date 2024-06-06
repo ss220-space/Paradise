@@ -31,7 +31,7 @@
 	if(!ishuman(user) || !user.mind)
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == slot_r_hand || slot == slot_l_hand)
+	if(slot & ITEM_SLOT_HANDS)
 		if(H.mind.martial_art && H.mind.martial_art != style)
 			style.teach(H, TRUE)
 			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")
@@ -42,7 +42,7 @@
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
 			sword.style.teach(H, 1)
 
-/obj/item/claymore/highlander/dropped(mob/user, silent = FALSE)
+/obj/item/claymore/highlander/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
 	if(!ishuman(user))

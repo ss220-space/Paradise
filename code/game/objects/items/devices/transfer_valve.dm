@@ -57,7 +57,7 @@
 		to_chat(user, "<span class='notice'>You attach the [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(istype(attached_device, /obj/item/assembly/prox_sensor))
+		if(isprox(attached_device))
 			AddComponent(/datum/component/proximity_monitor)
 
 		investigate_log("[key_name_log(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)

@@ -6,7 +6,7 @@
 
 	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
 	status_flags = null 	// No canpush to prevent grabs ...
-	density = 0 			//  ... But a density of 0 means we won't be blocking anyone's way.
+	density = FALSE 			//  ... But a density of 0 means we won't be blocking anyone's way.
 	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
@@ -15,7 +15,7 @@
 	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
-	no_spin_thrown = 1
+	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
@@ -45,7 +45,7 @@
 	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
 	if(response != "Ghost")
 		return
-	StartResting()
+	set_resting(TRUE, instant = TRUE)
 	var/mob/dead/observer/ghost = ghostize(1)
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.
@@ -63,8 +63,12 @@
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
+	if(QDELETED(src))
+		return
+
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
-		death(1)
+		death(gibbed = TRUE)
+		return
 
 	if( possessed_item.loc != src )
 		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
@@ -80,7 +84,11 @@
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
 		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
-		forceMove(get_turf(src))
+		var/turf/source_turf = get_turf(src)
+		if(source_turf)
+			forceMove(source_turf)
+		else
+			move_to_null_space()
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
 			possessed_item.forceMove(src)
 
@@ -93,7 +101,7 @@
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
 
-	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
+	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)

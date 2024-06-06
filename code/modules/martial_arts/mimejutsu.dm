@@ -30,7 +30,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = null
 	if(prob(50))
-		if(!D.stat || !D.IsWeakened())
+		if(!D.stat || D.body_position != LYING_DOWN)
 			I = D.get_active_hand()
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)

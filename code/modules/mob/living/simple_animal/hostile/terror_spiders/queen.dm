@@ -26,7 +26,6 @@
 	armour_penetration = 20
 	obj_damage = 100
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	ventcrawler = 1
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -250,8 +249,8 @@
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
 	hasnested = TRUE
-	ventcrawler = 0
-	speed = 0.5
+	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	set_varspeed(0.5)
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
@@ -386,7 +385,7 @@
 	. = ..()
 	air_update_turf(TRUE)
 
-/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T, vertical)
 	return FALSE
 
 /obj/structure/spider/terrorweb/queen/Destroy()

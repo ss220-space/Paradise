@@ -47,6 +47,7 @@
 	if(!GLOB.wire_color_directory[holder_type])
 		randomize()
 		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_name_directory[holder_type] = proper_name
 	else
 		colors = GLOB.wire_color_directory[holder_type]
 
@@ -210,7 +211,7 @@
 					user.put_in_hands(O, ignore_anim = FALSE)
 					return TRUE
 
-			if(!istype(I, /obj/item/assembly/signaler))
+			if(!issignaler(I))
 				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
 				return
 

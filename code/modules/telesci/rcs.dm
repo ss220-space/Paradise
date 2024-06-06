@@ -88,7 +88,7 @@
   * Coordinates are constrained within 50-200 x & y.
   */
 /obj/item/rcs/proc/random_coords()
-	var/Z = level_name_to_num(MAIN_STATION) // Z level
+	var/Z = pick(levels_by_trait(STATION_LEVEL)) // Z level
 	// Random Coordinates
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
@@ -140,7 +140,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = C))
+	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), C))
 		teleporting = FALSE
 		return
 

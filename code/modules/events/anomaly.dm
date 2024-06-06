@@ -1,47 +1,49 @@
+#define TURF_FIND_TRIES 10
+
 /datum/event/anomaly
 	name = "Anomaly: Energetic Flux"
 	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
+	var/turf/target_turf
 	announceWhen = 1
+	/// The prefix message for the anomaly annoucement.
+	var/prefix_message = "На сканерах дальнего действия обнаружена гиперэнергетическая потоковая аномалия."
 
-/datum/event/anomaly/proc/findEventArea()
-	var/static/list/allowed_areas
-	if(!allowed_areas)
-		//Places that shouldn't explode
-		var/list/safe_area_types = typecacheof(list(
-		/area/turret_protected/ai,
-		/area/turret_protected/ai_upload,
-		/area/ai_monitored/storage/emergency,
-		/area/engine,
-		/area/solar,
-		/area/holodeck,
-		/area/shuttle,
-		/area/maintenance,
-		/area/toxins/test_area)
-		)
-
-		//Subtypes from the above that actually should explode.
-		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
-
-		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
-	var/list/possible_areas = typecache_filter_list(GLOB.all_areas, allowed_areas)
-	if(length(possible_areas))
-		return pick(possible_areas)
 
 /datum/event/anomaly/setup()
-	impact_area = findEventArea()
-	if(!impact_area)
-		CRASH("No valid areas for anomaly found.")
-	var/list/turf_test = get_area_turfs(impact_area)
-	if(!length(turf_test))
-		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
+	target_turf = find_targets(TRUE)
 
-/datum/event/anomaly/announce()
-	GLOB.event_announcement.Announce("На сканерах дальнего действия обнаружена гиперэнергетическая потоковая аномалия. Предполагаемая локация: [impact_area.name]", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+/datum/event/anomaly/proc/find_targets(warn_on_fail = FALSE)
+	for(var/tries in 1 to TURF_FIND_TRIES)
+		impact_area = findEventArea()
+		if(!impact_area)
+			if(warn_on_fail)
+				stack_trace("No valid areas for anomaly found.")
+				kill()
+			return
+		var/list/candidate_turfs = get_area_turfs(impact_area)
+		while(length(candidate_turfs))
+			var/turf/candidate = pick_n_take(candidate_turfs)
+			if(!candidate.is_blocked_turf(exclude_mobs = TRUE))
+				target_turf = candidate
+				break
+		if(target_turf)
+			break
+	if(!target_turf)
+		stack_trace("Anomaly: Unable to find a valid turf to spawn the anomaly. Last area tried: [impact_area] - [impact_area.type]")
+		kill()
+		return
+
+	return target_turf
+
+/datum/event/anomaly/announce(false_alarm)
+	var/area/target = false_alarm ? findEventArea() : impact_area
+	if(false_alarm && !target)
+		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
+		return
+	GLOB.event_announcement.Announce("[prefix_message] Предполагаемая локация: [target.name]", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 /datum/event/anomaly/start()
-	var/turf/T = pick(get_area_turfs(impact_area))
-	var/newAnomaly
-	if(T)
-		newAnomaly = new anomaly_path(T)
-	if(newAnomaly)
-		announce_to_ghosts(newAnomaly)
+	var/newAnomaly = new anomaly_path(target_turf)
+	announce_to_ghosts(newAnomaly)
+
+#undef TURF_FIND_TRIES

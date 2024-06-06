@@ -13,6 +13,7 @@
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
+	gamemode_blacklist = list("extended")
 	var/animal_count
 	var/human_count
 	var/plant_count
@@ -66,7 +67,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
@@ -133,8 +134,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/structure/filler
 	name = "big machinery part"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/machinery/parent
 
@@ -150,8 +151,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32
 	pixel_y = -64
@@ -333,7 +334,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			S.species_traits |= PIERCEIMMUNE
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			S.speed_mod = -1
+			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 		if(VAULT_QUICK)
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5

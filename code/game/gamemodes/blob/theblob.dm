@@ -4,9 +4,10 @@
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Some blob creature thingy"
-	density = 0
-	opacity = 1
-	anchored = 1
+	density = FALSE
+	opacity = TRUE
+	anchored = TRUE
+	pass_flags_self = PASSBLOB
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
@@ -18,9 +19,10 @@
 	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
+	obj_flags = BLOCK_Z_OUT_DOWN // stops blob mobs from falling on multiz.
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
@@ -49,22 +51,18 @@
 /obj/structure/blob/proc/update_state()
 	return
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
-	if(istype(mover) && mover.checkpass(PASSBLOB))
-		return 1
-	return 0
+/obj/structure/blob/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return checkpass(mover, PASSBLOB)
 
-/obj/structure/blob/CanAtmosPass(turf/T)
+/obj/structure/blob/CanAtmosPass(turf/T, vertical)
 	return !atmosblock
 
 
 /obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	. = FALSE
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSBLOB)
+	if(checkpass(caller, PASSBLOB))
+		. = TRUE
 
 
 /obj/structure/blob/process()
@@ -129,7 +127,7 @@
 /obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
 	if(prob && !prob(obj_integrity))
 		return
-	if(istype(T, /turf/space) && prob(75)) 	return
+	if(isspaceturf(T) && prob(75)) 	return
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
 		for(var/i = 1 to 4)
@@ -144,9 +142,9 @@
 		return
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
-	B.density = 1
+	B.set_density(TRUE)
 	if(T.Enter(B,src))//Attempt to move into the tile
-		B.density = initial(B.density)
+		B.set_density(initial(B.density))
 		B.loc = T
 	else
 		T.blob_act()//If we cant move in hit the turf

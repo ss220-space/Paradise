@@ -30,7 +30,7 @@
 	maxbodytemp = 500
 
 	can_hide = 1
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
 
@@ -74,7 +74,7 @@
 			to_chat(user, "<span class='warning'>[B] is dead. Sticking it into the frame would sort of defeat the purpose.</span>")
 			return
 
-		if(jobban_isbanned(B.brainmob, "Cyborg") || jobban_isbanned(B.brainmob, "nonhumandept"))
+		if(jobban_isbanned(B.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(B.brainmob, "nonhumandept"))
 			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
 			return
 

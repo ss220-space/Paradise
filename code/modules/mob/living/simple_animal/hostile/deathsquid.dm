@@ -27,15 +27,14 @@
 	unsuitable_atmos_damage = 0
 	heat_damage_per_tick = 0
 
-	see_in_dark = 8
+	nightvision = 8
 	mob_size = MOB_SIZE_LARGE
-	ventcrawler = 0
 	gold_core_spawnable = NO_SPAWN
 
 
 
-/mob/living/simple_animal/hostile/deathsquid/Process_Spacemove(var/movement_dir = 0)
-	return 1 //copypasta from carp code
+/mob/living/simple_animal/hostile/deathsquid/Process_Spacemove(movement_dir = NONE)
+	return TRUE //copypasta from carp code
 
 /mob/living/simple_animal/hostile/deathsquid/ex_act(severity)
 	return

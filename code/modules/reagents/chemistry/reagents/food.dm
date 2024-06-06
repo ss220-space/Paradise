@@ -209,25 +209,31 @@
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
+	var/is_slime = isslime(M)
+	var/adjusted_temp = 0
 	switch(current_cycle)
 		if(1 to 15)
-			M.bodytemperature += 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(5,20)
+			M.adjust_bodytemperature(adjusted_temp)
 			if(holder.has_reagent("frostoil"))
 				holder.remove_reagent("frostoil", 5)
-			if(isslime(M))
-				M.bodytemperature += rand(5,20)
 		if(15 to 25)
-			M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(10,20)
+			adjusted_temp = 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(10,20)
+			M.adjust_bodytemperature(adjusted_temp)
 		if(25 to 35)
-			M.bodytemperature += 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(15,20)
+			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(15,20)
+			M.adjust_bodytemperature(adjusted_temp)
 		if(35 to INFINITY)
-			M.bodytemperature += 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature += rand(20,25)
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(20,25)
+			M.adjust_bodytemperature(adjusted_temp)
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin
@@ -250,17 +256,19 @@
 			var/mouth_covered = FALSE
 			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.wear_mask
+				if(isclothing(victim.wear_mask))
+					var/obj/item/clothing/cloth = victim.wear_mask
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.wear_mask
 			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
@@ -268,10 +276,12 @@
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.head
+				if(isclothing(victim.head))
+					var/obj/item/clothing/cloth = victim.head
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = TRUE
 				if(!safe_thing)
@@ -321,31 +331,52 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<font color='lightblue'>cold</span>"
 
-/datum/reagent/consumable/frostoil/on_mob_life(mob/living/M)
+
+/datum/reagent/consumable/frostoil/on_mob_add(mob/living/user)
+	. = ..()
+	if(isslime(user))
+		user.add_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
+
+
+/datum/reagent/consumable/frostoil/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
+
+
+/datum/reagent/consumable/frostoil/on_mob_life(mob/living/user)
+	var/is_slime = isslime(user)
+	var/adjusted_temp = 0
+	if(!is_slime)
+		user.remove_movespeed_modifier(/datum/movespeed_modifier/slime_frostoil_mod)
 	switch(current_cycle)
 		if(1 to 15)
-			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(5,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(holder.has_reagent("capsaicin"))
 				holder.remove_reagent("capsaicin", 5)
-			if(isslime(M))
-				M.bodytemperature -= rand(5,20)
 		if(15 to 25)
-			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(isslime(M))
-				M.bodytemperature -= rand(10,20)
+			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(10,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 		if(25 to 35)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(15,20)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(prob(1))
-				M.emote("shiver")
-			if(isslime(M))
-				M.bodytemperature -= rand(15,20)
+				user.emote("shiver")
 		if(35 to INFINITY)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			adjusted_temp = 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(is_slime)
+				adjusted_temp += rand(20,25)
+			user.adjust_bodytemperature(-adjusted_temp)
 			if(prob(1))
-				M.emote("shiver")
-			if(isslime(M))
-				M.bodytemperature -= rand(20,25)
+				user.emote("shiver")
 	return ..()
+
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -412,8 +443,8 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(M.bodytemperature < BODYTEMP_NORMAL)
+		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/garlic
@@ -436,7 +467,7 @@
 				H.Jitter(20 SECONDS)
 				H.fakevomit()
 		else
-			if(H.job == "Chef")
+			if(H.job == JOB_TITLE_CHEF)
 				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 					update_flags |= H.adjustBruteLoss(-1, FALSE)
 					update_flags |= H.adjustFireLoss(-1, FALSE)
@@ -451,7 +482,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -469,7 +500,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
@@ -513,8 +544,8 @@
 	taste_description = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-		M.bodytemperature = min(310, M.bodytemperature + (10 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(M.bodytemperature < BODYTEMP_NORMAL)
+		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/hell_ramen
@@ -527,7 +558,7 @@
 	taste_description = "SPICY ramen"
 
 /datum/reagent/consumable/hell_ramen/on_mob_life(mob/living/M)
-	M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+	M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/flour
@@ -891,7 +922,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
@@ -1049,15 +1079,32 @@
 	color = "#b5a213"
 	var/light_activated = FALSE
 	taste_description = "tingling mushroom"
+	//Lazy list of mobs affected by the luminosity of this reagent.
+	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
-	if(!light_activated)
-		M.set_light(2)
-		light_activated = TRUE
-	return ..()
+/datum/reagent/consumable/tinlux/on_mob_add(mob/living/L)
+	. = ..()
+	add_reagent_light(L)
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
-	M.set_light(0)
+	. = ..()
+	remove_reagent_light(M)
+
+/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
+	SIGNAL_HANDLER
+	remove_reagent_light(source)
+
+/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
+	LAZYSET(mobs_affected, living_holder, mob_light_obj)
+	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+
+/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
+	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
+	LAZYREMOVE(mobs_affected, living_holder)
+	if(mob_light_obj)
+		qdel(mob_light_obj)
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"
@@ -1074,5 +1121,24 @@
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/animal_feed
+	name = "Animal Feed"
+	id = "afeed"
+	description = "Food that pets are fed."
+	color = "#ac3308"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "animal feed"
 
-
+/datum/reagent/consumable/animal_feed/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+		M.AdjustDisgust(-5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_notice("You feel delicious yummy snack taste!"))
+	else
+		M.AdjustDisgust(5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_warning("Yuack! What a terrible taste!"))
+	return ..() | update_flags

@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены</span>")
+		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены.</span>")
 		return
 
 	for(var/J in all_jobs)
@@ -170,7 +170,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 
-		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJob(JOB_TITLE_CIVILIAN))) // We don't want to give him assistant, that's boring!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
@@ -271,11 +271,11 @@ SUBSYSTEM_DEF(jobs)
 	if(!CONFIG_GET(flag/allow_ai))
 		return FALSE
 
-	var/datum/job/job = GetJob("AI")
+	var/datum/job/job = GetJob(JOB_TITLE_AI)
 	if(!job)
 		return FALSE
 
-	if(new_malf && AssignRole(new_malf, "AI"))
+	if(new_malf && AssignRole(new_malf, JOB_TITLE_AI))
 		return TRUE
 
 /** Proc DivideOccupations
@@ -323,7 +323,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AC1, Candidates: [civilian_candidates.len]")
 	for(var/mob/new_player/player in civilian_candidates)
 		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Civilian")
+		AssignRole(player, JOB_TITLE_CIVILIAN)
 		civilian_candidates -= player
 	Debug("DO, AC1 end")
 
@@ -413,15 +413,15 @@ SUBSYSTEM_DEF(jobs)
 			if(player.client.prefs.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
-					AssignRole(player, "Civilian")
+					AssignRole(player, JOB_TITLE_CIVILIAN)
 			else
-				AssignRole(player, "Civilian")
+				AssignRole(player, JOB_TITLE_CIVILIAN)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
 		if(player.client.prefs.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Civilian")
+			AssignRole(player, JOB_TITLE_CIVILIAN)
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
 			player.ready = 0
@@ -482,36 +482,40 @@ SUBSYSTEM_DEF(jobs)
 	H.job = rank
 
 	if(!joined_late)
-		var/turf/T = null
-		var/obj/S = null
+		var/turf/turf_spawn = null
+		var/obj/mark_spawn = null
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
-			S = sloc
+			mark_spawn = sloc
 			break
-		if(!S)
-			S = locate("start*[rank]") // use old stype
-		if(!S) // still no spawn, fall back to the arrivals shuttle
+		if(!mark_spawn)
+			mark_spawn = locate("start*[rank]") // use old stype
+		if(!mark_spawn) // No spawn, then spawn on latejoin mark
+			log_runtime(EXCEPTION("No landmark start for [rank]."))
+			mark_spawn = pick(GLOB.latejoin)
+		if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
+			var/list/turf/possible_turfs = list()
 			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
-				if(!TS.density)
-					var/clear = 1
-					for(var/obj/O in TS)
-						if(O.density)
-							clear = 0
-							break
-					if(clear)
-						T = TS
+				if(TS.density)
+					continue
+				for(var/obj/O in TS)
+					if(O.density)
 						continue
+				possible_turfs += TS
+			mark_spawn = pick(possible_turfs)
 
-		if(isturf(S))
-			T = S
-		else if(istype(S, /obj/effect/landmark/start) && isturf(S.loc))
-			T = S.loc
+		if(isturf(mark_spawn))
+			turf_spawn = mark_spawn
+		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
+			turf_spawn = mark_spawn.loc
+		else
+			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
 
-		if(T)
-			H.forceMove(T)
+		if(turf_spawn)
+			H.forceMove(turf_spawn)
 			// Moving wheelchair if they have one
 			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
 				H.buckled.forceMove(H.loc)
@@ -527,7 +531,7 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(NEARSIGHTED in H.mutations)
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
@@ -561,7 +565,7 @@ SUBSYSTEM_DEF(jobs)
 		var/value = copytext(job, pos + 1)
 
 		if(name && value)
-			if(name == "AI")  //AI use diferent config
+			if(name == JOB_TITLE_AI)  //AI use diferent config
 				continue
 			var/datum/job/J = GetJob(name)
 			if(!J)
@@ -670,7 +674,7 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
-			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+			else if(job.total_positions && !job.current_positions && job.title != JOB_TITLE_CIVILIAN)
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged

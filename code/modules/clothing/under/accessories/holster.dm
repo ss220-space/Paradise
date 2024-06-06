@@ -66,11 +66,9 @@
 
 	var/obj/item/next_item = holstered[holstered.len]
 
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.IsStunned() || L.IsWeakened() || user.stat)
-			to_chat(user, span_warning("You can't get [next_item] now!"))
-			return
+	if(user.stat || HAS_TRAIT(user, TRAIT_INCAPACITATED))
+		to_chat(user, span_warning("You can't get [next_item] now!"))
+		return
 
 	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
 		to_chat(user, span_warning("You need an empty hand to draw the [next_item]!"))
@@ -119,7 +117,7 @@
 	..()
 	has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
 
-/obj/item/clothing/accessory/holster/on_removed(mob/user)
+/obj/item/clothing/accessory/holster/on_removed(mob/user, silent = FALSE)
 	has_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
 	..()
 
@@ -128,8 +126,9 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	var/obj/item/clothing/accessory/holster/H = null
 	if(istype(src, /obj/item/clothing/accessory/holster))
@@ -156,6 +155,30 @@
 	desc = "A handgun holster. Made of expensive leather."
 	icon_state = "holster"
 	item_color = "holster_low"
+
+/obj/item/clothing/accessory/holster/leg
+	name = "leg holster"
+	desc = "A handgun holster. This one for spies."
+	icon_state = "leg_holster"
+	item_color = "leg_holster"
+
+/obj/item/clothing/accessory/holster/leg/black
+	name = "black leg holster"
+	desc = "A handgun holster. This one for spies. Comes in stealthy black."
+	icon_state = "leg_holster_black"
+	item_color = "leg_holster_black"
+
+/obj/item/clothing/accessory/holster/belt
+	name = "belt holster"
+	desc = "A handgun holster. This one for security officers to remind some good ol' times."
+	icon_state = "belt_holster"
+	item_color = "belt_holster"
+
+/obj/item/clothing/accessory/holster/belt/black
+	name = "black belt holster"
+	desc = "A handgun holster. This one for security officers to remind some good ol' times. Comes in black, just like in the America!"
+	icon_state = "belt_holster_black"
+	item_color = "belt_holster_black"
 
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"

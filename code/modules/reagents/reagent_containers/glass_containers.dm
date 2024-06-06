@@ -33,7 +33,7 @@
 		return ..()
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	if(istype(M))
@@ -43,31 +43,39 @@
 		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
-			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
-							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+			M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
+							span_userdanger("[user] splashes the contents of [src] onto [M]!"))
 			add_attack_logs(user, M, "Splashed with [name] containing [contained]")
 
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
 			if(!iscarbon(M)) // Non-carbons can't process reagents
-				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+				to_chat(user, span_warning("You cannot find a way to feed [M]."))
 				return
-			if(M != user)
-				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
-							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
-				if(!do_mob(user, M))
+			var/mob/living/carbon/ctarget = M
+			if(!get_location_accessible(ctarget, BODY_ZONE_PRECISE_MOUTH))
+				if(ctarget == user)
+					to_chat(user, span_warning("Your face is obscured"))
+				else
+					to_chat(user, span_warning("[ctarget]'s face is obscured."))
+				return FALSE
+			if(ctarget != user)
+				ctarget.visible_message(span_danger("[user] attempts to feed something to [ctarget]."), \
+							span_userdanger("[user] attempts to feed something to you."))
+				if(!do_after(user, 3 SECONDS, ctarget, NONE))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(user, M, "Fed with [name] containing [contained]")
+				ctarget.visible_message(span_danger("[user] feeds something to [ctarget]."), \
+								span_userdanger("[user] feeds something to you."))
+				add_attack_logs(user, ctarget, "Fed with [name] containing [contained]")
 			else
-				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+				to_chat(user, span_notice("You swallow a gulp of [src]."))
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), ctarget, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -109,7 +117,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
@@ -166,7 +174,7 @@
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
 		if(blocks_emissive == FALSE)
-			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
+			. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
 		. += "assembly"
@@ -176,7 +184,7 @@
 	set name = "Remove Assembly"
 	set category = "Object"
 	set src in usr
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
@@ -326,7 +334,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
@@ -370,13 +378,13 @@
 
 
 /obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
-	return
+	. = list()
 
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
     . = ..()
 
-    if(slot == slot_head && reagents.total_volume)
+    if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
         to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
         reagents.reaction(user, REAGENT_TOUCH)
         reagents.clear_reagents()
@@ -420,3 +428,66 @@
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
 	list_reagents = list()
+
+/obj/item/reagent_containers/glass/pet_bowl
+	name = "pet bowl"
+	desc = "Миска под еду для любимых домашних животных!"
+	icon = 'icons/obj/pet_bowl.dmi'
+	icon_state = "petbowl"
+	item_state = "petbowl"
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	w_class = WEIGHT_CLASS_NORMAL
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = null
+	volume = 15
+	resistance_flags = FLAMMABLE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	color = "#0085E5"
+
+/obj/item/reagent_containers/glass/pet_bowl/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(!can.capped && Adjacent(can, 1))
+			color = can.colour
+			update_icon(UPDATE_OVERLAYS)
+			return
+
+	return ..()
+
+/obj/item/reagent_containers/glass/pet_bowl/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/pet_bowl/update_overlays()
+	. = ..()
+	var/mutable_appearance/bowl_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "colorable_overlay")
+	. += bowl_mask
+	var/mutable_appearance/bowl_nc_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "nc_petbowl", appearance_flags = RESET_COLOR)
+	. += bowl_nc_mask
+	if(reagents.total_volume)
+		var/datum/reagent/feed = reagents.has_reagent("afeed")
+		if(feed && (feed.volume >= (reagents.total_volume - feed.volume)))
+			var/image/feed_overlay = image(icon = 'icons/obj/pet_bowl.dmi', icon_state = "petfood_5", layer = FLOAT_LAYER)
+			feed_overlay.appearance_flags = RESET_COLOR
+			switch(feed.volume)
+				if(6 to 10)
+					feed_overlay.icon_state = "petfood_10"
+				if(11 to 15)
+					feed_overlay.icon_state = "petfood_15"
+			. += feed_overlay
+		else
+			. += mutable_appearance(icon, "liquid_overlay", color = mix_color_from_reagents(reagents.reagent_list), appearance_flags = RESET_COLOR)
+
+/obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
+	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
+		return ..()
+	if(reagents.has_reagent("afeed", 1))
+		pet.heal_organ_damage(5, 5)
+		reagents.remove_reagent("afeed", 1)
+		playsound(pet.loc, 'sound/items/eatfood.ogg', rand(10, 30), TRUE)
+	else
+		reagents.remove_any(1)
+		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)

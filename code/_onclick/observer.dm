@@ -59,10 +59,10 @@
 	examinate(A)
 
 /atom/proc/attack_ghost(mob/dead/observer/user)
-	if(!istype(user))
-		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
+		if(user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
 			return TRUE
 	return FALSE
 
@@ -75,7 +75,7 @@
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)
-	. = ..()
+	return ..()
 
 // ---------------------------------------
 // And here are some good things for free:

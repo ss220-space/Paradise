@@ -169,8 +169,8 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "hydrant"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	wall_mounted = 1
 
 /obj/structure/closet/hydrant/populate_contents()
@@ -188,7 +188,7 @@
 	name = "first-aid closet"
 	desc = "It's wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	wall_mounted = 1
 

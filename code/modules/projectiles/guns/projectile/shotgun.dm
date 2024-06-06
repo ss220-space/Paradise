@@ -7,7 +7,7 @@
 	force = 10
 	flags = CONDUCT
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
@@ -32,10 +32,10 @@
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
 
-/obj/item/gun/projectile/shotgun/can_shoot()
+/obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
-		return 0
-	return (chambered.BB ? 1 : 0)
+		return FALSE
+	return (chambered.BB ? TRUE : FALSE)
 
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
 	if(recentpump)
@@ -102,7 +102,7 @@
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
 		return
-	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
+	if(isstorage(loc))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -122,7 +122,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		post_sawoff()
 		return 1
@@ -134,8 +134,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun-short"
 	item_state = "gun"			//phil235 is it different with different skin?
-	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
-	slot_flags |= SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
+	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
 	update_icon()
@@ -145,7 +145,7 @@
 	if(sawn_state == SAWN_INTACT)
 		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
 		return
-	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
+	if(isstorage(loc))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -165,7 +165,7 @@
 				CB.loc = get_turf(loc)
 				CB.update_icon()
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		qdel(A)
 		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
 		post_unsaw(user)
@@ -177,8 +177,8 @@
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
 	item_state = initial(item_state)
-	slot_flags &= ~SLOT_BELT
-	slot_flags |= SLOT_BACK
+	slot_flags &= ~ITEM_SLOT_BELT
+	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
 	update_icon()
@@ -209,13 +209,13 @@
 	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	slot_flags = 0 //no SLOT_BACK sprite, alas
+	slot_flags = NONE //no ITEM_SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
 	bolt_open = FALSE
 	can_bayonet = TRUE
-	knife_x_offset = 27
-	knife_y_offset = 13
+	bayonet_x_offset = 27
+	bayonet_y_offset = 13
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -260,8 +260,8 @@
 	bolt_open = 1
 	pump()
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	guns_left = 0
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self()
@@ -290,7 +290,7 @@
 	icon_state = "arcane_barrage"
 	item_state = "arcane_barrage"
 	slot_flags = null
-	flags = NOBLUDGEON | DROPDEL | ABSTRACT
+	item_flags = NOBLUDGEON|DROPDEL|ABSTRACT
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
@@ -356,7 +356,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
 	. = ..()
-	if(user.incapacitated() || !Adjacent(user) || !istype(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		return
 	pump()
 

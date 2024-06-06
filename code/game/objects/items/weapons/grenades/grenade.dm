@@ -9,7 +9,7 @@
 	throw_speed = 4
 	throw_range = 20
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	var/active = FALSE

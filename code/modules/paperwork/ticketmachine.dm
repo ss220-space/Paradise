@@ -44,11 +44,13 @@
 		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
 		qdel(ticket)
 	tickets.Cut()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	handle_maptext()
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/increment()
 	if(current_number > ticket_number)
@@ -64,7 +66,8 @@
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
-		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
+		update_icon(UPDATE_ICON_STATE) //Update our icon here rather than when they take a ticket to show the current ticket number being served
+		handle_maptext()
 
 /obj/machinery/door_control/ticket_machine_button
 	name = "increment ticket counter"
@@ -72,17 +75,14 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	req_access = list()
 	id = 1
-	var/cooldown = FALSE
 
-/obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
-	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-		if(!(M.id in id) || cooldown)
-			continue
-		cooldown = TRUE
-		M.increment()
-		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
+/obj/machinery/door_control/ticket_machine_button/build_device()
+	var/obj/item/assembly/control/ticket_machine/ticket_device = new(src)
+	ticket_device.ids = get_ids()
+	device = ticket_device
 
-/obj/machinery/ticket_machine/update_icon()
+
+/obj/machinery/ticket_machine/update_icon_state()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
 		if(0 to 49)
 			icon_state = "ticketmachine_100"
@@ -90,7 +90,7 @@
 			icon_state = "ticketmachine_50"
 		if(100)
 			icon_state = "ticketmachine_0"
-	handle_maptext()
+
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(!dispense_enabled)
@@ -112,7 +112,7 @@
 			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 3 SECONDS, src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
 			user.drop_transfer_item_to_loc(I, src)
@@ -124,7 +124,8 @@
 				qdel(ticket)
 			tickets.Cut()
 			max_number = initial(max_number)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
+			handle_maptext()
 			return
 	else if(I.GetID())
 		var/obj/item/card/id/heldID = I.GetID()

@@ -117,13 +117,13 @@
 		return
 	if(state == ASSEMBLY_UNBUILT && isturf(loc))
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 		state = ASSEMBLY_WRENCHED
 		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
-		anchored = FALSE
+		set_anchored(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
@@ -158,7 +158,7 @@
 		..()
 
 /obj/item/camera_assembly/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
 

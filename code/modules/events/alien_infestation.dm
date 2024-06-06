@@ -1,4 +1,4 @@
-#define ALIEN_HIGHPOP_TRIGGER 80
+#define ALIEN_HIGHPOP_TRIGGER 60
 #define ALIEN_MIDPOP_TRIGGER 40
 
 /datum/event/alien_infestation
@@ -10,10 +10,11 @@
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 
-/datum/event/alien_infestation/announce()
-	if(successSpawn)
+/datum/event/alien_infestation/announce(false_alarm)
+	if(successSpawn || false_alarm)
 		GLOB.event_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
-		cancel_call_proc(usr)
+		if(!false_alarm)
+			SSshuttle.emergency.cancel()
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
@@ -23,7 +24,7 @@
 
 /datum/event/alien_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
-	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
+	playercount = num_station_players() //grab playercount when event starts not when game starts
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
 		spawn_vectors(vents, playercount)
 		return
@@ -35,7 +36,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C.client
+			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
@@ -60,7 +61,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C.client
+			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
 			new_xeno.key = C.key
 

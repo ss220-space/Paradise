@@ -11,8 +11,8 @@
 
 /obj/machinery/mech_bay_recharge_port
 	name = "Mech Bay Power Port"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	dir = EAST
 	icon = 'icons/obj/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
@@ -112,8 +112,8 @@
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
@@ -122,12 +122,17 @@
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 
 
-/obj/machinery/computer/mech_bay_power_console/update_icon()
-	if(!recharge_port || !recharge_port.recharging_mecha || !recharge_port.recharging_mecha.cell || !(recharge_port.recharging_mecha.cell.charge < recharge_port.recharging_mecha.cell.maxcharge) || stat & (NOPOWER|BROKEN))
-		icon_screen = "recharge_comp"
+/obj/machinery/computer/mech_bay_power_console/update_overlays()
+	if(stat & (NOPOWER|BROKEN))
+		icon_screen = "recharge_comp" // off
 	else
-		icon_screen = "recharge_comp_on"
-	..()
+		var/obj/item/stock_parts/cell/cell = recharge_port?.recharging_mecha?.cell
+		if(!cell || cell.charge >= cell.maxcharge)
+			icon_screen = "recharge_comp" // don't have a reachable cell to charge or fully charged
+		else
+			icon_screen = "recharge_comp_on" // now we working!
+	. = ..()
+
 
 /obj/machinery/computer/mech_bay_power_console/proc/reconnect()
 	if(recharge_port)

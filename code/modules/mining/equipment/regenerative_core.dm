@@ -23,7 +23,7 @@
 	name = "regenerative core"
 	desc = "All that remains of a hivelord. It can be used to help keep your body going, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	slot = INTERNAL_ORGAN_HIVECORE
 	parent_organ_zone = BODY_ZONE_CHEST
 	force = 0

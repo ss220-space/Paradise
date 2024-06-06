@@ -9,8 +9,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	name = "Destructive Analyzer"
 	desc = "Изучайте науку, разрушая предметы!"
 	icon_state = "d_analyzer"
-	icon_open = "d_analyzer_t"
-	icon_closed = "d_analyzer"
+	base_icon_state = "d_analyzer"
 	var/decon_mod = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/New()
@@ -23,8 +22,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
-		icon_open = "syndie_d_analyzer_t"
-		icon_closed = "syndie_d_analyzer"
+		base_icon_state = "syndie_d_analyzer"
 
 /obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
 	..()
@@ -36,8 +34,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
-		icon_open = "syndie_d_analyzer_t"
-		icon_closed = "syndie_d_analyzer"
+		base_icon_state = "syndie_d_analyzer"
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -46,19 +43,19 @@ Note: Must be placed within 3 tiles of the R&D Console
 	decon_mod = T
 
 
-/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(var/list/source_list)
+/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O, mob/user, params)
 	if(shocked)
 		add_fingerprint(user)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, O))
 		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_destroy = null
@@ -79,7 +76,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(busy)
 		to_chat(user, "<span class='warning'>[src.name] сейчас занят.</span>")
 		return
-	if(istype(O, /obj/item) && !loaded_item)
+	if(isitem(O) && !loaded_item)
 //Ядра аномалий можно разобрать только при улучшеном автомате. 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
 		if(istype(O,/obj/item/assembly/signaler/anomaly) && (decon_mod < 12))
 			to_chat(user, "<span class='warning'>[src.name] не может обработать такой сложный предмет!</span>")
@@ -95,10 +92,21 @@ Note: Must be placed within 3 tiles of the R&D Console
 			to_chat(user, "<span class='warning'>[O] прилип к вашей руке и вы не можете поместить его в [src.name]!</span>")
 			return
 		add_fingerprint(user)
-		busy = 1
+		busy = TRUE
+		flick("[base_icon_state]_la", src)
 		loaded_item = O
 		to_chat(user, "<span class='notice'>[O.name] установлен в [src.name]!</span>")
-		flick("[icon_state]_la", src)
-		spawn(10)
-			icon_state = "[icon_state]_l"
-			busy = 0
+		addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
+
+
+/obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing()
+	busy = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/r_n_d/destructive_analyzer/update_icon_state()
+	if(loaded_item)
+		icon_state = "[base_icon_state]_l"
+	else
+		icon_state = base_icon_state
+

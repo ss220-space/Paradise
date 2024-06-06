@@ -108,7 +108,11 @@
 	id = "poolland";
 	radius = 0
 	},
-/turf/template_noop,
+/obj/machinery/light/small,
+/turf/simulated/floor/indestructible{
+	icon_state = "freezerfloor";
+	opacity = 1
+	},
 /area/template_noop)
 
 (1,1,1) = {"

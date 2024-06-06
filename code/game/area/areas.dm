@@ -24,14 +24,18 @@
 	var/power_equip = TRUE
 	var/power_light = TRUE
 	var/power_environ = TRUE
-	var/used_equip = FALSE
-	var/used_light = FALSE
-	var/used_environ = FALSE
-	var/static_equip
-	var/static_light = FALSE
-	var/static_environ
+	var/used_equip = 0
+	var/used_light = 0
+	var/used_environ = 0
+	var/static_equip = 0
+	var/static_light = 0
+	var/static_environ = 0
 
-	var/has_gravity = TRUE
+	/// Whether this area has a gravity by default.
+	var/has_gravity = FALSE
+	/// If `TRUE` this area will skip gravity generator's effect in its Z-level.
+	var/ignore_gravgen = FALSE
+
 	var/list/apc = list()
 	var/no_air = null
 
@@ -83,6 +87,10 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
+	var/datum/map_generator/cave_generator/map_generator
+
+	var/area_flags = 0
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -97,6 +105,13 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
+	if(use_starlight && CONFIG_GET(flag/starlight))
+		// Areas lit by starlight are not supposed to be fullbright 4head
+		base_lighting_alpha = 0
+		base_lighting_color = null
+		static_lighting = TRUE
+
+
 	if(requires_power)
 		luminosity = 0
 	else
@@ -104,22 +119,17 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+		if(static_lighting)
 			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
-	if(!IS_DYNAMIC_LIGHTING(src))
-		add_overlay(/obj/effect/fullbright)
+	if(!static_lighting)
+		blend_mode = BLEND_MULTIPLY
 
 	reg_in_areas_in_z()
+
+	update_base_lighting()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -150,29 +160,60 @@
 		cameras += C
 	return cameras
 
+/// Generate turfs, including cool cave wall gen
+/area/proc/RunTerrainGeneration()
+	if(map_generator)
+		map_generator = new map_generator()
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
+
+/// Populate the previously generated terrain with mobs and objects
+/area/proc/RunTerrainPopulation()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.populate_terrain(turfs, src)
+
+/area/proc/test_gen()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
+
 /area/proc/air_doors_close()
-	if(!air_doors_activated)
-		air_doors_activated = TRUE
-		for(var/obj/machinery/door/firedoor/D in firedoors)
-			if(!D.welded)
-				D.activate_alarm()
-				if(D.operating)
-					D.nextstate = FD_CLOSED
-				else if(!D.density)
-					spawn(0)
-						D.close()
+	if(air_doors_activated)
+		return
+	air_doors_activated = TRUE
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
+		if(!firedoor.is_operational())
+			continue
+		firedoor.activate_alarm()
+		if(firedoor.welded)
+			continue
+		if(firedoor.operating && firedoor.operating != DOOR_CLOSING)
+			firedoor.nextstate = FD_CLOSED
+		else if(!firedoor.density)
+			INVOKE_ASYNC(firedoor, TYPE_PROC_REF(/obj/machinery/door/firedoor, close))
+
 
 /area/proc/air_doors_open()
-	if(air_doors_activated)
-		air_doors_activated = FALSE
-		for(var/obj/machinery/door/firedoor/D in firedoors)
-			if(!D.welded)
-				D.deactivate_alarm()
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-						D.open()
+	if(!air_doors_activated)
+		return
+	air_doors_activated = FALSE
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
+		if(!firedoor.is_operational())
+			continue
+		firedoor.deactivate_alarm()
+		if(firedoor.welded)
+			continue
+		if(firedoor.operating && firedoor.operating != DOOR_OPENING)
+			firedoor.nextstate = FD_OPEN
+		else if(firedoor.density)
+			INVOKE_ASYNC(firedoor, TYPE_PROC_REF(/obj/machinery/door/firedoor, open))
 
 
 /area/Destroy()
@@ -234,22 +275,33 @@
   * Try to close all the firedoors in the area
   */
 /area/proc/ModifyFiredoors(opening)
-	if(firedoors)
-		firedoors_last_closed_on = world.time
-		for(var/FD in firedoors)
-			var/obj/machinery/door/firedoor/D = FD
-			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
-				for(var/I in D.affecting_areas)
-					var/area/A = I
-					if(A.fire)
-						cont = FALSE
-						break
-			if(cont && D.is_operational())
-				if(D.operating)
-					D.nextstate = opening ? FD_OPEN : FD_CLOSED
-				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
+	if(!firedoors)
+		return
+	firedoors_last_closed_on = world.time
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
+		if(!firedoor.is_operational())
+			continue
+		var/valid = TRUE
+		if(opening)	//don't open if adjacent area is on fire
+			for(var/area/check as anything in firedoor.affecting_areas)
+				if(check.fire)
+					valid = FALSE
+					break
+		if(!valid)
+			continue
+
+		// At this point, the area is safe and the door is technically functional.
+
+		INVOKE_ASYNC(firedoor, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
+		if(firedoor.welded)
+			continue // Alarm is toggled, but door stuck
+		if(firedoor.operating)
+			if((firedoor.operating == DOOR_OPENING && opening) || (firedoor.operating == DOOR_CLOSING && !opening))
+				continue
+			else
+				firedoor.nextstate = opening ? FD_OPEN : FD_CLOSED
+		else if(firedoor.density == opening)
+			INVOKE_ASYNC(firedoor, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
 
 /**
   * Generate a firealarm alert for this area
@@ -265,9 +317,6 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -290,9 +339,6 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -350,9 +396,9 @@
 /area/proc/set_fire_alarm_effect()
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
+	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -363,27 +409,29 @@
 /area/proc/unset_fire_alarm_effects()
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	for(var/alarm in firealarms)
-		var/obj/machinery/firealarm/F = alarm
-		F.update_fire_light(fire)
+	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
 		light.fire_mode = FALSE
 		light.update()
 
-/area/proc/updateicon()
-	var/weather_icon
-	for(var/V in SSweather.processing)
-		var/datum/weather/W = V
-		if(W.stage != END_STAGE && (src in W.impacted_areas))
-			W.update_areas()
+
+/area/update_icon_state()
+	var/weather_icon = FALSE
+	for(var/datum/weather/weather as anything in SSweather.processing)
+		if(weather.stage != END_STAGE && (src in weather.impacted_areas))
+			weather.update_areas()
 			weather_icon = TRUE
 	if(!weather_icon)
 		icon_state = null
 
-/area/space/updateicon()
+
+/area/space/update_icon_state()
 	icon_state = null
+
 
 /*
 #define EQUIP 1
@@ -391,12 +439,11 @@
 #define ENVIRON 3
 */
 
-/area/proc/powered(var/chan)		// return true if the area has power to given channel
-
+/area/proc/powered(chan)		// return true if the area has power to given channel
 	if(!requires_power)
-		return 1
+		return TRUE
 	if(always_unpowered)
-		return 0
+		return FALSE
 	switch(chan)
 		if(EQUIP)
 			return power_equip
@@ -404,11 +451,10 @@
 			return power_light
 		if(ENVIRON)
 			return power_environ
-
-	return 0
+	return FALSE
 
 /area/space/powered(chan) //Nope.avi
-	return 0
+	return FALSE
 
 /**
   * Called when the area power status changes
@@ -417,12 +463,12 @@
   */
 /area/proc/power_change()
 	for(var/obj/machinery/machine as anything in machinery_cache)	// for each machine in the area
-		machine.power_change()			// reverify power status (to update icons etc.)
-
+		machine.power_change()										// reverify power status (to update icons etc.)
+	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-	updateicon()
 
-/area/proc/usage(var/chan)
+
+/area/proc/usage(chan)
 	var/used = 0
 	switch(chan)
 		if(LIGHT)
@@ -433,21 +479,21 @@
 			used += used_environ
 		if(TOTAL)
 			used += used_light + used_equip + used_environ
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			used += static_equip
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			used += static_light
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			used += static_environ
 	return used
 
 /area/proc/addStaticPower(value, powerchannel)
 	switch(powerchannel)
-		if(STATIC_EQUIP)
+		if(CHANNEL_STATIC_EQUIP)
 			static_equip += value
-		if(STATIC_LIGHT)
+		if(CHANNEL_STATIC_LIGHT)
 			static_light += value
-		if(STATIC_ENVIRON)
+		if(CHANNEL_STATIC_ENVIRON)
 			static_environ += value
 
 /area/proc/clear_usage()
@@ -456,7 +502,7 @@
 	used_light = 0
 	used_environ = 0
 
-/area/proc/use_power(var/amount, var/chan)
+/area/proc/use_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -465,7 +511,7 @@
 		if(ENVIRON)
 			used_environ += amount
 
-/area/proc/use_battery_power(var/amount, var/chan)
+/area/proc/use_battery_power(amount, chan)
 	switch(chan)
 		if(EQUIP)
 			used_equip += amount
@@ -500,12 +546,6 @@
 		return
 
 	var/mob/living/arrived_living = arrived
-	if(!arrived_living.ckey)
-		return
-
-	if(!oldarea.has_gravity && newarea.has_gravity && arrived_living.m_intent == MOVE_INTENT_RUN) // Being ready when you change areas gives you a chance to avoid falling all together.
-		thunk(arrived_living)
-
 	if(!arrived_living.client)
 		return
 
@@ -524,54 +564,13 @@
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
-/area/proc/gravitychange(gravitystate = 0, area/our_area)
-	our_area.has_gravity = gravitystate
 
-	if(gravitystate)
-		for(var/mob/living/carbon/human/user in our_area)
-			thunk(user)
-
-
-/area/proc/thunk(mob/living/carbon/human/user)
-	if(!istype(user)) // Rather not have non-humans get hit with a THUNK
-		return
-
-	if(istype(user.shoes, /obj/item/clothing/shoes/magboots) && (user.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
-		return
-
-	if(user.dna.species.spec_thunk(user)) //Species level thunk overrides
-		return
-
-	if(user.buckled) //Can't fall down if you are buckled
-		return
-
-	if(isspaceturf(get_turf(user))) // Can't fall onto nothing.
-		return
-
-	if(user.m_intent == MOVE_INTENT_RUN)
-		user.Weaken(10 SECONDS)
-	else
-		user.Weaken(4 SECONDS)
-
-	to_chat(user, "Gravity!")
-
-
-/proc/has_gravity(atom/our_atom, turf/our_turf)
-	if(!our_turf)
-		our_turf = get_turf(our_atom)
-
-	var/area/our_area = get_area(our_turf)
-
-	if(isspaceturf(our_turf)) // Turf never has gravity
-		return FALSE
-	else if(our_area?.has_gravity) // Areas which always has gravity
-		return TRUE
-	else
-		// There's a gravity generator on our z level
-		// This would do well when integrated with the z level manager
-		if(our_turf && GLOB.gravity_generators["[our_turf.z]"] && length(GLOB.gravity_generators["[our_turf.z]"]))
-			return TRUE
-	return FALSE
+/area/proc/gravitychange()
+	for(var/mob/living/carbon/human/user in src)
+		var/prev_gravity = user.gravity_state
+		user.refresh_gravity()
+		if(!prev_gravity && user.gravity_state)
+			user.thunk()
 
 
 /area/proc/prison_break()

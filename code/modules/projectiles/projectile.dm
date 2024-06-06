@@ -5,9 +5,10 @@
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	movement_type = FLYING
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	/// Body part at which the projectile was aimed.
@@ -41,7 +42,7 @@
 	var/spread = 0
 	/// If set to `TRUE` [/obj/item/hardsuit_taser_proof] upgrage will block this projectile.
 	var/shockbull = FALSE
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -77,6 +78,7 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
+	var/knockdown = 0
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -163,7 +165,7 @@
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(damage && L.blood_volume && damage_type == BRUTE)
+		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
@@ -211,7 +213,7 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
@@ -225,7 +227,7 @@
 /obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
-	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
+	if(step_over.density && !step_over.CanPass(target, get_dir(step_over, target))) //Preliminary simple check.
 		return TRUE
 	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
@@ -295,7 +297,7 @@
 	qdel(src)
 
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = NONE)
 	return TRUE //Bullets don't drift in space
 
 
@@ -415,8 +417,8 @@
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+	if(isliving(AM) && AM.density && !(pass_flags & PASSMOB))
+		Bump(AM, TRUE)
 
 
 /obj/item/projectile/Destroy()
@@ -436,14 +438,14 @@
 	return
 
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/item/projectile/proc/check_ricochet(atom/A)
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
 
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if(A.flags & CHECK_RICOCHET)
 		return TRUE
 	return FALSE
 

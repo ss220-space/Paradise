@@ -4,8 +4,8 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
 	var/mob/living/carbon/human/occupant // Mob who has been put inside
@@ -24,6 +24,43 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
+
+/obj/machinery/gibber/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/gibber/Destroy()
+	if(contents.len)
+		for(var/atom/movable/A in contents)
+			A.forceMove(get_turf(src))
+	if(occupant)
+		occupant = null
+	return ..()
+
+/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
+
+
+/obj/machinery/gibber/update_overlays()
+	. = ..()
+
+	if(dirty)
+		. +=  "grbloody"
+
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!occupant)
+		. += "grjam"
+
+	else if(operating)
+		. +=  "gruse"
+
+	else
+		. += "gridle"
+
+
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
@@ -36,38 +73,6 @@
 	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
-/obj/machinery/gibber/Destroy()
-	if(contents.len)
-		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
-	if(occupant)
-		occupant = null
-	return ..()
-
-/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
-	return
-
-/obj/machinery/gibber/New()
-	..()
-	overlays += image('icons/obj/kitchen.dmi', "grjam")
-
-/obj/machinery/gibber/update_icon()
-	overlays.Cut()
-
-	if(dirty)
-		overlays += image('icons/obj/kitchen.dmi', "grbloody")
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!occupant)
-		overlays += image('icons/obj/kitchen.dmi', "grjam")
-
-	else if(operating)
-		overlays += image('icons/obj/kitchen.dmi', "gruse")
-
-	else
-		overlays += image('icons/obj/kitchen.dmi', "gridle")
 
 /obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
@@ -115,8 +120,8 @@
 		return
 	return ..()
 
-/obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
-	if(user.incapacitated() || !ishuman(user))
+/obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(target))
@@ -126,7 +131,7 @@
 
 	if(targetl.buckled)
 		return
-
+	. = TRUE
 	add_fingerprint(user)
 	move_into_gibber(user,target)
 
@@ -149,13 +154,13 @@
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim
 
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
@@ -163,7 +168,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	go_out()
@@ -177,14 +182,13 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-	return
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)
@@ -195,35 +199,35 @@
 	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = icon
 	gibberoverlay.icon_state = "grinderoverlay"
-	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "gridle")
+	gibberoverlay.add_overlay(image('icons/obj/kitchen.dmi', "gridle"))
 
 	var/image/feedee = new
-	occupant.dir = 2
+	occupant.dir = SOUTH
 	feedee.icon = getFlatIcon(occupant, 2) //makes the image a copy of the occupant
 
 	var/atom/movable/holder = new //holder for occupant image
 	holder.name = null //make unclickable
-	holder.overlays += feedee //add occupant to holder overlays
+	holder.add_overlay(feedee)	//add occupant to holder overlays
 	holder.pixel_y = 25 //above the gibber
 	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
-	holder.anchored = 1
+	holder.set_anchored(TRUE)
 
 	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
 	holder2.name = null
-	holder2.overlays += gibberoverlay
+	holder2.add_overlay(gibberoverlay)
 	holder2.loc = get_turf(src)
 	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
-	holder2.anchored = 1
+	holder2.set_anchored(TRUE)
 
 	animate(holder, pixel_y = 16, time = animation_delay) //animate going down
 
 	sleep(animation_delay)
 
-	holder.overlays -= feedee //reset static icon
+	holder.cut_overlay(feedee)	//reset static icon
 	feedee.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
-	holder.overlays += feedee
+	holder.add_overlay(feedee)
 	animate(holder, pixel_y = -3, time = animation_delay) //animate going down further
 
 	sleep(animation_delay) //time everything right, animate doesn't prevent proc from continuing
@@ -250,8 +254,8 @@
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
-	operating = 1
-	update_icon()
+	operating = TRUE
+	update_icon(UPDATE_OVERLAYS)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
@@ -302,8 +306,8 @@
 				sleep(1)
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
-		operating = 0
-		update_icon()
+		operating = FALSE
+		update_icon(UPDATE_OVERLAYS)
 
 
 
@@ -360,21 +364,26 @@
 	victim_targets.Cut()
 
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
-	if(!istype(victim))	return 0
+	if(!istype(victim))
+		return FALSE
 	visible_message("<span class='danger'>\The [victim.name] gets sucked into \the [src]!</span>")
 
 	victim.forceMove(src)
 	occupant = victim
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
-	return 1
+	return TRUE
+
 
 /obj/machinery/gibber/autogibber/proc/ejectclothes(mob/living/carbon/human/H)
-	if(!istype(H))	return 0
-	if(H != occupant)	return 0 //only using H as a shortcut to typecast
+	if(!istype(H))
+		return
+	if(H != occupant)
+		return //only using H as a shortcut to typecast
+
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O
@@ -382,18 +391,16 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now
-		H.drop_item_ground(O)
-		O.loc = loc
+		H.drop_transfer_item_to_loc(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
 			qdel(C)
-		H.drop_item_ground(C)
-		C.loc = loc
+		H.drop_transfer_item_to_loc(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
@@ -405,7 +412,7 @@
 		if(stealthmode)
 			qdel(O)
 		else if(istype(O))
-			O.loc = loc
+			O.forceMove(loc)
 			O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 			spats++
 			sleep(1)

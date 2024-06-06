@@ -398,7 +398,6 @@
 		return TRUE
 
 	add_fingerprint(user)
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -506,12 +505,11 @@
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
-					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+					O.orderedby = random_name(pick(MALE,FEMALE), species = SPECIES_HUMAN)
 					SSshuttle.shoppinglist += O
 					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
@@ -520,10 +518,12 @@
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
+/*
 
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
-				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-				return
+				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	// Unused for now (Crate limit #3056).
+				return	*/
+
 
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
@@ -574,9 +574,9 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
-						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-					else if(P.can_approve(usr))
+/*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it. Unused for now (Crate limit #3056).
+						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/
+					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						if(P.credits_cost)
@@ -610,17 +610,4 @@
 			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
-
-/obj/machinery/computer/supplycomp/proc/post_signal(command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)
-
 

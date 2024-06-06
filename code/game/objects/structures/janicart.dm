@@ -88,7 +88,7 @@
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(I.tool_behaviour == TOOL_CROWBAR)
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 				add_fingerprint(user)
 				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)
@@ -101,14 +101,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				set_anchored(TRUE)
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				set_anchored(FALSE)
 		else if(mybag)
 			add_fingerprint(user)
 			mybag.attackby(I, user, params)

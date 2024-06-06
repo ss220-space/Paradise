@@ -1,34 +1,5 @@
 GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
 
-// Call this before you remove the last dirt on a z level - that way, all objects
-// will have proper atmos and other important enviro things
-/proc/late_setup_level(turfs, smoothTurfs)
-	var/total_timer = start_watch()
-	var/subtimer = start_watch()
-	if(!smoothTurfs)
-		smoothTurfs = turfs
-
-	log_debug("Setting up atmos")
-	/* setup_allturfs is superfluous during server initialization because
-	 * air subsystem will call subsequently call setup_allturfs with _every_
-	 * turf in the world */
-	if(SSair && SSair.initialized)
-		SSair.setup_allturfs(turfs)
-	log_debug("\tTook [stop_watch(subtimer)]s")
-
-	subtimer = start_watch()
-	log_debug("Smoothing tiles")
-	for(var/turf/T in smoothTurfs)
-		if(T.smooth)
-			queue_smooth(T)
-		for(var/R in T)
-			var/atom/A = R
-			if(A.smooth)
-				queue_smooth(A)
-	log_debug("\tTook [stop_watch(subtimer)]s")
-	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
-
-
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
 	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
@@ -43,35 +14,32 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 			qdel(otherthing)
 		T.ChangeTurf(T.baseturf)
 
-
-/proc/createRandomZlevel()
-	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
-		return
-
-	if(GLOB.potentialRandomZlevels && GLOB.potentialRandomZlevels.len)
-		var/watch = start_watch()
-		log_startup_progress_global("Mapping", "Loading away mission...")
-
-		var/map = pick(GLOB.potentialRandomZlevels)
-		var/file = wrap_file(map)
-		if(isfile(file))
-			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT, HAS_WEATHER))
-			GLOB.space_manager.add_dirt(zlev)
-			GLOB.maploader.load_map(file, z_offset = zlev)
-			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-			GLOB.space_manager.remove_dirt(zlev)
-			log_world("  Away mission loaded: [map]")
-
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name != "awaystart")
-				continue
-			GLOB.awaydestinations.Add(L)
-
-		log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
-
-	else
+/proc/loadAwayLevel()
+	if(!GLOB.potentialRandomZlevels || !GLOB.potentialRandomZlevels.len)
 		log_startup_progress_global("Mapping", "No away missions found.")
+		return
+	var/watch = start_watch()
+	log_startup_progress_global("Mapping", "Loading away mission...")
+	var/map = pick(GLOB.potentialRandomZlevels)
+	var/file = wrap_file(map)
+	var/bounds = GLOB.maploader.load_map(file, 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
+	var/total_z = bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1
+	var/map_z_level
+	if(total_z == 1)
+		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER))
+	else
+		map_z_level = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_UP))
+		for(var/i in 2 to total_z-1)
+			GLOB.space_manager.add_new_zlevel(AWAY_MISSION + "([i])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_UP, ZTRAIT_DOWN))
+		GLOB.space_manager.add_new_zlevel(AWAY_MISSION  + "([total_z])", linkage = UNAFFECTED, traits = list(AWAY_LEVEL, BLOCK_TELEPORT, HAS_WEATHER, ZTRAIT_DOWN))
+
+	GLOB.maploader.load_map(file, z_offset = map_z_level)
+	log_world("  Away mission loaded: [map]")
+
+	for(var/obj/effect/landmark/awaystart/thing in GLOB.landmarks_list)
+		GLOB.awaydestinations.Add(thing)
+
+	log_startup_progress_global("Mapping", "Away mission loaded in [stop_watch(watch)]s.")
 
 
 /proc/generateMapList(filename)

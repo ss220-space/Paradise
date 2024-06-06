@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(debugview)
 
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /obj/screen/debugtextholder
+	C.debug_text_overlay = new /atom/movable/screen/debugtextholder
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(debugview)
 	qdel(C.debug_text_overlay)
 
 
-/obj/screen/debugtextholder
+/atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"

@@ -8,8 +8,8 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	var/insert_anim = "bigscanner1"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
@@ -31,7 +31,7 @@
 	var/syndicate = FALSE
 	var/info_box = "Если у вас есть пожелания или \
 					идеи для улучшения стандартных \
-					форм, обратитесь в Департамент \
+					форм, обратитесь в Отдел \
 					Стандартизации Nanotrasen."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
@@ -289,7 +289,7 @@
 		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 	return paper
 
-/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
+/obj/machinery/photocopier/proc/copy(obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.header = copy.header
 	c.info = copy.info
@@ -302,21 +302,21 @@
 	c.language = copy.language
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
-	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
-		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(copy.ico[j], "deny"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-			else if(findtext(copy.ico[j], "ok"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
-			else
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-			img.pixel_x = copy.offset_x[j]
-			img.pixel_y = copy.offset_y[j]
-			c.stamp_overlays += img
+	if(LAZYLEN(copy.stamp_overlays))
+		for(var/j = 1, j <= LAZYLEN(copy.stamp_overlays), j++) //gray overlay onto the copy
+			if(length(copy.ico))
+				var/image/img
+				if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+				else if(findtext(copy.ico[j], "deny"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+				else if(findtext(copy.ico[j], "ok"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+				else
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+				img.pixel_x = copy.offset_x[j]
+				img.pixel_y = copy.offset_y[j]
+				LAZYADD(c.stamp_overlays, img)
 	c.updateinfolinks()
 	toner--
 	if(toner == 0)
@@ -419,21 +419,21 @@
 	return P
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(toner > 0)
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user, params)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user) || target == ass)
 		return
 	add_fingerprint(user)
-	if(target == user && !user.incapacitated())
+	if(target == user)
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-		if(target.anchored) return
-		if(!ishuman(user)) return
+	else if(target != user)
+		if(target.anchored || !ishuman(user))
+			return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target

@@ -13,7 +13,7 @@
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/start_showpiece_type = null //add type for items on display
 	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
 	var/trophy_message = ""
@@ -57,7 +57,7 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		dump()
 		if(!disassembled)
 			new /obj/item/shard(loc)
@@ -65,8 +65,8 @@
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!broken && !(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		broken = 1
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)
@@ -106,7 +106,7 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece && !(I.flags & ABSTRACT))
+	else if(open && !showpiece && !(I.item_flags & ABSTRACT))
 		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			showpiece = I
@@ -118,7 +118,7 @@
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			add_fingerprint(user)
 			G.use(2)
 			broken = 0
@@ -179,17 +179,24 @@
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/airlock_electronics))
+	if(istype(I, /obj/item/access_control))
+		if(electronics)
+			return
+		var/obj/item/access_control/control = I
+		if(control.emagged)
+			return
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 30, target = src))
+		playsound(src.loc, I.usesound, 50, TRUE)
+		if(do_after(user, 3 SECONDS, src))
+			if(electronics)
+				return
 			if(user.drop_transfer_item_to_loc(I, src))
 				add_fingerprint(user)
 				electronics = I
-				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+				to_chat(user, "<span class='notice'>You install the electronics.</span>")
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
@@ -197,15 +204,16 @@
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			G.use(10)
 			var/obj/structure/displaycase/display = new(src.loc)
 			display.add_fingerprint(user)
 			if(electronics)
 				electronics.forceMove(display)
 				display.electronics = electronics
-				display.req_access= electronics.selected_accesses
+				display.req_access = electronics.selected_accesses
 				display.check_one_access = electronics.one_access
+				electronics = null
 			qdel(src)
 	else
 		return ..()
@@ -219,6 +227,9 @@
 		return
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	if(electronics)
+		electronics.forceMove(loc)
+		electronics = null
 	qdel(src)
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.

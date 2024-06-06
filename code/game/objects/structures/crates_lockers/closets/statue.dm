@@ -3,8 +3,8 @@
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	no_overlays = TRUE
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
@@ -13,12 +13,10 @@
 	var/intialOxy = 0
 	var/timer = 240 //eventually the person will be freed
 
-/obj/structure/closet/statue/Initialize(mapload, var/mob/living/L)
+/obj/structure/closet/statue/Initialize(mapload, mob/living/L)
 	. = ..()
 	if(ishuman(L) || iscorgi(L))
-		if(L.buckled)
-			L.buckled = 0
-			L.anchored = 0
+		L.buckled?.unbuckle_mob(L, force = TRUE)
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, "statue")
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
@@ -114,4 +112,4 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!. </span>")
+	visible_message("<span class='warning'>[src] shatters!</span>")

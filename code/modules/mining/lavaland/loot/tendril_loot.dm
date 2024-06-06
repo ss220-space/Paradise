@@ -13,7 +13,7 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
@@ -52,7 +52,7 @@
 
 
 /obj/item/shared_storage/AltClick(mob/user)
-	if(!bag || !iscarbon(user) || !Adjacent(user))
+	if(!bag || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return ..()
 
 	open_bag(user)
@@ -125,7 +125,7 @@
 	name = "jacob's ladder"
 	desc = "A celestial ladder that violates the laws of physics."
 	icon = 'icons/obj/structures.dmi'
-	icon_state = "ladder00"
+	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/attack_self(mob/user)
 	var/turf/T = get_turf(src)
@@ -230,13 +230,16 @@
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 
 
 /obj/item/wisp_lantern/update_icon_state()
 	if(!wisp)
 		icon_state = "lantern"
 		return
-	icon_state = "lantern[wisp.loc == src ? "" : "-blue"]"
+	icon_state = "lantern[wisp.loc == src ? "-blue" : ""]"
 
 
 /obj/item/wisp_lantern/attack_self(mob/user)
@@ -249,9 +252,10 @@
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		wisp.forceMove(user)
 		update_icon(UPDATE_ICON_STATE)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
-		set_light(0)
+		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
+		set_light_on(FALSE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
@@ -263,7 +267,7 @@
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
-		set_light(initial(light_range))
+		set_light_on(TRUE)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
@@ -274,6 +278,7 @@
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
@@ -284,7 +289,7 @@
 	return ..()
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
@@ -318,7 +323,7 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
-	if(do_after(user, 1.5 SECONDS, target = user))
+	if(do_after(user, 1.5 SECONDS, user))
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(1, 0, user.loc)
 		smoke.start()
@@ -355,7 +360,7 @@
 	item_state = "chain"
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	force = 18
 
 /obj/item/ammo_casing/magic/hook
@@ -386,13 +391,13 @@
 /obj/item/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
+		var/turf/firer_turf = get_turf(firer)
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
-			L.forceMove(get_turf(firer))
-			L.density = old_density
+			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src)) // Ensures the hook does not hit the target multiple times
+			L.forceMove(firer_turf)
+			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)
@@ -439,7 +444,7 @@
 	effect.desc = "It's shaped an awful lot like [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.status_flags |= GODMODE
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
@@ -455,7 +460,7 @@
 		return
 
 	user.status_flags &= ~GODMODE
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
 	user.visible_message(span_danger("[user] pops back into reality!"))
 	effect.can_destroy = TRUE

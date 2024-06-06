@@ -2,8 +2,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
 	recipes = GLOB.rod_recipes
 
 /obj/item/stack/rods/update_icon_state()
@@ -80,6 +81,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
 
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		target.attackby(src, user, click_parameters)
+
 /obj/item/stack/fireproof_rods
 	name = "fireproof rods"
 	desc = "Жаропрочные стержни, способные выдержать жар в несколько тысяч градусов. Могут использоваться для строительства мостов над лавой."
@@ -110,3 +115,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	var/amount = get_amount()
 	icon_state = "f_rods-[clamp(amount, 1, 5)]"
 
+/obj/item/stack/fireproof_rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		target.attackby(src, user, click_parameters)

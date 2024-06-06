@@ -8,7 +8,7 @@
 	if(!istype(T))
 		return MARTIAL_COMBO_FAIL
 
-	var/obj/item/I = T.get_item_by_slot(slot_wear_id)
+	var/obj/item/I = T.get_item_by_slot(ITEM_SLOT_ID)
 	if(istype(I))
 		T.drop_item_ground(I)
 		user.put_in_hands(I, ignore_anim = FALSE)

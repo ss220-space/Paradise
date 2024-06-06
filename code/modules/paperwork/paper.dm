@@ -15,7 +15,7 @@
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 0
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -31,9 +31,9 @@
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields = 0		//Amount of user created fields
-	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
+	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
 	var/list/stamped
-	var/list/stamp_overlays = list()
+	var/list/stamp_overlays
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
@@ -63,11 +63,17 @@
 		update_icon()
 		updateinfolinks()
 
+
 /obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
+
+
+/obj/item/paper/update_overlays()
+	return LAZYLEN(stamp_overlays) ? stamp_overlays : list()
+
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -110,7 +116,7 @@
 
 
 /obj/item/paper/AltClick(mob/living/carbon/human/user)
-	if(!ishuman(user) || user.incapacitated() || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(is_pen(user.get_active_hand()))
 		rename(user)
@@ -166,7 +172,7 @@
 		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
 			"<span class='notice'>You hold up a paper and try to show it to [target]. </span>")
 
-		if(do_mob(user, target, 0.7 SECONDS))
+		if(do_after(user, 0.7 SECONDS, target, NONE))
 			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
 				"<span class='notice'>You hold up a paper and show it to [target]. </span>")
 			target.examinate(src)
@@ -179,7 +185,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [target]'s face clean with \the [src].</span>",
 								"<span class='notice'>You begin to wipe off [target]'s face.</span>")
-			if(!do_after(user, 1 SECONDS, target = target) || !do_after(target, 1 SECONDS, FALSE)) // user needs to keep their active hand, target does not.
+			if(!do_after(user, 1 SECONDS, target) || !do_after(target, 1 SECONDS, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) // user needs to keep their active hand, target does not.
 				return
 			user.visible_message("<span class='notice'>[user] wipes [target]'s face clean with \the [src].</span>",
 				"<span class='notice'>You wipe off [target]'s face.</span>")
@@ -203,7 +209,7 @@
 		"<span class='notice'>You start chewing the corner of [src].</span>",
 		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
-	if(!do_after(doggo, 10 SECONDS, FALSE, src))
+	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
@@ -286,7 +292,7 @@
 	info = null
 	stamps = null
 	stamped = list()
-	stamp_overlays = list()
+	stamp_overlays = null
 	updateinfolinks()
 	update_icon()
 
@@ -356,7 +362,7 @@
 
 /obj/item/paper/Topic(href, href_list)
 	..()
-	if(!usr || (usr.stat || usr.restrained()))
+	if(!usr || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(href_list["auto_write"])
@@ -436,7 +442,7 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = user.mind && (user.mind.assigned_role == "Clown")
+	var/clown = user.mind && (user.mind.assigned_role == JOB_TITLE_CLOWN)
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
@@ -451,7 +457,7 @@
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.drop_item_ground(P)
-		if(istype(user, /mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
 				h_user.drop_item_ground(src)
@@ -463,14 +469,14 @@
 				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
-				B.plane = ABOVE_HUD_PLANE
+				SET_PLANE_EXPLICIT(B, ABOVE_HUD_PLANE, src)
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
 				h_user.drop_item_ground(src)
 				B.loc = h_user
 				B.layer = ABOVE_HUD_LAYER
-				B.plane = ABOVE_HUD_PLANE
+				SET_PLANE_EXPLICIT(B, ABOVE_HUD_PLANE, src)
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
@@ -563,12 +569,8 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	stamp_overlays += stampoverlay
+	LAZYADD(stamp_overlays, stampoverlay)
 	update_icon(UPDATE_OVERLAYS)
-
-
-/obj/item/paper/update_overlays()
-	return stamp_overlays
 
 
 /*
@@ -597,7 +599,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -673,7 +675,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -742,7 +744,7 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
-	language = "Neo-Russkiya"
+	language = LANGUAGE_NEO_RUSSIAN
 
 /obj/item/paper/solgov
 	name = "paper"

@@ -183,17 +183,22 @@
 
 
 /obj/item/gun/energy/attack_self(mob/living/user)
-	if(length(ammo_type))
+	. = ..()
+	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 
 
 /obj/item/gun/energy/can_shoot(mob/living/user)
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/check_charge = cell.charge >= shot.e_cost
-	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
+	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
-	return check_charge
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	. = cell.charge >= shot.e_cost
+
+	if(!.)
+		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
+
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -241,8 +246,8 @@
 
 
 /obj/item/gun/energy/update_icon(updates = ALL)
-	..()
-	update_equipped_item()
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/gun/energy/update_icon_state()
@@ -283,20 +288,21 @@
 		if(gun_light.on)
 			iconF = "[gun_light_overlay]_on"
 		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/energy/ui_action_click()
 	toggle_gunlight()
 
+
 /obj/item/gun/energy/suicide_act(mob/user)
-	if(can_shoot())
+	if(can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with the [name]!"))
-			playsound(loc, fire_sound, 50, 1, -1)
+			playsound(loc, fire_sound, 50, TRUE, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
 			update_icon()
@@ -306,17 +312,18 @@
 			return OXYLOSS
 	else
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
+
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("selfcharge")
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
 	. = ..()
+	if(var_name == NAMEOF(src, selfcharge))
+		if(var_value)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
+
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

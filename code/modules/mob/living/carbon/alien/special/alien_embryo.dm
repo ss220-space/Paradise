@@ -56,7 +56,7 @@
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
+			if(S.location == BODY_ZONE_CHEST && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
 				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
@@ -86,7 +86,7 @@
 			return
 
 		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
-		owner.overlays += overlay
+		owner.add_overlay(overlay)
 
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
@@ -103,7 +103,7 @@
 				owner.gib()
 			else
 				owner.adjustBruteLoss(40)
-				owner.overlays -= overlay
+				owner.cut_overlay(overlay)
 			qdel(src)
 
 /*----------------------------------------

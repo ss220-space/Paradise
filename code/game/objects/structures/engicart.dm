@@ -3,8 +3,8 @@
 	desc = "A cart for storing engineering items."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	pull_push_speed_modifier = 1
 	var/obj/item/stack/sheet/glass/myglass = null
 	var/obj/item/stack/sheet/metal/mymetal = null
@@ -97,14 +97,14 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				set_anchored(TRUE)
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				set_anchored(FALSE)
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 

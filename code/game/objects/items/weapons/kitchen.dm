@@ -65,7 +65,7 @@
 				return
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
-				overlays.Cut()
+				cut_overlays()
 				return
 
 
@@ -125,7 +125,9 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
-	var/bayonet = FALSE	//Can this be attached to a gun?
+	/// Can this item be attached as a bayonet to the gun?
+	var/bayonet_suitable = FALSE
+
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
@@ -219,7 +221,7 @@
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
-	bayonet = TRUE
+	bayonet_suitable = TRUE
 	embed_chance = 90
 
 /obj/item/kitchen/knife/combat/survival
@@ -259,7 +261,6 @@
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25
 	armour_penetration = 20
-	flags = NODROP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE

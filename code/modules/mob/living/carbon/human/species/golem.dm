@@ -1,5 +1,5 @@
 /datum/species/golem
-	name = "Голем"
+	name = SPECIES_GOLEM_BASIC
 	name_plural = "Golems"
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
@@ -18,7 +18,7 @@
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
-	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
+	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_SUITSTORE)
 	nojumpsuit = TRUE
 
 	reagent_tag = PROCESS_ORG
@@ -170,7 +170,7 @@
 //Random Golem
 
 /datum/species/golem/random
-	name = "Случайный Голем"
+	name = SPECIES_GOLEM_RANDOM
 	blacklisted = FALSE
 	dangerous_existence = FALSE
 	var/static/list/random_golem_types
@@ -191,7 +191,7 @@
 
 //Leader golems, can resonate to communicate with all other golems
 /datum/species/golem/adamantine
-	name = "Адамантиновый Голем"
+	name = SPECIES_GOLEM_ADAMANTINE
 	skinned_type = /obj/item/stack/sheet/mineral/adamantine
 
 	has_organ = list(
@@ -212,7 +212,7 @@
 
 //The suicide bombers of golemkind
 /datum/species/golem/plasma
-	name = "Плазменный Голем"
+	name = SPECIES_GOLEM_PLASMA
 	skinned_type = /obj/item/stack/ore/plasma
 	golem_colour = rgb(170, 51, 221)
 	heat_level_1 = 360
@@ -262,7 +262,7 @@
 /datum/action/innate/ignite
 	name = "Ignite"
 	desc = "Подожгите себя и достигните взрыва!"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "sacredflame"
 
 /datum/action/innate/ignite/Activate()
@@ -276,7 +276,7 @@
 
 //Harder to hurt
 /datum/species/golem/diamond
-	name = "Алмазный Голем"
+	name = SPECIES_GOLEM_DIAMOND
 	golem_colour = rgb(0, 255, 255)
 	brute_mod = 0.3 //70% damage reduction up from 55%
 	burn_mod = 0.3
@@ -299,7 +299,7 @@
 
 //Faster but softer and less armoured
 /datum/species/golem/gold
-	name = "Золотой Голем"
+	name = SPECIES_GOLEM_GOLD
 	golem_colour = rgb(204, 204, 0)
 	speed_mod = 1
 	brute_mod = 0.75 //25% damage reduction down from 55%
@@ -321,7 +321,7 @@
 
 //Heavier, thus higher chance of stunning when punching
 /datum/species/golem/silver
-	name = "Серебрянный Голем"
+	name = SPECIES_GOLEM_SILVER
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 //60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
@@ -339,7 +339,7 @@
 
 //Harder to stun, deals more damage, but it's even slower
 /datum/species/golem/plasteel
-	name = "Пласталиевый Голем"
+	name = SPECIES_GOLEM_PLASTEEL
 	golem_colour = rgb(187, 187, 187)
 	stun_mod = 0.5
 	stamina_mod = 0.5
@@ -363,7 +363,7 @@
 
 //More resistant to burn damage and immune to ashstorm
 /datum/species/golem/titanium
-	name = "Титановый Голем"
+	name = SPECIES_GOLEM_TITANIUM
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Будучи <span class='danger'>титановым големом</span>, вы частично устойчивы к ожогам и невосприимчивы к пепельным бурям."
@@ -385,7 +385,7 @@
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
-	name = "Пластитановый Голем"
+	name = SPECIES_GOLEM_PLASTITANIUM
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "Будучи <span class='danger'>пластитановым големом</span>, вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
@@ -409,11 +409,11 @@
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
-	name = "Голем из инопланетных сплавов"
+	name = SPECIES_GOLEM_ALLOY
 	golem_colour = rgb(51, 51, 51)
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
-	language = "Golem Mindlink"
-	default_language = "Golem Mindlink"
+	language = LANGUAGE_HIVE_GOLEM
+	default_language = LANGUAGE_HIVE_GOLEM
 	speed_mod = 1 //faster
 	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее двигаетесь и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 	prefix = "Инопланетн" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
@@ -440,13 +440,13 @@
 
 /datum/species/golem/alloy/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.languages.Cut()
-	H.add_language("Golem Mindlink")
-	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
+	LAZYREINITLIST(H.languages)
+	H.add_language(LANGUAGE_HIVE_GOLEM)
+	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 
 //Regenerates like dionas, less resistant
 /datum/species/golem/wood
-	name = "Деревянный Голем"
+	name = SPECIES_GOLEM_WOOD
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE, IS_PLANT)
@@ -486,7 +486,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
@@ -509,7 +509,7 @@
 
 //Radioactive
 /datum/species/golem/uranium
-	name = "Урановый Голем"
+	name = SPECIES_GOLEM_URANIUM
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
 	info_text = "Будучи <span class='danger'>урановым големом</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
@@ -536,21 +536,21 @@
 
 //Ventcrawler
 /datum/species/golem/plastic
-	name = "Пластиковый Голем"
+	name = SPECIES_GOLEM_PLASTIC
 	prefix = "Пластиков" //неполное окончание т.к. гендеризация идет через другую функцию (/datum/species/golem/get_random_name())
 	special_names = list(
 		MALE = list("Стаканчик", "Сервиз"),
 		FEMALE = list("Тарелка", "Посуда", "Утварь"),
 		NEUTER = null
 		)
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
-	name = "Песчаный Голем"
+	name = SPECIES_GOLEM_SAND
 	golem_colour = rgb(255, 220, 143)
 	skinned_type = /obj/item/stack/ore/glass //this is sand
 	brute_mod = 0.25
@@ -591,7 +591,7 @@
 
 //Reflects lasers and resistant to burn damage, but very vulnerable to brute damage. Shatters on death.
 /datum/species/golem/glass
-	name = "Стеклянный Голем"
+	name = SPECIES_GOLEM_GLASS
 	golem_colour = rgb(90, 150, 180)
 	skinned_type = /obj/item/shard
 	brute_mod = 3 //very fragile
@@ -638,7 +638,7 @@
 
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
-	name = "Блюспейс-Голем"
+	name = SPECIES_GOLEM_BLUESPACE
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
 	info_text = "Будучи <span class='danger'>блюспейс-големом</span>, вы пространственно нестабильны: вы будете телепортироваться при получении ударов. Также вы можете телепортироваться вручную на большое расстояние."
@@ -683,7 +683,7 @@
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to trigger the teleport
 			return FALSE
@@ -719,7 +719,7 @@
 
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
@@ -745,7 +745,7 @@
 	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.density)
 			continue
@@ -773,7 +773,7 @@
 
 //honk
 /datum/species/golem/bananium
-	name = "Бананиевый Голем"
+	name = SPECIES_GOLEM_BANANIUM
 	golem_colour = rgb(255, 255, 0)
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -799,8 +799,8 @@
 	last_banana = world.time
 	last_honk = world.time
 	H.mutations.Add(COMIC)
-	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
-	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), ITEM_SLOT_POCKET_RIGHT)
+	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -833,7 +833,7 @@
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to make bananas
 			return FALSE
@@ -862,7 +862,7 @@
 
 //...
 /datum/species/golem/tranquillite
-	name = "Транквилитовый Голем"
+	name = SPECIES_GOLEM_TRANQUILLITITE
 	prefix = "Транквилитов" //требуется перевод имен Мима
 	special_names = list(
 		MALE = null,
@@ -881,9 +881,9 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
-	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
+	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
+	H.equip_to_slot_or_del(new 	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
@@ -895,7 +895,7 @@
 
 //FOR RATVAR!!!!!
 /datum/species/golem/clockwork
-	name = "Латунный Голем"
+	name = SPECIES_GOLEM_CLOCKWORK
 	prefix = "Латунн"
 	special_names = null
 	golem_colour = rgb(176, 136, 32)

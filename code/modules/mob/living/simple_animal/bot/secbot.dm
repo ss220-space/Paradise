@@ -1,4 +1,5 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
@@ -10,7 +11,7 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 
 	allow_pai = FALSE
 
@@ -49,6 +50,7 @@
 	var/flashing_lights = FALSE
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
+	var/speak_cooldown = FALSE
 
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -137,7 +139,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src,0)
 	set_path(null)
 	last_found = world.time
@@ -257,13 +259,13 @@
 
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if((C.staminaloss < 110 || arrest_type) && !baton_delayed)
 			stun_attack(A)
-		else if(C.canBeHandcuffed() && !C.handcuffed)
+		else if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 			cuff(A)
 	else
 		..()
@@ -293,14 +295,14 @@
 	if(!Adjacent(C) || !isturf(C.loc) || C.handcuffed)
 		return
 
-	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 	back_to_idle()
 
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, TRUE, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	if(harmbaton)
 		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
 	do_attack_animation(C)
@@ -317,7 +319,10 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		if(!speak_cooldown)
+			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),
 					span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
 
@@ -332,10 +337,10 @@
 				light_color = LIGHT_COLOR_PURE_RED
 			else
 				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+		set_light_color(light_color)
 	else if(prev_flashing_lights)
 		light_color = LIGHT_COLOR_WHITE
-		update_light()
+		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights
 
@@ -375,7 +380,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = TRUE
+					set_anchored(TRUE)
 					target_lastloc = target.loc
 					return
 
@@ -396,7 +401,7 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
+			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						cuff(target)
@@ -409,7 +414,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -424,7 +429,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -436,7 +441,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -445,7 +450,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -455,7 +460,7 @@
  * Look for a criminal in view of the bot.
  */
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -493,7 +498,7 @@
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
@@ -531,5 +536,6 @@
 	req_access = list(ACCESS_SECURITY)
 
 
-#undef BATON_COOLDOWN
 
+#undef SPEAK_COOLDOWN
+#undef BATON_COOLDOWN

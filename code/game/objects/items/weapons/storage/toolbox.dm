@@ -6,7 +6,7 @@
 	item_state = "toolbox_red"
 	flags = CONDUCT
 	force = 10.0
-	throwforce = 10.0
+	throwforce = 15.0
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
@@ -18,6 +18,10 @@
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/blurry_chance = 5
+
+/obj/item/storage/toolbox/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)
 	. = ..()
@@ -71,7 +75,12 @@
 	new /obj/item/wirecutters(src)
 
 /obj/item/storage/toolbox/mechanical/greytide
-	flags = NODROP
+
+
+/obj/item/storage/toolbox/mechanical/greytide/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"

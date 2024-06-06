@@ -1,40 +1,27 @@
-#define ALL ~0 //For convenience.
+#define ALL (~0) //For convenience.
 #define NONE 0
 
-//FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 		(1<<0)		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-#define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
-#define NOBLUDGEON  			(1<<2)		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define AIRTIGHT				(1<<3)		// mask allows internals
-#define HANDSLOW        		(1<<4)		// If an item has this flag, it will slow you to carry it
-#define CONDUCT					(1<<5)		// conducts electricity (metal etc.)
-#define ABSTRACT				(1<<6)		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				(1<<7)		// item has priority to check when entering or leaving
-#define PREVENT_CLICK_UNDER		(1<<8)
-#define NODECONSTRUCT			(1<<9)
+/* Directions */
+///All the cardinal direction bitflags.
+#define ALL_CARDINALS (NORTH|SOUTH|EAST|WEST)
 
-#define EARBANGPROTECT			(1<<10)
 
-#define NOSLIP					(1<<10) 	//prevents from slipping on wet floors, in space etc
+// Flags for the flags var on /atom
+/// Conducts electricity (metal etc.)
+#define CONDUCT (1<<0)
+/// Atom has priority to check when entering or leaving turfs
+#define ON_BORDER (1<<1)
+/// Self explanatory, prevents any clicks through ourselves
+#define PREVENT_CLICK_UNDER (1<<2)
+/// Сould this item be suitable as a ricochet target?
+#define CHECK_RICOCHET (1<<3)
+/// Whether this atom prevents light from being attached
+#define BLOCKS_LIGHT (1<<4)
+/// Whether this atom is only a hologram object
+#define HOLOGRAM (1<<5)
+/// Was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED (1<<6)
 
-#define NOPICKUP				(1<<11)		// This flags makes it so an item cannot be picked in hands
-
-#define HEADBANGPROTECT			(1<<12)
-
-#define BLOCK_GAS_SMOKE_EFFECT	(1<<13)	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
-#define THICKMATERIAL 			(1<<13)	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
-
-#define DROPDEL					(1<<14)	// When dropped, it calls qdel on itself
-
-#define BLOCKHEADHAIR 			(1<<15)	// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKFACIALHAIR			(1<<16)	// temporarily removes the user's facial hair overlay. Leaves head hair.
-#define BLOCKHAIR				(1<<17)	// temporarily removes the user's hair, facial and otherwise.
-
-#define NO_PIXEL_RANDOM_DROP	(1<<18)	// If dropped, it wont have a randomized pixel_x/pixel_y
-
-#define BLOCK_CAPSAICIN			(1<<19)	// Prevents from passing capsaicin onto human
-
-#define NOSHARPENING			1048576 // Prevents from sharpening item with whetstone
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -48,41 +35,6 @@
 /// Update the atom's icon
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
-
-/* Secondary atom flags, for the flags_2 var, denoted with a _2 */
-
-#define SLOWS_WHILE_IN_HAND_2	(1<<0)
-#define NO_EMP_WIRES_2			(1<<1)
-#define HOLOGRAM_2				(1<<2)
-#define FROZEN_2				(1<<3)
-#define STATIONLOVING_2			(1<<4)
-#define INFORM_ADMINS_ON_RELOCATE_2	(1<<5)
-#define BANG_PROTECT_2			(1<<6)
-
-// An item worn in the ear slot with HEALS_EARS will heal your ears each
-// Life() tick, even if normally your ears would be too damaged to heal.
-#define HEALS_EARS_2			(1<<7)
-
-// A mob with OMNITONGUE has no restriction in the ability to speak
-// languages that they know. So even if they wouldn't normally be able to
-// through mob or tongue restrictions, this flag allows them to ignore
-// those restrictions.
-#define OMNITONGUE_2			(1<<8)
-
-// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_2			(1<<9)
-
-// Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define NO_MAT_REDEMPTION_2		(1<<10)
-
-// LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
-#define LAVA_PROTECT_2			(1<<11)
-
-#define OVERLAY_QUEUED_2		(1<<12)
-
-#define CHECK_RICOCHET_2		(1<<13)
-
-#define BLOCKS_LIGHT_2			16384
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -121,22 +73,47 @@
 
 
 //bitflags for door switches.
-#define OPEN	(1<<0)
-#define IDSCAN	(1<<1)
-#define BOLTS	(1<<2)
-#define SHOCK	(1<<3)
-#define SAFE	(1<<4)
+#define OPEN (1<<0)
+#define IDSCAN (1<<1)
+#define BOLTS (1<<2)
+#define SHOCK (1<<3)
+#define SAFE (1<<4)
 
-#define PASSTABLE		(1<<0)
-#define PASSGLASS		(1<<1)
-#define PASSGRILLE		(1<<2)
-#define PASSBLOB		(1<<3)
-#define PASSMOB			(1<<4)
-#define LETPASSTHROW	(1<<5)
-#define PASSFENCE 		(1<<6)
-#define PASSDOOR		(1<<7)
-#define PASS_OTHER_THINGS (1<<8)
-#define PASS_EVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSFENCE|PASSDOOR|PASS_OTHER_THINGS)
+//flags for passing things
+#define PASSTABLE (1<<0)
+#define PASSGLASS (1<<1)
+#define PASSGRILLE (1<<2)
+#define PASSBLOB (1<<3)
+#define PASSMOB (1<<4)
+/// Let thrown things past us. **ONLY MEANINGFUL ON pass_flags_self!**
+#define LETPASSTHROW (1<<5)
+#define PASSMACHINE (1<<6)
+#define PASSSTRUCTURE (1<<7)
+#define PASSFLAPS (1<<8)
+#define PASSFENCE (1<<9)
+#define PASSDOOR (1<<10)
+#define PASSVEHICLE (1<<11)
+#define PASSITEM (1<<12)
+/// Do not intercept click attempts during Adjacent() checks. See [turf/proc/ClickCross]. **ONLY MEANINGFUL ON pass_flags_self!**
+#define LETPASSCLICKS (1<<13)
+
+#define PASSEVERYTHING (PASSTABLE|PASSGLASS|PASSGRILLE|PASSBLOB|PASSMOB|LETPASSTHROW|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSDOOR|PASSVEHICLE|PASSITEM|LETPASSCLICKS)
+
+
+
+//Movement Types
+#define GROUND (1<<0)
+#define FLYING (1<<1)
+#define VENTCRAWLING (1<<2)
+#define FLOATING (1<<3)
+/// When moving, will Cross() everything, but won't stop or Bump() anything.
+#define PHASING (1<<4)
+/// The mob is walking on the ceiling. Or is generally just, upside down.
+#define UPSIDE_DOWN (1<<5)
+
+/// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
+#define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
+
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)
@@ -147,25 +124,6 @@
 #define NOJAUNT		1
 #define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
 #define NO_RUINS 	4
-
-//ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING	(1<<0)
-#define SLOT_ICLOTHING	(1<<1)
-#define SLOT_GLOVES		(1<<2)
-#define SLOT_EYES		(1<<3)
-#define SLOT_EARS		(1<<4)
-#define SLOT_MASK		(1<<5)
-#define SLOT_HEAD		(1<<6)
-#define SLOT_FEET		(1<<7)
-#define SLOT_ID			(1<<8)
-#define SLOT_BELT		(1<<9)
-#define SLOT_BACK		(1<<10)
-#define SLOT_POCKET		(1<<11)		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET	(1<<12)	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
-#define SLOT_TWOEARS	(1<<13)
-#define SLOT_PDA		(1<<14)
-#define SLOT_TIE		(1<<15)
-#define SLOT_NECK		(1<<16)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
@@ -199,3 +157,71 @@
 #define TOXIC		(1<<12)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+
+
+//Mob mobility var flags
+/// can move
+#define MOBILITY_MOVE (1<<0)
+/// can, and is, standing up
+#define MOBILITY_STAND (1<<1)
+/// can pickup items
+#define MOBILITY_PICKUP (1<<2)
+/// can hold and use items
+#define MOBILITY_USE (1<<3)
+/// can use interfaces like machinery
+#define MOBILITY_UI (1<<4)
+/// can use storage item
+#define MOBILITY_STORAGE (1<<5)
+/// can pull things
+#define MOBILITY_PULL (1<<6)
+/// can rest
+#define MOBILITY_REST (1<<7)
+/// can lie down
+#define MOBILITY_LIEDOWN (1<<8)
+
+#define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL)
+#define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
+#define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
+
+
+//MINING AREA FLAGS
+/// If mining tunnel generation is allowed in this area
+#define CAVES_ALLOWED (1<<1)
+/// If flora are allowed to spawn in this area randomly through tunnel generation
+#define FLORA_ALLOWED (1<<2)
+/// If mobs can be spawned by natural random generation
+#define MOB_SPAWN_ALLOWED (1<<3)
+/// If megafauna can be spawned by natural random generation
+#define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
+
+
+// timed_action_flags parameter for [/proc/do_after()]
+/// Can do the action even if mob moves location.
+#define DA_IGNORE_USER_LOC_CHANGE (1<<0)
+/// If we are checking for mob's loc change space drift will be ignored.
+#define DA_IGNORE_SPACE_DRIFT (1<<1)
+/// Can do the action even if the target moves location.
+#define DA_IGNORE_TARGET_LOC_CHANGE (1<<2)
+/// Can do the action even if the user is UNCONSCIOUS or DEAD.
+#define DA_IGNORE_CONSCIOUSNESS (1<<3)
+/// Can do the action even if the user is lying.
+#define DA_IGNORE_LYING (1<<4)
+/// Can do the action even if the user is restrained.
+#define DA_IGNORE_RESTRAINED (1<<5)
+/// Can do the action even if the user is incapacitated (weakened/stunned/stamcrited/paralyzed/sleeping).
+#define DA_IGNORE_INCAPACITATED (1<<6)
+/// Can do the action even if the item is no longer being held.
+#define DA_IGNORE_HELD_ITEM (1<<7)
+/// If actively held item is cyborg gripper we will not check whether its empty during the process.
+#define DA_IGNORE_EMPTY_GRIPPER (1<<8)
+
+/// All ignore flags considered as default old do_after behavior.
+#define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
+
+
+//Incapacitated ignore flags for [/proc/incapacitated()]
+/// If the incapacitated will ignore a mob in restraints
+#define INC_IGNORE_RESTRAINED (1<<0)
+/// If the incapacitated will ignore a mob being agressively grabbed
+#define INC_IGNORE_GRABBED (1<<1)
+

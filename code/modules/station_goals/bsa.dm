@@ -30,8 +30,8 @@
 
 /obj/machinery/bsa
 	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
@@ -208,12 +208,12 @@
 			top_layer = image("icons/obj/lavaland/orbital_cannon.dmi", "top_east")
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
-	overlays += top_layer
+	add_overlay(top_layer)
 	reload()
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
-	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
+	for(var/turf/T as anything in get_line(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
 		for(var/atom/A in T)
 			A.ex_act(1)
@@ -295,9 +295,9 @@
 
 /obj/machinery/computer/bsa_control/process()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/computer/bsa_control/update_icon()
+/obj/machinery/computer/bsa_control/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)

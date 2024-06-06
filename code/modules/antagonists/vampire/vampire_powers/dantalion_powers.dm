@@ -32,7 +32,7 @@
 	user.visible_message(span_warning("[user] bites [target]'s neck!"), \
 						span_warning("You bite [target]'s neck and begin the flow of power."))
 	to_chat(target, span_warning("You feel the tendrils of evil invade your mind."))
-	if(do_mob(user, target, 15 SECONDS))
+	if(do_after(user, 15 SECONDS, target, NONE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
