@@ -53,3 +53,9 @@
 /obj/mecha/combat/lockersyndie/Destroy()
 	new /obj/structure/closet(loc)
 	return ..()
+
+/obj/item/mecha_drop
+	name = "mechadrop tool"
+	desc = "Simple looking tool with only one button"
+	var/list/summon_sound = 'sound/items/bikehorn.ogg'
+	var/used = FALSE

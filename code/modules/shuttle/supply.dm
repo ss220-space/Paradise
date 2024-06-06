@@ -144,16 +144,6 @@
 		if(istype(MA, /obj/structure/bigDelivery))
 			quest_reward += SScargo_quests.check_delivery(MA)
 
-		if(istype(MA, /obj/structure/closet/critter/mecha))
-			var/obj/structure/closet/critter/mecha/crate = MA
-			if(crate.console && crate.quest)
-				for(var/category in crate.quest.reward)
-					crate.console.points[category] += crate.quest.reward[category]
-				crate.console.on_quest_complete()
-				crate.quest.id.robo_bounty = null
-				crate.quest = null
-			qdel(crate)
-
 		// Must be in a crate (or a critter crate)!
 		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 			SSshuttle.sold_atoms += ":"
@@ -224,6 +214,22 @@
 							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
+
+		if(istype(MA, /obj/structure/closet/critter/mecha))
+			var/obj/structure/closet/critter/mecha/crate = MA
+			if(crate.console && crate.quest)
+				crate.quest.reward["robo"] -= crate.penalty
+				if(crate.quest.reward["robo"] < 0)
+					crate.quest.reward["robo"] = 0
+				for(var/category in crate.quest.reward)
+					crate.console.points[category] += crate.quest.reward[category]
+				pointsEarned = crate.quest.reward["robo"] * 25
+				SSshuttle.points += pointsEarned
+				SSshuttle.cargo_money_account.money += crate.quest.reward["robo"] * 150
+				crate.console.on_quest_complete()
+				crate.quest.id.robo_bounty = null
+				crate.quest = null
+				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
 
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."

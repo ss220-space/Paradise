@@ -1149,6 +1149,22 @@
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
 
+/obj/item/storage/box/experimental_parts
+	name = "experimental parts"
+	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
+
+/obj/item/storage/box/experimental_parts/populate_contents()
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

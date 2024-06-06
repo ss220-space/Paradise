@@ -116,7 +116,7 @@
 			span_notice("[usr] folds up [src]."),
 			span_notice("You fold up [src]."),
 		)
-		new item_path(get_turf(src))
+		perform_fold(usr)
 		qdel(src)
 		return FALSE
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
@@ -155,7 +155,7 @@
 	icon_state = "bodybag_biohazard_closed"
 	icon_closed = "bodybag_biohazard_closed"
 	icon_opened = "bodybag_biohazard_open"
-	item_path = /obj/item/bodybag/biohazard
+	foldedbag_path = /obj/item/bodybag/biohazard
 
 /obj/item/bodybag/biohazard/attack_self(mob/user)
 	var/obj/structure/closet/body_bag/biohazard/R = new /obj/structure/closet/body_bag/biohazard(user.loc)
@@ -167,7 +167,7 @@
 	icon_state = "bluebag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
 	w_class = WEIGHT_CLASS_SMALL
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
@@ -204,7 +204,7 @@
 	user.last_special = world.time + (breakout_time)
 	to_chat(user, span_notice("You claw at the fabric of [src], trying to tear it open..."))
 	to_chat(loc, span_warning("Someone starts trying to break free of [src]!"))
-	if(!do_after(user, 12 SECONDS, src, use_default_checks = FALSE))
+	if(!do_after(user, 12 SECONDS, src))
 		return
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.

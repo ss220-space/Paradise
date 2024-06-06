@@ -63,7 +63,7 @@
 			add_fingerprint(user)
 			if(istype(M.buffer, /obj/machinery/roboquest_pad))
 				pad = M.buffer
-				if(pad.console)
+				if(pad.console && pad.console != src)
 					pad.console.pad = null
 				pad.console = src
 				canCheck = TRUE
@@ -224,7 +224,7 @@
 				else // Else choose the value of the selection
 					quantum = L[select]
 				flick("sqpad-beam", pad)
-				pad.teleport(quantum, currentID.robo_bounty, src)
+				pad.teleport(quantum, currentID.robo_bounty, src, (3-success))
 				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
 				check_timer = null
 				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
@@ -319,11 +319,11 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
-/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console)
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
 	do_sparks(5, 1, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
-		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console)
+		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
 		M.forceMove(box)
 		do_teleport(box, destination)
 
@@ -350,11 +350,13 @@
 	req_access = (ACCESS_ROBOTICS)
 	var/datum/roboquest/quest
 	var/obj/machinery/computer/roboquest/console
+	var/penalty = 0
 
-/obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console)
+/obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	. = ..()
 	src.quest = quest
 	src.console = console
+	src.penalty = penalty
 
 /obj/structure/closet/critter/mecha/toggle(mob/user)
 	if(!allowed(user))

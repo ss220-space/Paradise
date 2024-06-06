@@ -13,7 +13,7 @@
 	/// Text info for tgui
 	var/list/questinfo = list()
 	/// Reward for our current quest
-	var/reward = list("working" = 2, "medical" = 1, "security" = 3, "robo" = 4)
+	var/reward = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 2)
 	/// 75-125% of initial mecha cash reward
 	var/maximum_cash
 	/// Difficulty type
@@ -46,8 +46,15 @@
 		if(COMBAT_CLASS)
 			mech = pick(combat_mechas)
 		if(RANDOM_CLASS)
+			reward["robo"] += rand(1,3)
 			mech = pick(subtypesof(/datum/quest_mech))
 	var/datum/quest_mech/selected = new mech
+	if(selected.type in working_mechas)
+		reward["working"] += 2
+	else if (selected.type in combat_mechas)
+		reward["security"] += 2
+	else
+		reward["medical"] += 2
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
 	questinfo["name"] = name
@@ -118,82 +125,52 @@
 /datum/roboshop_item
 	var/name
 	var/desc
-	var/path
+	var/atom/path
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
-	var/icon_name = "anomaly_core"
-	var/icon_file = 'icons/obj/assemblies/new_assemblies.dmi'
+	var/icon_name
+	var/icon_file
 	var/icon/tgui_icon
 	var/emag_only = FALSE
 
 /datum/roboshop_item/New()
+	if(!name)
+		name = path::name
+	if(!desc)
+		desc = path::desc
+	if(!icon_name)
+		icon_name = path::icon_state
+	if(!icon_file)
+		icon_file = path::icon
 	src.tgui_icon = icon(icon_file, icon_name, SOUTH, 1, FALSE)
+
 
 /datum/roboshop_item/bluespace_core
 	name = "\improper bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 1)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
-/datum/roboshop_item/syndicate_core
-	name = "\improper syndicate anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 999)
-	emag_only = TRUE
+// /datum/roboshop_item/syndicate_core
+// 	name = "\improper syndicate anomaly core"
+// 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+// 	path = /obj/item/assembly/signaler/anomaly/bluespace
+// 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 999)
+// 	emag_only = TRUE
 
-/datum/roboshop_item/medical_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 1, "security" = 0, "robo" = 0)
+/datum/roboshop_item/bbag
+	name = "\improper bluespace bodybag"
+	path = /obj/item/bodybag/bluespace
+	cost = list("working" = 0, "medical" = 6, "security" = 0, "robo" = 0)
 
-/datum/roboshop_item/another_medical_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 2, "security" = 0, "robo" = 0)
+/datum/roboshop_item/holotool
+	name = "\improper holotool"
+	path = /obj/item/holotool
+	cost = list("working" = 6, "medical" = 0, "security" = 0, "robo" = 0)
 
-/datum/roboshop_item/working_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 1, "medical" = 0, "security" = 0, "robo" = 0)
-
-/datum/roboshop_item/another_working_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 2, "medical" = 0, "security" = 0, "robo" = 0)
-
-/datum/roboshop_item/security_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 0, "security" = 1, "robo" = 0)
-
-/datum/roboshop_item/another_security_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 0, "security" = 1, "robo" = 0)
-
-/datum/roboshop_item/working_medical_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 1, "medical" = 1, "security" = 0, "robo" = 0)
-
-/datum/roboshop_item/medical_security_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 0, "medical" = 1, "security" = 1, "robo" = 0)
-
-/datum/roboshop_item/super_core
-	name = "\improper bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
-	cost = list("working" = 1, "medical" = 1, "security" = 1, "robo" = 0)
+/datum/roboshop_item/experimental_parts
+	name = "\improper experimental parts"
+	path = /obj/item/storage/box/experimental_parts
+	cost = list("working" = 3, "medical" = 3, "security" = 3, "robo" = 0)
 
 #undef WORKING_CLASS
 #undef MEDICAL_CLASS

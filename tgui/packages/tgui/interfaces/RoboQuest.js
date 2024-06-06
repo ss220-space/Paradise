@@ -118,7 +118,7 @@ export const RoboQuest = (props, context) => {
                         <Flex
                           direction="column"
                           alignContent="center">
-                          {shopItems[cat].map( i => (
+                          {!(shopItems[cat] === undefined || shopItems[cat].length === 0) && shopItems[cat].map( i => (
                             <FlexItem grow="1" basis="33" key={i.path}>
                               <Button
                                 height="64px"

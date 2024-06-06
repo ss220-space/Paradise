@@ -9,7 +9,7 @@ Holotool. All instruments in one object
 	desc = "A highly experimental holographic tool projector."
 	icon = 'icons/obj/holotool.dmi'
 	icon_state = "holotool"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	usesound = 'sound/items/pshoom.ogg'
 	actions_types = list(/datum/action/item_action/change_ht_color)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
