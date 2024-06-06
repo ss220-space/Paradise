@@ -68,7 +68,6 @@
 
 	///Used for perfomance in machinery manipulation operations
 	var/list/machinery_cache
-	var/list/motioncameras
 
 	var/firedoors_last_closed_on = 0
 
@@ -545,10 +544,6 @@
 	if(!isliving(arrived))
 		return
 
-	// if(LAZYLEN(motioncameras))//ai motion camera alarm activate
-	// 	for(var/obj/machinery/camera/cam as anything in motioncameras)
-	// 		cam.newTarget(arrived)
-
 	var/mob/living/arrived_living = arrived
 	if(!arrived_living.client)
 		return
@@ -568,20 +563,12 @@
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
-	if(!isliving(departed))
-		return
-
-
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
 		var/prev_gravity = user.gravity_state
 		user.refresh_gravity()
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
-
-/area/proc/AddMotionCameraInList(obj/machinery/camera/M)
-	LAZYADD(motioncameras, M)
-	M.AddComponent(/datum/component/proximity_monitor, M.view_range, TRUE)
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)

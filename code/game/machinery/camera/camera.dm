@@ -70,9 +70,6 @@
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
 		LAZYREMOVE(myArea.cameras, UID())
-	var/area/A = get_area(src)
-	if(istype(A))
-		LAZYREMOVE(A.motioncameras, src) //Removing the camera from the list of cameras that can respond to movement.
 	cancelCameraAlarm()
 	cancelAlarm()
 	LAZYCLEARLIST(computers_watched_by)
@@ -142,8 +139,8 @@
 				return
 			var/obj/item/stack/sheet/mineral/plasma/upgrade = new(assembly, 1)
 			upgrade.update_icon(UPDATE_ICON_STATE)
-			assembly.upgrades.Add(upgrade)
 			I.use(1)
+			I = upgrade
 		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
@@ -252,7 +249,7 @@
 		target.update_appearance(UPDATE_NAME)
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, target)
-	target.myArea.AddMotionCameraInList(target)
+	target.AddComponent(/datum/component/proximity_monitor, target.view_range, TRUE)
 
 /obj/machinery/camera/update_name(updates)
 	. = ..()

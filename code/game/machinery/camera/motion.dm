@@ -8,7 +8,11 @@
 	if(!isMotion())
 		. = PROCESS_KILL
 		return
-	if(stat & (EMPED|NOPOWER))
+	if(!status)
+		for(var/targer in getTargetList())
+			lostTargetRef(targer)
+		return
+	if((stat && EMPED|NOPOWER))
 		return
 	if(detectTime > 0)
 		var/elapsed = world.time - detectTime
@@ -27,7 +31,9 @@
 /obj/machinery/camera/proc/newTarget(mob/target)
 	if(isAI(target))
 		return FALSE
-	if(detectTime == 0 && can_see(target, view_range))
+	if(!can_see(target, view_range))
+		return FALSE
+	if(detectTime == 0)
 		detectTime = world.time // start the clock
 	var/list/targets = getTargetList()
 	targets |= target.UID()
@@ -42,8 +48,7 @@
 
 /obj/machinery/camera/proc/cancelAlarm()
 	if(detectTime == -1)
-		if(status)
-			SSalarm.cancelAlarm("Motion", get_area(src), src)
+		SSalarm.cancelAlarm("Motion", get_area(src), src)
 	detectTime = 0
 	return TRUE
 
