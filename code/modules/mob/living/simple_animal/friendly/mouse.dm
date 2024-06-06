@@ -231,7 +231,7 @@
 
 /mob/living/simple_animal/mouse/proc/ass_shake()
 	set name = "Крутить задницей"
-	set desc = "Крутит жопой"
+	set desc = "Крутит задницей"
 	set category = "Мышь"
 
 	emote("massshake", intentional = TRUE)
@@ -275,7 +275,7 @@
 /datum/emote/living/simple_animal/mouse/idle/ass_shake
 	key = "massshake"
 	key_third_person = "massshakes"
-	message = "крут%(ит,ят)% жопой!"
+	message = "крут%(ит,ят)% задницей!"
 	anim_type = ASSSHAKE
 
 /*
