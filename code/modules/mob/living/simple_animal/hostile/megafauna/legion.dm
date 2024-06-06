@@ -209,18 +209,15 @@ Difficulty: Medium
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
-/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
-	return 1
+/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(QDELETED(src))
 		return
 	if(.)
-		var/matrix/M = new
-		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
-		M.Scale(resize, resize)
-		transform = M
+		update_transform((enraged ? 0.33 : 1) + (health / maxHealth))
 		if(amount > 0 && (enraged || prob(33)))
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
 			if(enraged)

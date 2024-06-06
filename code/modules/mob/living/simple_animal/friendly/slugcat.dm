@@ -18,7 +18,8 @@
 	attacktext = "бьёт"
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
@@ -170,18 +171,23 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/mob/living/simple_animal/pet/slugcat/StartResting(updating = 1)
-	if(inventory_head || inventory_hand)
+
+/mob/living/simple_animal/pet/slugcat/post_lying_on_rest()
+	if(stat == DEAD)
+		return
+	drop_hand()
+	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
-		drop_hand()
 		regenerate_icons()
 	. = ..()
 
-/mob/living/simple_animal/pet/slugcat/StopResting(updating = 1)
+
+/mob/living/simple_animal/pet/slugcat/post_get_up()
 	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
 		regenerate_icons()
 	. = ..()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
 	icon_state = "[initial(icon_state)]_spear"
@@ -230,7 +236,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
 		return FALSE
@@ -290,7 +296,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
 		return FALSE

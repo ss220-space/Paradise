@@ -257,7 +257,7 @@
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
-	paper.info += "</ul><br><span class=\"large-text\"> Суммарная награда: [quest.reward]</span><br>"
+	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "Штрафы: <br><i>"
 	if(modificators["departure_mismatch"])
 		paper.info += "Неверно отмечен отдел-заказчик (-20%)<br>"
@@ -275,16 +275,16 @@
 		paper.info += "Задержка в поставке (-[10 * quest.time_add_count]%)<br>"
 
 	else if(!length(modificators))
-		paper.info += "- нету <br>"
+		paper.info += "- отсутствует <br>"
 	paper.info += "</i><br>Бонус:<br><i>"
 	if(modificators["quick_shipment"])
 		paper.info += "Быстрая отправка(+40%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
-		paper.info += "- нету <br>"
+		paper.info += "- отсутствует <br>"
 		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
-	paper.info += "</i><br><span class=\"large-text\"> Total reward: [complete ? new_reward : "0"]</span><br>"
+	paper.info += "</i><br><span class=\"large-text\"> Суммарная награда: [complete ? new_reward : "0"]</span><br>"
 	if(!modificators["content_missing"] && !modificators["departure_mismatch"] && !modificators["content_mismatch"])
 		paper.info += "<hr><br>"
 		for(var/sale_category in quest.customer.cargo_sale)

@@ -50,7 +50,7 @@
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = FALSE)
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
@@ -59,7 +59,7 @@
 		update_fhair()
 		update_head_accessory()
 
-	if(toggle_off && internal && !get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+	if(toggle_off && internal && !has_airtight_items())
 		internal = null
 		update_action_buttons_icon()
 
@@ -75,10 +75,14 @@
 /**
  * Handles stuff to update when a mob equips/unequips a headgear.
  */
-/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE)
+/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE, toggle_off = FALSE)
 	check_item = check_item || head
 	if(!check_item)
 		return
+
+	if(toggle_off && internal && !has_airtight_items())
+		internal = null
+		update_action_buttons_icon()
 
 	if(forced || (check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || (initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
@@ -138,6 +142,8 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
+			if(I.breakouttime) //when unequipping a straightjacket
+				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
 		if(invdrop && !dna.species.nojumpsuit)
@@ -173,7 +179,7 @@
 	else if(I == head)
 		head = null
 		if(!QDELETED(src))
-			update_head(I)
+			update_head(I, toggle_off = TRUE)
 
 	else if(I == r_ear)
 		r_ear = null
@@ -249,7 +255,7 @@
 
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
+	return dna.species.can_equip(I, slot, src, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
 
 /**
@@ -279,7 +285,7 @@
 	I.screen_loc = null
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	switch(slot)
 		if(ITEM_SLOT_BACK)
@@ -295,11 +301,11 @@
 			update_inv_neck()
 
 		if(ITEM_SLOT_HANDCUFFED)
-			handcuffed = I
+			set_handcuffed(I)
 			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
-			legcuffed = I
+			set_legcuffed(I)
 			update_legcuffed_status()
 
 		if(ITEM_SLOT_HAND_LEFT)
@@ -355,6 +361,8 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
+			if(I.breakouttime) //when equipping a straightjacket
+				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
 			w_uniform = I
@@ -388,27 +396,6 @@
 			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
 	return I.equipped(src, slot, initial)
-
-
-/**
- * Check for slot obscuration by suit or headgear
- */
-/mob/living/carbon/human/proc/has_obscured_slot(slot)
-	switch(slot)
-		if(ITEM_SLOT_CLOTH_INNER)
-			return wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT)
-		if(ITEM_SLOT_GLOVES)
-			return wear_suit && (wear_suit.flags_inv & HIDEGLOVES)
-		if(ITEM_SLOT_FEET)
-			return wear_suit && (wear_suit.flags_inv & HIDESHOES)
-		if(ITEM_SLOT_MASK)
-			return head && (head.flags_inv & HIDEMASK)
-		if(ITEM_SLOT_EYES)
-			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
-		if(ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_EARS)
-			return head && (head.flags_inv & HIDEHEADSETS) || wear_mask && (wear_mask.flags_inv & HIDEHEADSETS)
-		else
-			return FALSE
 
 
 /**
@@ -508,7 +495,7 @@
 		return ITEM_SLOT_POCKET_RIGHT
 	if(item == s_store)
 		return ITEM_SLOT_SUITSTORE
-	return null
+	return NONE
 
 
 /mob/living/carbon/human/get_all_slots()
@@ -622,9 +609,40 @@
 	return items
 
 
+/mob/living/carbon/human/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(belt)
+		. |= ITEM_SLOT_BELT
+	if(l_ear)
+		. |= ITEM_SLOT_EAR_LEFT
+	if(r_ear)
+		. |= ITEM_SLOT_EAR_RIGHT
+	if(glasses)
+		. |= ITEM_SLOT_EYES
+	if(gloves)
+		. |= ITEM_SLOT_GLOVES
+	if(neck)
+		. |= ITEM_SLOT_NECK
+	if(shoes)
+		. |= ITEM_SLOT_FEET
+	if(wear_id)
+		. |= ITEM_SLOT_ID
+	if(wear_pda)
+		. |= ITEM_SLOT_PDA
+	if(w_uniform)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(include_pockets)
+		if(r_store)
+			. |= ITEM_SLOT_POCKET_RIGHT
+		if(l_store)
+			. |= ITEM_SLOT_POCKET_LEFT
+		if(s_store)
+			. |= ITEM_SLOT_SUITSTORE
+
+
 /mob/living/carbon/human/equipped_speed_mods()
 	. = ..()
 	for(var/obj/item/thing as anything in get_equipped_items())
-		if(!thing.is_speedslimepotioned)
+		if(!(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
 

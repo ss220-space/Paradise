@@ -424,7 +424,7 @@
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
 		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
 
-	else if(!M.restrained())
+	else if(!M.incapacitated() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/C in orange(1, M))
 			if(C)
 				if(C == M)
@@ -536,14 +536,12 @@
 		if(200 to INFINITY)
 			newsize = 1.5
 
-	H.resize = newsize/current_size
 	current_size = newsize
-	H.update_transform()
+	H.update_transform(newsize/current_size)
 	return ..()
 
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
-	M.resize = 1/current_size
-	M.update_transform()
+	M.update_transform(1/current_size)
 	..()
 
 /datum/reagent/pax

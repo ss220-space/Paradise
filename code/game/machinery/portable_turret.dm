@@ -318,7 +318,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, span_notice("You begin prying the metal coverings off."))
-			if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 				if(prob(70))
 					to_chat(user, span_notice("You remove the turret and salvage some components."))
 					if(installation)
@@ -350,7 +350,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			)
 
 		wrenching = TRUE
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			add_fingerprint(user)
 			playsound(loc, I.usesound, 100, TRUE)
@@ -588,7 +588,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
-		if(L.lying_angle)
+		if(L.body_position == LYING_DOWN)
 			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 		return TURRET_PRIORITY_TARGET
 
@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
-	if(L.lying_angle)		//if the perp is lying down, it's still a target but a less-important target
+	if(L.body_position == LYING_DOWN)		//if the perp is lying down, it's still a target but a less-important target
 		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
@@ -788,7 +788,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	name = "turret frame"
 	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turret_frame"
-	density=1
+	density = TRUE
 	var/target_type = /obj/machinery/porta_turret	// The type we intend to build
 	var/build_step = 0			//the current step in the building process
 	var/finish_name="turret"	//the name applied to the product turret

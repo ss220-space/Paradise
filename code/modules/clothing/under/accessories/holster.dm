@@ -66,11 +66,9 @@
 
 	var/obj/item/next_item = holstered[holstered.len]
 
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.IsStunned() || L.IsWeakened() || user.stat)
-			to_chat(user, span_warning("You can't get [next_item] now!"))
-			return
+	if(user.stat || HAS_TRAIT(user, TRAIT_INCAPACITATED))
+		to_chat(user, span_warning("You can't get [next_item] now!"))
+		return
 
 	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
 		to_chat(user, span_warning("You need an empty hand to draw the [next_item]!"))
@@ -128,8 +126,9 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	var/obj/item/clothing/accessory/holster/H = null
 	if(istype(src, /obj/item/clothing/accessory/holster))

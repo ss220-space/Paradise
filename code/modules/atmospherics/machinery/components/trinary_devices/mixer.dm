@@ -13,12 +13,12 @@
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) && !issilicon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
+	if(!in_range(src, user) && !issilicon(user))
 		return
 	toggle()
 
@@ -27,12 +27,12 @@
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) && !issilicon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
+	if(!in_range(src, user) && !issilicon(user))
 		return
 	set_max()
 

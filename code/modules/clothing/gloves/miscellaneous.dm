@@ -125,7 +125,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -355,3 +355,19 @@
 		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
 		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
+
+/obj/item/clothing/gloves/brown_short_gloves
+	name = "short leather gloves"
+	desc = "Короткие облегающие перчатки из кожи."
+	icon_state = "brown_short_gloves"
+	item_state = "brown_short_gloves"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)

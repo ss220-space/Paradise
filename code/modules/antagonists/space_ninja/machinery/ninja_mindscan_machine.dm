@@ -73,7 +73,7 @@
 		return
 	if(dropped.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -109,7 +109,7 @@
 	. = TRUE
 	if(dropped_mob != user)
 		visible_message("[user] starts putting [dropped_mob] into the [src].")
-	if(do_after(user, 20, target = dropped_mob))
+	if(do_after(user, 2 SECONDS, dropped_mob))
 		if(!dropped_mob)
 			return
 		if(occupant)

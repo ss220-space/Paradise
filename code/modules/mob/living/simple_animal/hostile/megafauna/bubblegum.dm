@@ -145,7 +145,7 @@ Difficulty: Hard
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
 		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
 	qdel(second_life_portal)
@@ -396,7 +396,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying_angle)
+		return (livingtarget.stat != CONSCIOUS || livingtarget.body_position == LYING_DOWN)
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()

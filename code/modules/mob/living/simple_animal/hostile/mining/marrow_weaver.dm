@@ -21,7 +21,7 @@
 	stat_attack = 1
 	robust_searching = 1
 	nightvision = 7
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "rolls over, frothing at the mouth before stilling."

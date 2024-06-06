@@ -63,9 +63,9 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(I.flags & ABSTRACT)
+	if(I.item_flags & ABSTRACT)
 		return
-	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
+	if((I.item_flags & NO_MAT_REDEMPTION) || (I.flags & HOLOGRAM) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
 	. = COMPONENT_NO_AFTERATTACK

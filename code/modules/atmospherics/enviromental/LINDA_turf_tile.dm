@@ -334,9 +334,9 @@
 /turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
-			return GLOB.plmaster
+			return GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
 		if("sleeping_agent")
-			return GLOB.slmaster
+			return GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
 	return null
 
 /turf/simulated/proc/tile_graphic()
@@ -380,10 +380,12 @@
 /atom/movable/var/last_high_pressure_movement_air_cycle = 0
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+	set waitfor = FALSE
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_PRESSURE_PUSH) & COMSIG_ATOM_BLOCKS_PRESSURE)
+		return
 	var/const/PROBABILITY_OFFSET = 25
 	var/const/PROBABILITY_BASE_PRECENT = 75
 	var/max_force = sqrt(pressure_difference) * (MOVE_FORCE_DEFAULT) // / 5)
-	set waitfor = 0
 	var/move_prob = 100
 	if(pressure_resistance > 0)
 		move_prob = (pressure_difference / pressure_resistance * PROBABILITY_BASE_PRECENT) - PROBABILITY_OFFSET

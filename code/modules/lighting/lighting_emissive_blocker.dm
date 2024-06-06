@@ -48,12 +48,20 @@
 	return
 
 
-/atom/movable/emissive_blocker/onTransitZ()
-	return
-
-
 //Prevents people from moving these after creation, because they shouldn't be.
 /atom/movable/emissive_blocker/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
 	if(harderforce)
 		return ..()
+
+/atom/movable/emissive_blocker/Crossed(atom/movable/AM, oldloc)
+	return
+
+/atom/movable/emissive_blocker/Uncrossed(atom/movable/AM)
+	return
+
+/atom/movable/emissive_blocker/Bump(atom/A, yes)
+	return
+
+/atom/movable/emissive_blocker/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	return
 

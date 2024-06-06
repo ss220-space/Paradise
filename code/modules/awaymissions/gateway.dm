@@ -18,7 +18,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/proc/update_density_from_dir()
 	if(dir == SOUTH)
-		density = FALSE
+		set_density(FALSE)
 
 
 /obj/machinery/gateway/update_icon_state()

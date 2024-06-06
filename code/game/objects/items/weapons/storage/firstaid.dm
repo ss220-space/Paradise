@@ -281,6 +281,19 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/crew/nucleation
+	name = "nucleation first aid kit"
+	desc = "A standart issued first aid kit for 'SMDS' affected crewmembers. NanoTrasen appreciates you!"
+
+/obj/item/storage/firstaid/crew/nucleation/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector/radium(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /*
  * Pill Bottles
  */
@@ -357,13 +370,13 @@
 
 
 /obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand())
+	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(!length(contents))
 			to_chat(user, span_notice("There is nothing in [src]!"))
 			return FALSE
 
 		user.visible_message(span_danger("[user] [rapid_intake_message]"))
-		if(!do_mob(user, user, 10 SECONDS) || src != user.get_active_hand())
+		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
 			return FALSE
 
 		for(var/obj/item/reagent_containers/food/pill/pill in src)

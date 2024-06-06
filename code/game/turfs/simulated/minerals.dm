@@ -13,6 +13,9 @@
 	blocks_air = TRUE
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
+	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
+	// Otherwise we'll draw under shit in weird ways
+	plane = GAME_PLANE
 	temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
@@ -76,7 +79,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
@@ -108,6 +111,17 @@
 
 /turf/simulated/mineral/update_overlays()
 	. = ..()
+	// Mineral turfs are big, so they need to be on the game plane at a high layer
+	// But they're also turfs, so we need to cut them out from the light mask plane
+	// So we draw them as if they were on the game plane, and then overlay a copy onto
+	// The wall plane (so emissives/light masks behave)
+	// I am so sorry
+	var/static/mutable_appearance/wall_overlay = mutable_appearance()
+	wall_overlay.icon = icon
+	wall_overlay.icon_state = icon_state
+	SET_PLANE_EXPLICIT(wall_overlay, WALL_PLANE, src)
+	. += wall_overlay
+
 	if(hardness != initial(hardness))
 		var/amount = hardness
 		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)
@@ -125,7 +139,7 @@
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
 	to_chat(M, span_notice("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
-	if(do_after(M, 40, target = src))
+	if(do_after(M, 4 SECONDS, src))
 		to_chat(M, span_notice("You tunnel into the rock."))
 		attempt_drill(M)
 
@@ -201,7 +215,7 @@
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time * P.toolspeed, target = src))
+		if(do_after(user, mine_time * P.toolspeed, src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				gets_drilled(user)
@@ -258,7 +272,7 @@
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,
 		/turf/simulated/mineral/silver = 12, /turf/simulated/mineral/plasma = 20, /turf/simulated/mineral/iron = 40, /turf/simulated/mineral/titanium = 11,
-		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
+		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 6
 	var/display_icon_state = "rock"
@@ -325,11 +339,11 @@
 	temperature = 300
 	defer_change = 1
 
-	mineralChance = 8
+	mineralChance = 14
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 5, /turf/simulated/mineral/diamond/volcanic = 0.5, /turf/simulated/mineral/gold/volcanic = 10, /turf/simulated/mineral/titanium/volcanic = 11,
 		/turf/simulated/mineral/silver/volcanic = 12, /turf/simulated/mineral/plasma/volcanic = 20, /turf/simulated/mineral/iron/volcanic = 40,
-		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1, /turf/simulated/mineral/bscrystal/volcanic = 0.5, /turf/simulated/mineral/gem/volcanic = 1)
+		/turf/simulated/mineral/gibtonite/volcanic = 4, /turf/simulated/mineral/bscrystal/volcanic = 0.5, /turf/simulated/mineral/gem/volcanic = 1)
 
 /turf/simulated/mineral/random/labormineral
 	mineralSpawnChanceList = list(
@@ -355,26 +369,26 @@
 	name = "hardened basalt"
 	icon_state = "rock_hard"
 	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
-	mineralChance = 10
+	mineralChance = 24
 	hardness = 2
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard = 10, /turf/simulated/mineral/diamond/volcanic/hard = 2, /turf/simulated/mineral/gold/volcanic/hard = 10,
 		/turf/simulated/mineral/titanium/volcanic/hard = 21, /turf/simulated/mineral/magmite/volcanic/hard = 0.5, /turf/simulated/mineral/silver/volcanic/hard = 12,
 		/turf/simulated/mineral/plasma/volcanic/hard = 20, /turf/simulated/mineral/bscrystal/volcanic/hard = 2, /turf/simulated/mineral/gibtonite/volcanic/hard = 4,
-		/turf/simulated/mineral/iron/volcanic/hard = 50, /turf/simulated/mineral/gem/volcanic/hard = 2, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+		/turf/simulated/mineral/iron/volcanic/hard = 40, /turf/simulated/mineral/gem/volcanic/hard = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
 	icon_state = "rock_volcanic"
 	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
-	mineralChance = 30
+	mineralChance = 60
 	hardness = 3
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 15, /turf/simulated/mineral/diamond/volcanic/hard/double = 3, /turf/simulated/mineral/gold/volcanic/hard/double = 15,
-		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 1, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
+		/turf/simulated/mineral/titanium/volcanic/hard/double = 31, /turf/simulated/mineral/magmite/volcanic/hard/double = 2, /turf/simulated/mineral/silver/volcanic/hard/double = 12,
 		/turf/simulated/mineral/plasma/volcanic/hard/double = 25, /turf/simulated/mineral/bscrystal/volcanic/hard/double = 3, /turf/simulated/mineral/gibtonite/volcanic/hard/double = 4,
 		/turf/simulated/mineral/iron/volcanic/hard/double = 45, /turf/simulated/mineral/gem/volcanic/hard/double = 5, /turf/simulated/mineral/clown/volcanic/hard/double = 2,
-		/turf/simulated/mineral/mime/volcanic/hard/double = 2, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+		/turf/simulated/mineral/mime/volcanic/hard/double = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
@@ -383,7 +397,7 @@
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 45, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
 		/turf/simulated/mineral/bscrystal/volcanic/hard/double = 7, /turf/simulated/mineral/magmite/volcanic/hard/double = 3, /turf/simulated/mineral/gem/volcanic/hard/double = 7,
-		/turf/simulated/mineral/clown/volcanic/hard/double = 5, /turf/simulated/mineral/mime/volcanic/hard/double = 5, /turf/simulated/floor/plating/asteroid/airless/cave/volcanic = 1)
+		/turf/simulated/mineral/clown/volcanic/hard/double = 5, /turf/simulated/mineral/mime/volcanic/hard/double = 5)
 
 // Actual minerals
 /turf/simulated/mineral/iron

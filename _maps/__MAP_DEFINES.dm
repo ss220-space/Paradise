@@ -68,9 +68,7 @@
 #define DEFAULT_STATION_TRATS list(MAIN_STATION, STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)
 
 // Convenience define
-	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)
-
-	#define AWAY_MISSION_LIST list(DECLARE_LEVEL(AWAY_MISSION,UNAFFECTED,list(BLOCK_TELEPORT, AWAY_LEVEL)))
+#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "traits" = TRAITS)
 
 //Ruin Generation
 

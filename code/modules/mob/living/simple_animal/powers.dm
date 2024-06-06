@@ -3,7 +3,7 @@
 	desc = "Allows to hide beneath tables or certain items. Toggled on or off."
 	var/layer_to_change_from = MOB_LAYER
 	var/layer_to_change_to = TURF_LAYER + 0.2
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "mouse_gray_sleep"
 
 

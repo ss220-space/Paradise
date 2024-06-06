@@ -39,13 +39,9 @@
 
 
 /obj/machinery/flasher/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/flasher/update_icon_state()
@@ -64,7 +60,7 @@
 
 	if(anchored)
 		. += "[base_icon_state]-s"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 //Let the AI trigger them directly.

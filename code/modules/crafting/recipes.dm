@@ -350,6 +350,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/nunchucks
+	name = "Nunchucks"
+	result = /obj/item/nunchuck
+	reqs = list(/obj/item/stack/tape_roll = 20,
+				/obj/item/stack/sheet/wood = 10,
+				/obj/item/stack/cable_coil = 10)
+	time = 4 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
 	result = /obj/item/camera/spooky

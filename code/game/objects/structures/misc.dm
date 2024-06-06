@@ -9,7 +9,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 /obj/structure/signpost/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -21,7 +21,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost2"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
@@ -46,7 +46,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
 	var/last_ghost_alert

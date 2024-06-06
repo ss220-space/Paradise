@@ -662,9 +662,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
 	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/onTransitZ(old_z,new_z)
+/mob/living/simple_animal/hostile/ancient_robot_leg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	update_z(new_z)
 	if(leg_part)
 		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)

@@ -30,11 +30,11 @@
 /obj/item/implantcase/proc/update_state()
 	if(imp)
 		origin_tech = imp.origin_tech
-		flags = imp.flags & ~DROPDEL
+		item_flags = imp.item_flags & ~DROPDEL
 		reagents = imp.reagents
 	else
 		origin_tech = initial(origin_tech)
-		flags = initial(flags)
+		item_flags = initial(item_flags)
 		reagents = null
 	update_icon(UPDATE_OVERLAYS)
 

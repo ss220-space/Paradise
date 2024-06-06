@@ -10,14 +10,14 @@
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = LANGUAGE_GALACTIC_COMMON
 	default_language = LANGUAGE_MONKEY_HUMAN
-	species_traits = list(NO_EXAMINE)
+	species_traits = list(NO_EXAMINE, HAVE_REGENERATION)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(ITEM_SLOT_BELT, ITEM_SLOT_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "изда%(ёт,ют)% тихий визг, пада%(ет,ют)% и переста%(ёт,ют)% двигаться..."
@@ -60,7 +60,7 @@
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
-	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
+	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
@@ -79,6 +79,11 @@
 /datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.meatleft = initial(H.meatleft)
+
+
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
+	. = ..()
+	H.force_gene_block(GLOB.monkeyblock, !remove)
 
 
 /datum/species/monkey/can_understand(mob/other)

@@ -9,9 +9,6 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(loc, amount=null)
-	..()
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
@@ -28,7 +25,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 5 SECONDS, target = M))
+	if(!do_after(user, 5 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
@@ -77,7 +74,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 1 SECONDS, target = M))
+	if(!do_after(user, 1 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")

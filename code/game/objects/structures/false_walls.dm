@@ -61,7 +61,7 @@
 	qdel(src)
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -85,7 +85,7 @@
 		add_fingerprint(user)
 		do_the_flick()
 		sleep(0.4 SECONDS)
-		density = FALSE
+		set_density(FALSE)
 		obj_flags &= ~BLOCK_Z_IN_DOWN
 		set_opacity(FALSE)
 	else
@@ -95,7 +95,7 @@
 			return
 		add_fingerprint(user)
 		do_the_flick()
-		density = TRUE
+		set_density(TRUE)
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
@@ -165,7 +165,7 @@
 	deconstruct(disassembled)
 
 /obj/structure/falsewall/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			new girder_type(loc)
 		if(mineral_amount)
@@ -178,7 +178,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)

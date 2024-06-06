@@ -71,7 +71,7 @@
 		else
 			to_chat(user, span_notice("You begin replacing [src]..."))
 			playsound(src, I.usesound, 80, TRUE)
-			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 				if(R.get_amount() < 2 || !transparent_floor)
 					return
 			else

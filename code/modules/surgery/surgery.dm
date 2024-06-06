@@ -354,7 +354,7 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
-	if(!do_after(user, modded_time, target = target))
+	if(!do_after(user, modded_time, target))
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
@@ -409,6 +409,7 @@
 	var/mob/living/carbon/human/H = target
 	var/pain_mod = get_pain_modifier(H)
 
+/* this is broken, uncomment after separation IC-SLEEP from other method's sleep (like ether)
 	// don't let people sit on the optable and sleep verb
 	var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
 	if(S)
@@ -418,6 +419,7 @@
 		else
 			// Still wake people up, but they shouldn't be as alarmed.
 			to_chat(H, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
+*/
 	return pain_mod //operating on conscious people is hard.
 
 /**

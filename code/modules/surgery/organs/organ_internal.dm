@@ -110,7 +110,7 @@
 			receive_damage(7, 1)
 
 
-/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
@@ -144,10 +144,10 @@
 	return S
 
 
-/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	insert(target)
+	insert(target, special)
 	return TRUE
 
 
@@ -281,24 +281,16 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	M.mutations.Add(CLUMSY)
-	M.mutations.Add(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,1,1)
-	M.dna.SetSEState(GLOB.comicblock,1,1)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
+	M.force_gene_block(GLOB.clumsyblock, TRUE)
+	M.force_gene_block(GLOB.comicblock, TRUE)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M.mutations.Remove(CLUMSY)
-	M.mutations.Remove(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,0)
-	M.dna.SetSEState(GLOB.comicblock,0)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
+	M.force_gene_block(GLOB.clumsyblock, FALSE)
+	M.force_gene_block(GLOB.comicblock, FALSE)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	. = ..()

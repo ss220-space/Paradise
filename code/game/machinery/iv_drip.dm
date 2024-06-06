@@ -27,14 +27,14 @@
 
 
 /obj/machinery/iv_drip/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(usr.incapacitated() || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
 		return FALSE
 
 	add_fingerprint(usr)
 	if(!bag)
 		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
 		return FALSE
-	bag.afterattack(over_object, usr, TRUE)
+	bag.attack(over_object, usr)
 	START_PROCESSING(SSmachines, src)
 
 
@@ -69,7 +69,7 @@
 		return ..()
 
 /obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
 

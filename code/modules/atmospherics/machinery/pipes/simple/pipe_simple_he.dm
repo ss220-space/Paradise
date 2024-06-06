@@ -12,7 +12,6 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 
 	color = "#404040"
-	buckle_lying = TRUE
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
@@ -87,7 +86,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
 	icon_state="intact-f"
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
@@ -134,5 +133,5 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
 	level=1
 	icon_state="intact-f"
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER

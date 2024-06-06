@@ -2,7 +2,7 @@
 
 #define PI 3.1415
 #define INFINITY 1e31 //closer than enough
-#define SQRT_2 1.41421356237
+#define SQRT_2 1.4142135623730950488016887242097
 
 #define SHORT_REAL_LIMIT 16777216
 
@@ -26,6 +26,8 @@
 #define SIGN(x) (((x) > 0) - ((x) < 0))
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
+
+#define ROUND_UP(x) ( -round(-(x)))
 
 // round() acts like floor(x, 1) by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )

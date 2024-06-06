@@ -16,24 +16,14 @@
 	icon_state = "bed"
 	can_buckle = TRUE
 	anchored = TRUE
-	buckle_lying = TRUE
+	buckle_lying = 90
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
-	buckle_offset = -6
 	var/comfort = 2 // default comfort
 
-/obj/structure/bed/post_buckle_mob(mob/living/M)
-	. = ..()
-	if(!M.resting)
-		M.StartResting()
-
-/obj/structure/bed/post_unbuckle_mob(mob/living/M)
-	. = ..()
-	if(M.resting)
-		M.StopResting()
 
 /obj/structure/bed/psych
 	name = "psych bed"
@@ -55,14 +45,13 @@
 	max_integrity = 200
 	buildstacktype = /obj/item/stack/sheet/mineral/sandstone
 	buildstackamount = 15
-	buckle_offset = -7
 
 /obj/structure/bed/proc/handle_rotation()
 	return
 
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -70,7 +59,7 @@
 	deconstruct(TRUE)
 
 /obj/structure/bed/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	..()
@@ -108,18 +97,22 @@
 	else
 		return ..()
 
-/obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	. = ..()
-	density = TRUE
-	icon_state = icon_up
-	M.pixel_y = initial(M.pixel_y)
 
-/obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
-	. = ..()
-	density = FALSE
-	icon_state = icon_down
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying_angle)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
+/obj/structure/bed/roller/update_icon_state()
+	icon_state = has_buckled_mobs() ? icon_up : icon_down
+
+
+/obj/structure/bed/roller/post_buckle_mob(mob/living/target)
+	set_density(TRUE)
+	update_icon(UPDATE_ICON_STATE)
+	target.pixel_y = target.base_pixel_y + 2
+
+
+/obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
+	set_density(FALSE)
+	update_icon(UPDATE_ICON_STATE)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"
@@ -151,7 +144,7 @@
 
 
 /obj/structure/bed/roller/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
+	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && usr.Adjacent(src))
 		usr.visible_message(
 			span_notice("[usr] collapses [src]."),
 			span_notice("You collapse [src]."),
@@ -205,7 +198,6 @@
 	anchored = FALSE
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
-	buckle_offset = 0
 	comfort = 0.5
 
 /obj/structure/bed/dogbed/ian

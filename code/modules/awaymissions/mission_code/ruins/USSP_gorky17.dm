@@ -96,7 +96,9 @@
 	icon_state = "away"
 	requires_power = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
@@ -220,12 +222,12 @@
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
-
-
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /////////////// Safe with secret documets
 /obj/effect/spawner/lootdrop/randomsafe
@@ -310,9 +312,7 @@
 	set name = "Enter name"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.incapacitated())
-		return
-	if(!ishuman(usr))
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(input("Enter cardholder name:", "Cardholder name", usr.name), TRUE)

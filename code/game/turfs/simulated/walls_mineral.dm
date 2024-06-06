@@ -149,7 +149,7 @@
 		var/duration = (48 / W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
-		if(do_after(user, duration * 10, target = src)) //Into deciseconds.
+		if(do_after(user, duration SECONDS, src)) //Into deciseconds.
 			dismantle_wall(FALSE, FALSE)
 			return
 	return ..()
@@ -204,7 +204,7 @@
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
 	explosion_block = 3
-	flags_2 = CHECK_RICOCHET_2
+	flags = CHECK_RICOCHET
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)

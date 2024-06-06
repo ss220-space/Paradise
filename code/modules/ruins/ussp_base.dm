@@ -234,5 +234,5 @@
 	l_set = 1
 
 /obj/item/storage/secure/safe/ussp_blueprints/populate_contents()
-	new /obj/item/areaeditor/ussp(src)
+	new /obj/item/areaeditor/create_area_only/ussp(src)
 	new /obj/item/megaphone(src)

@@ -164,7 +164,7 @@
 	icon_state = "hardsuit-berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
-	cant_be_faster = TRUE // no heretic magic
+	clothing_flags = FIXED_SLOWDOWN // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
@@ -190,7 +190,7 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, "Shadow") // only humanoids. And we don't have animal sprites.
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
@@ -204,6 +204,18 @@
 	icon_state = "darktemplar-chaplain0"
 	item_color = "darktemplar-chaplain0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
+
+/obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
+	name = "inquisitor's helmet"
+	desc = "A helmet worn by those who deal with paranormal threats for a living."
+	icon_state = "hardsuit0-inquisitor"
+	item_color = "inquisitor"
+
+/obj/item/clothing/suit/space/hardsuit/champion/inquisitor
+	name = "inquisitor's hardsuit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
+	icon_state = "hardsuit-inquisitor"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
