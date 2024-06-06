@@ -230,7 +230,7 @@
 	emote("mwashup", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/ass_shake()
-	set name = "Крутить жопой"
+	set name = "Крутить задницей"
 	set desc = "Крутит жопой"
 	set category = "Мышь"
 
