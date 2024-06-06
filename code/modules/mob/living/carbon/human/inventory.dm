@@ -609,6 +609,37 @@
 	return items
 
 
+/mob/living/carbon/human/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(belt)
+		. |= ITEM_SLOT_BELT
+	if(l_ear)
+		. |= ITEM_SLOT_EAR_LEFT
+	if(r_ear)
+		. |= ITEM_SLOT_EAR_RIGHT
+	if(glasses)
+		. |= ITEM_SLOT_EYES
+	if(gloves)
+		. |= ITEM_SLOT_GLOVES
+	if(neck)
+		. |= ITEM_SLOT_NECK
+	if(shoes)
+		. |= ITEM_SLOT_FEET
+	if(wear_id)
+		. |= ITEM_SLOT_ID
+	if(wear_pda)
+		. |= ITEM_SLOT_PDA
+	if(w_uniform)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(include_pockets)
+		if(r_store)
+			. |= ITEM_SLOT_POCKET_RIGHT
+		if(l_store)
+			. |= ITEM_SLOT_POCKET_LEFT
+		if(s_store)
+			. |= ITEM_SLOT_SUITSTORE
+
+
 /mob/living/carbon/human/equipped_speed_mods()
 	. = ..()
 	for(var/obj/item/thing as anything in get_equipped_items())

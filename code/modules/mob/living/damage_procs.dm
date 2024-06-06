@@ -110,11 +110,13 @@
 			Drowsy(effect * blocked)
 		if(JITTER)
 			Jitter(effect * blocked)
+		if(KNOCKDOWN)
+			Knockdown(effect * blocked)
 	updatehealth("apply effect")
 	return TRUE
 
 
-/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
@@ -137,6 +139,8 @@
 		apply_damage(stamina, STAMINA, null, blocked)
 	if(jitter)
 		apply_effect(jitter, JITTER, blocked)
+	if(knockdown)
+		apply_effect(knockdown, KNOCKDOWN, blocked)
 	return TRUE
 
 

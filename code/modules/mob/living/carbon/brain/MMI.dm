@@ -197,33 +197,6 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 
-/datum/action/generic/configure_mmi_radio
-	name = "Configure MMI Radio"
-	desc = "Configure the radio installed in your MMI."
-	check_flags = AB_CHECK_CONSCIOUS
-	procname = "ui_interact"
-	var/obj/item/mmi = null
-
-/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
-	. = ..()
-	mmi = M
-
-/datum/action/generic/configure_mmi_radio/Destroy()
-	mmi = null
-	return ..()
-
-/datum/action/generic/configure_mmi_radio/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.cut_overlays()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.add_overlay(I)
-		I.layer = old_layer
-		I.plane = old_plane
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -268,7 +241,7 @@
 	syndiemmi = 1
 
 
-/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)
 		return FALSE
 	if(!parent)

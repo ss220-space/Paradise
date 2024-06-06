@@ -366,32 +366,36 @@
 
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	// all this repeated spaghetti code is used to properly register projectiles
 	if(mover.pass_flags == PASSEVERYTHING)
 		return TRUE
 	if(mover.pass_flags & pass_flags_self)
 		return TRUE
-	if(mover.throwing)
-		return (pass_flags_self & LETPASSTHROW) || !density || body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
+	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
 	if(mover in buckled_mobs)
 		return TRUE
-	if(isprojectile(mover))
-		return projectile_allow_through(mover, border_dir)
+	var/is_projectile = isprojectile(mover)
+	if(!density || is_projectile)
+		if(is_projectile)
+			return projectile_allow_through(mover, border_dir)
+		return TRUE
+	if(mover.throwing)
+		return body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover))
 	if(buckled == mover)
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/moving_mob = mover
 		if(currently_grab_pulled && moving_mob.currently_grab_pulled)
 			return FALSE
-		if(moving_mob in buckled_mobs)
-			return TRUE
-		if(!moving_mob.density || moving_mob.body_position == LYING_DOWN)
-			return TRUE
-	return !density || body_position == LYING_DOWN
+	return !mover.density || body_position == LYING_DOWN
 
 
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
-	if(stat == DEAD)	// default behavior if DEAD
+	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))	// default behavior for generic mobs
+		return !density
+	if(stat == DEAD)	// DEAD mobs are fine to skip if they are not dense or lying
 		return !density || body_position == LYING_DOWN
 	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
 		return FALSE
@@ -1171,7 +1175,7 @@
 
 
 ///Proc to modify the value of usable_legs and hook behavior associated to this event.
-/mob/living/proc/set_usable_legs(new_value)
+/mob/living/proc/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	if(usable_legs == new_value)
 		return
 	if(new_value < 0) // Sanity check
@@ -1180,6 +1184,9 @@
 
 	. = usable_legs
 	usable_legs = new_value
+
+	if(special != ORGAN_MANIPULATION_DEFAULT)
+		return .
 
 	if(new_value > .) // Gained leg usage.
 		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
@@ -1202,11 +1209,14 @@
 
 
 ///Proc to modify the value of usable_hands and hook behavior associated to this event.
-/mob/living/proc/set_usable_hands(new_value)
+/mob/living/proc/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	if(usable_hands == new_value)
 		return
 	. = usable_hands
 	usable_hands = new_value
+
+	if(special != ORGAN_MANIPULATION_DEFAULT)
+		return .
 
 	if(new_value > .) // Gained hand usage.
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)

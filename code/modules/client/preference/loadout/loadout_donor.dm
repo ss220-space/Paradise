@@ -298,3 +298,16 @@
 	path = /obj/item/toy/plushie/beaver
 	donator_tier = 3
 	cost = 1
+
+/datum/gear/donor/hijab
+	donator_tier = 1
+	cost = 1
+	display_name = "hijab"
+	path = /obj/item/clothing/suit/hooded/hijab
+
+/datum/gear/donor/steampunkdress
+	donator_tier = 1
+	cost = 1
+	display_name = "victorian blue-white dress"
+	path = /obj/item/clothing/under/steampunkdress
+

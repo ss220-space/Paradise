@@ -34,7 +34,7 @@
 	if(!bag)
 		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
 		return FALSE
-	bag.afterattack(over_object, usr, TRUE)
+	bag.attack(over_object, usr)
 	START_PROCESSING(SSmachines, src)
 
 
