@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(ticker)
 			if(M.can_start())
 				mode = config.pick_mode(GLOB.secret_force_mode)
 		if(!mode)
-			mode = pickweight(runnable_modes)
+			mode = select_gamemode_from_list(runnable_modes)
 		if(mode)
 			var/mtype = mode.type
 			mode = new mtype
@@ -661,3 +661,78 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
+
+// Select gamemode from list, list is expected to be list of
+/datum/controller/subsystem/ticker/proc/select_gamemode_from_list(list/runnable_modes)
+	if (!is_new_random_selection_enabled()) // if pseudorandom disabled
+		return pick_weight_classic(runnable_modes) // use 'old' system
+
+	var/server_ip = world.internet_address || "0"
+	var/server_port = world.port
+	var/list_of_current_n = list()
+	for (var/game_mode_iterating in runnable_modes) // game_mode_iterating of type game_mode, values are weights numbers
+		var/datum/game_mode/gm = game_mode_iterating
+		var/config_tag = gm.config_tag
+		var/n_not_happened = 0
+		// db stuff
+
+		// 1. try to get value
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT n_not_happened FROM [format_table_name("pseudorandom_gamemodes")] WHERE server_ip=INET_ATON(:server_ip) AND server_port=:server_port AND gamemode_config_tag=:config_tag", list(
+			"server_ip" = server_ip, "server_port" = server_port, "config_tag" = config_tag
+		))
+		if(!query.warn_execute()) // Goes if some error in request, not when requested value not exist in any row!
+			message_admins("Failed to select n_not_happened in ticker/proc/setup() for gamemode with tag [config_tag], is pseudorandom_gamemodes table created? Please inform coder (this shouldn't break game though).")
+			qdel(query)
+			return pick_weight_classic(runnable_modes) // most likely iterating further will spam errors, just use 'old' system
+		else // If not exist such row, will go here!
+			var/length_returned = 0
+			while(query.NextRow()) // Normally length should be 1
+				n_not_happened = query.item[1]
+				length_returned = length_returned + 1
+			if (length_returned == 0)
+				// 2. try insert if there's some error
+				// WARNING: there is a possible (but very unlikely with such code) anomaly with duplicate entries. However UPDATE statement will make them all have same value
+				// A possible workaround could be making 'id' some kind of combination of server ip and gamemode config tag. But this won't be intuitive and harder to debug.
+				var/datum/db_query/query_insert = SSdbcore.NewQuery(
+				"INSERT INTO [format_table_name("pseudorandom_gamemodes")] (server_ip, server_port, gamemode_config_tag, n_not_happened) VALUES (INET_ATON(:server_ip), :server_port, :config_tag, :n_not_happened)", list(
+					"server_ip" = server_ip, "server_port" = server_port, "config_tag" = config_tag, "n_not_happened" = 0
+				))
+				if (!query_insert.warn_execute())
+					message_admins("Failed to use pseudorandom gamemode selection in ticker/proc/setup() for gamemode with tag [config_tag], please inform coder (this shouldn't break game though).")
+				qdel(query_insert)
+		qdel(query)
+
+		// Setup list on how much events didn't happen, default is 0
+		list_of_current_n[gm] = n_not_happened
+
+	var/list/datum/game_mode/result_mode = new_weighted_pick(runnable_modes, list_of_current_n, 1)
+	if (!result_mode)
+		message_admins("Failed to use pseudorandom new_weighted_pick proc. Using fallback proc. please inform coder (this shouldn't break game though).")
+		return pick_weight_classic(runnable_modes) // use 'old' system
+	else
+		var/gamemode_config_tag_selected = result_mode.config_tag
+
+		for (var/T in list_of_current_n)
+			var/datum/game_mode/mode = T
+			var/n_not_happened_iter = list_of_current_n[mode]
+			var/gm_tag = mode.config_tag
+
+			if (gm_tag == gamemode_config_tag_selected)
+				n_not_happened_iter = 0 // reset counter
+			else
+				n_not_happened_iter = n_not_happened_iter + 1 // increase counter
+
+			// update DB
+			var/datum/db_query/query_update = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("pseudorandom_gamemodes")] SET n_not_happened=:n_not_happened_selected_gm WHERE server_ip=INET_ATON(:server_ip) AND server_port=:server_port AND gamemode_config_tag=:gamemode_config_tag", list(
+				"n_not_happened_selected_gm" = n_not_happened_iter, "server_ip" = server_ip, "server_port" = server_port, "gamemode_config_tag" = gm_tag
+			))
+			if (!query_update.warn_execute())
+				message_admins("Failed to update pseudorandom n_not_happened for gamemode with tag [result_mode.config_tag], please inform coder (this shouldn't break game though).")
+			qdel(query_update)
+
+	qdel(list_of_current_n) // not needed anymore
+
+	// return at any case even if update failed
+	return result_mode
+
