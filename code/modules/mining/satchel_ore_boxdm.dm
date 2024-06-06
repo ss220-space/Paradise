@@ -80,8 +80,8 @@
 		O.forceMove(loc)
 		CHECK_TICK
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
+	return ..()
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"

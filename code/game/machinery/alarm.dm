@@ -393,7 +393,7 @@
 	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
 		return
 
-	underlays += emissive_appearance(icon, "alarm_lightmask")
+	underlays += emissive_appearance(icon, "alarm_lightmask", src)
 
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)

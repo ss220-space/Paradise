@@ -217,7 +217,7 @@
 
 	// Build message image
 	message = image(loc = null, layer = CHAT_LAYER + CHAT_LAYER_Z_STEP * current_z_idx++)
-	message.plane = GAME_PLANE
+	SET_PLANE_EXPLICIT(message, RUNECHAT_PLANE, source)
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
 	message.pixel_y = starting_height
@@ -274,12 +274,19 @@
 
 	for(var/obsolete_target in previous_signal_targets - next_signal_targets)
 		UnregisterSignal(obsolete_target, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(obsolete_target, COMSIG_MOVABLE_Z_CHANGED)
 
 	for(var/new_target in next_signal_targets - previous_signal_targets)
 		RegisterSignal(new_target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
+		RegisterSignal(new_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
 
 	signal_targets = next_signal_targets
 
+/datum/chatmessage/proc/adjust_message_z(atom/movable/caller)
+	SIGNAL_HANDLER
+
+	// Replanes the message if the user of the message changed z
+	SET_PLANE_EXPLICIT(message, RUNECHAT_PLANE, message_source)
 
 /**
   * Creates a message overlay at a defined location for a given speaker

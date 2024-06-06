@@ -176,7 +176,7 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying_angle)
+		if(M.body_position == LYING_DOWN)
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)

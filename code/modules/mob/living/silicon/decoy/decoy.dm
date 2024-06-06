@@ -3,7 +3,6 @@
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	anchored = TRUE // -- TLE
-	canmove = FALSE
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
 /mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)

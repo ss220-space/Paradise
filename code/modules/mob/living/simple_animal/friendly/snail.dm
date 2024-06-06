@@ -77,6 +77,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	density = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE
 	status_flags = CANPARALYSE | CANPUSH
 	mob_size = MOB_SIZE_SMALL

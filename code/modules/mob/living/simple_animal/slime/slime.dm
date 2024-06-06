@@ -210,7 +210,7 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 			else
 				clear_fullscreen("brute")
 
@@ -458,13 +458,13 @@
 
 	SStun = world.time + rand(20,60)
 	spawn(0)
-		canmove = FALSE
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 		if(user)
 			step_away(src,user,15)
 		sleep(3)
 		if(user)
 			step_away(src,user,15)
-		update_canmove()
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 
 /mob/living/simple_animal/slime/pet
 	docile = TRUE

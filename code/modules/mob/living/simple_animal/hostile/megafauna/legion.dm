@@ -217,10 +217,7 @@ Difficulty: Medium
 	if(QDELETED(src))
 		return
 	if(.)
-		var/matrix/M = new
-		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
-		M.Scale(resize, resize)
-		transform = M
+		update_transform((enraged ? 0.33 : 1) + (health / maxHealth))
 		if(amount > 0 && (enraged || prob(33)))
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
 			if(enraged)

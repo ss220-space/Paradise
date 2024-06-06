@@ -40,7 +40,7 @@
 			if(magazine)
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
 				magazine.loc = get_turf(loc)
-				magazine.update_icon()
+				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 				magazine = null
 			else
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
@@ -106,8 +106,8 @@
 	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 12
+	bayonet_x_offset = 26
+	bayonet_y_offset = 12
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -136,12 +136,12 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = 0
-	can_flashlight = 1
+	can_suppress = FALSE
+	can_flashlight = TRUE
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 25
-	knife_y_offset = 12
+	bayonet_x_offset = 25
+	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
 
 
@@ -313,8 +313,8 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 10
+	bayonet_x_offset = 26
+	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
 

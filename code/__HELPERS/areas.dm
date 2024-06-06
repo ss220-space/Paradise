@@ -92,7 +92,6 @@
 		newA.always_unpowered = FALSE
 		newA.valid_territory = FALSE
 		newA.has_gravity = oldA.has_gravity
-		newA.set_dynamic_lighting()
 	else
 		newA = area_choice
 

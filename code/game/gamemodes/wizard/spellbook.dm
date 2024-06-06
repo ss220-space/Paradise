@@ -424,7 +424,7 @@
 	if(..())
 		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")

@@ -140,11 +140,9 @@
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	see_invisible = SEE_INVISIBLE_OBSERVER
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
 	sync_lighting_plane_alpha()
 
 /mob/living/proc/handle_critical_condition()
@@ -178,35 +176,39 @@
 				healths.icon_state = "health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 
-/mob/living/update_stamina_hud(shown_stamina_amount)
-	if(!client)
+
+/mob/living/update_stamina_hud(shown_stamina_loss)
+	if(!client || !stamina_bar)
 		return
 
-	if(stamina_bar)
-		if(stat != DEAD)
-			. = TRUE
-			if(shown_stamina_amount == null)
-				shown_stamina_amount = staminaloss
-			if(shown_stamina_amount >= maxHealth)
-				stamina_bar.icon_state = "stamina6"
-			else if(shown_stamina_amount > maxHealth * 0.8)
-				stamina_bar.icon_state = "stamina5"
-			else if(shown_stamina_amount > maxHealth * 0.6)
-				stamina_bar.icon_state = "stamina4"
-			else if(shown_stamina_amount > maxHealth * 0.4)
-				stamina_bar.icon_state = "stamina3"
-			else if(shown_stamina_amount > maxHealth * 0.2)
-				stamina_bar.icon_state = "stamina2"
-			else if(shown_stamina_amount > 0)
-				stamina_bar.icon_state = "stamina1"
-			else
-				stamina_bar.icon_state = "stamina0"
-		else
-			stamina_bar.icon_state = "stamina6"
+	var/stam_crit_threshold = maxHealth - HEALTH_THRESHOLD_CRIT
+
+	if(stat == DEAD)
+		stamina_bar.icon_state = "stamina_dead"
+		return
+
+	if(shown_stamina_loss == null)
+		shown_stamina_loss = getStaminaLoss()
+
+	if(shown_stamina_loss >= stam_crit_threshold)
+		stamina_bar.icon_state = "stamina_crit"
+	else if(shown_stamina_loss > maxHealth * 0.8)
+		stamina_bar.icon_state = "stamina_5"
+	else if(shown_stamina_loss > maxHealth * 0.6)
+		stamina_bar.icon_state = "stamina_4"
+	else if(shown_stamina_loss > maxHealth * 0.4)
+		stamina_bar.icon_state = "stamina_3"
+	else if(shown_stamina_loss > maxHealth * 0.2)
+		stamina_bar.icon_state = "stamina_2"
+	else if(shown_stamina_loss > 0)
+		stamina_bar.icon_state = "stamina_1"
+	else
+		stamina_bar.icon_state = "stamina_full"
+
 
 /mob/living/simple_animal/update_health_hud()
 	if(!client)
@@ -216,7 +218,7 @@
 	if(healths)
 		..()
 	if(healthdoll)
-		var/obj/screen/healthdoll/living/livingdoll = healthdoll
+		var/atom/movable/screen/healthdoll/living/livingdoll = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -242,7 +244,7 @@
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
 			livingdoll.add_filter("inset_drop_shadow", 2, drop_shadow_filter(size = -1))
 	if(severity > 0)
-		overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
 

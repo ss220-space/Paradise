@@ -289,7 +289,7 @@
 	return ..()
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 

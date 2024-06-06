@@ -275,13 +275,13 @@
 			var/datum/species/species = dna.species
 
 			if(species.breathid == "o2")
-				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+				throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 			else if(species.breathid == "tox")
-				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+				throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 			else if(species.breathid == "co2")
-				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+				throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 			else if(species.breathid == "n2")
-				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+				throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else if(istype(lungs, /obj/item/organ/internal/lungs))
@@ -328,13 +328,13 @@
 		var/mult = dna.species.heatmod
 		if(mult>0)
 			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
-				throw_alert("temp", /obj/screen/alert/hot, 1)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
 			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
-				throw_alert("temp", /obj/screen/alert/hot, 2)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
 			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
-				throw_alert("temp", /obj/screen/alert/hot, 3)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 				if(on_fire)
 					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
 				else
@@ -362,13 +362,13 @@
 					var/datum/disease/virus/cold/D = new
 					D.Contract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-					throw_alert("temp", /obj/screen/alert/cold, 1)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
 				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-					throw_alert("temp", /obj/screen/alert/cold, 2)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 2)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
 				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-					throw_alert("temp", /obj/screen/alert/cold, 3)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
 				else
 					clear_alert("temp")
@@ -397,21 +397,21 @@
 		if(!(HEATRES in mutations))
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
-			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+			throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2)
 		else
 			clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
-		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
+		throw_alert("pressure", /atom/movable/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= dna.species.warning_low_pressure)
 		clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
-		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
+		throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 1)
 	else
 		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
-			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
+			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 
 ///FIRE CODE
@@ -851,7 +851,7 @@
 
 	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
 
 

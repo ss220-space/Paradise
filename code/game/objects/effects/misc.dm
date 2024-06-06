@@ -137,8 +137,6 @@
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()
 	dir = C.dir
-	if(C.buckled)
-		pixel_y = (C.buckled.buckle_offset + 10)
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
 	flick("breath_[C.lying_prev]", src)

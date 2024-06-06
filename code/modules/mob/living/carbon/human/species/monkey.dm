@@ -60,7 +60,7 @@
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
-	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
+	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
@@ -79,6 +79,11 @@
 /datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.meatleft = initial(H.meatleft)
+
+
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
+	. = ..()
+	H.force_gene_block(GLOB.monkeyblock, !remove)
 
 
 /datum/species/monkey/can_understand(mob/other)
