@@ -425,6 +425,19 @@
 		return ..()
 
 
+/datum/emote/living/snore/soundless
+	key = "snore_soundless"
+	key_third_person = "snore_soundless_third"
+	stat_allowed = CONSCIOUS
+	max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
+	unintentional_stat_allowed = CONSCIOUS
+	max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
+
+
+/datum/emote/living/snore/soundless/get_sound(mob/living/carbon/human/user)
+	return islist(sound) ? pick(sound) : sound
+
+
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "содрога%(ет,ют)%ся во сне."
