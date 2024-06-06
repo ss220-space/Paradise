@@ -1077,7 +1077,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	// Config tag used here
 	for(var/T in mode_cache)
 		var/datum/game_mode/M = T
-		if (M && M.config_tag in modes_list)
+		if (M && (M.config_tag in modes_list))
 			var/p = config.GetModeWeightFromInstance(M)
 			// Set probability from config
 			runnable_modes[M] = p

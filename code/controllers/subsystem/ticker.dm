@@ -705,7 +705,7 @@ SUBSYSTEM_DEF(ticker)
 		// Setup list on how much events didn't happen, default is 0
 		list_of_current_n[gm] = n_not_happened
 
-	var/list/datum/game_mode/result_mode = new_weighted_pick(runnable_modes, list_of_current_n, 1)
+	var/datum/game_mode/result_mode = new_weighted_pick(runnable_modes, list_of_current_n, 1)
 	if (!result_mode)
 		message_admins("Failed to use pseudorandom new_weighted_pick proc. Using fallback proc. please inform coder (this shouldn't break game though).")
 		return pick_weight_classic(runnable_modes) // use 'old' system

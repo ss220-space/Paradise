@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	if (!mode)
 		return 0
 
-	var/result = probabilities[mode.config_tag] as num
+	var/result = probabilities[mode.config_tag]
 	if (!result)
 		return 0
 	return result
