@@ -366,15 +366,14 @@
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndi"
 	item_state = "syndie_helm"
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 90)
+	var/eva_mode_armour = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	item_color = "syndi"
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
-	visor_clothing_flags = STOPSPRESSUREDMAGE
-	var/combat_rad = 50
-
+	visor_clothing_flags = STOPSPRESSUREDMAGE|BLOCK_GASES
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Destroy()
 	linkedsuit = null
@@ -416,14 +415,14 @@
 		flags_inv |= visor_flags_inv
 		flags_inv_transparent |= visor_flags_inv_transparent
 		cold_protection |= HEAD
-		armor.rad = 100
+		armor = eva_mode_armour
 	else
 		clothing_flags &= ~visor_clothing_flags
 		flags_cover &= ~(HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv
 		flags_inv_transparent &= ~visor_flags_inv_transparent
 		cold_protection &= ~HEAD
-		armor.rad = combat_rad
+		armor = initial(armor)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	user?.update_head(src, toggle_off = !on)
 	for(var/datum/action/action as anything in actions)
@@ -440,14 +439,14 @@
 
 	if(linkedsuit.on)
 		linkedsuit.slowdown = 1
-		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags |= (STOPSPRESSUREDMAGE|BLOCK_GASES)
 		linkedsuit.cold_protection |= (UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
-		linkedsuit.armor.rad = 100
+		linkedsuit.armor = linkedsuit.eva_mode_armour
 	else
 		linkedsuit.slowdown = 0
-		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE
+		linkedsuit.clothing_flags &= ~(STOPSPRESSUREDMAGE|BLOCK_GASES)
 		linkedsuit.cold_protection &= ~(UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
-		linkedsuit.armor.rad = combat_rad
+		linkedsuit.armor = initial(linkedsuit.armor)
 
 	linkedsuit.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	linkedsuit.update_equipped_item()
@@ -460,9 +459,11 @@
 	icon_state = "hardsuit0-syndi"
 	item_state = "syndie_hardsuit"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	var/eva_mode_armour = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 90)
 	item_color = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = FALSE
+	clothing_flags = THICKMATERIAL
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
@@ -502,18 +503,19 @@
 	name = "elite syndicate hardsuit helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 70, "rad" = 70, "fire" = 100, "acid" = 100)
+	eva_mode_armour = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	item_color = "syndielite"
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	combat_rad = 70
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
 	icon_state = "hardsuit0-syndielite"
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 70, "rad" = 70, "fire" = 100, "acid" = 100)
+	eva_mode_armour = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 40, "bomb" = 55, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	item_color = "syndielite"
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -551,12 +553,13 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	eva_mode_armour = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100)
 	item_color = "sst"
-	combat_rad = 100
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100)
+	eva_mode_armour = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100)
 	item_color = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 

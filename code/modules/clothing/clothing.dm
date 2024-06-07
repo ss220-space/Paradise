@@ -519,6 +519,8 @@ BLIND     // can't see anything
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	put_on_delay = 40
+	/// shows how tightly the mask fits to the face and lets air out of the turf. 0 = completely air-permeable. 1 = completely sealed.
+	var/gas_transfer_coefficient = 0
 	var/adjusted_slot_flags = NONE
 	var/adjusted_flags_inv = NONE
 	var/adjusted_flags_inv_transparent = NONE
@@ -544,8 +546,8 @@ BLIND     // can't see anything
 
 	if(up)
 		to_chat(user, span_notice("You push [src] out of the way."))
-		gas_transfer_coefficient = null
-		permeability_coefficient = null
+		gas_transfer_coefficient = 0
+		permeability_coefficient = 1
 		if(adjusted_slot_flags)
 			slot_flags = adjusted_slot_flags
 		if(adjusted_flags_inv)
@@ -861,7 +863,7 @@ BLIND     // can't see anything
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	w_class = WEIGHT_CLASS_NORMAL
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|BLOCK_GASES
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -887,9 +889,8 @@ BLIND     // can't see anything
 	icon_state = "space"
 	item_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|BLOCK_GASES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1

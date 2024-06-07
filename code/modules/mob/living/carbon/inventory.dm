@@ -378,19 +378,28 @@
 
 /mob/living/carbon/proc/has_airtight_items()
 	if(get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-		return TRUE
+		return 1
 
-	if(isclothing(wear_mask))
-		var/obj/item/clothing/our_mask = wear_mask
-		if(our_mask.clothing_flags & AIRTIGHT)
-			return TRUE
+	if(wear_mask.clothing_flags & AIRTIGHT)
+		return wear_mask.gas_transfer_coefficient
 
-	if(isclothing(head))
-		var/obj/item/clothing/our_helmet = head
-		if(our_helmet.clothing_flags & AIRTIGHT)
-			return TRUE
+	return 0
 
-	return FALSE
+
+/mob/living/carbon/proc/is_closed_breathing_system()
+	if(!isclothing(head))
+		return FALSE
+	var/obj/item/clothing/cloth = head
+	if(!(cloth.clothing_flags & BLOCK_GASES))
+		return FALSE
+
+	if(!isclothing(wear_suit))
+		return FALSE
+	cloth = wear_suit
+	if(!(cloth.clothing_flags & BLOCK_GASES))
+		return FALSE
+
+	return TRUE
 
 
 /mob/living/carbon/covered_with_thick_material(check_zone, full_body_check = FALSE)

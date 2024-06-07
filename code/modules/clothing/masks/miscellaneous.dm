@@ -5,7 +5,7 @@
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
+	gas_transfer_coefficient = 0.5
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
 	var/mute = MUZZLE_MUTE_ALL
@@ -229,7 +229,7 @@
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
-	gas_transfer_coefficient = 0.90
+	gas_transfer_coefficient = 0.5
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -300,7 +300,7 @@
 	item_state = "blueneckscarf"
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
+	gas_transfer_coefficient = 0.25
 
 
 /obj/item/clothing/mask/redscarf
@@ -310,7 +310,7 @@
 	item_state = "redwhite_scarf"
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
+	gas_transfer_coefficient = 0.25
 
 /obj/item/clothing/mask/greenscarf
 	name = "green scarf"
@@ -319,7 +319,7 @@
 	item_state = "green_scarf"
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.90
+	gas_transfer_coefficient = 0.25
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -329,6 +329,7 @@
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_SMALL
+	gas_transfer_coefficient = 0.25
 
 
 /obj/item/clothing/mask/horsehead
@@ -338,6 +339,7 @@
 	item_state = "horsehead"
 	flags_inv = HIDENAME|HIDEHAIR
 	w_class = WEIGHT_CLASS_SMALL
+	gas_transfer_coefficient = 0.25
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -385,6 +387,7 @@
 /obj/item/clothing/mask/face
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
+	gas_transfer_coefficient = 0.25
 
 /obj/item/clothing/mask/face/rat
 	name = "rat mask"
@@ -506,6 +509,7 @@
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
 	can_toggle = TRUE
+	gas_transfer_coefficient = 0.25
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -607,6 +611,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
+	gas_transfer_coefficient = 0.25
 
 
 /obj/item/clothing/mask/cursedclown/Initialize(mapload)
@@ -666,8 +671,8 @@
 	strip_delay = 20
 	put_on_delay = 20
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
-	gas_transfer_coefficient = 0.90
-	permeability_coefficient = 0.90
+	gas_transfer_coefficient = 0.5
+	permeability_coefficient = 0.9
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(

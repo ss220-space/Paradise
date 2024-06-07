@@ -61,7 +61,7 @@
 	if(loc)
 		environment = loc.return_air()
 
-	var/datum/gas_mixture/breath
+	var/datum/gas_mixture/breath = new
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 		AdjustLoseBreath(2 SECONDS)
@@ -74,25 +74,28 @@
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
+		var/percentage_from_internal = 0
+		var/percentage_from_loc = 1
 		//Breathe from internal
-		breath = get_breath_from_internal(BREATH_VOLUME)
+		if(internal)
+			if(is_closed_breathing_system())
+				percentage_from_internal = 1
+				percentage_from_loc = 0
+			else
+				percentage_from_internal = has_airtight_items()
+				percentage_from_loc = 1 - percentage_from_internal
+			breath = get_breath_from_internal(BREATH_VOLUME * percentage_from_internal)
 
-		if(!breath)
+		if(isobj(loc)) //Breathe from loc as object
+			var/obj/loc_as_obj = loc
+			breath.merge(loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME * percentage_from_loc))
 
-			if(isobj(loc)) //Breathe from loc as object
-				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+		else if(isturf(loc)) //Breathe from loc as turf
+			var/breath_moles = 0
+			if(environment)
+				breath_moles = environment.total_moles() * BREATH_PERCENTAGE * percentage_from_loc
 
-			else if(isturf(loc)) //Breathe from loc as turf
-				var/breath_moles = 0
-				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
-
-				breath = loc.remove_air(breath_moles)
-		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
-				var/obj/loc_as_obj = loc
-				loc_as_obj.handle_internal_lifeform(src, 0)
+			breath.merge(loc.remove_air(breath_moles))
 
 	check_breath(breath)
 
@@ -195,9 +198,6 @@
 
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(!internal)
-		return
-
 	if(internal.loc != src || !has_airtight_items())
 		internal = null
 

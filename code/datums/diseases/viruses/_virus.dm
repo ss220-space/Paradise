@@ -3,6 +3,8 @@
 	carrier_mobtypes = list(/mob/living/simple_animal/mouse)
 	spread_from_dead_prob = 25
 
+	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
+	var/carrier = FALSE
 	///method of infection of the virus
 	var/spread_flags = NON_CONTAGIOUS
 	///affects how often the virus will try to spread. The more the better. In range [0-100]
@@ -46,7 +48,6 @@
 			discovered = TRUE
 			affected_mob.med_hud_set_status()
 
-
 /datum/disease/virus/proc/can_spread()
 	if(istype(affected_mob.loc, /obj/structure/closet/body_bag/biohazard))
 		return FALSE
@@ -54,6 +55,10 @@
 		return TRUE
 	return FALSE
 
+/datum/disease/virus/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+	var/datum/disease/virus/V = ..(M, act_type, need_protection_check, zone)
+	V.carrier = is_carrier
+	return V
 
 /datum/disease/virus/proc/spread(force_spread = 0)
 	if(!affected_mob)
@@ -101,3 +106,14 @@
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
 	return english_list(spread, "Неизвестен", " и ")
+
+/datum/disease/virus/Copy()
+	var/datum/disease/virus/copy = ..()
+	var/list/required_vars = list("spread_flags", "infectivity", "permeability_mod")
+	for(var/V in required_vars)
+		if(istype(vars[V], /list))
+			var/list/L = vars[V]
+			copy.vars[V] = L.Copy()
+		else
+			copy.vars[V] = vars[V]
+	return copy

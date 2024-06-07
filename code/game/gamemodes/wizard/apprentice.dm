@@ -242,7 +242,6 @@
 	icon_state = "psyamp"
 	name = "Роба межпространства"
 	desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 5 SECONDS
@@ -254,7 +253,6 @@
 	icon_state = "amp"
 	name = "Капюшон Межпространства"
 	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -279,7 +277,6 @@
 	magical = TRUE
 	name = "Роба саботёра"
 	desc = "Магическая роба-саботёра. Стильная и приталенная!"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 5 SECONDS
@@ -291,7 +288,6 @@
 	magical = TRUE
 	name = "Федора саботёра"
 	desc = "Магическая федора-саботёра. Стильная и уважаемая!"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -330,7 +326,6 @@
 /obj/item/clothing/suit/victcoat/red/suit/fire_robe
 	name = "Роба огня"
 	desc = "Магическая роба последователей школы огня."
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 5 SECONDS
@@ -393,7 +388,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/suit/sacrificial_robe
 	name = "Жертвенная роба"
 	desc = "Магическая роба последователей школы крови."
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	strip_delay = 5 SECONDS

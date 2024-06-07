@@ -72,4 +72,6 @@
 #define FIXED_SLOWDOWN (1<<5)
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
+/// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
+#define BLOCK_GASES (1<<7)
 

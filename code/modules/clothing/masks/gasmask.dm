@@ -7,7 +7,7 @@
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 1
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
 	undyeable = TRUE
@@ -102,6 +102,18 @@
 	. = ..()
 	force_adjust_mask()
 
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = 0
+	permeability_coefficient = 1
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDENAME
+	clothing_flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
+
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"
@@ -112,7 +124,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 0.99
 	permeability_coefficient = 0.01
 
 
