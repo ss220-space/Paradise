@@ -44,7 +44,7 @@
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
 	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
-	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
+	var/body_temperature = BODYTEMP_NORMAL	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
@@ -280,6 +280,9 @@
 			continue
 
 		new organ_path(target)
+
+	// and now we need to recheck our limbs conditions
+	target.recalculate_limbs_status()
 
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)

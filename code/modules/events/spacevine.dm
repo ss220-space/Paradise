@@ -165,7 +165,7 @@
 	process_mutation(holder)
 
 /datum/spacevine_mutation/space_covering/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(target.type == /turf/space && !locate(/obj/structure/spacevine) in target)
+	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
 		holder.master.spawn_spacevine_piece(target, holder)
 		. = TRUE
 
@@ -187,7 +187,7 @@
 	quality = MINOR_NEGATIVE
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(holder.energy > 1 && !locate(/obj/structure/spacevine) in target)
+	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
 		// Lose bluespace upon piercing a single tile, and drop it from our own mutations too
 		// Representing a loss in "high potential"
 		// also conveniently prevents this from spreading too crazily
@@ -680,9 +680,8 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!isspaceturf(stepturf) && stepturf.Enter(src))
-				if(master)
-					master.spawn_spacevine_piece(stepturf, src)
+			if(!isspaceturf(stepturf) && stepturf.Enter(src) && !is_location_within_transition_boundaries(stepturf))
+				master?.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
 		if(spread_success || !spread_search)
 			break

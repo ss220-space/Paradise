@@ -1275,8 +1275,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return
 
 
-/// Conditional proc that allows ventcrawling with this item, if it has TRAIT_VENTCRAWLER_ITEM_BASED trait.
-/// Always allows by default.
+/// Conditional proc that allows ventcrawling with an item, if it has trait TRAIT_VENTCRAWLER_ITEM_BASED.
 /obj/item/proc/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
-	return TRUE
+	return FALSE
 

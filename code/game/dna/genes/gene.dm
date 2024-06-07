@@ -49,8 +49,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYOR(mutant.active_genes, type)
 	mutant.gene_stability -= instability
-	if(OnDrawUnderlays())
-		mutant.update_mutations()
+	mutant.update_mutations()
 
 
 /**
@@ -61,8 +60,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(mutant.active_genes, type)
 	mutant.gene_stability += instability
-	if(OnDrawUnderlays())
-		mutant.update_mutations()
+	mutant.update_mutations()
 
 
 // This section inspired by goone's bioEffects.

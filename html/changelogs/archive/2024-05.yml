@@ -179,3 +179,9 @@
   - bugfix: Fixes lavaland NaN air (I HOPE) (#5116)
   Zwei:
   - unknown: Crawling Implementation (#5044)
+'2024-05-31':
+  MstrKabach:
+  - qol: Correct bundles name from game and wiki (#5046)
+  Zwei:
+  - bugfix: Crawling Fixes N1 (#5120)
+  - bugfix: Crawling Fixes N2 (#5121)
