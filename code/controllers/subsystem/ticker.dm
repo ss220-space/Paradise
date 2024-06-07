@@ -672,7 +672,7 @@ SUBSYSTEM_DEF(ticker)
 	for (var/game_mode_iterating in runnable_modes) // game_mode_iterating of type game_mode, values are weights numbers
 		var/datum/game_mode/gm = game_mode_iterating
 		var/config_tag = gm.config_tag
-		var/n_not_happened = 0
+		var/n_not_happened = 0 // counter for how much times game mode wasn't selected before (if not found or didn't exist yet, use 0 as default)
 		// db stuff
 
 		// 1. try to get value

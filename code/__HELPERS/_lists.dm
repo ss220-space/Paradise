@@ -1165,7 +1165,3 @@ proc/dd_sortedObjectList(list/incoming)
 	qdel(new_probabilities)
 
 	return picked
-
-// Returns true if new random selection enabled in config
-/proc/is_new_random_selection_enabled()
-	return CONFIG_GET(flag/use_new_random_selection)
