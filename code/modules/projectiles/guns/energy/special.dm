@@ -763,24 +763,24 @@
 
 // // Shield breaker //
 
-// /obj/item/gun/energy/plasma_pistol
-// 	name = "plasma pistol"
-// 	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
-// 	icon_state = "plasmagun"
-// 	item_state = "plasmagun"
-// 	w_class = WEIGHT_CLASS_NORMAL
-// 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-// 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
-// 	shaded_charge = 1
-// 	can_holster = TRUE
-// 	atom_say_verb = "beeps"
-// 	bubble_icon = "swarmer"
-// 	light_color = "#89078E"
-// 	light_power = 4
-// 	var/overloaded = FALSE
-// 	var/warned = FALSE
-// 	var/charging = FALSE
-// 	var/mob/living/carbon/holder = null
+/obj/item/gun/energy/plasma_pistol
+	name = "plasma pistol"
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
+	icon_state = "plasmagun"
+	item_state = "plasmagun"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
+	shaded_charge = 1
+	can_holster = TRUE
+	atom_say_verb = "beeps"
+	bubble_icon = "swarmer"
+	light_color = "#89078E"
+	light_power = 4
+	var/overloaded = FALSE
+	var/warned = FALSE
+	var/charging = FALSE
+	var/mob/living/carbon/holder = null
 
 // /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 // 	. = ..()

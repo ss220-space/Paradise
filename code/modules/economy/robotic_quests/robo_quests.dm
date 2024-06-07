@@ -150,12 +150,11 @@
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
-// /datum/roboshop_item/syndicate_core
-// 	name = "\improper syndicate anomaly core"
-// 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-// 	path = /obj/item/assembly/signaler/anomaly/bluespace
-// 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 999)
-// 	emag_only = TRUE
+/datum/roboshop_item/mecha_drop
+	name = "\improper mecha drop tool"
+	path = /obj/item/mecha_drop
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
+	emag_only = TRUE
 
 /datum/roboshop_item/bbag
 	name = "\improper bluespace bodybag"
@@ -167,10 +166,14 @@
 	path = /obj/item/holotool
 	cost = list("working" = 6, "medical" = 0, "security" = 0, "robo" = 0)
 
+/datum/roboshop_item/shield_breacker
+	path = /obj/item/gun/energy/plasma_pistol
+	cost = list("working" = 0, "medical" = 0, "security" = 6, "robo" = 0)
+
 /datum/roboshop_item/experimental_parts
 	name = "\improper experimental parts"
 	path = /obj/item/storage/box/experimental_parts
-	cost = list("working" = 3, "medical" = 3, "security" = 3, "robo" = 0)
+	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
 #undef WORKING_CLASS
 #undef MEDICAL_CLASS

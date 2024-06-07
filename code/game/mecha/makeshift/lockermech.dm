@@ -54,8 +54,56 @@
 	new /obj/structure/closet(loc)
 	return ..()
 
+/obj/effect/particle_effect/mecha_drop
+	name = "mecha drop"
+	icon_state = "drop_loc"
+	icon = 'icons/effects/96x96.dmi'
+	pixel_x = -32
+	pixel_y = -32
+
 /obj/item/mecha_drop
 	name = "mechadrop tool"
 	desc = "Simple looking tool with only one button"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "pointer"
+	item_state = "pen"
+	var/mecha_type = /obj/mecha/combat/lockersyndie/loaded
+	var/obj/mecha/summon_mecha
 	var/list/summon_sound = 'sound/items/bikehorn.ogg'
 	var/used = FALSE
+
+/obj/item/mecha_drop/New()
+	. = ..()
+	if(mecha_type)
+		summon_mecha = new mecha_type(src)
+
+/obj/item/mecha_drop/afterattack(atom/target, mob/user, proximity, params)
+	if(used)
+		return
+	if(isfloorturf(target))
+		for(var/turf/T in (RANGE_TURFS(1, target) + target))
+			if(!isfloorturf(T))
+				to_chat(user, "You need free 3x3 area for mecha summon.")
+				return
+			for(var/obj/O in T)
+				if(O.density && O.anchored)
+					to_chat(user, "You need free 3x3 area for mecha summon.")
+					return
+		used = TRUE
+		var/obj/effect/particle_effect/mecha_drop/mecha_effect = new(target)
+		flick("drop_loc_anim", mecha_effect)
+		if(do_after(user, 2 SECONDS, user))
+			if(do_after(user, 5 SECONDS, user))
+				summon_mecha.forceMove(target)
+				new /obj/effect/particle_effect/smoke(target)
+				playsound(target, 'sound/magic/disintegrate2.ogg', 200, 1)
+				for(var/mob/M in range(6, target))
+					shake_camera(M, 2 SECONDS, 2)
+			else
+				used = FALSE
+		else
+			used = FALSE
+		qdel(mecha_effect)
+	else
+		to_chat(user, "You can use it only on floor.")
+

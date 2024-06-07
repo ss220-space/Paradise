@@ -218,13 +218,16 @@
 		if(istype(MA, /obj/structure/closet/critter/mecha))
 			var/obj/structure/closet/critter/mecha/crate = MA
 			if(crate.console && crate.quest)
-				crate.quest.reward["robo"] -= crate.penalty
-				if(crate.quest.reward["robo"] < 0)
-					crate.quest.reward["robo"] = 0
 				for(var/category in crate.quest.reward)
+					crate.quest.reward[category] -= penalty
+					if(crate.quest.reward[category] < 0)
+						crate.quest.reward[category] = 0
 					crate.console.points[category] += crate.quest.reward[category]
 				pointsEarned = crate.quest.reward["robo"] * 25
 				SSshuttle.points += pointsEarned
+				if(crate.quest.id)
+					var/datum/money_account/A = get_money_account(crate.quest.id.associated_account_number)
+					A.money += crate.quest.reward["robo"] * 150
 				SSshuttle.cargo_money_account.money += crate.quest.reward["robo"] * 150
 				crate.console.on_quest_complete()
 				crate.quest.id.robo_bounty = null
