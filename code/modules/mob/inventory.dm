@@ -44,7 +44,7 @@
 		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
-	if(!QDELETED(I))
+	if(!QDELETED(I) && I.user_can_equip(src))
 		I.equip_to_best_slot(src)
 
 
