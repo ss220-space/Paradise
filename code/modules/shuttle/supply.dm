@@ -219,7 +219,7 @@
 			var/obj/structure/closet/critter/mecha/crate = MA
 			if(crate.console && crate.quest)
 				for(var/category in crate.quest.reward)
-					crate.quest.reward[category] -= penalty
+					crate.quest.reward[category] -= crate.penalty
 					if(crate.quest.reward[category] < 0)
 						crate.quest.reward[category] = 0
 					crate.console.points[category] += crate.quest.reward[category]

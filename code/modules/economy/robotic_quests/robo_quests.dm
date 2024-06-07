@@ -50,11 +50,11 @@
 			mech = pick(subtypesof(/datum/quest_mech))
 	var/datum/quest_mech/selected = new mech
 	if(selected.type in working_mechas)
-		reward["working"] += 2
+		reward["working"] += 3
 	else if (selected.type in combat_mechas)
-		reward["security"] += 2
+		reward["security"] += 3
 	else
-		reward["medical"] += 2
+		reward["medical"] += 3
 	mech_class = selected.mech_class //наверное можно перенести данные из одного датума как-то умнее, но и так в целом норм.
 	name = selected.name
 	questinfo["name"] = name

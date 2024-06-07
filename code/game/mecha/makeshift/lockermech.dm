@@ -99,6 +99,8 @@
 				playsound(target, 'sound/magic/disintegrate2.ogg', 200, 1)
 				for(var/mob/M in range(6, target))
 					shake_camera(M, 2 SECONDS, 2)
+				for(var/mob/living/M in range(1, target))
+					M.apply_damage(120)
 			else
 				used = FALSE
 		else
