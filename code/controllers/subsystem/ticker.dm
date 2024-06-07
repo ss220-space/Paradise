@@ -667,7 +667,6 @@ SUBSYSTEM_DEF(ticker)
 	if (!CONFIG_GET(flag/use_new_random_selection)) // if pseudorandom disabled
 		return pick_weight_classic(runnable_modes) // use 'old' system
 
-	var/server_ip = world.internet_address || "0"
 	var/server_port = world.port
 	var/list_of_current_n = list()
 	for (var/game_mode_iterating in runnable_modes) // game_mode_iterating of type game_mode, values are weights numbers
