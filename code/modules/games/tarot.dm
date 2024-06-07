@@ -22,12 +22,11 @@
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	var/list/newcards = list()
 	while(cards.len)
-		var/datum/playingcard/card = pick(cards)
-		card.name = replacetext(card.name," reversed","")
+		var/datum/playingcard/card = pick_n_take(cards)
+		card.name = replacetext(card.name," reversed", "")
 		if(prob(50))
 			card.name += " reversed"
 		newcards += card
-		cards -= card
 	cards = newcards
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 	user.visible_message(span_notice("[user] shuffles [src]."), span_notice("You shuffle [src]."))
