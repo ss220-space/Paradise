@@ -1055,7 +1055,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	var/msg = {"<html><meta charset="UTF-8"><head><title>Randomcheck Gamemode Roll</title></head><body>"}
-	msg += "<h1>New random selection enabled state: [use_pseudorandom && is_new_random_selection_enabled()]</h1>"
+	msg += "<h1>New random selection enabled state: [use_pseudorandom && CONFIG_GET(flag/
+	use_new_random_selection)]</h1>"
 	msg += "<TABLE border ='1'><TR>"
 	msg += "<TH>Mode</TH>"
 	msg += "<TH>Rolled Times</TH>"

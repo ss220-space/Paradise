@@ -250,3 +250,43 @@
 			return "centuple"
 		else //It gets too tedious to use latin prefixes from here.
 			return "[number]-tuple"
+
+
+// Calculates C constant from nominal probability P for pseudorandom
+// https://gaming.stackexchange.com/questions/161430/calculating-the-constant-c-in-dota-2-pseudo-random-distribution
+// https://dota2.fandom.com/wiki/Random_Distribution#Pseudo_random_events
+// mixing camelCase with pascal_case might be bad for readability, but is easier to compare code with source
+/proc/CfromP(p as num)
+	var/Cupper = p
+	var/Clower = 0
+	var/Cmid
+	var/p1
+	var/p2 = 1
+	while(1)
+		Cmid = (Cupper + Clower) / 2
+		p1 = PfromC(Cmid)
+		if (abs(p1 - p2) <= 0)
+			break
+
+		if (p1 > p)
+			Cupper = Cmid
+		else
+			Clower = Cmid
+
+		p2 = p1
+
+	return Cmid
+
+// Needed for CfromP
+/proc/PfromC(C as num)
+	var/pProcOnN = 0
+	var/pProcByN = 0
+	var/sumNpProcOnN = 0
+
+	var/maxFails = ceil(1 / C)
+	for (var/N = 1 to maxFails)
+		pProcOnN = min(1, N * C) * (1 - pProcByN)
+		pProcByN += pProcOnN
+		sumNpProcOnN += N * pProcOnN
+
+	return 1 / sumNpProcOnN
