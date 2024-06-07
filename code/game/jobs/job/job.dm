@@ -283,7 +283,8 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.update_appearance(UPDATE_NAME)
+
 
 
 /datum/outfit/job/get_chameleon_disguise_info()

@@ -94,7 +94,7 @@
 				cartridge = null
 				update_shortcuts()
 		if("Authenticate")//Checks for ID
-			id_check(usr, 1)
+			id_check(usr, in_pda_usage = TRUE)
 		if("Ringtone")
 			return set_ringtone()
 		else
