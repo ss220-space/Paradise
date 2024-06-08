@@ -81,8 +81,6 @@
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(jetpack)
-		remove_from_back(null, FALSE)
 	if(resting)
 		if(prob(1))
 			set_resting(FALSE, instant = TRUE)
@@ -106,26 +104,16 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-/mob/living/simple_animal/mouse/StartResting(updating)
+/mob/living/simple_animal/mouse/toggle_resting()
+	set name = "Rest"
+	set category = "IC"
+
 	if(jetpack)
 		to_chat(src, span_notice("You start dragging jetpack from your back."))
-		if(do_mob(src, src, 3 SECONDS))
+		if(do_after(src, 3 SECONDS, src, NONE))
 			remove_from_back(null, FALSE)
 	else
 		..()
-
-/mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
-	canmove = FALSE
-	flick("mouse_[mouse_color]_idle[anim]",src)
-	addtimer(CALLBACK(src, PROC_REF(animation_end)), 2 SECONDS)
-
-/mob/living/simple_animal/mouse/proc/animation_end()
-	canmove = TRUE
-
-/mob/living/simple_animal/mouse/proc/is_available_for_anim()
-	. = FALSE
-	if(is_type_in_typecache(src, animated_mouses))
-		return TRUE
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -230,21 +218,27 @@
 	user.visible_message(span_notice("[user] put something on [src]."),
 		span_notice("You equip mouse with a cool jetpack! Sick!"),
 		span_italics("You hear the roar of a small engine."))
+
+	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back), null, FALSE)
 	update_move_type()
 	return TRUE
 
 /mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user, on_death)
-	if(jetpack)
-		drop_item_ground(jetpack)
+	SIGNAL_HANDLER
 
-		if(!on_death)
-			if(user)
-				user.put_in_hands(jetpack, ignore_anim = FALSE)
-		else if(prob(85))
-			step_rand(jetpack)
+	if(!jetpack)
+		return
 
-		jetpack = null
-		update_move_type()
+	drop_item_ground(jetpack)
+
+	if(!on_death && user)
+		user.put_in_hands(jetpack, ignore_anim = FALSE)
+	else if(prob(85))
+		step_rand(jetpack)
+	jetpack = null
+
+	UnregisterSignal(src, COMSIG_MOB_GHOSTIZE)
+	update_move_type()
 
 /mob/living/simple_animal/mouse/Process_Spacemove(movement_dir)
 	return jetpack ? TRUE : ..()
@@ -252,7 +246,7 @@
 /mob/living/simple_animal/mouse/proc/update_move_type()
 	if(jetpack)
 		if(resting)
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
 		if(can_hide)
 			for(var/datum/action/innate/hide/hide in actions)
 				if(layer == hide.layer_to_change_to)
@@ -260,17 +254,16 @@
 				hide.Remove(src)
 		var/datum/action/innate/drop_jetpack/dropjet = new()
 		dropjet.Grant(src)
-		flying = TRUE
-		speed = 0.5
 		icon_state = "mouse_[mouse_color]_jet"
 		icon_living = "mouse_[mouse_color]_jet"
+		add_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
 	else
 		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
 			dropjet.Remove(src)
 		if(can_hide)
 			var/datum/action/innate/hide/hide = new()
 			hide.Grant(src)
-		flying = initial(flying)
+		remove_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
 		speed = initial(speed)
 		icon_state = "mouse_[mouse_color]"
 		icon_living = "mouse_[mouse_color]"
@@ -329,8 +322,6 @@
 			user.add_mob_blood(src)
 
 /mob/living/simple_animal/mouse/death(gibbed)
-	if(jetpack)
-		remove_from_back(null, TRUE)
 	if(gibbed)
 		make_remains()
 
@@ -391,7 +382,7 @@
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)
 		to_chat(src, span_notice("You start dragging jetpack from your back."))
-		if(do_mob(user, user, 3 SECONDS))
+		if(do_after(user, 3 SECONDS, user, NONE))
 			user.remove_from_back(null, FALSE)
 		return FALSE
 	else

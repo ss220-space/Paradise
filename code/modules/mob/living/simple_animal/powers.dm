@@ -61,5 +61,5 @@
 	var/mob/living/simple_animal/mouse/mouse = owner
 	if(mouse.jetpack)
 		to_chat(owner, span_notice("You start dragging jetpack from your back."))
-		if(do_mob(owner, owner, 3 SECONDS))
+		if(do_after(owner, 3 SECONDS, owner, NONE))
 			mouse.remove_from_back(null, FALSE)
