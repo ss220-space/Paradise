@@ -5,7 +5,7 @@
 	desc = "It can protect you from the scorching sun and save your strength in the desert. You can buy one of these for a fistful of credits."
 	icon_state = "classicponcho"
 	var/flipped = FALSE
-	washable = TRUE
+	dyeable = TRUE
 	item_color = "classic"
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
@@ -128,7 +128,7 @@
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
 	icon_state = "shameponcho"
 	item_color = "shame"
-	washable = FALSE
+	dyeable = FALSE
 
 
 /obj/item/clothing/neck/poncho/ponchoshame/Initialize(mapload)
@@ -160,4 +160,4 @@
 	icon_state = "tacticalponcho"
 	item_color = "tactical"
 	sprite_sheets = list()
-	washable = FALSE
+	dyeable = FALSE

@@ -43,7 +43,7 @@
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
-	washable = TRUE
+	var/dyeable = TRUE
 	can_hold = list(
 		/obj/item/clothing/gloves/color,
 		/obj/item/crowbar,
@@ -130,7 +130,7 @@
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
-	washable = FALSE
+	dyeable = FALSE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)

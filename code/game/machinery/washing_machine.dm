@@ -22,31 +22,6 @@
 	//1 = hacked
 	var/gibs_ready = 0
 	var/obj/crayon
-	var/washable_item_list = list(
-		/obj/item/stack/sheet/hairlesshide,
-		/obj/item/clothing/under,
-		/obj/item/clothing/mask,
-		/obj/item/clothing/head,
-		/obj/item/clothing/gloves,
-		/obj/item/clothing/shoes,
-		/obj/item/clothing/suit,
-		/obj/item/bedsheet,
-		/obj/item/storage/belt/utility,
-		/obj/item/clothing/neck/poncho)
-	var/an_washable_item_list = list(
-		/obj/item/clothing/suit/syndicatefake,
-		/obj/item/clothing/suit/space,
-		/obj/item/clothing/suit/cyborg_suit,
-		/obj/item/clothing/suit/bomb_suit,
-		/obj/item/clothing/suit/armor,
-		/obj/item/clothing/mask/gas,
-		/obj/item/clothing/mask/cigarette,
-		/obj/item/clothing/head/syndicatefake,
-		/obj/item/clothing/head/helmet,
-		/obj/item/clothing/gloves/furgloves
-	)
-
-
 
 /obj/machinery/washing_machine/verb/start()
 	set name = "Start Washing"
@@ -85,21 +60,7 @@
 			wash_color = ST.item_color
 
 		if(wash_color)
-			var/new_desc = "The colors are a bit dodgy."
-			for(var/obj/item/Long_name in contents)
-				if(!Long_name.washable)
-					continue
-				for(var/W in washable_item_list)
-					if(istype(Long_name, W))
-						var/peremenaya = new Long_name
-						for(var/T in typesof(Long_name))
-							//var/washable_item/L = new T
-							if(wash_color == peremenaya.item_color)
-								Long_name.icon_state = peremenaya.icon_state
-								Long_name.item_state = peremenaya.item_state
-								Long_name.name = peremenaya.name
-								break
-			/*var/new_jumpsuit_icon_state = ""
+			var/new_jumpsuit_icon_state = ""
 			var/new_jumpsuit_item_state = ""
 			var/new_jumpsuit_name = ""
 			var/new_glove_icon_state = ""
@@ -192,7 +153,7 @@
 				qdel(P)
 			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
 				for(var/obj/item/clothing/under/J in contents)
-					if(!J.washable)
+					if(!J.dyeable)
 						continue
 					J.item_state = new_jumpsuit_item_state
 					J.icon_state = new_jumpsuit_icon_state
@@ -201,7 +162,7 @@
 					J.desc = new_desc
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
 				for(var/obj/item/clothing/gloves/color/G in contents)
-					if(!G.washable)
+					if(!G.dyeable)
 						continue
 					G.item_state = new_glove_item_state
 					G.icon_state = new_glove_icon_state
@@ -211,7 +172,7 @@
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
-					if(!S.washable)
+					if(!S.dyeable)
 						continue
 					S.icon_state = new_shoe_icon_state
 					S.item_color = wash_color
@@ -219,7 +180,7 @@
 					S.desc = new_desc
 			if(new_bandana_icon_state && new_bandana_name)
 				for(var/obj/item/clothing/mask/bandana/M in contents)
-					if(!M.washable)
+					if(!M.dyeable)
 						continue
 					M.item_state = new_bandana_item_state
 					M.icon_state = new_bandana_icon_state
@@ -234,7 +195,7 @@
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
 				for(var/obj/item/clothing/head/soft/H in contents)
-					if(!H.washable)
+					if(!H.dyeable)
 						continue
 					H.icon_state = new_softcap_icon_state
 					H.item_color = wash_color
@@ -242,7 +203,7 @@
 					H.desc = new_desc
 			if(new_poncho_icon_state && new_poncho_name)
 				for(var/obj/item/clothing/neck/poncho/P in contents)
-					if(!P.washable)
+					if(!P.dyeable)
 						continue
 					P.icon_state = new_poncho_icon_state
 					P.item_color = wash_color
@@ -250,12 +211,12 @@
 					P.desc = "[new_poncho_desc] [new_desc]"
 			if(new_belt_icon_state && new_belt_name)
 				for(var/obj/item/storage/belt/utility/U in contents)
-					if(!U.washable)
+					if(!U.dyeable)
 						continue
 					U.icon_state = new_belt_icon_state
 					U.item_state = new_belt_item_state
 					U.item_color = wash_color
-					U.name = new_belt_name*/
+					U.name = new_belt_name
 		QDEL_NULL(crayon)
 
 
@@ -283,16 +244,6 @@
 	/*if(istype(W,/obj/item/screwdriver))
 		panel = !panel
 		to_chat(user, span_notice("you [panel ? ")open" : "close"] the [src]'s maintenance panel")*/
-
-	if(W in washable_item_list && !typesof(an_washable_item_list))
-		return ..()
-	if(HAS_TRAIT(W, TRAIT_NODROP)) //if "can't drop" item
-		to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
-		return
-	else
-		to_chat(user, "This item does not fit.")
-		return
-
 	if(default_unfasten_wrench(user, W))
 		add_fingerprint(user)
 		power_change()
@@ -317,9 +268,10 @@
 				qdel(G)
 				state = 3
 			update_icon()
-
-	/*else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
-	istype(W,/obj/item/clothing/under) || \
+		else
+			return ..()
+	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
+		istype(W,/obj/item/clothing/under) || \
 		istype(W,/obj/item/clothing/mask) || \
 		istype(W,/obj/item/clothing/head) || \
 		istype(W,/obj/item/clothing/gloves) || \
@@ -336,13 +288,13 @@
 		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if( istype(W,/obj/item/clothing/suit/powered ) )
-			to_chat(user, "This item does not fit.")
-			return
+//		if( istype(W,/obj/item/clothing/suit/powered ) )
+//			to_chat(user, "This item does not fit.")
+//			return
 		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if( istype(W,/obj/item/clothing/suit/bomb_suit ) ) // Блять что это
+		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )
@@ -360,9 +312,9 @@
 		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if( istype(W,/obj/item/clothing/head/powered ) )
-			to_chat(user, "This item does not fit.")
-			return
+//		if( istype(W,/obj/item/clothing/head/powered ) )
+//			to_chat(user, "This item does not fit.")
+//			return
 		if( istype(W,/obj/item/clothing/head/helmet ) )
 			to_chat(user, "This item does not fit.")
 			return
@@ -371,7 +323,7 @@
 			return
 		if(HAS_TRAIT(W, TRAIT_NODROP)) //if "can't drop" item
 			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
-			return*/
+			return
 
 		if(contents.len < 5)
 			if( state in list(1, 3) )
@@ -424,4 +376,3 @@
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	qdel(src)
-

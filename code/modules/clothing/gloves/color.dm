@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves/color
-	washable = TRUE
+	dyeable = TRUE
 	belt_icon = "other_gloves"
 
 /obj/item/clothing/gloves/color/yellow
