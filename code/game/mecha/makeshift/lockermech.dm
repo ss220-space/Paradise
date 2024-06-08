@@ -56,7 +56,7 @@
 
 /obj/effect/particle_effect/mecha_drop
 	name = "mecha drop"
-	icon_state = "drop_loc"
+	icon_state = "dropzone_mech_loop"
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
@@ -91,7 +91,7 @@
 					return
 		used = TRUE
 		var/obj/effect/particle_effect/mecha_drop/mecha_effect = new(target)
-		flick("drop_loc_anim", mecha_effect)
+		flick("dropzone_mech_start", mecha_effect)
 		if(do_after(user, 2 SECONDS, user))
 			if(do_after(user, 5 SECONDS, user))
 				summon_mecha.forceMove(target)
