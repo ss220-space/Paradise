@@ -456,6 +456,8 @@
 	var/list/categories = list() // meow
 	for(var/category in GLOB.all_supply_groups)
 		categories.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
+	if(!(src.can_order_contraband))
+		categories.Cut(10) //cutting contraband category
 	data["categories"] = categories
 
 	return data

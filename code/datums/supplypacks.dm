@@ -15,8 +15,9 @@
 #define SUPPLY_MATERIALS 7
 #define SUPPLY_MISC 8
 #define SUPPLY_VEND 9
+#define SUPPLY_CONTRABAND 10
 
-GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND))
+GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND, SUPPLY_CONTRABAND))
 
 /proc/get_supply_group_name(var/cat)
 	switch(cat)
@@ -38,6 +39,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 			return "Miscellaneous"
 		if(SUPPLY_VEND)
 			return "Vending"
+		if(SUPPLY_CONTRABAND)
+			return "Contraband"
+
 
 
 /datum/supply_packs
@@ -676,20 +680,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 140
 	containername = "auto rifle armor-piercing ammo crate"
 	required_tech = list("combat" = 5, "materials" = 3)
-
-/datum/supply_packs/security/armory/mosin
-	name = "Mosin Nagant crate"
-	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
-					/obj/item/gun/projectile/shotgun/boltaction,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762,
-					/obj/item/ammo_box/speedloader/a762)
-	cost = 80
-	containername = "Mosin Nagant rifle crate"
-	contraband = 1
 
 /datum/supply_packs/security/armory/security_voucher
 	name = "Security Voucher crate"
@@ -2648,16 +2638,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containername = "foam force crate"
 
-/datum/supply_packs/misc/foamforce/bonus
-	name = "Foam Force Pistols Crate"
-	contains = list(/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/gun/projectile/automatic/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol,
-					/obj/item/ammo_box/magazine/toy/pistol)
-	cost = 40
-	containername = "foam force pistols crate"
-	contraband = 1
-
 /datum/supply_packs/misc/bigband
 	name = "Big band instrument collection"
 	contains = list(/obj/item/instrument/violin,
@@ -2674,17 +2654,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/structure/musician/drumkit)
 	cost = 50
 	containername = "Big band musical instruments collection"
-
-/datum/supply_packs/misc/randomised/contraband
-	num_contained = 5
-	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
-					/obj/item/poster/random_contraband,
-					/obj/item/storage/fancy/cigarettes/dromedaryco,
-					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims)
-	name = "Contraband Crate"
-	cost = 30
-	containername = "crate"	//let's keep it subtle, eh?
-	contraband = 1
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
@@ -2952,3 +2921,148 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/vending_refill/chinese)
 	cost = 15
 	containername = "chinese supply crate"
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////// CONTRABAND SUPPLY ///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/datum/supply_packs/armory
+	name = "HEADER"
+	group = SUPPLY_CONTRABAND
+	contraband = 1
+	cost = 0
+
+/datum/supply_packs/armory/mosin
+	name = "Mosin Nagant crate"
+	contains = list(/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/gun/projectile/shotgun/boltaction,
+					/obj/item/ammo_box/speedloader/a762,
+					/obj/item/ammo_box/speedloader/a762,
+					/obj/item/ammo_box/speedloader/a762,
+					/obj/item/ammo_box/speedloader/a762,
+					/obj/item/ammo_box/speedloader/a762,
+					/obj/item/ammo_box/speedloader/a762)
+	cost = 80
+	containername = "Mosin Nagant rifle crate"
+
+/datum/supply_packs/armory/ammobox_mosin
+	name = "Mosin Nagant ammo box crate"
+	contains = list(/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762)
+	credits_cost = 2000
+	containername = "7.62x54 mosin nagant ammo box crate"
+
+/datum/supply_packs/armory/ammobox556
+	name = "5,56 ammo boxes crate"
+	contains = list(/obj/item/ammo_box/a556,
+					/obj/item/ammo_box/a556)
+	credits_cost = 4500
+	containername = "5,56 ammo boxes crate"
+
+/datum/supply_packs/armory/ammobox45
+	name = ".45 ammo boxes crate"
+	contains = list(/obj/item/ammo_box/c45/exp,
+					/obj/item/ammo_box/c45/exp)
+	credits_cost = 3000
+	containername = ".45 ammo boxes crate"
+
+/datum/supply_packs/armory/ammobox45rubber
+	name = ".45 rubber ammo boxes crate"
+	contains = list(/obj/item/ammo_box/rubber45/exp,
+					/obj/item/ammo_box/rubber45/exp)
+	credits_cost = 3000
+	containername = ".45 rubber ammo boxes crate"
+
+/datum/supply_packs/armory/ammoboxstechkinAP
+	name = "10mm AP ammo boxes crate"
+	contains = list(/obj/item/ammo_box/m10mm/ap,
+					/obj/item/ammo_box/m10mm/ap)
+	credits_cost = 2500
+	containername = "10mm AP ammo boxes crate" //4
+
+/datum/supply_packs/armory/ammoboxstechkinHP
+	name = "10mm HP ammo boxes crate"
+	contains = list(/obj/item/ammo_box/m10mm/hp,
+					/obj/item/ammo_box/m10mm/hp)
+	credits_cost = 2200
+	containername = "10mm HP ammo boxes crate"
+
+/datum/supply_packs/armory/ammoboxstechkinincendiary
+	name = "10mm incendiary ammo boxes crate"
+	contains = list(/obj/item/ammo_box/m10mm/fire,
+					/obj/item/ammo_box/m10mm/fire)
+	credits_cost = 2200
+	containername = "10mm incendiary ammo boxes crate"
+
+/datum/supply_packs/armory/compact
+	name = ".50L COMP ammo boxes crate"
+	contains = list(/obj/item/ammo_box/sniper_rounds_compact,
+					/obj/item/ammo_box/sniper_rounds_compact)
+	credits_cost = 5000
+	containername = ".50L COMP ammo boxes crate" //7
+
+/datum/supply_packs/armory/penetrator
+	name = ".50 AP ammo boxes crate"
+	contains = list(/obj/item/ammo_box/sniper_rounds_penetrator,
+					/obj/item/ammo_box/sniper_rounds_penetrator)
+	credits_cost = 9000
+	containername = ".50 AP ammo boxes crate"
+
+/datum/supply_packs/armory/ammobox_nagant
+	name = "7.62.38 nagant ammo boxes crate"
+	contains = list(/obj/item/ammo_box/nagant,
+					/obj/item/ammo_box/nagant)
+	credits_cost = 4000
+	containername = "7.62.38 nagant ammo boxes crate" //10
+
+/datum/supply_packs/armory/ammobox545
+	name = "5.45x39 ammo boxes crate"
+	contains = list(/obj/item/ammo_box/ak814,
+					/obj/item/ammo_box/ak814)
+	credits_cost = 4500
+	containername = "5.45x39 ammo boxes crate"
+
+/datum/supply_packs/armory/rpg
+	name = "rockets crate"
+	contains = list(/obj/item/ammo_casing/rocket,
+					/obj/item/ammo_casing/rocket,
+					/obj/item/ammo_casing/rocket)
+	credits_cost = 25000
+	containername = "rockets crate"
+
+/datum/supply_packs/armory/grenades
+	name = "40mm grenade boxe crate"
+	contains = list(/obj/item/ammo_box/a40mm)
+	credits_cost = 16000
+	containername = "40mm grenade boxe crate"
+
+/datum/supply_packs/armory/bombard_grenades
+	name = "bombarda grenades crate"
+	contains = list(/obj/item/ammo_casing/grenade/improvised/exp_shell,
+					/obj/item/ammo_casing/grenade/improvised/flame_shell,
+					/obj/item/ammo_casing/grenade/improvised/smoke_shell)
+	credits_cost = 7000
+	containername = "bombarda grenades crate" //14
+
+/datum/supply_packs/armory/randomised/contraband
+	var/num_contained = 5
+	contains = list(/obj/item/storage/pill_bottle/random_drug_bottle,
+					/obj/item/poster/random_contraband,
+					/obj/item/storage/fancy/cigarettes/dromedaryco,
+					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims)
+	name = "Contraband Crate"
+	cost = 30
+	containername = "crate"	//let's keep it subtle, eh?
+
+/datum/supply_packs/armory/randomised/contraband/New()
+	manifest += "Contains any [num_contained] of:"
+	..()
+
+/datum/supply_packs/armory/foamforce/bonus
+	name = "Foam Force Pistols Crate"
+	contains = list(/obj/item/gun/projectile/automatic/toy/pistol,
+					/obj/item/gun/projectile/automatic/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol)
+	cost = 40
+	containername = "foam force pistols crate"
