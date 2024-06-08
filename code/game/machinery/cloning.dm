@@ -53,12 +53,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	light_color = LIGHT_COLOR_PURE_GREEN
 
-/obj/machinery/clonepod/power_change()
-	..()
+
+/obj/machinery/clonepod/power_change(forced = FALSE)
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
-		set_light(0)
+		set_light_on(FALSE)
+
 
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
@@ -295,7 +297,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами
 
 
-	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	H.check_genes(MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
@@ -429,7 +431,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!cleaning)
 			return
 		user.visible_message(span_notice("[user] starts to clean the ooze off the [src]."), span_notice("You start to clean the ooze off the [src]."))
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
@@ -460,7 +462,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	. = TRUE
 	// These icon states don't really matter since we need to call update_icon() to handle panel open/closed overlays anyway.
 	default_deconstruction_screwdriver(user, null, null, I)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -469,14 +471,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant)
 		to_chat(user, span_warning("Can not do that while [src] is in use."))
 		return
+	set_anchored(!anchored)
 	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
 		WRENCH_UNANCHOR_MESSAGE
-		anchored = FALSE
 		connected.pods -= src
 		connected = null
-	else
-		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+
 
 /obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))
@@ -545,12 +547,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			<i>You feel like a new being.</i>"))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, FALSE)
-			occupant.dna.SetSEState(GLOB.comicblock, TRUE, FALSE)
-			genemutcheck(occupant, GLOB.clumsyblock, MUTCHK_FORCED)
-			genemutcheck(occupant, GLOB.comicblock, MUTCHK_FORCED)
-			occupant.dna.default_blocks.Add(GLOB.clumsyblock) //Until Genetics fixes you, this is your life now
-			occupant.dna.default_blocks.Add(GLOB.comicblock)
+			occupant.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
+			occupant.force_gene_block(GLOB.comicblock,, TRUE, TRUE)	//Until Genetics fixes you, this is your life now
 		occupant.flash_eyes(visual = 1)
 		clonemind = null
 
@@ -564,7 +562,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		crit.cure()
 	occupant.forceMove(T)
 	occupant.update_body()
-	domutcheck(occupant) //Waiting until they're out before possible notransform.
+	occupant.check_genes() //Waiting until they're out before possible notransform.
 	occupant.special_post_clone_handling()
 	occupant = null
 	update_icon()
@@ -596,19 +594,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	mess = TRUE
 	update_icon()
 
-/obj/machinery/clonepod/update_icon()
-	..()
-	cut_overlays()
 
-	if(panel_open)
-		add_overlay("panel_open")
-
+/obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_cloning"
 	else if(mess)
 		icon_state = "pod_mess"
 	else
 		icon_state = "pod_idle"
+
+
+/obj/machinery/clonepod/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "panel_open"
+
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)

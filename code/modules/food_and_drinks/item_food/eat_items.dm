@@ -95,9 +95,9 @@
 		visible_message("<span class='warning'>[user] пытается накормить [target], запихивая в рот [src.name].</span>")
 
 	if(!instant_application)
-		if(!do_mob(user, target, 2 SECONDS))
-			return 0
-	return 1
+		if(!do_after(user, 2 SECONDS, target, NONE))
+			return FALSE
+	return TRUE
 
 /obj/item/proc/colour_change()
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1

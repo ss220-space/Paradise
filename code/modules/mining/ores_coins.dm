@@ -16,25 +16,37 @@
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
 
-/obj/item/stack/ore/update_icon()
-	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
-	if(difference == 0)
-		return
-	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
-		cut_overlays()
-		if (LAZYLEN(stack_overlays)-difference <= 0)
-			stack_overlays = null;
-		else
-			stack_overlays.len += difference
-	else if(difference > 0)			//amount > stack_overlays, add some.
-		cut_overlays()
+
+/obj/item/stack/ore/update_overlays()
+	. = ..()
+
+	if(!stack_overlays)
+		stack_overlays = list()
+
+	var/overlays_length = length(stack_overlays)
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (overlays_length + 1)
+
+	if(!difference)
+		if(overlays_length)
+			. += stack_overlays
+		return .
+
+	if(difference < 0)
+		var/cut_diff = overlays_length - abs(difference)
+		if(cut_diff <= 0)
+			stack_overlays.Cut()
+			return .
+		stack_overlays.Cut(cut_diff, overlays_length)
+	else
 		for(var/i in 1 to difference)
 			var/mutable_appearance/newore = mutable_appearance(icon, icon_state)
 			newore.pixel_x = rand(-8,8)
 			newore.pixel_y = rand(-8,8)
-			LAZYADD(stack_overlays, newore)
-	if(stack_overlays)
-		add_overlay(stack_overlays)
+			stack_overlays += newore
+
+	if(length(stack_overlays))
+		. += stack_overlays
+
 
 /obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
 	. = ..()
@@ -260,16 +272,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/assembly/igniter))
+	if(!wires && isigniter(I))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
 		attacher = key_name(user)
 		qdel(I)
-		overlays += "Gibtonite_igniter"
+		add_overlay("Gibtonite_igniter")
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || issignaler(I))
 			wires.Interact(user)
 			return
 
@@ -277,7 +289,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
@@ -465,7 +477,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			return
 
 		if(CC.use(1))
-			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
+			add_overlay(image('icons/obj/economy.dmi',"coin_string_overlay"))
 			string_attached = 1
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
 		else
@@ -507,7 +519,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
-		if(do_after(user, 15, target = src))
+		if(do_after(user, 1.5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")

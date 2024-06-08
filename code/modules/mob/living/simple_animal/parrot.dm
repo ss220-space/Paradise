@@ -35,6 +35,7 @@
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
 	can_collar = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	tts_seed = "Sniper"
 	faction = list("neutral", "jungle")
 
@@ -43,7 +44,6 @@
 	emote_see = list("flutters its wings")
 
 	speak_chance = 1	//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
-	blood_nutrients = 30
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 
@@ -90,12 +90,13 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	flying = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 
-/mob/living/simple_animal/parrot/New()
-	..()
+/mob/living/simple_animal/parrot/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/simple_flying)
 	speech_buffer = list()
 	available_channels = list()
 	GLOB.hear_radio_list += src
@@ -152,10 +153,10 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.item_flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.item_flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -169,7 +170,7 @@
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
 	//Can the usr physically do this?
-	if(!usr.canmove || usr.stat || usr.restrained() || !usr.Adjacent(src))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.Adjacent(src))
 		return
 
 	//Is the usr's mob type able to do this?
@@ -240,10 +241,12 @@
 									available_channels.Add(":n")
 								if("Medical")
 									available_channels.Add(":m")
-								if("Mining")
-									available_channels.Add(":d")
-								if("Cargo")
-									available_channels.Add(":q")
+								if("Supply")
+									available_channels.Add(":u")
+								if("Service")
+									available_channels.Add(":z")
+								if("Procedure")
+									available_channels.Add(":x")
 
 						if(headset_to_add.translate_binary)
 							available_channels.Add(":+")
@@ -262,7 +265,7 @@
 	if(client)
 		return
 
-	if(!stat && M.a_intent == "harm")
+	if(!stat && M.a_intent == INTENT_HARM)
 		icon_state = "parrot_fly" //It is going to be flying regardless of whether it flees or attacks
 
 		if(parrot_state == PARROT_PERCH)
@@ -309,6 +312,14 @@
 		drop_held_item(FALSE)
 
 
+/mob/living/simple_animal/parrot/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(client && (parrot_state & PARROT_PERCH))
+		parrot_state = PARROT_WANDER
+		if(icon_state == "parrot_sit")
+			icon_state = "parrot_fly"
+
+
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
  */
@@ -324,10 +335,10 @@
 	else if(!buckled && !(parrot_state & PARROT_PERCH) && icon_state == "parrot_sit")
 		icon_state = "parrot_fly"
 
-	if(floating && icon_state == "parrot_sit")
-		float(FALSE)
-	else if (!floating && icon_state == "parrot_fly")
-		float(TRUE)
+	if(parrot_state & PARROT_PERCH)
+		REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
+	else
+		ADD_TRAIT(src, TRAIT_MOVE_FLOATING, UNIQUE_TRAIT_SOURCE(src))
 
 
 /mob/living/simple_animal/parrot/proc/update_speak()
@@ -348,7 +359,7 @@
 		parrot_state = PARROT_WANDER
 		return
 
-	if(!isturf(loc) || !canmove || buckled)
+	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move.
 
 
@@ -566,13 +577,6 @@
  * Procs
  */
 
-/mob/living/simple_animal/parrot/movement_delay()
-	if(client && stat == CONSCIOUS && parrot_state != "parrot_fly")
-		icon_state = "parrot_fly"
-		//Because the most appropriate place to set icon_state is movement_delay(), clearly
-	return ..()
-
-
 //This proc was made to save on doing two 'in view' loops seperatly
 /mob/living/simple_animal/parrot/proc/search_for_perch_and_item(list/stuff)
 	var/turf/my_turf = get_turf(src)
@@ -724,6 +728,7 @@
 			if(is_type_in_typecache(AM, desired_perches))
 				forceMove(AM.loc)
 				icon_state = "parrot_sit"
+				parrot_state = PARROT_PERCH
 				return
 
 	to_chat(src, span_warning("There is no perch nearby to sit on."))

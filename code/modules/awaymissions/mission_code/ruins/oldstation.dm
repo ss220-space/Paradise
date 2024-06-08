@@ -104,7 +104,7 @@
 // Papers
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
@@ -152,7 +152,7 @@
 	*eep th* *e**l of **m..<br><br> The last words completly faded." // yep, the temperature overheat, some players set power to 5 and make the gen to blow up, rip oldstation.
 
 /obj/item/paper/ruins/oldstation
-	language = "Sol Common"
+	language = LANGUAGE_SOL_COMMON
 
 /obj/item/paper/ruins/oldstation/protoinventory
 	name = "Theta RnD Prototype Inventory Secure Storage"
@@ -348,13 +348,15 @@
 /area/ruin/space/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
-	has_gravity = TRUE
+	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/ruin/space/ancientstation/space
 	name = "Exposed To Space"
@@ -364,7 +366,6 @@
 /area/ruin/space/ancientstation/atmos
 	name = "Beta Station Atmospherics"
 	icon_state = "atmos"
-	has_gravity = TRUE
 	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/betanorth

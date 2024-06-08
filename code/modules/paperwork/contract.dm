@@ -5,12 +5,12 @@
 	throw_speed = 3
 	var/signed = FALSE
 	var/datum/mind/target
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 
 /obj/item/paper/contract/proc/update_text()
 	return
 
-/obj/item/paper/contract/update_icon()
+/obj/item/paper/contract/update_icon_state()
 	return
 
 
@@ -41,11 +41,11 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = 0
 	if(M.mind == target && target.soulOwner != target)
-		if(user.mind && (user.mind.assigned_role == "Internal Affairs Agent"))
+		if(user.mind && (user.mind.assigned_role == JOB_TITLE_LAWYER))
 			deconvert = 60
-		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrate"))
+		else if (user.mind && (user.mind.assigned_role == JOB_TITLE_HOP) || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == JOB_TITLE_JUDGE))
 			deconvert = 40 // Не столь разбираются в бюрократии
-		else if(user.mind && (user.mind.assigned_role == "Captain"))
+		else if(user.mind && (user.mind.assigned_role == JOB_TITLE_CAPTAIN))
 			deconvert = 25 // Капитан разбирается ещё меньше
 		else
 			deconvert = 0.0001 // Один на миллион
@@ -268,13 +268,9 @@
 /obj/item/paper/contract/infernal/power/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!user.dna)
 		return -1
-	user.dna.SetSEState(GLOB.hulkblock,1)
-	genemutcheck(user, GLOB.hulkblock,null,MUTCHK_FORCED)
+	user.force_gene_block(GLOB.hulkblock, TRUE)
 	// Demonic power gives you consequenceless hulk
 	user.gene_stability += GENE_INSTABILITY_MAJOR
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_body()
 	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core
 	organ.insert(user)
 	return ..()
@@ -293,13 +289,13 @@
 	if(id)
 		id.icon_state = "gold"
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = "Captain"
+		id.assignment = JOB_TITLE_CAPTAIN
 		id.update_label()
 	else
 		id = new /obj/item/card/id/gold(user.loc)
 		id.registered_name = user.real_name
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = "Captain"
+		id.assignment = JOB_TITLE_CAPTAIN
 		id.update_label()
 		if(worn)
 			if(istype(worn,/obj/item/pda))
@@ -311,7 +307,9 @@
 				W.front_id = id
 				id.loc = worn
 				worn.update_icon()
-	new /datum/event/ion_storm(0, -1, "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
+
+	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Devil contract execution.", /datum/event/ion_storm)
+	new /datum/event/ion_storm(EM = meta_info, botEmagChance = 0, botEmagChance = -1, ionMessage = "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
 	return ..()
 
 /obj/item/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

@@ -13,7 +13,7 @@
 	for(var/obj/structure/target_stake/T in view(3, src))
 		if(T.pinned_target == src)
 			T.pinned_target = null
-			T.density = TRUE
+			T.set_density(TRUE)
 			break
 	return ..() // delete target
 
@@ -34,7 +34,9 @@
 	. = TRUE
 	if(!use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	overlays.Cut()
+	cut_overlays()
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
 
 /obj/item/target/attack_hand(mob/user)
@@ -47,8 +49,8 @@
 
 	if(stake)
 		if(stake.pinned_target)
-			stake.density = TRUE
-			density = FALSE
+			stake.set_density(TRUE)
+			set_density(FALSE)
 			layer = OBJ_LAYER
 
 			loc = user.loc

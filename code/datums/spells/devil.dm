@@ -4,7 +4,7 @@
 	item_type = /obj/item/twohanded/pitchfork/demonic
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
-
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
@@ -104,7 +104,8 @@
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bg_demon"
 	phase_allowed = TRUE
-
+	clothes_req = FALSE
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/infernal_jaunt/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -123,8 +124,8 @@
 						break
 			if(continuing)
 				to_chat(user,"<span class='warning'>You are now phasing in.</span>")
-				if(do_mob(user,user,150))
-					user.infernalphasein()
+				if(do_after(user, 15 SECONDS, user, NONE))
+					user.infernalphasein(src)
 			else
 				to_chat(user,"<span class='warning'>You can only re-appear near a potential signer or on a shuttle.</span>")
 				revert_cast()
@@ -132,9 +133,9 @@
 		else
 			user.fakefire()
 			to_chat(user,"<span class='warning'>You begin to phase back into sinful flames.</span>")
-			if(do_mob(user,user,150))
-				user.notransform = TRUE
-				user.infernalphaseout()
+			if(do_after(user, 15 SECONDS, user, NONE))
+				ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+				user.infernalphaseout(src)
 			else
 				to_chat(user,"<span class='warning'>You must remain still while exiting.</span>")
 				user.ExtinguishMob()
@@ -143,7 +144,7 @@
 	revert_cast()
 
 
-/mob/living/proc/infernalphaseout()
+/mob/living/proc/infernalphaseout(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	dust_animation()
 	visible_message("<span class='warning'>[src] disappears in a flashfire!</span>")
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
@@ -151,14 +152,14 @@
 	ExtinguishMob()
 	forceMove(s_holder)
 	holder = s_holder
-	notransform = FALSE
+	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 	fakefireextinguish()
 
 
-/mob/living/proc/infernalphasein()
-	if(notransform)
+/mob/living/proc/infernalphasein(obj/effect/proc_holder/spell/infernal_jaunt/spell)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		to_chat(src,"<span class='warning'>You're too busy to jaunt in.</span>")
-		return 0
+		return FALSE
 	fakefire()
 	forceMove(get_turf(src))
 	visible_message("<span class='warning'><B>[src] appears in a firey blaze!</B></span>")

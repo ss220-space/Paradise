@@ -10,8 +10,8 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 	var/temptext = ""
 	var/selfdestructing = 0
@@ -21,7 +21,7 @@
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"}
-	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
+	if(ishuman(user) || istype(user, /mob/living/silicon/ai))
 		if(is_special_character(user))
 			dat += "<font color=#07700><i>Operative record found. Greetings, Agent [user.name].</i></font><br>"
 		else if(charges < 1)
@@ -55,7 +55,7 @@
 			src.updateUsrDialog()
 			spawn(rand(50,200)) selfdestruct()
 			return
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
 			var/objective = "Free Objective"
 			switch(rand(1,100))
@@ -108,8 +108,8 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "beacon"
 
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
 	stat = 0
 
@@ -165,7 +165,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		to_chat(user, span_notice("You unscrew the beacon from the floor."))
 		disconnect_from_network()
 		return
@@ -173,7 +173,7 @@
 		if(!connect_to_network())
 			to_chat(user, "This device must be placed over an exposed cable.")
 			return
-		anchored = TRUE
+		set_anchored(TRUE)
 		to_chat(user, span_notice("You screw the beacon to the floor and attach the cable."))
 
 /obj/machinery/power/singularity_beacon/Destroy()

@@ -12,13 +12,15 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = 1
+	animate_movement = FORWARD_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
-	buckle_lying = FALSE
+	buckle_lying = 0
+	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
@@ -91,10 +93,6 @@
 	return FALSE
 
 
-/mob/living/simple_animal/bot/mulebot/can_buckle()
-	return FALSE //no ma'am, you cannot buckle mulebots to chairs
-
-
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
 	suffix = _suffix
 	if(paicard)
@@ -117,14 +115,14 @@
 		visible_message("[user] inserts a cell into [src].",
 						span_notice("You insert the new cell into [src]."))
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
+	else if(I.tool_behaviour == TOOL_CROWBAR && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
 						span_notice("You pry the powercell out of [src]."))
 		update_controls()
-	else if(istype(I, /obj/item/wrench))
+	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
@@ -132,7 +130,7 @@
 								span_notice("You repair [src]!"))
 		else
 			to_chat(user, span_notice("[src] does not need a repair!"))
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
+	else if((I.tool_behaviour == TOOL_MULTITOOL || I.tool_behaviour == TOOL_WIRECUTTER) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
@@ -168,17 +166,22 @@
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, FALSE)
 
 
-/mob/living/simple_animal/bot/mulebot/update_icon()
+/mob/living/simple_animal/bot/mulebot/update_icon_state()
 	if(open)
 		icon_state="mulebot-hatch"
 	else
 		icon_state = "mulebot[wires.is_cut(WIRE_MOB_AVOIDANCE)]"
-	overlays.Cut()
+
+
+/mob/living/simple_animal/bot/mulebot/update_overlays()
+	. = ..()
 	if(load && !ismob(load))//buckling handles the mob offsets
-		load.pixel_y = initial(load.pixel_y) + 9
+		var/image/load_overlay = image(icon = load.icon, icon_state = load.icon_state)
+		load_overlay.pixel_y = initial(load.pixel_y) + 9
 		if(load.layer < layer)
-			load.layer = layer + 0.1
-		overlays += load
+			load_overlay.layer = layer + 0.1
+		load_overlay.overlays = load.overlays
+		. += load_overlay
 
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity)
@@ -205,6 +208,9 @@
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
 		return TRUE
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	switch(href_list["op"])
 		if("lock")
@@ -371,9 +377,9 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user)
+/mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
-	if(!istype(AM) || user.incapacitated() || user.lying || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return FALSE
 
 	load(AM)
@@ -430,16 +436,16 @@
 	return FALSE
 
 
-/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + 9
-	if(M.layer < layer)
-		M.layer = layer + 0.01
+/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
+	target.pixel_y = target.base_pixel_y + 9
+	if(target.layer < layer)
+		target.layer = layer + 0.01
 
 
-/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
+	target.layer = initial(target.layer)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 // called to unload the bot
@@ -451,21 +457,21 @@
 
 	mode = BOT_IDLE
 
-	overlays.Cut()
-
 	unbuckle_all_mobs()
 
 	if(load)
 		load.forceMove(loc)
 		load.pixel_y = initial(load.pixel_y)
 		load.layer = initial(load.layer)
-		load.plane = initial(load.plane)
+		SET_PLANE_EXPLICIT(load, initial(load.plane), src)
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
+			if(load.CanPass(load, get_dir(newT, src))) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
+
+	update_icon(UPDATE_OVERLAYS)
 
 	// in case non-load items end up in contents, dump every else too
 	// this seems to happen sometimes due to race conditions
@@ -912,6 +918,8 @@
 
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

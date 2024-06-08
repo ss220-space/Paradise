@@ -2,198 +2,196 @@
 	if(client && !hud_used)
 		hud_used = new /datum/hud/blob_overmind(src)
 
-/obj/screen/blob
+/atom/movable/screen/blob
 	icon = 'icons/mob/blob.dmi'
 
-/obj/screen/blob/MouseEntered(location,control,params)
+/atom/movable/screen/blob/MouseEntered(location,control,params)
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 
-/obj/screen/blob/MouseExited()
+/atom/movable/screen/blob/MouseExited()
 	closeToolTip(usr)
 
-/obj/screen/blob/BlobHelp
+/atom/movable/screen/blob/BlobHelp
 	icon_state = "ui_help"
 	name = "Blob Help"
 	desc = "Help on playing blob!"
 
-/obj/screen/blob/BlobHelp/Click()
+/atom/movable/screen/blob/BlobHelp/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.blob_help()
 
-/obj/screen/blob/JumpToNode
+/atom/movable/screen/blob/JumpToNode
 	icon_state = "ui_tonode"
 	name = "Jump to Node"
 	desc = "Moves your camera to a selected blob node."
 
-/obj/screen/blob/JumpToNode/Click()
+/atom/movable/screen/blob/JumpToNode/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.jump_to_node()
 
-/obj/screen/blob/JumpToCore
+/atom/movable/screen/blob/JumpToCore
 	icon_state = "ui_tocore"
 	name = "Jump to Core"
 	desc = "Moves your camera to your blob core."
 
-/obj/screen/blob/JumpToCore/MouseEntered(location,control,params)
+/atom/movable/screen/blob/JumpToCore/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
 	..()
 
-/obj/screen/blob/JumpToCore/Click()
+/atom/movable/screen/blob/JumpToCore/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.transport_core()
 
-/obj/screen/blob/Blobbernaut
+/atom/movable/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
 	name = "Produce Blobbernaut (60)"
 	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 60 resources.<br>The factory blob will be destroyed in the process."
 
-/obj/screen/blob/Blobbernaut/Click()
+/atom/movable/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_blobbernaut()
 
-/obj/screen/blob/StorageBlob
+/atom/movable/screen/blob/StorageBlob
 	icon_state = "ui_storage"
 	name = "Produce Storage Blob (40)"
 	desc = "Produces a storage blob for 40 resources.<br>Storage blobs will raise your max resource cap by 50."
 
-/obj/screen/blob/StorageBlob/Click()
+/atom/movable/screen/blob/StorageBlob/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_storage()
 
-/obj/screen/blob/ResourceBlob
+/atom/movable/screen/blob/ResourceBlob
 	icon_state = "ui_resource"
 	name = "Produce Resource Blob (40)"
 	desc = "Produces a resource blob for 40 resources.<br>Resource blobs will give you resources every few seconds."
 
-/obj/screen/blob/ResourceBlob/Click()
+/atom/movable/screen/blob/ResourceBlob/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_resource()
 
-/obj/screen/blob/NodeBlob
+/atom/movable/screen/blob/NodeBlob
 	icon_state = "ui_node"
 	name = "Produce Node Blob (60)"
 	desc = "Produces a node blob for 60 resources.<br>Node blobs will expand and activate nearby resource and factory blobs."
 
-/obj/screen/blob/NodeBlob/Click()
+/atom/movable/screen/blob/NodeBlob/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_node()
 
-/obj/screen/blob/FactoryBlob
+/atom/movable/screen/blob/FactoryBlob
 	icon_state = "ui_factory"
 	name = "Produce Factory Blob (60)"
 	desc = "Produces a factory blob for 60 resources.<br>Factory blobs will produce spores every few seconds."
 
-/obj/screen/blob/FactoryBlob/Click()
+/atom/movable/screen/blob/FactoryBlob/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_factory()
 
-/obj/screen/blob/ReadaptChemical
+/atom/movable/screen/blob/ReadaptChemical
 	icon_state = "ui_chemswap"
 	name = "Readapt Chemical (50)"
 	desc = "Randomly rerolls your chemical for 50 resources."
 
-/obj/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
+/atom/movable/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
 		name = initial(name)
 		desc = initial(desc)
 	..()
 
-/obj/screen/blob/ReadaptChemical/Click()
+/atom/movable/screen/blob/ReadaptChemical/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.chemical_reroll()
 
-/obj/screen/blob/RelocateCore
+/atom/movable/screen/blob/RelocateCore
 	icon_state = "ui_swap"
 	name = "Relocate Core (80)"
 	desc = "Swaps a node and your core for 80 resources."
 
-/obj/screen/blob/RelocateCore/Click()
+/atom/movable/screen/blob/RelocateCore/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.relocate_core()
 
-/obj/screen/blob/Split
+/atom/movable/screen/blob/Split
 	icon_state = "ui_split"
 	name = "Split consciousness (100)"
 	desc = "Creates another Blob Overmind at the targeted node. One use only.<br>Offspring are unable to use this ability."
 
-/obj/screen/blob/Split/Click()
+/atom/movable/screen/blob/Split/Click()
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.split_consciousness()
 
 /datum/hud/blob_overmind/New(mob/user)
 	..()
-	var/obj/screen/using
+	var/atom/movable/screen/using
 
-	blobpwrdisplay = new /obj/screen()
+	blobpwrdisplay = new /atom/movable/screen(null, src)
 	blobpwrdisplay.name = "blob power"
 	blobpwrdisplay.icon_state = "block"
 	blobpwrdisplay.screen_loc = ui_health
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blobpwrdisplay.layer = ABOVE_HUD_LAYER
-	blobpwrdisplay.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(blobpwrdisplay, ABOVE_HUD_PLANE, mymob)
 	static_inventory += blobpwrdisplay
 
-	blobhealthdisplay = new /obj/screen()
+	blobhealthdisplay = new /atom/movable/screen(null, src)
 	blobhealthdisplay.name = "blob health"
 	blobhealthdisplay.icon_state = "block"
 	blobhealthdisplay.screen_loc = ui_internal
 	static_inventory += blobhealthdisplay
 
-	using = new /obj/screen/blob/BlobHelp()
+	using = new /atom/movable/screen/blob/BlobHelp(null, src)
 	using.screen_loc = "WEST:6,NORTH:-3"
 	static_inventory += using
 
-	using = new /obj/screen/blob/JumpToNode()
+	using = new /atom/movable/screen/blob/JumpToNode(null, src)
 	using.screen_loc = ui_inventory
 	static_inventory += using
 
-	using = new /obj/screen/blob/JumpToCore()
+	using = new /atom/movable/screen/blob/JumpToCore(null, src)
 	using.screen_loc = ui_zonesel
-	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/blob/Blobbernaut()
+	using = new /atom/movable/screen/blob/Blobbernaut(null, src)
 	using.screen_loc = ui_id
 	static_inventory += using
 
-	using = new /obj/screen/blob/StorageBlob()
+	using = new /atom/movable/screen/blob/StorageBlob(null, src)
 	using.screen_loc = ui_belt
 	static_inventory += using
 
-	using = new /obj/screen/blob/ResourceBlob()
+	using = new /atom/movable/screen/blob/ResourceBlob(null, src)
 	using.screen_loc = ui_back
 	static_inventory += using
 
-	using = new /obj/screen/blob/NodeBlob()
+	using = new /atom/movable/screen/blob/NodeBlob(null, src)
 	using.screen_loc = using.screen_loc = ui_rhand
 	static_inventory += using
 
-	using = new /obj/screen/blob/FactoryBlob()
+	using = new /atom/movable/screen/blob/FactoryBlob(null, src)
 	using.screen_loc = using.screen_loc = ui_lhand
 	static_inventory += using
 
-	using = new /obj/screen/blob/ReadaptChemical()
+	using = new /atom/movable/screen/blob/ReadaptChemical(null, src)
 	using.screen_loc = ui_storage1
-	using.hud = src
 	static_inventory += using
 
-	using = new /obj/screen/blob/RelocateCore()
+	using = new /atom/movable/screen/blob/RelocateCore(null, src)
 	using.screen_loc = ui_storage2
 	static_inventory += using
 
-	using = new /obj/screen/blob/Split()
+	using = new /atom/movable/screen/blob/Split(null, src)
 	using.screen_loc = ui_acti
 	static_inventory += using

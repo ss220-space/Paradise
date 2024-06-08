@@ -45,7 +45,7 @@
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.tracker = TRUE
-		S.anchored = TRUE
+		S.set_anchored(TRUE)
 	S.forceMove(src)
 	update_icon()
 
@@ -71,13 +71,13 @@
 
 
 /obj/machinery/power/tracker/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		unset_control()
 
 /obj/machinery/power/tracker/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)

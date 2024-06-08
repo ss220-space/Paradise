@@ -18,7 +18,7 @@
 	. = ..()
 	if(ispath(imp, /obj/item/implant))
 		imp = new imp(src)
-	update_icon()
+	update_state()
 
 
 /obj/item/implanter/Destroy()
@@ -26,13 +26,13 @@
 	return ..()
 
 
-/obj/item/implanter/update_icon()
-	if(imp)
-		icon_state = "implanter1"
-		origin_tech = imp.origin_tech
-	else
-		icon_state = "implanter0"
-		origin_tech = initial(origin_tech)
+/obj/item/implanter/proc/update_state()
+	origin_tech = imp ? imp.origin_tech : initial(origin_tech)
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/implanter/update_icon_state()
+	icon_state = "implanter[imp ? "1" : "0"]"
 
 
 /obj/item/implanter/attack(mob/living/carbon/target, mob/user)
@@ -43,14 +43,14 @@
 			target.visible_message(span_warning("[user] is attempting to bio-chip [target]."))
 
 		var/turf/target_turf = get_turf(target)
-		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target = target)))
+		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target)))
 			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
 				if(user == target)
 					to_chat(user, span_notice("You bio-chip yourself."))
 				else
 					target.visible_message("[user] has implanted [target].", span_notice("[user] bio-chips you."))
 				imp = null
-				update_icon()
+				update_state()
 
 
 /obj/item/implanter/attackby(obj/item/I, mob/user, params)

@@ -18,11 +18,11 @@
 	set name = "Send PDA Message"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/list/plist = M.available_pdas()
 	if(plist)
 		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
@@ -36,17 +36,15 @@
 	set name = "Show Message Log"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/HTML = {"<html><meta charset="UTF-8"><head><title>AI PDA Message Log</title></head><body>"}
 	for(var/index in M.tnote)
-		if(index["sent"])
-			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
-		else
-			HTML += addtext("<i><b>&larr; From <a href='byond://?src=[UID()];choice=Message;target=",index["target"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")
+		var/obj/item/pda/target_pda = locateUID(index["target"])
+		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Error#1133: Unable to find UserName." : "[target_pda.owner] ([target_pda.ownjob])"]</a>:</b></i><br>[index["message"]]<br>"
 	HTML +="</body></html>"
 	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 
@@ -55,7 +53,7 @@
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
@@ -67,7 +65,7 @@
 	set name = "Toggle Ringer"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent

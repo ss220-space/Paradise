@@ -4,8 +4,7 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
+	baseturf = /turf/baseturf_bottom
 
 	var/unfastened = FALSE
 
@@ -20,6 +19,12 @@
 	icon_plating = icon_state
 	update_icon()
 
+/turf/simulated/floor/plating/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/plating/burnt_states()
+	return list("floorscorched1", "floorscorched2")
+
 /turf/simulated/floor/plating/damaged/Initialize(mapload)
 	. = ..()
 	break_tile()
@@ -28,9 +33,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -54,7 +57,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
-			if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, C.usesound, 80, 1)
@@ -82,20 +85,20 @@
 			to_chat(user, span_warning("You need two sheets to build a [C.name] floor!"))
 			return TRUE
 		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
-					ChangeTurf(/turf/simulated/floor/transparent/glass/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/plasma)
 				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/reinforced/plasma)
 				else if(istype(C, /obj/item/stack/sheet/glass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass)
+					ChangeTurf(/turf/simulated/floor/glass)
 				else if(istype(C, /obj/item/stack/sheet/rglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/reinforced)
+					ChangeTurf(/turf/simulated/floor/glass/reinforced)
 				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium)
+					ChangeTurf(/turf/simulated/floor/glass/titanium)
 				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
-					ChangeTurf(/turf/simulated/floor/transparent/glass/titanium/plasma)
+					ChangeTurf(/turf/simulated/floor/glass/titanium/plasma)
 				playsound(src, C.usesound, 80, TRUE)
 				R.use(2)
 				to_chat(user, span_notice("You swap the plating for [C]."))
@@ -128,14 +131,14 @@
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
 		to_chat(user, span_notice("You fix some dents on the broken plating."))
-		overlays -= current_overlay
+		cut_overlay(current_overlay)
 		current_overlay = null
 		burnt = FALSE
 		broken = FALSE
 		update_icon()
 
 /turf/simulated/floor/plating/remove_plating(mob/user)
-	if(baseturf == /turf/space)
+	if(baseturf == /turf/baseturf_bottom)
 		ReplaceWithLattice()
 	else
 		TerraformTurf(baseturf)
@@ -155,8 +158,9 @@
 	name = "reinforced floor"
 	icon_state = "engine"
 	thermal_conductivity = 0.025
-	var/insulated
+	var/insulated = FALSE
 	heat_capacity = 325000
+	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -187,10 +191,10 @@
 /turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/wrench))
+	if(C.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
@@ -199,13 +203,11 @@
 
 	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
 		to_chat(user, span_notice("You begin insulating [src]..."))
-		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
+		if(do_after(user, 4 SECONDS, src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
 			to_chat(user, span_notice("You finish insulating [src]."))
 			var/obj/item/stack/sheet/plasteel/W = C
 			W.use(1)
-			thermal_conductivity = 0
-			insulated = 1
-			name = "insulated " + name
+			ChangeTurf(/turf/simulated/floor/engine/insulated)
 			return
 
 /turf/simulated/floor/engine/ex_act(severity)
@@ -223,12 +225,20 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	var/holy = FALSE
+
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		if(!icon_state == "holy")
-			icon_state = SSticker.cultdat.cult_floor_icon_state
+	update_icon(UPDATE_ICON_STATE)
+
+
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(SSticker?.cultdat && !holy)
+		icon_state = SSticker.cultdat.cult_floor_icon_state
+		return
+	icon_state = initial(icon_state)
+
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
@@ -242,6 +252,7 @@
 
 /turf/simulated/floor/engine/cult/holy
 	icon_state = "holy"
+	holy = TRUE
 
 //air filled floors; used in atmos pressure chambers
 
@@ -297,7 +308,8 @@
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"
 	icon_state = "engine"
-	insulated = 1
+	insulated = TRUE
+	explosion_vertical_block = 3
 	thermal_conductivity = 0
 
 /turf/simulated/floor/engine/insulated/vacuum
@@ -357,7 +369,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
@@ -375,7 +387,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
-			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), src))
 				if(metal.get_amount() >= 2)
 					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
 					playsound(src, metal.usesound, 80, TRUE)
@@ -414,14 +426,6 @@
 /turf/simulated/floor/plating/metalfoam/proc/smash()
 	ChangeTurf(baseturf)
 
-/turf/simulated/floor/plating/abductor
-	name = "alien floor"
-	icon_state = "alienpod1"
-
-/turf/simulated/floor/plating/abductor/Initialize(mapload)
-	. = ..()
-	icon_state = "alienpod[rand(1,9)]"
-
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
@@ -431,13 +435,13 @@
 	nitrogen = 82
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
-	slowdown = TRUE
+	slowdown = 1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_PERMAFROST, INFINITY)
+	MakeSlippery(TURF_WET_PERMAFROST, INFINITY, 0, INFINITY, TRUE)
 
 /turf/simulated/floor/plating/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return

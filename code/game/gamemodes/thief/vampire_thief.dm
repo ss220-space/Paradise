@@ -2,7 +2,7 @@
 	name = "vampire+thief"
 	config_tag = "vampirethief"
 	vampire_amount = 2 //hard limit if scaling is turned off
-	restricted_jobs = list("AI", "Cyborg")
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
@@ -18,7 +18,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list("Vox" = 4))
+	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 
 	if(length(possible_thieves))
 		var/datum/mind/thief = pick(possible_thieves)

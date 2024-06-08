@@ -3,8 +3,8 @@
 	desc = "Гигантская модель станции Керберос, выполненная по заказу компанией Nirolex. Судя по отличиям в конструкции, станцию несколько раз перестраивали."
 	icon = 'icons/obj/delta_statue.dmi'
 	icon_state = ""
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	max_integrity = 500
 
 /obj/structure/delta_statue/nw

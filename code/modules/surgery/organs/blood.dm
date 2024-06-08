@@ -14,7 +14,7 @@
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
 	if(stat != DEAD && bleed_rate)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+		to_chat(src, span_warning("The blood soaks through your bandage."))
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -35,18 +35,18 @@
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
+					to_chat(src, span_warning("You feel [word]."))
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type)
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, span_warning("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 
@@ -185,7 +185,7 @@
 		blood_data["diseases"] = list()
 		for(var/datum/disease/D in diseases)
 			blood_data["diseases"] += D.Copy()
-		if(resistances?.len)
+		if(LAZYLEN(resistances))
 			blood_data["resistances"] = resistances.Copy()
 
 	switch(blood_id)
@@ -212,6 +212,10 @@
 
 		if("slimejelly")
 			blood_data["colour"] = dna.species.blood_color
+			blood_data["blood_color"] = dna.species.blood_color
+
+		if("cryoxadone")
+			blood_data["blood_color"] = dna.species.blood_color
 
 	return blood_data
 
@@ -255,13 +259,17 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/check_blood = get_blood_id()
+	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)
+	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+		return
 
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
+	var/list/b_data = get_blood_data(check_blood)
 
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.

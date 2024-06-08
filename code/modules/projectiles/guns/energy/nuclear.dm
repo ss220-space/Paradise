@@ -26,21 +26,20 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
+	gun_light_overlay = "mini-light"
+	flight_x_offset = 0
+	flight_y_offset = 0
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
-	actions_types = list(/datum/action/item_action/toggle_gunlight)
+	can_flashlight = FALSE
+
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
-	gun_light = new /obj/item/flashlight/seclite(src)
 	. = ..()
+	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
 
-/obj/item/gun/energy/gun/mini/update_icon()
-	..()
-	if(gun_light && gun_light.on)
-		overlays += "mini-light"
 
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
@@ -62,12 +61,13 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 
-/obj/item/gun/energy/gun/blueshield/can_shoot()
-    . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
-        return FALSE
-    return .
+
+/obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
+	. = ..()
+	if(. && !isertmindshielded(user))
+		to_chat(user, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
+		return FALSE
+
 
 /obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
@@ -81,12 +81,12 @@
 
 /obj/item/gun/energy/gun/pdw9/ert
 
-/obj/item/gun/energy/gun/pdw9/ert/can_shoot()
-    . = ..()
-    if (. && !isertmindshielded(usr))
-        to_chat(usr, "<span class='warning'>ЕРТ имплант «Защита разума» не обнаружен!</span>")
-        return FALSE
-    return .
+/obj/item/gun/energy/gun/pdw9/ert/can_shoot(mob/user)
+	. = ..()
+	if(. && !isertmindshielded(user))
+		to_chat(user, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
+		return FALSE
+
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
@@ -97,7 +97,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = 0
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 

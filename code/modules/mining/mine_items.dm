@@ -75,7 +75,10 @@
 	item_state = "lantern"
 	belt_icon = "lantern"
 	desc = "A mining lantern."
-	brightness_on = 6			// luminosity when on
+	light_range = 6			// luminosity when on
+	light_color = LIGHT_COLOR_YELLOW
+	light_system = MOVABLE_LIGHT
+
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
@@ -83,6 +86,6 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
-	density = 1
+	density = TRUE
 	icon_opened = "miningcaropen"
 	icon_closed = "miningcar"

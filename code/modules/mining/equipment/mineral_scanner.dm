@@ -7,7 +7,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
@@ -17,6 +17,8 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -43,10 +45,11 @@
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "advanced automatic mining scanner"
 	icon_state = "adv_mining0"
+	base_icon_state = "adv_mining"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 1 SECONDS
 	var/current_cooldown = 0
 	var/range = 9
@@ -57,24 +60,39 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
-	flags = CONDUCT | NODROP
+	flags = CONDUCT
 	speaker = FALSE //you know...
+
+
+/obj/item/t_scanner/adv_mining_scanner/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
 	icon_state = "mining0"
+	base_icon_state = "mining"
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	range = 4
 	cooldown = 50
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
-	flags = CONDUCT | NODROP
+	flags = CONDUCT
 	speaker = FALSE
+
+
+/obj/item/mining_scanner/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)

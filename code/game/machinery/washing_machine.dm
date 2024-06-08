@@ -3,8 +3,8 @@
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	var/state = 1
 	//1 = empty, open door
 	//2 = empty, closed door
@@ -28,7 +28,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )
@@ -162,10 +162,6 @@
 				for(var/obj/item/clothing/shoes/S in contents)
 					if(!S.dyeable)
 						continue
-					if(S.chained == 1)
-						S.chained = 0
-						S.slowdown = SHOES_SLOWDOWN
-						new /obj/item/restraints/handcuffs( src )
 					S.icon_state = new_shoe_icon_state
 					S.item_color = wash_color
 					S.name = new_shoe_name
@@ -218,10 +214,10 @@
 
 	sleep(20)
 	if(state in list(1,3,6) )
-		usr.loc = src.loc
+		usr.forceMove(loc)
 
 
-/obj/machinery/washing_machine/update_icon()
+/obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[state][panel]"
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -248,7 +244,7 @@
 			var/obj/item/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
 				add_fingerprint(user)
-				G.affecting.loc = src
+				G.affecting.forceMove(src)
 				qdel(G)
 				state = 3
 			update_icon()
@@ -304,7 +300,7 @@
 		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			to_chat(user, "This item does not fit.")
 			return
-		if(W.flags & NODROP) //if "can't drop" item
+		if(HAS_TRAIT(W, TRAIT_NODROP)) //if "can't drop" item
 			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return
 
@@ -329,13 +325,13 @@
 		if(2)
 			state = 1
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(loc)
 		if(3)
 			state = 4
 		if(4)
 			state = 3
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(loc)
 			crayon = null
 			state = 1
 		if(5)
@@ -349,7 +345,7 @@
 					var/mob/M = locate(/mob,contents)
 					M.gib()
 			for(var/atom/movable/O in contents)
-				O.loc = src.loc
+				O.forceMove(loc)
 			crayon = null
 			state = 1
 

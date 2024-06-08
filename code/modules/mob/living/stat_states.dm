@@ -1,34 +1,3 @@
-// There, now `stat` is a proper state-machine
-
-/mob/living/proc/KnockOut(updating = 1)
-	if(stat == DEAD)
-		log_runtime(EXCEPTION("KnockOut called on a dead mob."), src)
-		return 0
-	else if(stat == UNCONSCIOUS)
-		return 0
-	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
-	stat = UNCONSCIOUS
-	if(updating)
-		update_sight()
-		update_blind_effects()
-		update_canmove()
-		set_typing_indicator(FALSE)
-	return 1
-
-/mob/living/proc/WakeUp(updating = 1)
-	if(stat == DEAD)
-		log_runtime(EXCEPTION("WakeUp called on a dead mob."), src)
-		return 0
-	else if(stat == CONSCIOUS)
-		return 0
-	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
-	stat = CONSCIOUS
-	if(updating)
-		update_sight()
-		update_blind_effects()
-		update_canmove()
-	return 1
-
 /mob/living/proc/can_be_revived()
 	. = TRUE
 	// if(health <= min_health)
@@ -44,17 +13,11 @@
 	if(!force && !can_be_revived())
 		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
-	stat = CONSCIOUS
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list += src
+	set_stat(CONSCIOUS)
 	if(mind)
 		GLOB.respawnable_list -= src
 	timeofdeath = null
 	if(updating)
-		update_canmove()
-		update_blind_effects()
-		update_blurry_effects()
-		update_sight()
 		updatehealth("update revive")
 		hud_used?.reload_fullscreen()
 
@@ -67,8 +30,7 @@
 		S.sharerRevives(src)
 
 	if(mind)
-		for(var/S in mind.spell_list)
-			var/obj/effect/proc_holder/spell/spell = S
+		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
 			spell.updateButtonIcon()
 
 	return TRUE

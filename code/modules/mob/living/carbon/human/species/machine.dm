@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = "Machine"
+	name = SPECIES_MACNINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -10,7 +10,7 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	language = "Trinary"
+	language = LANGUAGE_TRINARY
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
@@ -54,7 +54,7 @@
 		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
 	)
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
@@ -90,6 +90,8 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.remove_from_hud(H)
 	H.verbs |= /mob/living/carbon/human/proc/emote_ping
 	H.verbs |= /mob/living/carbon/human/proc/emote_beep
 	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
@@ -101,6 +103,8 @@
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(H)
 	H.verbs -= /mob/living/carbon/human/proc/emote_ping
 	H.verbs -= /mob/living/carbon/human/proc/emote_beep
 	H.verbs -= /mob/living/carbon/human/proc/emote_buzz
@@ -111,7 +115,7 @@
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 	button_icon_state = "scan_mode"
 
 /datum/action/innate/change_monitor/Activate()
@@ -127,7 +131,7 @@
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
-		if(H.incapacitated(TRUE, TRUE, TRUE))
+		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
 			return
 		if(optic_colour)
@@ -157,7 +161,7 @@
 			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
-		if(H.incapacitated(TRUE, TRUE, TRUE))
+		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, "<span class='warning'>Ваша попытка сменить изображения на дисплее была прервана.</span>")
 			return
 

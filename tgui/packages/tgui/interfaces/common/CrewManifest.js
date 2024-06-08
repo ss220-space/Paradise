@@ -13,6 +13,7 @@ const HeadRoles = [
   "Chief Medical Officer",
   "Research Director",
   "Head of Personnel",
+  "Quartermaster",
 ];
 
 // Head colour check. Abbreviated to save on 80 char
@@ -22,22 +23,15 @@ const HCC = role => {
     return "green";
   }
 
-  // Return yellow if its the qm
-  if (role === "Quartermaster") {
-    return "yellow";
-  }
-
   // Return orange if its a regular person
   return "orange";
 };
 
 // Head bold check. Abbreviated to save on 80 char
 const HBC = role => {
-  // Return true if they are a head, or a QM
-  if ((HeadRoles.indexOf(role) !== -1) || role === "Quartermaster") {
+  // Return true if they are a head
+  if (HeadRoles.indexOf(role) !== -1) {
     return true;
-  } else {
-    return false;
   }
 };
 
@@ -53,9 +47,9 @@ const ManifestTable = group => {
 
         {group.map(person => (
           <Table.Row
-            color={HCC(person.rank)}
+            color={HCC(person.real_rank)}
             key={person.name + person.rank}
-            bold={HBC(person.rank)}>
+            bold={HBC(person.real_rank)}>
             <Table.Cell>{decodeHtmlEntities(person.name)}</Table.Cell>
             <Table.Cell>{decodeHtmlEntities(person.rank)}</Table.Cell>
             <Table.Cell>{person.active}</Table.Cell>

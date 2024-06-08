@@ -21,24 +21,33 @@
 
 /// Forces atom to drop all the important items while dereferencing them from their
 /// containers both ways. To be used to preserve important items before mob gib/self-gib.
-/atom/proc/drop_ungibbable_items()
+/// Returns a list with all saved items.
+/atom/proc/drop_ungibbable_items(atom/new_loc)
+	. = list()
+	var/atom/drop_loc = new_loc ? new_loc : drop_location()
+
 	for(var/atom/movable/I in contents)
 		if(!is_type_in_list(I, GLOB.ungibbable_items_types))
 			if(length(I.contents))
-				I.drop_ungibbable_items()
+				I.drop_ungibbable_items(new_loc)
+			continue
+
+		. += I
+
+		if(isturf(I.loc))
 			continue
 
 		var/obj/item/storage/holder_storage = I.loc
 		if(istype(holder_storage))
-			holder_storage.remove_from_storage(I, drop_location())
+			holder_storage.remove_from_storage(I, drop_loc)
 			continue
 
 		var/mob/holder_mob = I.loc
 		if(istype(holder_mob))
-			holder_mob.drop_item_ground(I, force = TRUE)
+			holder_mob.temporarily_remove_item_from_inventory(I, force = TRUE, silent = TRUE)
+			I.forceMove(drop_loc)
 			continue
 
-		I.forceMove(get_turf(I))
 		for(var/var_name in vars)
 			// Item may be referenced in some properties of container.
 			// E.g. holsters.
@@ -46,13 +55,16 @@
 				vars[var_name] = null
 			// Item may be referenced in some list properties of container.
 			// E.g. medals.
-			else if(I in vars[var_name])
+			else if(islist(vars[var_name]) && (I in vars[var_name]))
 				vars[var_name] -= I
+
 		for(var/var_name in I.vars)
 			// Item may reference container in some properties.
 			// E.g. medals.
 			if(I.vars[var_name] == src)
 				I.vars[var_name] = null
+
+		I.forceMove(drop_loc)
 
 
 /**
@@ -79,4 +91,34 @@
 	&& (loc.x < TRANSITION_BORDER_EAST) \
 	&& (loc.y > TRANSITION_BORDER_SOUTH) \
 	&& (loc.y < TRANSITION_BORDER_NORTH)
+
+
+/// Returns an x and y value require to reverse the transformations made to center an oversized icon
+/atom/proc/get_oversized_icon_offsets()
+	if (pixel_x == 0 && pixel_y == 0)
+		return list("x" = 0, "y" = 0)
+	var/list/icon_dimensions = get_icon_dimensions(icon)
+	var/icon_width = icon_dimensions["width"]
+	var/icon_height = icon_dimensions["height"]
+	return list(
+		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
+		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+	)
+
+
+/**
+ * Checks if mover is movable atom and has passed pass_flags.
+ *
+ * Arguments:
+ * * mover - target to check.
+ * * passflag - flag to check for.
+ */
+/proc/checkpass(atom/movable/mover, passflag)
+	if(!ismovable(mover))
+		return FALSE
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(!passflag)
+		return FALSE
+	return (mover.pass_flags & passflag)
 

@@ -1,9 +1,9 @@
 /datum/species/diona
-	name = "Diona"
+	name = SPECIES_DIONA
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
-	language = "Rootspeak"
+	language = LANGUAGE_DIONA
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
@@ -21,7 +21,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -45,6 +45,8 @@
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix/diona,
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/diona,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/diona
 
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/diona),
@@ -97,11 +99,11 @@
 	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(1, T.get_lumcount()) - 0.5
+		light_amount = min(1, T.get_lumcount()) - 0.1
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)

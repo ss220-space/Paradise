@@ -1,6 +1,5 @@
 /mob/living/silicon
 	gender = NEUTER
-	robot_talk_understand = 1
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
@@ -39,7 +38,7 @@
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
-	add_language("Galactic Common")
+	add_language(LANGUAGE_GALACTIC_COMMON)
 	init_subsystems()
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
@@ -194,12 +193,12 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+/mob/living/silicon/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-
 	if(. && inventory_head)
-		drop_hat()
-		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+		drop_hat(drop_on_turf = TRUE)
+		if(message)
+			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
@@ -283,19 +282,19 @@
 //Silicon mob language procs
 
 /mob/living/silicon/can_speak_language(datum/language/speaking)
-	return universal_speak || (speaking in src.speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
+	return universal_speak || (speaking in speech_synthesizer_langs)	//need speech synthesizer support to vocalize a language
 
-/mob/living/silicon/add_language(var/language, var/can_speak=1)
+/mob/living/silicon/add_language(language, can_speak = TRUE)
 	if(..(language) && can_speak)
 		speech_synthesizer_langs.Add(GLOB.all_languages[language])
-		return 1
+		return TRUE
 
-/mob/living/silicon/remove_language(var/rem_language)
-	..(rem_language)
+/mob/living/silicon/remove_language(language_name)
+	..(language_name)
 
-	for(var/datum/language/L in speech_synthesizer_langs)
-		if(L.name == rem_language)
-			speech_synthesizer_langs -= L
+	for(var/datum/language/language in speech_synthesizer_langs)
+		if(language.name == language_name)
+			speech_synthesizer_langs -= language
 
 /mob/living/silicon/check_lang_data()
 	. = ""
@@ -303,16 +302,16 @@
 	if(default_language)
 		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
 
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
+	for(var/datum/language/language in languages)
+		if(!(language.flags & NONGLOBAL))
 			var/default_str
-			if(L == default_language)
+			if(language == default_language)
 				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a>"
+				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[language]\">set default</a>"
 
-			var/synth = (L in speech_synthesizer_langs)
-			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
+			var/synth = (language in speech_synthesizer_langs)
+			. += "<b>[language.name] (:[language.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[language.desc]<br><br>"
 
 
 // this function displays the stations manifest in a separate window
@@ -389,7 +388,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -402,3 +401,32 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	return TRUE
+
+
+/mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
+	return FALSE
+
+
+/mob/living/silicon/on_handsblocked_start()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_handsblocked_end()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
+

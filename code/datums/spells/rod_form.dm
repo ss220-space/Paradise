@@ -28,10 +28,11 @@
 		var/turf/start = get_turf(M)
 		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)), rod_delay)
 		W.wizard = M
+		W.spell = src
 		W.max_distance += spell_level * 3 //You travel farther when you upgrade the spell
 		W.start_turf = start
 		M.forceMove(W)
-		M.notransform = TRUE
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		M.status_flags |= GODMODE
 
 
@@ -42,10 +43,11 @@
 	var/max_distance = 13
 	var/mob/living/wizard
 	var/turf/start_turf
+	var/obj/effect/proc_holder/spell/spell
 	notify = FALSE
 
 
-/obj/effect/immovablerod/wizard/Move()
+/obj/effect/immovablerod/wizard/Move(atom/newloc, direct = NONE, movetime)
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
 	..()
@@ -54,7 +56,10 @@
 /obj/effect/immovablerod/wizard/Destroy()
 	if(wizard)
 		wizard.status_flags &= ~GODMODE
-		wizard.notransform = FALSE
+		REMOVE_TRAIT(wizard, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 		wizard.forceMove(get_turf(src))
+		wizard = null
+	spell = null
+	start_turf = null
 	return ..()
 

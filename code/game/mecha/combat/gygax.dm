@@ -10,7 +10,7 @@
 	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	max_temperature = 25000
 	infra_luminosity = 6
-	maint_access = 1
+	maint_access = TRUE
 	leg_overload_coeff = 2
 	wreckage = /obj/structure/mecha_wreckage/gygax
 	internal_damage_threshold = 35
@@ -45,7 +45,7 @@
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
-	maint_access = 0
+	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/gygax/ert
 	max_equip = 5
 	maxsize = 2
@@ -77,7 +77,7 @@
 	max_temperature = 35000
 	leg_overload_coeff = 2
 	operation_req_access = list(ACCESS_SYNDICATE)
-	maint_access = 0
+	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 4
 	maxsize = 2

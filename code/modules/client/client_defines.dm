@@ -17,10 +17,9 @@
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
-	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
-	var/move_delay		= 1
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
+	var/move_delay = 0
 	var/current_move_delay = 0
-	var/moving			= null
 	var/area			= null
 	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
@@ -54,7 +53,15 @@
 
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-	var/obj/screen/click_catcher/void
+	/**
+	 * Assoc list with all the active maps - when a screen obj is added to
+	 * a map, it's put in here as well.
+	 *
+	 * Format: list(<mapname> = list(/atom/movable/screen))
+	 */
+	var/list/screen_maps = list()
+
+	var/atom/movable/screen/click_catcher/void
 
 	var/karma = 0
 	var/karma_spent = 0
@@ -65,8 +72,11 @@
 
 	var/datum/click_intercept/click_intercept = null
 
+	///Time when the click was intercepted
+	var/click_intercept_time = 0
+
 	/// Overlay for showing debug info
-	var/obj/screen/debugtextholder/debug_text_overlay
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	var/datum/geoip_data/geoip = null
 
@@ -134,10 +144,30 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+	///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	///Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	///Used in MouseDrag to preserve the last mouse-entered location.
+	var/mouse_location_UID
+	///Used in MouseDrag to preserve the last mouse-entered object.
+	var/mouse_object_UID
+	///When we started the currently active drag
+	var/drag_start = 0
+	//The params we were passed at the start of the drag, in list form
+	var/list/drag_details
+
+
 /client/vv_edit_var(var_name, var_value)
-	switch(var_name)
+	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
-		if("tos_consent")
-			return FALSE
+		return FALSE
 	return ..()

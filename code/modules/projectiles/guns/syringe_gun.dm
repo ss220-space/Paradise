@@ -14,8 +14,8 @@
 	var/list/syringes = list()
 	var/max_syringes = 1
 
-/obj/item/gun/syringe/New()
-	..()
+/obj/item/gun/syringe/Initialize()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
 /obj/item/gun/syringe/process_chamber()
@@ -104,7 +104,7 @@
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
-	if(do_after(user, 15, target = src))
+	if(do_after(user, 1.5 SECONDS, src))
 		user.adjustStaminaLoss(20)
 		user.adjustOxyLoss(20)
 		..()

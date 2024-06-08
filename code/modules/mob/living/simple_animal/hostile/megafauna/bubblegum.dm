@@ -82,7 +82,7 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -91,6 +91,8 @@ Difficulty: Hard
 			if(B != src)
 				qdel(src) //There can be only one
 				return
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
@@ -143,7 +145,7 @@ Difficulty: Hard
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
 		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
 	qdel(second_life_portal)
@@ -394,7 +396,7 @@ Difficulty: Hard
 		return TRUE
 	if(isliving(target))
 		var/mob/living/livingtarget = target
-		return (livingtarget.stat != CONSCIOUS || livingtarget.lying)
+		return (livingtarget.stat != CONSCIOUS || livingtarget.body_position == LYING_DOWN)
 	return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_retreat_distance()
@@ -427,7 +429,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/change_move_delay(newmove = initial(move_to_delay))
 	move_to_delay = newmove
-	speed = move_to_delay
+	set_varspeed(move_to_delay)
 	handle_automated_action() // need to recheck movement otherwise move_to_delay won't update until the next checking aka will be wrong speed for a bit
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_pools(turf/T, range)
@@ -488,7 +490,7 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!charging)
 		..()
 
@@ -511,10 +513,12 @@ Difficulty: Hard
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/CanPass(atom/movable/mover, turf/target)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
 	if(!charging)
@@ -536,8 +540,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	if(Dir)
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
-	if(charging)
-		DestroySurroundings()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
@@ -545,7 +547,6 @@ Difficulty: Hard
 	if(charging)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
-		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -609,10 +610,12 @@ Difficulty: Hard
 	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanPass(atom/movable/mover, turf/target)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
-	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return

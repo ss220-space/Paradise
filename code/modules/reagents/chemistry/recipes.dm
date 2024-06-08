@@ -67,13 +67,18 @@
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
-				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
+				X.throw_at(T, 4 + round(volume / 10), 10 + round(volume / 10))
 			else
-				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 20 + round(volume * 2), 1 + round(volume / 10))
+				var/throwdir
+				if(get_turf(X) == T)
+					throwdir = pick(GLOB.alldirs)
+				else
+					throwdir = get_dir(T, X)
+				X.throw_at(get_edge_target_turf(T, throwdir), 4 + round(volume / 10), 10 + round(volume / 10))
 
 /proc/goonchem_vortex_weak(turf/T, setting_type, volume)
 	if(setting_type)
@@ -83,7 +88,7 @@
 		new /obj/effect/temp_visual/shockwave(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, 1)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)

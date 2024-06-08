@@ -9,7 +9,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
-	status_flags = CANSTUN|CANWEAKEN|CANPUSH
+	status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
 	a_intent = INTENT_HARM
@@ -36,7 +36,9 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
@@ -123,11 +125,10 @@
 		WELDER_REPAIR_SUCCESS_MESSAGE
 	return
 
-/mob/living/simple_animal/hostile/mining_drone/death()
+/mob/living/simple_animal/hostile/mining_drone/death(gibbed)
 	DropOre(0)
 	if(stored_gun)
-		for(var/obj/item/borg/upgrade/modkit/M in stored_gun.modkits)
-			M.uninstall(stored_gun)
+		stored_gun.deattach_modkits()
 	deathmessage = "blows apart!"
 	. = ..()
 
@@ -142,17 +143,20 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/K = O
-		if(K.kinetic_gun)
-			for(var/A in K.kinetic_gun.get_modkits())
-				var/obj/item/borg/upgrade/modkit/M = A
-				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
-					return TRUE
-	if(istype(O, /obj/item/projectile/destabilizer))
+
+/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(istype(mover, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/projectile = mover
+		if(projectile.kinetic_gun)
+			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in projectile.kinetic_gun.get_modkits())
+				return TRUE
+
+	if(istype(mover, /obj/item/projectile/destabilizer))
 		return TRUE
-	return ..()
+
+
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
@@ -218,22 +222,18 @@
 //Actions for sentient minebots
 
 /datum/action/innate/minedrone
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
 	button_icon_state = "mech_lights_off"
 
-/datum/action/innate/minedrone/toggle_light/Activate()
-	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 
-	if(user.light_on)
-		user.set_light(0)
-	else
-		user.set_light(6)
-	user.light_on = !user.light_on
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+/datum/action/innate/minedrone/toggle_light/Activate()
+	owner.set_light_on(!owner.light_on)
+	to_chat(owner, span_notice("You toggle your light [owner.light_on ? "on" : "off"]."))
+
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
@@ -255,7 +255,7 @@
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 

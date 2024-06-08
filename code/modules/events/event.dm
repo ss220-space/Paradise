@@ -103,7 +103,7 @@
   * Allows you to announce before starting or vice versa.
   * Only called once.
   */
-/datum/event/proc/announce()
+/datum/event/proc/announce(false_alarm = FALSE)
 	return
 
 /**
@@ -176,9 +176,10 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(var/datum/event_meta/EM)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
-	SSevents.active_events += src
+	if(!skeleton)
+		SSevents.active_events += src
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
@@ -196,7 +197,8 @@
 
 	startedAt = world.time
 
-	setup()
+	if(!skeleton)
+		setup()
 	..()
 
 //Called after something followable has been spawned by an event
@@ -205,3 +207,11 @@
 /datum/event/proc/announce_to_ghosts(atom/atom_of_interest)
 	if(atom_of_interest)
 		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)
+
+/**
+  * Override this to make a custom fake announcement that differs from the normal announcement.
+  * Used for false alarms.
+  * If this proc returns TRUE, the regular Announce() won't be called.
+  */
+/datum/event/proc/fake_announce()
+	return FALSE

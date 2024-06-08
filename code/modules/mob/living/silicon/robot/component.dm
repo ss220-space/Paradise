@@ -229,7 +229,7 @@
 	item_state = "analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries."
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
@@ -255,7 +255,7 @@
 	var/scan_type
 	if(istype(M, /mob/living/silicon/robot))
 		scan_type = "robot"
-	else if(istype(M, /mob/living/carbon/human))
+	else if(ishuman(M))
 		scan_type = "prosthetics"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")

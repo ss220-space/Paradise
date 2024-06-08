@@ -29,8 +29,8 @@
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-/mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
-	return 1
+/mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = NONE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
 	. = ..()

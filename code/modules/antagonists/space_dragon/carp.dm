@@ -7,7 +7,7 @@
 	carp_stamina_damage = 18
 	speed = -0.2
 	a_intent = INTENT_HARM
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	gold_core_spawnable = NO_SPAWN

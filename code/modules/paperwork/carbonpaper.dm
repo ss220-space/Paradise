@@ -6,7 +6,7 @@
 	var/iscopy = 0
 
 
-/obj/item/paper/carbon/update_icon()
+/obj/item/paper/carbon/update_icon_state()
 	if(iscopy)
 		if(info)
 			icon_state = "cpaper_words"
@@ -24,11 +24,13 @@
 		icon_state = "paper_stack"
 
 
-
 /obj/item/paper/carbon/verb/removecopy()
 	set name = "Remove carbon-copy"
 	set category = "Object"
 	set src in usr
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	if(copied == 0)
 		var/obj/item/paper/carbon/c = src

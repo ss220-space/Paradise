@@ -204,7 +204,7 @@
 			G.fields["fingerprint"] = "Unknown"
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
-			G.fields["species"] = "Human"
+			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "No notes."
 			GLOB.data_core.general += G
 			record_general = G

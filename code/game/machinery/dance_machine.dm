@@ -46,7 +46,7 @@
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
 
-/obj/machinery/disco/New()
+/obj/machinery/disco/Initialize(mapload)
 	. = ..()
 	selection = songs[1]
 
@@ -64,19 +64,27 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored && !isinspace())
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 	else if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-/obj/machinery/disco/update_icon()
+
+/obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
 	else
 		icon_state = "disco0"
-	..()
+
+
+/obj/machinery/disco/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(active)
+		underlays += emissive_appearance(icon, "disco_lightmask", src)
 
 
 /obj/machinery/disco/attack_hand(mob/user)
@@ -401,8 +409,7 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
+			M.set_resting(!M.resting, instant = TRUE)
 		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
@@ -468,20 +475,21 @@
 				if(!(M in rangers))
 					rangers[M] = TRUE
 					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
-		for(var/mob/L in rangers)
-			if(get_dist(src, L) > 10)
-				rangers -= L
-				if(!L || !L.client)
+		for(var/mob/mob as anything in rangers)
+			var/mob/living/l_mob = mob
+			if(get_dist(src, mob) > 10)
+				rangers -= mob
+				if(!mob || !mob.client)
 					continue
-				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && L.canmove && isliving(L))
-				dance(L)
+				mob.stop_sound_channel(CHANNEL_JUKEBOX)
+			else if(isliving(mob) && prob(9) && (l_mob.mobility_flags & MOBILITY_STAND))
+				dance(l_mob)
 	else if(active)
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		icon_state = "disco0"
+		update_icon()
 		stop = world.time + 100
 
 

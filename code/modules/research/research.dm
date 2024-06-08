@@ -81,8 +81,10 @@ research holder datum.
 
 //Checks to see if design has all the required pre-reqs.
 //Input: datum/design; Output: 0/1 (false/true)
-/datum/research/proc/DesignHasReqs(var/datum/design/D)
-	if(D.req_tech.len == 0)
+/datum/research/proc/DesignHasReqs(datum/design/D)
+	if(!islist(D.req_tech))
+		return FALSE
+	if(!D.req_tech.len)
 		return TRUE
 	for(var/req in D.req_tech)
 		var/datum/tech/known = known_tech[req]
@@ -381,6 +383,58 @@ datum/tech/robotics
 	desc = default_desc
 	stored = null
 
+/obj/item/disk/tech_disk/loaded
+	var/tech_name
+
+/obj/item/disk/tech_disk/loaded/Initialize(mapload)
+	. = ..()
+	var/datum/tech/our_tech
+	for(var/tt in (subtypesof(/datum/tech) - /datum/tech/abductor - /datum/tech/syndicate))
+		var/datum/tech/tech = tt
+		if(initial(tech.name) == tech_name)
+			our_tech = new tech
+			our_tech.level = 8
+			break
+
+	load_tech(our_tech)
+
+/obj/item/disk/tech_disk/loaded/materials
+	tech_name = "Materials Research"
+
+/obj/item/disk/tech_disk/loaded/engineering
+	tech_name = "Engineering Research"
+
+/obj/item/disk/tech_disk/loaded/plasmatech
+	tech_name = "Plasma Research"
+
+/obj/item/disk/tech_disk/loaded/powerstorage
+	tech_name = "Power Manipulation Technology"
+
+/obj/item/disk/tech_disk/loaded/bluespace
+	tech_name = "'Blue-space' Research"
+
+/obj/item/disk/tech_disk/loaded/biotech
+	tech_name = "Biological Technology"
+
+/obj/item/disk/tech_disk/loaded/combat
+	tech_name = "Combat Systems Research"
+
+/obj/item/disk/tech_disk/loaded/magnets
+	tech_name = "Electromagnetic Spectrum Research"
+
+/obj/item/disk/tech_disk/loaded/programming
+	tech_name = "Data Theory Research"
+
+/obj/item/disk/tech_disk/loaded/toxins
+	tech_name = "Toxins Research"
+
+/obj/structure/closet/crate/full_tech
+	name = "Crate with Tech Disks"
+
+/obj/structure/closet/crate/full_tech/populate_contents()
+	for(var/path in subtypesof(/obj/item/disk/tech_disk/loaded))
+		new path(src)
+
 /obj/item/disk/design_disk
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
@@ -451,3 +505,10 @@ datum/tech/robotics
 	name = "Bluespace rift stationary scanner design"
 	desc = "Экспериментальный проект стационарного сканера блюспейс разлома."
 	design_type = /datum/design/brs_stationary_scanner
+
+/** Nanotrasen tail blade implant */
+/obj/item/disk/design_disk/tailblade/blade_nt
+	name = "Tail laserblade implant design"
+	desc = "A laser blade designed to be hidden inside the tail. Latest design of House Eshie'Ssharahss, issued to Nanotrasen in exclusive contract."
+	blueprint = new /datum/design/tailblade
+

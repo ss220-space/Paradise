@@ -34,7 +34,7 @@
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
 /obj/item/cane/is_crutch()
-	return 1
+	return 2
 
 /obj/item/c_tube
 	name = "cardboard tube"
@@ -92,12 +92,19 @@
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
 	desc = "test lightning"
+	var/angle
 
-/obj/item/lightning/New()
-	..()
+
+/obj/item/lightning/Initialize(mapload)
+	. = ..()
 	icon_state = "1"
 
-/obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+
+/obj/item/lightning/update_icon_state()
+	icon_state = "[angle]"
+
+
+/obj/item/lightning/afterattack(atom/A, mob/living/user, flag, params)
 	var/angle = get_angle(A, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
@@ -108,9 +115,7 @@
 
 	if(!angle)
 		angle = 1
-  //to_chat(world, "adjusted [angle]")
-	icon_state = "[angle]"
-	//to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
+	update_icon(UPDATE_ICON_STATE)
 	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton
@@ -138,3 +143,53 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+
+/obj/item/nunchuck
+	name = "Nunchucks"
+	desc = "Cool nunchucks. Just like Chan's!"
+	force = 5
+	throwforce = 5
+	var/active = FALSE
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "nunchuck"
+
+/obj/item/nunchuck/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/nunchuck/update_icon_state()
+	if(active)
+		icon_state = "nunchuck_active"
+	else
+		icon_state = "nunchuck"
+
+/obj/item/nunchuck/attack_self(mob/user)
+	. = ..()
+	if(active)
+		to_chat(user, span_notice("Вы прекратили крутить нунчаки."))
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
+	else
+		to_chat(user, span_notice("Вы начинаете раскручивать нунчаки, готовя их к удару."))
+		if(do_after(user, 1 SECONDS, user))
+			active = TRUE
+			update_icon(UPDATE_ICON_STATE)
+
+/obj/item/nunchuck/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = FALSE)
+	if(!active)
+		return ..()
+	if(!user.temporarily_remove_item_from_inventory(src) || !user.put_in_inactive_hand(src))
+		user.drop_item_ground(src)
+		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
+		user.adjustStaminaLoss(30)
+		return
+	if(user.a_intent == INTENT_HARM)
+		target.apply_damage(10, BRUTE, def_zone)
+		target.adjustStaminaLoss(10)
+	else
+		target.adjustStaminaLoss(15)
+	user.changeNext_move(4)
+	active = TRUE // it set in dropped() to false every time. Not best way for sure
+	update_icon(UPDATE_ICON_STATE)
+	return ..()

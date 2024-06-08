@@ -4,7 +4,7 @@
 	desc = ""
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 50
 	var/area/syndicate_depot/core/depotarea
 	var/has_overloaded = FALSE
@@ -14,9 +14,10 @@
 	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
-		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
-			if(!istype(T.depotarea))
-				T.depotarea = depotarea
+		for(var/obj/machinery/porta_turret/syndicate/T in GLOB.machines)
+			if(z == T.z && get_dist(T, loc) <= 50)
+				if(!istype(T.depotarea))
+					T.depotarea = depotarea
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
@@ -73,7 +74,7 @@
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32
-	anchored = 1
+	anchored = TRUE
 	var/cycles = 0
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
@@ -87,7 +88,7 @@
 	if(istype(depotarea))
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
-			depotarea.updateicon()
+			depotarea.update_state()
 		depotarea.shields_down()
 	else
 		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
@@ -104,7 +105,7 @@
 		depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.destroyed = TRUE
-		depotarea.updateicon()
+		depotarea.update_state()
 
 	for(var/obj/structure/closet/L in range(30, T))
 		for(var/obj/O in L)

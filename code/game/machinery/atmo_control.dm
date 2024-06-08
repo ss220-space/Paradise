@@ -1,19 +1,29 @@
+GLOBAL_LIST_EMPTY(gas_sensors)
+
+#define SENSOR_PRESSURE 1
+#define SENSOR_TEMPERATURE 2
+#define SENSOR_O2 4
+#define SENSOR_PLASMA 8
+#define SENSOR_N2 16
+#define SENSOR_CO2 32
+
+
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 
-	anchored = 1
-	var/state = 0
-	var/bolts = 1
-
-	var/id_tag
+	anchored = TRUE
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/air_sensor
 	frequency = ATMOS_TANKS_FREQ
+	on = TRUE
 
-	var/on = 1
-	var/output = 3
-	//Flags:
+	var/state = NONE
+	var/bolts = TRUE
+	var/id_tag
+	var/output = SENSOR_PRESSURE|SENSOR_TEMPERATURE
+	//Flags: (see lines 3-9)
 	// 1 for pressure
 	// 2 for temperature
 	// Output >= 4 includes gas composition
@@ -22,16 +32,20 @@
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
 
-/obj/machinery/atmospherics/air_sensor/update_icon()
+
+
+/obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
+
 /obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
-	if(!(bitflag_value in list(1, 2, 4, 8, 16, 32)))
-		return 0
+	if(!(bitflag_value in list(SENSOR_PRESSURE, SENSOR_TEMPERATURE, SENSOR_O2, SENSOR_PLASMA, SENSOR_N2, SENSOR_CO2)))
+		return
 	if(output & bitflag_value)
 		output &= ~bitflag_value
 	else
 		output |= bitflag_value
+
 
 /obj/machinery/atmospherics/air_sensor/proc/toggle_bolts()
 	bolts = !bolts
@@ -42,7 +56,7 @@
 
 /obj/machinery/atmospherics/air_sensor/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -51,7 +65,7 @@
 		return
 	playsound(loc, I.usesound, 50, 1)
 	to_chat(user, span_notice("You begin to unfasten [src]..."))
-	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+	if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
 		new /obj/item/pipe_gsensor(loc)
 		qdel(src)
@@ -99,18 +113,17 @@
 
 /obj/machinery/atmospherics/air_sensor/Initialize()
 	. = ..()
+	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
 	set_frequency(frequency)
 
 /obj/machinery/atmospherics/air_sensor/Destroy()
+	GLOB.gas_sensors -= src
 	SSair.atmos_machinery -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
-
-/obj/machinery/atmospherics/air_sensor/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/air_sensor(src)
 
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/machines/computer.dmi'
@@ -126,6 +139,8 @@
 	var/list/sensors
 	var/list/sensor_information
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control
+
 /obj/machinery/computer/general_air_control/Initialize()
 	. = ..()
 	if(!sensors)
@@ -133,9 +148,6 @@
 	if(!sensor_information)
 		sensor_information = list()
 	set_frequency(frequency)
-
-/obj/machinery/computer/general_air_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control(src)
 
 /obj/machinery/computer/general_air_control/Destroy()
 	if(SSradio)
@@ -162,7 +174,7 @@
 
 /obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption) return
@@ -267,6 +279,8 @@
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
 
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
+
 /obj/machinery/computer/general_air_control/large_tank_control/Initialize()
 	. = ..()
 	input_linkable = list(
@@ -277,12 +291,9 @@
 		/obj/machinery/atmospherics/unary/vent_pump,
 	)
 
-/obj/machinery/computer/general_air_control/large_tank_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control(src)
-
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/can_link_to_input(obj/device_to_link)
 	if(is_type_in_list(device_to_link, input_linkable))

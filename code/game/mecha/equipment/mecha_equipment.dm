@@ -15,7 +15,12 @@
 	var/obj/mecha/chassis = null
 	var/range = MECHA_MELEE //bitflags
 	var/salvageable = TRUE
-	var/selectable = TRUE	// Set to FALSE for passive equipment such as mining scanner or armor plates
+/*
+	MODULE_SELECTABLE_FULL		- Regular selectable equipment.
+	MODULE_SELECTABLE_TOGGLE	- Equipment toggles On/Off instead of regular selecting.
+	MODULE_SELECTABLE_NONE		- Not selectable equipment.
+*/
+	var/selectable = MODULE_SELECTABLE_FULL
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 
@@ -55,7 +60,7 @@
 	var/txt = "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;"
 	if(chassis.selected == src)
 		txt += "<b>[name]</b>"
-	else if(selectable)
+	else if(selectable == MODULE_SELECTABLE_FULL)
 		txt += "<a href='?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
 	else
 		txt += "[name]"
@@ -117,7 +122,7 @@
 	var/C = chassis.loc
 	set_ready_state(FALSE)
 	chassis.use_power(energy_drain)
-	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), needhand = FALSE, target = target)
+	. = do_after(chassis.occupant, equip_cooldown * gettoolspeedmod(chassis.occupant), target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)
 	set_ready_state(TRUE)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
@@ -126,7 +131,7 @@
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	. = do_after(chassis.occupant, delay * gettoolspeedmod(chassis.occupant), target = target)
+	. = do_after(chassis.occupant, delay * gettoolspeedmod(chassis.occupant), target)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
@@ -151,7 +156,7 @@
 		M.selected = src
 	update_chassis_page()
 	attach_act(M)
-	flags |= NODROP
+	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
 		give_targeted_action()
 
@@ -159,11 +164,16 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
-	if(!selectable)
-		return
-	var/datum/action/innate/mecha/select_module/select_action = new
-	select_action.Grant(chassis.occupant, chassis, src)
-	chassis.select_actions[src] = select_action
+	var/datum/action/innate/mecha/module_action
+	switch(selectable)
+		if(MODULE_SELECTABLE_FULL)
+			module_action = new /datum/action/innate/mecha/select_module
+		if(MODULE_SELECTABLE_TOGGLE)
+			module_action = new /datum/action/innate/mecha/toggle_module
+		if(MODULE_SELECTABLE_NONE)
+			return
+	module_action.Grant(chassis.occupant, chassis, src)
+	chassis.module_actions[src] = module_action
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	if(!can_detach())
@@ -179,7 +189,7 @@
 		update_chassis_page()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
-		flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 		set_ready_state(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach_act()
@@ -188,9 +198,9 @@
 /obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
 	if(!selectable)
 		return
-	if(chassis.select_actions[src])
-		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[src]
-		select_action.Remove(chassis.occupant)
+	if(chassis.module_actions[src])
+		var/datum/action/innate/mecha/module_action = chassis.module_actions[src]
+		module_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])
@@ -199,7 +209,7 @@
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state
 	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
+		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
@@ -210,4 +220,13 @@
 		chassis.log_message("<i>[src]:</i> [message]")
 
 /obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
+	return
+
+/obj/item/mecha_parts/mecha_equipment/proc/select_module()
+	chassis.selected = src
+	chassis.occupant_message(span_notice("You switch to [src]."))
+	chassis.visible_message("[chassis] raises [src]")
+	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
+
+/obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return

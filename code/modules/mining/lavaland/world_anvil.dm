@@ -29,12 +29,17 @@
 	GLOB.anvils -= src
 	. = ..()
 
-/obj/structure/world_anvil/update_icon()
+/obj/structure/world_anvil/update_icon_state()
 	icon_state = forge_charges > 0 ? "anvil_a" : "anvil"
+
+
+/obj/structure/world_anvil/proc/update_state()
+	update_icon(UPDATE_ICON_STATE)
 	if(forge_charges > 0)
-		set_light(4,1,LIGHT_COLOR_ORANGE)
+		set_light(4,1,LIGHT_COLOR_ORANGE, l_on = TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
+
 
 /obj/structure/world_anvil/examine(mob/user)
 	. = ..()
@@ -46,14 +51,14 @@
 		forge_charges = forge_charges + placed_ore.quality
 		to_chat(user,"You place down the gibtonite on the World Anvil, and watch as the gibtonite melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""].")
 		qdel(placed_ore)
-		update_icon()
+		update_state()
 		return
 	if(istype(I, /obj/item/gem/amber))
 		var/obj/item/gem/amber/gem = I
 		forge_charges += 3
 		to_chat(user,"You place down the draconic amber on the World Anvil, and watch as amber melts into it. The World Anvil is now heated enough for [forge_charges] forge[forge_charges > 1 ? "s" : ""].")
 		qdel(gem)
-		update_icon()
+		update_state()
 		return
 	if(forge_charges <= 0)
 		to_chat(user,"The World Anvil is not hot enough to be usable!")
@@ -62,7 +67,7 @@
 	switch(I.type)
 		if(/obj/item/magmite)
 			playsound(src, 'sound/effects/anvil_start.ogg', 50)
-			if(do_after_once(user, 7 SECONDS, target = src))
+			if(do_after(user, 7 SECONDS, src, max_interact_count = 1))
 				playsound(src,'sound/effects/anvil_end.ogg', 50)
 				new /obj/item/magmite_parts(get_turf(src))
 				qdel(I)
@@ -75,7 +80,7 @@
 				to_chat(user,"The magmite upgrade parts are already glowing and usable!")
 				return
 			playsound(src,'sound/effects/anvil_end.ogg', 50)
-			if(do_after_once(user, 3 SECONDS, target = src))
+			if(do_after(user, 3 SECONDS, src, max_interact_count = 1))
 				parts.restore()
 				to_chat(user, "You successfully reheat the magmite upgrade parts. They are now glowing and usable again.")
 	if(!success)
@@ -83,5 +88,5 @@
 	forge_charges--
 	if(forge_charges <= 0)
 		visible_message("The World Anvil cools down.")
-		update_icon()
+		update_state()
 

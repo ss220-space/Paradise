@@ -23,6 +23,7 @@
 #define INTERNAL_ORGAN_RESIN_SPINNER "resin_spinner"
 #define INTERNAL_ORGAN_EGGSAC "eggsac"
 
+#define INTERNAL_ORGAN_TAIL_DEVICE "tail_device"
 #define INTERNAL_ORGAN_L_ARM_DEVICE "l_arm_device"
 #define INTERNAL_ORGAN_R_ARM_DEVICE "r_arm_device"
 #define INTERNAL_ORGAN_L_LEG_DEVICE "l_leg_device"
@@ -53,4 +54,7 @@
 #define ORGAN_MANIPULATION_DEFAULT 0
 #define ORGAN_MANIPULATION_NOEFFECT 1
 #define ORGAN_MANIPULATION_ABDUCTOR 2
+
+/// used for species that can see without eyes
+#define NO_VISION_ORGAN "no_vision_organ"
 

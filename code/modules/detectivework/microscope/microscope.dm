@@ -7,8 +7,8 @@
 	desc = "Высокотехнологичный микроскоп, способный увеличивать изображение до 3000 раз."
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "microscope"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 	var/obj/item/sample = null
 	var/report_num = 0
@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='notice'>Вы вставили \the [W] в микроскоп.</span>")
 		user.drop_transfer_item_to_loc(W, src)
 		sample = W
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		return
 	..()
@@ -46,14 +46,14 @@
 	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>Микроскоп жужжит, пока вы анализируете \the [sample].</span>")
 
-	if(!do_after(user, 25, src) || !sample)
+	if(!do_after(user, 2.5 SECONDS, src) || !sample)
 		to_chat(user, "<span class='notice'>Вы перестаёте анализировать \the [sample].</span>")
 		return
 
 	to_chat(user, "<span class='notice'>Печать отчета...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
+	LAZYADD(report.stamp_overlays, "paper_stamped")
 	report_num++
 
 	if(istype(sample, /obj/item/forensics/swab))
@@ -100,7 +100,7 @@
 	return
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!sample)
 		to_chat(remover, "<span class='warning'>Внутри микроскопа нет образца!</span>")
@@ -109,21 +109,21 @@
 	sample.forceMove_turf()
 	remover.put_in_hands(sample, ignore_anim = FALSE)
 	sample = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/microscope/proc/is_complete_print(print)
 	return stringpercent(print) <= fingerprint_complete
 
-/obj/machinery/microscope/AltClick()
-	remove_sample(usr)
+/obj/machinery/microscope/AltClick(mob/user)
+	remove_sample(user)
 
-/obj/machinery/microscope/MouseDrop(atom/other)
-	if(usr == other)
+/obj/machinery/microscope/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(usr == over_object)
 		remove_sample(usr)
-	else
-		return ..()
+		return FALSE
+	return ..()
 
-/obj/machinery/microscope/update_icon()
+/obj/machinery/microscope/update_icon_state()
 	icon_state = "microscope"
 	if(sample)
 		icon_state += "slide"

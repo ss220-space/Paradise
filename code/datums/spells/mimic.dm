@@ -21,11 +21,10 @@
 	var/perfect_disguise = FALSE
 
 	var/static/list/black_listed_form_types = list(
-		/obj/screen,
+		/atom/movable/screen,
 		/obj/singularity,
 		/obj/effect,
 		/mob/living/simple_animal/hostile/megafauna,
-		/atom/movable/lighting_object,
 		/obj/machinery/dna_vault,
 		/obj/machinery/power/bluespace_tap,
 		/obj/structure/sign/barsign,
@@ -74,7 +73,7 @@
 		to_chat(user, span_warning("You start to forget the form of [available_forms[next_override_index]] to learn a new one."))
 
 	to_chat(user, span_sinister("You start remembering the form of [A]."))
-	if(!do_after(user, 2 SECONDS, FALSE, user))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("You lose focus."))
 		return
 
@@ -111,7 +110,7 @@
 		restore_form(user)
 		return
 	to_chat(user, span_sinister("You start becoming [what]."))
-	if(!do_after(user, 2 SECONDS, FALSE, user))
+	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("You lose focus."))
 		return
 	take_form(available_forms[what], user)
@@ -196,18 +195,29 @@
 
 
 /datum/mimic_form
+	/// What the visible species of the form is (Only for human forms)?
+	var/examine_species = "Unknown"
+	/// What the visible gender of the form is (Only for human forms)?
+	var/examine_gender
+	/// What is the examine text paired with this form?
+	var/examine_text
+	/// What is the examine time paired with this form?
+	var/examine_time
 	/// How does the form look like?
 	var/appearance
-	/// What is the examine text paired with this form
-	var/examine_text
-	/// What the name of the form is
+	/// What the name of the form is?
 	var/name
 
 
 /datum/mimic_form/New(atom/movable/form, mob/user)
-	appearance = form.appearance
+	examine_gender = form.get_visible_gender()
 	examine_text = form.examine(user)
+	examine_time = form.get_examine_time()
+	appearance = form.appearance
 	name = form.name
+	if(isliving(form))
+		var/mob/living/form_living = form
+		examine_species = form_living.get_visible_species()
 
 
 /obj/effect/proc_holder/spell/mimic/morph

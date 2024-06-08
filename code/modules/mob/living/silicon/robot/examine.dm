@@ -11,6 +11,12 @@
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
 	msg += "<span class='warning'>"
+
+	//Status effects
+	var/list/status_examines = get_status_effect_examinations()
+	if(length(status_examines))
+		msg += status_examines
+
 	if(getBruteLoss())
 		if(getBruteLoss() < maxHealth*0.5)
 			msg += "It looks slightly dented.\n"

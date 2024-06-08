@@ -2,13 +2,15 @@
 	name = "station intercom (General)"
 	desc = "Talk through this."
 	icon_state = "intercom"
-	anchored = 1
+	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
-	var/circuitry_installed = 1
+	blocks_emissive = FALSE
+	var/circuitry_installed = TRUE
 	var/buildstage = 0
 	dog_fashion = null
+
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
@@ -53,8 +55,8 @@
 		if(direction)
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
-		b_stat=1
-		on = 0
+		b_stat = TRUE
+		on = FALSE
 	GLOB.global_intercoms.Add(src)
 	update_icon()
 
@@ -66,7 +68,7 @@
 	..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
+		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY),
 	)
 
 /obj/item/radio/intercom/syndicate
@@ -135,7 +137,7 @@
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() >= 5)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-			if(do_after(user, 10 * coil.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 1 && coil.use(5))
+			if(do_after(user, 1 SECONDS * coil.toolspeed * gettoolspeedmod(user), src) && buildstage == 1 && coil.use(5))
 				to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 				buildstage = 2
 			return 1
@@ -144,7 +146,7 @@
 			return
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 0)
+		if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1
@@ -173,9 +175,8 @@
 		return
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
-	update_icon()
-	on = 1
-	b_stat = 0
+	on = TRUE
+	b_stat = FALSE
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 	update_icon()
@@ -191,8 +192,8 @@
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
-	on = 0
-	b_stat = 1
+	on = FALSE
+	b_stat = TRUE
 	buildstage = 1
 	update_icon()
 	update_operating_status(FALSE)
@@ -209,11 +210,17 @@
 		new /obj/item/mounted/frame/intercom(get_turf(src))
 		qdel(src)
 
-/obj/item/radio/intercom/update_icon()
+/obj/item/radio/intercom/update_icon_state()
 	if(!circuitry_installed)
 		icon_state="intercom-frame"
 		return
 	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
+
+/obj/item/radio/intercom/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(on && buildstage == 3)
+		underlays += emissive_appearance(icon, "intercom_lightmask", src)
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)

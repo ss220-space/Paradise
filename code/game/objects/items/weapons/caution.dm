@@ -22,7 +22,7 @@
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(H.mind.assigned_role != JOB_TITLE_JANITOR)
 			return
 		if(armed)
 			armed = 0
@@ -46,7 +46,7 @@
 
 /obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
 	if(armed)
-		if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
+		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
 				src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")

@@ -150,7 +150,7 @@
 	update_vampire_spell_name()
 
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon()
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
 	return
 
 
@@ -224,9 +224,8 @@
 	return new /datum/spell_targeting/clicked_atom
 
 
-/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/L = user
-	if(L.lying || L.resting)
+/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/living/user, charge_check, show_message)
+	if(user.body_position == LYING_DOWN)
 		return FALSE
 	return ..()
 

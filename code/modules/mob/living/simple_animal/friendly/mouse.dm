@@ -22,18 +22,18 @@
 	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	maxHealth = 5
 	health = 5
-	blood_nutrients = 20
 	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	var/non_standard = FALSE //for no "mouse_" with mouse_color
@@ -49,11 +49,11 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 	var/obj/item/jetpack
-	var/static/list/animated_mouses = typecacheof(list(
+	var/static/list/animated_mouses = list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white))
+			/mob/living/simple_animal/mouse/white)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -85,14 +85,26 @@
 		remove_from_back(null, FALSE)
 	if(resting)
 		if(prob(1))
+			set_resting(FALSE, instant = TRUE)
 			if(is_available_for_anim())
-				var/anim = pick(SNIFF, SCRATCH, SHAKE, WASHUP)
-				do_idle_animation(anim)
-			StopResting()
+				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
+
+/mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+	flick("mouse_[mouse_color]_idle[anim]",src)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), 2 SECONDS)
+
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+
+/mob/living/simple_animal/mouse/proc/is_available_for_anim()
+	. = FALSE
+	if(is_type_in_list(src, animated_mouses, FALSE))
+		return TRUE
 
 /mob/living/simple_animal/mouse/StartResting(updating)
 	if(jetpack)
@@ -442,7 +454,6 @@
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
-	blood_nutrients = 500
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
@@ -529,7 +540,6 @@
 	mouse_color = null
 	maxHealth = 15
 	health = 15
-	blood_nutrients = 30
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
 
@@ -581,6 +591,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	icon_resting = "hamster_rest"
 	gender = MALE
 	non_standard = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
 	animal_species = /mob/living/simple_animal/mouse/hamster

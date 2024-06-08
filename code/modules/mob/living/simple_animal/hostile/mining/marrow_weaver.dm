@@ -20,8 +20,8 @@
 	melee_damage_upper = 16
 	stat_attack = 1
 	robust_searching = 1
-	see_in_dark = 7
-	ventcrawler = 2
+	nightvision = 7
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "rolls over, frothing at the mouth before stilling."
@@ -44,7 +44,7 @@
 			melee_damage_lower = melee_damage_lower_angery1
 			melee_damage_upper = melee_damage_upper_angery1
 			move_to_delay = anger_move_to_delay
-			speed = anger_speed
+			set_varspeed(anger_speed)
 			poison_type = "venom"
 			poison_per_bite = 6
 			needs_gliding = TRUE
@@ -55,7 +55,7 @@
 			melee_damage_lower = melee_damage_lower_angery0
 			melee_damage_upper = melee_damage_upper_angery0
 			poison_type = initial(poison_type)
-			speed = initial(speed)
+			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
 			needs_gliding = FALSE
 	..()
@@ -113,7 +113,7 @@
 	health = 320
 	maxHealth = 320
 	vision_range = 8
-	see_in_dark = 8
+	nightvision = 8
 	speed = 5
 	move_to_delay = 14
 	anger_move_to_delay = 6

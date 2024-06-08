@@ -33,12 +33,8 @@
 			LAZYADD(implants_list, bio_chip)
 
 
-/obj/machinery/implantchair/update_icon()
-	. = ..()
-	if(occupant)
-		icon_state = "implantchair_on"
-	else
-		icon_state = "implantchair"
+/obj/machinery/implantchair/update_icon_state()
+	icon_state = "implantchair[occupant ? "_on" : ""]"
 
 
 /obj/machinery/implantchair/attack_hand(mob/user)
@@ -124,7 +120,7 @@
 	return FALSE
 
 
-/obj/machinery/implantchair/MouseDrop_T(mob/living/carbon/human/dropping, mob/living/user)
+/obj/machinery/implantchair/MouseDrop_T(mob/living/carbon/human/dropping, mob/living/user, params)
 	return put_mob(dropping, user)
 
 
@@ -136,7 +132,7 @@
 	target.forceMove(src)
 	occupant = target
 	add_fingerprint(user)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 	return TRUE
 
@@ -148,7 +144,7 @@
 		return FALSE
 	if(target != user && (!Adjacent(user) && !user.Adjacent(target)))
 		return FALSE
-	if(!isliving(user) || user.incapacitated())
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!ishuman(target))
 		to_chat(user, span_warning("[src] cannot hold this!"))
@@ -173,12 +169,12 @@
 		return FALSE
 	if(occupant == user) // so that the guy inside can't eject himself -Agouri
 		return FALSE
-	if(user && (!ishuman(user) || user.incapacitated()))
+	if(user && (!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	occupant.forceMove(loc)
 	add_fingerprint(user)
 	occupant = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 

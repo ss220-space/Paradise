@@ -17,7 +17,7 @@
 	. = ..()
 	if(cooldown > world.time)
 		return
-	if(ishuman(user) && Adjacent(user))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/snowball/S = new(drop_location())
 		cooldown = world.time + 3 SECONDS

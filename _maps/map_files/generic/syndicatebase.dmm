@@ -13,7 +13,7 @@
 /area/ruin/unpowered)
 "abT" = (
 /obj/item/stack/ore/uranium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aeB" = (
 /obj/item/stack/ore/diamond,
@@ -21,11 +21,11 @@
 /area/ruin/unpowered)
 "afh" = (
 /obj/item/stack/ore/diamond,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "afl" = (
 /obj/item/stack/ore/bananium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "agd" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -53,7 +53,7 @@
 /area/ruin/unpowered)
 "aiK" = (
 /obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ajs" = (
 /obj/machinery/door/airlock/syndicate/extmai,
@@ -133,7 +133,7 @@
 "aoH" = (
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/bananium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "apa" = (
 /obj/effect/turf_decal/stripes/line{
@@ -153,7 +153,7 @@
 "apy" = (
 /obj/item/stack/ore/uranium,
 /obj/item/stack/ore/tranquillite,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "aqi" = (
 /obj/item/stack/sheet/metal,
@@ -191,8 +191,7 @@
 /obj/item/stack/sheet/mineral/gold{
 	amount = 50
 	},
-/obj/item/stack/telecrystal/twohundread_fifty{
-	amount = 20;
+/obj/item/stack/telecrystal/hundred{
 	desc = null
 	},
 /obj/machinery/door/poddoor{
@@ -267,7 +266,7 @@
 /mob/living/simple_animal/mouse/brown{
 	faction = list("neutral","syndicate")
 	},
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "avh" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
@@ -9916,7 +9915,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "jbN" = (
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "jcc" = (
 /obj/structure/disposalpipe/segment{
@@ -16093,7 +16092,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/bot/secbot/griefsky/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "okK" = (
@@ -19767,6 +19765,9 @@
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo11"
 	},
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate{
+	auto_patrol = 0
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "qQP" = (
@@ -23191,7 +23192,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "tJo" = (
 /obj/item/stack/ore/silver,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "tJw" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -23883,7 +23884,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "udL" = (
 /obj/effect/mob_spawn/human/clown/corpse,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "udO" = (
 /obj/structure/window/plastitanium,
@@ -24455,7 +24456,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "uyx" = (
 /obj/item/stack/ore/plasma,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "uyM" = (
 /obj/structure/table/wood,
@@ -25936,7 +25937,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "vob" = (
 /obj/item/stack/ore/gold,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "vop" = (
 /obj/structure/table/wood,
@@ -28291,7 +28292,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wTI" = (
 /obj/item/stack/ore/titanium,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "wTW" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -28776,7 +28777,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "xmm" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "xnu" = (
 /obj/effect/turf_decal/tile/brown,
@@ -29722,7 +29723,10 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "xTi" = (
-/obj/structure/crematorium,
+/obj/machinery/crematorium{
+	id = "taipan";
+	req_access = list(150)
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -29958,6 +29962,7 @@
 "xZn" = (
 /obj/machinery/crema_switch{
 	pixel_x = 26;
+	id = "taipan";
 	req_access = list(150)
 	},
 /obj/effect/decal/warning_stripes/southeast,
@@ -30033,7 +30038,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "ybu" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plating/asteroid/airless/cave,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ybF" = (
 /obj/effect/turf_decal/tile/brown{

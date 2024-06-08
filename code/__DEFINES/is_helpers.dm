@@ -3,15 +3,49 @@
 
 #define isdatum(thing) (istype(thing, /datum))
 
+#define is_screen_atom(A) istype(A, /atom/movable/screen)
+
+#define isweakref(D) (istype(D, /datum/weakref))
+
 // Mobs
+
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
-//Simple animals
+#define isliving(A) (istype(A, /mob/living))
+
+#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+
+// Carbon mobs
+#define iscarbon(A) (istype(A, /mob/living/carbon))
+
+#define ishuman(A) (istype(A, /mob/living/carbon/human))
+
+#define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
+
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
+
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+
+// Simple animals
+// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
-//Objects
+#define isslime(A) (istype((A), /mob/living/simple_animal/slime))
+
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
+#define isvampireanimal(A) (istype((A), /mob/living/simple_animal/hostile/vampire))
+
+// Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
@@ -19,8 +53,6 @@
 #define isstack(A) (istype(A, /obj/item/stack))
 
 #define isstorage(A) (istype(A, /obj/item/storage))
-
-#define ispda(A) (istype(A, /obj/item/pda))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
@@ -35,6 +67,8 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
@@ -63,7 +97,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
-//Assembly
+// Assembly
 #define isassembly(O) (istype(O, /obj/item/assembly))
 #define isigniter(O) (istype(O, /obj/item/assembly/igniter))
 #define isinfared(O) (istype(O, /obj/item/assembly/infra))
@@ -76,6 +110,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define issimulatedturf(A) istype(A, /turf/simulated)
 
 #define isspaceturf(A) istype(A, /turf/space)
+
+#define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
 
@@ -91,37 +127,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
-//Mobs
-#define isliving(A) (istype(A, /mob/living))
-
-#define isbrain(A) (istype(A, /mob/living/carbon/brain))
-
-#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
-
-//Carbon mobs
-#define iscarbon(A) (istype(A, /mob/living/carbon))
-
-#define ishuman(A) (istype(A, /mob/living/carbon/human))
-
-//more carbon mobs
-#define isalien(A) (istype(A, /mob/living/carbon/alien))
-
-#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
-
-#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
-
-#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
-
-#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
-
-#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
-
-#define isvampireanimal(A)		(istype((A), /mob/living/simple_animal/hostile/vampire))
-
 //Structures
-#define isstructure(A)	(istype((A), /obj/structure))
+#define isstructure(A) (istype(A, /obj/structure))
 
 // Misc
 #define isclient(A) istype(A, /client)
+
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
+GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
+	/turf/space,
+	/turf/simulated/floor/chasm,
+	/turf/simulated/openspace,
+)))
+
+#define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
+
+
+#define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))

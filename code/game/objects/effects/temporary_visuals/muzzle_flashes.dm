@@ -2,6 +2,8 @@
 	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
 	duration = 0.2
+	light_system = MOVABLE_LIGHT
+	light_on = TRUE
 
 /obj/effect/temp_visual/target_angled/muzzle_flash/Initialize(mapload, atom/target, duration_override = null)
 	if(duration_override)

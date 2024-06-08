@@ -3,9 +3,9 @@
 	name = "smoke bomb"
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "flashbang"
-	det_time = 20
+	det_time = 2 SECONDS
 	item_state = "flashbang"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
 /obj/item/grenade/smokebomb/New()

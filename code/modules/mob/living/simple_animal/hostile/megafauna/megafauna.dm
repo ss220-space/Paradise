@@ -11,7 +11,6 @@
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
 	tts_seed = "Mannoroth"
-	flying = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	stat_attack = DEAD
@@ -44,6 +43,9 @@
 	var/enraged = FALSE
 	/// Path of the hardmode loot disk, if applicable.
 	var/enraged_loot
+	/// Hardmode one loot
+	var/enraged_unique_loot
+	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -58,6 +60,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -72,11 +76,13 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	// this happens before the parent call because `del_on_death` may be set
-	if(can_die() && !admin_spawned)
+	if(can_die() && !(flags & ADMIN_SPAWNED))
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
 		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			if(enraged_unique_loot)
+				loot += enraged_unique_loot
 			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
 				if(M.client)
 					loot += enraged_loot //Disk for each miner / borg.
@@ -100,7 +106,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/hostile/megafauna/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
@@ -152,6 +158,7 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
+
 /mob/living/simple_animal/hostile/megafauna/LoseTarget()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
@@ -164,7 +171,7 @@
 	ranged_cooldown = world.time + buffer_time
 
 /mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+	if(!medal_type || (flags & ADMIN_SPAWNED) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 
 	for(var/mob/living/L in view(7,src))
@@ -177,6 +184,14 @@
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
 
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.set_density(FALSE) //I hate it.
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
+
+
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
@@ -186,7 +201,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE

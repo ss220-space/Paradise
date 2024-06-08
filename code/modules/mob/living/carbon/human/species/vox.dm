@@ -1,10 +1,10 @@
 /datum/species/vox
-	name = "Vox"
+	name = SPECIES_VOX
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE
-	language = "Vox-pidgin"
+	language = LANGUAGE_VOX
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
@@ -67,6 +67,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vox
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -111,10 +113,10 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_quill
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)
 		H.drop_item_ground(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	var/obj/item/tank/internals/internal_tank
 	if(tank_pref)//Diseasel, here you go
@@ -124,7 +126,7 @@
 	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_ground(H.l_hand)
-			H.equip_or_collect(internal_tank, slot_l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_HAND_LEFT)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>Теперь вы живете на азоте из [internal_tank]. Кислород токсичен для вашего вида, поэтому вы должны дышать только азотом.</span>")
@@ -175,7 +177,7 @@
 	return ..()
 
 /datum/species/vox/armalis
-	name = "Vox Armalis"
+	name = SPECIES_VOX_ARMALIS
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
@@ -198,7 +200,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN, HAVE_REGENERATION)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE

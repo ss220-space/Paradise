@@ -19,10 +19,10 @@
 	name = "E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
-	var/recentlyExperimented = 0
+	var/recentlyExperimented = FALSE
 	var/mob/trackedIan
 	var/mob/trackedRuntime
 	var/badThingCoeff = 0
@@ -111,6 +111,11 @@
 			return FALSE
 	return TRUE
 
+
+/obj/machinery/r_n_d/experimentor/update_icon_state()
+	icon_state = "h_lathe[recentlyExperimented ? "_wloop" : ""]"
+
+
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
 	if(shocked)
 		add_fingerprint(user)
@@ -126,7 +131,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(panel_open && istype(O, /obj/item/crowbar))
+	if(panel_open && O.tool_behaviour == TOOL_CROWBAR)
 		default_deconstruction_crowbar(user, O)
 		return
 
@@ -142,7 +147,7 @@
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
-	if(istype(O, /obj/item))
+	if(isitem(O))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
@@ -248,8 +253,8 @@
 			counter = 1
 
 /obj/machinery/r_n_d/experimentor/proc/experiment(exp,obj/item/exp_on)
-	recentlyExperimented = 1
-	icon_state = "h_lathe_wloop"
+	recentlyExperimented = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	var/chosenchem
 	var/criticalReaction = (exp_on.type in critical_items) ? TRUE : FALSE
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -512,7 +517,7 @@
 			throwSmoke(src.loc)
 			if(trackedIan)
 				throwSmoke(trackedIan.loc)
-				trackedIan.loc = src.loc
+				trackedIan.forceMove(loc)
 				investigate_log("Experimentor has stolen Ian!", INVESTIGATE_EXPERIMENTOR) //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(src.loc)
@@ -534,9 +539,13 @@
 			use_power(500000)
 			investigate_log("Experimentor has drained power from its APC", INVESTIGATE_EXPERIMENTOR)
 
-	spawn(resetTime)
-		icon_state = "h_lathe"
-		recentlyExperimented = 0
+	addtimer(CALLBACK(src, PROC_REF(reset_machine)), resetTime)
+
+
+/obj/machinery/r_n_d/experimentor/proc/reset_machine()
+	recentlyExperimented = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())

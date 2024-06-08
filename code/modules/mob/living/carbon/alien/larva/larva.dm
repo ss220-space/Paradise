@@ -8,7 +8,9 @@
 	obj_damage = 10
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	rotate_on_lying = FALSE
 
 	tts_seed = "Templar"
 
@@ -25,14 +27,12 @@
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
-	add_language("Xenomorph")
-	add_language("Hivemind")
+	add_language(LANGUAGE_XENOS)
+	add_language(LANGUAGE_HIVE_XENOS)
 	hide_action = new
 	hide_action.Grant(src)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
-
-
 
 
 /mob/living/carbon/alien/larva/Destroy()
@@ -80,8 +80,6 @@
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
 
-/mob/living/carbon/alien/larva/restrained()
-	return 0
 
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
@@ -89,17 +87,13 @@
 // now constructs damage icon for each organ from mask * damage field
 
 
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
+/mob/living/carbon/alien/larva/show_inv(mob/user)
 	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */
+
+/mob/living/carbon/alien/larva/can_unarmed_attack() //We bite stuff, and our head is always free.
+	return TRUE
+

@@ -82,6 +82,17 @@
 	else // Not cracked or dented.
 		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
+
+/obj/item/nuke_core_container/update_icon_state()
+	if(sealed)
+		icon_state = "core_container_sealed"
+		return
+	if(core)
+		icon_state = cracked ? "core_container_cracked_loaded" : "core_container_loaded"
+	else
+		icon_state = cracked ? "core_container_cracked_empty" : "core_container_empty"
+
+
 /obj/item/nuke_core_container/attack_hand(mob/user)
 	if(cracked && core)
 		unload(user)
@@ -93,7 +104,7 @@
 		return
 	new_core.forceMove(src)
 	core = new_core
-	icon_state = "core_container_loaded"
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
@@ -101,14 +112,14 @@
 	core.add_fingerprint(user)
 	user.put_in_active_hand(core)
 	core = null
-	icon_state = "core_container_cracked_empty"
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
 		STOP_PROCESSING(SSobj, core)
 		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
-		icon_state = "core_container_sealed"
 		sealed = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
@@ -116,7 +127,6 @@
 /obj/item/nuke_core_container/attackby(obj/item/nuke_core/plutonium/core, mob/user)
 	if(!istype(core) || cracked)
 		return ..()
-
 	if(!user.drop_item_ground(core))
 		to_chat(user, "<span class='warning'>[core] is stuck to your hand!</span>")
 		return
@@ -128,11 +138,8 @@
 	if(core)
 		START_PROCESSING(SSobj, core)
 		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
-		icon_state = "core_container_cracked_loaded"
-	else
-		icon_state = "core_container_cracked_empty"
-	icon_state = "core_container_cracked_empty"
 	cracked = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/paper/guides/antag/nuke_instructions
 	info = "Как вскрыть ядерную боеголовку Нанотрейзен и вытащить из нее плутониевое ядро:<br>\
@@ -182,8 +189,8 @@
 			return FALSE
 		forceMove(tongs)
 		tongs.sliver = src
-		tongs.icon_state = "supermatter_tongs_loaded"
-		tongs.item_state = "supermatter_tongs_loaded"
+		tongs.update_icon(UPDATE_ICON_STATE)
+
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
@@ -209,14 +216,14 @@
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
-		victim.visible_message("<span class='danger'>As [victim] is hit by [src], both burst into flames and silence fills the room...</span>",
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well.</span>",
-		"<span class='hear'>Everything suddenly goes silent.</span>")
-		victim.gib()
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(120, IRRADIATE)
-		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-		qdel(src)
+	victim.visible_message("<span class='danger'>As [victim] is hit by [src], both burst into flames and silence fills the room...</span>",
+	"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] bursts into flames, and soon as you can register this, you do as well.</span>",
+	"<span class='hear'>Everything suddenly goes silent.</span>")
+	victim.gib()
+	for(var/mob/living/L in view(5, src))
+		L.apply_effect(120, IRRADIATE)
+	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	qdel(src)
 
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
@@ -243,15 +250,30 @@
 	QDEL_NULL(sliver)
 	return ..()
 
+
+/obj/item/nuke_core_container/supermatter/update_name(updates = ALL)
+	. = ..()
+	name = cracked ? "broken supermatter bin" : initial(name)
+
+
+/obj/item/nuke_core_container/supermatter/update_icon_state()
+	if(sealed)
+		icon_state = "supermatter_container_sealed"
+		return
+	if(sliver)
+		icon_state = cracked ? "core_container_cracked_loaded" : "core_container_loaded"
+	else
+		icon_state = "core_container_cracked_empty"
+
+
 /obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || !I.sliver || sliver)
 		return
 	I.sliver.forceMove(src)
 	sliver = I.sliver
 	I.sliver = null
-	I.icon_state = "supermatter_tongs"
-	I.item_state = "supermatter_tongs"
-	icon_state = "supermatter_container_loaded"
+	I.update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
@@ -259,9 +281,9 @@
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
 		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
-		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		sealed = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
@@ -271,9 +293,8 @@
 	sliver.forceMove(I)
 	I.sliver = sliver
 	sliver = null
-	I.icon_state = "supermatter_tongs_loaded"
-	I.item_state = "supermatter_tongs_loaded"
-	icon_state = "core_container_cracked_empty"
+	I.update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
 
 /obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
@@ -300,9 +321,8 @@
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", "supermatter")
 		user.gib()
-		icon_state = "core_container_cracked_empty"
-		qdel(sliver)
-		sliver = null
+		QDEL_NULL(sliver)
+		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -312,11 +332,8 @@
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
-		icon_state = "supermatter_container_cracked_loaded"
-	else
-		icon_state = "core_container_cracked_empty"
-	name = "broken supermatter bin"
 	cracked = TRUE
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
@@ -348,6 +365,12 @@
 	QDEL_NULL(sliver)
 	return ..()
 
+
+/obj/item/retractor/supermatter/update_icon_state()
+	icon_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
+	item_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
+
+
 /obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity)
 	. = ..()
 	if(!sliver)
@@ -360,8 +383,7 @@
 		sliver.forceMove(loc)
 		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
 		sliver = null
-		icon_state = "supermatter_tongs"
-		item_state = "supermatter_tongs"
+		update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/item/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
@@ -393,5 +415,5 @@
 		L.apply_effect(60, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
-	icon_state = "supermatter_tongs"
-	item_state = "supermatter_tongs"
+	update_icon(UPDATE_ICON_STATE)
+

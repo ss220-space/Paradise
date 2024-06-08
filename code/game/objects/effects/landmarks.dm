@@ -3,7 +3,7 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 	layer = 5
-	anchored = 1.0
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/New()
@@ -103,8 +103,7 @@
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return ..()
 
 /obj/effect/landmark/singularity_act()
 	return

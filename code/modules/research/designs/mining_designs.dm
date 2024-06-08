@@ -72,42 +72,12 @@
 	build_path = /obj/item/borg/upgrade/modkit/trigger_guard
 	category = list("Mining")
 
-/datum/design/damage_mod
-	name = "Kinetic Accelerator Damage Mod"
-	desc = "A device which allows kinetic accelerators to deal more damage."
-	id = "damagemod"
-	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/damage/borg
-	category = list("Mining")
-
-/datum/design/cooldown_mod
-	name = "Kinetic Accelerator Cooldown Mod"
-	desc = "A device which decreases the cooldown of a Kinetic Accelerator."
-	id = "cooldownmod"
-	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
-	category = list("Mining")
-
-/datum/design/range_mod
-	name = "Kinetic Accelerator Range Mod"
-	desc = "A device which allows kinetic accelerators to fire at a further range."
-	id = "rangemod"
-	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = MECHFAB
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
-	build_path = /obj/item/borg/upgrade/modkit/range/borg
-	category = list("Mining")
-
-/datum/design/hyperaccelerator
+/datum/design/aoe_turf_mod
 	name = "Kinetic Accelerator Mining AoE Mod"
 	desc = "A modification kit for Kinetic Accelerators which causes it to fire AoE blasts that destroy rock."
 	id = "hypermod"
 	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 5, "magnets" = 5, "combat" = 4)
-	build_type = PROTOLATHE | MECHFAB
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
 	category = list("Mining")

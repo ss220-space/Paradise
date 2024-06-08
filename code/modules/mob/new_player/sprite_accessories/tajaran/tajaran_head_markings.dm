@@ -1,7 +1,7 @@
 
 /datum/sprite_accessory/body_markings/head/tajara
     icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_markings.dmi'
-    species_allowed = list("Tajaran")
+    species_allowed = list(SPECIES_TAJARAN)
 
 /datum/sprite_accessory/body_markings/head/tajara/tiger_head_taj
 	name = "Tajaran Tiger Head"

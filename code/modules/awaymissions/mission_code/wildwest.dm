@@ -10,19 +10,25 @@
 	name = "\improper Wild West Mines"
 	icon_state = "away1"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwgov
 	name = "\improper Wild West Mansion"
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwrefine
 	name = "\improper Wild West Refinery"
 	icon_state = "away3"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwvault
 	name = "\improper Wild West Vault"
@@ -32,7 +38,9 @@
 	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /*
  * Wish Granter
@@ -43,8 +51,8 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	use_power = NO_POWER_USE
 
 	var/chargesa = 1
@@ -57,7 +65,7 @@
 		to_chat(user, "The Wish Granter lies silent.")
 		return
 
-	else if(!istype(user, /mob/living/carbon/human))
+	else if(!ishuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
 		return
 
@@ -127,8 +135,8 @@
 /obj/effect/meatgrinder
 	name = "Meat Grinder"
 	desc = "What is that thing?"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
@@ -143,7 +151,7 @@
 	if(triggered)
 		return
 
-	if(istype(moving_atom, /mob/living/carbon/human))
+	if(ishuman(moving_atom))
 		for(var/mob/O in viewers(world.view, src.loc))
 			to_chat(O, "<font color='red'>[moving_atom] triggered the [bicon(src)] [src]</font>")
 		triggered = 1
@@ -180,6 +188,7 @@
 	user.visible_message("<span class='warning'>[user] appears to wake from the dead, having healed all wounds.</span>")
 	return 1
 
+
 /obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"
 	icon = 'icons/obj/device.dmi'
@@ -188,40 +197,40 @@
 	desc = "Use to communicate with the syndicate base commander."
 	var/used = FALSE
 
+
 /obj/item/wildwest_communicator/attack_self(mob/living/user)
 
 	if(!is_away_level(user.z))
-		to_chat(user, "<span class='warning'>The communicator emits a faint beep. Perhaps it is out of range?</span>")
+		to_chat(user, span_warning("The communicator emits a faint beep. Perhaps it is out of range?"))
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'>The communicator buzzes, and then dies. Apparently nobody is responding.</span>")
+		to_chat(user, span_warning("The communicator buzzes, and then dies. Apparently nobody is responding."))
 		return
 
-	var/initial_question = "<span class='warning'>The communicator buzzes, and you hear a voice on the line, almost lost in the static. 'Hello? Who is this?'.</span>"
-	to_chat(user, initial_question)
+	to_chat(user, span_warning("The communicator buzzes, and you hear a voice on the line, almost lost in the static. 'Hello? Who is this?'."))
 
-	var/const/option_explorer = "(TRUTH) Explorers."
-	var/const/option_bluff = "(BLUFF) Weapons delivery."
-	var/const/option_threat = "(THREAT) NT, here to kick your ass!"
-	var/const/option_syndicate = "(SYNDI) Agent reporting in..."
+	var/const/option_explorer = "(TRUTH) \"Explorers.\""
+	var/const/option_bluff = "(BLUFF) \"Weapons delivery.\""
+	var/const/option_threat = "(THREAT) \"NT, here to kick your ass!\""
+	var/const/option_syndicate = "(SYNDI) \"Agent reporting in...\""
 	var/list/response_choices = list(option_explorer, option_bluff, option_threat)
 
-	if(istype(user, /mob/living) && user.mind)
-		if(user.mind.special_role == "Traitor")
-			response_choices |= option_syndicate
+	if(user.mind?.has_antag_datum(/datum/antagonist/traitor))
+		response_choices |= option_syndicate
 
-	var/selected_choice = input(user, "How do you respond on the comms device?", "Response to Syndicate") as null|anything in response_choices
+	var/selected_choice = tgui_input_list(user, "How do you respond on the comms device?", "Response to Syndicate", response_choices)
 
-	if(!selected_choice)
+	if(!selected_choice || used)
 		return
+
 	switch(selected_choice)
 		if(option_explorer)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'"))
 		if(option_bluff)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'"))
 		if(option_threat)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble.' Then the line goes dead."))
 			for(var/thing in GLOB.landmarks_list)
 				var/obj/effect/landmark/L = thing
 				if(L.name == "wildwest_syndipod")
@@ -231,13 +240,15 @@
 					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))
 					R.name = "Syndi Recon Team"
 		if(option_syndicate)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'"))
 			stand_down()
 	used = TRUE
+
 
 /obj/item/wildwest_communicator/proc/stand_down()
 	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 		W.on_alert = FALSE
+
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
 	var/on_alert = TRUE

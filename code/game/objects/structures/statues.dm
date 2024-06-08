@@ -3,14 +3,14 @@
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
 			add_fingerprint(user)
 			return
@@ -18,7 +18,7 @@
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								 "<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
@@ -46,11 +46,11 @@
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
 						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
-/obj/structure/statue/CanAtmosPass()
+/obj/structure/statue/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(material_drop_type)
 			var/drop_amt = oreAmount
 			if(!disassembled)
@@ -269,10 +269,10 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
@@ -376,7 +376,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "frank"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/dude
@@ -385,7 +385,7 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "dude"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/statue/death
@@ -394,7 +394,7 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "death"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
@@ -404,20 +404,16 @@
 	icon = 'icons/obj/statuebig.dmi'
 	icon_state = "unknown"
 	max_integrity = 2000
-	anchored = 1
+	anchored = TRUE
 	bound_width = 64
 	var/lit = 0
 	layer = EDGED_TURF_LAYER
 
-/obj/structure/statue/unknown/Destroy()
-	return ..()
 
-/obj/structure/statue/unknown/update_icon()
-	if(lit)
-		lit = 1
-		icon_state = "unknown_lit"
-	else
-		icon_state = "unknown"
+/obj/structure/statue/unknown/update_icon_state()
+	icon_state = "unknown[lit ? "_lit" : ""]"
+
+
 
 /obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
@@ -425,30 +421,34 @@
 		return
 	return ..()
 
+
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+
 
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
 
+
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(!lit)
-		lit = 1
+		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
-		update_icon()
+		set_light(CANDLE_LUM, l_on = TRUE)
+		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
 		user.visible_message(span_notice("[user] snuffs out [src]."))
-		lit = 0
-		update_icon()
-		set_light(0)
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light_on(FALSE)
 
 ////////////////////////////////
 

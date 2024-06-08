@@ -1,11 +1,11 @@
 /datum/species/abductor
-	name = "Abductor"
+	name = SPECIES_ABDUCTOR
 	name_plural = "Abductors"
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
-	language = "Abductor Mindlink"
-	default_language = "Abductor Mindlink"
+	language = LANGUAGE_HIVE_ABDUCTOR
+	default_language = LANGUAGE_HIVE_ABDUCTOR
 	eyes = "blank_eyes"
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
@@ -16,7 +16,9 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
+
+	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, REPEATSURGERY)
 	dies_at_threshold = TRUE
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
@@ -39,9 +41,9 @@
 /datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-	H.languages.Cut() //Under no condition should you be able to speak any language
-	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
-	H.add_language("Psionic Communication") // still grey enouhg to speak in psi link
+	LAZYREINITLIST(H.languages) //Under no condition should you be able to speak any language
+	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
+	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(H)
 

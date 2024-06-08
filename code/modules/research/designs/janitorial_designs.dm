@@ -11,6 +11,16 @@
 	build_path = /obj/item/mop/advanced
 	category = list("Janitorial")
 
+/datum/design/bluespace_cleaner
+	name = "Bluespace Cleaner"
+	desc = "An technological cleaner with a large internal capacity for holding various chemicals."
+	id = "bluespace_cleaner"
+	req_tech = list("materials" = 5, "bluespace" = 5,"plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_PLASMA = 1300, MAT_GLASS = 1400, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
+	build_path = /obj/item/reagent_containers/spray/blue_cleaner
+	category = list("Janitorial")
+
 /datum/design/blutrash
 	name = "Trashbag of Holding"
 	desc = "An advanced trash bag with bluespace properties; capable of holding a plethora of garbage."

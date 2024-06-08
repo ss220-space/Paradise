@@ -39,6 +39,8 @@
 	var/combo_timer
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
+	var/weight = 0
 
 /datum/martial_art/New()
 	. = ..()
@@ -59,7 +61,7 @@
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
-/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
 /*
@@ -73,19 +75,21 @@
 		combo_timer = addtimer(CALLBACK(src, PROC_REF(reset_combos)), COMBO_ALIVE_TIME, TIMER_UNIQUE | TIMER_STOPPABLE)
 		streak += intent_to_streak(step)
 		var/mob/living/carbon/human/owner = locateUID(owner_UID)
-		owner?.hud_used.combo_display.update_icon(ALL, streak)
-		return check_combos(step, user, target)
+		if(istype(owner) && !QDELETED(owner))
+			owner.hud_used.combo_display.update_icon(ALL, streak)
+			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
 	current_combos.Cut()
 	streak = ""
 	var/mob/living/carbon/human/owner = locateUID(owner_UID)
-	owner?.hud_used.combo_display.update_icon(ALL, streak)
+	if(istype(owner) && !QDELETED(owner))
+		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
-/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	. = FALSE
 	for(var/thing in current_combos)
 		var/datum/martial_combo/MC = thing
@@ -111,6 +115,8 @@
 					return TRUE
 	if(!LAZYLEN(current_combos))
 		reset_combos()
+		if(HAS_COMBOS && could_start_new_combo)
+			act(step, user, target, could_start_new_combo = FALSE)
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
@@ -118,7 +124,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying)
+	if(D.body_position == LYING_DOWN)
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -149,12 +155,12 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
+	else if(D.body_position == LYING_DOWN)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -174,34 +180,44 @@
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
-		return
+		return FALSE
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(istype(MA, src))
+			return FALSE
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
-	if(make_temporary)
-		temporary = TRUE
 	if(has_dirslash)
 		H.verbs |= /mob/living/carbon/human/proc/dirslash_enabling
 		H.dirslash_enabled = TRUE
-	if(temporary)
-		if(H.mind.martial_art)
-			base = H.mind.martial_art.base
-	else
-		base = src
+	temporary = make_temporary
+	H.mind.known_martial_arts.Add(src)
+	H.mind.martial_art = get_highest_weight(H)
 	owner_UID = H.UID()
-	H.mind.martial_art = src
+	return TRUE
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
+	var/datum/martial_art/MA = src
 	if(!H.mind)
-		return
-	if(H.mind.martial_art != src)
-		return
-	H.mind.martial_art = null // Remove reference
-	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	H.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
-	H.dirslash_enabled = initial(H.dirslash_enabled)
-	if(base)
-		base.teach(H)
-		base = null
+		return FALSE
+	deltimer(combo_timer)
+	H.mind.known_martial_arts.Remove(MA)
+	H.mind.martial_art = get_highest_weight(H)
+	remove_verbs(H)
+	return TRUE
+
+/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
+	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
+	return TRUE
+
+///	Returns the martial art with the highest weight from all the ones someone knows.
+/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
+	var/datum/martial_art/highest_weight = null
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(!highest_weight || MA.weight > highest_weight.weight)
+			highest_weight = MA
+	return highest_weight
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -264,23 +280,20 @@
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.teach(user, TRUE)
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_gloves)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
 
-/obj/item/clothing/gloves/boxing/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.remove(user)
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
-		style.remove(H)
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -290,35 +303,47 @@
 	name = "Пояс Истинного Чемпиона"
 	desc = "Вы - лучший! и Вы это знаете!"
 
-/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial)
+
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
+		return .
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
+		return .
+	style.teach(user, TRUE)
+	to_chat(user, span_sciradio("You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab."))
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_belt)
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
-			return
-		style.teach(H,1)
-		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 
-/obj/item/storage/belt/champion/wrestling/dropped(mob/user, silent = FALSE)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
+		return .
+	style.remove(user)
+	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_belt) == src)
-		style.remove(H)
-		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
+
+
+/obj/item/plasma_fist_scroll/update_icon_state()
+	icon_state = used ? "blankscroll" : initial(icon_state)
+
+
+/obj/item/plasma_fist_scroll/update_name(updates = ALL)
+	. = ..()
+	name = used ? "empty scroll" : initial(name)
+
+
+/obj/item/plasma_fist_scroll/update_desc(updates = ALL)
+	. = ..()
+	desc = used ? "It's completely blank." : initial(desc)
+
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -329,10 +354,9 @@
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
-		used = 1
-		desc = "It's completely blank."
-		name = "empty scroll"
-		icon_state = "blankscroll"
+		used = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 
 /obj/item/sleeping_carp_scroll
 	name = "mysterious scroll"
@@ -351,6 +375,9 @@
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 
+	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
+		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		return
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -397,9 +424,9 @@
 	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
-	if(!istype(user) || !user)
+	if(!istype(user))
 		return
-	if(user.mind && user.mind.assigned_role == "Chef")
+	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
 		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
@@ -460,7 +487,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
@@ -469,9 +496,10 @@
 	icon_state = "bostaff0"
 	block_chance = 50
 
-/obj/item/twohanded/bostaff/update_icon()
-	icon_state = "bostaff[wielded]"
-	return
+
+/obj/item/twohanded/bostaff/update_icon_state()
+	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
@@ -497,7 +525,7 @@
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
-			if(!wielded)
+			if(!HAS_TRAIT(src, TRAIT_WIELDED))
 				return ..()
 			if(!ishuman(target))
 				return ..()
@@ -528,35 +556,44 @@
 			return ..()
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return 0
+	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
 	layer = ABOVE_HUD_LAYER
 	var/streak
 
-/obj/screen/combo/proc/clear_streak()
+
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
-/obj/screen/combo/update_icon(updates, _streak)
+
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
-	icon_state = ""
-	if(!streak)
-		clear_streak()
-		return
-	icon_state = "combo"
+	return ..()
+
+
+/atom/movable/screen/combo/update_overlays()
+	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
 		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
-		overlays += intent_icon
-	return ..()
+		. += intent_icon
+
+
+/atom/movable/screen/combo/update_icon_state()
+	icon_state = ""
+	if(!streak)
+		return
+	icon_state = "combo"
+
 
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME

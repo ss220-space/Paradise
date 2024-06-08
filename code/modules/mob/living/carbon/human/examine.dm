@@ -26,6 +26,7 @@
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDENAME
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
+		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
 	var/msg = "This is "
 
@@ -33,23 +34,19 @@
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
 	msg += "<EM>[name]</EM>"
 
-	var/displayed_species = dna.species.name
+	var/displayed_species = get_visible_species()
 	var/examine_color = dna.species.flesh_color
-	for(var/obj/item/clothing/C in src)			//Disguise checks
-		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
-			if(C.species_disguise)
-				displayed_species = C.species_disguise
 	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
-	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
-	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
+	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
 		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
 	else
 		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
 	//uniform
-	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT))
+	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
 		//Ties
 		var/tie_msg
 		if(istype(w_uniform,/obj/item/clothing/under))
@@ -63,21 +60,21 @@
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(w_uniform)] \a [w_uniform][tie_msg].\n"
 
 	//head
-	if(head && !(head.flags & ABSTRACT))
+	if(head && !(head.item_flags & ABSTRACT))
 		if(head.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(head)] [head.gender==PLURAL?"some":"a"] [head.blood_color != "#030303" ? "blood-stained":"oil-stained"] [head.name] on [p_their()] head!</span>\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
 
 	//neck
-	if(neck && !(neck.flags & ABSTRACT))
+	if(neck && !(neck.item_flags & ABSTRACT))
 		if(neck.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(neck)] [neck.gender==PLURAL?"some":"a"] [neck.blood_color != "#030303" ? "blood-stained":"oil-stained"] [neck.name] around [p_their()] neck!</span>\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(neck)] \a [neck] around [p_their()] neck.\n"
 
 	//suit/armour
-	if(wear_suit && !(wear_suit.flags & ABSTRACT))
+	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
 		if(wear_suit.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(wear_suit)] [wear_suit.gender==PLURAL?"some":"a"] [wear_suit.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_suit.name]!</span>\n"
 		else
@@ -91,21 +88,21 @@
 				msg += "[p_they(TRUE)] [p_are()] carrying [bicon(s_store)] \a [s_store] on [p_their()] [wear_suit.name].\n"
 
 	//back
-	if(back && !(back.flags & ABSTRACT))
+	if(back && !(back.item_flags & ABSTRACT))
 		if(back.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(back)] [back.gender==PLURAL?"some":"a"] [back.blood_color != "#030303" ? "blood-stained":"oil-stained"] [back] on [p_their()] back.</span>\n"
 		else
 			msg += "[p_they(TRUE)] [p_have()] [bicon(back)] \a [back] on [p_their()] back.\n"
 
 	//left hand
-	if(l_hand && !(l_hand.flags & ABSTRACT))
+	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] holding [bicon(l_hand)] [l_hand.gender==PLURAL?"some":"a"] [l_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [l_hand.name] in [p_their()] left hand!</span>\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] holding [bicon(l_hand)] \a [l_hand] in [p_their()] left hand.\n"
 
 	//right hand
-	if(r_hand && !(r_hand.flags & ABSTRACT))
+	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] holding [bicon(r_hand)] [r_hand.gender==PLURAL?"some":"a"] [r_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [r_hand.name] in [p_their()] right hand!</span>\n"
 		else
@@ -113,7 +110,7 @@
 
 	//gloves
 	if(!skipgloves)
-		if(gloves && !(gloves.flags & ABSTRACT))
+		if(gloves && !(gloves.item_flags & ABSTRACT))
 			if(gloves.blood_DNA)
 				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(gloves)] [gloves.gender==PLURAL?"some":"a"] [gloves.blood_color != "#030303" ? "blood-stained":"oil-stained"] [gloves.name] on [p_their()] hands!</span>\n"
 			else
@@ -141,7 +138,7 @@
 
 	//shoes
 	if(!skipshoes)
-		if(shoes && !(shoes.flags & ABSTRACT))
+		if(shoes && !(shoes.item_flags & ABSTRACT))
 			if(shoes.blood_DNA)
 				msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [p_their()] feet!</span>\n"
 			else
@@ -154,7 +151,7 @@
 		msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] restrained with [legcuffed]!</span>\n"
 
 	//mask
-	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT))
+	if(wear_mask && !skipmask && !(wear_mask.item_flags & ABSTRACT))
 		if(wear_mask.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(wear_mask)] [wear_mask.gender==PLURAL?"some":"a"] [wear_mask.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_mask.name] on [p_their()] face!</span>\n"
 		else
@@ -162,7 +159,7 @@
 
 	//eyes
 	if(!skipeyes)
-		if(glasses && !(glasses.flags & ABSTRACT))
+		if(glasses && !(glasses.item_flags & ABSTRACT))
 			if(glasses.blood_DNA)
 				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
 			else
@@ -182,15 +179,10 @@
 	if(wear_id)
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
-	//Jitters
-	switch(AmountJitter())
-		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
-
+	//Status effects
+	var/status_examines = get_status_effect_examinations()
+	if(status_examines)
+		msg += status_examines
 
 	var/appears_dead = FALSE
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -233,6 +225,9 @@
 
 				else if(bodypart.is_splinted())
 					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [bodypart.name]!\n"
+
+				else if(!bodypart.properly_attached)
+					wound_flavor_text[limb_zone] = "[p_their(TRUE)] [bodypart.name] is barely attached!\n"
 
 			if(bodypart.open)
 				if(bodypart.is_robotic())
@@ -323,6 +318,10 @@
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
+	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(istype(vampire_datum) && vampire_datum.draining)
+		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
+
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
@@ -336,8 +335,12 @@
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
-		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+		if(stat == CONSCIOUS)
+			if(getBrainLoss() >= 60)
+				msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
+				msg += span_warning("[p_they(TRUE)] [p_are()] barely conscious.\n")
+
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
@@ -351,6 +354,10 @@
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
+
+	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
+	if(istype(implant) && implant.activated)
+		msg += "You can see a strange glint on [p_their()] tail.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
@@ -424,40 +431,64 @@
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+
+/mob/living/carbon/human/get_examine_time()
+	return 1 SECONDS
+
+
+/**
+ * Shows any and all examine text related to any status effects the user has.
+ */
+/mob/living/proc/get_status_effect_examinations()
+	var/list/examine_list = list()
+
+	for(var/datum/status_effect/effect as anything in status_effects)
+		var/effect_text = effect.get_examine_text()
+		if(!effect_text)
+			continue
+
+		examine_list += effect_text
+
+	if(!length(examine_list))
+		return
+
+	return examine_list.Join("\n")
+
+
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
-/proc/hasHUD(mob/M, hudtype)
-	if(istype(M, /mob/living/carbon/human))
-		var/have_hudtypes = list()
+/proc/hasHUD(mob/M, hud_exam)
+	if(ishuman(M))
+		var/have_hud_exam = 0
 		var/mob/living/carbon/human/H = M
 
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
 			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
 			if(hudglasses?.examine_extensions)
-				have_hudtypes += hudglasses.examine_extensions
+				have_hud_exam |= hudglasses.examine_extensions
 
 		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
 			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
 			if(helmet?.examine_extensions)
-				have_hudtypes += helmet.examine_extensions
+				have_hud_exam |= helmet.examine_extensions
 
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
-			have_hudtypes += CIH.examine_extensions
+			have_hud_exam |= CIH.examine_extensions
 
-		return (hudtype in have_hudtypes)
+		return (have_hud_exam & hud_exam)
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+		return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
 	else if(ispAI(M))
 		var/mob/living/silicon/pai/P = M
 		if(P.adv_secHUD)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE))
+			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
+			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SKILLS
 
 	return FALSE
 

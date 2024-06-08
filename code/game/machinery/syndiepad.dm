@@ -3,7 +3,7 @@
 	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and completely ignores bluespace interference!"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad-idle"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
@@ -53,6 +53,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/syndiepad/LateInitialize()
+	. = ..()
 	pad_sync()
 
 /obj/machinery/syndiepad/Destroy()

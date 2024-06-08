@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	flags =  CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	zoomable = TRUE
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -25,7 +25,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
 	flight_x_offset = 18
@@ -40,11 +40,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		overlays += "decloner_spin"
+		. += "decloner_spin"
+
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
@@ -108,7 +114,7 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
+	can_flashlight = FALSE
 	max_mod_capacity = 0
 	empty_state = null
 
@@ -180,8 +186,8 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -226,44 +232,48 @@
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
 	selfcharge = TRUE
-	var/obj/effect/portal/blue
-	var/obj/effect/portal/orange
+	var/obj/effect/portal/wormhole_projector/blue
+	var/obj/effect/portal/wormhole_projector/orange
 
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
+
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
 	select_fire(usr)
 
-/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/P)
-	if(P.icon_state == "portal")
-		blue = null
-		if(orange)
-			orange.target = null
-	else
-		orange = null
-		if(blue)
-			blue.target = null
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
-	P.precision = 0
-	P.failchance = 0
-	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
-		qdel(blue)
-		blue = P
+/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/wormhole_projector/portal)
+	if(portal.is_orange)
+		orange = null
+		blue?.target = null
 	else
-		qdel(orange)
-		P.icon_state = "portal1"
-		orange = P
+		blue = null
+		orange?.target = null
+
+
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
+
+	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), creation_object = src)
+
+	if(projectile.is_orange)
+		if(!QDELETED(orange))
+			qdel(orange)
+		orange = portal
+		portal.is_orange = TRUE
+		portal.update_icon(UPDATE_ICON_STATE)
+	else
+		if(!QDELETED(blue))
+			qdel(blue)
+		blue = portal
+
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
+
 
 /* 3d printer 'pseudo guns' for borgs */
 /obj/item/gun/energy/printer
@@ -275,8 +285,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -335,7 +345,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE
 	zoomable = TRUE
@@ -352,7 +362,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
 	var/has_core = FALSE
@@ -381,7 +391,7 @@
 		to_chat(user, "<span class='notice'>Вы загрузили [O] в [src].</span>")
 		S.use(1)
 		has_bluespace_crystal = TRUE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		return
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
@@ -391,7 +401,7 @@
 		to_chat(user, "<span class='notice'>Вы вставили [O] в [src], и [src] начинает разогреваться.</span>")
 		has_core = TRUE
 		qdel(O)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -404,8 +414,8 @@
 		return
 	return ..()
 
-/obj/item/gun/energy/bsg/update_icon()
-	. = ..()
+
+/obj/item/gun/energy/bsg/update_icon_state()
 	if(has_core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
@@ -415,6 +425,7 @@
 		icon_state = "bsg_crystal"
 	else
 		icon_state = "bsg"
+
 
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
@@ -428,7 +439,7 @@
 	visible_message("<span class='warning'>БС кристалл [src] треснул!</span>")
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"
@@ -437,7 +448,7 @@
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
 	. = ..()
 	has_core = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/bsg/prebuilt/admin
 	desc = "Большая С*** Пушка. Лучшим людям - лучшее творение. У этой версии БС кристалл никогда не треснет, и уже загружено ядро аномалии потока."
@@ -449,7 +460,7 @@
 	icon = 'icons/obj/weapons/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
@@ -467,7 +478,7 @@
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	START_PROCESSING(SSobj, src)
 
 
@@ -478,7 +489,7 @@
 /obj/item/gun/energy/temperature/newshot()
 	..()
 
-/obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/temperature/attack_self(mob/living/user)
 	user.set_machine(src)
 	update_dat()
 	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
@@ -504,7 +515,7 @@
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
 			target_temperature = max(0, target_temperature+amount)
-	if(istype(loc, /mob))
+	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
@@ -547,7 +558,7 @@
 			temperature = target_temperature
 		update_icon()
 
-		if(istype(loc, /mob/living/carbon))
+		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
@@ -579,7 +590,8 @@
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -599,34 +611,34 @@
 			item_state = "tempgun_1"
 		if(-INFINITY to 120)
 			item_state = "tempgun_0"
+
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
 
-/obj/item/gun/energy/temperature/proc/update_user()
-	if(istype(loc,/mob/living/carbon))
-		var/mob/living/carbon/M = loc
-		M.update_inv_back()
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
+	switch(cell.charge)
+		if(900 to INFINITY)
+			. += "900"
+		if(800 to 900)
+			. += "800"
+		if(700 to 800)
+			. += "700"
+		if(600 to 700)
+			. += "600"
+		if(500 to 600)
+			. += "500"
+		if(400 to 500)
+			. += "400"
+		if(300 to 400)
+			. += "300"
+		if(200 to 300)
+			. += "200"
+		if(100 to 202)
+			. += "100"
+		if(-INFINITY to 100)
+			. += "0"
 
-/obj/item/gun/energy/temperature/proc/update_charge()
-	var/charge = cell.charge
-	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -650,10 +662,11 @@
 	desc = "Проприетарное высокотехнологичное оружие правоохранительной организации Sibyl System, произведённое специально для борьбы с преступностью."
 	icon = 'icons/obj/weapons/sibyl.dmi'
 	icon_state = "dominator"
+	base_icon_state = "dominator"
 	item_state = null
 
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	flags =  CONDUCT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -678,77 +691,58 @@
 		var/temp_select = select
 		if(sound_voice[select] && select == temp_select)
 			sound_cd = addtimer(CALLBACK(src, PROC_REF(select_playvoice), user, temp_select), 2 SECONDS)
-	return
+
 
 /obj/item/gun/energy/dominator/proc/select_playvoice(mob/living/user, temp_select)
 	user.playsound_local(get_turf(src), sound_voice[select], 50, FALSE)
 	sound_cd = null
 
-/obj/item/gun/energy/dominator/update_icon()
-	if(isnull(cell))
-		set_drop_icon()
+
+/obj/item/gun/energy/dominator/update_icon(updates = ALL)
+	is_equipped = ismob(loc)
+	. = ..()
+
+
+/obj/item/gun/energy/dominator/update_icon_state()
+	icon_state = base_icon_state
+
+	if(!is_equipped)
+		if(!sibyl_mod)
+			return
+		icon_state = "[base_icon_state][sibyl_mod.auth_id ? "_unlock" : "_lock" ]"
 		return
 
-	overlays.Cut()
-	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/shot_name = shot.alt_select_name
-	var/iconState = initial(icon_state)
+	var/new_item_state = base_icon_state
 
 	if(cell.charge < shot.e_cost)
 		icon_state = "empty"
-		item_state = "[iconState]_empty"
+		item_state = "[new_item_state]_empty"
 	else
-		item_state = "[iconState][shot_name]"
-		if(!is_equipped && is_equipped != ismob(loc))
-			spawn(1)
-				for(var/i = 1, i <= ratio, i++)
-					if(!ismob(loc))
-						break
-					icon_state = "[shot_name][i]"
-					sleep(1)
-		else if(is_equipped && is_equipped != ismob(loc))
-			spawn(2)
-				for(var/i = ratio, i >= 0, i--)
-					if(ismob(loc))
-						break
-					if(i)
-						icon_state = "[shot_name][i]"
-					else
-						set_drop_icon()
-					sleep(1)
-		else if(!is_equipped && is_equipped == ismob(loc))
-			set_drop_icon()
-		else
-			icon_state = "[shot_name][ratio]"
+		icon_state = "[shot_name][ratio]"
+		item_state = "[new_item_state][shot_name]"
+
+
+/obj/item/gun/energy/dominator/update_overlays()
+	. = list()
 	if(gun_light && can_flashlight)
-		var/iconF = "flight"
+		var/iconF = gun_light_overlay
 		if(gun_light.on)
-			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	is_equipped = ismob(loc)
-	return
+			iconF = "[gun_light_overlay]_on"
+		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+
 
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial)
 	. = ..()
-
 	update_icon()
 
 
-/obj/item/gun/energy/dominator/dropped(mob/user, silent = FALSE)
+/obj/item/gun/energy/dominator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-
 	update_icon()
 
-
-/obj/item/gun/energy/dominator/proc/set_drop_icon()
-	icon_state = initial(icon_state)
-	if(!sibyl_mod)
-		return
-	if(sibyl_mod.auth_id)
-		icon_state += "_unlock"
-	else
-		icon_state += "_lock"
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"
@@ -757,7 +751,7 @@
 	item_state = null
 	origin_tech = "combat=3;materials=3;powerstorage=2;magnets=2"
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	cell_type = /obj/item/stock_parts/cell/emittergun

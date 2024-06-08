@@ -12,7 +12,7 @@
 /mob/living/carbon/human/update_nearsighted_effects()
 	var/obj/item/clothing/glasses/G = glasses
 	if((NEARSIGHTED in mutations) && (!istype(G) || !G.prescription))
-		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
 
@@ -21,6 +21,12 @@
 	if(dna?.species)
 		return dna.species.can_hear(src)
 	return ..() // Fallback if we don't have a species or DNA
+
+
+/mob/living/carbon/human/has_vision(information_only = FALSE)
+	if(dna?.species)
+		return dna.species.has_vision(src, information_only)
+	return ..()
 
 
 /mob/living/carbon/human/check_death_method()

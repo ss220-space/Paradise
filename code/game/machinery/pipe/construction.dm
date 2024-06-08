@@ -1,3 +1,6 @@
+#define CIRC_LEFT WEST
+#define CIRC_RIGHT EAST
+
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -88,6 +91,8 @@
 			src.color = PIPE_COLOR_RED
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/multiz))
+			src.pipe_type = PIPE_MULTIZ
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/cap/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_CAP
 			connect_types = list(2)
@@ -147,7 +152,8 @@
 		return ..()
 
 /obj/item/pipe/AltClick(mob/user)
-	rotate()
+	if(Adjacent(user))
+		rotate()
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -177,7 +183,7 @@
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained() )
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type == PIPE_CIRCULATOR)
@@ -188,14 +194,13 @@
 
 	fixdir()
 
-	return
 
 /obj/item/pipe/verb/flip()
 	set category = "Object"
 	set name = "Flip Pipe"
 	set src in view(1)
 
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))
@@ -210,7 +215,6 @@
 
 	fixdir()
 
-	return
 
 /obj/item/pipe/Move()
 	. = ..()
@@ -267,7 +271,7 @@
 				return dir|flip|cw
 			else
 				return flip|cw|acw
-		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
+		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_MULTIZ)
 			return dir|flip
 	return 0
 
@@ -319,7 +323,7 @@
 	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
-/obj/item/pipe/attack_self(mob/user as mob)
+/obj/item/pipe/attack_self(mob/user)
 	return rotate()
 
 /obj/item/pipe/wrench_act(mob/user, obj/item/I)
@@ -341,7 +345,7 @@
 			return 1
 
 	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
-		if(T.transparent_floor) //stops jank with transparent floors and pipes
+		if(T.transparent_floor == TURF_TRANSPARENT) //stops jank with transparent floors and pipes
 			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
 
@@ -396,6 +400,10 @@
 
 		if(PIPE_SCRUBBERS_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers/M = new( src.loc )
+			M.on_construction(dir, pipe_dir, color)
+
+		if(PIPE_MULTIZ)		//multi-z
+			var/obj/machinery/atmospherics/pipe/multiz/M = new( src.loc )
 			M.on_construction(dir, pipe_dir, color)
 
 		if(PIPE_JUNCTION)
@@ -522,7 +530,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(!istype(W, /obj/item/wrench))
+	if(W.tool_behaviour != TOOL_WRENCH)
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, span_warning("You need to fasten it to a pipe"))
@@ -548,7 +556,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(!istype(W, /obj/item/wrench))
+	if(!W.tool_behaviour == TOOL_WRENCH)
 		return ..()
 	var/obj/machinery/atmospherics/air_sensor/sensor = new(loc)
 	sensor.add_fingerprint(user)

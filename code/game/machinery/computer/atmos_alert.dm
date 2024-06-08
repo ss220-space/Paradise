@@ -83,11 +83,16 @@
 		minor_alarms += zone
 	update_icon()
 
-/obj/machinery/computer/atmos_alert/update_icon()
+
+/obj/machinery/computer/atmos_alert/update_icon_state()
 	if(length(priority_alarms))
 		icon_screen = "alert:2"
 	else if(length(minor_alarms))
 		icon_screen = "alert:1"
 	else
 		icon_screen = "alert:0"
-	..()
+
+/obj/machinery/computer/atmos_alert/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame-eng"
+	icon_keyboard = "kb4"

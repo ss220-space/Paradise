@@ -17,7 +17,7 @@
 		// VFX and SFX
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(T, 'sound/effects/bang.ogg', 100, TRUE)
-		new /obj/effect/dummy/lighting_obj(T, light_color, range + 2, light_power, light_time)
+		new /obj/effect/dummy/lighting_obj(T, range + 2, light_power, light_color, light_time)
 		// Blob damage
 		for(var/obj/structure/blob/B in hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
@@ -78,9 +78,8 @@
 					if(istype(ears))
 						ears.receive_damage(5)
 						if(ears.damage >= 15)
-							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+							to_chat(M, span_warning("Your ears start to ring badly!"))
 							if(prob(ears.damage - 5))
-								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-								M.BecomeDeaf()
+								to_chat(M, span_warning("You can't hear anything!"))
 						else if(ears.damage >= 5)
-							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+							to_chat(M, span_warning("Your ears start to ring!"))
