@@ -67,36 +67,23 @@
 /obj/machinery/camera/proc/can_see(atom/target, length=7) // I stole this from global and modified it to work with Xray cameras.
 	var/turf/current = get_turf(src)
 	var/turf/target_turf = get_turf(target)
-	var/steps = 1
 	if(target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
-		return 0
-	if(isXRay())
-		if(current != target_turf)
-			current = get_step_towards(current, target_turf)
+		return FALSE
+	if(current != target_turf)
+		if(get_dist(current, target_turf) > view_range)
+			return FALSE
+		if(!isXRay())
 			while(current != target_turf)
-				if(steps > length)
-					return 0
 				current = get_step_towards(current, target_turf)
-				steps++
-	else
-		if(current != target_turf)
-			current = get_step_towards(current, target_turf)
-			while(current != target_turf)
-				if(steps > length)
-					return 0
 				if(current.opacity)
-					return 0
+					return FALSE
 				for(var/thing in current)
 					var/atom/A = thing
 					if(A.opacity)
-						return 0
-				current = get_step_towards(current, target_turf)
-				steps++
-
-	return 1
+						return FALSE
+	return TRUE
 
 /obj/machinery/camera/HasProximity(atom/movable/AM)
-	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.
 	if(isliving(AM))
 		newTarget(AM)
 

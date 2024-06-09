@@ -321,8 +321,9 @@
 		playsound(loc, toggle_sound, 100, 1)
 	grey_noise()
 	update_icon(UPDATE_ICON_STATE)
-	/// now disconnect anyone using the camera.
-	///Apparently, this will disconnect anyone even if the camera was re-activated.
+
+/// now disconnect anyone using the camera.
+///Apparently, this will disconnect anyone even if the camera was re-activated.
 /obj/machinery/camera/proc/grey_noise()
 	//I guess that doesn't matter since they can't use it anyway?
 	for(var/mob/O in GLOB.player_list)
