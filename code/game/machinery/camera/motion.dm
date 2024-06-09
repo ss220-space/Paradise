@@ -9,7 +9,7 @@
 		. = PROCESS_KILL
 		return
 	if(!status)
-		for(var/targer in getTargetList())
+		for(var/targer in localMotionTargets)
 			lostTargetRef(targer)
 		return
 	if((stat && EMPED|NOPOWER))
@@ -19,14 +19,11 @@
 		if(elapsed > alarm_delay)
 			triggerAlarm()
 	else if(detectTime == -1)
-		for(var/thing in getTargetList())
+		for(var/thing in localMotionTargets)
 			var/mob/target = locateUID(thing)
 			if(QDELETED(target) || target.stat == DEAD || !can_see(target, view_range))
 				//If not part of a monitored area and the camera is not in range or the target is dead
 				lostTargetRef(thing)
-
-/obj/machinery/camera/proc/getTargetList()
-	return localMotionTargets
 
 /obj/machinery/camera/proc/newTarget(mob/target)
 	if(target.lastarea != myArea)
@@ -37,15 +34,13 @@
 		return FALSE
 	if(detectTime == 0)
 		detectTime = world.time // start the clock
-	var/list/targets = getTargetList()
-	targets |= target.UID()
+	localMotionTargets |= target.UID()
 	return TRUE
 
 /obj/machinery/camera/proc/lostTargetRef(uid)
-	var/list/targets = getTargetList()
-	if(length(targets))
-		targets -= uid
-		if(!length(targets))
+	if(length(localMotionTargets))
+		localMotionTargets -= uid
+		if(!length(localMotionTargets))
 			cancelAlarm()
 
 /obj/machinery/camera/proc/cancelAlarm()
