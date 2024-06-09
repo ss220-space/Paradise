@@ -122,7 +122,12 @@ export const RoboQuest = (props, context) => {
                             <FlexItem grow="1" basis="33" key={i.path}>
                               <Button
                                 height="64px"
-                                width="64px">
+                                width="64px"
+                                onClick={() =>
+                                  act("buyItem", {
+                                    item: i.path,
+                                  })}
+                                disabled={i.cost[0] > points[0] || i.cost[1] > points[1] || i.cost[2] > points[2]}>
                                 <img
                                   height="64px"
                                   width="64px"
@@ -143,7 +148,6 @@ export const RoboQuest = (props, context) => {
                     </Flex>
                   </FlexItem>))}
                 </Flex>
-              {/* </Box> */}
             </Section>}
           </FlexItem>
           <FlexItem basis={20}>
@@ -243,9 +247,8 @@ export const RoboQuest = (props, context) => {
                           onClick={() =>
                             act("buyItem", {
                               item: i.path,
-                              cost: i.cost.robo,
                             })}
-                          disabled={!hasID || i.cost.robo > points}
+                          disabled={i.cost.robo > points.robo}
                         />
                       }>
                       <Box italic>{i.desc}</Box>

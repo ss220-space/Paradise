@@ -245,8 +245,11 @@
 			SStgui.update_uis(src)
 			update_icon()
 		if("buyItem")
-			var/path = params["item"]
-			new path(get_turf(src))
+			var/r_path = text2path(params["item"])
+			var/datum/roboshop_item/r_item = new r_path
+			for(var/cat in r_item.cost)
+				points[cat] -= r_item.cost[cat]
+			new r_item.path(get_turf(src))
 		if("printOrder")
 			if(print_delayed)
 				return FALSE
@@ -347,6 +350,7 @@
 /obj/structure/closet/critter/mecha
 	name = "mecha box"
 	icon_state = "mecha_box"
+	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
 	req_access = (ACCESS_ROBOTICS)
 	var/datum/roboquest/quest
 	var/obj/machinery/computer/roboquest/console
@@ -361,7 +365,7 @@
 /obj/structure/closet/critter/mecha/toggle(mob/user)
 	if(!allowed(user))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		return
+		return FALSE
 	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 	if(response == "No" || !Adjacent(user))
 		return FALSE

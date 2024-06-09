@@ -230,9 +230,9 @@
 					A.money += crate.quest.reward["robo"] * 150
 				SSshuttle.cargo_money_account.money += crate.quest.reward["robo"] * 150
 				crate.console.on_quest_complete()
+				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
 				crate.quest.id.robo_bounty = null
 				crate.quest = null
-				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
 
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
