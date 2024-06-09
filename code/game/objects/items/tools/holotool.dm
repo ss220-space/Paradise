@@ -44,7 +44,32 @@ Holotool. All instruments in one object
 	current_tool.on_set(src)
 	playsound(loc, 'sound/items/pshoom.ogg', get_clamped_volume(), 1, -1)
 	update_icon()
+	update_state(user)
+
+/obj/item/holotool/proc/update_state(mob/user)
+	for(var/datum/action/A in actions)
+		A.UpdateButtonIcon()
 	user.regenerate_icons()
+	if(current_tool)
+		if(istype(current_tool, /datum/holotool_mode/off))
+			set_light(0)
+		else
+			set_light(3, null, current_color)
+
+/obj/item/holotool/update_icon_state()
+	if(current_tool)
+		item_state = current_tool.name
+	else
+		item_state = "holotool"
+		icon_state = "holotool"
+
+/obj/item/holotool/update_overlays()
+	. = ..()
+	cut_overlays()
+	if(current_tool)
+		var/mutable_appearance/holo_item = mutable_appearance(icon, current_tool.name)
+		holo_item.color = current_color
+		. += holo_item
 
 /obj/item/holotool/proc/update_listing()
 	LAZYCLEARLIST(available_modes)
@@ -62,25 +87,6 @@ Holotool. All instruments in one object
 			LAZYSET(radial_modes, M.name, holotool_img)
 		else
 			qdel(M)
-
-/obj/item/holotool/update_icon()
-	cut_overlays()
-	if(current_tool)
-		var/mutable_appearance/holo_item = mutable_appearance(icon, current_tool.name)
-		holo_item.color = current_color
-		item_state = current_tool.name
-		add_overlay(holo_item)
-		if(current_tool.name == "off")
-			set_light(0)
-		else
-			set_light(3, null, current_color)
-	else
-		item_state = "holotool"
-		icon_state = "holotool"
-		set_light(0)
-
-	for(var/datum/action/A in actions)
-		A.UpdateButtonIcon()
 
 /obj/item/holotool/proc/check_menu(mob/living/user)
 	if(!istype(user))
