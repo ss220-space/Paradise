@@ -31,7 +31,6 @@ Holotool. All instruments in one object
 	if(!C || QDELETED(src))
 		return
 	current_color = C
-	update_icon()
 	update_state(user)
 
 /obj/item/holotool/proc/switch_tool(mob/user, datum/holotool_mode/mode)
@@ -42,10 +41,10 @@ Holotool. All instruments in one object
 	current_tool = mode
 	current_tool.on_set(src)
 	playsound(loc, 'sound/items/pshoom.ogg', get_clamped_volume(), 1, -1)
-	update_icon()
 	update_state(user)
 
 /obj/item/holotool/proc/update_state(mob/user)
+	update_icon()
 	update_equipped_item(update_speedmods = FALSE)
 	if(current_tool)
 		if(istype(current_tool, /datum/holotool_mode/off))
