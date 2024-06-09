@@ -47,7 +47,7 @@ Holotool. All instruments in one object
 	update_state(user)
 
 /obj/item/holotool/proc/update_state(mob/user)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	if(current_tool)
 		if(istype(current_tool, /datum/holotool_mode/off))
 			set_light(0)
