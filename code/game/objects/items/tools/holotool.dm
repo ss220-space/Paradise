@@ -47,9 +47,7 @@ Holotool. All instruments in one object
 	update_state(user)
 
 /obj/item/holotool/proc/update_state(mob/user)
-	for(var/datum/action/A in actions)
-		A.UpdateButtonIcon()
-	user.regenerate_icons()
+	update_equipped_item()
 	if(current_tool)
 		if(istype(current_tool, /datum/holotool_mode/off))
 			set_light(0)
