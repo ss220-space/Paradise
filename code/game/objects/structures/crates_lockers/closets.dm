@@ -341,22 +341,24 @@ GLOBAL_LIST_EMPTY(closets)
 		icon_state = opened ? icon_opened : icon_closed
 
 
+
+
 /obj/structure/closet/update_overlays()
 	. = ..()
 	if(opened)
 		if(custom_open_overlay)
-			. += "[custom_open_overlay]_open"
+			. += mutable_appearance(icon, "[custom_open_overlay]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		else
-			. += "[icon_state]_open"
+			. += mutable_appearance(icon, "[icon_state]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 	else
 		for(var/olay in apply_contents_overlays())
 			. += olay
 		if(custom_door_overlay)
-			. += "[custom_door_overlay]_door"
+			. += mutable_appearance(icon, "[custom_door_overlay]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		else
-			. += "[icon_state]_door"	//No initials because of custom map-made closets.
+			. += mutable_appearance(icon, "[icon_state]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		if(welded)
-			. += "welded"
+			. += mutable_appearance(icon, "welded", src.layer + CLOSET_OLAY_OFFSET_WELDED)
 
 
 /**
@@ -484,16 +486,16 @@ GLOBAL_LIST_EMPTY(closets)
 	. = list()
 	if(!opened)
 		if(transparent)
-			. += "[initial(icon_state)]_door_trans"
+			. += mutable_appearance(icon, "[initial(icon_state)]_door_trans", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		else
-			. += "[initial(icon_state)]_door"
+			. += mutable_appearance(icon, "[initial(icon_state)]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		if(welded)
-			. += "welded"
+			. += mutable_appearance(icon, "welded", src.layer + CLOSET_OLAY_OFFSET_WELDED)
 	else
 		if(transparent)
-			. += "[initial(icon_state)]_open_trans"
+			. += mutable_appearance(icon, "[initial(icon_state)]_open_trans", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 		else
-			. += "[initial(icon_state)]_open"
+			. += mutable_appearance(icon, "[initial(icon_state)]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
 
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
