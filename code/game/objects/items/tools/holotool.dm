@@ -32,8 +32,7 @@ Holotool. All instruments in one object
 		return
 	current_color = C
 	update_icon()
-	action.UpdateButtonIcon()
-	user.regenerate_icons()
+	update_state(user)
 
 /obj/item/holotool/proc/switch_tool(mob/user, datum/holotool_mode/mode)
 	if(!mode || !istype(mode))
