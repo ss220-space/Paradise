@@ -8,11 +8,9 @@
 	if(!isMotion())
 		. = PROCESS_KILL
 		return
-	if(!status)
+	if(!status || (stat & (EMPED|NOPOWER)))
 		for(var/targer in localMotionTargets)
 			lostTargetRef(targer)
-		return
-	if((stat && EMPED|NOPOWER))
 		return
 	if(detectTime > 0)
 		var/elapsed = world.time - detectTime
