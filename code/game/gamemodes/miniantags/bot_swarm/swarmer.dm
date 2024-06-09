@@ -147,9 +147,9 @@
 		stat("Resources:",resources)
 
 
-/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
+/mob/living/simple_animal/hostile/swarmer/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-	if(. == VENTCRAWL_IN_SUCCESS && light_on)
+	if(. && light_on)
 		ToggleLight()
 
 

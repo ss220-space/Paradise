@@ -1080,12 +1080,16 @@
 	addiction_threshold = 10
 	overdose_threshold = 50
 	taste_description = "warmth and stability"
+	var/temperature_effect = 40
 
 /datum/reagent/medicine/teporone/on_mob_life(mob/living/M)
-	if(M.bodytemperature > 310)
-		M.adjust_bodytemperature(-(40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	else if(M.bodytemperature < 311)
-		M.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT)
+	var/normal_temperature = M?.dna?.species.body_temperature
+	if(!normal_temperature)
+		normal_temperature = BODYTEMP_NORMAL
+	var/difference = M.bodytemperature - normal_temperature
+	if(abs(difference) > temperature_effect)
+		var/current_effect = difference > 0 ? -temperature_effect : temperature_effect
+		M.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/medicine/haloperidol
@@ -1328,7 +1332,7 @@
 	update_flags |= M.adjustToxLoss(2.5, FALSE)
 	return list(0, update_flags)
 
-/datum/reagent/medicine/syndiezine 
+/datum/reagent/medicine/syndiezine
 	name = "Syndiezine"
 	id = "syndiezine"
 	description = "Попытка синдиката вывести синтетический аналог реагента кровь земли. Слабо лечит раны, но быстро избавляет от усталости, вызывает галлюцинации."
@@ -1492,7 +1496,10 @@
 /datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isplasmaman(M))
-		if(M.bodytemperature < 310)
+		var/normal_temperature = M?.dna?.species.body_temperature
+		if(!normal_temperature)
+			normal_temperature = BODYTEMP_NORMAL
+		if(M.bodytemperature < normal_temperature)
 			M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
 		update_flags |= M.adjustFireLoss(-0.25, FALSE)

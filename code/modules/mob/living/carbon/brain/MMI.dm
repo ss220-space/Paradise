@@ -241,7 +241,7 @@
 	syndiemmi = 1
 
 
-/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)
 		return FALSE
 	if(!parent)
