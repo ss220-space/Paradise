@@ -1149,11 +1149,14 @@ proc/dd_sortedObjectList(list/incoming)
 			// this shouldn't normally happen
 			message_admins("p in new_weighted_pick is null for item, using 0 for it (unlikely to break game, but depends where happened). Contact coder and explain WHEN this happened.")
 			p = 0
-		var/C = CfromP(p)
+		var/C = CfromP(p) // For P >=1, C = P/2
 		var/n = list_of_current_n[item] + 1 // in case there's 0
 		
 		if (n < 1)
 			n = 1 // for safety
+
+		if (n > 1) // if it's not the time, when 'event' could happen
+			C = C * 2 // If C = P/2 for first time, then for second and beyond multiply by 2
 		
 		var/actual_probability = C * n
 		new_probabilities[item] = actual_probability
