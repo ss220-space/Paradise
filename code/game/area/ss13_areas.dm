@@ -1110,6 +1110,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/spacebridge/scidock
 	name = "Science-Docking Bridge"
 
+/area/hallway/spacebridge/somsec
+	name = "Comand-Security Bridge"
+
+/area/hallway/spacebridge/sersec
+	name = "Service-Security Bridge"
+
+/area/hallway/spacebridge/engdock
+	name = "Engineering-Docking Bridge"
+
 /area/hallway/spacebridge/servsci
 	name = "Service-Science Bridge"
 
@@ -1714,6 +1723,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/teleporter/quantum/cargo
 	name = "Cargo Quantum Pad"
 
+/area/teleporter/quantum/comand
+	name = "Comand Quantum Pad"
+
+/area/teleporter/quantum/service
+	name = "Service Quantum Pad"
+
+/area/teleporter/quantum/medbay
+	name = "Medical Quantum Pad"
+
+/area/teleporter/quantum/engi
+	name = "Engineering Quantum Pad"
+
 /area/gateway
 	name = "\improper Gateway"
 	icon_state = "teleporter"
@@ -1745,7 +1766,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Medbay"
 	icon_state = "medbay"
 
-//Medbay is a large area, these additional areas help level out APC load.
+//Medbay is a large area, these additional areas help level out APC load. wtf dude, nobody use THIS MUCH ZONES
 /area/medical/medbay2
 	name = "\improper Medbay"
 	icon_state = "medbay2"
@@ -1804,7 +1825,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Medical Secondary Storage"
 	icon_state = "medbaysecstorage"
 
-/area/medical/robotics
+/area/medical/robotics //why
 	name = "\improper Robotics"
 	icon_state = "research"
 
