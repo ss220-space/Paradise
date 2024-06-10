@@ -65984,6 +65984,7 @@
 	},
 /area/maintenance/port)
 "oUw" = (
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -66508,6 +66509,7 @@
 	name = "Robotics Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
