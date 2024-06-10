@@ -19,7 +19,7 @@ Holotool. All instruments in one object
 	var/list/available_modes
 	var/list/mode_names
 	var/list/radial_modes
-	var/current_color = "#48D1CC" //mediumturquoise
+	item_state_color = "#48D1CC" //mediumturquoise
 	var/emagged = FALSE
 
 /obj/item/holotool/examine(mob/user)
@@ -30,7 +30,7 @@ Holotool. All instruments in one object
 	var/C = input(user, "Select Color", "Select color", "#48D1CC") as null|color
 	if(!C || QDELETED(src))
 		return
-	current_color = C
+	item_state_color = C
 	update_state(user)
 
 /obj/item/holotool/proc/switch_tool(mob/user, datum/holotool_mode/mode)
@@ -50,7 +50,7 @@ Holotool. All instruments in one object
 		if(istype(current_tool, /datum/holotool_mode/off))
 			set_light(0)
 		else
-			set_light(3, null, current_color)
+			set_light(3, null, item_state_color)
 
 /obj/item/holotool/update_icon_state()
 	if(current_tool)
@@ -64,7 +64,7 @@ Holotool. All instruments in one object
 	cut_overlays()
 	if(current_tool)
 		var/mutable_appearance/holo_item = mutable_appearance(icon, current_tool.name)
-		holo_item.color = current_color
+		holo_item.color = item_state_color
 		. += holo_item
 
 /obj/item/holotool/proc/update_listing()
@@ -78,7 +78,7 @@ Holotool. All instruments in one object
 			LAZYSET(mode_names, M.name, M)
 			var/image/holotool_img = image(icon = icon, icon_state = icon_state)
 			var/image/tool_img = image(icon = icon, icon_state = M.name)
-			tool_img.color = current_color
+			tool_img.color = item_state_color
 			holotool_img.overlays += tool_img
 			LAZYSET(radial_modes, M.name, holotool_img)
 		else

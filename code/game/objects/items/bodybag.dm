@@ -32,7 +32,7 @@
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
 	user.drop_item_ground(src)
-	forceMove(null)
+	move_to_null_space()
 	return item_bag
 
 /obj/item/bodybag/suicide_act(mob/living/user)
@@ -119,6 +119,7 @@
 		perform_fold(usr)
 		qdel(src)
 		return FALSE
+
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && usr.Adjacent(src))
 		if(attempt_fold(usr))
 			usr.visible_message(
@@ -143,10 +144,12 @@
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
 
+
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"
 	desc = "A folded bag designed for the storage and transportation of infected cadavers."
 	icon_state = "bodybag_biohazard_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/biohazard
 
 /obj/structure/closet/body_bag/biohazard
 	name = "biohazard body bag"
@@ -157,10 +160,7 @@
 	icon_opened = "bodybag_biohazard_open"
 	foldedbag_path = /obj/item/bodybag/biohazard
 
-/obj/item/bodybag/biohazard/attack_self(mob/user)
-	var/obj/structure/closet/body_bag/biohazard/R = new /obj/structure/closet/body_bag/biohazard(user.loc)
-	R.add_fingerprint(user)
-	qdel(src)
+
 /obj/item/bodybag/bluespace
 	name = "bluespace body bag"
 	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
@@ -192,7 +192,7 @@
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
 	user.drop_item_ground(src)
-	forceMove(null)
+	move_to_null_space()
 	return item_bag
 
 /obj/item/bodybag/bluespace/container_resist(mob/living/user)
@@ -240,6 +240,7 @@
 	for(var/obj/item/bodybag/bluespace/B in src)
 		to_chat(the_folder, span_warning("You can't recursively fold bluespace body bags!") )
 		return
+
 	return TRUE
 
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)

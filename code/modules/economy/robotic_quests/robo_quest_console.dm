@@ -8,6 +8,11 @@
 #define RANDOM_CLASS	4
 #define CATS_BY_STAGE list("number" = list("first", "second", "third"), "first" = list("working", "medical", "security"), "second" = list("working_medical", "medical_security"), "third" = list("working_medical_security"))
 
+
+///////////////////////
+// roboquest console //
+///////////////////////
+
 /obj/machinery/computer/roboquest
 	name = "Robotics Request Console"
 	desc = "Console used for receiving requests for construction of exosuits."
@@ -287,6 +292,10 @@
 	currentID.robo_bounty.id = currentID
 
 
+///////////////////
+// roboquest pad //
+///////////////////
+
 /obj/machinery/roboquest_pad
 	name = "Robotics Request Quantum Pad"
 	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter."
@@ -347,11 +356,15 @@
 	var/obj/item/multitool/M = I
 	M.set_multitool_buffer(user, src)
 
+///////////////
+// mecha box //
+///////////////
+
 /obj/structure/closet/critter/mecha
 	name = "mecha box"
 	icon_state = "mecha_box"
 	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
-	req_access = (ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ROBOTICS)
 	var/datum/roboquest/quest
 	var/obj/machinery/computer/roboquest/console
 	var/penalty = 0
@@ -364,12 +377,16 @@
 
 /obj/structure/closet/critter/mecha/toggle(mob/user)
 	if(!allowed(user))
+		to_chat(user, span_notice("You don`t have required access."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return FALSE
 	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 	if(response == "No" || !Adjacent(user))
 		return FALSE
 	. = ..()
+
+/obj/structure/closet/critter/mecha/after_open(mob/living/user, force)
+	qdel(src)
 
 #undef NO_SUCCESS
 #undef CORRECT_MECHA

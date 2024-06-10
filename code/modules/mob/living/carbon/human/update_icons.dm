@@ -1043,8 +1043,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
-		standing.color = r_hand.color
-		standing.alpha = r_hand.alpha
+
+		if(r_hand.item_state_color)
+			standing.color = r_hand.item_state_color
+		else
+			standing.color = r_hand.color
+
+		if(r_hand.item_state_alpha)
+			standing.color = r_hand.item_state_alpha
+		else
+			standing.alpha = r_hand.alpha
+
 		overlays_standing[R_HAND_LAYER] = standing
 	apply_overlay(R_HAND_LAYER)
 
@@ -1064,8 +1073,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
-		standing.color = l_hand.color
-		standing.alpha = l_hand.alpha
+
+		if(l_hand.item_state_color)
+			standing.color = l_hand.item_state_color
+		else
+			standing.color = l_hand.color
+
+		if(l_hand.item_state_alpha)
+			standing.color = l_hand.item_state_alpha
+		else
+			standing.alpha = l_hand.alpha
+
 		overlays_standing[L_HAND_LAYER] = standing
 	apply_overlay(L_HAND_LAYER)
 
