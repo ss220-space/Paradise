@@ -1,51 +1,14 @@
-import { useBackend, useLocalState } from "../backend";
-import { Button, LabeledList, Box, Section, Tabs } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from "../backend";
+import { Button, LabeledList, Box, Section } from "../components";
+import { Window } from '../layouts';
 
 export const ERTManager = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const decideTab = index => {
-    switch (index) {
-      case 0:
-        return <SquadManager />;
-      case 1:
-        return <Information />;
-    }
-  };
-
-  return (
-    <Window>
-      <Window.Content scrollable>
-        <Box fillPositionedParent>
-          <Tabs>
-            <Tabs.Tab
-              key="ERT"
-              selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}
-              icon="ambulance"
-              content="ERT" />
-            <Tabs.Tab>
-            <Tabs.Tab
-              key="Information"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}
-              icon="info-circle"
-              content="Information" />
-            </Tabs.Tab>
-          </Tabs>
-          {decideTab(tabIndex)}
-        </Box>
-      </Window.Content>
-    </Window>
-  );
-};
-
-const SquadManager = (props, context) => {
   const { act, data } = useBackend(context);
   let slotOptions = [0, 1, 2, 3, 4, 5];
 
   return (
-      <Box>
+    <Window>
+      <Box >
         <Section title="Overview">
           <LabeledList>
             <LabeledList.Item label="Current Alert"
@@ -198,24 +161,6 @@ const SquadManager = (props, context) => {
           </LabeledList>
         </Section>
       </Box>
-  );
-};
-
-const Information = (props, context) => {
-  const { act, data } = useBackend(context);
-
-  return(
-  <Box >
-    <Section title="Manual Selection">
-      <Box >
-        Возможность отобрать игроков группы в ручную, если количество добровольцев больше количества слотов(иначе разницы нет)
-      </Box>
-    </Section>
-    <Section title="Prevent Announce">
-    <Box >
-      Возможность отключить автоматическое оповещение о сборе и отправке отряда ; повышает шанс отсутствия ловушки у порта прибытия и подготовки к противостоянию с ОБР
-    </Box>
-    </Section>
-  </Box>
+    </Window>
   );
 };

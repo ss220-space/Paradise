@@ -9,12 +9,12 @@
 	var/paranormal_slots = 0
 	var/cyborg_slots = 0
 	var/manual_check = FALSE
-	var/prevent_announce
+	var/prevent_announce = FALSE
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ERTManager", name, 350, 520, master_ui, state)
+		ui = new(user, src, ui_key, "ERTManager", name, 350, 470, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
