@@ -1110,6 +1110,9 @@
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(10 SECONDS)
 
+/mob/living/proc/get_visible_name()
+	return name
+
 /mob/living/proc/is_facehugged()
 	return FALSE
 
