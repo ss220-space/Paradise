@@ -120,7 +120,7 @@
 	item_state = "gatling"
 	fire_sound = "lasergatling"
 	origin_tech = "combat=7;magnets=6;powerstorage=6"
-	slot_flags = NULL
+	slot_flags = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_GIGANTIC
