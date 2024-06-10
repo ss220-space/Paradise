@@ -48,7 +48,7 @@
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
-	var/obj/item/jetpack
+	var/obj/item/mouse_jet/jetpack
 	var/static/list/animated_mouses = list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
@@ -57,6 +57,7 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
@@ -104,23 +105,11 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-/mob/living/simple_animal/mouse/toggle_resting()
-	set name = "Rest"
-	set category = "IC"
-
-	if(jetpack)
-		to_chat(src, span_notice("You start dragging jetpack from your back."))
-		if(do_after(src, 3 SECONDS, src, NONE))
-			remove_from_back(null, FALSE)
-	else
-		..()
 
 /mob/living/simple_animal/mouse/New()
 	..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
-
-	color_pick()
 
 	if(is_available_for_anim())
 		verbs += /mob/living/simple_animal/mouse/proc/sniff
@@ -128,19 +117,34 @@
 		verbs += /mob/living/simple_animal/mouse/proc/scratch
 		verbs += /mob/living/simple_animal/mouse/proc/washup
 
+
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[mouse_color]"
-	icon_living = "mouse_[mouse_color]"
+		mouse_color = pick(list("brown","gray","white"))
+
+
+/mob/living/simple_animal/mouse/update_icon_state()
+	if(!mouse_color)
+		color_pick()
+	var/new_icon_state = "mouse_[mouse_color][jetpack ? "_jet" : ""]"
+	icon_state = new_icon_state
+	icon_living = new_icon_state
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
+
+
+/mob/living/simple_animal/mouse/update_desc(updates)
+	. = ..()
+	if(!mouse_color)
+		color_pick()
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
+
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
+
 
 /mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
 	if(stat != DEAD)
@@ -148,6 +152,7 @@
 			place_on_back(user.get_active_hand(), user)
 			return
 	. = ..()
+
 
 /mob/living/simple_animal/mouse/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
@@ -161,6 +166,7 @@
 	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
 	popup.set_content(dat)
 	popup.open()
+
 
 /mob/living/simple_animal/mouse/Topic(href, href_list)
 	if(..())
@@ -178,7 +184,7 @@
 		var/remove_from = href_list["remove_inv"]
 		switch(remove_from)
 			if("back")
-				remove_from_back(usr, FALSE)
+				remove_from_back(usr)
 			if("collar")
 				if(pcollar)
 					var/the_collar = pcollar
@@ -198,6 +204,7 @@
 
 	if(usr != src)
 		return TRUE
+
 
 /mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
 	if(!istype(item_to_add, /obj/item/mouse_jet) || !is_available_for_anim())
@@ -219,11 +226,19 @@
 		span_notice("You equip mouse with a cool jetpack! Sick!"),
 		span_italics("You hear the roar of a small engine."))
 
-	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back), null, FALSE)
+//	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
+	update_icon(UPDATE_ICON_STATE)
 	update_move_type()
 	return TRUE
 
-/mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user, on_death)
+
+/mob/living/simple_animal/mouse/proc/delayed_jetpack_remove()
+	to_chat(src, span_notice("You start dragging jetpack from your back."))
+	if(do_after(src, 3 SECONDS, src, NONE))
+		remove_from_back(null)
+
+
+/mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user)
 	SIGNAL_HANDLER
 
 	if(!jetpack)
@@ -231,45 +246,50 @@
 
 	drop_item_ground(jetpack)
 
-	if(!on_death && user)
+	if(user)
 		user.put_in_hands(jetpack, ignore_anim = FALSE)
 	else if(prob(85))
 		step_rand(jetpack)
 	jetpack = null
 
 	UnregisterSignal(src, COMSIG_MOB_GHOSTIZE)
+	update_icon(UPDATE_ICON_STATE)
 	update_move_type()
+
 
 /mob/living/simple_animal/mouse/Process_Spacemove(movement_dir)
 	return jetpack ? TRUE : ..()
+
 
 /mob/living/simple_animal/mouse/proc/update_move_type()
 	if(jetpack)
 		if(resting)
 			set_resting(FALSE, instant = TRUE)
+
 		if(can_hide)
 			for(var/datum/action/innate/hide/hide in actions)
 				if(layer == hide.layer_to_change_to)
 					hide.Activate()
 				hide.Remove(src)
+
 		var/datum/action/innate/drop_jetpack/dropjet = new()
 		dropjet.Grant(src)
-		icon_state = "mouse_[mouse_color]_jet"
-		icon_living = "mouse_[mouse_color]_jet"
+
+		ventcrawler_trait = null
 		add_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
+		ADD_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 	else
 		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
 			dropjet.Remove(src)
+
 		if(can_hide)
 			var/datum/action/innate/hide/hide = new()
 			hide.Grant(src)
-		remove_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
-		speed = initial(speed)
-		icon_state = "mouse_[mouse_color]"
-		icon_living = "mouse_[mouse_color]"
 
-/mob/living/simple_animal/mouse/can_ventcrawl(atom/clicked_on, override)
-	return jetpack ? FALSE : ..()
+		ventcrawler_trait = initial(ventcrawler_trait)
+		remove_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
+		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
+
 
 /mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
@@ -381,9 +401,7 @@
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)
-		to_chat(src, span_notice("You start dragging jetpack from your back."))
-		if(do_after(user, 3 SECONDS, user, NONE))
-			user.remove_from_back(null, FALSE)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, delayed_jetpack_remove))
 		return FALSE
 	else
 		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
@@ -538,10 +556,14 @@
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)
 		mouse_color = pick(list("gray","white","irish"))
-		icon_state 		= "rat_[mouse_color]"
-		icon_living 	= "rat_[mouse_color]"
-		icon_dead 		= "rat_[mouse_color]_dead"
-		icon_resting 	= "rat_[mouse_color]_sleep"
+
+/mob/living/simple_animal/mouse/rat/update_icon_state()
+	if(!mouse_color)
+		return
+	icon_state		= "rat_[mouse_color]"
+	icon_living		= "rat_[mouse_color]"
+	icon_dead		= "rat_[mouse_color]_dead"
+	icon_resting	= "rat_[mouse_color]_sleep"
 
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"

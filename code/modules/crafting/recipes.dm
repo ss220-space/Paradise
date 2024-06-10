@@ -808,18 +808,6 @@
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
-/datum/crafting_recipe/mousejetpack
-	name = "Improvised Mouse-size Jetpack"
-	result = /obj/item/mouse_jet
-	time = 20
-	reqs = list(
-		/obj/item/tank/internals/emergency_oxygen = 2,
-		/obj/item/pipe = 2,
-		/obj/item/stack/cable_coil = 15,
-		)
-	category = CAT_MISC
-	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
-
 /datum/crafting_recipe/autoinjector
 	name = "Selfmade Autoinjector"
 	result = /obj/item/reagent_containers/hypospray/autoinjector/selfmade

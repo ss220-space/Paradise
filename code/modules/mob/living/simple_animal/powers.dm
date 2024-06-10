@@ -60,6 +60,4 @@
 /datum/action/innate/drop_jetpack/Activate()
 	var/mob/living/simple_animal/mouse/mouse = owner
 	if(mouse.jetpack)
-		to_chat(owner, span_notice("You start dragging jetpack from your back."))
-		if(do_after(owner, 3 SECONDS, owner, NONE))
-			mouse.remove_from_back(null, FALSE)
+		INVOKE_ASYNC(mouse, TYPE_PROC_REF(/mob/living/simple_animal/mouse, delayed_jetpack_remove))

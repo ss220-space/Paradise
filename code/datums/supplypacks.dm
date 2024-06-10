@@ -326,6 +326,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("toxins" = 7)
 	containername = "Jetpack upgrade crate"
 
+/datum/supply_packs/emergency/jetpack_mini
+	name = "Mini Jetpack Crate"
+	contains = list(
+					/obj/item/mouse_jetpack,
+					/obj/item/mouse_jetpack
+					)
+	cost = 30
+	required_tech = list("toxins" = 2)
+	containername = "mini jetpack crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
