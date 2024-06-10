@@ -174,8 +174,8 @@
 	ammo_type = /obj/item/ammo_casing/rubber45
 	max_ammo = 16
 
-/obj/item/ammo_box/rubber45/exp
-	name = "ammo box expended(.45 rubber)"
+/obj/item/ammo_box/rubber45/ext
+	name = "ammo box extended(.45 rubber)"
 	icon_state = "ammobox_45"
 	max_ammo = 40
 
@@ -261,14 +261,14 @@
 
 /obj/item/ammo_box/sniper_rounds_compact
 	name = "Box of compact sniper rounds (.50L COMP)"
-	icon_state = "ammobox_snaipeCOMP"
+	icon_state = "ammobox_sniperCOMP"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/compact
 	max_ammo = 20
 
 /obj/item/ammo_box/sniper_rounds_penetrator
 	name = "Box of penetrator sniper rounds (.50 PE)"
-	icon_state = "ammobox_snaipeAP"
+	icon_state = "ammobox_sniperPE"
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/penetrator
 	max_ammo = 20
