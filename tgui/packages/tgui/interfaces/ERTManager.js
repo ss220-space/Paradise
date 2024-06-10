@@ -77,6 +77,9 @@ const SquadManager = (props, context) => {
                 key={"manual_check"}
                 selected={data.manual_check !== data.manual_check}
                 content={'Allow manual selection?'}
+                tooltip={"Возможность отобрать игроков группы в ручную, \
+                если количество добровольцев больше количества слотов(иначе разницы нет)"}
+                tooltipPosition="bottom"
                 onClick={() => act('manual_check')}
                 color={data.manual_check === 1
                   ? "green"
@@ -88,6 +91,9 @@ const SquadManager = (props, context) => {
                   key={"prevent_announce"}
                   selected={data.manual_check !== data.manual_check}
                   content={'Prevent announce?'}
+                  tooltip={"Возможность отключить автоматическое оповещение о сборе и отправке отряда, \
+                  повышает шанс отсутствия ловушки у порта прибытия и подготовки к противостоянию с ОБР"}
+                  tooltipPosition="bottom"
                   onClick={() => act('prevent_announce')}
                    color={data.prevent_announce === 1
                     ? "red"
