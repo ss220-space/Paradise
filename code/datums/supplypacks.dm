@@ -3023,7 +3023,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "5.45x39 ammo boxes crate"
 
 /datum/supply_packs/armory/rpg
-	name = "rockets crate"
+	name = "Rockets crate"
 	contains = list(/obj/item/ammo_casing/rocket,
 					/obj/item/ammo_casing/rocket,
 					/obj/item/ammo_casing/rocket)
