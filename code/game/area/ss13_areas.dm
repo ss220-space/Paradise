@@ -2278,6 +2278,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambientsounds = HIGHSEC_SOUNDS
+
 /area/storage/secure
 	name = "Secure Storage"
 	icon_state = "storage"
