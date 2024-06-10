@@ -53,6 +53,8 @@ other types of metals and chemistry for reagents).
 	var/locked = FALSE
 	/// What special access requirements will the lockbox have? Defaults to armory.
 	var/access_requirement = list(ACCESS_ARMORY)
+	///Needed when design is bigger then lockbox
+	var/w_class = WEIGHT_CLASS_HUGE
 	/// Primarily used for Mech Fabricators, but can be used for anything.
 	var/category = null
 	/// List of reagents. Format: "id" = amount.

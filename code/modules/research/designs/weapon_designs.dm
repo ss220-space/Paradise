@@ -576,3 +576,16 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
 	category = list("Weapons")
+
+/datum/design/laserminigun
+	name = "Laser gatling gun"
+	desc = "Self-rechargable monster made of advanced techonology's and crazy machine thinking."
+	id = "laser_gatling"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 8, "materials" = 7, "magnets" = 7, "powerstorage" = 7)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2400, MAT_URANIUM = 1200, MAT_TITANIUM = 1200, MAT_DIAMOND = 1200)
+	locked = TRUE
+	w_class = WEIGHT_CLASS_GIGANTIC
+	build_path = /obj/item/gun/energy/gun/minigun
+	category = list("Weapons")
+	lathe_time_factor = 0.5

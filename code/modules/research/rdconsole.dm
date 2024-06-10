@@ -495,6 +495,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					for(var/A in L.req_access)
 						lockbox_access += "[get_access_desc(A)] "
 					L.desc = "A locked box. It is locked to [lockbox_access]access."
+					L.w_class = being_built.w_class
 				else
 					new_item.loc = machine.loc
 		machine.busy = FALSE

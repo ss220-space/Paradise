@@ -15,6 +15,9 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/light
+	projectile_type = /obj/item/projectile/beam/laser/light
+
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
 	e_cost = 250
 
