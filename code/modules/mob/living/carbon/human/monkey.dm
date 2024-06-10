@@ -3,10 +3,9 @@
 	var/master_commander = null
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species, flatten_SE = FALSE)
+/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species, monkeybasic = TRUE)
 	. = ..()
 	// since we are created as monkas we need to manually set our GLOB.monkeyblock as activated
-	// and also we are skipping SE flattening for the same reasons
 	LAZYOR(active_genes, /datum/dna/gene/monkey)
 
 /mob/living/carbon/human/lesser/monkey
