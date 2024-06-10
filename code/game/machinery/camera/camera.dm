@@ -134,12 +134,10 @@
 			to_chat(user, "[msg2]")
 			return
 		if(isstack(I))
-			if(!user.can_unEquip(I))
+			if(!user.can_unEquip(I) || !I.use(1))
 				to_chat(user, span_warning("[I] is stuck to your hand!"))
 				return
 			var/obj/item/stack/sheet/mineral/plasma/upgrade = new(assembly, 1)
-			upgrade.update_icon(UPDATE_ICON_STATE)
-			I.use(1)
 			I = upgrade
 		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
@@ -255,6 +253,8 @@
 	. = ..()
 	if(isMotion())
 		name = "motion-sensitive security camera"
+	else
+		name = "security camera"
 
 
 

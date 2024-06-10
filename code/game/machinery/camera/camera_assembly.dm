@@ -41,7 +41,6 @@
 				to_chat(user, span_warning("[I] is stuck!"))
 				return
 			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
-			new_stack.update_icon(UPDATE_ICON_STATE)
 			to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
 			upgrades += new_stack
 			I.use(1)

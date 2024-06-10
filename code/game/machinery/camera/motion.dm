@@ -62,18 +62,21 @@
 	var/turf/target_turf = get_turf(target)
 	if(target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
 		return FALSE
-	if(current != target_turf)
-		if(get_dist(current, target_turf) > view_range)
+	if(get_dist(current, target_turf) > length)
+		return FALSE
+	if(current == target_turf || isXRay())
+		return TRUE
+
+	var/list/line = get_line(src, target)
+	for(var/turf/current_turf in line)
+		if(!current_turf)
 			return FALSE
-		if(!isXRay())
-			while(current != target_turf)
-				current = get_step_towards(current, target_turf)
-				if(current.opacity)
-					return FALSE
-				for(var/thing in current)
-					var/atom/A = thing
-					if(A.opacity)
-						return FALSE
+		if(current_turf.opacity)
+			return FALSE
+		for(var/thing in current_turf)
+			var/atom/A = thing
+			if(A.opacity)
+				return FALSE
 	return TRUE
 
 /obj/machinery/camera/HasProximity(atom/movable/AM)
