@@ -108,13 +108,13 @@
 /obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
 	icon_state = "plasma_light"
-	damage = 15
+	damage = 20
 	damage_type = BURN
 
 /obj/item/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
 	icon_state = "plasma_heavy"
-	damage = 45
+	damage = 50
 	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
