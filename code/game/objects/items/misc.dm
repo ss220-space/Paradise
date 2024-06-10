@@ -28,7 +28,7 @@
 
 
 /obj/item/mouse_jetpack
-	name = "improvised mini-jetpack"
+	name = "improvised mouse jetpack"
 	desc = "A roughly made jetpack designed for satisfy extremely small persons."
 	icon_state = "jetpack_mouse"
 	icon = 'icons/obj/tank.dmi'

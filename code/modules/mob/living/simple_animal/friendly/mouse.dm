@@ -119,13 +119,13 @@
 
 
 /mob/living/simple_animal/mouse/proc/color_pick()
-	if(!mouse_color)
-		mouse_color = pick(list("brown","gray","white"))
+	mouse_color = pick(list("brown", "gray", "white"))
+	return TRUE
 
 
 /mob/living/simple_animal/mouse/update_icon_state()
-	if(!mouse_color)
-		color_pick()
+	if(!mouse_color && !color_pick())
+		return
 	var/new_icon_state = "mouse_[mouse_color][jetpack ? "_jet" : ""]"
 	icon_state = new_icon_state
 	icon_living = new_icon_state
@@ -135,8 +135,8 @@
 
 /mob/living/simple_animal/mouse/update_desc(updates)
 	. = ..()
-	if(!mouse_color)
-		color_pick()
+	if(!mouse_color && !color_pick())
+		return
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 
@@ -149,7 +149,7 @@
 /mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
 	if(stat != DEAD)
 		if(istype(W, /obj/item/mouse_jetpack))
-			place_on_back(user.get_active_hand(), user)
+			place_on_back(W, user)
 			return
 	. = ..()
 
@@ -223,12 +223,12 @@
 	item_to_add.forceMove(src)
 	jetpack = item_to_add
 	user.visible_message(span_notice("[user] put something on [src]."),
-		span_notice("You equip mouse with a cool jetpack! Sick!"),
+		span_notice("You equip [src] with a cool jetpack! Sick!"),
 		span_italics("You hear the roar of a small engine."))
 
-//	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
+	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
 	update_icon(UPDATE_ICON_STATE)
-	update_move_type()
+	update_move_type(item_to_add)
 	return TRUE
 
 
@@ -241,7 +241,7 @@
 /mob/living/simple_animal/mouse/proc/remove_from_back(mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!jetpack)
+	if(!jetpack || QDELETED(jetpack))
 		return
 
 	drop_item_ground(jetpack)
@@ -250,19 +250,21 @@
 		user.put_in_hands(jetpack, ignore_anim = FALSE)
 	else if(prob(85))
 		step_rand(jetpack)
+
+	var/removed_item = jetpack
 	jetpack = null
 
 	UnregisterSignal(src, COMSIG_MOB_GHOSTIZE)
 	update_icon(UPDATE_ICON_STATE)
-	update_move_type()
+	update_move_type(removed_item)
 
 
 /mob/living/simple_animal/mouse/Process_Spacemove(movement_dir)
 	return jetpack ? TRUE : ..()
 
 
-/mob/living/simple_animal/mouse/proc/update_move_type()
-	if(jetpack)
+/mob/living/simple_animal/mouse/proc/update_move_type(obj/item/mouse_jetpack/jetpack)
+	if(src.jetpack)
 		if(resting)
 			set_resting(FALSE, instant = TRUE)
 
@@ -277,7 +279,7 @@
 
 		ventcrawler_trait = null
 		add_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
-		ADD_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
+		ADD_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src.jetpack))
 	else
 		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
 			dropjet.Remove(src)
@@ -554,11 +556,11 @@
 
 
 /mob/living/simple_animal/mouse/rat/color_pick()
-	if(!mouse_color)
-		mouse_color = pick(list("gray","white","irish"))
+	mouse_color = pick(list("gray", "white", "irish"))
+	return TRUE
 
 /mob/living/simple_animal/mouse/rat/update_icon_state()
-	if(!mouse_color)
+	if(!mouse_color && !color_pick())
 		return
 	icon_state		= "rat_[mouse_color]"
 	icon_living		= "rat_[mouse_color]"
@@ -615,7 +617,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	health = 10
 
 /mob/living/simple_animal/mouse/hamster/color_pick()
-	return
+	return FALSE
 
 /mob/living/simple_animal/mouse/hamster/New()
 	gender = prob(80) ? MALE : FEMALE
