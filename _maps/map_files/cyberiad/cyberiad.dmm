@@ -37068,6 +37068,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82047,6 +82048,12 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"rzq" = (
+/obj/machinery/computer/roboquest,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/assembly/robotics)
 "rzt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -133071,7 +133078,7 @@ bEJ
 bGB
 bIc
 bId
-bId
+rzq
 bRz
 bId
 bId
