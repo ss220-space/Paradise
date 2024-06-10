@@ -126,8 +126,7 @@ export const RoboQuest = (props, context) => {
                                 onClick={() =>
                                   act("buyItem", {
                                     item: i.path,
-                                  })}
-                                disabled={i.cost[0] > points[0] || i.cost[1] > points[1] || i.cost[2] > points[2]}>
+                                  })}>
                                 <img
                                   height="64px"
                                   width="64px"
@@ -248,7 +247,6 @@ export const RoboQuest = (props, context) => {
                             act("buyItem", {
                               item: i.path,
                             })}
-                          disabled={i.cost.robo > points.robo}
                         />
                       }>
                       <Box italic>{i.desc}</Box>

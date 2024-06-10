@@ -253,8 +253,13 @@
 			var/r_path = text2path(params["item"])
 			var/datum/roboshop_item/r_item = new r_path
 			for(var/cat in r_item.cost)
+				if(points[cat] < r_item.cost[cat])
+					to_chat(ui.user, span_warning("There are not enough points."))
+					return
+			for(var/cat in r_item.cost)
 				points[cat] -= r_item.cost[cat]
 			new r_item.path(get_turf(src))
+			qdel(r_item)
 		if("printOrder")
 			if(print_delayed)
 				return FALSE

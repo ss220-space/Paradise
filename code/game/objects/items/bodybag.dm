@@ -221,7 +221,6 @@
 	icon_closed = "bluebag_closed"
 	icon_opened = "bluebag_open"
 	foldedbag_path = /obj/item/bodybag/bluespace
-	var/max_weight_of_contents
 
 /obj/structure/closet/body_bag/bluespace/attempt_fold(mob/living/carbon/human/the_folder)
 	. = FALSE
@@ -246,6 +245,7 @@
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	visible_message(span_notice("[the_folder] folds up [src]."))
 	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
+	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content in contents)
 		content.forceMove(folding_bodybag)
 		if(isliving(content))
