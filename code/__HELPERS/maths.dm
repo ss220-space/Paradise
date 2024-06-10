@@ -257,6 +257,8 @@
 // https://dota2.fandom.com/wiki/Random_Distribution#Pseudo_random_events
 // mixing camelCase with pascal_case might be bad for readability, but is easier to compare code with source
 /proc/CfromP(p as num)
+	if (p < 2 && p >= 1) // Special case, without that CfromP(1.5) would be 1.3125, but CfromP(2.5) = 1.25
+		return p/2 // As fix, returns linear value in range from 1 to 2, values >= 2 works as expected
 	var/Cupper = p
 	var/Clower = 0
 	var/Cmid
