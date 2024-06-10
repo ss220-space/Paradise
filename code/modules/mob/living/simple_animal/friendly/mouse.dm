@@ -48,7 +48,7 @@
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
-	var/obj/item/mouse_jet/jetpack
+	var/obj/item/mouse_jetpack/jetpack
 	var/static/list/animated_mouses = list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
@@ -148,7 +148,7 @@
 
 /mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
 	if(stat != DEAD)
-		if(istype(W, /obj/item/mouse_jet))
+		if(istype(W, /obj/item/mouse_jetpack))
 			place_on_back(user.get_active_hand(), user)
 			return
 	. = ..()
@@ -207,7 +207,7 @@
 
 
 /mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
-	if(!istype(item_to_add, /obj/item/mouse_jet) || !is_available_for_anim())
+	if(!istype(item_to_add, /obj/item/mouse_jetpack) || !is_available_for_anim())
 		to_chat(user, span_warning("You can't figure out how to do something with \the [item_to_add] and [src]."))
 		return FALSE
 	if(jetpack)
