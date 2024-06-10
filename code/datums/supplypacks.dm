@@ -2929,7 +2929,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband
 	name = "HEADER"
 	group = SUPPLY_CONTRABAND
-	contraband = 1
+	contraband = TRUE
 	cost = 0
 
 /datum/supply_packs/armory/mosin
