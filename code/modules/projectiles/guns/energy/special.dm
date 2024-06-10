@@ -761,7 +761,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
 
-// // Shield breaker //
+// Shield breaker //
 
 /obj/item/gun/energy/plasma_pistol
 	name = "plasma pistol"
@@ -788,95 +788,95 @@
 
 /obj/item/gun/energy/plasma_pistol/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
- 	holder = null
- 	return ..()
+	holder = null
+	return ..()
 
 /obj/item/gun/energy/plasma_pistol/process()
- 	..()
- 	if(overloaded)
+	..()
+	if(overloaded)
 		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
- 		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
- 			warned = TRUE
- 			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
- 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
- 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
- 			discharge()
+		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
+			warned = TRUE
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
+		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
+			discharge()
 
 /obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
- 	if(overloaded)
- 		to_chat(user, span_warning("[src] is already overloaded!"))
+	if(overloaded)
+		to_chat(user, span_warning("[src] is already overloaded!"))
 		return
 	if(cell.charge <= 140) //at least 6 seconds of charge time
- 		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
- 		return
- 	if(charging)
+		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
+		return
+	if(charging)
 		to_chat(user, span_warning("[src] is already charging!"))
- 		return
+		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
 		overload()
- 	else
- 		charging = FALSE
+	else
+		charging = FALSE
 		atom_say("Overloading failure.")
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
 
 /obj/item/gun/energy/plasma_pistol/proc/overload()
- 	if(ishuman(loc))
- 		var/mob/living/carbon/C = loc
- 		select_fire(C)
- 		overloaded = TRUE
- 		cell.charge -= 125
- 		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
- 		cell.use(125)
- 		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
- 		atom_say("Overloading successful.")
- 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
- 		holder = C
- 		RegisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(discharge))
- 	else
- 		atom_say("Overloading failure.")
- 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
- 	charging = FALSE
+	if(ishuman(loc))
+		var/mob/living/carbon/C = loc
+		select_fire(C)
+		overloaded = TRUE
+		cell.charge -= 125
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		cell.use(125)
+		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		atom_say("Overloading successful.")
+		set_light(3) //extra visual effect to make it more noticable to user and victims alike
+		holder = C
+		RegisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(discharge))
+	else
+		atom_say("Overloading failure.")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+	charging = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
- 	select_fire()
- 	set_light(0)
- 	overloaded = FALSE
- 	warned = FALSE
- 	UnregisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS)
- 	holder = null
+	select_fire()
+	set_light(0)
+	overloaded = FALSE
+	warned = FALSE
+	UnregisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS)
+	holder = null
 
 /obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
- 	if(charging)
- 		return
- 	return ..()
+	if(charging)
+		return
+	return ..()
 
 /obj/item/gun/energy/plasma_pistol/process_chamber()
- 	if(overloaded)
- 		do_sparks(2, 1, src)
- 		reset_overloaded()
- 	..()
- 	update_icon()
+	if(overloaded)
+		do_sparks(2, 1, src)
+		reset_overloaded()
+	..()
+	update_icon()
 
 /obj/item/gun/energy/plasma_pistol/emp_act(severity)
- 	..()
- 	if(prob(100 / severity) && overloaded)
- 		discharge()
+	..()
+	if(prob(100 / severity) && overloaded)
+		discharge()
 
 /obj/item/gun/energy/plasma_pistol/dropped(mob/user)
- 	. = ..()
- 	if(overloaded)
- 		discharge()
+	. = ..()
+	if(overloaded)
+		discharge()
 
 /obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
- 	. = ..()
- 	if(overloaded)
- 		discharge()
+	. = ..()
+	if(overloaded)
+		discharge()
 
 /obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
- 	SIGNAL_HANDLER
- 	reset_overloaded()
+	SIGNAL_HANDLER
+	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
 	if(prob(40))
@@ -897,7 +897,7 @@
 	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
-	turf_targets += T
+		turf_targets += T
 	if(length(turf_targets))
 		var/turf/target = pick(turf_targets)
 		shootAt(target)
