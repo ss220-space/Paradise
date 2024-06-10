@@ -180,7 +180,7 @@
 
 
 /datum/movespeed_modifier/mouse_jetpack
-	multiplicative_slowdown = 2
+	multiplicative_slowdown = -0.5
 	movetypes = (FLYING|FLOATING)
 
 
