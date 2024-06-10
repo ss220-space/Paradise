@@ -298,7 +298,7 @@
 			for(var/mob/living/M in O.contents)
 				M.show_message(text, EMOTE_VISIBLE)
 
-		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+		if(O.stat == CONSCIOUS && O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			O.create_chat_message(user, runechat_text, emote = TRUE)
 
 
