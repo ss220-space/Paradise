@@ -163,8 +163,8 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
-/obj/item/ammo_box/c45/exp
-	name = "ammo box expended (.45)"
+/obj/item/ammo_box/c45/ext
+	name = "ammo box extended (.45)"
 	icon_state = "ammobox_45"
 	max_ammo = 40
 
