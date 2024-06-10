@@ -2926,7 +2926,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 //////////////////////////// CONTRABAND SUPPLY ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-/datum/supply_packs/armory
+/datum/supply_packs/contraband
 	name = "HEADER"
 	group = SUPPLY_CONTRABAND
 	contraband = 1
