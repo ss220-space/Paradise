@@ -148,7 +148,7 @@
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker, message_clean, italics ? list("italics") : null)
+			create_chat_message(speaker, message_clean, FALSE, italics)
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
@@ -218,7 +218,7 @@
 	else
 		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message_clean, list("radio"))
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
 		if(src != speaker || isrobot(src) || isAI(src))
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
@@ -284,7 +284,7 @@
 		name = speaker.voice_name
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-		create_chat_message(H, message_clean, list("radio"))
+		create_chat_message(H, message_clean, TRUE, FALSE)
 
 	var/effect = SOUND_EFFECT_RADIO
 	if(isrobot(speaker))
