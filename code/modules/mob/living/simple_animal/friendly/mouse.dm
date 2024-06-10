@@ -136,6 +136,7 @@
 /mob/living/simple_animal/mouse/update_desc(updates)
 	. = ..()
 	if(!mouse_color && !color_pick())
+		desc = initial(desc)
 		return
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
@@ -187,9 +188,8 @@
 				remove_from_back(usr)
 			if("collar")
 				if(pcollar)
-					var/the_collar = pcollar
 					drop_item_ground(pcollar)
-					usr.put_in_hands(the_collar, ignore_anim = FALSE)
+					usr.put_in_hands(pcollar, ignore_anim = FALSE)
 					pcollar = null
 		show_inv(usr)
 
@@ -216,11 +216,10 @@
 	if(!mind)
 		to_chat(user, span_warning("[src] doesn't seem interested in that."))
 		return FALSE
-	if(!user.drop_item_ground(item_to_add))
+	if(!user.drop_transfer_item_to_loc(item_to_add, src))
 		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]!"))
 		return FALSE
 
-	item_to_add.forceMove(src)
 	jetpack = item_to_add
 	user.visible_message(span_notice("[user] put something on [src]."),
 		span_notice("You equip [src] with a cool jetpack! Sick!"),
@@ -277,8 +276,8 @@
 		var/datum/action/innate/drop_jetpack/dropjet = new()
 		dropjet.Grant(src)
 
-		ventcrawler_trait = null
 		add_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
+		REMOVE_TRAIT(src, initial(ventcrawler_trait), INNATE_TRAIT)
 		ADD_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src.jetpack))
 	else
 		for(var/datum/action/innate/drop_jetpack/dropjet in actions)
@@ -288,8 +287,8 @@
 			var/datum/action/innate/hide/hide = new()
 			hide.Grant(src)
 
-		ventcrawler_trait = initial(ventcrawler_trait)
 		remove_movespeed_modifier(/datum/movespeed_modifier/mouse_jetpack)
+		ADD_TRAIT(src, initial(ventcrawler_trait), INNATE_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(jetpack))
 
 
