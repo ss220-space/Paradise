@@ -148,3 +148,30 @@
 	force = 1
 	throwforce = 1
 	attack_verb = list("ineffectively hit")
+
+/obj/item/shovel/combat
+	name = "combat shovel"
+	desc = "A handful tool for digging and killing. It also can fit inside your pocket once folded."
+	icon_state = "combat_shovel0"
+	force = 4
+	var/force_folded = 4
+	var/force_unfolded = 18
+	var/folded = FALSE
+
+/obj/item/shovel/combat/attack_self(mob/user)
+	folded = !folded
+	force = folded ? force_folded : force_unfolded
+	w_class = folded ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_notice("You [folded ? "" : "un"]fold the shovel"))
+
+/obj/item/shovel/combat/update_icon_state()
+	icon_state = "combat_shovel[folded]"
+
+/obj/item/shovel/combat/gold
+	name = "golden shovel"
+	desc = "Made from gold, to dig for gold. Or dig into goldgrubs."
+	icon_state = "golden_shovel0"
+	force = 5
+	force_folded = 5
+	force_unfolded = 20

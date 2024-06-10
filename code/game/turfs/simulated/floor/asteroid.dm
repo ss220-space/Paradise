@@ -11,9 +11,11 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
-	var/floor_variance = 20 //probability floor has a different icon state
+	/// probability floor has a different icon state
+	var/floor_variance = 20
+	/// Amount of unique icon states prepared ("asteroid0" to "asteroid12" and 12's our number)
+	var/variance_amount = 12
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
 
@@ -22,7 +24,7 @@
 	. = ..()
 	name = proper_name
 	if(prob(floor_variance))
-		icon_state = "[environment_type][rand(0,12)]"
+		icon_state = "[initial(icon_state)][rand(0,variance_amount)]"
 
 /turf/simulated/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
@@ -42,12 +44,12 @@
 
 /turf/simulated/floor/plating/asteroid/update_icon_state()
 	if(dug)
-		icon_plating = "[environment_type]_dug"
-		icon_state = "[environment_type]_dug"
+		icon_plating = "[initial(icon_plating)]_dug"
+		icon_state = "[initial(icon_state)]_dug"
 	else
 		icon_plating = initial(icon_plating)
 		if(prob(floor_variance))
-			icon_state = "[environment_type][rand(0,12)]"
+			icon_state = "[initial(icon_state)][rand(0,variance_amount)]"
 		else
 			icon_state =  initial(icon_state)
 
@@ -133,7 +135,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
-	environment_type = "basalt"
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 
@@ -172,7 +173,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	GLOB.dug_up_basalt |= src
 	return ..()
 
-/proc/set_basalt_light(turf/simulated/floor/B)
+/turf/simulated/floor/plating/asteroid/basalt/proc/set_basalt_light(turf/simulated/floor/B)
 	switch(B.icon_state)
 		if("basalt1", "basalt2", "basalt3")
 			B.set_light(2, 0.6, LIGHT_COLOR_LAVA) //more light
@@ -204,7 +205,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	icon_plating = "snow"
 	temperature = 180
 	slowdown = 2
-	environment_type = "snow"
 	planetary_atmos = TRUE
 	digResult = /obj/item/stack/sheet/mineral/snow
 
@@ -233,3 +233,24 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	nitrogen = 82
 	temperature = 180
 	planetary_atmos = FALSE
+
+/turf/simulated/floor/plating/asteroid/sand
+	name = "sand"
+	desc = "Feels hot just by looking on it."
+	icon = 'icons/turf/floors/sand.dmi'
+	icon_state = "sand"
+	icon_plating = "sand"
+	baseturf = /turf/simulated/floor/plating/asteroid/sand
+	floor_variance = 15
+	variance_amount = 9
+	digResult = /obj/item/stack/ore/glass/sand
+
+/turf/simulated/floor/plating/asteroid/sand/atmosphere
+	oxygen = 4
+	nitrogen = 49
+	carbon_dioxide = 81
+	temperature = 323 //50C
+	planetary_atmos = TRUE
+
+/turf/simulated/floor/plating/asteroid/sand/broken_states()
+	return list("sand_dug")

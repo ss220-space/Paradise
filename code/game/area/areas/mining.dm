@@ -182,3 +182,39 @@
 	icon_state = "unexplored"
 	tele_proof = TRUE
 	area_flags = NONE
+
+
+/**********************Sandland Areas**************************/
+
+/area/sandland
+	icon_state = "mining"
+	has_gravity = STANDARD_GRAVITY
+	sound_environment = SOUND_AREA_LAVALAND
+	always_unpowered = TRUE
+	requires_power = TRUE
+	poweralm = FALSE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	ambientsounds = MINING_SOUNDS
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
+	outdoors = TRUE
+
+/area/sandland/surface
+	name = "Sandland Surface"
+	icon_state = "explored"
+	area_flags = CAVES_ALLOWED
+	map_generator = /datum/map_generator/cave_generator/sandland/surface
+
+/area/sandland/underground
+	name = "Sandland Caves"
+	area_flags = CAVES_ALLOWED | FLORA_ALLOWED
+	map_generator = /datum/map_generator/cave_generator/sandland/deep
+
+/area/sandland/underground/unexplored // ruins spawn here
+	icon_state = "unexplored"
+
+/area/sandland/underground/unexplored/danger //megafauna will also spawn here
+	icon_state = "cave"
+	area_flags = CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED

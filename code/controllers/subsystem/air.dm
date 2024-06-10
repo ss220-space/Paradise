@@ -425,7 +425,7 @@ SUBSYSTEM_DEF(air)
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level
 	var/list/active_turfs_we_care_about = list()
 	var/z_level_to_exclude = 0
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !SSmapping.map_datum.planetary_station)
 		z_level_to_exclude = level_name_to_num(MINING)
 	for(var/turf/T in active_turfs)
 		if(T.z != z_level_to_exclude)

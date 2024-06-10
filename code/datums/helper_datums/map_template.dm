@@ -114,22 +114,23 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!CONFIG_GET(flag/disable_space_ruins)) // so we don't unnecessarily clutter start-up
-		preloadRuinTemplates()
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(SSmapping.map_datum.space_ruins_levels == 0)) // so we don't unnecessarily clutter start-up
+		preloadSpaceRuinTemplates()
+	if(!CONFIG_GET(flag/disable_lavaland) && !SSmapping.map_datum.planetary_station)
+		preloadLavaRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
 	preloadBridgeTemplates()
 
-/proc/preloadRuinTemplates()
+/proc/preloadSpaceRuinTemplates()
 	// Still supporting bans by filename
 	var/list/banned
 	if(fexists("config/spaceRuinBlacklist.txt"))
 		banned = generateMapList("config/spaceRuinBlacklist.txt")
 	else
 		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
-	banned += generateMapList("config/lavaRuinBlacklist.txt")
 
-	for(var/item in subtypesof(/datum/map_template/ruin))
+	for(var/item in subtypesof(/datum/map_template/ruin/space))
 		var/datum/map_template/ruin/ruin_type = item
 		// screen out the abstract subtypes
 		if(!initial(ruin_type.id))
@@ -141,11 +142,24 @@
 
 		GLOB.map_templates[R.name] = R
 		GLOB.ruins_templates[R.name] = R
+		GLOB.space_ruins_templates[R.name] = R
 
-		if(istype(R, /datum/map_template/ruin/lavaland))
-			GLOB.lava_ruins_templates[R.name] = R
-		if(istype(R, /datum/map_template/ruin/space))
-			GLOB.space_ruins_templates[R.name] = R
+/proc/preloadLavaRuinTemplates()
+	var/list/banned = generateMapList("config/lavaRuinBlacklist.txt")
+
+	for(var/item in subtypesof(/datum/map_template/ruin/lavaland))
+		var/datum/map_template/ruin/ruin_type = item
+		// screen out the abstract subtypes
+		if(!initial(ruin_type.id))
+			continue
+		var/datum/map_template/ruin/R = new ruin_type()
+
+		if(banned.Find(R.mappath))
+			continue
+
+		GLOB.map_templates[R.name] = R
+		GLOB.ruins_templates[R.name] = R
+		GLOB.lava_ruins_templates[R.name] = R
 
 /proc/preloadShelterTemplates()
 	for(var/item in subtypesof(/datum/map_template/shelter))
