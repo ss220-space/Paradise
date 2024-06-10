@@ -337,7 +337,7 @@
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/item/projectile/energy/weak_plasma
-	e_cost = 75 // With no charging, x damage from x shots.
+	e_cost = 60 // With no charging, 500 damage from 25 shots.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
