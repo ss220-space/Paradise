@@ -217,7 +217,6 @@
 		to_chat(user, span_warning("[src] doesn't seem interested in that."))
 		return FALSE
 	if(!user.drop_transfer_item_to_loc(item_to_add, src))
-		to_chat(user, span_warning("\The [item_to_add] is stuck to your hand, you cannot put it on [src]!"))
 		return FALSE
 
 	jetpack = item_to_add
