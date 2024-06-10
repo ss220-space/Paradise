@@ -129,39 +129,29 @@
 	fire_delay = 1 // 0.9
 	spread = 45
 	can_charge = FALSE
+	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
 	selfcharge = TRUE
 	charge_delay = 5
 	recharge_rate = 600
 	slowdown = 0.2
-	var/wielded = FALSE
-	var/force_unwielded = 0
+	var/force_unwielded = 10
 	var/force_wielded = 20
-
-/obj/item/gun/energy/gun/minigun/Initialize(obj/item/gun/energy/gun/minigun/M)
-	..()
-	if(cell) //New() could not process gamma shuttle initialize,too late  cell appear xd
-		cell.maxcharge = 9000
-		cell.charge = 9000
 
 /obj/item/gun/energy/gun/minigun/New(obj/item/gun/energy/gun/minigun/M)
 	..()
-	if(cell)
-		cell.maxcharge = 9000
-		cell.charge = 9000
 	fire_delay = 0.9
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = src.force_unwielded, \
-		force_wielded = src.force_wielded \
+		force_wielded = src.force_wielded, \
+		require_twohands = TRUE \
 	)
-	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = TRUE)
 	..()
 	to_chat(user, span_warning("[name] слишком тяжелый!"))
 
 /obj/item/gun/energy/gun/minigun/update_icon_state()
-	..()
 	if(cell.charge > 600)
 		item_state = "gatling1"
 		icon_state = "gatling1"
@@ -172,3 +162,7 @@
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()
 		. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] залпов")
+
+/obj/item/stock_parts/cell/laser/gatling
+	maxcharge = 9000
+	charge = 9000
