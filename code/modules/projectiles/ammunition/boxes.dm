@@ -346,7 +346,7 @@
 
 /obj/item/ammo_box/nagant
 	name = "ammo box (7.62x38mm nagant)"
-	icon_state = "ammobox_nagun"
+	icon_state = "ammobox_nagant"
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 20
 
@@ -475,6 +475,6 @@
 
 /obj/item/ammo_box/a762
 	name = "ammo box (7.62x54mm mosin)"
-	icon_state = "ammobox_mosinca"
+	icon_state = "ammobox_mosin"
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 40
