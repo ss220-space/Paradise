@@ -15,19 +15,19 @@
 			cards += new /datum/playingcard("[number] of [suit]", "tarot_[suit]", "card_back_tarot")
 
 
-/obj/item/deck/tarot/deckshuffle()
-	var/mob/living/user = usr
-	if(cooldown < world.time - 1 SECONDS)
-		var/list/newcards = list()
-		while(cards.len)
-			var/datum/playingcard/card = pick(cards)
-			card.name = replacetext(card.name," reversed","")
-			if(prob(50))
-				card.name += " reversed"
-			newcards += card
-			cards -= card
-		cards = newcards
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		user.visible_message(span_notice("[user] shuffles [src]."), span_notice("You shuffle [src]."))
-		cooldown = world.time
+/obj/item/deck/tarot/deckshuffle(mob/user)
+	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
+	var/list/newcards = list()
+	while(cards.len)
+		var/datum/playingcard/card = pick_n_take(cards)
+		card.name = replacetext(card.name," reversed", "")
+		if(prob(50))
+			card.name += " reversed"
+		newcards += card
+	cards = newcards
+	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
+	user.visible_message(span_notice("[user] shuffles [src]."), span_notice("You shuffle [src]."))
 

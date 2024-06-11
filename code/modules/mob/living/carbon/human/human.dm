@@ -514,7 +514,7 @@
 	return name
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
+/mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
@@ -523,7 +523,7 @@
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
-	if(id_name && (id_name != face_name) && !id_override)
+	if(add_id_name && id_name && (id_name != face_name))
 		return "[face_name] (as [id_name])"
 	return face_name
 
@@ -730,7 +730,7 @@
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			if(perpname != "Unknown")
 				for(var/datum/data/record/E in GLOB.data_core.general)
@@ -771,7 +771,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -795,7 +795,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -829,7 +829,7 @@
 			if(usr.incapacitated())
 				return
 			var/modified = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -855,7 +855,7 @@
 			if(usr.incapacitated())
 				return
 			var/read = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -879,7 +879,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = FALSE
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -913,7 +913,7 @@
 				return
 
 			var/skills
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			if(perpname)
 				for(var/datum/data/record/E in GLOB.data_core.general)
 					if(E.fields["name"] == perpname)
@@ -1198,8 +1198,9 @@
   *
   * Arguments:
   * * new_species - The new species to assign.
+  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
   */
-/mob/living/carbon/human/proc/setup_dna(datum/species/new_species, flatten_SE = TRUE)
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
 	real_name = dna.species.get_random_name(gender)
@@ -1207,7 +1208,7 @@
 	mind?.name = real_name
 
 	// DNA ready
-	dna.ready_dna(src, flatten_SE)
+	dna.ready_dna(src, TRUE, monkeybasic)
 	dna.real_name = real_name
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()
@@ -1607,7 +1608,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
@@ -1944,7 +1945,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
