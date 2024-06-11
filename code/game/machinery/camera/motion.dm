@@ -67,13 +67,13 @@
 	if(current == target_turf || isXRay())
 		return TRUE
 
-	var/list/line = get_line(src, target)
-	for(var/turf/current_turf in line)
+	var/list/line_of_sight = get_line(src, target)
+	for(var/turf/current_turf as anything in line_of_sight)
 		if(!current_turf)
 			return FALSE
 		if(current_turf.opacity)
 			return FALSE
-		for(var/thing in current_turf)
+		for(var/thing as anything in current_turf)
 			var/atom/A = thing
 			if(A.opacity)
 				return FALSE
