@@ -295,15 +295,12 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_message - Message shown to the user if they exceeds max interaction count. Use NO_CANCEL_MESSAGE to remove it.
+ * * cancel_message - Message shown to the user if they exceeds max interaction count. Use "" to remove it.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
 
-#define NO_CANCEL_MESSAGE "no_message"
-#define DEFAULT_CANCEL_MESSAGE span_warning("Attempt cancelled.")
-
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = DEFAULT_CANCEL_MESSAGE)
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE
 
@@ -315,7 +312,7 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_message != NO_CANCEL_MESSAGE)
+			if(cancel_message)
 				to_chat(user, "[cancel_message]")
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
