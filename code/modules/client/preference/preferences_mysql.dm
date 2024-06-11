@@ -409,9 +409,12 @@
 /datum/preferences/proc/form_choosen_gears()
 	choosen_gears.Cut()
 	for(var/gear in loadout_gear)
-		var/datum/geartype = GLOB.gear_datums[gear]
+		var/datum/gear/geartype = GLOB.gear_datums[gear]
 		if(!istype(geartype))
 			loadout_gear -= gear // Delete wrong/outdated data
+			continue
+		if(geartype.donator_tier > parent.donator_level)
+			loadout_gear -= gear // Gagaga, donate again
 			continue
 		var/datum/gear/new_gear = new geartype.type
 		for(var/tweak in loadout_gear[gear])
