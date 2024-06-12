@@ -348,8 +348,10 @@
 	icon_state = "cursed_katana_organ"
 	status = NONE
 	item_flags = NO_PIXEL_RANDOM_DROP
-	material_type = MATERIAL_CLASS_NONE
 	contents = newlist(/obj/item/cursed_katana)
+
+/obj/item/organ/internal/cyberimp/arm/katana/proc/prepare_eat() 
+	return
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
