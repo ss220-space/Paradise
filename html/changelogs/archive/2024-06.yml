@@ -76,3 +76,13 @@
   - bugfix: Legion Transform Fix (#5173)
   - bugfix: Plasmaman Vampire Hunger Fix (#5174)
   - refactor: Runechat Tweaks (#5060)
+  - bugfix: Minor Fixes Collection (#5153)
+'2024-06-12':
+  ROdenFL:
+  - bugfix: shadowling can`t cast their spell (#5189)
+  Vladisvell:
+  - bugfix: Bunch of bugfixes (#5184)
+  - bugfix: Now you can unequip donation-tier gear if you don't have said tier. (#5187)
+  Zwei:
+  - bugfix: Prefs Runtime Fix (#5181)
+  - bugfix: Proper Layers For Closet Overlays (#5171)
