@@ -19510,7 +19510,7 @@
 /area/toxins/explab_chamber)
 "cyj" = (
 /obj/machinery/r_n_d/experimentor{
-	console_dist = 4
+	console_dist = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
