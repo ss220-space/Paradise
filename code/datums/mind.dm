@@ -2902,6 +2902,7 @@
 	var/datum/antagonist/ninja/ninja_datum = new
 	ninja_datum.give_objectives = FALSE
 	ninja_datum.generate_antags = FALSE
+	ninja_datum.change_species(current)
 	add_antag_datum(ninja_datum)
 
 	if(!length(GLOB.ninjastart))
