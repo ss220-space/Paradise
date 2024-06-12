@@ -79,7 +79,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in volunteers)
-		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
+		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			ert_candidates|= M
