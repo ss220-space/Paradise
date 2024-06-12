@@ -206,7 +206,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/rum
 	name = "Captain Pete's Cuban Spiced Rum"
-	desc = "As once skipper said, "Should pale death with treble dread make the space frontier our bed, God who hear'st the darkness roll, deign to save our suppliant soul"."
+	desc = "As once skipper said, 'Should pale death with treble dread make the space frontier our bed, God who hears the darkness roll, deign to save our suppliant soul'."
 	icon_state = "rumbottle"
 	list_reagents = list("rum" = 100)
 
