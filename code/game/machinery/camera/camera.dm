@@ -63,7 +63,6 @@
 
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
-	grey_noise() //kick anyone viewing out
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
@@ -88,12 +87,6 @@
 
 			addtimer(CALLBACK(src, PROC_REF(triggerCameraAlarm)), 10 SECONDS, TIMER_UNIQUE|TIMER_DELETE_ME)
 			addtimer(CALLBACK(src, PROC_REF(restore_from_emp)), 90 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
-
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.client.eye == src)
-					M.unset_machine()
-					M.reset_perspective(null)
-					to_chat(M, "The screen bursts into static.")
 			..()
 
 /obj/machinery/camera/proc/restore_from_emp()
@@ -170,19 +163,19 @@
 				info = N.note
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
-		for(var/mob/O in GLOB.player_list)
-			if(istype(O, /mob/living/silicon/ai))
-				var/mob/living/silicon/ai/AI = O
-				if(AI.control_disabled || (AI.stat == DEAD))
-					return
-				if(U.name == "Unknown")
-					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
-				else
-					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
-				AI.last_paper_seen = {"<HTML><meta charset="UTF-8"><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"}
-			else if(O.client && O.client.eye == src)
-				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
-				O << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, itemname, info), text("window=[]", itemname))
+		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
+			if(AI.control_disabled || (AI.stat == DEAD))
+				return
+			if(U.name == "Unknown")
+				to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+			else
+				to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+			AI.last_paper_seen = {"<HTML><meta charset="UTF-8"><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"}
+		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
+			for(var/uid_watcher as anything in console.watchers)
+				var/watcher = locateUID(uid_watcher)
+				to_chat(watcher, "[U] holds \a [itemname] up to one of the cameras ...")
+				watcher << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, itemname, info), text("window=[]", itemname))
 
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I
@@ -319,18 +312,7 @@
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, 1)
-	grey_noise()
 	update_icon(UPDATE_ICON_STATE)
-
-/// now disconnect anyone using the camera.
-///Apparently, this will disconnect anyone even if the camera was re-activated.
-/obj/machinery/camera/proc/grey_noise()
-	//I guess that doesn't matter since they can't use it anyway?
-	for(var/mob/O in GLOB.player_list)
-		if(O.client && O.client.eye == src)
-			O.unset_machine()
-			O.reset_perspective(null)
-			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
 	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled
