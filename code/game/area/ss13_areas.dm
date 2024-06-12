@@ -12,6 +12,11 @@
 
 NOTE: there are two lists of areas in the end of this file: centcom and station itself. Please maintain these lists valid. --rastaf0
 
+Numbers in the order will be used to indicate the direction of the sector
+This applies to all STANDARD station areas
+1 West-North  2 North   3 East-North
+4 West        5 Central 6 East
+7 West-South  9 South   10 East-South
 */
 
 /*-----------------------------------------------------------------------------*/
@@ -754,7 +759,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Maintenance"
 	icon_state = "green"
 
-/area/maintenance/fore
+/area/maintenance/fore //should be refactored
 	name = "North Maintenance"
 	icon_state = "fmaint"
 
@@ -921,9 +926,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/bar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/electrical_shop
 	name = "Electronics Den"
@@ -1017,6 +1022,24 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Abandoned Server Room"
 	icon_state = "yellow"
 
+/area/maintenance/cele //for SDMM group of zones
+	icon_state = "green"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+
+/area/maintenance/cele/command
+	name = "Command Basement Maintenance"
+
+/area/maintenance/cele/cargo
+	name = "Cargo Basement Maintenance"
+
+/area/maintenance/cele/medbay
+	name = "Medical Basement Maintenance"
+
+/area/maintenance/cele/servise
+	name = "Servise Basement Maintenance"
+
+/area/maintenance/cele/arrival
+	name = "Arrival Basement Maintenance"
 //Hallway
 
 /area/hallway
@@ -1621,7 +1644,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Solars
 
-/area/solar
+/area/solar //i hate this macaroni areas
 	requires_power = FALSE
 	valid_territory = FALSE
 	ambientsounds = ENGINEERING_SOUNDS
@@ -1655,12 +1678,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper South-East Solar Array"
 	icon_state = "panelsS"
 
+/area/solar/west
+	name = "\improper West Solar Array"
+	icon_state = "panelsS"
+
 /area/solar/port
 	name = "\improper South-West Solar Array"
 	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
 	name = "\improper North-West Solar Maintenance"
+	icon_state = "SolarcontrolA"
+
+/area/maintenance/north_solars
+	name = "\improper North Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 /area/maintenance/starboardaux
@@ -1679,6 +1710,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper North-East Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
+/area/maintenance/west_solars
+	name = "\improper West Solar Maintenance"
+	icon_state = "SolarcontrolA"
 
 /area/assembly/chargebay
 	name = "\improper Mech Bay"
@@ -1695,9 +1729,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/assembly/assembly_line //Derelict Assembly Line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 //Teleporter
 
@@ -2182,23 +2216,23 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/garden
 	name = "Old Garden"
 	icon_state = "hydro"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/garden/north
 	name = "North Old Garden"
 	icon_state = "hydro"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/kitchen
 	name = "Old Restaurant"
 	icon_state = "kitchen"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 //Toxins
 
@@ -2874,14 +2908,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaycontent/a11
 	icon_state = "awaycontent11"
 
-/area/awaycontent/a11
+/area/awaycontent/a12
 	icon_state = "awaycontent12"
 
-/area/awaycontent/a12
-	icon_state = "awaycontent13"
-
 /area/awaycontent/a13
-	icon_state = "awaycontent14"
+	icon_state = "awaycontent13"
 
 /area/awaycontent/a14
 	icon_state = "awaycontent14"

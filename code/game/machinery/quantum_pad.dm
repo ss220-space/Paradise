@@ -304,7 +304,7 @@
 	preset_target = /obj/machinery/quantumpad/cere/security_engi2
 
 //all servise, without cargo and comand
-obj/machinery/quantumpad/cere/servise_medbay
+/obj/machinery/quantumpad/cere/servise_medbay
 	preset_target = /obj/machinery/quantumpad/cere/medbay_servise
 /obj/machinery/quantumpad/cere/servise_medbay2
 	preset_target = /obj/machinery/quantumpad/cere/medbay_servise2
@@ -336,7 +336,7 @@ obj/machinery/quantumpad/cere/servise_medbay
 	preset_target = /obj/machinery/quantumpad/cere/science_medbay
 /obj/machinery/quantumpad/cere/medbay_science2
 	preset_target = /obj/machinery/quantumpad/cere/science_medbay2
-obj/machinery/quantumpad/cere/science_medbay
+/obj/machinery/quantumpad/cere/science_medbay
 	preset_target = /obj/machinery/quantumpad/cere/medbay_science
 /obj/machinery/quantumpad/cere/science_medbay2
 	preset_target = /obj/machinery/quantumpad/cere/medbay_science2

@@ -2110,6 +2110,7 @@
 #include "code\modules\lighting\lighting_setup.dm"
 #include "code\modules\lighting\lighting_source.dm"
 #include "code\modules\lighting\lighting_turf.dm"
+#include "code\modules\map_fluff\celestation.dm"
 #include "code\modules\map_fluff\cerestation.dm"
 #include "code\modules\map_fluff\cyberiad.dm"
 #include "code\modules\map_fluff\delta.dm"

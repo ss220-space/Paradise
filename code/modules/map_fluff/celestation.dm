@@ -1,4 +1,4 @@
-//Remapped by SAAD (https://github.com/SAADf603) spetial for SS1984
+//Remapped by SAAD (https://github.com/SAADf603) special for SS1984
 // Original map made by S34NW (https://github.com/S34NW)
 
 /datum/map/celestation
