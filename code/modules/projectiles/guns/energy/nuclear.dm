@@ -161,7 +161,8 @@
 
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()
-		. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] залпов")
+
+	. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] залпов")
 
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
