@@ -3,7 +3,7 @@
 	desc = "A big wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycloset"
-	density = 1
+	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/iconLabeled = "deliverycloset_labeled"
 	var/obj/wrapped = null
@@ -183,7 +183,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
 	singular_name = "package wrapper"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
@@ -245,7 +245,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = crate))
+		if(!do_after(user, 1.5 SECONDS, crate, max_interact_count = 1))
 			return
 
 		if(crate.opened || !use(3))
@@ -268,7 +268,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = closet))
+		if(!do_after(user, 1.5 SECONDS, closet, max_interact_count = 1))
 			return
 
 		if(closet.opened || !use(3))

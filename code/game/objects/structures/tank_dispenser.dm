@@ -145,7 +145,7 @@
 	SStgui.update_uis(src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		for(var/X in src)
 			var/obj/item/I = X
 			I.forceMove(loc)

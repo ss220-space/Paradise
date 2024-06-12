@@ -20,13 +20,14 @@
 	var/lowpowersound = 'sound/mecha/lowpower.ogg'
 	var/longactivationsound = 'sound/mecha/nominal.ogg'
 
-/obj/item/mecha_modkit/voice/install(var/obj/mecha/mech, var/mob/living/carbon/user)
+/obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
 		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
 		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
-		user.slip("your own foot", 16 SECONDS, 0, FALSE, TRUE, TRUE, "trip")
+		user.Weaken(16 SECONDS)
+		playsound(user.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 		return FALSE
 	mech.nominalsound = nominalsound
 	mech.zoomsound = zoomsound

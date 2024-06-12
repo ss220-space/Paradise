@@ -73,7 +73,7 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.is_in_active_hand(src))
 		return
 	drawtype = temp
 	update_window(usr)
@@ -89,7 +89,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = target))
+		if(instant || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")

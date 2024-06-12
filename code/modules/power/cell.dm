@@ -38,14 +38,15 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("self_recharge")
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
 	. = ..()
+	if(var_name == NAMEOF(src, self_recharge))
+		if(var_value)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
+
 
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)

@@ -32,14 +32,14 @@
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
 	playsound(get_turf(target), sound_in, 50, TRUE, -1)
-	target.notransform = TRUE
+	ADD_TRAIT(target, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new jaunt_type_path(mobloc)
 	new jaunt_out_type(mobloc, target.dir)
 	target.ExtinguishMob()
 	target.forceMove(holder)
 	target.reset_perspective(holder)
-	target.notransform = FALSE //mob is safely inside holder now, no need for protection.
+	REMOVE_TRAIT(target, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	if(jaunt_water_effect)
 		jaunt_steam(mobloc)
 
@@ -52,7 +52,7 @@
 	if(jaunt_water_effect)
 		jaunt_steam(mobloc)
 
-	target.canmove = FALSE
+	ADD_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	holder.reappearing = TRUE
 	playsound(mobloc, sound_out, 50, TRUE, -1)
 
@@ -75,12 +75,12 @@
 				continue
 			if(target.Move(T))
 				target.remove_CC()
-				target.canmove = TRUE
+				REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 				return
 		for(var/turf/space/space_turf in orange(7))
 			if(target.Move(space_turf))
 				break
-	target.canmove = TRUE
+	REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	target.remove_CC()
 
 

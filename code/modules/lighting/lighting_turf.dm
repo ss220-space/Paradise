@@ -1,10 +1,11 @@
 /turf
-	var/dynamic_lighting = TRUE
 	luminosity = 1
+	///Bool, whether this turf will always be illuminated no matter what area it is in
+	var/always_lit = FALSE
 
 	var/tmp/lighting_corners_initialised = FALSE
 
-	var/tmp/datum/lighting_object/lighting_object // Our lighting object.
+	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
 	///Lighting Corner datums.
 	var/tmp/datum/lighting_corner/lighting_corner_NE
 	var/tmp/datum/lighting_corner/lighting_corner_SE
@@ -28,11 +29,7 @@
 	if(lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(A) && !light_sources)
-		return
-
-	new/datum/lighting_object(src)
+	new/atom/movable/lighting_object(src)
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
@@ -89,12 +86,37 @@
 		reconsider_lights()
 
 /turf/proc/change_area(area/old_area, area/new_area)
+
+	old_area.contents -= src
+	new_area.contents += src
+
+	var/old_force_no_grav = force_no_gravity
+	if(istype(new_area, /area/space))
+		force_no_gravity = TRUE
+	else
+		force_no_gravity = FALSE
+
+	if(old_force_no_grav != force_no_gravity)
+		//inform atoms on the turf that their area has changed
+		for(var/mob/living/mob in contents)
+			mob.refresh_gravity()
+
 	if(SSlighting.initialized)
-		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
-			if(new_area.dynamic_lighting)
+		if(new_area.static_lighting != old_area.static_lighting)
+			if(new_area.static_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+
+	// We will only run this logic on turfs off the prime z layer
+	// Since on the prime z layer, we use an overlay on the area instead, to save time
+	if(SSmapping.z_level_to_plane_offset[z])
+		var/index = SSmapping.z_level_to_plane_offset[z]
+		//Inherit overlay of new area
+		if(old_area.lighting_effects)
+			cut_overlay(old_area.lighting_effects[index])
+		if(new_area.lighting_effects)
+			add_overlay(new_area.lighting_effects[index])
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)

@@ -459,6 +459,8 @@
 
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

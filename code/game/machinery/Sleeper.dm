@@ -9,7 +9,7 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null
@@ -336,7 +336,7 @@
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = G.affecting))
+		if(do_after(user, 2 SECONDS, G.affecting))
 			if(occupant)
 				to_chat(user, span_boldnotice("The sleeper is already occupied!"))
 				return
@@ -467,7 +467,7 @@
 
 	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 
 	go_out()
@@ -479,7 +479,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		return
 
 	if(beaker)
@@ -494,7 +494,7 @@
 /obj/machinery/sleeper/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -532,7 +532,7 @@
 
 
 /obj/machinery/sleeper/proc/put_in(mob/living/L, mob/user)
-	if(!do_after(user, 2 SECONDS, target = L))
+	if(!do_after(user, 2 SECONDS, L))
 		return
 
 	if(occupant)
@@ -559,15 +559,13 @@
 	set name = "Enter Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr)))
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return
 	if(occupant)
 		to_chat(usr, span_boldnotice("The sleeper is already occupied!"))
 		return
 	if(panel_open)
 		to_chat(usr, span_boldnotice("Close the maintenance panel first."))
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))

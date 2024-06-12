@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			return
 
 		if("Yes")
-			user.notransform = TRUE
+			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 			user.visible_message("<span class='warning'>[user] gently rises into the air, red light glowing in its eyes.</span>", \
 								"<span class='shadowling'>You rise into the air and get ready for your transformation.</span>")
 

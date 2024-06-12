@@ -45,8 +45,8 @@
 
 /obj/item/gun/projectile/update_overlays()
 	. = ..()
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/proc/update_weight()
@@ -75,7 +75,7 @@
 		chambered.loc = src
 	return
 
-/obj/item/gun/projectile/can_shoot()
+/obj/item/gun/projectile/can_shoot(mob/user)
 	if(!magazine || !magazine.ammo_count(FALSE))
 		return FALSE
 	return TRUE
@@ -109,7 +109,7 @@
 			else
 				to_chat(user, span_notice("You perform a tactical reload on \the [src], replacing the magazine."))
 				magazine.loc = get_turf(loc)
-				magazine.update_icon()
+				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 				magazine = null
 				reload(AM, user)
 				return TRUE
@@ -162,7 +162,7 @@
 	if(magazine)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
-		magazine.update_icon()
+		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 		magazine = null
 		update_weight()
 		to_chat(user, span_notice("You pull the magazine out of \the [src]!"))
@@ -221,7 +221,7 @@
 		user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 		return
 
-	if(do_after(user, 3 SECONDS, target = src))
+	if(do_after(user, 3 SECONDS, src))
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))

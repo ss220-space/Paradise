@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	pull_push_speed_modifier = 1
 	var/obj/item/stack/sheet/glass/myglass = null
 	var/obj/item/stack/sheet/metal/mymetal = null

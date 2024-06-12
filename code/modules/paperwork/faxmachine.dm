@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)

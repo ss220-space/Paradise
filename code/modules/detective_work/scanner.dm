@@ -9,7 +9,8 @@
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE

@@ -50,7 +50,7 @@
 
 /obj/item/flamethrower/update_icon(updates = ALL)
 	. = ..()
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 
@@ -154,10 +154,12 @@
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(ptank && user.Adjacent(src))
+	if(ptank)
 		ptank.forceMove_turf()
 		user.put_in_hands(ptank, ignore_anim = FALSE)
 		ptank = null

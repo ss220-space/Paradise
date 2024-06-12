@@ -2,7 +2,7 @@
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
 	opacity = 0
-	density = 0
+	density = FALSE
 	layer = 3.5
 	max_integrity = 100
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -14,7 +14,6 @@
 	. = ..()
 	if(does_emissive)
 		update_icon(UPDATE_OVERLAYS)
-		set_light(1, LIGHTING_MINIMUM_POWER)
 
 
 /obj/structure/sign/update_overlays()
@@ -24,7 +23,7 @@
 	if(!does_emissive)
 		return
 
-	underlays += emissive_appearance(icon,"[icon_state]_lightmask")
+	underlays += emissive_appearance(icon,"[icon_state]_lightmask", src)
 
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

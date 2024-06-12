@@ -16,7 +16,7 @@
 			if(ninja_suit.cell.charge + drain > ninja_suit.cell.maxcharge)
 				drain = ninja_suit.cell.maxcharge - ninja_suit.cell.charge
 				maxcapacity = TRUE
-			if(do_after(ninja, 10, target = src))
+			if(do_after(ninja, 1 SECONDS, src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, TRUE, 5)
 				cell.use(drain)

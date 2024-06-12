@@ -6,7 +6,7 @@
 /obj/structure/flora/tree
 	name = "tree"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -226,7 +226,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
@@ -383,7 +383,7 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
+	density = TRUE
 	climbable = 1 // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
@@ -397,7 +397,7 @@
 	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
@@ -425,7 +425,7 @@
 						icon_state = "stump[rand(1,2)]"
 						name = "cleared foliage"
 						desc = "There used to be dense undergrowth here."
-						density = 0
+						set_density(FALSE)
 						stump = 1
 						pixel_x = rand(-6,6)
 						pixel_y = rand(-6,6)

@@ -182,7 +182,7 @@
 /obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)
 	if(I.tool_behaviour == TOOL_CROWBAR)
 		to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
+	if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		if(prob(70))
 			to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 			if(prob(50))

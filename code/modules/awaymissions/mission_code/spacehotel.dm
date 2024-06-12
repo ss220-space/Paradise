@@ -3,7 +3,9 @@
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"
@@ -193,7 +195,7 @@
 	icon_state = "x"
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	opacity = 0
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors

@@ -128,7 +128,7 @@
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
-	GLOB.dview_mob.see_invisible = invis_flags; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
@@ -156,13 +156,6 @@
 #define MANIFEST_ERROR_NAME		1
 #define MANIFEST_ERROR_COUNT	2
 #define MANIFEST_ERROR_ITEM		4
-
-//Turf wet states
-#define TURF_DRY		0
-#define TURF_WET_WATER	1
-#define TURF_WET_LUBE	2
-#define TURF_WET_ICE	3
-#define TURF_WET_PERMAFROST 4
 
 // Metal foam states
 // teehee no one will find these here
@@ -500,11 +493,6 @@
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 
-// Lavaland cave design defines
-
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"
-
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
+

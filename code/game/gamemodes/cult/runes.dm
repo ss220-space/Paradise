@@ -87,7 +87,7 @@ To draw a rune, use a ritual dagger.
 		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
-		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
+		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, src))
 			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 			qdel(src)
 		return
@@ -200,10 +200,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
 	// So that the mob only appears after the effect is finished
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.invisibility = INVISIBILITY_MAXIMUM
-	sleep(12)
-	user.notransform = FALSE
+	sleep(1.2 SECONDS)
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.invisibility = 0
 
 /obj/effect/rune/proc/do_invoke_glow()

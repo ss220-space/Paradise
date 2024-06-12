@@ -146,7 +146,7 @@
 	if(icon_addon)
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
@@ -239,8 +239,10 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user, params)
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return TRUE
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return
+		return TRUE
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return TRUE
@@ -478,10 +480,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += base_icon_state
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -660,7 +662,7 @@
 		return
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /**

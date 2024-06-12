@@ -67,7 +67,7 @@
 	switch(I.type)
 		if(/obj/item/magmite)
 			playsound(src, 'sound/effects/anvil_start.ogg', 50)
-			if(do_after_once(user, 7 SECONDS, target = src))
+			if(do_after(user, 7 SECONDS, src, max_interact_count = 1))
 				playsound(src,'sound/effects/anvil_end.ogg', 50)
 				new /obj/item/magmite_parts(get_turf(src))
 				qdel(I)
@@ -80,7 +80,7 @@
 				to_chat(user,"The magmite upgrade parts are already glowing and usable!")
 				return
 			playsound(src,'sound/effects/anvil_end.ogg', 50)
-			if(do_after_once(user, 3 SECONDS, target = src))
+			if(do_after(user, 3 SECONDS, src, max_interact_count = 1))
 				parts.restore()
 				to_chat(user, "You successfully reheat the magmite upgrade parts. They are now glowing and usable again.")
 	if(!success)

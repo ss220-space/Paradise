@@ -4,7 +4,7 @@
 	Which allows passing almost through anything, at the cost of a big passive increase to energy consumption. \
 	Also all restraining effects like handcuffs will drop off from you! \
 	Remember that this module is still a prototipe and won't make you invincible! Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 25 SECONDS
 	use_itemicon = FALSE
@@ -86,11 +86,10 @@
 	if(ninja.handcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
 	if(ninja.legcuffed)
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
+	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))

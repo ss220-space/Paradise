@@ -37,7 +37,7 @@
 		return
 	if(!isabductor(user))
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
-		if(do_after(user, 100, target = src))
+		if(do_after(user, 10 SECONDS, src))
 			TeleporterSend()
 		return
 	user.set_machine(src)

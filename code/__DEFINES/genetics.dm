@@ -3,7 +3,10 @@
 
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
-#define MUTCHK_FORCED        1
+/// Ignores any restrictions (except flag MUTCHK_IGNORE_DEFAULT) while we are making gene checks
+#define MUTCHK_FORCED (1<<0)
+/// Allows to modify species default genes
+#define MUTCHK_IGNORE_DEFAULT (1<<1)
 
 // mob/var/list/mutations
 
@@ -101,23 +104,19 @@
 
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
-#define BLOOD_VOLUME_NORMAL			560
-#define BLOOD_VOLUME_SAFE			501
-#define BLOOD_VOLUME_PALE			448
-#define BLOOD_VOLUME_OKAY			346
-#define BLOOD_VOLUME_BAD			234
-#define BLOOD_VOLUME_SURVIVE		168
+#define BLOOD_VOLUME_NORMAL			560 // 100%
+#define BLOOD_VOLUME_SAFE			501	// 89.5%
+#define BLOOD_VOLUME_PALE			448 // 80%
+#define BLOOD_VOLUME_REGENERATION	392 // 70%
+#define BLOOD_VOLUME_OKAY			346 // 61.8%
+#define BLOOD_VOLUME_BAD			234 // 41.8%
+#define BLOOD_VOLUME_SURVIVE		168 // 30%
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
 #define MOB_SIZE_SMALL 1
 #define MOB_SIZE_HUMAN 2
 #define MOB_SIZE_LARGE 3
-
-//Ventcrawling defines
-#define VENTCRAWLER_NONE   0
-#define VENTCRAWLER_NUDE   1
-#define VENTCRAWLER_ALWAYS 2
 
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100
@@ -162,3 +161,4 @@
 #define NO_OBESITY		"no_obesity"
 #define RUNIC_MIND		"runic_mind"
 #define REPEATSURGERY	"repeat_syrgery"
+#define HAVE_REGENERATION "have_regeneration"

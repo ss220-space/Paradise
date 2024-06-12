@@ -75,7 +75,7 @@
 
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear() && M.stat != UNCONSCIOUS)
-			M.create_chat_message(user, message, FALSE, FALSE)
+			M.create_chat_message(user, message, list("yell"))
 		var/effect = SOUND_EFFECT_MEGAPHONE
 		if(isrobot(user))
 			effect = SOUND_EFFECT_MEGAPHONE_ROBOT

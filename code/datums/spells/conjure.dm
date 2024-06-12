@@ -35,7 +35,8 @@
 			targets -= T
 	playsound(get_turf(src), cast_sound, 50, 1)
 
-	if(do_after(user, delay, target = user, use_default_checks = !can_use_stunned))
+	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED : DEFAULT_DOAFTER_IGNORE
+	if(do_after(user, delay, user, timed_action_flags))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break
@@ -57,7 +58,7 @@
 				for(var/varName in newVars)
 					if(varName in summoned_object.vars)
 						summoned_object.vars[varName] = newVars[varName]
-				summoned_object.admin_spawned = TRUE
+				summoned_object.flags |= ADMIN_SPAWNED
 
 				if(summon_lifespan)
 					QDEL_IN(summoned_object, summon_lifespan)

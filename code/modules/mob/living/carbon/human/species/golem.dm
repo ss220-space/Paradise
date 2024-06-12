@@ -262,7 +262,7 @@
 /datum/action/innate/ignite
 	name = "Ignite"
 	desc = "Подожгите себя и достигните взрыва!"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "sacredflame"
 
 /datum/action/innate/ignite/Activate()
@@ -486,7 +486,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
@@ -543,7 +543,7 @@
 		FEMALE = list("Тарелка", "Посуда", "Утварь"),
 		NEUTER = null
 		)
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
@@ -719,7 +719,7 @@
 
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming

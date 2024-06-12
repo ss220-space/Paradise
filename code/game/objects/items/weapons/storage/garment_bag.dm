@@ -151,6 +151,7 @@
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blaser/brown(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blaser/grey(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
+	new /obj/item/clothing/head/helmet/detective(src)
 	new /obj/item/clothing/under/det(src)
 	new /obj/item/clothing/under/det/skirt(src)
 	new /obj/item/clothing/under/det/alt_a(src)
@@ -230,6 +231,7 @@
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/under/rank/chaplain/skirt(src)
+	new /obj/item/clothing/suit/hooded/hijab(src)
 
 /obj/item/storage/garmentbag/quartermaster/populate_contents()
 	new /obj/item/clothing/head/soft(src)

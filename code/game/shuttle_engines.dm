@@ -10,7 +10,7 @@
 /obj/structure/shuttle/engine
 	name = "engine"
 	icon = 'icons/turf/shuttle/misc.dmi'
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей

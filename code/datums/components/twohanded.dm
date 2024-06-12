@@ -172,7 +172,7 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/check = parent
-	var/abstract_check = !(check.flags & ABSTRACT)
+	var/abstract_check = !(check.item_flags & ABSTRACT)
 	if(wielded)
 		return
 
@@ -329,7 +329,7 @@
 
 		// Show message if requested
 		if(show_message)
-			var/abstract_check = !(item.flags & ABSTRACT)
+			var/abstract_check = !(item.item_flags & ABSTRACT)
 			if(isrobot(parent))
 				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
 			else
@@ -415,7 +415,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	wielded = FALSE // Off Hand tracking of wielded status
 

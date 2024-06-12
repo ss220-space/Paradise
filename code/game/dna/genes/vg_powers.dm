@@ -197,14 +197,14 @@
 	block = GLOB.remotetalkblock
 
 
-/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, flags)
 	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
 	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
 
 
-/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant)
+/datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant, flags)
 	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	for(var/obj/effect/proc_holder/spell/mindscan/spell in mutant.mob_spell_list)

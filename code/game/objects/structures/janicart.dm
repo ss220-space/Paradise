@@ -88,7 +88,7 @@
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(I.tool_behaviour == TOOL_CROWBAR)
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 				add_fingerprint(user)
 				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)

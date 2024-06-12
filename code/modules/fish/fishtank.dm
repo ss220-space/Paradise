@@ -112,14 +112,14 @@
 
 
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
-	if(user.incapacitated() || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/fishtank/proc/toggle_light(mob/user)
-	if(user.incapacitated() || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	light_switch = !light_switch
 	if(light_switch)
@@ -414,15 +414,15 @@
 	switch(tank_type)
 		if("bowl")										//Fishbowl: Wets it's own tile
 			if(istype(T))
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("tank")										//Fishtank: Wets it's own tile and the 4 adjacent tiles (cardinal directions)
 			if(istype(T))
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 				for(var/turf/simulated/ST in T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE))
-					ST.MakeSlippery()
+					ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
 			for(var/turf/simulated/ST in spiral_range_turfs(1, loc))
-				ST.MakeSlippery()
+				ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 
 /obj/machinery/fishtank/proc/breed_fish()

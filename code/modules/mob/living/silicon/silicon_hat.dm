@@ -183,7 +183,7 @@
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return 0
 		return 0
 
@@ -235,9 +235,13 @@
 
 	return TRUE
 
-/mob/living/silicon/proc/drop_hat()
+
+/mob/living/silicon/proc/drop_hat(drop_on_turf = FALSE)
 	if(inventory_head)
-		drop_item_ground(inventory_head)
+		if(drop_on_turf)
+			transfer_item_to_loc(inventory_head, get_turf(src))
+		else
+			drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
 

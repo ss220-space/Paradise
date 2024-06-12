@@ -51,7 +51,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
 
@@ -158,8 +158,10 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
-		attack_self(usr)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

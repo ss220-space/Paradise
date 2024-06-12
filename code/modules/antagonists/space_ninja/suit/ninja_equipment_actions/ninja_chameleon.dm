@@ -5,7 +5,7 @@
 /datum/action/item_action/advanced/ninja/ninja_chameleon
 	name = "Chameleon Disguise"
 	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -40,8 +40,8 @@
 	icon_state = "chameleon_device"
 	item_state = ""
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = 0
-	flags =  DROPDEL | ABSTRACT | NOBLUDGEON
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
@@ -90,7 +90,7 @@
 	to_chat(ninja, span_notice("Вы начали сканировать [target_mob]."))
 	if(!s_busy)
 		s_busy = TRUE
-		if(!do_after(ninja, 2 SECONDS, FALSE, ninja))
+		if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			to_chat(ninja, span_warning("Сканирование прервано!"))
 			s_busy = FALSE
 			return
@@ -114,7 +114,7 @@
 		var/obj/effect/temp_visual/holo_scan/my_scan_effect = new(get_turf(src), color_choice, "alpha", TRUE)
 		if(!s_busy)
 			s_busy = TRUE
-			if(!do_after(ninja, 2 SECONDS, FALSE, ninja) )
+			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) )
 				to_chat(ninja, span_warning("Вы прервали маскировку!"))
 				s_busy = FALSE
 				do_sparks(3, FALSE, ninja)
@@ -140,7 +140,7 @@
 		//ID card initialisation
 		n_id_card = new
 		toggle_ninja_nodrop(n_id_card)
-		n_id_card.flags ^= DROPDEL
+		n_id_card.item_flags ^= DROPDEL
 		n_id_card.assignment = disguise.assignment
 		n_id_card.rank = disguise.rank
 		if(!ninja.wear_id)

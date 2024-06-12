@@ -52,10 +52,12 @@
 	stop_following()
 	return ..()
 
-/obj/structure/transit_tube_pod/Process_Spacemove()
+
+/obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
-	else return ..()
+	return ..()
+
 
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
 	if(!location)
@@ -104,7 +106,7 @@
 
 		if(!next_dir)
 			moving = FALSE
-			density = TRUE
+			set_density(TRUE)
 			return
 		exit_delay = current_tube.exit_delay
 		next_loc = get_step(src, next_dir)
@@ -118,7 +120,7 @@
 			setDir(next_dir)
 			Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
 			moving = FALSE
-			density = TRUE
+			set_density(TRUE)
 			return
 
 		enter_delay = current_tube.enter_delay(src, next_dir)
@@ -131,7 +133,7 @@
 	if(stage == MOVE_ANIMATION_STAGE_TWO)
 		setDir(next_dir)
 		forceMove(next_loc) // When moving from one tube to another, skip collision and such.
-		density = current_tube.density
+		set_density(current_tube.density)
 
 		if(current_tube?.should_stop_pod(src, next_dir))
 			current_tube.pod_stopped(src, dir)
@@ -139,7 +141,7 @@
 			COOLDOWN_START(src, move_cooldown, exit_delay)
 			return MOVE_ANIMATION_STAGE_ONE
 
-	density = TRUE
+	set_density(TRUE)
 	moving = FALSE
 
 	return MOVE_ANIMATION_STAGE_ONE

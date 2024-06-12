@@ -175,7 +175,7 @@
 	user.visible_message(others_message,
 		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
 
-	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
+	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))

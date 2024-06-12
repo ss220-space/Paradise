@@ -232,7 +232,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_mob(owner.current, target, time_per_action))
+	while(do_after(owner.current, time_per_action, target, NONE))
 		cycle_counter++
 		owner.current.face_atom(target)
 
@@ -533,7 +533,7 @@
 		return
 
 	if(!hud.vampire_blood_display)
-		hud.vampire_blood_display = new /obj/screen()
+		hud.vampire_blood_display = new /atom/movable/screen()
 		hud.vampire_blood_display.name = "Usable Blood"
 		hud.vampire_blood_display.icon_state = "blood_display"
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"

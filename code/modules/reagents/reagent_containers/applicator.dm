@@ -86,7 +86,7 @@
 			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			add_attack_logs(user, M, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 			var/cycle_count = 0
-			while(do_after(user, 10, target = M))
+			while(do_after(user, 1 SECONDS, M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
 				if(measured_health == M.health)

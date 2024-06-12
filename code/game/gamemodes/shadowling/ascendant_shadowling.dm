@@ -43,8 +43,8 @@
 		icon_living = "NurnKal"
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = 0)
-	return 1 //copypasta from carp code
+/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE)
+	return TRUE //copypasta from carp code
 
 /mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
 	return //You think an ascendant can be hurt by bombs? HA

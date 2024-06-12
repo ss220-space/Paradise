@@ -272,7 +272,7 @@
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
-	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
+	if(do_after(M, EXTRACTION_PHASE_PREPARE, M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
@@ -419,7 +419,7 @@
 		var/obj/item/I = i
 		if(GLOB.prisoner_belongings.give_item(I))
 			victim_belongings += I
-		else if(!(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
+		else if(!(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
 			I.forceMove(T)
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.

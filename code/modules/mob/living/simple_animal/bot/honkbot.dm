@@ -127,7 +127,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A

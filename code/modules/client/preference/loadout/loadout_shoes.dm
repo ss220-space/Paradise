@@ -65,3 +65,7 @@
 /datum/gear/shoes/jackcross
 	display_name = "jackcross"
 	path = /obj/item/clothing/shoes/jackboots/cross
+
+/datum/gear/shoes/leather_boots
+	display_name = "high leather boots"
+	path = /obj/item/clothing/shoes/leather_boots
