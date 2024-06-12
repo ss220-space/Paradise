@@ -33,6 +33,7 @@
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
 	var/addict_supertype = /datum/reagent
+	var/bonus_damage = 0
 
 /datum/reagent/New()
 	addict_supertype = type
