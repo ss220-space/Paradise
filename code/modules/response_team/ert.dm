@@ -78,7 +78,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return
 
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in volunteerss)
+	for(var/mob/dead/observer/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
