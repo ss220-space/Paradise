@@ -704,18 +704,13 @@ REAGENT SCANNER
 
 	if(!isnull(O.reagents))
 		var/dat = ""
-		var/blood_type = ""
-		var/blood_species = ""
 		if(O.reagents.reagent_list.len > 0)
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
-				if(R.id != "blood")
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
-				else
-					blood_species = R.data["blood_species"]
-					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+				dat += form_reagent_data(R, one_percent)
 		if(dat)
+			if(details)
+				dat += "<br>[TAB]Temperature ([round(O.reagents.chem_temp - T0C)]°C/[round(O.reagents.chem_temp)]°K)"
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat
 			scanning = FALSE
@@ -724,6 +719,17 @@ REAGENT SCANNER
 	else
 		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
 	return
+
+/obj/item/reagent_scanner/proc/form_reagent_data(datum/reagent/reagent, one_percent)
+	. = ""
+	var/blood_part = ""
+	if(reagent.id == "blood")
+		var/blood_species = reagent.data["blood_species"]
+		var/blood_type = reagent.data["blood_type"]
+		blood_part = "([blood_type ? "[blood_type]" : ""][blood_species ? " [blood_species]" : ""])"
+	. += "<br>[TAB][span_notice("[details ? "[reagent.volume / one_percent]%" : ""]\t-\t[reagent][blood_part]\t([round(reagent.volume, 0.001)]u)\t([reagent.metabolization_rate] UPT)")]"
+	if(details && reagent.overdose_threshold)
+		. += "<br>[TAB][span_warning("Overdose ([reagent.overdose_threshold]u)")]"
 
 /obj/item/reagent_scanner/adv
 	name = "advanced reagent scanner"
