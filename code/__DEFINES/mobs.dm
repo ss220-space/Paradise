@@ -8,7 +8,6 @@
 #define ORGAN_MUTATED		(1<<4)
 #define ORGAN_INT_BLEED		(1<<5)
 #define ORGAN_DISFIGURED	(1<<6)
-#define ORGAN_CRYSTALLISED	(1<<7)
 
 #define PROCESS_ACCURACY 10
 
