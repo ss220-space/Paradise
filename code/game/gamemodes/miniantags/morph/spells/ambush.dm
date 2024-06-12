@@ -29,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/morph_spell/ambush/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You start preparing an ambush.</span>")
-	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, PROC_REF(prepare_check), user)), FALSE))
+	if(!do_after(user, 6 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(prepare_check), user)))
 		if(!user.morphed)
 			to_chat(user, "<span class='warning'>You need to stay morphed to prepare the ambush!</span>")
 			return
@@ -46,10 +46,10 @@
 	id = "morph_ambush"
 	duration = -1
 	tick_interval = MORPH_AMBUSH_PERFECTION_TIME
-	alert_type = /obj/screen/alert/status_effect/morph_ambush
+	alert_type = /atom/movable/screen/alert/status_effect/morph_ambush
 
 
-/datum/status_effect/morph_ambush/tick()
+/datum/status_effect/morph_ambush/tick(seconds_between_ticks)
 	STOP_PROCESSING(SSfastprocess, src)
 	var/mob/living/simple_animal/hostile/morph/M = owner
 	M.perfect_ambush()
@@ -57,7 +57,7 @@
 	linked_alert.desc = "You have prepared an ambush! Your disguise is flawless!"
 
 
-/obj/screen/alert/status_effect/morph_ambush
+/atom/movable/screen/alert/status_effect/morph_ambush
 	name = "Ambush!"
 	desc = "You have prepared an ambush!"
 	icon_state = "morph_ambush"

@@ -40,7 +40,7 @@
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2500),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										3000),
 		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								7000),
-		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												1000),
+		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												300),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									400),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2500),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
@@ -61,7 +61,7 @@
 		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1500),
 		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										900),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									3000), //fishing rod supremacy
-		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										1000),
+		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										600),
 		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
 		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
 		EQUIPMENT("Point Transfer Card (5000)", 	/obj/item/card/mining_point_card/fivethousand, 						5000),
@@ -73,13 +73,16 @@
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
 		EQUIPMENT("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable, 					200),
 		EQUIPMENT("KA AoE Damage", 					/obj/item/borg/upgrade/modkit/aoe/mobs, 							2500),
-		EQUIPMENT("KA Cooldown Decrease", 			/obj/item/borg/upgrade/modkit/cooldown, 							1500),
+		EQUIPMENT("KA Cooldown Decrease", 			/obj/item/borg/upgrade/modkit/cooldown/haste, 						1500),
 		EQUIPMENT("KA Damage Increase", 			/obj/item/borg/upgrade/modkit/damage, 								1500),
-		EQUIPMENT("KA Hyper Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod/orange, 					500),
-		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					300),
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1500),
-		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							300),
 		EQUIPMENT("KA Hardness Increase",			/obj/item/borg/upgrade/modkit/hardness,								2500),
+		EQUIPMENT("KA Offensive Mining Explosion",	/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs,					3000),
+		EQUIPMENT("KA Rapid Repeater",				/obj/item/borg/upgrade/modkit/cooldown/repeater,					2000),
+		EQUIPMENT("KA Resonator Blast",				/obj/item/borg/upgrade/modkit/resonator_blasts,						2000),
+		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					300),
+		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							300),
+		EQUIPMENT("KA Hyper Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod/orange, 					500),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								250),
 	)
 	prize_list["Digging Tools"] = list(
@@ -95,7 +98,7 @@
 		EQUIPMENT("Nanotrasen Minebot", 			/obj/item/mining_drone_cube, 										800),
 		EQUIPMENT("Minebot AI Upgrade", 			/obj/item/slimepotion/sentience/mining, 							1000),
 		EQUIPMENT("Minebot Armor Upgrade", 			/obj/item/mine_bot_upgrade/health, 									400),
-		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/minebot,				 		600),
+		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/haste/minebot,				600),
 		EQUIPMENT("Minebot Melee Upgrade", 			/obj/item/mine_bot_upgrade, 										400),
 	)
 	prize_list["Miscellaneous"] = list(
@@ -119,14 +122,15 @@
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/equipment_vendor/power_change()
-	..()
-	update_icon()
+/obj/machinery/mineral/equipment_vendor/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		remove_id()
 
-/obj/machinery/mineral/equipment_vendor/update_icon()
+/obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -171,7 +175,7 @@
 
 /obj/machinery/mineral/equipment_vendor/vv_edit_var(var_name, var_value)
 	// Gotta update the static data in case an admin VV's the items for some reason..!
-	if(var_name == "prize_list")
+	if(var_name == NAMEOF(src, prize_list))
 		dirty_items = TRUE
 	return ..()
 
@@ -219,7 +223,9 @@
 				return
 
 			inserted_id.mining_points -= prize.cost
-			new prize.equipment_path(loc)
+			var/obj/created = new prize.equipment_path(loc)
+			if(Adjacent(usr))
+				usr.put_in_hands(created, ignore_anim = FALSE)
 		else
 			return FALSE
 	add_fingerprint()
@@ -229,7 +235,7 @@
 		add_fingerprint(user)
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(user, I)
 		return TRUE
@@ -262,7 +268,7 @@
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Plasma Cutter Kit", "Mining Explosives Kit", "Crusher Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -273,21 +279,20 @@
 		if("Resonator Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/resonator(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
 		if("Minebot Kit")
-			new /obj/item/mining_drone_cube(drop_location)
-			new /obj/item/weldingtool/hugetank(drop_location)
-			new /obj/item/clothing/head/welding(drop_location)
+			new /obj/item/storage/backpack/duffel/minebot_kit(drop_location)
 		if("Extraction and Rescue Kit")
-			new /obj/item/extraction_pack(drop_location)
-			new /obj/item/fulton_core(drop_location)
-			new /obj/item/stack/marker_beacon/thirty(drop_location)
+			new /obj/item/storage/backpack/duffel/vendor_ext(drop_location)
 		if("Plasma Cutter Kit")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
+			new /obj/item/t_scanner/adv_mining_scanner/lesser(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
 		if("Mining Explosives Kit")
 			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
+			new /obj/item/storage/box/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
@@ -369,7 +374,7 @@
 		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
 		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
 		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
-		EQUIPMENT("Cards", 							/obj/item/toy/cards/deck, 											150),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 												150),
 		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
 		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)
@@ -437,6 +442,30 @@
 	new /obj/item/organ/internal/cyberimp/leg/jumpboots(src)
 	new /obj/item/organ/internal/cyberimp/leg/jumpboots/l(src)
 
+/*********************mining access card********************/
+/obj/item/card/mining_access_card
+	name = "mining access card"
+	desc = "A small card, that when used on any ID, will add mining access."
+	icon_state = "data"
+
+/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
+	if(!istype(AM, /obj/item/card/id))
+		return
+
+	if(!proximity)
+		return
+
+	var/obj/item/card/id/I = AM
+	I.access |= list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BOT,
+		ACCESS_MINT,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_MINERAL_STOREROOM,
+	)
+	to_chat(user, "You upgrade [I] with mining access.")
+	qdel(src)
 
 #undef EQUIPMENT
-

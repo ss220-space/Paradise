@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(target.client)
 			target.client.images |= current_image
 
-/obj/effect/hallucination/simple/update_icon(new_state, new_icon, new_px = 0, new_py = 0)
+/obj/effect/hallucination/simple/proc/update_state(new_state, new_icon, new_px = 0, new_py = 0)
 	image_state = new_state
 	if(new_icon)
 		image_icon = new_icon
@@ -113,7 +113,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(!U.welded)
 			src.loc = U.loc
 			break
-	flood_images += image(image_icon,src,image_state,MOB_LAYER)
+	var/image/plasma_image = image(image_icon,src,image_state,MOB_LAYER)
+	SET_PLANE_EXPLICIT(plasma_image, ABOVE_GAME_PLANE, src)
+	flood_images += plasma_image
 	flood_turfs += get_turf(src.loc)
 	if(target.client)
 		target.client.images |= flood_images
@@ -138,7 +140,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(T))
+			if((T in flood_turfs) || !FT.CanAtmosPass(T, FALSE))
 				continue
 			flood_images += image(image_icon,T,image_state,MOB_LAYER)
 			flood_turfs += T
@@ -163,7 +165,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	name = "alien hunter ([rand(1, 1000)])"
 
 /obj/effect/hallucination/simple/xeno/throw_impact(atom/A, datum/thrownthing/throwingdatum)
-	update_icon("alienh_pounce")
+	update_state("alienh_pounce")
 	if(A == target)
 		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
@@ -187,7 +189,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(!xeno)
 		return
 	for(var/i in 0 to 2)
-		xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
+		xeno.update_state("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
 		xeno.throw_at(target,7,1, spin = 0, diagonals_first = 1)
 		sleep(10)
 		if(!xeno)
@@ -272,9 +274,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		return
 
 	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakebroken, FLOOR_PLANE, wall)
 	var/turf/landing = get_turf(target)
 	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
 	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakerune, FLOOR_PLANE, wall)
 	fakebroken.override = TRUE
 	if(target.client)
 		target.client.images |= fakebroken
@@ -377,7 +381,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 		if(4) //Stunprod + cablecuff
-			target.playsound_local(null, 'sound/weapons/Egloves.ogg', 40, 1)
+			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, 1)
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 			sleep(20)
 			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, 1)
@@ -557,7 +561,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat || H.lying)
+		if(H.stat || H.body_position == LYING_DOWN)
 			continue
 		clone = H
 		break
@@ -592,8 +596,8 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	icon_state = null
 	name = ""
 	desc = ""
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	opacity = 0
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
@@ -763,7 +767,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		people += H
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
-		target.hear_say(message_to_multilingual(pick(speak_messages), pick(person.languages)), speaker = person)
+		SET_PLANE_EXPLICIT(speech_overlay, ABOVE_GAME_PLANE, src)
+		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)
@@ -775,7 +780,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			if(H.stat != DEAD)
 				humans += H
 		person = pick(humans)
-		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+		target.hear_radio(message_to_multilingual(pick(radio_messages), safepick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
 
 /obj/effect/hallucination/message
@@ -929,45 +934,45 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				alert_type = specific
 			switch(alert_type)
 				if("not_enough_oxy")
-					throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy, override = TRUE)
+					throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy, override = TRUE)
 				if("not_enough_tox")
-					throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox, override = TRUE)
+					throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox, override = TRUE)
 				if("not_enough_co2")
-					throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2, override = TRUE)
+					throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2, override = TRUE)
 				if("too_much_oxy")
-					throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy, override = TRUE)
+					throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy, override = TRUE)
 				if("too_much_co2")
-					throw_alert("too_much_co2", /obj/screen/alert/too_much_co2, override = TRUE)
+					throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2, override = TRUE)
 				if("too_much_tox")
-					throw_alert("too_much_tox", /obj/screen/alert/too_much_tox, override = TRUE)
+					throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox, override = TRUE)
 				if("nutrition")
 					if(prob(50))
-						throw_alert("nutrition", /obj/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
 					else
-						throw_alert("nutrition", /obj/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
 				if("weightless")
-					throw_alert("weightless", /obj/screen/alert/weightless, override = TRUE)
+					throw_alert("weightless", /atom/movable/screen/alert/weightless, override = TRUE)
 				if("fire")
-					throw_alert("fire", /obj/screen/alert/fire, override = TRUE)
+					throw_alert("fire", /atom/movable/screen/alert/fire, override = TRUE)
 				if("temp")
 					if(prob(50))
-						throw_alert("temp", /obj/screen/alert/hot, 3, override = TRUE)
+						throw_alert("temp", /atom/movable/screen/alert/hot, 3, override = TRUE)
 					else
-						throw_alert("temp", /obj/screen/alert/cold, 3, override = TRUE)
+						throw_alert("temp", /atom/movable/screen/alert/cold, 3, override = TRUE)
 				if("pressure")
 					if(prob(50))
-						throw_alert("pressure", /obj/screen/alert/highpressure, 2, override = TRUE)
+						throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2, override = TRUE)
 					else
-						throw_alert("pressure", /obj/screen/alert/lowpressure, 2, override = TRUE)
+						throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2, override = TRUE)
 				//BEEP BOOP I AM A ROBOT
 				if("newlaw")
-					throw_alert("newlaw", /obj/screen/alert/newlaw, override = TRUE)
+					throw_alert("newlaw", /atom/movable/screen/alert/newlaw, override = TRUE)
 				if("locked")
-					throw_alert("locked", /obj/screen/alert/locked, override = TRUE)
+					throw_alert("locked", /atom/movable/screen/alert/locked, override = TRUE)
 				if("hacked")
-					throw_alert("hacked", /obj/screen/alert/hacked, override = TRUE)
+					throw_alert("hacked", /atom/movable/screen/alert/hacked, override = TRUE)
 				if("charge")
-					throw_alert("charge",/obj/screen/alert/emptycell, override = TRUE)
+					throw_alert("charge",/atom/movable/screen/alert/emptycell, override = TRUE)
 			sleep(rand(100,200))
 			clear_alert(alert_type, clear_override = TRUE)
 		if("items")
@@ -980,7 +985,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					slots_free -= ui_lhand
 				if(r_hand)
 					slots_free -= ui_rhand
-				if(istype(src,/mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(!H.belt)
 						slots_free += ui_belt

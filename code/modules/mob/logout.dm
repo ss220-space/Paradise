@@ -1,4 +1,5 @@
 /mob/Logout()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGOUT)
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
 	GLOB.player_list -= src
@@ -16,5 +17,6 @@
 				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
+	become_uncliented()
 	update_morgue()
-	return 1
+	return TRUE

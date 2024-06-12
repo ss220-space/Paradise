@@ -12,11 +12,14 @@
 	volume = 5
 	pass_open_check = TRUE
 
+
+/obj/item/reagent_containers/dropper/update_icon_state()
+	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
+
+
 /obj/item/reagent_containers/dropper/on_reagent_change()
-	if(!reagents.total_volume)
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]1"
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/reagent_containers/dropper/attack(mob/living/M, mob/living/user, def_zone)
 	return
@@ -31,7 +34,7 @@
 			return
 		if(user != C)
 			visible_message("<span class='danger'>[user] begins to drip something into [C]'s eyes!</span>")
-			if(!do_mob(user, C, 30))
+			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -72,7 +75,7 @@
 			return
 
 		if(reagents.total_volume)
-			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 

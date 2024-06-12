@@ -185,12 +185,12 @@
 			to_chat(user, span_warning("[params]' isn't a valid parameter for [key]."))
 			return TRUE
 
-	msg = genderize_decode(user, msg)
-
 	// Keep em quiet if they can't speak
 	if(!can_vocalize_emotes(user) && ((emote_type & EMOTE_MOUTH) && (emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND))))
 		var/noise_emitted = pick(muzzled_noises)
-		msg = "изда[pluralize_ru(user.gender, "ёт", "ют")] [noise_emitted] звуки."
+		msg = "изда%(ёт,ют)% [noise_emitted] звуки."
+
+	msg = genderize_decode(user, msg)
 
 	var/tmp_sound = get_sound(user)
 	var/sound_volume = get_volume(user)
@@ -220,10 +220,10 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE)
 
-		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && !user.mind?.miming)
+		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !user.mind.miming)
 			user.audible_message(displayed_msg, deaf_message = span_italics("You see how <b>[user]</b> [msg]"))
 		else
-			user.visible_message(displayed_msg, blind_message = span_italics("You hear how someone [msg]"))
+			user.visible_message(displayed_msg)
 
 		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT|EMOTE_SOUND)) && !isobserver(user))
 			runechat_emote(user, msg)
@@ -298,8 +298,8 @@
 			for(var/mob/living/M in O.contents)
 				M.show_message(text, EMOTE_VISIBLE)
 
-		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			O.create_chat_message(user, runechat_text, emote = TRUE)
+		if(O.stat == CONSCIOUS && O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			O.create_chat_message(user, runechat_text, list("emote"))
 
 
 /**
@@ -508,15 +508,14 @@
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
-		if(hands_use_check && !user.can_use_hands() && iscarbon(user))
+		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
 			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))
 			return FALSE
 
 	if(isliving(user))
-		var/mob/living/sender = user
-		if(HAS_TRAIT(sender, TRAIT_EMOTE_MUTE) && intentional)
+		if(HAS_TRAIT(user, TRAIT_EMOTE_MUTE) && intentional)
 			return FALSE
 	else
 		// deadchat handling
@@ -527,7 +526,7 @@
 			to_chat(user, span_warning("You have deadchat muted."))
 			return FALSE
 		if(!check_rights(R_ADMIN, FALSE, user) && !CONFIG_GET(flag/dsay_allowed))
-			to_chat(user, span_warning("Deadchat is globally muted"))
+			to_chat(user, span_warning("Deadchat is globally muted."))
 			return FALSE
 
 

@@ -29,7 +29,7 @@
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)
 
-	sight |= SEE_TURFS
+	add_sight(SEE_TURFS)
 	GLOB.player_list |= src
 
 	new_player_panel()

@@ -20,7 +20,7 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	attacktext = "кусает"
-	see_in_dark = 5
+	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
 	mob_size = MOB_SIZE_SMALL
@@ -156,7 +156,7 @@
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
 			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE
@@ -182,7 +182,7 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
-					if(inventory_head.flags & NODROP)
+					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_head)
@@ -195,7 +195,7 @@
 					return
 			if("back")
 				if(inventory_back)
-					if(inventory_back.flags & NODROP)
+					if(HAS_TRAIT(inventory_back, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_back)
@@ -289,7 +289,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 
@@ -335,7 +335,7 @@
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
-	set_light(0)
+	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	mutations.Remove(BREATHLESS)
 	minbodytemp = initial(minbodytemp)
@@ -410,7 +410,7 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+/mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
 	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
@@ -660,8 +660,8 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
-	return 1	//Void puppies can navigate space.
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = NONE)
+	return TRUE	//Void puppies can navigate space.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime
 	name = "\improper slime puppy"
@@ -788,7 +788,7 @@
 	if(istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = I
 		N.use(1)
-		if(diseases?.len)
+		if(LAZYLEN(diseases))
 			CureAllDiseases()
 			visible_message("<span class='notice'>[name] looks happy! </span>")
 			chasetail()

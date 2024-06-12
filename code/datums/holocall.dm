@@ -1,9 +1,10 @@
 #define HOLOPAD_MAX_DIAL_TIME 200
 
-/mob/camera/aiEye/remote/holo/setLoc()
+/mob/camera/aiEye/remote/holo/setLoc(turf/destination, force_update = FALSE)
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)
+	ai_detector_visible = FALSE // Holocalls dont trigger the Ai Detector
 
 //this datum manages it's own references
 

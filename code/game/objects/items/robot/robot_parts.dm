@@ -4,7 +4,7 @@
 	item_state = "buildpipe"
 	icon_state = "blank"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
@@ -23,8 +23,10 @@
 	else
 		name = "robot [initial(name)]"
 
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
+
 /obj/item/robot_parts/attack_self(mob/user)
-	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)
@@ -102,7 +104,7 @@
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
-	updateicon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
 	QDEL_NULL(l_arm)
@@ -117,20 +119,20 @@
 /obj/item/robot_parts/robot_suit/attack_self(mob/user)
 	return
 
-/obj/item/robot_parts/robot_suit/proc/updateicon()
-	overlays.Cut()
+/obj/item/robot_parts/robot_suit/update_overlays()
+	. = ..()
 	if(l_arm)
-		overlays += "l_arm+o"
+		. += "l_arm+o"
 	if(r_arm)
-		overlays += "r_arm+o"
+		. += "r_arm+o"
 	if(chest)
-		overlays += "chest+o"
+		. += "chest+o"
 	if(l_leg)
-		overlays += "l_leg+o"
+		. += "l_leg+o"
 	if(r_leg)
-		overlays += "r_leg+o"
+		. += "r_leg+o"
 	if(head)
-		overlays += "head+o"
+		. += "head+o"
 
 /obj/item/robot_parts/robot_suit/proc/check_completion()
 	if(l_arm && r_arm)
@@ -157,28 +159,28 @@
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		l_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(r_leg)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		r_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(l_arm)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		l_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(r_arm)
 			return
 		user.drop_transfer_item_to_loc(W, src)
 		r_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/chest))
 		var/obj/item/robot_parts/chest/CH = W
@@ -187,7 +189,7 @@
 		if(CH.wired && CH.cell)
 			user.drop_transfer_item_to_loc(W, src)
 			chest = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else if(!CH.wired)
 			to_chat(user, "<span class='notice'>You need to attach wires to it first!</span>")
 		else
@@ -200,11 +202,11 @@
 		if(HD.flash2 && HD.flash1)
 			user.drop_transfer_item_to_loc(W, src)
 			head = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
-	if(istype(W, /obj/item/multitool))
+	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(check_completion())
 			Interact(user)
 		else
@@ -225,7 +227,7 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+			if(jobban_isbanned(M.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(M.brainmob,"nonhumandept"))
 				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
 				return
 
@@ -314,7 +316,7 @@
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 
-			O.job = "Cyborg"
+			O.job = JOB_TITLE_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -338,14 +340,13 @@
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
-				O.lockcharge = 1
-				O.update_canmove()
+				O.set_lockcharge(TRUE)
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
 
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
 
@@ -363,10 +364,10 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.lying || living_user.stat || living_user.IsStunned() || !Adjacent(living_user))
+	if(living_user.incapacitated() || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
-	if(!istype(item_in_hand, /obj/item/multitool))
+	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
 		return
 

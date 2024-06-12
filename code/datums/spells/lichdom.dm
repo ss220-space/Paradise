@@ -5,6 +5,7 @@
 	base_cooldown = 1 SECONDS
 	cooldown_min = 1 SECONDS
 	clothes_req = FALSE
+	human_req = FALSE
 	centcom_cancast = FALSE
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = "shout"
@@ -100,14 +101,14 @@
 		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
 		return
 
-	if((item.flags & ABSTRACT) || (item.flags & NODROP))
+	if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP))
 		to_chat(user, span_warning("[item.name] can not be used for the ritual..."))
 		return
 
 	to_chat(user, span_warning("You begin to focus your very being into [item]..."))
 
 	focusing = TRUE
-	if(!do_after(user, 5 SECONDS, target = user))
+	if(!do_after(user, 5 SECONDS, user))
 		focusing = FALSE
 		return
 	focusing = FALSE
@@ -147,8 +148,8 @@
 
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/user)
-		user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), slot_wear_suit)
-		user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), slot_head)
-		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), slot_shoes)
-		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
+		user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), ITEM_SLOT_CLOTH_OUTER)
+		user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), ITEM_SLOT_HEAD)
+		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), ITEM_SLOT_FEET)
+		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_CLOTH_INNER)
 

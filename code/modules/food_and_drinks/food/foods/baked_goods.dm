@@ -329,6 +329,31 @@
 	tastes = list("sweetness" = 1)
 	foodtype = SUGAR | GRAIN
 
+/obj/item/reagent_containers/food/snacks/gingercookie
+	name = "ginger cookie"
+	desc = "Just like your granny used to make."
+	icon_state = "ginger_man"
+	list_reagents = list("nutriment" = 1, "sugar" = 3)
+	tastes = list("sweetness" = 1)
+	foodtype = SUGAR | GRAIN
+
+/obj/item/reagent_containers/food/snacks/gingercookie/ball
+	icon_state = "ginger_ball"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/heart
+	icon_state = "ginger_heart"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/home
+	icon_state = "ginger_home"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/tree
+	icon_state = "ginger_tree"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/cane
+	icon_state = "ginger_cane"
+
+/obj/item/reagent_containers/food/snacks/gingercookie/mitten
+	icon_state = "ginger_mitten"
 
 //////////////////////
 //		Pies		//
@@ -361,6 +386,81 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "meat" = 1)
 	foodtype = GRAIN | MEAT
+
+/obj/item/reagent_containers/food/snacks/meatpie/human
+	list_reagents = list("nutriment" = 9, "protein" = 3)
+	tastes = list("pie" = 2, "salty meat" = 1, "human meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/vulpkanin
+	list_reagents = list("nutriment" = 7, "protein" = 5)
+	tastes = list("pie" = 2, "salty meat" = 2, "vulpkanin meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/tajaran
+	list_reagents = list("nutriment" = 9, "protein" = 3)
+	tastes = list("pie" = 2, "salty meat" = 1, "tajaran meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/unathi
+	list_reagents = list("nutriment" = 8, "protein" = 3, "zessulblood" = 1)
+	tastes = list("pie" = 2, "chiken meat" = 1, "unathi meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/drask
+	list_reagents = list("nutriment" = 7, "protein" = 3, "ice" = 2)
+	tastes = list("pie" = 2, "salty meat" = 1, "drask meat odor" = 1, "ice" = 2)
+
+/obj/item/reagent_containers/food/snacks/meatpie/grey
+	list_reagents = list("nutriment" = 9, "protein" = 2, "mannitol" = 1)
+	tastes = list("pie" = 2, "salty meat" = 1, "grey meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/skrell
+	list_reagents = list("nutriment" = 9, "protein" = 2, "water" = 1)
+	tastes = list("pie" = 2, "watery meat" = 1, "skrell meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/vox
+	list_reagents = list("nutriment" = 8, "protein" = 3, "toxin" = 1)
+	tastes = list("pie" = 2, "chiken meat" = 1, "vox meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/slime
+	list_reagents = list("sugar" = 4, "slimejelly" = 8)
+	tastes = list("pie" = 2, "sweet jelly" = 1, "slime meat odor" = 1)
+	foodtype = GRAIN | MEAT | SUGAR
+
+/obj/item/reagent_containers/food/snacks/meatpie/wryn
+	list_reagents = list("nutriment" = 8, "protein" = 1, "sugar" = 3)
+	tastes = list("pie" = 2, "sweet meat" = 1, "wryn meat odor" = 1)
+	foodtype = GRAIN | MEAT | SUGAR
+
+/obj/item/reagent_containers/food/snacks/meatpie/kidan
+	list_reagents = list("nutriment" = 8, "protein" = 3, "blood" = 1)
+	tastes = list("pie" = 2, "bug meat odor" = 1, "kidan meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/nian
+	list_reagents = list("nutriment" = 8, "protein" = 1, "phosphorus" = 3)
+	tastes = list("pie" = 2, "bug meat odor" = 1, "nian meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/diona
+	list_reagents = list("plantmatter" = 5, "protein" = 3)
+	tastes = list("pie" = 2, "vegetables" = 1, "stik" = 1, "diona odor" = 1)
+	foodtype = GRAIN | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/meatpie/monkey
+	list_reagents = list("nutriment" = 5, "protein" = 3)
+	tastes = list("pie" = 2, "salty meat" = 1, "monkey meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/farwa
+	list_reagents = list("nutriment" = 5, "protein" = 1)
+	tastes = list("pie" = 2, "salty meat" = 1, "farwa meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/wolpin
+	list_reagents = list("nutriment" = 5, "protein" = 3)
+	tastes = list("pie" = 2, "salty meat" = 1, "wolpin meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/neara
+	list_reagents = list("nutriment" = 5, "protein" = 1, "water" = 2)
+	tastes = list("pie" = 2, "watery meat" = 1, "neara meat odor" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatpie/stok
+	list_reagents = list("nutriment" = 5, "protein" = 2, "zessulblood" = 1)
+	tastes = list("pie" = 2, "salty meat" = 1, "chiken meat" = 1, "stok meat odor" = 1)
 
 /obj/item/reagent_containers/food/snacks/tofupie
 	name = "tofu-pie"
@@ -500,7 +600,7 @@
 				filling_color = "#FF69B4"
 	. = ..()
 
-/obj/item/reagent_containers/food/snacks/donut/update_icon()
+/obj/item/reagent_containers/food/snacks/donut/update_icon_state()
 	return
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
@@ -615,7 +715,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
-	name = "jelly donut"
+	name = "slimejelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
@@ -733,3 +833,23 @@
 	tastes = list("banana" = 1, "cherry" = 1, "cream" = 1)
 	bitesize = 5
 	foodtype = GRAIN | FRUIT
+
+/obj/item/reagent_containers/food/snacks/croissant
+	name = "croissant"
+	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	icon_state = "croissant"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("croissant" = 1)
+	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/croissant/throwing
+	throwforce = 20
+	throw_range = 9 //now with extra throwing action
+	tastes = list("croissant" = 2, "butter" = 1, "metal" = 1)
+	list_reagents = list("nutriment" = 4, "sugar" = 2, "iron" = 1)
+
+/obj/item/reagent_containers/food/snacks/croissant/throwing/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)

@@ -25,6 +25,7 @@
 	name = level_name
 	zpos = z
 	flags = traits
+
 	build_space_destination_arrays()
 	set_linkage(transition_type)
 	set_navbeacon()
@@ -137,11 +138,11 @@
 
 //create docking ports for navigation consoles to jump to
 /datum/space_level/proc/set_navbeacon()
-	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(src)
+	var/turf/placing_turf = locate(200, 200, zpos)
+	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(placing_turf)
 	D.name = name
 	D.id = "nav_z[zpos]"
 	D.register()
-	D.forceMove(locate(200, 200, zpos))
 
 GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
 GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))

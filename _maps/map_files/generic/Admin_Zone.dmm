@@ -417,7 +417,7 @@
 "eo" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/deck/cards/syndicate = 10)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -3825,9 +3825,9 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "Uw" = (
-/obj/thunderdome_poller,
-/obj/thunderdome_poller/mixed,
-/obj/thunderdome_poller/ranged,
+/obj/minigame_anchor/thunderdome_poller/melee,
+/obj/minigame_anchor/thunderdome_poller/mixed,
+/obj/minigame_anchor/thunderdome_poller/ranged,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -3906,6 +3906,7 @@
 /obj/item/radio/headset/headset_com,
 /obj/item/radio/headset/headset_eng,
 /obj/item/radio/headset/headset_iaa,
+/obj/item/radio/headset/headset_iaa/alt,
 /obj/item/radio/headset/headset_med,
 /obj/item/radio/headset/headset_medsci,
 /obj/item/radio/headset/headset_rob,

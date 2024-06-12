@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 /mob/living/silicon/ai/proc/moveToAILandmark()
 	var/obj/loc_landmark
 	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-		if(sloc.name != "AI")
+		if(sloc.name != JOB_TITLE_AI)
 			continue
 		if(locate(/mob/living) in sloc.loc)
 			continue
@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(!loc_landmark)
 		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name == "AI")
+			if(sloc.name == JOB_TITLE_AI)
 				loc_landmark = sloc
 
 	forceMove(loc_landmark.loc)

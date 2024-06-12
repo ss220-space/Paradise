@@ -1,5 +1,6 @@
 GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"))
 GLOBAL_LIST_INIT(alphabet_uppercase, list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"))
+GLOBAL_LIST_INIT(alphabet_cyrillic, list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
 GLOBAL_LIST_INIT(zero_character_only, list("0"))
 GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
 GLOBAL_LIST_INIT(binary, list("0","1"))
@@ -33,10 +34,17 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO45",
 	"UO45R",
 	"UO71",
+	"MO19",
+	"MO19X",
+	"MO19R",
 	"Xeno",
 	"Hotel",
+	"spacehotel",
+	"spacebar",
+	"USSP",
 	"USSP_LAB",
-	"USSP_gorky17"
+	"USSP_gorky17",
+	"Bunker1"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())
@@ -73,3 +81,5 @@ GLOBAL_LIST_EMPTY(looping_sounds)
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
 
+/// List of cargo consoles that print reports on completed/expired orders
+GLOBAL_LIST_EMPTY(cargo_announcers)

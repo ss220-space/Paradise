@@ -56,15 +56,18 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
 
-/obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
-	if(get_dir(O.loc, target) == dir)
-		return !density
-	return 1
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(border_dir != dir)
+		return TRUE
+
+
+/obj/structure/necropolis_gate/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover)
+
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -104,7 +107,7 @@
 		sleep(1)
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
 		sleep(1)
-		density = TRUE
+		set_density(TRUE)
 		sleep(1)
 		var/turf/sight_blocker_turf = get_turf(src)
 		if(sight_blocker_distance)
@@ -128,7 +131,7 @@
 		sleep(22)
 		sight_blocker.forceMove(src)
 		sleep(5)
-		density = FALSE
+		set_density(FALSE)
 		sleep(5)
 		open = TRUE
 	changing_openness = FALSE
@@ -140,7 +143,7 @@
 
 /obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
 	if(locked)
-		if(user.faction == "ashwalker")
+		if("ashwalker" in user.faction)
 			locked = FALSE
 	return ..()
 
@@ -282,14 +285,14 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(!islava(T) && !ischasm(T)) //nothing to sink or fall into
 		return
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 	var/mob/living/L
 	if(isliving(AM))
 		L = AM
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.flying) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
+			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
 				collapse()
 		if(UNIQUE_EFFECT)
 			crossed_effect(AM)

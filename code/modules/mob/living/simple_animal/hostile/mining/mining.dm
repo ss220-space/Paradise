@@ -18,7 +18,7 @@
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 	var/icon_aggro = null
@@ -45,7 +45,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/T = AM
 		if(!stat)
 			Aggro()

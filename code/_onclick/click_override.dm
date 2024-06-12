@@ -38,8 +38,8 @@
 /datum/middleClickOverride/badminClicker/onClick(var/atom/A, var/mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
-	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]! </span>")
-	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]</span>")
+	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]!</span>")
+	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]!</span>")
 	..()
 
 /datum/middleClickOverride/power_gloves
@@ -84,7 +84,7 @@
 			break
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
-			if(AM == user || istype(AM, /obj/effect) || isobserver(AM))
+			if(AM == user || iseffect(AM) || isobserver(AM))
 				continue
 			next_shocked.Add(AM)
 

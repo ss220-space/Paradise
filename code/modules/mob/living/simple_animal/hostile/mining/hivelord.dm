@@ -37,8 +37,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)
-
-		A.admin_spawned = admin_spawned
+		if(flags & ADMIN_SPAWNED)
+			A.flags |= ADMIN_SPAWNED
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction.Copy()
@@ -75,7 +75,6 @@
 	speed = 3
 	maxHealth = 1
 	health = 1
-	flying = TRUE
 	harm_intent_damage = 5
 	melee_damage_lower = 2
 	melee_damage_upper = 2
@@ -90,11 +89,14 @@
 	density = FALSE
 	del_on_death = 1
 	needs_gliding = FALSE
+	var/life_time = 10 SECONDS
+
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
@@ -106,7 +108,7 @@
 	attacktext = "пронзает"
 	color = "#C80000"
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
 		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
@@ -209,7 +211,7 @@
 	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
 	var/turf/T = get_turf(src)
 	for(var/i in 1 to 2)
-		new brood_type(T)
+		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
@@ -248,10 +250,11 @@
 	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
+	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
-	if(isturf(loc))
+	if(isturf(loc) && can_infest)
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
@@ -301,6 +304,14 @@
 	stat_attack = DEAD
 	can_infest_dead = TRUE
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken
+	melee_damage_lower = 6
+	melee_damage_upper = 6
+	can_infest = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic
+	life_time = 30 SECONDS
+
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion
 	name = "legion"
@@ -331,7 +342,7 @@
 	weather_immunities = list("lava","ash")
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 
@@ -354,10 +365,8 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
-	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
-	H.mutations.Add(DWARF)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.force_gene_block(GLOB.smallsizeblock, TRUE)
+
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
@@ -380,7 +389,7 @@
 			if(prob(30))
 				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
 			if(prob(10))
-				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
+				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown/haste = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
 			uniform = /obj/item/clothing/under/ash_walker

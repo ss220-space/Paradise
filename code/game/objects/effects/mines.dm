@@ -1,8 +1,8 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0
@@ -11,13 +11,13 @@
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(AM as mob|obj, oldloc)
+/obj/effect/mine/Crossed(atom/movable/AM, oldloc)
 	if(!isliving(AM))
 		return
 	var/mob/living/M = AM
 	if(faction && (faction in M.faction))
 		return
-	if(M.flying)
+	if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 	triggermine(M)
 
@@ -74,7 +74,7 @@
 		if(NO_DNA in V.dna.species.species_traits)
 			return
 	randmutb(victim)
-	domutcheck(victim ,null)
+	victim.check_genes()
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
@@ -108,7 +108,7 @@
 	desc = "pick me up"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = 0
+	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -142,7 +142,8 @@
 		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
 
 	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
-	chainsaw.flags |= NODROP | DROPDEL
+	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
+	chainsaw.item_flags |= DROPDEL
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
@@ -182,7 +183,7 @@
 	if(!victim.client || !istype(victim))
 		return
 
-	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+	victim.add_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
 	to_chat(victim, span_notice("You feel fast!"))
 
 	addtimer(CALLBACK(src, PROC_REF(mine_effect_callback), victim), duration, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -190,5 +191,5 @@
 
 /obj/effect/mine/pickup/speed/proc/mine_effect_callback(mob/living/carbon/victim)
 	if(!QDELETED(victim))
-		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+		victim.remove_movespeed_modifier(/datum/movespeed_modifier/yellow_orb)
 		to_chat(victim, span_notice("You slow down."))

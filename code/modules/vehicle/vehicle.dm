@@ -4,10 +4,11 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
+	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	max_integrity = 300
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	var/key_type
@@ -32,12 +33,6 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
-// So that beepsky can't push the janicart
-/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
-	if(istype(mover) && mover.checkpass(PASSMOB))
-		return TRUE
-	else
-		return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -70,7 +65,9 @@
 	return ..()
 
 /obj/vehicle/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(inserted_key && user.Adjacent(user))
@@ -96,7 +93,7 @@
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
 	if(dir != NORTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -113,10 +110,6 @@
 			buckled_mob.pixel_y = generic_pixel_y
 
 
-/obj/vehicle/update_icon()
-	return
-
-
 /obj/item/key
 	name = "key"
 	desc = "A small grey key."
@@ -126,23 +119,14 @@
 
 
 //BUCKLE HOOKS
-/obj/vehicle/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
-	if(istype(buckled_mob))
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-	. = ..()
-
-
-/obj/vehicle/user_buckle_mob(mob/living/M, mob/user)
-	if(user.incapacitated())
-		return
-	for(var/atom/movable/A in get_turf(src))
-		if(A.density)
-			if(A != src && A != M)
-				return
-	M.forceMove(get_turf(src))
-	..()
+/obj/vehicle/post_buckle_mob(mob/living/target)
 	handle_vehicle_offsets()
+
+
+/obj/vehicle/post_unbuckle_mob(mob/living/target)
+	target.pixel_x = 0
+	target.pixel_y = 0
+
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
 	if(has_buckled_mobs())
@@ -168,11 +152,11 @@
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
 
-		last_vehicle_move = CONFIG_GET(number/human_delay) + vehicle_move_delay
+		last_vehicle_move = get_config_multiplicative_speed_by_path(/mob/living/carbon/human) + vehicle_move_delay
 		Move(get_step(src, direction), direction, last_vehicle_move)
 
 		if(direction & (direction - 1))		//moved diagonally
-			last_vehicle_move *= 1.41
+			last_vehicle_move *= SQRT_2
 		last_vehicle_move += world.time
 
 		if(has_buckled_mobs())
@@ -211,8 +195,8 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
-	if(has_gravity(src))
+/obj/vehicle/Process_Spacemove(movement_dir = NONE)
+	if(has_gravity())
 		return TRUE
 
 	if(pulledby && (pulledby.loc != loc))
@@ -227,5 +211,5 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = NONE)
 	return TRUE

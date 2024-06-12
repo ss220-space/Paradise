@@ -911,7 +911,9 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "gM" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
+/obj/structure/marker_beacon{
+	icon_state = "markerrandom"
+	},
 /turf/template_noop,
 /area/template_noop)
 "gN" = (

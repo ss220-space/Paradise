@@ -4,7 +4,7 @@
 	icon_state = "pai"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
@@ -30,7 +30,7 @@
 
 /obj/item/paicard/New()
 	..()
-	overlays += "pai-off"
+	add_overlay("pai-off")
 
 /obj/item/paicard/Destroy()
 	if(pai)
@@ -253,7 +253,7 @@
 		if(pai.master_dna)
 			return
 		var/mob/M = usr
-		if(!istype(M, /mob/living/carbon))
+		if(!iscarbon(M))
 			to_chat(usr, "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>")
 		else
 			var/datum/dna/dna = usr.dna
@@ -279,7 +279,7 @@
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
-					if(P.resting || P.canmove)
+					if(P.body_position == LYING_DOWN)
 						P.close_up()
 				M.death(0, 1)
 			removePersonality()
@@ -305,15 +305,18 @@
 
 /obj/item/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
 	pai = personality
-	overlays += "pai-happy"
+	add_overlay("pai-happy")
 	if(upgrade)
 		extra_memory = upgrade.extra_memory
+		pai.syndipai = TRUE
 	pai.reset_software(extra_memory)
 
 /obj/item/paicard/proc/removePersonality()
 	pai = null
-	overlays.Cut()
-	overlays += "pai-off"
+	cut_overlays()
+	add_overlay("pai-off")
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 	extra_memory = 0
 
@@ -321,20 +324,34 @@
 	var/current_emotion = 1
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
-		overlays.Cut()
+		cut_overlays()
 		switch(emotion)
-			if(1) overlays += "pai-happy"
-			if(2) overlays += "pai-cat"
-			if(3) overlays += "pai-extremely-happy"
-			if(4) overlays += "pai-face"
-			if(5) overlays += "pai-laugh"
-			if(6) overlays += "pai-off"
-			if(7) overlays += "pai-sad"
-			if(8) overlays += "pai-angry"
-			if(9) overlays += "pai-what"
-			if(10) overlays += "pai-spai"
-			if(11) overlays += "pai-spaic"
-			if(12) overlays += "pai-spaiv"
+			if(1)
+				add_overlay("pai-happy")
+			if(2)
+				add_overlay("pai-cat")
+			if(3)
+				add_overlay("pai-extremely-happy")
+			if(4)
+				add_overlay("pai-face")
+			if(5)
+				add_overlay("pai-laugh")
+			if(6)
+				add_overlay("pai-off")
+			if(7)
+				add_overlay("pai-sad")
+			if(8)
+				add_overlay("pai-angry")
+			if(9)
+				add_overlay("pai-what")
+			if(10)
+				add_overlay("pai-spai")
+			if(11)
+				add_overlay("pai-spaic")
+			if(12)
+				add_overlay("pai-spaiv")
+		if(blocks_emissive)
+			add_overlay(get_emissive_block())
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
@@ -350,7 +367,7 @@
 /obj/item/paicard/extinguish_light(force = FALSE)
 	if(pai)
 		pai.extinguish_light()
-		set_light(0)
+		set_light_on(FALSE)
 
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -523,7 +540,7 @@
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"
-	icon_state = "paper"
+	icon_state = "paper_words"
 	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
 
  <b>В набор СпИИ входит:</b><br>
@@ -548,7 +565,7 @@
  5.Термальное зрение для пИИ<br>
 "}
 
-/obj/item/paper/pai_upgrade/update_icon()
+/obj/item/paper/pai_upgrade/update_icon_state()
 	return
 
 /obj/item/storage/box/syndie_kit/pai

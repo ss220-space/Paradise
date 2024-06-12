@@ -5,7 +5,7 @@
 	var/icon/side = new(get_id_photo(dummy), dir = WEST)
 	var/datum/data/record/G = new /datum/data/record()
 	G.fields["name"] = "New Record"
-	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7)), 6))
+	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7), 2), 6))
 	G.fields["rank"] = "Unassigned"
 	G.fields["real_rank"] = "Unassigned"
 	G.fields["sex"] = "Male"
@@ -13,7 +13,7 @@
 	G.fields["fingerprint"] = "Unknown"
 	G.fields["p_stat"] = "Active"
 	G.fields["m_stat"] = "Stable"
-	G.fields["species"] = "Human"
+	G.fields["species"] = SPECIES_HUMAN
 	G.fields["home_system"]	= "Unknown"
 	G.fields["citizenship"]	= "Unknown"
 	G.fields["faction"]		= "Unknown"

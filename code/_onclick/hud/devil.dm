@@ -5,63 +5,62 @@
 /datum/hud/devil/New(mob/owner, ui_style = 'icons/mob/screen_midnight.dmi')
 	..()
 
-	var/obj/screen/using
-	var/obj/screen/inventory/inv_box
+	var/atom/movable/screen/using
+	var/atom/movable/screen/inventory/inv_box
 
-	using = new /obj/screen/drop()
+	using = new /atom/movable/screen/drop(null, src)
 	using.icon = ui_style
 	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
-	mymob.pullin = new /obj/screen/pull()
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
-	inv_box = new /obj/screen/inventory/hand()
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
 	inv_box.name = "right hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
-	inv_box = new /obj/screen/inventory/hand()
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
 	inv_box.name = "left hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_1"
 	using.screen_loc = ui_swaphand1
 	static_inventory += using
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel()
-	zone_select.icon = ui_style
-	zone_select.update_icon(mymob)
+	zone_select = new /atom/movable/screen/zone_sel(null, src, ui_style)
 
-	lingchemdisplay = new /obj/screen/ling/chems()
-	devilsouldisplay = new /obj/screen/devil/soul_counter
+	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
+	devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, src)
 	infodisplay += devilsouldisplay
 
-	for(var/obj/screen/inventory/inv in static_inventory)
+	for(var/atom/movable/screen/inventory/inv in static_inventory)
 		if(inv.slot_id)
-			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
 
 
 /datum/hud/devil/persistent_inventory_update()

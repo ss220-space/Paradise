@@ -15,17 +15,15 @@
 			continue
 
 		for(var/mutation in mutations)
-			target.dna.SetSEState(mutation, TRUE)
-			genemutcheck(target, mutation, null, MUTCHK_FORCED)
+			target.force_gene_block(mutation, TRUE)
 
 		for(var/trait in traits)
 			ADD_TRAIT(target, trait, MAGIC_TRAIT)
 
-		active_on += target
+		active_on |= target
 		target.regenerate_icons()
 
-		if(duration < base_cooldown)
-			addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
 /obj/effect/proc_holder/spell/genetic/Destroy()
@@ -38,8 +36,7 @@
 	active_on -= target
 	if(!QDELETED(target))
 		for(var/mutation in mutations)
-			target.dna.SetSEState(mutation, FALSE)
-			genemutcheck(target, mutation, null, MUTCHK_FORCED)
+			target.force_gene_block(mutation, FALSE)
 
 		for(var/trait in traits)
 			REMOVE_TRAIT(target, trait, MAGIC_TRAIT)

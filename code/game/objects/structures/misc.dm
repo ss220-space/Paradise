@@ -8,12 +8,20 @@
 /obj/structure/signpost
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
 /obj/structure/signpost/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
+
+/obj/structure/wooden_sign
+	name = "Wooden sign"
+	desc = "What?"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "signpost2"
+	anchored = TRUE
+	density = FALSE
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
@@ -37,8 +45,8 @@
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
 	var/last_ghost_alert

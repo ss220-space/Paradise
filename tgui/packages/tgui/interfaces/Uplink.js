@@ -214,24 +214,26 @@ const ExploitableInfoPage = (_properties, context) => {
   return (
     <Section title="Exploitable Records">
       <Flex>
-        <FlexItem basis={20}>
+        <Flex.Item basis={20}>
           <Input
             fluid
             mb={1}
             placeholder="Search Crew"
             onInput={(e, value) => setSearchText(value)}
           />
-          <Tabs vertical>
-            {crew.map(r => (
-              <Tabs.Tab
-                key={r}
-                selected={r === selectedRecord}
-                onClick={() => setSelectedRecord(r)}>
-                {r.name}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
-        </FlexItem>
+          <Box maxHeight={37} overflowY="auto" overflowX="hidden">
+            <Tabs vertical>
+              {crew.map((r, key) => (
+                <Tabs.Tab
+                  key={key}
+                  selected={r === selectedRecord}
+                  onClick={() => setSelectedRecord(r)}>
+                  {r.name}
+                </Tabs.Tab>
+              ))}
+            </Tabs>
+          </Box>
+        </Flex.Item>
         <Flex.Item grow={1} basis={0}>
           <Section title={"Name: " + selectedRecord.name}>
             <Box>Age: {selectedRecord.age}</Box>
@@ -239,6 +241,9 @@ const ExploitableInfoPage = (_properties, context) => {
             <Box>Rank: {selectedRecord.rank}</Box>
             <Box>Sex: {selectedRecord.sex}</Box>
             <Box>Species: {selectedRecord.species}</Box>
+          </Section>
+          <Section title={"Exploitable Records"}>
+            <Box prewrap>{selectedRecord.exploit_record}</Box>
           </Section>
         </Flex.Item>
       </Flex>

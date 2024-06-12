@@ -1,5 +1,8 @@
+#define PULSEDEMON_MINPLAYERS 30
+
 /datum/event/spawn_pulsedemon
 	var/key_of_pulsedemon
+	var/minplayers = PULSEDEMON_MINPLAYERS
 
 /datum/event/spawn_pulsedemon/proc/get_pulsedemon()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon?", ROLE_DEMON, FALSE, source = /mob/living/simple_animal/demon/pulse_demon)
@@ -43,4 +46,11 @@
 	return pick(spawn_centers)
 
 /datum/event/spawn_pulsedemon/start()
+	if(num_station_players() <= minplayers)
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+		EC.next_event_time = world.time + (60 * 10)
+		return	//we don't spawn demons on lowpop. Instead, we reroll!
+
 	INVOKE_ASYNC(src, PROC_REF(get_pulsedemon))
+
+#undef PULSEDEMON_MINPLAYERS

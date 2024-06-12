@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_DESTRUCTION, BANISH_FUNERAL_GARB)
 
 /datum/devilinfo/proc/link_with_mob(mob/living/L)
-	if(istype(L, /mob/living/carbon/human))
+	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		humanform = H.dna.Clone()
 	owner = L.mind
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 /datum/devilinfo/proc/regress_humanoid()
 	to_chat(owner.current, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
-	if(istype(owner.current, /mob/living/carbon/human))
+	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		if(humanform)
 			H.set_species(humanform.species)
@@ -234,9 +234,10 @@ GLOBAL_LIST_INIT(lawlorify, list (
 /datum/devilinfo/proc/increase_blood_lizard()
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
-		var/list/language_temp = H.languages.Copy()
+		var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
 		H.set_species(/datum/species/unathi)
-		H.languages = language_temp
+		if(language_temp)
+			H.languages = language_temp
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
@@ -320,10 +321,9 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	form = ARCH_DEVIL
 
 /datum/devilinfo/proc/remove_spells()
-	for(var/X in owner.spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		if(!is_type_in_typecache(S, dont_remove_spells))
-			owner.RemoveSpell(S)
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
+		if(!is_type_in_typecache(spell, dont_remove_spells))
+			owner.RemoveSpell(spell)
 
 /datum/devilinfo/proc/give_summon_contract()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/summon_contract(null))
@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 		throw EXCEPTION("Unable to find a blobstart landmark for hellish resurrection")
 
 /datum/devilinfo/proc/update_hud()
-	if(istype(owner.current, /mob/living/carbon))
+	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
 		if(C.hud_used && C.hud_used.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)

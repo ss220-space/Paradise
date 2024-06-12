@@ -673,7 +673,7 @@
 	name = "Mix Virus"
 	id = "mixvirus"
 	required_reagents = list("virusfood" = 1)
-	required_catalysts = list("blood" = 1, "slimejelly" = 1, "cryoxadone" = 1)
+	required_catalysts = list("blood" = 1)
 	count_of_catalysts = 1
 	var/level_min = 0
 	var/level_max = 2
@@ -747,7 +747,7 @@
 	name = "Devolve Virus"
 	id = "remvirus"
 	required_reagents = list("diphenhydramine" = 1)
-	required_catalysts = list("blood" = 1, "slimejelly" = 1, "cryoxadone" = 1)
+	required_catalysts = list("blood" = 1)
 	count_of_catalysts = 1
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)

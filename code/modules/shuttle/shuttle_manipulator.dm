@@ -25,18 +25,14 @@
 	var/list/templates = list()
 	var/list/shuttle_data = list()
 
-/obj/machinery/shuttle_manipulator/New()
+/obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/shuttle_manipulator/update_icon()
-	overlays.Cut()
-	var/image/hologram_projection = image(icon, "hologram_on")
-	hologram_projection.pixel_y = 22
-	var/image/hologram_ship = image(icon, "hologram_whiteship")
-	hologram_ship.pixel_y = 27
-	overlays += hologram_projection
-	overlays += hologram_ship
+/obj/machinery/shuttle_manipulator/update_overlays()
+	. = ..()
+	. += image(icon, icon_state = "hologram_on", pixel_y = 22)
+	. += image(icon, icon_state = "hologram_whiteship", pixel_y = 27)
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)
@@ -64,11 +60,15 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("shuttle_and_preview_cooldown")
-			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
-			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
+	// Extremely important that this doesn't get varedited by mistake, otherwise horrible,
+	// horrible things can happen to the server.
+	if(var_name == NAMEOF(src, shuttle_and_preview_cooldown))
+		log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
+		return FALSE
+	return ..()
+
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

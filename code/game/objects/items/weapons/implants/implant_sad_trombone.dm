@@ -8,15 +8,15 @@
 	implant_state = "implant-honk"
 
 
-/obj/item/implant/sad_trombone/emote_trigger(emote, mob/source, force)
-	activate(emote)
+/obj/item/implant/sad_trombone/emote_trigger(emote, mob/source, intentional)
+	activate()
 
 
 /obj/item/implant/sad_trombone/death_trigger(mob/user, gibbed)
-	activate(gibbed)
+	activate()
 
 
-/obj/item/implant/sad_trombone/activate()
+/obj/item/implant/sad_trombone/activate(cause)
 	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, FALSE)
 
 

@@ -36,11 +36,10 @@
 	icon_state = "case-0"
 	allowed_books = list(/obj/item/storage/funeral_urn)
 
-/obj/structure/bookcase/ashframe/update_icon()
-	if(contents.len < 5)
-		icon_state = "case-[contents.len]"
-	else
-		icon_state = "case-5"
+
+/obj/structure/bookcase/ashframe/update_icon_state()
+	icon_state = "case-[min(length(contents), 5)]"
+
 
 /obj/structure/bookcase/ashframe/random
 
@@ -115,9 +114,9 @@
 /obj/item/storage/funeral_urn/random/Initialize(mapload)
 	var/pick_race
 	if(prob(80))
-		pick_race = "Human"
+		pick_race = SPECIES_HUMAN
 	else
-		pick_race = pick("Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Kidan", "Nian")
+		pick_race = pick(SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_MOTH)
 	var/pick_sex
 	pick_sex = pick(FEMALE, MALE)
 	var/nam = random_name(gender = pick_sex, species = pick_race)

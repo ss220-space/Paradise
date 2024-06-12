@@ -51,7 +51,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/death()
+/mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
 	. = ..()
 	if(!is_mirror)
 		addtimer(CALLBACK(src, PROC_REF(become_ghost)), 0.8 SECONDS)
@@ -212,12 +212,12 @@
 	del_on_death = TRUE
 	is_mirror = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING // no dragging your mirror around
-	flying = TRUE
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()
 	toggle_ai(AI_OFF)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Destroy()
 	my_master?.my_mirror = null
@@ -267,7 +267,6 @@
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
-	slot_flags = SLOT_TIE
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
 
@@ -307,13 +306,13 @@
 	if(!found_mirror)
 		to_chat(usr, "<span class='warning'>You are not close enough to a working mirror to teleport!</span>")
 		return
-	var/input_mirror = input(usr, "Choose a mirror to teleport to.", "Mirror to Teleport to") as null|anything in mirrors_to_use
+	var/input_mirror = tgui_input_list(usr, "Choose a mirror to teleport to", "Mirror to Teleport to", mirrors_to_use)
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
 	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
 			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
-	if(do_after(usr, 2 SECONDS, target = usr))
+	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return

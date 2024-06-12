@@ -4,8 +4,10 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	item_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
+	slot_flags = ITEM_SLOT_LEGCUFFED
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
@@ -42,11 +44,16 @@
 	return BRUTELOSS
 
 
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
+	icon_state = "[initial(icon_state)][armed]"
+
+
+
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
+	if(ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		armed = !armed
-		icon_state = "[initial(icon_state)][armed]"
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 
@@ -65,7 +72,7 @@
 		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is an IED hooked up to it.")]"
 
-	if(istype(I, /obj/item/assembly/signaler))
+	if(issignaler(I))
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
 			return
@@ -112,11 +119,11 @@
 		return
 
 	var/mob/living/moving_thing = AM
-	if(moving_thing.flying)
+	if(moving_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
 	armed = FALSE
-	icon_state = "[initial(icon_state)][armed]"
+	update_icon(UPDATE_ICON_STATE)
 	playsound(src.loc, 'sound/effects/snap.ogg', 50, TRUE)
 	moving_thing.visible_message(span_danger("[moving_thing] triggers [src]."),
 								span_userdanger("You trigger [src]!"))
@@ -132,12 +139,12 @@
 
 	if(ishuman(moving_thing))
 		var/mob/living/carbon/human/moving_human = moving_thing
-		if(moving_human.lying)
+		if(moving_human.body_position == LYING_DOWN)
 			moving_human.apply_damage(trap_damage, BRUTE, BODY_ZONE_CHEST)
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 
-		if(moving_human.set_legcuffed(src)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+		if(moving_human.apply_restraints(src, ITEM_SLOT_LEGCUFFED)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 		return
@@ -185,6 +192,11 @@
 	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
 
 
+/obj/item/restraints/legcuffs/bola/update_icon_state()
+	item_state = spinning ? "[initial(item_state)]_spin" : initial(item_state)
+	update_equipped_item(update_speedmods = FALSE)
+
+
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
 	SIGNAL_HANDLER
 	if(throw_mode_state) // if we actually turned throw mode on
@@ -196,8 +208,7 @@
 		return
 	var/mob/living/owner = loc // can only be called if the mob is holding the bola.
 	spinning = TRUE
-	item_state = "[initial(item_state)]_spin"
-	owner.update_inv_hands()
+	update_icon(UPDATE_ICON_STATE)
 	playsound(owner, spin_sound, 30, list(38000, 48000), SHORT_RANGE_SOUND_EXTRARANGE)
 	spin_timer_id = addtimer(CALLBACK(src, PROC_REF(spin_loop), owner), 1 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	do_spin_cycle(owner)
@@ -215,7 +226,8 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/do_spin_cycle(mob/living/user)
-	if(do_mob(user, user, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), user))))
+
+	if(do_after(user, 1 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(can_spin_check), user)))
 		throw_range += round(max_range / max_spins)
 		throw_speed += round(max_speed / max_spins)
 		spin_cycle++
@@ -244,10 +256,9 @@
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
-	item_state = initial(item_state)
 	spin_cycle = 0
 	spinning = FALSE
-	user?.update_inv_hands()
+	update_icon(UPDATE_ICON_STATE)
 	if(spin_timer_id)
 		deltimer(spin_timer_id)
 
@@ -264,7 +275,7 @@
 		return TRUE	//abort
 
 	var/mob/living/carbon/target = hit_atom
-	if(target.legcuffed || !target.has_organ_for_slot(slot_legcuffed))
+	if(target.legcuffed || !target.has_organ_for_slot(ITEM_SLOT_LEGCUFFED))
 		return TRUE
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -279,13 +290,13 @@
 
 	target.visible_message(span_danger("[src] ensnares [target]!"))
 	to_chat(target, span_userdanger("[src] ensnares you!"))
-	target.set_legcuffed(src)
+	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)
-		flags |= DROPDEL
+		item_flags |= DROPDEL
 
 
 
@@ -318,11 +329,11 @@
 	reusable = FALSE
 
 
-/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, silent = FALSE)
+/obj/item/restraints/legcuffs/bola/sinew/dropped(mob/living/carbon/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!istype(user) || user.legcuffed != src)
-		return
+	if(!istype(user) || slot != ITEM_SLOT_LEGCUFFED)
+		return .
 
 	user.apply_damage(10, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 	new /obj/item/restraints/handcuffs/sinew(user.loc)

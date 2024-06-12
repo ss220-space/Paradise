@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/hulk/Life()
 	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(usr, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
+		to_chat(src, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
 		unmutate()
 		return
 	if(health < 1)
@@ -140,7 +140,7 @@
 		adjustFireLoss(-health_regen)
 	..()
 
-/mob/living/simple_animal/hulk/death()
+/mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()
 
 /mob/living/simple_animal/hulk/proc/unmutate()
@@ -155,20 +155,16 @@
 	RH.transform = Mx
 
 	for(var/mob/M in contents)
-		M.loc = src.loc
+		M.forceMove(loc)
 		M.status_flags &= ~GODMODE
-		if(istype(M, /mob/living))
+		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(30 SECONDS)
-			L.update_canmove()
 
 	if(mind && original_body)
 		mind.transfer_to(original_body)
-	original_body.mutations.Remove(HULK)
-	original_body.dna.SetSEState(GLOB.hulkblock,0)
-	genemutcheck(original_body, GLOB.hulkblock,null,MUTCHK_FORCED)
+	original_body.force_gene_block(GLOB.hulkblock, FALSE)
 	to_chat(original_body, "<span class='danger'>You suddenly feel very weak.</span>")
-	original_body.update_mutations()		//update our mutation overlays
 	qdel(src)
 
 /mob/living/proc/hulk_scream(obj/target, chance)

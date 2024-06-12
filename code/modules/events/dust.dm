@@ -13,8 +13,8 @@
 	desc = "Dust in space."
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "space_dust"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/strength = 2 //ex_act severity number
 	var/life = 2 //how many things we hit before qdel(src)
 	var/atom/goal = null
@@ -64,7 +64,7 @@
 	goal = locate(endx, endy, 1)
 	src.x = startx
 	src.y = starty
-	src.z = level_name_to_num(MAIN_STATION)
+	src.z = pick(levels_by_trait(STATION_LEVEL))
 	walk_towards(src, goal, 1)
 
 /obj/effect/space_dust/Bump(atom/A)

@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/clockwork
 	name = "Clockwork Cult"
 	config_tag = "clockwork"
-	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander", "Syndicate Officer")
+	restricted_jobs = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_AI, JOB_TITLE_CYBORG, JOB_TITLE_LAWYER, JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		obj.owner = clockwork_mind
 		clockwork_mind.objectives += obj
 
-		if(clockwork_mind.assigned_role == "Clown")
+		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clockwork_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			clockwork_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -162,9 +162,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /datum/game_mode/proc/clock_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store)
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clock_mind.current.faction |= "clockwork_cult"
 		clock_mind.special_role = SPECIAL_ROLE_CLOCKER
 
-		if(clock_mind.assigned_role == "Clown")
+		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			clock_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -233,8 +233,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if((clocker_players >= crew_reveal_number) && !crew_reveal)
-		crew_reveal = TRUE
+	if((clocker_players >= clocker_objs.clocker_goal) && !clocker_objs.obj_demand.clockers_get)
 		clocker_objs.obj_demand.clockers_get = TRUE
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
@@ -244,6 +243,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				to_chat(M.current, "<span class='clock'>But there's still more tasks to do.</span>")
 			else
 				clocker_objs.ratvar_is_ready()
+	if((clocker_players >= crew_reveal_number) && !crew_reveal)
+		crew_reveal = TRUE
+		for(var/datum/mind/M in clockwork_cult)
+			if(!M.current)
+				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			if(!ishuman(M.current))
 				continue

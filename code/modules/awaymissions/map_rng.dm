@@ -3,8 +3,8 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	opacity = 0
 	var/template_name = null
 	var/datum/map_template/template = null

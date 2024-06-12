@@ -7,7 +7,7 @@
 	icon_state = "chronobackpack"
 	item_state = "backpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -16,28 +16,25 @@
 /obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
 	erased_minds += M
 
-/obj/item/chrono_eraser/dropped(mob/user, silent = FALSE)
-	..()
-	if(PA)
-		qdel(PA)
+/obj/item/chrono_eraser/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	QDEL_NULL(PA)
 
 /obj/item/chrono_eraser/Destroy()
-	dropped()
+	QDEL_NULL(PA)
 	return ..()
 
 /obj/item/chrono_eraser/ui_action_click(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(C.back == src)
-			if(PA)
-				qdel(PA)
-			else
-				PA = new(user, src)
-				user.put_in_hands(PA)
+			QDEL_NULL(PA)
+			PA = new(user, src)
+			user.put_in_hands(PA)
 
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
-		return 1
+	if(slot == ITEM_SLOT_BACK)
+		return TRUE
 
 
 /obj/item/gun/energy/chrono_gun
@@ -47,9 +44,9 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
-	can_charge = 0
+	can_charge = FALSE
 	fire_delay = 50
 	var/obj/item/chrono_eraser/TED = null
 	var/obj/structure/chrono_field/field = null
@@ -59,12 +56,13 @@
 	. = ..()
 	if(istype(T))
 		TED = T
+		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	else //admin must have spawned it
 		TED = new(src.loc)
 		qdel(src)
 
-/obj/item/gun/energy/chrono_gun/update_icon()
-	return
+/obj/item/gun/energy/chrono_gun/update_overlays()
+	return list()
 
 /obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(field)
@@ -108,7 +106,7 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = src.loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.lying && (user.stat == CONSCIOUS))
+			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.incapacitated())
 				return 1
 		field_disconnect(F)
 		return 0
@@ -123,7 +121,7 @@
 	icon_state = "chronobolt"
 	range = CHRONO_BEAM_RANGE
 	color = null
-	nodamage = 1
+	nodamage = TRUE
 	var/obj/item/gun/energy/chrono_gun/gun = null
 
 /obj/item/projectile/energy/chrono_beam/fire()
@@ -177,7 +175,7 @@
 			cached_icon.Insert(mob_icon, "frame[i]")
 
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
 	START_PROCESSING(SSobj, src)
@@ -191,7 +189,7 @@
 /obj/structure/chrono_field/has_prints()
 	return FALSE
 
-/obj/structure/chrono_field/update_icon()
+/obj/structure/chrono_field/update_icon_state()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
@@ -220,7 +218,7 @@
 			captured.Paralyse(8 SECONDS)
 			if(captured.loc != src)
 				captured.forceMove(src)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			if(gun)
 				if(gun.field_check(src))
 					tickstokill--

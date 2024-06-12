@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_body_markings.dmi'
-	species_allowed = list("Tajaran")
+	species_allowed = list(SPECIES_TAJARAN)
 
 /datum/sprite_accessory/body_markings/tajara/belly_flat_taj
 	name = "Tajaran Belly"

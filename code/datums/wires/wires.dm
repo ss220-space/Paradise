@@ -47,6 +47,7 @@
 	if(!GLOB.wire_color_directory[holder_type])
 		randomize()
 		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_name_directory[holder_type] = proper_name
 	else
 		colors = GLOB.wire_color_directory[holder_type]
 
@@ -174,7 +175,9 @@
 	switch(action)
 		 // Toggles the cut/mend status.
 		if("cut")
-			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
+			if(!I)
+				return
+			if(I.tool_behaviour != TOOL_WIRECUTTER && !user.can_admin_interact())
 				to_chat(user, "<span class='error'>You need wirecutters!</span>")
 				return
 
@@ -185,7 +188,9 @@
 
 		// Pulse a wire.
 		if("pulse")
-			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
+			if(!I)
+				return
+			if(I.tool_behaviour != TOOL_MULTITOOL && !user.can_admin_interact())
 				to_chat(user, "<span class='error'>You need a multitool!</span>")
 				return
 
@@ -206,7 +211,7 @@
 					user.put_in_hands(O, ignore_anim = FALSE)
 					return TRUE
 
-			if(!istype(I, /obj/item/assembly/signaler))
+			if(!issignaler(I))
 				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
 				return
 

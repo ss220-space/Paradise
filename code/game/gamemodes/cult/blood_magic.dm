@@ -51,7 +51,7 @@
 		possible_spells[cult_name] = J
 	if(length(spells))
 		possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
+	entered_spell_name = tgui_input_list(owner, "Pick a blood spell to prepare...", "Spell Choices", possible_spells)
 	if(entered_spell_name == "(REMOVE SPELL)")
 		remove_spell()
 		return
@@ -66,7 +66,7 @@
 		to_chat(owner, "<span class='warning'>You are already invoking blood magic!</span>")
 		return
 
-	if(do_after(owner, 100 - rune * 60, target = owner))
+	if(do_after(owner, rune ? 4 SECONDS : 10 SECONDS, owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
@@ -80,7 +80,7 @@
 	channeling = FALSE
 
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
-	var/nullify_spell = input(owner, message, "Current Spells") as null|anything in spells
+	var/nullify_spell = tgui_input_list(owner, message, "Current Spells", spells)
 	if(nullify_spell)
 		qdel(nullify_spell)
 
@@ -353,7 +353,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0
@@ -488,7 +488,7 @@
 		return
 
 	var/mob/living/L = target
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
@@ -523,7 +523,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed())
+		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
 				CuffAttack(C, user)
 			else
@@ -538,9 +538,9 @@
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
-		if(do_mob(user, C, 10))
+		if(do_after(user, 1 SECONDS, C, NONE))
 			if(!C.handcuffed)
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
+				C.apply_restraints(new /obj/item/restraints/handcuffs/energy/cult/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
@@ -557,9 +557,9 @@
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
 	trashtype = /obj/item/restraints/handcuffs/energy/used
-	flags = DROPDEL
+	item_flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, silent = FALSE)
+/obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 	"<span class='userdanger'>Your [name] shatter in a discharge of dark magic!</span>")
 	. = ..()
@@ -614,7 +614,7 @@
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = target))
+			if(do_after(user, 5 SECONDS, target))
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
@@ -638,10 +638,10 @@
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), slot_back)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
+		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_CLOTH_OUTER)
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_CLOTH_INNER)
+		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), ITEM_SLOT_FEET)
 
 		if(C == user)
 			qdel(src) //Clears the hands
@@ -660,36 +660,35 @@
 /obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 
-		//Shielded suit
+		// Shielded suit
 		if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
-			var/obj/item/clothing/suit/hooded/cultrobes/cult_shield/C = target
-			if(C.current_charges < 3)
-				uses--
-				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its shields!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-				C.current_charges = 3
-				C.shield_state = "shield-cult"
-				user.update_inv_wear_suit() // The only way a suit can be clicked on is if its on the floor, in the users bag, or on the user, so we will play it safe if it is on the user.
-			else
+			var/datum/component/shielded/shield = target.GetComponent(/datum/component/shielded)
+			if(shield.current_charges >= 3)
 				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
+			uses--
+			to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its shields!</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+			shield.current_charges = 3
+			user.update_appearance(UPDATE_ICON)
+			return ..()
 
-		//Plasteel to runed metal
-		else if(istype(target, /obj/item/cult_shift))
+		// Plasteel to runed metal
+		if(istype(target, /obj/item/cult_shift))
 			var/obj/item/cult_shift/S = target
-			if(S.uses < 4)
-				uses--
-				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
-				S.uses = 4
-				S.icon_state = "shifter"
-			else
+			if(S.uses >= 4)
 				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
-		else
-			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
-			return
-		..()
+			uses--
+			to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+			S.uses = 4
+			S.update_icon(UPDATE_ICON_STATE)
+			return ..()
+
+		to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
+		return ..()
+
 
 //Blood Rite: Absorb blood to heal cult members or summon weapons
 /obj/item/melee/blood_magic/manipulator
@@ -827,7 +826,7 @@
 	var/turf/T = get_turf(target)
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime)))
+			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime) || istype(B, /obj/effect/decal/cleanable/blood/drask)))
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else
@@ -846,7 +845,7 @@
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
-	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	var/choice = tgui_input_list(user, "Choose a greater blood rite...", "Greater Blood Rites", options)
 	if(!Adjacent(user))
 		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
 		return

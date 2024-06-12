@@ -74,12 +74,17 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
+/obj/item/multitool/ai_detect/update_icon_state()
+	icon_state = "[initial(icon_state)][detect_state]"
+
+
 /obj/item/multitool/ai_detect/process()
 	if(track_cooldown > world.time)
 		return
 	detect_state = PROXIMITY_NONE
 	multitool_detect()
-	icon_state = "[initial(icon_state)][detect_state]"
+	update_icon(UPDATE_ICON_STATE)
 	track_cooldown = world.time + track_delay
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
@@ -91,16 +96,19 @@
 
 	if(!detect_state && GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
 		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
-		if(chunk)
-			if(chunk.seenby.len)
-				for(var/mob/camera/aiEye/A in chunk.seenby)
-					var/turf/detect_turf = get_turf(A)
-					if(get_dist(our_turf, detect_turf) < rangealert)
-						detect_state = PROXIMITY_ON_SCREEN
-						break
-					if(get_dist(our_turf, detect_turf) < rangewarning)
-						detect_state = PROXIMITY_NEAR
-						break
+		if(!chunk)
+			return
+		for(var/mob/camera/aiEye/A in chunk.seenby)
+			//Checks if the A is to be detected or not
+			if(!A.ai_detector_visible)
+				continue
+			var/turf/detect_turf = get_turf(A)
+			if(get_dist(our_turf, detect_turf) < rangealert)
+				detect_state = PROXIMITY_ON_SCREEN
+				break
+			if(get_dist(our_turf, detect_turf) < rangewarning)
+				detect_state = PROXIMITY_NEAR
+				break
 
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?

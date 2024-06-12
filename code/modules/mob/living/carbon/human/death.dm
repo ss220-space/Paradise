@@ -2,8 +2,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
@@ -50,8 +49,7 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
@@ -75,8 +73,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -144,8 +141,8 @@
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	update_body()
 	update_mutantrace()
+	update_body()
 
 
 /mob/living/carbon/human/proc/ChangeToHusk()
@@ -167,8 +164,8 @@
 	update_hair()
 
 	mutations.Add(HUSK)
-	update_body()
 	update_mutantrace()
+	update_body()
 
 
 /mob/living/carbon/human/proc/Drain()

@@ -36,12 +36,20 @@
 	. = ..()
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
+	var/turf/above = GET_TURF_ABOVE(loc)
+	while(above)
+		reachable_zlevels |= above.z
+		above = GET_TURF_ABOVE(above)
+	var/turf/below = GET_TURF_BELOW(loc)
+	while(below)
+		reachable_zlevels |= below.z
+		below = GET_TURF_BELOW(below)
 	component_parts += new /obj/item/circuitboard/tcomms/core(null)
 	if(check_power_on())
 		active = TRUE
 	else
 		visible_message(span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Destructor for the core.
@@ -117,10 +125,21 @@
   *
   */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
+	if(QDELING(src))
+		return
 	// Refresh the list
 	reachable_zlevels = list()
 	// Add itself as a reachable Z-level
 	reachable_zlevels |= loc.z
+	// add adjacent zlevels above and below
+	var/turf/above = GET_TURF_ABOVE(loc)
+	while(above)
+		reachable_zlevels |= above.z
+		above = GET_TURF_ABOVE(above)
+	var/turf/below = GET_TURF_BELOW(loc)
+	while(below)
+		reachable_zlevels |= below.z
+		below = GET_TURF_BELOW(below)
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
@@ -133,7 +152,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
   */
-/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/core/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	refresh_zlevels()
 
@@ -158,7 +177,7 @@
 		if(C.active)
 			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
 				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
-				C.update_icon()
+				C.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active core on this Z-level. So return true
@@ -231,7 +250,7 @@
 		if("toggle_active")
 			if(check_power_on())
 				active = !active
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			else
 				to_chat(usr, span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
 
@@ -252,7 +271,7 @@
 
 		// Job Format
 		if("nttc_job_indicator_type")
-			var/card_style = input(usr, "Pick a job card format.", "Job Card Format") as null|anything in nttc.job_card_styles
+			var/card_style = tgui_input_list(usr, "Pick a job card format", "Job Card Format", nttc.job_card_styles)
 			if(!card_style)
 				return
 			nttc.job_indicator_type = card_style
@@ -261,11 +280,11 @@
 
 		// Language Settings
 		if("nttc_setting_language")
-			var/new_language = input(usr, "Pick a language to convert messages to.", "Language Conversion") as null|anything in nttc.valid_languages
+			var/new_language = tgui_input_list(usr, "Pick a language to convert messages to", "Language Conversion", nttc.valid_languages)
 			if(!new_language)
 				return
 			if(new_language == "--DISABLE--")
-				nttc.setting_language = null
+				nttc.setting_language = LANGUAGE_NONE
 				to_chat(usr, span_notice("Language conversion disabled."))
 			else
 				nttc.setting_language = new_language

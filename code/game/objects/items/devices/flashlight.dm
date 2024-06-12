@@ -6,52 +6,63 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 	var/on = FALSE
-	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
+
+/obj/item/flashlight/dummy
+	name = "Testing flashlight"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 
 /obj/item/flashlight/Initialize()
 	. = ..()
-	if(on)
-		icon_state = "[initial(icon_state)]-on"
-		set_light(brightness_on)
-	else
-		icon_state = initial(icon_state)
-		set_light(0)
+	if(icon_state == "[initial(icon_state)]-on")
+		on = TRUE
+	update_brightness()
 
-/obj/item/flashlight/proc/update_brightness(var/mob/user = null)
+
+/obj/item/flashlight/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		set_light(brightness_on)
 	else
-		icon_state = initial(icon_state)
-		set_light(0)
+		icon_state = "[initial(icon_state)]"
+
+
+/obj/item/flashlight/proc/update_brightness()
+	if(light_system == STATIC_LIGHT)
+		update_light()
+	set_light_on(on)
+	update_icon()
+
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
-
-		return 0
+		to_chat(user, "You cannot turn the light on while in this [user.loc].")	//To prevent some lighting anomalities.
+		return FALSE
 	on = !on
 	playsound(user, togglesound, 100, 1)
-	update_brightness(user)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-	return 1
+	update_brightness()
+	update_equipped_item(update_speedmods = FALSE)
+	return TRUE
 
 
-/obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(on && user.zone_selected == BODY_ZONE_PRECISE_EYES)
 
 		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
+		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 			return
 
@@ -76,7 +87,7 @@
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || (BLINDNESS in M.mutations))	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
-				else if((XRAY in M.mutations) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+				else if((XRAY in M.mutations) || H.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
@@ -88,6 +99,7 @@
 	if(on)
 		on = FALSE
 		update_brightness()
+		update_equipped_item()
 
 /obj/item/flashlight/pen
 	name = "penlight"
@@ -96,9 +108,10 @@
 	item_state = ""
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	flags = CONDUCT
-	brightness_on = 2
+	light_system = MOVABLE_LIGHT
+	light_range = 2
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -107,7 +120,7 @@
 	item_state = "seclite"
 	belt_icon = "seclite"
 	force = 9 // Not as good as a stun baton.
-	brightness_on = 5 // A little better than the standard flashlight.
+	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/drone
@@ -116,7 +129,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
@@ -125,7 +138,7 @@
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
 	item_state = "lamp"
-	brightness_on = 5
+	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
@@ -145,8 +158,10 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
-		attack_self(usr)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -161,7 +176,8 @@
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	brightness_on = 8
+	light_range = 8
+	light_system = MOVABLE_LIGHT
 	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
@@ -173,9 +189,28 @@
 	var/fuel_lower = 800
 	var/fuel_upp = 1000
 
-/obj/item/flashlight/flare/New()
+
+/obj/item/flashlight/flare/Initialize()
 	fuel = rand(fuel_lower, fuel_upp)
+	. = ..()
+
+
+/obj/item/flashlight/flare/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+
+/obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
+	if(!fuel)
+		icon_state = "[initial(icon_state)]-empty"
+		return
 	..()
+
 
 /obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
@@ -184,33 +219,17 @@
 	fuel = max(fuel - 1, 0)
 	if(!fuel || !on)
 		turn_off()
-		if(!fuel)
-			src.icon_state = "[initial(icon_state)]-empty"
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = 0
-	src.force = initial(src.force)
-	src.damtype = initial(src.damtype)
-	if(ismob(loc))
-		var/mob/U = loc
-		update_brightness(U)
-	else
-		update_brightness(null)
+	on = FALSE
+	force = initial(force)
+	damtype = initial(damtype)
+	update_brightness()
 
-/obj/item/flashlight/flare/update_brightness(var/mob/user = null)
-	..()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-
 	// Usual checks
 	if(!fuel)
 		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
@@ -223,16 +242,18 @@
 	// All good, turn it on.
 	if(.)
 		user.visible_message("<span class='notice'>[user] activates [src].</span>", "<span class='notice'>You activate [src].</span>")
-		src.force = on_damage
-		src.damtype = "fire"
+		if(produce_heat)
+			force = on_damage
+			damtype = BURN
 		START_PROCESSING(SSobj, src)
+
 
 // GLOWSTICKS
 
 /obj/item/flashlight/flare/glowstick
 	name = "green glowstick"
 	desc = "A military-grade glowstick."
-	brightness_on = 4
+	light_range = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	item_state = "glowstick"
@@ -241,47 +262,55 @@
 	produce_heat = 0
 	fuel_lower = 1600
 	fuel_upp = 2000
+	blocks_emissive = FALSE
+	var/chemglow_sprite_type = "green"
+
 
 /obj/item/flashlight/flare/glowstick/Initialize()
 	light_color = color
 	..()
 
-/obj/item/flashlight/flare/glowstick/update_icon()
-	item_state = "glowstick"
-	cut_overlays()
+
+/obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
 		icon_state = "glowstick-empty"
-		cut_overlays()
-		update_brightness(0)
-	else if(on)
+
+
+/obj/item/flashlight/flare/glowstick/update_overlays()
+	. = ..()
+	if(on)
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
-		add_overlay(glowstick_overlay)
-		item_state = "glowstick-on"
-		update_brightness(brightness_on)
-	else
-		icon_state = "glowstick"
-		cut_overlays()
+		. += glowstick_overlay
+
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
 	color = LIGHT_COLOR_RED
+	chemglow_sprite_type = "red"
+
+/obj/item/flashlight/flare/glowstick/green
+	name = "green glowstick"
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
 	color = LIGHT_COLOR_BLUE
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/orange
 	name = "orange glowstick"
 	color = LIGHT_COLOR_ORANGE
+	chemglow_sprite_type = "orange"
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
 	color = LIGHT_COLOR_YELLOW
+	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
+	chemglow_sprite_type = "pink"
 
 /obj/item/flashlight/flare/glowstick/emergency
 	name = "emergency glowstick"
@@ -289,6 +318,7 @@
 	color = LIGHT_COLOR_BLUE
 	fuel_lower = 30
 	fuel_upp = 90
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/random
 	name = "random colored glowstick"
@@ -313,7 +343,7 @@
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
-	brightness_on = 7
+	light_range = 7
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -329,17 +359,16 @@
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
-	brightness_on = 6
+	light_range = 6
+	light_system = MOVABLE_LIGHT
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
-/obj/item/flashlight/slime/New()
-	..()
-	set_light(brightness_on)
-	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
-		update_brightness()
-		icon_state = initial(icon_state)
+
+/obj/item/flashlight/slime/update_icon_state()
+	return
+
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
@@ -359,9 +388,10 @@
 	var/charge_tick = 0
 
 
-/obj/item/flashlight/emp/New()
-	..()
+/obj/item/flashlight/emp/Initialize()
+	. = ..()
 	START_PROCESSING(SSobj, src)
+
 
 /obj/item/flashlight/emp/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -375,13 +405,15 @@
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
-/obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/emp/attack(mob/living/M, mob/living/user)
 	if(on && user.zone_selected == BODY_ZONE_PRECISE_EYES) // call original attack proc only if aiming at the eyes
 		..()
 	return
 
-/obj/item/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
-	if(!proximity) return
+
+/obj/item/flashlight/emp/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
 		if(ismob(A))
@@ -391,14 +423,14 @@
 		A.emp_act(1)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-	return
+
 
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
+	light_system = STATIC_LIGHT
 	light_color = null
-	brightness_on = 0
 	light_range = 0
 	light_power = 10
 	alpha = 0

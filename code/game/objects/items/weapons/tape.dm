@@ -9,10 +9,6 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(var/loc, var/amount=null)
-	..()
-
-	update_icon()
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
@@ -29,7 +25,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 5 SECONDS, target = M))
+	if(!do_after(user, 5 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
@@ -40,10 +36,11 @@
 	user.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>",
 	"<span class='notice'>You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]</span>")
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
-	M.equip_to_slot_if_possible(G, slot_wear_mask)
+	M.equip_to_slot_if_possible(G, ITEM_SLOT_MASK)
 	G.add_fingerprint(user)
 
-/obj/item/stack/tape_roll/update_icon()
+
+/obj/item/stack/tape_roll/update_icon_state()
 	var/amount = get_amount()
 	if((amount <= 2) && (amount > 0))
 		icon_state = "[initial(icon_state)]"
@@ -55,7 +52,7 @@
 		icon_state = "[initial(icon_state)]4"
 	else
 		icon_state = "[initial(icon_state)]4"
-	..()
+
 
 /obj/item/stack/tape_roll/thick
 	name = "incredibly thick tape roll"
@@ -77,7 +74,7 @@
 	user.visible_message("<span class='warning'>[user] is taping [M]'s mouth closed!</span>",
 	"<span class='notice'>You try to tape [M == user ? "your own" : "[M]'s"] mouth shut!</span>",
 	"<span class='warning'>You hear tape ripping.</span>")
-	if(!do_after(user, 1 SECONDS, target = M))
+	if(!do_after(user, 1 SECONDS, M))
 		return
 	if(!use(2))
 		to_chat(user, "<span class='notice'>You don't have enough tape!</span>")
@@ -88,5 +85,6 @@
 	user.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>",
 	"<span class='notice'>You cover [M == user ? "your own" : "[M]'s"] mouth with a piece of duct tape.[M == user ? null : " That will shut them up."]</span>")
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag/thick
-	M.equip_to_slot_if_possible(G, slot_wear_mask)
+	M.equip_to_slot_if_possible(G, ITEM_SLOT_MASK)
 	G.add_fingerprint(user)
+

@@ -4,8 +4,8 @@
 	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "TheSingGen"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
 	var/energy = 0
@@ -22,9 +22,9 @@
 		if(src) qdel(src)
 
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		playsound(src.loc, W.usesound, 75, 1)
 		if(anchored)
 			user.visible_message("[user.name] secures [src.name] to the floor.", \

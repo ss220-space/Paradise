@@ -215,7 +215,7 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
 	demon.mind.objectives += KillDaCrew
-	var/list/messages = list(demon.mind.prepare_announce_objectives())
+	var/list/messages = demon.mind.prepare_announce_objectives()
 	to_chat(demon, chat_box_red(messages.Join("<br>")))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
@@ -299,7 +299,7 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
-	var/list/messages = list(M.mind.prepare_announce_objectives())
+	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 	M << 'sound/magic/mutate.ogg'
 
@@ -369,5 +369,5 @@
 	kill_crew.completed = TRUE
 	demon.mind.objectives += kill_crew
 
-	var/list/messages = list(demon.mind.prepare_announce_objectives())
+	var/list/messages = demon.mind.prepare_announce_objectives()
 	to_chat(demon, chat_box_red(messages.Join("<br>")))

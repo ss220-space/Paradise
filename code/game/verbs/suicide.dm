@@ -70,11 +70,6 @@
 	updatehealth()
 
 
-/mob/living/simple_animal/mouse/do_suicide()
-	visible_message(span_danger("[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide."))
-	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
-
-
 /mob/living/silicon/do_suicide()
 	to_chat(viewers(src), span_danger("[src] is powering down. It looks like [p_theyre()] trying to commit suicide."))
 	//put em at -175
@@ -86,12 +81,10 @@
 
 
 /mob/living/silicon/pai/do_suicide()
-	if(canmove || resting)
+	if(mobility_flags & MOBILITY_MOVE)
 		close_up()
 	card.removePersonality()
-	var/turf/T = get_turf(card.loc)
-	for(var/mob/M in viewers(T))
-		M.show_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), EMOTE_VISIBLE, span_notice("[src] bleeps electronically."), EMOTE_AUDIBLE)
+	visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), blind_message = span_notice("[src] bleeps electronically."))
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
 

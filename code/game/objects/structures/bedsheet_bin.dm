@@ -10,7 +10,7 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "sheet"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -18,7 +18,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_NECK
+	slot_flags = ITEM_SLOT_NECK
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
@@ -28,11 +28,11 @@ LINEN BINS
 	var/comfort = 0.5
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/neck.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/neck.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
 		)
 
 
@@ -246,7 +246,7 @@ LINEN BINS
 	desc = "A linen bin. It looks rather cosy."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "linenbin-full"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	var/amount = 20
@@ -263,7 +263,7 @@ LINEN BINS
 	else
 		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
 
-/obj/structure/bedsheetbin/update_icon()
+/obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
@@ -276,13 +276,13 @@ LINEN BINS
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	..()
 
 /obj/structure/bedsheetbin/burn()
 	amount = 0
 	extinguish()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/bedsheet))
@@ -338,7 +338,7 @@ LINEN BINS
 
 		B.loc = loc
 		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)
 			hidden.loc = loc

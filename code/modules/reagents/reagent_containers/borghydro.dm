@@ -14,6 +14,7 @@
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = FALSE //If the hypospray can go through armor or thick material
+	var/upgrade_path = /obj/item/reagent_containers/borghypo/upgraded
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list( \
@@ -39,6 +40,7 @@
 		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = TRUE
+	upgrade_path = null //no upgrades
 
 
 /obj/item/reagent_containers/borghypo/upgraded
@@ -54,6 +56,7 @@
 		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
 		"calomel" = list('icons/obj/items.dmi', "soap"), \
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
+	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
@@ -123,13 +126,13 @@
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
-		to_chat(user, SPAN_WARNING("The injector is empty."))
+		to_chat(user, span_warning("The injector is empty."))
 		return
 	if(!istype(M))
 		return
 	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, bypass_protection, bypass_protection))
-		to_chat(user, SPAN_NOTICE("You inject [M] with the injector."))
-		to_chat(M, SPAN_NOTICE("You feel a tiny prick!"))
+		to_chat(user, span_notice("You inject [M] with the injector."))
+		to_chat(M, span_notice("You feel a tiny prick!"))
 
 		R.add_reagent(M)
 		if(M.reagents)
@@ -137,7 +140,7 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			to_chat(user, SPAN_NOTICE("[trans] units injected. [R.total_volume] units remaining."))
+			to_chat(user, span_notice("[trans] units injected. [R.total_volume] units remaining."))
 
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
@@ -156,14 +159,14 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
-	to_chat(user, SPAN_NOTICE("Synthesizer is now producing '[R.name]'."))
+	to_chat(user, span_notice("Synthesizer is now producing '[R.name]'."))
 
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
 
 	if(bypass_protection)
-		. += SPAN_NOTICE_BOLD("Advanced injector is installed on this module, allowing it to pierce thick tissue and materials.")
+		. += span_boldnotice("Advanced injector is installed on this module, allowing it to pierce thick tissue and materials.")
 
 	if(get_dist(user, src) <= 2)
 		var/empty = TRUE
@@ -171,11 +174,11 @@
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += SPAN_NOTICE("It currently has [R.volume] units of [R.name] stored.")
+				. += span_notice("It currently has [R.volume] units of [R.name] stored.")
 				empty = FALSE
 
 		if(empty)
-			. += SPAN_NOTICE("It is currently empty. Allow some time for the internal syntheszier to produce more.")
+			. += span_notice("It is currently empty. Allow some time for the internal syntheszier to produce more.")
 
 
 /obj/item/reagent_containers/borghypo/basic
@@ -184,6 +187,7 @@
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
+	upgrade_path = /obj/item/reagent_containers/borghypo/basic/upgraded
 
 
 /obj/item/reagent_containers/borghypo/basic/upgraded
@@ -195,8 +199,9 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+	upgrade_path = null //no upgrades
 
-/obj/item/reagent_containers/borghypo/basic/emagged_borg_hypo
+/obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
 	desc = "This injector will deliver deadly chemicals into anyone not fortunate enough to end up as an enemy to Syndicate. Who could've thought NanoTrasen borgs can synthesize that?"
 	icon = 'icons/obj/hypo.dmi'
@@ -210,6 +215,7 @@
 		"heparin" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"cyanide" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
+	upgrade_path = null //no upgrades
 
 
 

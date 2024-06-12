@@ -28,7 +28,6 @@
 	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH
-	flying = TRUE
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
@@ -45,7 +44,11 @@
 	else
 		..()
 
-/mob/living/simple_animal/shade/Process_Spacemove()
+/mob/living/simple_animal/shade/update_icon_state()
+	icon_state = holy ? "shade_angelic" : "shade"
+
+
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 
@@ -53,6 +56,7 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.shade_icon_state
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE
@@ -64,3 +68,18 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/talisman
+	faction = list("neutral")
+	tts_seed = "Alextraza_echo"
+	// Ckey check for master of talisman
+	var/master
+
+/mob/living/simple_animal/shade/talisman/Initialize(mapload)
+	.=..()
+	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/talisman/New()
+	..()
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medsensor.add_hud_to(src)

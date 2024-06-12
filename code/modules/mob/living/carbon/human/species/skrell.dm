@@ -1,9 +1,9 @@
 /datum/species/skrell
-	name = "Skrell"
+	name = SPECIES_SKRELL
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
-	language = "Skrellian"
+	language = LANGUAGE_SKRELL
 	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
@@ -15,7 +15,7 @@
 	tox_mod = 0.75
 	bonefragility = 0.8
 
-	species_traits = list(LIPS, NO_OBESITY)
+	species_traits = list(LIPS, NO_OBESITY, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -50,6 +50,8 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
 	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
 
 	suicide_messages = list(
 		"пытается откусить себе язык!",

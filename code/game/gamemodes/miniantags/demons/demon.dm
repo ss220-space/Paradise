@@ -28,7 +28,7 @@
 	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
 	dirslash_enabled = TRUE
@@ -68,7 +68,7 @@
 		to_chat(usr, span_warning("There are no valid targets!"))
 		return
 
-	var/mob/living/target = input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
 	return target
 
 
@@ -96,7 +96,7 @@
 	origin_tech = "combat=5;biotech=7"
 
 
-/obj/item/organ/internal/heart/demon/update_icon()
+/obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 

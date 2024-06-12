@@ -108,7 +108,7 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Доступная кровь"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
@@ -239,7 +239,7 @@
 
 /datum/antagonist/goon_vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
-	if(istype(spell, /obj/effect/proc_holder/spell/goon_vampire))
+	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.AddSpell(spell)
 
 	powers += spell
@@ -250,8 +250,10 @@
 /datum/antagonist/goon_vampire/proc/remove_ability(ability)
 	if(ability && (ability in powers))
 		powers -= ability
-		owner.spell_list.Remove(ability)
-		qdel(ability)
+		if(istype(ability, /obj/effect/proc_holder/spell))
+			owner.RemoveSpell(ability)
+		else if(istype(ability, /datum/goon_vampire_passive))
+			qdel(ability)
 		owner.current.update_sight()
 
 
@@ -276,7 +278,7 @@
 		H.LAssailant = null
 	else
 		H.LAssailant = owner.current
-	while(do_mob(owner.current, H, 5 SECONDS))
+	while(do_after(owner.current, 5 SECONDS, H, NONE))
 		if(!isvampire(owner))
 			to_chat(owner.current, span_userdanger("Ваши клыки исчезают!"))
 			return

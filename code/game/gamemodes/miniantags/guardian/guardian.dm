@@ -17,7 +17,6 @@
 	can_change_intents = 0
 	stop_automated_movement = 1
 	universal_speak = TRUE
-	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -35,8 +34,9 @@
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
-	var/light_on = 0
+	//var/light_on = 0
 	var/luminosity_on = 3
+	light_range = 3
 	var/mob/living/carbon/human/summoner
 	var/range = 10 //how far from the user the spirit can be
 	var/playstyle_string = "You are a standard Guardian. You shouldn't exist!"
@@ -48,6 +48,7 @@
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
+	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host
@@ -78,7 +79,7 @@
 			ghostize()
 			qdel(src)
 	snapback()
-	if(summoned && !summoner && !admin_spawned)
+	if(summoned && !summoner && !(flags & ADMIN_SPAWNED))
 		to_chat(src, span_danger("Каким-то образом у вас нет призывателя! Вы исчезаете!"))
 		ghostize()
 		qdel(src)
@@ -91,7 +92,7 @@
 		else
 			to_chat(src, "<span class='holoparasite'>Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
 			visible_message(span_danger("\The [src] вернулся к носителю."))
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
 				new /obj/effect/temp_visual/guardian/phase/out(loc)
@@ -212,13 +213,12 @@
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(!light_on)
-		set_light(luminosity_on)
+	set_light_on(!light_on)
+	if(light_on)
 		to_chat(src, span_notice("Вы активировали свет."))
 	else
-		set_light(0)
 		to_chat(src, span_notice("Вы выключили свет."))
-	light_on = !light_on
+
 
 ////////Creation
 
@@ -271,7 +271,7 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Выберите тип [mob_name]", "Создание [mob_name] ") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Выберите тип [mob_name]", "Создание [mob_name] ", possible_guardians)
 		if(!guardian_type)
 			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
@@ -430,7 +430,7 @@
 
 /obj/item/paper/guardian
 	name = "Справочник по голопаразитам"
-	icon_state = "paper"
+	icon_state = "paper_words"
 	info = {"<b>Cписок видов голопаразитов</b><br>
 
  <br>
@@ -453,7 +453,7 @@
  <b>Защитник</b>: При нарушении дальности связи хозяин призывается к нему, а не наоборот. Имеет два режима: низкая атака с высокой защитой, и режим ультра-защиты, практически полностью нивелирующий входящий и исходящий урон. В режиме ультра-защиты способен пережить даже взрыв бомбы, лишь слегка ранив хозяина. Может ставить силовые барьеры, через которые могут пройти только вы и ваш подопечный.<br>
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
 
 

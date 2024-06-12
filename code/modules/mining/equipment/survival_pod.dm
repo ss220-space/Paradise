@@ -2,8 +2,10 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	has_gravity = STANDARD_GRAVITY
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
@@ -45,7 +47,7 @@
 	get_template()
 	if(used == FALSE)
 		var/turf/UT = get_turf(usr)
-		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+		if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
 			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
 			playsound(usr, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 			return
@@ -197,16 +199,16 @@
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			var/obj/item/gps/gps = new(loc)
 			gps.add_fingerprint(user)
 			qdel(src)
@@ -231,7 +233,7 @@
 	light_color = "#DDFFD3"
 	max_n_of_items = 10
 	pixel_y = -4
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)
@@ -250,11 +252,11 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_overlays()
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
-	return isitem(O) && !(O.flags & ABSTRACT)
+	return isitem(O) && !(O.item_flags & ABSTRACT)
 
 /obj/machinery/smartfridge/survival_pod/default_unfasten_wrench()
 	return FALSE
@@ -270,8 +272,8 @@
 	icon_state = "fans"
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
@@ -285,21 +287,21 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/fans/CanAtmosPass(turf/T)
+/obj/structure/fans/CanAtmosPass(turf/T, vertical)
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(buildstacktype)
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			deconstruct()
 			return ..()
 
@@ -307,7 +309,7 @@
 	name = "tiny fan"
 	desc = "A tiny fan, releasing a thin gust of air."
 	layer = TURF_LAYER+0.1
-	density = 0
+	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
@@ -333,16 +335,16 @@
 	icon_state = "tubes"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
-	anchored = 1
+	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = 0
+	density = FALSE
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+	if(W.tool_behaviour == TOOL_WRENCH)
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			var/obj/item/stack/rods/rods = new(loc)
 			rods.add_fingerprint(user)
 			qdel(src)
@@ -365,7 +367,7 @@
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
-						/obj/item/stack/telecrystal/hundread,
+						/obj/item/stack/telecrystal/hundred,
 						/obj/item/banhammer)
 
 /obj/item/fakeartefact/New()

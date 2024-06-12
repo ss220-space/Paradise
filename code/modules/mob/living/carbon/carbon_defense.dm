@@ -19,17 +19,17 @@
 /obj/item/proc/carbon_skip_catch_check(mob/living/carbon/user)
 	. = TRUE
 	if(!isturf(loc))
-		return
+		return .
 	if(!user.in_throw_mode)
-		return
-	if(!user.canmove)
-		return
-	if(user.restrained())
-		return
+		return .
+	if(!(user.mobility_flags & MOBILITY_MOVE))
+		return .
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return .
 	if(user.get_active_hand())
-		return
+		return .
 	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
-		return
+		return .
 	. = FALSE
 
 
@@ -39,11 +39,11 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(lying && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src, I))
-					return 1
+				if(S.next_step(user, src))
+					return TRUE
 	return ..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
@@ -58,12 +58,12 @@
 		if(V.spread_flags & CONTACT)
 			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
-	if(lying && surgeries.len)
+	if(body_position == LYING_DOWN && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
-	return 0
+					return TRUE
+	return FALSE
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack

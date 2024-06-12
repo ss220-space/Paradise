@@ -104,7 +104,8 @@
 		creeping_widow.my_suit = n_suit
 		creeping_widow.my_energy_katana = n_suit.energyKatana
 	//Проверка и перевыдача бомбы
-	ninja_datum.basic_ninja_needs_check()
+	for(var/datum/objective/plant_explosive/bomb_objective in ninja.mind.get_all_objectives())
+		bomb_objective.give_bomb()
 	//Пробуждение из клонёрки
 	addtimer(CALLBACK(src, PROC_REF(force_ninja_out)), 150)
 	suits_data.Remove(ninja_suit_data)

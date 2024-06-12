@@ -122,9 +122,7 @@
 	},
 /area/derelict/bridge)
 "au" = (
-/obj/machinery/computer/atmos_alert{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/atmos_alert/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -135,12 +133,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -158,18 +151,16 @@
 	},
 /area/derelict/engineer_area)
 "az" = (
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
-	network = list("USSP")
-	},
 /obj/item/paper/djstation{
 	info = "<b>Август 28, 2532</b><hr><small>Наш пост прослушки передал несколько тревожных сообщений об активности ТСФ в секторе. Хотя перехваченные сообщения говорят о том, что это просто исследовательская работа, я не могу отделаться от ощущения, что эти упрямые ублюдки всё таки нас разыскали.<br><br> Капитан уверяет меня, что волноваться не о чем, но мне трудно воспринимать всерьез человека, параноидальное относящегося к двери душа с электроприводом.<br><br><i>- Офицер Связи Восток</i></small>";
+	language = "Neo-Russkiya";
 	name = "личный журнал";
 	pixel_x = 26;
-	pixel_y = 4;
-	language = "Neo-Russkiya"
+	pixel_y = 4
+	},
+/obj/machinery/computer/security/old_frame{
+	name = "USSP security camera console";
+	network = list("USSP")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -185,12 +176,7 @@
 	},
 /area/derelict/bridge)
 "aB" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -478,11 +464,11 @@
 /area/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
-	info = "<br>Восток, я не слышал ни шороха от тебя уже около часа... Должно быть он слишком занят попытками найти способ связаться с командованием. Я до сих пор не уверен, что произошло, но с того момента прошло уже шесть часов.<br><br>Мои руки не перестают трястись, и даже сигареты не не в силах помочь.<br><br>Восток, если всё удастся, а я к тому моменту потеряю сознание - мои лекарства в шкафу рядом с моим столом. Пожалуйста. Я на тебя рассчитываю.";
-	name = "ветхая записка";
-	icon_state = "scrap_bloodied";
 	desc = "Записка испачкана чернильными пятнами, сильный и дрожащий почерк, нацарапанный по ней, едва различим.";
-	language = "Neo-Russkiya"
+	icon_state = "scrap_bloodied";
+	info = "<br>Восток, я не слышал ни шороха от тебя уже около часа... Должно быть он слишком занят попытками найти способ связаться с командованием. Я до сих пор не уверен, что произошло, но с того момента прошло уже шесть часов.<br><br>Мои руки не перестают трястись, и даже сигареты не не в силах помочь.<br><br>Восток, если всё удастся, а я к тому моменту потеряю сознание - мои лекарства в шкафу рядом с моим столом. Пожалуйста. Я на тебя рассчитываю.";
+	language = "Neo-Russkiya";
+	name = "ветхая записка"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -552,8 +538,8 @@
 /obj/item/paper_bin/ussp,
 /obj/item/paper/djstation{
 	info = "Рано или поздно эта чертова дверь в душе прикончит меня. Я вижу, как Восток смотрит на меня, когда я говорю о ней, как его глаза весело ухмыляются. Вот только сегодня утром, клянусь, эта чертова штука пыталась запереть меня. Мне пришлось сломать замок, чтобы выбраться. Восток чуть не обоссался от смеха, когда я рассказал ему и показал на ту дверь.<br><br>Ну, посмотрим, долго ли он будет смеяться, когда я напишу комиссару Григору о его дерзости; единственное, что он будет после всего этого прослушивать - звуки слива бочка, надраивать который он будет последующий месяц!";
-	name = "капитанский журнал";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "капитанский журнал"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -696,9 +682,9 @@
 	},
 /obj/item/cigbutt,
 /obj/item/decorations/flag/soviet{
-	pixel_y = 10;
+	layer = 3.1;
 	pixel_x = -5;
-	layer = 3.1
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -1282,9 +1268,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dj" = (
 /obj/structure/cable{
@@ -1380,9 +1364,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dv" = (
 /obj/item/bedsheet/blue,
@@ -1440,8 +1422,8 @@
 	},
 /obj/item/paper/djstation{
 	info = "<b>Рекомендация к премированию</b> Товарищ Бляцкий<br><b>Подпись Офицера:</b>  Микаил Гогочев<hr><small>Капитан,<br><br>Я осознаю странность данной просьбы, но прошу, выслушайте: товарищ Бляцки хоть и выглядит как мелкий пылесос, но он силен как стальной кулак самого комиссара Григора! Буквально на днях он выгнал из брига этого бесполезного ублюдка Тотского, вы бы видели, как этот пьяница хныкал! Прям как собака с поджатым хвостом.<br><br>В любом случае, я отвлекся! Если кто и достоин премирования, так это наш всегда стоящий на страже и любимый Бляцкий, истинный защитник СССП.<br><br> Если вы желаете, быть может, воочию увидеть его бдительность и самоотверженность, что ж! Вам нужно только прийти, чтобы осмотреть оружейную. Товарищ Бляцкий ждет вашего решения.";
-	name = "Рекомендация к премированию";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "Рекомендация к премированию"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -1490,9 +1472,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/bridge)
 "dH" = (
 /obj/structure/grille,
@@ -1625,8 +1605,8 @@
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
 	info = "<b>Я ЗНАЮ, ЭТО ТЫ УКРАЛ МОИ ЩАСЛИВЫЕ ТРУСЕЛЯ. КЛЯНУСЬ, ЕСЛИ Я УВИЖУ ХОТЬ ЕЩЕ ОДИН РАЗ ТВОЮ ТОЩУЮ КРЫСИНУЮ ШЕЮ, Я БУДУ ДУШИТЬ ЕЕ, ПОКА ТЫ НЕ ПОСИНЕЕШЬ И НЕ ПОТЕРЯЕШЬ СОЗНАНИЕ!<br><br>НИКТО! НИКТО НЕ ПРИКОСЕТСЯ К СЧАСТЛИВЫМ ТРУСАМ БОРИСА БЕЗ ПОСЛЕДСТВИЙ!</b>";
-	name = "LISTEN UP CYKA";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "LISTEN UP CYKA"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
@@ -1840,8 +1820,8 @@
 "ez" = (
 /obj/structure/noticeboard,
 /obj/item/paper/gorky17{
-	name = "Информация по настройки внутренней сети";
-	info = "<B>Введение в локальную сеть дополнительных камер</B><br><br>После монтажа камеры - используй параметр <B>USSP</B> для введения камеры в местную сеть видеонаблюдения.<br><br><B>Настройка коммуникационного реле</B><br><br>Для введения реле в общую сеть настрой передатчик на частоту <B>USSP-CORE</B>"
+	info = "<B>Введение в локальную сеть дополнительных камер</B><br><br>После монтажа камеры - используй параметр <B>USSP</B> для введения камеры в местную сеть видеонаблюдения.<br><br><B>Настройка коммуникационного реле</B><br><br>Для введения реле в общую сеть настрой передатчик на частоту <B>USSP-CORE</B>";
+	name = "Информация по настройки внутренней сети"
 	},
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/engineer_area)
@@ -2221,10 +2201,10 @@
 "ft" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<br><small>Тотский,<br><br>Я знаю, что это ты поишь моих кошек алкоголем, мне все равно, зачем ты это делаешь, но ты мешаешь важным исследованиям! Это пятый кот, которого мне пришлось заменить в этом месяце из-за твоего тупого чувства юмора, и я буду говорить с  Бораховым, если ты не прекратишь свои выходки.<br><br>- <i>Николай Картов</i>, научный сотрудник.";
-	name = "Немедленно прекращай!";
 	desc = "Эта бумажка изрисована всевозможными грубыми рисунками, которые слишком мерзки, чтобы дать им описание.";
-	language = "Neo-Russkiya"
+	info = "<br><small>Тотский,<br><br>Я знаю, что это ты поишь моих кошек алкоголем, мне все равно, зачем ты это делаешь, но ты мешаешь важным исследованиям! Это пятый кот, которого мне пришлось заменить в этом месяце из-за твоего тупого чувства юмора, и я буду говорить с  Бораховым, если ты не прекратишь свои выходки.<br><br>- <i>Николай Картов</i>, научный сотрудник.";
+	language = "Neo-Russkiya";
+	name = "Немедленно прекращай!"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2269,9 +2249,9 @@
 /obj/structure/table/wood,
 /obj/item/trash/candle,
 /obj/item/gun/projectile/shotgun/lethal/rusted{
-	self_shot_divisor = 1;
 	malf_high_bound = 5;
-	malf_low_bound = 2
+	malf_low_bound = 2;
+	self_shot_divisor = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -2383,10 +2363,10 @@
 "fK" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<br><small>Катерина,<br><br><s>Глаза твои как бриллианты,<br>Рожденные в недрах Cygni-A.<br>Мое сердце тоскует по тебе,<br>По твоей нежной красоте<br>Бляблятьнетэтоплохо.<br><br>Твой голос отрада для ушей,<br>Ласкает меня своими нежными очертаниями.<br>Никогда раньше я не знал, он как<br>Ласкание,<br>Ласкание!<br>Ласкание ангельского голоса</s><br><br>пометка для себя: занимайся наукой, поэзия не твоя сильная сторона.</small>";
-	name = "любовная поэма";
 	desc = "Эта записка была перечеркнута столько раз, что трудно разобрать ее содержание";
-	language = "Neo-Russkiya"
+	info = "<br><small>Катерина,<br><br><s>Глаза твои как бриллианты,<br>Рожденные в недрах Cygni-A.<br>Мое сердце тоскует по тебе,<br>По твоей нежной красоте<br>Бляблятьнетэтоплохо.<br><br>Твой голос отрада для ушей,<br>Ласкает меня своими нежными очертаниями.<br>Никогда раньше я не знал, он как<br>Ласкание,<br>Ласкание!<br>Ласкание ангельского голоса</s><br><br>пометка для себя: занимайся наукой, поэзия не твоя сильная сторона.</small>";
+	language = "Neo-Russkiya";
+	name = "любовная поэма"
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -2448,10 +2428,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/solar_control{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "solar_oldframe";
-	icon_state = "frame-eng";
+/obj/machinery/power/solar_control/old_frame{
 	id = "ussp"
 	},
 /turf/simulated/floor/plasteel{
@@ -2509,8 +2486,8 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
 	info = "Август 21 - Самый Превосходный Комиссар Григор<br>Август 22 - Никого<br>Август 23 - Никого<br>Август 24 - Никого<br>Август 25 - И зачем я его вообще веду?<br>Август 26 - Никого<br>Август 27 -";
-	name = "журнал посетителей";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "журнал посетителей"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2661,10 +2638,7 @@
 /area/derelict/security)
 "gt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/core{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "rnd_oldframe";
-	icon_state = "frame-rnd";
+/obj/machinery/computer/rdconsole/core/old_frame{
 	req_access = list(131)
 	},
 /turf/simulated/floor/plasteel{
@@ -2836,8 +2810,8 @@
 	},
 /obj/item/paper/djstation{
 	info = "Наконец-то мы сделали это, теперь Катерина больше не будет смотреть мимо меня в пользу кого другого! Эксперимент 432-A показывает невероятную скорость клеточной регенерации, и я утверждаю, что мы, наконец, преодолели великую грань между жизнью и смертью — истинное биологическое бессмертие!<br><br>Конечно, агрессивное поведение — неуместный побочный эффект, но в конце концов это всего лишь кошка. Я уверен, что нескольких кошачьих лакомств с седативными добавками будет достаточно, чтобы подготовиться к вскрытию.";
-	name = "Эксперимент 432-A";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "Эксперимент 432-A"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
@@ -2966,8 +2940,8 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
 	info = "Это уже пятый раз за месяц, когда мне приходится заменять кабель у чертовой сети блокировки шлюзов. Это плохо, конденсатор постоянно выходит из строя, а чертовым системам требуется почти неделя для прохода по всей станции и перезагрузки. А теперь еще и капитан дышит мне в спину из-за его дурацкой душевой и комиссара Григора. Микаил говорил мне, что лицо этого человека так покраснело, когда вспыхнул свет, что можно было увидеть, как он светится в темноте.<br><br>Если бы он думал это было плохо, ну, если бы я не установил блокировку в столовой, мы бы неделю сидели в темноте.<br><br>Раствэн говорит, что мы должны получить новую партию кабелей, хотя я не уверен, что у нас когда-нибудь будет достаточно припасов, чтобы это место функционировало должным образом.";
-	name = "отчет об тех. обслухивании";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "отчет об тех. обслухивании"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3115,12 +3089,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/monitor{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "power_oldframe";
-	icon_state = "frame-eng";
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/monitor/secret/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3141,15 +3110,7 @@
 /area/derelict/church)
 "hF" = (
 /obj/structure/sign/barsign,
-/turf/simulated/wall/shuttle{
-	icon_state = "swall4"
-	},
-/area/derelict/church)
-"hG" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "swall8";
-	tag = "icon-swall12"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
@@ -3219,9 +3180,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3245,9 +3206,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "hR" = (
-/obj/machinery/computer/atmos_alert{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/atmos_alert/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -3283,8 +3242,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/djstation{
 	info = "Отец Грегор,<br><br>Вы должны меня простить, но я не могу получить ваш заказ на одну из тех 'перевертышей вуали', о которых вы просили. По правде говоря, я не представляю, что вы планировали с ней делать, но дела духовенства не мои. Однако Восток поспешил отменить ваш заказ после того, как мы потеряли последний заказ.<br><br>Ребята еще не оправились от головной боли с прошлого раза, а Хома жалуется, что он видит синие огни всякий раз, когда закрывает глаза.<br><br>Я не из тех, кто задает вопросы человеку Божию, но умоляю вас, пожалуйста, не пытайтесь больше заказывать эти артефакты. Они прокляты, и за ними, кажется, следуют всевозможные демоны.<br><br>- <small><i>Андрей Восточович</i></small>, заведующий по обеспечению";
-	name = "простите, отец";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "простите, отец"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3333,8 +3292,8 @@
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/closet/secure_closet{
-	req_access = list(131);
-	name = "Reagents locker"
+	name = "Reagents locker";
+	req_access = list(131)
 	},
 /obj/item/reagent_containers/glass/bottle/sugar{
 	pixel_x = -3;
@@ -3435,10 +3394,10 @@
 	req_access = list(131)
 	},
 /obj/item/paper/djstation{
-	info = "<br>Вахвахва! Нытик, ты настоящий яйцеголовый! Да насрать мне на твоих котов или на 'новуку', если ты напишешь начальству, я расскажу этой суке Катерине о том, что слютяй в неё втухался.<br><br>Кроме того, нахера ты пишешь на бумаге? Я в соседнем крыле, мудила. Я понял, что это писанина от огузка, как только увидел бумагу. Ты пишешь девчачье письмецо, как будто я твой любовник, может быть, если бы ты проводил меньше времени в углу с кошкой, ты стал бы настоящим мужиком? Хотя ты все равно выглядел бы как верблюжье дерьмо прилипшее к сапогу Тотского!";
-	name = "дорогой слюнтяй";
 	desc = "Примитивное изображение плачущего яйца, на которое наступил сапог, нацарапано на правом поле листа";
-	language = "Neo-Russkiya"
+	info = "<br>Вахвахва! Нытик, ты настоящий яйцеголовый! Да насрать мне на твоих котов или на 'новуку', если ты напишешь начальству, я расскажу этой суке Катерине о том, что слютяй в неё втухался.<br><br>Кроме того, нахера ты пишешь на бумаге? Я в соседнем крыле, мудила. Я понял, что это писанина от огузка, как только увидел бумагу. Ты пишешь девчачье письмецо, как будто я твой любовник, может быть, если бы ты проводил меньше времени в углу с кошкой, ты стал бы настоящим мужиком? Хотя ты все равно выглядел бы как верблюжье дерьмо прилипшее к сапогу Тотского!";
+	language = "Neo-Russkiya";
+	name = "дорогой слюнтяй"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3638,9 +3597,9 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -4367,9 +4326,9 @@
 /obj/structure/table/wood/fancy,
 /obj/item/paper/djstation{
 	info = "Я переживаю за Тотского. Его уже пятый раз за эту неделю отправляют в вытрезвитель, и сколько бы я ни приходил к нему, он может найти Бога только на дне стакана Тунгуски.<br><brВсе это пьянство... я ненавижу плохо думать о СССП, но, не уделять этому никакого внимания? Не уподобляемся ли мы мерзкому ТСФ? Многие даже забыли свое истинную культуру в пользу \"общегалактической\". Такая снисходительность, такое пренебрежение, это не идет на пользу нашему духу, не говоря уже о душе.";
+	language = "Neo-Russkiya";
 	layer = 2;
-	name = "исповедь";
-	language = "Neo-Russkiya"
+	name = "исповедь"
 	},
 /obj/item/storage/bible{
 	deity_name = "Communism";
@@ -4751,8 +4710,8 @@
 "lA" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4762,8 +4721,8 @@
 "lB" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4800,9 +4759,9 @@
 /area/derelict/common)
 "lF" = (
 /obj/machinery/door/airlock/public/glass{
+	locked = 1;
 	name = "Mess Hall";
-	req_access = list(128,129,130,131);
-	locked = 1
+	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4873,9 +4832,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 9;
@@ -4899,6 +4858,7 @@
 /area/derelict/garden)
 "lQ" = (
 /obj/structure/closet/crate/hydroponics,
+/obj/item/seeds/wheat/meat,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
@@ -5181,8 +5141,8 @@
 "mH" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5200,8 +5160,8 @@
 	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5287,12 +5247,7 @@
 	},
 /area/derelict/med)
 "mV" = (
-/obj/machinery/computer/crew{
-	dir = 4;
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "med_oldframe";
-	icon_state = "frame-med"
-	},
+/obj/machinery/computer/crew/old_frame,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -5418,9 +5373,7 @@
 	},
 /area/derelict/med)
 "nl" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nm" = (
 /obj/structure/chair/stool,
@@ -5431,6 +5384,7 @@
 "nn" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/grille/broken,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "no" = (
@@ -5498,9 +5452,7 @@
 	},
 /area/derelict/common)
 "nw" = (
-/obj/machinery/smartfridge{
-	icon_state = "smartfridge-broken"
-	},
+/obj/machinery/smartfridge/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -5576,12 +5528,10 @@
 	},
 /area/derelict/med)
 "nG" = (
+/obj/structure/flora/rock,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
+/turf/simulated/floor/plating/airless,
+/area/derelict/garden)
 "nH" = (
 /obj/structure/cable{
 	icon_state = "1-4";
@@ -5595,25 +5545,19 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nJ" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nK" = (
 /obj/item/stack/ore/slag,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "nL" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -5718,28 +5662,17 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
-"oa" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "ob" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oc" = (
 /turf/space,
 /area/derelict/med)
 "od" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -5850,8 +5783,8 @@
 "ot" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5963,15 +5896,11 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oF" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oG" = (
 /obj/effect/decal/cleanable/dust,
@@ -6005,8 +5934,8 @@
 "oM" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -6037,7 +5966,7 @@
 /area/derelict/dining)
 "oP" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck/black,
+/obj/item/deck/cards/black,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6052,9 +5981,7 @@
 "oS" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oT" = (
 /obj/structure/rack,
@@ -6361,9 +6288,7 @@
 "pH" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/hemostat,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "pI" = (
 /obj/machinery/light/spot{
@@ -6554,9 +6479,7 @@
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qg" = (
 /obj/structure/closet/body_bag,
@@ -6638,9 +6561,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qs" = (
 /obj/structure/sign/nosmoking_2,
@@ -6649,12 +6570,6 @@
 "qt" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "red"
-	},
-/area/derelict/arrival)
-"qu" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "red"
 	},
 /area/derelict/arrival)
@@ -6681,9 +6596,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/shuttle{
+	locked = 1;
 	name = "Central Annex";
-	req_access = list(128,129,130,131);
-	locked = 1
+	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -6717,9 +6632,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "qC" = (
 /obj/structure/cable{
@@ -6735,8 +6648,8 @@
 	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -6808,8 +6721,8 @@
 "qL" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -7400,7 +7313,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_inner_1";
 	locked = 1;
 	name = "External Access"
@@ -7444,7 +7356,6 @@
 "sf" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_outer_1";
 	locked = 1;
 	name = "External Access"
@@ -7544,9 +7455,7 @@
 /area/derelict/arrival)
 "sK" = (
 /obj/item/stack/rods,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "sL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7589,9 +7498,7 @@
 /area/derelict/arrival)
 "ti" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "tk" = (
 /turf/simulated/wall/mineral/titanium,
@@ -7626,9 +7533,7 @@
 	},
 /area/derelict/security)
 "tI" = (
-/obj/machinery/computer/shuttle/ruins_transport_shuttle{
-	icon = 'icons/obj/machines/computer3.dmi'
-	},
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -7702,11 +7607,6 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/space,
 /area/template_noop)
-"uB" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
 "uK" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7900,9 +7800,7 @@
 /obj/structure/shuttle/engine/large{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "xs" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -8077,8 +7975,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -8131,11 +8029,11 @@
 "zW" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 8;
-	height = 20;
+	dwidth = 10;
+	height = 30;
 	id = "freegolem_ussp";
 	name = "Near USSP Station";
-	width = 16
+	width = 20
 	},
 /turf/space,
 /area/template_noop)
@@ -8146,12 +8044,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/derelict/arrival)
-"Af" = (
-/obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/ruin/unpowered/no_grav)
 "Ah" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider{
@@ -8337,9 +8229,7 @@
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "Ch" = (
 /obj/structure/lattice,
@@ -8481,11 +8371,11 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "rus_airlock_2";
 	pixel_x = 25;
+	req_access = list(130);
 	tag_airpump = "rus_pump_2";
 	tag_chamber_sensor = "rus_sensor_2";
 	tag_exterior_door = "rus_outer_2";
-	tag_interior_door = "rus_inner_2";
-	req_access = list(130)
+	tag_interior_door = "rus_inner_2"
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "rus_sensor_2";
@@ -8513,8 +8403,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8661,8 +8551,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -8738,12 +8628,6 @@
 	},
 /turf/space,
 /area/template_noop)
-"Fh" = (
-/obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
-/area/derelict/med)
 "Fi" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -8777,8 +8661,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -8850,7 +8734,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_inner_2";
 	locked = 1;
 	name = "External Access"
@@ -9005,7 +8888,6 @@
 "Io" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_outer_2";
 	locked = 1;
 	name = "External Access"
@@ -9112,8 +8994,8 @@
 /area/derelict/church)
 "Jf" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/derelict/arrival)
 "Jl" = (
@@ -9132,9 +9014,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
-	start_charge = 0;
 	pixel_x = 32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -9400,8 +9282,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -9606,8 +9488,8 @@
 	},
 /mob/living/simple_animal/hostile/feral_cat{
 	faction = list("cat","carp");
-	name = "Experiment 432-A";
-	health = 35
+	health = 35;
+	name = "Experiment 432-A"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9624,9 +9506,9 @@
 "Pq" = (
 /obj/structure/table/wood,
 /obj/item/decorations/flag/soviet{
-	pixel_y = 10;
+	layer = 3.1;
 	pixel_x = -5;
-	layer = 3.1
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -9759,9 +9641,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "QW" = (
 /obj/effect/decal/cleanable/blood,
@@ -9804,9 +9684,7 @@
 "Ry" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "RH" = (
 /obj/structure/chair/stool,
@@ -9914,8 +9792,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -10032,9 +9910,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
-	start_charge = 0;
 	pixel_x = 32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10048,9 +9926,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -10182,9 +10060,7 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "VO" = (
 /obj/effect/decal/remains/human,
@@ -10266,10 +10142,7 @@
 	network = list("USSP")
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/arcade/orion_trail{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_state = "oldcomp";
-	icon_screen = "stock_computer";
+/obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10373,10 +10246,8 @@
 /area/derelict/crew_quarters)
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/security{
-	icon = 'icons/obj/machines/computer3.dmi';
-	icon_screen = "sec_oldframe";
-	icon_state = "frame-sec";
+/obj/machinery/computer/security/old_frame{
+	name = "USSP security camera console";
 	network = list("USSP")
 	},
 /turf/simulated/floor/plasteel{
@@ -15671,7 +15542,7 @@ mI
 mS
 nk
 mU
-nG
+pp
 mS
 mS
 oF
@@ -15795,7 +15666,7 @@ mT
 mT
 nH
 mU
-nG
+pp
 oH
 oI
 oc
@@ -16038,7 +15909,7 @@ mV
 nm
 mS
 nJ
-oa
+pp
 oc
 oJ
 oI
@@ -16533,11 +16404,11 @@ oc
 oc
 oc
 oI
-oa
+pp
 nl
 pR
 oc
-Fh
+po
 qp
 ac
 ac
@@ -16776,9 +16647,9 @@ oc
 oc
 pq
 oc
-Fh
+po
 nl
-oa
+pp
 rY
 nl
 nl
@@ -17528,7 +17399,7 @@ ac
 ac
 ac
 ac
-uB
+lH
 xo
 ac
 ac
@@ -17650,13 +17521,13 @@ ac
 ac
 ac
 sh
-uB
-uB
+lH
+lH
 VG
 VG
-Af
-uB
-uB
+CA
+lH
+lH
 sp
 ac
 ac
@@ -17777,8 +17648,8 @@ QO
 QO
 sK
 Cg
-Af
-Af
+CA
+CA
 ac
 ac
 ac
@@ -18108,7 +17979,7 @@ ac
 ag
 mC
 Ox
-mW
+nG
 JB
 KO
 nM
@@ -18862,7 +18733,7 @@ qR
 ri
 rr
 ry
-qu
+Jf
 rP
 sb
 sc
@@ -18984,7 +18855,7 @@ GU
 rj
 rs
 rz
-qu
+Jf
 Ps
 bn
 bn
@@ -19106,7 +18977,7 @@ qS
 ri
 rt
 rA
-qu
+Jf
 rR
 sb
 sd
@@ -22243,7 +22114,7 @@ go
 go
 gV
 hn
-hG
+SK
 JC
 hU
 Wq

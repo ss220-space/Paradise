@@ -37,7 +37,7 @@
 		return
 	if(!isabductor(user))
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
-		if(do_after(user, 100, target = src))
+		if(do_after(user, 10 SECONDS, src))
 			TeleporterSend()
 		return
 	user.set_machine(src)
@@ -83,7 +83,7 @@
 
 		dat+="<br>"
 		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
-		dat += "<a href='?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
+		dat += "<a href='?src=[UID()];toggle_vest=1'>[HAS_TRAIT_FROM(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)

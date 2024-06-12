@@ -8,20 +8,35 @@
 	var/end_month = 0
 	var/eventChance = 0
 
-// This proc gets run before the game starts when the holiday is activated. Do festive shit here.
+/**
+ * NOTE FOR EVERYONE TRYING TO DO STUFF WHICH REQUIRES MAPPING, PLACING OBJECTS, ETC:
+ * Holiday subsystem is loaded before mapping subsystem init, which means you can't place stuff before roundstart.
+ * BUT:
+ * /proc/handle_event() is invoked after master controller completed it's initialization,
+ *  so that means you can manupulate objects and stuff in the world
+ *
+ * /proc/celebrate() is invoked before mapping subsystem init, so that means you can turn some flags, make
+ * initializations of objects depending on which holiday we do celebrate and etc.
+ * As an example, see /datum/holiday/new_year and /obj/effect/spawner/window/reinforced/Initialize
+ */
+
+/**
+ * This proc gets run before the game starts when the holiday is activated.
+ * Important note: it runs before mapping subsystem init, do not place/alter objects in world using this proc.
+ */
 /datum/holiday/proc/celebrate()
 
-// When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
+/// When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
 /datum/holiday/proc/greet()
 	return "Have a happy [name]!"
 
-// Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
+/// Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
 /datum/holiday/proc/getStationPrefix()
 	//get the first word of the Holiday and use that
 	var/i = findtext(name," ",1,0)
 	return copytext(name,1,i)
 
-// Return 1 if this holidy should be celebrated today
+/// Return 1 if this holiday should be celebrated today
 /datum/holiday/proc/shouldCelebrate(dd, mm, yy)
 	if(!end_day)
 		end_day = begin_day
@@ -31,38 +46,48 @@
 	if(end_month > begin_month) //holiday spans multiple months in one year
 		if(mm == end_month) //in final month
 			if(dd <= end_day)
-				return 1
+				return TRUE
 
 		else if(mm == begin_month)//in first month
 			if(dd >= begin_day)
-				return 1
+				return TRUE
 
 		else if(mm in begin_month to end_month) //holiday spans 3+ months and we're in the middle, day doesn't matter at all
-			return 1
+			return TRUE
 
 	else if(end_month == begin_month) // starts and stops in same month, simplest case
 		if(mm == begin_month && (dd in begin_day to end_day))
-			return 1
+			return TRUE
 
 	else // starts in one year, ends in the next
 		if(mm >= begin_month && dd >= begin_day) // Holiday ends next year
-			return 1
+			return TRUE
 		if(mm <= end_month && dd <= end_day) // Holiday started last year
-			return 1
+			return TRUE
 
-	return 0
+	return FALSE
 
+/**
+ * Used for special holiday events. Called only after Master Controller has been loaded. (a.k.a initializations complete.)
+ * Use this proc to manipulate objects and systems after MC load or mapload.
+ */
 /datum/holiday/proc/handle_event() //used for special holiday events
 	return
 
 // The actual holidays
 
+GLOBAL_VAR_INIT(new_year_celebration, FALSE)
+
 /datum/holiday/new_year
 	name = NEW_YEAR
 	begin_day = 30 // 1 day early
 	begin_month = DECEMBER
-	end_day = 5 //4 days extra
+	end_day = 10 //9 days extra
 	end_month = JANUARY
+
+/datum/holiday/new_year/celebrate()
+	. = ..()
+	GLOB.new_year_celebration = TRUE
 
 /datum/holiday/groundhog
 	name = "Groundhog Day"

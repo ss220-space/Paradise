@@ -820,7 +820,7 @@
 /area/ruin/unpowered)
 "Ug" = (
 /obj/structure/table/wood,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,

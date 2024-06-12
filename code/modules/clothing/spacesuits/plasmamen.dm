@@ -8,10 +8,13 @@
 	flash_protect = 2
 	tint = 2
 	HUDType = 0
-	var/list/examine_extensions = null
+	var/examine_extensions = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
-	var/brightness_on = 4 //luminosity when the light is on
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	var/on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
@@ -23,28 +26,30 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
-	species_restricted = list("Plasmaman")
-	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	species_restricted = list(SPECIES_PLASMAMAN)
+	sprite_sheets = list(SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	var/upgradable = FALSE
 
-/obj/item/clothing/head/helmet/space/plasmaman/New()
-	..()
+
+/obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
+	. = ..()
 	visor_toggling()
 	update_icon()
-	cut_overlays()
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(!user.incapacitated() && Adjacent(user))
+	if(!user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
 		toggle_welding_screen(user)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
 	up = !up
-	flags ^= visor_flags
+	clothing_flags ^= visor_clothing_flags
 	flags_inv ^= visor_flags_inv
-	icon_state = "[initial(icon_state)]"
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
-		tint ^= initial(tint)
+		tint = up ? tint_up : initial(tint)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
@@ -52,59 +57,70 @@
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			on = FALSE
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
+			actions_types = list(/datum/action/item_action/toggle_helmet_light)
 		else
 			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/clothing/head/helmet/space/plasmaman/update_icon()
-	cut_overlays()
-	add_overlay(visor_icon)
-	..()
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
+	if(!upgradable)
+		icon_state = "[initial(icon_state)][on ? "-light":""]"
+		item_state = icon_state
+		return
+
+	switch(armor.getRating(MELEE))
+		if(30)
+			icon_state = "[initial(icon_state)][on ? "-light":""]"
+			item_state = icon_state
+		if(40,50)
+			icon_state = "[initial(icon_state)]_reinf[on ? "-light":""]"
+			item_state = icon_state
+		if(60)
+			icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
+			item_state = icon_state
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/living/carbon/human/user)
 	toggle_light(user)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "[initial(icon_state)][on ? "-light":""]"
-	item_state = icon_state
-
-	var/mob/living/carbon/human/H = user
-	if(istype(H))
-		H.update_inv_head()
+	update_icon(UPDATE_ICON_STATE)
 
 	if(on)
 		if(!up)
-			if(istype(H))
-				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			set_light(0)
+			if(user)
+				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
+			set_light_on(FALSE)
 		else
-			set_light(brightness_on)
+			set_light_on(TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.UpdateButtonIcon()
+	update_equipped_item(update_speedmods = FALSE)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
 
+
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-
-	if(HUDType && slot == slot_head)
+	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, silent = FALSE)
-	..()
-	if(HUDType && istype(user) && user.head == src)
+
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
@@ -113,7 +129,7 @@
 	item_state = "security_envirohelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec
 	name = "detective plasma envirosuit helmet"
@@ -122,7 +138,7 @@
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	scan_reagents = 1
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
@@ -142,7 +158,7 @@
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit helmet"
@@ -152,7 +168,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 	scan_reagents = 1
 
 /obj/item/clothing/head/helmet/space/plasmaman/genetics
@@ -268,6 +284,7 @@
 	vision_flags = SEE_TURFS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	upgradable = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"
@@ -289,7 +306,7 @@
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt_rep
 	name = "nanotrasen representative envirosuit helmet"
@@ -297,7 +314,7 @@
 	icon_state = "ntrep_envirohelm"
 	item_state = "ntrep_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/chef
 	name = "chef plasma envirosuit helmet"
@@ -318,9 +335,9 @@
 	desc = "A green and blue envirohelmet designating its wearer as a botanist. While not specially designed for it, it would protect against minor plant-related injuries."
 	icon_state = "botany_envirohelm"
 	item_state = "botany_envirohelm"
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	HUDType = DATA_HUD_HYDROPONIC
-	examine_extensions = list(DATA_HUD_HYDROPONIC)
+	examine_extensions = EXAMINE_HUD_BOTANY
 
 /obj/item/clothing/head/helmet/space/plasmaman/janitor
 	name = "janitor's plasma envirosuit helmet"
@@ -349,7 +366,7 @@
 	item_state = "hop_envirohelm"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
 	name = "captain envirosuit helmet"
@@ -358,7 +375,7 @@
 	item_state = "cap_envirohelm"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
 	name = "blueshield envirosuit helmet"
@@ -367,7 +384,7 @@
 	item_state = "bs_envirohelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard
 	name = "wizard plasma envirosuit helmet"
@@ -395,4 +412,4 @@
 	icon_state = "centcomm_envirohelm"
 	item_state = "centcomm_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
-	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	examine_extensions = EXAMINE_HUD_SKILLS

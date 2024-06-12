@@ -26,12 +26,14 @@
 	add_say_logs(user, input, language = "TTS")
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!Adjacent(user))
-		return
 	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
+	if(!noisechoice || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	switch(noisechoice)
 		if("Beep")
 			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")
@@ -44,10 +46,11 @@
 			playsound(user, 'sound/machines/ping.ogg', 50, 1, -1)
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
-	if(!src.Adjacent(user))
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/new_name = input(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")  as text|null
-	if(new_name)
-		new_name = reject_bad_name(new_name)
-		name = "[new_name]'s [initial(name)]"
+	if(!new_name || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	new_name = reject_bad_name(new_name)
+	name = "[new_name]'s [initial(name)]"
 	change_voice(user)

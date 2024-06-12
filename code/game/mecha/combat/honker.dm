@@ -10,10 +10,10 @@
 	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_temperature = 25000
 	infra_luminosity = 5
-	maint_access = 1
+	maint_access = TRUE
 	operation_req_access = list(ACCESS_CLOWN)
 	wreckage = /obj/structure/mecha_wreckage/honker
-	add_req_access = 0
+	add_req_access = FALSE
 	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0

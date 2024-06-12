@@ -1,5 +1,8 @@
+#define COUNT_PLASMA_QUESTS 3
+
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
+	gamemode_blacklist = list("extended")
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
@@ -7,7 +10,7 @@
 	<br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
+	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and enjoy your reward.
 	<br><br>
 	-Nanotrasen Naval Command"}
 
@@ -26,13 +29,25 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+	if(length(SScargo_quests.plasma_quests) > COUNT_PLASMA_QUESTS)
+		return
+
+	for(var/I = 1 to COUNT_PLASMA_QUESTS)
+		SScargo_quests.create_new_quest(pick(SScargo_quests.plasma_departaments))
+
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/structure/toilet/golden_toilet/bfl_goal/B)
-		if(B && is_station_contact(B.z))
-			return TRUE
+	var/datum/supply_packs/misc/station_goal/bfl_goal/goal_pack = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
+	if(goal_pack.times_ordered >= 1)
+		return TRUE
 	return FALSE
+
+/datum/station_goal/bfl/Destroy()
+	. = ..()
+	if(locate(/datum/station_goal/bfl) in SSticker.mode.station_goals)
+		return
+	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
 ////////////
 //Building//
@@ -76,6 +91,7 @@
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/obj/machinery/bfl_receiver/receiver = FALSE
+	var/list/obj/effect/bfl_laser/turf_lasers = list()
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
@@ -139,7 +155,7 @@
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
 			if(mob_turf?.z == lavaland_z_lvl)
-				to_chat(M, "<span class='boldwarning'>You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky.</span>")
+				to_chat(M, span_boldwarning("You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky."))
 		laser.move = rand_location.x
 		if(receiver)
 			receiver.mining = FALSE
@@ -154,17 +170,27 @@
 			receiver.mining = TRUE
 		return TRUE
 
+
 /obj/machinery/power/bfl_emitter/proc/emitter_activate()
 	state = TRUE
-	icon_state = "Emitter_On"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/location = get_step(src, NORTH)
-	location.ex_act(1)
+	location.ChangeTurf(location.baseturf)
 	working_sound()
+	var/turf/below = GET_TURF_BELOW(location)
+	while(below)
+		var/obj/effect/bfl_laser/turf_laser = new(below)
+		turf_lasers += turf_laser
+		below = GET_TURF_BELOW(below) // dig deeper and try another laser
+
+	if(QDELETED(receiver))
+		receiver = null
 
 	if(!receiver)
-		for(var/turf/T as anything in block(locate(1, 1, lavaland_z_lvl), locate(world.maxx, world.maxy, lavaland_z_lvl)))
-			receiver = locate() in T
-			if(receiver)
+		for(var/obj/machinery/bfl_receiver/bfl_receiver in GLOB.machines)
+			var/turf/receiver_turf = get_turf(bfl_receiver)
+			if(receiver_turf.z == lavaland_z_lvl)
+				receiver = bfl_receiver
 				break
 
 	receiver_test()
@@ -172,7 +198,7 @@
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	state = FALSE
-	icon_state = "Emitter_Off"
+	update_icon(UPDATE_ICON_STATE)
 	if(receiver)
 		receiver.mining = FALSE
 		if(receiver.lens?.state)
@@ -182,11 +208,20 @@
 		qdel(laser)
 		laser = null
 
+	for(var/obj/effect/bfl_laser/turf_laser in turf_lasers)
+		turf_laser.remove_self()
+
 /obj/machinery/power/bfl_emitter/proc/working_sound()
 	set waitfor = FALSE
 	while(state)
 		playsound(src, 'sound/BFL/emitter.ogg', 100, TRUE)
 		sleep(25)
+
+
+/obj/machinery/power/bfl_emitter/update_icon_state()
+	icon_state = "Emitter_[state ? "On" : "Off"]"
+
+
 
 //code stolen from bluespace_tap, including comment below. He was right about the new datum
 //code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
@@ -226,6 +261,7 @@
 
 /obj/item/storage/bag/ore/bfl_storage
 	storage_slots = 20
+
 /obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, location)
@@ -241,16 +277,20 @@
 
 	var/state = FALSE
 	var/mining = FALSE
+	///Receiver's internal storage for ore
 	var/obj/item/storage/bag/ore/bfl_storage/internal
 	var/internal_type = /obj/item/storage/bag/ore/bfl_storage
 	var/obj/machinery/bfl_lens/lens = null
 	var/ore_type = FALSE
 	var/last_user_ckey
+	///An "overlay"-like light for receiver to indicate storage filling
 	var/atom/movable/bfl_receiver_light/receiver_light = null
+	///Used to define bits of ore mined, instead of stacks.
 	var/ore_count = 0
-	var/last_icon_change = 0
+	///Used for storing last icon update for receiver lights on borders of receiver
+	var/last_light_state_number = 0
 
-/obj/machinery/bfl_receiver/attack_hand(mob/user as mob)
+/obj/machinery/bfl_receiver/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	var/response
@@ -276,7 +316,7 @@
 			var/turf/location = get_turf(src)
 			internal.empty_storage(location)
 			ore_count = 0
-			icon_change()
+			update_state()
 
 
 /obj/machinery/bfl_receiver/crowbar_act(mob/user, obj/item/I)
@@ -288,27 +328,30 @@
 	else
 		receiver_activate()
 
-/obj/machinery/bfl_receiver/proc/icon_change()
-	if(last_icon_change == internal.contents.len)
+///This proc handles light updating on borders of BFL receiver.
+/obj/machinery/bfl_receiver/proc/update_state()
+	var/light_state = clamp(length(internal.contents), 0, 20)
+	if(last_light_state_number == light_state)
 		return
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
-	last_icon_change = internal.contents.len
+	receiver_light.light_amount = light_state
+	last_light_state_number = light_state
+	receiver_light.update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/bfl_receiver/process()
-	receiver_light.icon_state = "Receiver_Light_[internal.contents.len]"
-	if (!(mining && state))
+	if(!(mining && state))
 		return
-	if (ore_count >= internal.storage_slots * 50)
+	if(ore_count >= internal.storage_slots * 50)
 		return
 	switch(ore_type)
 		if(PLASMA)
-			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, 1)
-			ore_count++
-			icon_change()
+			internal.handle_item_insertion(new /obj/item/stack/ore/plasma, TRUE)
+			ore_count += 1
 		if(SAND)
-			internal.handle_item_insertion(new /obj/item/stack/ore/glass, 1)
-			ore_count++
-			icon_change()
+			internal.handle_item_insertion(new /obj/item/stack/ore/glass, TRUE)
+			ore_count += 1
+
+	update_state()
 
 /obj/machinery/bfl_receiver/Initialize()
 	. = ..()
@@ -328,13 +371,17 @@
 		ore_type = NOTHING
 
 /obj/machinery/bfl_receiver/Destroy()
-	overlays.Cut()
 	qdel(receiver_light)
 	return ..()
 
+
+/obj/machinery/bfl_receiver/update_icon_state()
+	icon_state = "Receiver_[state ? "On" : "Off"]"
+
+
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
-	icon_state = "Receiver_On"
+	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)
 	T.ChangeTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
 
@@ -342,19 +389,14 @@
 	var/turf/turf_under = get_step(src, SOUTH)
 	var/turf/T = get_turf(src)
 	state = FALSE
-	icon_state = "Receiver_Off"
+	update_icon(UPDATE_ICON_STATE)
 	T.ChangeTurf(turf_under.type)
 
 /obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(istype(AM, /obj/machinery/bfl_lens))
-		lens = AM
-		lens.step_count = 0
-
-/obj/machinery/bfl_receiver/Uncrossed(atom/movable/AM)
-	. = ..()
-	if(AM == lens)
-		lens = null
+		var/obj/machinery/bfl_lens/bfl_lens = AM
+		bfl_lens.step_count = 0
 
 #undef PLASMA
 #undef SAND
@@ -365,11 +407,21 @@
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
+	flags = INDESTRUCTIBLE
+	anchored = TRUE
+	var/light_amount = 0
+
 
 /atom/movable/bfl_receiver_light/Initialize(mapload)
 	. = ..()
 	pixel_x = -32
 	pixel_y = -32
+
+
+/atom/movable/bfl_receiver_light/update_icon_state()
+	icon_state = "Receiver_Light_[light_amount]"
+
+
 ////////
 //Lens//
 ////////
@@ -380,12 +432,12 @@
 	icon_state = "Lens_Pull"
 	max_integrity = 40
 	layer = ABOVE_MOB_LAYER
-	density = 1
+	density = TRUE
 
 	var/step_count = 0
 	var/state = FALSE
 
-/obj/machinery/bfl_lens/update_icon()
+/obj/machinery/bfl_lens/update_icon_state()
 	if(state)
 		icon_state = "Lens_On"
 	else if(anchored)
@@ -393,18 +445,25 @@
 	else
 		icon_state = "Lens_Pull"
 
+
+/obj/machinery/bfl_lens/update_overlays()
+	. = ..()
+	if(state)
+		. += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
+
+
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
 	update_icon()
-	overlays += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
-	set_light(8)
+	set_light(8, l_on = TRUE)
 	working_sound()
 
+
 /obj/machinery/bfl_lens/proc/deactivate_lens()
-	overlays.Cut()
 	state = FALSE
 	update_icon()
-	set_light(0)
+	set_light_on(FALSE)
+
 
 /obj/machinery/bfl_lens/proc/working_sound()
 	set waitfor = FALSE
@@ -412,11 +471,16 @@
 		playsound(src, 'sound/BFL/receiver.ogg', 100, TRUE)
 		sleep(25)
 
+
 /obj/machinery/bfl_lens/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	default_unfasten_wrench(user, I, time = 140)
+	if(default_unfasten_wrench(user, I, time = 140))
+		var/obj/machinery/bfl_receiver/receiver = locate() in get_turf(src)
+		if(receiver)
+			receiver.lens = anchored ? src : null
+
 	update_icon()
 
 /obj/machinery/bfl_lens/Initialize()
@@ -424,10 +488,10 @@
 	pixel_x = -32
 	pixel_y = -32
 
+
 /obj/machinery/bfl_lens/Destroy()
 	visible_message("Lens shatters in a million pieces")
 	playsound(src, "shatter", 70, 1)
-	overlays.Cut()
 	return ..()
 
 
@@ -465,8 +529,6 @@
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
 
-/obj/structure/toilet/golden_toilet/bfl_goal
-	name = "\[NT REDACTED\]"
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Giant laser, which is supposed for mining"
@@ -504,3 +566,69 @@
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)
+
+/obj/effect/bfl_laser
+	name = "big laser beam"
+	desc = "A huge shining laser beam, goes through above hitting down. You wouldn't like to touch it."
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
+	icon_state = "laser"
+
+/obj/effect/bfl_laser/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/effect/bfl_laser/proc/remove_self()
+	STOP_PROCESSING(SSprocessing, src)
+	qdel(src)
+
+/obj/effect/bfl_laser/Entered(atom/movable/AM)
+	burn_stuff(AM)
+
+/obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	burn_stuff(AM)
+
+/obj/effect/bfl_laser/process()
+	burn_stuff()
+
+/obj/effect/bfl_laser/proc/burn_stuff(atom/movable/AM)
+	. = FALSE
+	var/turf/T = get_turf(src)
+	if(!isopenspaceturf(T) && !isspaceturf(T)) //we're not open. REOPEN
+		T.ChangeTurf(T.baseturf)
+
+	var/thing_to_check = get_turf(src)
+	if(AM)
+		thing_to_check = list(AM)
+	for(var/thing in thing_to_check)
+		if(thing == src)
+			continue
+		if(isobj(thing))
+			var/obj/O = thing
+			if(!O.simulated)
+				continue
+			if((O.resistance_flags & (FIRE_PROOF)) && !(O.resistance_flags & FLAMMABLE) || O.throwing)
+				continue
+			. = TRUE
+			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor = O.armor.setRating(fire_value = 50)
+			O.fire_act(null, 2000, 1000)
+
+		else if(isliving(thing))
+			. = TRUE
+			var/mob/living/L = thing
+			var/buckle_check = L.buckling
+			if(!buckle_check)
+				buckle_check = L.buckled
+			if(isobj(buckle_check))
+				var/obj/O = buckle_check
+				if(O.resistance_flags & FIRE_PROOF)
+					continue
+			L.adjustFireLoss(10)
+			if(L) //mobs turning into object corpses could get deleted here.
+				L.adjust_fire_stacks(10)
+				L.IgniteMob()
+	if(.)
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
+
+/obj/effect/bfl_laser/ex_act(severity)
+	return

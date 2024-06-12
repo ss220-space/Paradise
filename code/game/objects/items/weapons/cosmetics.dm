@@ -58,17 +58,23 @@
 	colour = pick(lipstick_colors)
 	name = "[colour] lipstick"
 
+
+/obj/item/lipstick/update_icon_state()
+	. = ..()
+	icon_state = "lipstick[open ? "_uncap" : ""]"
+
+
+/obj/item/lipstick/update_overlays()
+	. = ..()
+	if(open)
+		. += mutable_appearance(icon, icon_state = "lipstick_uncap_color", color = lipstick_colors[colour])
+
+
 /obj/item/lipstick/attack_self(mob/user)
-	cut_overlays()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
-	if(open)
-		var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
-		colored.color = lipstick_colors[colour]
-		icon_state = "lipstick_uncap"
-		add_overlay(colored)
-	else
-		icon_state = "lipstick"
+	update_icon()
+
 
 /obj/item/lipstick/attack(mob/M, mob/user)
 	if(!open || !istype(M))
@@ -88,7 +94,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
 								 "<span class='notice'>You begin to apply \the [src].</span>")
-			if(do_after(user, 20, target = H))
+			if(do_after(user, 2 SECONDS, H))
 				user.visible_message("<span class='notice'>[user] does [H]'s lips with \the [src].</span>", \
 									 "<span class='notice'>You apply \the [src].</span>")
 				H.lip_style = "lipstick"
@@ -125,7 +131,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='notice'>[user] starts to shave [user.p_their()] facial hair with [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
-				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
+				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] facial hair clean with [src].</span>", \
 					"<span class='notice'>You finish shaving with [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
@@ -136,7 +142,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s facial hair with \the [src].</span>", \
 				"<span class='warning'>You start shaving [H]'s facial hair.</span>")
-				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
+				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
 						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
@@ -159,7 +165,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
-				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
+				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] head with [src].</span>", \
 					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
@@ -170,7 +176,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s head with \the [src]!</span>", \
 				"<span class='warning'>You start shaving [H]'s head.</span>")
-				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
+				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves [H]'s head bald with \the [src]!</span>", \
 						"<span class='warning'>You shave [H]'s head bald.</span>")

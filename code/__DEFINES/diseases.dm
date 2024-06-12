@@ -13,8 +13,8 @@
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
 //Spread Flags
-#define NON_CONTAGIOUS 0	//virus can't spread
-#define BITES 1	 			//virus can spread with bites
-#define BLOOD 2		 		//virus can spread with infected blood
-#define CONTACT 4	 		//virus can spread with any touch
-#define AIRBORNE 8	 		//virus spreads through the air
+#define NON_CONTAGIOUS	(1<<0)	//virus can't spread
+#define BITES 			(1<<1)	//virus can spread with bites
+#define BLOOD 			(1<<2)	//virus can spread with infected blood
+#define CONTACT 		(1<<3)	//virus can spread with any touch
+#define AIRBORNE 		(1<<4)	//virus spreads through the air

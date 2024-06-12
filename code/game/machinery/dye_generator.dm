@@ -1,45 +1,68 @@
 /obj/machinery/dye_generator
 	name = "Dye Generator"
 	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "barbervend"
-	density = 1
-	anchored = 1
+	icon_state = "barbervend_off"
+	base_icon_state = "barbervend"
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
-	var/dye_color = "#FFFFFF"
+	light_range = 2
 
-/obj/machinery/dye_generator/Initialize()
-	..()
-	power_change()
 
-/obj/machinery/dye_generator/power_change()
+/obj/machinery/dye_generator/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/dye_generator/update_overlays()
+	. = ..()
+
+	underlays.Cut()
+
+	if(panel_open)
+		. += "[base_icon_state]_panel"
+
+	if(stat & NOPOWER)
+		if(stat & BROKEN)
+			. += "[base_icon_state]_broken"
+		return
+
 	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
-		set_light(0)
+		. += "[base_icon_state]_broken"
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
-		if(powered())
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-			set_light(2, l_color = dye_color)
-		else
-			spawn(rand(0, 15))
-				src.icon_state = "[initial(icon_state)]-off"
-				stat |= NOPOWER
-				set_light(0)
+		. += "[base_icon_state]"
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
+
+
+/obj/machinery/dye_generator/obj_break(damage_flag)
+	..()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/dye_generator/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		set_light_on(!(stat & NOPOWER))
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/dye_generator/extinguish_light(force = FALSE)
-	set_light(0)
-	underlays.Cut()
+	if(light_on)
+		set_light_on(FALSE)
+		underlays.Cut()
 
 
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
-	dye_color = temp
-	set_light(2, l_color = temp)
+	var/temp = input(usr, "Choose a dye color", "Dye Color") as color|null
+	if(!temp)
+		return
+	set_light_color(temp)
+
 
 /obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
 
@@ -51,13 +74,13 @@
 		add_fingerprint(user)
 		var/obj/item/hair_dye_bottle/HD = I
 		user.visible_message(span_notice("[user] fills the [HD] up with some dye."),span_notice("You fill the [HD] up with some hair dye."))
-		HD.dye_color = dye_color
-		HD.update_dye_overlay()
+		HD.dye_color = light_color
+		HD.update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
-//Hair Dye Bottle
 
+//Hair Dye Bottle
 /obj/item/hair_dye_bottle
 	name = "Hair Dye Bottle"
 	desc = "A refillable bottle used for holding hair dyes of all sorts of colors."
@@ -70,15 +93,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/dye_color = "#FFFFFF"
 
-/obj/item/hair_dye_bottle/New()
-	..()
-	update_dye_overlay()
 
-/obj/item/hair_dye_bottle/proc/update_dye_overlay()
-	overlays.Cut()
-	var/image/I = new('icons/obj/items.dmi', "hairdyebottle-overlay")
-	I.color = dye_color
-	overlays += I
+/obj/item/hair_dye_bottle/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/hair_dye_bottle/update_overlays()
+	. = ..()
+	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = dye_color)
+
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
@@ -103,7 +127,7 @@
 			to_chat(user, "You are too far away!")
 			return
 		user.visible_message(span_notice("[user] starts dying [M]'s [what_to_dye]!"), span_notice("You start dying [M]'s [what_to_dye]!"))
-		if(do_after(user, 50, target = H))
+		if(do_after(user, 5 SECONDS, H))
 			switch(what_to_dye)
 				if("hair")
 					H.change_hair_color(dye_color)

@@ -20,11 +20,20 @@
 	force = 16
 	scribe_multiplier = 0.1
 
-/obj/item/melee/cultblade/dagger/New()
-	..()
-	if(SSticker.mode)
+
+/obj/item/melee/cultblade/dagger/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/melee/cultblade/dagger/update_icon_state()
+	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.dagger_icon
 		item_state = SSticker.cultdat.dagger_icon
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
@@ -62,6 +71,9 @@
 		return FALSE
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
+		return FALSE
+	if(!(gamemode.cult_ascendant))
+		to_chat(user, "<span class='cultlarge'>Not enough unfaithful know what awaits them! The cult must ascend first!</span>")
 		return FALSE
 
 	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
@@ -110,7 +122,7 @@
 	if(!length(possible_runes))
 		return
 
-	var/chosen_rune = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
+	var/chosen_rune = tgui_input_list(user, "Choose a rite to scribe", "Sigils of Power", possible_runes)
 	if(!chosen_rune)
 		return
 	var/obj/effect/rune/rune = possible_runes[chosen_rune]
@@ -163,7 +175,7 @@
 	user.visible_message(others_message,
 		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
 
-	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
+	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))

@@ -59,15 +59,11 @@
 			stack_trace("One of the smoothing corners is bust")
 	catch(var/exception/e)
 		GLOB.space_manager.remove_dirt(placement.z)
-		late_setup_level(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 
 	GLOB.space_manager.remove_dirt(placement.z)
-	late_setup_level(
-		block(bot_left, top_right),
-		block(ST_bot_left, ST_top_right))
 
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
@@ -120,6 +116,7 @@
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
+	preloadBridgeTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -168,3 +165,19 @@
 
 		GLOB.shuttle_templates[S.shuttle_id] = S
 		GLOB.map_templates[S.shuttle_id] = S
+
+/proc/preloadBridgeTemplates()
+	for(var/item in subtypesof(/datum/map_template/ruin/bridge/horizontal))
+		var/datum/map_template/ruin/bridge/horizontal/horizontal_type = item
+		if(!(initial(horizontal_type.suffix)))
+			continue
+		var/datum/map_template/ruin/bridge/horizontal/S = new horizontal_type()
+		GLOB.bridge_horizontal_templates[S.suffix] = S
+		GLOB.map_templates[S.suffix] = S
+	for(var/item in subtypesof(/datum/map_template/ruin/bridge/vertical))
+		var/datum/map_template/ruin/bridge/horizontal/vertical_type = item
+		if(!(initial(vertical_type.suffix)))
+			continue
+		var/datum/map_template/ruin/bridge/vertical/V = new vertical_type()
+		GLOB.bridge_vertical_templates[V.suffix] = V
+		GLOB.map_templates[V.suffix] = V

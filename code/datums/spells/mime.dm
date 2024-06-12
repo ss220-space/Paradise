@@ -168,19 +168,19 @@
 
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
-	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
-		if(knownspell.type == S.type)
-			if(user.mind)
-				to_chat(user, "<span class='notice'>You've already read this one.</span>")
+	if(!user.mind)
+		return
+	for(var/obj/effect/proc_holder/spell/knownspell as anything in user.mind.spell_list)
+		if(knownspell.type == spell)
+			to_chat(user, "<span class='notice'>You've already read this one.</span>")
 			return
 	if(used)
 		recoil(user)
 	else
-		user.mind.AddSpell(S)
+		user.mind.AddSpell(new spell)
 		to_chat(user, "<span class='notice'>You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!</span>")
-		user.create_log(MISC_LOG, "learned the spell [spellname] ([S])")
-		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
+		user.create_log(MISC_LOG, "learned the spell [spellname]")
+		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
 		onlearned(user)
 
 

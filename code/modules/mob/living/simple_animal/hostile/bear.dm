@@ -13,7 +13,7 @@
 	tts_seed = "Shaker"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat= 5, /obj/item/clothing/head/bearpelt = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -58,16 +58,22 @@
 /mob/living/simple_animal/hostile/bear/Move()
 	. = ..()
 	if(stat != DEAD)
-		if(loc && istype(loc,/turf/space))
+		if(loc && isspaceturf(loc))
 			icon_state = "[icon_living]"
 		else
 			icon_state = "[icon_living]floor"
 
-/mob/living/simple_animal/hostile/bear/Process_Spacemove(var/movement_dir = 0)
-	return 1	//No drifting in space for space bears!
+/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = NONE)
+	return TRUE	//No drifting in space for space bears!
 
 /mob/living/simple_animal/hostile/bear/brown
 	icon_state = "brownbear"
 	icon_living = "brownbear"
 	icon_dead = "brownbear_dead"
 	icon_gib = "brownbear_gib"
+
+/mob/living/simple_animal/hostile/bear/polar
+	icon_state = "polarbear"
+	icon_living = "polarbear"
+	icon_dead = "polarbear_dead"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat= 5, /obj/item/clothing/head/bearpelt/fluff/polar = 1)

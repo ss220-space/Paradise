@@ -48,21 +48,25 @@
 		igniter.flamethrower_process(location)
 
 
-/obj/item/flamethrower/update_icon()
-	cut_overlays()
+/obj/item/flamethrower/update_icon(updates = ALL)
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
+
+
+
+/obj/item/flamethrower/update_icon_state()
+	item_state = "flamethrower_[lit]"
+
+
+/obj/item/flamethrower/update_overlays()
+	. = ..()
 	if(igniter)
-		add_overlay("+igniter[status]")
+		. += "+igniter[status]"
 	if(ptank)
-		add_overlay("+ptank")
+		. += "+ptank"
 	if(lit)
-		add_overlay("+lit")
-		item_state = "flamethrower_1"
-	else
-		item_state = "flamethrower_0"
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
+		. += "+lit"
+
 
 /obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -78,7 +82,7 @@
 	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
-			var/turflist = getline(user, target_turf)
+			var/turflist = get_line(user, target_turf)
 			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 			flame_turf(turflist)
 			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, 1)
@@ -150,10 +154,12 @@
 	toggle_igniter(user)
 
 /obj/item/flamethrower/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(ptank && user.Adjacent(src))
+	if(ptank)
 		ptank.forceMove_turf()
 		user.put_in_hands(ptank, ignore_anim = FALSE)
 		ptank = null
@@ -202,7 +208,7 @@
 			break
 		if(T == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(!T.CanAtmosPass(previousturf))
+		if(!T.CanAtmosPass(previousturf, vertical = FALSE))
 			break
 		if(igniter)
 			igniter.ignite_turf(src, T)

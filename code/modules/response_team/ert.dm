@@ -78,6 +78,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return
 
 	// Respawnable players get first dibs
+
 	for(var/mob/dead/observer/M in volunteers)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
@@ -168,7 +169,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		GLOB.active_team.cannot_send_team()
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
-	if(role == "Cyborg")
+	if(role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 

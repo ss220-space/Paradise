@@ -59,14 +59,14 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	speed = 0
-	var/magpulse = 1
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
+
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 
 	//SPECIAL
 	var/list/special_abillity = list()  //has spider unique abillities?
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
-	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
 	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Vision
 	vision_range = 10
 	aggro_vision_range = 10
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
@@ -140,6 +140,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -237,13 +243,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	GLOB.ts_spiderlist += src
-	add_language("Spider Hivemind")
+	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)
 		src.AddSpell(new spell)
 
 	if(spider_tier >= TS_TIER_2)
-		add_language("Galactic Common")
-	default_language = GLOB.all_languages["Spider Hivemind"]
+		add_language(LANGUAGE_GALACTIC_COMMON)
+	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
 
 	if(web_type)
 		web_action = new()
@@ -422,19 +428,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/terrorspider))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return TRUE
-	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
-	return magpulse
-
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_has_gravity()
-	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
 /obj/item/projectile/terrorspider
