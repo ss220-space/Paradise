@@ -45132,10 +45132,6 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
-/obj/machinery/camera{
-	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
-	network = list("Research","SS13")
-	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "cjJ" = (
@@ -71806,6 +71802,13 @@
 /area/security/prisonershuttle)
 "ghF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the E.X.P.E.R.I-MENTOR chamber.";
+	layer = 4;
+	name = "E.X.P.E.R.I-MENTOR Camera Screen";
+	network = list("Telepad");
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73019,9 +73022,6 @@
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "hyU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
 	network = list("Telepad","Research","SS13")
@@ -131606,9 +131606,9 @@ ccU
 mLB
 cgd
 cbf
-cjG
-clo
 hyU
+clo
+cow
 coi
 cpV
 cSe

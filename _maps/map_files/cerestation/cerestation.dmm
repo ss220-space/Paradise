@@ -19509,7 +19509,9 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "cyj" = (
-/obj/machinery/r_n_d/experimentor,
+/obj/machinery/r_n_d/experimentor{
+	console_dist = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -46137,7 +46139,7 @@
 "jto" = (
 /obj/machinery/camera{
 	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
-	network = list("RD","SS13")
+	network = list("RD","Telepad","SS13")
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -54311,9 +54313,17 @@
 	},
 /area/medical/cmo)
 "lID" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/wall,
-/area/ntrep)
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/obj/machinery/camera{
+	c_tag = "AI Core Centre";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "lIN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -91448,15 +91458,17 @@
 	pixel_y = 25;
 	req_access = list(10)
 	},
-/obj/machinery/door_control{
-	id = "engsm";
-	name = "Radiation Shutters Control";
-	pixel_y = 34;
-	req_access = list(10)
-	},
 /obj/machinery/camera{
 	c_tag = "SM South";
 	network = list("SS13","CE","engine")
+	},
+/obj/machinery/door_control{
+	id = "smbolts";
+	name = "Supermatter Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_y = 36;
+	req_access = list(56);
+	specialfunctions = 4
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -134041,7 +134053,7 @@ gch
 gch
 gch
 gch
-lID
+lKk
 rNK
 rNK
 rNK
@@ -141697,7 +141709,7 @@ afR
 agQ
 vTo
 qka
-afU
+lID
 vTo
 akt
 akZ
