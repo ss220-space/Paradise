@@ -28,6 +28,7 @@
   - bugfix: Multi-z Light (#5130)
   Daeberdir:
   - bugfix: Bold names for all command role titles. (#5108)
+  - tweak: '''Current Map Excluded'' map vote. (#5151)'
   LiquidPotroh:
   - bugfix: teporone stabilizing and species (#5112)
   NightDawnFox:
@@ -48,3 +49,40 @@
   - bugfix: Antag Paradise Typo Fix (#5113)
   - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
   - bugfix: Shuttle Smash Skips Silicon Search (#5115)
+  - bugfix: Kudzu Spawn Respects Level Boundaries (#5152)
+'2024-06-04':
+  BoshyG:
+  - imageadd: Vox sunglasses hud FIX (#5131)
+  LiquidPotroh:
+  - add: inquisitor's hardsuit in necropolis chest (#5126)
+  MrVivor:
+  - add: new clothes by PT (#5090)
+  NightDawnFox:
+  - tweak: new text objective for magic survivalists (#5138)
+  kukur:
+  - bugfix: IV drip can now be used again to collect or inject reagents. (#5154)
+'2024-06-06':
+  Den109G:
+  - bugfix: TeleKinesis no longer drops on ground (#5155)
+  ROdenFL:
+  - tweak: loadout veil stack (#5129)
+'2024-06-10':
+  BeebBeebBoob:
+  - bugfix: AI fail to click on certain lines of map (#5178)
+  Den109G:
+  - bugfix: Emotes check stat before show runechat (#5156)
+  Zwei:
+  - bugfix: Cards Shuffle Fix (#5165)
+  - bugfix: Legion Transform Fix (#5173)
+  - bugfix: Plasmaman Vampire Hunger Fix (#5174)
+  - refactor: Runechat Tweaks (#5060)
+  - bugfix: Minor Fixes Collection (#5153)
+'2024-06-12':
+  ROdenFL:
+  - bugfix: shadowling can`t cast their spell (#5189)
+  Vladisvell:
+  - bugfix: Bunch of bugfixes (#5184)
+  - bugfix: Now you can unequip donation-tier gear if you don't have said tier. (#5187)
+  Zwei:
+  - bugfix: Prefs Runtime Fix (#5181)
+  - bugfix: Proper Layers For Closet Overlays (#5171)

@@ -270,10 +270,13 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 ///////////////////////////////////////
 
 // "Zeroes out" all of the blocks.
-/datum/dna/proc/ResetSE()
+/datum/dna/proc/ResetSE(monkeybasic = FALSE)
 	for(var/i = 1, i <= DNA_SE_LENGTH, i++)
+		if(i == DNA_SE_LENGTH && monkeybasic)
+			continue
 		SetSEValue(i, rand(1, 1024), 1)
 	UpdateSE()
+
 
 // Set a DNA SE block's raw value.
 /datum/dna/proc/SetSEValue(block, value, defer = FALSE)
@@ -406,12 +409,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Initial DNA setup.  I'm kind of wondering why the hell this doesn't just call the above.
 //    ready_dna is (hopefully) only used on mob creation, and sets the struc_enzymes_original and SE_original only once - Bone White
 
-/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = TRUE)
+/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = TRUE, monkeybasic = FALSE)
 
 	ResetUIFrom(character)
 
 	if(flatten_SE)
-		ResetSE()
+		ResetSE(monkeybasic)
 
 	struc_enzymes_original = struc_enzymes // sets the original struc_enzymes when ready_dna is called
 	SE_original = SE.Copy()

@@ -415,18 +415,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 					O.hear_talk(M, message_pieces, verbage)
 
 
-/obj/effect/speech_bubble
-	var/mob/parent
-
-
-/mob/living/proc/GetVoice()
-	return name
-
-
-/mob/living/proc/GetTTSVoice()
-	return tts_seed
-
-
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message, 512)
 
