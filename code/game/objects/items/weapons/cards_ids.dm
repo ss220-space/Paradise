@@ -124,7 +124,8 @@
 	var/photo
 	var/dat
 	var/stamped = 0
-	/// Roboquest shit
+
+	/// RoboQuest shit
 	var/datum/roboquest/robo_bounty
 	var/bounty_penalty
 

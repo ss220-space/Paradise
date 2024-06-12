@@ -1,12 +1,18 @@
+// Level of mecha building success
 #define NO_SUCCESS 0
 #define CORRECT_MECHA 1
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
+// Choosen mecha defines
 #define WORKING_CLASS	1
 #define MEDICAL_CLASS	2
 #define COMBAT_CLASS	3
 #define RANDOM_CLASS	4
-#define CATS_BY_STAGE list("number" = list("first", "second", "third"), "first" = list("working", "medical", "security"), "second" = list("working_medical", "medical_security"), "third" = list("working_medical_security"))
+/// TGUI helper define for shop items good placing
+#define CATS_BY_STAGE list("number" = list("first", "second", "third"), \
+						   "first" = list("working", "medical", "security"), \
+						   "second" = list("working_medical", "medical_security"), \
+						   "third" = list("working_medical_security"))
 
 
 ///////////////////////
@@ -19,19 +25,27 @@
 	icon_screen = "robo_ntos_roboquest"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
+	/// Print order for quests
 	var/print_delayed = FALSE
+	/// Current interface theme
 	var/style = "ntos_roboquest"
+	/// Can we send mecha?
 	var/canSend = FALSE
+	/// Is there mecha and pad for check?
 	var/canCheck = FALSE
+	/// Timer to clear checkMessage
 	var/check_timer
-	var/success
+	/// Message after check
 	var/checkMessage = ""
+	/// Level of success of last mecha check
+	var/success
+	/// Point balance
 	var/points = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/roboquest
 	var/obj/item/card/id/currentID
+	/// This console pad
 	var/obj/machinery/roboquest_pad/pad
-	var/difficulty
 	var/list/shop_items = list()
 
 /obj/machinery/computer/roboquest/Initialize(mapload)
@@ -117,7 +131,7 @@
 					category += "_[cat]"
 				else
 					category = cat
-		var/icon/combined = icon('icons/misc/robo_ui2.dmi', category)
+		var/icon/combined = icon('icons/misc/robo_ui.dmi', category)
 		combined.Blend(item.tgui_icon, ICON_OVERLAY)
 		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = icon2base64(combined), "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
@@ -177,11 +191,11 @@
 			currentID = null
 			SStgui.update_uis(src)
 		if("GetTask")
-			var/list/difficulties = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
-			difficulty = tgui_input_list(usr, "Select event type.", "Select", difficulties)
-			if(!difficulty)
+			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
+			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
+			if(!mecha_type)
 				return
-			pick_mecha(difficulties[difficulty])
+			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")
 			currentID.robo_bounty = null
 			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 5 MINUTES)
@@ -220,14 +234,14 @@
 					else // Else, 1
 						areaindex[locname] = 1
 					L[locname] = T
-
-				var/select = tgui_input_list(ui.user, "Please select a telepad.", "RCS", L)
-				if(!select)
-					return
-				if(select == "**Unknown**") // Randomise the teleport location
-					return
-				else // Else choose the value of the selection
-					quantum = L[select]
+				if(params["type"] != "only_packing")
+					var/select = tgui_input_list(ui.user, "Please select a telepad.", "RCS", L)
+					if(!select)
+						return
+					if(select == "**Unknown**") // Randomise the teleport location
+						return
+					else // Else choose the value of the selection
+						quantum = L[select]
 				flick("sqpad-beam", pad)
 				pad.teleport(quantum, currentID.robo_bounty, src, (3-success))
 				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
@@ -241,7 +255,7 @@
 					style = "ntos_terminal"
 				if("ntos_terminal")
 					if(emagged)
-						style = "syndicate"
+						style = "syndicate" //gagaga
 					else
 						style = "ntos_roboquest"
 				if("syndicate")
@@ -292,8 +306,8 @@
 /obj/machinery/computer/roboquest/proc/cooldown_end(obj/item/card/id/penaltycard)
 	penaltycard.bounty_penalty = null
 
-/obj/machinery/computer/roboquest/proc/pick_mecha(difficulty)
-	currentID.robo_bounty = new /datum/roboquest(difficulty)
+/obj/machinery/computer/roboquest/proc/pick_mecha(mecha_type)
+	currentID.robo_bounty = new /datum/roboquest(mecha_type)
 	currentID.robo_bounty.id = currentID
 
 
@@ -307,6 +321,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad-idle"
 	idle_power_usage = 500
+	/// Current pad`s console
 	var/obj/machinery/computer/roboquest/console
 
 /obj/machinery/roboquest_pad/New()
@@ -342,7 +357,9 @@
 	if(istype(M))
 		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
 		M.forceMove(box)
-		do_teleport(box, destination)
+		if(destination)
+			do_teleport(box, destination)
+		console.canSend = FALSE
 
 /obj/machinery/roboquest_pad/New()
 	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))
@@ -370,8 +387,11 @@
 	icon_state = "mecha_box"
 	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
 	req_access = list(ACCESS_ROBOTICS)
+	/// RoboQuest, that is mecha for
 	var/datum/roboquest/quest
+	/// Console for add points
 	var/obj/machinery/computer/roboquest/console
+	/// Penalty, given by console check
 	var/penalty = 0
 
 /obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)

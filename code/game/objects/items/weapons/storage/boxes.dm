@@ -933,6 +933,7 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
+	icon_state = "stock_box_t4"
 
 /obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
@@ -941,6 +942,18 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
+
+/obj/item/storage/box/stockparts/experimental_parts
+	name = "box of experimental stock parts"
+	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
+	icon_state = "stock_box_t5"
+
+/obj/item/storage/box/stockparts/experimental_parts/populate_contents()
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
 
 /obj/item/storage/box/flare
 	name = "Flare box"
@@ -1148,22 +1161,6 @@
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
-
-/obj/item/storage/box/experimental_parts
-	name = "experimental parts"
-	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
-
-/obj/item/storage/box/experimental_parts/populate_contents()
-	new /obj/item/stock_parts/capacitor/purple(src)
-	new /obj/item/stock_parts/scanning_module/purple(src)
-	new /obj/item/stock_parts/manipulator/purple(src)
-	new /obj/item/stock_parts/micro_laser/purple(src)
-	new /obj/item/stock_parts/matter_bin/purple(src)
-	new /obj/item/stock_parts/capacitor/purple(src)
-	new /obj/item/stock_parts/scanning_module/purple(src)
-	new /obj/item/stock_parts/manipulator/purple(src)
-	new /obj/item/stock_parts/micro_laser/purple(src)
-	new /obj/item/stock_parts/matter_bin/purple(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

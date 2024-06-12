@@ -224,7 +224,15 @@ export const RoboQuest = (props, context) => {
                   content="Send Mech"
                   textAlign="center"
                   disabled={!hasID || !hasTask || !canSend || cooldown}
-                  onClick={() => act('SendMech')}/>
+                  onClick={() => act('SendMech', {type: "send"})}/>
+                <Button
+                  icon="arrow-up"
+                  width="15rem"
+                  bold
+                  content="Pack"
+                  textAlign="center"
+                  disabled={!hasID || !hasTask || !canSend || cooldown}
+                  onClick={() => act('SendMech', {type: "only_packing"})}/>
               </Box>
             </Section>}
             {!!shopState &&

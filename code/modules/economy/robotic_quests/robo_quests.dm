@@ -16,8 +16,8 @@
 	var/reward = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 2)
 	/// 75-125% of initial mecha cash reward
 	var/maximum_cash
-	/// Difficulty type
-	var/difficulty
+	/// Mecha type
+	var/mecha_type
 	/// Is our quest was claimed
 	var/claimed = FALSE
 	/// Mech class. Used for special desc text
@@ -30,15 +30,15 @@
 	var/modules_amount = 0
 	var/obj/check
 
-/datum/roboquest/New(difficulty)
+/datum/roboquest/New(mecha_type)
 	..()
-	generate_mecha(difficulty)
+	generate_mecha(mecha_type)
 
-/datum/roboquest/proc/generate_mecha(difficulty)
+/datum/roboquest/proc/generate_mecha(mecha_type)
 	var/mech
 	var/static/working_mechas = list(/datum/quest_mech/ripley, /datum/quest_mech/firefighter, /datum/quest_mech/clarke)
 	var/static/combat_mechas = list(/datum/quest_mech/gygax, /datum/quest_mech/durand)
-	switch(difficulty) //вероятно нихуя не работает, Роден, поправь потом...
+	switch(mecha_type) //вероятно нихуя не работает, Роден, поправь потом...
 		if(WORKING_CLASS)
 			mech = pick(working_mechas)
 		if(MEDICAL_CLASS)
@@ -125,11 +125,16 @@
 /datum/roboshop_item
 	var/name
 	var/desc
+	/// Path to shop item
 	var/atom/path
+	/// Cost in RoboPoints. Can be (*, 0, 0, 0) (*, *, 0, 0) (*, *, *, 0) (0, *, 0, 0) (0, *, *, 0) (0, 0, *, 0) (0, 0, 0, *)
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
+	/// Custom item, leave empty if you okay with standart icon
 	var/icon_name
 	var/icon_file
+	/// Don`t touch
 	var/icon/tgui_icon
+	/// If emag only(Really??)
 	var/emag_only = FALSE
 
 /datum/roboshop_item/New()
@@ -172,7 +177,7 @@
 
 /datum/roboshop_item/experimental_parts
 	name = "\improper experimental parts"
-	path = /obj/item/storage/box/experimental_parts
+	path = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
 #undef WORKING_CLASS
