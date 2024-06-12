@@ -9,7 +9,7 @@
 
 /datum/event/ghostpiano/proc/spawn_piano()
 	where = get_spawning_turf()
-	var/piano = new /obj/structure/ghostpiano(where)
+	var/piano = new /obj/structure/pianoclassic/ghostpiano(where)
 	return piano
 
 /datum/event/ghostpiano/proc/get_spawning_turf()

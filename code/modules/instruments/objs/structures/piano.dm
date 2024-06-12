@@ -36,7 +36,7 @@
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
 
-/obj/structure/ghostpiano
+/obj/structure/pianoclassic/ghostpiano
 	parent_type = /obj/structure/musician
 	name = "cursed piano"
 	desc = "<b>You feel an evil presence watching you...</b>"
@@ -46,10 +46,10 @@
 	density = TRUE
 	allowed_instrument_ids = "crgrand1"
 
-/obj/structure/ghostpiano/New()
+/obj/structure/pianoclassic/ghostpiano/New()
 	..()
 	set_light(3, -3, "F6E9D6")
 	set_light(1, 5, "4A61D6")
 
-/obj/structure/ghostpiano/attack_ghost(mob/dead/observer/user)
+/obj/structure/pianoclassic/ghostpiano/attack_ghost(mob/dead/observer/user)
 	ui_interact(user)
