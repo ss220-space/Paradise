@@ -238,14 +238,6 @@
 	return diag_hud_set_botstat() //we use a different hud
 
 
-/mob/living/simple_animal/bot/update_canmove(delay_action_updates = 0)
-	. = ..()
-	if(!on)
-		. = FALSE
-
-	canmove = .
-
-
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
@@ -445,7 +437,7 @@
 			to_chat(user, span_warning("Close the access panel before manipulating the personality slot!"))
 		else
 			to_chat(user, span_notice("You attempt to pull [paicard] free..."))
-			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), target = src))
+			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 				if(paicard)
 					user.visible_message(span_notice("[user] uses [W] to pull [paicard] out of [bot_name]!"),
 										span_notice("You pull [paicard] out of [bot_name] with [W]."))

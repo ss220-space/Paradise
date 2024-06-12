@@ -28,7 +28,7 @@
 
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -52,13 +52,7 @@
 
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
-	..()
-	H.dna.SetSEState(GLOB.remotetalkblock, !remove)
-	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
-	if(remove)
-		H.dna.default_blocks -= GLOB.remotetalkblock
-	else
-		H.dna.default_blocks |= GLOB.remotetalkblock
+	H.force_gene_block(GLOB.remotetalkblock, !remove, TRUE, TRUE)
 
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)

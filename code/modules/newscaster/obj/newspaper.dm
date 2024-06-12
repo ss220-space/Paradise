@@ -182,7 +182,7 @@
 	return ..()
 
 /obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		rolled = !rolled
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()

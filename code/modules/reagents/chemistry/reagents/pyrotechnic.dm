@@ -373,7 +373,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery(TURF_WET_ICE)
+		T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 	if(volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))

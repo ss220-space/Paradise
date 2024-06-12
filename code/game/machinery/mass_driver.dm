@@ -23,7 +23,7 @@
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
 	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
+	if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 		F.dir = dir
 		F.set_anchored(TRUE)
@@ -70,15 +70,15 @@
 /obj/machinery/mass_driver/bumper
 	name = "mass bumper"
 	desc = "Now you're here, now you're over there."
-	density = 1
+	density = TRUE
 
 /obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
 	..()
 
-	density = 0
+	set_density(FALSE)
 	step(moving_atom, get_dir(moving_atom, src))
 	spawn(1)
-		density = 1
+		set_density(TRUE)
 	drive()
 	return
 
@@ -88,7 +88,7 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	var/build = 0
 
@@ -98,7 +98,7 @@
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 0))
+				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 0))
 					add_fingerprint(user)
 					to_chat(user, span_notice("You anchor \the [src]!"))
 					set_anchored(TRUE)
@@ -109,7 +109,7 @@
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 1))
+				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 1))
 					add_fingerprint(user)
 					build--
 					set_anchored(FALSE)
@@ -120,7 +120,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src) && (C.get_amount() >= 2) && (build == 2))
+				if(do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src) && (C.get_amount() >= 2) && (build == 2))
 					add_fingerprint(user)
 					C.use(2)
 					to_chat(user, span_notice("You've added cables to \the [src]."))
@@ -129,7 +129,7 @@
 		if(3) // Wired
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				to_chat(user, "You begin to remove the wiring from \the [src].")
-				if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 3))
+				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 3))
 					add_fingerprint(user)
 					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
@@ -140,7 +140,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed * gettoolspeedmod(user), target = src) && (R.get_amount() >= 2) && (build == 3))
+				if(do_after(user, 2 SECONDS * R.toolspeed * gettoolspeedmod(user), src) && (R.get_amount() >= 2) && (build == 3))
 					add_fingerprint(user)
 					R.use(2)
 					to_chat(user, span_notice("You've added the grille to \the [src]."))
@@ -151,7 +151,7 @@
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 30 * W.toolspeed * gettoolspeedmod(user), target = src) && (build == 4))
+				if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 4))
 					add_fingerprint(user)
 					new /obj/item/stack/rods(loc,2)
 					build--
@@ -195,8 +195,8 @@
 	set name = "Rotate Frame"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
 		return
 
 	src.dir = turn(src.dir, -90)
-	return
+

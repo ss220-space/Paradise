@@ -127,7 +127,7 @@
 	if(last_text && world.time < last_text + 5)
 		return
 
-	if(!pda.can_use())
+	if(!pda.can_use(U))
 		return
 
 	last_text = world.time
@@ -233,7 +233,7 @@
 
 // Handler for the in-chat reply button
 /datum/data/pda/app/messenger/Topic(href, href_list)
-	if(!pda.can_use())
+	if(!pda.can_use(usr))
 		return
 	unnotify()
 	switch(href_list["choice"])

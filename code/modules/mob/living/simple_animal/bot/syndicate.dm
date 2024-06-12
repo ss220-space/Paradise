@@ -203,7 +203,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	shootAt(A)
 
@@ -220,7 +220,7 @@
 	return
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 

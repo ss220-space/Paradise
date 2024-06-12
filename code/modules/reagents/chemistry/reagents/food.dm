@@ -256,17 +256,19 @@
 			var/mouth_covered = FALSE
 			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.wear_mask
+				if(isclothing(victim.wear_mask))
+					var/obj/item/clothing/cloth = victim.wear_mask
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.wear_mask
 			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
@@ -274,10 +276,12 @@
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.head
+				if(isclothing(victim.head))
+					var/obj/item/clothing/cloth = victim.head
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = TRUE
 				if(!safe_thing)
@@ -439,7 +443,7 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -496,7 +500,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
@@ -540,7 +544,7 @@
 	taste_description = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -918,7 +922,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return

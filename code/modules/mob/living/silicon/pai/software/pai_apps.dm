@@ -357,7 +357,7 @@
 		last_message_time = world.time
 
 	to_chat(pai_holder, span_warning("Начался взлом объекта. Необходимо избегать любого передвижения для сохранения сигнала. Время ожидания: [hack_time/10] секунд."))
-	if(!do_after_once(pai_holder, hack_time, target = machinery))
+	if(!do_after(pai_holder, hack_time, machinery, max_interact_count = 1))
 		to_chat(pai_holder, span_notice("Ошибка. Взлом объекта завершён."))
 		cleanup_hack()
 		return

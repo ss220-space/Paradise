@@ -33,6 +33,7 @@
 
 	src.x = x + 0.5
 	src.y = y + 0.5
+	src.z = z
 
 	// Alright. We're gonna take a set of coords, and from them do a loop clockwise
 	// To build out the turfs adjacent to us. This is pretty fast
@@ -121,7 +122,7 @@
 
 	src.largest_color_luminosity = round(largest_color_luminosity, LIGHTING_ROUND_VALUE)
 
-	var/datum/lighting_object/lighting_object = master_NE?.lighting_object
+	var/atom/movable/lighting_object/lighting_object = master_NE?.lighting_object
 	if (lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object

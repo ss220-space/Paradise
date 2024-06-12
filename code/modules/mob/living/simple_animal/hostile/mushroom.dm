@@ -24,7 +24,7 @@
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	speak_emote = list("squeaks")
 	deathmessage = "fainted"
@@ -62,7 +62,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
-	if(!the_target || isturf(the_target))
+	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))
 		return FALSE
 
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it

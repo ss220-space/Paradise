@@ -21,7 +21,7 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
-	flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE)
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain, wooden sandals."
@@ -47,7 +47,7 @@
 	name = "galoshes"
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
-	flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_WATER)
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
@@ -66,8 +66,7 @@
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
 	var/turf/simulated/t_loc = get_turf(src)
-	if(istype(t_loc) && t_loc.wet)
-		t_loc.MakeDry(TURF_WET_WATER)
+	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
@@ -93,7 +92,7 @@
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -492,6 +491,9 @@
 	if(user.throwing)
 		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
 		return
+	if(!jumper.has_gravity())
+		to_chat(user, span_warning("You can't jump without gravity!"))
+		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
@@ -544,7 +546,7 @@
 	user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/bhop/clown/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -590,3 +592,22 @@
 	can_cut_open = FALSE
 	icon_state = "commandos_boots"
 	item_state = "commandos_boots"
+
+/obj/item/clothing/shoes/leather_boots
+	name = "high leather boots"
+	desc = "Стройные сапоги сделанные из кожи."
+	icon_state = "leather_boots"
+	item_state = "leather_boots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
+		)

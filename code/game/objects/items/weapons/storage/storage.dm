@@ -9,7 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_2 = BLOCKS_LIGHT_2
+	flags = BLOCKS_LIGHT
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
@@ -26,8 +26,8 @@
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
 	///The number of storage slots in this container.
-	var/obj/screen/storage/boxes = null
-	var/obj/screen/close/closer = null
+	var/atom/movable/screen/storage/boxes = null
+	var/atom/movable/screen/close/closer = null
 	///Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
 	///Set this to make the storage item group contents of the same type and display them as a number.
@@ -66,14 +66,14 @@
 
 	populate_contents()
 
-	boxes = new /obj/screen/storage()
+	boxes = new /atom/movable/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
+	closer = new /atom/movable/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
@@ -89,15 +89,15 @@
 	QDEL_NULL(closer)
 	LAZYCLEARLIST(mobs_viewing)
 
+
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
-	if(!destination)
-		return
-	if(!ismob(destination.loc))
-		for(var/mob/player in mobs_viewing)
-			if(player == destination)
-				continue
-			hide_from(player)
+	if(!destination || ismob(destination.loc))
+		return .
+	for(var/mob/player in mobs_viewing)
+		if(player == destination)
+			continue
+		hide_from(player)
 
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -107,7 +107,7 @@
 	var/mob/living/user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
-	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated(FALSE, TRUE, TRUE))
+	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
 		return FALSE
 
 	if(over_object == user && user.Adjacent(src)) // this must come before the screen objects only block
@@ -140,7 +140,7 @@
 
 
 /obj/item/storage/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		open(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -227,7 +227,7 @@
 	for(var/obj/O in contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, loc)
 		cx++
 		if(cx > mx)
 			cx = tx
@@ -248,7 +248,7 @@
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white' face='Small Fonts'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = ABOVE_HUD_LAYER
-			ND.sample_object.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(ND.sample_object, ABOVE_HUD_PLANE, src)
 			cx++
 			if(cx > (4 + cols))
 				cx = 4
@@ -259,7 +259,7 @@
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = ABOVE_HUD_LAYER
-			O.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 			cx++
 			if(cx > (4 + cols))
 				cx = 4
@@ -311,7 +311,7 @@
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
-	if(!istype(W) || (W.flags & ABSTRACT)) //Not an item
+	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return
 
 	if(loc == W)
@@ -321,11 +321,10 @@
 		return FALSE
 
 	if(usr)
-		var/turf/item = get(W, /turf)
-		var/turf/storage = get(src, /turf)
-		if(!item || !storage)
-			return FALSE
-		if(get_dist(item, storage) > 1)
+		var/turf/item_turf = get_turf(W)
+		var/turf/storage_turf = get_turf(src)
+		// Its ok to move items to/from nullspace, since its not a player action
+		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
 			if(!stop_messages)
 				to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
 			return FALSE
@@ -382,10 +381,15 @@
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self && W.is_equipped() && !usr.is_general_slot(usr.get_slot_by_item(W)))
-		usr.visible_message(span_notice("[usr] начинает снимать [W.name]..."), \
-							span_notice("Вы начинаете снимать [W.name]..."))
-		if(!do_after_once(usr, W.equip_delay_self, target = usr, attempt_cancel_message = "Снятие [W.name] было прервано!"))
+	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
+		usr.visible_message(
+			span_notice("[usr] начинает снимать [W.name]..."),
+			span_notice("Вы начинаете снимать [W.name]..."),
+		)
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
+			return FALSE
+
+		if(!usr.drop_item_ground(W))
 			return FALSE
 
 	return TRUE
@@ -439,7 +443,6 @@
 	W.pixel_y = initial(W.pixel_y)
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
-	W.in_inventory = TRUE
 	update_icon()
 	return TRUE
 
@@ -461,14 +464,13 @@
 				W.pixel_y = pixel_y
 				W.do_pickup_animation(usr)
 			W.layer = ABOVE_HUD_LAYER
-			W.plane = ABOVE_HUD_PLANE
+			SET_PLANE_EXPLICIT(W, ABOVE_HUD_PLANE, src)
 			W.pixel_y = initial(W.pixel_y)
 			W.pixel_x = initial(W.pixel_x)
 		else
 			W.layer = initial(W.layer)
-			W.plane = initial(W.plane)
+			SET_PLANE_IMPLICIT(W, initial(W.plane))
 			W.mouse_opacity = initial(W.mouse_opacity)
-			W.in_inventory = FALSE
 			W.remove_outline()
 
 		W.forceMove(new_location)
@@ -483,8 +485,8 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/A, loc)
-	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
+/obj/item/storage/Exited(atom/movable/AM, atom/newLoc)
+	remove_from_storage(AM, newLoc) //worry not, comrade; this only gets called once
 	..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
@@ -559,7 +561,7 @@
 	set name = "Empty Contents"
 	set category = "Object"
 
-	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
+	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	drop_inventory(usr)

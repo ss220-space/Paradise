@@ -71,8 +71,6 @@
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
 
-	var/check_mutations=0 // Check mutations on next life tick
-
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
 

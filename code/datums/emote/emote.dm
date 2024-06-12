@@ -298,8 +298,8 @@
 			for(var/mob/living/M in O.contents)
 				M.show_message(text, EMOTE_VISIBLE)
 
-		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			O.create_chat_message(user, runechat_text, emote = TRUE)
+		if(O.stat == CONSCIOUS && O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			O.create_chat_message(user, runechat_text, list("emote"))
 
 
 /**
@@ -508,7 +508,7 @@
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 			// Don't let people blow their cover by mistake
 			return FALSE
-		if(hands_use_check && !user.can_use_hands() && iscarbon(user))
+		if(hands_use_check && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			if(!intentional)
 				return FALSE
 			to_chat(user, span_warning("You cannot use your hands to [key] right now!"))

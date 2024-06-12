@@ -454,6 +454,7 @@
 
 /client/Destroy()
 	SSdebugview.stop_processing(src)
+	mob?.become_uncliented()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -466,6 +467,7 @@
 	SSinput.processing -= src
 	SSping.currentrun -= src
 	Master.UpdateTickRate()
+	seen_messages = null
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -968,8 +970,10 @@
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
 	animate(src, color = colour_to, time = time, easing = SINE_EASING)
 
+
 /client/proc/on_varedit()
-	var_edited = TRUE
+	datum_flags |= DF_VAR_EDITED
+
 
 /////////////////
 // DARKMODE UI //
@@ -1064,6 +1068,19 @@
 	generate_clickcatcher()
 	var/list/actualview = getviewsize(view)
 	void.UpdateGreed(actualview[1],actualview[2])
+
+/client/proc/change_view(new_size)
+	if (isnull(new_size))
+		CRASH("change_view called without argument.")
+
+	view = new_size
+	SEND_SIGNAL(src, COMSIG_VIEW_SET, new_size)
+	apply_clickcatcher()
+	mob.hud_used?.reload_fullscreen()
+	if (isliving(mob))
+		var/mob/living/M = mob
+		M.update_damage_hud()
+	fit_viewport()
 
 /client/proc/send_ssd_warning(mob/M)
 	if(!CONFIG_GET(flag/ssd_warning))
@@ -1385,7 +1402,9 @@
 /client/proc/set_eye(new_eye)
 	if(new_eye == eye)
 		return
+	var/atom/old_eye = eye
 	eye = new_eye
+	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
   * Checks if the client has accepted TOS

@@ -40,9 +40,13 @@
 
 	var/holder = null //The holder for blood crawling
 
-	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
+	/// Allows living mobs to have innate ventcrawl trait defined here.
+	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE / TRAIT_VENTCRAWLER_ALIEN
+	var/ventcrawler_trait
 	var/list/icon/pipes_shown
 	var/last_played_vent
+	/// The last direction we moved in a vent. Used to make holding two directions feel nice
+	var/last_vent_dir = NONE
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 
@@ -72,10 +76,8 @@
 
 	var/deathgasp_on_death = FALSE
 
-	var/status_effect_absorption = null //converted to a list of status effect absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
-	var/stam_paralyzed = FALSE //knocks you down
 
 	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
 	var/health_doll_icon
@@ -105,4 +107,17 @@
 	var/lying_prev = 0
 	/// Does the mob rotate when lying
 	var/rotate_on_lying = FALSE
+
+	/// Is this mob allowed to be buckled/unbuckled to/from things?
+	var/can_buckle_to = TRUE
+
+	/// The x amount a mob's sprite should be offset due to the current position they're in
+	var/body_position_pixel_x_offset = 0
+	/// The y amount a mob's sprite should be offset due to the current position they're in or size (e.g. lying down moves your sprite down)
+	var/body_position_pixel_y_offset = 0
+	/// The height offset of a mob's maptext due to their current size.
+	var/body_maptext_height_offset = 0
+
+	///Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
+	var/current_size = RESIZE_DEFAULT_SIZE
 

@@ -33,7 +33,7 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
@@ -436,7 +436,7 @@
 		return
 	if(istype(W, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
-	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	else if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)

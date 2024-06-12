@@ -25,7 +25,7 @@
 	else if(W.tool_behaviour == TOOL_CROWBAR)
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
-		if(do_after(user, 50 * C.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
 	else
@@ -80,15 +80,15 @@
 		O.forceMove(loc)
 		CHECK_TICK
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
+	return ..()
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"
 	set category = "Object"
 	set src in view(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!Adjacent(usr))

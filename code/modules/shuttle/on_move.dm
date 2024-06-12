@@ -1,8 +1,5 @@
 // Shuttle on-movement //
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
-	var/turf/newT = get_turf(src)
-	if(newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
 	if(light && light_system == STATIC_LIGHT)
 		update_light()
 	if(rotation)
@@ -75,3 +72,7 @@
 	disconnect()
 	LateInitialize()
 	return ..()
+
+// Holy shit go away
+/obj/effect/abstract/z_holder/onShuttleMove()
+	return FALSE

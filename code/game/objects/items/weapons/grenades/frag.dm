@@ -14,7 +14,7 @@
 	update_mob()
 	var/turf/epicenter = get_turf(src)
 	for(var/mob/living/carbon/human/H in epicenter)
-		if(H.resting) //grenade is jumped on but get real fucked up
+		if(H.body_position == LYING_DOWN) //grenade is jumped on but get real fucked up
 			embed_shrapnel(H, max_shrapnel)
 			range = 1
 	explosion(loc, 0, 1, range, breach = FALSE, cause = src)

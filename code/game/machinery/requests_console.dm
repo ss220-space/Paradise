@@ -125,13 +125,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 
 /obj/machinery/requests_console/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-	update_icon(UPDATE_OVERLAYS)
+	. = ..()
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/requests_console/update_overlays()
@@ -142,7 +138,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		return
 
 	. += "req_comp[newmessagepriority]"
-	underlays += emissive_appearance(icon, "req_comp_lightmask")
+	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
 
 
 /obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

@@ -864,33 +864,20 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
+	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_CLOTH_INNER && !user.ventcrawler)
-		user.ventcrawler = 1
+/// Allowed to wear: glasses, shoes, gloves, mask, ears, pockets, id, pda and jumpsuit (obviously)
+#define CONTORTIONIST_ALLOWED_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_EARS|ITEM_SLOT_POCKETS)
 
-
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
-	if(slot == ITEM_SLOT_CLOTH_INNER && !user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
-	. = ..()
-
-
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user)
-	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(ITEM_SLOT_BACK, ITEM_SLOT_HANDCUFFED, ITEM_SLOT_LEGCUFFED, ITEM_SLOT_HAND_LEFT, \
-										ITEM_SLOT_HAND_RIGHT, ITEM_SLOT_BELT, ITEM_SLOT_HEAD, ITEM_SLOT_CLOTH_OUTER)
-
-	var/obj/item/slot_item
-	for(var/slot_id in slot_must_be_empty)
-		slot_item = user.get_item_by_slot(slot_id)
-		if(slot_item)
-			to_chat(user, span_warning("Вы не можете залезть в вентиляцию с [slot_item.name]."))
-			return FALSE
-
+/obj/item/clothing/under/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	if(user.get_equipped_slots(include_hands = TRUE) & ~CONTORTIONIST_ALLOWED_SLOTS)
+		if(provide_feedback)
+			to_chat(user, span_warning("Вы можете ползать по вентиляции только с перчатками, обувью, маской, очками, наушниками, а также комбинезоном с ID-картой и PDA."))
+		return FALSE
 	return TRUE
+
+#undef CONTORTIONIST_ALLOWED_SLOTS
 
 
 /obj/item/clothing/under/cursedclown
@@ -1149,3 +1136,45 @@
 	icon_state = "night_dress_white"
 	item_state = "night_dress_white"
 	item_color = "night_dress_white"
+
+/obj/item/clothing/under/steampunkdress
+	name = "victorian blue-white dress"
+	desc = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
+	over_shoes = TRUE
+	icon_state = "steampunkdress"
+	item_state = "steampunkdress"
+	item_color = "steampunkdress"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
+
+/obj/item/clothing/under/dress50s
+	name = "old Soviet dress"
+	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
+	over_shoes = TRUE
+	icon_state = "dress50s"
+	item_state = "dress50s"
+	item_color = "dress50s"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)

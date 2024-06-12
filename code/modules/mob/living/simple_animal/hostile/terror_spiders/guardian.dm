@@ -28,7 +28,7 @@
 	spider_tier = TS_TIER_2
 	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.
 	spider_opens_doors = 2
-	ventcrawler = 0
+	ventcrawler_trait = null
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	ai_ventcrawls = FALSE
 	environment_smash = 2

@@ -23,8 +23,6 @@
 	force = 0
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
-	/// To prevent spam shuffle
-	var/cooldown = 0
 	/// Decks default to a single pack, setting it higher will multiply them by that number
 	var/deck_size = 1
 	/// The total number of cards. Set on init after the deck is fully built
@@ -49,6 +47,8 @@
 	var/card_attack_verb
 	/// Inherited card resistance
 	var/card_resistance_flags = FLAMMABLE
+	/// To prevent spam shuffle
+	COOLDOWN_DECLARE(shuffle_cooldown)
 
 
 /obj/item/deck/Initialize(mapload)
@@ -88,7 +88,7 @@
 
 		if(length(cardhand.cards) > 1)
 			var/confirm = alert("Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No" || !Adjacent(user) || user.incapacitated())
+			if(confirm == "No" || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 
 		for(var/datum/playingcard/card in cardhand.cards)
@@ -133,7 +133,7 @@
 /datum/action/item_action/deal_card/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deal_card()
+		return D.deal_card(usr)
 	return ..()
 
 
@@ -146,7 +146,7 @@
 /datum/action/item_action/deal_card_multi/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deal_card_multi()
+		return D.deal_card_multi(usr)
 	return ..()
 
 
@@ -159,13 +159,13 @@
 /datum/action/item_action/shuffle/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deckshuffle()
+		return D.deckshuffle(usr)
 	return ..()
 
 
 // Datum actions
 /obj/item/deck/proc/draw_card(mob/living/carbon/human/user)
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
@@ -192,46 +192,65 @@
 	to_chat(user, span_notice("It's the [play_card]."))
 
 
-/obj/item/deck/proc/deal_card(mob/user = usr)
-	if(user.incapacitated() || !Adjacent(user))
+/obj/item/deck/proc/deal_card(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
-		to_chat(usr, span_notice("There are no cards in the deck."))
+		to_chat(user, span_warning("There are no cards in the deck!"))
 		return
 
 	var/list/players = list()
-	for(var/mob/living/player in viewers(3))
-		if(!player.incapacitated())
+	for(var/mob/living/carbon/player in viewers(3, user))
+		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
-	var/mob/living/target = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
-	if(!user || !src || !target)
+	if(!length(players))
+		to_chat(user, span_warning("There are no players around!"))
+		return
+
+	var/mob/living/carbon/target = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
+	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(!length(cards))
+		to_chat(user, span_warning("Deck is empty!"))
 		return
 
 	deal_at(user, target, 1)
 
 
-/obj/item/deck/proc/deal_card_multi(mob/user = usr)
-	if(user.incapacitated() || !Adjacent(user))
+/obj/item/deck/proc/deal_card_multi(mob/user)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
-		to_chat(user, span_notice("There are no cards in the deck."))
+		to_chat(user, span_warning("There are no cards in the deck!"))
 		return
-
-	var/list/players = list()
-	for(var/mob/living/player in viewers(3))
-		if(!player.incapacitated())
-			players += player
 
 	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
-	if(dcard > maxcards)
+	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.", "Card Dealing", 1) as num|null
+	if(!dcard || !length(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/mob/living/target = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
-	if(!user || !src || !target || !Adjacent(user))
+	dcard = clamp(min(round(abs(dcard)), length(cards)), 1, 10)	// we absolutely trust our players
+
+	var/list/players = list()
+	for(var/mob/living/carbon/player in viewers(3, user))
+		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
+			players += player
+
+	if(!length(players))
+		to_chat(user, span_warning("You decide to deal <b>[dcard]</b> card\s, but there are no players around!"))
+		return
+	to_chat(user, span_notice("You decide to deal <b>[dcard]</b> card\s."))
+
+	var/mob/living/carbon/target = tgui_input_list(user, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
+	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(length(cards) < dcard)
+		to_chat(user, span_warning("The deck has no sufficient amount of cards anymore!"))
 		return
 
 	deal_at(user, target, dcard)
@@ -248,27 +267,29 @@
 		cardhand.concealed = TRUE
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message(span_notice("[user] deals [dcard] card(s) to [user.p_themselves()]."))
+		user.visible_message(span_notice("[user] deals <b>[dcard]</b> card\s to [user.p_themselves()]."))
 	else
-		user.visible_message(span_notice("[user] deals [dcard] card(s) to [target]."))
-	cardhand.throw_at(get_step(target,target.dir), 3, 1, cardhand)
+		user.visible_message(span_notice("[user] deals <b>[dcard]</b> card\s to [target]."))
+	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
 
-/obj/item/deck/attack_self()
-	deckshuffle()
+/obj/item/deck/attack_self(mob/user)
+	deckshuffle(user)
 
 
-/obj/item/deck/AltClick()
-	deckshuffle()
+/obj/item/deck/AltClick(mob/user)
+	if(Adjacent(user))
+		deckshuffle(user)
 
 
-/obj/item/deck/proc/deckshuffle()
-	var/mob/living/user = usr
-	if(cooldown < world.time - 1 SECONDS)
-		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
-		cooldown = world.time
+/obj/item/deck/proc/deckshuffle(mob/user)
+	if(!COOLDOWN_FINISHED(src, shuffle_cooldown) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
+	cards = shuffle(cards)
+	user.visible_message(span_notice("[user] shuffles [src]."))
+	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 
 /obj/item/deck/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -277,7 +298,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(over_object != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated() || !iscarbon(user))
 		return FALSE
 
 	if(user.put_in_hands(src, ignore_anim = FALSE))
@@ -466,7 +487,7 @@
 /obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	var/pickablecards = list()
@@ -508,9 +529,12 @@
 /obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
 	var/maxcards = min(length(cards), 5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
-	if(discards > maxcards)
+	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	for(var/i in 1 to discards)

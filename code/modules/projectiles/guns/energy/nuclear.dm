@@ -32,11 +32,11 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = FALSE
-	actions_types = list(/datum/action/item_action/toggle_gunlight)
+
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
-	set_gun_light(new /obj/item/flashlight/seclite(src))
 	. = ..()
+	set_gun_light(new /obj/item/flashlight/seclite(src))
 	cell.maxcharge = 600
 	cell.charge = 600
 
@@ -61,12 +61,13 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 
-/obj/item/gun/energy/gun/blueshield/can_shoot()
-    . = ..()
-    if(. && !isertmindshielded(usr))
-        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
-        return FALSE
-    return .
+
+/obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
+	. = ..()
+	if(. && !isertmindshielded(user))
+		to_chat(user, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
+		return FALSE
+
 
 /obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
@@ -80,12 +81,12 @@
 
 /obj/item/gun/energy/gun/pdw9/ert
 
-/obj/item/gun/energy/gun/pdw9/ert/can_shoot()
-    . = ..()
-    if(. && !isertmindshielded(usr))
-        to_chat(usr, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
-        return FALSE
-    return .
+/obj/item/gun/energy/gun/pdw9/ert/can_shoot(mob/user)
+	. = ..()
+	if(. && !isertmindshielded(user))
+		to_chat(user, span_warning("ЕРТ имплант «Защита разума» не обнаружен!"))
+		return FALSE
+
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
@@ -96,7 +97,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = 0
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 

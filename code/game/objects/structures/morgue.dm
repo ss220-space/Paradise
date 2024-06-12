@@ -41,8 +41,7 @@
 
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
-	update_icon(update_state())
-	set_light(1, LIGHTING_MINIMUM_POWER)
+	update_state()
 
 
 /obj/structure/morgue/Destroy()
@@ -106,7 +105,7 @@
 			return update_icon(UPDATE_OVERLAYS)
 
 	status = UNREVIVABLE
-	update_icon(UPDATE_OVERLAYS)
+	return update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/morgue/update_overlays()
@@ -115,7 +114,7 @@
 
 	if(!connected)
 		. += "morgue_[status]"
-		underlays += emissive_appearance(icon, "morgue_[status]")
+		underlays += emissive_appearance(icon, "morgue_[status]", src)
 
 	if(name != initial(name))
 		. += "morgue_label"
@@ -190,7 +189,7 @@
 
 
 /obj/structure/morgue/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
@@ -213,7 +212,7 @@
 
 
 /obj/structure/morgue/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
@@ -222,7 +221,7 @@
 
 /obj/structure/morgue/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/structure/morgue/ex_act(severity)
@@ -285,25 +284,25 @@
 		var/mob/living/target = grab.affecting
 		qdel(grab)
 		target.pulledby?.stop_pulling()
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 		target.forceMove(loc)
 		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!(istype(dropping)) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 
@@ -397,11 +396,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(cremating)
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
-	else
-		set_light_on(FALSE)
 
 	if(connected)
 		return
@@ -410,6 +404,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
+		underlays += emissive_appearance(icon, "crema_active_lightmask", src)
 		return
 
 	if(length(contents))
@@ -513,13 +508,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/relaymove(mob/user)
-	if(user.incapacitated() || cremating)
+	if(cremating || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
 
 /obj/machinery/crematorium/container_resist(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || cremating)
+	if(cremating || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
@@ -527,7 +522,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/machinery/crematorium/verb/cremate_verb()
@@ -539,7 +534,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -705,25 +700,25 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		var/mob/living/target = grab.affecting
 		qdel(grab)
 		target.pulledby?.stop_pulling()
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 		target.forceMove(loc)
 		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
-	if((!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping)))
+	if(!istype(dropping) || dropping.anchored || get_dist(user, src) > 1 || get_dist(user, dropping) > 1 || user.contents.Find(src) || user.contents.Find(dropping))
 		return
 
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated())
+	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 
@@ -732,7 +727,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return TRUE
 
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = NONE)
 	return TRUE
 
 

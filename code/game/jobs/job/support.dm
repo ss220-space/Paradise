@@ -14,6 +14,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	alt_titles = list("Chief Supply Manager")
 	money_factor = 6
 	outfit = /datum/outfit/job/qm
 
@@ -48,6 +49,7 @@
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Supply Manager","Loader")
 	money_factor = 2
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -163,11 +165,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.soberblock)
-	H.check_mutations = 1
-
+	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
 
 /datum/job/chef
@@ -315,14 +313,8 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
-	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.clumsyblock)
-	if(!ismachineperson(H))
-		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(GLOB.comicblock)
-	H.check_mutations = TRUE
+	H.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
+	H.force_gene_block(GLOB.comicblock, TRUE, TRUE)
 	H.add_language(LANGUAGE_CLOWN)
 
 //action given to antag clowns

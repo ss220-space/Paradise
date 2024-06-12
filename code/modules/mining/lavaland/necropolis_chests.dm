@@ -12,8 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 32)
-	switch(loot)
+	switch(rand(1, 32))
 		if(1)
 			new /obj/item/shared_storage/red(src)
 		if(2)
@@ -42,7 +41,7 @@
 		if(11)
 			new /obj/item/ship_in_a_bottle(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/champion(src)
+			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(13)
 			new /obj/item/jacobs_ladder(src)
 		if(14)
@@ -66,15 +65,19 @@
 			new /obj/item/gun/magic/hook(src)
 		if(22)
 			new /obj/item/voodoo(src)
-		if(23)
-			new /obj/item/grenade/clusterbuster/inferno(src)
-		if(24)
-			if(prob(60))
-				new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-				new /obj/item/clothing/suit/space/hardsuit/champion/templar(src)
-			else
-				new /obj/item/reagent_containers/food/drinks/bottle/holywater(src)
-				new /obj/item/clothing/suit/space/hardsuit/champion/templar/premium(src)
+		if(23, 24)
+			switch(rand(1, 4))
+				if(1)
+					new /obj/item/clothing/suit/space/hardsuit/champion(src)
+				if(2)
+					new /obj/item/clothing/suit/space/hardsuit/champion/templar(src)
+					new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
+				if(3)
+					new /obj/item/clothing/suit/space/hardsuit/champion/templar/premium(src)
+					new /obj/item/reagent_containers/food/drinks/bottle/holywater(src)
+				if(4)
+					new /obj/item/clothing/suit/space/hardsuit/champion/inquisitor(src)
+					new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
 		if(25)
 			new /obj/item/eflowers(src)
 		if(26)
@@ -85,8 +88,7 @@
 			new /obj/item/grenade/plastic/miningcharge/mega(src)
 			new /obj/item/grenade/plastic/miningcharge/mega(src)
 		if(28)
-			var/mega = rand(1, 4)
-			switch(mega)
+			switch(rand(1, 4))
 				if(1)
 					new /obj/item/twohanded/kinetic_crusher/mega(src)
 				if(2)
@@ -215,37 +217,37 @@
 		return
 	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
 	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
-	if(do_after_once(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser, max_interact_count = 1))
 		itemUser.say("Клянусь Аполлоном врачом, Асклепием, всеми богами и богинями, беря их в свидетели, исполнять честно, соответственно моим силам и здравому смыслу, следующую клятву:")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Я буду применять во благо больного все необходимые меры, воздерживаясь от причинения всякого вреда и несправедливости.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Я буду предотвращать болезнь всякий раз, как смогу, поскольку предотвращение предпочтительнее, чем лечение.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Я не выдам никому просимого у меня смертельного средства и не покажу пути для исполнения подобного замысла.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Я буду уважать личную жизнь своих пациентов, поскольку их проблемы раскрываются мне не для того, чтобы о них мог узнать весь мир. Особенно с большой осторожностью я обязуюсь поступать в вопросах жизни и смерти. Если мне будет дано спасти жизнь — я выражу благодарность. Но также может оказаться в моей власти и лишение жизни, эта колоссальная ответственность должна встречаться с великим смирением и осознанием моей собственной бренности.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Я буду помнить, что остаюсь членом общества, но с особыми обязательствами ко всем моим собратьям, как к немощным, так и к здоровым телом и умом.")
 	else
 		to_chat(itemUser, failText)
 		return
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after(itemUser, 4 SECONDS, itemUser))
 		itemUser.say("Пока я не нарушаю эту клятву, да смогу я наслаждаться этим, заслуженно чтимым, искусством, пока я живу и меня вспоминают с любовью. Да буду я всегда действовать так, чтобы сохранить лучшие традиции моего призвания, и буду долго я испытывать радость исцеления тех, кто обращается за моей помощью.")
 	else
 		to_chat(itemUser, failText)
@@ -256,7 +258,7 @@
 	activated()
 
 /obj/item/rod_of_asclepius/proc/activated()
-	flags =  DROPDEL
+	item_flags |= DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
@@ -317,7 +319,7 @@
 		if(M.sentience_type != SENTIENCE_ORGANIC)
 			to_chat(user, span_warning("[M] cannot be tamed!"))
 			return
-		if(!do_after(user, 1.5 SECONDS, target = M))
+		if(!do_after(user, 1.5 SECONDS, M))
 			return
 		M.visible_message(span_notice("[M] seems happy with you after exposure to the bouquet!"))
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
@@ -345,7 +347,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana_organ"
 	status = NONE
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)

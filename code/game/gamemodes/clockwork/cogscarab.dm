@@ -10,8 +10,8 @@
 	icon_state = "drone"
 	health = 35
 	maxHealth = 35
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 
@@ -95,7 +95,7 @@
 	if(hud_used)
 		var/datum/hud/hud = hud_used
 		if(!hud.wind_up_timer)
-			hud.wind_up_timer = new /obj/screen/wind_up_timer()
+			hud.wind_up_timer = new /atom/movable/screen/wind_up_timer()
 			hud.infodisplay += hud.wind_up_timer
 			hud.show_hud(hud.hud_version)
 

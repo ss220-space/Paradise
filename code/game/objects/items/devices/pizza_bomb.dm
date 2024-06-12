@@ -53,7 +53,7 @@
 	if(!timer_set)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) * 10
-		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			timer_set = 0
 			name = "pizza box"
 			desc = "A box suited for pizzas."
@@ -92,7 +92,7 @@
 	if(I.tool_behaviour == TOOL_WIRECUTTER && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return
 		playsound(src, I.usesound, 50, 1, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
@@ -113,7 +113,7 @@
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
-		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			playsound(src, I.usesound, 50, 1, 1)
 			user.drop_item_ground(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")

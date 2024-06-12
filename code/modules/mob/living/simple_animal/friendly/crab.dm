@@ -17,7 +17,7 @@
 	response_harm   = "stomps"
 	stop_automated_movement = 1
 	friendly = "pinches"
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	can_collar = 1

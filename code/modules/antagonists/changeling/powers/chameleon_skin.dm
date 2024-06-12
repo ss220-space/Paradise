@@ -14,12 +14,7 @@
 	if(!istype(h_owner))	// SHOULD always be human, because req_human = TRUE, but better safe than sorry
 		return FALSE
 
-	if(h_owner.dna.GetSEState(GLOB.chameleonblock))
-		h_owner.dna.SetSEState(GLOB.chameleonblock, FALSE)
-		genemutcheck(h_owner, GLOB.chameleonblock, null, MUTCHK_FORCED)
-	else
-		h_owner.dna.SetSEState(GLOB.chameleonblock, TRUE)
-		genemutcheck(h_owner, GLOB.chameleonblock, null, MUTCHK_FORCED)
+	h_owner.force_gene_block(GLOB.chameleonblock, !h_owner.dna.GetSEState(GLOB.chameleonblock))
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
@@ -28,6 +23,5 @@
 /datum/action/changeling/chameleon_skin/Remove(mob/user)
 	var/mob/living/carbon/c_owner = user
 	if(!QDELETED(c_owner) && c_owner.dna?.GetSEState(GLOB.chameleonblock))
-		c_owner.dna.SetSEState(GLOB.chameleonblock, FALSE)
-		genemutcheck(c_owner, GLOB.chameleonblock, null, MUTCHK_FORCED)
+		c_owner.force_gene_block(GLOB.chameleonblock, FALSE)
 	..()

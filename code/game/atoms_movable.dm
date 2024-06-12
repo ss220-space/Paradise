@@ -16,8 +16,11 @@
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
-	var/canmove = TRUE
 	var/pull_push_speed_modifier = 1
+
+	///The last time we pushed off something
+	///This is a hack to get around dumb him him me scenarios
+	var/last_pushoff
 
 	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
 	var/generic_canpass = TRUE
@@ -30,6 +33,20 @@
 
 	///Used for the calculate_adjacencies proc for icon smoothing.
 	var/can_be_unanchored = FALSE
+
+	/// Whether the atom allows mobs to be buckled to it. Can be ignored in [/atom/movable/proc/buckle_mob()] if force = TRUE
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces mob.lying_angle = buckle_lying if not set to [NO_BUCKLE_LYING].
+	/// Its an ANGLE, not a BOOLEAN var! 0 means you will always stand up, after being buckled to this atom.
+	var/buckle_lying = NO_BUCKLE_LYING
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = FALSE
+	/// The mobs currently buckled to this atom
+	var/list/mob/living/buckled_mobs
+	/// The maximum number of mob/livings allowed to be buckled to this atom at once
+	var/max_buckled_mobs = 1
+	/// Whether things buckled to this atom can be pulled while they're buckled
+	var/buckle_prevents_pull = FALSE
 
 	/**
 	  * In case you have multiple types, you automatically use the most useful one.
@@ -66,7 +83,7 @@
 	. = ..()
 
 
-/atom/movable/Initialize(mapload)
+/atom/movable/Initialize(mapload, ...)
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
@@ -76,6 +93,7 @@
 			blocker.dir = dir
 			blocker.alpha = alpha
 			blocker.appearance_flags |= appearance_flags
+			blocker.plane = GET_NEW_PLANE(EMISSIVE_PLANE, PLANE_TO_OFFSET(plane))
 			// Ok so this is really cursed, but I want to set with this blocker cheaply while
 			// still allowing it to be removed from the overlays list later.
 			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
@@ -119,7 +137,7 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
-	forceMove(null)
+	move_to_null_space()
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(orbiting)
@@ -135,6 +153,63 @@
 				render_target = ref(src)
 				em_block = new(null, src)
 			return em_block
+
+
+/atom/movable/vv_edit_var(var_name, var_value)
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, step_x) = TRUE, NAMEOF_STATIC(src, step_y) = TRUE, NAMEOF_STATIC(src, step_size) = TRUE, NAMEOF_STATIC(src, bounds) = TRUE)
+	var/static/list/careful_edits = list(NAMEOF_STATIC(src, bound_x) = TRUE, NAMEOF_STATIC(src, bound_y) = TRUE, NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	var/static/list/not_falsey_edits = list(NAMEOF_STATIC(src, bound_width) = TRUE, NAMEOF_STATIC(src, bound_height) = TRUE)
+	if(banned_edits[var_name])
+		return FALSE //PLEASE no.
+	if(careful_edits[var_name] && (var_value % world.icon_size) != 0)
+		return FALSE
+	if(not_falsey_edits[var_name] && !var_value)
+		return FALSE
+
+	switch(var_name)
+		if(NAMEOF(src, x))
+			var/turf/T = locate(var_value, y, z)
+			if(T)
+				admin_teleport(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, y))
+			var/turf/T = locate(x, var_value, z)
+			if(T)
+				admin_teleport(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, z))
+			var/turf/T = locate(x, y, var_value)
+			if(T)
+				admin_teleport(T)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, loc))
+			if(isatom(var_value) || isnull(var_value))
+				admin_teleport(var_value)
+				return TRUE
+			return FALSE
+		if(NAMEOF(src, anchored))
+			set_anchored(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	return ..()
+
+
+/// Proc to hook user-enacted teleporting behavior and keep logging of the event.
+/atom/movable/proc/admin_teleport(atom/new_location)
+	if(isnull(new_location))
+		log_admin("[key_name(usr)] teleported [key_name(src)] to nullspace")
+		move_to_null_space()
+	else
+		var/turf/location = get_turf(new_location)
+		log_admin("[key_name(usr)] teleported [key_name(src)] to [AREACOORD(location)]")
+		forceMove(new_location)
 
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
@@ -174,24 +249,29 @@
 		if(previous_puller)
 			add_attack_logs(AM, previous_puller, "pulled from", ATKLOG_ALMOSTALL)
 			if(show_message)
-				visible_message(span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."))
+				mob_target.visible_message(
+					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."),
+					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [previous_puller]!"),
+				)
 		else
 			add_attack_logs(src, mob_target, "pulls", ATKLOG_ALMOSTALL)
 			if(show_message)
-				visible_message(span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"))
+				mob_target.visible_message(
+					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"),
+					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				)
 		mob_target.LAssailant = iscarbon(src) ? src : null
 
 	return TRUE
 
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		pulling.pulledby = null
-		var/mob/living/ex_pulled = pulling
-		pulling = null
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+	if(!pulling)
+		return
+
+	pulling.pulledby = null
+	pulling = null
+
 
 /**
  * Checks if the pulling and pulledby should be stopped because they're out of reach.
@@ -348,6 +428,13 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/new_turf = get_turf(src)
+
+	if(old_turf?.z != new_turf?.z)
+		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
+		on_changed_z_level(old_turf, new_turf, same_z_layer)
+
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
 	return TRUE
@@ -389,61 +476,90 @@
 	currently_z_moving = max(currently_z_moving, new_z_moving_value)
 	return (currently_z_moving > old_z_moving_value)
 
-/atom/movable/proc/forceMove(atom/destination)
-	var/turf/old_loc = loc
-	var/area/old_area = get_area(src)
-	var/area/new_area = get_area(destination)
-	loc = destination
-	moving_diagonally = NONE
-
-	if(old_loc)
-		old_loc.Exited(src, destination)
-		for(var/atom/movable/AM in old_loc)
-			AM.Uncrossed(src)
-
-	if(old_area && (new_area != old_area))
-		old_area.Exited(src)
-
-	if(destination)
-		destination.Entered(src)
-		for(var/atom/movable/AM in destination)
-			if(AM == src)
-				continue
-			AM.Crossed(src, old_loc)
-
-		if(new_area && (old_area != new_area))
-			new_area.Entered(src)
-
-		var/turf/oldturf = get_turf(old_loc)
-		var/turf/destturf = get_turf(destination)
-		var/old_z = (oldturf ? oldturf.z : null)
-		var/dest_z = (destturf ? destturf.z : null)
-		if(old_z != dest_z)
-			onTransitZ(old_z, dest_z)
-
-	Moved(old_loc, NONE, TRUE)
-
-	return TRUE
-
 
 /atom/movable/proc/move_to_null_space()
+	return doMove(null)
 
-	var/atom/old_loc = loc
+
+/atom/movable/proc/forceMove(atom/destination)
+	. = FALSE
+	if(destination)
+		. = doMove(destination)
+	else
+		CRASH("No valid destination passed into forceMove")
+
+
+/atom/movable/proc/doMove(atom/destination)
+	. = FALSE
+
+	var/atom/oldloc = loc
 	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
 
-	if(old_loc)
-		loc = null
-		var/area/old_area = get_area(old_loc)
-		if(is_multi_tile && isturf(old_loc))
-			for(var/atom/old_loc_multi as anything in locs)
-				old_loc_multi.Exited(src, NONE)
-		else
-			old_loc.Exited(src, NONE)
+	if(destination)
+		///zMove already handles whether a pull from another movable should be broken.
+		if(pulledby && !currently_z_moving)
+			pulledby.stop_pulling()
 
-		if(old_area)
-			old_area.Exited(src, NONE)
+		var/same_loc = oldloc == destination
+		var/area/old_area = get_area(oldloc)
+		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
-	Moved(old_loc, NONE, TRUE)
+		moving_diagonally = NONE
+
+		loc = destination
+
+		if(!same_loc)
+			if(is_multi_tile && isturf(destination))
+				var/list/new_locs = block(
+					destination,
+					locate(
+						min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
+						min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
+						destination.z
+					)
+				)
+				if(old_area && old_area != destarea)
+					old_area.Exited(src, movement_dir)
+				for(var/atom/left_loc as anything in locs - new_locs)
+					left_loc.Exited(src, destination)
+
+				for(var/atom/entering_loc as anything in new_locs - locs)
+					entering_loc.Entered(src, oldloc)
+
+				if(old_area && old_area != destarea)
+					destarea.Entered(src, movement_dir)
+			else
+				if(oldloc)
+					oldloc.Exited(src, destination)
+					if(old_area && old_area != destarea)
+						old_area.Exited(src, movement_dir)
+				destination.Entered(src, oldloc)
+				if(destarea && old_area != destarea)
+					destarea.Entered(src, old_area)
+				for(var/atom/movable/movable in (destination.contents - src))
+					movable.Crossed(src, oldloc)
+
+		. = TRUE
+
+	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
+	else
+		. = TRUE
+
+		if(oldloc)
+			loc = null
+			var/area/old_area = get_area(oldloc)
+			if(is_multi_tile && isturf(oldloc))
+				for(var/atom/old_loc as anything in locs)
+					old_loc.Exited(src, NONE)
+			else
+				oldloc.Exited(src, NONE)
+
+			if(old_area)
+				old_area.Exited(src, NONE)
+
+	Moved(oldloc, NONE, TRUE)
+
 
 /atom/movable/proc/onZImpact(turf/impacted_turf, levels, impact_flags = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -546,39 +662,68 @@
 		return FALSE
 	return destination //used by some child types checks and zMove()
 
-/atom/movable/proc/onTransitZ(old_z,new_z)
-	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
-		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
+/**
+ * Called when a movable changes z-levels.
+ *
+ * Arguments:
+ * * old_turf - The previous turf they were on before.
+ * * new_turf - The turf they have now entered.
+ * * same_z_layer - If their old and new z levels are on the same level of plane offsets or not
+ * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed. NOTE, IF YOU SET THIS, YOU NEED TO MANUALLY SET PLANE OF THE CONTENTS LATER
+ */
+/atom/movable/proc/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_turf, new_turf, same_z_layer)
 
-/mob/living/forceMove(atom/destination)
-	if(buckled)
-		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(pulling && !currently_z_moving)
-		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
-	. = ..()
-	if(client)
-		reset_perspective()
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+	// If our turfs are on different z "layers", recalc our planes
+	if(!same_z_layer && !QDELETED(src))
+		SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
+		// a TON of overlays use planes, and thus require offsets
+		// so we do this. sucks to suck
+		update_appearance()
 
-//Called whenever an object moves and by mobs when they attempt to move themselves through space
-//And when an object or action applies a force on src, see newtonian_move() below
-//Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
-//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
-//movement_dir == 0 when stopping or any dir when trying to move
-/atom/movable/proc/Process_Spacemove(movement_dir = 0)
+		if(update_on_z)
+			// I so much wish this could be somewhere else. alas, no.
+			for(var/image/update as anything in update_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+		if(update_overlays_on_z)
+			// This EVEN more so
+			cut_overlay(update_overlays_on_z)
+			// This even more so
+			for(var/mutable_appearance/update in update_overlays_on_z)
+				SET_PLANE(update, PLANE_TO_TRUE(update.plane), new_turf)
+			add_overlay(update_overlays_on_z)
+
+	if(!notify_contents)
+		return
+
+	for (var/atom/movable/content as anything in src) // Notify contents of Z-transition.
+		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
+
+
+
+/**
+ * Called whenever an object moves and by mobs when they attempt to move themselves through space
+ * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
+ *
+ * Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+ *
+ * Mobs should return TRUE if they should be able to move of their own volition, see [/client/proc/Move]
+ *
+ * Arguments:
+ * * movement_dir - NONE when stopping or any dir when trying to move
+ */
+/atom/movable/proc/Process_Spacemove(movement_dir = NONE)
 	if(has_gravity())
 		return TRUE
 
-	if(pulledby && !pulledby.pulling)
+	if(pulledby && pulledby.pulledby != src)
 		return TRUE
 
 	if(throwing)
+		return TRUE
+
+	if(!isturf(loc))
 		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
@@ -586,8 +731,10 @@
 
 	return FALSE
 
-/atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
-	if(!loc || Process_Spacemove(0))
+
+/// Only moves the object if it's under no gravity
+/atom/movable/proc/newtonian_move(direction)
+	if(!isturf(loc) || Process_Spacemove(NONE))
 		inertia_dir = NONE
 		return FALSE
 
@@ -752,8 +899,8 @@
 			return turf
 		var/atom/movable/checked_atom = checked_range
 		if(checked_atom.density || !checked_atom.CanPass(src, get_dir(src, checked_atom)))
-			//if(checked_atom.last_pushoff == world.time)
-			//	continue
+			if(checked_atom.last_pushoff == world.time)
+				continue
 			return checked_atom
 
 
@@ -802,12 +949,15 @@
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
+	// we will register on turf to avoid image changes with attacked_atom transforms
+	var/turf/image_loc = get_turf(attacked_atom)
 	if(visual_effect_icon)
-		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
+		attack_image = image('icons/effects/effects.dmi', image_loc, visual_effect_icon, attacked_atom.layer + 0.1)
+		if(ismob(src) && ismob(attacked_atom))
+			var/mob/attacker = src
+			attack_image.color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	else if(used_item)
-		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
-		attack_image.plane = GAME_PLANE
-
+		attack_image = image(icon = used_item, loc = image_loc, layer = attacked_atom.layer + 0.1)
 		// Scale the icon.
 		attack_image.transform *= 0.4
 		// The icon should not rotate.
@@ -816,14 +966,14 @@
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_image.pixel_y = -16
+			attack_image.pixel_y = -12
 		else if(direction & SOUTH)
-			attack_image.pixel_y = 16
+			attack_image.pixel_y = 12
 
 		if(direction & EAST)
-			attack_image.pixel_x = -16
+			attack_image.pixel_x = -14
 		else if(direction & WEST)
-			attack_image.pixel_x = 16
+			attack_image.pixel_x = 14
 
 		if(!direction) // Attacked self?!
 			attack_image.pixel_y = 12
@@ -832,21 +982,18 @@
 	if(!attack_image)
 		return
 
+	SET_PLANE(attack_image, attacked_atom.plane, image_loc)
+
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/viewer in viewers(attacked_atom))
 		if(viewer.client && (viewer.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK))
-			viewing |= viewer.client
+			viewing += viewer.client
 
 	flick_overlay(attack_image, viewing, 0.7 SECONDS)
-	var/matrix/initial_transform = matrix(transform)
-	var/image_color = "#ffffff"
-	if(ismob(src) && ismob(attacked_atom) && !used_item)
-		var/mob/attacker = src
-		image_color = attacker.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
-
+	var/matrix/initial_transform = new(transform)
 	// And animate the attack!
-	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, time = 0.3 SECONDS, color = image_color)
+	animate(attack_image, alpha = 175, transform = initial_transform.Scale(0.75), pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS)
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
 
