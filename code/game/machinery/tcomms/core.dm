@@ -125,6 +125,8 @@
   *
   */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
+	if(QDELING(src))
+		return
 	// Refresh the list
 	reachable_zlevels = list()
 	// Add itself as a reachable Z-level
