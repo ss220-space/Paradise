@@ -469,7 +469,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
-			organ.receive_damage(0.6, FALSE)
+			organ.receive_damage(0.2, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
