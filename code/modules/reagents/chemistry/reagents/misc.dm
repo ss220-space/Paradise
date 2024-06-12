@@ -309,7 +309,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
-			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
@@ -519,31 +519,30 @@
 	id = "growthserum"
 	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
-	var/current_size = 1
+	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "enhancement"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
-			newsize = 1.1
+			newsize = 1.1 * RESIZE_DEFAULT_SIZE
 		if(20 to 49)
-			newsize = 1.2
+			newsize = 1.2 * RESIZE_DEFAULT_SIZE
 		if(50 to 99)
-			newsize = 1.25
+			newsize = 1.25 * RESIZE_DEFAULT_SIZE
 		if(100 to 199)
-			newsize = 1.3
+			newsize = 1.3 * RESIZE_DEFAULT_SIZE
 		if(200 to INFINITY)
-			newsize = 1.5
+			newsize = 1.5 * RESIZE_DEFAULT_SIZE
 
-	H.resize = newsize/current_size
+	H.update_transform(newsize/current_size)
 	current_size = newsize
-	H.update_transform()
 	return ..()
 
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
-	M.resize = 1/current_size
-	M.update_transform()
+	M.update_transform(RESIZE_DEFAULT_SIZE/current_size)
+	current_size = RESIZE_DEFAULT_SIZE
 	..()
 
 /datum/reagent/pax

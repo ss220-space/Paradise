@@ -32,6 +32,9 @@
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
+	/// List of all overlays to apply to our turfs
+	var/list/overlay_cache
+
 	var/stage = END_STAGE //The stage of the weather, from 1-4
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
@@ -127,24 +130,36 @@
 	return
 
 /datum/weather/proc/update_areas()
-	for(var/V in impacted_areas)
-		var/area/N = V
-		N.layer = overlay_layer
-		N.plane = overlay_plane
-		N.icon = 'icons/effects/weather_effects.dmi'
-		N.invisibility = 0
-		N.color = weather_color
-		switch(stage)
-			if(STARTUP_STAGE)
-				N.icon_state = telegraph_overlay
-			if(MAIN_STAGE)
-				N.icon_state = weather_overlay
-			if(WIND_DOWN_STAGE)
-				N.icon_state = end_overlay
-			if(END_STAGE)
-				N.color = null
-				N.icon_state = ""
-				N.icon = 'icons/turf/areas.dmi'
-				N.layer = initial(N.layer)
-				N.plane = initial(N.plane)
-				N.set_opacity(FALSE)
+	var/list/new_overlay_cache = generate_overlay_cache()
+	for(var/area/impacted as anything in impacted_areas)
+		if(length(overlay_cache))
+			impacted.overlays -= overlay_cache
+		if(length(new_overlay_cache))
+			impacted.overlays += new_overlay_cache
+
+	overlay_cache = new_overlay_cache
+
+/// Returns a list of visual offset -> overlays to use
+/datum/weather/proc/generate_overlay_cache()
+	// We're ending, so no overlays at all
+	if(stage == END_STAGE)
+		return list()
+
+	var/weather_state = ""
+	switch(stage)
+		if(STARTUP_STAGE)
+			weather_state = telegraph_overlay
+		if(MAIN_STAGE)
+			weather_state = weather_overlay
+		if(WIND_DOWN_STAGE)
+			weather_state = end_overlay
+
+	// Use all possible offsets
+	// Yes this is a bit annoying, but it's too slow to calculate and store these from turfs, and it shouldn't (I hope) look weird
+	var/list/gen_overlay_cache = list()
+	for(var/offset in 0 to SSmapping.max_plane_offset)
+		var/mutable_appearance/weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
+		weather_overlay.color = weather_color
+		gen_overlay_cache += weather_overlay
+
+	return gen_overlay_cache

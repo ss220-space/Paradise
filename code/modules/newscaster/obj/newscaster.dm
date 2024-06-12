@@ -101,7 +101,7 @@
 		return
 
 	if(!(stat & NOPOWER))
-		underlays += emissive_appearance(icon, "newscaster_lightmask")
+		underlays += emissive_appearance(icon, "newscaster_lightmask", src)
 
 	if(GLOB.news_network.wanted_issue)
 		. += "newscaster_wanted"

@@ -88,22 +88,22 @@
 	for(var/mob/living/carbon/human/buckled_mob in buckled_mobs)
 		var/obj/item/clothing/mask/facehugger/hugger_mask = buckled_mob.wear_mask
 		if(istype(hugger_mask) && !hugger_mask.sterile && (locate(/obj/item/organ/internal/body_egg/alien_embryo) in buckled_mob.internal_organs))
-			buckled_mob.throw_alert(ALERT_GHOST_NEST, /obj/screen/alert/ghost)
+			buckled_mob.throw_alert(ALERT_GHOST_NEST, /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, span_ghostalert("You may now ghost, you keep respawnability in this state. You will be alerted when you're removed from the nest."))
 
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
 	ADD_TRAIT(target, TRAIT_HANDS_BLOCKED, type)
-	target.pixel_y = 0
-	target.pixel_x = initial(target.pixel_x) + 2
+	target.pixel_y = target.base_pixel_y
+	target.pixel_x = target.base_pixel_x + 2
 	target.layer = BELOW_MOB_LAYER
 	add_overlay(nest_overlay)
 
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/target)
 	REMOVE_TRAIT(target, TRAIT_HANDS_BLOCKED, type)
-	target.pixel_x = target.get_standard_pixel_x_offset(target.lying_angle)
-	target.pixel_y = target.get_standard_pixel_y_offset(target.lying_angle)
+	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 	target.layer = initial(target.layer)
 	cut_overlay(nest_overlay)
 	deltimer(ghost_timer)

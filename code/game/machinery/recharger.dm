@@ -190,7 +190,7 @@
 	if((stat & NOPOWER) || panel_open)
 		return
 
-	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)

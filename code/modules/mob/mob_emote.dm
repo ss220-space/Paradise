@@ -140,7 +140,7 @@
 		user.SpinAnimation(5, 1)
 		return TRUE
 
-	if(isliving(user) && (user.lying_angle || user.resting))
+	if(isliving(user) && user.body_position == LYING_DOWN)
 		message = "круж%(ит,ат)%ся на полу."
 		return ..()
 

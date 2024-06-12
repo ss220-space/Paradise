@@ -424,17 +424,17 @@
 	// 	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
-		underlays += emissive_appearance(icon, "dispover-full")
+		underlays += emissive_appearance(icon, "dispover-full", src)
 		return
 
 	// charging and ready light
 	switch(mode)
 		if(CHARGING)
 			. += "dispover-charge"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 		if(CHARGED)
 			. += "dispover-ready"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 
 
 // timed process
@@ -572,7 +572,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))

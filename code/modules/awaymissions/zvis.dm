@@ -1,9 +1,3 @@
-/area/awaymission/upperlevel
-	name = "Open Space"
-	color = "#888"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	requires_power = FALSE
-
 // Used by /turf/simulated/floor/indestructible/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
 	name = "level reference"
@@ -238,7 +232,7 @@
 	if(Tloc)
 		Tloc.icon = null
 		Tloc.icon_state = null
-		Tloc.dynamic_lighting = 0
+		Tloc.always_lit = TRUE
 		layer = AREA_LAYER + 0.5
 
 	// setup references
@@ -276,7 +270,7 @@
 		nvs = SIGN(nvs)
 	// need a mob for view() to work correctly
 	var/mob/M = new(near_viewpoint)
-	M.see_invisible = SEE_INVISIBLE_LIVING
+	M.set_invis_see(SEE_INVISIBLE_LIVING)
 	near_render_block = view(M, world.view)
 	qdel(M)
 	for(var/A in near_render_block)

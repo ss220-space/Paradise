@@ -1,6 +1,7 @@
 /turf
-	var/dynamic_lighting = TRUE
 	luminosity = 1
+	///Bool, whether this turf will always be illuminated no matter what area it is in
+	var/always_lit = FALSE
 
 	var/tmp/lighting_corners_initialised = FALSE
 
@@ -27,10 +28,6 @@
 /turf/proc/lighting_build_overlay()
 	if(lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
-
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(A) && !light_sources)
-		return
 
 	new/atom/movable/lighting_object(src)
 
@@ -105,11 +102,21 @@
 			mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		if(new_area.dynamic_lighting != old_area.dynamic_lighting)
-			if(new_area.dynamic_lighting)
+		if(new_area.static_lighting != old_area.static_lighting)
+			if(new_area.static_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
+
+	// We will only run this logic on turfs off the prime z layer
+	// Since on the prime z layer, we use an overlay on the area instead, to save time
+	if(SSmapping.z_level_to_plane_offset[z])
+		var/index = SSmapping.z_level_to_plane_offset[z]
+		//Inherit overlay of new area
+		if(old_area.lighting_effects)
+			cut_overlay(old_area.lighting_effects[index])
+		if(new_area.lighting_effects)
+			add_overlay(new_area.lighting_effects[index])
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)

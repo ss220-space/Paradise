@@ -20,7 +20,6 @@
 
 	ADD_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)		//play dead
 	user.updatehealth("fakedeath sting")
-	user.update_canmove()
 	cling.regenerating = TRUE
 
 	var/stasis_delay = LING_FAKEDEATH_TIME + cling.fakedeath_delay

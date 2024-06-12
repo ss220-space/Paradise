@@ -12,7 +12,7 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = 1
+	animate_movement = FORWARD_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -20,6 +20,7 @@
 	buckle_lying = 0
 	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
@@ -436,7 +437,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
-	target.pixel_y = initial(target.pixel_y) + 9
+	target.pixel_y = target.base_pixel_y + 9
 	if(target.layer < layer)
 		target.layer = layer + 0.01
 
@@ -444,7 +445,7 @@
 /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
 	target.layer = initial(target.layer)
-	target.pixel_y = initial(target.pixel_y)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 // called to unload the bot
@@ -462,7 +463,7 @@
 		load.forceMove(loc)
 		load.pixel_y = initial(load.pixel_y)
 		load.layer = initial(load.layer)
-		load.plane = initial(load.plane)
+		SET_PLANE_EXPLICIT(load, initial(load.plane), src)
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)

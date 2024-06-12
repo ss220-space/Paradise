@@ -16,7 +16,7 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])", should_log)
-	update_movespeed_damage_modifiers()
+	update_stamina()
 
 
 /mob/living/carbon/human/update_stamina()

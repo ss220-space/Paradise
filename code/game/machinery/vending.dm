@@ -212,7 +212,7 @@
 		if(broken_overlay)
 			. += broken_overlay
 		if(broken_lightmask_overlay)
-			underlays += emissive_appearance(icon, broken_lightmask_overlay)
+			underlays += emissive_appearance(icon, broken_lightmask_overlay, src)
 		if(panel_overlay && panel_open)
 			. += panel_overlay
 		return
@@ -234,7 +234,7 @@
 			. += deny_lightmask
 
 	if(!lightmask_used && lightmask_overlay)
-		underlays += emissive_appearance(icon, lightmask_overlay)
+		underlays += emissive_appearance(icon, lightmask_overlay, src)
 
 	if(panel_overlay && panel_open)
 		. += panel_overlay
@@ -937,27 +937,6 @@
 		return
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
-
-/obj/machinery/vending/onTransitZ()
-	return
-/*
- * Vending machine types
- */
-
-/*
-
-/obj/machinery/vending/[vendors name here]   // --vending machine template   :)
-	name = ""
-	desc = ""
-	icon = ''
-	icon_state = ""
-	vend_delay = 15
-	products = list()
-	contraband = list()
-	premium = list()
-
-*/
-
 
 /obj/machinery/vending/assist
 
@@ -1794,7 +1773,8 @@
 					/obj/item/clothing/under/bluehawaiianshirt = 1,
 					/obj/item/clothing/under/orangehawaiianshirt = 1,
 					/obj/item/clothing/under/ussptracksuit_red = 4,
-					/obj/item/clothing/under/ussptracksuit_blue = 4)
+					/obj/item/clothing/under/ussptracksuit_blue = 4,
+					/obj/item/clothing/under/dress50s = 3)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
 					/obj/item/gun/magic/wand = 1,
@@ -1812,7 +1792,9 @@
 					/obj/item/clothing/under/cuban_suit = 1,
 					/obj/item/clothing/head/cuban_hat = 1,
 					/obj/item/clothing/under/ussptracksuit_black = 1,
-					/obj/item/clothing/under/ussptracksuit_white = 1)
+					/obj/item/clothing/under/ussptracksuit_white = 1,
+					/obj/item/clothing/under/steampunkdress = 1,
+					/obj/item/clothing/suit/hooded/hijab = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
@@ -2151,6 +2133,8 @@
 					/obj/item/clothing/under/overalls = 1,
 					/obj/item/clothing/under/suit_jacket/really_black = 2,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
+					/obj/item/clothing/under/pants/galifepants = 3,
+					/obj/item/clothing/under/pants/sandpants = 3,
 					/obj/item/clothing/under/pants/jeans = 3,
 					/obj/item/clothing/under/pants/classicjeans = 2,
 					/obj/item/clothing/under/pants/camo = 1,
@@ -2208,6 +2192,8 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 4,
 					/obj/item/clothing/shoes/sandal = 1,
+					/obj/item/clothing/shoes/leather_boots = 3,
+					/obj/item/clothing/gloves/brown_short_gloves = 3,
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
@@ -2902,7 +2888,7 @@
 		else if(flick_sequence & FLICK_DENY)
 			. += deny_overlay
 
-	underlays += emissive_appearance(icon, "nta_lightmask")
+	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
 
 /obj/machinery/vending/nta/ertarmory/blue

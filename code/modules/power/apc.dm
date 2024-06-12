@@ -447,7 +447,7 @@
 	underlays.Cut()
 
 	if(update_state & UPSTATE_BLUESCREEN)
-		underlays += emissive_appearance(icon, "emit_apcemag")
+		underlays += emissive_appearance(icon, "emit_apcemag", src)
 		return
 
 	if((stat & (BROKEN|MAINT)) || !(update_state & UPSTATE_ALLGOOD))
@@ -457,8 +457,8 @@
 	var/image/statover_charg = status_overlays_charging[charging + 1]
 	. += statover_lock
 	. += statover_charg
-	underlays += emissive_appearance(icon, statover_lock.icon_state)
-	underlays += emissive_appearance(icon, statover_charg.icon_state)
+	underlays += emissive_appearance(icon, statover_lock.icon_state, src)
+	underlays += emissive_appearance(icon, statover_charg.icon_state, src)
 
 	if(!operating)
 		return
@@ -469,9 +469,9 @@
 	. += statover_equip
 	. += statover_light
 	. += statover_envir
-	underlays += emissive_appearance(icon, statover_equip.icon_state)
-	underlays += emissive_appearance(icon, statover_light.icon_state)
-	underlays += emissive_appearance(icon, statover_envir.icon_state)
+	underlays += emissive_appearance(icon, statover_equip.icon_state, src)
+	underlays += emissive_appearance(icon, statover_light.icon_state, src)
+	underlays += emissive_appearance(icon, statover_envir.icon_state, src)
 
 
 /obj/machinery/power/apc/proc/check_updates()
@@ -822,7 +822,7 @@
 			update_icon()
 	else if(stat & BROKEN)
 		if(!opened)
-			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(user, span_notice("You pry out broken frame."))
 				opened = APC_COVER_OFF
 				update_icon()
@@ -1237,8 +1237,8 @@
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
 	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
-	var/obj/screen/alert/hackingapc/A
-	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
+	var/atom/movable/screen/alert/hackingapc/A
+	A = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
 	A.target = src
 
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)

@@ -233,7 +233,7 @@
 
 // Handler for the in-chat reply button
 /datum/data/pda/app/messenger/Topic(href, href_list)
-	if(!pda.can_use())
+	if(!pda.can_use(usr))
 		return
 	unnotify()
 	switch(href_list["choice"])

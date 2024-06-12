@@ -105,7 +105,7 @@
 	..()
 	if(is_sharp(W) && !damaged)
 		to_chat(user, span_notice("You started damaging the crystal. You have the feeling that's it's not a good idea..."))
-		if(!do_after(user, 5 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(!do_after(user, 5 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			to_chat(user, span_notice("You decide not to die from radiation."))
 			return
 		to_chat(user, span_warning("You make a crack in the crystal! Your head hurts..."))

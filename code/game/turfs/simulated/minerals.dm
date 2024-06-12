@@ -13,6 +13,9 @@
 	blocks_air = TRUE
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
+	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
+	// Otherwise we'll draw under shit in weird ways
+	plane = GAME_PLANE
 	temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
@@ -108,6 +111,17 @@
 
 /turf/simulated/mineral/update_overlays()
 	. = ..()
+	// Mineral turfs are big, so they need to be on the game plane at a high layer
+	// But they're also turfs, so we need to cut them out from the light mask plane
+	// So we draw them as if they were on the game plane, and then overlay a copy onto
+	// The wall plane (so emissives/light masks behave)
+	// I am so sorry
+	var/static/mutable_appearance/wall_overlay = mutable_appearance()
+	wall_overlay.icon = icon
+	wall_overlay.icon_state = icon_state
+	SET_PLANE_EXPLICIT(wall_overlay, WALL_PLANE, src)
+	. += wall_overlay
+
 	if(hardness != initial(hardness))
 		var/amount = hardness
 		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)
