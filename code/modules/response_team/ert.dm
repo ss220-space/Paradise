@@ -69,22 +69,22 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/total_slots = commander_slots + security_slots + medical_slots + engineering_slots + janitor_slots + paranormal_slots + cyborg_slots
 
 	GLOB.send_emergency_team = TRUE
-	var/list/volunteerss = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/volunteers = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?", GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	var/list/ert_candidates = list()
-	if(!volunteerss.len)
+	if(!volunteers.len)
 		if(!prevent_announce)
 			GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
 
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in ert_candidates)
+	for(var/mob/dead/observer/M in volunteers)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			ert_candidates|= M
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (volunteerss - GLOB.respawnable_list))
+	for(var/mob/dead/observer/M in (volunteers - GLOB.respawnable_list))
 		if(M.JoinResponseTeam())
 			ert_candidates |= M
 
