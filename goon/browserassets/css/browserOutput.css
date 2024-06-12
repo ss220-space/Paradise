@@ -303,7 +303,6 @@ em						{font-style: normal;	font-weight: bold;}
 .alert					{color: #ff0000;}
 h1.alert, h2.alert			{color: #000000;}
 .ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
-.emote					{					font-style: italic;}
 .selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
 
 .attack					{color: #ff0000;}
@@ -334,7 +333,16 @@ h1.alert, h2.alert			{color: #000000;}
 
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
-.blob					{color: #006221;	font-weight: bold;	font-style: italic;}
+.blob						{color: #006221;font-weight: bold;font-style: italic;}
+.blobteslium_paste			{color: #412968;font-weight: bold;font-style: italic;}
+.blobradioactive_gel		{color: #2476f0;font-weight: bold;font-style: italic;}
+.blobb_sorium				{color: #808000;font-weight: bold;font-style: italic;}
+.blobcryogenic_liquid		{color: #8BA6E9;font-weight: bold;font-style: italic;}
+.blobkinetic				{color: #FFA500;font-weight: bold;font-style: italic;}
+.bloblexorin_jelly			{color: #00FFC5;font-weight: bold;font-style: italic;}
+.blobenvenomed_filaments	{color: #9ACD32;font-weight: bold;font-style: italic;}
+.blobboiling_oil			{color: #B68D00;font-weight: bold;font-style: italic;}
+.blobripping_tendrils		{color: #7F0000;font-weight: bold;font-style: italic;}
 .confirm				{color: #00af3b;}
 .rose					{color: #ff5050;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
@@ -442,6 +450,10 @@ h1.alert, h2.alert			{color: #000000;}
 .adminticket {color: #3e7336; font-weight: bold}
 
 .adminticketalt {color: #014c8a; font-weight: bold}
+
+/* Empty spans */
+.emote {
+}
 
 /* Syndicate codewords */
 span.body .codephrases {color: #0000FF;}

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/head_accessory/vulpkanin
     icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_facial_hair.dmi'
-    species_allowed = list("Vulpkanin")
+    species_allowed = list(SPECIES_VULPKANIN)
 
 /datum/sprite_accessory/head_accessory/vulpkanin/vulp_earfluff
 	name = "Vulpkanin Earfluff"

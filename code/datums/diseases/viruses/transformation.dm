@@ -43,6 +43,7 @@
 				do_disease_transformation()
 				if(cure_after_transform)
 					cure()
+	return TRUE
 
 /datum/disease/virus/transformation/proc/do_disease_transformation()
 	if(istype(affected_mob) && new_form)
@@ -50,20 +51,16 @@
 			affected_mob.death(1)
 			return
 
-		if(affected_mob.notransform)
+		if(HAS_TRAIT(affected_mob, TRAIT_NO_TRANSFORM))
 			return
 
-		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		ADD_TRAIT(affected_mob, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 		affected_mob.icon = null
-		affected_mob.overlays.Cut()
+		affected_mob.cut_overlays()
 		affected_mob.invisibility = INVISIBILITY_ABSTRACT
 
-		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/implant))
-				qdel(W)
-				continue
-			affected_mob.drop_item_ground(W) //Если вещь снимается - снимаем
+		for(var/obj/item/item as anything in affected_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			affected_mob.drop_item_ground(item)
 
 		if(isobj(affected_mob.loc))
 			var/obj/O = affected_mob.loc
@@ -215,10 +212,8 @@
 
 	switch(stage)
 		if(1)
-			if(ishuman(affected_mob))
-				var/mob/living/carbon/human/H = affected_mob
-				if(isslimeperson(H))
-					stage = 5
+			if(isslimeperson(affected_mob))
+				stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob

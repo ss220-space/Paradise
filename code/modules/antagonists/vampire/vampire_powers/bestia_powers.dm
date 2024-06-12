@@ -66,7 +66,7 @@
 		if(INTERNAL_ORGAN_KIDNEYS)
 			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
 		if(INTERNAL_ORGAN_EYES)
-			return bestia.trophies[INTERNAL_ORGAN_KIDNEYS]
+			return bestia.trophies[INTERNAL_ORGAN_EYES]
 		if(INTERNAL_ORGAN_EARS)
 			return bestia.trophies[INTERNAL_ORGAN_EARS]
 		else
@@ -156,7 +156,7 @@
 
 	if(update_spells)
 		check_vampire_upgrade()
-		var/list/all_spells = owner.spell_list | owner.current.mob_spell_list
+		var/list/all_spells = owner.spell_list + owner.current.mob_spell_list
 		for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 			spell.on_trophie_update(src, trophie_type)
 
@@ -381,7 +381,7 @@
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
 
-		if(!do_mob(user, target, 5 SECONDS) || !special_check(user, TRUE, TRUE))
+		if(!do_after(user, 5 SECONDS, target, NONE) || !special_check(user, TRUE, TRUE))
 			to_chat(user, span_warning("Our dissection of [target] has been interrupted!"))
 			is_dissecting = FALSE
 			return
@@ -543,7 +543,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(ignore_grab = TRUE))
+	if(user.incapacitated(INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -574,7 +574,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
-	flags = ABSTRACT | NOBLUDGEON | DROPDEL
+	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
@@ -714,7 +714,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE) || user.buckled || (iscarbon(user) && user.legcuffed))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -727,9 +727,7 @@
 	user.stop_pulling()
 	user.unbuckle_all_mobs(TRUE)
 	user.buckled?.unbuckle_mob(user, TRUE)
-	for(var/mob/living/puller in range(user, 1))
-		if(puller.pulling == user)
-			puller.stop_pulling()
+	user.pulledby?.stop_pulling()
 
 	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
 						span_notice("You lunge into the air..."))
@@ -742,6 +740,7 @@
 
 	user.layer = LOW_LANDMARK_LAYER
 	user.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	user.add_traits(list(TRAIT_MOVE_FLYING, TRAIT_IMMOBILIZED), SPELL_LUNGE_TRAIT)
 
 	var/dir_switch = FALSE
 	var/matrix/old_transform = user.transform
@@ -749,13 +748,11 @@
 		if(QDELETED(user))
 			return
 
-		user.canmove = FALSE
-		user.flying = TRUE
 		var/direction = get_dir(user, target)
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
 
-		if(!is_path_exist(user, next_step))
+		if(next_step.is_blocked_turf(source_atom = user))
 			break
 
 		user.forceMove(next_step)
@@ -780,19 +777,18 @@
 		animate(user, time = 0.05 SECONDS, pixel_x = from_x, pixel_y = from_y, transform = animation_matrix, easing = CUBIC_EASING)
 		animate(time = 0.05 SECONDS, pixel_x = old_x, pixel_y = old_y, transform = old_transform)
 
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+		playsound(next_step, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		sleep(0.1 SECONDS)
 
 	if(QDELETED(user))
 		return
 
 	user.layer = initial(user.layer)
-	user.flying = initial(user.flying)
 	user.pixel_y = initial(user.pixel_y)
 	user.pixel_y = initial(user.pixel_x)
 	user.transform = initial(user.transform)
-	user.canmove = TRUE
 	user.pass_flags &= ~(PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
+	user.remove_traits(list(TRAIT_MOVE_FLYING, TRAIT_IMMOBILIZED), SPELL_LUNGE_TRAIT)
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampire)
@@ -837,18 +833,6 @@
 
 	if(blood_gained)
 		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
-
-
-/obj/effect/proc_holder/spell/vampire/proc/is_path_exist(atom/source, atom/target)
-	var/obj/dummy = new(source.loc)
-	dummy.pass_flags |= (PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB)
-	for(var/turf/turf in getline(source, target))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy, turf, 1))
-				qdel(dummy)
-				return FALSE
-	qdel(dummy)
-	return TRUE
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
@@ -959,7 +943,7 @@
 				to_chat(user, span_warning("You are already using another metamorphosis!"))
 			return FALSE
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -1015,11 +999,12 @@
 						span_notice("You start to transform into the [vampire_animal]."), \
 						span_italics("You hear an eerie rustle of many wings..."))
 
+	vampire.stop_sucking()
 	original_body = user
-	vampire_animal.status_flags |= GODMODE
-	user.notransform = TRUE
 	user.status_flags |= GODMODE
-	vampire_animal.canmove = FALSE
+	vampire_animal.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(vampire_animal)
 	user.mind.transfer_to(vampire_animal)
 	vampire.draw_HUD()
@@ -1034,9 +1019,9 @@
 		return
 
 	vampire_animal.status_flags &= ~GODMODE
-	vampire_animal.canmove = TRUE
+	REMOVE_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
-	var/list/all_spells = vampire_animal.mind.spell_list | vampire_animal.mob_spell_list
+	var/list/all_spells = vampire_animal.mind.spell_list + vampire_animal.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 
@@ -1051,15 +1036,14 @@
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_italics("You hear an eerie rustle of many wings..."))
 
-	user.density = FALSE
+	user.set_density(FALSE)
 	original_body.dir = SOUTH
-	original_body.forceMove(get_turf(user))
-	original_body.canmove = FALSE
+	original_body.forceMove(user.loc)
 	user.mind.transfer_to(original_body)
 	var/datum/antagonist/vampire/vampire = original_body.mind?.has_antag_datum(/datum/antagonist/vampire)
 	vampire?.draw_HUD()
 
-	var/obj/effect/temp_visual/vamp_mist_out/effect = new(get_turf(user))
+	var/obj/effect/temp_visual/vamp_mist_out/effect = new(user.loc)
 	effect.alpha = 0
 	animate(effect, time = 0.2 SECONDS, alpha = 255)
 
@@ -1079,11 +1063,10 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
 	is_transformed = FALSE
-	var/list/all_spells = original_body.mind.spell_list | original_body.mob_spell_list
+	var/list/all_spells = original_body.mind.spell_list + original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
 		spell.updateButtonIcon()
 	original_body = null
@@ -1277,7 +1260,7 @@
 		if(!is_vampire_compatible(victim, include_IPC = TRUE))
 			continue
 
-		if(is_path_exist(user, victim))
+		if(is_path_exist(user, victim, PASSTABLE|PASSGRILLE|PASSFENCE|PASSMOB))
 			targets += victim
 
 	if(length(targets))
@@ -1374,11 +1357,12 @@
 	new /obj/effect/temp_visual/cult/sparks(user_turf)
 	user.forceMove(user_turf)
 	qdel(user_image)
-	if(user.stat == UNCONSCIOUS)	// just in case
-		user.WakeUp(updating = FALSE)
-	user.KnockOut()
-	user.visible_message(span_warning("Suddenly [user] falls straight inside the coffin and it closes!"), \
-						span_notice("Bluespace entity tosses you inside the coffin and seals it. The regeneration process has started..."))
+
+	user.set_stat(UNCONSCIOUS)
+	user.visible_message(
+		span_warning("Suddenly [user] falls straight inside the coffin and it closes!"),
+		span_notice("Bluespace entity tosses you inside the coffin and seals it. The regeneration process has started..."),
+	)
 
 	sleep(0.6 SECONDS)
 	if(QDELETED(user) || QDELETED(coffin))
@@ -1412,10 +1396,9 @@
 	coffin.no_manipulation = FALSE
 	coffin.open()
 	coffin.no_manipulation = TRUE
-	coffin.human_vampire.WakeUp()
+	coffin.human_vampire.set_stat(CONSCIOUS)
 	coffin.human_vampire.updatehealth("vampire coffin")
 	coffin.human_vampire.UpdateAppearance()
-	coffin.human_vampire.UpdateDamageIcon()
 	coffin.human_vampire = null
 	animate(coffin, alpha = 0, time = 2 SECONDS)
 	STOP_PROCESSING(SSobj, coffin)
@@ -1431,6 +1414,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
+	light_system = STATIC_LIGHT
 
 
 /**
@@ -1443,7 +1427,7 @@
 	color = "#7F0000"
 	anchored = TRUE
 	resistance_flags = NONE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -1530,13 +1514,12 @@
 	human_vampire.forceMove(source_turf)
 	human_vampire.updatehealth("vampire coffin")
 	human_vampire.UpdateAppearance()
-	human_vampire.UpdateDamageIcon()
 
 	if(human_vampire.stat == DEAD)
 		human_vampire.visible_message(span_warning("[human_vampire]'s dead body appears under the coffin remains!"))
 		return
 
-	human_vampire.WakeUp()
+	human_vampire.set_stat(CONSCIOUS)
 
 	new /obj/effect/temp_visual/cult/sparks(source_turf)
 	playsound(loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
@@ -1565,7 +1548,7 @@
 		return
 
 	if(human_vampire.stat == CONSCIOUS)
-		human_vampire.KnockOut()	// to be sure
+		human_vampire.set_stat(UNCONSCIOUS)	// to be sure
 
 	// cleansing reagents
 	for(var/datum/reagent/reagent in human_vampire.reagents.reagent_list)
@@ -1644,7 +1627,7 @@
 		fullpower_heal_done = TRUE
 
 		human_vampire.radiation = 0
-		human_vampire.bodytemperature = human_vampire.dna.species.body_temperature
+		human_vampire.set_bodytemperature(human_vampire.dna ? human_vampire.dna.species.body_temperature : BODYTEMP_NORMAL)
 		human_vampire.surgeries.Cut()
 		human_vampire.SetDisgust(0)
 		human_vampire.SetSlowed(0)
@@ -1669,21 +1652,9 @@
 			if(QDELETED(body_part))
 				continue
 
-			if(body_part.is_robotic())
-				body_part.status = ORGAN_ROBOT
-			else
-				var/fractured = body_part.has_fracture()
-				var/bleeding = body_part.has_internal_bleeding()
-				body_part.status = NONE
-				if(fractured)	// we have separate method to mend fractures
-					body_part.status |= ORGAN_BROKEN
-				if(bleeding)	// and stop internal bleedings too
-					body_part.status |= ORGAN_INT_BLEED
-
-
+			body_part.heal_status_wounds(ORGAN_DISFIGURED|ORGAN_DEAD|ORGAN_MUTATED)
 			body_part.germ_level = 0
-			body_part.open = FALSE
-			body_part.undisfigure()
+			body_part.open = ORGAN_CLOSED
 
 			for(var/obj/item/organ/internal/organ as anything in body_part.internal_organs)
 				if(QDELETED(organ))
@@ -1915,7 +1886,7 @@
 	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8		// full night vision
+	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
 	minbodytemp = 0
 	maxbodytemp = 600	// better than human vampire but still dangerous
@@ -1992,21 +1963,21 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
+	nightvision = initial(nightvision)
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
-			sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+			add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
-			sight |= SEE_MOBS
+			add_sight(SEE_MOBS)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(client.eye != src)
@@ -2039,7 +2010,6 @@
 	speak_emote = list("rattles")
 	move_resist = MOVE_FORCE_NORMAL
 	pull_force = MOVE_FORCE_NORMAL
-	flying = TRUE
 	health = 130
 	maxHealth = 130
 	force_threshold = 3	// little protection
@@ -2051,16 +2021,19 @@
 
 /mob/living/simple_animal/hostile/vampire/bats/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
+
+	AddElement(/datum/element/simple_flying)
+
 	if(!vampire)
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 20 									// 250 MAX
+	health += t_hearts * 20 												// 250 MAX
 	maxHealth += t_hearts * 20
-	melee_damage_lower += round(t_hearts / 2) 					// 13 MAX
-	melee_damage_upper += t_hearts								// 21 MAX
-	force_threshold += t_hearts * 2 							// 15 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
+	melee_damage_lower += round(t_hearts / 2) 								// 13 MAX
+	melee_damage_upper += t_hearts											// 21 MAX
+	force_threshold += t_hearts * 2 										// 15 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats/add_spells()
@@ -2111,6 +2084,7 @@
 	icon_resting = "hellhoundgreater_sit"
 	speak_emote = list("growls", "roars")
 	attacktext = "терзает"
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG	// no escape
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG	// for the weaked
 	maxHealth = 200
@@ -2136,12 +2110,12 @@
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 30										// 380 MAX
+	health += t_hearts * 30													// 380 MAX
 	maxHealth += t_hearts * 30
-	melee_damage_lower += t_hearts								// 25 MAX
-	melee_damage_upper += t_hearts								// 30 MAX
-	force_threshold += t_hearts * 3								// 28 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05	// 30% MAX
+	melee_damage_lower += t_hearts											// 25 MAX
+	melee_damage_upper += t_hearts											// 30 MAX
+	force_threshold += t_hearts * 3											// 28 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.05)	// 30% MAX
 
 
 /mob/living/simple_animal/hostile/vampire/hound/Life(seconds, times_fired)
@@ -2208,7 +2182,6 @@
 	robust_searching = TRUE
 	move_to_delay = 0.1 SECONDS	// fast and furious
 	stat_attack = UNCONSCIOUS	// YOU ARE DEAD!
-	flying = TRUE
 	speed = 1
 	force_threshold = 3
 	health = 80
@@ -2224,17 +2197,18 @@
 	. = ..()
 
 	faction = list(ROLE_VAMPIRE)
+	AddElement(/datum/element/simple_flying)
 
 	if(!vampire)
 		return
 
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
-	health += t_hearts * 10 									// 140 MAX
+	health += t_hearts * 10 												// 140 MAX
 	maxHealth += t_hearts * 10
-	melee_damage_lower += round(t_hearts / 2)					// 11 MAX
-	melee_damage_upper += t_hearts								// 16 MAX
-	force_threshold += t_hearts									// 9 MAX
-	speed -= vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1	// 0.4 MAX
+	melee_damage_lower += round(t_hearts / 2)								// 11 MAX
+	melee_damage_upper += t_hearts											// 16 MAX
+	force_threshold += t_hearts												// 9 MAX
+	set_varspeed(speed - vampire.get_trophies(INTERNAL_ORGAN_LUNGS) * 0.1)	// 0.4 MAX
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/AttackingTarget()

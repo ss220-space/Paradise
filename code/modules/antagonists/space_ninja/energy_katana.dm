@@ -25,7 +25,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	slot_flags = SLOT_BACK | SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -78,7 +78,7 @@
 			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 
-/obj/item/melee/energy_katana/dropped(mob/user, silent = FALSE)
+/obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(user && user.client)
 		jaunt.Remove(user)
@@ -137,9 +137,9 @@
 
 	if(user.put_in_active_hand(src))
 		msg = "Your Energy Katana teleports into your hand!"
-	else if(user.equip_to_slot_if_possible(src, slot_belt, disable_warning = TRUE))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
-	else if(user.equip_to_slot_if_possible(src, slot_back, disable_warning = TRUE))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BACK, disable_warning = TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself at your back as it does so!</span>"
 	else
 		msg = "Your Energy Katana teleports to your location!"

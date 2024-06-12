@@ -228,7 +228,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/simulated/floor/T in orange(4, loc))
+			for(var/turf/T as anything in RECT_TURFS(4, 4, loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isfloorturf(t))
@@ -270,6 +270,11 @@
 		if(T)
 			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
 
+/obj/effect/temp_visual/goliath_tentacle/full_cross/Initialize(mapload, new_spawner)
+	. = ..()
+	for(var/dir in GLOB.cardinal)
+		new /obj/effect/temp_visual/goliath_tentacle(get_step(src, dir), spawner)
+
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
 	deltimer(timerid)
@@ -281,8 +286,11 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(10 SECONDS)
-		L.adjustBruteLoss(rand(10,15))
+		if(!L.IsStunned())
+			L.Stun(10 SECONDS)
+			L.adjustBruteLoss(rand(10, 15))
+		else
+			L.adjustBruteLoss(rand(20, 30))
 		latched = TRUE
 	if(!latched)
 		retract()

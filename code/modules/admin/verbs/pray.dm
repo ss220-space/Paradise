@@ -10,8 +10,8 @@
 	if(!msg)
 		return
 
-	if(usr.client)
-		if(usr.client.prefs.muted & MUTE_PRAY)
+	if(client)
+		if(client.prefs.muted & MUTE_PRAY)
 			to_chat(usr, "<span class='warning'>You cannot pray (muted).</span>")
 			return
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
@@ -21,7 +21,7 @@
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
-	if(usr.job == "Chaplain")
+	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
 		cross = image('icons/obj/storage.dmi',"kingyellow")
@@ -34,7 +34,7 @@
 		deity = SSticker.cultdat.entity_name
 
 	add_game_logs("Prayed to the gods: [msg]", usr)
-	GLOB.requests.pray(usr.client, msg, usr.job == "Chaplain")
+	GLOB.requests.pray(client, msg, job == JOB_TITLE_CHAPLAIN)
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 
 	for(var/client/X in GLOB.admins)
@@ -44,7 +44,7 @@
 				SEND_SOUND(X, 'sound/items/PDA/ambicha4-short.ogg')
 	to_chat(usr, "Your prayers have been received by the gods.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))

@@ -143,6 +143,9 @@
 /// Called after the config has been loaded or reloaded.
 /datum/controller/subsystem/proc/OnConfigLoad()
 
+/// Called after the MC has been loaded or reloaded
+/datum/controller/subsystem/proc/OnMasterLoad()
+
 ///previously, this would have been named 'process()' but that name is used everywhere for different things!
 ///fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 ///Sleeping in here prevents future fires until returned.

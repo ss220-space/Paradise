@@ -1,7 +1,7 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 
-	if(notransform)
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	if(damageoverlaytemp)
@@ -97,6 +97,8 @@
 	if(breath)
 		loc.assume_air(breath)
 		air_update_turf()
+		if(ishuman(src) && !internal && environment.temperature < 278 && environment.return_pressure() > 20)
+			new /obj/effect/frosty_breath(loc, src)
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
@@ -110,7 +112,7 @@
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
 
 	var/safe_oxy_min = 16
@@ -136,7 +138,7 @@
 			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
@@ -165,7 +167,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
@@ -188,19 +190,19 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
-/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal)
-		if(internal.loc != src)
-			internal = null
-		if(!get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
-			if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
-				if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
-					internal = null //turn off internals
 
-		if(internal)
-			return internal.remove_air_volume(volume_needed)
-		else
-			update_action_buttons_icon()
+/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
+	if(!internal)
+		return
+
+	if(internal.loc != src || !has_airtight_items())
+		internal = null
+
+	if(!internal)
+		update_action_buttons_icon()
+		return
+
+	return internal.remove_air_volume(volume_needed)
 
 
 /mob/living/carbon/proc/handle_organs()
@@ -259,17 +261,16 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				adjust_nutrition(10)
+				//Vampires don't get nutrition from devouring mobs
+				if(!isvampire(src))
+					adjust_nutrition(10)
 
 //this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
-	if(stam_regen_start_time <= world.time)
-		if(stam_paralyzed)
-			update_stamina()
-		if(staminaloss)
-			setStaminaLoss(0, FALSE)
-			update_stamina_hud()
+	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
+		setStaminaLoss(0)
+		stam_regen_start_time = null
 
 	// Keep SSD people asleep
 	if(player_logged)
@@ -332,7 +333,7 @@
 					severity = 9
 				if(-INFINITY to -95)
 					severity = 10
-			overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
+			overlay_fullscreen("crit", /atom/movable/screen/fullscreen/crit, severity)
 	else if(stat == CONSCIOUS)
 		if(check_death_method())
 			clear_fullscreen("crit")
@@ -353,7 +354,7 @@
 						severity = 6
 					if(45 to INFINITY)
 						severity = 7
-				overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
+				overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/oxy, severity)
 			else
 				clear_fullscreen("oxy")
 
@@ -369,7 +370,7 @@
 				if(45 to 70) severity = 4
 				if(70 to 85) severity = 5
 				if(85 to INFINITY) severity = 6
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 

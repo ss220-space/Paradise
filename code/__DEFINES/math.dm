@@ -2,7 +2,7 @@
 
 #define PI 3.1415
 #define INFINITY 1e31 //closer than enough
-#define SQRT_2 1.41421356237
+#define SQRT_2 1.4142135623730950488016887242097
 
 #define SHORT_REAL_LIMIT 16777216
 
@@ -22,9 +22,12 @@
 
 #define SIMPLE_SIGN(X)	((X) < 0 ? -1 : 1)
 
-#define SIGN(x) ( (x)!=0 ? (x) / abs(x) : 0 )
+/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
+#define SIGN(x) (((x) > 0) - ((x) < 0))
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
+
+#define ROUND_UP(x) ( -round(-(x)))
 
 // round() acts like floor(x, 1) by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )
@@ -33,7 +36,7 @@
 #define WRAP(val, min, max) clamp(( min == max ? min : (val) - (round(((val) - (min))/((max) - (min))) * ((max) - (min))) ),min,max)
 
 // Real modulus that handles decimals
-#define MODULUS(x, y) ( (x) - (y) * round((x) / (y)) )
+#define MODULUS(x, y) ( (x) - FLOOR(x, y))
 
 // Cotangent
 #define COT(x) (1 / tan(x))
@@ -89,7 +92,8 @@
 #define TORADIANS(degrees) ((degrees) * 0.0174532925)
 
 /// Gets shift x that would be required the bitflag (1<<x)
-#define TOBITSHIFT(bit) ( log(2, bit) )
+/// We need the round because log has floating-point inaccuracy, and if we undershoot at all on list indexing we'll get the wrong index.
+#define TOBITSHIFT(bit) (round(log(2, bit), 1))
 
 // Will filter out extra rotations and negative rotations
 // E.g: 540 becomes 180. -180 becomes 180.

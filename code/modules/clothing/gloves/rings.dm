@@ -14,11 +14,11 @@
 	var/stud = 0
 	var/ring_color = "iron"
 
-/obj/item/clothing/gloves/ring/New()
-	..()
-	update_icon()
+/obj/item/clothing/gloves/ring/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/gloves/ring/update_icon()
+/obj/item/clothing/gloves/ring/update_icon_state()
 	icon_state = "[stud ? "d_" : ""][ring_color]ring"
 
 /obj/item/clothing/gloves/ring/examine(mob/user)
@@ -28,7 +28,7 @@
 	if(stud)
 		. += "<span class='notice'>It is adorned with a single gem.</span>"
 
-/obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)
@@ -76,10 +76,10 @@
 	icon_state = "redring"
 	ring_color = "red"
 
-/obj/item/clothing/gloves/ring/plastic/random/New()
+/obj/item/clothing/gloves/ring/plastic/random/Initialize(mapload)
 	ring_color = pick("white","blue","red")
 	name = "[ring_color] plastic ring"
-	..()
+	. = ..()
 
 // weird
 /obj/item/clothing/gloves/ring/glass

@@ -1223,11 +1223,11 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},
@@ -1971,12 +1971,12 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	lighting = 0;
+	lighting_channel = 0;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	operating = 0;
 	start_charge = 0
 	},
@@ -3067,12 +3067,12 @@
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -4068,11 +4068,11 @@
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environ = 2;
-	equipment = 2;
+	environment_channel = 2;
+	equipment_channel = 2;
 	pixel_x = 24;
 	start_charge = 100
 	},
@@ -5036,12 +5036,12 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
-	environ = 1;
-	equipment = 0;
+	environment_channel = 1;
+	equipment_channel = 0;
 	start_charge = 100
 	},
 /obj/structure/sign/securearea{
@@ -5098,12 +5098,12 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = 24;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -6753,12 +6753,12 @@
 "Nq" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	pixel_y = -24;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -6844,11 +6844,11 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},
@@ -7538,11 +7538,11 @@
 /obj/structure/alien/resin,
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	lighting = 0;
+	lighting_channel = 0;
 	pixel_y = 24;
 	req_access = list(111);
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	operating = 0;
 	start_charge = 0
 	},
@@ -7715,11 +7715,11 @@
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	lighting = 2;
+	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environ = 0;
-	equipment = 0;
+	environment_channel = 0;
+	equipment_channel = 0;
 	pixel_x = -24;
 	start_charge = 0
 	},

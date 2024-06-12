@@ -44,7 +44,7 @@
 			html_tags += list(html_tag, html_tag + 1, html_tag + 2, html_tag + 3)
 			html_tag = findtext(message, regex("</.>"), html_tag + 3)
 
-	var/obj/screen/text/T = new()
+	var/atom/movable/screen/text/T = new()
 	T.screen_loc = screen_position
 	switch(text_alignment)
 		if("center")
@@ -58,7 +58,7 @@
 		if(blurb_key)
 			if(!ignore_key && (M.key in GLOB.blurb_witnesses[blurb_key]))
 				continue
-			LAZYADDOR(GLOB.blurb_witnesses[blurb_key], M.key)
+			LAZYOR(GLOB.blurb_witnesses[blurb_key], M.key)
 		M.client?.screen += T
 
 	for(var/i in 1 to length(message) + 1)

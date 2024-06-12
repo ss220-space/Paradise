@@ -20,6 +20,7 @@
 	var/opening = FALSE
 
 	density = TRUE
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
 	opacity = TRUE
 	max_integrity = 100
 
@@ -28,6 +29,7 @@
 	/turf/simulated/wall/r_wall,
 	/turf/simulated/wall/indestructible/metal,
 	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/brass/fake,
@@ -45,24 +47,25 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			return "<span class='notice'>It looks fully intact.</span>"
+			. = "<span class='notice'>It looks fully intact.</span>"
 		if(70 to 99)
-			return  "<span class='warning'>It looks slightly damaged.</span>"
+			. =  "<span class='warning'>It looks slightly damaged.</span>"
 		if(40 to 70)
-			return  "<span class='warning'>It looks moderately damaged.</span>"
+			. =  "<span class='warning'>It looks moderately damaged.</span>"
 		if(0 to 40)
-			return "<span class='danger'>It looks heavily damaged.</span>"
+			. = "<span class='danger'>It looks heavily damaged.</span>"
+	. += "<br><span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
 	qdel(src)
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T)
+/obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)
@@ -73,31 +76,33 @@
 	. = ..()
 	toggle(user)
 
+
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
 		return
-
-	opening = 1
+	opening = TRUE
 	if(density)
 		add_fingerprint(user)
 		do_the_flick()
-		sleep(4)
-		density = 0
-		set_opacity(0)
-		update_icon(0)
+		sleep(0.4 SECONDS)
+		set_density(FALSE)
+		obj_flags &= ~BLOCK_Z_IN_DOWN
+		set_opacity(FALSE)
 	else
 		var/srcturf = get_turf(src)
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
-			opening = 0
+			opening = FALSE
 			return
 		add_fingerprint(user)
 		do_the_flick()
-		density = 1
-		sleep(4)
-		set_opacity(1)
-		update_icon()
-	air_update_turf(1)
-	opening = 0
+		set_density(TRUE)
+		obj_flags |= BLOCK_Z_IN_DOWN
+		sleep(0.4 SECONDS)
+		set_opacity(TRUE)
+	air_update_turf(TRUE)
+	opening = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
@@ -107,13 +112,15 @@
 	else
 		flick("fwall_closing", src)
 
-/obj/structure/falsewall/update_icon()
+
+/obj/structure/falsewall/update_icon_state()
 	if(density)
 		icon_state = initial(icon_state)
 		smooth = SMOOTH_TRUE
 		queue_smooth(src)
 	else
 		icon_state = "fwall_open"
+
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
@@ -132,8 +139,8 @@
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
-		if(istype(W, /obj/item/screwdriver))
-			if(!istype(T, /turf/simulated/floor))
+		if(W.tool_behaviour == TOOL_SCREWDRIVER)
+			if(!isfloorturf(T))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
@@ -158,7 +165,7 @@
 	deconstruct(disassembled)
 
 /obj/structure/falsewall/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			new girder_type(loc)
 		if(mineral_amount)
@@ -171,7 +178,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -315,7 +322,11 @@
 	icon_state = "bananium"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
-	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
+	canSmoothWith = list(
+		/obj/structure/falsewall/bananium,
+		/turf/simulated/wall/mineral/bananium,
+		/turf/simulated/wall/indestructible/bananium,
+	)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
@@ -324,7 +335,11 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -343,7 +358,11 @@
 	mineral = /obj/item/stack/rods
 	mineral_amount = 5
 	walltype = /turf/simulated/wall/mineral/iron
-	canSmoothWith = list(/obj/structure/falsewall/iron, /turf/simulated/wall/mineral/iron)
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
 
 /obj/structure/falsewall/abductor
 	name = "alien wall"
@@ -354,6 +373,16 @@
 	walltype = /turf/simulated/wall/mineral/abductor
 	canSmoothWith = list(/obj/structure/falsewall/abductor, /turf/simulated/wall/mineral/abductor)
 
+/obj/structure/falsewall/gingerbread
+	name = "gingerbread wall"
+	desc = "Don't even try to bite it!"
+	icon = 'icons/turf/walls/gingerbread_wall.dmi'
+	icon_state = "gingerbread"
+	mineral = /obj/item/stack/sheet/gingerbread
+	mineral_amount = 5
+	walltype = /turf/simulated/wall/mineral/gingerbread
+	canSmoothWith = list(/turf/simulated/wall/indestructible/gingerbread, /obj/structure/falsewall/gingerbread, /turf/simulated/wall/mineral/gingerbread)
+
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
@@ -361,7 +390,7 @@
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/shuttle, /obj/structure/falsewall/titanium)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."

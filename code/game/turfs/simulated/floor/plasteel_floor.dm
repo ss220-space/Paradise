@@ -1,12 +1,14 @@
 /turf/simulated/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
-/turf/simulated/floor/plasteel/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/plasteel/broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+
+/turf/simulated/floor/plasteel/burnt_states()
+	return list("floorscorched1", "floorscorched2")
+
+/turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
 		dir = floor_regular_dir

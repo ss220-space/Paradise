@@ -62,9 +62,9 @@
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/turf/space/transit/proc/update_icon()
+/turf/space/transit/update_icon_state()
 	var/p = 9
 	var/angle = 0
 	var/state = 1
@@ -91,5 +91,5 @@
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE

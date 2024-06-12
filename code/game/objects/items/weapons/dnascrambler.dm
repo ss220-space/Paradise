@@ -4,15 +4,22 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
-	var/used = null
+	var/used = FALSE
 
-/obj/item/dnascrambler/update_icon()
+
+/obj/item/dnascrambler/update_icon_state()
 	if(used)
 		icon_state = "lepopen0"
 	else
 		icon_state = "lepopen"
 
-/obj/item/dnascrambler/attack(mob/M as mob, mob/user as mob)
+
+/obj/item/dnascrambler/update_name(updates = ALL)
+	. = ..()
+	name = used ? "used [initial(name)]" : initial(name)
+
+
+/obj/item/dnascrambler/attack(mob/M, mob/user)
 	if(!M || !user)
 		return
 
@@ -33,7 +40,7 @@
 		injected(user, user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
-		if(do_mob(user,M,30))
+		if(do_after(user, 3 SECONDS, M, NONE))
 			user.visible_message("<span class='danger'>[user] injects [M] with [src].</span>")
 			injected(M, user)
 		else
@@ -53,6 +60,6 @@
 	target.update_icons()
 
 	add_attack_logs(user, target, "injected with [src]")
-	used = 1
-	update_icon()
-	name = "used " + name
+	used = TRUE
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+

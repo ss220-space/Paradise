@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(title)
 
 		var/choice
 		if(user)
-			choice = input(user, "Choose new title screen", "Available Screens:") as null|anything in title_screens
+			choice = tgui_input_list(user, "Choose new title screen", "Available Screens:", title_screens)
 			if(!choice)
 				return FALSE
 		else
@@ -56,9 +56,10 @@ SUBSYSTEM_DEF(title)
 
 			var/obj/effect/abstract/new_screen = new(splash)
 			new_screen.invisibility = NONE
+			new_screen.plane = splash.plane
 			new_screen.layer = splash.layer + 0.1
 			new_screen.icon = icon
-			new_screen.name = "Fancy Screen"
+			new_screen.name = "Space Station 13"
 			splash.current_screen = new_screen
 
 			// Below operations are needed to centrally place the new splashscreen on the lobby area

@@ -196,7 +196,7 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7)), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
@@ -204,7 +204,7 @@
 			G.fields["fingerprint"] = "Unknown"
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
-			G.fields["species"] = "Human"
+			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "No notes."
 			GLOB.data_core.general += G
 			record_general = G

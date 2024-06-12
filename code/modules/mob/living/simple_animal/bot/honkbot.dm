@@ -8,7 +8,7 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	radio_channel = "Service" //Service
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
@@ -46,7 +46,7 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
-	addtimer(CALLBACK(src, PROC_REF(update_icon)), 0.5 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 0.5 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
 //honkbots react with sounds.
@@ -66,7 +66,7 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
+	set_anchored(FALSE)
 	walk_to(src, 0)
 	last_found = world.time
 	spam_flag = FALSE
@@ -127,7 +127,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -163,7 +163,7 @@
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
-			addtimer(CALLBACK(src, PROC_REF(update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 
@@ -234,7 +234,7 @@
 						if(threatlevel >= 6)
 							set waitfor = 0
 							stun_attack(target)
-							anchored = FALSE
+							set_anchored(FALSE)
 							target_lastloc = target.loc
 					return
 				else	// not next to perp
@@ -258,7 +258,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -267,14 +267,14 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
 			continue

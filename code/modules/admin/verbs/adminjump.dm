@@ -7,22 +7,22 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/chosen = input(src, null, "Jump to...") as null|anything in choices
+	var/chosen = tgui_input_list(src, null, "Jump to...", choices)
 	if(!chosen)
 		return
 
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = input(src, "Area to jump to", "Jump to Area") as null|anything in return_sorted_areas()
+			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", return_sorted_areas())
 			if(jumping)
 				return jumptoarea(jumping)
 		if("Mob")
-			jumping = input(src, "Mob to jump to", "Jump to Mob") as null|anything in GLOB.mob_list
+			jumping = tgui_input_list(src, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
 			if(jumping)
 				return jumptomob(jumping)
 		if("Key")
-			jumping = input(src, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
+			jumping = tgui_input_list(src, "Key to jump to", "Jump to Key", sortKey(GLOB.clients))
 			if(jumping)
 				return jumptokey(jumping)
 		if("Coordinates")
@@ -62,7 +62,7 @@
 	log_admin("[key_name(usr)] jumped to [A]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [A]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/jumptoturf(turf/T in world)
 	set name = "\[Admin\] Jump to Turf"
@@ -78,7 +78,7 @@
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
 	admin_forcemove(usr, T)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 /client/proc/jumptomob(mob/M)
@@ -97,7 +97,7 @@
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
 		if(T && isturf(T))
-			SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Mob") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 			admin_forcemove(A, M.loc)
 		else
 			to_chat(A, "This mob is not located in the game world.")
@@ -115,7 +115,7 @@
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
 			O.ManualFollow(T)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 
@@ -131,7 +131,7 @@
 		O.force_eject_occupant(usr)
 	admin_forcemove(usr, M.loc)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/Getmob(mob/M in GLOB.mob_list)
 	set category = null
@@ -147,7 +147,7 @@
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
 	admin_forcemove(M, get_turf(usr))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Mob") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/Getkey()
 	set category = null
@@ -160,7 +160,7 @@
 	var/list/keys = list()
 	for(var/mob/M in GLOB.player_list)
 		keys += M.client
-	var/selection = input("Please, select a player!", "Admin Jumping", null, null) as null|anything in sortKey(keys)
+	var/selection = tgui_input_list(src, "Please, select a player!", "Admin Jumping", sortKey(keys))
 	if(!selection)
 		return
 	var/mob/M = selection:mob
@@ -174,7 +174,7 @@
 			O.force_eject_occupant(M)
 		admin_forcemove(M, get_turf(usr))
 		admin_forcemove(usr, M.loc)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/sendmob(mob/M in GLOB.mob_list)
 	set category = "Admin"
@@ -183,7 +183,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/area/A = input(usr, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
+	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", return_sorted_areas())
 	if(!A)
 		return
 
@@ -191,7 +191,7 @@
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
 	admin_forcemove(M, pick(get_area_turfs(A)))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("teleported [key_name_admin(M)] to [A]")
 
 /proc/admin_forcemove(mob/mover, atom/newloc)

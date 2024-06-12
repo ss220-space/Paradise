@@ -58,7 +58,7 @@
 	user.add_overlay(charge_up_overlay)
 	playsound(user, charge_sound, 50, FALSE, channel = charge_sound.channel)
 	start_time = world.time
-	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, PROC_REF(stopped_casting))), only_use_extra_checks = TRUE))
+	if(do_after(user, max_charge_time, user, ALL, extra_checks = CALLBACK(src, PROC_REF(stopped_casting))))
 		if(start_time)
 			Discharge(user)
 

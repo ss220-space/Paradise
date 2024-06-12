@@ -185,11 +185,21 @@
 	filling_color = "#FFA500"
 	distill_reagent = "lsd"
 	tastes = list("polygons" = 1, "oranges" = 1)
+	var/big_icon = TRUE
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/pickup(mob/user)
-	. = ..()
-	icon_state = "orange"
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, silent = FALSE)
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/equipped(mob/user, slot, initial = FALSE)
+	big_icon = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	. = ..()
-	icon_state = "orang"
+
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	big_icon = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/update_icon_state()
+	icon_state = big_icon ? "orang" : "orange"
+

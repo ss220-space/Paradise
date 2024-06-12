@@ -69,6 +69,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_progress_in_dead = FALSE
 	/// If TRUE, disease can contract dead mobs
 	var/can_contract_dead = FALSE
+	/// Disease can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
+	var/spread_from_dead_prob = 0
 	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
 	var/carrier = FALSE
 	/// Infectable mob types, that can only be carriers
@@ -148,17 +150,14 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 /datum/disease/proc/cure(id = type, need_immunity = TRUE)
 	if(affected_mob)
-		if(can_immunity && need_immunity && !(id in affected_mob.resistances))
-			affected_mob.resistances += id
-		affected_mob.diseases -= src
+		if(can_immunity && need_immunity)
+			LAZYOR(affected_mob.resistances, id)
+		LAZYREMOVE(affected_mob.diseases, src)
 		affected_mob.med_hud_set_status()
 		if(cured_message)
 			to_chat(affected_mob, span_notice(cured_message))
 	qdel(src)
 
-
-/datum/disease/proc/spread()
-	return
 
 /**
  * Basic checks of the possibility of infecting a mob
@@ -171,7 +170,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(M.stat == DEAD && !can_contract_dead)
 		return FALSE
 
-	if(GetDiseaseID() in M.resistances)
+	if(LAZYIN(M.resistances, GetDiseaseID()))
 		return FALSE
 
 	if(M.HasDisease(src))
@@ -202,7 +201,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		return FALSE
 
 	var/datum/disease/D = Copy()
-	M.diseases += D
+	LAZYADD(M.diseases, D)
 	D.affected_mob = M
 	GLOB.active_diseases += D
 	D.carrier = is_carrier
@@ -242,7 +241,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	//Here we have all the necessary reagents in affected_mob
 	var/type = pick(possible_mutations)
 	if(type)
-		affected_mob.diseases -= src
+		LAZYREMOVE(affected_mob.diseases, src)
 		affected_mob.med_hud_set_status()
 		var/datum/disease/new_disease = new type
 		new_disease.Contract(affected_mob)

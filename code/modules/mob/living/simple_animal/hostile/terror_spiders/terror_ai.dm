@@ -187,12 +187,12 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-		else if(istype(A, /obj/mecha))
+		else if(ismecha(A))
 			var/obj/mecha/M = A
 			if(M.occupant)
 				enemies |= M
 				enemies |= M.occupant
-		else if(istype(A, /obj/spacepod))
+		else if(isspacepod(A))
 			var/obj/spacepod/M = A
 			if(M.pilot)
 				enemies |= M
@@ -236,7 +236,7 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
-		if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+		if(isitem(O) || isstructure(O) || ismachinery(O))
 			if(!istype(O, /obj/item/paper))
 				cocoon_target = O
 				stop_automated_movement = 1
@@ -280,8 +280,7 @@
 	if(entry_vent)
 		if(get_dist(src, entry_vent) <= 2)
 			if(ai_ventbreaker && entry_vent.welded)
-				entry_vent.welded = 0
-				entry_vent.update_icon()
+				entry_vent.set_welded(FALSE)
 				entry_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [entry_vent]!</span>")
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
@@ -308,9 +307,7 @@
 							entry_vent = null
 							return
 						if(ai_ventbreaker && exit_vent.welded)
-							exit_vent.welded = 0
-							exit_vent.update_icon()
-							exit_vent.update_pipe_image()
+							exit_vent.set_welded(FALSE)
 							exit_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [exit_vent]!</span>")
 							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 						forceMove(exit_vent.loc)

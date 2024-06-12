@@ -117,7 +117,7 @@
 
 /obj/machinery/door/airlock/Bumped(atom/movable/moving_atom)
 	..(moving_atom)
-	if(istype(moving_atom, /obj/mecha))
+	if(ismecha(moving_atom))
 		var/obj/mecha/mecha = moving_atom
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
@@ -134,8 +134,6 @@
 	if(frequency)
 		set_frequency(frequency)
 
-	update_icon()
-
 
 /obj/machinery/door/airlock/New()
 	..()
@@ -147,9 +145,10 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
+	layer = BELOW_OBJ_LAYER + 0.01
 
 	var/id_tag
 	var/master_tag
@@ -160,7 +159,7 @@
 	var/alert = 0
 	var/previousPressure
 
-/obj/machinery/airlock_sensor/update_icon()
+/obj/machinery/airlock_sensor/update_icon_state()
 	if(on)
 		if(alert)
 			icon_state = "airlock_sensor_alert"
@@ -197,7 +196,7 @@
 
 			alert = (pressure < ONE_ATMOSPHERE*0.8)
 
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -229,8 +228,9 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "access_button_standby"
 	name = "access button"
-	anchored = 1
+	anchored = TRUE
 	power_channel = ENVIRON
+	layer = BELOW_OBJ_LAYER + 0.01
 
 	var/master_tag
 	frequency = AIRLOCK_FREQ
@@ -242,13 +242,13 @@
 				2=Network Access
 	*/
 
-/obj/machinery/access_button/update_icon()
+/obj/machinery/access_button/update_icon_state()
 	if(on)
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
 
-/obj/machinery/access_button/attack_ai(mob/user as mob)
+/obj/machinery/access_button/attack_ai(mob/user)
 	if(wires & 2)
 		return ..(user)
 	else

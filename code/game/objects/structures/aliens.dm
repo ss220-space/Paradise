@@ -72,7 +72,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/alien/resin/wall
@@ -99,12 +99,9 @@
 	opacity = 0
 	max_integrity = 160
 	resintype = "membrane"
+	pass_flags_self = PASSGLASS
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
-	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)
@@ -133,6 +130,7 @@
 	resintype = "door"
 	canSmoothWith = null
 	smooth = SMOOTH_FALSE
+	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
 	var/autoclose = TRUE
@@ -145,12 +143,12 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
 
-/obj/structure/alien/resin/door/update_icon()
+/obj/structure/alien/resin/door/update_icon_state()
 	switch(state)
 		if(RESIN_DOOR_CLOSED)
 			icon_state = "resin_door_closed"
@@ -197,16 +195,6 @@
 	try_switch_state(moving_atom)
 
 
-/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSDOOR))
-		return TRUE
-
-	return !density
-
-
 /obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)
 	if(operating)
 		return
@@ -248,7 +236,7 @@
 	update_freelook_sight()
 
 	sleep(0.4 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 
 	sleep(0.1 SECONDS)
@@ -274,7 +262,7 @@
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 
 	sleep(0.4 SECONDS)
@@ -330,17 +318,22 @@
 	max_integrity = 15
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
+	var/static/list/forbidden_turf_types
 	creates_cover = TRUE
 
-
-/obj/structure/alien/weeds/New(pos, node)
-	..()
+/obj/structure/alien/weeds/Initialize(mapload, node)
+	. = ..()
 	linked_node = node
-	if(istype(loc, /turf/space))
+	if(!forbidden_turf_types)
+		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+
+	if(is_type_in_typecache(loc, forbidden_turf_types))
 		qdel(src)
 		return
+
 	if(icon_state == "weeds")
 		icon_state = pick("weeds", "weeds1", "weeds2")
+
 	fullUpdateWeedOverlays()
 	spawn(rand(150, 200))
 		if(src)
@@ -356,7 +349,7 @@
 /obj/structure/alien/weeds/proc/Life()
 	var/turf/U = get_turf(src)
 
-	if(istype(U, /turf/space))
+	if(is_type_in_typecache(U, forbidden_turf_types))
 		qdel(src)
 		return
 
@@ -365,7 +358,7 @@
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
 
-		if(locate(/obj/structure/alien/weeds) in T || istype(T, /turf/space))
+		if(locate(/obj/structure/alien/weeds) in T || is_type_in_typecache(T, forbidden_turf_types))
 			continue
 
 		new /obj/structure/alien/weeds(T, linked_node)
@@ -377,7 +370,7 @@
 
 /obj/structure/alien/weeds/proc/updateWeedOverlays()
 
-	overlays.Cut()
+	cut_overlays()
 
 	if(!weedImageCache || !weedImageCache.len)
 		weedImageCache = list()
@@ -392,17 +385,17 @@
 	var/turf/E = get_step(src, EAST)
 	var/turf/W = get_step(src, WEST)
 	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_SOUTH_EDGING]
+		if(isfloorturf(N))
+			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
 	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_NORTH_EDGING]
+		if(isfloorturf(S))
+			add_overlay(weedImageCache[WEED_NORTH_EDGING])
 	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_WEST_EDGING]
+		if(isfloorturf(E))
+			add_overlay(weedImageCache[WEED_WEST_EDGING])
 	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_EAST_EDGING]
+		if(isfloorturf(W))
+			add_overlay(weedImageCache[WEED_EAST_EDGING])
 
 
 /obj/structure/alien/weeds/proc/fullUpdateWeedOverlays()
@@ -460,17 +453,34 @@
 	status = BURST
 	icon_state = "egg_hatched"
 
-/obj/structure/alien/egg/New()
-	new /obj/item/clothing/mask/facehugger(src)
-	..()
-	if(status == BURST)
-		obj_integrity = integrity_failure
-	else if(status != GROWN)
-		spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
-		Grow()
+
+/obj/structure/alien/egg/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	switch(status)
+		if(GROWING)
+			new /obj/item/clothing/mask/facehugger(src)
+			addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		if(GROWN)
+			new /obj/item/clothing/mask/facehugger(src)
+			AddComponent(/datum/component/proximity_monitor)
+		if(BURST)
+			obj_integrity = integrity_failure
+
+
+/obj/structure/alien/egg/update_icon_state()
+	switch(status)
+		if(GROWING)
+			icon_state = "egg_growing"
+		if(GROWN)
+			icon_state = "egg"
+		if(BURST)
+			icon_state = "egg_hatched"
+
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
+
 
 /obj/structure/alien/egg/attack_hand(mob/living/user)
 	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
@@ -485,7 +495,7 @@
 				return
 			if(GROWN)
 				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
-				Burst(0)
+				Burst(kill = FALSE)
 				return
 	else
 		to_chat(user, "<span class='notice'>It feels slimy.</span>")
@@ -495,51 +505,62 @@
 /obj/structure/alien/egg/proc/GetFacehugger()
 	return locate(/obj/item/clothing/mask/facehugger) in contents
 
+
 /obj/structure/alien/egg/proc/Grow()
-	icon_state = "egg"
 	status = GROWN
+	update_icon(UPDATE_ICON_STATE)
 	AddComponent(/datum/component/proximity_monitor)
 
+
+///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
 		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
-		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		spawn(15)
-			status = BURST
-			var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
-			if(child)
-				child.loc = get_turf(src)
-				if(kill && istype(child))
-					child.Die()
-				else
-					for(var/mob/M in range(1,src))
-						if(CanHug(M))
-							child.Attach(M)
-							break
+		addtimer(CALLBACK(src, PROC_REF(Hatch), kill), 1.5 SECONDS)
+
+
+///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
+/obj/structure/alien/egg/proc/Hatch(kill)
+	status = BURST
+	update_icon(UPDATE_ICON_STATE)
+	var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
+	if(!child)
+		return
+	child.forceMove(get_turf(src))
+	if(kill)
+		child.Die()
+		return
+	for(var/mob/living/victim in range(1, src))
+		if(CanHug(victim))
+			child.Attach(victim)
+			break
+
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
-		if(status != BURST)
-			Burst(kill = TRUE)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
+		Burst(kill = TRUE)
+
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)
 
+
 /obj/structure/alien/egg/HasProximity(atom/movable/AM)
 	if(status == GROWN)
 		if(!CanHug(AM))
 			return
 
-		var/mob/living/carbon/C = AM
-		if(C.stat == CONSCIOUS && C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+		var/mob/living/carbon/target = AM
+		if(iscarbon(target) && target.stat == CONSCIOUS && target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			return
 
-		Burst(0)
+		Burst(kill = FALSE)
+
 
 #undef BURST
 #undef BURSTING

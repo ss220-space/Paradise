@@ -37,42 +37,48 @@ Difficulty: Medium
 	retreat_distance = 5
 	minimum_distance = 5
 	pixel_x = -32
+	base_pixel_x = -32
+	pixel_y = -16
+	base_pixel_y = -16
+	maptext_height = 96
+	maptext_width = 96
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
 	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	pixel_y = -90
-	pixel_x = -75
 	loot = list(/obj/item/storm_staff)
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = 1
-	appearance_flags = 0
+	appearance_flags = PIXEL_SCALE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
-	appearance_flags = 512
+
 
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
-	transform *= 2
+	update_transform(2)
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 
 
 /mob/living/simple_animal/hostile/megafauna/legion/enrage()
 	health = 1250
 	maxHealth = 1250
-	transform /= 1.5
+	update_transform(0.66)
 	loot = list(/datum/nothing)
 	crusher_loot = list(/datum/nothing)
-	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new /mob/living/simple_animal/hostile/megafauna/legion(get_turf(src))
-	legiontwo.transform /= 1.5
+	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new(get_turf(src))
+	legiontwo.update_transform(0.66)
 	legiontwo.loot = list(/datum/nothing)
 	legiontwo.crusher_loot = list(/datum/nothing)
 	legiontwo.health = 1250
 	legiontwo.maxHealth = 1250
 	legiontwo.enraged = TRUE
+
 
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
@@ -82,23 +88,19 @@ Difficulty: Medium
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			other.maxHealth = 2500
 			other.health = 2500
-	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
+	if(!QDELETED(src))
+		qdel(src) //Suprise, it's the one on lavaland that regrows to full.
+
 
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
 			other.loot = list(/obj/item/storm_staff)
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
-			UnlockBlastDoors("11119")
-	. = ..()
+			return ..()
+	UnlockBlastDoors("11119")
+	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(damage, updating_health)
-	. = ..()
-	if(!GLOB.necropolis_gate)
-		return
-	if(GLOB.necropolis_gate.legion_triggered)
-		return
-	GLOB.necropolis_gate.toggle_the_gate(src, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
@@ -117,7 +119,7 @@ Difficulty: Medium
 			retreat_distance = 0
 			minimum_distance = 0
 			move_to_delay = 2
-			speed = 0
+			set_varspeed(0)
 			charging = 1
 			ranged_cooldown = world.time + 3 SECONDS
 			SLEEP_CHECK_DEATH(3 SECONDS)
@@ -184,10 +186,13 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
 	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
 	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
-	for(var/turf/t in getline(src, location))
+	for(var/turf/t as anything in get_line(src, location))
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.attempt_drill(src)
+		if(iswallturf(t))
+			var/turf/simulated/wall/W = t
+			W.thermitemelt(time = 1 SECONDS)
 		for(var/mob/living/M in t)
 			if(faction_check(M.faction, faction, FALSE))
 				continue
@@ -201,30 +206,36 @@ Difficulty: Medium
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
-/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
-	return 1
+
+/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE)
+	return TRUE
+
 
 /mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
-	if(QDELETED(src))
-		return
-	if(.)
-		var/matrix/M = new
-		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
-		M.Scale(resize, resize)
-		transform = M
-		if(amount > 0 && (enraged || prob(33)))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
-			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
-			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
-			A.GiveTarget(target)
-			A.friends = friends
-			A.faction = faction
+
+	if(GLOB.necropolis_gate && !GLOB.necropolis_gate.legion_triggered)
+		GLOB.necropolis_gate.toggle_the_gate(src, TRUE)
+
+	if(!. || QDELETED(src))
+		return .
+
+	// we shrink sprite until scaling reaches value of 0.5, no megafauna midgets plz
+	update_transform((0.5 + (health / maxHealth)) / current_size)
+
+	if(amount > 0 && (enraged || prob(33)))
+		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+		if(enraged)
+			A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+		else
+			A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
+		A.GiveTarget(target)
+		A.friends = friends
+		A.faction = faction
+
 
 /obj/item/gps/internal/legion
 	icon_state = null
 	gpstag = "Mysterious Signal"
 	desc = "The message repeats."
-	invisibility = 100
+	invisibility = INVISIBILITY_ABSTRACT

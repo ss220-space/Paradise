@@ -22,10 +22,11 @@
 /mob/living/simple_animal/diona/bee_friendly()
 	return TRUE
 
+
 /mob/living/carbon/human/bee_friendly()
 	if(isdiona(src)) //bees pollinate plants, duh.
 		return TRUE
-	if((wear_suit && (wear_suit.flags & THICKMATERIAL)) && (head && (head.flags & THICKMATERIAL)))
+	if(covered_with_thick_material(full_body_check = TRUE))
 		return TRUE
 	return FALSE
 
@@ -228,7 +229,7 @@
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
 		else
-			var/option = input(user, "What Action do you wish to perform?", "Apiary") as null|anything in list("Remove a Honey Frame","Remove the Queen Bee")
+			var/option = tgui_input_list(user, "What Action do you wish to perform?", "Apiary", list("Remove a Honey Frame","Remove the Queen Bee"))
 			if(!Adjacent(user) || !option)
 				return
 			switch(option)

@@ -35,10 +35,10 @@
 	ninja_weapon = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	slot_flags = NONE
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
-	can_charge = 0
+	can_charge = FALSE
 	burst_size = 3
 	var/cost = 100
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
@@ -62,7 +62,7 @@
 	qdel(src)
 
 
-/obj/item/gun/energy/shuriken_emitter/can_shoot()
+/obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
 	return !my_suit.ninjacost(cost*burst_size)
 
 /obj/item/ammo_casing/energy/shuriken

@@ -20,6 +20,25 @@
 	var/overcharged = FALSE   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
+	/// This is the duration of the cooldown
+	var/cooldown_duration = 1 SECONDS
+	COOLDOWN_DECLARE(flash_cooldown)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_on = FALSE
+	light_range = 2
+	light_power = 1
+	light_color = LIGHT_COLOR_WHITE
+
+
+/obj/item/flash/update_icon_state()
+	icon_state = "[initial(icon_state)][broken ? "burnt" : ""]"
+
+
+/obj/item/flash/update_overlays()
+	. = ..()
+	if(overcharged)
+		. += "overcharge"
+
 
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
@@ -27,9 +46,10 @@
 		return FALSE
 	return TRUE
 
+
 /obj/item/flash/attackby(obj/item/W, mob/user, params)
 	if(can_overcharge)
-		if(istype(W, /obj/item/screwdriver))
+		if(W.tool_behaviour == TOOL_SCREWDRIVER)
 			if(battery_panel)
 				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
 				battery_panel = FALSE
@@ -41,21 +61,22 @@
 				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 				qdel(W)
 				overcharged = TRUE
-				overlays += "overcharge"
+				update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/flash/random/New()
 	..()
 	if(prob(25))
 		broken = TRUE
-		icon_state = "[initial(icon_state)]burnt"
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
-	icon_state = "[initial(icon_state)]burnt"
+	update_icon(UPDATE_ICON_STATE)
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
 
-/obj/item/flash/proc/flash_recharge(var/mob/user)
+/obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return FALSE
@@ -67,16 +88,21 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/flash/proc/try_use_flash(mob/user = null)
-	flash_recharge(user)
+/obj/item/flash/proc/try_use_flash(mob/user)
 
 	if(broken)
 		return FALSE
+	if(!COOLDOWN_FINISHED(src, flash_cooldown))
+		if(user)
+			to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
+		return FALSE
+	COOLDOWN_START(src, flash_cooldown, cooldown_duration)
+	flash_recharge(user)
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	times_used++
 
 	if(user && !clown_check(user))
@@ -163,7 +189,7 @@
 	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
 	belt_icon = null
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	can_overcharge = FALSE
 	var/flash_max_charges = 5
 	var/flash_cur_charges = 5
@@ -189,29 +215,21 @@
 	flash_cur_charges = min(flash_cur_charges+1, flash_max_charges)
 	return TRUE
 
-/obj/item/flash/cameraflash/attack(mob/living/M, mob/user)
-    if(flash_cur_charges > 0)
-        flash_cur_charges -= 1
-        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-        ..()
-    else
-        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-    return
-
-/obj/item/flash/cameraflash/attack_self(mob/living/carbon/user, flag = 0)
-    if(flash_cur_charges > 0)
-        flash_cur_charges -= 1
-        to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
-        ..()
-    else
-        to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
-    return
+/obj/item/flash/cameraflash/try_use_flash(mob/user)
+	if(!flash_cur_charges)
+		if(user)
+			to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
+		return FALSE
+	. = ..()
+	if(.)
+		flash_cur_charges--
+		if(user)
+			to_chat(user, "[src] now has [flash_cur_charges] charge\s.")
 
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
-	var/flashcd = 20
-	var/overheat = FALSE
+	cooldown_duration = 2 SECONDS
 	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
 
 /obj/item/flash/armimplant/Destroy()
@@ -220,24 +238,7 @@
 
 /obj/item/flash/armimplant/burn_out()
 	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
+		to_chat(I.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
 		I.Retract()
-	overheat = FALSE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd * 2)
-
-/obj/item/flash/armimplant/try_use_flash(mob/user = null)
-	if(overheat)
-		if(I && I.owner)
-			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
-		return FALSE
-	overheat = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd)
-	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	update_icon(1)
-	return TRUE
-
-/obj/item/flash/armimplant/proc/cooldown()
-	overheat = FALSE
-
 
 /obj/item/flash/synthetic //just a regular flash now

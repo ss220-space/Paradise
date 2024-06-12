@@ -23,7 +23,7 @@
 	name = "regenerative core"
 	desc = "All that remains of a hivelord. It can be used to help keep your body going, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	slot = INTERNAL_ORGAN_HIVECORE
 	parent_organ_zone = BODY_ZONE_CHEST
 	force = 0
@@ -120,14 +120,22 @@
 	. = ..()
 	update_icon()
 
-/obj/item/organ/internal/regenerative_core/legion/update_icon()
+
+/obj/item/organ/internal/regenerative_core/legion/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-	cut_overlays()
+
+
+/obj/item/organ/internal/regenerative_core/legion/update_overlays()
+	. = ..()
 	if(!inert && !preserved)
-		add_overlay("legion_soul_crackle")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		. += "legion_soul_crackle"
+	addtimer(CALLBACK(src, PROC_REF(buttons_update)), 0.1 SECONDS)
+
+
+/obj/item/organ/internal/regenerative_core/legion/proc/buttons_update()
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
+
 
 /obj/item/organ/internal/regenerative_core/legion/go_inert()
 	..()
@@ -260,10 +268,11 @@
 	owner.adjustBruteLoss(1000)
 	L.stored_mob = owner
 	owner.forceMove(L)
-	qdel(src)
-	if(prob(25) && !owner.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a very special prize: second cancer in a row!
-		var/obj/item/organ/internal/legion_tumour/cancer = new()
-		cancer.insert(owner, special = TRUE)
+	if(prob(75) && owner.get_int_organ(/obj/item/organ/internal/legion_tumour))
+		qdel(src) // Congratulations you haven't won a very special prize: second cancer in a row!
+	else
+		stage = 0
+		elapsed_time = 0
 
 /obj/item/organ/internal/legion_tumour/on_find(mob/living/finder)
 	. = ..()

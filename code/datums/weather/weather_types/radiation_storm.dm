@@ -44,7 +44,7 @@
 							randmutb(H)
 						else
 							randmutg(H)
-					domutcheck(H, null, 1)
+					H.check_genes(MUTCHK_FORCED)
 
 		L.apply_effect(20, IRRADIATE, resist)
 
@@ -58,7 +58,6 @@
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)
-		post_status("alert", "radiation")
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
 	else
-		post_status("blank")
-		post_status("shuttle")
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)

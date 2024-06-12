@@ -21,15 +21,14 @@
 				chosen_ghost = ghost
 				break
 	if(!chosen_ghost)
-		icon_state = searching_icon
 		searching = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='clocklarge'><b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(length(candidates))
 			chosen_ghost = pick(candidates)
 		searching = FALSE
-		if(!brainmob?.key)
-			icon_state = blank_icon
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(!M)
 		return FALSE
 	if(!chosen_ghost)
@@ -61,10 +60,9 @@
 	brainmob.key = candidate.key
 	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
 	brainmob.real_name = brainmob.name
-	name = "[src] ([brainmob.name])"
 	brainmob.mind.assigned_role = "Soul Vessel Cube"
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
-	become_occupied(occupied_icon)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(SSticker.mode.add_clocker(brainmob.mind))
 		brainmob.create_log(CONVERSION_LOG, "[brainmob.mind] been converted by [src.name]")
 
@@ -135,7 +133,7 @@
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [living]'s brain, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [living]'s consciousness from [living.p_their()] brain.</span>")
 
-	if(do_after(attacker, time, target = crosshair))
+	if(do_after(attacker, time, crosshair))
 		if(brainmob.key)
 			to_chat(attacker, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 			return
@@ -173,7 +171,7 @@
 	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 4 SECONDS, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
 			if(brainmob.key)
 				SSticker.mode.remove_clocker(brainmob.mind)

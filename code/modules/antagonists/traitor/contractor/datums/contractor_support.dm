@@ -1,6 +1,7 @@
 /datum/antagonist/contractor_support
 	name = "Contractor Support Unit"
 	roundend_category = "Contractor Support"
+	special_role = SPECIAL_ROLE_TRAITOR
 
 /datum/antagonist/contractor_support/on_gain()
 	var/datum/objective/generic_objective = new
@@ -43,7 +44,7 @@
 	)
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/partner, visualsOnly)
 	. = ..()
-	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(slot_wear_mask)
+	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(ITEM_SLOT_MASK)
 	cig.light()
 
 	var/obj/item/card/id/I = partner.wear_id

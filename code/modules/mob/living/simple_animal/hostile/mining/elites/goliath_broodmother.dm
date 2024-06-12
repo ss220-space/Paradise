@@ -147,13 +147,13 @@
 	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
 	visible_message("<span class='warning'>[src] starts picking up speed!</span>")
 	color = "#FF0000"
-	speed = 0
+	set_varspeed(0)
 	move_to_delay = 3
 	addtimer(CALLBACK(src, PROC_REF(reset_rage)), 7 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/reset_rage()
 	color = "#FFFFFF"
-	speed = 2
+	set_varspeed(2)
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/call_children()
@@ -227,7 +227,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death(gibbed)
 	. = ..()
 	if(!QDELETED(mother))
 		mother.children_list -= src

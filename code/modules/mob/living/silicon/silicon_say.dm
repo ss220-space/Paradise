@@ -59,9 +59,10 @@
 
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
+	if(..())
+		return TRUE
+	else
 		return iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other)
-	return ..()
 
 
 //For holopads only. Usable by AI.
@@ -78,7 +79,7 @@
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-			create_chat_message(H, message_clean, TRUE, FALSE)
+			create_chat_message(H, message_clean, list("radio"))
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
@@ -111,7 +112,7 @@
 	return TRUE
 
 
-/mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE)
+/mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE, ignore_cooldowns = FALSE)
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])//Is the AI using a holopad?
 		holopad_emote(message)

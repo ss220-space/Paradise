@@ -31,7 +31,16 @@
 
 /obj/item/stack/sheet/animalhide/random/New()
 	..()
-	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
+	var/htype = pick(/obj/item/stack/sheet/animalhide/cat, \
+					/obj/item/stack/sheet/animalhide/corgi, \
+					/obj/item/stack/sheet/animalhide/human, \
+					/obj/item/stack/sheet/animalhide/lizard, \
+					/obj/item/stack/sheet/animalhide/monkey, \
+					/obj/item/stack/sheet/animalhide/wolpin, \
+					/obj/item/stack/sheet/animalhide/stok, \
+					/obj/item/stack/sheet/animalhide/neara, \
+					/obj/item/stack/sheet/animalhide/farwa \
+					)
 	new htype(loc, amount)
 	qdel(src)
 
@@ -200,7 +209,7 @@
 /obj/structure/closet/crate/bin/flowers
 	name = "flower barrel"
 	desc = "A bin full of fresh flowers for the bereaved."
-	anchored = 0
+	anchored = FALSE
 	New()
 		while(contents.len < 10)
 			var/flowertype = pick(/obj/item/grown/sunflower,/obj/item/grown/novaflower,/obj/item/reagent_containers/food/snacks/grown/poppy,
@@ -212,7 +221,7 @@
 /obj/structure/closet/crate/bin/plants
 	name = "plant barrel"
 	desc = "Caution: Contents may contain vitamins and minerals.  It is recommended that you deep fry them before eating."
-	anchored = 0
+	anchored = FALSE
 	New()
 		while(contents.len < 10)
 			var/ptype = pick(/obj/item/reagent_containers/food/snacks/grown/apple,/obj/item/reagent_containers/food/snacks/grown/banana,
@@ -262,7 +271,7 @@
 	desc = "What could it be?"
 
 /obj/structure/largecrate/evil/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		var/list/menace = pick(	/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/faithless,/mob/living/simple_animal/hostile/pirate,
 								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
 								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
@@ -294,7 +303,7 @@
 	desc = "What happens if you open it?"
 
 /obj/structure/largecrate/schrodinger/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
+	if(W.tool_behaviour == TOOL_CROWBAR)
 		add_fingerprint(user)
 		sleep(2)
 		var/mob/living/simple_animal/pet/cat/Cat = new(loc)

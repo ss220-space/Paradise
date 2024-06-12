@@ -3,7 +3,7 @@
 	set category = null
 	set src in oview(1)
 
-	if(!isturf(src.loc) || usr.incapacitated() || src.anchored || src.density)
+	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
 		return
 
 	if(!item_pixel_shift)
@@ -22,7 +22,7 @@
 /datum/ui_module/item_pixel_shift/New(datum/_host)
 	. = ..()
 	var/obj/item/source = host
-	if(istype(host) && (source.flags & NO_PIXEL_RANDOM_DROP))
+	if(istype(host) && (source.item_flags & NO_PIXEL_RANDOM_DROP))
 		random_drop_on = FALSE
 		init_no_random_drop = TRUE
 
@@ -93,10 +93,10 @@
 
 			if(random_drop_on)
 				random_drop_on = FALSE
-				source.flags |= NO_PIXEL_RANDOM_DROP
+				source.item_flags |= NO_PIXEL_RANDOM_DROP
 			else
 				random_drop_on = TRUE
-				source.flags &= ~NO_PIXEL_RANDOM_DROP
+				source.item_flags &= ~NO_PIXEL_RANDOM_DROP
 
 	. = TRUE
 

@@ -7,12 +7,11 @@
 /datum/event/meteor_wave/setup()
 	waves = severity * rand(1,3)
 
-/datum/event/meteor_wave/announce()
-	switch(severity)
-		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: АСТЕРОИДЫ.", new_sound = 'sound/AI/meteors.ogg')
-		else
-			GLOB.event_announcement.Announce("Станция проходит через скопление астероидов.", "ВНИМАНИЕ: АСТЕРОИДЫ.")
+/datum/event/meteor_wave/announce(false_alarm)
+	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
+		GLOB.event_announcement.Announce("Зафиксировано движение астероидов на встречном со станцией курсе.", "ВНИМАНИЕ: АСТЕРОИДЫ.", new_sound = 'sound/AI/meteors.ogg')
+	else
+		GLOB.event_announcement.Announce("Станция проходит через скопление астероидов.", "ВНИМАНИЕ: АСТЕРОИДЫ.")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()

@@ -577,10 +577,7 @@
 	},
 /area/shuttle/administration)
 "jm" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -32;
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"

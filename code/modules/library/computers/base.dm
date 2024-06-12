@@ -2,18 +2,18 @@
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	anchored = 1
-	density = 1
-	icon_keyboard = ""
-	icon_screen = "computer_on"
+	icon = 'icons/obj/library.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "library"
+	icon_keyboard = null
+	anchored = TRUE
+	density = TRUE
 	var/screenstate = 0
 	var/page_num = 1
 	var/num_pages = 0
 	var/num_results = 0
 	var/datum/library_query/query = new()
 
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
 
 /obj/machinery/computer/library/proc/interact_check(var/mob/user)
 	if(stat & (BROKEN | NOPOWER))
@@ -47,7 +47,7 @@
 			if(query.category == "Fiction")
 				searchquery += " AND category NOT LIKE '%Non-Fiction%'"
 			where = 1
-	
+
 	// This one doesnt take player input directly, so it doesnt require params
 	searchquery += " [!where ? "WHERE" : "AND"] flagged < [MAX_BOOK_FLAGS]"
 	// This does though
@@ -57,7 +57,7 @@
 
 	// Pagination
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
-	
+
 	if(!select_query.warn_execute())
 		qdel(select_query)
 		return

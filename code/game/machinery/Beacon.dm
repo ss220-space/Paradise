@@ -7,7 +7,7 @@
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
 	layer = 2.5
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 0
 	var/syndicate = 0
@@ -42,12 +42,12 @@
 	destroy_beacon()
 	return ..()
 
-/obj/machinery/bluespace_beacon/hide(var/intact)
-	invisibility = intact ? INVISIBILITY_ABSTRACT : 0
-	update_icon()
+/obj/machinery/bluespace_beacon/hide(intact)
+	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
+	update_icon(UPDATE_ICON_STATE)
 
 // update the icon_state
-/obj/machinery/bluespace_beacon/update_icon()
+/obj/machinery/bluespace_beacon/update_icon_state()
 	var/state="floor_beacon"
 	if(invisibility)
 		icon_state = "[state]f"
@@ -61,11 +61,11 @@
 				Beacon.loc = loc
 		else
 			create_beacon()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 	else
 		if(Beacon)
 			destroy_beacon()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/bluespace_beacon/syndicate

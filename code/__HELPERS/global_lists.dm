@@ -44,14 +44,14 @@
 
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
-		var/datum/language/L = GLOB.all_languages[language_name]
-		if(!(L.flags & NONGLOBAL))
-			GLOB.language_keys[":[lowertext(L.key)]"] = L
-			GLOB.language_keys[".[lowertext(L.key)]"] = L
-			GLOB.language_keys["#[lowertext(L.key)]"] = L
-			GLOB.language_keys[":[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys[".[sanitize_english_string_to_russian(L.key)]"] = L
-			GLOB.language_keys["#[sanitize_english_string_to_russian(L.key)]"] = L
+		var/datum/language/language = GLOB.all_languages[language_name]
+		if(!(language.flags & NONGLOBAL))
+			GLOB.language_keys[":[lowertext(language.key)]"] = language
+			GLOB.language_keys[".[lowertext(language.key)]"] = language
+			GLOB.language_keys["#[lowertext(language.key)]"] = language
+			GLOB.language_keys[":[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys[".[sanitize_english_string_to_russian(language.key)]"] = language
+			GLOB.language_keys["#[sanitize_english_string_to_russian(language.key)]"] = language
 
 	var/rkey = 0
 	for(var/spath in subtypesof(/datum/species))
@@ -230,4 +230,23 @@
 			continue
 		var/datum/uplink_item/item = new item_path
 		. += item
+
+
+/proc/update_config_movespeed_type_lookup(update_mobs = TRUE)
+	var/list/mob_types = list()
+	var/list/entry_value = CONFIG_GET(keyed_list/multiplicative_movespeed)
+	for(var/path in entry_value)
+		var/value = entry_value[path]
+		if(!value)
+			continue
+		for(var/subpath in typesof(path))
+			mob_types[subpath] = value
+	GLOB.mob_config_movespeed_type_lookup = mob_types
+	if(update_mobs)
+		update_mob_config_movespeeds()
+
+
+/proc/update_mob_config_movespeeds()
+	for(var/mob/M as anything in GLOB.mob_list)
+		M.update_config_movespeed()
 

@@ -33,7 +33,10 @@
 
 
 /obj/item/pipe_painter/attack_self(mob/user as mob)
-	mode = input("Which colour do you want to use?", name, mode) in modes
+	var/new_paint_setting = tgui_input_list(user, "Which color do you want to use?", "Pick color", modes)
+	if(!new_paint_setting)
+		return
+	mode = new_paint_setting
 
 /obj/item/pipe_painter/examine(mob/user)
 	. = ..()

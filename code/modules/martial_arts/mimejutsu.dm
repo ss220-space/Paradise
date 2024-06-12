@@ -1,5 +1,6 @@
 /datum/martial_art/mimejutsu
 	name = "Mimejutsu"
+	weight = 6
 	block_chance = 50
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/silent_palm, /datum/martial_combo/mimejutsu/silencer, /datum/martial_combo/mimejutsu/execution)
@@ -29,7 +30,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = null
 	if(prob(50))
-		if(!D.stat || !D.IsWeakened())
+		if(!D.stat || D.body_position != LYING_DOWN)
 			I = D.get_active_hand()
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)

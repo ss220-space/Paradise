@@ -45,6 +45,11 @@
 			if(prob(25))
 				qdel(src)
 
+
+/obj/effect/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	return
+
+
 /**
  * # The abstract object
  *
@@ -76,6 +81,9 @@
 /obj/effect/abstract/singularity_act()
 	return
 
+/obj/effect/abstract/has_gravity()
+	return
+
 /obj/effect/abstract/narsie_act()
 	return
 
@@ -93,6 +101,9 @@
 
 /obj/effect/abstract/fire_act()
 	return
+
+/obj/effect/abstract/has_gravity(turf/gravity_turf)
+	return FALSE
 
 /obj/effect/decal
 	plane = FLOOR_PLANE

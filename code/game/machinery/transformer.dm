@@ -4,8 +4,8 @@
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.
@@ -39,20 +39,20 @@
 
 	// Get the turf 1 tile to the EAST.
 	var/turf/east = locate(T.x + 1, T.y, T.z)
-	if(istype(east, /turf/simulated/floor))
+	if(isfloorturf(east))
 		new /obj/machinery/conveyor/auto(east, WEST)
 
 	// Get the turf 1 tile to the WEST.
 	var/turf/west = locate(T.x - 1, T.y, T.z)
-	if(istype(west, /turf/simulated/floor))
+	if(isfloorturf(west))
 		new /obj/machinery/conveyor/auto(west, WEST)
 
-/obj/machinery/transformer/power_change()
-	..()
-	update_icon()
+/obj/machinery/transformer/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/transformer/update_icon()
-	..()
+/obj/machinery/transformer/update_icon_state()
 	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
 		icon_state = "separator-AO0"
 	else
@@ -67,7 +67,7 @@
 /// Resets `is_on_cooldown` to `FALSE` and updates our icon. Used in a callback after the transformer does a transformation.
 /obj/machinery/transformer/proc/reset_cooldown()
 	is_on_cooldown = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/Bumped(atom/movable/moving_atom)
 	..()
@@ -79,7 +79,7 @@
 	var/mob/living/carbon/human/H = moving_atom
 	var/move_dir = get_dir(loc, H.loc)
 
-	if((transform_standing || H.lying) && move_dir == acceptdir)
+	if((transform_standing || H.body_position == LYING_DOWN) && move_dir == acceptdir)
 		H.forceMove(drop_location())
 		do_transform(H)
 
@@ -97,7 +97,7 @@
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
 	addtimer(CALLBACK(null, PROC_REF(playsound), loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
@@ -152,7 +152,7 @@
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
 
 /obj/machinery/transformer/xray
@@ -168,20 +168,20 @@
 
 		// Get the turf 2 tiles to the EAST.
 		var/turf/east2 = locate(T.x + 2, T.y, T.z)
-		if(istype(east2, /turf/simulated/floor))
+		if(isfloorturf(east2))
 			new /obj/machinery/conveyor/auto(east2, EAST)
 
 		// Get the turf 2 tiles to the WEST.
 		var/turf/west2 = locate(T.x - 2, T.y, T.z)
-		if(istype(west2, /turf/simulated/floor))
+		if(isfloorturf(west2))
 			new /obj/machinery/conveyor/auto(west2, EAST)
 
-/obj/machinery/transformer/xray/power_change()
-	..()
-	update_icon()
+/obj/machinery/transformer/xray/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/transformer/xray/update_icon()
-	..()
+/obj/machinery/transformer/xray/update_icon_state()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = "separator-AO0"
 	else
@@ -199,7 +199,7 @@
 		var/mob/living/carbon/human/H = moving_atom
 		var/move_dir = get_dir(loc, H.loc)
 
-		if(H.lying && move_dir == acceptdir)
+		if(H.body_position == LYING_DOWN && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 
@@ -218,10 +218,9 @@
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
-			domutcheck(H,null,1)
 		else
 			randmutg(H) // Applies good mutation
-			domutcheck(H,null,1)
+		H.check_genes(MUTCHK_FORCED)
 
 
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
@@ -233,7 +232,7 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(obj/item/I)
-	if(istype(I, /obj/item/gun))
+	if(isgun(I))
 		return TRUE
 	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
@@ -322,8 +321,8 @@
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 	H.UpdateAppearance()
-	domutcheck(H, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.check_genes(MUTCHK_FORCED)
+
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))

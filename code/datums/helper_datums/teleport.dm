@@ -51,7 +51,7 @@
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(istype(ateleatom, /obj/effect) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
 		qdel(ateleatom)
 		return 0
 	if(istype(ateleatom))
@@ -181,25 +181,25 @@
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
 		if(bagholding.len)
 			precision = max(rand(1, 100)*bagholding.len, 100)
-			if(istype(teleatom, /mob/living))
+			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 		var/list/beltholding = teleatom.search_contents_for(/obj/item/storage/belt/bluespace)
 		if(beltholding.len)
 			precision = max(rand(1, 100)*beltholding.len, 100)
-			if(istype(teleatom, /mob/living))
+			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your belt of holding interferes with the teleport!</span>")
 		var/list/trashbagholding = teleatom.search_contents_for(/obj/item/storage/bag/trash/bluespace)
 		if(trashbagholding.len)
 			precision = max(rand(1, 100)*trashbagholding.len, 100)
-			if(istype(teleatom, /mob/living))
+			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your trashbag of holding interferes with the teleport!</span>")
 		var/list/miningsatholding = teleatom.search_contents_for(/obj/item/storage/bag/ore/holding)
 		if(miningsatholding.len)
 			precision = max(rand(1, 100)*miningsatholding.len, 100)
-			if(istype(teleatom, /mob/living))
+			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your mining satchel of holding interferes with the teleport!</span>")
 	return 1

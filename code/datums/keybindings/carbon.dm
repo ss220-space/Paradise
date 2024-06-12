@@ -6,7 +6,7 @@
 
 /datum/keybinding/carbon/throw_mode
 	name = "Режим броска (переключить)"
-	keys = list("R", "Southwest")
+	keys = list("R")
 
 /datum/keybinding/carbon/throw_mode/down(client/C)
 	. = ..()

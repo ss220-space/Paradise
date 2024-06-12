@@ -8,7 +8,7 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
-	plane = FLOOR_PLANE
+	plane = FLOOR_PLANE // I'd set to GAME_PLANE, but may fuck with pipes, srubbers and pumps. Also you see better lower floor under catwalk.
 	var/number_of_rods = 1
 	canSmoothWith = list(/obj/structure/lattice,
 						/turf/simulated/floor,
@@ -16,6 +16,7 @@
 						/obj/structure/falsewall,
 						/obj/structure/lattice/fireproof)
 	smooth = SMOOTH_MORE
+	obj_flags = BLOCK_Z_OUT_DOWN
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -34,6 +35,14 @@
 	. = ..()
 	new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	deconstruct()
+
+/obj/structure/lattice/deconstruct(disassembled)
+	var/turf/O = get_turf(loc)
+	..() //then we delete ourself proper way
+	if(isopenspaceturf(O))
+		for(var/atom/movable/movable in O)
+			if(!movable.currently_z_moving)
+				O.zFall(movable, falling_from_move = TRUE)
 
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc
@@ -105,6 +114,7 @@
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
@@ -197,3 +207,19 @@
 	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
+
+/obj/structure/lattice/catwalk/mapping
+	name = "reinforced catwalk"
+	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
+	resistance_flags = INDESTRUCTIBLE
+	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
+	icon_state = "catwalk"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof,
+						/obj/structure/lattice/catwalk/fireproof)
+
+/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+	return

@@ -38,7 +38,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "C" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research  Outpost","Mining Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/wood/cold,
 /area/ruin/unpowered/misc_lavaruin)
@@ -62,6 +62,10 @@
 /obj/item/flashlight/lamp,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/wood/cold,
+/area/ruin/unpowered/misc_lavaruin)
+"J" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/carpet/green,
 /area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/machinery/vending/cola/free,
@@ -241,7 +245,7 @@ z
 A
 g
 g
-D
+J
 A
 P
 P

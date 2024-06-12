@@ -16,6 +16,28 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])", should_log)
+	update_stamina()
+
+
+/mob/living/carbon/human/update_stamina()
+	. = ..()
+	update_movespeed_damage_modifiers()
+
+
+/mob/living/carbon/human/proc/update_movespeed_damage_modifiers()
+	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+		return
+
+	var/health_deficiency = max((maxHealth - health), staminaloss) - shock_reduction()
+	if(health_deficiency >= 40)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = health_deficiency / 75)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying, multiplicative_slowdown = health_deficiency / 25)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
+
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
@@ -181,6 +203,12 @@
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal = FALSE, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
+
+/mob/living/carbon/human/setCloneLoss(amount, updating_health)
+	. = ..()
+	if(getCloneLoss() < 1) //assuming cloneloss was set to 0
+		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+			bodypart.unmutate()
 
 /mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)

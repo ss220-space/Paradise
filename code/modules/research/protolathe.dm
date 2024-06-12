@@ -11,8 +11,7 @@ Note: Must be placed west/left of and R&D console to function.
 	name = "Protolathe"
 	desc = "Converts raw materials into useful objects."
 	icon_state = "protolathe"
-	icon_open = "protolathe_t"
-	icon_closed = "protolathe"
+	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
 	categories = list(
@@ -44,8 +43,7 @@ Note: Must be placed west/left of and R&D console to function.
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
-		icon_open = "syndie_protolathe_t"
-		icon_closed = "syndie_protolathe"
+		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/upgraded/New()
@@ -61,8 +59,7 @@ Note: Must be placed west/left of and R&D console to function.
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
-		icon_open = "syndie_protolathe_t"
-		icon_closed = "syndie_protolathe"
+		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
@@ -77,21 +74,21 @@ Note: Must be placed west/left of and R&D console to function.
 		T -= M.rating/10
 	efficiency_coeff = min(max(0, T), 1)
 
-/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
-		A = A / max(1, (being_built.reagents_list[M]))
+		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
-		A = A / max(1, (being_built.materials[M]))
+		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/O, mob/user, params)
 	if(shocked)
 		add_fingerprint(user)
 		if(shock(user,50))
 			return TRUE
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
+	if(default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, O))
 		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_lathe = null
@@ -102,7 +99,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
+		if(O.tool_behaviour == TOOL_CROWBAR)
 			for(var/obj/I in component_parts)
 				if(istype(I, /obj/item/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)

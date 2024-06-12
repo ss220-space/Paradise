@@ -15,7 +15,7 @@
 
 	if(!whom)
 		return "INVALID/(INVALID)"
-	if(istype(whom, /client))
+	if(isclient(whom))
 		C = whom
 		M = C.mob
 		key = C.key
@@ -29,7 +29,7 @@
 		M = D.current
 		if(D.current)
 			C = D.current.client
-	else if(istype(whom, /datum))
+	else if(isdatum(whom))
 		var/datum/D = whom
 		return "INVALID/([D.type])"
 	else if(istext(whom))
