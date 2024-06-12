@@ -7,6 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 
+	layer = BELOW_OBJ_LAYER + 0.01
+
 	var/on = 1
 
 /obj/machinery/embedded_controller/proc/post_signal(datum/signal/signal, comm_line)

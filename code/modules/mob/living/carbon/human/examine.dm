@@ -369,7 +369,7 @@
 		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/criminal = "None"
 		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
 
@@ -391,7 +391,7 @@
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/skills
 
 		if(perpname)
@@ -407,7 +407,7 @@
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/medical = "None"
 
 		for(var/datum/data/record/E in GLOB.data_core.general)

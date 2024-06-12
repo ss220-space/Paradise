@@ -860,7 +860,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv?.update_icon()
 
 	if(belt)
-		if(hud_used?.hud_shown && belt)
+		if(client && hud_used?.hud_shown)
 			client.screen += belt
 			belt.screen_loc = ui_belt
 

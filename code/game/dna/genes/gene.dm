@@ -27,6 +27,13 @@
 	var/instability = 0
 
 
+/datum/dna/gene/Destroy(force)
+	if(force)
+		return ..()
+	// put your hands off the gene GC!
+	return QDEL_HINT_LETMELIVE
+
+
 /*
 * Is the gene active in this mob's DNA?
 */
