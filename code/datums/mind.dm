@@ -2407,6 +2407,7 @@
 				if(!ninja_datum)
 					return
 
+				ninja_datum.change_species(current)
 				ninja_datum.equip_ninja()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
