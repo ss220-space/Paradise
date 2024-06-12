@@ -125,13 +125,15 @@ REAGENT SCANNER
 			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
 				continue
 
-		var/image/I = new(loc = get_turf(in_turf_atom))
+		var/turf/T = get_turf(in_turf_atom)
+		var/image/I = new(loc = T)
 		var/mutable_appearance/MA = new(in_turf_atom)
 		MA.alpha = isliving(in_turf_atom) ? 255 : 128
 		MA.dir = in_turf_atom.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
+		SET_PLANE_EXPLICIT(MA, GAME_PLANE, T)
 		I.appearance = MA
 		t_ray_images += I
 

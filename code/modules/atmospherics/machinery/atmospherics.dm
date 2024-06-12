@@ -95,16 +95,17 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/update_icon_state()
 	switch(level)
 		if(1)
-			plane = FLOOR_PLANE
+			SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
 		if(2)
-			plane = GAME_PLANE
+			SET_PLANE_IMPLICIT(src, GAME_PLANE)
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_vision_img = image(src, loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
-	SET_PLANE(pipe_vision_img, HUD_PLANE, src)
+	var/turf/T = get_turf(src)
+	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, T)
 
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
@@ -218,7 +219,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && !QDELETED(src))
+		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src, max_interact_count = 1, cancel_message = "") && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				span_notice("You have unfastened \the [src]."), \
@@ -338,8 +339,8 @@ Pipelines + Other Objects -> Pipe network
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 
-	//user.forceMove(target_move)
-	user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
+	user.abstract_move(target_move)
+	// user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
 
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
 	if(length(pipenetdiff))
@@ -425,7 +426,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
-	user.sight |= (SEE_TURFS|BLIND)
+	user.add_sight(SEE_TURFS|BLIND)
 	. = ..()
 
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.

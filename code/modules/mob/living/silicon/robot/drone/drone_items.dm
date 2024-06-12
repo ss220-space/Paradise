@@ -58,13 +58,13 @@
 /obj/item/gripper/proc/try_shake_up(mob/living/user, atom/target)
 	if(!gripped_item && Adjacent(user, target) && target && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.lying_angle)
+		if(H.body_position == LYING_DOWN)
 			H.AdjustSleeping(-10 SECONDS)
-			if(!H.IsSleeping())
-				H.StopResting()
 			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)
+			if(!H.IsSleeping())
+				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				span_notice("[user] shakes [H] trying to wake [H.p_them()] up!"),\

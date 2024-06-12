@@ -26,6 +26,9 @@
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
+	if(!client)
+		return FALSE
+	canon_client = client
 	GLOB.player_list |= src
 	last_known_ckey = ckey
 	update_Login_details()
@@ -42,7 +45,7 @@
 		hud_used.show_hud(hud_used.hud_version)
 
 	next_move = 1
-	sight |= SEE_SELF
+	add_sight(SEE_SELF)
 
 	// DO NOT CALL PARENT HERE
 	// BYOND's internal implementation of login does two things

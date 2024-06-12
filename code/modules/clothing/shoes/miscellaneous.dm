@@ -491,6 +491,9 @@
 	if(user.throwing)
 		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
 		return
+	if(!jumper.has_gravity())
+		to_chat(user, span_warning("You can't jump without gravity!"))
+		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
@@ -589,3 +592,22 @@
 	can_cut_open = FALSE
 	icon_state = "commandos_boots"
 	item_state = "commandos_boots"
+
+/obj/item/clothing/shoes/leather_boots
+	name = "high leather boots"
+	desc = "Стройные сапоги сделанные из кожи."
+	icon_state = "leather_boots"
+	item_state = "leather_boots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
+		)

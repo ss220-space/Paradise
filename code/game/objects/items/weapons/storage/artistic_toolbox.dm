@@ -84,7 +84,7 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !victim.IsWeakened())
+			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
@@ -158,13 +158,14 @@
 	can_immunity = FALSE
 	virus_heal_resistant = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
+	var/absorption_applied = FALSE
 
 /datum/disease/memetic_madness/Destroy()
 	if(progenitor)
 		progenitor.servantlinks.Remove(src)
 	progenitor = null
-	if(affected_mob)
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	if(absorption_applied && affected_mob)
+		affected_mob.remove_status_effect_absorption(name, list(STUN, WEAKEN, KNOCKDOWN, PARALYZE))
 	return ..()
 
 /datum/disease/memetic_madness/stage_act()
@@ -178,13 +179,19 @@
 		affected_mob.adjustFireLoss(-12)
 		affected_mob.adjustToxLoss(-5)
 		affected_mob.setStaminaLoss(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		affected_mob.status_flags &= ~status
 		affected_mob.AdjustDizzy(-20 SECONDS)
 		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)
 		affected_mob.SetSlowed(0)
 		affected_mob.SetConfused(0)
+		if(!absorption_applied)
+			absorption_applied = TRUE
+			affected_mob.add_status_effect_absorption(
+				source = name,
+				effect_type = list(STUN, WEAKEN, KNOCKDOWN, PARALYZE),
+				priority = 3,
+				self_message = span_boldwarning("His Grace protects you!"),
+			)
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
@@ -211,7 +218,9 @@
 		progenitor.hunger += min(max((progenitor.force / 10), 1), 10)
 
 	else
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		if(absorption_applied)
+			absorption_applied = FALSE
+			affected_mob.remove_status_effect_absorption(name, list(STUN, WEAKEN, KNOCKDOWN, PARALYZE))
 
 	if(stage == 4)
 		if(get_dist(get_turf(progenitor), get_turf(affected_mob)) <= 7)

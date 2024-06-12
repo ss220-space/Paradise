@@ -13,13 +13,17 @@
 	name = "\improper Danger Room"
 	icon_state = "away1"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /area/awaymission/challenge/end
 	name = "Administration"
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 
 /obj/machinery/power/emitter/energycannon
