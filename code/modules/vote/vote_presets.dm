@@ -34,8 +34,9 @@
 	..()
 	for(var/mob/voter in GLOB.player_list)
 		voter.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
-		if(voter.client?.prefs?.toggles2 & PREFTOGGLE_2_VOTE_POPUPS)
-			voter.immediate_vote()
+		if(!voter.client?.prefs || voter.client.prefs.toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS)
+			continue
+		voter.immediate_vote()
 
 /datum/vote/map/handle_result(result)
 	// Find target map.
