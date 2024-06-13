@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
+	silent = TRUE
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
 	/// DNA that is not lost when capacity is otherwise full.
@@ -118,7 +119,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 
 /datum/antagonist/changeling/greet()
-	..()
+	. = ..()
+	. += (span_userdanger("We are a [special_role]!"))
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ling_aler.ogg')
 	//to_chat(owner.current, span_changeling("Remember: you get all of the absorbed DNA points from other changelings if you absorb them."))
 
@@ -203,7 +205,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
-			return
+		return
 	var/datum/objective/absorb/absorb = new
 	absorb.gen_amount_goal(6, 8)
 	absorb.owner = owner
