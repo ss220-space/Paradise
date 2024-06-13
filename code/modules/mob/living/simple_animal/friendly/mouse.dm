@@ -125,20 +125,24 @@
 
 /mob/living/simple_animal/mouse/update_icon_state()
 	if(!mouse_color && !color_pick())
-		return
-	var/new_icon_state = "mouse_[mouse_color][jetpack ? "_jet" : ""]"
-	icon_state = new_icon_state
-	icon_living = new_icon_state
-	icon_dead = "mouse_[mouse_color]_dead"
-	icon_resting = "mouse_[mouse_color]_sleep"
+		icon_state		= initial(icon_state)
+		icon_living		= initial(icon_living)
+		icon_dead		= initial(icon_dead)
+		icon_resting	= initial(icon_resting)
+	else
+		var/new_icon_state = "mouse_[mouse_color][jetpack ? "_jet" : ""]"
+		icon_state		= new_icon_state
+		icon_living		= new_icon_state
+		icon_dead		= "mouse_[mouse_color]_dead"
+		icon_resting	= "mouse_[mouse_color]_sleep"
 
 
 /mob/living/simple_animal/mouse/update_desc(updates)
 	. = ..()
 	if(!mouse_color && !color_pick())
 		desc = initial(desc)
-		return
-	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
+	else
+		desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M)
@@ -148,11 +152,10 @@
 
 
 /mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
-	if(stat != DEAD)
-		if(istype(W, /obj/item/mouse_jetpack))
-			place_on_back(W, user)
-			return
-	. = ..()
+	if(!stat && istype(W, /obj/item/mouse_jetpack))
+		place_on_back(W, user)
+	else
+		return ..()
 
 
 /mob/living/simple_animal/mouse/show_inv(mob/user)
@@ -309,10 +312,8 @@
 	return FALSE
 
 /mob/living/simple_animal/mouse/Crossed(atom/movable/AM, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, span_notice("[bicon(src)] Squeek!"))
+	if(!stat && ishuman(AM))
+		to_chat(AM, span_notice("[bicon(src)] Squeek!"))
 	..()
 
 /mob/living/simple_animal/mouse/ratvar_act()
@@ -557,18 +558,24 @@
 	mouse_color = pick(list("gray", "white", "irish"))
 	return TRUE
 
+
 /mob/living/simple_animal/mouse/rat/update_icon_state()
 	if(!mouse_color && !color_pick())
-		return
-	icon_state		= "rat_[mouse_color]"
-	icon_living		= "rat_[mouse_color]"
-	icon_dead		= "rat_[mouse_color]_dead"
-	icon_resting	= "rat_[mouse_color]_sleep"
+		icon_state		= initial(icon_state)
+		icon_living		= initial(icon_living)
+		icon_dead		= initial(icon_dead)
+		icon_resting	= initial(icon_resting)
+	else
+		icon_state		= "rat_[mouse_color]"
+		icon_living		= "rat_[mouse_color]"
+		icon_dead		= "rat_[mouse_color]_dead"
+		icon_resting	= "rat_[mouse_color]_sleep"
+
 
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
-	desc = "Серая крыса. Не яркий представитель своего вида."
+	desc = "Серая крыса. Не самый яркий представитель своего вида."
 	mouse_color = "gray"
 
 /mob/living/simple_animal/mouse/rat/white
@@ -597,7 +604,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 /mob/living/simple_animal/mouse/hamster
 	name = "хомяк"
 	real_name = "хомяк"
-	desc = "С надутыми щечками."
+	desc = "С надутыми щёчками."
 	icon_state = "hamster"
 	icon_living = "hamster"
 	icon_dead = "hamster_dead"
@@ -617,9 +624,14 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 /mob/living/simple_animal/mouse/hamster/color_pick()
 	return FALSE
 
+
+/mob/living/simple_animal/mouse/hamster/update_desc(updates)
+	. = ..()	// We get initial desc here.
+	desc += gender == MALE ? " Самец!" : " Самочка! Ох... Нет..."
+
+
 /mob/living/simple_animal/mouse/hamster/New()
 	gender = prob(80) ? MALE : FEMALE
-	desc += MALE ? " Самец!" : " Самочка! Ох... Нет... "
 	GLOB.hamster_count++
 	. = ..()
 
@@ -643,7 +655,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 /mob/living/simple_animal/mouse/hamster/baby
 	name = "хомячок"
 	real_name = "хомячок"
-	desc = "Очень миленький! Какие у него пушистые щечки!"
+	desc = "Очень миленький! Какие у него пушистые щёчки!"
 	tts_seed = "Meepo"
 	turns_per_move = 2
 	response_help  = "полапал"
@@ -660,27 +672,31 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 
 /mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 	if(show_message)
-		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+		to_chat(src, span_warning("Вы слишком малы, чтобы что-то тащить."))
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
 	. =..()
-	if(.)
-		amount_grown++
-		if(amount_grown >= 100)
-			var/mob/living/simple_animal/A = new /mob/living/simple_animal/mouse/hamster(loc)
-			if(mind)
-				mind.transfer_to(A)
-			qdel(src)
+	if(!.)
+		return .
+
+	amount_grown++
+	if(amount_grown < 100)
+		return .
+
+	var/mob/living/simple_animal/A = new /mob/living/simple_animal/mouse/hamster(loc)
+	if(mind)
+		mind.transfer_to(A)
+	qdel(src)
+
 
 /mob/living/simple_animal/mouse/hamster/baby/Crossed(atom/movable/AM, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, span_notice("[bicon(src)] раздавлен!"))
-			death()
-			splat(user = AM)
+	if(!stat && ishuman(AM))
+		to_chat(AM, span_notice("[bicon(src)] раздавлен!"))
+		death()
+		splat(user = AM)
 	..()
+
 
 #undef SNIFF
 #undef SHAKE
