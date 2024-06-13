@@ -106,7 +106,7 @@
 			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
-/mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(world.time < last_movement)
 		return
 	last_movement = world.time + 0.5 // cap to 20fps

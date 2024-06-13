@@ -100,15 +100,14 @@
 		return
 	take_patient(usr, usr)
 
-/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(iscarbon(G.affecting))
-			add_fingerprint(user)
-			take_patient(G.affecting, user)
-			qdel(G)
-	else
-		return ..()
+
+/obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !iscarbon(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	take_patient(grabbed_thing, grabber)
+
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE

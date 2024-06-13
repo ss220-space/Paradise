@@ -298,7 +298,6 @@
 		to_chat(user, span_notice("Only non-organics may enter the recharger!"))
 		return
 
-	user.stop_pulling()
 	user.forceMove(src)
 	occupant = user
 

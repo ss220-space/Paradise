@@ -7,9 +7,10 @@
 
 /datum/martial_art/mimejutsu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A, 1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
+	var/old_grab_state = A.grab_state
+	D.grabbedby(A, supress_message = TRUE)
+	if(old_grab_state == GRAB_PASSIVE)
+		D.grippedby(A) //Instant aggressive grab
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 

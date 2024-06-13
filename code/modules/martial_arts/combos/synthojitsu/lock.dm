@@ -4,9 +4,11 @@
 	explaination_text = "Allows user to grab opponent quickly"
 
 /datum/martial_combo/synthojitsu/lock/perform_combo(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/MA)
-	var/obj/item/grab/G = target.grabbedby(user, 1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
+	var/old_grab_state = user.grab_state
+	var/grabbed = target.grabbedby(user, supress_message = TRUE)
+	if(grabbed)
+		if(old_grab_state == GRAB_PASSIVE)
+			target.grippedby(user) //Instant aggressive grab
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 		user.adjust_nutrition(-25)
 		return MARTIAL_COMBO_DONE

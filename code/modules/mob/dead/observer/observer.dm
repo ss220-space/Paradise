@@ -242,16 +242,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE)
-	setDir(direct)
-	ghostimage.setDir(dir)
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE, update_dir = TRUE)
+	// only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
+	if(update_dir)
+		setDir(direct)
+		ghostimage.setDir(dir)
 
-	if(glide_size_override)
+	if(glide_size_override && glide_size_override != glide_size)
 		set_glide_size(glide_size_override)
 
 	if(newloc)
 		abstract_move(newloc)
-		update_parallax_contents()
 	else
 		var/turf/destination = get_turf(src)
 

@@ -39,9 +39,9 @@
 		movement_range = 0
 
 
-/obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo, custom_bump)
+/obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo)
 	. = ..()
-	if(. || isnull(.) || !istype(bumped_singulo))
+	if(. || !istype(bumped_singulo))
 		return .
 	bumped_singulo.energy += energy
 

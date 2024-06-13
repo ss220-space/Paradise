@@ -140,12 +140,12 @@
 	user.visible_message("<span class='warning'>[user] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 	user.SetStunned(0)
 	user.SetWeakened(0)
+	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
 	user.alpha = 0
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
-	if(user.pulledby)
-		user.pulledby.stop_pulling()
+	user.pulledby?.stop_pulling()
 	user.stop_pulling()
 
 	sleep(4 SECONDS)

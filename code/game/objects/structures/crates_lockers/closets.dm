@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(closets)
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
+	pull_push_slowdown = 1.3 // Same as a prone mob
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
 	var/no_overlays = FALSE
@@ -196,6 +197,18 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
+
+/obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !opened || !isliving(grabbed_thing) || !Adjacent(grabbed_thing))
+		return .
+	if(!large)
+		to_chat(grabber, span_notice("[src] is too small to stuff [grabbed_thing] into!"))
+		return .
+	grabber.stop_pulling()
+	MouseDrop_T(grabbed_thing, grabber)	//act like they were dragged onto the closet
+
+
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
@@ -204,12 +217,6 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 
 	if(opened)
-		if(istype(W, /obj/item/grab))
-			var/obj/item/grab/G = W
-			if(large)
-				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
-			else
-				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
 		if(istype(W, /obj/item/tk_grab))
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
@@ -372,9 +379,9 @@ GLOBAL_LIST_EMPTY(closets)
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/AM)
+/obj/structure/closet/Exit(atom/movable/leaving, atom/newLoc)
 	open()
-	if(AM.loc == src)
+	if(leaving.loc == src)
 		return FALSE
 	return TRUE
 
@@ -510,7 +517,7 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
 	var/turf/T = get_turf(newloc)
 	if(T.density)
 		return

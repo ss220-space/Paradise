@@ -1,5 +1,4 @@
 /obj
-	//var/datum/module/mod		//not used
 	var/obj_flags = NONE
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -31,6 +30,10 @@
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
 	var/datum/multitool_menu/multitool_menu
+
+	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
+	var/pull_push_slowdown = 0
+
 
 /obj/New()
 	..()

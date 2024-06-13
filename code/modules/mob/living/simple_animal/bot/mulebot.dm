@@ -693,7 +693,7 @@
 			bot_reset()	// otherwise go idle
 
 
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 
 	if(. && istype(next))
@@ -721,9 +721,9 @@
 /**
  * Called when bot bumps into anything.
  */
-/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
+	if(!wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
 		return .
 
 	// usually just bumps, but if avoidance disabled knock over mobs

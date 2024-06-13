@@ -153,6 +153,7 @@
 /obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.SetWeakened(0)
 	user.SetStunned(0)
+	user.SetKnockdown(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)

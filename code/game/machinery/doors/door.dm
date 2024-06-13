@@ -132,7 +132,7 @@
 				do_animate("deny")
 
 
-/obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -158,33 +158,37 @@
 /obj/machinery/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
+
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
 		return
 	add_fingerprint(user)
 
-	if(density && !emagged)
-		if(allowed(user))
-			if(HAS_TRAIT(src, TRAIT_CMAGGED))
-				cmag_switch(FALSE, user)
-				return
-			open()
-			if(isbot(user))
-				var/mob/living/simple_animal/bot/B = user
-				B.door_opened(src)
-		else
-			if(pry_open_check(user))
-				return
-			if(HAS_TRAIT(src, TRAIT_CMAGGED))
-				cmag_switch(TRUE, user)
-				return
-			do_animate("deny")
+	if(!density || emagged)
+		return
+
+	if(allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
+		open()
+		if(isbot(user))
+			var/mob/living/simple_animal/bot/bot = user
+			bot.door_opened(src)
+		return
+
+	if(pry_open_check(user))
+		return
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		cmag_switch(TRUE, user)
+		return
+	do_animate("deny")
 
 
 /obj/machinery/door/proc/pry_open_check(mob/user)
 	. = TRUE
 	if(isterrorspider(user))
-		return
+		return .
 
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
@@ -336,6 +340,7 @@
 		return TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
+	set waitfor = FALSE
 	if(!density)
 		return
 	flick("door_spark", src)
@@ -396,6 +401,8 @@
 				flick("door_deny", src)
 
 /obj/machinery/door/proc/open()
+	set waitfor = FALSE
+
 	if(!density)
 		return TRUE
 	if(operating)
@@ -417,6 +424,8 @@
 
 
 /obj/machinery/door/proc/close()
+	set waitfor = FALSE
+
 	if(density)
 		return TRUE
 	if(operating || welded)

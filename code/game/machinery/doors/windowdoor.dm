@@ -12,6 +12,7 @@
 	pass_flags_self = PASSGLASS
 	opacity = FALSE
 	dir = EAST
+	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
@@ -62,6 +63,7 @@
 		open()
 
 /obj/machinery/door/window/proc/open_and_close()
+	set waitfor = FALSE
 	open()
 	if(check_access(null))
 		sleep(50)
@@ -157,6 +159,7 @@
 
 
 /obj/machinery/door/window/open(forced=0)
+
 	if(operating) //doors can still open when emag-disabled
 		return FALSE
 	if(!forced && !hasPower())
@@ -269,6 +272,7 @@
 		return 1
 
 /obj/machinery/door/window/cmag_act(mob/user)
+	set waitfor = FALSE
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)

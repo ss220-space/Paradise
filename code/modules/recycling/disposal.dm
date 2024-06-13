@@ -49,13 +49,13 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
+/obj/machinery/disposal/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!loc)
 		return
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
-	var/turf/T = OldLoc
+	var/turf/T = old_loc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
@@ -150,28 +150,6 @@
 			update()
 			return
 
-	var/obj/item/grab/grab = I
-	if(istype(grab))	// handle grabbed mob
-		if(grab.affecting && !isliving(grab.affecting))
-			return
-
-		var/mob/living/target = grab.affecting
-
-		for(var/mob/viewer in (viewers(user) - user))
-			viewer.show_message("[user] starts putting [target.name] into the disposal.", 3)
-
-		if(!do_after(user, 2 SECONDS, target, NONE))
-			return
-
-		add_fingerprint(user)
-		target.forceMove(src)
-		for(var/mob/viewer in viewers(src))
-			viewer.show_message("<span class='warning'>[target.name] has been placed in the [src] by [user].</span>", 3)
-
-		qdel(grab)
-		add_attack_logs(user, target, "Disposal'ed")
-		return
-
 	if(!I || !can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
 		return
 
@@ -180,6 +158,22 @@
 	for(var/mob/viewer in (viewers(src) - user))
 		viewer.show_message("[user.name] places \the [I] into the [src].", 3)
 
+	update()
+
+
+/obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+
+	grabber.visible_message(span_notice("[grabber] starts putting [grabbed_thing.name] into the disposal."), ignored_mobs = grabber)
+	if(!do_after(grabber, 2 SECONDS, src, NONE) || !grabbed_thing || grabber.pulling != grabbed_thing)
+		return .
+
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	grabber.visible_message(span_warning("[grabbed_thing.name] has been placed in [src] by [grabber]."))
+	add_attack_logs(grabber, grabbed_thing, "Disposal'ed")
 	update()
 
 

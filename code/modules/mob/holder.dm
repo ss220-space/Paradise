@@ -37,7 +37,10 @@
 	if(ishuman(user))	//eating holder
 		if(target == user)
 			for(var/mob/M in src.contents)
-				return devoured(M, user)
+				. = M.devoured(user)
+				if(.)
+					qdel(src)
+				return .
 	. = ..()
 
 /obj/item/holder/proc/show_message(var/message, var/m_type)
