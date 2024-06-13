@@ -68,14 +68,12 @@
 		return TRUE
 
 	var/list/line_of_sight = get_line(src, target)
+	line_of_sight = line_of_sight.Cut(1, 2)
 	for(var/turf/current_turf as anything in line_of_sight)
-		if(!current_turf)
-			return FALSE
 		if(current_turf.opacity)
 			return FALSE
-		for(var/thing as anything in current_turf)
-			var/atom/A = thing
-			if(A.opacity)
+		for(var/atom/movable/thing as anything in current_turf)
+			if(thing.opacity)
 				return FALSE
 	return TRUE
 

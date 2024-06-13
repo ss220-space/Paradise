@@ -37,13 +37,12 @@
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
 		if(isstack(I))
-			if(!user.can_unEquip(I))
+			if(!user.can_unEquip(I) || !I.use(1))
 				to_chat(user, span_warning("[I] is stuck!"))
 				return
 			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
 			to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
 			upgrades += new_stack
-			I.use(1)
 			return
 
 		if(!user.drop_transfer_item_to_loc(I, src))
