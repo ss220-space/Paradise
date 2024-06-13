@@ -42,9 +42,6 @@
  * Returns TRUE if any changes were made, FALSE otherwise
  */
 /mob/living/carbon/human/proc/update_gene_status(datum/dna/gene/gene, flags = NONE)
-	if(!gene.block)
-		return FALSE
-
 	// If human mob has no DNA its better runtime to tell us,
 	// since its involves some hacky code elsewhere
 	if(!dna)

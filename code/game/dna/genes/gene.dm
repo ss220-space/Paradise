@@ -18,10 +18,10 @@
 
 	// Set in initialize()!
 	//  What gene activates this?
-	var/block = 0
+	var/block
 
 	// Any of a number of GENE_ flags.
-	var/flags = 0
+	var/flags = NONE
 
 	// Chance of the gene to cause adverse effects when active
 	var/instability = 0
