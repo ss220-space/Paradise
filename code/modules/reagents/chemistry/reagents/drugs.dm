@@ -487,8 +487,6 @@
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 		M.Druggy(30 SECONDS)
 	if(check < 5)
-		M.AdjustConfused(20 SECONDS)
-	if(check < 5)
 		M.emote(pick("howl", "growl"))
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
