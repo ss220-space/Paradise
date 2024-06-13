@@ -25,7 +25,12 @@
 	no_dead_vote = FALSE
 
 /datum/vote/map/generate_choices()
-	for(var/datum/map/possible_map as anything in (subtypesof(/datum/map) - SSmapping.map_datum.type))
+	var/list/map_pool = subtypesof(/datum/map)
+
+	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
+		map_pool -= SSmapping.map_datum.type
+
+	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue
 		choices.Add("[initial(possible_map.station_name)] ([initial(possible_map.name)])")

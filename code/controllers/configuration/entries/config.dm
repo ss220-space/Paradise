@@ -668,6 +668,9 @@
 /datum/config_entry/string/map_rotate
 	default = "none"
 
+/datum/config_entry/string/map_vote_mode
+	default = "all"
+
 //Needs proper handling?
 /datum/config_entry/string/default_map
 	default = null
