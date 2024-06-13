@@ -1209,7 +1209,7 @@
 		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 40,
 		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 40,
 		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 40,
-		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 80
+		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 80,
 		/obj/item/reagent_containers/food/drinks/zaza = 200)
 	refill_canister = /obj/item/vending_refill/cola
 
