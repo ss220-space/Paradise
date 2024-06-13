@@ -18,8 +18,6 @@
 	var/give_uplink = TRUE
 	/// Whether the traitor can specialize into a contractor.
 	var/is_contractor = FALSE
-	/// Whether the traitor will receive only hijack objective.
-	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
 

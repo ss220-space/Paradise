@@ -200,6 +200,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone.
  */
 /datum/antagonist/changeling/give_objectives()
+	if(is_hijacker)
+		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+			add_objective(/datum/objective/hijack)
+			return
 	var/datum/objective/absorb/absorb = new
 	absorb.gen_amount_goal(6, 8)
 	absorb.owner = owner

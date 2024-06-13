@@ -27,6 +27,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
 	var/special_role
+	/// Whether the antagonist will receive only hijack objective.(vampire, traitor, changeling)
+	var/is_hijacker = FALSE
 	/// Should we automatically give this antagonist objectives upon them gaining the datum?
 	var/give_objectives = TRUE
 	/// Holds the type of antagonist hud this datum will get, i.e. `ANTAG_HUD_TRAITOR`, `ANTAG_HUD_VAMPIRE`, etc.

@@ -78,12 +78,29 @@
 	switch(special_antag_type)
 		if(ROLE_HIJACKER)
 			for(var/i in 1 to special_antag_amount)
-				var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_TRAITOR])
-				if(special_antag)
-					special_antag.restricted_roles = restricted_jobs
-					special_antag.special_role = SPECIAL_ROLE_TRAITOR
-					pre_antags[special_antag] = ROLE_HIJACKER
-					antags_amount--
+				var/hijack_antag_type = pick(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING)
+				switch(hijack_antag_type)
+					if(ROLE_TRAITOR)
+						var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_TRAITOR])
+						if(special_antag)
+							special_antag.restricted_roles = restricted_jobs
+							special_antag.special_role = SPECIAL_ROLE_TRAITOR
+							pre_antags[special_antag] = ROLE_HIJACKER
+							antags_amount--
+					if(ROLE_VAMPIRE)
+						var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_VAMPIRE])
+						if(special_antag)
+							special_antag.restricted_roles = restricted_jobs
+							special_antag.special_role = SPECIAL_ROLE_VAMPIRE
+							pre_antags[special_antag] = ROLE_HIJACKER
+							antags_amount--
+					if(ROLE_CHANGELING)
+						var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_CHANGELING])
+						if(special_antag)
+							special_antag.restricted_roles = restricted_jobs
+							special_antag.special_role = SPECIAL_ROLE_CHANGELING
+							pre_antags[special_antag] = ROLE_HIJACKER
+							antags_amount--
 
 		if(ROLE_THIEF)
 			for(var/i in 1 to special_antag_amount)
@@ -296,7 +313,14 @@
 	for(var/datum/mind/antag as anything in pre_antags)
 		switch(pre_antags[antag])
 			if(ROLE_HIJACKER)
-				var/datum/antagonist/traitor/hijacker_datum = new
+				var/datum/antagonist/hijacker_datum
+				switch(antag.special_role)
+					if(SPECIAL_ROLE_TRAITOR)
+						hijacker_datum = new /datum/antagonist/traitor
+					if(SPECIAL_ROLE_VAMPIRE)
+						hijacker_datum = new /datum/antagonist/vampire
+					if(SPECIAL_ROLE_CHANGELING)
+						hijacker_datum = new /datum/antagonist/changeling
 				hijacker_datum.is_hijacker = TRUE
 				antag.add_antag_datum(hijacker_datum)
 
