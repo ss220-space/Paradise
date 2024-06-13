@@ -2324,7 +2324,7 @@
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/weaponcrafting/receiver = 1
 )
-	premium = list(/obj/item/poster/random_contraband = 5)
+	premium = list(/obj/item/poster/random_contraband = 5
 	)
 	prices = list(
 		/obj/item/toy/crayon/spraycan = 50,
