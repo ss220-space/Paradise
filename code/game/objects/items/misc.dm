@@ -66,7 +66,7 @@
 	if(firer.drop_item_ground(target_gun) && user.drop_item_ground(src))
 		to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
 		to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
-		user.put_in_hands(target_gun, force = TRUE)
-		firer.put_in_hands(src, force = TRUE)
+		user.put_in_hands(target_gun)
+		firer.put_in_hands(src)
 		used = TRUE
 		update_icon(UPDATE_NAME|UPDATE_ICON_STATE)
