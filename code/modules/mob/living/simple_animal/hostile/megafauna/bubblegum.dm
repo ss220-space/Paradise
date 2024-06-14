@@ -261,7 +261,7 @@ Difficulty: Hard
 		return
 	RegisterSignal(new_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move), override = TRUE)
 	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move), override = TRUE)
-	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, PROC_REF(charge_end), override = TRUE)
+	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(charge_end), override = TRUE)
 	return TRUE
 
 #undef BUBLEGUM_CHARGE_SPEED

@@ -50,7 +50,7 @@
 	handle_vehicle_offsets()
 	handle_vehicle_icons()
 	RegisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_glide_size_update))
-	RegisterSignal(turret, COMSIG_PARENT_QDELETING, PROC_REF(on_turret_deleting))
+	RegisterSignal(turret, COMSIG_QDELETING, PROC_REF(on_turret_deleting))
 
 
 /obj/vehicle/atv/turret/Destroy()

@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	if(!new_loop)
 		return
 
-	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, PROC_REF(handle_stopping))
+	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(handle_stopping))
 
 
 ///Deals with what happens when we stop moving, IE we die
