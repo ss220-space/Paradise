@@ -112,28 +112,19 @@
 	// And the genes that actually do the work. (domutcheck improvements)
 	var/list/blocks_assigned[DNA_SE_LENGTH]
 	for(var/gene_type in typesof(/datum/dna/gene))
-		var/datum/dna/gene/G = new gene_type
-		if(G.block)
-			if(G.block in blocks_assigned)
-				warning("DNA2: Gene [G.name] trying to use already-assigned block [G.block] (used by [english_list(blocks_assigned[G.block])])")
-			GLOB.dna_genes.Add(G)
-			var/list/assignedToBlock[0]
-			if(blocks_assigned[G.block])
-				assignedToBlock=blocks_assigned[G.block]
-			assignedToBlock.Add(G.name)
-			blocks_assigned[G.block]=assignedToBlock
-			//testing("DNA2: Gene [G.name] assigned to block [G.block].")
+		var/datum/dna/gene/gene_instance = new gene_type
+		if(isnull(gene_instance.block))
+			continue
+		if(blocks_assigned[gene_instance.block])
+			warning("DNA2: Gene [gene_instance.name] trying to use already-assigned block [gene_instance.block] (used by [english_list(blocks_assigned[gene_instance.block])])")
+		GLOB.dna_genes += gene_instance
+		if(!blocks_assigned[gene_instance.block])
+			blocks_assigned[gene_instance.block] = list()
+		blocks_assigned[gene_instance.block] += gene_instance.name
 
-	// I WILL HAVE A LIST OF GENES THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
-	for(var/block=1;block<=DNA_SE_LENGTH;block++)
-		var/name = GLOB.assigned_blocks[block]
-		for(var/datum/dna/gene/gene in GLOB.dna_genes)
-			if(gene.name == name || gene.block == block)
-				if(gene.block in GLOB.assigned_gene_blocks)
-					warning("DNA2: Gene [gene.name] trying to add to already assigned gene block list (used by [english_list(GLOB.assigned_gene_blocks[block])])")
-				GLOB.assigned_gene_blocks[block] = gene
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		GLOB.assigned_gene_blocks[gene.block] = gene
 
-	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 
 /proc/setupcult()
 	var/static/datum/cult_info/picked_cult // Only needs to get picked once
