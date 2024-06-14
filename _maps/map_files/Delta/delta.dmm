@@ -661,14 +661,6 @@
 	locked = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "port4";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = -4
-	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/additional)
 "aeI" = (
@@ -701,6 +693,15 @@
 	dir = 5
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	layer = 3.3;
+	master_tag = "port4";
+	name = "exterior access button";
+	pixel_x = 24;
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "afy" = (
@@ -786,14 +787,6 @@
 	},
 /area/quartermaster/storage)
 "agC" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "port4";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 4
-	},
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
 	id_tag = "port4_outer";
@@ -870,6 +863,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "port4";
+	layer = 3.3;
 	pixel_x = 25;
 	tag_airpump = "port4_pump";
 	tag_chamber_sensor = "port4_sensor";
@@ -878,6 +872,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "port4_sensor";
+	layer = 3.3;
 	pixel_x = 25;
 	pixel_y = 5
 	},
@@ -11206,9 +11201,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bvT" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access = list(12)
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
@@ -32568,6 +32561,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "solar_tool_airlock";
 	name = "exterior access button";
 	pixel_x = 25;
@@ -32645,6 +32639,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "solar_tool_airlock";
+	layer = 3.3;
 	pixel_y = 25;
 	req_access = list(32);
 	tag_airpump = "solar_tool_pump";
@@ -32654,6 +32649,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "solar_tool_sensor";
+	layer = 3.3;
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -32738,6 +32734,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "solar_tool_airlock";
 	name = "interior access button";
 	pixel_x = -25;
@@ -41485,6 +41482,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "solar_chapel_airlock";
 	name = "interior access button";
 	pixel_x = 25;
@@ -42350,6 +42348,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "solar_chapel_airlock";
+	layer = 3.3;
 	pixel_y = 25;
 	req_access = list(13);
 	tag_airpump = "solar_chapel_pump";
@@ -42359,6 +42358,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "solar_chapel_sensor";
+	layer = 3.3;
 	pixel_y = 32
 	},
 /obj/machinery/light/small,
@@ -43015,6 +43015,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "robotics_solar_airlock";
 	name = "exterior access button";
 	pixel_x = 25;
@@ -43329,6 +43330,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "solar_chapel_airlock";
 	name = "exterior access button";
 	pixel_x = -25;
@@ -44975,6 +44977,7 @@
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
 	id = "secpilot";
+	layer = 3.3;
 	name = "Pod Door Control";
 	pixel_x = -26;
 	pixel_y = 26;
@@ -49315,6 +49318,7 @@
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
 	id = "secpilot";
+	layer = 3.3;
 	name = "Pod Door Control";
 	pixel_x = 26;
 	pixel_y = 26;
@@ -67830,6 +67834,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
+"kcs" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	layer = 3.3;
+	master_tag = "port4";
+	name = "exterior access button";
+	pixel_x = 24;
+	pixel_y = -28
+	},
+/turf/space,
+/area/space)
 "kcN" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -68670,7 +68686,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
-	layer = 4;
+	layer = 3.3;
 	master_tag = "solar_xeno_airlock";
 	name = "South-East Solar Panels";
 	pixel_x = -23;
@@ -69800,7 +69816,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
-	layer = 3.5;
+	layer = 3.3;
 	master_tag = "solar_xeno_airlock";
 	name = "exterior access button";
 	pixel_x = -23;
@@ -82410,7 +82426,8 @@
 	id = "Cell 3";
 	name = "Cell 3 Locker"
 	},
-/obj/structure/sign/poster/official/random{
+/obj/machinery/treadmill_monitor{
+	id = "Cell 3";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -83223,14 +83240,15 @@
 /area/toxins/lab)
 "nJf" = (
 /obj/machinery/power/treadmill{
-	dir = 8
+	dir = 8;
+	id = "Cell 3"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -90634,6 +90652,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "robotics_solar_airlock";
 	name = "interior access button";
 	pixel_x = -25;
@@ -90714,6 +90733,7 @@
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "ai_airlock";
 	name = "interior access button";
 	pixel_x = 25;
@@ -96088,14 +96108,15 @@
 /area/maintenance/kitchen)
 "qzP" = (
 /obj/machinery/power/treadmill{
-	dir = 8
+	dir = 8;
+	id = "Cell 4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -99906,8 +99927,9 @@
 	id = "Cell 4";
 	name = "Cell 4 Locker"
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
+/obj/machinery/treadmill_monitor{
+	id = "Cell 4";
+	pixel_y = -29
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -100989,7 +101011,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "solar_xeno_airlock";
-	layer = 3.1;
+	layer = 3.3;
 	pixel_x = 24;
 	pixel_y = -6;
 	req_access = list(13);
@@ -101000,7 +101022,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "solar_xeno_sensor";
-	layer = 3.1;
+	layer = 3.3;
 	pixel_x = 24;
 	pixel_y = 4
 	},
@@ -117568,6 +117590,7 @@
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
+	layer = 3.3;
 	master_tag = "ai_airlock";
 	name = "exterior access button";
 	pixel_x = 25;
@@ -122740,9 +122763,7 @@
 	},
 /area/security/securehallway)
 "wHj" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access = list(12)
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -123091,6 +123112,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "ai_airlock";
+	layer = 3.3;
 	pixel_x = 28;
 	tag_airpump = "ai_pump";
 	tag_chamber_sensor = "ai_sensor";
@@ -123099,6 +123121,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "ai_sensor";
+	layer = 3.3;
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -130184,6 +130207,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "robotics_solar_airlock";
+	layer = 3.3;
 	pixel_y = -25;
 	req_access = list(13);
 	tag_airpump = "robotics_solar_pump";
@@ -130193,6 +130217,7 @@
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "robotics_solar_sensor";
+	layer = 3.3;
 	pixel_x = 12;
 	pixel_y = -25
 	},
@@ -160988,7 +161013,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+kcs
 agC
 ahh
 aeG

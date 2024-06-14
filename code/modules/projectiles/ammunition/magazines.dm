@@ -582,6 +582,9 @@
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1
+
+
+/obj/item/ammo_box/magazine/toy/enforcer/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 
