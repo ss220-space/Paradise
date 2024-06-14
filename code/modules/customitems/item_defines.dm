@@ -1138,8 +1138,15 @@
 	icon_state = "jane_sid_suit"
 	item_state = "jane_sid_suit"
 	item_color = "jane_sid_suit"
-	has_sensor = 2
+	has_sensor = SENSOR_VITALS
 	sensor_mode = 3
+	up = TRUE
+
+
+/obj/item/clothing/under/fluff/jane_sidsuit/Initialize(mapload)
+	. = ..()
+	verbs -= /obj/item/clothing/under/verb/rollsuit
+
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
@@ -1149,16 +1156,17 @@
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(src.icon_state == "jane_sid_suit_down")
-		src.item_color = "jane_sid_suit"
-		to_chat(usr, "You zip up \the [src].")
-	else
-		src.item_color = "jane_sid_suit_down"
-		to_chat(usr, "You unzip and roll down \the [src].")
+	up = !up
+	to_chat(usr, "You [up ? "zip up" : "unzip and roll down"] [src].")
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
 
-	src.icon_state = "[item_color]"
-	src.item_state = "[item_color]"
-	usr.update_inv_w_uniform()
+
+/obj/item/clothing/under/fluff/jane_sidsuit/update_icon_state()
+	var/new_state = "[replacetext("[item_color]", "_d", "")][up ? "" : "_d"]"
+	icon_state = new_state
+	item_state = new_state
+
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
@@ -1470,7 +1478,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
-	item_color = "fethasnecklace"
 	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_ACCESSORY
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
