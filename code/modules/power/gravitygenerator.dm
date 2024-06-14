@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/setup_parts()
 	var/turf/our_turf = get_turf(src)
 	// 9x9 block obtained from the bottom middle of the block
-	var/list/spawn_turfs = block(locate(our_turf.x - 1, our_turf.y + 2, our_turf.z), locate(our_turf.x + 1, our_turf.y, our_turf.z))
+	var/list/spawn_turfs = block(our_turf.x - 1, our_turf.y + 2, our_turf.z, our_turf.x + 1, our_turf.y, our_turf.z)
 	var/count = 10
 	for(var/turf/part_turf as anything in spawn_turfs)
 		count--
