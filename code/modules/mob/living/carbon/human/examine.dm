@@ -450,7 +450,7 @@
 	if(!length(examine_list))
 		return
 
-	return examine_list.Join("\n")
+	return examine_list.Join("\n") + "\n" 
 
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
