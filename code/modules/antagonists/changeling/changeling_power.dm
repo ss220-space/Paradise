@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	..()
 
 
-/datum/action/changeling/Destroy(force, ...)
+/datum/action/changeling/Destroy(force)
 	owner?.update_action_buttons(TRUE)
 	cling.acquired_powers -= src
 	cling = null
