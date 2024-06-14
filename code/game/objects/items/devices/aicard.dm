@@ -153,7 +153,4 @@
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(!AI)
 		return
-	AI.builtInCamera = new /obj/machinery/camera/portable(AI)
-	AI.builtInCamera.c_tag = AI.name
-	AI.builtInCamera.network = list("SS13")
-
+	AI.builtInCamera = new(AI, network = list("SS13"), c_tag = AI.name)
