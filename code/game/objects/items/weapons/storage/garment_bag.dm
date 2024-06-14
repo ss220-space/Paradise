@@ -231,6 +231,7 @@
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/under/rank/chaplain/skirt(src)
+	new /obj/item/clothing/suit/hooded/hijab(src)
 
 /obj/item/storage/garmentbag/quartermaster/populate_contents()
 	new /obj/item/clothing/head/soft(src)

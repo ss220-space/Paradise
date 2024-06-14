@@ -96,9 +96,9 @@
 		INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 
 
-/mob/living/carbon/human/set_usable_legs(new_value)
+/mob/living/carbon/human/set_usable_legs(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
 
 	if(. == 0)
@@ -113,9 +113,9 @@
 	update_fractures_slowdown()
 
 
-/mob/living/carbon/human/set_usable_hands(new_value)
+/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
 
 	if(. == 0)
@@ -148,8 +148,6 @@
 		if(usable_legs < default_num_legs)
 			limbless_slowdown += (default_num_legs - usable_legs) * 4 - get_crutches()
 			if(!usable_legs)
-				if(has_pain())
-					INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 				ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 				if(usable_hands < default_num_hands)
 					limbless_slowdown += (default_num_hands - usable_hands) * 4
@@ -164,6 +162,26 @@
 		update_fractures_slowdown()
 		update_hunger_slowdown()
 		update_obesity_slowdown()
+
+
+/// Proc used to recalculate traits and slowdowns after species change.
+/mob/living/carbon/human/proc/recalculate_limbs_status()
+	if(usable_legs > 0) // gained leg usage
+		REMOVE_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+	else if(usable_legs == 0 && !(movement_type & (FLYING|FLOATING))) // lost leg usage, not flying
+		ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+		if(usable_hands == 0) // lost hand usage
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+
+	if(usable_hands > 0) // gained hand usage
+		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, LACKING_MANIPULATION_APPENDAGES_TRAIT)
+	else if(usable_hands == 0) // lost hand usage
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, LACKING_MANIPULATION_APPENDAGES_TRAIT)
+
+	update_limbless_slowdown()
+	update_fractures_slowdown()
+	update_hands_HUD()
 
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.

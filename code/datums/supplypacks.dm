@@ -1374,12 +1374,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("biotech" = 6, "combat" = 2)
 
 /datum/supply_packs/medical/cloning
-	name = "NanoTrasen Special Delivery Crate"
+	name = "NanoTrasen Experimental Cloning Machine Crate"
 	contains = list(/obj/item/circuitboard/clonepod,
 					/obj/item/circuitboard/cloning)
-	cost = 900
+	cost = 350
 	containertype = /obj/structure/closet/crate/secure
-	containername = "NanoTrasen special delivery crate"
+	containername = "NanoTrasen experimental cloning machine crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 

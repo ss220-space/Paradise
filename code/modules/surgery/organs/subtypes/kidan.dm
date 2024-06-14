@@ -163,7 +163,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(iskidan(target))
 		target.adjustBrainLoss(30)

@@ -91,7 +91,7 @@
 /obj/item/tk_grab/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	if(slot & ITEM_SLOT_HANDS)
-		return
+		return TRUE
 	qdel(src)
 
 
