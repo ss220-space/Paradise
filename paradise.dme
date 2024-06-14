@@ -64,6 +64,7 @@
 #include "code\__DEFINES\hud.dm"
 #include "code\__DEFINES\hydroponics.dm"
 #include "code\__DEFINES\implants_defines.dm"
+#include "code\__DEFINES\important_recursive_contents.dm"
 #include "code\__DEFINES\instruments.dm"
 #include "code\__DEFINES\inventory.dm"
 #include "code\__DEFINES\is_helpers.dm"

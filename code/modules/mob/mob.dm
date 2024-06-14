@@ -33,6 +33,7 @@
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
+	become_hearing_sensitive()
 
 
 /mob/vv_edit_var(var_name, var_value)
@@ -135,7 +136,7 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /mob/visible_message(message, self_message, blind_message, list/ignored_mobs)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
+		for(var/mob/mob in (get_hearers_in_view(3, src) - ignored_mobs))
 			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
 			var/msg = message
@@ -148,7 +149,7 @@
 			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 		return
 
-	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+	for(var/mob/mob in (get_hearers_in_view(7, src) - ignored_mobs))
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
 		var/msg = message
@@ -162,7 +163,7 @@
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 /atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
-	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+	for(var/mob/mob in (get_hearers_in_view(7, src) - ignored_mobs))
 		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
@@ -177,7 +178,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M in get_hearers_in_view(range, src))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -204,7 +205,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M in get_hearers_in_view(range, src))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 

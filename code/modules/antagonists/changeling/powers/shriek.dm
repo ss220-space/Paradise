@@ -10,7 +10,7 @@
 
 
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
-	for(var/mob/living/l_target in get_mobs_in_view(4, user))
+	for(var/mob/living/l_target in get_hearers_in_view(4, user))
 		if(iscarbon(l_target))
 			if(ishuman(l_target))
 				var/mob/living/carbon/human/h_target = l_target

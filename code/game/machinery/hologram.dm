@@ -69,6 +69,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	become_hearing_sensitive()
 
 
 /obj/machinery/hologram/holopad/Destroy()

@@ -61,7 +61,7 @@
 
 // Like view but bypasses luminosity check
 
-/proc/hear(var/range, var/atom/source)
+/proc/get_hear(range, atom/source)
 	var/lum = source.luminosity
 	source.luminosity = 6
 
@@ -146,58 +146,20 @@
 			turfs += T
 	return turfs
 
-
-/// Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
-/// It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
-/// being unable to hear people due to being in a box within a bag.
-/proc/recursive_mob_check(atom/check, list/output = list(), recursion_limit = 3, include_clientless = FALSE, include_radio = TRUE, sight_check = TRUE)
-	if(!recursion_limit)
-		return output
-
-	for(var/thing in check.contents)
-		var/is_mob = ismob(thing)
-		if(is_mob)
-			var/mob/mob = thing
-			if(isnull(mob.client) && !include_clientless)
-				output |= recursive_mob_check(mob, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
-				continue
-			if(sight_check && !isInSight(mob, check))
-				continue
-			output |= mob
-
-		else if(include_radio && isradio(thing))
-			if(sight_check && !isInSight(thing, check))
-				continue
-			output |= thing
-
-		if(is_mob || isobj(thing))
-			output |= recursive_mob_check(thing, output, recursion_limit - 1, include_clientless, include_radio, sight_check)
-
-	return output
-
-
-/// The old system would loop through lists for a total of 5000 per function call, in an empty server.
-/// This new system will loop at around 1000 in an empty server.
-/// Returns a list of mobs in range from source. Used in radio and say code.
-/proc/get_mobs_in_view(range, atom/source, include_clientless = FALSE, include_radio = TRUE)
+/// Returns a list of hearers in view(range) from source (ignoring luminosity). recursively checks contents for hearers
+/proc/get_hearers_in_view(range, atom/source)
 	var/turf/source_turf = get_turf(source)
 	. = list()
-
 	if(!source_turf)
 		return .
-
-	for(var/thing in hear(range, source_turf))
-		var/is_mob = ismob(thing)
-		if(is_mob)
-			var/mob/mob = thing
-			if(include_clientless || !isnull(mob.client))
-				. += mob
-		else if(include_radio && isradio(thing))
-			. += thing
-
-		if(is_mob || isobj(thing))
-			. |= recursive_mob_check(thing, ., 3, include_clientless, include_radio, FALSE)
-
+	var/lum = source_turf.luminosity
+	source_turf.luminosity = 6 // This is the maximum luminosity
+	for(var/atom/movable/movable in view(range, source_turf))
+		var/list/recursive_contents = LAZYACCESS(movable.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+		if(recursive_contents)
+			. += recursive_contents
+			SEND_SIGNAL(movable, COMSIG_ATOM_HEARER_IN_VIEW, .)
+	source_turf.luminosity = lum
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
 	. = list()
@@ -217,7 +179,7 @@
 
 			var/turf/speaker = get_turf(R)
 			if(speaker)
-				for(var/turf/T in hear(R.canhear_range,speaker))
+				for(var/turf/T in get_hear(R.canhear_range, speaker))
 					speaker_coverage[T] = T
 
 

@@ -31,14 +31,13 @@
 /obj/item/taperecorder/empty
 	starts_with_tape = FALSE
 
-
-/obj/item/taperecorder/New()
-	..()
+/obj/item/taperecorder/Initialize(mapload)
+	. = ..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
 	soundloop = new(list(src))
-
+	become_hearing_sensitive()
 
 /obj/item/taperecorder/Destroy()
 	QDEL_NULL(mytape)

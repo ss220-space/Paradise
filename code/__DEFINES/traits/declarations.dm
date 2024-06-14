@@ -126,3 +126,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
 
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"

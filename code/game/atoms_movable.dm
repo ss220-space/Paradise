@@ -59,6 +59,13 @@
 	var/moving_diagonally = NONE
 	var/list/client_mobs_in_contents
 
+	/**
+	 * an associative lazylist of relevant nested contents by "channel", the list is of the form: list(channel = list(important nested contents of that type))
+	 * each channel has a specific purpose and is meant to replace potentially expensive nested contents iteration
+	 * do NOT add channels to this for little reason as it can add considerable memory usage.
+	 */
+	var/list/important_recursive_contents
+
 	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
@@ -142,6 +149,10 @@
 		pulledby.stop_pulling()
 	if(orbiting)
 		stop_orbit()
+
+	//We add ourselves to this list, best to clear it out
+	//DO it after move_to_null_space so memes can be had
+	LAZYCLEARLIST(important_recursive_contents)
 
 
 /atom/movable/get_emissive_block()
@@ -456,6 +467,37 @@
 
 /atom/movable/Uncrossed(atom/movable/AM)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
+
+/atom/movable/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(LAZYLEN(arrived.important_recursive_contents))
+		var/list/nested_locs = get_nested_locs(src) + src
+		for(var/channel in arrived.important_recursive_contents)
+			for(var/atom/movable/location as anything in nested_locs)
+				LAZYORASSOCLIST(location.important_recursive_contents, channel, arrived.important_recursive_contents[channel])
+
+/atom/movable/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(LAZYLEN(gone.important_recursive_contents))
+		var/list/nested_locs = get_nested_locs(src) + src
+		for(var/channel in gone.important_recursive_contents)
+			for(var/atom/movable/location as anything in nested_locs)
+				LAZYREMOVEASSOC(location.important_recursive_contents, channel, gone.important_recursive_contents[channel])
+
+///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
+/atom/movable/proc/become_hearing_sensitive(trait_source = GENERIC_TRAIT)
+	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), PROC_REF(on_hearing_sensitive_trait_loss))
+		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
+	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
+
+/atom/movable/proc/on_hearing_sensitive_trait_loss()
+	SIGNAL_HANDLER
+
+	UnregisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE))
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYREMOVE(location.important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE], src)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
 	if(A && yes)

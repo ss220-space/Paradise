@@ -115,6 +115,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
+	become_hearing_sensitive()
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -567,7 +568,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/send_hear(freq, level)
 	var/range = receive_range(freq, level)
 	if(range > -1)
-		return get_mobs_in_view(canhear_range, src)
+		return get_hearers_in_view(canhear_range, src)
 
 /obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
@@ -582,7 +583,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/proc/send_announcement()
 	if(is_listening())
-		return get_mobs_in_view(canhear_range, src)
+		return get_hearers_in_view(canhear_range, src)
 
 	return null
 

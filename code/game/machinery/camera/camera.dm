@@ -343,7 +343,7 @@
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+		see = get_hear(view_range, pos)
 	if(check_lower || check_higher)
 		for(var/turf/seen in see)
 			if(check_lower)

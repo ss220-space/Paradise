@@ -288,7 +288,7 @@
 	var/runechat_text = text
 	if(length_char(text) > 100)
 		runechat_text = "[copytext_char(text, 1, 101)]..."
-	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
+	var/list/can_see = get_hearers_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/O in can_see)
 		if(O.status_flags & PASSEMOTES)
