@@ -42,7 +42,6 @@
 	GLOB.fireblock          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.xrayblock          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	GLOB.clumsyblock        = getAssignedBlock("CLUMSY",        numsToAssign)
-	GLOB.fakeblock          = getAssignedBlock("FAKE",          numsToAssign)
 	GLOB.coughblock         = getAssignedBlock("COUGH",         numsToAssign)
 	GLOB.glassesblock       = getAssignedBlock("GLASSES",       numsToAssign)
 	GLOB.epilepsyblock      = getAssignedBlock("EPILEPSY",      numsToAssign)

@@ -54,7 +54,7 @@
 #define DNA_UI_TAIL_MARK_STYLE	39
 #define DNA_UI_LENGTH		40 // Update this when you add something, or you WILL break shit.
 
-#define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
+#define DNA_SE_LENGTH 54 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
 //Trinary State Values for DNA_UI_GENDER
 #define DNA_GENDER_FEMALE	0
