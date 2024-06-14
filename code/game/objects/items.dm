@@ -688,7 +688,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(user.equip_to_appropriate_slot(src, force, silent = TRUE))
 		return TRUE
 
-	if(equip_delay_self)
+	if(equip_delay_self > 0)
 		if(!silent)
 			to_chat(user, span_warning("Вы должны экипировать [src] вручную!"))
 		return FALSE
@@ -727,6 +727,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(user, span_warning("Вы не можете надеть [src]!"))
 
 	return FALSE
+
+
+/**
+ * Additional can equip checks when equipping is done by the user, and not by the code: [/mob/verb/quick_equip]
+ */
+/obj/item/proc/user_can_equip(mob/user, silent = FALSE)
+	// if an item is already on user you cannot reequip it anywhere if it has NODROP trait
+	if(loc == user && HAS_TRAIT(src, TRAIT_NODROP))
+		if(!silent)
+			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [name]."))
+		return FALSE
+	return TRUE
 
 
 /**
