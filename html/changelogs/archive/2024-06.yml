@@ -78,6 +78,9 @@
   - refactor: Runechat Tweaks (#5060)
   - bugfix: Minor Fixes Collection (#5153)
 '2024-06-12':
+  PiotrTheTchaikowsky:
+  - unknown: Pda Сart resprite (Prictice PR) (#5192)
+  - imageadd: Decals-resprite (Prictice PR for studying) (#5128)
   ROdenFL:
   - bugfix: shadowling can`t cast their spell (#5189)
   Vladisvell:
@@ -86,3 +89,33 @@
   Zwei:
   - bugfix: Prefs Runtime Fix (#5181)
   - bugfix: Proper Layers For Closet Overlays (#5171)
+'2024-06-13':
+  Daeberdir:
+  - qol: Map votes popup at the end of the round are now shown immediately (#5193)
+  Vesterlim13:
+  - add: New event ruin Pirates Base (#5149)
+  Vladisvell:
+  - server: End-round map voting is now configurable (#5197)
+  endipe:
+  - bugfix: Dark shard cannot be eaten (#5186)
+'2024-06-14':
+  BeebBeebBoob:
+  - bugfix: Fixes runtime logout parallax (#5204)
+  - bugfix: Ghosts no longer squeaks (#5207)
+  Daeberdir:
+  - bugfix: Many map fixes... Cyberiad moved to the centre of the level. (#5145)
+  Vladisvell:
+  - bugfix: Fixed status effects typo (#5199)
+  - refactor: Button layers are now defined (#5200)
+  - tweak: Mob spawners, including ash walker eggs, now can fall into chasms (#5198)
+  Zwei:
+  - tweak: Components Optimization (#5071)
+  - refactor: Inventory Optimization (#5080)
+  - unknown: Additional Can Equip Check (#5167)
+  aeternaclose:
+  - bugfix: Event files architecture improvement (#5150)
+  gornomogilo:
+  - bugfix: now mind return into carbon after gib simple_animal from anomalous_crystal
+      (#5179)
+  pilygun:
+  - tweak: Clone machine is now cheaper for ordering in cargo (#5195)
