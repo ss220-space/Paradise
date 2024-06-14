@@ -556,7 +556,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
 			if(accessory.sprite_sheets?[dna.species.name])
 				acc_olay.icon = accessory.sprite_sheets[dna.species.name]
-			standing.overlays += mutable_appearance(, acc_state_type)
+			standing.overlays += acc_olay
 
 		// Select which layer to use based on the properties of the hair style.
 		// Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
