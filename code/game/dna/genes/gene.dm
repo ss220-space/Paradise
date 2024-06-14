@@ -157,3 +157,13 @@
 		var/msg = pick(deactivation_messages)
 		to_chat(mutant, span_warning("[msg]"))
 
+
+/datum/dna/gene/basic/fake	// placeholder for empty FAKE gene
+	name = "Ordinary Gene"
+	desc = "Just another link in the DNA strand."
+
+
+/datum/dna/gene/basic/fake/New()
+	..()
+	block = GLOB.fakeblock
+
