@@ -63,11 +63,10 @@
 	//first, the sparks!
 	do_sparks(12, TRUE, user)
 	//next, we move the gun to the user and the card to the firer
-	to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
-	to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
-	firer.drop_item_ground(target_gun, TRUE)
-	user.drop_item_ground(src)
-	user.put_in_hands(target_gun, force = TRUE)
-	firer.put_in_hands(src, force = TRUE)
-	used = TRUE
-	update_icon(UPDATE_NAME|UPDATE_ICON_STATE)
+	if(firer.drop_item_ground(target_gun) && user.drop_item_ground(src))
+		to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
+		to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
+		user.put_in_hands(target_gun, force = TRUE)
+		firer.put_in_hands(src, force = TRUE)
+		used = TRUE
+		update_icon(UPDATE_NAME|UPDATE_ICON_STATE)
