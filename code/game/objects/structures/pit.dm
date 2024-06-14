@@ -88,7 +88,7 @@
 		icon_floor_type = "asteroid"
 	if(istype(loc, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
 		icon_floor_type = ""
-	if(istype(loc, /turf/simulated/floor/beach/sand))
+	if(istype(loc, /turf/simulated/floor/beach/sand) || istype(loc, /turf/simulated/floor/plating/asteroid/sand))
 		icon_floor_type = "sand"
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
