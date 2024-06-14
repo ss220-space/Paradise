@@ -4,6 +4,7 @@
 	gender = PLURAL //"That's some lava."
 	baseturf = /turf/simulated/floor/plating/lava //lava all the way down
 	slowdown = 2
+	temperature = 5000
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
@@ -167,7 +168,6 @@
 	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
-	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
