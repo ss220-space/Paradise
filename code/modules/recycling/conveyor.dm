@@ -182,11 +182,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	use_power(100)
 	var/new_movables = loc.contents - affecting - src
-	var/still_stuff_to_move = FALSE
 	for(var/atom/movable/AM in new_movables)
 		if(AM.anchored)
 			continue
-		still_stuff_to_move = TRUE
 		// Keep track of the things we area already moving, so that we don't
 		// spawn hundreds of callbacks for the same thing.
 		// (they don't behave weirdly or anything, just eat CPU)
