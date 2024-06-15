@@ -130,8 +130,7 @@
 			if(!user.can_unEquip(I) || !I.use(1))
 				to_chat(user, span_warning("[I] is stuck to your hand!"))
 				return
-			var/obj/item/stack/sheet/mineral/plasma/upgrade = new(assembly, 1)
-			I = upgrade
+			I = new /obj/item/stack/sheet/mineral/plasma(assembly, 1)
 		else if(!user.drop_transfer_item_to_loc(I, assembly))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return

@@ -41,7 +41,7 @@
 				to_chat(user, span_warning("[I] is stuck!"))
 				return
 			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
-			to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
+			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
 			upgrades += new_stack
 			return
 
