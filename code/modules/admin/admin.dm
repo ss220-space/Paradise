@@ -240,19 +240,19 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(M.dna && iscarbon(M))
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
-				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
-					if(((block-1)%5)==0)
-						body += "</tr><tr><th>[block-1]</th>"
-					bname = GLOB.assigned_blocks[block]
+				var/index = 0
+				for(var/block in 1 to DNA_SE_LENGTH)
+					var/gene_name = GLOB.assigned_blocks[block]
+					if(!gene_name)
+						continue
+					if(!(index % 5))
+						body += "</tr><tr><th>[index]</th>"
+
 					body += "<td>"
-					if(bname)
-						var/bstate=M.dna.GetSEState(block)
-						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
-					else
-						body += "[block]"
-					body+="</td>"
+					var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+					body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+					body += "</td>"
+					index++
 				body += "</tr></table>"
 
 			body += {"<br><br>
