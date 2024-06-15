@@ -512,7 +512,7 @@
 	surplus = 0
 	hijack_only = TRUE
 
-/datum/uplink_item/jobspecific/dice_of_fate
+/datum/uplink_item/jobspecific/random_spell_book
 	name = "Random spell book"
 	desc = "A random spell book stolen from the wizards federation"
 	item = /obj/item/spellbook/oneuse/random
