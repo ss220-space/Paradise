@@ -998,9 +998,10 @@
 		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/wizard/kit_spell_book
-	name = "Набор волшебных книг!"
-	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, что бы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+	name = "Набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
 	icon_state = "box_wizard"
+
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
 		new /obj/item/spellbook/oneuse/random(src)
 		new /obj/item/spellbook/oneuse/random(src)
