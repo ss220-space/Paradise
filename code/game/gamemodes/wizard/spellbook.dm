@@ -537,7 +537,7 @@
 /datum/spellbook_entry/item/watchers_look_spell_book
 	name = "Watchers look spell book"
 	desc = "Teaches the watchers look spell."
-	item_path = /obj/effect/proc_holder/spell/watchers_look
+	item_path = /obj/item/spellbook/oneuse/watchers_look
 	category = "Spell books"
 	cost = 1
 
