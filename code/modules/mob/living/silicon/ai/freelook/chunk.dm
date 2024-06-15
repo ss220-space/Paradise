@@ -75,7 +75,7 @@
 			if(get_dist(point, current_camera) > CHUNK_SIZE + (CHUNK_SIZE / 2))
 				continue
 
-			for(var/turf/vis_turf in current_camera.can_see())
+			for(var/turf/vis_turf in current_camera.camera_see())
 				if(turfs[vis_turf])
 					updated_visible_turfs[vis_turf] = vis_turf
 
@@ -158,7 +158,7 @@
 			if(!camera.can_use())
 				continue
 
-			for(var/turf/vis_turf in camera.can_see())
+			for(var/turf/vis_turf in camera.camera_see())
 				if(turfs[vis_turf])
 					visibleTurfs[vis_turf] = vis_turf
 
