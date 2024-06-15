@@ -450,10 +450,10 @@
 
 //Spell books
 
-/datum/spellbook_entry/item/Kit_spell_book
+/datum/spellbook_entry/item/kit_spell_book
 	name = "Kit random spell book"
 	desc = " Kit random spell book! Gives you 4 books at once for the price of 4 books? Or more expensive!"
-	item_path = /obj/item/spellbook/oneuse/random, /obj/item/spellbook/oneuse/random, /obj/item/spellbook/oneuse/random, /obj/item/spellbook/oneuse/random
+	item_path = /obj/item/storage/box/wizard/kit_spell_book
 	category = "Spell books"
 	cost = 4
 
