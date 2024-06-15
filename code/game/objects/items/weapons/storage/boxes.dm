@@ -1002,7 +1002,6 @@
 	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, что бы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
 	icon_state = "box_wizard"
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
-	for(var/I in 1 to 4)
 		new /obj/item/spellbook/oneuse/random(src)
 		new /obj/item/spellbook/oneuse/random(src)
 		new /obj/item/spellbook/oneuse/random(src)
