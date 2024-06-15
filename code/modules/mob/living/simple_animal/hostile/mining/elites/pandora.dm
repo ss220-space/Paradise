@@ -215,29 +215,32 @@
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
+
+/obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/M = user
-		M.apply_status_effect(STATUS_EFFECT_HOPE)
+	if(. && isliving(has_suit.loc))
+		var/mob/living/wearer = has_suit.loc
+		wearer.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, silent = FALSE)
+
+/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/detacher)
 	. = ..()
+	if(.)
+		var/obj/item/clothing/under/old_suit = .
+		if(isliving(old_suit.loc))
+			var/mob/living/wearer = old_suit.loc
+			wearer.remove_status_effect(STATUS_EFFECT_HOPE)
+
+
+/obj/item/clothing/accessory/necklace/pandora_hope/attached_equip(mob/living/user)
 	if(isliving(user))
-		var/mob/living/M = user
-		M.remove_status_effect(STATUS_EFFECT_HOPE)
+		user.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.remove_status_effect(STATUS_EFFECT_HOPE)
-	return ..()
 
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_equip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.apply_status_effect(STATUS_EFFECT_HOPE)
-	return ..()
+/obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip(mob/living/user)
+	if(isliving(user))
+		user.remove_status_effect(STATUS_EFFECT_HOPE)
+
 
 #undef CHASER_BURST
 #undef MAGIC_BOX

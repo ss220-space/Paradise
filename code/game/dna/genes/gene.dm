@@ -18,13 +18,20 @@
 
 	// Set in initialize()!
 	//  What gene activates this?
-	var/block = 0
+	var/block
 
 	// Any of a number of GENE_ flags.
-	var/flags = 0
+	var/flags = NONE
 
 	// Chance of the gene to cause adverse effects when active
 	var/instability = 0
+
+
+/datum/dna/gene/Destroy(force)
+	if(force)
+		return ..()
+	// put your hands off the gene GC!
+	return QDEL_HINT_LETMELIVE
 
 
 /*
@@ -149,4 +156,14 @@
 	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
 		to_chat(mutant, span_warning("[msg]"))
+
+
+/datum/dna/gene/basic/fake	// placeholder for empty FAKE gene
+	name = "Ordinary Gene"
+	desc = "Just another link in the DNA strand."
+
+
+/datum/dna/gene/basic/fake/New()
+	..()
+	block = GLOB.fakeblock
 

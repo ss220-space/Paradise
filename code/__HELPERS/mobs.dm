@@ -295,10 +295,11 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_message - Message shown to the user if they exceeds max interaction count.
+ * * cancel_message - Message shown to the user if they exceeds max interaction count. Use "" to remove it.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
+
 /proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE

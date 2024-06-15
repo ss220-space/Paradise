@@ -350,6 +350,9 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
+/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat() 
+	return
+
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user, span_warning("The mass goes up your arm and inside it!"))

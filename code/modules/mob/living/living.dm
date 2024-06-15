@@ -27,6 +27,8 @@
 
 	if(mobility_flags & MOBILITY_REST)
 		verbs += /mob/living/proc/toggle_resting
+		if(!density)	// we want undense mobs to stay undense when they stop resting
+			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
 
 	GLOB.mob_living_list += src
 
@@ -1109,9 +1111,6 @@
 /mob/living/proc/Exhaust()
 	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
 	Weaken(10 SECONDS)
-
-/mob/living/proc/get_visible_name()
-	return name
 
 /mob/living/proc/is_facehugged()
 	return FALSE

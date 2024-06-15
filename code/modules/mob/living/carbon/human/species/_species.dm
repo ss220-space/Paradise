@@ -908,8 +908,6 @@
 
 		// POCKETS
 		if(ITEM_SLOT_POCKET_LEFT)
-			if(HAS_TRAIT(I, TRAIT_NODROP)) //Pockets aren't visible, so you can't move NODROP items into them.
-				return FALSE
 			if(user.l_store)
 				return FALSE
 
@@ -922,8 +920,6 @@
 			return TRUE
 
 		if(ITEM_SLOT_POCKET_RIGHT)
-			if(HAS_TRAIT(I, TRAIT_NODROP))
-				return FALSE
 			if(user.r_store)
 				return FALSE
 
@@ -983,7 +979,7 @@
 				return FALSE
 
 			var/obj/item/clothing/under/uniform = user.w_uniform
-			if(length(uniform.accessories) && !uniform.can_attach_accessory(user))
+			if(!uniform.can_attach_accessory(I))
 				if(!disable_warning)
 					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform.name]."))
 				return FALSE

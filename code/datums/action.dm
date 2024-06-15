@@ -452,8 +452,11 @@
 
 /datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
 	if(..())
-		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
-		DT.remove_tape(target, usr)
+		var/component = target.GetComponent(/datum/component/ducttape)
+		if(component)
+			usr.transfer_fingerprints_to(target)
+			to_chat(usr, span_notice("You tear the tape off [target]!"))
+			qdel(component)
 
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
