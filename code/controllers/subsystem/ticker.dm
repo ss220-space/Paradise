@@ -719,6 +719,11 @@ SUBSYSTEM_DEF(ticker)
 			else
 				n_not_happened_iter = n_not_happened_iter + 1 // increase counter
 
+			// unsigned tinyint limitations of range 0... 255 inclusive
+			if (n_not_happened_iter > 254) // If gone to 255 reduce back to 254 to stay in range next time
+				n_not_happened_iter = 254
+				log_runtime(EXCEPTION("Gamemode with tag [gm_tag] had n_not_happened higher than 254, normally it shouldn't ever rise above 50 (depending on gamemodes count), make sure code is working properly. Gamemode weight (nominal): [runnable_modes[mode]]"))
+
 			// update DB
 			var/datum/db_query/query_update = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("pseudorandom_gamemodes")] SET n_not_happened=:n_not_happened_selected_gm WHERE server_port=:server_port AND gamemode_config_tag=:gamemode_config_tag", list(
