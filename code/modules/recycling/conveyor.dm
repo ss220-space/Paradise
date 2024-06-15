@@ -345,6 +345,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 			C.update_move_direction()
 		else
 			C.update_icon()
+		if(C.operating)
+			C.begin_processing()
+		else
+			C.end_processing()
 		CHECK_TICK
 
 	for(var/obj/machinery/conveyor_switch/S in GLOB.conveyor_switches) // find any switches with same id as this one, and set their positions to match us
@@ -355,10 +359,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		S.reversed = reversed
 		S.slow_factor = slow_factor
 		S.update_icon()
-		if(C.operating)
-			C.begin_processing()
-		else
-			C.end_processing()
 		CHECK_TICK
 
 /obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/I)
