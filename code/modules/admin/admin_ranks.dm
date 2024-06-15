@@ -18,7 +18,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		var/list/List = splittext(line,"+")
 		if(!List.len)					continue
 
-		var/rank = List[1]
+		var/rank = ckeyEx(List[1])
 		switch(rank)
 			if(null,"")		continue
 			if("Removed")	continue				//Reserved
@@ -93,7 +93,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			//rank follows the first "-"
 			var/rank = ""
 			if(List.len >= 2)
-				rank = List[2]
+				rank = ckeyEx(List[2])
 
 			//load permissions associated with this rank
 			var/rights = GLOB.admin_ranks[rank]
