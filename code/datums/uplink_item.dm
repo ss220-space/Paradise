@@ -514,7 +514,7 @@
 
 /datum/uplink_item/jobspecific/random_spell_book
 	name = "Random spell book"
-	desc = "A random spell book stolen from the wizards federation"
+	desc = "A random spell book stolen from the wizards federation."
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
