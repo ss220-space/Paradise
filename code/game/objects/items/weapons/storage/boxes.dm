@@ -998,7 +998,7 @@
 		new /obj/item/wizard_armour_charge(src)
 
 /obj/item/storage/box/wizard/kit_spell_book
-	name = "Набор волшебных книг"
+	name = "набор волшебных книг"
 	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
 	icon_state = "box_wizard"
 
