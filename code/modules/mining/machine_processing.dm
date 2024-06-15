@@ -3,6 +3,8 @@
 /**********************Mineral processing unit console**************************/
 
 /obj/machinery/mineral
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	var/input_dir = NORTH
 	var/output_dir = SOUTH
 
@@ -20,7 +22,6 @@
 	anchored = TRUE
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
@@ -66,6 +67,7 @@
 
 	if(href_list["set_on"])
 		machine.on = (href_list["set_on"] == "on")
+		machine.begin_processing()
 
 	updateUsrDialog()
 	return TRUE
@@ -87,7 +89,6 @@
 	var/selected_material = MAT_METAL
 	var/selected_alloy = null
 	var/datum/research/files
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
@@ -117,6 +118,8 @@
 
 		if(CONSOLE)
 			CONSOLE.updateUsrDialog()
+	else
+		end_processing()
 
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)

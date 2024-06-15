@@ -798,28 +798,6 @@
 					return
 				log_and_message_admins("deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
-	else if(href_list["makespeedy"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
-			return
-		var/obj/A = locateUID(href_list["makespeedy"])
-		if(!istype(A))
-			return
-		A.datum_flags |= DF_VAR_EDITED
-		A.makeSpeedProcess()
-		log_and_message_admins("has made [A] speed process")
-		return TRUE
-
-	else if(href_list["makenormalspeed"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
-			return
-		var/obj/A = locateUID(href_list["makenormalspeed"])
-		if(!istype(A))
-			return
-		A.datum_flags |= DF_VAR_EDITED
-		A.makeNormalProcess()
-		log_and_message_admins("has made [A] process normally")
-		return TRUE
-
 	else if(href_list["modifyarmor"])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return

@@ -71,7 +71,6 @@
 	var/stack_amt = 50; //ammount to stack before releassing
 	input_dir = EAST
 	output_dir = WEST
-	speed_process = TRUE
 
 /obj/machinery/mineral/stacking_machine/process()
 	var/turf/T = get_step(src, input_dir)

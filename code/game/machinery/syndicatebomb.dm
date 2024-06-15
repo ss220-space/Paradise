@@ -13,6 +13,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
@@ -49,7 +51,7 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
-		STOP_PROCESSING(SSfastprocess, src)
+		end_processing()
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
@@ -96,7 +98,7 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
-	STOP_PROCESSING(SSfastprocess, src)
+	end_processing()
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -242,7 +244,7 @@
 
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
-	START_PROCESSING(SSfastprocess, src)
+	begin_processing()
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)

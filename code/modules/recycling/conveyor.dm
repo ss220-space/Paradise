@@ -19,6 +19,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/conveyors
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
@@ -192,16 +194,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		addtimer(CALLBACK(src, PROC_REF(move_thing), AM), slow_factor)
 		CHECK_TICK
 
-	// Use speedy process only if the belt is actually in use, and use normal process otherwise.
-	// Saves power - both that of Nanotrasen and of Paradise server.
-	if(!still_stuff_to_move && speed_process)
-		makeNormalProcess()
-	else if(still_stuff_to_move && !speed_process)
-		makeSpeedProcess()
 
 /obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
-	if(!speed_process && !AM.anchored)
-		makeSpeedProcess()
+
 	..()
 
 /obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
@@ -352,8 +347,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 			C.update_icon()
 		CHECK_TICK
 
-	for(var/I in GLOB.conveyor_switches) // find any switches with same id as this one, and set their positions to match us
-		var/obj/machinery/conveyor_switch/S = I
+	for(var/obj/machinery/conveyor_switch/S in GLOB.conveyor_switches) // find any switches with same id as this one, and set their positions to match us
 		if(S == src || S.id != id)
 			continue
 		S.position = position
@@ -361,6 +355,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		S.reversed = reversed
 		S.slow_factor = slow_factor
 		S.update_icon()
+		if(C.operating)
+			C.begin_processing()
+		else
+			C.end_processing()
 		CHECK_TICK
 
 /obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/I)

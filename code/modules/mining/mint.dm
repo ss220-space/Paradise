@@ -11,7 +11,6 @@
 	var/processing = FALSE
 	var/chosen = MAT_METAL //which material will be used to make coins
 	var/coinsToProduce = 10
-	speed_process = TRUE
 
 
 /obj/machinery/mineral/mint/New()
@@ -62,7 +61,7 @@
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	if(processing == 1)
+	if(processing)
 		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -74,6 +73,7 @@
 	if(href_list["makeCoins"])
 		var/temp_coins = coinsToProduce
 		processing = TRUE
+		begin_processing()
 		icon_state = "coinpress1"
 		var/coin_mat = MINERAL_MATERIAL_AMOUNT * 0.2
 		var/datum/material/M = materials.materials[chosen]
@@ -90,6 +90,7 @@
 
 		icon_state = "coinpress0"
 		processing = FALSE
+		end_processing()
 		coinsToProduce = temp_coins
 	updateUsrDialog()
 

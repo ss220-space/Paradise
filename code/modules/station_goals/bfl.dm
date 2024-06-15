@@ -534,7 +534,6 @@
 	desc = "Giant laser, which is supposed for mining"
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
-	speed_process = TRUE
 	var/move = 0
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
 

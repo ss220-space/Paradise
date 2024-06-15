@@ -24,7 +24,6 @@
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/being_shocked = FALSE
-	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
@@ -73,11 +72,6 @@
 	// Nada
 
 /obj/Destroy()
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
 	QDEL_NULL(multitool_menu)
 	return ..()
@@ -250,27 +244,10 @@
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
-/obj/proc/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSobj, src)
-	START_PROCESSING(SSfastprocess, src)
-
-/obj/proc/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	START_PROCESSING(SSobj, src)
-	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
 	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()

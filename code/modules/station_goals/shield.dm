@@ -149,11 +149,13 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	active = !active
 	COOLDOWN_START(src, toggle_sat_cooldown, 1 SECONDS)
 	if(active)
+		begin_processing()
 		set_anchored(TRUE)
 		if(pulledby)
 			pulledby.stop_pulling()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 	else
+		end_processing()
 		animate(src, pixel_y = 0, time = 10)
 		set_anchored(FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -172,7 +174,8 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	name = "Спутник метеорного щита"
 	desc = "Узловой спутник метеорной защиты"
 	mode = "M-SHIELD"
-	speed_process = TRUE
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/examine(mob/user)

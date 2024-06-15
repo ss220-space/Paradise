@@ -18,7 +18,6 @@
 	input_dir = NORTH
 	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
-	speed_process = TRUE
 	layer = BELOW_OBJ_LAYER
 	// Settings
 	/// The access number required to claim points from the machine.

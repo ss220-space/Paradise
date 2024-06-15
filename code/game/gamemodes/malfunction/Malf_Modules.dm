@@ -268,14 +268,15 @@
 	anchored = TRUE
 	density = TRUE
 	atom_say_verb = "blares"
-	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	var/timing = 0
 	var/default_timer = 4500
 	var/detonation_timer
 	var/announced = 0
 
 /obj/machinery/doomsday_device/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
+	end_processing()
 	SSshuttle.emergencyNoEscape = 0
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
@@ -286,7 +287,7 @@
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
-	START_PROCESSING(SSfastprocess, src)
+	begin_processing()
 	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
@@ -303,7 +304,7 @@
 			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
-		STOP_PROCESSING(SSfastprocess, src)
+		end_processing()
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)
