@@ -131,7 +131,7 @@
 				to_chat(user, span_warning("[I] is stuck to your hand!"))
 				return
 			I = new /obj/item/stack/sheet/mineral/plasma(assembly, 1)
-		else if(!user.drop_transfer_item_to_loc(I, assembly))
+		else if(!user.drop_transfer_item_to_loc(I, assembly, silent = TRUE))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 		assembly.upgrades.Add(I)

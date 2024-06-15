@@ -45,7 +45,7 @@
 			upgrades += new_stack
 			return
 
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(I, src, silent = TRUE))
 			to_chat(user, span_warning("[I] is stuck!"))
 			return
 		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
