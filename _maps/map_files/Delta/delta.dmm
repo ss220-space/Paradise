@@ -61274,6 +61274,9 @@
 	},
 /area/security/evidence)
 "ixc" = (
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -61283,9 +61286,6 @@
 /obj/machinery/light/small,
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/machinery/door_timer/cell_2{
-	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
