@@ -15,30 +15,44 @@
 	if(--life < 1)
 		qdel(src)
 		return FALSE
-	return ..()
+	. = ..()
+	if(isturf(loc))
+		reagents_effect(loc)
 
 
 /obj/effect/particle_effect/water/Bump(atom/bumped_atom, custom_bump)
 	. = ..()
 	if(. || isnull(.))
 		return .
-	if(reagents)
-		reagents.reaction(bumped_atom)
-	bumped_atom.water_act(life, COLD_WATER_TEMPERATURE, src)
+	var/bumped_turf = isturf(bumped_atom)
+	if(!bumped_turf && !isturf(bumped_atom.loc))
+		return .
+	reagents_effect(bumped_turf ? bumped_atom : bumped_atom.loc)
+
+
+/obj/effect/particle_effect/water/proc/reagents_effect(turf/turf)
+	for(var/atom/movable/thing as anything in turf)
+		thing.water_act(life, COLD_WATER_TEMPERATURE, src)
+	turf.water_act(life, COLD_WATER_TEMPERATURE, src)
 
 
 ///Extinguisher snowflake
 /obj/effect/particle_effect/water/extinguisher
 
 
-/obj/effect/particle_effect/water/extinguisher/Move(atom/newloc, direct = NONE, glide_size_override = 0)
-	. = ..()
+/obj/effect/particle_effect/water/extinguisher/reagents_effect(turf/turf)
 	if(!reagents)
 		return
-	var/turf/source_turf = get_turf(src)
-	reagents.reaction(source_turf)
-	for(var/atom/thing as anything in source_turf)
-		reagents.reaction(source_turf)
+
+	// should be full water to extinguish mobs
+	var/should_extinguish = reagents.has_reagent("water", amount = 1)
+	for(var/atom/movable/thing as anything in turf)
+		reagents.reaction(thing)
+		if(should_extinguish && isliving(thing))
+			var/mob/living/mob = thing
+			to_chat(mob, "Extinguish")
+			mob.ExtinguishMob()
+	reagents.reaction(turf)
 
 
 /// Starts the effect moving at a target with a delay in deciseconds, and a lifetime in moves

@@ -3,6 +3,7 @@
 	desc = "A traditional red fire extinguisher."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
+	base_icon_state = "fire_extinguisher"
 	item_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
@@ -26,8 +27,6 @@
 	var/refilling = FALSE
 	/// Can we actually fire currently?
 	var/safety = TRUE
-	/// something that should be replaced with base_icon_state
-	var/sprite_name = "fire_extinguisher"
 	/// Maximum distance launched water will travel.
 	var/power = 5
 	/// By default, turfs picked from a spray are random, set to TRUE to make it always have at least one water effect per row.
@@ -40,6 +39,7 @@
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
+	base_icon_state = "miniFE"
 	item_state = "miniFE"
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
@@ -48,7 +48,6 @@
 	force = 3.0
 	materials = list()
 	max_water = 30
-	sprite_name = "miniFE"
 	dog_fashion = null
 
 
@@ -65,7 +64,7 @@
 
 
 /obj/item/extinguisher/update_icon_state()
-	icon_state = "[sprite_name][!safety]"
+	icon_state = "[base_icon_state][!safety]"
 
 
 /obj/item/extinguisher/update_desc(updates = ALL)
