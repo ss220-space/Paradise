@@ -182,7 +182,7 @@
 	else if(isobj(bumped_atom))
 		if(ObjBump(bumped_atom))
 			return TRUE
-	else if(ismovable(bumped_atom))
+	if(ismovable(bumped_atom))
 		if(PushAM(bumped_atom, move_force))
 			return TRUE
 
