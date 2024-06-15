@@ -8235,7 +8235,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgl" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass{
@@ -10479,7 +10479,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bsW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14610,7 +14610,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bLb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -18011,7 +18011,7 @@
 "cak" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cal" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21698,7 +21698,7 @@
 /area/atmos)
 "csK" = (
 /turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "csO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -21863,7 +21863,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ctS" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
@@ -22148,7 +22148,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cvp" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/enzyme{
@@ -22915,7 +22915,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cyl" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23228,7 +23228,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "czL" = (
 /obj/structure/closet/crate,
 /obj/item/stack/rods{
@@ -24759,7 +24759,7 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cFF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -28767,7 +28767,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cWp" = (
 /obj/structure/closet/gmcloset,
 /obj/item/wrench,
@@ -36982,7 +36982,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dGa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -39912,7 +39912,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dRM" = (
 /obj/structure/closet/hydrant{
 	pixel_x = 32
@@ -41712,7 +41712,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dYf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -43962,7 +43962,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ets" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -44664,7 +44664,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "eDD" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -46477,7 +46477,7 @@
 "eXx" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "eXz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -48423,7 +48423,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "fvQ" = (
 /turf/simulated/wall/r_wall,
 /area/medical/virology/lab)
@@ -50745,7 +50745,7 @@
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "fXN" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -51125,7 +51125,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "gcj" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
@@ -52648,7 +52648,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "gxv" = (
 /obj/machinery/door/morgue,
 /obj/effect/decal/cleanable/dirt,
@@ -57788,7 +57788,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "hFX" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
@@ -60968,7 +60968,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "iui" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -62714,7 +62714,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "iOQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -64388,7 +64388,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "jmm" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
@@ -64754,7 +64754,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "jqn" = (
 /obj/structure/bed,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -66639,7 +66639,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "jLB" = (
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel{
@@ -67345,7 +67345,7 @@
 	c_tag = "EVA West"
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "jVL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -67533,7 +67533,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "jXH" = (
 /obj/machinery/vending/cola,
 /obj/machinery/light{
@@ -72959,7 +72959,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "lsA" = (
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -75843,7 +75843,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "mcm" = (
 /obj/machinery/atmospherics/trinary/filter{
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
@@ -76566,7 +76566,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "mkS" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -76835,7 +76835,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "mnO" = (
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -80104,7 +80104,7 @@
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "mZc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -91436,7 +91436,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "pCx" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -95626,7 +95626,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qul" = (
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -97624,7 +97624,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qRT" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -99403,7 +99403,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "rnP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -105604,7 +105604,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "sMy" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -107701,7 +107701,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "tlJ" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
@@ -109341,7 +109341,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "tFf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -112383,7 +112383,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "unn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -113670,7 +113670,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "uDf" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -124396,7 +124396,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "xcD" = (
 /obj/structure/chair/wood{
 	dir = 8
