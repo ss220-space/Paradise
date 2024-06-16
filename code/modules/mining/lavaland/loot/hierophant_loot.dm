@@ -306,7 +306,6 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hierophant_talisman_nonactive"
 	item_state = "hierophant_talisman_nonactive"
-	item_color = "hierophant_talisman_nonactive"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
 	allow_duplicates = FALSE
 	var/possessed = FALSE
@@ -360,10 +359,11 @@
 		to_chat(user, span_hierophant("This talisman is dormnant... Try again or later..."))
 		possessed = FALSE
 
+
 /obj/item/clothing/accessory/necklace/hierophant_talisman/update_icon_state()
-		icon_state = "hierpohant_talisman_active"
-		item_state = "hierpohant_talisman_active"
-		item_color = "hierophant_talisman_active"
+	icon_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
+	item_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
+
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
 	.=..()
@@ -505,54 +505,48 @@
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message(span_hierophant("Hierophant's message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>"))
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/S, mob/user)
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
-	if(!ishuman(user) || !slave)
+	if(!. || !ishuman(attacher) || !slave || slave.master != attacher.ckey)
+		return .
+	toggle_spell_actions(TRUE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/detacher)
+	. = ..()
+	if(!slave)
+		return .
+	toggle_spell_actions(FALSE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip(mob/user)
+	if(!ishuman(user) || !slave || slave.master != user.ckey)
 		return
-	if(slave.master == user.ckey)
+	toggle_spell_actions(TRUE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip(mob/user)
+	if(!slave)
+		return
+	toggle_spell_actions(FALSE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
+	if(add_actions)
 		LAZYADD(slave.mob_spell_list, spell_heal)
 		LAZYADD(slave.mob_spell_list, spell_teleport)
 		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
+	else
+		LAZYREMOVE(slave.mob_spell_list, spell_heal)
+		LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+		LAZYREMOVE(slave.mob_spell_list, spell_message)
+		spell_heal.action.Remove(slave)
+		spell_teleport.action.Remove(slave)
+		spell_message.action.Remove(slave)
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user, silent = FALSE)
-	. = ..()
-	if(!ishuman(user) || !slave)
-		return
-	LAZYREMOVE(slave.mob_spell_list, spell_heal)
-	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
-	LAZYREMOVE(slave.mob_spell_list, spell_message)
-	spell_heal.action.Remove(slave)
-	spell_teleport.action.Remove(slave)
-	spell_message.action.Remove(slave)
-
-/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip()
-	if(!ishuman(usr))
-		return
-	if(!slave)
-		return ..()
-	LAZYREMOVE(slave.mob_spell_list, spell_heal)
-	LAZYREMOVE(slave.mob_spell_list, spell_teleport)
-	LAZYREMOVE(slave.mob_spell_list, spell_message)
-	spell_heal.action.Remove(slave)
-	spell_teleport.action.Remove(slave)
-	spell_message.action.Remove(slave)
-	return ..()
-
-/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip()
-	if(!ishuman(usr))
-		return
-	if(!slave)
-		return ..()
-	if(slave.master == usr.ckey)
-		LAZYADD(slave.mob_spell_list, spell_heal)
-		LAZYADD(slave.mob_spell_list, spell_teleport)
-		LAZYADD(slave.mob_spell_list, spell_message)
-		spell_heal.action.Grant(slave)
-		spell_teleport.action.Grant(slave)
-		spell_message.action.Grant(slave)
-	return ..()
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

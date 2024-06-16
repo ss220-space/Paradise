@@ -10,7 +10,7 @@
 	rift = new_rift
 
 
-/datum/antagonist/space_carp/Destroy(force, ...)
+/datum/antagonist/space_carp/Destroy(force)
 	rift = null
 	return ..()
 

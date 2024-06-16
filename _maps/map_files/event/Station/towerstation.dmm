@@ -616,7 +616,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "apv" = (
 /obj/machinery/light{
 	dir = 1
@@ -1901,7 +1901,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -2036,7 +2036,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "blW" = (
 /obj/machinery/atmospherics/binary/valve{
 	name = "output waste"
@@ -3164,7 +3164,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cak" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5584,7 +5584,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "dLC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/camera/autoname,
@@ -7381,7 +7381,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "eVX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8142,7 +8142,7 @@
 "fty" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ftB" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -11762,7 +11762,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "hDa" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -15899,7 +15899,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "klw" = (
 /obj/structure/railing{
 	dir = 4
@@ -17981,7 +17981,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "lDV" = (
 /obj/machinery/camera/autoname{
 	dir = 1
@@ -17994,7 +17994,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "lEd" = (
 /obj/machinery/light{
 	dir = 4
@@ -18403,7 +18403,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "lSV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/cable{
@@ -21911,7 +21911,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "oex" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/spray/cleaner{
@@ -21932,7 +21932,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ofe" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -22617,7 +22617,7 @@
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "oBs" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -25965,7 +25965,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qHR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -26975,7 +26975,7 @@
 /area/atmos)
 "rom" = (
 /turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ror" = (
 /obj/machinery/computer/camera_advanced/xenobio,
 /turf/simulated/floor/plasteel{
@@ -27445,7 +27445,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "rFK" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -28219,7 +28219,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "shm" = (
 /obj/structure/table,
 /obj/machinery/syndicatebomb/training,
@@ -34884,7 +34884,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "wqr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -35741,7 +35741,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "wOv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -35943,7 +35943,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "wUx" = (
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel,
@@ -36103,7 +36103,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "wXx" = (
 /obj/structure/ladder,
 /obj/machinery/light,
@@ -37096,7 +37096,7 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "xAU" = (
 /turf/simulated/floor/plasteel/white/side{
 	dir = 8
@@ -38093,7 +38093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ylJ" = (
 /obj/structure/chair/comfy/black,
 /obj/machinery/atmospherics/unary/vent_pump/on,

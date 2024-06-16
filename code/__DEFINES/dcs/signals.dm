@@ -36,12 +36,12 @@
 // /datum signals
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
-/// before a component is removed from a datum because of RemoveComponent: (/datum/component)
+/// before a component is removed from a datum because of ClearFromParent(): (/datum/component)
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
-#define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
+#define COMSIG_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
-#define COMSIG_PARENT_QDELETING "parent_qdeleting"
+#define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
 
@@ -590,6 +590,10 @@
 	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
 /// from /mob/living/carbon/enter_stamcrit()
 #define COMSIG_CARBON_ENTER_STAMCRIT "carbon_enter_stamcrit"
+///Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+///Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
@@ -812,8 +816,6 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
-//from /mob/living/carbon/human/proc/apply_overlay
-#define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/regenerate_icons()

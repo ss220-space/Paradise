@@ -22,6 +22,8 @@
 
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
+#define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))

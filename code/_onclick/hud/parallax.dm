@@ -371,7 +371,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
 	var/client/boss = source.client
-	update_status(boss.mob)
+	if(boss)
+		update_status(boss.mob)
 
 /atom/movable/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

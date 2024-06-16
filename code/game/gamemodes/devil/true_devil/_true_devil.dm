@@ -1,7 +1,3 @@
-#define DEVIL_R_HAND_LAYER 1
-#define DEVIL_L_HAND_LAYER 2
-#define DEVIL_TOTAL_LAYERS 2
-
 // This is used primarily for having hands.
 /mob/living/carbon/true_devil
 	name = "True Devil"
@@ -18,7 +14,6 @@
 	universal_speak = TRUE //The devil speaks all languages meme
 	var/ascended = FALSE
 	var/mob/living/oldform
-	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	if(dna_source)
@@ -214,4 +209,3 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
-#undef DEVIL_TOTAL_LAYERS

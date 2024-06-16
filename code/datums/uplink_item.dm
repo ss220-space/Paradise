@@ -82,7 +82,7 @@
 	var/refund_amount
 
 
-/datum/uplink_item/Destroy(force, ...)
+/datum/uplink_item/Destroy(force)
 	if(force)
 		return ..()
 	else
