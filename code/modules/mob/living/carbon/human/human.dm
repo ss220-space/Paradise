@@ -1045,30 +1045,29 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/check_obscured_slots()
+/mob/living/carbon/human/check_obscured_slots(check_transparent)
 	. = ..()
 
-	if(wear_suit)
-		if(wear_suit.flags_inv & HIDEGLOVES)
-			. |= ITEM_SLOT_GLOVES
-		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			. |= ITEM_SLOT_CLOTH_INNER
-		if(wear_suit.flags_inv & HIDESHOES)
-			. |= ITEM_SLOT_FEET
+	var/hidden_flags = NONE
 
-	if(head)
-		if(head.flags_inv & HIDEMASK)
-			. |= ITEM_SLOT_MASK
-		if(head.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(head.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	for(var/obj/item/equipped_item as anything in get_equipped_items())
+		var/item_flags = equipped_item.flags_inv
+		if(check_transparent && equipped_item.flags_inv_transparent)
+			item_flags ^= equipped_item.flags_inv_transparent
+		hidden_flags |= item_flags
 
-	if(wear_mask)
-		if(wear_mask.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(wear_mask.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	if(hidden_flags & HIDEGLOVES)
+		. |= ITEM_SLOT_GLOVES
+	if(hidden_flags & HIDEJUMPSUIT)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(hidden_flags & HIDESHOES)
+		. |= ITEM_SLOT_FEET
+	if(hidden_flags & HIDEMASK)
+		. |= ITEM_SLOT_MASK
+	if(hidden_flags & HIDEGLASSES)
+		. |= ITEM_SLOT_EYES
+	if(hidden_flags & HIDEHEADSETS)
+		. |= ITEM_SLOT_EARS
 
 
 /mob/living/carbon/human/proc/check_has_mouth()
@@ -1080,7 +1079,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if(skipface && (ITEM_SLOT_CLOTH_INNER & check_obscured_slots()))
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_CLOTH_INNER))
 		return PLURAL
 	return gender
 

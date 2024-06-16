@@ -604,10 +604,13 @@
 
 
 /**
- * Collects all the bitflags from the obscured slots.
- * Works only for humans and checks only suits, headgear and masks currently.
+ * Collects flags_inv bitflags from all equipped items and returns slots considered as obscure.
+ *
+ * Arguments:
+ * * check_transparent - If `TRUE` bitflags from var/flags_inv_transparent will be considered, works like a toggle (^=) for var/flags_inv.
+ * Used in overlay updates to properly cover or uncover certain zones.
  */
-/mob/proc/check_obscured_slots()
+/mob/proc/check_obscured_slots(check_transparent)
 	. = NONE
 
 

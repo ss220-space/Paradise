@@ -34,6 +34,7 @@
 	if(.)
 		clothing_flags ^= visor_clothing_flags
 		flags_inv ^= visor_flags_inv
+		flags_inv_transparent ^= visor_flags_inv_transparent
 
 /obj/item/clothing/head/helmet/detective
 	name = "olive helmet"
