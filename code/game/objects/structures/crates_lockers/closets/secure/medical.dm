@@ -187,7 +187,8 @@
 	overlay_unlocked = "m_unlocked"
 	anchored = TRUE
 	density = FALSE
-	wall_mounted = 1
+	wall_mounted = TRUE
+	sparking_duration = 3 SECONDS
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/paramedic

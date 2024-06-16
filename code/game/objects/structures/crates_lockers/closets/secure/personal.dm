@@ -30,6 +30,7 @@
 	name = "personal cabinet"
 	desc = "It's a secure cabinet for personnel. The first card swiped gains control."
 	icon_state = "cabinet"
+	overlay_sparking = "c_sparking"
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"
@@ -49,7 +50,7 @@
 		return ..()
 
 	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		to_chat(user, span_warning("It appears to be broken."))
 		return
 
 	var/obj/item/card/id/I = W.GetID()
@@ -57,7 +58,7 @@
 		return
 
 	if(src == user.loc)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		to_chat(user, span_notice("You can't reach the lock from inside."))
 
 	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
 		//they can open all lockers, or nobody owns this, or they own this locker
@@ -71,4 +72,4 @@
 			registered_name = I.registered_name
 			desc = "Owned by [I.registered_name]."
 	else
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		to_chat(user, span_warning("Access Denied."))

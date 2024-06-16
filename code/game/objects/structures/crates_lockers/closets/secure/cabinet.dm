@@ -2,6 +2,7 @@
 	name = "secure cabinet"
 	desc = "Old will forever be in fashion."
 	icon_state = "cabinet"
+	overlay_sparking = "c_sparking"
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"
