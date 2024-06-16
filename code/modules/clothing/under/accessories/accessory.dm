@@ -13,10 +13,19 @@
 	var/obj/item/clothing/under/has_suit
 	/// Allow accessories of the same type.
 	var/allow_duplicates = TRUE
+	/// Overlay used when the accessory is attached to the clothing.
+	var/mutable_appearance/acc_overlay
+
+
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
+	if(icon_state in icon_states('icons/obj/clothing/ties_overlay.dmi'))
+		acc_overlay = mutable_appearance('icons/obj/clothing/ties_overlay.dmi', icon_state)
 
 
 /obj/item/clothing/accessory/Destroy()
 	on_removed()
+	acc_overlay = null
 	return ..()
 
 
@@ -35,6 +44,10 @@
 
 	has_suit = new_suit
 	LAZYADD(has_suit.accessories, src)
+
+	if(acc_overlay)
+		has_suit.update_icon(UPDATE_OVERLAYS)
+
 	if(loc != has_suit)
 		forceMove(new_suit)
 
@@ -73,6 +86,9 @@
 
 	LAZYREMOVE(has_suit.accessories, src)
 	LAZYREMOVE(has_suit.actions, actions)
+
+	if(acc_overlay)
+		has_suit.update_icon(UPDATE_OVERLAYS)
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc

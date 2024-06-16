@@ -512,6 +512,14 @@
 	surplus = 0
 	hijack_only = TRUE
 
+/datum/uplink_item/jobspecific/random_spell_book
+	name = "Random spell book"
+	desc = "A random spell book stolen from the wizards federation."
+	item = /obj/item/spellbook/oneuse/random
+	cost = 25
+	job = list(JOB_TITLE_LIBRARIAN)
+	can_discount = FALSE
+
 /datum/uplink_item/jobspecific/dice_of_fate
 	name = "Dice of fate"
 	desc = "Everything or nothing; that is my motto."

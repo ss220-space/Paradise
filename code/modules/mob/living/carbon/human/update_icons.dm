@@ -533,7 +533,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_INNER) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_CLOTH_INNER & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_CLOTH_INNER)
 		return
 
 	if(istype(w_uniform, /obj/item/clothing/under))
@@ -618,7 +618,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_GLOVES & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_GLOVES)
 		return
 
 	if(gloves)
@@ -662,7 +662,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_EYES & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_EYES)
 		return
 
 	if(glasses)
@@ -708,7 +708,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_EARS & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_EARS)
 		return
 
 	if(l_ear || r_ear)
@@ -746,7 +746,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_FEET & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_FEET)
 		return
 
 	if(shoes)
@@ -824,6 +824,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(belt.sprite_sheets?[dna.species.name])
 			standing.icon = belt.sprite_sheets[dna.species.name]
 
+		overlays_standing[BELT_LAYER] = standing
+
 	apply_overlay(BELT_LAYER)
 
 
@@ -885,7 +887,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_MASK & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
 		return
 
 	if((istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))

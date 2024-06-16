@@ -54,7 +54,8 @@
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if((mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || (initial(mask.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
+	if((mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(initial(mask.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -63,9 +64,16 @@
 		internal = null
 		update_action_buttons_icon()
 
-	if((mask.flags_inv & HIDEGLASSES) || (initial(mask.flags_inv) & HIDEGLASSES))
+	if((mask.flags_inv & HIDEGLASSES) || \
+		(mask.flags_inv_transparent & HIDEGLASSES) || \
+		(initial(mask.flags_inv) & HIDEGLASSES) || \
+		(initial(mask.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
-	if((mask.flags_inv & HIDEHEADSETS) || (initial(mask.flags_inv) & HIDEHEADSETS))
+
+	if((mask.flags_inv & HIDEHEADSETS) || \
+		(mask.flags_inv_transparent & HIDEHEADSETS) || \
+		(initial(mask.flags_inv) & HIDEHEADSETS) || \
+		(initial(mask.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
 
 	sec_hud_set_ID()
@@ -84,7 +92,9 @@
 		internal = null
 		update_action_buttons_icon()
 
-	if(forced || (check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || (initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
+	if(forced || \
+		(check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -98,11 +108,23 @@
 		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 			update_sight()
 
-	if(forced || (check_item.flags_inv & HIDEHEADSETS) || (initial(check_item.flags_inv) & HIDEHEADSETS))
+	if(forced || \
+		(check_item.flags_inv & HIDEHEADSETS) || \
+		(check_item.flags_inv_transparent & HIDEHEADSETS) || \
+		(initial(check_item.flags_inv) & HIDEHEADSETS) || \
+		(initial(check_item.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
-	if(forced || (check_item.flags_inv & HIDEMASK) || (initial(check_item.flags_inv) & HIDEMASK))
+	if(forced || \
+		(check_item.flags_inv & HIDEMASK) || \
+		(check_item.flags_inv_transparent & HIDEMASK) || \
+		(initial(check_item.flags_inv) & HIDEMASK) || \
+		(initial(check_item.flags_inv_transparent) & HIDEMASK))
 		update_inv_wear_mask()
-	if(forced || (check_item.flags_inv & HIDEGLASSES) || (initial(check_item.flags_inv) & HIDEGLASSES))
+	if(forced || \
+		(check_item.flags_inv & HIDEGLASSES) || \
+		(check_item.flags_inv_transparent & HIDEGLASSES) || \
+		(initial(check_item.flags_inv) & HIDEGLASSES) || \
+		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
 
 	sec_hud_set_ID()
@@ -113,11 +135,22 @@
  * Handles stuff to update when a mob equips/unequips a suit.
  */
 /mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
-	if((suit.flags_inv & HIDEJUMPSUIT) || (initial(suit.flags_inv) & HIDEJUMPSUIT))
+	if((suit.flags_inv & HIDEJUMPSUIT) || \
+		(suit.flags_inv_transparent & HIDEJUMPSUIT) || \
+		(initial(suit.flags_inv) & HIDEJUMPSUIT) || \
+		(initial(suit.flags_inv_transparent) & HIDEJUMPSUIT))
 		update_inv_w_uniform()
-	if((suit.flags_inv & HIDESHOES) || (initial(suit.flags_inv) & HIDESHOES))
+
+	if((suit.flags_inv & HIDESHOES) || \
+		(suit.flags_inv_transparent & HIDESHOES) || \
+		(initial(suit.flags_inv) & HIDESHOES) || \
+		(initial(suit.flags_inv_transparent) & HIDESHOES))
 		update_inv_shoes()
-	if((suit.flags_inv & HIDEGLOVES) || (initial(suit.flags_inv) & HIDEGLOVES))
+
+	if((suit.flags_inv & HIDEGLOVES) || \
+		(suit.flags_inv_transparent & HIDEGLOVES) || \
+		(initial(suit.flags_inv) & HIDEGLOVES) || \
+		(initial(suit.flags_inv_transparent) & HIDEGLOVES))
 		update_inv_gloves()
 
 	update_inv_wear_suit()
