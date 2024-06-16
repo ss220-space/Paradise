@@ -824,6 +824,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(belt.sprite_sheets?[dna.species.name])
 			standing.icon = belt.sprite_sheets[dna.species.name]
 
+		overlays_standing[BELT_LAYER] = standing
+
 	apply_overlay(BELT_LAYER)
 
 

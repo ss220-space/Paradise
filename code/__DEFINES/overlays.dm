@@ -28,9 +28,9 @@
 */
 
 
-// Layer offsets for closets
-#define CLOSET_OLAY_OFFSET_CONTENTS 0.01
-#define CLOSET_OLAY_OFFSET_DOOR 0.02
-#define CLOSET_OLAY_OFFSET_LOCK 0.03
-#define CLOSET_OLAY_OFFSET_WELDED 0.04
+// Float layers for closets
+#define CLOSET_OLAY_LAYER_CONTENTS -4
+#define CLOSET_OLAY_LAYER_DOOR -3
+#define CLOSET_OLAY_LAYER_LOCK -2
+#define CLOSET_OLAY_LAYER_WELDED -1
 
