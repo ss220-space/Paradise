@@ -12,21 +12,35 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	tts_seed = "Livsy"
 	token_price = 100
+	/// Livsy says after win
 	var/list/win_phrases = list("Ох, ну надо же!", "Вот это да!", "Видимо в этот раз без взрыва!")
+	/// Livsy says after loose
 	var/list/loose_phrases = list("Ой! Чуть не задело!", "А ведь победа была так близко!", "Бабах!")
+	/// Livsy has nothing to do
 	var/list/random_phrases = list("Пупупупупу, дай кого-нибудь взорву!", "Не шевелись! Вокруг мины!")
+
+	// Random phrases things
+	var/last_random
+	var/phrase_delay = 6000
+
+	/// Extra prize if emagged
 	var/list/emag_prizes = list(/obj/item/storage/box/bombsecurity, /obj/item/storage/box/thunderdome/bombarda, \
 								/obj/item/storage/belt/grenade/frag, /obj/item/grenade/syndieminibomb, \
 								/obj/item/storage/box/syndie_kit/c4)
-	var/last_random
-	var/phrase_delay = 6000
+
+	/// Thing, to make first touch safety
 	var/first_touch = TRUE
+	// Win condition things
 	var/setted_flags = 0
 	var/flagged_bombs = 0
 	var/opened_cells = 0
+	/// Decision to make interface untouchable in the momemnt of regenerating
 	var/ignore_touches = FALSE
+	/// Tgui message, which shows and hide
 	var/show_message = ""
+	/// Tech var, here we have all the info
 	var/list/minesweeper_matrix = list()
+	// generations vars(i didnt check if it works with nonstandart values)
 	var/generation_rows = MINESWEEPER_ROWS
 	var/generation_columns = MINESWEEPER_COLUMNS
 	var/generation_bombs = MINESWEEPER_BOMBS
@@ -69,7 +83,7 @@
 		last_random = world.time
 
 /obj/machinery/arcade/minesweeper/start_play(mob/user)
-	in_use = FALSE
+	in_use = FALSE // in_use is /obj/machinery/arcade var, which i do not neew, so i just made it unnessecary
 	ui_interact(user)
 
 /obj/machinery/arcade/minesweeper/emag_act(mob/user)
@@ -137,6 +151,7 @@
 		var/emag_prize = pick(emag_prizes)
 		new emag_prize(get_turf(src))
 	speak(pick(win_phrases))
+	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 
 /obj/machinery/arcade/minesweeper/proc/on_loose(mob/user)
