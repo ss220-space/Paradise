@@ -136,7 +136,6 @@
 	for(var/z_level in lower_z to upper_z)
 		var/list/local_cameras = list()
 		for(var/maybe_camera in urange(CHUNK_SIZE, locate(x + (CHUNK_SIZE / 2), y + (CHUNK_SIZE / 2), z_level)))
-			var/n = 0
 			if(istype(maybe_camera, /obj/machinery/camera))
 				var/obj/machinery/camera/definetly_camera = maybe_camera
 				if(definetly_camera.can_use())
