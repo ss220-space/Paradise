@@ -114,11 +114,19 @@
 
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()
-	if(!opened && !broken)
-		if(locked)
-			. += mutable_appearance(icon, overlay_locked, CLOSET_OLAY_LAYER_LOCK)
-		else
-			. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK)
+
+	if(opened)
+		return .
+
+	. += mutable_appearance(icon, overlay_locker, CLOSET_OLAY_LAYER_LOCK_FRAME)
+
+	if(broken)
+		return .
+
+	if(locked)
+		. += mutable_appearance(icon, overlay_locked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
+	else
+		. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
 
 
 /obj/structure/closet/secure_closet/update_desc(updates = ALL)

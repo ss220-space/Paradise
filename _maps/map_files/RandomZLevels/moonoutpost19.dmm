@@ -7232,11 +7232,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "pg" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
+/obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
 /obj/item/clothing/under/suit_jacket/burgundy,

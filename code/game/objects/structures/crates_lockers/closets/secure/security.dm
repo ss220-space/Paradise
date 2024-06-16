@@ -213,8 +213,10 @@
 
 /obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinetdetective"
+	overlay_locker = "cd_locker"
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
+
 
 /obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
