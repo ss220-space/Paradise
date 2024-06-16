@@ -9813,8 +9813,8 @@
 	},
 /area/derelict/security)
 "SJ" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list()
+/obj/structure/closet/secure_closet/cabinet/bar{
+	req_access = null
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,

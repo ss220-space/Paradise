@@ -785,7 +785,7 @@
 /turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cU" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},

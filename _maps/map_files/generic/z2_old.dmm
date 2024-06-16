@@ -4813,9 +4813,7 @@
 	name = "Cosmonaut Security Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange,
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Security Suit"
@@ -12916,9 +12914,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
 "jDY" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
 /obj/item/storage/backpack/satchel,
@@ -17931,8 +17927,7 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
@@ -18779,7 +18774,7 @@
 	},
 /area/ninja/outpost)
 "nHq" = (
-/obj/structure/closet/secure_closet/bar{
+/obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = null
 	},
 /turf/simulated/floor/indestructible{
@@ -19475,9 +19470,7 @@
 	name = "Cosmonaut Security Suit"
 	},
 /obj/item/clothing/head/helmet/space/syndicate/orange,
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/suit/space/syndicate/orange{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Security Suit"
@@ -20337,9 +20330,7 @@
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Command Helmet"
 	},
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/suit/space/syndicate/blue{
 	desc = "This spacesuit is emblazoned with the emblem of the USSP. Glory to Space Russia!";
 	name = "Cosmonaut Command Suit"
@@ -28565,8 +28556,7 @@
 	},
 /area/syndicate_mothership)
 "uFN" = (
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{

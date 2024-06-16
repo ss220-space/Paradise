@@ -9867,7 +9867,7 @@
 	},
 /area/security/detectives_office)
 "aFD" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -38151,9 +38151,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "coY" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -48253,7 +48251,7 @@
 	},
 /area/atmos/distribution)
 "cSn" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},

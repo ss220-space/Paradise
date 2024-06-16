@@ -482,9 +482,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bH" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bI" = (
@@ -1960,9 +1958,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
 "fz" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/machinery/light/small{
 	dir = 1;
 	tag = "icon-bulb1 (NORTH)"

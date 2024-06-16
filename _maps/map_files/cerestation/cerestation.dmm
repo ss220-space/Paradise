@@ -31502,7 +31502,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
 "fcr" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "fcw" = (
@@ -36200,7 +36200,7 @@
 	},
 /area/security/prison/cell_block/A)
 "gCy" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -47327,9 +47327,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,

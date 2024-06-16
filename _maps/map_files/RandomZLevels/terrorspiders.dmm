@@ -196,7 +196,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -411,7 +411,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bh" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bi" = (
@@ -732,7 +732,7 @@
 /area/awaymission/UO71/plaza)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -5125,7 +5125,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5426,7 +5426,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -10341,7 +10341,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xk" = (
@@ -10640,7 +10640,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xQ" = (
@@ -11228,7 +11228,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zn" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zo" = (

@@ -78,7 +78,7 @@
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "m" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/machinery/light{
 	dir = 1
 	},

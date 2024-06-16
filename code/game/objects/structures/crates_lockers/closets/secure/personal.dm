@@ -27,7 +27,9 @@
 	new /obj/item/stack/sheet/cardboard(src)
 
 /obj/structure/closet/secure_closet/personal/cabinet
-	icon_state = "cabinetdetective"
+	name = "personal cabinet"
+	desc = "It's a secure cabinet for personnel. The first card swiped gains control."
+	icon_state = "cabinet"
 	overlay_locked = "c_locked"
 	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"

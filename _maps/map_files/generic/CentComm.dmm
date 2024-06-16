@@ -9741,7 +9741,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/bar{
+/obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = list(114,104,109)
 	},
 /turf/simulated/floor/plasteel{
@@ -42926,7 +42926,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "uSa" = (
@@ -44554,8 +44554,7 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
@@ -47917,9 +47916,7 @@
 	},
 /area/centcom/supply)
 "xpw" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
 /obj/item/storage/backpack/satchel,

@@ -2657,7 +2657,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "lc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

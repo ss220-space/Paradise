@@ -48,7 +48,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "cb" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/item/storage/fancy/cigcase,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)

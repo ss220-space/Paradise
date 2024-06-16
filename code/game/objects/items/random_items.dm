@@ -242,15 +242,8 @@
 			O.pixel_y = rand(-5,5)
 */
 
-/obj/structure/closet/secure_closet/random_drinks
+/obj/structure/closet/secure_closet/cabinet/bar/random_drinks
 	name = "unlabelled booze closet"
-	req_access = list(ACCESS_BAR)
-	icon_state = "cabinetdetective"
-	overlay_locked = "c_locked"
-	overlay_locker = "c_locker"
-	overlay_unlocked = "c_unlocked"
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 
 /obj/structure/closet/secure_closet/random_drinks/populate_contents()
