@@ -77,8 +77,8 @@
 
 /obj/machinery/arcade/minesweeper/process()
 	. = ..()
-	if(((last_random + src.phrase_delay) <= world.time) && prob(5))
-		var/phrase = pick(src.random_phrases)
+	if(((last_random + phrase_delay) <= world.time) && prob(5))
+		var/phrase = pick(random_phrases)
 		speak(phrase)
 		last_random = world.time
 
