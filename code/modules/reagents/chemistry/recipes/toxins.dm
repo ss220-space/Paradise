@@ -28,11 +28,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor! </span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("cyanide", round(created_volume*0.3, 0.1))
+	make_vaporation(list("cyanide"), holder, created_volume, 1)
 
 /datum/chemical_reaction/itching_powder
 	name = "Itching Powder"
@@ -87,11 +83,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 2))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("sarin", round(created_volume*0.2, 0.1))
+	make_vaporation(list("sarin"), holder, created_volume, 2)
 
 /datum/chemical_reaction/glyphosate
 	name = "glyphosate"
