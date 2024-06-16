@@ -146,6 +146,8 @@
 			turfs += T
 	return turfs
 
+#define MAXIMUM_LUMINOSITY 6 // This is the maximum luminosity
+
 /// Returns a list of hearers in view(range) from source (ignoring luminosity). recursively checks contents for hearers
 /proc/get_hearers_in_view(range, atom/source)
 	var/turf/source_turf = get_turf(source)
@@ -153,13 +155,15 @@
 	if(!source_turf)
 		return .
 	var/lum = source_turf.luminosity
-	source_turf.luminosity = 6 // This is the maximum luminosity
+	source_turf.luminosity = MAXIMUM_LUMINOSITY // This is the maximum luminosity
 	for(var/atom/movable/movable in view(range, source_turf))
 		var/list/recursive_contents = LAZYACCESS(movable.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
 		if(recursive_contents)
 			. += recursive_contents
 			SEND_SIGNAL(movable, COMSIG_ATOM_HEARER_IN_VIEW, .)
 	source_turf.luminosity = lum
+
+#undef MAXIMUM_LUMINOSITY // This is the maximum luminosity
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
 	. = list()
