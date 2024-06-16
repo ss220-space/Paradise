@@ -29,7 +29,7 @@
 	H.set_species(get_random_species())
 	H.dna.ready_dna(H)
 	H.update_body()
-	to_chat(usr, span_danger("The power of the [src] has affected you!"))
+	to_chat(usr, span_danger("The power of [src] has affected you!"))
 	to_chat(usr, span_notice("You are now [H.dna.species]!"))
 	desc += ". That one looks used"
 	..()
