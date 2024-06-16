@@ -246,7 +246,7 @@
 	name = "unlabelled booze closet"
 
 
-/obj/structure/closet/secure_closet/random_drinks/populate_contents()
+/obj/structure/closet/secure_closet/cabinet/bar/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
 		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
 	while(prob(25))
