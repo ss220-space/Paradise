@@ -24,14 +24,14 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
-/datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius = 1)
-	var/list/mob/living/carbon/carbons = list()
-	var/mob/living/carbon/carbon = new
+/datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius)
 	var/turf/T = get_turf(holder.my_atom)
-	var/color = mix_color_from_reagents(holder.reagent_list)
-
 	if(!isturf(T))
 		return
+
+	var/list/mob/living/carbon/carbons = list()
+	var/mob/living/carbon/carbon = new
+	var/color = mix_color_from_reagents(holder.reagent_list)
 
 	T.visible_message(span_warning("The solution generates a strong vapor!"))
 	new /obj/effect/particle_effect/chem_smoke/small(T, color)
