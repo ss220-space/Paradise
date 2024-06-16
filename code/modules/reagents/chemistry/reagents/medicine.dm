@@ -957,11 +957,11 @@
 		M.SetSleeping(0)
 		if(!absorption_applied)
 			absorption_applied = TRUE
-			M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+			M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	else
 		if(absorption_applied)
 			absorption_applied = FALSE
-			M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+			M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
@@ -973,7 +973,7 @@
 /datum/reagent/medicine/stimulants/on_mob_delete(mob/living/M)
 	. = ..()
 	if(absorption_applied)	// somehow???
-		M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+		M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 
 
 /datum/reagent/medicine/stimulative_agent
@@ -1539,16 +1539,21 @@
 	harmless = TRUE
 	can_synth = FALSE
 
+
 /datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.setStaminaLoss(0, FALSE)
-	M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
-
 	return ..() | update_flags
+
+
+/datum/reagent/medicine/adrenaline/on_mob_add(mob/living/M)
+	. = ..()
+	M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
 
 /datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
 	. = ..()
-	M.remove_status_effect_absorption(id, effect_type = list(STUN, WEAKEN, PARALYZE, KNOCKDOWN))
+	M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
