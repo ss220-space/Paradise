@@ -1003,10 +1003,8 @@
 	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
-		new /obj/item/spellbook/oneuse/random(src)
-		new /obj/item/spellbook/oneuse/random(src)
-		new /obj/item/spellbook/oneuse/random(src)
-		new /obj/item/spellbook/oneuse/random(src)
+		for(var/i = 1 to 4)
+				new /obj/item/spellbook/oneuse/random(src)
 
 
 /obj/item/storage/box/candythief
