@@ -3,7 +3,7 @@
 #define MINESWEEPER_BOMBS 40
 
 /obj/machinery/arcade/minesweeper
-	name = "Cапер"
+	name = "Cапёр"
 	icon_state = "minesweeper"
 	desc = "Классическая аркадная игра про флашки, цифры и БОМБЫ."
 	density = TRUE
