@@ -151,8 +151,6 @@
 				var/mob/living/silicon/ai/TV_camera = maybe_camera
 				if(TV_camera.builtInCamera?.can_use())
 					local_cameras += TV_camera.builtInCamera
-					n++
-					to_chat(world, "POINT [n]")
 		cameras["[z_level]"] = local_cameras
 
 		var/image/mirror_from = GLOB.cameranet.obscured_images[GET_Z_PLANE_OFFSET(z_level) + 1]

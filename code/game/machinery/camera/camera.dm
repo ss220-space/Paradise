@@ -54,7 +54,7 @@
 	for(var/obj/item/upgrade as anything in assembly.upgrades)
 		upgrade.camera_upgrade(src)
 
-	var/list/tempnetwork = difflist(network, GLOB.restricted_camera_networks)
+	var/list/tempnetwork = difflist(src.network, GLOB.restricted_camera_networks)
 	if(tempnetwork.len)
 		GLOB.cameranet.addCamera(src)
 	else
@@ -448,7 +448,7 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/Initialize(mapload)
+/obj/machinery/camera/portable/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.set_anchored(FALSE)
