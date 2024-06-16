@@ -49868,7 +49868,8 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/arcade/claw,
+/obj/structure/table,
+/obj/item/toy/plushie/red_fox,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "fOK" = (
@@ -73437,8 +73438,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/random/plushie,
+/obj/machinery/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "lyU" = (
@@ -76584,7 +76584,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/stool,
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -77260,9 +77260,6 @@
 /area/maintenance/kitchen)
 "msG" = (
 /obj/structure/window/reinforced,
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "msV" = (
@@ -91499,7 +91496,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/stool,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "pCX" = (
@@ -93390,6 +93387,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"pWQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/stool,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/fitness)
 "pWR" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -182705,8 +182712,8 @@ fVK
 cQj
 cQj
 iUT
-mjE
-msG
+pWQ
+cTc
 lQm
 qEC
 ogj
@@ -183220,7 +183227,7 @@ cQj
 iUT
 cQj
 pww
-cTc
+msG
 wkE
 qEC
 oum

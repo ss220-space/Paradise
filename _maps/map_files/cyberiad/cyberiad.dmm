@@ -78262,6 +78262,10 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
+"nnR" = (
+/obj/machinery/arcade/minesweeper,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "nnZ" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -123781,9 +123785,9 @@ ayb
 aFI
 aGP
 aIs
-aJw
+nnR
 aKK
-aJz
+nnR
 aOc
 aPf
 aQv

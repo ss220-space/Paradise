@@ -90,6 +90,13 @@
 	. = ..()
 	emagged = TRUE
 
+/obj/machinery/arcade/minesweeper/power_change(forced = FALSE)
+	. = ..()
+	if(stat & NOPOWER)
+		SStgui.close_uis(src)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/arcade/minesweeper/update_overlays()
 	. = ..()
 	if(!(stat & BROKEN) && !(stat & NOPOWER))
@@ -109,7 +116,7 @@
 
 /obj/machinery/arcade/minesweeper/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if(ignore_touches)
+	if(ignore_touches || !ui.user.Adjacent(src) || stat & BROKEN || stat & NOPOWER)
 		return
 	switch(action)
 		if("Square")
