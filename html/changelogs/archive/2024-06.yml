@@ -104,6 +104,8 @@
   - bugfix: Ghosts no longer squeaks (#5207)
   Daeberdir:
   - bugfix: Many map fixes... Cyberiad moved to the centre of the level. (#5145)
+  ROdenFL:
+  - tweak: mouse idle anim addiction (#5048)
   Vladisvell:
   - bugfix: Fixed status effects typo (#5199)
   - refactor: Button layers are now defined (#5200)
@@ -112,6 +114,8 @@
   - tweak: Components Optimization (#5071)
   - refactor: Inventory Optimization (#5080)
   - unknown: Additional Can Equip Check (#5167)
+  - bugfix: Just Another Genes Fix (#5201)
+  - bugfix: Accessory Overlay Fix (#5209)
   aeternaclose:
   - bugfix: Event files architecture improvement (#5150)
   gornomogilo:
@@ -119,3 +123,18 @@
       (#5179)
   pilygun:
   - tweak: Clone machine is now cheaper for ordering in cargo (#5195)
+'2024-06-15':
+  LiquidPotroh:
+  - bugfix: emagged CMO defib don't stop hearts (#5211)
+  MrVivor:
+  - unknown: Drink resprites and some stuff (#5194)
+  kukur:
+  - unknown: camera bugfix/refactor + ninja invisible 2 (#5217)
+  - tweak: Correction recommendation CMO (#5220)
+  pilygun:
+  - balance: Vending capitalism update (#5196)
+'2024-06-16':
+  Zwei:
+  - bugfix: Wet Floor Runtimes Fix (#5210)
+  - bugfix: Final Genes Patch (#5221)
+  - bugfix: Overlays Fixes (#5218)
