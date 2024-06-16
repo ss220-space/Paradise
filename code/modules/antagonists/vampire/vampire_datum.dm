@@ -43,7 +43,7 @@
 	)
 
 
-/datum/antagonist/vampire/Destroy(force, ...)
+/datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)

@@ -36,7 +36,16 @@
 
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(isstack(I))
+			if(!user.can_unEquip(I) || !I.use(1))
+				to_chat(user, span_warning("[I] is stuck!"))
+				return
+			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
+			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
+			upgrades += new_stack
+			return
+
+		if(!user.drop_transfer_item_to_loc(I, src, silent = TRUE))
 			to_chat(user, span_warning("[I] is stuck!"))
 			return
 		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
@@ -81,10 +90,8 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork))
+	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork), src)
 	loc = C
-	C.assembly = src
-
 	C.auto_turn()
 	C.c_tag = input
 

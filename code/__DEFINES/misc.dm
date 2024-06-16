@@ -162,7 +162,7 @@
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
 
-//Human Overlays Indexes/////////
+//Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.

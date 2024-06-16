@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		team = team_to_join
 
 
-/datum/objective/Destroy(force, ...)
+/datum/objective/Destroy(force)
 	for(var/datum/mind/user in get_owners())
 		user.remove_objective(src)
 	GLOB.all_objectives -= src
@@ -678,7 +678,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	RegisterSignal(special_objective, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(special_objective_checking_target))
 
 
-/datum/objective/escape/escape_with_identity/Destroy(force, ...)
+/datum/objective/escape/escape_with_identity/Destroy(force)
 	special_objective = null
 	return ..()
 

@@ -28,6 +28,7 @@
   - bugfix: Multi-z Light (#5130)
   Daeberdir:
   - bugfix: Bold names for all command role titles. (#5108)
+  - tweak: '''Current Map Excluded'' map vote. (#5151)'
   LiquidPotroh:
   - bugfix: teporone stabilizing and species (#5112)
   NightDawnFox:
@@ -48,3 +49,92 @@
   - bugfix: Antag Paradise Typo Fix (#5113)
   - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
   - bugfix: Shuttle Smash Skips Silicon Search (#5115)
+  - bugfix: Kudzu Spawn Respects Level Boundaries (#5152)
+'2024-06-04':
+  BoshyG:
+  - imageadd: Vox sunglasses hud FIX (#5131)
+  LiquidPotroh:
+  - add: inquisitor's hardsuit in necropolis chest (#5126)
+  MrVivor:
+  - add: new clothes by PT (#5090)
+  NightDawnFox:
+  - tweak: new text objective for magic survivalists (#5138)
+  kukur:
+  - bugfix: IV drip can now be used again to collect or inject reagents. (#5154)
+'2024-06-06':
+  Den109G:
+  - bugfix: TeleKinesis no longer drops on ground (#5155)
+  ROdenFL:
+  - tweak: loadout veil stack (#5129)
+'2024-06-10':
+  BeebBeebBoob:
+  - bugfix: AI fail to click on certain lines of map (#5178)
+  Den109G:
+  - bugfix: Emotes check stat before show runechat (#5156)
+  Zwei:
+  - bugfix: Cards Shuffle Fix (#5165)
+  - bugfix: Legion Transform Fix (#5173)
+  - bugfix: Plasmaman Vampire Hunger Fix (#5174)
+  - refactor: Runechat Tweaks (#5060)
+  - bugfix: Minor Fixes Collection (#5153)
+'2024-06-12':
+  PiotrTheTchaikowsky:
+  - unknown: Pda Сart resprite (Prictice PR) (#5192)
+  - imageadd: Decals-resprite (Prictice PR for studying) (#5128)
+  ROdenFL:
+  - bugfix: shadowling can`t cast their spell (#5189)
+  Vladisvell:
+  - bugfix: Bunch of bugfixes (#5184)
+  - bugfix: Now you can unequip donation-tier gear if you don't have said tier. (#5187)
+  Zwei:
+  - bugfix: Prefs Runtime Fix (#5181)
+  - bugfix: Proper Layers For Closet Overlays (#5171)
+'2024-06-13':
+  Daeberdir:
+  - qol: Map votes popup at the end of the round are now shown immediately (#5193)
+  Vesterlim13:
+  - add: New event ruin Pirates Base (#5149)
+  Vladisvell:
+  - server: End-round map voting is now configurable (#5197)
+  endipe:
+  - bugfix: Dark shard cannot be eaten (#5186)
+'2024-06-14':
+  BeebBeebBoob:
+  - bugfix: Fixes runtime logout parallax (#5204)
+  - bugfix: Ghosts no longer squeaks (#5207)
+  Daeberdir:
+  - bugfix: Many map fixes... Cyberiad moved to the centre of the level. (#5145)
+  ROdenFL:
+  - tweak: mouse idle anim addiction (#5048)
+  Vladisvell:
+  - bugfix: Fixed status effects typo (#5199)
+  - refactor: Button layers are now defined (#5200)
+  - tweak: Mob spawners, including ash walker eggs, now can fall into chasms (#5198)
+  Zwei:
+  - tweak: Components Optimization (#5071)
+  - refactor: Inventory Optimization (#5080)
+  - unknown: Additional Can Equip Check (#5167)
+  - bugfix: Just Another Genes Fix (#5201)
+  - bugfix: Accessory Overlay Fix (#5209)
+  aeternaclose:
+  - bugfix: Event files architecture improvement (#5150)
+  gornomogilo:
+  - bugfix: now mind return into carbon after gib simple_animal from anomalous_crystal
+      (#5179)
+  pilygun:
+  - tweak: Clone machine is now cheaper for ordering in cargo (#5195)
+'2024-06-15':
+  LiquidPotroh:
+  - bugfix: emagged CMO defib don't stop hearts (#5211)
+  MrVivor:
+  - unknown: Drink resprites and some stuff (#5194)
+  kukur:
+  - unknown: camera bugfix/refactor + ninja invisible 2 (#5217)
+  - tweak: Correction recommendation CMO (#5220)
+  pilygun:
+  - balance: Vending capitalism update (#5196)
+'2024-06-16':
+  Zwei:
+  - bugfix: Wet Floor Runtimes Fix (#5210)
+  - bugfix: Final Genes Patch (#5221)
+  - bugfix: Overlays Fixes (#5218)

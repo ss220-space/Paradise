@@ -389,18 +389,21 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 
+
 /obj/item/clothing/under/GetID()
-	if(accessories)
-		for(var/obj/item/clothing/accessory/accessory in accessories)
-			if(accessory.GetID())
-				return accessory.GetID()
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		var/accessory_id = accessory.GetID()
+		if(accessory_id)
+			return accessory_id
 	return ..()
+
 
 /obj/item/clothing/under/GetAccess()
 	. = ..()
-	if(accessories)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			. |= A.GetAccess()
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		. |= accessory.GetAccess()
+
+
 //Head
 /obj/item/clothing/head
 	name = "head"
@@ -754,8 +757,6 @@ BLIND     // can't see anything
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-/obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
-	return FALSE
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
@@ -904,9 +905,8 @@ BLIND     // can't see anything
 	var/random_sensor = TRUE
 	var/displays_id = TRUE
 	var/over_shoes = FALSE
-	var/rolled_down = FALSE
-	var/list/accessories = list()
-	var/basecolor
+	/// Lazylist of all accessories on the suit.
+	var/list/accessories
 
 
 /obj/item/clothing/under/rank/Initialize(mapload)
@@ -925,8 +925,8 @@ BLIND     // can't see anything
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_INNER)
 		return .
 
-	for(var/obj/item/clothing/accessory/accessory in accessories)
-		accessory.attached_unequip()
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		accessory.attached_unequip(user)
 
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
@@ -935,57 +935,94 @@ BLIND     // can't see anything
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_INNER)
 		return .
 
-	for(var/obj/item/clothing/accessory/accessory in accessories)
-		accessory.attached_equip()
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		accessory.attached_equip(user)
 
 
 /*
   * # can_attach_accessory
   *
   * Arguments:
-  * * A - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
 */
-/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
-	if(istype(A))
-		. = TRUE
-	else
+/obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
+	if(!istype(checked_acc))
 		return FALSE
 
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/AC in accessories)
-			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return FALSE
-			if(!A.allow_duplicates && AC.type == A.type)
-				return FALSE
-
-/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory) && attach_accessory(I, user, TRUE))
+	if(!LAZYLEN(accessories))
 		return TRUE
 
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby(I, user, params)
-		return TRUE
-
-	. = ..()
-
-/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
-	if(can_attach_accessory(A))
-		if(unequip && !user.drop_item_ground(A, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
+	var/unique_slots = (checked_acc.slot & (ACCESSORY_SLOT_UTILITY|ACCESSORY_SLOT_ARMBAND))
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		if(unique_slots && (accessory.slot & checked_acc.slot))
+			return FALSE
+		if(!checked_acc.allow_duplicates && accessory.type == checked_acc.type)
 			return FALSE
 
-		accessories += A
-		A.on_attached(src, user)
+	return TRUE
 
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
 
+/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/accessory))
+		if(attach_accessory(I, user, unequip = TRUE))
+			return TRUE
+
+	else if(LAZYLEN(accessories))
+		for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+			accessory.attackby(I, user, params)
 		return TRUE
-	else
-		to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
 
-	return FALSE
+	return ..()
+
+
+/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/accessory, mob/user, unequip = FALSE)
+	if(!can_attach_accessory(accessory))
+		if(user)
+			to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
+		return FALSE
+	if(unequip && user && !user.drop_item_ground(accessory, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
+		return FALSE
+	accessory.on_attached(src, user)
+	if(user)
+		accessory.add_fingerprint(user)
+		to_chat(user, span_notice("You attach [accessory] to [src]."))
+	return TRUE
+
+
+/obj/item/clothing/under/verb/removetie()
+	set name = "Remove Accessory"
+	set category = "Object"
+	set src in usr
+	handle_accessories_removal(usr)
+
+
+/obj/item/clothing/under/AltClick(mob/user)
+	if(Adjacent(user))
+		handle_accessories_removal(user)
+
+
+/obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
+	if(!isliving(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	var/accessories_len = LAZYLEN(accessories)
+	if(!accessories_len)
+		to_chat(user, span_notice("There are no accessories attached to [src]."))
+		return
+	var/obj/item/clothing/accessory/accessory
+	if(accessories_len > 1)
+		accessory = tgui_input_list(user, "Select an accessory to remove from [src]", "Accessory Removal", accessories)
+		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return
+	else
+		accessory = accessories[1]
+
+	to_chat(user, span_notice("You remove [accessory] from [src]."))
+	accessory.on_removed(user)
+	if(!user.put_in_hands(accessory, ignore_anim = FALSE))
+		accessory.forceMove_turf()
+
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
@@ -999,9 +1036,9 @@ BLIND     // can't see anything
 				. += span_notice("Its vital tracker appears to be enabled.")
 			if(3)
 				. += span_notice("Its vital tracker and tracking beacon appear to be enabled.")
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			. += A.attached_examine()
+
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		. += accessory.attached_examine()
 
 
 /obj/item/clothing/under/verb/rollsuit()
@@ -1013,64 +1050,29 @@ BLIND     // can't see anything
 		return
 
 	var/mob/living/carbon/human/owner = usr
-
-	if(!owner.incapacitated() && !HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		if(copytext(item_color,-2) != "_d")
-			basecolor = item_color
-		var/icon/file = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
-		if(sprite_sheets && sprite_sheets[owner.dna.species.name])
-			file = sprite_sheets[owner.dna.species.name]
-		if((basecolor + "_d_s") in icon_states(file))
-			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-			owner.update_inv_w_uniform()
-		else
-			to_chat(owner, span_notice("You cannot roll down this uniform!"))
-	else
+	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		to_chat(owner, span_notice("You cannot roll down the uniform right now!"))
-
-
-/obj/item/clothing/under/verb/removetie()
-	set name = "Remove Accessory"
-	set category = "Object"
-	set src in usr
-	handle_accessories_removal(usr)
-
-
-/obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
-	if(!isliving(user))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	if(!accessories.len)
-		return
-	var/obj/item/clothing/accessory/accessory
-	if(accessories.len > 1)
-		accessory = input("Select an accessory to remove from [src]") as null|anything in accessories
-	else
-		accessory = accessories[1]
-	if(!accessory || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	remove_accessory(user, accessory)
 
+	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
+	if(sprite_sheets?[owner.dna.species.name])
+		our_icon = sprite_sheets[owner.dna.species.name]
 
-/obj/item/clothing/under/proc/remove_accessory(mob/user, obj/item/clothing/accessory/accessory)
-	if(!(accessory in accessories))
+	var/initial_state = replacetext(item_color, "_d", "")
+
+	if(!icon_exists(our_icon, "[initial_state]_d_s"))
+		to_chat(owner, span_notice("You cannot roll down this uniform!"))
 		return
-	accessory.on_removed(user)
-	accessories -= accessory
-	to_chat(user, span_notice("You remove [accessory] from [src]."))
-	user.update_inv_w_uniform()
+
+	item_color = findtext(item_color, "_d") ? initial_state : "[initial_state]_d"
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/under/emp_act(severity)
-	if(accessories.len)
-		for(var/obj/item/clothing/accessory/A in accessories)
-			A.emp_act(severity)
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		accessory.emp_act(severity)
 	..()
 
-/obj/item/clothing/under/AltClick(mob/user)
-	if(Adjacent(user))
-		handle_accessories_removal(user)
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == "bomb" || damage_flag == "melee")

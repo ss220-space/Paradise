@@ -127,7 +127,7 @@
 		if(!usable_legs && !(movement_type & (FLYING|FLOATING)))
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
-	update_hands_HUD()
+	update_hud_hands()
 
 
 /mob/living/carbon/human/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
@@ -148,8 +148,6 @@
 		if(usable_legs < default_num_legs)
 			limbless_slowdown += (default_num_legs - usable_legs) * 4 - get_crutches()
 			if(!usable_legs)
-				if(has_pain())
-					INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 				ADD_TRAIT(src, TRAIT_FLOORED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 				if(usable_hands < default_num_hands)
 					limbless_slowdown += (default_num_hands - usable_hands) * 4
@@ -183,7 +181,7 @@
 
 	update_limbless_slowdown()
 	update_fractures_slowdown()
-	update_hands_HUD()
+	update_hud_hands()
 
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.

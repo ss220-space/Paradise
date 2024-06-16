@@ -26,7 +26,7 @@
 		gain_desc = "You can now use [src]."
 
 
-/datum/vampire_passive/Destroy(force, ...)
+/datum/vampire_passive/Destroy(force)
 	owner = null
 	return ..()
 
