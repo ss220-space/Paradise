@@ -565,7 +565,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 *video camera *
 ***************/
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
-GLOBAL_VAR_INIT(active_video_cameras, 0)
+GLOBAL_LIST_EMPTY(active_video_cameras)
 
 /obj/item/videocam
 	name = "video camera"
@@ -594,9 +594,9 @@ GLOBAL_VAR_INIT(active_video_cameras, 0)
 
 /obj/item/videocam/proc/update_feeds()
 	if(on)
-		GLOB.active_video_cameras++
+		GLOB.active_video_cameras |= src
 	else
-		GLOB.active_video_cameras--
+		GLOB.active_video_cameras -= src
 
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
 		TV.update_icon(UPDATE_OVERLAYS)
