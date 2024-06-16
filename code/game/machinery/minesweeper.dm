@@ -1,53 +1,102 @@
-/obj/machinery/minesweeper
-	name = "Minesweeper"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "gboard_on"
-	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
+#define MINESWEEPER_ROWS 16
+#define MINESWEEPER_COLUMNS 16
+#define MINESWEEPER_BOMBS 40
+
+/obj/machinery/arcade/minesweeper
+	name = "Cапер"
+	icon_state = "minesweeper"
+	desc = "Классическая аркадная игра про флашки, цифры и БОМБЫ."
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	light_color = LIGHT_COLOR_LIGHTBLUE
+	tts_seed = "Livsy"
+	token_price = 100
+	var/list/win_phrases = list("Ох, ну надо же!", "Вот это да!", "Видимо в этот раз без взрыва!")
+	var/list/loose_phrases = list("Ой! Чуть не задело!", "А ведь победа была так близко!", "Бабах!")
+	var/list/random_phrases = list("Пупупупупу, дай кого-нибудь взорву!", "Не шевелись! Вокруг мины!")
+	var/list/emag_prizes = list(/obj/item/storage/box/bombsecurity, /obj/item/storage/box/thunderdome/bombarda, \
+								/obj/item/storage/belt/grenade/frag, /obj/item/grenade/syndieminibomb, \
+								/obj/item/storage/box/syndie_kit/c4)
+	var/last_random
+	var/phrase_delay = 6000
 	var/first_touch = TRUE
 	var/setted_flags = 0
 	var/flagged_bombs = 0
 	var/opened_cells = 0
+	var/ignore_touches = FALSE
+	var/show_message = ""
 	var/list/minesweeper_matrix = list()
+	var/generation_rows = MINESWEEPER_ROWS
+	var/generation_columns = MINESWEEPER_COLUMNS
+	var/generation_bombs = MINESWEEPER_BOMBS
 
-/obj/machinery/minesweeper/New()
+/obj/machinery/arcade/minesweeper/New()
 	. = ..()
 	make_empty_matr()
+	last_random = world.time + rand(0, phrase_delay)
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/minesweeper/proc/make_empty_matr()
-	for(var/i in 1 to 16)
+/obj/machinery/arcade/minesweeper/proc/make_empty_matr()
+	for(var/i in 1 to generation_rows)
 		var/list/new_row = list()
-		for(var/j in 1 to 16)
+		for(var/j in 1 to generation_columns)
 			new_row["[j]"] = list("open" = FALSE, "bomb" = FALSE, "flag" = FALSE, "around" = 0)
 		minesweeper_matrix["[i]"] = new_row
 	first_touch = TRUE
+	ignore_touches = FALSE
+	tokens -= 1
+	if(tokens < 0)
+		tokens = 0
+	if(tokens==0)
+		SStgui.close_uis(src)
+	show_message = ""
+	SStgui.update_uis(src)
 
-/obj/machinery/minesweeper/attack_hand(mob/user)
+/obj/machinery/arcade/minesweeper/proc/speak(message)
+	if(stat & NOPOWER)
+		return
+	if(!message)
+		return
+
+	atom_say(message)
+
+/obj/machinery/arcade/minesweeper/process()
 	. = ..()
-	if(.)
-		return
-	if(!anchored)
-		to_chat(user, "The gameboard is not secured!")
-		return
+	if(((last_random + src.phrase_delay) <= world.time) && prob(5))
+		var/phrase = pick(src.random_phrases)
+		speak(phrase)
+		last_random = world.time
+
+/obj/machinery/arcade/minesweeper/start_play(mob/user)
+	in_use = FALSE
 	ui_interact(user)
 
-/obj/machinery/minesweeper/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+/obj/machinery/arcade/minesweeper/emag_act(mob/user)
+	. = ..()
+	emagged = TRUE
+
+/obj/machinery/arcade/minesweeper/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && !(stat & NOPOWER))
+		. += "minesweeper_screen"
+
+/obj/machinery/arcade/minesweeper/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Minesweeper", "Minesweeper", 800, 800)
+		ui = new(user, src, ui_key, "Minesweeper", "Сапер", 460, 650)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/machinery/minesweeper/ui_data(mob/user)
-	var/list/data = list("matrix" = minesweeper_matrix)
+/obj/machinery/arcade/minesweeper/ui_data(mob/user)
+	var/list/data = list("matrix" = minesweeper_matrix, "showMessage" = show_message, "tokens" = tokens)
 	return data
 
-/obj/machinery/minesweeper/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/arcade/minesweeper/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+	if(ignore_touches)
+		return
 	switch(action)
 		if("Square")
 			switch(params["mode"])
@@ -56,8 +105,7 @@
 						generate_matrix(params["X"], params["Y"])
 					open_cell(params["X"], params["Y"])
 					if(minesweeper_matrix[params["X"]][params["Y"]]["bomb"])
-						to_chat(ui.user, "Лошара проиграл")
-						make_empty_matr()
+						on_loose(ui.user)
 						SStgui.update_uis(src)
 						return
 				if("flag")
@@ -76,20 +124,45 @@
 			check_win(ui.user)
 			SStgui.update_uis(src)
 
-/obj/machinery/minesweeper/proc/check_win(mob/user)
-	if(flagged_bombs == 40 && setted_flags == 40 && opened_cells == (16 * 16 - 40))
-		to_chat(user, "МОЛОДЦА")
-		make_empty_matr()
+/obj/machinery/arcade/minesweeper/proc/check_win(mob/user)
+	if(flagged_bombs == generation_bombs && setted_flags == generation_bombs && opened_cells == (generation_rows * generation_columns - generation_bombs))
+		on_win()
 
-/obj/machinery/minesweeper/proc/generate_matrix(var/x, var/y)
+/obj/machinery/arcade/minesweeper/proc/on_win()
+	show_message = "Ура! Победа!"
+	ignore_touches = TRUE
+	var/prize = /obj/item/stack/tickets
+	new prize(get_turf(src), rand(50, 90))
+	if(emagged)
+		var/emag_prize = pick(emag_prizes)
+		new emag_prize(get_turf(src))
+	speak(pick(win_phrases))
+	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
+
+/obj/machinery/arcade/minesweeper/proc/on_loose(mob/user)
+	show_message = "Ой-ой! Вот неудача!"
+	ignore_touches = TRUE
+	speak(pick(loose_phrases))
+	if(emagged)
+		user.gib()
+	playsound(loc, 'sound/effects/explosionfar.ogg', 50, 1)
+	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
+
+/obj/machinery/arcade/minesweeper/proc/generate_matrix(var/x, var/y)
 	var/bombs = 0
 	flagged_bombs = 0
 	setted_flags = 0
 	opened_cells = 0
-	while(bombs < 40)
-		var/new_x = "[rand(1, 16)]"
-		var/new_y = "[rand(1, 16)]"
-		if(new_x == x && new_y == y)
+	var/list/ignore_list = list()
+	var/num_x = text2num(x)
+	var/num_y = text2num(y)
+	for(var/ignore_x in list(num_x-1, num_x, num_x+1))
+		for(var/ignore_y in list(num_y-1, num_y, num_y+1))
+			ignore_list += "([ignore_x], [ignore_y])"
+	while(bombs < generation_bombs)
+		var/new_x = "[rand(1, generation_rows)]"
+		var/new_y = "[rand(1, generation_columns)]"
+		if("([new_x], [new_y])" in ignore_list)
 			continue
 		if(minesweeper_matrix[new_x][new_y]["bomb"])
 			continue
@@ -100,20 +173,20 @@
 			minesweeper_matrix[new_x]["[text2num(new_y)-1]"]["around"] += 1
 		if(new_x != "1" && new_y != "1")
 			minesweeper_matrix["[text2num(new_x)-1]"]["[text2num(new_y)-1]"]["around"] += 1
-		if(new_x != "16")
+		if(new_x != "[generation_rows]")
 			minesweeper_matrix["[text2num(new_x)+1]"][new_y]["around"] += 1
-		if(new_y != "16")
+		if(new_y != "[generation_columns]")
 			minesweeper_matrix[new_x]["[text2num(new_y)+1]"]["around"] += 1
-		if(new_x != "16" && new_y != "16")
+		if(new_x != "[generation_rows]" && new_y != "[generation_columns]")
 			minesweeper_matrix["[text2num(new_x)+1]"]["[text2num(new_y)+1]"]["around"] += 1
-		if(new_x != "1" && new_y != "16")
+		if(new_x != "1" && new_y != "[generation_columns]")
 			minesweeper_matrix["[text2num(new_x)-1]"]["[text2num(new_y)+1]"]["around"] += 1
-		if(new_x != "16" && new_y != "1")
+		if(new_x != "[generation_rows]" && new_y != "1")
 			minesweeper_matrix["[text2num(new_x)+1]"]["[text2num(new_y)-1]"]["around"] += 1
 		bombs++
 	first_touch = FALSE
 
-/obj/machinery/minesweeper/proc/open_cell(x, y)
+/obj/machinery/arcade/minesweeper/proc/open_cell(x, y)
 	if(!minesweeper_matrix[x][y]["open"])
 		minesweeper_matrix[x][y]["open"] = TRUE
 		opened_cells += 1
@@ -125,7 +198,7 @@
 		if(minesweeper_matrix[x][y]["around"] == 0)
 			update_zeros(x, y)
 
-/obj/machinery/minesweeper/proc/update_zeros(x, y)
+/obj/machinery/arcade/minesweeper/proc/update_zeros(x, y)
 	var/new_x
 	var/new_y
 
@@ -137,11 +210,11 @@
 		new_y = "[text2num(y)-1]"
 		open_cell(x, new_y)
 
-	if(x != "16")
+	if(x != "[generation_rows]")
 		new_x = "[text2num(x)+1]"
 		open_cell(new_x, y)
 
-	if(y != "16")
+	if(y != "[generation_columns]")
 		new_y = "[text2num(y)+1]"
 		open_cell(x, new_y)
 
@@ -151,20 +224,24 @@
 		if(minesweeper_matrix[new_x][y]["open"] && minesweeper_matrix[x][new_y]["open"])
 			open_cell(new_x, new_y)
 
-	if(x != "16" && y != "16")
+	if(x != "[generation_rows]" && y != "[generation_columns]")
 		new_x = "[text2num(x)+1]"
 		new_y = "[text2num(y)+1]"
 		if(minesweeper_matrix[new_x][y]["open"] && minesweeper_matrix[x][new_y]["open"])
 			open_cell(new_x, new_y)
 
-	if(x != "1" && y != "16")
+	if(x != "1" && y != "[generation_columns]")
 		new_x = "[text2num(x)-1]"
 		new_y = "[text2num(y)+1]"
 		if(minesweeper_matrix[new_x][y]["open"] && minesweeper_matrix[x][new_y]["open"])
 			open_cell(new_x, new_y)
 
-	if(x != "16" && y != "1")
+	if(x != "[generation_rows]" && y != "1")
 		new_x = "[text2num(x)+1]"
 		new_y = "[text2num(y)-1]"
 		if(minesweeper_matrix[new_x][y]["open"] && minesweeper_matrix[x][new_y]["open"])
 			open_cell(new_x, new_y)
+
+#undef MINESWEEPER_ROWS
+#undef MINESWEEPER_COLUMNS
+#undef MINESWEEPER_BOMBS

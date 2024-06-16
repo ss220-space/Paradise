@@ -1,0 +1,16 @@
+.Minesweeper__closed {
+  vertical-align: middle;
+  text-align: left;
+  border: 3px outset #fcfcfc;
+  font-size: 15px;
+}
+
+.Minesweeper__open {
+  vertical-align: middle;
+  text-align: center;
+  font-size: medium;
+}
+
+.Minesweeper__message {
+  font-size: medium;
+}

@@ -1,12 +1,15 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section } from '../components';
+import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
+import { FlexItem } from '../components/Flex';
 
 export const Minesweeper = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     matrix,
+    showMessage,
+    tokens,
   } = data;
 
   const NumColor = {
@@ -28,8 +31,10 @@ export const Minesweeper = (props, context) => {
   return (
     <Window theme="ntOS95"
       resizable>
-      <Window.Content scrollable>
+      <Window.Content>
         <Section title="Игровое поле"
+          textAlign="center"
+          height="100%"
           buttons={
             <Fragment>
               <Button
@@ -46,28 +51,33 @@ export const Minesweeper = (props, context) => {
               />
             </Fragment>
           }>
-          {Object.keys(matrix).map(row => (
-            <Box key={row}>
-              {Object.keys(matrix[row]).map(cell => (
-                <Button key={cell}
-                  height="20px"
-                  width="20px"
-                  style={{
-                    'vertical-align': 'middle',
-                    margin: '1px',
-                  }}
-                  bold
-                  color={matrix[row][cell]["open"] ? "red" : " "}
-                  textColor={matrix[row][cell]["open"] ? (matrix[row][cell]["bomb"] ? "black" : NumColor[matrix[row][cell]["around"]])
-                    : (matrix[row][cell]["flag"] ? "red" : "gray")}
-                  onClick={() => act("Square", {"X": row, "Y": cell, "mode": currentMode})}>
-                  {matrix[row][cell]["open"] ?
-                  (matrix[row][cell]["bomb"] ? "*" : (matrix[row][cell]["around"] ? matrix[row][cell]["around"] : "0"))
-                  : (matrix[row][cell]["flag"] ? "►" : " ")}
-                </Button>
-              ))}
-            </Box>
-          ))}
+            {Object.keys(matrix).map(row => (
+              <Box key={row}>
+                {Object.keys(matrix[row]).map(cell => (
+                  <Button key={cell}
+                    height="25px"
+                    width="25px"
+                    className={matrix[row][cell]["open"] ? "Minesweeper__open" : "Minesweeper__closed"}
+                    bold
+                    color="transparent"
+                    textColor={matrix[row][cell]["open"] ? (matrix[row][cell]["bomb"] ? "black" : NumColor[matrix[row][cell]["around"]])
+                      : (matrix[row][cell]["flag"] ? "red" : "gray")}
+                    onClick={() => act("Square", {"X": row, "Y": cell, "mode": currentMode})}>
+                    {matrix[row][cell]["open"] ?
+                    (matrix[row][cell]["bomb"] ? "*" : (matrix[row][cell]["around"] ? matrix[row][cell]["around"] : " "))
+                    : (matrix[row][cell]["flag"] ? "►" : " ")}
+                  </Button>
+                ))}
+              </Box>
+            ))}
+          <Box textAlign="center" className="Minesweeper__message">
+            Для победы нужно пометить флажками все бомбы,
+            а также открыть все пустые клетки.
+            <br/>
+            Баланс токенов: {tokens}
+            <br/>
+            {showMessage}
+          </Box>
         </Section>
       </Window.Content>
     </Window>
