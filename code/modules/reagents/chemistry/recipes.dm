@@ -26,21 +26,27 @@
 
 /datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius = 1)
 	var/list/mob/living/carbon/carbons = list()
+	var/mob/living/carbon/carbon = new
 	var/turf/T = get_turf(holder.my_atom)
-	var/color = mix_color_from_reagents(reagents)
+	var/color = mix_color_from_reagents(holder.reagent_list)
+
+	if(!isturf(T))
+		return
+
 	T.visible_message(span_warning("The solution generates a strong vapor!"))
 	new /obj/effect/particle_effect/chem_smoke/small(T, color)
 	playsound(T, 'sound/effects/smoke.ogg', 50, 1, -3)
 
-	for(var/mob/living/carbon/C in range(T, radius))
-		if(C.can_breathe_gas())
-			carbons += C
-		for(C in carbons)
-			C.emote("gasp")
-			if(amount >= 60)
-				C.AdjustLoseBreath(2 SECONDS)
-			for(var/local_reagent in reagents)
-				C.reagents.add_reagent(local_reagent, REAGENT_EVAPORATION(amount))
+	for(carbon in view(radius, T))
+		if(carbon.can_breathe_gas())
+			carbons += carbon
+
+	for(carbon in carbons)
+		carbon.emote("gasp")
+		if(amount >= 60)
+			carbon.AdjustLoseBreath(2 SECONDS)
+		for(var/local_reagent in reagents)
+			carbon.reagents.add_reagent(local_reagent, REAGENT_EVAPORATION(amount)/carbons.len)
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)
