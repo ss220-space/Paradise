@@ -36,6 +36,8 @@
 	var/visor_clothing_flags = NONE
 	/// Same as visor_clothing_flags, but for flags_inv
 	var/visor_flags_inv = NONE
+	/// Same as visor_flags_inv, but for flags_inv_transparent
+	var/visor_flags_inv_transparent = NONE
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
@@ -69,10 +71,12 @@
 	if(!can_use(user))
 		return FALSE
 
-	visor_toggling(user)
-	to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
-	update_equipped_item()
-	return TRUE
+	if(visor_toggling(user))
+		update_equipped_item(update_speedmods = FALSE)
+		to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+		return TRUE
+
+	return FALSE
 
 
 /obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
@@ -83,6 +87,7 @@
 	up = !up
 	clothing_flags ^= visor_clothing_flags
 	flags_inv ^= visor_flags_inv
+	flags_inv_transparent ^= visor_flags_inv_transparent
 	flags_cover ^= initial(flags_cover)
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
@@ -481,6 +486,7 @@ BLIND     // can't see anything
 	put_on_delay = 40
 	var/adjusted_slot_flags = NONE
 	var/adjusted_flags_inv = NONE
+	var/adjusted_flags_inv_transparent = NONE
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
@@ -509,6 +515,8 @@ BLIND     // can't see anything
 			slot_flags = adjusted_slot_flags
 		if(adjusted_flags_inv)
 			flags_inv ^= adjusted_flags_inv
+		if(adjusted_flags_inv_transparent)
+			flags_inv_transparent ^= adjusted_flags_inv_transparent
 		//Mask won't cover the mouth any more since it's been pushed out of the way. Allows for CPRing with adjusted masks.
 		if(flags_cover & MASKCOVERSMOUTH)
 			flags_cover &= ~MASKCOVERSMOUTH
@@ -523,6 +531,8 @@ BLIND     // can't see anything
 		slot_flags = initial(slot_flags)
 		if(adjusted_flags_inv)
 			flags_inv ^= adjusted_flags_inv
+		if(adjusted_flags_inv_transparent)
+			flags_inv_transparent ^= adjusted_flags_inv_transparent
 		if(clothing_flags != initial(clothing_flags))
 			//If the mask is airtight and thus, one that you'd be able to run internals from yet can't because it was adjusted, make it airtight again.
 			if(initial(clothing_flags) & AIRTIGHT)
@@ -547,15 +557,23 @@ BLIND     // can't see anything
 	if(!user.equip_to_slot_if_possible(src, slot_flags))
 		user.put_in_hands(src)
 
+
 /obj/item/clothing/mask/proc/force_adjust_mask()
-	up = !up
+	up = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	gas_transfer_coefficient = null
 	permeability_coefficient = null
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	clothing_flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
+	if(adjusted_slot_flags)
+		slot_flags = adjusted_slot_flags
+	if(adjusted_flags_inv)
+		flags_inv ^= adjusted_flags_inv
+	if(adjusted_flags_inv_transparent)
+		flags_inv_transparent ^= adjusted_flags_inv_transparent
+	if(flags_cover & MASKCOVERSMOUTH)
+		flags_cover &= ~MASKCOVERSMOUTH
+	if(clothing_flags & AIRTIGHT)
+		clothing_flags &= ~AIRTIGHT
+
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
@@ -937,6 +955,17 @@ BLIND     // can't see anything
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		accessory.attached_equip(user)
+
+
+/obj/item/clothing/under/update_overlays()
+	. = ..()
+
+	if(!LAZYLEN(accessories))
+		return .
+
+	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
+		if(accessory.acc_overlay)
+			. += accessory.acc_overlay
 
 
 /*

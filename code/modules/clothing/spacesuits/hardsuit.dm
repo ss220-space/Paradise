@@ -403,12 +403,14 @@
 		clothing_flags |= visor_clothing_flags
 		flags_cover |= (HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv |= visor_flags_inv
+		flags_inv_transparent |= visor_flags_inv_transparent
 		cold_protection |= HEAD
 		armor.rad = 100
 	else
 		clothing_flags &= ~visor_clothing_flags
 		flags_cover &= ~(HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv
+		flags_inv_transparent &= ~visor_flags_inv_transparent
 		cold_protection &= ~HEAD
 		armor.rad = combat_rad
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)

@@ -435,6 +435,7 @@
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
