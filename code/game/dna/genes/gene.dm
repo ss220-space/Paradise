@@ -158,12 +158,40 @@
 		to_chat(mutant, span_warning("[msg]"))
 
 
-/datum/dna/gene/basic/fake	// placeholder for empty FAKE gene
+// placeholders for empty FAKE genes
+// you can remake these into your own powers
+
+/datum/dna/gene/basic/fake
 	name = "Ordinary Gene"
 	desc = "Just another link in the DNA strand."
 
 
-/datum/dna/gene/basic/fake/New()
+/datum/dna/gene/basic/fake/fake1/New()
 	..()
-	block = GLOB.fakeblock
+	block = GLOB.fakeblock1
+
+
+/datum/dna/gene/basic/fake/fake2/New()
+	..()
+	block = GLOB.fakeblock2
+
+
+/datum/dna/gene/basic/fake/fake3/New()
+	..()
+	block = GLOB.fakeblock3
+
+
+/datum/dna/gene/basic/fake/fake4/New()
+	..()
+	block = GLOB.fakeblock4
+
+
+/datum/dna/gene/basic/fake/fake5/New()
+	..()
+	block = GLOB.fakeblock5
+
+
+/datum/dna/gene/basic/fake/fake6/New()
+	..()
+	block = GLOB.fakeblock6
 
