@@ -70,6 +70,7 @@
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
+			adjust_blood(null, 300)
 		return
 	add_objective(/datum/objective/blood)
 	add_objective(/datum/objective/maroon)

@@ -10,6 +10,8 @@
 #define CHANGELING_PURCHASABLE_POWER	"changeling_purchasable_power"
 /// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
 #define CHANGELING_UNOBTAINABLE_POWER	"changeling_unobtainable_power"
+/// Extra points for hijack changeling.
+#define LING_HIJACK_EXTRA_POINTS 4
 
 /// Changeling aliases.
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
@@ -25,7 +27,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
-	silent = TRUE
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
 	/// DNA that is not lost when capacity is otherwise full.
@@ -64,6 +65,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/is_linking = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 10
+	/// The amount of point to adjust genetic points.
+	var/extra_points = 0
 	/// If the changeling can respec their purchased abilities.
 	var/can_respec = FALSE
 	/// Currently chosen DNA
@@ -120,7 +123,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling/greet()
 	. = ..()
-	. += (span_userdanger("We are a [special_role]!"))
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ling_aler.ogg')
 	//to_chat(owner.current, span_changeling("Remember: you get all of the absorbed DNA points from other changelings if you absorb them."))
 
@@ -205,6 +207,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 			add_objective(/datum/objective/hijack)
+			extra_points = LING_HIJACK_EXTRA_POINTS
+			genetic_points += extra_points
 		return
 	var/datum/objective/absorb/absorb = new
 	absorb.gen_amount_goal(6, 8)
@@ -280,7 +284,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	remove_changeling_powers(keep_innate_powers)
 	chosen_sting = null
 	if(reset_genetic_points)
-		genetic_points = initial(genetic_points)
+		genetic_points = initial(genetic_points) + extra_points
 	sting_range = initial(sting_range)
 	chem_storage = initial(chem_storage)
 	chem_recharge_rate = initial(chem_recharge_rate)

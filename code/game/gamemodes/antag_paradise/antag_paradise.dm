@@ -78,8 +78,15 @@
 	switch(special_antag_type)
 		if(ROLE_HIJACKER)
 			for(var/i in 1 to special_antag_amount)
-				var/hijack_antag_type = pick(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING)
-				switch(hijack_antag_type)
+				var/hijack_antag_type = list()
+				if(LAZYLEN(antag_possibilities[ROLE_TRAITOR]))
+					hijack_antag_type += ROLE_TRAITOR
+				if(LAZYLEN(antag_possibilities[ROLE_VAMPIRE]))
+					hijack_antag_type += ROLE_VAMPIRE
+				if(LAZYLEN(antag_possibilities[ROLE_CHANGELING]))
+					hijack_antag_type += ROLE_CHANGELING
+				var/choosen_antag = pick(hijack_antag_type)
+				switch(choosen_antag)
 					if(ROLE_TRAITOR)
 						var/datum/mind/special_antag = pick_n_take(antag_possibilities[ROLE_TRAITOR])
 						if(special_antag)
