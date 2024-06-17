@@ -27,10 +27,10 @@
 /datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius)
 	if(!holder || !holder.my_atom)
 		return
-	if(get_turf(holder.my_atom) == null)
+	if(!isturf(get_turf(holder.my_atom)))
 		return
+
 	var/turf/T = get_turf(holder.my_atom)
-		
 	var/color = mix_color_from_reagents(holder.reagent_list)
 
 	T.visible_message(span_warning("The solution generates a strong vapor!"))
