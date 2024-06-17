@@ -24,6 +24,7 @@
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define STAMCRIT	"stamcrit"
 #define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
 #define SLEEP		"sleep"
