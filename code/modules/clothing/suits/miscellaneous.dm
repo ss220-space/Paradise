@@ -92,6 +92,7 @@
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/cyborg_suit

@@ -22,7 +22,7 @@
 		return
 
 	render_source = source.render_target
-	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(on_source_deleting))
+	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(on_source_deleting))
 
 
 /atom/movable/emissive_blocker/proc/on_source_deleting(atom/source)

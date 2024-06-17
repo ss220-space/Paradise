@@ -92,6 +92,11 @@
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
 
+/obj/item/clothing/mask/gas/explorer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
+
+
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
@@ -349,14 +354,22 @@
 								"dredd"			= "I am, the LAW!"
 								)
 
+
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
+
+/obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
+
+
 /obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
+
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"

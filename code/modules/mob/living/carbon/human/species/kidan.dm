@@ -268,7 +268,7 @@
 				LAZYADD(active_pheromones_current, pheromones_to_create)
 
 				// Add a signal to the new pheromones so it clears its own references when it gets destroyed
-				RegisterSignal(pheromones_to_create, COMSIG_PARENT_QDELETING, PROC_REF(remove_pheromones_from_list))
+				RegisterSignal(pheromones_to_create, COMSIG_QDELETING, PROC_REF(remove_pheromones_from_list))
 
 				// Log the action
 				H.create_log(MISC_LOG, "produced pheromones with the message of \"[message_to_encode]\"")
@@ -279,7 +279,7 @@
 /datum/action/innate/produce_pheromones/proc/remove_pheromones_from_list(obj/effect/kidan_pheromones/pheromones)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(pheromones, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(pheromones, COMSIG_QDELETING)
 	LAZYREMOVE(active_pheromones_current, pheromones)
 
 // Clear references if the holder gets destroyed

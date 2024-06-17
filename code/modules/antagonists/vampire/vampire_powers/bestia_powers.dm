@@ -1414,7 +1414,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
-	light_system = MOVABLE_LIGHT
+	light_system = STATIC_LIGHT
 
 
 /**

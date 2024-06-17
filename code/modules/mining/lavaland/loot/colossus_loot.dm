@@ -386,7 +386,7 @@
 		L.mutations -=MUTE
 		L.status_flags &= ~GODMODE
 		REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		if(holder_animal && !QDELETED(holder_animal))
+		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
 		if(kill || !isanimal(loc))

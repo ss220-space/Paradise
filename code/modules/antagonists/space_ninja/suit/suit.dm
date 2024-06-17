@@ -23,6 +23,7 @@
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
 	actions = list()
 	action_icon = list()
 	action_icon_state = list()
@@ -651,9 +652,9 @@
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(obj/item/ninja_clothing)
 	var/prev_has = HAS_TRAIT_FROM(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	if(prev_has)
-		REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+		REMOVE_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	else
-		ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+		ADD_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
