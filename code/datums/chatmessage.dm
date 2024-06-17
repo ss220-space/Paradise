@@ -194,7 +194,7 @@
 /datum/chatmessage/proc/finish_image_generation(mheight, atom/target, mob/owner, complete_text, lifespan)
 	message_source = target
 	message_turf = isturf(target) ? target : get_turf(target)
-	if(QDELETED(target) || !message_turf)
+	if(QDELETED(owned_by) || QDELETED(target) || !message_turf)
 		qdel(src)
 		return
 
