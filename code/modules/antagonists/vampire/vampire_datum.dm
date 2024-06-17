@@ -1,3 +1,5 @@
+#define VAMP_HIJACKER_EXTRA_BLOOD 300
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -68,9 +70,7 @@
 
 /datum/antagonist/vampire/give_objectives()
 	if(is_hijacker)
-		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-			add_objective(/datum/objective/hijack)
-			adjust_blood(null, 300)
+		make_hijacker()
 		return
 	add_objective(/datum/objective/blood)
 	add_objective(/datum/objective/maroon)
@@ -81,6 +81,10 @@
 	else
 		add_objective(/datum/objective/escape)
 
+/datum/antagonist/vampire/proc/make_hijacker()
+	if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+		add_objective(/datum/objective/hijack)
+		adjust_blood(null, VAMP_HIJACKER_EXTRA_BLOOD)
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
 	SSticker.mode.vampires += owner
@@ -353,6 +357,7 @@
 		owner.current.pixel_y = 0
 		owner.current.layer = initial(owner.current.layer)
 
+#undef VAMP_HIJACKER_EXTRA_BLOOD
 #undef BLOOD_GAINED_MODIFIER
 #undef CLOSING_IN_TIME_MOD
 #undef GRABBING_TIME_MOD

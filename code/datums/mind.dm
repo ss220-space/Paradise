@@ -403,6 +403,7 @@
 	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
+		. += "<br><a href='?src=[UID()];changeling=make_hijack'>Make hijacker</a>"
 		if(!length(cling.objectives))
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
 		if(length(cling.absorbed_dna))
@@ -440,6 +441,7 @@
 		. += " | Total blood: <a href='?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
 		var/has_subclass = !QDELETED(vamp.subclass)
 		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		. += "<br><a href='?src=[UID()];vampire=make_hijack'>Make hijacker</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
@@ -1579,6 +1581,15 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+			if("make_hijack")
+				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
+				if(!cling)
+					return
+				cling.is_hijacker = TRUE
+				cling.make_hijacker()
+				log_admin("[key_name(usr)] become changeling hijacker.")
+				message_admins("[key_name_admin(usr)] has make [key_name_admin(current)] changeling hijacker.")
+
 			if("initialdna")
 				var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 				if(!cling || !length(cling.absorbed_dna))
@@ -1830,6 +1841,16 @@
 				vamp.adjust_trophies(INTERNAL_ORGAN_EARS, new_total)
 				log_admin("[key_name(usr)] has adjusted [key_name(current)]'s ears trophies by [new_total].")
 				message_admins("[key_name_admin(usr)] has adjusted [key_name_admin(current)]'s ears trophies by [new_total].")
+
+			if("make_hijack")
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				if(!vamp)
+					return
+				vamp.is_hijacker = TRUE
+				vamp.make_hijacker()
+				log_admin("[key_name(usr)] become vampire hijacker.")
+				message_admins("[key_name_admin(usr)] has make [key_name_admin(current)] vampire hijacker.")
+
 
 			if("autoobjectives")
 				if(!isvampire(src))
