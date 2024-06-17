@@ -186,7 +186,7 @@
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || incorporeal_move || mob_negates_gravity())
+	if(buckled || incorporeal_move || body_position == LYING_DOWN || mob_negates_gravity())
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
