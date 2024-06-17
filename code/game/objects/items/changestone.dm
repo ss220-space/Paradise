@@ -5,31 +5,47 @@
 	icon_state = "changerock"
 	var/used = FALSE
 
-/obj/item/changestone/attack_hand(var/mob/user as mob)
-	if(!ishuman(user))
-		to_chat(user, span_warning("You cannot handle with [src]."))
-		return ..()
+/obj/item/changestone/attack_hand(mob/user)
+	. = ..()
+	morph_human(user, TRUE)
+
+/obj/item/changestone/pickup(mob/user)
+	. = ..()
+	morph_human(user, FALSE)
+
+/obj/item/changestone/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	var/mob/user
+	morph_human(user, TRUE)
+	return ..()
+
+/obj/item/changestone/proc/morph_human(mob/living/carbon/human/user, silent)
+	. = FALSE
+	if(!istype(user))
+		if(!silent)
+			to_chat(user, span_warning("You cannot handle with [src]."))
+		return .
 
 	if(used)
-		to_chat(user, span_warning("[src] has already been used."))
-		return ..()
+		if(!silent)
+			to_chat(user, span_warning("[src] has already been used."))
+		return .
 
-	var/mob/living/carbon/human/H = user
+	if(user.gloves)
+		if(!silent)
+			to_chat(user, span_warning("Your [user.gloves] have blocked [src] power."))
+		return .
 
-	if(H.gloves)
-		return ..()
+	if(user.change_gender(user.gender == FEMALE ? MALE : FEMALE))
+		. = TRUE
 
-	if(H.gender == FEMALE)
-		H.change_gender(MALE)
-	else
-		H.change_gender(FEMALE)
-
-	if(H.set_species(get_random_species()))
-		used = TRUE
-		to_chat(user, span_danger("The power of the [src] has affected you!"))
-		to_chat(user, span_notice("You are now [H.dna.species]!"))
+	if(user.set_species(get_random_species()))
+		. = TRUE
+		to_chat(user, span_notice("You are now [user.dna.species]!"))
 		update_appearance(UPDATE_DESC)
-		..()
+
+	if(.)
+		to_chat(user, span_danger("The power of the [src] has affected you!"))
+		used = .
 
 /obj/item/changestone/update_desc(updates = ALL)
 	. = ..()
