@@ -287,35 +287,38 @@
 			near_render_block -= T
 
 /obj/effect/view_portal/visual/Bumped(atom/movable/thing)
-	if((isobj(thing) || isliving(thing)) && other && teleport)
-		if(!near_render_block)
-			setup_near()
+	. = ..()
+	if(!ismovable(thing) || !other || !teleport)
+		return .
 
-		var/mob/living/M = thing
-		// make the person glide onto the dest, giving a smooth transition
-		var/ox = thing.x - x
-		var/oy = thing.y - y
+	if(!near_render_block)
+		setup_near()
+
+	var/mob/living/M = thing
+	// make the person glide onto the dest, giving a smooth transition
+	var/ox = thing.x - x
+	var/oy = thing.y - y
+	if(istype(M) && M.client)
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		// cover up client-side map loading
+		M.screen_loc = "CENTER"
+		M.client.screen += M
+		for(var/T in tiles)
+			M.client.screen += tiles[T]
+
+	// wait a tick for the screen to replicate across network
+	// or this whole exercise of covering the transition is pointless
+	spawn(1)
+		thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
+		sleep(1)
 		if(istype(M) && M.client)
-			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-			// cover up client-side map loading
-			M.screen_loc = "CENTER"
-			M.client.screen += M
 			for(var/T in tiles)
-				M.client.screen += tiles[T]
-
-		// wait a tick for the screen to replicate across network
-		// or this whole exercise of covering the transition is pointless
-		spawn(1)
-			thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
-			sleep(1)
-			if(istype(M) && M.client)
-				for(var/T in tiles)
-					M.client.screen -= tiles[T]
-				M.client.screen -= M
-				M.screen_loc = initial(M.screen_loc)
-			thing.forceMove(get_turf(other.loc))
-			if(istype(M) && M.client)
-				REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+				M.client.screen -= tiles[T]
+			M.client.screen -= M
+			M.screen_loc = initial(M.screen_loc)
+		thing.forceMove(get_turf(other.loc))
+		if(istype(M) && M.client)
+			REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/effect/view_portal/visual/attack_ghost(mob/user)

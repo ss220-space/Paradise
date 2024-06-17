@@ -53,7 +53,7 @@ Difficulty: Medium
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = 1
-	appearance_flags = PIXEL_SCALE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
@@ -122,7 +122,7 @@ Difficulty: Medium
 			set_varspeed(0)
 			charging = 1
 			ranged_cooldown = world.time + 3 SECONDS
-			SLEEP_CHECK_DEATH(3 SECONDS)
+			SLEEP_CHECK_DEATH(src, 3 SECONDS)
 			set_ranged()
 		else if(prob(60))
 			firing_laser = TRUE
@@ -133,7 +133,7 @@ Difficulty: Medium
 			Beam(target_location, icon_state = "death_laser", time = beam_time, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration_telegraph)
 			addtimer(CALLBACK(src, PROC_REF(fire_disintegration_laser), target_location), beam_time)
 			ranged_cooldown = world.time + beam_time + 2 SECONDS
-			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
+			SLEEP_CHECK_DEATH(src, beam_time + 2 SECONDS)
 			firing_laser = FALSE
 		else if(prob(40))
 			var/mob/living/simple_animal/hostile/big_legion/A = new(loc)
@@ -207,7 +207,7 @@ Difficulty: Medium
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
 
 
-/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

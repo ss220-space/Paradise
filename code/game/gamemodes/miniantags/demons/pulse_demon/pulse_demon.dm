@@ -345,7 +345,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
 	return istype(A) && !(A.stat & BROKEN) && !A.shorted
 
-/mob/living/simple_animal/demon/pulse_demon/Move(newloc)
+/mob/living/simple_animal/demon/pulse_demon/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
 

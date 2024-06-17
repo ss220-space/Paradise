@@ -24,7 +24,7 @@
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()
 		intialOxy = L.getOxyLoss()
-		if(issmall(L))
+		if(is_monkeybasic(L))
 			name = "statue of a monkey"
 			icon_state = "monkey"
 		else if(ishuman(L))

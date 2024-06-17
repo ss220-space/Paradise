@@ -25,20 +25,18 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 /obj/effect/bump_teleporter/singularity_pull()
 	return
 
-/obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)
-	if (!ismob(moving_atom))
-		// user.loc = src.loc	// Stop at teleporter location
-		return
 
-	if (!id_target)
-		// user.loc = src.loc	// Stop at teleporter location, there is nowhere to teleport to.
-		return
-	for(var/bt in GLOB.bump_teleporters)
-		var/obj/effect/bump_teleporter/teleporter = bt
+/obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(!id_target || !ismob(moving_atom))
+		return .
+
+	for(var/obj/effect/bump_teleporter/teleporter as anything in GLOB.bump_teleporters)
 		if(teleporter.id == id_target)
 			moving_atom.forceMove(teleporter.loc)
 			process_special_effects(moving_atom)
-			return
+			break
+
 
 ///Special effects for teleporter. Supposed to be overriden.
 /obj/effect/bump_teleporter/proc/process_special_effects(mob/living/target)

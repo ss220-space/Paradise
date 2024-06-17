@@ -145,7 +145,7 @@
 
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(ishuman(moving_atom))
 		var/mob/living/carbon/human/H = moving_atom
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))

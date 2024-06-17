@@ -128,7 +128,7 @@
 		// If the devil wants to actually attack, they have the pitchfork.
 
 
-/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE)
+/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

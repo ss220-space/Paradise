@@ -99,8 +99,7 @@
 	qdel(src)
 
 /obj/machinery/recharge_station/Bumped(atom/movable/moving_atom)
-	..()
-
+	. = ..()
 	if(ismob(moving_atom))
 		move_inside(moving_atom)
 

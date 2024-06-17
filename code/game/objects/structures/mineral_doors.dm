@@ -37,7 +37,7 @@
 	move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(!state)
 		return TryToSwitchState(moving_atom)
 

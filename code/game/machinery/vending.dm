@@ -972,7 +972,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/rum = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/wine = 5,
-					/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat = 3,
+					/obj/item/reagent_containers/food/drinks/bag/goonbag = 3,
 					/obj/item/reagent_containers/food/drinks/bottle/cognac = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/kahlua = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,

@@ -61,6 +61,17 @@
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///called when the atom sucessfully has it's density var changed, from base atom/set_density(): (value)
 #define COMSIG_ATOM_SET_DENSITY "atom_set_density"
+///from base of atom/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
+#define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
+	///prevents pressure movement
+	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
+///signal sent out by an atom when it checks if it can be pulled, for additional checks
+#define COMSIG_ATOM_CAN_BE_PULLED "movable_can_be_pulled"
+	#define COMSIG_ATOM_CANT_PULL (1 << 0)
+///signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
@@ -103,8 +114,10 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
-///from base of atom/Entered(): (atom/movable/entering, /atom)
+///from base of atom/Entered(): (atom/movable/arrived, atom/oldloc)
 #define COMSIG_ATOM_ENTERED "atom_entered"
+/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/oldloc)
+#define COMSIG_ATOM_ENTERING "atom_entering"
 ///from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 #define COMSIG_ATOM_EXIT "atom_exit"
 	#define COMPONENT_ATOM_BLOCK_EXIT (1<<0)
@@ -137,8 +150,13 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
-///from base of atom/setDir(): (old_dir, new_dir)
+/// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
+#define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_face_atom"
+	#define COMPONENT_ATOM_BLOCK_DIR_CHANGE (1<<0)
+///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
+///from base of atom/setDir(): (old_dir, new_dir). Called after the direction changes.
+#define COMSIG_ATOM_POST_DIR_CHANGE "atom_dir_change"
 ///from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
 ///from base of atom/has_gravity(): (turf/location, list/forced_gravities)
@@ -220,10 +238,7 @@
 	#define ZIMPACT_NO_MESSAGE (1<<1)
 	/// Do not do the spin animation when landing
 	#define ZIMPACT_NO_SPIN (1<<2)
-///from base of atom/movable/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
-#define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
-	///prevents pressure movement
-	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
+
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -288,7 +303,7 @@
 	#define COMPONENT_MOVABLE_BLOCK_UNCROSS (1<<0)
 ///from base of atom/movable/Uncrossed(): (/atom/movable)
 #define COMSIG_MOVABLE_UNCROSSED "movable_uncrossed"
-///from base of atom/movable/Bump(): (/atom)
+///from base of atom/movable/Bump(): (/atom/bumped_atom)
 #define COMSIG_MOVABLE_BUMP "movable_bump"
 ///from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT "movable_impact"
@@ -327,6 +342,22 @@
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 ///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
 #define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
+///From base of /datum/move_loop/process() after attempting to move a movable: (datum/move_loop/loop, old_dir)
+#define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"
+///called when the movable's glide size is updated: (new_glide_size)
+#define COMSIG_MOVABLE_UPDATE_GLIDE_SIZE "movable_glide_size"
+/// from base of atom/movable/Process_Spacemove(): (movement_dir, continuous_move)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
+///from base of atom/movable/newtonian_move(): (inertia_direction, start_delay)
+#define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
+	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
+///from datum/component/drift/apply_initial_visuals(): ()
+#define COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT "movable_drift_visual_attempt"
+	#define DRIFT_VISUAL_FAILED (1<<0)
+///from datum/component/drift/allow_final_movement(): ()
+#define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
+	#define DRIFT_ALLOW_INPUT (1<<0)
 
 // /datum/mind signals
 
@@ -551,6 +582,8 @@
 	#define MOVE_ARG_NEW_LOC 1
 	/// The arugment of move_args which dictates our movement direction
 	#define MOVE_ARG_DIRECTION 2
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 
 /// From base of /client/Move(): (list/move_args)
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
@@ -1060,6 +1093,21 @@
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
+
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
+
+
+///from [/datum/move_loop/start_loop] ():
+#define COMSIG_MOVELOOP_START "moveloop_start"
+///from [/datum/move_loop/stop_loop] ():
+#define COMSIG_MOVELOOP_STOP "moveloop_stop"
+///from [/datum/move_loop/process] ():
+#define COMSIG_MOVELOOP_PREPROCESS_CHECK "moveloop_preprocess_check"
+	#define MOVELOOP_SKIP_STEP (1<<0)
+///from [/datum/move_loop/process] (succeeded, visual_delay):
+#define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
+//from [/datum/move_loop/has_target/jps/recalculate_path] ():
+#define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+

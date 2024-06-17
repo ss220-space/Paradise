@@ -1,6 +1,6 @@
 /atom/movable
 	layer = OBJ_LAYER
-	appearance_flags = TILE_BOUND|PIXEL_SCALE
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = FALSE
@@ -18,20 +18,23 @@
 	var/throwforce = 0
 	var/pull_push_speed_modifier = 1
 
-	///The last time we pushed off something
-	///This is a hack to get around dumb him him me scenarios
-	var/last_pushoff
+	/// A list containing arguments for Moved().
+	VAR_PRIVATE/tmp/list/active_movement
 
 	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
 	var/generic_canpass = TRUE
 
-	var/inertia_dir = NONE
-	var/atom/inertia_last_loc
+	/// Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
+	var/datum/movement_packet/move_packet
+	/// Are we moving with inertia? Mostly used as an optimization
 	var/inertia_moving = FALSE
-	var/inertia_next_move = 0
+	/// Delay in deciseconds between inertia based movement
 	var/inertia_move_delay = 5
+	///The last time we pushed off something
+	///This is a hack to get around dumb him him me scenarios
+	var/last_pushoff
 
-	///Used for the calculate_adjacencies proc for icon smoothing.
+	/// Used for the calculate_adjacencies proc for icon smoothing.
 	var/can_be_unanchored = FALSE
 
 	/// Whether the atom allows mobs to be buckled to it. Can be ignored in [/atom/movable/proc/buckle_mob()] if force = TRUE
@@ -57,6 +60,8 @@
 
 	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
 	var/moving_diagonally = NONE
+	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
+	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
 	var/list/client_mobs_in_contents
 
 	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
@@ -74,6 +79,7 @@
 
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
+
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -127,7 +133,7 @@
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 
-/atom/movable/Destroy()
+/atom/movable/Destroy(force)
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
 
@@ -137,11 +143,16 @@
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	LAZYCLEARLIST(client_mobs_in_contents)
-	move_to_null_space()
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(orbiting)
 		stop_orbit()
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
+
+	move_to_null_space()
 
 
 /atom/movable/get_emissive_block()
@@ -192,6 +203,9 @@
 			return FALSE
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
+			. = TRUE
+		if(NAMEOF(src, glide_size))
+			set_glide_size(var_value)
 			. = TRUE
 
 	if(!isnull(.))
@@ -268,9 +282,11 @@
 /atom/movable/proc/stop_pulling()
 	if(!pulling)
 		return
-
 	pulling.pulledby = null
+	var/atom/movable/old_pulling = pulling
 	pulling = null
+	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
+	SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 
 /**
@@ -311,32 +327,58 @@
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
 	loc = T
 
+
+/atom/movable/proc/set_glide_size(target = 8)
+	if(HAS_TRAIT(src, TRAIT_NO_GLIDE))
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
+	glide_size = target
+
+	for(var/mob/buckled_mob as anything in buckled_mobs)
+		buckled_mob.set_glide_size(target)
+
+
 /**
  * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
  * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
  * most of the time you want forceMove()
  */
 /atom/movable/proc/abstract_move(atom/new_loc)
+	RESOLVE_ACTIVE_MOVEMENT // This should NEVER happen, but, just in case...
 	var/atom/old_loc = loc
 	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
-	Moved(old_loc, direction, TRUE)
+	Moved(old_loc, direction, TRUE, FALSE)
 
 
-/atom/movable/Move(atom/newloc, direct = NONE, movetime)
+/atom/movable/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+	. = FALSE
 	if(!loc || !newloc)
-		return FALSE
+		return .
+
+	// A mid-movement... movement... occured, resolve that first.
+	RESOLVE_ACTIVE_MOVEMENT
+
+	if(!direct)
+		direct = get_dir(src, newloc)
 
 	var/atom/oldloc = loc
+	//Early override for some cases like diagonal movement
+	if(glide_size_override && glide_size != glide_size_override)
+		set_glide_size(glide_size_override)
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+		return .
 
 	if(loc != newloc)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, oldloc)
-		if(movetime > 0)
-			glide_for(movetime)
-
-		if(!(direct & (direct - 1))) //Cardinal move
-			. = ..(newloc, direct) // don't pass up movetime
-
+		if(!ISDIAGONALDIR(direct)) //Cardinal move
+			SET_ACTIVE_MOVEMENT(oldloc, direct, FALSE)
+			. = ..(newloc, direct)
+			setDir(direct)	// we should remake byond Move() already
+			if(.)
+				RESOLVE_ACTIVE_MOVEMENT
+			else
+				active_movement = null	// temporal solution
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -390,24 +432,27 @@
 				if(!.)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
-					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
+				if(client_mobs_in_contents)
+					update_parallax_contents()
 			moving_diagonally = NONE
-			return
+			return .
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
 		last_move = 0
 		set_currently_z_moving(FALSE, TRUE)
-		return
+		return .
 
-	if(.)
-		Moved(oldloc, direct, FALSE)
+	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
+	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
+	if(glide_size_override)
+		set_glide_size(glide_size_override)
 
 	last_move = direct
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob(s)
 		. = FALSE
 
 	if(currently_z_moving)
@@ -417,13 +462,14 @@
 		else
 			set_currently_z_moving(FALSE, TRUE)
 
-// Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 
-	if(!inertia_moving)
-		inertia_next_move = world.time + inertia_move_delay
+// Called after a successful Move(). By this point, we've already moved
+/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(!inertia_moving && momentum_change)
 		newtonian_move(Dir)
-	if(length(client_mobs_in_contents))
+	if(!moving_diagonally && client_mobs_in_contents)
 		update_parallax_contents()
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
@@ -439,14 +485,6 @@
 		light.source_atom.update_light()
 	return TRUE
 
-// Change glide size for the duration of one movement
-/atom/movable/proc/glide_for(movetime)
-	if(movetime)
-		glide_size = world.icon_size/max(DS2TICKS(movetime), 1)
-//		spawn(movetime)
-//			glide_size = initial(glide_size)
-//	else
-//		glide_size = initial(glide_size)
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
@@ -457,15 +495,25 @@
 /atom/movable/Uncrossed(atom/movable/AM)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
 
-/atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
-	if(A && yes)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
-		if(throwing)
-			throwing.finalize(A)
-			. = TRUE
-			if(QDELETED(A))
-				return
-		A.Bumped(src)
+
+/// The "custom_bump" arg is to differentiate our Bump proc in [/turf/Enter()] from byond's.
+/// Without it every Bump() call would become a double Bump().
+/// Return `TRUE` if you want to skip bump chain.
+/// Always check for null return in children, otherwise you will end with double bump.
+/atom/movable/Bump(atom/bumped_atom, custom_bump)
+	if(!custom_bump)
+		return null
+	if(!bumped_atom)
+		CRASH("Bump was called with no argument.")
+	. = FALSE
+	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, bumped_atom)
+	if(throwing)
+		throwing.finalize(bumped_atom)
+		. = TRUE
+		if(QDELETED(bumped_atom))
+			return .
+	bumped_atom.Bumped(src)
+
 
 /// Sets the currently_z_moving variable to a new value. Used to allow some zMovement sources to have precedence over others.
 /atom/movable/proc/set_currently_z_moving(new_z_moving_value, forced = FALSE)
@@ -491,9 +539,12 @@
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
+	RESOLVE_ACTIVE_MOVEMENT
 
 	var/atom/oldloc = loc
 	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+
+	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE)
 
 	if(destination)
 		///zMove already handles whether a pull from another movable should be broken.
@@ -558,7 +609,7 @@
 			if(old_area)
 				old_area.Exited(src, NONE)
 
-	Moved(oldloc, NONE, TRUE)
+	RESOLVE_ACTIVE_MOVEMENT
 
 
 /atom/movable/proc/onZImpact(turf/impacted_turf, levels, impact_flags = TRUE)
@@ -708,13 +759,17 @@
  *
  * Return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
  *
- * Mobs should return TRUE if they should be able to move of their own volition, see [/client/proc/Move]
+ * Mobs should return `TRUE` if they should be able to move of their own volition, see [/client/proc/Move]
  *
  * Arguments:
  * * movement_dir - NONE when stopping or any dir when trying to move
+ * * continuous_move - If this check is coming from something in the context of already drifting
  */
-/atom/movable/proc/Process_Spacemove(movement_dir = NONE)
+/atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(has_gravity())
+		return TRUE
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
 
 	if(pulledby && pulledby.pulledby != src)
@@ -733,17 +788,16 @@
 
 
 /// Only moves the object if it's under no gravity
-/atom/movable/proc/newtonian_move(direction)
-	if(!isturf(loc) || Process_Spacemove(NONE))
-		inertia_dir = NONE
+/// Accepts the direction to move, if the push should be instant, and an optional parameter to fine tune the start delay
+/atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
+	if(QDELETED(src) || !isturf(loc) || Process_Spacemove(direction, continuous_move = TRUE))
 		return FALSE
 
-	inertia_dir = direction
-	if(!direction)
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction, start_delay) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
 		return TRUE
 
-	inertia_last_loc = loc
-	SSspacedrift.processing[src] = src
+	AddComponent(/datum/component/drift, direction, instant, start_delay)
+
 	return TRUE
 
 
@@ -853,17 +907,15 @@
 	if(master)
 		return master.attack_hand(a, b, c)
 
-/atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
-	for(var/m in buckled_mobs)
-		var/mob/living/buckled_mob = m
-		buckled_mob.glide_size = glide_size
-		if(!buckled_mob.Move(newloc, direct, movetime))
-			forceMove(buckled_mob.loc)
+
+/atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		if(!buckled_mob.Move(newloc, direct, glide_size_override)) //If a mob buckled to us can't make the same move as us
+			Move(buckled_mob.loc, direct) //Move back to its location
 			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
 			return FALSE
 	return TRUE
+
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -888,7 +940,7 @@
 		return TRUE
 
 
-/atom/movable/proc/get_spacemove_backup(moving_direction)
+/atom/movable/proc/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/checked_range in orange(1, get_turf(src)))
 		if(isarea(checked_range))
 			continue

@@ -1,17 +1,3 @@
-/proc/issmall(A)
-	if(A && ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna.species && H.dna.species.is_small)
-			return 1
- 	return 0
-
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.

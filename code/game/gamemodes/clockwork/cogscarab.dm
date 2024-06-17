@@ -216,8 +216,8 @@
 	SSticker.mode.remove_clocker(mind, FALSE)
 	adjustBruteLoss(health)
 
-/mob/living/silicon/robot/cogscarab/Bump(atom/movable/AM, yes)
-	if(is_type_in_list(AM, allowed_bumpable_objects))
+/mob/living/silicon/robot/cogscarab/Bump(atom/bumped_atom, custom_bump)
+	if(custom_bump && is_type_in_list(bumped_atom, allowed_bumpable_objects))
 		return ..()
 
 /mob/living/silicon/robot/cogscarab/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)

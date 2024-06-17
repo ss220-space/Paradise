@@ -26,12 +26,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	hackable = FALSE
 
-/obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom)
-	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	if(density)
-		return
-	else
-		return 0
+
+/obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
+	. = ..()
 
 /obj/machinery/door/poddoor/impassable/preopen
 	icon_state = "open"

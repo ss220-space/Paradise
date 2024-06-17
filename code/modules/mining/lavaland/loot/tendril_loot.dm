@@ -155,22 +155,26 @@
 	desc = "A boat used for traversing lava."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
-	held_key_type = /obj/item/oar
+	layer = ABOVE_MOB_LAYER
+	key_type = /obj/item/oar
+	key_in_hands = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	/// The last time we told the user that they can't drive on land, so we don't spam them
-	var/last_message_time = 0
+
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
-	var/turf/next = get_step(src, direction)
-	var/turf/current = get_turf(src)
-
-	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
-		..()
-	else
-		if(last_message_time + 1 SECONDS < world.time)
-			to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
-			last_message_time = world.time
+	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
 		return FALSE
+	//We can move from land to lava, or lava to land, but not from land to land
+	if(!istype(get_step(src, direction), /turf/simulated/floor/plating/lava/smooth) && !istype(get_turf(src), /turf/simulated/floor/plating/lava/smooth))
+		to_chat(user, span_warning("You cannot traverse futher!"))
+		COOLDOWN_START(src, vehicle_move_cooldown, 0.5 SECONDS)
+		return FALSE
+	return ..()
+
+
+/obj/vehicle/lavaboat/handle_vehicle_layer()
+	return
+
 
 /obj/item/oar
 	name = "oar"
@@ -213,11 +217,12 @@
 /obj/vehicle/lavaboat/dragon
 	name = "mysterious boat"
 	desc = "This boat moves where you will it, without the need for an oar."
-	held_key_type = null
+	key_type = null
+	key_in_hands = FALSE
 	icon_state = "dragon_boat"
 	generic_pixel_y = 2
 	generic_pixel_x = 1
-	vehicle_move_delay = 1
+	vehicle_move_delay = 0.25 SECONDS
 
 //Wisp Lantern
 /obj/item/wisp_lantern

@@ -87,14 +87,15 @@
 	var/hasShocked = 0 //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
 
-/obj/machinery/field/Bumped(atom/movable/mover)
+/obj/machinery/field/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(hasShocked)
-		return
-	if(isliving(mover))
-		shock_field(mover)
-		return
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+		return .
+	if(isliving(moving_atom))
+		shock_field(moving_atom)
+		return .
+	if(ismachinery(moving_atom) || isstructure(moving_atom) || ismecha(moving_atom))
+		bump_field(moving_atom)
 
 
 /obj/machinery/field/CanAllowThrough(atom/movable/mover, border_dir)

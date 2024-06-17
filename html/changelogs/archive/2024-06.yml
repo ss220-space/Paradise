@@ -134,7 +134,25 @@
   pilygun:
   - balance: Vending capitalism update (#5196)
 '2024-06-16':
+  FanTik-Ratge:
+  - server: '[imageadd] fix mouse-ass anim (#5229)'
+  ROdenFL:
+  - bugfix: donour loadout (#5222)
   Zwei:
   - bugfix: Wet Floor Runtimes Fix (#5210)
   - bugfix: Final Genes Patch (#5221)
   - bugfix: Overlays Fixes (#5218)
+  - refactor: Obscured Slots Refining (#5230)
+  pilygun:
+  - add: Spell books in the spell book update! (#5219)
+  - add: LIBRARIAN spell book in uplink (#5216)
+  - soundadd: Shovel sound appdate (#5094)
+'2024-06-17':
+  Aziz Chynaliev:
+  - del: Drink resprites and some stuff (#5194)"
+  Zwei:
+  - tweak: Absorption Possibilities For Generic Effects (#5224)
+  - balance: Combat Crawling Update N1 (#5180)
+  - refactor: Sharpness Rework (#5160)
+  - tweak: Monka's Check Standardisation (#5127)
+  - refactor: Movement Looping System (#5102)

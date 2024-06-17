@@ -1,7 +1,6 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	glide_size = 1.5
 	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
