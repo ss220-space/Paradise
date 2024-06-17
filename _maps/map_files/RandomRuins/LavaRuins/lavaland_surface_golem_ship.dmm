@@ -670,6 +670,9 @@
 	},
 /turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
+"LP" = (
+/turf/simulated/floor/pod/dark/outside,
+/area/shuttle/freegolem)
 "LV" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/decal/warning_stripes/green/partial{
@@ -812,9 +815,6 @@
 /obj/item/resonator,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"TN" = (
-/turf/simulated/floor/pod/dark/outside,
-/area/shuttle/freegolem)
 "TQ" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -917,9 +917,9 @@ yB
 "}
 (2,1,1) = {"
 yB
-TN
+LP
 lh
-TN
+LP
 yB
 yB
 yB
@@ -931,16 +931,16 @@ yB
 yB
 yB
 yB
-TN
+LP
 lh
-TN
+LP
 yB
 "}
 (3,1,1) = {"
 cI
-TN
-TN
-TN
+cI
+cI
+cI
 cI
 yB
 yB
@@ -952,9 +952,9 @@ yB
 yB
 yB
 cI
-TN
-TN
-TN
+cI
+cI
+cI
 cI
 "}
 (4,1,1) = {"
@@ -966,9 +966,9 @@ wG
 yB
 yB
 cI
-TN
+LP
 lh
-TN
+LP
 cI
 yB
 yB
@@ -987,9 +987,9 @@ cI
 yB
 yB
 cI
-TN
-TN
-TN
+LP
+LP
+LP
 cI
 yB
 yB
