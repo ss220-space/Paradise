@@ -1,13 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "b" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
 /obj/item/rod_of_asclepius,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /obj/effect/turf_decal/sand/plating,
@@ -15,7 +15,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
 	pixel_y = 7
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/structure/bed,
@@ -31,7 +31,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/bed,
 /obj/item/bedsheet/yellow,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /turf/simulated/wall/mineral/sandstone,
@@ -40,17 +40,17 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
 /obj/item/flashlight/flare/torch,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/item/flashlight/flare/torch,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/mineral_door/sandstone,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "C" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -59,7 +59,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "F" = (
 /turf/simulated/mineral/random/volcanic,
@@ -68,7 +68,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/spidereggsham,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "K" = (
 /obj/effect/turf_decal/sand/plating,
@@ -76,7 +76,7 @@
 /obj/item/clothing/shoes/roman,
 /obj/item/clothing/under/roman,
 /obj/item/clothing/head/helmet/roman/legionaire,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "R" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -84,7 +84,7 @@
 "T" = (
 /obj/effect/turf_decal/sand/plating,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "U" = (
 /obj/effect/turf_decal/sand/plating,
@@ -98,12 +98,12 @@
 	force = 30;
 	name = "ancient sword"
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 "V" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/dark/outside,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
