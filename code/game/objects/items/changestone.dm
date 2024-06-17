@@ -33,7 +33,7 @@
 
 /obj/item/changestone/update_desc(updates = ALL)
 	. = ..()
-	desc += " That one looks used."
+	desc = "[initial(desc)][used ? " That one looks used." : null]"
 
 
 
