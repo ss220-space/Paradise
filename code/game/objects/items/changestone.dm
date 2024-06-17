@@ -26,6 +26,7 @@
 
 	if(H.set_species(get_random_species()))
 		used = TRUE
+		H.update_body()
 		to_chat(user, span_danger("The power of the [src] has affected you!"))
 		to_chat(user, span_notice("You are now [H.dna.species]!"))
 		update_appearance(UPDATE_DESC)
