@@ -231,22 +231,32 @@
 			set_stat(CONSCIOUS)
 	..()
 
+
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
 	return
 
+
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
-	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
-			turns_since_move++
-			if(turns_since_move >= turns_per_move)
-				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(GLOB.cardinal)
-					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir, cached_multiplicative_slowdown)
-						turns_since_move = 0
-			return 1
+	if(stop_automated_movement || !wander)
+		return
+	if(!isturf(loc) && !allow_movement_on_non_turfs)
+		return
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return TRUE
+
+	turns_since_move++
+	if(turns_since_move < turns_per_move)
+		return TRUE
+	if(stop_automated_movement_when_pulled && pulledby) //Some animals don't move when pulled
+		return TRUE
+	var/anydir = pick(GLOB.cardinal)
+	if(Process_Spacemove(anydir))
+		step_with_glide(direction = anydir)
+		turns_since_move = 0
+	return TRUE
+
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
@@ -677,7 +687,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 
 /mob/living/simple_animal/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -727,3 +737,31 @@
 
 /mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
 	return TRUE
+
+
+/mob/living/simple_animal/update_movespeed()
+	. = ..()
+	if(cached_multiplicative_slowdown > END_GLIDE_SPEED)
+		ADD_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+
+
+/mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction)
+	if(client)
+		return FALSE
+	if(!direction && !newloc)
+		return FALSE
+	if(!direction)
+		direction = get_dir(src, newloc)
+	else if(!newloc)
+		newloc = get_step(src, direction)
+		if(!newloc)
+			return FALSE
+	var/adjusted_delay = cached_multiplicative_slowdown
+	if(ISDIAGONALDIR(direction))
+		adjusted_delay *= sqrt(2)
+	. = Move(newloc, direction)
+	if(adjusted_delay <= END_GLIDE_SPEED)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+

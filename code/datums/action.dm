@@ -221,7 +221,7 @@
 		return FALSE
 	if(target && attack_self)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type, left_click)
+		I.ui_action_click(owner, src, left_click)
 	return TRUE
 
 
@@ -490,7 +490,7 @@
 /datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
 	. = ..()
 	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.stabilizers)
+	if(!istype(J) || !J.stabilize)
 		button.icon_state = "[background_icon_state]"
 	else
 		button.icon_state = "[background_icon_state]_active"

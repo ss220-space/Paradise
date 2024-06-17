@@ -510,15 +510,15 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
-	var/turf/T = get_turf(NewLoc)
+/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+	var/turf/T = get_turf(newloc)
 	if(T.density)
 		return
 	for(var/atom/A in T.contents)
 		if(A.density && istype(A, /obj/machinery/door))
 			return
-	UpdateTransparency(src, NewLoc)
-	forceMove(NewLoc)
+	UpdateTransparency(src, newloc)
+	forceMove(newloc)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()

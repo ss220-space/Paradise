@@ -1146,7 +1146,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return user.get_organ_slot(INTERNAL_ORGAN_EYES)
 
 
-/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	return FALSE
 
 

@@ -30,10 +30,10 @@
 	reagents = new()
 	holder_type = /obj/item/holder/snail
 
-/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE)
-	return TRUE
+/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE	// why???
 
-/mob/living/simple_animal/snail/Move(atom/newloc, direct, movetime)
+/mob/living/simple_animal/snail/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)

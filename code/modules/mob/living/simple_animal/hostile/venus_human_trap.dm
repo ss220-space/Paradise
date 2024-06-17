@@ -83,8 +83,7 @@
 				L.attack_animal(src)
 			else
 				if(prob(grasp_pull_chance))
-					dir = get_dir(src,L) //staaaare
-					step(L,get_dir(L,src)) //reel them in
+					step_with_glide(direction = get_dir(src, L))
 					L.Weaken(6 SECONDS) //you can't get away now~
 
 		if(grasping.len < max_grasps)

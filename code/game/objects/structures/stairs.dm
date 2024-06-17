@@ -52,7 +52,7 @@
 	if(!isobserver(leaving) && isTerminator() && direction == dir)
 		leaving.set_currently_z_moving(CURRENTLY_Z_ASCENDING)
 		INVOKE_ASYNC(src, PROC_REF(stair_ascend), leaving)
-		leaving.Bump(src)
+		leaving.Bump(src, custom_bump = TRUE)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/stairs/Cross(atom/movable/AM)

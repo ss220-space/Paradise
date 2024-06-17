@@ -2004,9 +2004,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2161,3 +2158,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
+
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+

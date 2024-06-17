@@ -181,10 +181,10 @@
 
 
 /obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(operating)
-		return
+		return .
 
 	if(isliving(moving_atom))
 		var/mob/living/living = moving_atom

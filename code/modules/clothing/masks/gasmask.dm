@@ -421,12 +421,12 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/halt)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/halt))
 		halt()
-	else if(actiontype == /datum/action/item_action/adjust)
+	else if(istype(action, /datum/action/item_action/adjust))
 		adjustmask(user)
-	else if(actiontype == /datum/action/item_action/selectphrase)
+	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
