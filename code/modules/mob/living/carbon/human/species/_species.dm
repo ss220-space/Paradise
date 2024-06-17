@@ -595,6 +595,8 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		return FALSE
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
@@ -622,6 +624,15 @@
 			else
 				target.LAssailant = user
 			return
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		if(target.move_resist > user.pull_force)
+			return FALSE
+		if(!(target.status_flags & CANPUSH))
+			return FALSE
+		if(target.anchored)
+			return FALSE
+		if(target.buckled)
+			target.buckled.unbuckle_mob(target)
 
 		var/talked = 0	// BubbleWrap
 
@@ -655,9 +666,63 @@
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			return
 
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/shove_to = get_step(target.loc, shove_dir)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(user.gender,"ется","ются")] обезоружить [target.declent_ru(ACCUSATIVE)]!</span>")
+	if(shove_to == user.loc)
+		return FALSE
+
+	//Directional checks to make sure that we're not shoving through a windoor or something like that
+	var/directional_blocked = FALSE
+	var/target_turf = get_turf(target)
+	if(shove_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)) // if we are moving diagonially, we need to check if there are dense walls either side of us
+		var/turf/T = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
+		if(T.density)
+			directional_blocked = TRUE
+		else
+			T = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
+			if(T.density)
+				directional_blocked = TRUE
+
+	if(!directional_blocked)
+		for(var/obj/obj_content in target_turf) // check the tile we are on for border
+			if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+				directional_blocked = TRUE
+				break
+	if(!directional_blocked)
+		for(var/obj/obj_content in shove_to) // check tile we are moving to for borders
+			if(obj_content.flags & ON_BORDER && obj_content.dir & turn(shove_dir, 180) && obj_content.density)
+				directional_blocked = TRUE
+				break
+
+	if(!directional_blocked)
+		for(var/atom/movable/AM in shove_to)
+			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
+				return TRUE
+
+	var/moved = target.Move(shove_to, shove_dir)
+	if(!moved) //they got pushed into a dense object
+		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+		target.visible_message("<span class='warning'>[user] slams [target] into an obstacle!</span>", \
+								"<span class='userdanger'>You get slammed into the obstacle by [user]!</span>", \
+								"You hear a loud thud.")
+		if(!HAS_TRAIT(target, TRAIT_FLOORED))
+			target.Knockdown(3 SECONDS)
+			addtimer(CALLBACK(target, /mob/living.proc/SetKnockdown, 0), 3 SECONDS) // so you cannot chain stun someone // so you cannot chain stun someone
+		else if(!user.IsStunned())
+			target.Stun(0.5 SECONDS)
+	else
+		if(target.IsSlowed() && target.get_active_hand())
+			target.drop_from_active_hand()
+			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
+		else
+			target.Slowed(2.5 SECONDS, 1)
+			var/obj/item/I = target.get_active_hand()
+			if(I)
+				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
+			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+	target.stop_pulling()
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
