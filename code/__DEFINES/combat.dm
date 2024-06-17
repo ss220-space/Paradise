@@ -47,13 +47,14 @@
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN (1<<0)
 #define CANWEAKEN (1<<1)
-#define CANKNOCKDOWN (1<<2)
-#define CANPARALYSE (1<<3)
-#define CANPUSH	 (1<<4)
-#define PASSEMOTES (1<<5)      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN (1<<6)
-#define IGNORE_SPEED_CHANGES (1<<7)
-#define GODMODE (1<<8)
+#define CANSTAMCRIT (1<<2)
+#define CANKNOCKDOWN (1<<3)
+#define CANPARALYSE (1<<4)
+#define CANPUSH	 (1<<5)
+#define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN (1<<7)
+#define IGNORE_SPEED_CHANGES (1<<8)
+#define GODMODE (1<<9)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

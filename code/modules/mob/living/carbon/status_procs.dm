@@ -5,7 +5,7 @@
 /mob/living/carbon/proc/enter_stamcrit()
 	if(IsStamcrited()) //Already in stamcrit
 		return
-	if(check_incapacitating_immunity(STAMCRIT))
+	if(check_incapacitating_immunity(CANSTAMCRIT))
 		return
 	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMCRIT)
 	to_chat(src, span_notice("You're too exhausted to keep going..."))
