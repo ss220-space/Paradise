@@ -1414,7 +1414,7 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || issmall(src))) //can we butcher it?
+	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || is_monkeybasic(src))) //can we butcher it?
 		var/sharpness = is_sharp(I)
 		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
@@ -1436,7 +1436,7 @@
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1

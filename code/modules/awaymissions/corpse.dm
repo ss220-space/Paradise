@@ -399,7 +399,7 @@
 	if(!(NO_DNA in H.dna.species.species_traits))
 		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 		var/datum/dna/D = H.dna
-		if(!D.species.is_small)
+		if(!D.species.is_monkeybasic)
 			H.change_dna(D, TRUE, TRUE)
 
 //Instant version - use when spawning corpses during runtime
