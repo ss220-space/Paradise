@@ -42,11 +42,14 @@
 /datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
 	if(new_owner)
 		owner = new_owner
-	if(QDELETED(owner) || !on_apply())
+	if(QDELETED(owner))
 		qdel(src)
 		return FALSE
 	if(owner)
-		LAZYADD(owner.status_effects, src)
+		LAZYADD(owner.status_effects, src) //some effects' on_apply() has check if this effect in "status_effects"
+	if(!on_apply())
+		qdel(src)
+		return FALSE
 	if(duration != -1)
 		duration = world.time + duration
 	if(tick_interval != -1)
