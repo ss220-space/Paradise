@@ -48,6 +48,11 @@
 		PARALYZE = COMSIG_LIVING_STATUS_PARALYZE,
 		SLEEP = COMSIG_LIVING_STATUS_SLEEP,
 	)
+	/// Static associative list of all generic disabling effects we can work with.
+	/// In a form: key = effect_type, value = bitflag check from [/proc/check_incapacitating_immunity()].
+	var/static/list/effect2flag = list(
+		STAMCRIT = CANSTAMCRIT,
+	)
 
 
 /datum/status_effect/effect_absorption/on_creation(
@@ -89,6 +94,8 @@
 	if(effect_type in status_effect_signals)
 		RegisterSignal(owner, status_effect_signals[effect_type], PROC_REF(try_absorb_status_effect))
 	else
+		if(!(effect_type in effect2flag))
+			CRASH("Incompatible effect type for effect absorption: [effect_type].")
 		RegisterSignal(owner, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, PROC_REF(try_absorb_generic_effect))
 	return TRUE
 
@@ -140,6 +147,9 @@
 	SIGNAL_HANDLER
 
 	if(QDELING(src))
+		return NONE
+
+	if(!(effect2flag[effect_type] & check_flags))
 		return NONE
 
 	// "0 amount" / "0 seconds of effect" is used so no feedback is sent on success

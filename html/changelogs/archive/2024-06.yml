@@ -150,9 +150,20 @@
 '2024-06-17':
   Aziz Chynaliev:
   - del: Drink resprites and some stuff (#5194)"
+  Vladisvell:
+  - bugfix: Fixed genetics getting wrong assignments (#5236)
   Zwei:
   - tweak: Absorption Possibilities For Generic Effects (#5224)
   - balance: Combat Crawling Update N1 (#5180)
   - refactor: Sharpness Rework (#5160)
   - tweak: Monka's Check Standardisation (#5127)
   - refactor: Movement Looping System (#5102)
+  - bugfix: Buckling And Stamcrit Absorption Fixes (#5234)
+'2024-06-18':
+  BeebBeebBoob:
+  - qol: Parallax is now smoother & better (#5215)
+  Den109G:
+  - bugfix: Veils now correctly show what happens to them (#5233)
+  - tweak: Change turfs temps to not give LINDA extra work (#5231)
+  endipe:
+  - bugfix: Now blood is unsafe (#5226)
