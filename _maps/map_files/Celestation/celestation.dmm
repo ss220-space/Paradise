@@ -1492,21 +1492,14 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/arcade)
 "aoL" = (
-/obj/machinery/camera{
-	c_tag = "EVA Equipment";
-	dir = 6
-	},
 /obj/machinery/alarm{
-	pixel_y = 26
-	},
-/obj/machinery/suit_storage_unit/standard_unit,
-/obj/machinery/light{
-	dir = 1
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/ai_monitored/storage/eva)
 "aoZ" = (
 /obj/machinery/door/window/southright{
 	dir = 1;
@@ -18242,15 +18235,11 @@
 /turf/simulated/wall/r_wall,
 /area/assembly/chargebay)
 "cJe" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/clothing/shoes/magboots,
+/obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/ai_monitored/storage/eva)
 "cJr" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -23463,12 +23452,11 @@
 	},
 /area/atmos/distribution)
 "dCX" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/magboots,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/ai_monitored/storage/eva)
 "dDo" = (
 /obj/structure/railing,
 /turf/simulated/floor/glass,
@@ -31738,6 +31726,14 @@
 	icon_state = "floorgrime"
 	},
 /area/security/permabrig)
+"fEr" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ai_monitored/storage/eva)
 "fEy" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/syringe{
@@ -39014,6 +39010,17 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
+"hjW" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clothing/shoes/magboots,
+/obj/item/clothing/shoes/magboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ai_monitored/storage/eva)
 "hkl" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -64061,10 +64068,17 @@
 "nby" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/vending/wallmed{
+	pixel_y = 28
+	},
+/obj/item/tank/jetpack/carbondioxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/ai_monitored/storage/eva)
 "nbH" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -69937,11 +69951,11 @@
 	},
 /area/assembly/robotics)
 "ozI" = (
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/ai_monitored/storage/eva)
 "ozK" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
@@ -81904,7 +81918,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/crew_quarters/dorms)
+/area/ai_monitored/storage/eva)
 "rhJ" = (
 /obj/structure/railing{
 	dir = 1
@@ -94202,10 +94216,15 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "tSG" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/camera{
+	c_tag = "EVA Equipment";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/crew_quarters/dorms)
+/area/ai_monitored/storage/eva)
 "tSH" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/event/lightsout,
@@ -111493,9 +111512,13 @@
 	},
 /area/medical/morgue)
 "xQL" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/floor/plating,
-/area/crew_quarters/dorms)
+/obj/structure/rack,
+/obj/item/clothing/shoes/magboots,
+/obj/item/clothing/shoes/magboots,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ai_monitored/storage/eva)
 "xQY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -187117,7 +187140,7 @@ qSY
 qSY
 qSY
 qSY
-qSY
+wXU
 wXU
 wha
 wtn
@@ -187373,7 +187396,7 @@ aeM
 qSY
 qSY
 qSY
-qSY
+wXU
 dMh
 olV
 wha
@@ -187627,13 +187650,13 @@ oqZ
 aeM
 aeM
 qSY
-qSY
-wXU
-olV
-qSY
-wXU
-wXU
-nuw
+rJd
+qTU
+qTU
+qTU
+qTU
+qTU
+sqB
 wXU
 dsd
 wAQ
@@ -187884,15 +187907,15 @@ aeM
 aeM
 qSY
 qSY
-wXU
-dMh
-dMh
-wXU
-wSP
-wXU
 wha
 dMh
-dsd
+cEI
+cEI
+cEI
+cEI
+cEI
+cEI
+cEI
 mdH
 ovV
 kxV
@@ -188141,15 +188164,15 @@ aeM
 qSY
 qSY
 wXU
+wha
 wXU
-wXU
-wXU
-wXU
-wXU
-wXU
-nuw
-wXU
-dsd
+cEI
+cJe
+aav
+cJe
+aoL
+cJe
+cEI
 lVE
 jqP
 lfb
@@ -188398,15 +188421,15 @@ qSY
 qSY
 wSP
 wXU
-wXU
-wXU
-wXU
-wXU
-wXU
-wXU
 wha
 wXU
-dsd
+cEI
+cJe
+aav
+cJe
+aav
+cJe
+cEI
 lJl
 mGM
 skd
@@ -188655,15 +188678,15 @@ qSY
 qSY
 wSP
 wXU
-rJd
-qTU
-qTU
-qTU
-qTU
-qTU
-sqB
+wha
 wXU
-dsd
+cEI
+tSG
+aav
+cJe
+aav
+cJe
+cEI
 wBA
 anc
 aiZ
@@ -188914,13 +188937,13 @@ wSP
 wXU
 wha
 wXU
-wXU
-wXU
-wXU
-wXU
-wXU
-wXU
-dsd
+cEI
+cJe
+aav
+ozI
+aav
+cJe
+cEI
 uKW
 yhu
 eiB
@@ -189171,13 +189194,13 @@ wSP
 wXU
 wha
 wXU
-wXU
-kTe
-kTe
-kTe
-kTe
-kTe
-kTe
+cEI
+nby
+aav
+dCX
+aav
+hjW
+cEI
 uWS
 frE
 cqc
@@ -189428,13 +189451,13 @@ qTU
 qTU
 sqB
 wXU
-wXU
-kTe
+cEI
+fEr
+aav
+aav
+aav
 xQL
-xQL
-xQL
-xQL
-kTe
+cEI
 yib
 qUu
 gBF
@@ -189685,13 +189708,13 @@ wXU
 wXU
 kTe
 kTe
-kTe
-kTe
-tSG
-tSG
-tSG
+cEI
+cEI
+aav
+aav
+aav
 rhC
-kTe
+cEI
 sWh
 doq
 gdQ
@@ -234950,13 +234973,13 @@ orm
 orm
 orm
 orm
-xIX
-nby
-taC
-taC
-taC
-cJe
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -235207,13 +235230,13 @@ orm
 orm
 orm
 orm
-xIX
-nby
-taC
-taC
-taC
-dCX
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -235464,13 +235487,13 @@ orm
 orm
 orm
 orm
-xIX
-aoL
-taC
-taC
-taC
-ozI
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -235721,13 +235744,13 @@ orm
 orm
 orm
 orm
-xIX
-ozI
-taC
-taC
-taC
-ozI
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -235978,13 +236001,13 @@ orm
 orm
 orm
 orm
-xIX
-ozI
-taC
-ozI
-taC
-ozI
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 pid
 orm
@@ -236235,13 +236258,13 @@ orm
 orm
 orm
 orm
-xIX
-ozI
-taC
-ozI
-taC
-ozI
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -236492,13 +236515,13 @@ orm
 orm
 orm
 orm
-xIX
-xIX
-xIX
-xIX
-xIX
-xIX
-xIX
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
