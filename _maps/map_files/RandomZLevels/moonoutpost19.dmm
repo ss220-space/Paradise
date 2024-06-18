@@ -7122,12 +7122,8 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "oM" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "fridge";
-	overlay_unlocked = "f_unlocked";
-	overlay_locked = "f_locked";
+/obj/structure/closet/secure_closet/freezer/fridge/empty{
 	locked = 0;
-	name = "refrigerator";
 	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/condiment/milk,
