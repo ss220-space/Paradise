@@ -59,11 +59,12 @@
 		minesweeper_matrix["[i]"] = new_row
 	first_touch = TRUE
 	ignore_touches = FALSE
-	tokens -= 1
-	if(tokens < 0)
-		tokens = 0
-	if(tokens==0)
-		SStgui.close_uis(src)
+	if(!freeplay)
+		tokens -= 1
+		if(tokens < 0)
+			tokens = 0
+		if(tokens==0)
+			SStgui.close_uis(src)
 	show_message = ""
 	SStgui.update_uis(src)
 
@@ -152,8 +153,9 @@
 /obj/machinery/arcade/minesweeper/proc/on_win()
 	show_message = "Ура! Победа!"
 	ignore_touches = TRUE
-	var/prize = /obj/item/stack/tickets
-	new prize(get_turf(src), rand(50, 90))
+	if(!freeplay)
+		var/prize = /obj/item/stack/tickets
+		new prize(get_turf(src), rand(50, 90))
 	if(emagged)
 		var/emag_prize = pick(emag_prizes)
 		new emag_prize(get_turf(src))
