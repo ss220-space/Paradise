@@ -462,6 +462,7 @@
 		var/mob/living/carbon/human/H = M
 		H.dna.species.punchdamagelow += bonus_damage
 		H.dna.species.punchdamagehigh += bonus_damage
+
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
 	var/update_flags = STATUS_UPDATE_NONE
