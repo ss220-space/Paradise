@@ -23,10 +23,23 @@ export const Minesweeper = (props, context) => {
     8: "white",
   }
 
+  const handleClick = (e, row, cell) =>{
+    if(e.button !== 0 && e.button !== 2){
+      return
+    }
+    act("Square", {"X": row, "Y": cell, "mode": (e.button === 2 ? altMode[currentMode] : currentMode)})
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  }
+
   const [
     currentMode,
     setMode,
   ] = useLocalState(context, 'mode', "bomb");
+
+  const altMode = {
+    "flag": "bomb",
+    "bomb": "flag",
+  }
 
   return (
     <Window theme="ntOS95"
@@ -62,7 +75,7 @@ export const Minesweeper = (props, context) => {
                     color="transparent"
                     textColor={matrix[row][cell]["open"] ? (matrix[row][cell]["bomb"] ? "black" : NumColor[matrix[row][cell]["around"]])
                       : (matrix[row][cell]["flag"] ? "red" : "gray")}
-                    onClick={() => act("Square", {"X": row, "Y": cell, "mode": currentMode})}>
+                    onMouseDown={e => handleClick(e, row, cell)}>
                     {matrix[row][cell]["open"] ?
                     (matrix[row][cell]["bomb"] ? "*" : (matrix[row][cell]["around"] ? matrix[row][cell]["around"] : " "))
                     : (matrix[row][cell]["flag"] ? "►" : " ")}
