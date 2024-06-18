@@ -322,7 +322,7 @@
 "oC" = (
 /obj/item/clothing/gloves/color/white/redcoat,
 /obj/structure/closet/wardrobe,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/item/storage/backpack/satchel/withwallet,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/kitchen/knife/combat,

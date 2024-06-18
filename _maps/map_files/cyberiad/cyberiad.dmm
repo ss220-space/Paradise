@@ -21096,7 +21096,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/storage/box/evidence,
 /obj/item/clothing/suit/wcoat,
-/obj/item/clothing/suit/blacktrenchcoat,
+/obj/item/clothing/suit/storage/blacktrenchcoat,
 /obj/item/clothing/under/suit_jacket/tan,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/clothing/head/det_hat,
