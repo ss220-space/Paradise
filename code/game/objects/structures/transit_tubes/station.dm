@@ -48,7 +48,7 @@
 
 /obj/structure/transit_tube/station/Bumped(mob/living/moving_living, skip_effect = FALSE)
 	. = ..()
-	if(skip_effect || pod_moving || moving_living.dir != boarding_dir || hatch_state == TRANSIT_TUBE_OPEN || !isliving(moving_living) || is_type_in_list(moving_living, disallowed_mobs))
+	if(skip_effect || pod_moving || moving_living.dir != boarding_dir || hatch_state != TRANSIT_TUBE_OPEN || !isliving(moving_living) || is_type_in_list(moving_living, disallowed_mobs))
 		return .
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(length(pod.contents))
