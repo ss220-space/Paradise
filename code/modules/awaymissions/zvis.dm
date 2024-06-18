@@ -101,7 +101,7 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
@@ -195,7 +195,7 @@
 	opacity = 1
 	density = TRUE
 	invisibility = 0
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
 	var/dist = 6				// dist that we render out
 	var/radius = 3				// dist we render on other axis, in each direction
 	var/frustrum = 0			// if 1, get wider and wider at each step outward
