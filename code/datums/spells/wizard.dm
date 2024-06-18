@@ -145,7 +145,7 @@
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	base_cooldown = 40 SECONDS
 	cooldown_min = 20 SECONDS //50 deciseconds reduction per rank
-	clothes_req = TRUE
+	clothes_req = FALSE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 
