@@ -1784,8 +1784,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
