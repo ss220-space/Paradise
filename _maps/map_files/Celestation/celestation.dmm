@@ -32647,6 +32647,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door_timer/cell_7{
+	name = "General Population Cell A";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -75248,7 +75249,8 @@
 	dir = 4
 	},
 /obj/machinery/door_timer/cell_8{
-	pixel_y = -32
+	pixel_y = -32;
+	name = "General Population Cell B"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"

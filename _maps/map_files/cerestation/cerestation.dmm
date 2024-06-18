@@ -33755,7 +33755,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/door_timer/cell_4{
-	name = "General Population Cell A"
+	name = "General Population Cell A";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -49235,7 +49236,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_1,
+/obj/machinery/door_timer/cell_1{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -62900,7 +62903,8 @@
 	dir = 4
 	},
 /obj/machinery/door_timer/cell_5{
-	name = "General Population Cell B"
+	name = "General Population Cell B";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -76929,7 +76933,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_2,
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -79127,7 +79133,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/door_timer/cell_3,
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
+	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
