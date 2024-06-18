@@ -3,7 +3,9 @@
 	icon_state = "away"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
@@ -129,6 +131,12 @@
 	icon_state = "podfloor_dark"
 	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
+
+/turf/simulated/floor/pod/dark/outside //used in lavaland ruins
+	oxygen = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::oxygen //used :: to match outside atmos
+	nitrogen = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::nitrogen
+	temperature = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::temperature
+	planetary_atmos = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::planetary_atmos
 
 //Door
 /obj/machinery/door/airlock/survival_pod

@@ -94,14 +94,14 @@
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			if(frustration >= 8)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 			if(target)
@@ -111,8 +111,7 @@
 						return
 				shootAt(target)
 				var/turf/olddist = get_dist(src, target)
-				glide_for(BOT_STEP_DELAY)
-				walk_to(src, target,1,4)
+				SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 				if((get_dist(src, target)) >= (olddist))
 					frustration++
 				else
@@ -183,7 +182,7 @@
 	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
-		walk_to(src,0)
+		SSmove_manager.stop_looping(src)
 		visible_message(span_userdanger("[src] blows apart!"))
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -220,7 +219,7 @@
 	return
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

@@ -111,7 +111,7 @@
 	..()
 
 
-/obj/item/assembly/infra/Move(atom/newloc, direct = 0, movetime)
+/obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/prev_dir = dir
 	. = ..()
 	dir = prev_dir
@@ -304,11 +304,14 @@
 			I.process()
 
 
-/obj/effect/beam/i_beam/Bump()
+/obj/effect/beam/i_beam/Bump(atom/bumped_atom, custom_bump)
+	if(!custom_bump)
+		return null
 	qdel(src)
 
 
 /obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	. = ..()
 	hit(moving_atom)
 
 

@@ -116,7 +116,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 		/obj/item/gun/projectile/shotgun/toy,
 		/obj/item/gun/projectile/shotgun/toy/crossbow,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,

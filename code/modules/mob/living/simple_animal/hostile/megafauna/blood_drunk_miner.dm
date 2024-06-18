@@ -107,7 +107,7 @@ Difficulty: Medium
 
 /obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
 	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
-		if(user.lying_angle)
+		if(user.body_position == LYING_DOWN)
 			to_chat(user, span_colossus("Fight right now my bloody warrior!"))
 		else
 			to_chat(user, span_colossus("The blood sings to me. How pretty!"))
@@ -119,9 +119,8 @@ Difficulty: Medium
 		user.SetConfused(0)
 		user.SetImmobilized(0)
 		user.adjustStaminaLoss(-100)
-		user.lying_angle = 0
-		user.resting = FALSE
-		user.update_canmove()
+		user.set_resting(FALSE, instant = TRUE)
+		user.get_up(instant = TRUE)
 	else
 		to_chat(user, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
 		user.say("I don't hear a blood's sing!")
@@ -194,12 +193,16 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
+
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_status_effect_absorption("miner_weaken", 10, INFINITY, status_effect = WEAKEN)
-	target.add_status_effect_absorption("miner_stun", 10, INFINITY, status_effect = STUN)
-	..()
-	target.status_effect_absorption -= "miner_weaken"
-	target.status_effect_absorption -= "miner_stun"
+	target.add_status_effect_absorption(
+		source = "miner",
+		effect_type = list(WEAKEN, STUN, KNOCKDOWN),
+		duration = 1 SECONDS,
+		priority = INFINITY,
+	)
+	return ..()
+
 
 /obj/item/projectile/kinetic/miner
 	damage = 20
@@ -223,7 +226,7 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
 		return FALSE
 	. = ..()
@@ -350,11 +353,11 @@ Difficulty: Medium
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
-	SLEEP_CHECK_DEATH(2)
+	SLEEP_CHECK_DEATH(src, 2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
-	SLEEP_CHECK_DEATH(1)
+	SLEEP_CHECK_DEATH(src, 1)
 	dashing = FALSE
 	return TRUE
 

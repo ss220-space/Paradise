@@ -107,10 +107,10 @@
 			A.forceMove(src)
 			if(iscarbon(A))
 				var/mob/living/carbon/M = A
-				M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+				M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 			if(istype(A, /obj/structure/closet))
 				for(var/mob/living/carbon/M in A.contents)
-					M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/remove_air(amount)
@@ -182,7 +182,7 @@
 	desc = "You're not the first."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "wood"
-	layer = BELOW_OBJ_LAYER + 0.01
+	layer = BUTTONS_LAYER
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE

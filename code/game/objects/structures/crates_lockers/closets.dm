@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	. = ..()
-	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
+	if(is_screen_atom(O))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
 		return
@@ -341,22 +341,24 @@ GLOBAL_LIST_EMPTY(closets)
 		icon_state = opened ? icon_opened : icon_closed
 
 
+
+
 /obj/structure/closet/update_overlays()
 	. = ..()
 	if(opened)
 		if(custom_open_overlay)
-			. += "[custom_open_overlay]_open"
+			. += mutable_appearance(icon, "[custom_open_overlay]_open", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += "[icon_state]_open"
+			. += mutable_appearance(icon, "[icon_state]_open", CLOSET_OLAY_LAYER_DOOR)
 	else
 		for(var/olay in apply_contents_overlays())
 			. += olay
 		if(custom_door_overlay)
-			. += "[custom_door_overlay]_door"
+			. += mutable_appearance(icon, "[custom_door_overlay]_door", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += "[icon_state]_door"	//No initials because of custom map-made closets.
+			. += mutable_appearance(icon, "[icon_state]_door", CLOSET_OLAY_LAYER_DOOR)
 		if(welded)
-			. += "welded"
+			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
 
 
 /**
@@ -428,7 +430,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
 	for(var/atom/A in contents)
@@ -484,16 +486,16 @@ GLOBAL_LIST_EMPTY(closets)
 	. = list()
 	if(!opened)
 		if(transparent)
-			. += "[initial(icon_state)]_door_trans"
+			. += mutable_appearance(icon, "[initial(icon_state)]_door_trans", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += "[initial(icon_state)]_door"
+			. += mutable_appearance(icon, "[initial(icon_state)]_door", CLOSET_OLAY_LAYER_DOOR)
 		if(welded)
-			. += "welded"
+			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
 	else
 		if(transparent)
-			. += "[initial(icon_state)]_open_trans"
+			. += mutable_appearance(icon, "[initial(icon_state)]_open_trans", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += "[initial(icon_state)]_open"
+			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
 
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
@@ -508,15 +510,15 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
-	var/turf/T = get_turf(NewLoc)
+/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+	var/turf/T = get_turf(newloc)
 	if(T.density)
 		return
 	for(var/atom/A in T.contents)
 		if(A.density && istype(A, /obj/machinery/door))
 			return
-	UpdateTransparency(src, NewLoc)
-	forceMove(NewLoc)
+	UpdateTransparency(src, newloc)
+	forceMove(newloc)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()

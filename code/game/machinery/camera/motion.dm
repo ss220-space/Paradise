@@ -1,7 +1,6 @@
 /obj/machinery/camera
 	var/list/localMotionTargets = list()
 	var/detectTime = 0
-	var/area/ai_monitored/area_motion = null
 	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 
 /obj/machinery/camera/process()
@@ -9,43 +8,42 @@
 	if(!isMotion())
 		. = PROCESS_KILL
 		return
-	if(stat & (EMPED|NOPOWER))
+	if(!status || (stat & (EMPED|NOPOWER)))
+		for(var/targer in localMotionTargets)
+			lostTargetRef(targer)
 		return
 	if(detectTime > 0)
 		var/elapsed = world.time - detectTime
 		if(elapsed > alarm_delay)
 			triggerAlarm()
 	else if(detectTime == -1)
-		for(var/thing in getTargetList())
+		for(var/thing in localMotionTargets)
 			var/mob/target = locateUID(thing)
-			if(QDELETED(target) || target.stat == DEAD || (!area_motion && !in_range(src, target)))
+			if(QDELETED(target) || target.stat == DEAD || !can_see(target, view_range))
 				//If not part of a monitored area and the camera is not in range or the target is dead
 				lostTargetRef(thing)
 
-/obj/machinery/camera/proc/getTargetList()
-	if(area_motion)
-		return area_motion.motionTargets
-	return localMotionTargets
-
 /obj/machinery/camera/proc/newTarget(mob/target)
+	if(target.lastarea != myArea)
+		return FALSE
 	if(isAI(target))
+		return FALSE
+	if(!can_see(target, view_range))
 		return FALSE
 	if(detectTime == 0)
 		detectTime = world.time // start the clock
-	var/list/targets = getTargetList()
-	targets |= target.UID()
+	localMotionTargets |= target.UID()
 	return TRUE
 
 /obj/machinery/camera/proc/lostTargetRef(uid)
-	var/list/targets = getTargetList()
-	targets -= uid
-	if(length(targets))
-		cancelAlarm()
+	if(length(localMotionTargets))
+		localMotionTargets -= uid
+		if(!length(localMotionTargets))
+			cancelAlarm()
 
 /obj/machinery/camera/proc/cancelAlarm()
 	if(detectTime == -1)
-		if(status)
-			SSalarm.cancelAlarm("Motion", get_area(src), src)
+		SSalarm.cancelAlarm("Motion", get_area(src), src)
 	detectTime = 0
 	return TRUE
 
@@ -58,9 +56,28 @@
 	detectTime = -1
 	return TRUE
 
+/// Returns TRUE if the camera can see the target.
+/obj/machinery/camera/proc/can_see(atom/target, length=7) // I stole this from global and modified it to work with Xray cameras.
+	var/turf/current = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
+		return FALSE
+	if(get_dist(current, target_turf) > length)
+		return FALSE
+	if(current == target_turf || isXRay())
+		return TRUE
+
+	var/list/line_of_sight = get_line(src, target)
+	line_of_sight = line_of_sight.Cut(1, 2)
+	for(var/turf/current_turf as anything in line_of_sight)
+		if(current_turf.opacity)
+			return FALSE
+		for(var/atom/movable/thing as anything in current_turf)
+			if(thing.opacity)
+				return FALSE
+	return TRUE
+
 /obj/machinery/camera/HasProximity(atom/movable/AM)
-	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.
-	if(!area_motion)
-		if(isliving(AM))
-			newTarget(AM)
+	if(isliving(AM))
+		newTarget(AM)
 

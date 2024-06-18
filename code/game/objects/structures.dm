@@ -45,7 +45,7 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/Move(atom/newloc, direct = NONE, movetime)
+/obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/atom/old = loc
 	if(!..())
 		return FALSE
@@ -176,7 +176,7 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying_angle)
+		if(M.body_position == LYING_DOWN)
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)

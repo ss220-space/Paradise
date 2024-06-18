@@ -298,8 +298,8 @@
 			for(var/mob/living/M in O.contents)
 				M.show_message(text, EMOTE_VISIBLE)
 
-		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			O.create_chat_message(user, runechat_text, emote = TRUE)
+		if(O.stat == CONSCIOUS && O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			O.create_chat_message(user, runechat_text, list("emote"))
 
 
 /**
@@ -384,7 +384,7 @@
 		. = islist(message_robot) ? pick(message_robot) : message_robot
 	else if(isAI(user) && message_AI)
 		. = islist(message_AI) ? pick(message_AI) : message_AI
-	else if(ismonkeybasic(user) && message_monkey)
+	else if(is_monkeybasic(user) && message_monkey)
 		. = islist(message_monkey) ? pick(message_monkey) : message_monkey
 	else if(isanimal(user) && message_simple)
 		. = islist(message_simple) ? pick(message_simple) : message_simple

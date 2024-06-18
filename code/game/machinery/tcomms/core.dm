@@ -125,6 +125,8 @@
   *
   */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
+	if(QDELING(src))
+		return
 	// Refresh the list
 	reachable_zlevels = list()
 	// Add itself as a reachable Z-level
@@ -150,7 +152,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
   */
-/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/core/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	refresh_zlevels()
 

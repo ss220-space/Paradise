@@ -161,7 +161,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(iseffect(AM))
+	if(iseffect(AM) && !(istype(AM, /obj/effect/mob_spawn)))
 		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
@@ -238,7 +238,6 @@
 		var/mob/living/L = AM
 		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 		L.Stun(400 SECONDS)
-		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha

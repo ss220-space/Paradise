@@ -5607,6 +5607,7 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /obj/item/gun/projectile/automatic/pistol/enforcer/security,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},

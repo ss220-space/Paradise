@@ -3,7 +3,6 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
@@ -51,7 +50,6 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
@@ -76,7 +74,6 @@
 		return FALSE
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -121,10 +118,10 @@
 
 
 /mob/living/carbon/human/proc/makeSkeleton()
-	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(SKELETON in mutations)
 		return
 
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(head_organ)
 		head_organ.disfigure()
 		if(head_organ.f_style)
@@ -137,15 +134,10 @@
 			head_organ.alt_head = initial(head_organ.alt_head)
 			head_organ.handle_alt_icon()
 	m_styles = DEFAULT_MARKING_STYLES
-	update_fhair()
-	update_hair()
-	update_head_accessory()
-	update_markings()
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	update_mutantrace()
-	update_body()
+	UpdateAppearance()
 
 
 /mob/living/carbon/human/proc/ChangeToHusk()
@@ -163,12 +155,9 @@
 			head_organ.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 		if(head_organ.h_style)
 			head_organ.h_style = "Bald"
-	update_fhair()
-	update_hair()
 
 	mutations.Add(HUSK)
-	update_mutantrace()
-	update_body()
+	UpdateAppearance()
 
 
 /mob/living/carbon/human/proc/Drain()
@@ -180,7 +169,5 @@
 	mutations.Remove(HUSK)
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	head_organ?.disfigure()
-	update_body()
-	update_mutantrace()
 	UpdateAppearance() // reset hair from DNA
 

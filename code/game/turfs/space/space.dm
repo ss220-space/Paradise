@@ -10,7 +10,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE
 	intact = FALSE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
@@ -41,9 +41,16 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	// We make the assumption that the space plane will never be blacklisted, as an optimization
+	if(SSmapping.max_plane_offset)
+		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+
+	var/area/our_area = loc
+	if(!our_area.area_has_base_lighting && always_lit) //Only provide your own lighting if the area doesn't for you
+		// Intentionally not add_overlay for performance reasons.
+		// add_overlay does a bunch of generic stuff, like creating a new list for overlays,
+		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
+		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 	if (light_power && light_range)
 		update_light()
@@ -152,9 +159,6 @@
 				var/turf/T = get_step(L.loc,turn(A.dir, 180))
 				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
 
-		//now we're on the new z_level, proceed the space drifting
-		spawn(0)//Let a diagonal move finish, if necessary
-			A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
 	var/mob/living/check_mob = A
@@ -198,7 +202,7 @@
 	var/list/y_arr
 
 	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 
@@ -273,7 +277,7 @@
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
@@ -354,7 +358,7 @@
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE
 
 // the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.

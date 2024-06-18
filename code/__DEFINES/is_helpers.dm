@@ -3,6 +3,10 @@
 
 #define isdatum(thing) (istype(thing, /datum))
 
+#define is_screen_atom(A) istype(A, /atom/movable/screen)
+
+#define isweakref(D) (istype(D, /datum/weakref))
+
 // Mobs
 
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
@@ -17,6 +21,8 @@
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
@@ -142,3 +148,4 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))
 
+#define is_multi_tile_object(atom) (atom.bound_width > world.icon_size || atom.bound_height > world.icon_size)

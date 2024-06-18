@@ -19,20 +19,29 @@
 	vote_type_text = "map"
 
 /datum/vote/map/New()
+	if(!SSmapping.map_datum)
+		CRASH("Map Vote triggered before the `map_datum` is defined!")
 	..()
 	no_dead_vote = FALSE
 
 /datum/vote/map/generate_choices()
-	for(var/x in subtypesof(/datum/map))
-		var/datum/map/M = x
-		if(initial(M.admin_only))
+	var/list/map_pool = subtypesof(/datum/map)
+
+	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
+		map_pool -= SSmapping.map_datum.type
+
+	for(var/datum/map/possible_map as anything in map_pool)
+		if(initial(possible_map.admin_only))
 			continue
-		choices.Add("[initial(M.station_name)] ([initial(M.name)])")
+		choices.Add("[initial(possible_map.station_name)] ([initial(possible_map.name)])")
 
 /datum/vote/map/announce()
 	..()
-	for(var/mob/M in GLOB.player_list)
-		M.throw_alert("Map Vote", /obj/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
+	for(var/mob/voter in GLOB.player_list)
+		voter.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
+		if(!voter.client?.prefs || voter.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS)
+			continue
+		voter.immediate_vote()
 
 /datum/vote/map/handle_result(result)
 	// Find target map.

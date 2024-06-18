@@ -57,7 +57,7 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //space worms can flyyyyyy
 
 //Worm Head, Controls the AI for the entire worm "entity"
@@ -130,8 +130,11 @@
 		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
-	attemptToEat(obstacle)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.))
+		return .
+	attemptToEat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(var/atom/noms)
@@ -170,7 +173,7 @@
 
 	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 
-	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
 			if(W)
 				W.ChangeTurf(/turf/simulated/floor/plating)

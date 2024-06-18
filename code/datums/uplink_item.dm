@@ -82,7 +82,7 @@
 	var/refund_amount
 
 
-/datum/uplink_item/Destroy(force, ...)
+/datum/uplink_item/Destroy(force)
 	if(force)
 		return ..()
 	else
@@ -414,9 +414,9 @@
 
 /datum/uplink_item/jobspecific/lockermech
 	name = "Syndie Locker Mech"
-	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
+	desc = "A massive and incredibly deadly Syndicate exosuit(Not really)."
 	item = /obj/mecha/combat/lockersyndie/loaded
-	cost = 30
+	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
@@ -511,6 +511,14 @@
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 	hijack_only = TRUE
+
+/datum/uplink_item/jobspecific/random_spell_book
+	name = "Random spell book"
+	desc = "A random spell book stolen from the wizards federation."
+	item = /obj/item/spellbook/oneuse/random
+	cost = 25
+	job = list(JOB_TITLE_LIBRARIAN)
+	can_discount = FALSE
 
 /datum/uplink_item/jobspecific/dice_of_fate
 	name = "Dice of fate"
@@ -1992,7 +2000,7 @@
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
-	desc = "Strong flavor, dense smoke, infused with omnizine."
+	desc = "Strong flavor, dense smoke, infused with syndiezine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 

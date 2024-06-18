@@ -161,10 +161,12 @@
 
 
 /turf/simulated/wall/indestructible/splashscreen
-	name = "Space Station 13"
+	name = "Splash Screen"
 	icon = 'config/title_screens/images/blank.png'
 	icon_state = ""
-	layer = FLY_LAYER
+	plane = SPLASHSCREEN_PLANE
+	layer = SPLASHSCREEN_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/// Pixel shifts below are needed to centrally position the black icon within the start area at compile-time. This icon used as a background for title screens with smaller resolutions than required.
 	pixel_x = -288
 	pixel_y = -224
@@ -271,4 +273,4 @@
 // used with /effect/view_portal in order to get rid of dynamic lighting.
 /turf/simulated/wall/indestructible/invisible/view_portal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE

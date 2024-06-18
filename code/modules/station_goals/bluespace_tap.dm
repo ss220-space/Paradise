@@ -97,7 +97,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 1,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,
 		/obj/item/gun/projectile/shotgun/toy = 1,
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,

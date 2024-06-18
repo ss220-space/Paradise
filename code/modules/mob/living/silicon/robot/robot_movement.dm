@@ -1,7 +1,10 @@
-/mob/living/silicon/robot/Process_Spacemove(movement_dir = NONE)
+/mob/living/silicon/robot/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	. = ..()
+	if(.)
+		return TRUE
 	if(ionpulse())
 		return TRUE
-	return ..()
+	return FALSE
 
 
 /mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
@@ -9,7 +12,7 @@
 		return ..()
 
 /mob/living/silicon/robot/get_pull_push_speed_modifier(current_delay)
-	if(canmove)
+	if(mobility_flags & MOBILITY_MOVE)
 		for(var/obj/item/borg/upgrade/u in upgrades)
 			if(istype(u, /obj/item/borg/upgrade/vtec/))
 				return pull_push_speed_modifier

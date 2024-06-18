@@ -98,8 +98,10 @@
 
 	if(uniform)
 		for(var/path in accessories)
-			var/obj/item/clothing/accessory/A = new path()
-			H.w_uniform.attach_accessory(A, H)
+			var/obj/item/clothing/accessory/accessory = new path(H.w_uniform)
+			if(!H.w_uniform.attach_accessory(accessory))
+				stack_trace("Accessory ([accessory.type]) was not able to attach on jumpsuit ([H.w_uniform.type])")
+				qdel(accessory)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)

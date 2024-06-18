@@ -1,7 +1,8 @@
-#define SNIFF 1
-#define SHAKE 2
-#define SCRATCH 3
-#define WASHUP 4
+#define SNIFF	 1
+#define SHAKE	 2
+#define SCRATCH	 3
+#define WASHUP	 4
+#define ASSSHAKE 5
 
 /mob/living/simple_animal/mouse
 	name = "mouse"
@@ -33,6 +34,7 @@
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	var/non_standard = FALSE //for no "mouse_" with mouse_color
@@ -81,22 +83,21 @@
 	. = ..()
 	if(resting)
 		if(prob(1))
+			set_resting(FALSE, instant = TRUE)
 			if(is_available_for_anim())
-				var/anim = pick(SNIFF, SCRATCH, SHAKE, WASHUP)
-				do_idle_animation(anim)
-			StopResting()
+				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP, ASSSHAKE))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
-	canmove = FALSE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
 	flick("mouse_[mouse_color]_idle[anim]",src)
-	addtimer(CALLBACK(src, PROC_REF(animation_end)), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), 2 SECONDS)
 
-/mob/living/simple_animal/mouse/proc/animation_end()
-	canmove = TRUE
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
 
 /mob/living/simple_animal/mouse/proc/is_available_for_anim()
 	. = FALSE
@@ -115,6 +116,7 @@
 		verbs += /mob/living/simple_animal/mouse/proc/shake
 		verbs += /mob/living/simple_animal/mouse/proc/scratch
 		verbs += /mob/living/simple_animal/mouse/proc/washup
+		verbs += /mob/living/simple_animal/mouse/proc/ass_shake
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
@@ -227,14 +229,21 @@
 
 	emote("mwashup", intentional = TRUE)
 
+/mob/living/simple_animal/mouse/proc/ass_shake()
+	set name = "Крутить задницей"
+	set desc = "Крутит задницей"
+	set category = "Мышь"
+
+	emote("massshake", intentional = TRUE)
+
 /datum/emote/living/simple_animal/mouse/idle
 	key = "msniff"
 	key_third_person = "msniffs"
 	message = "нюха%(ет,ют)%!"
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("гортанные", "громкие")
-	cooldown = 1 MINUTES
-	audio_cooldown = 1 MINUTES
+	cooldown = 10 SECONDS
+	audio_cooldown = 10 SECONDS
 	var/anim_type = SNIFF
 	volume = 1
 
@@ -262,6 +271,12 @@
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
 	anim_type = WASHUP
+
+/datum/emote/living/simple_animal/mouse/idle/ass_shake
+	key = "massshake"
+	key_third_person = "massshakes"
+	message = "крут%(ит,ят)% задницей!"
+	anim_type = ASSSHAKE
 
 /*
  * Mouse types
@@ -435,6 +450,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	icon_resting = "hamster_rest"
 	gender = MALE
 	non_standard = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
 	animal_species = /mob/living/simple_animal/mouse/hamster
@@ -517,3 +533,4 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 #undef SHAKE
 #undef SCRATCH
 #undef WASHUP
+#undef ASSSHAKE

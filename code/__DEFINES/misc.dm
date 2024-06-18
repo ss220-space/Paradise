@@ -128,7 +128,7 @@
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
-	GLOB.dview_mob.see_invisible = invis_flags; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
@@ -162,7 +162,7 @@
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
 
-//Human Overlays Indexes/////////
+//Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.

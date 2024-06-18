@@ -15,6 +15,8 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 	return STATUS_CLOSE
 
 /mob/living/hands_can_use_topic(src_object)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return STATUS_CLOSE
 	if(is_in_active_hand(src_object) || is_in_inactive_hand(src_object))
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
@@ -23,6 +25,8 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 	return STATUS_UPDATE
 
 /mob/living/silicon/robot/hands_can_use_topic(src_object)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return STATUS_CLOSE
 	if(activated(src_object))
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE

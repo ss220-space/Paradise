@@ -415,18 +415,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 					O.hear_talk(M, message_pieces, verbage)
 
 
-/obj/effect/speech_bubble
-	var/mob/parent
-
-
-/mob/living/proc/GetVoice()
-	return name
-
-
-/mob/living/proc/GetTTSVoice()
-	return tts_seed
-
-
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message, 512)
 
@@ -581,6 +569,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
 

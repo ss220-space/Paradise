@@ -75,7 +75,7 @@
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(L.lying_angle)
+	if(L.body_position == LYING_DOWN)
 		return TURRET_NOT_TARGET
 
 	var/target_suit

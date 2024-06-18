@@ -1,17 +1,3 @@
-/proc/issmall(A)
-	if(A && ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna.species && H.dna.species.is_small)
-			return 1
- 	return 0
-
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -426,17 +412,6 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 			SetSleeping(40 SECONDS) //Short nap
 
-/mob/living/verb/lay_down()
-	set name = "Rest"
-	set category = "IC"
-
-	if(!resting)
-		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
-		StopResting()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -509,7 +484,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)

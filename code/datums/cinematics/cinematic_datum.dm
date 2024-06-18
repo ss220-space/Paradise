@@ -21,7 +21,7 @@
 /**
  * The cinematic screen showed to everyone.
  */
-/obj/screen/cinematic
+/atom/movable/screen/cinematic
 	icon = 'icons/effects/station_explosion.dmi'
 	icon_state = "station_intact"
 	plane = SPLASHSCREEN_PLANE
@@ -41,7 +41,7 @@
 	/// Whether the cinematic is a global cinematic or not
 	var/is_global = FALSE
 	/// Refernce to the cinematic screen shown to everyohne
-	var/obj/screen/cinematic/screen
+	var/atom/movable/screen/cinematic/screen
 	/// Callbacks passed that occur during the animation
 	var/datum/callback/special_callback
 	/// How long for the final screen remains shown
@@ -82,7 +82,7 @@
 		ooc_toggled = TRUE
 		toggle_ooc(FALSE)
 
-	// Place the /obj/screen/cinematic into everyone's screens, and prevent movement.
+	// Place the /atom/movable/screen/cinematic into everyone's screens, and prevent movement.
 	for(var/mob/watching_mob in watchers)
 		show_to(watching_mob, watching_mob.client)
 		RegisterSignal(watching_mob, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(show_to))
@@ -134,9 +134,9 @@
 		return
 
 	watching += watching_client
-	watching_mob.overlay_fullscreen("cinematic", /obj/screen/fullscreen/cinematic_backdrop)
+	watching_mob.overlay_fullscreen("cinematic", /atom/movable/screen/fullscreen/cinematic_backdrop)
 	watching_client.screen += screen
-	RegisterSignal(watching_client, COMSIG_PARENT_QDELETING, PROC_REF(remove_watcher))
+	RegisterSignal(watching_client, COMSIG_QDELETING, PROC_REF(remove_watcher))
 
 
 /**
@@ -206,7 +206,7 @@
 	if(!(no_longer_watching in watching))
 		CRASH("cinematic remove_watcher was passed a client which wasn't watching.")
 
-	UnregisterSignal(no_longer_watching, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(no_longer_watching, COMSIG_QDELETING)
 	// We'll clear the cinematic if they have a mob which has one,
 	// but we won't remove TRAIT_NO_TRANSFORM. Wait for the cinematic end to do that.
 	no_longer_watching.mob?.clear_fullscreen("cinematic")

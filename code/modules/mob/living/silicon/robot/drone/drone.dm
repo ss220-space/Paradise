@@ -359,12 +359,9 @@
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
-	if(is_type_in_list(AM, allowed_bumpable_objects))
+/mob/living/silicon/robot/drone/Bump(atom/bumped_atom, custom_bump)
+	if(custom_bump && is_type_in_list(bumped_atom, allowed_bumpable_objects))
 		return ..()
-
-/mob/living/silicon/robot/drone/Bumped(atom/movable/moving_atom)
-	return ..()
 
 /mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
@@ -388,10 +385,6 @@
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
-
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
-	. = ..()
-	set_density(emagged ? TRUE : FALSE) //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)

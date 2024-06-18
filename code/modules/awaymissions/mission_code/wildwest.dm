@@ -10,19 +10,25 @@
 	name = "\improper Wild West Mines"
 	icon_state = "away1"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwgov
 	name = "\improper Wild West Mansion"
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwrefine
 	name = "\improper Wild West Refinery"
 	icon_state = "away3"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwvault
 	name = "\improper Wild West Vault"
@@ -32,7 +38,9 @@
 	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /*
  * Wish Granter
@@ -132,28 +140,23 @@
 	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
-	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
-	var/triggered = 0
+	var/triggered = FALSE
 
-/obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
+
+/obj/effect/meatgrinder/Crossed(atom/movable/AM, oldloc)
+	. = ..()
 	Bumped(AM)
 
+
 /obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
-
-	if(triggered)
-		return
-
-	if(ishuman(moving_atom))
-		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[moving_atom] triggered the [bicon(src)] [src]</font>")
-		triggered = 1
-		call(src,triggerproc)(moving_atom)
-
-/obj/effect/meatgrinder/proc/triggerrad1(mob)
-	for(var/mob/O in viewers(world.view, src.loc))
-		do_sparks(3, 1, src)
-		explosion(mob, 1, 0, 0, 0)
-		qdel(src)
+	. = ..()
+	if(triggered || !ishuman(moving_atom))
+		return .
+	visible_message(span_warning("[moving_atom] triggered the [bicon(src)] [src]!"))
+	triggered = TRUE
+	do_sparks(3, 1, src)
+	explosion(src, 1, 0, 0, 0)
+	qdel(src)
 
 
 /////For the Wishgranter///////////

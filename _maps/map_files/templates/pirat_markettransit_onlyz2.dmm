@@ -1,0 +1,2126 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"af" = (
+/obj/structure/rack{
+	name = "rack 30k"
+	},
+/obj/item/card/emag,
+/obj/item/door_remote/omni/access_tuner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"aP" = (
+/obj/structure/rack{
+	name = "rack 40k"
+	},
+/obj/item/storage/box/syndie_kit/teleporter,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"bo" = (
+/obj/machinery/door_control{
+	id = "Trade_doc";
+	use_power = 0;
+	pixel_y = 24
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"br" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/syndicate{
+	name = "crate 60k"
+	},
+/obj/item/ammo_box/magazine/sfg9mm,
+/obj/item/ammo_box/magazine/sfg9mm{
+	pixel_x = -7
+	},
+/obj/item/ammo_box/magazine/sfg9mm{
+	pixel_x = 7
+	},
+/obj/item/gun/projectile/automatic/sfg,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"bs" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron1"
+	},
+/area/ruin/space/pirate_base/black_market)
+"co" = (
+/obj/effect/turf_decal/arrows,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"cW" = (
+/obj/structure/closet/crate/syndicate{
+	name = "crate 20k"
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -5
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -5
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -5
+	},
+/obj/item/ammo_box/magazine/m10mm,
+/obj/item/ammo_box/magazine/m10mm,
+/obj/item/ammo_box/magazine/m10mm,
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 5
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 5
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 5
+	},
+/obj/item/gun/projectile/automatic/pistol,
+/obj/item/gun/projectile/automatic/pistol,
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"dw" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/item/stamp/syndicate{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"er" = (
+/obj/structure/rack{
+	name = "rack 15k"
+	},
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium{
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium{
+	pixel_y = 1;
+	pixel_x = -2
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"ev" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/syndicate{
+	name = "crate 20k"
+	},
+/obj/item/ammo_box/magazine/toy/smgm45/riot,
+/obj/item/ammo_box/magazine/toy/smgm45/riot,
+/obj/item/ammo_box/magazine/toy/smgm45/riot,
+/obj/item/gun/projectile/automatic/c20r/toy,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"fy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 5;
+	pixel_y = 20
+	},
+/obj/machinery/door/window/brigdoor{
+	req_access = list(165);
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"hk" = (
+/obj/effect/bump_teleporter{
+	id_target = "pirat_n1"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"hm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	req_access = list(165);
+	dir = 8
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"ir" = (
+/obj/structure/chair/stool/bar{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern-on";
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "lantern";
+	invisibility = 70
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"iA" = (
+/obj/structure/chair/stool/bar{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern-on";
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "lantern";
+	invisibility = 70
+	},
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "pirates_shutters";
+	use_power = 0
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"iU" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"jj" = (
+/obj/machinery/door_control{
+	id = "Trade_exit";
+	pixel_x = -24;
+	use_power = 0
+	},
+/obj/effect/bump_teleporter{
+	id = "black_market2";
+	density = 0
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"kH" = (
+/obj/structure/rack{
+	name = "rack 5k"
+	},
+/obj/item/jammer{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack{
+	pixel_y = -4;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack{
+	pixel_y = -8;
+	pixel_x = 3
+	},
+/obj/item/pen/sleepy,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"ll" = (
+/obj/structure/rack{
+	name = "rack 30k"
+	},
+/obj/item/implanter/second_chance{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/implanter/adrenalin{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/implanter/stealth{
+	pixel_x = 1;
+	pixel_y = -4
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"mx" = (
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate"
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"mV" = (
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"oP" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"oR" = (
+/obj/structure/bed,
+/obj/item/bedsheet/syndie,
+/obj/item/clothing/under/fluff/lfvicsuit,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"ps" = (
+/obj/structure/mirror{
+	pixel_x = -26
+	},
+/obj/effect/mob_spawn/human/oldstation/oldsec{
+	desc = "A cryo pod.";
+	outfit = /datum/outfit/naked;
+	assignedrole = "Pirate";
+	faction = "pirate";
+	allow_gender_pick = 0;
+	allow_prefs_prompt = 0;
+	allow_species_pick = 0;
+	mob_gender = "male";
+	name = "Pirate";
+	flavour_text = "Вы и ваша группа имеют долг перед синдикатом. Выберите главу, пишите факсы с запросом задач к синдикату. Выполняйте их, зарабатывайте на новое оборудование и оплату долга в 200 тысяч кредитов. Помните что вы не мажор, и не можете устраивать резню ради резни.";
+	description = "Вы пират, пират который должен синдикату. Выполняйте задачи и зарабатывайте на оплату долга.";
+	facial_hair_style = "Up Mustache";
+	hair_style = "Manbun"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"qt" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron7"
+	},
+/area/ruin/space/pirate_base/black_market)
+"qY" = (
+/obj/machinery/door_control{
+	id = "pirates_shutters";
+	pixel_x = -24;
+	use_power = 0
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"rc" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	req_access = list(165);
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"rC" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/space/pirate_base/black_market)
+"rF" = (
+/obj/effect/bump_teleporter{
+	id_target = "black_market2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"rO" = (
+/obj/structure/rack{
+	name = "rack 5k"
+	},
+/obj/item/storage/belt/military{
+	pixel_x = -3
+	},
+/obj/item/storage/belt/military{
+	pixel_x = -3
+	},
+/obj/item/clothing/accessory/storage/black_vest{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/clothing/accessory/storage/black_vest{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"sA" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron4"
+	},
+/area/ruin/space/pirate_base/black_market)
+"tA" = (
+/turf/simulated/wall/indestructible/invisible,
+/area/space)
+"tR" = (
+/obj/effect/turf_decal/box/corners,
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/structure/closet/crate/syndicate{
+	anchored = 1;
+	name = "Ящик для доставки целей."
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"uf" = (
+/turf/simulated/wall/indestructible/iron,
+/area/ruin/space/pirate_base/black_market)
+"us" = (
+/obj/structure/chair/stool/bar{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern-on";
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "lantern";
+	invisibility = 70
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"uP" = (
+/obj/structure/rack{
+	name = "rack 30k"
+	},
+/obj/item/gun/energy/kinetic_accelerator/crossbow,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"vc" = (
+/obj/structure/rack{
+	name = "rack 30k"
+	},
+/obj/item/defibrillator/compact/combat/loaded,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"vx" = (
+/obj/effect/mob_spawn/human/oldstation/oldsec{
+	desc = "A cryo pod.";
+	outfit = /datum/outfit/naked;
+	assignedrole = "Pirate";
+	faction = "pirate";
+	allow_gender_pick = 0;
+	allow_prefs_prompt = 0;
+	allow_species_pick = 0;
+	mob_gender = "male";
+	name = "Pirate";
+	flavour_text = "Вы и ваша группа имеют долг перед синдикатом. Выберите главу, пишите факсы с запросом задач к синдикату. Выполняйте их, зарабатывайте на новое оборудование и оплату долга в 200 тысяч кредитов. Помните что вы не мажор, и не можете устраивать резню ради резни.";
+	description = "Вы пират, пират который должен синдикату. Выполняйте задачи и зарабатывайте на оплату долга.";
+	facial_hair_style = "Up Mustache";
+	hair_style = "Manbun"
+	},
+/obj/structure/mirror{
+	pixel_x = -26
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"vK" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron14"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Al" = (
+/obj/structure/rack{
+	name = "rack 10k"
+	},
+/obj/item/clothing/shoes/magboots/syndie{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/magboots/syndie,
+/obj/item/clothing/shoes/magboots/syndie{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"AK" = (
+/obj/effect/bump_teleporter{
+	id_target = "pirat_n2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"AU" = (
+/obj/structure/rack{
+	name = "rack 40k"
+	},
+/obj/item/CQC_manual{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"BJ" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/syndicate,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"BU" = (
+/obj/structure/rack{
+	name = "rack 20k"
+	},
+/obj/item/pickaxe/drill/jackhammer,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Cj" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "Trade_exit";
+	name = "Black market warehouse";
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 2;
+	use_power = 0
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Dw" = (
+/obj/structure/rack{
+	name = "rack 10k"
+	},
+/obj/item/chameleon{
+	pixel_x = -3
+	},
+/obj/item/chameleon{
+	pixel_y = -2
+	},
+/obj/item/clothing/glasses/chameleon/thermal{
+	pixel_y = -6;
+	pixel_x = 2
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"DK" = (
+/obj/structure/rack{
+	name = "rack 20k"
+	},
+/obj/item/holosign_creator/janitor/syndie{
+	pixel_x = -4
+	},
+/obj/item/twohanded/garrote{
+	pixel_y = -4;
+	pixel_x = 2
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Ee" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 8;
+	height = 19;
+	id = "pirateship_transit";
+	name = "Pirate Corvette in transit";
+	turf_type = /turf/space/transit/west;
+	width = 17
+	},
+/turf/space/transit/west{
+	icon_state = "speedspace_ew_1"
+	},
+/area/space)
+"EC" = (
+/obj/structure/rack{
+	name = "rack 10k"
+	},
+/obj/item/storage/box/syndie_kit/t4P,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/syndie_kit/t4P{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"EM" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"ER" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron6"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Fe" = (
+/turf/space/transit/west,
+/area/space)
+"Fp" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Hk" = (
+/obj/structure/rack{
+	name = "rack 10k"
+	},
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_y = -8
+	},
+/obj/item/clothing/shoes/chameleon/noslip{
+	pixel_y = -8
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"HC" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron10"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Ju" = (
+/obj/machinery/door/window/brigdoor{
+	req_access = list(165);
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"JC" = (
+/obj/structure/rack{
+	name = "rack 50k"
+	},
+/obj/item/gun/projectile/automatic/l6_saw/toy,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Kg" = (
+/obj/structure/rack,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Ki" = (
+/obj/structure/rack{
+	name = "rack 5k"
+	},
+/obj/item/slimepotion/speed{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/slimepotion/speed{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Ky" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Base";
+	req_access = list(165)
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"KH" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron11"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Lc" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron8"
+	},
+/area/ruin/space/pirate_base/black_market)
+"LD" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Nc" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron2"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Nt" = (
+/obj/effect/bump_teleporter{
+	id_target = "pirat_n3"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"NS" = (
+/obj/machinery/tcomms/relay,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"OB" = (
+/obj/structure/rack{
+	name = "rack 2k"
+	},
+/obj/item/grenade/gas/knockout{
+	pixel_x = -5
+	},
+/obj/item/grenade/gas/knockout{
+	pixel_x = -1;
+	pixel_y = -1
+	},
+/obj/item/grenade/gas/knockout{
+	pixel_x = 3;
+	pixel_y = -2
+	},
+/obj/item/grenade/gas/knockout{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"OY" = (
+/obj/structure/closet/crate/syndicate{
+	name = "crate 30k"
+	},
+/obj/item/storage/box/syndie_kit/bioterror,
+/obj/item/storage/box/syndie_kit/bioterror,
+/obj/item/gun/syringe/rapidsyringe,
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Ph" = (
+/turf/space/transit/west{
+	icon_state = "speedspace_ew_1"
+	},
+/area/space)
+"Pw" = (
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Qe" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Qi" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron9"
+	},
+/area/ruin/space/pirate_base/black_market)
+"QM" = (
+/obj/item/card/id/syndicate{
+	access = list(150,160,161,162,165,26)
+	},
+/obj/structure/closet{
+	icon_state = "syndicate"
+	},
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/storage/backpack/duffel/syndie,
+/obj/item/radio/headset/syndicate/alt/syndteam,
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/clothing/accessory/holster,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"RJ" = (
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal-syndicate";
+	name = "redspace portal";
+	invisibility = 0;
+	id = "black_market";
+	id_target = "pirate_basesynd"
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"RT" = (
+/turf/simulated/wall/indestructible{
+	icon_state = "iron5"
+	},
+/area/ruin/space/pirate_base/black_market)
+"Sj" = (
+/obj/effect/bump_teleporter{
+	id_target = "pirat_n4"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/space/pirate_base/black_market)
+"Sk" = (
+/obj/structure/rack{
+	name = "rack 2k"
+	},
+/obj/item/grenade/chem_grenade/lube{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/item/grenade/chem_grenade/lube{
+	pixel_y = -3;
+	pixel_x = 4
+	},
+/obj/item/grenade/chem_grenade/lube{
+	pixel_y = -1
+	},
+/obj/item/grenade/chem_grenade/lube{
+	pixel_y = 1;
+	pixel_x = -4
+	},
+/obj/item/stack/tape_roll/thick{
+	icon_state = "thick_taperoll4";
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"SC" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Tu" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"UJ" = (
+/turf/space,
+/area/space)
+"Xk" = (
+/obj/structure/rack{
+	name = "rack 5k"
+	},
+/obj/item/storage/box/syndie_kit/mr_chang_technique{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/pinpointer/advpinpointer{
+	pixel_y = -5;
+	pixel_x = 2
+	},
+/obj/item/camera_bug,
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Xv" = (
+/obj/structure/rack{
+	name = "rack 40k"
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Xz" = (
+/turf/simulated/wall/indestructible,
+/area/ruin/space/pirate_base/black_market)
+"Za" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "Trade_doc";
+	name = "Black market warehouse";
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 2;
+	use_power = 0
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+"Zr" = (
+/obj/structure/rack{
+	name = "rack 50k"
+	},
+/turf/simulated/floor/indestructible/plating{
+	icon_state = "dark";
+	icon = 'icons/turf/floors.dmi'
+	},
+/area/ruin/space/pirate_base/black_market)
+
+(1,1,1) = {"
+ER
+LD
+LD
+LD
+qt
+LD
+LD
+LD
+qt
+LD
+LD
+LD
+LD
+qt
+LD
+LD
+LD
+RT
+UJ
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+"}
+(2,1,1) = {"
+Qe
+oR
+Pw
+dw
+Qe
+rO
+Pw
+er
+Qe
+RJ
+Pw
+ir
+Pw
+Lc
+Pw
+ir
+Pw
+Qe
+UJ
+Xz
+mV
+qY
+mV
+rC
+vx
+iA
+hk
+Xz
+"}
+(3,1,1) = {"
+Qe
+QM
+ir
+mx
+Qe
+DK
+Pw
+Hk
+Qe
+oP
+EM
+iU
+co
+tR
+Pw
+Pw
+Pw
+Qe
+UJ
+Xz
+mV
+mV
+mV
+rC
+Xz
+Xz
+Xz
+Xz
+"}
+(4,1,1) = {"
+vK
+bs
+Ky
+Nc
+Qi
+BU
+ir
+Dw
+HC
+bs
+Cj
+Nc
+LD
+LD
+LD
+RT
+Za
+Qe
+UJ
+Xz
+mV
+mV
+mV
+rC
+ps
+iA
+AK
+Xz
+"}
+(5,1,1) = {"
+Qe
+Pw
+Pw
+Pw
+Pw
+Pw
+Pw
+kH
+rC
+SC
+Tu
+Fp
+Pw
+Pw
+BJ
+Qe
+bo
+Qe
+UJ
+Xz
+mV
+us
+mV
+rC
+Xz
+Xz
+Xz
+Xz
+"}
+(6,1,1) = {"
+Qe
+Pw
+Pw
+Zr
+Ki
+JC
+Pw
+Xk
+rC
+Pw
+Pw
+Pw
+ir
+Pw
+BJ
+Qe
+Pw
+Qe
+UJ
+Xz
+mV
+mV
+mV
+rC
+ps
+iA
+Nt
+Xz
+"}
+(7,1,1) = {"
+Qe
+Pw
+ir
+Pw
+Pw
+Pw
+Pw
+OB
+rC
+Pw
+Pw
+Pw
+Pw
+Pw
+BJ
+Qe
+ir
+Qe
+UJ
+Xz
+mV
+mV
+mV
+rC
+Xz
+Xz
+Xz
+Xz
+"}
+(8,1,1) = {"
+Qe
+Pw
+Pw
+Xv
+aP
+AU
+ir
+Sk
+uf
+fy
+Ju
+rc
+rc
+hm
+Nc
+Qi
+Pw
+Qe
+UJ
+Xz
+rF
+mV
+mV
+rC
+ps
+iA
+Sj
+Xz
+"}
+(9,1,1) = {"
+Qe
+Pw
+Pw
+Pw
+Pw
+Pw
+Pw
+Pw
+Ky
+Pw
+Pw
+Pw
+ir
+Pw
+jj
+Ky
+Pw
+Qe
+UJ
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+Xz
+"}
+(10,1,1) = {"
+Qe
+NS
+Kg
+Kg
+vc
+uP
+ll
+af
+sA
+cW
+ev
+OY
+br
+EC
+Al
+sA
+Pw
+Qe
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(11,1,1) = {"
+HC
+LD
+LD
+LD
+LD
+LD
+LD
+LD
+KH
+LD
+LD
+LD
+LD
+LD
+LD
+KH
+LD
+Qi
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(12,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(13,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(14,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(15,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(16,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(17,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+"}
+(18,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+"}
+(19,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+tA
+"}
+(20,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(21,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(22,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(23,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(24,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(25,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(26,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(27,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(28,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(29,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(30,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(31,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(32,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(33,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(34,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(35,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(36,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(37,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(38,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ee
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Ph
+Fe
+tA
+"}
+(39,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+Fe
+tA
+"}
+(40,1,1) = {"
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+tA
+"}

@@ -1,7 +1,3 @@
-#define DEVIL_R_HAND_LAYER 1
-#define DEVIL_L_HAND_LAYER 2
-#define DEVIL_TOTAL_LAYERS 2
-
 // This is used primarily for having hands.
 /mob/living/carbon/true_devil
 	name = "True Devil"
@@ -11,15 +7,13 @@
 	gender = NEUTER
 	health = 350
 	maxHealth = 350
-	density = TRUE
-	pass_flags =  0
-	var/ascended = FALSE
-	sight = (SEE_TURFS | SEE_OBJS)
+	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
 	universal_understand = TRUE
 	universal_speak = TRUE //The devil speaks all languages meme
+	var/ascended = FALSE
 	var/mob/living/oldform
-	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	if(dna_source)
@@ -134,7 +128,7 @@
 		// If the devil wants to actually attack, they have the pitchfork.
 
 
-/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE)
+/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 
@@ -173,7 +167,7 @@
 				add_attack_logs(M, src, "attacked")
 				updatehealth()
 			if(INTENT_DISARM)
-				if(!lying_angle && !ascended) //No stealing the arch devil's pitchfork.
+				if(body_position == STANDING_UP && !ascended) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out
@@ -215,4 +209,3 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
-#undef DEVIL_TOTAL_LAYERS

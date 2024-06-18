@@ -90,6 +90,11 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
+/turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
+	oxygen = /turf/simulated/floor/plating/lava/smooth::oxygen //lava near tendril
+	nitrogen = /turf/simulated/floor/plating/lava/smooth::nitrogen
+	temperature = /turf/simulated/floor/plating/lava/smooth::temperature
+
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
@@ -327,4 +332,4 @@
 	icon = null
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE

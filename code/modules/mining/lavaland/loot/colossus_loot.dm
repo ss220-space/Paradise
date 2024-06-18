@@ -71,7 +71,7 @@
 	return 1
 
 /obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(ismob(moving_atom))
 		ActivationReaction(moving_atom,"mob_bump")
 
@@ -323,7 +323,7 @@
 		for(var/i in T)
 			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
-				if(!W.admin_spawned && !(W.flags & HOLOGRAM) && !(W.item_flags & ABSTRACT))
+				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
@@ -386,7 +386,7 @@
 		L.mutations -=MUTE
 		L.status_flags &= ~GODMODE
 		REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		if(holder_animal && !QDELETED(holder_animal))
+		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
 		if(kill || !isanimal(loc))

@@ -28,7 +28,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
-	admin_spawned = TRUE
+	flags = ADMIN_SPAWNED
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
