@@ -44,6 +44,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_NOT_SLEEP(TRUE)
 	tag = null
+	weak_reference = null //ensure prompt GCing of weakref.
 
 	var/list/timers = active_timers
 	active_timers = null

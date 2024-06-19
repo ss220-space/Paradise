@@ -46,7 +46,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// How many people we've hit with clients
 	var/num_sentient_people_hit = 0
 	/// The rod levels up with each kill, increasing in size and auto-renaming itself.
-	var/dnd_style_level_up = TRUE
+	var/dnd_style_level_up = FALSE
 	/// Whether the rod can loop across other z-levels. The rod will still loop when the z-level is self-looping even if this is FALSE.
 	var/loopy_rod = FALSE
 	/// Basically our speed, lower = faster
@@ -87,6 +87,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/update_name(updates = ALL)
 	. = ..()
 	if(!dnd_style_level_up)
+		name = initial(name)
 		return .
 	switch(num_sentient_mobs_hit)
 		if(0)

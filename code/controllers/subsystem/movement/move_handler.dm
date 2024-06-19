@@ -94,10 +94,12 @@ SUBSYSTEM_DEF(move_manager)
 
 	if(existing_loop && existing_loop.priority > priority)
 		if(!(existing_loop.flags & MOVEMENT_LOOP_IGNORE_PRIORITY) && !(flags & MOVEMENT_LOOP_IGNORE_PRIORITY))
-			return //Give up
+			return null //Give up
 
 	if(existing_loop?.compare_loops(arglist(args.Copy(2))))
-		return //it already exists stop trying to make the same moveloop
+		if(flags & MOVEMENT_LOOP_TAKE_EXISTING_LOOP)
+			return existing_loop
+		return null	//it already exists stop trying to make the same moveloop
 
 	var/datum/move_loop/new_loop = new loop_type(src, subsystem, parent, priority, flags, extra_info) //Pass the mob to move and ourselves in via new
 	var/list/arguments = args.Copy(6) //Just send the args we've not already dealt with
@@ -105,7 +107,7 @@ SUBSYSTEM_DEF(move_manager)
 	var/worked_out = new_loop.setup(arglist(arguments)) //Here goes the rest
 	if(!worked_out)
 		qdel(new_loop)
-		return
+		return null
 
 	existing_loops[subsystem] = new_loop
 	if(existing_loop)

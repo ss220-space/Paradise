@@ -42,6 +42,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
 ///Is the loop moving the movable outside its control, like it's an external force? e.g. footsteps won't play if enabled.
 #define MOVEMENT_LOOP_OUTSIDE_CONTROL (1<<4)
+///If the loop is already exists and has exactly the same args as new loop, [/proc/add_loop()] will return it, instead of null.
+#define MOVEMENT_LOOP_TAKE_EXISTING_LOOP (1<<5)
 
 // Movement loop status flags
 /// Has the loop been paused, soon to be resumed?
