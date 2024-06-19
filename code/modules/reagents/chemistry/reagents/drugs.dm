@@ -454,14 +454,13 @@
 	shock_reduction = 60
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "WAAAAGH"
-	bonus_damage = 5
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/M)
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.punchdamagelow += bonus_damage
-		H.dna.species.punchdamagehigh += bonus_damage
+		H.dna.species.punchdamagelow += 5
+		H.dna.species.punchdamagehigh += 5
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -471,6 +470,9 @@
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
 			organ.receive_damage(0.2, FALSE)
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
@@ -480,10 +482,6 @@
 			H.update_hair()
 			H.update_fhair()
 			H.visible_message("<span class='warning'>[H] has a wild look in [H.p_their()] eyes!</span>")
-	if(ishuman(M))
-		M.SetParalysis(0)
-		M.SetStunned(0)
-		M.SetWeakened(0)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
 		M.Druggy(30 SECONDS)
@@ -499,8 +497,8 @@
 	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.punchdamagelow -= bonus_damage
-		H.dna.species.punchdamagehigh -= bonus_damage
+		H.dna.species.punchdamagelow -= 5
+		H.dna.species.punchdamagehigh -= 5
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -515,11 +513,11 @@
 
 /datum/reagent/bath_salts/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(-24, FALSE)
+	update_flags |= M.adjustStaminaLoss(-16, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
-			organ.receive_damage(2, FALSE)
+			organ.receive_damage(1.8, FALSE)
 	return list(0, update_flags)
 
 /datum/reagent/jenkem
