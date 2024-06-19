@@ -35,7 +35,14 @@
 
 	if(CONFIG_GET(flag/enable_syndicate_affiliates))
 		give_objectives = FALSE
+		grant_affiliate()
 	return ..()
+
+/datum/antagonist/traitor/proc/grant_affiliate()
+	var/list/possible_affiliates
+	for(var/i in 1 to 3)
+		if()
+	SSticker.mode.affiliates
 
 
 /datum/antagonist/traitor/Destroy(force, ...)
