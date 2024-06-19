@@ -1227,17 +1227,21 @@
 	desc = "An unique brass board, used by cyborg warriors."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
+	var/free_VTEC = FALSE
 
 
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+	. = TRUE
 	if(robot.module?.type == /obj/item/robot_module/clockwork)
 		robot.pdahide = TRUE
 	else
 		robot.ratvar_act()
 		robot.opened = FALSE
 		robot.locked = TRUE
+	if(!free_VTEC)
+		return .
 	var/obj/item/borg/upgrade/vtec/vtec_upgrade = locate() in robot.upgrades
 	if(!vtec_upgrade)
 		vtec_upgrade = new
@@ -1245,7 +1249,6 @@
 			robot.install_upgrade(vtec_upgrade)
 		else
 			qdel(vtec_upgrade)
-	return TRUE
 
 
 // A drone shell. Just click on it and it will boot up itself!
