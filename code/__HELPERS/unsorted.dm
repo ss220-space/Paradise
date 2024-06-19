@@ -534,7 +534,8 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all areas of that type in the world.
 /proc/get_areas(areatype, subtypes=TRUE)
-	if(!areatype) return null
+	if(!areatype)
+		return null
 	if(istext(areatype))
 		areatype = text2path(areatype)
 	if(isarea(areatype))
