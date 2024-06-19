@@ -306,11 +306,6 @@
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE)
-	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
-	if(istype(H))
-		H.toggle_welding_screen(owner)
-
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
 
