@@ -69,7 +69,7 @@
 	if(light_sources) // Turn off starlight, if present
 		set_light_on(FALSE)
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE, oldType)
+/turf/space/AfterChange(flags = NONE, oldType)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)

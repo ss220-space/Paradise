@@ -232,7 +232,7 @@
 		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf)
-				if(stepTurf.flags & NOJAUNT)
+				if(stepTurf.turf_flags & NOJAUNT)
 					move_delay += 0.5 SECONDS
 					to_chat(L, span_warning("Святые силы блокируют Ваш путь."))
 					return FALSE
