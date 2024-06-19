@@ -32,6 +32,7 @@
 #define PULSEDEMON_TRAIT "pulse_demon"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
+#define TIGER_TRAIT "tiger"
 #define NINJA_TRAIT "space-ninja"
 #define REVENANT_TRAIT "revenant"
 /// (B)admins only.

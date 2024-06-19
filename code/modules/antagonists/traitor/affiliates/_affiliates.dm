@@ -36,46 +36,60 @@
 			new_objective = new objective
 		traitor.add_objective(new_objective)
 
+/datum/affiliate/proc/is_possible()
+	return TRUE
 
-/datum/affiliate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
+/obj/effect/proc_holder/spell/choose_affiliate
+	name = "Choose Affiliate"
+	desc = "Choose what affiliate you want to work for."
+	gain_desc = "Who was the one hired me?"
+	human_req = TRUE
+	clothes_req = FALSE
+	base_cooldown = 2 SECONDS
+	stat_allowed = UNCONSCIOUS
+	action_icon_state = "select_class"
+	var/list/affiliates_to_choose
+
+
+/obj/effect/proc_holder/spell/choose_affiliate/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/choose_affiliate/New(affiliates)
+	. = ..()
+	affiliates_to_choose = affiliates
+
+/obj/effect/proc_holder/spell/choose_affiliate/cast(mob/user)
+	ui_interact(user)
+
+/obj/effect/proc_holder/spell/choose_affiliate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Affiliates", name, 900, 800, master_ui, state)
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
-/datum/affiliate/ui_static_data(mob/user)
+
+/obj/effect/proc_holder/spell/choose_affiliate/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/affiliates = list()
 	for(var/i in 1 to 3)
-		var/affiliate_path = pick(subtypesof(/datum/affiliate))
+		var/affiliate_path = affiliates_to_choose[i]
 		var/datum/affiliate/affiliate = new affiliate_path
 		affiliates += list(list("name" = affiliate.name,
 								"desc" = affiliate.desc,
 								"path" = affiliate_path,
 								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.tgui_icon, SOUTH))))
-
 	data["affiliates"] = affiliates
-
 	return data
 
-/datum/affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/effect/proc_holder/spell/choose_affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	var/datum/mind/traitor = ui.user.mind
+	var/datum/antagonist/traitor/traitor = ui.user.mind.has_antag_datum(/datum/antagonist/traitor)
 	switch(action)
 		if("SelectAffiliate")
 			var/path = params["path"]
-			var/datum/affiliate/newaffiliate = new path
-			uplink.affiliate = newaffiliate
-			newaffiliate.uplink = uplink
+			traitor.grant_affiliate(path)
+			traitor.owner.RemoveSpell(src)
 			ui.close()
-			uplink.affiliate.finalize_affiliate(traitor)
-			uplink.trigger(ui.user)
-			qdel(src)
-
-/datum/affiliate/ui_close(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(src != uplink.affiliate)
-		return
-	uplink.affiliate = null
-	qdel(src)

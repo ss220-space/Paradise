@@ -261,11 +261,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 
 /obj/item/uplink/hidden/interact(mob/user)
-	if(CONFIG_GET(flag/enable_syndicate_affiliates) && (uplink_type == UPLINK_TYPE_TRAITOR) && !affiliate)
-		affiliate = new
-		affiliate.uplink = src
-		affiliate.ui_interact(user)
-		return
 	ui_interact(user)
 
 /obj/item/uplink/hidden/ui_act(action, list/params)

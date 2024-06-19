@@ -41,7 +41,7 @@
 	if(H.stat != DEAD && !free_inject)
 		to_chat(user, span_warning("You can't use [src] to [target]!"))
 		return
-	if(do_after_once(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = user))
+	if(do_after(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, user, max_interact_count = 1))
 		inject(user, H)
 
 /obj/item/cling_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)

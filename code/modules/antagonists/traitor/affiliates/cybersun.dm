@@ -34,7 +34,7 @@
 
 /obj/item/CIndy_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
-		if(do_after_once(user, 10 SECONDS, target = target))
+		if(do_after(user, 10 SECONDS, target, max_interact_count = 1))
 			var/mob/prev_robot = target
 			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))
 			prev_robot.mind?.transfer_to(robot)

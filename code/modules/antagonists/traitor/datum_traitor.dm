@@ -35,14 +35,28 @@
 
 	if(CONFIG_GET(flag/enable_syndicate_affiliates))
 		give_objectives = FALSE
-		grant_affiliate()
+		give_affiliates()
 	return ..()
 
-/datum/antagonist/traitor/proc/grant_affiliate()
-	var/list/possible_affiliates
+/datum/antagonist/traitor/proc/give_affiliates()
+	var/list/possible_affiliates = list()
+	var/list/the_choosen_ones = list()
+	for(var/new_affiliate in subtypesof(/datum/affiliate))
+		var/datum/affiliate/affiliate_check = new new_affiliate
+		if(affiliate_check.is_possible())
+			possible_affiliates += new_affiliate
+		qdel(affiliate_check)
 	for(var/i in 1 to 3)
-		if()
-	SSticker.mode.affiliates
+		the_choosen_ones += pick_n_take(possible_affiliates)
+	var/obj/effect/proc_holder/spell/choose_affiliate/choose = new(the_choosen_ones)
+	owner.AddSpell(choose)
+
+
+/datum/antagonist/traitor/proc/grant_affiliate(var/path)
+	var/datum/affiliate/new_affiliate = new path
+	affiliate = new_affiliate
+	if(hidden_uplink)
+		hidden_uplink.affiliate = new_affiliate
 
 
 /datum/antagonist/traitor/Destroy(force)
