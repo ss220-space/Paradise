@@ -3012,7 +3012,6 @@
 #include "code\modules\shuttle\shuttle_smash.dm"
 #include "code\modules\shuttle\supply.dm"
 #include "code\modules\shuttle\syndicate.dm"
-#include "code\modules\shuttle\transit.dm"
 #include "code\modules\shuttle\vox.dm"
 #include "code\modules\space_management\multiz_helper.dm"
 #include "code\modules\space_management\space_chunk.dm"
