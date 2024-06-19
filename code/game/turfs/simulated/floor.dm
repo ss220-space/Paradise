@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating)
 
-/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						new_window.dir = cdir
 			else
 				new our_rcd.window_type(src)
-			ChangeTurf(our_rcd.floor_type, ignore_air = TRUE) // Platings go under windows.
+			ChangeTurf(our_rcd.floor_type, after_flags = CHANGETURF_IGNORE_AIR) // Platings go under windows.
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
 			if(our_rcd.checkResource(8, user))

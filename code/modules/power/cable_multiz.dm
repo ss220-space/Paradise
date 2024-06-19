@@ -77,13 +77,14 @@
 			else
 				powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
 
-	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(loc))
+	var/turf/T = loc
+	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(T))
 	if(above && above?.powernet != powernet)
 		if(!above.powernet)
 			powernet.add_cable(above)
 		else
 			merge_powernets(powernet, above.powernet)
-	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(loc))
+	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(T))
 	if(below && below?.powernet != powernet)
 		if(!below.powernet)
 			powernet.add_cable(below)

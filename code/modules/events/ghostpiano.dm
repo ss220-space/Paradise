@@ -15,7 +15,7 @@
 
 /datum/event/ghostpiano/proc/get_spawning_turf()
 	var/list/availableareas = list()
-	for(var/area/maintenance/area in GLOB.all_areas)
+	for(var/area/maintenance/area in GLOB.areas)
 		availableareas += area
 	if(!length(availableareas))
 		return

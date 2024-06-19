@@ -32,7 +32,8 @@
 	dwidth = 11;
 	height = 13;
 	timid = 1;
-	width = 24
+	width = 24;
+	port_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;

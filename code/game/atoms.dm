@@ -179,14 +179,21 @@
 	if(!T)
 		return
 
+	if(is_reserved_level(T.z))
+		for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
+			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+				for(var/area/shuttle/shuttle_area in mobile.shuttle_areas)
+					if(T in shuttle_area)
+						return TRUE
+
 	if(!is_admin_level(T.z))//if not, don't bother
 		return
 
-	//check for centcomm shuttles
-	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
-		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(centcom_shuttle)
-		if(T in M.areaInstance)
-			return TRUE
+	//Check for centcom shuttles
+	for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
+		if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+			if(T in mobile.areaInstance)
+				return TRUE
 
 	//finally check for centcom itself
 	return istype(T.loc, /area/centcom)

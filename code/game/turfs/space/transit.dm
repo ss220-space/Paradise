@@ -1,7 +1,10 @@
 /turf/space/transit
+	name = "\proper hyperspace"
 	icon_state = "black_arrow"
 	dir = SOUTH
 	plane = PLANE_SPACE
+	baseturf = /turf/space/transit
+	turf_flags = NOJAUNT
 
 /turf/space/transit/north
 	dir = NORTH
@@ -26,13 +29,19 @@
 		return
 	if(!arrived.simulated || istype(arrived, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
+	if(!isobserver(arrived))
+		return
+	dump_in_space(arrived)
+
+///Dump a movable in a random valid spacetile
+/proc/dump_in_space(atom/movable/dumpee)
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
 	//now select coordinates for a border turf
 	var/_x
 	var/_y
-	switch(dir)
+	switch(dumpee.dir)
 		if(SOUTH)
 			_x = rand(min,max)
 			_y = max
@@ -48,8 +57,8 @@
 
 	var/list/levels_available = get_all_linked_levels_zpos()
 	var/turf/T = locate(_x, _y, pick(levels_available))
-	arrived.forceMove(T)
-	arrived.newtonian_move(dir)
+	dumpee.forceMove(T)
+	dumpee.newtonian_move(dumpee.dir)
 
 
 /turf/space/transit/rpd_act()

@@ -104,7 +104,7 @@
 
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
-	T.flags |= NO_LAVA_GEN
+	T.turf_flags |= NO_LAVA_GEN
 	. = ..()
 
 /obj/effect/mapping_helpers/light

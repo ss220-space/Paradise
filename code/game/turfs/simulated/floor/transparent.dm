@@ -155,8 +155,8 @@
 		break_tile()
 */
 
-/turf/simulated/floor/glass/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	return ..(T, defer_change, FALSE, ignore_air, copy_existing_baseturf)
+/turf/simulated/floor/glass/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
+	return ..(T, defer_change, FALSE, after_flags, copy_existing_baseturf)
 
 
 /turf/simulated/floor/glass/reinforced

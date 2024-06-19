@@ -44,7 +44,7 @@
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency)
 
-/turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+/turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
