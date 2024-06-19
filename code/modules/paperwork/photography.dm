@@ -565,6 +565,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 *video camera *
 ***************/
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
+GLOBAL_LIST_EMPTY(active_video_cameras)
 
 /obj/item/videocam
 	name = "video camera"
@@ -577,13 +578,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	materials = list(MAT_METAL=2000)
 	var/on = FALSE
 	var/video_cooldown = 0
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/canhear_range = 7
 
 
 /obj/item/videocam/Destroy()
 	if(on)
-		update_feeds()
+		camera_state()
 	return ..()
 
 
@@ -592,11 +593,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 
 /obj/item/videocam/proc/update_feeds()
+	if(on)
+		GLOB.active_video_cameras |= src
+	else
+		GLOB.active_video_cameras -= src
+
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
-		if(on)
-			TV.feeds_on++
-		else
-			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
 
 
@@ -605,9 +607,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("news")
-		camera.c_tag = user.name
+		camera = new(src, list("news"), user.name)
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	visible_message(span_notice("The video camera has been turned [on ? "on" : "off"]."))
