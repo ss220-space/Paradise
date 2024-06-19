@@ -10,3 +10,4 @@
 	ASSERT(islist(list_of_traits))
 	for(var/trait in list_of_traits)
 		REMOVE_TRAIT(src, trait, source)
+
