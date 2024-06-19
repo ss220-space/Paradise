@@ -233,7 +233,7 @@
 	if(give_codewords)
 		messages.Add(give_codewords())
 
-	if(give_uplink)
+	if(give_uplink && !CONFIG_GET(flag/enable_syndicate_affiliates))
 		give_uplink()
 
 	announce_uplink_info()

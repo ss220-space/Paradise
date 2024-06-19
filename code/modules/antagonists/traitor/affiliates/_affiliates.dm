@@ -68,7 +68,6 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-
 /obj/effect/proc_holder/spell/choose_affiliate/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/affiliates = list()
@@ -93,3 +92,5 @@
 			traitor.grant_affiliate(path)
 			traitor.owner.RemoveSpell(src)
 			ui.close()
+			traitor.give_uplink()
+			traitor.announce_uplink_info()
