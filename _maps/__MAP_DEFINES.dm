@@ -31,6 +31,8 @@
 	#define SPAWN_RUINS "Spawn Ruins"
 	// Ghost role Taipan z-level.
 	#define TAIPAN "RaMSS Taipan"
+	// Reserved z-level used only by shuttles
+	#define RESERVED_LEVEL "Transit/Reserved"
 
 // Level names
 	#define CENTCOMM "CentComm"
@@ -41,9 +43,13 @@
 	#define EMPTY_AREA "Empty Area"
 	#define AWAY_MISSION "Away Mission"
 	#define RAMSS_TAIPAN "RAMSS Taipan"
+	#define RESERVED_ZONE "Transit/Reserved"
 
 /*
-2024-01-14, the typical z-levels for a single-level station are:
+You can change orders for z-level(from 3 to last cause centcom and admin are compiled right into) and everything shouldn't break
+If something breaks due to z order change, it means it's hardcoded and then it means someone fucked up in coding.
+
+2024-06-18, the typical z-levels for a single-level station are:
 1: CentCom
 2: Admin Zone
 3: Station
@@ -51,6 +57,7 @@
 5: Taipan
 6: Away mission
 7-11: Randomized space
+last: Transit
 */
 
 // Whether this z level is linked up/down. Bool.
@@ -81,3 +88,6 @@
 #define PLACE_LAVA_RUIN "lavaland"
 
 #define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
+
+//Reserved/Transit turf type
+#define RESERVED_TURF_TYPE /turf/space

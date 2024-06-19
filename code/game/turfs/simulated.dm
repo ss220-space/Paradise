@@ -57,14 +57,14 @@
 		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)
 		new_wet_floor_component.InheritComponent(slip)
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	. = ..()
 	queue_smooth_neighbors(src)
 
-/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType)
+/turf/simulated/AfterChange(flags, oldType)
 	..()
 	RemoveLattice()
-	if(!ignore_air)
+	if(!(flags & CHANGETURF_IGNORE_AIR))
 		assimilate_air()
 
 //////Assimilate Air//////

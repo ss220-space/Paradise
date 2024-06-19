@@ -102,7 +102,7 @@
  *
  */
 /datum/antagonist/space_dragon/proc/rift_checks()
-	if((rifts_charged == 3 || (SSshuttle.emergency.mode == SHUTTLE_DOCKED && rifts_charged > 0)) && !objective_complete)
+	if((rifts_charged == 3 || (EMERGENCY_AT_LEAST_DOCKED && rifts_charged > 0)) && !objective_complete)
 		victory()
 		return
 	if(riftTimer == -1)
@@ -162,7 +162,7 @@
 		rift.time_charged = rift.max_charge
 	SSshuttle.emergency.canRecall = FALSE
 	SSshuttle.emergencyNoEscape = FALSE
-	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 	SSshuttle.emergency.request(coefficient = 0.5)
 

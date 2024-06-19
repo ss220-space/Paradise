@@ -720,7 +720,8 @@
 	name = "NHV Asclepius";
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18
+	width = 18;
+	port_direction = 4
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;

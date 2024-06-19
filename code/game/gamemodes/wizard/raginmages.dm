@@ -116,7 +116,7 @@
 		qdel(B)
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
-	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(making_mage || EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return FALSE
 	making_mage = TRUE
 

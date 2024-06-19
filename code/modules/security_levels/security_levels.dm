@@ -246,7 +246,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/unset_stationwide_emergency_lighting()
-	for(var/area/A as anything in GLOB.all_areas)
+	for(var/area/A as anything in GLOB.areas)
 		if(!is_station_level(A.z))
 			continue
 		if(!A.area_emergency_mode)
@@ -268,7 +268,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 	GLOB.security_announcement_up.Announce("Центральным командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты.","ВНИМАНИЕ! КОД ЭПСИЛОН", new_sound = sound('sound/effects/epsilon.ogg'))
 	GLOB.security_level = SEC_LEVEL_EPSILON
 	post_status(STATUS_DISPLAY_ALERT, "epsilonalert")
-	for(var/area/A as anything in GLOB.all_areas)
+	for(var/area/A as anything in GLOB.areas)
 		if(!is_station_level(A.z))
 			continue
 		for(var/obj/machinery/light/light as anything in A.lights_cache)

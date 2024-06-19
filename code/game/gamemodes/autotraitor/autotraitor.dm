@@ -23,7 +23,7 @@
 
 /datum/game_mode/traitor/autotraitor/proc/autotraitor_check(max_traitors = 1)
 
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
 	message_admins("Performing AutoTraitor Check")

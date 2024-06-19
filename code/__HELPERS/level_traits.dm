@@ -13,6 +13,9 @@
 /proc/is_admin_level(z)
 	return check_level_trait(z, ADMIN_LEVEL)
 
+/proc/is_reserved_level(z)
+	return check_level_trait(z, RESERVED_LEVEL)
+
 /proc/is_away_level(z)
 	return check_level_trait(z, AWAY_LEVEL)
 

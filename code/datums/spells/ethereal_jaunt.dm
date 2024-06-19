@@ -123,7 +123,7 @@
 
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/target_turf, mob/user)
-	if(target_turf.flags & NOJAUNT)
+	if(target_turf.turf_flags & NOJAUNT)
 		return FALSE
 	var/dir = get_dir_multiz(get_turf(src), target_turf)
 	if(dir & (UP|DOWN))

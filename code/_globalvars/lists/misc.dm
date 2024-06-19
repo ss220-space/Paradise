@@ -49,6 +49,10 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())
 
+/// List of all the maps that have been cached for /proc/load_map
+GLOBAL_LIST_EMPTY(cached_maps)
+
+
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
 		'sound/misc/apcdestroyed.ogg' = 3 SECONDS,

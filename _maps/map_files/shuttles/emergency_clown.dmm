@@ -181,7 +181,8 @@
 	height = 13;
 	name = "Snappop(tm)!";
 	timid = 1;
-	width = 24
+	width = 24;
+	port_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;

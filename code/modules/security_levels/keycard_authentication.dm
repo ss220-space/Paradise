@@ -226,7 +226,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 
 // Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in GLOB.all_areas) // Why are these global lists? AAAAAAAAAAAAAA
+	for(var/area/maintenance/A in GLOB.areas) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A.machinery_cache)
 			D.emergency = 1
 			D.update_icon()
@@ -235,7 +235,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in GLOB.all_areas)
+	for(var/area/maintenance/A in GLOB.areas)
 		for(var/obj/machinery/door/airlock/D in A.machinery_cache)
 			D.emergency = 0
 			D.update_icon()

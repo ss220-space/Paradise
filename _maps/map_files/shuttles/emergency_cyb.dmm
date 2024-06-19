@@ -485,7 +485,8 @@
 	dwidth = 11;
 	height = 18;
 	timid = 1;
-	width = 29
+	width = 29;
+	port_direction = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)

@@ -403,8 +403,8 @@
 	else
 		menu_state=value
 
-/proc/call_shuttle_proc(var/mob/user, var/reason)
-	if(GLOB.sent_strike_team == 1)
+/proc/call_shuttle_proc(mob/user, reason)
+	if(GLOB.sent_strike_team == TRUE || GLOB.security_level == SEC_LEVEL_EPSILON)
 		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
@@ -416,7 +416,7 @@
 		to_chat(user, span_warning("The emergency shuttle may not be sent at this time. Please try again later."))
 		return
 
-	if(SSshuttle.emergency.mode > SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		to_chat(user, span_warning("The emergency shuttle may not be called while returning to Central Command."))
 		return
 
@@ -427,14 +427,14 @@
 
 	return
 
-/proc/init_shift_change(var/mob/user, var/force = 0)
+/proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
 		if(SSshuttle.emergencyNoEscape)
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(GLOB.sent_strike_team == 1)
+		if(GLOB.sent_strike_team == TRUE || GLOB.security_level == SEC_LEVEL_EPSILON)
 			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
 			return
 

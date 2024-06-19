@@ -6,3 +6,5 @@
 #define LARGEST_Z_LEVEL_INDEX Z_LEVEL_DOWN
 
 #define SPACE_RUINS_NUMBER rand(CONFIG_GET(number/extra_space_ruin_levels_min), CONFIG_GET(number/extra_space_ruin_levels_max))
+
+var/list/transit_markers = list()

@@ -48,7 +48,7 @@
 	while(num_spawned < nodes && possible_locs.len)
 		var/turf/T = pick(possible_locs)
 		var/area/A = get_area(T)
-		if(!istype(A, whitelist_area_type) || (T.flags & NO_LAVA_GEN))
+		if(!istype(A, whitelist_area_type) || (T.turf_flags & NO_LAVA_GEN))
 			possible_locs -= T
 		else
 			river_nodes += new /obj/effect/landmark/river_waypoint(T)
@@ -61,7 +61,7 @@
 			continue
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
-		cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+		cur_turf.ChangeTurf(river_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
 		if(!target_turf)
 			break
@@ -86,13 +86,13 @@
 				message_admins("Encountered a null turf in river loop.")
 				break
 			var/area/new_area = get_area(cur_turf)
-			if(!istype(new_area, whitelist_area_type) || (cur_turf.flags & NO_LAVA_GEN)) //Rivers will skip ruins
+			if(!istype(new_area, whitelist_area_type) || (cur_turf.turf_flags & NO_LAVA_GEN)) //Rivers will skip ruins
 				detouring = 0
 				cur_dir = get_dir(cur_turf, target_turf)
 				cur_turf = get_step(cur_turf, cur_dir)
 				continue
 			else
-				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, ignore_air = TRUE)
+				var/turf/river_turf = cur_turf.ChangeTurf(river_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
 				if(prob(1))
 					new /obj/effect/spawner/bridge(river_turf)
 				spread_turf(river_turf, spread_prob, spread_prob_loss, whitelist_area_type)
@@ -108,7 +108,7 @@
 	for(var/F in RANGE_TURFS(1, start_turf) - start_turf)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || istype(T, /turf/simulated/wall/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
+		if(!T || (T.density && !istype(T, whitelist_turf_type)) || istype(T, /turf/simulated/floor/indestructible) || istype(T, /turf/simulated/wall/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.turf_flags & NO_LAVA_GEN) )
 			continue
 
 		if(get_dir(start_turf, F) in GLOB.cardinal)
@@ -118,17 +118,17 @@
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!istype(T, start_turf.type) && T.ChangeTurf(start_turf.type, ignore_air = TRUE) && prob(probability))
+		if(!istype(T, start_turf.type) && T.ChangeTurf(start_turf.type, after_flags = CHANGETURF_IGNORE_AIR) && prob(probability))
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 			if(prob(1))
 				new /obj/effect/spawner/bridge(T)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!istype(T, shoreline_turf_type) && prob(probability) && T.ChangeTurf(start_turf.type, ignore_air = TRUE))
+		if(!istype(T, shoreline_turf_type) && prob(probability) && T.ChangeTurf(start_turf.type, after_flags = CHANGETURF_IGNORE_AIR))
 			spread_turf(T, probability - prob_loss, prob_loss, whitelisted_area)
 		else if(istype(T, whitelist_turf_type) && !istype(T, start_turf.type))
-			T.ChangeTurf(shoreline_turf_type, ignore_air = TRUE)
+			T.ChangeTurf(shoreline_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
 			if(prob(1))
 				new /obj/effect/spawner/bridge(T)
 
