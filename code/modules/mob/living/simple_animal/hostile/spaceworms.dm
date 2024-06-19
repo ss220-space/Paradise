@@ -51,8 +51,14 @@
 	var/atom/currentlyEating //what the worm is currently eating
 	var/plasmaPoopPotential = 5 //this mainly exists for the name
 
-/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(var/check_drift = 0)
-	return 1 //space worms can flyyyyyy
+
+/mob/living/simple_animal/hostile/spaceWorm/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+
+
+/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE //space worms can flyyyyyy
 
 //Worm Head, Controls the AI for the entire worm "entity"
 /mob/living/simple_animal/hostile/spaceWorm/wormHead
@@ -124,8 +130,11 @@
 		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
-	attemptToEat(obstacle)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.))
+		return .
+	attemptToEat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(var/atom/noms)
@@ -145,17 +154,17 @@
 		return
 	currentlyEating = noms
 
-	var/nomDelay = 25
+	var/nomDelay = 2.5 SECONDS
 	var/turf/simulated/wall/W
 
 	if(noms in totalWormSegments)
 		return //Trying to eat part of self.
 
 	if(istype(noms, /turf))
-		if(istype(noms, /turf/simulated/wall))
+		if(iswallturf(noms))
 			W = noms
 			nomDelay *= 2
-			if(istype(W, /turf/simulated/wall/r_wall))
+			if(isreinforcedwallturf(W))
 				nomDelay *= 2
 		else
 			return
@@ -164,7 +173,7 @@
 
 	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 
-	if(do_after(src, nomDelay, 0, target = noms))
+	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
 			if(W)
 				W.ChangeTurf(/turf/simulated/floor/plating)
@@ -177,7 +186,7 @@
 				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
-					M.loc = src //because just setting a mob loc to null breaks the camera and such
+					M.forceMove(src) //because just setting a mob loc to null breaks the camera and such
 		else
 			currentlyEating = null
 	else
@@ -329,11 +338,6 @@
 		for(var/atom/movable/stomachContent in contents)
 			contents -= stomachContent
 			stomachContent.loc = T
-
-
-//Looks weird otherwise.
-/mob/living/simple_animal/hostile/spaceWorm/float(on)
-	return
 
 
 //Jiggle the whole worm forwards towards the next segment

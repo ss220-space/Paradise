@@ -50,22 +50,20 @@
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	var/blocked = FALSE
-	var/obj/item/I = H.get_item_by_slot(slot_wear_suit)
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(!istype(H))
 		return ..()
 	if(istype(I, /obj/item/clothing/suit/space) && !shield_ignore)
-		blocked = TRUE
 		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
-			var/obj/item/clothing/suit/space/hardsuit/HardS = I
-			if(HardS.shield)
-				HardS.shield.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
+			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(cooldown)
 		to_chat(user, span_warning("[src] is still charging!"))
 		return
 	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		user.visible_message(span_notice("[user] shocks [H] with [src]."), span_notice("You tried to shock [H] with [src]."))
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(get_turf(src), "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(get_turf(src), "sound/weapons/egloves.ogg", 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
 				to_chat(user, span_danger("[H] doesn't respond at all!"))

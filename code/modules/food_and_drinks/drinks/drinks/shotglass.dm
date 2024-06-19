@@ -63,13 +63,14 @@
 	if(!isShotFlammable() || (resistance_flags & ON_FIRE)) //You can't light a shot that's not flammable!
 		return
 	..()
-	set_light(light_intensity, null, light_color)
+	set_light_range_power_color(light_intensity, 1, light_color)
+	set_light_on(TRUE)
 	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
-	set_light(0)
+	set_light_on(FALSE)
 	if(!silent)
 		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
@@ -103,7 +104,7 @@
 
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(user))
+	if(!ishuman(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 
 	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))

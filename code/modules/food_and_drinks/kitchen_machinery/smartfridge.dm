@@ -40,7 +40,7 @@
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
-	var/broken_overlay = "smartfridge-broken"
+	var/broken_overlay = "smartfridge_broken"
 	/// Additional overlay on top, like hazard symbol for smartfringe in virology.
 	var/icon_addon
 	/// Used to calculate smartfridge fullness while updating overlays.
@@ -108,7 +108,7 @@
 
 
 /obj/machinery/smartfridge/extinguish_light(force = FALSE)
-	set_light(0)
+	set_light_on(FALSE)
 	underlays.Cut()
 
 
@@ -120,9 +120,9 @@
 /obj/machinery/smartfridge/power_change()
 	. = ..()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		set_light(light_range_on, light_power_on, l_on = TRUE)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
@@ -146,7 +146,7 @@
 	if(icon_addon)
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
@@ -160,6 +160,13 @@
 		if(76 to INFINITY)
 			fill_level = 3
 
+//// broken smartfridge for decorations
+/obj/machinery/smartfridge/broken
+
+/obj/machinery/smartfridge/broken/Initialize(mapload)
+	. = ..()
+	stat = BROKEN
+	update_icon(UPDATE_OVERLAYS)
 
 // Interactions
 /obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
@@ -232,8 +239,10 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user, params)
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return TRUE
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return
+		return TRUE
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return TRUE
@@ -347,15 +356,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I, /obj/item/gripper))
-				var/obj/item/gripper/gripper = I
-				var/obj/item/gripped_item = gripper.gripped_item
-				gripper.drop_gripped_item(silent = TRUE)
-				I = gripped_item
-				I.do_pickup_animation(src)
-				I.forceMove(src)
-
-			else if(istype(I.loc, /obj/item/storage))
+			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -413,9 +414,6 @@
   * * O - The item to check.
   */
 /obj/machinery/smartfridge/proc/accept_check(obj/item/I)
-	if(istype(I, /obj/item/gripper))
-		var/obj/item/gripper/gripper = I
-		I = gripper.gripped_item
 	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**
@@ -482,10 +480,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += base_icon_state
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -664,7 +662,7 @@
 		return
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /**
@@ -706,8 +704,7 @@
 		/obj/item/reagent_containers/glass/bottle/cough = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/synaptizine = 1,
-		/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde = 1
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
 	)
 	. = ..()
 

@@ -11,7 +11,10 @@
 	var/examine_extensions = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
-	var/brightness_on = 4 //luminosity when the light is on
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	var/on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
@@ -23,8 +26,8 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
-	species_restricted = list("Plasmaman")
-	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	species_restricted = list(SPECIES_PLASMAMAN)
+	sprite_sheets = list(SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 	var/upgradable = FALSE
 
 
@@ -35,14 +38,15 @@
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(!user.incapacitated() && Adjacent(user))
+	if(!user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
 		toggle_welding_screen(user)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
 	up = !up
-	flags ^= visor_flags
+	clothing_flags ^= visor_clothing_flags
 	flags_inv ^= visor_flags_inv
+	flags_inv_transparent ^= visor_flags_inv_transparent
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
@@ -54,11 +58,11 @@
 		if(on)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			on = FALSE
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
+			playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
 			update_icon(UPDATE_OVERLAYS)
 			actions_types = list(/datum/action/item_action/toggle_helmet_light)
 		else
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
+			playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
 			update_icon(UPDATE_OVERLAYS)
 
 
@@ -92,31 +96,30 @@
 		if(!up)
 			if(user)
 				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
-			set_light(0)
+			set_light_on(FALSE)
 		else
-			set_light(brightness_on)
+			set_light_on(TRUE)
 	else
-		set_light(0)
+		set_light_on(FALSE)
 
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
-		update_equipped_item()
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	if(HUDType && slot == slot_head)
+	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, silent = FALSE)
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(HUDType && istype(user) && user.head == src)
+	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
 
@@ -334,7 +337,7 @@
 	desc = "A green and blue envirohelmet designating its wearer as a botanist. While not specially designed for it, it would protect against minor plant-related injuries."
 	icon_state = "botany_envirohelm"
 	item_state = "botany_envirohelm"
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	HUDType = DATA_HUD_HYDROPONIC
 	examine_extensions = EXAMINE_HUD_BOTANY
 

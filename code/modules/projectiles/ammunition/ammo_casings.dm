@@ -512,7 +512,7 @@
 		modified = TRUE
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	else if((is_pen(A)) && modified && !FD.pen)
 		if(!user.drop_transfer_item_to_loc(A, FD))
 			return
 		harmful = TRUE

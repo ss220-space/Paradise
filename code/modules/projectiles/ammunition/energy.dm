@@ -114,8 +114,8 @@
 	delay = 15
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/electrode/old
-	projectile_type = /obj/item/projectile/energy/electrode/old
+/obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
+	projectile_type = /obj/item/projectile/energy/electrode/advanced
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -130,7 +130,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	delay = 20
+	delay = 0.4 SECONDS
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 

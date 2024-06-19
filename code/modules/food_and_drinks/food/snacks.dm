@@ -65,6 +65,8 @@
 		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(user.a_intent == INTENT_HARM && force)
+		return ..()
 	if(!opened)
 		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
 		return
@@ -105,10 +107,10 @@
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
-	if(istype(W,/obj/item/storage))
+	if(isstorage(W))
 		..() // -> item/attackby(, params)
 
 	else if(istype(W,/obj/item/kitchen/utensil))
@@ -125,10 +127,13 @@
 		)
 
 		bitecount++
-		U.overlays.Cut()
+		U.cut_overlays()
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
-		U.overlays += I
+		U.add_overlay(I)
+
+		if(U.blocks_emissive)
+			U.add_overlay(U.get_emissive_block())
 
 		var/obj/item/reagent_containers/food/snacks/collected = new type
 		collected.name = name
@@ -151,7 +156,7 @@
 			. = new trash(location)
 			trash = null
 			return
-		else if(istype(trash, /obj/item))
+		else if(isitem(trash))
 			var/obj/item/trash_item = trash
 			trash_item.forceMove(location)
 			. = trash
@@ -197,7 +202,9 @@
 	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!iscarbon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	var/obj/item/I = user.get_active_hand()
@@ -210,8 +217,6 @@
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
-		return
-	if(!iscarbon(user))
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")

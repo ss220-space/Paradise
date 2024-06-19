@@ -51,3 +51,8 @@
 
 	data["pods"] = pods
 	return data
+
+/obj/machinery/computer/podtracker/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame-eng"
+	icon_keyboard = "kb1"

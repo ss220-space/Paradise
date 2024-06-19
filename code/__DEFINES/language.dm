@@ -38,6 +38,7 @@
 #define LANGUAGE_MONKEY_UNATHI		"Stok"
 #define LANGUAGE_MONKEY_TAJARAN		"Farwa"
 #define LANGUAGE_MONKEY_VULPKANIN	"Wolpin"
+#define LANGUAGE_ANGEL				"Angel Singing"
 
 
 // Language flags.

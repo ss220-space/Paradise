@@ -23,7 +23,9 @@
 	/// Turfs where the glowshroom cannot spread to
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
 		/turf/simulated/floor/plating/lava,
-		/turf/simulated/floor/beach/water))
+		/turf/simulated/floor/chasm,
+		/turf/simulated/floor/beach/water,
+		/turf/simulated/floor/indestructible/beach/water))
 	/// Internal seed of the glowshroom, stats are stored here
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
@@ -82,7 +84,7 @@
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
-		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
+		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
 	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)
@@ -117,7 +119,7 @@
 	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
-		if(!ownturf.CanAtmosPass(earth))
+		if(!ownturf.CanAtmosPass(earth, vertical = FALSE))
 			continue
 		possible_locs += earth
 

@@ -53,6 +53,14 @@
 	var/mob/living/carbon/human/target = grab.affecting
 	cling.is_linking = TRUE
 
+	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE) as num|null
+
+	if(isnull(time) || time == 0)
+		to_chat(user, span_danger("Вы отказались от идеи связать ваши разумы."))
+		return
+
+	time = clamp(time, 1, 120)
+
 	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
@@ -66,25 +74,25 @@
 			if(3)
 				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
 
-		if(!do_mob(user, target, 2 SECONDS) || !can_sting(user, TRUE))
+		if(!do_after(user, 2 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Linking process was interrupted!"))
 			cling?.is_linking = FALSE
 			return FALSE
 
 	user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), \
 						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-	to_chat(target, "<font color=#800040><span class='boldannounce'>You can now communicate in the changeling hivemind, say \":g message\" to communicate!</span>")
+	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
 	for(var/mob/ling in GLOB.mob_list)
-		if(GLOB.all_languages[LANGUAGE_HIVE_CHANGELING] in ling.languages)
+		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))
 			to_chat(ling, span_changeling("We can sense a foreign presence in the hivemind..."))
 
 	cling?.is_linking = FALSE
 	target.add_language(LANGUAGE_HIVE_CHANGELING)
-	target.say(":g AAAAARRRRGGGGGHHHHH!!")
+	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'AAAAARRRRGGGGGHHHHH!!")
 	target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
 
-	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), 3 MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), time MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 

@@ -10,7 +10,7 @@
 			continue
 
 		if(SP.speaking && SP.speaking.flags & INNATE) // If message contains noise lang parts other parts will be skipped
-			return SP.speaking.format_message(piece)
+			return SP.speaking.format_message(piece, speaker)
 
 		if(iteration_count == 1)
 			piece = capitalize(piece)
@@ -29,7 +29,7 @@
 			else
 				piece = stars(piece)
 		if(SP.speaking)
-			piece = SP.speaking.format_message(piece)
+			piece = SP.speaking.format_message(piece, speaker)
 		else
 			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
@@ -44,7 +44,7 @@
 		if(piece == "")
 			continue
 
-		if(SP.speaking && SP.speaking.flags & INNATE) // TTS should not read emotes like "laughts"
+		if(SP.speaking == GLOB.all_languages[LANGUAGE_NOISE]) // TTS should not read emotes like "laughts"
 			return ""
 
 		if(iteration_count == 1)
@@ -72,7 +72,7 @@
 	if(message == "")
 		return ""
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
-		if(SP.speaking && SP.speaking.flags & INNATE) // Message contains only emoutes, no need to add verb
+		if(SP.speaking == GLOB.all_languages[LANGUAGE_NOISE]) // Message contains only emoutes, no need to add verb
 			return message
 	return "[verb], \"[message]\""
 
@@ -131,7 +131,7 @@
 	speaker_name = colorize_name(speaker, speaker_name)
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
-		if(SP.speaking && SP.speaking.flags & INNATE)
+		if(SP.speaking == GLOB.all_languages[LANGUAGE_NOISE])
 			if(speaker == src)
 				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
 			return
@@ -148,7 +148,7 @@
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker, message_clean, FALSE, italics)
+			create_chat_message(speaker, message_clean, italics ? list("italics") : null)
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
@@ -218,7 +218,7 @@
 	else
 		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message_clean, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
@@ -284,7 +284,7 @@
 		name = speaker.voice_name
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-		create_chat_message(H, message_clean, TRUE, FALSE)
+		create_chat_message(H, message_clean, list("radio"))
 
 	var/effect = SOUND_EFFECT_RADIO
 	if(isrobot(speaker))

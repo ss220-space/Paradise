@@ -7,6 +7,7 @@
 	anchored = FALSE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
+	pass_flags_self = PASSGLASS
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null
@@ -18,7 +19,7 @@
 
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
@@ -27,7 +28,7 @@
 
 /obj/structure/tribune/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
@@ -39,10 +40,10 @@
 	handle_layer()
 
 /obj/structure/tribune/setDir(newdir)
-	..()
+	. = ..()
 	handle_layer()
 
-/obj/structure/tribune/Move(newloc, direct, movetime)
+/obj/structure/tribune/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	handle_layer()
 
@@ -55,25 +56,27 @@
 /obj/structure/tribune/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
 	setDir(turn(dir, 90))
 	after_rotation(user)
 
-/obj/structure/tribune/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
 
-/obj/structure/tribune/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(O.loc, target) == dir)
-		return 0
-	return 1
+/obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(. || dir != border_dir)
+		return TRUE
+
+
+/obj/structure/tribune/CanExit(atom/movable/mover, moving_direction)
+	. = ..()
+	if(dir == moving_direction)
+		return !density || checkpass(mover, PASSGLASS)
+
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"

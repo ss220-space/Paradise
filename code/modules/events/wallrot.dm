@@ -11,8 +11,8 @@
 
 		// 100 attempts
 		for(var/i=0, i<100, i++)
-			var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), level_name_to_num(MAIN_STATION))
-			if(istype(candidate, /turf/simulated/wall))
+			var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), pick(levels_by_trait(STATION_LEVEL)))
+			if(iswallturf(candidate))
 				center = candidate
 
 		if(center)

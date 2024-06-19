@@ -37,7 +37,7 @@ AI MODULES
 
 		if(comp.current.stat == DEAD || comp.current.control_disabled)
 			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
-		else if(comp.current.see_in_dark == 0)
+		else if(comp.current.nightvision == 0)
 			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
 		else
 			src.transmitInstructions(comp.current, usr)

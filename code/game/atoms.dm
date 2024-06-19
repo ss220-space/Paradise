@@ -9,17 +9,17 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|LONG_GLIDE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
 	var/list/fingerprints
+	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
-	var/pass_flags = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
@@ -29,15 +29,12 @@
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
+	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
+	var/pass_flags = NONE
 
 	///Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
-
-	///Default pixel x shifting for the atom's icon.
-	var/base_pixel_x = 0
-	///Default pixel y shifting for the atom's icon.
-	var/base_pixel_y = 0
 
 	//This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
@@ -46,6 +43,8 @@
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
+	//Value used in multiz_explosions. it set here, so may some objects that cover the floor, may also impact the explosion
+	var/explosion_vertical_block = 0
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
@@ -55,18 +54,39 @@
 
 	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
-	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
-
 	var/initialized = FALSE
 
-	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/remove_overlays // a very temporary list of overlays to remove
-	var/list/add_overlays // a very temporary list of overlays to add
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
+	/// Lazylist of all images (hopefully attached to us) to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	var/list/image/update_on_z
+
+	/// Lazylist of all overlays attached to us to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
+	var/list/image/update_overlays_on_z
+
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+
+	///Light systems, both shouldn't be active at the same time.
+	var/light_system = STATIC_LIGHT
+	///Range of the light in tiles. Zero means no light.
+	var/light_range = 0
+	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
+	var/light_power = 1
+	///Hexadecimal RGB string representing the colour of the light. White by default.
+	var/light_color = COLOR_WHITE
+	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
+	var/light_on = TRUE
+	///Bitflags to determine lighting-related atom properties.
+	var/light_flags = NONE
+	///Our light source. Don't fuck with this directly unless you have a good reason!
+	var/tmp/datum/light_source/light
+	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/tmp/list/light_sources
 
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
@@ -81,6 +101,10 @@
 	var/drain_act_protected = FALSE
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
+	///Default pixel x shifting for the atom's icon.
+	var/base_pixel_x = 0
+	///Default pixel y shifting for the atom's icon.
+	var/base_pixel_y = 0
 
 	var/tts_seed = "Arthas"
 
@@ -110,7 +134,7 @@
 
 //Note: the following functions don't call the base for optimization and must copypasta:
 // /turf/Initialize
-// /turf/open/space/Initialize
+// /turf/simulated/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -121,7 +145,7 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if(light_power && light_range)
+	if(light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
 	if(opacity && isturf(loc))
@@ -130,6 +154,8 @@
 
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -186,16 +212,25 @@
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_ABSTRACT
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 
 	QDEL_NULL(light)
 
 	return ..()
 
-//Hook for running code when a dir change occurs
+
+/**
+ * Hook for running code when a dir change occurs
+ *
+ * Not recommended to use, listen for the [COMSIG_ATOM_DIR_CHANGE] signal instead (sent by this proc)
+ */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_DIR_CHANGE, dir, newdir) & COMPONENT_ATOM_BLOCK_DIR_CHANGE)
+		newdir = dir
+		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 
 /atom/proc/set_angle(degrees)
@@ -248,10 +283,14 @@
 			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
-			if(istype(M.loc, /mob/living))
+			if(isliving(M.loc))
 				var/mob/living/L = M.loc
 				L.drop_item_ground(M)
 			M.forceMove(src)
+
+/atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
+	SHOULD_CALL_PARENT(TRUE)
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, falling_movables, levels)
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	qdel(giver)
@@ -276,9 +315,11 @@
 /atom/proc/on_reagent_change()
 	return
 
+
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return
+	return FALSE
+
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -299,9 +340,6 @@
 /// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
-
-/atom/proc/CheckExit()
-	return TRUE
 
 /atom/proc/HasProximity(atom/movable/AM)
 	return
@@ -442,28 +480,76 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(updates == NONE)
-		return // NONE is being sent on purpose, and thus no signal should be sent.
+	. = NONE
+	if(updates == NONE)	// NONE is being sent on purpose, and thus no signal should be sent.
+		return .
 
 	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+
 	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays(updates)
-		if(managed_overlays)
-			cut_overlay(managed_overlays)
-			managed_overlays = null
-		if(length(new_overlays))
-			if(length(new_overlays) == 1)
-				managed_overlays = new_overlays[1]
-			else
-				managed_overlays = new_overlays
-			add_overlay(new_overlays)
-		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
-	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+		// Ok, so its rather this or required inheritance in every [update_overlays()]
+		var/emissive_block = get_emissive_block()
+		if(emissive_block)
+			// Emissive block should always go at the beginning of the list
+			new_overlays.Insert(1, emissive_block)
+
+		var/nulls = 0
+		for(var/i in 1 to length(new_overlays))
+			var/atom/maybe_not_an_atom = new_overlays[i]
+			if(isnull(maybe_not_an_atom))
+				nulls++
+				continue
+			if(istext(maybe_not_an_atom) || isicon(maybe_not_an_atom))
+				continue
+			new_overlays[i] = maybe_not_an_atom.appearance
+		if(nulls)
+			for(var/i in 1 to nulls)
+				new_overlays -= null
+
+		var/identical = FALSE
+		var/new_length = length(new_overlays)
+		if(!managed_overlays && !new_length)
+			identical = TRUE
+		else if(!islist(managed_overlays))
+			if(new_length == 1 && managed_overlays == new_overlays[1])
+				identical = TRUE
+		else if(length(managed_overlays) == new_length)
+			identical = TRUE
+			for(var/i in 1 to length(managed_overlays))
+				if(managed_overlays[i] != new_overlays[i])
+					identical = FALSE
+					break
+
+		if(!identical)
+			var/full_control = FALSE
+			if(managed_overlays)
+				full_control = length(overlays) == (islist(managed_overlays) ? length(managed_overlays) : 1)
+				if(full_control)
+					overlays = null
+				else
+					cut_overlay(managed_overlays)
+
+			switch(length(new_overlays))
+				if(0)
+					managed_overlays = null
+				if(1)
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays[1]
+				else
+					add_overlay(new_overlays)
+					managed_overlays = new_overlays
+
+		. |= UPDATE_OVERLAYS
+
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 
 
 /// Updates the icon state of the atom
@@ -473,7 +559,47 @@
 
 /// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /atom/proc/update_overlays()
-	return list()
+	RETURN_TYPE(/list)
+	. = list()
+
+
+/// Updates atom's emissive block if present.
+/atom/proc/get_emissive_block()
+	return
+
+
+/**
+ * Adds a special overlay to any atom.
+ * This overlay will always persist even when an atom is updating its overlays.
+ *
+ * Arguments:
+ * * overlay_to_add - should be an image, mutable_appearance or icon
+ * * id - string ID of our overlay, should be unique, otherwise it will remove all overlays with the same ID
+ * * timer (optional) - if set overlay will be removed after passed time
+ */
+/atom/proc/add_persistent_overlay(overlay_to_add, id, timer)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
+
+
+/**
+ * Removes a persistent overlay from an atom if it exists.
+ *
+ * Arguments:
+ * * id - string ID of the overlay we should remove
+ */
+/atom/proc/remove_persistent_overlay(id)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	if(!all_persistent)
+		return
+	if(!islist(all_persistent))
+		all_persistent = list(all_persistent)
+	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
+		if(existing.dupe_id == id)
+			qdel(existing)
 
 
 /atom/Topic(href, href_list)
@@ -587,7 +713,7 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 
@@ -611,15 +737,8 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-/**
-	Base proc, intended to be overriden.
-
-	This should only be called from one place: inside the slippery component.
-	Called after a human mob slips on this atom.
-
-	If you want the person who slipped to have something special done to them, put it here.
-*/
-/atom/proc/after_slip(mob/living/carbon/human/H)
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M)
@@ -709,11 +828,17 @@
 		if(!fingerprints)
 			fingerprints = list()
 
+		if(!fingerprints_time)
+			fingerprints_time = list()
+
 		//Hash this shit.
 		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
+		fingerprints_time += "[station_time_timestamp()] — [full_print]"
+		if(fingerprints_time.len > 20)
+			fingerprints_time -= fingerprints_time[1]
 
 		return TRUE
 	else
@@ -730,15 +855,21 @@
 		A.fingerprints = list()
 	if(!islist(A.fingerprintshidden))
 		A.fingerprintshidden = list()
+	if(!islist(A.fingerprints_time))
+		A.fingerprints_time = list()
 
 	if(!islist(fingerprints))
 		fingerprints = list()
 	if(!islist(fingerprintshidden))
 		fingerprintshidden = list()
+	if(!islist(fingerprints_time))
+		fingerprints_time = list()
 
 	// Transfer
 	if(fingerprints)
 		A.fingerprints |= fingerprints.Copy()            //detective
+	if(fingerprints_time)
+		A.fingerprints_time |= fingerprints_time.Copy()
 	if(fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
@@ -997,17 +1128,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	user.sync_lighting_plane_alpha()
 	return
 
-/atom/proc/checkpass(passflag)
-	return pass_flags & passflag
-
 /atom/proc/isinspace()
 	if(isspaceturf(get_turf(src)))
 		return TRUE
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/living/carbon/faller)
 	return
+
 
 /atom/proc/singularity_act()
 	return
@@ -1052,7 +1183,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				M.create_chat_message(src, message, FALSE, TRUE)
+				M.create_chat_message(src, message, list("italics"))
 
 			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
@@ -1060,6 +1191,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
@@ -1098,14 +1230,72 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!GLOB.debug2)
-		admin_spawned = TRUE
-	. = ..()
+	var/old_light_flags = light_flags
 	switch(var_name)
-		if("light_power", "light_range", "light_color")
-			update_light()
-		if("color")
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_flags))
+			set_light_flags(var_value)
+			// I'm sorry
+			old_light_flags = var_value
+			. = TRUE
+
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, density))
+			set_density(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+
+	light_flags = old_light_flags
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	if(!GLOB.debug2)
+		flags |= ADMIN_SPAWNED
+
+	. = ..()
+
+	switch(var_name)
+		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
+			update_appearance()
 
 
 /atom/vv_get_dropdown()
@@ -1126,8 +1316,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/AM, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
+/atom/Entered(atom/movable/arrived, atom/oldLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, oldLoc)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, oldLoc)
 
 /atom/Exit(atom/movable/AM, atom/newLoc)
 	. = ..()
@@ -1205,7 +1396,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""
@@ -1238,7 +1429,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
 		return null
-	else if (user.incapacitated(ignore_lying = TRUE))
+	else if (user.incapacitated())
 		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
 		return null
 
@@ -1259,18 +1450,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-/*
-	Setter for the `density` variable.
-	Arguments:
-	* new_value - the new density you would want it to set.
-	Returns: Either null if identical to existing density, or the new density if different.
-*/
-/atom/proc/set_density(new_value)
-	if(density == new_value)
-		return
-	. = density
-	density = new_value
-
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
@@ -1278,11 +1457,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
 
 
 /**
@@ -1311,4 +1485,132 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
+
+
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
+		return TRUE
+	if(mover.movement_type & PHASING)
+		return TRUE
+	. = CanAllowThrough(mover, border_dir)
+	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
+	if(!mover.generic_canpass)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
+
+
+/// Returns true or false to allow the mover to move through src
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(mover.pass_flags == PASSEVERYTHING)
+		return TRUE
+	if(mover.pass_flags & pass_flags_self)
+		return TRUE
+	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
+	return !density
+
+
+/// Returns true or false to allow the mover to exit turf with src
+/atom/proc/CanExit(atom/movable/mover, moving_direction)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_BE_PURE(TRUE)
+	return TRUE
+
+
+/**
+ * Returns `TRUE` if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
+ * HEY JACKASS, LISTEN
+ * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
+ * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
+ * for them to use. If you add more to it, make sure you do that, or things will behave strangely
+ *
+ * Gravity situations:
+ * * Gravity if global admin override
+ * * Gravity if the z-level has trait ZTRAIT_GRAVITY
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isnull(GLOB.gravity_is_on))	// global admin override
+		return GLOB.gravity_is_on
+
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)//no gravity in nullspace
+			return FALSE
+
+	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
+		return TRUE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
+	var/area/turf_area = gravity_turf.loc
+
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
+
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
+
+
+///Setter for the `base_pixel_x` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_x(new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+
+///Setter for the `base_pixel_y` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
+
+
+/atom/proc/get_visible_name(add_id_name = TRUE)
+	return name
+
+
+/atom/proc/GetVoice()
+	return name
+
+
+/atom/proc/GetTTSVoice()
+	return tts_seed
 

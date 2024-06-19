@@ -75,7 +75,7 @@
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.attempt_drill()
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/M = target
 		M.take_damage(mech_damage, BRUTE, "melee", 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
@@ -321,7 +321,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/make_activator(mob/user)
 	activators += user
 	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_activator))
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
@@ -330,7 +330,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "activation")
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/structure/elite_tumor/process()
 	if(!isturf(loc))
@@ -349,7 +349,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
-		set_light(6)
+		set_light(6, l_on = TRUE)
 		qdel(core)
 		return TRUE
 
@@ -507,10 +507,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
+
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
+
 
 /obj/item/gps/internal/tumor
 	icon_state = null

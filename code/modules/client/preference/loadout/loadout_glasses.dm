@@ -1,6 +1,6 @@
 /datum/gear/glasses
 	subtype_path = /datum/gear/glasses
-	slot = slot_glasses
+	slot = ITEM_SLOT_EYES
 	sort_category = "Glasses"
 
 /datum/gear/glasses/sunglasses
@@ -26,4 +26,4 @@
 /datum/gear/glasses/sectacticool
 	display_name = "Security tactical glasses"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tacticool
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)

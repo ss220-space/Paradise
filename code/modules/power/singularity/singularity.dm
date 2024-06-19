@@ -4,10 +4,10 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	var/contained = 1 //Are we going to move around?
@@ -53,7 +53,7 @@
 	target = null
 	return ..()
 
-/obj/singularity/Move(atom/newloc, direct)
+/obj/singularity/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
 		last_failed_movement = 0//Reset this because we moved
 		return ..()
@@ -76,8 +76,8 @@
 	consume(user)
 	return 1
 
-/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
-	return 0
+/obj/singularity/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE) //The singularity stops drifting for no man!
+	return FALSE
 
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
@@ -103,14 +103,17 @@
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
-/obj/singularity/Bump(atom/A)
-	consume(A)
-	return
+/obj/singularity/Bump(atom/bumped_atom, custom_bump, effect_applied = FALSE)
+	. = ..()
+	if(. || isnull(.) || effect_applied)
+		return .
+	consume(bumped_atom)
 
 
-/obj/singularity/Bumped(atom/movable/moving_atom)
-	consume(moving_atom)
-	return
+/obj/singularity/Bumped(atom/movable/moving_atom, effect_applied = FALSE)
+	. = ..()
+	if(!effect_applied)
+		consume(moving_atom)
 
 
 /obj/singularity/process()
@@ -440,7 +443,7 @@
 
 /obj/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
-		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
+		if(isbrain(M)) //Ignore brains
 			continue
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
@@ -493,7 +496,7 @@
 
 /obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!istype(AM, /obj/item/projectile))
+	if(!isprojectile(AM))
 		return
 	var/obj/item/projectile/P = AM
 	var/distance = distance_to_singulo

@@ -2,6 +2,7 @@
 
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
+	gamemode_blacklist = list("extended")
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
@@ -9,7 +10,7 @@
 	<br>
 	Its base parts should be available for shipping by your cargo shuttle.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and install it content anywhere on the station.
+	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and enjoy your reward.
 	<br><br>
 	-Nanotrasen Naval Command"}
 
@@ -37,9 +38,9 @@
 /datum/station_goal/bfl/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/structure/toilet/golden_toilet/bfl_goal/B)
-		if(B && is_station_contact(B.z))
-			return TRUE
+	var/datum/supply_packs/misc/station_goal/bfl_goal/goal_pack = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
+	if(goal_pack.times_ordered >= 1)
+		return TRUE
 	return FALSE
 
 /datum/station_goal/bfl/Destroy()
@@ -90,6 +91,7 @@
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/obj/machinery/bfl_receiver/receiver = FALSE
+	var/list/obj/effect/bfl_laser/turf_lasers = list()
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
 	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
@@ -173,8 +175,13 @@
 	state = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	var/turf/location = get_step(src, NORTH)
-	location.ex_act(1)
+	location.ChangeTurf(location.baseturf)
 	working_sound()
+	var/turf/below = GET_TURF_BELOW(location)
+	while(below)
+		var/obj/effect/bfl_laser/turf_laser = new(below)
+		turf_lasers += turf_laser
+		below = GET_TURF_BELOW(below) // dig deeper and try another laser
 
 	if(QDELETED(receiver))
 		receiver = null
@@ -201,6 +208,8 @@
 		qdel(laser)
 		laser = null
 
+	for(var/obj/effect/bfl_laser/turf_laser in turf_lasers)
+		turf_laser.remove_self()
 
 /obj/machinery/power/bfl_emitter/proc/working_sound()
 	set waitfor = FALSE
@@ -423,7 +432,7 @@
 	icon_state = "Lens_Pull"
 	max_integrity = 40
 	layer = ABOVE_MOB_LAYER
-	density = 1
+	density = TRUE
 
 	var/step_count = 0
 	var/state = FALSE
@@ -446,14 +455,14 @@
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
 	update_icon()
-	set_light(8)
+	set_light(8, l_on = TRUE)
 	working_sound()
 
 
 /obj/machinery/bfl_lens/proc/deactivate_lens()
 	state = FALSE
 	update_icon()
-	set_light(0)
+	set_light_on(FALSE)
 
 
 /obj/machinery/bfl_lens/proc/working_sound()
@@ -486,7 +495,7 @@
 	return ..()
 
 
-/obj/machinery/bfl_lens/Move(atom/newloc, direction, movetime)
+/obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	if(!.)
 		return
@@ -520,8 +529,6 @@
 /obj/item/gps/internal/bfl_crack
 	gpstag = "NT signal"
 
-/obj/structure/toilet/golden_toilet/bfl_goal
-	name = "\[NT REDACTED\]"
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Giant laser, which is supposed for mining"
@@ -559,3 +566,69 @@
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)
+
+/obj/effect/bfl_laser
+	name = "big laser beam"
+	desc = "A huge shining laser beam, goes through above hitting down. You wouldn't like to touch it."
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
+	icon_state = "laser"
+
+/obj/effect/bfl_laser/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
+
+/obj/effect/bfl_laser/proc/remove_self()
+	STOP_PROCESSING(SSprocessing, src)
+	qdel(src)
+
+/obj/effect/bfl_laser/Entered(atom/movable/AM)
+	burn_stuff(AM)
+
+/obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	burn_stuff(AM)
+
+/obj/effect/bfl_laser/process()
+	burn_stuff()
+
+/obj/effect/bfl_laser/proc/burn_stuff(atom/movable/AM)
+	. = FALSE
+	var/turf/T = get_turf(src)
+	if(!isopenspaceturf(T) && !isspaceturf(T)) //we're not open. REOPEN
+		T.ChangeTurf(T.baseturf)
+
+	var/thing_to_check = get_turf(src)
+	if(AM)
+		thing_to_check = list(AM)
+	for(var/thing in thing_to_check)
+		if(thing == src)
+			continue
+		if(isobj(thing))
+			var/obj/O = thing
+			if(!O.simulated)
+				continue
+			if((O.resistance_flags & (FIRE_PROOF)) && !(O.resistance_flags & FLAMMABLE) || O.throwing)
+				continue
+			. = TRUE
+			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor = O.armor.setRating(fire_value = 50)
+			O.fire_act(null, 2000, 1000)
+
+		else if(isliving(thing))
+			. = TRUE
+			var/mob/living/L = thing
+			var/buckle_check = L.buckling
+			if(!buckle_check)
+				buckle_check = L.buckled
+			if(isobj(buckle_check))
+				var/obj/O = buckle_check
+				if(O.resistance_flags & FIRE_PROOF)
+					continue
+			L.adjustFireLoss(10)
+			if(L) //mobs turning into object corpses could get deleted here.
+				L.adjust_fire_stacks(10)
+				L.IgniteMob()
+	if(.)
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
+
+/obj/effect/bfl_laser/ex_act(severity)
+	return

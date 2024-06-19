@@ -49,7 +49,7 @@
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
 	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
-		if(!O || istype(O,/obj/item/assembly/igniter)) continue
+		if(!O || isigniter(O)) continue
 		return O
 	return null
 
@@ -268,10 +268,11 @@
 	if(nadeassembly)
 		nadeassembly.hear_message(M, msg)
 
-/obj/item/grenade/chem_grenade/Bump()
-	..()
-	if(nadeassembly)
-		nadeassembly.process_movement()
+/obj/item/grenade/chem_grenade/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.) || !nadeassembly)
+		return .
+	nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()

@@ -95,6 +95,7 @@
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_AMBIENCE		10
 #define FIRE_PRIORITY_GARBAGE		15
+#define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
 #define FIRE_PRIORITY_PROCESS		25
@@ -126,25 +127,6 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
-#define COMPILE_OVERLAYS(A)\
-	do { \
-		var/list/ad = A.add_overlays;\
-		var/list/rm = A.remove_overlays;\
-		var/list/po = A.priority_overlays;\
-		if(LAZYLEN(rm)){\
-			A.overlays -= rm;\
-			rm.Cut();\
-		}\
-		if(LAZYLEN(ad)){\
-			A.overlays |= ad;\
-			ad.Cut();\
-		}\
-		if(LAZYLEN(po)){\
-			A.overlays |= po;\
-		}\
-		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-} while (FALSE)
 
 // SS CPU display category flags
 #define SS_CPUDISPLAY_LOW 1

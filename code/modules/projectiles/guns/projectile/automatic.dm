@@ -40,7 +40,7 @@
 			if(magazine)
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
 				magazine.loc = get_turf(loc)
-				magazine.update_icon()
+				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 				magazine = null
 			else
 				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
@@ -53,8 +53,8 @@
 			update_icon()
 			return 1
 
-/obj/item/gun/projectile/automatic/ui_action_click(var/owner, var/action_type)
-    if (ispath(action_type, /datum/action/item_action/toggle_firemode))
+/obj/item/gun/projectile/automatic/ui_action_click(mob/user, action, leftclick)
+    if(istype(action, /datum/action/item_action/toggle_firemode))
         burst_select()
         return TRUE
 
@@ -76,7 +76,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/gun/projectile/automatic/can_shoot()
+/obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
 
 /obj/item/gun/projectile/automatic/proc/empty_alarm()
@@ -106,8 +106,8 @@
 	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 12
+	bayonet_x_offset = 26
+	bayonet_y_offset = 12
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize()
@@ -136,12 +136,12 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	can_suppress = 0
-	can_flashlight = 1
+	can_suppress = FALSE
+	can_flashlight = TRUE
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 25
-	knife_y_offset = 12
+	bayonet_x_offset = 25
+	bayonet_y_offset = 12
 	gun_light_overlay = "wt-light"
 
 
@@ -149,10 +149,10 @@
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
 
 
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 
@@ -179,10 +179,10 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
-/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 
@@ -313,8 +313,8 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 10
+	bayonet_x_offset = 26
+	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
 
@@ -334,6 +334,13 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
+
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
+	name = "\improper 'Mastiff' Shotgun"
+	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
+	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
+	color = COLOR_ASSEMBLY_BROWN
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
@@ -376,6 +383,7 @@
 	icon_state = "minotaur"
 	item_state = "minotaur"
 	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
@@ -473,10 +481,10 @@
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
-/obj/item/gun/projectile/automatic/sfg/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/sfg/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 

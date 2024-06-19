@@ -94,13 +94,13 @@
 		emission_cycles = 0
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
-		I.density = TRUE
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		first = I
 		step(I, I.dir)
 		if(first)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = 8
 			I.process()
@@ -111,7 +111,7 @@
 	..()
 
 
-/obj/item/assembly/infra/Move(atom/newloc, direct = 0, movetime)
+/obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/prev_dir = dir
 	. = ..()
 	dir = prev_dir
@@ -169,7 +169,7 @@
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
 		usr << browse(null, "window=infra")
 		onclose(usr, "infra")
 		return
@@ -204,7 +204,7 @@
 
 
 /obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
-	if(!isliving(user) || user.incapacitated() || user.restrained())
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dir = turn(dir, 90)
@@ -246,7 +246,8 @@
 	var/life_cycles = 0
 	var/life_cap = 20
 	anchored = TRUE
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
+	pass_flags_self = LETPASSTHROW
+	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE
 
 
 /obj/effect/beam/i_beam/Destroy()
@@ -289,32 +290,35 @@
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)
 		I.master = master
-		I.density = TRUE
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		I.previous = src
 		next = I
 		step(I, I.dir)
 		if(next)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = limit - 1
 			master.last = I
 			I.process()
 
 
-/obj/effect/beam/i_beam/Bump()
+/obj/effect/beam/i_beam/Bump(atom/bumped_atom, custom_bump)
+	if(!custom_bump)
+		return null
 	qdel(src)
 
 
 /obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	. = ..()
 	hit(moving_atom)
 
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))
+	if(iseffect(AM))
 		return
 	hit(AM)
 

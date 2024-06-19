@@ -112,14 +112,14 @@
 
 
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
-	if(user.incapacitated() || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/fishtank/proc/toggle_light(mob/user)
-	if(user.incapacitated() || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	light_switch = !light_switch
 	if(light_switch)
@@ -198,7 +198,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T)
+/obj/machinery/fishtank/wall/CanAtmosPass(turf/T, vertical)
 	return FALSE
 
 
@@ -397,9 +397,14 @@
 	// Move the fish in
 	var/fish_item = fish_to_scoop.fish_item
 	if(fish_item)
-		var/obj/item/I = new fish_item(get_turf(user))
-		if(fish_bag?.can_be_inserted(I))
-			fish_bag.handle_item_insertion(I)
+		var/fish_type = fish_item
+		if(islist(fish_item))
+			if(!length(fish_item))
+				stack_trace("Empty list is not allowed as a fish_item variable value.")
+			fish_type = pickweight(fish_item)
+		var/obj/item/actual_item = new fish_type(get_turf(user))
+		if(fish_bag?.can_be_inserted(actual_item))
+			fish_bag.handle_item_insertion(actual_item)
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
@@ -409,15 +414,15 @@
 	switch(tank_type)
 		if("bowl")										//Fishbowl: Wets it's own tile
 			if(istype(T))
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("tank")										//Fishtank: Wets it's own tile and the 4 adjacent tiles (cardinal directions)
 			if(istype(T))
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 				for(var/turf/simulated/ST in T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE))
-					ST.MakeSlippery()
+					ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
 			for(var/turf/simulated/ST in spiral_range_turfs(1, loc))
-				ST.MakeSlippery()
+				ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 
 /obj/machinery/fishtank/proc/breed_fish()

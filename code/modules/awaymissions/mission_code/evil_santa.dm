@@ -82,7 +82,9 @@
 	name = "Evil santa lounge"
 	icon_state = "awaycontent12"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/vision_change_area/awaymission/evil_santa/end/hall
 	name = "Evil santa hall"
@@ -158,7 +160,7 @@
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty)
 	. = ..()
-	if(istype(naughty, /obj/mecha))
+	if(ismecha(naughty))
 		var/obj/mecha/robot = naughty
 		if(robot.occupant)
 			naughty = robot.occupant

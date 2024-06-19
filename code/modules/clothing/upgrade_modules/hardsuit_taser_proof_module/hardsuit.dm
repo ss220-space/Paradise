@@ -14,7 +14,7 @@
 		if(taser_proof)
 			to_chat(user, "<span class='warning'>[src] already has a taser proof.</span>")
 			return
-		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
+		if(src == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 		if(user.drop_transfer_item_to_loc(new_taser_proof, src))

@@ -101,6 +101,7 @@ Class Procs:
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -127,8 +128,6 @@ Class Procs:
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
-	/// initialize this in the overridden init_multitool_menu() proc if an object should show the multitool menu
-	var/datum/multitool_menu/multitool_menu
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -162,9 +161,6 @@ Class Procs:
 
 	power_change()
 
-	init_multitool_menu()
-
-
 /obj/machinery/proc/onAreaExited()
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
@@ -177,9 +173,6 @@ Class Procs:
 	LAZYADD(myArea.machinery_cache, src)
 	//message_admins("[src] entered [myArea]")
 	power_change()
-
-/obj/machinery/proc/init_multitool_menu()
-	return
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
@@ -207,7 +200,6 @@ Class Procs:
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
-	QDEL_NULL(multitool_menu)
 	return ..()
 
 /obj/machinery/has_prints()
@@ -338,7 +330,7 @@ Class Procs:
 	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		on_deconstruction()
 		if(component_parts && component_parts.len)
 			spawn_frame(disassembled)
@@ -350,7 +342,7 @@ Class Procs:
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
 	. = M
-	M.anchored = anchored
+	M.set_anchored(anchored)
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
@@ -358,7 +350,7 @@ Class Procs:
 	M.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
@@ -366,7 +358,7 @@ Class Procs:
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
-	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
+	if((panel_open || ignore_panel) && !(obj_flags & NODECONSTRUCT))
 		deconstruct(TRUE)
 		to_chat(user, span_notice("You disassemble [src]."))
 		I.play_tool_sound(user, I.tool_volume)
@@ -378,7 +370,7 @@ Class Procs:
 		return FALSE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return FALSE
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/prev_icon_state = icon_state
 		if(!panel_open)
 			panel_open = TRUE
@@ -430,7 +422,7 @@ Class Procs:
 			return
 		to_chat(user, span_notice("You start applying [O] to [src]."))
 		being_repaired = TRUE
-		var/result = do_after(user, 3 SECONDS, target = src)
+		var/result = do_after(user, 3 SECONDS, src)
 		being_repaired = FALSE
 		if(!result)
 			return
@@ -444,7 +436,7 @@ Class Procs:
 		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
-	if((flags & NODECONSTRUCT))
+	if(obj_flags & NODECONSTRUCT)
 		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
@@ -543,7 +535,7 @@ Class Procs:
 			threatcount += 4
 
 	if(check_records || check_arrest)
-		var/perpname = perp.get_visible_name(TRUE)
+		var/perpname = perp.get_visible_name(add_id_name = FALSE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)
@@ -610,5 +602,5 @@ Class Procs:
 
 
 /obj/machinery/extinguish_light(force = FALSE)
-	if(light_range)
-		remove_light()
+	if(light_on)
+		set_light_on(FALSE)

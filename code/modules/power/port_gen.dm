@@ -6,7 +6,7 @@
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
 
@@ -297,7 +297,7 @@
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
+			set_anchored(!anchored)
 
 		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open

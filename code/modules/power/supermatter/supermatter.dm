@@ -33,7 +33,7 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
@@ -201,6 +201,8 @@
 						mob.apply_effect(rads, IRRADIATE)
 			explode()
 			emergency_lighting(0)
+			//It's kinda pointless to process atmos on destroyed (qdel'ed) crystal
+			return
 
 	if(damage > warning_point && world.timeofday > last_zap)
 		last_zap = world.timeofday + rand(80,200)
@@ -208,8 +210,7 @@
 
 	//Ok, get the air from the turf
 	var/datum/gas_mixture/env = L.return_air()
-
-	//Remove gas from surrounding area
+	//And, get part of that air
 	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles())
 
 	//ensure that damage doesn't increase too quickly due to super high temperatures resulting from no coolant, for example. We dont want the SM exploding before anyone can react.
@@ -221,10 +222,18 @@
 	else
 		damage_archived = damage
 
+	if(!removed)
+		//Placeholder, which representates vacuum
+		removed = new
+
 	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
 
 	//Maxes out at 100% oxygen pressure
-	oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+	if(!removed.total_moles())
+		oxygen = 0
+	else
+		//Result of this formula is undefined if we (total moles of removed) -> 0. So, let's roll with zero if no gas was removed.
+		oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -238,25 +247,28 @@
 		icon_state = base_icon_state
 
 	temp_factor = ((equilibrium_power / DECAY_FACTOR) ** 3) / 800
-	power = max((removed.temperature * temp_factor) * oxygen + power, 0)
+	power = round(max((removed.temperature * temp_factor) * oxygen + power, 0), 0.01)
 
-	var/device_energy = power * REACTION_POWER_MODIFIER
+	var/device_energy = round(power * REACTION_POWER_MODIFIER, 0.01)
+
+	var/old_heat_capacity = removed.heat_capacity()
+
+	if(device_energy)
+		removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
+		removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
 
 	var/heat_capacity = removed.heat_capacity()
 
-	removed.toxins += max(device_energy / PLASMA_RELEASE_MODIFIER, 0)
-
-	removed.oxygen += max((device_energy + removed.temperature - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
-
 	var/thermal_power = THERMAL_RELEASE_MODIFIER * device_energy
 	if(debug)
-		var/heat_capacity_new = removed.heat_capacity()
 		visible_message("[src]: Releasing [round(thermal_power)] W.")
-		visible_message("[src]: Releasing additional [round((heat_capacity_new - heat_capacity)*removed.temperature)] W with exhaust gasses.")
+		visible_message("[src]: Releasing additional [round((heat_capacity - old_heat_capacity)*removed.temperature)] W with exhaust gasses.")
 
-	removed.temperature += (device_energy)
+	//deltaT = deltaQ / heat_capacity (deltaQ equals thermal_power)
+	//We are assuming here, that volume does not change here
+	removed.temperature += (thermal_power / heat_capacity)
 
-	removed.temperature = max(0, min(removed.temperature, 10000))
+	removed.temperature = max(0, removed.temperature)
 
 	env.merge(removed)
 
@@ -282,6 +294,7 @@
 		l.apply_effect(rads, IRRADIATE)
 
 	power -= (power/DECAY_FACTOR)**3
+
 	handle_admin_warnings()
 
 	return 1
@@ -339,7 +352,7 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(user)
+	consume(user)
 
 /obj/machinery/power/supermatter_shard/proc/get_integrity()
 	var/integrity = damage / explosion_point
@@ -357,7 +370,7 @@
 	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
 		add_fingerprint(user)
 		if(!anchored)
-			anchored = !anchored
+			set_anchored(TRUE)
 			WRENCH_ANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))
@@ -368,12 +381,12 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] tighten bolts of \the [src] with \a [W] the tool disappears</span>")
 		else if (anchored)
-			anchored = !anchored
+			set_anchored(FALSE)
 			WRENCH_UNANCHOR_MESSAGE
 			playsound(src.loc,W.usesound, 75, 1)
 			if(isrobot(user))
@@ -384,7 +397,7 @@
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 					A.destroy()
 				else
-					Consume(U)
+					consume(U)
 			else
 				consume_wrench(W)
 			user.visible_message("<span class='danger'>As [user] loosen bolts of \the [src] with \a [W] the tool disappears</span>")
@@ -423,12 +436,12 @@
 		return
 	if(istype(W, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
-	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	else if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)
 		add_fingerprint(user)
-		Consume(W)
+		consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
@@ -438,14 +451,15 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(isnucleation(moving_atom))
 		nuclear_touch(moving_atom)
-		return
+		return .
 	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	else if(isobj(moving_atom) && !istype(moving_atom, /obj/effect))
+	else if(isobj(moving_atom) && !iseffect(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
@@ -453,17 +467,45 @@
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
-	Consume(moving_atom)
+	consume(moving_atom)
+
+/obj/machinery/power/supermatter_shard/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		if(hit_object == src)
+			return
+		Bumped(hit_object)
+	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
+
+/obj/machinery/power/supermatter_shard/onZImpact(turf/impacted_turf, levels, impact_flags)
+
+	for(var/mob/living/poor_target in impacted_turf)
+		consume(poor_target)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		poor_target.visible_message(span_danger("\The [src] slams into \the [poor_target] out of nowhere inducing a resonance... [poor_target.p_their()] body starts to glow and burst into flames before flashing into dust!"),
+			span_userdanger("\The [src] slams into you out of nowhere as your ears are filled with unearthly ringing. Your last thought is \"The fuck.\""),
+			span_hear("You hear an unearthly noise as a wave of heat washes over you."))
+	for(var/atom/movable/hit_object as anything in impacted_turf)
+		if(src == hit_object)
+			return
+		if(iseffect(hit_object))
+			continue
+
+		consume(hit_object)
+		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
+		visible_message(span_danger("\The [src], smacks into the plating out of nowhere, reducing everything below to ash."), null,
+			span_hear("You hear a loud crack as you are washed with a wave of heat."))
+	return ..()
 
 
-/obj/machinery/power/supermatter_shard/proc/Consume(atom/movable/AM)
-	if(istype(AM, /mob/living))
+/obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
+	if(isliving(AM))
 		var/mob/living/user = AM
 		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
 		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
-	else if(isobj(AM) && !istype(AM, /obj/effect))
+	else if(isobj(AM) && !iseffect(AM))
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 

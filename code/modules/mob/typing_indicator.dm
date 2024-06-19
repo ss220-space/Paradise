@@ -14,46 +14,46 @@ GLOBAL_LIST_EMPTY(typing_indicator)
   */
 /mob/proc/set_typing_indicator(state)
 	if(!GLOB.typing_indicator[bubble_icon])
-		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
+		GLOB.typing_indicator[bubble_icon] = mutable_appearance('icons/mob/talk.dmi', "[bubble_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		if(HAS_TRAIT(src, TRAIT_MUTE))
-			overlays -= GLOB.typing_indicator[bubble_icon]
+			cut_overlay(GLOB.typing_indicator[bubble_icon])
 			return
 
 	if(client)
 		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-			overlays -= GLOB.typing_indicator[bubble_icon]
+			cut_overlay(GLOB.typing_indicator[bubble_icon])
 		else
 			if(state)
 				if(!typing)
-					overlays += GLOB.typing_indicator[bubble_icon]
+					add_overlay(GLOB.typing_indicator[bubble_icon])
 					typing = TRUE
 			else
 				if(typing)
-					overlays -= GLOB.typing_indicator[bubble_icon]
+					cut_overlay(GLOB.typing_indicator[bubble_icon])
 					typing = FALSE
 			return state
 
 /mob/proc/set_typing_emote_indicator(state)
 	if(!GLOB.typing_indicator[bubble_emote_icon])
-		GLOB.typing_indicator[bubble_emote_icon] = image('icons/mob/talk.dmi', null, "[bubble_emote_icon]typing", FLY_LAYER)
+		GLOB.typing_indicator[bubble_emote_icon] = mutable_appearance('icons/mob/talk.dmi', "[bubble_emote_icon]typing", FLY_LAYER, src, GAME_PLANE)
 		var/image/I = GLOB.typing_indicator[bubble_emote_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(client)
 		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE))
-			overlays -= GLOB.typing_indicator[bubble_emote_icon]
+			cut_overlay(GLOB.typing_indicator[bubble_emote_icon])
 		else
 			if(state)
 				if(!typing)
-					overlays += GLOB.typing_indicator[bubble_emote_icon]
+					add_overlay(GLOB.typing_indicator[bubble_emote_icon])
 					typing = TRUE
 			else
 				if(typing)
-					overlays -= GLOB.typing_indicator[bubble_emote_icon]
+					cut_overlay(GLOB.typing_indicator[bubble_emote_icon])
 					typing = FALSE
 			return state
 

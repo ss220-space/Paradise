@@ -10,12 +10,16 @@
 	throw_speed = 3
 	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
 	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+
+/obj/item/holosign_creator/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
@@ -27,7 +31,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
 			qdel(H)
 		else
-			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
@@ -35,13 +39,13 @@
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 					if(creation_time)
 						holocreator_busy = TRUE
-						if(!do_after(user, creation_time, target = target))
+						if(!do_after(user, creation_time, target))
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
 						if(signs.len >= max_signs)
 							return
-						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
@@ -58,6 +62,9 @@
 			qdel(H)
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
 
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	afterattack(target, user, proximity_flag, click_parameters)
+
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
@@ -66,7 +73,9 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	wet_enabled = !wet_enabled

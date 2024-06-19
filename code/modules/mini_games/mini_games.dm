@@ -17,8 +17,8 @@
 /obj/minigame_anchor
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "thunderdome-bomb"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
 	opacity = 0
 	layer = BELOW_MOB_LAYER
@@ -37,7 +37,7 @@
 		if(flashwindow)
 			window_flash(O.client)
 		if(source)
-			var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+			var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 			if(A)
 				if(O.client.prefs && O.client.prefs.UI_style)
 					A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -51,10 +51,10 @@
 					var/old_plane = source.plane
 					source.layer = FLOAT_LAYER
 					source.plane = FLOAT_PLANE
-					A.overlays += source
+					A.add_overlay(source)
 					source.layer = old_layer
 					source.plane = old_plane
 				else
 					alert_overlay.layer = FLOAT_LAYER
 					alert_overlay.plane = FLOAT_PLANE
-					A.overlays += alert_overlay
+					A.add_overlay(alert_overlay)

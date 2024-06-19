@@ -53,3 +53,9 @@
 /proc/cmp_typepaths_asc(A, B)
 	return sorttext("[B]","[A]")
 
+
+/proc/cmp_generic_stat_item_time(list/A, list/B)
+	. = B[STAT_ENTRY_TIME] - A[STAT_ENTRY_TIME]
+	if(!.)
+		. = B[STAT_ENTRY_COUNT] - A[STAT_ENTRY_COUNT]
+

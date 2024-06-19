@@ -68,6 +68,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_nucleation
+	icon_state = "box_nucleation"
+
+/obj/item/storage/box/survival_nucleation/populate_contents()
+	new /obj/item/storage/firstaid/crew/nucleation(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 
@@ -91,7 +98,7 @@
 	icon_state = "box_min"
 
 /obj/item/storage/box/survival_mining/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/storage/firstaid/crew(src)
@@ -105,7 +112,7 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival_security/hos
@@ -308,9 +315,10 @@
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
 	icon_state = "implant"
+	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
+	for(var/I in 1 to 7)
 		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
@@ -660,7 +668,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -846,7 +854,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -864,7 +872,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
@@ -989,6 +997,15 @@
 	for(var/I in 1 to 3)
 		new /obj/item/wizard_armour_charge(src)
 
+/obj/item/storage/box/wizard/kit_spell_book
+	name = "набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/kit_spell_book/populate_contents()
+		for(var/i = 1 to 4)
+				new /obj/item/spellbook/oneuse/random(src)
+
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
@@ -1009,7 +1026,7 @@
     item_state = "pouch"
     storage_slots = 2
     w_class = WEIGHT_CLASS_TINY
-    slot_flags = SLOT_BELT
+    slot_flags = ITEM_SLOT_BELT
     can_hold = list(/obj/item/ammo_box/magazine)
 
 /obj/item/storage/pouch/fast
@@ -1029,7 +1046,7 @@
             gun.attackby(MA, user)
             if(magazine)
                 magazine.loc = src
-                magazine.update_icon()
+                magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
             return
 
 /obj/item/storage/box/sec
@@ -1042,6 +1059,12 @@
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
 	name = "Dominator kit"
@@ -1060,6 +1083,16 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/revolver_kit
+	name = "Revolver kit"
+	icon_state = "box_revolver"
+
+/obj/item/storage/box/revolver_kit/populate_contents()
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
@@ -1089,6 +1122,41 @@
 
 	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
 		new item_path(src)
+
+
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	item_state = "chinese2"
+	storage_slots = 3
+	display_contents_with_number = TRUE
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+	)
+
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_mr_chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

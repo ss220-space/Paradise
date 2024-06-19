@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(C.id != id)
 		return
 	conveyors += C
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
+	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
 
 
 /obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!istype(T, /turf/simulated/floor))
+	if(!isfloorturf(T))
 		return
 	if(T == get_turf(user))
 		to_chat(user, "<span class='notice'>You cannot place [src] under yourself.</span>")
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!istype(T, /turf/simulated/floor))
+	if(!isfloorturf(T))
 		return
 	var/found = FALSE
 	for(var/obj/machinery/conveyor/C in view())

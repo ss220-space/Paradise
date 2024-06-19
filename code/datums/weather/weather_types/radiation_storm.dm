@@ -44,7 +44,7 @@
 							randmutb(H)
 						else
 							randmutg(H)
-					domutcheck(H, null, 1)
+					H.check_genes(MUTCHK_FORCED)
 
 		L.apply_effect(20, IRRADIATE, resist)
 

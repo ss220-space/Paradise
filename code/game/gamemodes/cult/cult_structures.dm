@@ -76,7 +76,7 @@
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		return
@@ -105,7 +105,7 @@
 		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type(drop_location())
-		if(!istype(O, /obj/structure))
+		if(!isstructure(O))
 			user.put_in_hands(O, ignore_anim = FALSE)
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
@@ -125,7 +125,7 @@
 	return message
 
 /obj/structure/cult/functional/cult_conceal()
-	density = FALSE
+	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden objs
@@ -134,7 +134,7 @@
 	update_light()
 
 /obj/structure/cult/functional/cult_reveal()
-	density = initial(density)
+	set_density(initial(density))
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
@@ -296,9 +296,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 	var/turf/T = safepick(validturfs)
 	if(T)
-		if(istype(T, /turf/simulated/floor))
+		if(isfloorturf(T))
 			T.ChangeTurf(/turf/simulated/floor/engine/cult)
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 	else
 		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)

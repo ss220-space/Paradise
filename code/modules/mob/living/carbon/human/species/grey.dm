@@ -1,5 +1,5 @@
 /datum/species/grey
-	name = "Grey"
+	name = SPECIES_GREY
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
@@ -26,9 +26,9 @@
 
 	toolspeedmod = 0.8 //25% faster
 
-	default_genes = list(REMOTE_TALK)
+	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -52,13 +52,7 @@
 
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
-	..()
-	H.dna.SetSEState(GLOB.remotetalkblock, !remove)
-	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
-	if(remove)
-		H.dna.default_blocks -= GLOB.remotetalkblock
-	else
-		H.dna.default_blocks |= GLOB.remotetalkblock
+	H.force_gene_block(GLOB.remotetalkblock, !remove, TRUE, TRUE)
 
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
@@ -94,9 +88,9 @@
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
-		if(J.title == "Mime")
+		if(J.title == JOB_TITLE_MIME)
 			return
-		if(J.title == "Clown")
+		if(J.title == JOB_TITLE_CLOWN)
 			var/obj/item/organ/internal/cyberimp/brain/speech_translator/clown/implant = new
 			implant.insert(H)
 		else

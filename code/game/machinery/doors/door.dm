@@ -12,6 +12,7 @@
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
+	pass_flags_self = PASSDOOR
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening or closing.
@@ -62,7 +63,7 @@
 		layer = initial(layer)
 
 /obj/machinery/door/setDir(newdir)
-	..()
+	. = ..()
 	update_dir()
 
 
@@ -86,18 +87,18 @@
 	..()
 
 /obj/machinery/door/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/door/Bumped(atom/movable/moving_atom)
-	..()
+/obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
+	. = ..()
 
-	if(operating || emagged)
-		return
+	if(skip_effects || operating || emagged)
+		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
 		if((isrobot(B)) && B.stat)
@@ -107,7 +108,7 @@
 			if(world.time - M.last_bumped <= 10)
 				return	//Can bump-open one airlock per second. This is to prevent shock spam.
 			M.last_bumped = world.time
-			if(M.restrained() && !check_access(null))
+			if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && !check_access(null))
 				return
 			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
@@ -129,9 +130,9 @@
 					cmag_switch(TRUE, mecha.occupant)
 					return
 				do_animate("deny")
-		return
 
-/obj/machinery/door/Move(new_loc, new_dir)
+
+/obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -144,16 +145,17 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked)
-		return TRUE
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
-	return !density
 
-/obj/machinery/door/CanAtmosPass()
+/obj/machinery/door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+	// Snowflake handling for PASSGLASS.
+	if(checkpass(mover, PASSGLASS))
+		return !opacity
+
+
+/obj/machinery/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user)
@@ -275,7 +277,7 @@
 	if(!cleaning)
 		return
 	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, src))
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
@@ -286,7 +288,7 @@
 		add_fingerprint(user)
 		try_to_crowbar(user, I)
 		return 1
-	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return 1
 	return ..()
@@ -402,7 +404,7 @@
 	do_animate("opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	sleep(0.5 SECONDS)
 	layer = initial(layer)
 	update_icon()
@@ -432,7 +434,7 @@
 	do_animate("closing")
 	layer = closingLayer
 	sleep(0.5 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	sleep(0.5 SECONDS)
 	update_icon()
 	if(visible && !glass)

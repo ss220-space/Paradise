@@ -30,12 +30,23 @@ GLOBAL_LIST_EMPTY(gear_datums)
 /datum/gear/New()
 	..()
 	if(!description)
-		description = initial(path.desc)
-	if(!icon || !icon_state)
-		icon_state = initial(path.icon_state)
-		icon = initial(path.icon)
-	base64icon = icon2base64(icon(icon, icon_state, SOUTH, 1, FALSE))
+		description = path::desc
+	update_gear_icon()
 
+
+/datum/gear/proc/update_gear_icon(color)
+	if(initial(icon) && initial(icon_state))
+		return
+	icon_state = path::icon_state
+	icon = path::icon
+	if(!initial(description))
+		description = path::desc
+	if(!icon || !icon_state)
+		return
+	var/icon/new_icon = icon(icon, icon_state, SOUTH, 1, FALSE)
+	if(color)
+		new_icon.Blend(color, ICON_MULTIPLY)
+	base64icon = icon2base64(new_icon)
 
 /datum/gear_data
 	var/path

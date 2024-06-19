@@ -6,19 +6,22 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 65, "acid" = 90)
 	point_return = 18
 
-/obj/structure/blob/node/New(loc, var/h = 100)
+/obj/structure/blob/node/New(loc, h = 100)
 	GLOB.blob_nodes += src
 	START_PROCESSING(SSobj, src)
 	..(loc, h)
 
-/obj/structure/blob/node/adjustcolors(var/a_color)
-	overlays.Cut()
+/obj/structure/blob/node/adjustcolors(a_color)
+	cut_overlays()
 	color = null
 	var/image/I = new('icons/mob/blob.dmi', "blob")
 	I.color = a_color
-	src.overlays += I
+	add_overlay(I)
 	var/image/C = new('icons/mob/blob.dmi', "blob_node_overlay")
-	src.overlays += C
+	add_overlay(C)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /obj/structure/blob/node/Destroy()
 	GLOB.blob_nodes -= src

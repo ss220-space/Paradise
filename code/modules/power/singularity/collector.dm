@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 //	use_power = NO_POWER_USE
 	max_integrity = 350
@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(W.GetID() || ispda(W))
+	else if(W.GetID() || is_pda(W))
 		if(src.allowed(user))
 			add_fingerprint(user)
 			if(active)
@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return null
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
 

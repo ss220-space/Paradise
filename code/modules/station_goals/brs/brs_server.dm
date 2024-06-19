@@ -170,15 +170,15 @@
 
 /obj/machinery/brs_server/proc/create_light()
 	if(stat & (BROKEN))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(stat & (NOPOWER))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(emagged)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
-	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 
 
 /obj/machinery/brs_server/power_change(forced = FALSE)
@@ -198,7 +198,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
-	if((!panel_open) || (flags & NODECONSTRUCT))
+	if((!panel_open) || (obj_flags & NODECONSTRUCT))
 		return FALSE
 	. = TRUE
 

@@ -68,7 +68,7 @@
 	armed = TRUE
 	anchored = TRUE
 	breakouttime = 5 SECONDS
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
@@ -159,7 +159,7 @@
 	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+		if(do_after(user, 5 SECONDS, user, ALL)) // no checks, cant fail
 			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return
@@ -341,7 +341,7 @@
 	START_PROCESSING(SSobj, src)
 
 
-/datum/vampire_passive/eternal_darkness/Destroy(force, ...)
+/datum/vampire_passive/eternal_darkness/Destroy(force)
 	owner.remove_light()
 	STOP_PROCESSING(SSobj, src)
 	return ..()

@@ -8,7 +8,7 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	radio_channel = "Service" //Service
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
@@ -66,8 +66,8 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
-	walk_to(src, 0)
+	set_anchored(FALSE)
+	SSmove_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -127,7 +127,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -214,14 +214,14 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			SSmove_manager.stop_looping(src)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				SSmove_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -234,13 +234,12 @@
 						if(threatlevel >= 6)
 							set waitfor = 0
 							stun_attack(target)
-							anchored = FALSE
+							set_anchored(FALSE)
 							target_lastloc = target.loc
 					return
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target, 1, 4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -258,7 +257,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -267,14 +266,14 @@
 
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -304,7 +303,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)

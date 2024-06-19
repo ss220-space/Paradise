@@ -30,7 +30,7 @@
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring,
 		/obj/item/reagent_containers/food/pill/patch)
-	slot_flags = SLOT_ID
+	slot_flags = ITEM_SLOT_ID
 
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null
@@ -145,19 +145,25 @@
 
 
 /obj/item/storage/wallet/color/blue
+	icon_state = "blue_wallet"
 	item_color = "blue"
 
 /obj/item/storage/wallet/color/red
+	icon_state = "red_wallet"
 	item_color = "red"
 
 /obj/item/storage/wallet/color/yellow
+	icon_state = "yellow_wallet"
 	item_color = "yellow"
 
 /obj/item/storage/wallet/color/green
+	icon_state = "green_wallet"
 	item_color = "green"
 
 /obj/item/storage/wallet/color/pink
+	icon_state = "pink_wallet"
 	item_color = "pink"
 
 /obj/item/storage/wallet/color/black
+	icon_state = "black_wallet"
 	item_color = "black"

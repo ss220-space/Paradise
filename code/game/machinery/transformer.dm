@@ -5,7 +5,7 @@
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	/// TRUE if the factory can transform dead mobs.
 	var/transform_dead = TRUE
 	/// TRUE if the mob can be standing and still be transformed.
@@ -39,12 +39,12 @@
 
 	// Get the turf 1 tile to the EAST.
 	var/turf/east = locate(T.x + 1, T.y, T.z)
-	if(istype(east, /turf/simulated/floor))
+	if(isfloorturf(east))
 		new /obj/machinery/conveyor/auto(east, WEST)
 
 	// Get the turf 1 tile to the WEST.
 	var/turf/west = locate(T.x - 1, T.y, T.z)
-	if(istype(west, /turf/simulated/floor))
+	if(isfloorturf(west))
 		new /obj/machinery/conveyor/auto(west, WEST)
 
 /obj/machinery/transformer/power_change(forced = FALSE)
@@ -70,16 +70,16 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	// They have to be human to be transformed.
 	if(is_on_cooldown || !ishuman(moving_atom))
-		return
+		return .
 
 	var/mob/living/carbon/human/H = moving_atom
 	var/move_dir = get_dir(loc, H.loc)
 
-	if((transform_standing || H.lying) && move_dir == acceptdir)
+	if((transform_standing || H.body_position == LYING_DOWN) && move_dir == acceptdir)
 		H.forceMove(drop_location())
 		do_transform(H)
 
@@ -126,10 +126,10 @@
 	desc = "Turns anything placed inside black and white."
 
 /obj/machinery/transformer/mime/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(is_on_cooldown)
-		return
+		return .
 
 	// Crossed didn't like people lying down.
 	if(istype(moving_atom))
@@ -137,7 +137,7 @@
 		do_transform_mime(moving_atom)
 	else
 		to_chat(moving_atom, "Only items can be greyscaled.")
-		return
+
 
 /obj/machinery/transformer/proc/do_transform_mime(obj/item/I)
 	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
@@ -168,12 +168,12 @@
 
 		// Get the turf 2 tiles to the EAST.
 		var/turf/east2 = locate(T.x + 2, T.y, T.z)
-		if(istype(east2, /turf/simulated/floor))
+		if(isfloorturf(east2))
 			new /obj/machinery/conveyor/auto(east2, EAST)
 
 		// Get the turf 2 tiles to the WEST.
 		var/turf/west2 = locate(T.x - 2, T.y, T.z)
-		if(istype(west2, /turf/simulated/floor))
+		if(isfloorturf(west2))
 			new /obj/machinery/conveyor/auto(west2, EAST)
 
 /obj/machinery/transformer/xray/power_change(forced = FALSE)
@@ -188,10 +188,10 @@
 		icon_state = initial(icon_state)
 
 /obj/machinery/transformer/xray/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(is_on_cooldown)
-		return
+		return .
 
 	// Crossed didn't like people lying down.
 	if(ishuman(moving_atom))
@@ -199,7 +199,7 @@
 		var/mob/living/carbon/human/H = moving_atom
 		var/move_dir = get_dir(loc, H.loc)
 
-		if(H.lying && move_dir == acceptdir)
+		if(H.body_position == LYING_DOWN && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 
@@ -218,10 +218,9 @@
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
-			domutcheck(H,null,1)
 		else
 			randmutg(H) // Applies good mutation
-			domutcheck(H,null,1)
+		H.check_genes(MUTCHK_FORCED)
 
 
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
@@ -233,7 +232,7 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(obj/item/I)
-	if(istype(I, /obj/item/gun))
+	if(isgun(I))
 		return TRUE
 	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
@@ -322,8 +321,8 @@
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 	H.UpdateAppearance()
-	domutcheck(H, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.check_genes(MUTCHK_FORCED)
+
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))

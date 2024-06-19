@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/disable_timer = 0
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
-		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
+		tcm.source_level = levels_by_trait(MAIN_STATION)[1] // Assume main station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
 	tcm.follow_target = follow_target
 
@@ -418,13 +418,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- AI ---
 	else if(isAI(M))
-		jobname = "AI"
-		rank = "AI"
+		jobname = JOB_TITLE_AI
+		rank = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = "Cyborg"
-		rank = "Cyborg"
+		jobname = JOB_TITLE_CYBORG
+		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
@@ -596,11 +596,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/AltClick(mob/user)
+	if(!iscarbon(user) && !isrobot(user))
+		return
 	if(!Adjacent(user))
 		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	broadcasting = !broadcasting
@@ -611,7 +611,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	listening = !listening

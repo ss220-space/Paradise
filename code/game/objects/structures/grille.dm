@@ -3,6 +3,7 @@
 	name = "grille"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
+	pass_flags_self = PASSGRILLE
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
@@ -17,8 +18,7 @@
 	var/rods_broken = 1
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
-	var/shockcooldown = 0
-	var/my_shockcooldown = 1 SECONDS
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/grille/fence
 	var/width = 2
@@ -66,7 +66,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-	if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -93,14 +93,21 @@
 	QDEL_IN(src, 0.2)
 	return RCD_ACT_SUCCESSFULL
 
-/obj/structure/grille/Bumped(atom/movable/moving_atom)
-	..()
+/obj/structure/grille/intercept_zImpact(list/falling_movables, levels)
+	. = ..()
+	for(var/atom/movable/hit_object as anything in falling_movables)
+		Bumped(hit_object)
+	take_damage(25) //second time turn into broken
+	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
-	if(ismob(moving_atom))
-		if(!(shockcooldown <= world.time))
-			return
-		shock(moving_atom, 70)
-		shockcooldown = world.time + my_shockcooldown
+
+/obj/structure/grille/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
+		return .
+	shock(moving_atom, 70)
+	COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
+
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -130,21 +137,18 @@
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		return (prob(30) || !density)
-	return !density
+	if(!. && isprojectile(mover))
+		return prob(30)
 
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(checkpass(caller, PASSGRILLE))
+		. = TRUE
 
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
@@ -178,14 +182,14 @@
 	deconstruct()
 
 /obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
-	if(!(istype(loc, /turf/simulated) || anchored))
+	if(!(issimulatedturf(loc) || anchored))
 		return
 	. = TRUE
 	if(shock(user, 90))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 
@@ -223,7 +227,7 @@
 			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
 			return
 	to_chat(user, "<span class='notice'>You start placing the window...</span>")
-	if(do_after(user, 20, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
 		for(var/obj/structure/window/WINDOW in loc)
@@ -234,7 +238,7 @@
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		W.update_nearby_icons()
@@ -253,14 +257,14 @@
 /obj/structure/grille/deconstruct(disassembled = TRUE)
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/R = new rods_type(drop_location(), rods_amount)
 		transfer_fingerprints_to(R)
 		qdel(src)
 	..()
 
 /obj/structure/grille/obj_break()
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		new broken_type(loc)
 		var/obj/R = new rods_type(drop_location(), rods_broken)
 		transfer_fingerprints_to(R)
@@ -307,7 +311,7 @@
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
-	density = 0
+	density = FALSE
 	obj_integrity = 20
 	broken = 1
 	rods_amount = 1

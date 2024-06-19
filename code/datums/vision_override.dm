@@ -4,7 +4,7 @@
 	var/sight_flags = 0
 	var/see_in_dark = 0
 	var/lighting_alpha
-	
+
 	var/light_sensitive = 0
 
 /datum/vision_override/nightvision

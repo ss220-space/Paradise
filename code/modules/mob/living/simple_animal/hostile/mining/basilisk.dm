@@ -34,7 +34,6 @@
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
 	tts_seed = "Antimage"
-	needs_gliding = FALSE
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -77,12 +76,17 @@
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = UNCONSCIOUS
-	flying = TRUE
 	robust_searching = 1
 	projectiletype = /obj/item/projectile/watcher
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
+
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

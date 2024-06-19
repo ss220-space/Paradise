@@ -23,6 +23,7 @@
 #define CLICK_CD_RESIST 20
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
+#define CLICK_CD_LOOK_UP_DOWN 5
 
 ///
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
@@ -127,7 +128,7 @@
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
-	GLOB.dview_mob.see_invisible = invis_flags; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
@@ -156,19 +157,12 @@
 #define MANIFEST_ERROR_COUNT	2
 #define MANIFEST_ERROR_ITEM		4
 
-//Turf wet states
-#define TURF_DRY		0
-#define TURF_WET_WATER	1
-#define TURF_WET_LUBE	2
-#define TURF_WET_ICE	3
-#define TURF_WET_PERMAFROST 4
-
 // Metal foam states
 // teehee no one will find these here
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
 
-//Human Overlays Indexes/////////
+//Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
@@ -413,18 +407,6 @@
 #define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
 #define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
-//Ruin Generation
-
-#define SPACERUIN_MAP_EDGE_PAD 15
-#define PLACEMENT_TRIES 100 //How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
-
-#define PLACE_DEFAULT "random"
-#define PLACE_SAME_Z "same"
-#define PLACE_SPACE_RUIN "space"
-#define PLACE_LAVA_RUIN "lavaland"
-
-#define MAX_RUIN_SIZE_VALUE 170 // Which ruin should be considered large and create a separate level of space for it.
-
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
 #define CLEAN_WEAK 			2
@@ -511,8 +493,6 @@
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 
-// Lavaland cave design defines
+/// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
-#define BLOCKED_BURROWS "Blocked Burrows"
-#define CLASSIC_CAVES "Classic Caves"
-#define DEADLY_DEEPROCK "Deadly Deeprock"

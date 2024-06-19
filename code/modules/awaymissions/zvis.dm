@@ -1,9 +1,3 @@
-/area/awaymission/upperlevel
-	name = "Open Space"
-	color = "#888"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	requires_power = FALSE
-
 // Used by /turf/simulated/floor/indestructible/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
 	name = "level reference"
@@ -72,7 +66,7 @@
 	trigger()
 
 /obj/effect/portal_sensor/process()
-	check_light()
+	// check_light()
 	if(triggered_this_tick >= trigger_limit)
 		call(owner, "trigger")(arglist(params))
 	triggered_this_tick = 0
@@ -82,6 +76,7 @@
 	if(triggered_this_tick < trigger_limit)
 		call(owner, "trigger")(arglist(params))
 
+/* Знаю что это отключено и свет будет ужесан. Таков рефактор.
 /obj/effect/portal_sensor/proc/check_light()
 	var/turf/T = loc
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
@@ -99,13 +94,14 @@
 		if(light_hash != -1)
 			light_hash = -1
 			trigger()
+*/
 
 // for second floor showing floor below
 /turf/simulated/floor/indestructible/upperlevel
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
@@ -125,7 +121,7 @@
 		sensor = new(lower_turf, src)
 
 /turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
-	if(isliving(AM) || istype(AM, /obj))
+	if(isliving(AM) || isobj(AM))
 		if(isliving(AM))
 			var/mob/living/M = AM
 			M.emote("scream")
@@ -197,9 +193,9 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "loadingarea"
 	opacity = 1
-	density = 1
+	density = TRUE
 	invisibility = 0
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
 	var/dist = 6				// dist that we render out
 	var/radius = 3				// dist we render on other axis, in each direction
 	var/frustrum = 0			// if 1, get wider and wider at each step outward
@@ -236,7 +232,7 @@
 	if(Tloc)
 		Tloc.icon = null
 		Tloc.icon_state = null
-		Tloc.dynamic_lighting = 0
+		Tloc.always_lit = TRUE
 		layer = AREA_LAYER + 0.5
 
 	// setup references
@@ -274,7 +270,7 @@
 		nvs = SIGN(nvs)
 	// need a mob for view() to work correctly
 	var/mob/M = new(near_viewpoint)
-	M.see_invisible = SEE_INVISIBLE_LIVING
+	M.set_invis_see(SEE_INVISIBLE_LIVING)
 	near_render_block = view(M, world.view)
 	qdel(M)
 	for(var/A in near_render_block)
@@ -291,35 +287,39 @@
 			near_render_block -= T
 
 /obj/effect/view_portal/visual/Bumped(atom/movable/thing)
-	if((istype(thing, /obj) || isliving(thing)) && other && teleport)
-		if(!near_render_block)
-			setup_near()
+	. = ..()
+	if(!ismovable(thing) || !other || !teleport)
+		return .
 
-		var/mob/living/M = thing
-		// make the person glide onto the dest, giving a smooth transition
-		var/ox = thing.x - x
-		var/oy = thing.y - y
+	if(!near_render_block)
+		setup_near()
+
+	var/mob/living/M = thing
+	// make the person glide onto the dest, giving a smooth transition
+	var/ox = thing.x - x
+	var/oy = thing.y - y
+	if(istype(M) && M.client)
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		// cover up client-side map loading
+		M.screen_loc = "CENTER"
+		M.client.screen += M
+		for(var/T in tiles)
+			M.client.screen += tiles[T]
+
+	// wait a tick for the screen to replicate across network
+	// or this whole exercise of covering the transition is pointless
+	spawn(1)
+		thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
+		sleep(1)
 		if(istype(M) && M.client)
-			M.notransform = 1
-			// cover up client-side map loading
-			M.screen_loc = "CENTER"
-			M.client.screen += M
 			for(var/T in tiles)
-				M.client.screen += tiles[T]
+				M.client.screen -= tiles[T]
+			M.client.screen -= M
+			M.screen_loc = initial(M.screen_loc)
+		thing.forceMove(get_turf(other.loc))
+		if(istype(M) && M.client)
+			REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
-		// wait a tick for the screen to replicate across network
-		// or this whole exercise of covering the transition is pointless
-		spawn(1)
-			thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
-			sleep(1)
-			if(istype(M) && M.client)
-				for(var/T in tiles)
-					M.client.screen -= tiles[T]
-				M.client.screen -= M
-				M.screen_loc = initial(M.screen_loc)
-			thing.forceMove(get_turf(other.loc))
-			if(istype(M) && M.client)
-				M.notransform = 0
 
 /obj/effect/view_portal/visual/attack_ghost(mob/user)
 	user.forceMove(get_turf(other.loc))
@@ -327,7 +327,7 @@
 /obj/effect/view_portal/visual/proc/trigger(near, turf/T)
 	var/obj/effect/view_portal_dummy/D = tiles[T]
 	if(D)
-		D.overlays.Cut()
+		D.cut_overlays()
 	else
 		D = new(src, near, T)
 		tiles[T] = D
@@ -342,7 +342,7 @@
 			var/image/I = image(A, layer = D.layer + A.layer * 0.01, dir = A.dir)
 			I.pixel_x = A.pixel_x
 			I.pixel_y = A.pixel_y
-			D.overlays += I
+			D.add_overlay(I)
 
 // tile of rendered other side for narnia portal
 /obj/effect/view_portal_dummy

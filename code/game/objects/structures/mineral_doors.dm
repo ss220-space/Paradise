@@ -1,7 +1,7 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	opacity = 1
 
@@ -27,7 +27,7 @@
 	air_update_turf(1)
 
 /obj/structure/mineral_door/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -37,7 +37,7 @@
 	move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(!state)
 		return TryToSwitchState(moving_atom)
 
@@ -54,14 +54,16 @@
 	if(user.can_advanced_admin_interact())
 		SwitchState()
 
-/obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-	return !density
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T)
+
+/obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
@@ -80,7 +82,7 @@
 			else
 				add_fingerprint(user)
 				SwitchState()
-	else if(istype(user, /obj/mecha))
+	else if(ismecha(user))
 		SwitchState()
 
 /obj/structure/mineral_door/proc/SwitchState()
@@ -94,8 +96,8 @@
 	playsound(loc, openSound, 100, 1)
 	flick("[initial_state]opening",src)
 	sleep(10)
-	density = 0
-	opacity = 0
+	set_density(FALSE)
+	set_opacity(FALSE)
 	state = 1
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
@@ -115,8 +117,8 @@
 	playsound(loc, closeSound, 100, 1)
 	flick("[initial_state]closing",src)
 	sleep(10)
-	density = 1
-	opacity = 1
+	set_density(TRUE)
+	set_opacity(TRUE)
 	state = 0
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
@@ -134,7 +136,7 @@
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 40 * digTool.toolspeed * gettoolspeedmod(user) * hardness, target = src) && src)
+		if(do_after(user, 4 SECONDS * digTool.toolspeed * gettoolspeedmod(user) * hardness, src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)

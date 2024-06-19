@@ -46,7 +46,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = TRUE
+		S.set_anchored(TRUE)
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
@@ -75,14 +75,14 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		unset_control()
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)
@@ -214,13 +214,13 @@
 
 	if(!anchored && isturf(loc))
 		if(W.tool_behaviour == TOOL_WRENCH)
-			anchored = TRUE
+			set_anchored(TRUE)
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return TRUE
 	else
 		if(W.tool_behaviour == TOOL_WRENCH)
-			anchored = FALSE
+			set_anchored(FALSE)
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return TRUE
@@ -292,6 +292,12 @@
 	var/autostart = FALSE	// Automatically search for connected devices
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
+
+/obj/machinery/power/solar_control/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "solar_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb14"
 
 // Used for mapping in solar array which automatically starts itself (telecomms, for example)
 /obj/machinery/power/solar_control/autostart
@@ -459,7 +465,7 @@
 	A.dir = dir
 	A.circuit = M
 	A.update_icon(UPDATE_ICON_STATE)
-	A.anchored = TRUE
+	A.set_anchored(TRUE)
 	qdel(src)
 
 
@@ -474,7 +480,7 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar_control/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)

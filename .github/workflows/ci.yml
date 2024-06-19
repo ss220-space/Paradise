@@ -5,11 +5,13 @@ on:
     - master220
     - whitelist220
     - testmerge
+    - tutorial
     - dev
   pull_request:
     branches:
     - master220
     - whitelist220
+    - tutorial
   merge_group:
   workflow_call:
 

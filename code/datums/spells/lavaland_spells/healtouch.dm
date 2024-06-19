@@ -26,13 +26,16 @@
 	var/heal_self = FALSE
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/mob/living/M = target
 	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")
 	M.heal_overall_damage(brute, burn)
 	M.adjustToxLoss(-tox)
 	M.adjustOxyLoss(-oxy)
+	for(var/datum/disease/D in M.diseases)
+		if(D.curable)
+			D.cure(need_immunity = FALSE)
 	return ..()
 
 /obj/effect/proc_holder/spell/touch/healtouch/advanced

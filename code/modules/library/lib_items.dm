@@ -16,7 +16,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	opacity = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
@@ -63,7 +63,7 @@
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -167,6 +167,10 @@
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
 
+/obj/item/book/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = 5, hardhat_safety = TRUE, crushes = FALSE, impact_sound = drop_sound)
+
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
@@ -210,7 +214,7 @@
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
 			return 1
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1

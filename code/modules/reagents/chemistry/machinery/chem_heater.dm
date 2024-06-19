@@ -132,7 +132,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	if(user.stat || user.restrained())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

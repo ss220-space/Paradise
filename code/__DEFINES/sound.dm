@@ -15,7 +15,7 @@
 #define CHANNEL_BOSS_MUSIC 1011
 #define CHANNEL_INTERACTION_SOUNDS 1010	// item pickup/equip/drop sounds
 
-#define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
+#define USER_VOLUME(M, C) M?.client?.prefs?.get_channel_volume(C)
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED

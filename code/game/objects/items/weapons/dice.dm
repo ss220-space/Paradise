@@ -304,8 +304,7 @@
 		if(6)
 			//Cut speed
 			T.visible_message("<span class='userdanger'>[user] starts moving slower!</span>")
-			var/datum/species/S = user.dna.species
-			S.speed_mod += 1
+			user.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
 		if(7)
 			//Throw
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
@@ -385,9 +384,9 @@
 			user.mind.AddSpell(S)
 
 		if(17)
-			//Tator Kit
-			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate(drop_location())
+			//Choose from 1 of 3 random syndie bundles
+			T.visible_message("<span class='userdanger'>A suspicious radio beacon appears!</span>")
+			new /obj/item/radio/beacon/syndicate/bundle/magical(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID

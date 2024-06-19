@@ -23,11 +23,12 @@
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
 		H.drop_item_ground(W)
-	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), slot_l_ear)
+	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_EAR_LEFT)
 
 /datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
-		W.flags |= NODROP
+		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
+
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
 	if(default_genes.len)
@@ -58,8 +59,8 @@
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
 	W.UpdateName()
-	W.flags |= NODROP
-	H.equip_to_slot_or_del(W, slot_wear_id)
+	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
+	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	H.regenerate_icons()
 
 	to_chat(H, desc)
@@ -74,12 +75,12 @@
 /datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
-	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
-	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), ITEM_SLOT_CLOTH_OUTER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), ITEM_SLOT_MASK)
+	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), ITEM_SLOT_BELT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), ITEM_SLOT_EYES)
 
 
 /datum/superheroes/griffin
@@ -93,10 +94,10 @@
 /datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings(H), ITEM_SLOT_CLOTH_OUTER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), ITEM_SLOT_HEAD)
 
 	var/obj/item/implant/freedom/L = new/obj/item/implant/freedom(H)
 	L.implant(H)
@@ -113,12 +114,12 @@
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), ITEM_SLOT_CLOTH_OUTER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), ITEM_SLOT_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), ITEM_SLOT_BACK)
 
 
 /datum/superheroes/electro
@@ -132,11 +133,11 @@
 /datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), ITEM_SLOT_CLOTH_OUTER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), ITEM_SLOT_BACK)
 
 
 
@@ -185,7 +186,7 @@
 
 /obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	if(target.mind.assigned_role != "Civilian")
+	if(target.mind.assigned_role != JOB_TITLE_CIVILIAN)
 		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
 		revert_cast(user)
 		return
@@ -215,7 +216,7 @@
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
+		if(!do_after(user, 10 SECONDS, target, NONE)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
 			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
 			recruiting = FALSE
@@ -238,17 +239,17 @@
 	for(var/obj/item/W in target.get_all_slots())
 		target.drop_item_ground(W)
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
-	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
-	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
-	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), slot_l_hand)
-	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), slot_l_ear)
+	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), ITEM_SLOT_CLOTH_INNER)
+	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), ITEM_SLOT_FEET)
+	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), ITEM_SLOT_HAND_LEFT)
+	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), ITEM_SLOT_EAR_LEFT)
 	var/obj/item/card/id/syndicate/W = new(target)
 	W.icon_state = "lifetimeid"
 	W.access = list(ACCESS_MAINT_TUNNELS)
 	W.assignment = "Greyshirt"
 	W.rank = "Greyshirt"
-	W.flags |= NODROP
+	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 	W.SetOwnerInfo(target)
 	W.UpdateName()
-	target.equip_to_slot_or_del(W, slot_wear_id)
+	target.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	target.regenerate_icons()

@@ -115,7 +115,243 @@
   Vladisvell:
   - bugfix: Toggling masks is now allowed through helmets (#4604)
 '2024-03-12':
+  ArtemDerp:
+  - bugfix: Poly can use supply freq (#4613)
+  - bugfix: drone state keys corrections (#4612)
   Den109G:
   - unknown: Upgrades SpacemanDMM + Dreamchecker CI (#4618)
   Dimach:
   - balance: antag paradise mode tweaks (#4620)
+  Honker9999999:
+  - add: обрез лезет в кобуру (#4614)
+  Ksaikok46:
+  - bugfix: slime persons have skrell meat (#4626)
+  LiquidPotroh:
+  - add: Cadaveric fever (#4567)
+  - balance: Lavaland appreantice up (#4535)
+  - tweak: Viruses spread from dead bodies (#4559)
+  Rerik007:
+  - bugfix: fixes unnecessary message about switching gunmode if the mode is one (#4611)
+  - bugfix: bugfixes for some events and fixes false alarm (#4560)
+  - add: projectiles now orbit around singulo (#4540)
+  Valtor:
+  - add: Nucleation one-time rejuves from supermatter (#4615)
+  Vladisvell:
+  - bugfix: Heat exchangers are no longer dense (#4605)
+  - bugfix: Alien resin floor no longer spawns on chasms and lava (#4568)
+  - tweak: Events and cargo quests now count alive station players for scaling (#4520)
+  - bugfix: Fixed cursed grab (#4625)
+  WolfLox:
+  - add: energy drink  (#4585)
+'2024-03-13':
+  Aziz Chynaliev:
+  - server: byond tracy update (#4395)
+  ROdenFL:
+  - imageadd: human resprite (#4617)
+  SAAD:
+  - add: additional CE belt (#4622)
+  Valtor:
+  - bugfix: borer now can't infest IPC (#4619)
+  - add: pAI GPS (#4563)
+  Zwei:
+  - bugfix: Signmaker Icon Fix (#4621)
+  - tweak: Gorilla Tweaks (#4571)
+'2024-03-14':
+  xTrogwaRx:
+  - bugfix: walking on tables (#4508)
+'2024-03-15':
+  Vladisvell:
+  - del: 'bugfix: walking on tables (#4636)'
+'2024-03-16':
+  Aziz Chynaliev:
+  - server: bump byond version to 515.1633
+  Daeberdir:
+  - bugfix: locked R&D designs now really locked. (#4635)
+  Zwei:
+  - bugfix: Blob Nuclear Overlay Fix (#4639)
+'2024-03-17':
+  ArtemDerp:
+  - bugfix: court extra pipes removed (#4631)
+  Daeberdir:
+  - bugfix: AI arrival message changing only with filled input. (#4642)
+  ROdenFL:
+  - tweak: skill issui exta (#4640)
+  Vladisvell:
+  - tweak: vent icon adjustments (#4629)
+  - tweak: Made landmarks not using hard deletion (#4634)
+'2024-03-18':
+  Daeberdir:
+  - bugfix: dual shooting bypasses the gun's "ability to shoot" check. Sibyl sounds
+      corrections. (#4641)
+  Den109G:
+  - bugfix: Takes pre-nerf taser away from 100yos (#4647)
+'2024-03-19':
+  Den109G:
+  - refactor: Uplink (and jobs) now uses defines for titles (#4606)
+  Dimach:
+  - server: bump github actions versions (#4652)
+  NightDawnFox:
+  - add: Combat Bakery Kit (#4576)
+  Rerik007:
+  - server: now using admin list from config instead of the static one in permissions
+      panel (#4651)
+  - bugfix: fixes ghosts not being able to deactivate antaghud (#4650)
+  Roman:
+  - add: Detective Work Update (#4489)
+  TomYoungers:
+  - add: New Space Ruin - USSP Banya (#4504)
+  Valtor:
+  - add: tail blades implants (#4623)
+  Vladisvell:
+  - tweak: Reduced the move delay buffer to 1 tick (#4628)
+  - bugfix: Fixed Red Carpet Issue (#4653)
+  Zwei:
+  - refactor: Overlays Rework (#4558)
+  - add: Crayfish Update (#4643)
+  - refactor: Can Pass Refactor (#4188)
+  aeternaclose:
+  - bugfix: Cyberiad minor bugfix (#4594)
+  - bugfix: DeltaViroFridgeFix (#4597)
+  - add: CereImprovement-pt11 (#4596)
+  - tweak: Streamer mention remove (#4630)
+  mrWhiteFox365:
+  - bugfix: Cafeteria_RnD_Delta scrubber (#4589)
+  xTrogwaRx:
+  - add: Drum Kit (#4632)
+'2024-03-21':
+  ArtemDerp:
+  - bugfix: missed and incorrect textures on ussp cpmputers and little more (#4648)
+  Daeberdir:
+  - bugfix: language keys usability. (#4633)
+  - refactor: KA modkits compatibility. (#4600)
+  Den109G:
+  - refactor: Species defines used in prefs, GMs and sprite_accessory (#4656)
+  ROdenFL:
+  - unknown: loadout manage (#4624)
+  - add: loadout strips (#4616)
+  - bugfix: exploit records fixes (#4645)
+  - bugfix: stripedred sharf (#4667)
+  Rerik007:
+  - bugfix: fixes xenobio runtime monke null loc (#4669)
+  - bugfix: fixes dec microscope runtime (#4668)
+  - bugfix: Space dragon now also restarts event if there are few people (#4662)
+  - bugfix: fixes surgical trays passing through tables (#4655)
+  Vladisvell:
+  - bugfix: Fixed Cursed Turf Smoothing (#4658)
+  - bugfix: Antag skipping no longer resets after certain circumstances. (#4666)
+  Zwei:
+  - bugfix: Crayfish Fit Inside Fishbag (#4665)
+  - bugfix: Smoothing Skips Overlays Subsystem (#4670)
+  - bugfix: Custom mapped turfs no longer get default overlay placed when there are
+      no appropriate smoothing states (#4671)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4654)
+'2024-03-22':
+  Aziz Chynaliev:
+  - tweak: set 40 client fps by default
+  ROdenFL:
+  - bugfix: slot loadout equip (#4673)
+  - bugfix: loadout day 0 update (#4675)
+  - bugfix: strip update (#4676)
+  Vladisvell:
+  - bugfix: Jumping to alerts for AI now works correctly (#4677)
+'2024-03-23':
+  BeebBeebBoob:
+  - refactor: lighting optimization (#4326)
+  Vladisvell:
+  - add: Overlay and directional lighting (#4685)
+  - bugfix: Nucleation and Floodlight light fixes (#4688)
+  Zwei:
+  - bugfix: Temporary Overlays Limit Increase (#4683)
+'2024-03-24':
+  ArtemDerp:
+  - bugfix: random arcade subtybe and ptech vendor (#4674)
+  Aziz Chynaliev:
+  - bugfix: set disco light as static (#4691)
+  Daeberdir:
+  - bugfix: KA reload time calculation. (#4681)
+  LiquidPotroh:
+  - tweak: Cadaveric fever less deadly (#4687)
+  ROdenFL:
+  - bugfix: lawyer badge (#4689)
+  - bugfix: shots subtypes stealed (#4679)
+  Rerik007:
+  - bugfix: fixes few runtimes (#4690)
+  Zwei:
+  - bugfix: Human Overlays Fix (#4692)
+'2024-03-25':
+  Den109G:
+  - bugfix: You can change AI laws (#4700)
+'2024-03-26':
+  Daeberdir:
+  - bugfix: ultrafast cyborg recharger for secborgs. (#4699)
+  - bugfix: voice cords speaking. (#4697)
+  Den109G:
+  - refactor: Jobs defines in gamemodes, datacore, loadout (#4661)
+  Etrnlmelancholy:
+  - add: new beards for dwarfes oh i mean humans (#4694)
+  - add: flower crowns (#4695)
+  Valtor:
+  - bugfix: oneuse autoimplanter fix (#4696)
+'2024-03-28':
+  ArtemDerp:
+  - bugfix: custom pandemic runtime (#4693)
+  Etrnlmelancholy:
+  - bugfix: no tail implants for nuke (#4717)
+  Ksaikok46:
+  - bugfix: SP8 no longer gives illegal techs (#4714)
+  Mindfri:
+  - bugfix: Спрайты плюшевого СМа в руках перепутаны  (#4719)
+  NightDawnFox:
+  - refactor: (porting) lavaland river spawner (#4711)
+  ROdenFL:
+  - add: heart-shaped glasses (#4684)
+  - add: selected tab for loadout (#4678)
+  Rerik007:
+  - bugfix: fixes suit jacket in loadout (#4705)
+  aeternaclose:
+  - bugfix: BaseturfForPirateship (#4680)
+  - add: Gorillas to Cyberiad & Cerestation (#4664)
+'2024-03-29':
+  Rerik007:
+  - bugfix: fixes floor icon after thermites wall (#4701)
+'2024-03-30':
+  Den109G:
+  - bugfix: fix Unreachable tail being reachable (#4726)
+  Ksaikok46:
+  - bugfix: few text corrections (#4715)
+  Rerik007:
+  - bugfix: fixes another few runtimes (#4698)
+  - bugfix: correct update_revive in defibrillator (#4727)
+  - bugfix: id console fixes and small qols (#4646)
+  - refactor: simple slot related constants renaming slot_l_hand -> SLOT_HUD_LEFT_HAND
+      etc (#4515)
+  - add: door buttons assembling/disassembling (rebased version) (#4603)
+  - bugfix: as an AI you can see whats on tiles where there are no cameras (#4627)
+  Vladisvell:
+  - bugfix: 'Light fixes: Patch 1 (#4725)'
+  - bugfix: Fixed several cyborg gripper issues, allowed more interactions (#4682)
+  - bugfix: Fixed issues with service cyborg's tray, handheld chem dispenser now draws
+      energy from cyborg itself. (#4706)
+  - add: Added mimejutsu to thunderdome melee mode (#4728)
+  - bugfix: Borg Gripper hotfix (#4730)
+  Zwei:
+  - bugfix: Health Scanner Fix (#4722)
+  - bugfix: Central Command Turf Fixes (#4657)
+  - bugfix: All Smooth Turfs Fixed (#4731)
+'2024-03-31':
+  Aziz Chynaliev:
+  - server: add tutorial branch to CI checks
+  Rerik007:
+  - qol: added connect discord account button to player setup menu (#4729)
+  - bugfix: (i think) fixes highpop slots opening after round has started (#4718)
+  - bugfix: (i think) No more cluwnes in crew manifest (#4702)
+  - bugfix: fix martial dirslash issue (#4716)
+  - bugfix: rename lazyaddor -> lazyor (stealth conflict) (#4735)
+  - bugfix: I forgot to change my highpop value (#4738)
+  SergoFangorum:
+  - tweak: Need both hands to shoot AS-12 Minotaur (#4733)
+  Zwei:
+  - refactor: Movement Types Refactor (#4249)
+  - refactor: Variables Cleanup (#4446)
+  - bugfix: Stamina Damage Modifiers Removal Fix (#4739)

@@ -24,7 +24,7 @@
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	speak_emote = list("squeaks")
 	deathmessage = "fainted"
@@ -120,11 +120,16 @@
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
-	overlays.Cut()
+	cut_overlays()
+
 	if(health == 0)
-		overlays += cap_dead
+		add_overlay(cap_dead)
 	else
-		overlays += cap_living
+		add_overlay(cap_living)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+
 
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
 	visible_message("<span class='notice'>[src] slowly begins to recover.</span>")
@@ -169,7 +174,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/T = AM
 		if(T.throwforce)
 			Bruise()

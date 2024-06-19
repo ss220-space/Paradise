@@ -23,7 +23,7 @@
 	icon_state = "ghost2"
 	icon_living = "ghost2"
 	icon_dead = "ghost"
-	density = 0 // ghost
+	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
 	speak_chance = 0 // fyi, ghost
 
@@ -47,15 +47,20 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	flying = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/ghost/Process_Spacemove(var/check_drift = 0)
-	return 1
+
+/mob/living/simple_animal/hostile/ghost/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_flying)
+
+
+/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/ghost/Life(seconds, times_fired)
 	if(target)
@@ -94,7 +99,7 @@
 	stat_attack = UNCONSCIOUS
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("undead")
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"
 	del_on_death = TRUE
@@ -214,7 +219,7 @@
 		/obj/item/clothing/head/helmet/street_judge,
 		/obj/item/clothing/mask/gas/sechailer,
 		/obj/item/gun/energy/dominator/sibyl,
-		/obj/item/clothing/accessory/lawyers_badge,
+		/obj/item/clothing/accessory/head_strip/lawyers_badge,
 		/obj/effect/decal/cleanable/blood/gibs,
 		/obj/effect/particle_effect/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,

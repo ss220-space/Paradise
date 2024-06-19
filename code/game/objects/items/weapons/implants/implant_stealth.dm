@@ -31,7 +31,7 @@
 	desc = "Find inner peace, here, in the box."
 	background_icon_state = "bg_agent"
 	button_icon_state = "deploy_box"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_STUNNED|AB_CHECK_RESTRAINED|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING
 	use_itemicon = FALSE
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
@@ -71,7 +71,7 @@
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
 	box.create_fake_box()
 	owner.forceMove(box)
-	RegisterSignal(box, COMSIG_PARENT_QDELETING, PROC_REF(start_cooldown))
+	RegisterSignal(box, COMSIG_QDELETING, PROC_REF(start_cooldown))
 
 
 /datum/action/item_action/agent_box/proc/start_cooldown(datum/source)
@@ -195,14 +195,15 @@
 	addtimer(CALLBACK(src, PROC_REF(go_invisible)), 1 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
-/obj/structure/closet/cardboard/agent/Bump(atom/A, yes)
+/obj/structure/closet/cardboard/agent/Bump(atom/bumped_atom, custom_bump)
 	. = ..()
-	if(isliving(A))
-		reveal()
+	if(. || isnull(.) || !isliving(bumped_atom))
+		return .
+	reveal()
 
 
-/obj/structure/closet/cardboard/agent/Bumped(atom/movable/A)
+/obj/structure/closet/cardboard/agent/Bumped(atom/movable/moving_atom)
 	. = ..()
-	if(isliving(A))
+	if(isliving(moving_atom))
 		reveal()
 

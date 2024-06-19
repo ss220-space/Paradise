@@ -20,6 +20,7 @@
 	var/opening = FALSE
 
 	density = TRUE
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP// just in case in up. But falsewall should be on the floor.
 	opacity = TRUE
 	max_integrity = 100
 
@@ -28,6 +29,7 @@
 	/turf/simulated/wall/r_wall,
 	/turf/simulated/wall/indestructible/metal,
 	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/brass/fake,
@@ -59,11 +61,11 @@
 	qdel(src)
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T)
+/obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)
@@ -83,7 +85,8 @@
 		add_fingerprint(user)
 		do_the_flick()
 		sleep(0.4 SECONDS)
-		density = FALSE
+		set_density(FALSE)
+		obj_flags &= ~BLOCK_Z_IN_DOWN
 		set_opacity(FALSE)
 	else
 		var/srcturf = get_turf(src)
@@ -92,7 +95,8 @@
 			return
 		add_fingerprint(user)
 		do_the_flick()
-		density = TRUE
+		set_density(TRUE)
+		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
 	air_update_turf(TRUE)
@@ -136,7 +140,7 @@
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
 		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(!istype(T, /turf/simulated/floor))
+			if(!isfloorturf(T))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
@@ -161,7 +165,7 @@
 	deconstruct(disassembled)
 
 /obj/structure/falsewall/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
 			new girder_type(loc)
 		if(mineral_amount)
@@ -174,7 +178,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -318,7 +322,11 @@
 	icon_state = "bananium"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
-	canSmoothWith = list(/obj/structure/falsewall/bananium, /turf/simulated/wall/mineral/bananium)
+	canSmoothWith = list(
+		/obj/structure/falsewall/bananium,
+		/turf/simulated/wall/mineral/bananium,
+		/turf/simulated/wall/indestructible/bananium,
+	)
 
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
@@ -327,7 +335,11 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
+	canSmoothWith = list(
+		/obj/structure/falsewall/sandstone,
+		/turf/simulated/wall/mineral/sandstone,
+		/turf/simulated/wall/indestructible/sandstone,
+	)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -346,7 +358,11 @@
 	mineral = /obj/item/stack/rods
 	mineral_amount = 5
 	walltype = /turf/simulated/wall/mineral/iron
-	canSmoothWith = list(/obj/structure/falsewall/iron, /turf/simulated/wall/mineral/iron)
+	canSmoothWith = list(
+		/turf/simulated/wall/mineral/iron,
+		/obj/structure/falsewall/iron,
+		/turf/simulated/wall/indestructible/iron,
+	)
 
 /obj/structure/falsewall/abductor
 	name = "alien wall"

@@ -5,9 +5,10 @@
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	movement_type = FLYING
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	/// Body part at which the projectile was aimed.
@@ -41,7 +42,7 @@
 	var/spread = 0
 	/// If set to `TRUE` [/obj/item/hardsuit_taser_proof] upgrage will block this projectile.
 	var/shockbull = FALSE
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -77,6 +78,7 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
+	var/knockdown = 0
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -211,7 +213,7 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
@@ -225,7 +227,7 @@
 /obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca)
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
-	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
+	if(step_over.density && !step_over.CanPass(target, get_dir(step_over, target))) //Preliminary simple check.
 		return TRUE
 	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
@@ -239,55 +241,56 @@
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
 
-/obj/item/projectile/Bump(atom/A, yes)
-	if(!yes) //prevents double bumps.
-		return FALSE
+/obj/item/projectile/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(. || isnull(.))
+		return .
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
+	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
-		if(A.handle_ricochet(src))
-			on_ricochet(A)
+		if(bumped_atom.handle_ricochet(src))
+			on_ricochet(bumped_atom)
 			ignore_source_check = TRUE
 			range = initial(range)
 			return TRUE
 	if(firer && !ignore_source_check)
-		if(A == firer || (A == firer.loc && ismecha(A))) //cannot shoot yourself or your mech
-			loc = A.loc
+		if(bumped_atom == firer || (bumped_atom == firer.loc && ismecha(bumped_atom))) //cannot shoot yourself or your mech
+			loc = bumped_atom.loc
 			return FALSE
 
-	var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
+	var/turf/bumped_turf = get_turf(bumped_atom)
+	var/distance = get_dist(bumped_turf, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
 	if(!forced_accuracy)
-		if(get_dist(A, original) <= 1)
+		if(get_dist(bumped_atom, original) <= 1)
 			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 		else
 			def_zone = pick(list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)) // If we were aiming at one target but another one got hit, no accuracy is applied
 
-	if(isturf(A) && hitsound_wall)
+	if(isturf(bumped_atom) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
-	else if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+	else if(ishuman(bumped_atom))
+		var/mob/living/carbon/human/bumped_human = bumped_atom
+		var/obj/item/organ/external/organ = bumped_human.get_organ(check_zone(def_zone))
 		if(isnull(organ))
 			return FALSE
 
-	var/turf/target_turf = get_turf(A)
-	prehit(A)
-	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+	prehit(bumped_atom)
+	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge > 0)
 			forcedodge -= 1
-		loc = target_turf
-		if(A)
-			LAZYADD(permutated, A)
+		loc = bumped_turf
+		if(bumped_atom)
+			LAZYADD(permutated, bumped_atom)
 		return FALSE
 	else
-		if(A && A.density && !ismob(A) && !(A.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
+		if(bumped_atom && bumped_atom.density && !ismob(bumped_atom) && !(bumped_atom.flags & ON_BORDER)) //if we hit a dense non-border obj or dense turf then we also hit one of the mobs on that tile.
 			var/list/mobs_list = list()
-			for(var/mob/living/L in target_turf)
-				mobs_list += L
+			for(var/mob/living/mob in bumped_turf)
+				mobs_list += mob
 			if(mobs_list.len)
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
@@ -295,7 +298,7 @@
 	qdel(src)
 
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //Bullets don't drift in space
 
 
@@ -347,7 +350,7 @@
 			step_towards(src, T)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
 			if(loc == get_turf(original) && !(original in permutated))
-				Bump(original, TRUE)
+				Bump(original, custom_bump = TRUE)
 	if(QDELETED(src)) //deleted on last move
 		return
 	if(!forcemoved)
@@ -415,8 +418,8 @@
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
-	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
-		Bump(AM, 1)
+	if(isliving(AM) && AM.density && !(pass_flags & PASSMOB))
+		Bump(AM, custom_bump = TRUE)
 
 
 /obj/item/projectile/Destroy()
@@ -436,14 +439,14 @@
 	return
 
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/item/projectile/proc/check_ricochet(atom/A)
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
 
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if(A.flags & CHECK_RICOCHET)
 		return TRUE
 	return FALSE
 

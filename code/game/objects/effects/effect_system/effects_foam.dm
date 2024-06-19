@@ -7,9 +7,9 @@
 	icon_state = "foam"
 	opacity = 0
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	layer = OBJ_LAYER + 0.9
-	animate_movement = 0
+	animate_movement = NO_STEPS
 	var/amount = 3
 	var/expand = 1
 	var/metal = 0
@@ -29,7 +29,7 @@
 
 		if(metal)
 			var/turf/T = get_turf(src)
-			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
+			if(isspaceturf(T) && !istype(T, /turf/space/transit))
 				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 				MF.metal = metal
@@ -100,7 +100,7 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/M = AM
-		if(M.slip("foam", 4 SECONDS))
+		if(M.slip(4 SECONDS))
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)
@@ -176,6 +176,7 @@
 	anchored = TRUE
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
+	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/foamedmetal/Initialize()
 	..()
@@ -220,11 +221,6 @@
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	else
-		return !density
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(turf/T, vertical)
 	return !density

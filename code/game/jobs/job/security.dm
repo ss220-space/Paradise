@@ -1,12 +1,12 @@
 /datum/job/hos
-	title = "Head of Security"
-	flag = JOB_HOS
+	title = JOB_TITLE_HOS
+	flag = JOB_FLAG_HOS
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#c25656"
 	req_admin_notify = 1
 	access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
@@ -57,14 +57,14 @@
 
 
 /datum/job/warden
-	title = "Warden"
-	flag = JOB_WARDEN
+	title = JOB_TITLE_WARDEN
+	flag = JOB_FLAG_WARDEN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -107,14 +107,14 @@
 
 
 /datum/job/detective
-	title = "Detective"
-	flag = JOB_DETECTIVE
+	title = JOB_TITLE_DETECTIVE
+	flag = JOB_FLAG_DETECTIVE
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
@@ -163,19 +163,18 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	H.mutations += SOBER
-	H.check_mutations = 1
+	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
+
 
 /datum/job/officer
-	title = "Security Officer"
-	flag = JOB_OFFICER
+	title = JOB_TITLE_OFFICER
+	flag = JOB_FLAG_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
 	spawn_positions = 7
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -233,14 +232,14 @@
 				head = /obj/item/clothing/head/beret/sec
 
 /datum/job/brigdoc
-	title = "Brig Physician"
-	flag = JOB_BRIGDOC
+	title = JOB_TITLE_BRIGDOC
+	flag = JOB_FLAG_BRIGDOC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
@@ -270,14 +269,14 @@
 
 
 /datum/job/pilot
-	title = "Security Pod Pilot"
-	flag = JOB_PILOT
+	title = JOB_TITLE_PILOT
+	flag = JOB_FLAG_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)

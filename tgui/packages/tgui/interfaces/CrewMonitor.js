@@ -220,7 +220,9 @@ const SecCrewMonitorDataView = (_properties, context) => {
 
 const CrewMonitorMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
+  const { stationLevelNum, stationLevelName } = data;
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [z_current, setZCurrent] = useLocalState(context, 'z_current', stationLevelNum[0]);
   const getIcon = cm => {
     return (cm.is_command && data.isBS) || (cm.is_security && data.isBP) ? "square" : "circle";
   };
@@ -245,12 +247,14 @@ const CrewMonitorMapView = (_properties, context) => {
   };
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap onZoom={v => setZoom(v)}>
+      <NanoMap onZoom={v => setZoom(v)} zLevels={stationLevelNum} zNames={stationLevelName} z_current={z_current} setZCurrent={setZCurrent}>
         {data.crewmembers.filter(x => x.sensor_type === 3).map(cm => (
           <NanoMap.Marker
             key={cm.ref}
             x={cm.x}
             y={cm.y}
+            z={cm.z}
+            z_current={z_current}
             zoom={zoom}
             icon={getIcon(cm)}
             size={getSize(cm)}

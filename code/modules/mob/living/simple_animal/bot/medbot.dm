@@ -8,7 +8,7 @@
 	anchored = FALSE
 	health = 20
 	maxHealth = 20
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 
 	radio_channel = "Medical"
 
@@ -459,6 +459,8 @@
 
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

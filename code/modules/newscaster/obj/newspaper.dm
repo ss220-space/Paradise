@@ -36,9 +36,9 @@
 	. = ..()
 	if(!news_content)
 		news_content = list()
-		
+
 /obj/item/newspaper/examine(mob/user)
-	. = ..()	
+	. = ..()
 	if(rolled)
 		. += "<span class='notice'>You have to unroll it if you want to read it.</span>"
 	else
@@ -162,7 +162,7 @@
 		attack_self(usr)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return
@@ -182,7 +182,7 @@
 	return ..()
 
 /obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		rolled = !rolled
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()

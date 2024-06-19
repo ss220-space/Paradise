@@ -51,7 +51,7 @@
 
 
 /obj/item/assembly_holder/proc/has_prox_sensors()
-	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
+	if(isprox(a_left) || isprox(a_right))
 		return TRUE
 	return FALSE
 
@@ -146,16 +146,11 @@
 	process_movement(user)
 
 
-/obj/item/assembly_holder/Bump(atom/A)
-	..()
-	var/triggered
-	if(ismob(A) || isobj(A))
-		var/atom/movable/AM = A
-		if(AM.throwing?.thrower)
-			triggered = AM.throwing.thrower
-		else if(ismob(AM))
-			triggered = AM
-	process_movement(triggered)
+/obj/item/assembly_holder/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(. || isnull(.) || !ismob(bumped_atom))
+		return .
+	process_movement(bumped_atom)
 
 
 /obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops

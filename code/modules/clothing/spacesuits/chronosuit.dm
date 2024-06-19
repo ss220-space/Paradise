@@ -8,13 +8,14 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
-/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, silent = FALSE)
-	if(suit)
+/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(suit && slot == ITEM_SLOT_HEAD)
 		suit.deactivate()
-	..()
+	. = ..()
+
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
+	suit?.deactivate()
 	return ..()
 
 
@@ -48,13 +49,13 @@
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped(mob/user, silent = FALSE)
-	if(activated)
+/obj/item/clothing/suit/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(slot == ITEM_SLOT_CLOTH_OUTER && activated)
 		deactivate()
-	..()
+	. = ..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
+	deactivate()
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
@@ -78,7 +79,7 @@
 		phaseanim.name = "phasing [user.name]"
 		phaseanim.icon = 'icons/mob/mob.dmi'
 		phaseanim.icon_state = "chronostuck"
-		phaseanim.density = 1
+		phaseanim.set_density(TRUE)
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
 		user.ExtinguishMob()
@@ -96,7 +97,7 @@
 					sleep(7)
 			if(holder)
 				if(user && (user in holder.contents))
-					user.loc = to_turf
+					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
 							user.client.eye = camera
@@ -104,12 +105,12 @@
 							user.client.eye = user
 				qdel(holder)
 			else if(user)
-				user.loc = from_turf
+				user.forceMove(from_turf)
 			if(phaseanim)
 				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
-				user.loc = locate(0,0,1)
+				user.forceMove(locate(0,0,1))
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
@@ -136,9 +137,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					ADD_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = src
-					src.flags |= NODROP
+					ADD_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -167,11 +168,11 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0
@@ -179,7 +180,7 @@
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 	opacity = 0
@@ -200,7 +201,7 @@
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
-				if(istype(step, /turf/space))
+				if(isspaceturf(step))
 					if(!src.Move(step))
 						src.loc = step
 				else

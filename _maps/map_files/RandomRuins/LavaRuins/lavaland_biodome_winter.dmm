@@ -151,13 +151,6 @@
 /obj/mecha/working/ripley/mining,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
-"aF" = (
-/obj/structure/bookcase/random,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
-"aG" = (
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "aH" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/wood,
@@ -182,7 +175,8 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "aM" = (
-/turf/simulated/floor/carpet,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aN" = (
 /obj/structure/bed/dogbed,
@@ -256,7 +250,7 @@
 /area/ruin/powered/snow_biodome)
 "bD" = (
 /obj/effect/spawner/window,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "bM" = (
 /obj/machinery/light,
@@ -286,12 +280,6 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"fx" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
-/area/ruin/powered/snow_cabin)
 "gh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -313,7 +301,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/snow_biodome)
 "iB" = (
 /obj/structure/chair/sofa/left{
@@ -339,21 +327,12 @@
 /area/ruin/powered/snow_biodome)
 "qI" = (
 /obj/machinery/light,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "rT" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/powered/snow_biodome)
-"sf" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet8-0"
-	},
-/area/ruin/powered/snow_cabin)
 "sE" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
@@ -382,14 +361,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"vf" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
-/area/ruin/powered/snow_cabin)
 "xU" = (
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/pod/dark,
@@ -417,18 +388,12 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Bz" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet4-0"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "Cz" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
 "CD" = (
 /obj/structure/fans/tiny,
@@ -442,10 +407,6 @@
 /obj/item/clothing/gloves/fingerless,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"Dz" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "Ef" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/pod/dark,
@@ -558,7 +519,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/pen,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "Nh" = (
 /obj/structure/table/wood,
@@ -596,9 +557,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
-"QI" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
 "QJ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/beans,
@@ -648,10 +606,6 @@
 "Wg" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/snow_biodome)
-"Ww" = (
-/obj/machinery/light,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "WM" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
@@ -843,8 +797,8 @@ UW
 Wg
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -877,8 +831,8 @@ Wg
 aK
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -911,7 +865,7 @@ aQ
 ak
 Wg
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -944,7 +898,7 @@ ak
 ak
 ak
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -1159,8 +1113,8 @@ hk
 at
 Gf
 aD
-aM
-aM
+Bz
+Bz
 bD
 ak
 ak
@@ -1189,7 +1143,7 @@ aq
 aq
 aq
 Li
-fx
+Bz
 qI
 aq
 Zo
@@ -1223,7 +1177,7 @@ um
 Lf
 aq
 Cz
-vf
+Cz
 aq
 aq
 aD
@@ -1286,9 +1240,9 @@ af
 aq
 ax
 aH
-aF
-aF
-aF
+av
+av
+av
 MR
 To
 at
@@ -1319,13 +1273,13 @@ af
 tg
 as
 at
-aG
-aG
+at
+aM
 Jl
-aG
+at
 Ir
 at
-sf
+Bz
 bi
 ak
 ab
@@ -1352,10 +1306,10 @@ am
 Uv
 Kn
 bx
-aG
 at
 at
-Dz
+at
+aH
 Gf
 at
 bz
@@ -1387,7 +1341,7 @@ ai
 ar
 OV
 HZ
-aG
+at
 aq
 bD
 bD
@@ -1420,7 +1374,7 @@ ay
 zi
 Ye
 VW
-Ww
+bz
 aq
 ak
 ak
@@ -1453,7 +1407,7 @@ Ko
 Ep
 QJ
 VW
-aG
+at
 bD
 ak
 ak
@@ -1571,7 +1525,7 @@ ak
 aC
 ak
 Wg
-QI
+tb
 tb
 aa
 aa
@@ -1604,7 +1558,7 @@ ak
 ak
 Wg
 Wg
-QI
+tb
 aa
 aa
 aa
@@ -1636,8 +1590,8 @@ ak
 ak
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa
@@ -1668,8 +1622,8 @@ ak
 Wg
 Wg
 Wg
-QI
-QI
+tb
+tb
 aa
 aa
 aa

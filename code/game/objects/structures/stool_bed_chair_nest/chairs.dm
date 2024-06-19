@@ -5,11 +5,10 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
-	buckle_lying = FALSE // you sit in a chair, not lay
+	buckle_lying = 0 // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
-	buckle_offset = 0
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -28,18 +27,9 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
+/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	handle_rotation()
-
-/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	. = ..()
-	if(. && !movable)
-		anchored = TRUE
-
-/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
-	anchored = initial(anchored)
-	. = ..()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
@@ -60,7 +50,7 @@
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -69,14 +59,14 @@
 
 /obj/structure/chair/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
 
 /obj/structure/chair/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
-		if(usr.incapacitated())
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 			to_chat(usr, span_warning("You can't do that right now!"))
 			return
 		if(!usr.has_right_hand() && !usr.has_left_hand())
@@ -119,18 +109,16 @@
 		layer = OBJ_LAYER
 
 
-/obj/structure/chair/post_buckle_mob(mob/living/M)
-	. = ..()
+/obj/structure/chair/post_buckle_mob(mob/living/target)
 	handle_layer()
 
 
-/obj/structure/chair/post_unbuckle_mob()
-	. = ..()
+/obj/structure/chair/post_unbuckle_mob(mob/living/target)
 	handle_layer()
 
 
 /obj/structure/chair/setDir(newdir)
-	..()
+	. = ..()
 	handle_rotation(newdir)
 
 
@@ -144,7 +132,7 @@
 		if(isobserver(user))
 			if(!CONFIG_GET(flag/ghost_interaction))
 				return FALSE
-		else if(!isliving(user) || user.incapacitated() || !Adjacent(user))
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 			return FALSE
 
 	setDir(turn(dir, 90))
@@ -207,13 +195,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/comfy/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -269,21 +260,20 @@
 	buildstackamount = 5
 	pull_push_speed_modifier = 1
 
-/obj/structure/chair/office/Bump(atom/A)
-	..()
-	if(!has_buckled_mobs())
-		return
 
-	if(propelled)
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			unbuckle_mob(buckled_mob)
-			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.Weaken(12 SECONDS)
-			buckled_mob.Stuttering(12 SECONDS)
-			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [A]!"))
+/obj/structure/chair/office/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.) || !has_buckled_mobs() || !propelled)
+		return .
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		unbuckle_mob(buckled_mob)
+		buckled_mob.throw_at(bumped_atom, 3, propelled)
+		buckled_mob.Weaken(12 SECONDS)
+		buckled_mob.Stuttering(12 SECONDS)
+		buckled_mob.take_organ_damage(10)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [bumped_atom]!"))
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
@@ -317,13 +307,16 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
+
 
 /obj/structure/chair/sofa/proc/update_armrest()
 	if(has_buckled_mobs())
@@ -431,8 +424,12 @@
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
 		return
+	var/turf/T = get_turf(loc)
+	if(density || isopenspaceturf(T))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
 
-	for(var/obj/A in get_turf(loc))
+	for(var/obj/A in get_turf(T))
 		if(istype(A, /obj/structure/chair))
 			to_chat(user, span_danger("There is already [A] here."))
 			return
@@ -529,10 +526,10 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!in_range(src, user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	add_fingerprint(user)
 	turns = 0

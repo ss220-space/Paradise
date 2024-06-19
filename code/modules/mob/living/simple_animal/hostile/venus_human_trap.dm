@@ -83,8 +83,7 @@
 				L.attack_animal(src)
 			else
 				if(prob(grasp_pull_chance))
-					dir = get_dir(src,L) //staaaare
-					step(L,get_dir(L,src)) //reel them in
+					step_with_glide(direction = get_dir(src, L))
 					L.Weaken(6 SECONDS) //you can't get away now~
 
 		if(grasping.len < max_grasps)
@@ -92,10 +91,9 @@
 				for(var/mob/living/L in view(grasp_range, src))
 					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
 						continue
-					for(var/t in getline(src,L))
-						for(var/a in t)
-							var/atom/A = a
-							if(A.density && A != L)
+					for(var/turf/T as anything in get_line(src,L))
+						for(var/atom/check as anything in T)
+							if(check.density && check != L)
 								continue grasping
 					if(prob(grasp_chance))
 						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
@@ -105,7 +103,7 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
-	for(var/turf/T in getline(src,target))
+	for(var/turf/T as anything in get_line(src,target))
 		if (T.density)
 			return
 		for(var/obj/O in T)

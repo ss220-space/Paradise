@@ -73,7 +73,7 @@
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //the blob doesn't destroy thing below the floor
+		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //the blob doesn't destroy thing below the floor
 			return
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
@@ -159,7 +159,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 		if(!acid_level)
 			SSacid.processing[src] = src
-			add_overlay(GLOB.acid_overlay, TRUE)
+			add_overlay(GLOB.acid_overlay)
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
@@ -187,7 +187,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(isturf(loc))
 		var/turf/T = loc
-		if((T.intact && level == 1) || T.transparent_floor) //fire can't damage things hidden below the floor.
+		if((T.intact && level == 1) || T.transparent_floor == TURF_TRANSPARENT) //fire can't damage things hidden below the floor.
 			return
 	..()
 	if(QDELETED(src)) // no taking damage after deletion

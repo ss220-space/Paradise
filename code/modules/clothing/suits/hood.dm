@@ -19,8 +19,7 @@
 /obj/item/clothing/suit/hooded/proc/MakeHood()
 	item_color = initial(icon_state)
 	if(!hood)
-		var/obj/item/clothing/head/hooded/new_hood = new hoodtype(src)
-		new_hood.suit = src
+		var/obj/item/clothing/head/hooded/new_hood = new hoodtype(src, src)
 		hood = new_hood
 
 
@@ -38,7 +37,7 @@
 
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		return TRUE
 
 
@@ -47,18 +46,23 @@
 	RemoveHood(user)
 
 
-/obj/item/clothing/suit/hooded/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/suit/hooded/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	RemoveHood(user)
 
 
 /obj/item/clothing/suit/hooded/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	RemoveHood(usr)
 	. = ..()
 
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood(mob/living/carbon/human/user)
-	if(!ishuman(user) || !hood)
+	if(!ishuman(user))
+		return
+	if(!hood)
+		to_chat(user, span_warning("[src] has no head gear anymore!"))
 		return
 	if(suit_adjusted)
 		RemoveHood(user)
@@ -75,7 +79,7 @@
 	if(user.head)
 		to_chat(user, span_warning("You're already wearing something on your head!"))
 		return
-	if(!user.equip_to_slot(hood, slot_head))
+	if(!user.equip_to_slot(hood, ITEM_SLOT_HEAD))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
@@ -89,8 +93,6 @@
 	if(!hood)
 		return FALSE
 	if(!suit_adjusted)
-		if(hood.loc != src)	// in case hood was dropped on equip and suit is already adjusted
-			hood.forceMove(src)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
@@ -105,35 +107,59 @@
 
 
 /obj/item/clothing/head/hooded
+	flags_inv = HIDEHAIR
 	var/obj/item/clothing/suit/hooded/suit
 
 
+/obj/item/clothing/head/hooded/Initialize(mapload, obj/item/clothing/suit/hooded/parent)
+	. = ..()
+	if(istype(parent))
+		suit = parent
+	else
+		stack_trace("Investigate suit hood ([type]). Initialized without proper suit.")
+
+
 /obj/item/clothing/head/hooded/Destroy()
-	suit = null
+	if(suit)
+		suit.RemoveHood(loc)
+		suit.hood = null
+		suit = null
 	return ..()
 
 
-/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
-	. = ..()
-	if(!suit)
-		qdel(src)
-		return FALSE
-	if(slot != slot_head || user.wear_suit != suit)
-		user.drop_item_ground(src, force = TRUE, silent = TRUE)
-		return FALSE
-
-
-/obj/item/clothing/head/hooded/dropped(mob/user, silent = FALSE)
-	. = ..()
+/obj/item/clothing/head/hooded/attack_hand(mob/user, pickupfireoverride = FALSE)
 	if(suit)
 		suit.RemoveHood(user)
 	else
 		qdel(src)
+		stack_trace("Investigate suit hood attackhand of type: [type]")
+
+
+/obj/item/clothing/head/hooded/equipped(mob/living/carbon/user, slot, initial = FALSE)
+	. = ..()
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate suit hood equip of type: [type]")
+		return FALSE
+
+
+/obj/item/clothing/head/hooded/dropped(mob/living/carbon/user, slot, silent = FALSE)
+	. = ..()
+	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
+		if(!QDELING(src))
+			qdel(src)
+		stack_trace("Investigate suit hood drop of type: [type]")
+		return FALSE
+	suit.RemoveHood(user)
 
 
 /obj/item/clothing/head/hooded/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 	if(suit)
 		suit.RemoveHood(usr)
 	else
 		qdel(src)
+		stack_trace("Investigate suit hood mousedrop of type: [type]")
 

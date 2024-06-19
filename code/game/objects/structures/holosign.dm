@@ -80,24 +80,25 @@
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags = LETPASSTHROW
+	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
-	if(!density)
-		return TRUE
-	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
+
+/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
 		return TRUE
 	if(iscarbon(mover))
-		var/mob/living/carbon/C = mover
-		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
+		var/mob/living/carbon/carbon_mover = mover
+		if(allow_walk && (carbon_mover.m_intent == MOVE_INTENT_WALK || carbon_mover.pulledby?.m_intent == MOVE_INTENT_WALK))
 			return TRUE
 	else if(issilicon(mover))
-		var/mob/living/silicon/S = mover
-		if(allow_walk && (S.m_intent == MOVE_INTENT_WALK || (S.pulledby && S.pulledby.m_intent == MOVE_INTENT_WALK)))
+		var/mob/living/silicon/silicon_mover = mover
+		if(allow_walk && (silicon_mover.m_intent == MOVE_INTENT_WALK || silicon_mover.pulledby?.m_intent == MOVE_INTENT_WALK))
 			return TRUE
+
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
@@ -116,7 +117,7 @@
 	. = ..()
 	air_update_turf(TRUE)
 
-/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T)
+/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T, vertical)
 	return FALSE
 
 /obj/structure/holosign/barrier/atmos/Destroy()
@@ -142,35 +143,25 @@
 	name = "Charged Energy Field"
 	desc = "A powerful energy field that blocks movement. Energy arcs off it."
 	max_integrity = 20
-	var/shockcd = 0
+	COOLDOWN_DECLARE(shock_cooldown)
+
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/item/projectile/P)
 	take_damage(P.damage, BRUTE, "melee", 1)	//Yeah no this doesn't get projectile resistance.
 
-/obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()
-	shockcd = FALSE
 
 /obj/structure/holosign/barrier/cyborg/hacked/attack_hand(mob/living/user)
 	. = ..()
-	if(.)
+	if(. || !COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(user))
 		return
-	if(!shockcd)
-		if(isliving(user))
-			var/mob/living/M = user
-			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
-			shockcd = TRUE
-			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
+	user.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
-/obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/moving_atom)
-	..()
 
-	if(shockcd)
-		return
+/obj/structure/holosign/barrier/cyborg/hacked/Bumped(mob/living/moving_living)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(moving_living))
+		return .
+	moving_living.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
-	if(!isliving(moving_atom))
-		return
-
-	var/mob/living/M = moving_atom
-	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
-	shockcd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

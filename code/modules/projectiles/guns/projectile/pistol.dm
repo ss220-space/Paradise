@@ -94,6 +94,7 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
+	origin_tech = "combat=5;materials=2"
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE

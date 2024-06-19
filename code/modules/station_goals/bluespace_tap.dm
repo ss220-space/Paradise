@@ -1,7 +1,8 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
-	var/goal = 45000
+	gamemode_blacklist = list("extended")
+	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
@@ -96,7 +97,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 1,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,
 		/obj/item/gun/projectile/shotgun/toy = 1,
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,

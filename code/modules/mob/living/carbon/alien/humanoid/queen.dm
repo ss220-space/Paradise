@@ -8,7 +8,7 @@
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	caste_movement_delay = 3
-	ventcrawler = 0
+	ventcrawler_trait = null
 	attack_damage = 40
 	disarm_stamina_damage = 50
 	armour_penetration = 50
@@ -72,14 +72,20 @@
 
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
 		icon_state = "queen_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
+	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
 		icon_state = "queen_sleep"
 	else
 		icon_state = "queen_s"
 
-	for(var/image/I in overlays_standing)
-		overlays += I
+	update_inv_r_hand()
+	update_inv_l_hand()
+	update_inv_pockets()
+	update_fire()
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+

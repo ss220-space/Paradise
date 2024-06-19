@@ -88,6 +88,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	spawned_beacon = new(loc)
 	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
 
@@ -142,7 +144,7 @@ Difficulty: Hard
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		target_slowness += L.movement_delay()
+		target_slowness += L.cached_multiplicative_slowdown
 	if(client)
 		target_slowness += 1
 
@@ -227,7 +229,7 @@ Difficulty: Hard
 		animate(src, color = "#660099", time = 6)
 		colour_shifting = TRUE
 		remove_filter("rays")
-		SLEEP_CHECK_DEATH(6)
+		SLEEP_CHECK_DEATH(src, 6)
 		while(!QDELETED(target) && blink_counter)
 			if(loc == target.loc || loc == target) //we're on the same tile as them after about a second we can stop now
 				break
@@ -235,11 +237,11 @@ Difficulty: Hard
 			blinking = FALSE
 			blink(target)
 			blinking = TRUE
-			SLEEP_CHECK_DEATH(4 + target_slowness)
+			SLEEP_CHECK_DEATH(src, 4 + target_slowness)
 		animate(src, color = oldcolor, time = 8)
 		colour_shifting = FALSE
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
-		SLEEP_CHECK_DEATH(8)
+		SLEEP_CHECK_DEATH(src, 8)
 		blinking = FALSE
 	else
 		blink(target)
@@ -252,18 +254,18 @@ Difficulty: Hard
 	animate(src, color = "#660099", time = 6)
 	colour_shifting = TRUE
 	remove_filter("rays")
-	SLEEP_CHECK_DEATH(6)
+	SLEEP_CHECK_DEATH(src, 6)
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
 		if(prob(60))
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinal)
 		else
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
-		SLEEP_CHECK_DEATH(6 + target_slowness)
+		SLEEP_CHECK_DEATH(src, 6 + target_slowness)
 	animate(src, color = oldcolor, time = 8)
 	colour_shifting = FALSE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
-	SLEEP_CHECK_DEATH(8)
+	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
 
@@ -275,7 +277,7 @@ Difficulty: Hard
 	animate(src, color = "#660099", time = 6)
 	colour_shifting = TRUE
 	remove_filter("rays")
-	SLEEP_CHECK_DEATH(6)
+	SLEEP_CHECK_DEATH(src, 6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
 	while(targets.len && cardinal_copy.len)
@@ -289,12 +291,12 @@ Difficulty: Hard
 		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, pickedtarget, chaser_speed, FALSE)
 		C.moving = 3
 		C.moving_dir = pick_n_take(cardinal_copy)
-		SLEEP_CHECK_DEATH(8 + target_slowness)
+		SLEEP_CHECK_DEATH(src, 8 + target_slowness)
 	chaser_cooldown = world.time + initial(chaser_cooldown)
 	animate(src, color = oldcolor, time = 8)
 	colour_shifting = FALSE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
-	SLEEP_CHECK_DEATH(8)
+	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = GLOB.cardinal) //fires cross blasts with a delay
@@ -308,7 +310,7 @@ Difficulty: Hard
 	else
 		new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	playsound(T,'sound/effects/bin_close.ogg', 75, TRUE)
-	SLEEP_CHECK_DEATH(2)
+	SLEEP_CHECK_DEATH(src, 2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in directions)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d)
@@ -346,7 +348,7 @@ Difficulty: Hard
 		HS.setDir(set_dir)
 		previousturf = J
 		J = get_step(previousturf, set_dir)
-		SLEEP_CHECK_DEATH(0.5)
+		SLEEP_CHECK_DEATH(src, 0.5)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink(mob/victim) //blink to a target
 	if(blinking || !victim)
@@ -360,7 +362,7 @@ Difficulty: Hard
 	playsound(T,'sound/magic/wand_teleport.ogg', 80, TRUE)
 	playsound(source,'sound/machines/airlock_open.ogg', 80, TRUE)
 	blinking = TRUE
-	SLEEP_CHECK_DEATH(2) //short delay before we start...
+	SLEEP_CHECK_DEATH(src, 2) //short delay before we start...
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, src)
 	for(var/t in RANGE_TURFS(1, T))
@@ -370,17 +372,17 @@ Difficulty: Hard
 		var/obj/effect/temp_visual/hierophant/blast/B = new(t, src, FALSE)
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	SLEEP_CHECK_DEATH(1)
+	SLEEP_CHECK_DEATH(src, 1)
 	visible_message("<span class='hierophant_warning'>[src] fades out!</span>")
-	density = FALSE
-	SLEEP_CHECK_DEATH(2)
+	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
+	SLEEP_CHECK_DEATH(src, 2)
 	forceMove(T)
-	SLEEP_CHECK_DEATH(1)
+	SLEEP_CHECK_DEATH(src, 1)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
-	SLEEP_CHECK_DEATH(1)
-	density = TRUE
+	SLEEP_CHECK_DEATH(src, 1)
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	visible_message("<span class='hierophant_warning'>[src] fades in!</span>")
-	SLEEP_CHECK_DEATH(1) //at this point the blasts we made detonate
+	SLEEP_CHECK_DEATH(src, 1) //at this point the blasts we made detonate
 	blinking = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/melee_blast(mob/victim) //make a 3x3 blast around a target
@@ -391,7 +393,7 @@ Difficulty: Hard
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	playsound(T,'sound/effects/bin_close.ogg', 75, TRUE)
-	SLEEP_CHECK_DEATH(2)
+	SLEEP_CHECK_DEATH(src, 2)
 	for(var/t in RANGE_TURFS(1, T))
 		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 
@@ -411,11 +413,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original, spread_speed)
 	hierophant_burst(src, original, burst_range, spread_speed)
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/float(on) //we don't want this guy to float, messes up his animations
-	if(throwing)
-		return
-	floating = on
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!enraged) //We do not want it to animate attacking as that breaks the cool animation. If it is not enraged, it can do it. However this only happens if admin controlled
@@ -586,18 +583,22 @@ Difficulty: Hard
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
+
+/obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(QDELETED(caster))
 		return FALSE
 	if(mover == caster.pulledby)
-		return TRUE
-	if(istype(mover, /obj/item/projectile))
+		return .
+	if(isprojectile(mover))
 		var/obj/item/projectile/P = mover
 		if(P.firer == caster)
-			return TRUE
-	if(mover == caster)
-		return TRUE
-	return FALSE
+			return .
+	if(mover != caster)
+		return FALSE
+
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -785,7 +786,7 @@ Difficulty: Hard
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
 			H.timer = world.time + 51
 			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")

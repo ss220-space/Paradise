@@ -6,12 +6,16 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_necklace"
 	item_state = "gem_necklace"
-	slot_flags = SLOT_NECK | SLOT_TIE //trust me, I am 100% triplechecked this
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_ACCESSORY //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
 	var/gem = null
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/dragon_power = FALSE //user get additional bonuses for using draconic amber
 	var/necklace_light = FALSE //some lighting stuff
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 
 
 /obj/item/clothing/accessory/necklace/gem/examine(mob/user)
@@ -95,43 +99,47 @@
 			dragon_power = TRUE
 		gem = I
 		to_chat(user, span_notice("You carefully insert [I] into necklace."))
-		update_light()
+		if(light_range)
+			set_light_on(TRUE)
+			set_light_range_power_color(light_range, light_power, light_color)
 
-/obj/item/clothing/accessory/necklace/gem/on_attached(obj/item/clothing/under/S, mob/user)
+
+/obj/item/clothing/accessory/necklace/gem/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
-	if(isliving(user) && dragon_power)
-		var/mob/living/M = user
-		M.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+	if(. && dragon_power && isliving(has_suit.loc))
+		var/mob/living/wearer = has_suit.loc
+		wearer.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-/obj/item/clothing/accessory/necklace/gem/on_removed(mob/user)
+
+/obj/item/clothing/accessory/necklace/gem/on_removed(mob/detacher)
 	. = ..()
-	if(isliving(user) && dragon_power)
-		var/mob/living/M = user
-		M.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+	if(.)
+		var/obj/item/clothing/under/old_suit = .
+		if(isliving(old_suit.loc))
+			var/mob/living/wearer = old_suit.loc
+			wearer.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-/obj/item/clothing/accessory/necklace/gem/attached_unequip()
-	if(isliving(usr) && dragon_power)
-		var/mob/living/M = usr
-		M.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
-	return ..()
 
-/obj/item/clothing/accessory/necklace/gem/attached_equip()
-	if(isliving(usr) && dragon_power)
-		var/mob/living/M = usr
-		M.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
-	return ..()
+/obj/item/clothing/accessory/necklace/gem/attached_equip(mob/living/user)
+	if(dragon_power && isliving(user))
+		user.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-/obj/item/clothing/accessory/necklace/gem/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/accessory/necklace/gem/attached_unequip(mob/living/user)
+	if(dragon_power && isliving(user))
+		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+
+
+/obj/item/clothing/accessory/necklace/gem/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(isliving(user) && dragon_power && slot == slot_neck)
-		var/mob/living/M = user
-		M.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+	if(dragon_power && isliving(user) && slot == ITEM_SLOT_NECK)
+		user.apply_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
-/obj/item/clothing/accessory/necklace/gem/dropped(mob/user)
+
+/obj/item/clothing/accessory/necklace/gem/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	var/mob/living/M = user
-	if(isliving(user) && dragon_power && M.get_item_by_slot(slot_neck) == src)
-		M.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+	if(dragon_power && isliving(user))
+		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
 
 //bracers
 /obj/item/clothing/gloves/jewelry_bracers
@@ -140,7 +148,9 @@
 	icon = 'icons/obj/clothing/jewelry.dmi'
 	icon_state = "gem_bracers"
 	item_state = "gem_bracers"
-	icon_override = 'icons/mob/clothing/jewelry.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/jewelry.dmi'
+	)
 	var/gem = null
 	transfer_prints = TRUE
 	cold_protection = HANDS

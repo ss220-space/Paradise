@@ -309,7 +309,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
-			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
@@ -392,7 +392,7 @@
 			if(H.wear_mask)
 				H.drop_item_ground(H.wear_mask, force = TRUE)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
-			H.equip_to_slot(fakemoustache, slot_wear_mask)
+			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 
@@ -424,7 +424,7 @@
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
 		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
 
-	else if(!M.restrained())
+	else if(!M.incapacitated() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/C in orange(1, M))
 			if(C)
 				if(C == M)
@@ -454,9 +454,9 @@
 	if(!istype(C))
 		return
 	if(C.mind)
-		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+		if(C.mind.assigned_role == JOB_TITLE_CLOWN || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
-		else if(C.mind.assigned_role == "Mime")
+		else if(C.mind.assigned_role == JOB_TITLE_MIME)
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 		else
@@ -472,7 +472,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+	if(M?.mind.assigned_role == JOB_TITLE_CLOWN || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
 		update_flags |= M.adjustBruteLoss(-0.75) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
@@ -492,7 +492,7 @@
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
-		if(M?.mind.assigned_role == "Mime")
+		if(M?.mind.assigned_role == JOB_TITLE_MIME)
 			update_flags |= M.adjustToxLoss(0.75)
 	return ..() | update_flags
 
@@ -519,31 +519,30 @@
 	id = "growthserum"
 	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
-	var/current_size = 1
+	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "enhancement"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
-			newsize = 1.1
+			newsize = 1.1 * RESIZE_DEFAULT_SIZE
 		if(20 to 49)
-			newsize = 1.2
+			newsize = 1.2 * RESIZE_DEFAULT_SIZE
 		if(50 to 99)
-			newsize = 1.25
+			newsize = 1.25 * RESIZE_DEFAULT_SIZE
 		if(100 to 199)
-			newsize = 1.3
+			newsize = 1.3 * RESIZE_DEFAULT_SIZE
 		if(200 to INFINITY)
-			newsize = 1.5
+			newsize = 1.5 * RESIZE_DEFAULT_SIZE
 
-	H.resize = newsize/current_size
+	H.update_transform(newsize/current_size)
 	current_size = newsize
-	H.update_transform()
 	return ..()
 
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
-	M.resize = 1/current_size
-	M.update_transform()
+	M.update_transform(RESIZE_DEFAULT_SIZE/current_size)
+	current_size = RESIZE_DEFAULT_SIZE
 	..()
 
 /datum/reagent/pax
