@@ -567,11 +567,9 @@
 			if(is_multi_tile && isturf(destination))
 				var/list/new_locs = block(
 					destination,
-					locate(
-						min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
-						min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
-						destination.z
-					)
+					min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
+					min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
+					destination.z
 				)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
