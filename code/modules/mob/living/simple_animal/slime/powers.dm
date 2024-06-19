@@ -165,7 +165,9 @@
 			new_slime.update_hair()
 			new_slime.update_body()
 			new_slime.blood_color = new_colour
-			new_slime.dna.species.blood_color = new_slime.blood_color
+			new_slime.dna.species.blood_color = new_slime.dna.species
+			var/datum/species/slime/species = new_slime.dna.species
+			species.evolved_slime = TRUE
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 
