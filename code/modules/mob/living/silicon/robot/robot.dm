@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
 	var/obj/item/stock_parts/cell/cell = null
-	var/obj/machinery/camera/camera = null
+	var/obj/machinery/camera/portable/camera = null
 
 	// Components are basically robot organs.
 	var/list/components = list()
@@ -156,9 +156,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		faction += "syndicate"
 
 	if(has_camera && !camera && !syndie)
-		camera = new /obj/machinery/camera(src)
-		camera.c_tag = real_name
-		camera.network = list("SS13","Robots")
+		camera = new(src, list("SS13", "Robots"), real_name)
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 

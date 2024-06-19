@@ -35,7 +35,7 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
 	if(input_assembly)
@@ -45,12 +45,16 @@
 	assembly.state = 4
 	assembly.set_anchored(TRUE)
 	assembly.update_icon(UPDATE_ICON_STATE)
+	if(network)
+		src.network = network
+	if(c_tag)
+		src.c_tag = c_tag
+
 	GLOB.cameranet.cameras += src
 	for(var/obj/item/upgrade as anything in assembly.upgrades)
 		upgrade.camera_upgrade(src)
-	if(networks)
-		network = networks
-	var/list/tempnetwork = difflist(network, GLOB.restricted_camera_networks)
+
+	var/list/tempnetwork = difflist(src.network, GLOB.restricted_camera_networks)
 	if(tempnetwork.len)
 		GLOB.cameranet.addCamera(src)
 	else
@@ -444,7 +448,7 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/Initialize(mapload)
+/obj/machinery/camera/portable/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.set_anchored(FALSE)

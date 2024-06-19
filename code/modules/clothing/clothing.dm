@@ -10,13 +10,6 @@
 	var/list/faction_restricted = null
 	var/teleportation = FALSE //used for xenobio potions
 
-	/*
-		Sprites used when the clothing item is refit. This is done by setting icon_override.
-		For best results, if this is set then sprite_sheets should be null and vice versa, but that is by no means necessary.
-		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits),
-		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
-	*/
-	var/list/sprite_sheets_refit = null
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
@@ -929,6 +922,8 @@ BLIND     // can't see anything
 	var/over_shoes = FALSE
 	/// Lazylist of all accessories on the suit.
 	var/list/accessories
+	/// Whether we can roll down this uniform.
+	var/can_adjust = TRUE
 
 
 /obj/item/clothing/under/rank/Initialize(mapload)
@@ -1085,6 +1080,10 @@ BLIND     // can't see anything
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
 		to_chat(owner, span_notice("You cannot roll down the uniform right now!"))
+		return
+
+	if(!can_adjust)
+		to_chat(owner, span_notice("You cannot roll down this uniform!"))
 		return
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]

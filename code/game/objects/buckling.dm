@@ -70,10 +70,11 @@
 
 	// check if we are failed to move from adjacent turf
 	if(!check_loc && target.loc != loc)
-		if(!target.Move(loc))
+		var/old_flags = target.pass_flags
+		target.pass_flags = PASSEVERYTHING
+		if(!target.Move(loc) || target.loc != loc)	// no move or still the same loc, even after move
 			return FALSE
-		if(target.loc != loc)	// still not the same loc, even after move
-			return FALSE
+		target.pass_flags = old_flags
 
 	if(target.pulledby)
 		if(buckle_prevents_pull)

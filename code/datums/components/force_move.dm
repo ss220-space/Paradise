@@ -7,10 +7,9 @@
 /datum/component/force_move/Initialize(atom/target, spin)
 	if(!target || !ismob(parent))
 		return COMPONENT_INCOMPATIBLE
-
 	var/mob/mob_parent = parent
 	var/dist = get_dist(mob_parent, target)
-	var/datum/move_loop/loop = SSmove_manager.move_towards(mob_parent, target, delay = 1, timeout = dist)
+	var/datum/move_loop/loop = SSmove_manager.move_towards(mob_parent, target, delay = 1, timeout = dist, flags = MOVEMENT_LOOP_TAKE_EXISTING_LOOP)
 	RegisterSignal(mob_parent, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(stop_move))
 	RegisterSignal(mob_parent, COMSIG_ATOM_PRE_PRESSURE_PUSH, PROC_REF(stop_pressure))
 	if(spin)
@@ -36,7 +35,6 @@
 
 /datum/component/force_move/proc/loop_ended(datum/source)
 	SIGNAL_HANDLER
-	if(QDELETED(src))
-		return
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 

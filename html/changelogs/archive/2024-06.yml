@@ -165,5 +165,16 @@
   Den109G:
   - bugfix: Veils now correctly show what happens to them (#5233)
   - tweak: Change turfs temps to not give LINDA extra work (#5231)
+  - bugfix: Chameleon mask is now can be removed (#5239)
+  - bugfix: Effects on_apply correctly sees this effect (#5237)
   endipe:
   - bugfix: Now blood is unsafe (#5226)
+'2024-06-19':
+  BeebBeebBoob:
+  - refactor: remove from all block proc all locate procs (#5208)
+  Daeberdir:
+  - bugfix: AI internal camera & entertainment monitor overlays working properly.  (#5203)
+  Zwei:
+  - bugfix: Bunch Of Important Fixes (#5243)
+  - tweak: Antag Paradise Autotraitor Update (#5157)
+  - unknown: Chameleon Rework (#5065)
