@@ -32,7 +32,7 @@
 		adjustBruteLoss(10)
 
 
-/mob/living/carbon/Move(NewLoc, direct)
+/mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD && !isvampire(src))

@@ -235,7 +235,7 @@
 			if(isliving(M))
 
 				if(iscarbon(M)) //Carbon stuff
-					if(issmall(M))
+					if(is_monkeybasic(M))
 						M_job = "Monkey"
 					else if(ishuman(M))
 						M_job = M.job

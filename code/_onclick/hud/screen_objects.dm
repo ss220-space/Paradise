@@ -605,7 +605,7 @@
 			. += handcuff_overlay
 
 		var/obj/item/organ/external/limb = user.get_organ((slot_id == ITEM_SLOT_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		if(!isalien(user) && (!limb || !limb.is_usable()))
+		if(!isalien(user) && !isdevil(user) && (!limb || !limb.is_usable()))
 			. += blocked_overlay
 
 	if(slot_id == ITEM_SLOT_HAND_LEFT && hud.mymob.hand)

@@ -897,6 +897,7 @@
 	desc = "Empower your faithful thrall or revives"
 	base_cooldown = 0
 	ignore_prer = TRUE
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"

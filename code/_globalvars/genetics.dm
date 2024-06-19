@@ -7,7 +7,6 @@ GLOBAL_VAR_INIT(teleblock, 0)
 GLOBAL_VAR_INIT(fireblock, 0)
 GLOBAL_VAR_INIT(xrayblock, 0)
 GLOBAL_VAR_INIT(clumsyblock, 0)
-GLOBAL_VAR_INIT(fakeblock, 0)
 GLOBAL_VAR_INIT(coughblock, 0)
 GLOBAL_VAR_INIT(glassesblock, 0)
 GLOBAL_VAR_INIT(epilepsyblock, 0)
@@ -68,3 +67,12 @@ GLOBAL_VAR_INIT(dizzyblock, 0)
 
 GLOBAL_LIST_EMPTY(reg_dna)
 GLOBAL_LIST_EMPTY(global_mutations)
+
+// Currently empty blocks, you can use these for your own powers
+GLOBAL_VAR_INIT(fakeblock1, 0)
+GLOBAL_VAR_INIT(fakeblock2, 0)
+GLOBAL_VAR_INIT(fakeblock3, 0)
+GLOBAL_VAR_INIT(fakeblock4, 0)
+GLOBAL_VAR_INIT(fakeblock5, 0)
+GLOBAL_VAR_INIT(fakeblock6, 0)
+

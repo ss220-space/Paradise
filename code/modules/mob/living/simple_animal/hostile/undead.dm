@@ -59,7 +59,7 @@
 	AddElement(/datum/element/simple_flying)
 
 
-/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/ghost/Life(seconds, times_fired)

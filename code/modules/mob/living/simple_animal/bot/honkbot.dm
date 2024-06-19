@@ -67,7 +67,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -214,14 +214,14 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			SSmove_manager.stop_looping(src)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				SSmove_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -239,8 +239,7 @@
 					return
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target, 1, 4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -304,7 +303,7 @@
 
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)

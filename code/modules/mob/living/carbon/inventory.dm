@@ -6,7 +6,7 @@
 		return FALSE
 
 	hand = !hand
-	update_hands_HUD()
+	update_hud_hands()
 	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
 
 
@@ -84,15 +84,6 @@
 
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
-	update_hands_HUD()
-
-
-/// Updates hands HUD element.
-/mob/living/carbon/proc/update_hands_HUD()
-	if(!hud_used)
-		return
-	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
-		hand_box.update_appearance()
 
 
 /// Modifies the legcuffed value if a different value is passed, returning FALSE otherwise.

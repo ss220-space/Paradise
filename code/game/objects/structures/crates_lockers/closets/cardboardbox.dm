@@ -40,10 +40,11 @@
 	// And finally the multipler of the box is applied
 	delay *= move_speed_multiplier
 
-	. = Move(next_step, direction, delay)
+	. = Move(next_step, direction)
 	if(. && ISDIAGONALDIR(direction))
 		delay *= sqrt(2)
 
+	set_glide_size(DELAY_TO_GLIDE_SIZE(delay))
 	COOLDOWN_START(src, recently_moved_cd, delay)
 
 

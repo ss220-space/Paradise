@@ -81,7 +81,7 @@
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		objective_damage(A, D, 10, BRUTE)
-		D.Weaken(2 SECONDS)
+		D.Knockdown(1 SECONDS)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 

@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 
-/datum/antagonist/Destroy(force, ...)
+/datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
 		if(!objective.team)

@@ -22,7 +22,7 @@
 	return TRUE
 
 
-/datum/antagonist/malf_ai/Destroy(force, ...)
+/datum/antagonist/malf_ai/Destroy(force)
 	var/mob/living/silicon/ai/malf = owner?.current
 	if(istype(malf))
 		malf.clear_zeroth_law()

@@ -37,13 +37,11 @@
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	emote_taunt = list("growls ominously")
 	taunt_chance = 30
-	var/charging = FALSE
-	var/revving_charge = FALSE
+	var/turf/charge_turf
 	var/reflect_chance = 30
 	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
 	tame_chance = 0
 	bonus_tame_chance = 10
-	needs_gliding = FALSE
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
@@ -123,6 +121,9 @@
 	icon_state = icon_aggro
 	pre_attack = FALSE
 
+
+#define GOLIATH_CHARGE_SPEED 0.7
+
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/charge(atom/chargeat = target, delay = 10, chargepast = 2)
 	if(!chargeat)
 		return
@@ -133,32 +134,43 @@
 	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
 	if(!T)
 		return
-	charging = TRUE
-	revving_charge = TRUE
-	walk(src, 0)
+	SSmove_manager.stop_looping(src)
+	charge_turf = T
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
-	SLEEP_CHECK_DEATH(delay)
-	revving_charge = FALSE
-	var/movespeed = 0.7
-	walk_towards(src, T, movespeed)
-	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	walk(src, 0) // cancel the movement
-	charging = FALSE
+	SLEEP_CHECK_DEATH(src, delay)
+	var/datum/move_loop/new_loop = SSmove_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	if(!new_loop)
+		return
+	RegisterSignal(src, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump), override = TRUE)
+	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move), override = TRUE)
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/Bump(atom/A)
-	if(isturf(A) && charging)
-		wall_slam(A)
+#undef GOLIATH_CHARGE_SPEED
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/wall_slam(atom/A)
-	charging = FALSE
-	Stun(100, TRUE, TRUE)
-	walk(src, 0)		// Cancel the movement
-	if(ismineralturf(A))
-		var/turf/simulated/mineral/M = A
-		if(M.mineralAmt < 7)
-			M.mineralAmt++
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/on_bump(datum/source, atom/bumped_atom)
+	SIGNAL_HANDLER
+	if(ismineralturf(bumped_atom))
+		var/turf/simulated/mineral/mineral = bumped_atom
+		if(mineral.mineralAmt < 7)
+			mineral.mineralAmt++
+	end_charge()
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/post_move(datum/source)
+	SIGNAL_HANDLER
+	if(get_turf(src) == charge_turf)
+		end_charge()
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/end_charge()
+	UnregisterSignal(src, COMSIG_MOVABLE_BUMP)
+	charge_turf = null
+	SSmove_manager.stop_looping(src)
+	if(target && Adjacent(target))
+		INVOKE_ASYNC(src, PROC_REF(AttackingTarget))
+
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)
 	ranged_cooldown -= 10

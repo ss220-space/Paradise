@@ -5,7 +5,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "gate_full"
 	flags = ON_BORDER
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = TABLE_LAYER
 	anchored = TRUE
 	density = TRUE
@@ -207,7 +207,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/effect/temp_visual/necropolis
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "door_closing"
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	duration = 6
 	layer = EDGED_TURF_LAYER
 	pixel_x = -32
@@ -222,7 +222,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	desc = "A massive arch over the necropolis gate, set into a massive tower of stone."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "arch_full"
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = TABLE_LAYER
 	anchored = TRUE
 	pixel_x = -64

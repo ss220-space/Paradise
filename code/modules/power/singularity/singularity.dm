@@ -7,7 +7,7 @@
 	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	var/contained = 1 //Are we going to move around?
@@ -53,7 +53,7 @@
 	target = null
 	return ..()
 
-/obj/singularity/Move(atom/newloc, direct)
+/obj/singularity/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
 		last_failed_movement = 0//Reset this because we moved
 		return ..()
@@ -76,7 +76,7 @@
 	consume(user)
 	return 1
 
-/obj/singularity/Process_Spacemove(movement_dir = NONE) //The singularity stops drifting for no man!
+/obj/singularity/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE) //The singularity stops drifting for no man!
 	return FALSE
 
 /obj/singularity/blob_act(obj/structure/blob/B)
@@ -103,14 +103,17 @@
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
-/obj/singularity/Bump(atom/A)
-	consume(A)
-	return
+/obj/singularity/Bump(atom/bumped_atom, custom_bump, effect_applied = FALSE)
+	. = ..()
+	if(. || isnull(.) || effect_applied)
+		return .
+	consume(bumped_atom)
 
 
-/obj/singularity/Bumped(atom/movable/moving_atom)
-	consume(moving_atom)
-	return
+/obj/singularity/Bumped(atom/movable/moving_atom, effect_applied = FALSE)
+	. = ..()
+	if(!effect_applied)
+		consume(moving_atom)
 
 
 /obj/singularity/process()

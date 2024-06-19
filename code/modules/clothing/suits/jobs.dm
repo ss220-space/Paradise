@@ -101,14 +101,16 @@
 	desc = "Made of real fur."
 	item_state = "cap_coat"
 	icon_state = "cap_coat"
+	flags_inv_transparent = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/captunic/parade
 	name = "captain's parade jacket"
 	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_black_open"
 	item_state = "cap_jacket_black_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -121,8 +123,9 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_open"
 	item_state = "cap_jacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -131,8 +134,9 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "bomber_captain_open"
 	item_state = "bomber_captain_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -425,6 +429,7 @@
 	item_state = "qm_jacket_open"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/qm_quest_tablet)
 	ignore_suitadjust = 0
 	suit_adjusted = 1

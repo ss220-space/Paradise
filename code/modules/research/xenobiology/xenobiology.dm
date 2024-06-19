@@ -185,7 +185,7 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
+	if(!isanimal(M) && !is_monkeybasic(M))
 		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
 	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
@@ -295,8 +295,7 @@
 
 		return
 
-	//обработка низших форм: Обезьяны, стока, фарвы, неары, вульпина
-	if(ismonkeybasic(M) && !M.ckey)
+	if(is_monkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		if(LF.sentience_type != sentience_type)

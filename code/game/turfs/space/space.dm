@@ -159,9 +159,6 @@
 				var/turf/T = get_step(L.loc,turn(A.dir, 180))
 				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
 
-		//now we're on the new z_level, proceed the space drifting
-		spawn(0)//Let a diagonal move finish, if necessary
-			A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
 	var/mob/living/check_mob = A
@@ -205,7 +202,7 @@
 	var/list/y_arr
 
 	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 
@@ -280,7 +277,7 @@
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
