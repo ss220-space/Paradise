@@ -44,12 +44,10 @@
 		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
 
 	// Don't play storm audio to shuttles that are not at lavaland
-	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
-	if(!miningShuttleDocked)
+	if(!is_shuttle_docked("mining", "mining_away"))
 		eligible_areas -= get_areas(/area/shuttle/mining)
 
-	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
-	if(!laborShuttleDocked)
+	if(!is_shuttle_docked("laborcamp", "laborcamp_away"))
 		eligible_areas -= get_areas(/area/shuttle/siberia)
 
 	for(var/i in 1 to eligible_areas.len)
