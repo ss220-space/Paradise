@@ -151,13 +151,6 @@
 /obj/mecha/working/ripley/mining,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
-"aF" = (
-/obj/structure/bookcase/random,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
-"aG" = (
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "aH" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/wood,
@@ -183,7 +176,7 @@
 /area/ruin/powered/snow_cabin)
 "aM" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aN" = (
 /obj/structure/bed/dogbed,
@@ -257,7 +250,7 @@
 /area/ruin/powered/snow_biodome)
 "bD" = (
 /obj/effect/spawner/window,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "bM" = (
 /obj/machinery/light,
@@ -308,7 +301,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/snow_biodome)
 "iB" = (
 /obj/structure/chair/sofa/left{
@@ -414,10 +407,6 @@
 /obj/item/clothing/gloves/fingerless,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"Dz" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "Ef" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/pod/dark,
@@ -530,7 +519,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/pen,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "Nh" = (
 /obj/structure/table/wood,
@@ -617,10 +606,6 @@
 "Wg" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/snow_biodome)
-"Ww" = (
-/obj/machinery/light,
-/turf/simulated/floor/wood/cold,
-/area/ruin/powered/snow_cabin)
 "WM" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
@@ -1255,9 +1240,9 @@ af
 aq
 ax
 aH
-aF
-aF
-aF
+av
+av
+av
 MR
 To
 at
@@ -1288,10 +1273,10 @@ af
 tg
 as
 at
-aG
+at
 aM
 Jl
-aG
+at
 Ir
 at
 Bz
@@ -1321,10 +1306,10 @@ am
 Uv
 Kn
 bx
-aG
 at
 at
-Dz
+at
+aH
 Gf
 at
 bz
@@ -1356,7 +1341,7 @@ ai
 ar
 OV
 HZ
-aG
+at
 aq
 bD
 bD
@@ -1389,7 +1374,7 @@ ay
 zi
 Ye
 VW
-Ww
+bz
 aq
 ak
 ak
@@ -1422,7 +1407,7 @@ Ko
 Ep
 QJ
 VW
-aG
+at
 bD
 ak
 ak

@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/Uncrossed(atom/movable/AM)
 	return
 
-/atom/movable/lighting_object/Bump(atom/A, yes)
+/atom/movable/lighting_object/Bump(atom/bumped_atom, custom_bump)
 	return
 
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)

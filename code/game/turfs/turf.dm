@@ -191,7 +191,7 @@
 			if(obstacle == mover || obstacle == oldloc)
 				continue
 			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle, TRUE)
+				mover.Bump(obstacle, custom_bump = TRUE)
 				return FALSE
 
 	var/border_dir = get_dir(src, mover)
@@ -203,14 +203,14 @@
 			continue
 		if(border_obstacle.flags & ON_BORDER)
 			if(!border_obstacle.CanPass(mover, border_dir))
-				mover.Bump(border_obstacle, TRUE)
+				mover.Bump(border_obstacle, custom_bump = TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
 	if(!CanPass(mover, border_dir))
-		mover.Bump(src, TRUE)
+		mover.Bump(src, custom_bump = TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
@@ -228,7 +228,7 @@
 				tompost_bump = obstacle
 				top_layer = current_layer
 	if(tompost_bump)
-		mover.Bump(tompost_bump, TRUE)
+		mover.Bump(tompost_bump, custom_bump = TRUE)
 		return FALSE
 
 	return TRUE //Nothing found to block so return success!

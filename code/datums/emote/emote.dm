@@ -285,21 +285,18 @@
  * * text - The text of the emote.
  */
 /datum/emote/proc/runechat_emote(mob/user, text)
-	var/runechat_text = text
-	if(length_char(text) > 100)
-		runechat_text = "[copytext_char(text, 1, 101)]..."
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
-	for(var/mob/O in can_see)
-		if(O.status_flags & PASSEMOTES)
-			for(var/obj/item/holder/H in O.contents)
-				H.show_message(text, EMOTE_VISIBLE)
+	for(var/mob/viewer in can_see)
+		if(viewer.status_flags & PASSEMOTES)
+			for(var/obj/item/holder/holder in viewer.contents)
+				holder.show_message(text, EMOTE_VISIBLE)
 
-			for(var/mob/living/M in O.contents)
-				M.show_message(text, EMOTE_VISIBLE)
+			for(var/mob/living/mob in viewer.contents)
+				mob.show_message(text, EMOTE_VISIBLE)
 
-		if(O.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			O.create_chat_message(user, runechat_text, emote = TRUE)
+		if((isobserver(viewer) || viewer.stat == CONSCIOUS) && viewer.client?.prefs?.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			viewer.create_chat_message(user, text, list("emote"))
 
 
 /**
@@ -384,7 +381,7 @@
 		. = islist(message_robot) ? pick(message_robot) : message_robot
 	else if(isAI(user) && message_AI)
 		. = islist(message_AI) ? pick(message_AI) : message_AI
-	else if(ismonkeybasic(user) && message_monkey)
+	else if(is_monkeybasic(user) && message_monkey)
 		. = islist(message_monkey) ? pick(message_monkey) : message_monkey
 	else if(isanimal(user) && message_simple)
 		. = islist(message_simple) ? pick(message_simple) : message_simple

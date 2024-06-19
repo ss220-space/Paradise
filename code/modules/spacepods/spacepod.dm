@@ -1,11 +1,12 @@
-#define DAMAGE			1
-#define FIRE_OLAY		2
-#define POD_LIGHT		1
-#define WINDOW			2
-#define RIM	    		3
-#define PAINT			4
-#define NO_GRAVITY_SPEED 1.5
-#define GRAVITY_SPEED	4
+#define DAMAGE 1
+#define FIRE_OLAY 2
+#define POD_LIGHT 1
+#define WINDOW 2
+#define RIM 3
+#define PAINT 4
+
+#define NO_GRAVITY_SPEED (0.15 SECONDS)
+#define GRAVITY_SPEED (0.4 SECONDS)
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
@@ -51,10 +52,11 @@
 	var/list/pod_paint_effect
 	var/list/colors = new/list(4)
 	var/health = 250
-	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
 	var/lights = 0
 	var/lights_power = 6
+	var/can_paint = TRUE
+
 	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
 									 "pod_mil" = "#BBF093", \
 									 "pod_synd" = LIGHT_COLOR_RED, \
@@ -63,10 +65,11 @@
 									 "pod_industrial" = "#CCCC00")
 
 	var/unlocked = TRUE
-
 	var/move_delay = NO_GRAVITY_SPEED
-	var/next_move = 0
-	var/can_paint = TRUE
+	COOLDOWN_DECLARE(spacepod_move_cooldown)
+	COOLDOWN_DECLARE(cooldown_emp)	//Used for disabling movement when hit by an EMP
+	var/datum/effect_system/trail_follow/spacepod/ion_trail
+
 
 /obj/spacepod/proc/apply_paint(mob/user as mob)
 	var/part_type
@@ -94,7 +97,7 @@
 /obj/spacepod/get_cell()
 	return battery
 
-/obj/spacepod/New()
+/obj/spacepod/Initialize(mapload)
 	. = ..()
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
@@ -108,7 +111,6 @@
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
 	bound_width = 64
 	bound_height = 64
-	dir = EAST
 	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
@@ -122,29 +124,10 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
+	ion_trail = new
+	ion_trail.set_up(src)
+	ion_trail.start()
 
-/obj/spacepod/proc/create_trail()
-	var/turf/T = get_turf(src)
-	var/atom/oldposition
-	var/atom/oldloc
-	switch(dir)
-		if(NORTH)
-			oldposition = get_step(T, SOUTH)
-			oldloc = get_step(oldposition, EAST)
-		if(SOUTH) // More difficult, offset to the north!
-			oldposition = get_step(get_step(src, NORTH), NORTH)
-			oldloc = get_step(oldposition, EAST)
-		if(EAST) // Just one to the north should suffice
-			oldposition = get_step(T, WEST)
-			oldloc = get_step(oldposition, NORTH)
-		if(WEST) // One to the east and north from there
-			oldposition = get_step(get_step(src, EAST), EAST)
-			oldloc = get_step(oldposition, NORTH)
-
-	if(!T.has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(oldposition, dir)
-		new /obj/effect/particle_effect/ion_trails(oldloc, dir)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -154,6 +137,7 @@
 	QDEL_NULL(battery)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(internal_tank)
+	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
 		eject_pilot()
@@ -164,11 +148,11 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
 /obj/spacepod/process()
 	give_air()
 	regulate_temp()
-	if(src.empcounter > 0)
-		src.empcounter--
+
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
@@ -321,8 +305,8 @@
 	if(battery && battery.charge > 0)
 		battery.use((battery.charge/3)/(severity*2))
 	deal_damage(80 / severity)
-	if(empcounter < (40 / severity))
-		empcounter = 40 / severity
+	if(COOLDOWN_TIMELEFT(src, cooldown_emp) < (80 SECONDS / severity))
+		COOLDOWN_START(src, cooldown_emp, 80 SECONDS / severity)
 
 	switch(severity)
 		if(1)
@@ -619,8 +603,10 @@
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
 
-/obj/spacepod/sec/New()
-	..()
+
+/obj/spacepod/sec/Initialize(mapload)
+	. = ..()
+
 	var/obj/item/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
@@ -644,8 +630,8 @@
 	equipment_system.lock_system.id = 100000
 	equipment_system.installed_modules += K
 
-/obj/spacepod/random/New()
-	..()
+/obj/spacepod/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
 	switch(icon_state)
 		if("pod_civ")
@@ -1050,69 +1036,63 @@
 				else //just delete the cabin gas, we're in space or some shit
 					qdel(removed)
 
+
+// it looks really good with default Process_Spacemove and newtonian movement actually, should make a button to turn it on/off
+/obj/spacepod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE	// obviously
+
+
 /obj/spacepod/relaymove(mob/user, direction)
-	if(user != src.pilot)
-		return
-	handlerelaymove(user, direction)
-
-/obj/spacepod/proc/handlerelaymove(mob/user, direction)
-	if(world.time < next_move)
-		return 0
-	var/moveship = 1
-	if(has_gravity(loc))
-		move_delay = GRAVITY_SPEED
-	else
-		move_delay = NO_GRAVITY_SPEED
-	if(battery && battery.charge >= 1 && health && empcounter == 0)
-		if(!(direction & (UP|DOWN)))
-			src.dir = direction
-		switch(direction)
-			if(NORTH)
-				if(inertia_dir == SOUTH)
-					inertia_dir = NONE
-					moveship = 0
-			if(SOUTH)
-				if(inertia_dir == NORTH)
-					inertia_dir = NONE
-					moveship = 0
-			if(EAST)
-				if(inertia_dir == WEST)
-					inertia_dir = NONE
-					moveship = 0
-			if(WEST)
-				if(inertia_dir == EAST)
-					inertia_dir = NONE
-					moveship = 0
-		if(moveship)
-			if(direction & (UP|DOWN))
-				var/turf/above = GET_TURF_ABOVE(loc)
-				if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
-					return
-				if(!zMove(direction))
-					return
-				pilot.update_z(z) // after we moved
-			else
-				Move(get_step(src, direction), direction)
-			if(equipment_system.cargo_system)
-				for(var/turf/T in locs)
-					for(var/obj/item/I in T.contents)
-						equipment_system.cargo_system.passover(I)
-
-	else
-		if(!battery)
-			to_chat(user, "<span class='warning'>No energy cell detected.</span>")
-		else if(battery.charge < 1)
-			to_chat(user, "<span class='warning'>Not enough charge left.</span>")
-		else if(!health)
-			to_chat(user, "<span class='warning'>She's dead, Jim</span>")
-		else if(empcounter != 0)
-			to_chat(user, "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>")
-		else
-			to_chat(user, "<span class='warning'>Unknown error has occurred, yell at the coders.</span>")
-		next_move = world.time + move_delay * 10 // Don't make it spam
+	if(!COOLDOWN_FINISHED(src, spacepod_move_cooldown))
 		return FALSE
-	battery.charge = max(0, battery.charge - 1)
-	next_move = world.time + move_delay
+
+	if(!pilot || user != pilot || !direction)
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)	// Don't make it spam
+		return FALSE
+
+	. = TRUE
+
+	if(!battery)
+		to_chat(user, span_warning("No energy cell detected."))
+		. = FALSE
+	else if(!battery.use(1))
+		to_chat(user, span_warning("Not enough charge left."))
+		. = FALSE
+	else if(health <= 0)
+		to_chat(user, span_warning("She's dead, Jim."))
+		. = FALSE
+	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
+		to_chat(user, span_warning("The pod control interface isn't responding. The console indicates [COOLDOWN_TIMELEFT(src, cooldown_emp)] seconds before reboot."))
+		. = FALSE
+	if(!.)
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+		return .
+
+	if(direction & (UP|DOWN))
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+		var/turf/above = GET_TURF_ABOVE(loc)
+		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
+			return FALSE
+		. = zMove(direction)
+		if(.)
+			pilot.update_z(z) // after we moved
+	else
+		var/turf/next_step = get_step(src, direction)
+		if(!next_step)
+			COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
+			return FALSE
+		var/calculated_move_delay = has_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
+		. = Move(next_step, direction)
+		if(ISDIAGONALDIR(direction) && loc == next_step)
+			calculated_move_delay *= sqrt(2)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(calculated_move_delay))
+		COOLDOWN_START(src, spacepod_move_cooldown, calculated_move_delay)
+
+	if(. && equipment_system.cargo_system)
+		for(var/atom/pod_loc as anything in locs)
+			for(var/obj/item/item in pod_loc.contents)
+				equipment_system.cargo_system.passover(item)
+
 
 //// Damaged spacepod
 /obj/spacepod/civilian/damaged

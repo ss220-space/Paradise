@@ -495,7 +495,7 @@
 	return ..()
 
 
-/obj/machinery/bfl_lens/Move(atom/newloc, direction, movetime)
+/obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	if(!.)
 		return

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'
 	icon_state = "dead_ratvar"
 	flags = ON_BORDER
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = FLY_LAYER
 	anchored = TRUE
 	density = TRUE

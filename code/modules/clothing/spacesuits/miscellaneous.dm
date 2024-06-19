@@ -287,9 +287,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi'
-		)
+
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
@@ -311,9 +309,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi'
-		)
+
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
@@ -332,12 +328,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/suits.dmi',
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
-		)
+
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -357,10 +348,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
-		)
+
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
@@ -373,7 +361,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
@@ -385,7 +373,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown eva helmet"
@@ -397,7 +385,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/suit/space/eva/clown
 	name = "clown eva suit"
@@ -409,7 +397,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-	sprite_sheets_obj = null
+
 
 //pirate-themed stuff
 /obj/item/clothing/suit/space/eva/pirate

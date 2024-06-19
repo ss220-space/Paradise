@@ -367,3 +367,14 @@
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
 
+/datum/gear/uniform/dress50s
+	display_name = "old Soviet dress"
+	path = /obj/item/clothing/under/dress50s
+
+/datum/gear/uniform/galifepants
+	display_name = "check breeches"
+	path = /obj/item/clothing/under/pants/galifepants
+
+/datum/gear/uniform/sandpants
+	display_name = "long sand pants"
+	path = /obj/item/clothing/under/pants/sandpants

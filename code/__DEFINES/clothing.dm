@@ -84,9 +84,9 @@
 #define ITEM_FLAG_TWOEARS (1<<2)
 
 // accessory slots
-#define ACCESSORY_SLOT_DECOR 1
-#define ACCESSORY_SLOT_UTILITY 2
-#define ACCESSORY_SLOT_ARMBAND 3
+#define ACCESSORY_SLOT_DECOR (1<<0)
+#define ACCESSORY_SLOT_UTILITY (1<<1)
+#define ACCESSORY_SLOT_ARMBAND (1<<2)
 
 //Cant seem to find a mob bitflags area other than the powers one
 

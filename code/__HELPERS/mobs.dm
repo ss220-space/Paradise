@@ -295,10 +295,11 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_message - Message shown to the user if they exceeds max interaction count.
+ * * cancel_message - Message shown to the user if they exceeds max interaction count. Use "" to remove it.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
+
 /proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE
@@ -320,7 +321,7 @@
 	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(NONE) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
@@ -351,7 +352,7 @@
 			. = FALSE
 			break
 
-		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !user.inertia_dir))
+		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !SSmove_manager.processing_on(user, SSspacedrift)))
 			drifting = FALSE
 			user_loc = user.loc
 
@@ -399,6 +400,18 @@
 		var/mob/living/carbon/human/H = A
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
+
+
+/proc/is_monkeybasic(mob/living/carbon/human/target)
+	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
+
+
+/proc/is_evolvedslime(mob/living/carbon/human/target)
+	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
+		return FALSE
+	var/datum/species/slime/species = target.dna.species
+	return species.evolved_slime
+
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
 	var/turf/T = get_turf(target)

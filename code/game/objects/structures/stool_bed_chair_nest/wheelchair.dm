@@ -1,168 +1,132 @@
 /obj/structure/chair/wheelchair
 	name = "wheelchair"
+	desc = "You sit in this. Helps with traumas."
+	base_icon_state = "wheelchair"
 	icon_state = "wheelchair"
 	item_chair = null
 	movable = TRUE
 	pull_push_speed_modifier = 1
+	/// Overlay used to overlap buckled mob.
 	var/mutable_appearance/chair_overlay
-	var/move_delay = null
+	/// If set we cannot go lower than this delay.
+	var/lowest_move_delay = 0.4 SECONDS
+	/// Currently applied skin, it contains path, not an instance.
+	var/obj/item/fluff/rapid_wheelchair_kit/applied_skin
+	COOLDOWN_DECLARE(wheelchair_move_delay)
 
 
 /obj/structure/chair/wheelchair/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT)
+	chair_overlay = mutable_appearance(icon, "wheelchair_overlay", ABOVE_MOB_LAYER)
+	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/structure/chair/wheelchair/handle_rotation()
-	if(chair_overlay)
-		cut_overlay(chair_overlay)
-	else
-		chair_overlay = mutable_appearance(icon, "[icon_state]_overlay", FLY_LAYER)
-	chair_overlay.dir = src.dir
-	add_overlay(chair_overlay)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.setDir(dir)
+/obj/structure/chair/wheelchair/Destroy()
+	chair_overlay = null
+	applied_skin = null
+	return ..()
+
+
+/obj/structure/chair/wheelchair/proc/on_skin_apply(obj/item/fluff/rapid_wheelchair_kit/kit, mob/user)
+	if(applied_skin && applied_skin == kit.type)
+		to_chat(user, span_warning("This [name] is already modified by [kit]!."))
+		return
+
+	to_chat(user, span_notice("You modify the appearance of [src]."))
+	applied_skin = kit.type
+	chair_overlay = mutable_appearance(icon, kit.new_overlay, ABOVE_MOB_LAYER)
+	update_appearance()
+	qdel(kit)
+
+
+/obj/structure/chair/wheelchair/update_icon_state()
+	icon_state = applied_skin ? initial(applied_skin.new_icon_state) : base_icon_state
+
+
+/obj/structure/chair/wheelchair/update_overlays()
+	. = ..()
+	. += chair_overlay
+
+
+/obj/structure/chair/wheelchair/update_name(updates = ALL)
+	. = ..()
+	name = applied_skin ? initial(applied_skin.new_name) : initial(name)
+
+
+/obj/structure/chair/wheelchair/update_desc(updates = ALL)
+	. = ..()
+	desc = applied_skin ? initial(applied_skin.new_desc) : initial(desc)
+
+
+/obj/structure/chair/wheelchair/handle_layer()
+	return
+
 
 /obj/structure/chair/wheelchair/relaymove(mob/user, direction)
-	if(propelled)
-		return 0
+	if(!COOLDOWN_FINISHED(src, wheelchair_move_delay))
+		return FALSE
+	var/turf/next_step = get_step(src, direction)
+	if(!next_step || propelled || !Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc) || !has_buckled_mobs() || user != buckled_mobs[1])
+		COOLDOWN_START(src, wheelchair_move_delay, 0.5 SECONDS)
+		return FALSE
 
-	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))
-		return 0
+	var/calculated_move_delay = user.cached_multiplicative_slowdown
 
-	if(world.time < move_delay)
-		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/driver = user
+		if(!driver.num_hands)
+			COOLDOWN_START(src, wheelchair_move_delay, 0.5 SECONDS)
+			return FALSE // No hands to drive your chair? Tough luck!
 
-	var/calculated_move_delay
-	calculated_move_delay += 2 //wheelchairs are not infact sport bikes
+		for(var/organ_name in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
+			var/obj/item/organ/external/bodypart = driver.get_organ(organ_name)
+			if(!bodypart)
+				calculated_move_delay += 4
+			else if(bodypart.is_splinted())
+				calculated_move_delay += 0.5
+			else if(bodypart.has_fracture())
+				calculated_move_delay += 1.5
 
-	if(has_buckled_mobs())
-		var/mob/living/buckled_mob = buckled_mobs[1]
-		if(buckled_mob.incapacitated())
-			return 0
+	if(lowest_move_delay && calculated_move_delay < lowest_move_delay)
+		calculated_move_delay = lowest_move_delay //no racecarts
 
-		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.cached_multiplicative_slowdown
-		if(mob_delay > 0)
-			calculated_move_delay += mob_delay
+	. = Move(next_step, direction)
+	if(ISDIAGONALDIR(direction) && loc == next_step)
+		calculated_move_delay *= sqrt(2)
 
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/driver = user
-			if(!driver.has_left_hand() && !driver.has_right_hand())
-				return 0 // No hands to drive your chair? Tough luck!
+	set_glide_size(DELAY_TO_GLIDE_SIZE(calculated_move_delay))
+	COOLDOWN_START(src, wheelchair_move_delay, calculated_move_delay)
 
-			for(var/organ_name in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
-				var/obj/item/organ/external/E = driver.get_organ(organ_name)
-				if(!E)
-					calculated_move_delay += 4
-				else if(E.is_splinted())
-					calculated_move_delay += 0.5
-				else if(E.has_fracture())
-					calculated_move_delay += 1.5
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(direction)
 
-		if(calculated_move_delay < 4)
-			calculated_move_delay = 4 //no racecarts
-		glide_for(calculated_move_delay)
-		if(direction & (direction - 1))	//moved diagonally
-			calculated_move_delay *= SQRT_2
 
-		move_delay = world.time
-		move_delay += calculated_move_delay
+/obj/structure/chair/wheelchair/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.) || !has_buckled_mobs())
+		return .
 
-		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
-			loc = buckled_mob.loc //we gotta go back
-			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
-			. = 0
-
-		else
-			. = 1
-
-/obj/structure/chair/wheelchair/Bump(atom/A)
-	..()
-
-	if(!has_buckled_mobs())
-		return
 	var/mob/living/buckled_mob = buckled_mobs[1]
-	if(istype(A, /obj/machinery/door))
-		A.Bumped(buckled_mob)
+	if(istype(bumped_atom, /obj/machinery/door))
+		bumped_atom.Bumped(buckled_mob)
 
-	if(propelled)
-		var/mob/living/occupant = buckled_mob
-		unbuckle_mob(occupant)
+	if(!propelled)
+		return .
 
-		occupant.throw_at(A, 3, propelled)
+	var/mob/living/occupant = buckled_mob
+	unbuckle_mob(occupant)
 
-		occupant.Weaken(12 SECONDS)
-		occupant.Stuttering(12 SECONDS)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		if(isliving(A))
-			var/mob/living/victim = A
-			victim.Weaken(12 SECONDS)
-			victim.Stuttering(12 SECONDS)
-			victim.take_organ_damage(10)
+	occupant.throw_at(bumped_atom, 3, propelled)
 
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+	occupant.Weaken(12 SECONDS)
+	occupant.Stuttering(12 SECONDS)
+	playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	if(isliving(bumped_atom))
+		var/mob/living/victim = bumped_atom
+		victim.Weaken(12 SECONDS)
+		victim.Stuttering(12 SECONDS)
+		victim.take_organ_damage(10)
 
-/obj/structure/chair/wheelchair/bike
-	name = "bicycle"
-	desc = "Two wheels of FURY!"
-	//placeholder until i get a bike sprite
-	icon = 'icons/obj/vehicles/motorcycle.dmi'
-	icon_state = "motorcycle_4dir"
+	occupant.visible_message(span_danger("[occupant] crashed into [bumped_atom]!"))
 
-/obj/structure/chair/wheelchair/bike/relaymove(mob/user, direction)
-	if(propelled)
-		return 0
-
-	if(!Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc))	//bikes in space.
-		return 0
-
-	if(world.time < move_delay)
-		return
-
-	var/calculated_move_delay
-	calculated_move_delay = 0 //bikes are infact sport bikes
-
-	if(has_buckled_mobs())
-		var/mob/living/buckled_mob = buckled_mobs[1]
-		if(buckled_mob.incapacitated())
-			unbuckle_mob(buckled_mob)	//if the rider is incapacitated, unbuckle them (they can't balance so they fall off)
-			return 0
-
-		var/mob/living/thedriver = user
-		var/mob_delay = thedriver.cached_multiplicative_slowdown
-		if(mob_delay > 0)
-			calculated_move_delay += mob_delay
-
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/driver = user
-			var/obj/item/organ/external/l_hand = driver.get_organ(BODY_ZONE_PRECISE_L_HAND)
-			var/obj/item/organ/external/r_hand = driver.get_organ(BODY_ZONE_PRECISE_R_HAND)
-			if(!l_hand && !r_hand)
-				calculated_move_delay += 0.5	//I can ride my bike with no handlebars... (but it's slower)
-
-			for(var/organ_name in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-				var/obj/item/organ/external/E = driver.get_organ(organ_name)
-				if(!E)
-					return 0	//Bikes need both feet/legs to work. missing even one makes it so you can't ride the bike
-				else if(E.is_splinted())
-					calculated_move_delay += 0.5
-				else if(E.has_fracture())
-					calculated_move_delay += 1.5
-
-		move_delay = world.time
-		move_delay += calculated_move_delay
-
-		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
-			loc = buckled_mob.loc //we gotta go back
-			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
-			. = 0
-
-		else
-			. = 1

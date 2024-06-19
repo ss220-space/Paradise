@@ -245,7 +245,6 @@ SECURITY
 	desc = "Ballistic glasses with a security HUD. Gives you tacticool protection and selfish increase. The elastic band allows it to be worn over a helmet."
 	icon_state = "secgoggles-g"
 	item_state = "secgoggles-g"
-	over_mask = TRUE
 	over_hat = TRUE
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD

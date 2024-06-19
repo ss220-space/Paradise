@@ -63,7 +63,7 @@
 		else
 			icon_state = "[icon_living]floor"
 
-/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space bears!
 
 /mob/living/simple_animal/hostile/bear/brown

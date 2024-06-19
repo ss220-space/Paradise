@@ -129,11 +129,6 @@
 			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
 			attack_generic(user, max_integrity/3)
 
-/obj/structure/spider/spiderling/Bump(atom/user)
-	if(istype(user, /obj/structure/table))
-		loc = user.loc
-	else
-		..()
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
@@ -186,8 +181,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				glide_for(3)
-				walk_to(src, entry_vent, 1)
+				SSmove_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -227,8 +221,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	glide_for(3)
-	walk_to(src, pick(available_turfs))
+	SSmove_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)

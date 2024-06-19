@@ -25,9 +25,9 @@
 /// new component is deleted
 #define COMPONENT_DUPE_UNIQUE			2
 /// old component is given the initialization args of the new
-#define COMPONENT_DUPE_UNIQUE_PASSARGS	4
+#define COMPONENT_DUPE_UNIQUE_PASSARGS	3
 /// each component of the same type is consulted as to whether the duplicate should be allowed
-#define COMPONENT_DUPE_SELECTIVE		5
+#define COMPONENT_DUPE_SELECTIVE		4
 
 //Redirection component init flags
 #define REDIRECT_TRANSFER_WITH_TURF 1

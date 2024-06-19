@@ -375,20 +375,20 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
-	..()
 
+/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(!is_teleport_allowed(z) && !admin_usage)
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
-		return
+		return .
 	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
-	return
+
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -497,22 +497,21 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
-	..()
 
-	if(stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !target || recalibrating || panel_open || blockAI(moving_atom))
+		return .
 	if(!is_teleport_allowed(z))
 		to_chat(moving_atom, "You can't use this here.")
-		return
+		return .
+	do_teleport(moving_atom, target)
+	use_power(5000)
+	if(tele_delay)
+		recalibrating = TRUE
+		update_icon()
+		addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
-	if(target && !recalibrating && !panel_open && !blockAI(moving_atom))
-		do_teleport(moving_atom, target)
-		use_power(5000)
-		if(tele_delay)
-			recalibrating = TRUE
-			update_icon()
-			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE

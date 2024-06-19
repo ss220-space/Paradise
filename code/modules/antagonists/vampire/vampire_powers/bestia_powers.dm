@@ -299,7 +299,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/target = grab.affecting
-	if(!istype(target) || issmall(target) || ismachineperson(target) || target.stat == DEAD || !target.mind || !target.ckey)
+	if(!istype(target) || is_monkeybasic(target) || ismachineperson(target) || target.stat == DEAD || !target.mind || !target.ckey)
 		if(show_message)
 			to_chat(user, span_warning("[target] is not compatible!"))
 		return FALSE
@@ -1414,7 +1414,7 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
-	light_system = MOVABLE_LIGHT
+	light_system = STATIC_LIGHT
 
 
 /**

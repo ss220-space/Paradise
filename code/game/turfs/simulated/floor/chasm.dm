@@ -161,7 +161,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(iseffect(AM))
+	if(iseffect(AM) && !(istype(AM, /obj/effect/mob_spawn)))
 		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE

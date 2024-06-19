@@ -629,7 +629,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(!length(path))
 		return FALSE
 
-	glide_for(BOT_STEP_DELAY)
+	set_glide_size(DELAY_TO_GLIDE_SIZE(BOT_STEP_DELAY))
 	if(!step_towards(src, path[1]))
 		tries++
 		return FALSE
