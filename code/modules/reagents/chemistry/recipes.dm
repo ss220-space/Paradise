@@ -28,7 +28,7 @@
 	if(!holder || !holder.my_atom)
 		return
 	var/turf/T = get_turf(holder.my_atom)
-	if(!isturf(T))
+	if(!T)
 		return
 	
 	var/color = mix_color_from_reagents(holder.reagent_list)
