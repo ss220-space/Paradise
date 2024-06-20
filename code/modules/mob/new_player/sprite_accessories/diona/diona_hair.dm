@@ -143,7 +143,7 @@
 
 //Sprites by vadim722
 /datum/sprite_accessory/hair/diona/diona_bigshroom
-	name = "Big mushroom"
+	name = "Big Mushroom"
 	icon_state = "bigshroom"
 
 /datum/sprite_accessory/hair/diona/diona_rosealt
