@@ -146,6 +146,6 @@
 	name = "Big Mushroom"
 	icon_state = "bigshroom"
 
-/datum/sprite_accessory/hair/diona/diona_rosealt
+/datum/sprite_accessory/hair/diona/diona_rafflesia
 	name = "Sweet-smelling Rafflesia"
 	icon_state = "rafflesia"
