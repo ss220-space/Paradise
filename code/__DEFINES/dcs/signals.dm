@@ -655,7 +655,10 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 ///from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
 #define COMSIG_OBJ_HIDE	"obj_hide"
-
+///from base of /proc/possess(): (mob/user)
+#define COMSIG_OBJ_POSSESSED "obj_possessed"
+///from base of /proc/release(): (mob/user)
+#define COMSIG_OBJ_RELEASED "obj_released"
 
 // /obj/machinery signals
 

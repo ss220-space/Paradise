@@ -313,14 +313,6 @@
 	actions_types = list(/datum/action/item_action/toggle_jetpack/ninja, /datum/action/item_action/jetpack_stabilization/ninja)
 
 
-/obj/item/tank/jetpack/suit/ninja/Initialize(mapload)
-	. = ..()
-	var/datum/action/item_action/jetpack_action
-	for(jetpack_action in actions)
-		jetpack_action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
-		jetpack_action.background_icon_state = "background_green"
-
-
 /obj/item/tank/jetpack/suit/ninja/allow_thrust(num, use_fuel = TRUE)
 	var/mob/user = get_owner()
 	if(!user)
