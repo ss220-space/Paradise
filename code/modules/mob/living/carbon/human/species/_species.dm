@@ -613,7 +613,7 @@
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
