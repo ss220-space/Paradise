@@ -482,7 +482,7 @@ GLOBAL_VAR_INIT(ioncaller_comms_last_used, FALSE)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), recharge_time)
 
 /obj/item/ion_caller/attack_self(mob/user)
-	if(!is_type_in_list(get_area(src), GLOB.the_station_areas))
+	if(!is_type_in_list(get_area(src), SSmapping.existing_station_areas))
 		to_chat(user, span_notice("The remote can't establish a connection. You need to be on the station."))
 		return
 
