@@ -51,14 +51,14 @@ export const Minesweeper = (props, context) => {
           buttons={
             <Fragment>
               <Button
-                content="*"
-                textColor="black"
+                icon="bomb"
+                iconColor="black"
                 selected={currentMode==="bomb"}
                 onClick={() => setMode("bomb")}
               />
               <Button
-                content="►"
-                textColor="red"
+                icon="flag"
+                iconColor="red"
                 selected={currentMode==="flag"}
                 onClick={() => setMode("flag")}
               />
@@ -73,12 +73,11 @@ export const Minesweeper = (props, context) => {
                     className={matrix[row][cell]["open"] ? "Minesweeper__open" : "Minesweeper__closed"}
                     bold
                     color="transparent"
+                    icon={matrix[row][cell]["open"] ? (matrix[row][cell]["bomb"] ? "bomb" : "") : (matrix[row][cell]["flag"] ? "flag" : "")}
                     textColor={matrix[row][cell]["open"] ? (matrix[row][cell]["bomb"] ? "black" : NumColor[matrix[row][cell]["around"]])
                       : (matrix[row][cell]["flag"] ? "red" : "gray")}
                     onMouseDown={e => handleClick(e, row, cell)}>
-                    {matrix[row][cell]["open"] ?
-                    (matrix[row][cell]["bomb"] ? "*" : (matrix[row][cell]["around"] ? matrix[row][cell]["around"] : " "))
-                    : (matrix[row][cell]["flag"] ? "►" : " ")}
+                    {!!matrix[row][cell]["open"] && !matrix[row][cell]["bomb"] && matrix[row][cell]["around"] ? matrix[row][cell]["around"] : " "}
                   </Button>
                 ))}
               </Box>
