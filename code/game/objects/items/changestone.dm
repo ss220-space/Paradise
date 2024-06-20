@@ -7,16 +7,16 @@
 
 /obj/item/changestone/attack_hand(mob/user)
 	. = ..()
-	morph_human(user, TRUE)
-
-/obj/item/changestone/pickup(mob/user)
-	. = ..()
 	morph_human(user, FALSE)
 
 /obj/item/changestone/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	var/mob/user
-	morph_human(user, TRUE)
+	var/mob/user = usr
+	attack_hand(user)
 	return ..()
+
+/obj/item/changestone/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	. = ..()
+	morph_human(receiver, FALSE)
 
 /obj/item/changestone/proc/morph_human(mob/living/carbon/human/user, silent)
 	. = FALSE
@@ -50,8 +50,4 @@
 /obj/item/changestone/update_desc(updates = ALL)
 	. = ..()
 	desc = "[initial(desc)][used ? " That one looks used." : null]"
-
-
-
-
 
