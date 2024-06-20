@@ -143,6 +143,7 @@
 		return
 
 	if(flags & MOVEMENT_LOOP_IGNORE_GLIDE)
+		moving.set_glide_size(DEFAULT_GLIDE_SIZE)
 		return
 
 	moving.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, visual_delay))

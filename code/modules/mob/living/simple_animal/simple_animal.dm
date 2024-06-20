@@ -764,4 +764,6 @@
 	. = Move(newloc, direction)
 	if(adjusted_delay <= END_GLIDE_SPEED)
 		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+	else
+		set_glide_size(DEFAULT_GLIDE_SIZE)
 
