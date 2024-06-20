@@ -53,7 +53,8 @@
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white)
+			/mob/living/simple_animal/mouse/white,
+			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
