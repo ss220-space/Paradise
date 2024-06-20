@@ -1040,6 +1040,10 @@ This applies to all STANDARD station areas
 
 /area/maintenance/cele/arrival
 	name = "Arrival Basement Maintenance"
+
+/area/maintenance/cele/engineering
+	name = "Engineering Basement Maintenance"
+
 //Hallway
 
 /area/hallway
@@ -1739,6 +1743,9 @@ This applies to all STANDARD station areas
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
+
+/area/teleporter/research
+	name = "Robotics Teleporter"
 
 /area/teleporter/abandoned
     name = "\improper Abandoned Teleporter"

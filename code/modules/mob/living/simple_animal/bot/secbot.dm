@@ -101,6 +101,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	weaponscheck = TRUE
+	auto_patrol = TRUE
 
 
 /mob/living/simple_animal/bot/secbot/podsky
