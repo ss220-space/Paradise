@@ -467,6 +467,8 @@
 
 /datum/action/item_action/toggle_jetpack/ninja
 	name = "Toggle Jetpack"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
 	return
@@ -481,6 +483,8 @@
 
 /datum/action/item_action/jetpack_stabilization/ninja
 	name = "Toggle Jetpack Stabilization"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
 	. = ..()
