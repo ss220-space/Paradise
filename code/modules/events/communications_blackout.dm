@@ -3,14 +3,14 @@
 
 
 /datum/event/communications_blackout/announce(false_alarm)
-	var/alert_text =	pick(
+	var/alert_text =	pick(list(
 							"[alert] Неизбежен временный сбой связи. Пожалуйста, свяжитесь с вашим*%fj 00)`5 vc-БЗЗЗ",
 							"[alert] Неизбежен временный сбо*3mga;b4;'1v?-БЗЗЗЗ",
 							"[alert] Неизбежен време#MCi46:5.;@63-БЗЗЗЗЗ",
 							"[copytext(alert, 1, 18)]'fZ\\kg5_0-БЗЗЗЗЗ",
 							"[copytext(alert, 1, 7)]:%? MCayj^j<.3-БЗЗЗЗЗ",
 							"#4nd%;f4y6,>?%-БЗЗЗЗЗЗЗ"
-						)
+						))
 
 	for(var/mob/living/silicon/ai/A in GLOB.player_list)	//AIs are always aware of communication blackouts.
 		to_chat(A, "<span class='ВНИМАНИЕ'><br><b>[alert_text]</b><br></span>")
