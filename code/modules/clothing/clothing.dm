@@ -61,12 +61,13 @@
 
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
-	if(!can_use(user))
+	if(user && !can_use(user))
 		return FALSE
 
-	if(visor_toggling(user))
+	if(visor_toggling())
 		update_equipped_item(update_speedmods = FALSE)
-		to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+		if(user)
+			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
 		return TRUE
 
 	return FALSE

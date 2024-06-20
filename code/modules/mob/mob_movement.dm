@@ -56,7 +56,7 @@
 		return FALSE //This is sota the goto stop mobs from moving var
 
 	if(mob.control_object)
-		return Move_object(direct)
+		return mob.control_object.possessed_relay_move(mob, direct)
 
 	if(!isliving(mob))
 		return mob.Move(new_loc, direct)
@@ -164,18 +164,6 @@
 
 		for(var/obj/object in mob.contents)
 			object.on_mob_move(direct, mob)
-
-
-/client/proc/Move_object(direct)
-	if(mob.control_object.density)
-		step(mob.control_object, direct)
-		if(!mob.control_object)
-			return
-		mob.control_object.setDir(direct)
-	else
-		var/new_turf = get_step(mob.control_object, direct)
-		if(new_turf)
-			mob.control_object.forceMove(new_turf)
 
 
 ///Process_Grab()
