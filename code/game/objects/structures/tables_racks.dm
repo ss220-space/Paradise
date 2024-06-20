@@ -490,7 +490,7 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
-	L.Weaken(10 SECONDS)
+	L.Knockdown(4 SECONDS)
 	qdel(src)
 
 /obj/structure/table/glass/shove_impact(mob/living/target, mob/living/attacker)
