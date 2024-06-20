@@ -65240,6 +65240,7 @@
 "jwd" = (
 /obj/structure/table,
 /obj/item/assembly/igniter,
+/obj/item/book/manual/nuclear,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76584,7 +76585,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/arcade/minesweeper,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -97181,8 +97184,9 @@
 	},
 /area/bridge)
 "qMN" = (
-/obj/structure/table,
-/obj/item/book/manual/nuclear,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

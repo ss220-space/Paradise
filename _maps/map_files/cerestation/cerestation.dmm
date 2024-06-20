@@ -81582,6 +81582,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/north)
+"tqQ" = (
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "tqV" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -117955,7 +117961,7 @@ afd
 adI
 hyJ
 afd
-vdq
+tqQ
 aja
 dpl
 dpl
