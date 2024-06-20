@@ -334,7 +334,7 @@
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
 
 
-/// Relay movement when user controlls object via [proc/proc/possess()]
+/// Relay movement for when user controls object via [/proc/possess()]
 /obj/proc/possessed_relay_move(mob/user, direction)
 	var/turf/new_turf = get_step(src, direction)
 	if(!new_turf)
