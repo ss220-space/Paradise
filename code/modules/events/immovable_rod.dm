@@ -51,7 +51,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/loopy_rod = FALSE
 	/// Basically our speed, lower = faster
 	var/move_delay = 1
-	/// Wheter this rod was spawned by admin.
+	/// Whether this rod was spawned by admins.
 	var/admin_spawned = FALSE
 
 
