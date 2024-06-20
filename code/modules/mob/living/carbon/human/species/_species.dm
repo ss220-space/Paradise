@@ -634,38 +634,6 @@
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target)
 
-		var/talked = 0	// BubbleWrap
-
-		if(randn <= 60)
-			//BubbleWrap: Disarming breaks a pull
-			if(target.pulling)
-				target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [target.pulling.declent_ru(PREPOSITIONAL)]!</span>")
-				talked = 1
-				target.stop_pulling()
-
-			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-			if(istype(target.l_hand, /obj/item/grab))
-				var/obj/item/grab/lgrab = target.l_hand
-				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [lgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(lgrab)
-			if(istype(target.r_hand, /obj/item/grab))
-				var/obj/item/grab/rgrab = target.r_hand
-				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [rgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(rgrab)
-			//End BubbleWrap
-
-			if(!talked)	//BubbleWrap
-				if(target.drop_from_active_hand())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			return
-
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
 	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -704,12 +672,12 @@
 	var/moved = target.Move(shove_to, shove_dir)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message("<span class='warning'>[user] slams [target] into an obstacle!</span>", \
-								"<span class='userdanger'>You get slammed into the obstacle by [user]!</span>", \
+		target.visible_message(span_warning("[user] slams [target]"), \
+								span_userdanger("You get slammed into the obstacle by [user]!"), \
 								"You hear a loud thud.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.Knockdown(3 SECONDS)
-			addtimer(CALLBACK(target, /mob/living.proc/SetKnockdown, 0), 3 SECONDS) // so you cannot chain stun someone // so you cannot chain stun someone
+			addtimer(CALLBACK(target, /mob/living.proc/SetKnockdown, 0), 3 SECONDS) // so you cannot chain stun someone
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
@@ -720,7 +688,7 @@
 			target.Slowed(2.5 SECONDS, 1)
 			var/obj/item/I = target.get_active_hand()
 			if(I)
-				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
+				to_chat(target, span_warning("Your grip on [I] loosens!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
