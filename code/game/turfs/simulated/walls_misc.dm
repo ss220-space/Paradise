@@ -137,13 +137,6 @@
 		if(newgirder) //maybe we want a gear!
 			transfer_fingerprints_to(newgirder)
 
-	for(var/obj/O in src.contents) //Eject contents!
-		if(istype(O, /obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-
 	ChangeTurf(/turf/simulated/floor/clockwork)
 	return TRUE
 
