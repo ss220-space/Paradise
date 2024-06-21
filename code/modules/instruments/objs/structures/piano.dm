@@ -44,12 +44,14 @@
 	icon_state = "minipiano"
 	anchored = TRUE
 	density = TRUE
-	allowed_instrument_ids = "crgrand1"
+	allowed_instrument_ids = "r3grand"
+	light_range = 2
+	light_power = 1
+	light_color = "#ff0000"
+	light_system = MOVABLE_LIGHT
 
-/obj/structure/pianoclassic/ghostpiano/New()
+/obj/structure/pianoclassic/ghostpiano/Initialize(mapload)
 	..()
-	set_light(3, -3, "F6E9D6")
-	set_light(1, 5, "4A61D6")
 
 /obj/structure/pianoclassic/ghostpiano/attack_ghost(mob/dead/observer/user)
 	ui_interact(user)
