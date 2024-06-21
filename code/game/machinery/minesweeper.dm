@@ -17,7 +17,7 @@
 	/// Livsy says after loose
 	var/list/loose_phrases = list("Ой! Чуть не задело!", "А ведь победа была так близко!", "Бабах!")
 	/// Livsy has nothing to do
-	var/list/random_phrases = list("Пупупупупу, дай кого-нибудь взорву!", "Не шевелись! Вокруг мины!")
+	var/list/random_phrases = list("Пупуп+упуп+упуп+у, дай кого-нибудь взорв+у!", "Не шевелись! Вокруг мины!")
 
 	// Random phrases things
 	var/last_random
