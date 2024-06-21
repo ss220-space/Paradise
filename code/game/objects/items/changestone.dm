@@ -45,11 +45,11 @@
 	if(user.set_species(get_random_species()))
 		. = TRUE
 		to_chat(user, span_notice("You are now [user.dna.species]!"))
-		update_appearance(UPDATE_DESC)
 
 	if(.)
 		to_chat(user, span_danger("The power of the [src] has affected you!"))
 		used = .
+		update_appearance(UPDATE_DESC)
 
 /obj/item/changestone/update_desc(updates = ALL)
 	. = ..()
