@@ -107,8 +107,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	if(H)
-		head_traits_to_dna(character, H)
+	head_traits_to_dna(character, H)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
