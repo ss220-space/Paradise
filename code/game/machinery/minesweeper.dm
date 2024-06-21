@@ -52,6 +52,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/arcade/minesweeper/proc/make_empty_matr()
+	minesweeper_matrix = list()
 	for(var/i in 1 to generation_rows)
 		var/list/new_row = list()
 		for(var/j in 1 to generation_columns)
