@@ -473,8 +473,6 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
