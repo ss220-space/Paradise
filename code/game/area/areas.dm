@@ -143,17 +143,15 @@
 	. = ..()
 	power_change()		// all machines set to current power level, also updates lighting icon
 
+/**
+ * Register this area as belonging to a z level
+ *
+ * Ensures the item is added to the SSmapping.areas_in_z list for this z
+ */
 /area/proc/reg_in_areas_in_z()
-	if(has_contained_turfs() || !contents.len)
+	if(!has_contained_turfs())
 		return
-	var/list/areas_in_z = GLOB.space_manager.areas_in_z
-	var/z
-	for(var/i in 1 to contents.len)
-		var/atom/thing = contents[i]
-		if(!thing)
-			continue
-		z = thing.z
-		break
+	var/list/areas_in_z = SSmapping.areas_in_z
 	if(!z)
 		WARNING("No z found for [src]")
 		return
