@@ -165,7 +165,8 @@
 	. = ..()
 	if(!cell)
 		return .
-	. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] [declension_ru(cell.charge/600, "залп", "залпа", "залпов")]")
+	var/charge_amount = round(cell.charge/600)
+	. += span_notice("Вы видите заряд батареи на [charge_amount] [declension_ru(charge_amount, "залп", "залпа", "залпов")]")
 
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
