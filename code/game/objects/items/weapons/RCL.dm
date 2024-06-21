@@ -4,7 +4,6 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	opacity = 0
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1

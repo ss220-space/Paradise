@@ -31,7 +31,7 @@
 /obj/structure/shuttle/engine/propulsion
 	name = "propulsion"
 	icon_state = "propulsion"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/shuttle/engine/propulsion/burst
 
@@ -48,7 +48,7 @@
 // Engines
 /obj/structure/shuttle/engine/large
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
@@ -69,7 +69,7 @@
 
 /obj/structure/shuttle/engine/huge
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
 	desc = "Almost gigantic bluespace engine used to propel very large ships at very high speed."
