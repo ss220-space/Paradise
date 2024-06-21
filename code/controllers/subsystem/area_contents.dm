@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(area_contents)
 	var/list/area/marked_for_clearing = list()
 
 /datum/controller/subsystem/area_contents/get_stat_details()
-	var/list/msg = list()
 	var/total_clearing_from = 0
 	var/total_to_clear = 0
 	for(var/area/to_clear as anything in marked_for_clearing)
