@@ -126,7 +126,6 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
 	burst_size = 6
-	fire_delay = 1 // 0.9
 	spread = 45
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
@@ -140,7 +139,6 @@
 
 /obj/item/gun/energy/gun/minigun/Initialize(obj/item/gun/energy/gun/minigun/M)
 	..()
-	fire_delay = 0.9
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = src.force_unwielded, \
 		force_wielded = src.force_wielded, \
