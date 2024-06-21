@@ -50,8 +50,6 @@
 	light_color = "#ff0000"
 	light_system = MOVABLE_LIGHT
 
-/obj/structure/pianoclassic/ghostpiano/Initialize(mapload)
-	..()
 
 /obj/structure/pianoclassic/ghostpiano/attack_ghost(mob/dead/observer/user)
 	ui_interact(user)
