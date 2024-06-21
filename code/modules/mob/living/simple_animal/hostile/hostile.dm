@@ -139,6 +139,10 @@
 		face_atom(target) //Looks better if they keep looking at you when dodging
 
 
+/mob/living/simple_animal/hostile/step_with_glide(atom/newloc, direction, speed_override)
+	return ..(newloc, direction, move_to_delay)
+
+
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)

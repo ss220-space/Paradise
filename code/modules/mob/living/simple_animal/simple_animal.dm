@@ -747,7 +747,7 @@
 		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
 
 
-/mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction)
+/mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction, speed_override)
 	if(client)
 		return FALSE
 	if(!direction && !newloc)
@@ -758,10 +758,12 @@
 		newloc = get_step(src, direction)
 		if(!newloc)
 			return FALSE
-	var/adjusted_delay = cached_multiplicative_slowdown
+	var/adjusted_delay = isnull(speed_override) ? cached_multiplicative_slowdown : speed_override
 	if(ISDIAGONALDIR(direction))
 		adjusted_delay *= sqrt(2)
 	. = Move(newloc, direction)
 	if(adjusted_delay <= END_GLIDE_SPEED)
 		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+	else if(glide_size != DEFAULT_GLIDE_SIZE)
+		set_glide_size(DEFAULT_GLIDE_SIZE)
 
