@@ -20,6 +20,10 @@
 
 /obj/item/changestone/proc/morph_human(mob/living/carbon/human/user, silent)
 	. = FALSE
+
+	if(!user.mind)
+		return .
+
 	if(!istype(user))
 		if(!silent)
 			to_chat(user, span_warning("You cannot handle with [src]."))
