@@ -31,7 +31,7 @@
 /datum/weather/snow_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+		eligible_areas += SSmapping.areas_in_z["[z]"]
 
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
