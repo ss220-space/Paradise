@@ -21,7 +21,7 @@
 /obj/item/changestone/proc/morph_human(mob/living/carbon/human/user, silent)
 	. = FALSE
 
-	if(!user.stat)
+	if(user.stat)
 		return .
 
 	if(!istype(user))
