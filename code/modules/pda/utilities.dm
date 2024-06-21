@@ -8,8 +8,13 @@
 	fon = !fon
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
-	var/static/pda_light = image('icons/obj/pda.dmi', "pda-light")
+	var/image/pda_light = image('icons/obj/pda.dmi', "pda-light")
 	pda.set_light_on(fon)
+
+	if(pda.icon_state == "pda-library")
+		pda_light.pixel_y = 2
+	else
+		pda_light.pixel_y = initial(pda_light.pixel_y)
 
 	if(fon)
 		pda.add_overlay(pda_light)
