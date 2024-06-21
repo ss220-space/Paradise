@@ -137,8 +137,8 @@
 	var/force_unwielded = 10
 	var/force_wielded = 20
 
-/obj/item/gun/energy/gun/minigun/Initialize(obj/item/gun/energy/gun/minigun/M)
-	..()
+/obj/item/gun/energy/gun/minigun/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = src.force_unwielded, \
 		force_wielded = src.force_wielded, \
@@ -150,6 +150,10 @@
 	to_chat(user, span_warning("[name] слишком тяжелый!"))
 
 /obj/item/gun/energy/gun/minigun/update_icon_state()
+	if(!cell)
+		item_state = initial(item_state)
+		icon_state = initial(icon_state)
+		return
 	if(cell.charge > 600)
 		item_state = "gatling1"
 		icon_state = "gatling1"
@@ -159,7 +163,8 @@
 
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()
-
+	if(!cell)
+		return .
 	. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] [declension_ru(cell.charge/600, "залп", "залпа", "залпов")]")
 
 /obj/item/stock_parts/cell/laser/gatling
