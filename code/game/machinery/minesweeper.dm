@@ -1,6 +1,12 @@
+// BASE PARAMS
 #define MINESWEEPER_ROWS 16
 #define MINESWEEPER_COLUMNS 16
 #define MINESWEEPER_BOMBS 40
+#define MINESWEEPER_WIDTH 460
+// MODES
+#define MINESWEEPER_9X9 "9x9"
+#define MINESWEEPER_16X16 "16x16"
+#define MINESWEEPER_16X30 "16x30"
 
 /obj/machinery/arcade/minesweeper
 	name = "Cапёр"
@@ -44,6 +50,7 @@
 	var/generation_rows = MINESWEEPER_ROWS
 	var/generation_columns = MINESWEEPER_COLUMNS
 	var/generation_bombs = MINESWEEPER_BOMBS
+	var/ui_width = MINESWEEPER_WIDTH
 
 /obj/machinery/arcade/minesweeper/New()
 	. = ..()
@@ -68,6 +75,27 @@
 			SStgui.close_uis(src)
 	show_message = ""
 	SStgui.update_uis(src)
+
+/obj/machinery/arcade/minesweeper/proc/switch_mode(mob/user, new_mode)
+	switch(new_mode)
+		if(MINESWEEPER_9X9)
+			generation_rows = 9
+			generation_columns = 9
+			generation_bombs = 10
+			ui_width = MINESWEEPER_WIDTH
+		if(MINESWEEPER_16X16)
+			generation_rows = MINESWEEPER_ROWS
+			generation_columns = MINESWEEPER_COLUMNS
+			generation_bombs = MINESWEEPER_BOMBS
+			ui_width = MINESWEEPER_WIDTH
+		if(MINESWEEPER_16X30)
+			generation_rows = 16
+			generation_columns = 30
+			generation_bombs = 99
+			ui_width = MINESWEEPER_WIDTH * 2
+	SStgui.close_uis(src)
+	make_empty_matr()
+	ui_interact(user)
 
 /obj/machinery/arcade/minesweeper/proc/speak(message)
 	if(stat & NOPOWER)
@@ -108,7 +136,7 @@
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Minesweeper", "Сапер", 460, 650)
+		ui = new(user, src, ui_key, "Minesweeper", "Сапер", ui_width, 650)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -146,6 +174,8 @@
 							flagged_bombs += 1
 			check_win(ui.user)
 			SStgui.update_uis(src)
+		if("Mode")
+			switch_mode(ui.user, params["mode"])
 
 /obj/machinery/arcade/minesweeper/proc/check_win(mob/user)
 	if(flagged_bombs == generation_bombs && setted_flags == generation_bombs && opened_cells == (generation_rows * generation_columns - generation_bombs))
