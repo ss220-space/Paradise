@@ -20,8 +20,7 @@ SUBSYSTEM_DEF(area_contents)
 	for(var/area/to_clear as anything in marked_for_clearing)
 		total_to_clear += length(to_clear.turfs_to_uncontain)
 		total_clearing_from += length(to_clear.contained_turfs)
-	msg = "A:[length(currentrun)] MR:[length(marked_for_clearing)] TC:[total_to_clear] CF:[total_clearing_from]"
-	return msg.Join("")
+	return "A:[length(currentrun)] MR:[length(marked_for_clearing)] TC:[total_to_clear] CF:[total_clearing_from]"
 
 
 /datum/controller/subsystem/area_contents/fire(resumed)

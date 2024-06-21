@@ -12,8 +12,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/spacewalk_grid/linkage_map
 	var/initialized = 0
 
-	var/list/areas_in_z = list()
-
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
