@@ -138,7 +138,7 @@
 	var/force_unwielded = 10
 	var/force_wielded = 20
 
-/obj/item/gun/energy/gun/minigun/New(obj/item/gun/energy/gun/minigun/M)
+/obj/item/gun/energy/gun/minigun/Initialize(obj/item/gun/energy/gun/minigun/M)
 	..()
 	fire_delay = 0.9
 	AddComponent(/datum/component/two_handed, \
@@ -162,7 +162,7 @@
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()
 
-	. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] залпов")
+	. += span_notice("Вы видите заряд батареи на [round(cell.charge/600)] [declension_ru(cell.charge/600, "залп", "залпа", "залпов")]")
 
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
