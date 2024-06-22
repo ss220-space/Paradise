@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Tabs, Icon, Box, ImageButton} from '../components';
+import { Button, LabeledList, Section, Tabs, Icon, Box, Fragment } from '../components';
 import { Window } from '../layouts';
 
 export const AgentCard = (props, context) => {
@@ -18,7 +18,7 @@ export const AgentCard = (props, context) => {
   };
 
   return (
-    <Window width={500} height={475} theme="syndicate">
+    <Window resizable theme="syndicate">
       <Window.Content>
         <Box fillPositionedParent overflow="hidden">
           <Tabs>
@@ -64,7 +64,7 @@ export const AgentCardInfo = (props, context) => {
   } = data;
 
   return (
-    <>
+    <Fragment>
       <Section title="Card Info">
         <LabeledList>
           <LabeledList.Item
@@ -158,7 +158,7 @@ export const AgentCardInfo = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-    </>
+    </Fragment>
   );
 };
 
@@ -168,16 +168,20 @@ export const AgentCardAppearances = (props, context) => {
     appearances,
   } = data;
   return (
-    <Section fill title="Card Appearance">
+    <Section title="Card Appearance">
       {appearances.map(appearance_unit => (
-        <ImageButton key={appearance_unit.name}
-          tooltip={appearance_unit.name}
-          vertical
-          style={{'margin': "1px"}}
-          image={appearance_unit.image}
-          imageSize="64px"
+        <img key={appearance_unit.name}
+          src={`data:image/jped;base64,${
+            appearance_unit.image
+          }`}
+          style={{
+            'vertical-align': 'middle',
+            width: '64px',
+            margin: '0px',
+            'margin-left': '0px',
+          }}
           onclick={() => act('change_appearance_new', { new_appearance: appearance_unit.name })}
-         />
+        />
       ))}
     </Section>
   );
@@ -198,7 +202,7 @@ export const AgentCardSLSlots = (props, context) => {
             key={save_slot.id}
             label={save_slot.registered_name ? save_slot.registered_name + ", " + save_slot.assignment : "Slot " + save_slot.id}
             buttons={
-              <>
+              <Fragment >
                 <Button
                   content="Clear"
                   onClick={() => act('clear_slot', { slot: save_slot.id })}
@@ -212,7 +216,7 @@ export const AgentCardSLSlots = (props, context) => {
                   disabled={!save_slot.registered_name}
                   onClick={() => act('load_slot', { slot: save_slot.id })}
                 />
-              </>
+              </Fragment>
             } />
         ))}
       </LabeledList>
