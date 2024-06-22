@@ -121,7 +121,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
 
 			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
+			for(var/turf/T in block(center.x+b1xerror,center.y+b1yerror,location.z, center.x+b2xerror,center.y+b2yerror,location.z) )
 				if(density&&T.density)	continue//If density was specified.
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
@@ -1474,7 +1474,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //The y dimension of the icon file used in the image
 // eg: center_image(I, 32,32)
 // eg2: center_image(I, 96,96)
-/proc/center_image(var/image/I, x_dimension = 0, y_dimension = 0)
+/proc/center_image(image/I, x_dimension = 0, y_dimension = 0)
 	if(!I)
 		return
 
@@ -2004,9 +2004,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2161,3 +2158,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
+
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+

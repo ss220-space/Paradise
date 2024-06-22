@@ -24,7 +24,7 @@
 	var/cuttable = TRUE
 	var/hole_size = NO_HOLE
 	var/invulnerable = FALSE
-	var/shock_cooldown = FALSE
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/fence/Initialize()
 	. = ..()
@@ -142,19 +142,14 @@
 		return
 	. = ..()
 
+
 /obj/structure/fence/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(!ismob(moving_atom))
-		return
-	if(shock_cooldown)
-		return
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
+		return .
 	shock(moving_atom, 70)
-	shock_cooldown = TRUE // We do not want bump shock spam!
-	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	COOLDOWN_START(src, shock_cooldown, 1 SECONDS) // We do not want bump shock spam!
 
-/obj/structure/fence/proc/shock_cooldown()
-	shock_cooldown = FALSE
 
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()

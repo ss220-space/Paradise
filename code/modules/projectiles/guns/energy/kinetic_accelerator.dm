@@ -124,7 +124,7 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg/modkit_predeattach(obj/item/borg/upgrade/modkit/MK, mob/living/silicon/robot/owner)
 	if(istype(owner))
 		owner.upgrades -= MK
-		owner.UnregisterSignal(MK, COMSIG_PARENT_QDELETING)
+		owner.UnregisterSignal(MK, COMSIG_QDELETING)
 
 
 /obj/item/gun/energy/kinetic_accelerator/minebot

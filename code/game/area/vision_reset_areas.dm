@@ -42,7 +42,7 @@
 	my_mob.lighting_alpha = initial(my_mob.lighting_alpha)
 	my_mob.sync_lighting_plane_alpha()
 
-/datum/component/vision_reset/Destroy(force, silent)
+/datum/component/vision_reset/Destroy(force)
 	UnregisterSignal(my_mob, COMSIG_MOB_UPDATE_SIGHT)
 	my_mob.update_sight()
 	return ..()

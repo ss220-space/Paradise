@@ -334,31 +334,30 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-/obj/mecha/Process_Spacemove(movement_dir = NONE)
+/obj/mecha/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return TRUE
-	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return TRUE
+
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
-	var/atom/movable/backup = get_spacemove_backup(movement_dir)
-	if(!backup)
-		return FALSE
-
-	//get_spacemove_backup() already checks if a returned turf is solid, so we can just go
-	if(!istype(backup) || !movement_dir || backup.anchored)
+	var/atom/movable/backup = get_spacemove_backup(movement_dir, continuous_move)
+	if(backup)
+		if(!istype(backup) || !movement_dir || backup.anchored || continuous_move)
+			return TRUE	//get_spacemove_backup() already checks if a returned turf is solid, so we can just go
+		last_pushoff = world.time
+		if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE))
+			backup.last_pushoff = world.time
+			if(occupant)
+				to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
 		return TRUE
 
-	last_pushoff = world.time
-	if(backup.newtonian_move(REVERSE_DIR(movement_dir)))
-		backup.last_pushoff = world.time
-		if(occupant)
-			to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		return TRUE
 
-	return TRUE
+	return FALSE
 
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -418,10 +417,6 @@
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		if(strafe) //No strafe while controls are malfunctioning
 			toggle_strafe(silent = TRUE)
-		if(direction & (direction - 1))	//Trick to check for diagonal direction
-			glide_for(step_in * 1.41)
-		else
-			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(direction & (UP|DOWN))
@@ -440,28 +435,25 @@
 		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			if(strafe)
 				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
-					glide_for(step_in * 1.41)
 					step_in_final *= STRAFE_DIAGONAL_FACTOR //Applies speed multiplier if mecha moved diagonally
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
-					glide_for(step_in)
 					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
 					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
 					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal_dir" proc
 					move_type = MECHAMOVE_STEP
 			else
-				glide_for(step_in * 1.41)
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 		else
-			glide_for(step_in)
 			strafed_backwards = is_opposite_dir(direction)
 			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in_final))
 		if(strafe && actuator) //Energy drain mechanics for actuator module
 			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
@@ -515,10 +507,6 @@
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("[initial_icon]-phase", src)
-				if(direction & (direction - 1))	//moved diagonally
-					glide_for(step_in * 4.23)
-				else
-					glide_for(step_in * 3)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)
@@ -531,70 +519,72 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(var/atom/obstacle, bump_allowed)
-	if(throwing) //high velocity mechas in your face!
-		var/breakthrough = 0
-		if(istype(obstacle, /obj/structure/window))
-			qdel(obstacle)
-			breakthrough = 1
 
-		else if(istype(obstacle, /obj/structure/grille/))
-			var/obj/structure/grille/G = obstacle
-			G.obj_break()
-			breakthrough = 1
+/obj/mecha/Bump(atom/bumped_atom, custom_bump)
+	if(!custom_bump)
+		return null
 
-		else if(istype(obstacle, /obj/structure/table))
-			var/obj/structure/table/T = obstacle
-			qdel(T)
-			breakthrough = 1
+	if(!throwing)
+		. = ..()
+		if(.)
+			return .
+		if(isobj(bumped_atom))
+			var/obj/bumped_object = bumped_atom
+			if(!bumped_object.anchored)
+				step(bumped_atom, dir)
+		else if(ismob(bumped_atom))
+			step(bumped_atom, dir)
+		return .
 
-		else if(istype(obstacle, /obj/structure/rack))
-			new /obj/item/rack_parts(obstacle.loc)
-			qdel(obstacle)
-			breakthrough = 1
+	//high velocity mechas in your face!
+	var/breakthrough = FALSE
+	if(istype(bumped_atom, /obj/structure/window))
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+	else if(istype(bumped_atom, /obj/structure/grille))
+		var/obj/structure/grille/grille = bumped_atom
+		grille.obj_break()
+		breakthrough = TRUE
 
-		else if(isliving(obstacle))
-			var/mob/living/L = obstacle
-			var/hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
-			if(L.flags & GODMODE)
-				return
-			L.take_overall_damage(5,0)
-			if(L.buckled)
-				L.buckled = 0
-			L.Weaken(10 SECONDS)
-			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
-			breakthrough = 1
+	else if(istype(bumped_atom, /obj/structure/table))
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		else
-			if(throwing)
-				throwing.finalize()
-			crashing = null
+	else if(istype(bumped_atom, /obj/structure/rack))
+		new /obj/item/rack_parts(bumped_atom.loc)
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		..()
+	else if(istype(bumped_atom, /obj/structure/reagent_dispensers/fueltank))
+		bumped_atom.ex_act(EXPLODE_DEVASTATE)
 
-		if(breakthrough)
-			if(crashing)
-				spawn(1)
-					throw_at(crashing, 50, throw_speed)
-			else
-				spawn(1)
-					crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
-					throw_at(crashing, 50, throw_speed)
-
+	else if(isliving(bumped_atom))
+		var/mob/living/bumped_living = bumped_atom
+		if(bumped_living.flags & GODMODE)
+			return
+		var/static/list/mecha_hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
+		bumped_living.take_overall_damage(5)
+		bumped_living.unbuckle_mob(force = TRUE)
+		bumped_living.Weaken(10 SECONDS)
+		bumped_living.apply_effect(STUTTER, 10 SECONDS)
+		playsound(src, pick(mecha_hit_sound), 50, FALSE)
+		breakthrough = TRUE
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
-				step(obstacle, dir)
+		throwing.finalize()
+		crashing = null
+
+	. = ..()
+
+	if(breakthrough)
+		if(crashing)
+			spawn(1)
+				throw_at(crashing, 50, throw_speed)
+		else
+			spawn(1)
+				crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
+				throw_at(crashing, 50, throw_speed)
+
 
 
 ///////////////////////////////////

@@ -195,10 +195,12 @@
 	if(rig)
 		rig.hear_message(M, msg)
 
-/obj/structure/reagent_dispensers/fueltank/Bump()
-	..()
-	if(rig)
-		rig.process_movement()
+
+/obj/structure/reagent_dispensers/fueltank/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(. || isnull(.) || !rig)
+		return .
+	rig.process_movement()
 
 
 /obj/structure/reagent_dispensers/peppertank

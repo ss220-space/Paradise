@@ -11,34 +11,35 @@
 	QDEL_NULL(trash_bag)
 	return ..()
 
-/obj/vehicle/janicart/handle_vehicle_offsets()
-	..()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			switch(buckled_mob.dir)
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -12
-					buckled_mob.pixel_y = 7
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 7
-				if(WEST)
-					buckled_mob.pixel_x = 12
-					buckled_mob.pixel_y = 7
 
-/obj/vehicle/janicart/Move(atom/OldLoc, Dir)
+/obj/vehicle/janicart/handle_vehicle_offsets()
+	if(!has_buckled_mobs())
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
+		switch(dir)
+			if(NORTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = 4
+			if(EAST)
+				buckled_mob.pixel_x = -12
+				buckled_mob.pixel_y = 7
+			if(SOUTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = 7
+			if(WEST)
+				buckled_mob.pixel_x = 12
+				buckled_mob.pixel_y = 7
+
+
+/obj/vehicle/janicart/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
 	. = ..()
-	if(floorbuffer)
-		var/turf/tile = loc
-		if(isturf(tile))
-			tile.clean_blood()
-			for(var/obj/effect/check in tile)
-				if(check.is_cleanable())
-					qdel(check)
+	if(. && floorbuffer && isturf(loc))
+		loc.clean_blood()
+		for(var/obj/effect/check in loc)
+			if(check.is_cleanable())
+				qdel(check)
+
 
 /obj/vehicle/janicart/examine(mob/user)
 	. = ..()
@@ -64,7 +65,7 @@
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
-	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
+	else if(trash_bag && (initial(key_type.type) != I.type)) // don't put a key in the trash when we need it
 		trash_bag.attackby(I, user)
 	else
 		return ..()

@@ -169,21 +169,23 @@
 	return .
 
 
-//Generic Bump(). Override MobBump() and ObjBump() instead of this.
-/mob/living/Bump(atom/A, yes)
-	if(..()) //we are thrown onto something
-		return
-	if(buckled || !yes || now_pushing)
-		return
-	if(ismob(A))
-		if(MobBump(A))
-			return
-	if(isobj(A))
-		if(ObjBump(A))
-			return
-	if(istype(A, /atom/movable))
-		if(PushAM(A, move_force))
-			return
+// Generic Bump(). Override MobBump() and ObjBump() instead of this.
+/mob/living/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(. || isnull(.)) // byond bump or we are thrown onto something
+		return .
+	if(buckled || now_pushing)
+		return .
+	if(ismob(bumped_atom))
+		if(MobBump(bumped_atom))
+			return TRUE
+	else if(isobj(bumped_atom))
+		if(ObjBump(bumped_atom))
+			return TRUE
+	if(ismovable(bumped_atom))
+		if(PushAM(bumped_atom, move_force))
+			return TRUE
+
 
 //Called when we bump into a mob
 /mob/living/proc/MobBump(mob/M)
@@ -306,13 +308,13 @@
 	if(!client && (mob_size < MOB_SIZE_SMALL))
 		return
 	now_pushing = TRUE
-	var/t = get_dir(src, AM)
+	var/dir_to_target = get_dir(src, AM)
 	var/push_anchored = FALSE
 	if((AM.move_resist * MOVE_FORCE_CRUSH_RATIO) <= force)
-		if(move_crush(AM, move_force, t))
+		if(move_crush(AM, move_force, dir_to_target))
 			push_anchored = TRUE
 	if((AM.move_resist * MOVE_FORCE_FORCEPUSH_RATIO) <= force)			//trigger move_crush and/or force_push regardless of if we can push it normally
-		if(force_push(AM, move_force, t, push_anchored))
+		if(force_push(AM, move_force, dir_to_target, push_anchored))
 			push_anchored = TRUE
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
@@ -320,22 +322,21 @@
 	if(istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
-			for(var/obj/structure/window/win in get_step(W,t))
+			for(var/obj/structure/window/win in get_step(W, dir_to_target))
 				now_pushing = FALSE
 				return
 	if(pulling == AM)
 		stop_pulling()
 
-	if(client)
-		client.current_move_delay *= AM.get_pull_push_speed_modifier(client.current_move_delay)
-		glide_for(client.current_move_delay)
+	//if(client)
+	//	client.move_delay += AM.get_pull_push_speed_modifier(client.move_delay)
 
-	AM.glide_size = glide_size
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir
-	if(step(AM, t))
-		step(src, t)
+	if(AM.Move(get_step(AM.loc, dir_to_target), dir_to_target, glide_size))
+		AM.add_fingerprint(src)
+		Move(get_step(loc, dir_to_target), dir_to_target)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
@@ -800,8 +801,7 @@
 
 	return
 
-
-/mob/living/Move(atom/newloc, direct, movetime)
+/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(lying_angle != 0)
 		lying_angle_on_movement(direct)
 
@@ -823,9 +823,9 @@
 	. = ..()
 	if(.)
 		step_count++
-		pull_pulled(old_loc, pulling, movetime)
+		pull_pulled(old_loc, pulling, glide_size_override)
 		if(!currently_grab_pulled)
-			pull_grabbed(old_loc, direct, movetime)
+			pull_grabbed(old_loc, direct, glide_size_override)
 
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
@@ -857,7 +857,7 @@
 					return
 
 		var/pull_dir = get_dir(src, pulling)
-		pulling.glide_size = glide_size
+		pulling.set_glide_size(glide_size)
 		if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 			// This sucks.
 			// Pulling things up/down & into other z-levels. Conga line lives.
@@ -1414,7 +1414,7 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || issmall(src))) //can we butcher it?
+	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || is_monkeybasic(src))) //can we butcher it?
 		var/sharpness = is_sharp(I)
 		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
@@ -1436,7 +1436,7 @@
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
+	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0
 	return 1
@@ -1658,6 +1658,7 @@
 		return TRUE
 	return FALSE
 
+
 /**
   * Sets the mob's direction lock towards a given atom.
   *
@@ -1667,9 +1668,11 @@
   */
 /mob/living/proc/set_forced_look(atom/A, track = FALSE)
 	forced_look = track ? A.UID() : get_cardinal_dir(src, A)
+	setDir()
 	add_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	to_chat(src, span_userdanger("You are now facing [track ? A : dir2text(forced_look)]. To cancel this, shift-middleclick yourself."))
-	throw_alert("direction_lock", /atom/movable/screen/alert/direction_lock)
+	throw_alert(ALERT_DIRECTION_LOCK, /atom/movable/screen/alert/direction_lock)
+
 
 /**
   * Clears the mob's direction lock if enabled.
@@ -1684,19 +1687,17 @@
 	remove_movespeed_modifier(/datum/movespeed_modifier/forced_look)
 	if(!quiet)
 		to_chat(src, span_notice("Cancelled direction lock."))
-	clear_alert("direction_lock")
+	clear_alert(ALERT_DIRECTION_LOCK)
 
-/mob/living/setDir(new_dir)
-	var/old_dir = dir
-	if(forced_look)
+
+/mob/living/setDir(newdir)
+	if(forced_look)	// this should be an element at least
 		if(isnum(forced_look))
-			dir = forced_look
+			newdir = forced_look
 		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, old_dir, dir)
-		return
+			var/atom/look_at = locateUID(forced_look)
+			if(istype(look_at))
+				newdir = get_cardinal_dir(src, look_at)
 	return ..()
 
 

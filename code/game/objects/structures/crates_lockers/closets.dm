@@ -347,18 +347,18 @@ GLOBAL_LIST_EMPTY(closets)
 	. = ..()
 	if(opened)
 		if(custom_open_overlay)
-			. += mutable_appearance(icon, "[custom_open_overlay]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[custom_open_overlay]_open", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += mutable_appearance(icon, "[icon_state]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[icon_state]_open", CLOSET_OLAY_LAYER_DOOR)
 	else
 		for(var/olay in apply_contents_overlays())
 			. += olay
 		if(custom_door_overlay)
-			. += mutable_appearance(icon, "[custom_door_overlay]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[custom_door_overlay]_door", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += mutable_appearance(icon, "[icon_state]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[icon_state]_door", CLOSET_OLAY_LAYER_DOOR)
 		if(welded)
-			. += mutable_appearance(icon, "welded", src.layer + CLOSET_OLAY_OFFSET_WELDED)
+			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
 
 
 /**
@@ -486,16 +486,16 @@ GLOBAL_LIST_EMPTY(closets)
 	. = list()
 	if(!opened)
 		if(transparent)
-			. += mutable_appearance(icon, "[initial(icon_state)]_door_trans", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[initial(icon_state)]_door_trans", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += mutable_appearance(icon, "[initial(icon_state)]_door", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[initial(icon_state)]_door", CLOSET_OLAY_LAYER_DOOR)
 		if(welded)
-			. += mutable_appearance(icon, "welded", src.layer + CLOSET_OLAY_OFFSET_WELDED)
+			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
 	else
 		if(transparent)
-			. += mutable_appearance(icon, "[initial(icon_state)]_open_trans", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[initial(icon_state)]_open_trans", CLOSET_OLAY_LAYER_DOOR)
 		else
-			. += mutable_appearance(icon, "[initial(icon_state)]_open", src.layer + CLOSET_OLAY_OFFSET_DOOR)
+			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
 
 
 /obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
@@ -510,15 +510,15 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Move(NewLoc, direct) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
-	var/turf/T = get_turf(NewLoc)
+/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
+	var/turf/T = get_turf(newloc)
 	if(T.density)
 		return
 	for(var/atom/A in T.contents)
 		if(A.density && istype(A, /obj/machinery/door))
 			return
-	UpdateTransparency(src, NewLoc)
-	forceMove(NewLoc)
+	UpdateTransparency(src, newloc)
+	forceMove(newloc)
 
 /obj/structure/closet/bluespace/close()
 	. = ..()

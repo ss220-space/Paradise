@@ -369,7 +369,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 
 /proc/EncodeDNABlock(value)
-	return add_zero2(num2hex(value, 1), 3)
+	return uppertext(add_zero2(num2hex(value, 1), 3))
 
 /datum/dna/proc/UpdateUI()
 	uni_identity = ""

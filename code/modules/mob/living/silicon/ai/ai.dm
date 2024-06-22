@@ -204,9 +204,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	create_eye()
 
-	builtInCamera = new /obj/machinery/camera/portable(src)
-	builtInCamera.c_tag = name
-	builtInCamera.network = list("SS13")
+	builtInCamera = new(src, list("SS13"), name)
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src

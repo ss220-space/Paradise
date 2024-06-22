@@ -182,26 +182,27 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
+
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
+	if(istype(target))
+		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You cannot modify [target]!"))
+
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -435,6 +436,7 @@
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
@@ -1138,8 +1140,15 @@
 	icon_state = "jane_sid_suit"
 	item_state = "jane_sid_suit"
 	item_color = "jane_sid_suit"
-	has_sensor = 2
+	has_sensor = SENSOR_VITALS
 	sensor_mode = 3
+	up = TRUE
+
+
+/obj/item/clothing/under/fluff/jane_sidsuit/Initialize(mapload)
+	. = ..()
+	verbs -= /obj/item/clothing/under/verb/rollsuit
+
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
@@ -1149,16 +1158,17 @@
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
-	if(src.icon_state == "jane_sid_suit_down")
-		src.item_color = "jane_sid_suit"
-		to_chat(usr, "You zip up \the [src].")
-	else
-		src.item_color = "jane_sid_suit_down"
-		to_chat(usr, "You unzip and roll down \the [src].")
+	up = !up
+	to_chat(usr, "You [up ? "zip up" : "unzip and roll down"] [src].")
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
 
-	src.icon_state = "[item_color]"
-	src.item_state = "[item_color]"
-	usr.update_inv_w_uniform()
+
+/obj/item/clothing/under/fluff/jane_sidsuit/update_icon_state()
+	var/new_state = "[replacetext("[item_color]", "_d", "")][up ? "" : "_d"]"
+	icon_state = new_state
+	item_state = new_state
+
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
@@ -1470,7 +1480,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
-	item_color = "fethasnecklace"
 	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_ACCESSORY
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez

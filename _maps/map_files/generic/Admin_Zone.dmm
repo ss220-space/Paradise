@@ -3852,6 +3852,7 @@
 "UO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "UR" = (

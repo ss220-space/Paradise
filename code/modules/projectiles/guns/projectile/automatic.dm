@@ -53,8 +53,8 @@
 			update_icon()
 			return 1
 
-/obj/item/gun/projectile/automatic/ui_action_click(var/owner, var/action_type)
-    if (ispath(action_type, /datum/action/item_action/toggle_firemode))
+/obj/item/gun/projectile/automatic/ui_action_click(mob/user, action, leftclick)
+    if(istype(action, /datum/action/item_action/toggle_firemode))
         burst_select()
         return TRUE
 
@@ -149,10 +149,10 @@
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
 
 
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 
@@ -179,10 +179,10 @@
 	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
 
-/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/sp91rc/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 
@@ -481,10 +481,10 @@
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 
-/obj/item/gun/projectile/automatic/sfg/ui_action_click(owner, action_type)
+/obj/item/gun/projectile/automatic/sfg/ui_action_click(mob/user, action, leftclick)
 	if(..())
 		return TRUE
-	if(action_type == /datum/action/item_action/toggle_gunlight)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
 		toggle_gunlight()
 		return TRUE
 

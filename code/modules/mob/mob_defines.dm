@@ -1,7 +1,6 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	glide_size = 1.5
 	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
@@ -222,7 +221,6 @@
 	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
-	var/list/datum/action/chameleon_item_actions
 
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars

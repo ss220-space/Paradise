@@ -202,7 +202,6 @@
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
-#define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
 #define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
 #define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
 #define isneara(A) (is_species(A, /datum/species/monkey/skrell))
@@ -337,7 +336,24 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define SLEEP_CHECK_DEATH(A, X) \
+	sleep(X); \
+	if(QDELETED(A)) return; \
+	if(ismob(A)) { \
+		var/mob/sleep_check_death_mob = A; \
+		if(sleep_check_death_mob.stat == DEAD) return; \
+	}
+
+/// Until a condition is true, sleep. If target is qdeleted or dead, return.
+#define UNTIL_DEATH_CHECK(target, expression) \
+	while(!(expression)) { \
+		stoplag(); \
+		if(QDELETED(target)) return; \
+		if(ismob(target)) { \
+			var/mob/sleep_check_death_mob = target; \
+			if(sleep_check_death_mob.stat == DEAD) return; \
+		}; \
+	};
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
@@ -358,7 +374,7 @@
 #define MAX_EYE_BLURRY_FILTER_SIZE 5
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
-#define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
+#define FIRE_DMI(target) (is_monkeybasic(target) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"

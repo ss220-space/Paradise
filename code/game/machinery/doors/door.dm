@@ -63,7 +63,7 @@
 		layer = initial(layer)
 
 /obj/machinery/door/setDir(newdir)
-	..()
+	. = ..()
 	update_dir()
 
 
@@ -94,11 +94,11 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/door/Bumped(atom/movable/moving_atom)
-	..()
+/obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
+	. = ..()
 
-	if(operating || emagged)
-		return
+	if(skip_effects || operating || emagged)
+		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
 		if((isrobot(B)) && B.stat)
@@ -130,9 +130,9 @@
 					cmag_switch(TRUE, mecha.occupant)
 					return
 				do_animate("deny")
-		return
 
-/obj/machinery/door/Move(new_loc, new_dir)
+
+/obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)

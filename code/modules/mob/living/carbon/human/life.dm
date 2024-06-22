@@ -163,9 +163,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)

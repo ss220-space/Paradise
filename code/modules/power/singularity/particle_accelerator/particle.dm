@@ -38,10 +38,12 @@
 		B.take_damage(energy * 0.6)
 		movement_range = 0
 
-/obj/effect/accelerated_particle/Bump(obj/singularity/S)
-	if(!istype(S))
-		return ..()
-	S.energy += energy
+
+/obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo, custom_bump)
+	. = ..()
+	if(. || isnull(.) || !istype(bumped_singulo))
+		return .
+	bumped_singulo.energy += energy
 
 
 /obj/effect/accelerated_particle/ex_act(severity)
