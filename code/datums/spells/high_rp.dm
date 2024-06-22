@@ -8,7 +8,6 @@
 	var/oxy_loss = 45
 	var/warned = FALSE
 
-
 /obj/item/organ/internal/high_rp_tumor/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(. && target)
@@ -58,7 +57,7 @@
 		var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target
 
 		if(world.time < (hrp_tumor.last_pump + (hrp_tumor.pump_delay - hrp_tumor.pump_window))) //no spam
-			to_chat(owner, span_userdanger("Слишком рано!"))
+			owner.balloon_alert(owner, "слишком рано!")
 			hrp_tumor.owner.setOxyLoss(hrp_tumor.owner.oxyloss + hrp_tumor.oxy_loss/5)
 			return
 

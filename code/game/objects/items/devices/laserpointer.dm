@@ -55,9 +55,9 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			user.balloon_alert(user, "установлено")
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			user.balloon_alert(user, "уже установлено!")
 		return
 
 	return ..()
@@ -65,7 +65,7 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(diode)
-		to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+		user.balloon_alert(user, "микролазер извлечён")
 		diode.forceMove(get_turf(loc))
 		diode = null
 
@@ -78,16 +78,16 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
+		user.balloon_alert(user, "не функционирует!")
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		user.balloon_alert(user, "идёт перезарядка")
 		return
 
 	var/outmsg
