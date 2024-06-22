@@ -521,13 +521,13 @@
 			used_environ += amount
 
 
-/area/Entered(atom/movable/arrived)
+/area/Entered(atom/movable/arrived, area/old_area)
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src)
 
 	var/area/newarea
-	var/area/oldarea
+	var/area/oldarea = old_area
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
@@ -535,7 +535,8 @@
 		if(!arrived_mob.lastarea)
 			arrived_mob.lastarea = get_area(arrived_mob)
 		newarea = get_area(arrived_mob)
-		oldarea = arrived_mob.lastarea
+		if(!oldarea)
+			oldarea = arrived_mob.lastarea
 
 		if(newarea == oldarea)
 			return

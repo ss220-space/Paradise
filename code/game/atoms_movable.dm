@@ -558,7 +558,6 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
-		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
@@ -572,23 +571,23 @@
 					min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
 					destination.z
 				)
-				if(old_area && old_area != destarea)
-					old_area.Exited(src, movement_dir)
+				if(old_area && (old_area != destarea))
+					old_area.Exited(src)
 				for(var/atom/left_loc as anything in locs - new_locs)
 					left_loc.Exited(src, destination)
 
 				for(var/atom/entering_loc as anything in new_locs - locs)
 					entering_loc.Entered(src, oldloc)
 
-				if(old_area && old_area != destarea)
-					destarea.Entered(src, movement_dir)
+				if(old_area && (old_area != destarea))
+					destarea.Entered(src, old_area)
 			else
 				if(oldloc)
 					oldloc.Exited(src, destination)
-					if(old_area && old_area != destarea)
-						old_area.Exited(src, movement_dir)
+					if(old_area && (old_area != destarea))
+						old_area.Exited(src)
 				destination.Entered(src, oldloc)
-				if(destarea && old_area != destarea)
+				if(destarea && (old_area != destarea))
 					destarea.Entered(src, old_area)
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
