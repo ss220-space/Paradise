@@ -1,30 +1,32 @@
 /datum/event/ghostpiano
 	announceWhen = 10
 	endWhen = 11
-	var/where
+	var/turf/spawn_turf
+
 
 /datum/event/ghostpiano/start()
-	var/piano = spawn_piano()
+	spawn_turf = get_spawning_turf()
+	if(!spawn_turf)
+		kill()
+		return
+	var/obj/structure/pianoclassic/ghostpiano/piano = new(spawn_turf)
 	notify_ghosts("Проклятое фортепиано появилось в [get_area(piano)].\nПомните, что вставка текста в поля UI не по назначению\n(К примеру текст \"А убил Б в техах\") - может каратся.", source = piano, action = NOTIFY_FOLLOW)
 
-/datum/event/ghostpiano/proc/spawn_piano()
-	where = get_spawning_turf()
-	var/piano = new /obj/structure/pianoclassic/ghostpiano(where)
-	return piano
 
 /datum/event/ghostpiano/proc/get_spawning_turf()
 	var/list/availableareas = list()
+	for(var/area/maintenance/area in world)
+		availableareas += area
+	if(!length(availableareas))
+		return
 	var/list/avaivableturfs = list()
-	for(var/area/maintenance/A in world)
-		availableareas += A
 	var/area/randomarea = pick(availableareas)
-	for(var/turf/simulated/floor/F in randomarea)
-		if(turf_clear(F))
-			avaivableturfs += F
-	if(!avaivableturfs)
-		get_spawning_turf()
-	return pick(avaivableturfs)
+	for(var/turf/simulated/floor/floor in randomarea)
+		if(!floor.is_blocked_turf())
+			avaivableturfs += floor
+	return safepick(avaivableturfs)
+
 
 /datum/event/ghostpiano/announce()
-	var/P = where
-	GLOB.event_announcement.Announce("Обнаружена незначительная безвредная паранормальная активность в [get_area(P)]. Рекомендация: пресечь.", "ВНИМАНИЕ: ЗАФИКСИРОВАНА ПАРАНОРМАЛЬНАЯ АКТИВНОСТЬ.")
+	GLOB.event_announcement.Announce("Обнаружена незначительная безвредная паранормальная активность в [get_area(spawn_turf)]. Рекомендация: пресечь.", "ВНИМАНИЕ: ЗАФИКСИРОВАНА ПАРАНОРМАЛЬНАЯ АКТИВНОСТЬ.")
+
