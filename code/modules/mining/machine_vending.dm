@@ -167,7 +167,7 @@
 		var/list/cat_items = list()
 		for(var/prize_name in prize_list[cat])
 			var/datum/data/mining_equipment/prize = prize_list[cat][prize_name]
-			cat_items[prize_name] = list("name" = prize_name, "price" = prize.cost)
+			cat_items[prize_name] = list("name" = prize_name, "price" = prize.cost, "image" = prize.image)
 		static_data["items"][cat] = cat_items
 
 	return static_data
@@ -381,13 +381,15 @@
 
 /datum/data/mining_equipment
 	var/equipment_name = "generic"
-	var/equipment_path = null
+	var/atom/equipment_path = null
 	var/cost = 0
+	var/image
 
 /datum/data/mining_equipment/New(name, path, equipment_cost)
 	equipment_name = name
 	equipment_path = path
 	cost = equipment_cost
+	image = "[icon2base64(icon(equipment_path.icon, equipment_path.icon_state, SOUTH, 1))]"
 
 /**********************Mining Equipment Voucher**********************/
 
