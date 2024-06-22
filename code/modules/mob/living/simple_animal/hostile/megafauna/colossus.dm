@@ -212,15 +212,16 @@ Difficulty: Very Hard
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum(set_angle) && (!marker || marker == loc))
+	// a lot of sleeps around colossus shooting, so its better to check if our marker is still exist by this point
+	if(QDELETED(marker) || marker == loc)
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
-	P.preparePixelProjectile(marker, marker, startloc)
+	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
 	if(target)
 		P.original = target
-	P.fire(set_angle)
+	P.fire(isnum(set_angle) ? set_angle : null)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots(do_sleep = TRUE)
 	ranged_cooldown = world.time + 30

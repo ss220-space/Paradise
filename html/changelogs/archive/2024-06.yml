@@ -178,3 +178,33 @@
   - bugfix: Bunch Of Important Fixes (#5243)
   - tweak: Antag Paradise Autotraitor Update (#5157)
   - unknown: Chameleon Rework (#5065)
+'2024-06-20':
+  NightDawnFox:
+  - balance: disarm now knockdowns instead of stun (#5141)
+  Zwei:
+  - bugfix: Plasmaman Helmet / Clown Gun / Immovable Rod / Ninja Visor Fixes (#5249)
+  pilygun:
+  - bugfix: blobinfected mouse krytit jopoi (#5252)
+'2024-06-21':
+  Antoonij:
+  - add: changestone update (#5228)
+  Den109G:
+  - bugfix: Return flags after unsuccessful buckling (#5253)
+  - bugfix: Change name inhands sprites for a advmop (#5254)
+  PlayerUnknown14:
+  - balance: Bath Salts buff and Amrosia Cruciatus update (#5238)
+  Vladisvell:
+  - bugfix: Removed runtime report with attempting to reset DNA when head is missing
+      (#5260)
+  Zwei:
+  - bugfix: Vehicles Speed Boost Fix / No Glide Size Defaults To 8 / High RP Curse
+      Fix (#5251)
+  pilygun:
+  - tweak: Removal jetpack upgrade in vend (#5246)
+'2024-06-22':
+  NightDawnFox:
+  - tweak: porting balloon-alerts from tg (kinda completed) (#4980)
+  Vladisvell:
+  - bugfix: Fixed compilation issues with testing flag enabled (#5267)
+  Zwei:
+  - bugfix: Few Projectile Runtimes (#5257)
