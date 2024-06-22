@@ -236,10 +236,6 @@
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()
-	if(ismob(M))
-		var/mob/O = M
-		if(!O.lastarea)
-			O.lastarea = get_area(O.loc)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
