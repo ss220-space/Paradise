@@ -350,7 +350,6 @@
 	var/mob/living/carbon/human/registered_user = null
 	untrackable = 1
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	var/list/card_images
 	var/list/save_slots = list()
 	var/num_of_save_slots = 3
 	var/list/appearances = list(
@@ -710,6 +709,12 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
+/obj/item/card/id/syndicate/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/id_card)
+	)
+
+
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -731,15 +736,7 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
-	if(!length(card_images))
-		var/list/new_images = list()
-		for(var/appearance_name in appearances)
-			new_images.Add(list(list(
-				"name" = appearance_name,
-				"image" = "[icon2base64(icon(initial(icon), appearance_name, SOUTH, 1))]"
-			)))
-		card_images = new_images
-	data["appearances"] = card_images
+	data["appearances"] = appearances
 	return data
 
 /obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)

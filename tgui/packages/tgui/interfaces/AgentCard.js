@@ -1,3 +1,4 @@
+import { classes } from '../../common/react';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -168,15 +169,16 @@ export const AgentCardAppearances = (props, context) => {
     <Section fill title="Card Appearance">
       {appearances.map((appearance_unit) => (
         <ImageButton
-          key={appearance_unit.name}
-          tooltip={appearance_unit.name}
+          key={appearance_unit}
+          tooltip={appearance_unit}
           vertical
+          asset
           style={{ 'margin': '1px' }}
-          image={appearance_unit.image}
-          imageSize="64px"
+          image={appearance_unit}
+          imageAsset={'id_card64x64'}
           onclick={() =>
             act('change_appearance_new', {
-              new_appearance: appearance_unit.name,
+              new_appearance: appearance_unit,
             })
           }
         />
