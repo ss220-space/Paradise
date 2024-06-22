@@ -608,7 +608,7 @@
 				oldloc.Exited(src, NONE)
 
 			if(old_area)
-				old_area.Exited(src, NONE)
+				old_area.Exited(src)
 
 	RESOLVE_ACTIVE_MOVEMENT
 
