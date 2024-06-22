@@ -7,11 +7,20 @@ import {
   ProgressBar,
   Section,
 } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 export const APC = (props, context) => {
   return (
+    <Window width={510} height={435}>
     <Window width={510} height={435}>
       <Window.Content>
         <ApcContent />
@@ -69,11 +78,16 @@ const ApcContent = (props, context) => {
     powerStatusMap[data.externalPower] || powerStatusMap[0];
   const chargingStatus =
     powerStatusMap[data.chargingStatus] || powerStatusMap[0];
+  const externalPowerStatus =
+    powerStatusMap[data.externalPower] || powerStatusMap[0];
+  const chargingStatus =
+    powerStatusMap[data.chargingStatus] || powerStatusMap[0];
   const channelArray = data.powerChannels || [];
   const malfStatus = malfMap[data.malfStatus] || malfMap[0];
   const adjustedCellChange = data.powerCellStatus / 100;
 
   return (
+    <>
     <>
       <InterfaceLockNoticeBox />
       <Section title="Power Status">
@@ -82,12 +96,18 @@ const ApcContent = (props, context) => {
             label="Main Breaker"
             color={externalPowerStatus.color}
             buttons={
+            buttons={
               <Button
                 icon={data.isOperating ? 'power-off' : 'times'}
                 content={data.isOperating ? 'On' : 'Off'}
                 selected={data.isOperating && !locked}
                 color={data.isOperating ? '' : 'bad'}
+                color={data.isOperating ? '' : 'bad'}
                 disabled={locked}
+                onClick={() => act('breaker')}
+              />
+            }
+          >
                 onClick={() => act('breaker')}
               />
             }
@@ -96,16 +116,22 @@ const ApcContent = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Power Cell">
             <ProgressBar color="good" value={adjustedCellChange} />
+            <ProgressBar color="good" value={adjustedCellChange} />
           </LabeledList.Item>
           <LabeledList.Item
             label="Charge Mode"
             color={chargingStatus.color}
+            buttons={
             buttons={
               <Button
                 icon={data.chargeMode ? 'sync' : 'times'}
                 content={data.chargeMode ? 'Auto' : 'Off'}
                 selected={data.chargeMode}
                 disabled={locked}
+                onClick={() => act('charge')}
+              />
+            }
+          >
                 onClick={() => act('charge')}
               />
             }
@@ -117,11 +143,19 @@ const ApcContent = (props, context) => {
       <Section title="Power Channels">
         <LabeledList>
           {channelArray.map((channel) => {
+          {channelArray.map((channel) => {
             const { topicParams } = channel;
             return (
               <LabeledList.Item
                 key={channel.title}
                 label={channel.title}
+                buttons={
+                  <>
+                    <Box
+                      inline
+                      mx={2}
+                      color={channel.status >= 2 ? 'good' : 'bad'}
+                    >
                 buttons={
                   <>
                     <Box
@@ -138,7 +172,13 @@ const ApcContent = (props, context) => {
                         !locked &&
                         (channel.status === 1 || channel.status === 3)
                       }
+                      selected={
+                        !locked &&
+                        (channel.status === 1 || channel.status === 3)
+                      }
                       disabled={locked}
+                      onClick={() => act('channel', topicParams.auto)}
+                    />
                       onClick={() => act('channel', topicParams.auto)}
                     />
                     <Button
@@ -148,11 +188,18 @@ const ApcContent = (props, context) => {
                       disabled={locked}
                       onClick={() => act('channel', topicParams.on)}
                     />
+                      onClick={() => act('channel', topicParams.on)}
+                    />
                     <Button
                       icon="times"
                       content="Off"
                       selected={!locked && channel.status === 0}
                       disabled={locked}
+                      onClick={() => act('channel', topicParams.off)}
+                    />
+                  </>
+                }
+              >
                       onClick={() => act('channel', topicParams.off)}
                     />
                   </>
@@ -189,11 +236,33 @@ const ApcContent = (props, context) => {
           )
         }
       >
+        buttons={
+          !!data.siliconUser && (
+            <>
+              {!!data.malfStatus && (
+                <Button
+                  icon={malfStatus.icon}
+                  content={malfStatus.content}
+                  color="bad"
+                  onClick={() => act(malfStatus.action)}
+                />
+              )}
+              <Button
+                icon="lightbulb-o"
+                content="Overload"
+                onClick={() => act('overload')}
+              />
+            </>
+          )
+        }
+      >
         <LabeledList>
           <LabeledList.Item
             label="Cover Lock"
             buttons={
+            buttons={
               <Button
+                mb={0.4}
                 mb={0.4}
                 icon={data.coverLocked ? 'lock' : 'unlock'}
                 content={data.coverLocked ? 'Engaged' : 'Disengaged'}
@@ -205,7 +274,9 @@ const ApcContent = (props, context) => {
           <LabeledList.Item
             label="Night Shift Lighting"
             buttons={
+            buttons={
               <Button
+                mt={0.4}
                 mt={0.4}
                 icon="lightbulb-o"
                 content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
@@ -226,6 +297,7 @@ const ApcContent = (props, context) => {
           />
         </LabeledList>
       </Section>
+    </>
     </>
   );
 };
