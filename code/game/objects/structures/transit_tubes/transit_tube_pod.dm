@@ -269,6 +269,8 @@
 	A.Move(get_step(loc, direction), direction)
 	if(ismob(A))
 		var/mob/M = A
+		//since the transit tube pod and the mob will be in the same zone, forceMove will not update the mob’s zone and this must be done forcibly.
+		M.lastarea = get_area(loc)
 		M.reset_perspective(null)
 
 
