@@ -49,12 +49,12 @@
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(trash_bag)
-			to_chat(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
+			balloon_alert(user, "уже прицеплено!")
 			return
 		if(!user.drop_from_active_hand())
 			return
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'You hook the trashbag onto [src].</span>")
+		balloon_alert(user, "прицеплено к машине")
 		trash_bag = I
 		update_icon(UPDATE_OVERLAYS)
 	else if(istype(I, /obj/item/janiupgrade))
