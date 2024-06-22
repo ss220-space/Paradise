@@ -315,25 +315,25 @@
 	donator_tier = 1
 	cost = 1
 	display_name = "Green plaid hoodie"
-	path = /obj/item/clothing/suit/plaidhoodie_green
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_green
 
 /datum/gear/donor/plaidhoodie_white
 	donator_tier = 1
 	cost = 1
 	display_name = "White plaid hoodie"
-	path = /obj/item/clothing/suit/plaidhoodie_white
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_white
 
 /datum/gear/donor/plaidhoodie_red
 	donator_tier = 1
 	cost = 1
 	display_name = "Red plaid hoodie"
-	path = /obj/item/clothing/suit/plaidhoodie_red
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_red
 
 /datum/gear/donor/plaidhoodie_yellow
 	donator_tier = 1
 	cost = 1
 	display_name = "Yellow plaid hoodie"
-	path = /obj/item/clothing/suit/plaidhoodie_yellow
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
 
 /datum/gear/donor/blackcoat
 	donator_tier = 2
