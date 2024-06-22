@@ -1578,9 +1578,9 @@
 
 /mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
-	if(!. || !isliving(moving_atom))
+	if(!. || !isliving(pulling))
 		return .
-	set_pull_offsets(moving_atom, grab_state)
+	set_pull_offsets(pulling, grab_state)
 
 
 /// Proc extender of quick equip verb when user tries to equip grab or pull.

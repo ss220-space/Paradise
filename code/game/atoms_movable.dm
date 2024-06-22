@@ -317,7 +317,8 @@
 	pulledby = new_pulledby
 
 
-/atom/movable/proc/Move_Pulled(atom/moving_atom)
+/// Moves pulled thing to pull_loc with all the necessary checks.
+/atom/movable/proc/Move_Pulled(atom/pull_loc)
 	if(!pulling)
 		return FALSE
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
@@ -328,13 +329,15 @@
 		if(pulling_mob.buckled && pulling_mob.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
 			return FALSE
-	if(moving_atom == loc && pulling.density)
+	var/move_dir = get_dir(pulling.loc, pull_loc)
+	if(pulling.density && (pull_loc == loc || pull_loc == get_step(src, move_dir)))
 		return FALSE
-	var/move_dir = get_dir(pulling.loc, moving_atom)
 	if(!Process_Spacemove(move_dir))
 		return FALSE
-	pulling.Move(get_step(pulling.loc, move_dir), move_dir, glide_size)
-	return TRUE
+	var/turf/pull_turf = get_step(pulling.loc, move_dir)
+	if(!pull_turf || pull_turf.density)
+		return FALSE
+	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
 /**

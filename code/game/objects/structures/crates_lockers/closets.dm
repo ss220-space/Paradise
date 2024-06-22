@@ -200,12 +200,6 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
-	if(grabber.grab_state < GRAB_AGGRESSIVE || !opened || !isliving(grabbed_thing) || !Adjacent(grabbed_thing))
-		return .
-	if(!large)
-		to_chat(grabber, span_notice("[src] is too small to stuff [grabbed_thing] into!"))
-		return .
-	grabber.stop_pulling()
 	MouseDrop_T(grabbed_thing, grabber)	//act like they were dragged onto the closet
 
 
@@ -286,6 +280,8 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(istype(O, /obj/structure/closet))
 		return
+	if(user.pulling == O)
+		user.stop_pulling()
 	step_towards(O, loc)
 	if(user != O)
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
