@@ -191,12 +191,12 @@ const MiningVendorItemsCategory = (properties, context) => {
             content={item.price}
             icon="shopping-cart"
             iconSize={1}
-            iconColor={!data.has_id || data.id.points < item.price ? "grey" : "good"}
-            color={"good"}
-            disabled={!data.has_id || data.id.points < item.price}
-            onClick={() =>
-              act('purchase', { cat: title, name: item.name, })
+            iconColor={
+              !data.has_id || data.id.points < item.price ? 'grey' : 'good'
             }
+            color={'good'}
+            disabled={!data.has_id || data.id.points < item.price}
+            onClick={() => act('purchase', { cat: title, name: item.name })}
           />
         </ImageButton>
       ))}

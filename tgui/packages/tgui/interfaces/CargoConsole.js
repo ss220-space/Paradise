@@ -103,8 +103,12 @@ const StatusPane = (_properties, context) => {
       <Section title="Status">
         <LabeledList>
           <LabeledList.Item label="Points Available">{points}</LabeledList.Item>
-          <LabeledList.Item label="Credits Available">{credits}</LabeledList.Item>
-          <LabeledList.Item label="Shuttle Status">{statusText}</LabeledList.Item>
+          <LabeledList.Item label="Credits Available">
+            {credits}
+          </LabeledList.Item>
+          <LabeledList.Item label="Shuttle Status">
+            {statusText}
+          </LabeledList.Item>
           {is_public === 0 && (
             <LabeledList.Item label="Controls">
               <Button
