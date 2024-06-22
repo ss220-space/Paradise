@@ -182,16 +182,17 @@
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)
 
-				if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
-					shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
-				else
-					target_loca = step_over
-				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
-				if(istype(H))
-					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
-						/* Uncomment when bloody_body stops randomly not transferring blood colour.
-						M.bloody_body(H) */
+				if(step_over)
+					if(get_splatter_blockage(step_over, target, splatter_dir, target_loca)) //If you can't cross the tile or any of its relevant obstacles...
+						shift = pixel_shift_dir(splatter_dir) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
+					else
+						target_loca = step_over
+					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
+					if(istype(H))
+						for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
+							M.bloody_hands(H)
+							/* Uncomment when bloody_body stops randomly not transferring blood colour.
+							M.bloody_body(H) */
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
