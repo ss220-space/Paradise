@@ -580,7 +580,7 @@
 					entering_loc.Entered(src, oldloc)
 
 				if(old_area && old_area != destarea)
-					destarea.Entered(src, old_area)
+					destarea.Entered(src)
 			else
 				if(oldloc)
 					oldloc.Exited(src, destination)
@@ -588,7 +588,7 @@
 						old_area.Exited(src)
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
-					destarea.Entered(src, old_area)
+					destarea.Entered(src)
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
 
