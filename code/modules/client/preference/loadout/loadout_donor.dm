@@ -338,5 +338,5 @@
 /datum/gear/donor/blackcoat
 	donator_tier = 2
 	cost = 2
-	display_name = "Black Cloat"
+	display_name = "Black Coat"
 	path = /obj/item/clothing/suit/blackcoat
