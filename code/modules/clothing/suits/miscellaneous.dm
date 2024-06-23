@@ -785,8 +785,7 @@
 	icon_state = "trackjacket_open"
 	item_state = "bltrenchcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 
@@ -831,7 +830,7 @@
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in olive."
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
@@ -928,7 +927,8 @@
 	desc = "Aviators not included."
 	icon_state = "bomber"
 	item_state = "bomber"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -952,7 +952,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombersec"
 	item_state = "bombersec"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	//Inherited from Security armour.
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	heat_protection = UPPER_TORSO|LOWER_TORSO
@@ -967,7 +968,7 @@
 	name = "leather jacket"
 	desc = "Pompadour not included."
 	icon_state = "leatherjacket"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
 	resistance_flags = NONE
@@ -978,7 +979,6 @@
 	icon_state = "motojacket_open"
 	item_state = "motojacket_open"
 	ignore_suitadjust = FALSE
-	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 
@@ -1006,7 +1006,8 @@
 	desc = "A classy clown officer's overcoat, also designed by Hugo Boss."
 	icon_state = "officersuit"
 	item_state = "officersuit"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -1025,7 +1026,8 @@
 	desc = "An overcoat for the clown soldier, to keep him warm during those cold winter nights on the front."
 	icon_state = "soldiersuit"
 	item_state = "soldiersuit"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -1285,7 +1287,7 @@
 	name = "Suragi Jacket"
 	desc = "Smoke one cigarette"
 	icon_state = "suragi_jacket_civ"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	blood_overlay_type = ""
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
