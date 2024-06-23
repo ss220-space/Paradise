@@ -56,7 +56,7 @@
 		return
 	if(in_use)
 		if(src != user.machine)
-			balloon_alert(user, "Кто-то уже играет в эту игру. Подождите своей очереди!")
+			balloon_alert(user, "автомат занят!")
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
