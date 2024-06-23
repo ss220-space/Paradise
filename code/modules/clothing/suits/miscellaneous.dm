@@ -1468,7 +1468,7 @@
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	ignore_suitadjust = FALSE
-	suit_adjusted = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
