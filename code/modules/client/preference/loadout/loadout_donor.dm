@@ -332,7 +332,7 @@
 /datum/gear/donor/plaidhoodie_yellow
 	donator_tier = 1
 	cost = 1
-	display_name = "Yellow plaid hoodie"
+	display_name = "Plaid hoodie, yellow"
 	path = /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
 
 /datum/gear/donor/blackcoat
