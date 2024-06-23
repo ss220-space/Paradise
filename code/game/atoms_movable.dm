@@ -428,7 +428,8 @@
 	for(var/mob/buckled_mob as anything in buckled_mobs)
 		buckled_mob.set_glide_size(target)
 
-	if(pulling)	// temporal soulution until I figure out how to eliminate gliding stutter on failed diagonal pulling of buckled mobs
+	// temporal soulution until I figure out how to eliminate gliding stutter on failed diagonal pulling of buckled mobs
+	if(pulling && !LAZYIN(pulling.buckled_mobs, src))
 		pulling.set_glide_size(target)
 		var/mob/pulling_mob = pulling
 		if(ismob(pulling_mob) && pulling_mob.buckled)
