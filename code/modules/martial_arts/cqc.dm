@@ -3,6 +3,12 @@
 	weight = 7
 	block_chance = 75
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 45,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,

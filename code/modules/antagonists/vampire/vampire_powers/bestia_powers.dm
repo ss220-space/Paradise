@@ -228,6 +228,14 @@
 
 /datum/vampire_passive/upgraded_grab
 	gain_desc = "Power of the blood allows you to take your victims in a tighter grab."
+	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed = 2 SECONDS
+	/// Resist chance overrides for the victim.
+	var/list/grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 45,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 
 
 /datum/antagonist/vampire/proc/grab_act(mob/living/carbon/human/user, mob/living/carbon/human/target)

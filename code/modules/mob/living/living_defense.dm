@@ -343,7 +343,7 @@
 				add_attack_logs(grabber, src, "attempted to neck grab", ATKLOG_ALL)
 			if(GRAB_NECK)
 				add_attack_logs(grabber, src, "attempted to strangle", ATKLOG_ALL)
-		if(!do_after(grabber, GRAB_UPGRADE_TIME, src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(grab_checks_callback), grabber, old_grab_state), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы перестали усиливать захват.")))
+		if(!do_after(grabber, get_grab_upgrade_time(grabber), src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(grab_checks_callback), grabber, old_grab_state), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы перестали усиливать захват.")))
 			return FALSE
 		if(!grab_checks_callback(grabber, old_grab_state))
 			return FALSE
@@ -400,6 +400,17 @@
 /// Addtitional checks for do_after.
 /mob/living/proc/grab_checks_callback(mob/living/grabber, old_grab_state)
 	return grabber.pulling && grabber.pulling == src && grabber.grab_state == old_grab_state && isturf(grabber.loc) && isturf(loc)
+
+
+/// Used to override grab upgrade speed.
+/mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
+	if(!grabber.mind)
+		return GRAB_UPGRADE_TIME
+	var/datum/antagonist/vampire/vampire = grabber.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
+	if(vampire_grab)
+		return vampire_grab.grab_speed
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? GRAB_UPGRADE_TIME : grabber.mind.martial_art.grab_speed
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)

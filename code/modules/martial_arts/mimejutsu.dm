@@ -3,6 +3,12 @@
 	weight = 6
 	block_chance = 50
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 45,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/silent_palm, /datum/martial_combo/mimejutsu/silencer, /datum/martial_combo/mimejutsu/execution)
 
 /datum/martial_art/mimejutsu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

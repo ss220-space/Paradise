@@ -1004,6 +1004,37 @@
 	RESIST SUBPROCS
 */////////////////////
 
+/// Used to override victim resist chances.
+/mob/living/proc/get_resist_chance(mob/living/grabber)
+	. = 100
+	if(!grabber || grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	var/datum/antagonist/vampire/vampire = grabber.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
+	switch(grabber.grab_state)
+		if(GRAB_AGGRESSIVE)
+			if(vampire_grab)
+				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_AGGRESSIVE)
+			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_AGGRESSIVE : martial_override
+		if(GRAB_NECK)
+			if(vampire_grab)
+				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_NECK]
+			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_NECK)
+			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_NECK : martial_override
+		if(GRAB_KILL)
+			if(vampire_grab)
+				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_KILL]
+			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
+			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
+	if((. > 0) && dna?.species.strength_modifier)
+		. *= dna.species.strength_modifier
+	else if(. < 0)
+		. = 0
+		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")
+
+
+/// Basic proc used to resist any grab state.
 /mob/proc/resist_grab(moving_resist = FALSE)
 	return TRUE //returning FALSE means we successfully broke free
 
@@ -1013,20 +1044,7 @@
 		pulledby.stop_pulling()
 		return FALSE
 
-	var/resist_chance = BASE_GRAB_RESIST_CHANCE /// see defines/combat.dm, this should be baseline 60%
-	if(dna?.species.strength_modifier)
-		resist_chance *= dna.species.strength_modifier
-
-	switch(pulledby.grab_state)
-		if(GRAB_AGGRESSIVE)
-			resist_chance -= 20	// 40 %
-
-		if(GRAB_NECK)
-			resist_chance -= 40	// 20 %
-
-		if(GRAB_KILL)
-			resist_chance -= 55	// 5 %
-
+	var/resist_chance = get_resist_chance(pulledby)
 	if(resist_chance > 0 && prob(resist_chance))
 		add_attack_logs(pulledby, src, "broke grab", ATKLOG_ALL)
 		visible_message(
@@ -1038,7 +1056,13 @@
 		pulledby.stop_pulling()
 		return FALSE
 
-	adjustStaminaLoss(rand(10, 15))//failure to escape still imparts a pretty serious penalty
+	var/resist_stamina_cost = rand(10, 15)
+	switch(pulledby.grab_state)
+		if(GRAB_NECK)
+			resist_stamina_cost += rand(0, 5)
+		if(GRAB_KILL)
+			resist_stamina_cost += rand(5, 10)
+	adjustStaminaLoss(resist_stamina_cost)//failure to escape still imparts a pretty serious penalty
 	visible_message(
 		span_danger("[name] не удаётся вырваться из захвата [pulledby.name]!"),
 		span_danger("Вам не удаётся вырваться из захвата [pulledby.name]!"),

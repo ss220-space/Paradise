@@ -1,6 +1,12 @@
 /datum/martial_art/adminfu
 	name = "Way of the Dancing Admin"
 	has_explaination_verb = TRUE
+	grab_speed = 0.5 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 20,
+		MARTIAL_GRAB_NECK = 5,
+		MARTIAL_GRAB_KILL = 0,
+	)
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 	weight = 99999999
 

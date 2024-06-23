@@ -50,6 +50,12 @@
 					/datum/martial_combo/ninja_martial_art/neck_slice)
 	has_explaination_verb = TRUE
 	reflection_chance = 50
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 45,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	var/obj/item/clothing/suit/space/space_ninja/my_suit
 	var/obj/item/melee/energy_katana/my_energy_katana
 

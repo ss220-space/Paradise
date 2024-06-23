@@ -7,6 +7,12 @@
 	no_guns = TRUE
 	no_guns_message = "Будь как карп. Карпы не стреляют из пушек. CARP!"
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 45,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keelhaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
 
 /datum/martial_art/the_sleeping_carp/can_use(mob/living/carbon/human/H)
