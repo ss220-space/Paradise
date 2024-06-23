@@ -47688,11 +47688,7 @@
 /obj/machinery/camera{
 	c_tag = "Atmospherics Waste Tank"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cRd" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -47706,11 +47702,7 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cRe" = (
 /obj/structure/cable{
@@ -48250,11 +48242,7 @@
 	id_tag = "waste_sensor";
 	output = 63
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cSs" = (
 /obj/machinery/light,
@@ -48615,11 +48603,7 @@
 	on = 1;
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cTw" = (
 /obj/structure/cable{
@@ -49216,11 +49200,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cUX" = (
 /obj/structure/table,
@@ -49603,11 +49583,7 @@
 	},
 /area/atmos)
 "cVR" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cVS" = (
 /obj/item/radio/beacon,

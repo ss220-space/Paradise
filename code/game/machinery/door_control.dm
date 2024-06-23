@@ -25,7 +25,7 @@
 	/// The button controls things that have matching id tag. Can be a list to control multiple ids.
 	var/id = null
 	/// Should it only work on the same z-level
-	var/safety_z_check = TRUE
+	var/safety_z_check = FALSE
 	/// FALSE- poddoor control, TRUE- airlock control
 	var/normaldoorcontrol = FALSE
 	/// FALSE is closed, TRUE is open.

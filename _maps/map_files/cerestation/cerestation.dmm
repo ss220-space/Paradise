@@ -13409,22 +13409,14 @@
 	},
 /area/bridge)
 "bNl" = (
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bNm" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
 	id = "n2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bNn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -13586,11 +13578,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bOj" = (
 /turf/simulated/mineral/ancient,
@@ -13756,11 +13744,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bPp" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -14985,22 +14969,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "bUj" = (
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUp" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -15116,11 +15092,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUR" = (
 /obj/effect/turf_decal/siding/brown/corner{
@@ -15240,11 +15212,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bVs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -15726,11 +15694,7 @@
 	dir = 1;
 	id = "mix_in"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bWX" = (
 /obj/machinery/requests_console{
@@ -15765,11 +15729,7 @@
 	c_tag = "Atmospherics Gas Mix Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bXa" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -15844,11 +15804,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bXB" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bXD" = (
 /obj/machinery/light/small{
@@ -15919,11 +15875,7 @@
 /area/atmos)
 "bYf" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bYj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23204,7 +23156,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/maintenance/turbine)
 "cVu" = (
 /obj/structure/sign/fire,
@@ -45750,11 +45702,7 @@
 "jnB" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "jnH" = (
 /obj/structure/cable/orange{
@@ -48619,11 +48567,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "mix_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "kdN" = (
 /obj/structure/cable/orange{
@@ -55785,11 +55729,7 @@
 	c_tag = "Atmospherics Air Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "mce" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -67087,11 +67027,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "air_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "pkk" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -76605,11 +76541,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "rTC" = (
 /obj/structure/cable{
@@ -80428,11 +80360,7 @@
 	c_tag = "Atmospherics Nitrogen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "taJ" = (
 /obj/machinery/light{
@@ -87207,11 +87135,7 @@
 "vax" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "vaQ" = (
 /obj/effect/landmark/tiles/burnturf,
@@ -113185,9 +113109,9 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
+abE
+abE
+abE
 cRv
 abW
 mCL
@@ -113442,7 +113366,7 @@ rNK
 rNK
 rNK
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -113955,7 +113879,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 abW
@@ -114212,7 +114136,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 vva
@@ -136848,11 +136772,11 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
 cRv
 cRv
 abW
@@ -137109,8 +137033,8 @@ cRv
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 cRv
@@ -137367,12 +137291,12 @@ abW
 abW
 cRv
 cRv
-vva
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
+abE
 cRv
 abW
 abW
@@ -137625,11 +137549,11 @@ aaf
 aaf
 wIp
 cRv
-vva
+abE
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -137886,15 +137810,15 @@ cRv
 cRv
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
 abW
 abW
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 npV
@@ -138143,7 +138067,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -138151,8 +138075,8 @@ abW
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 aKp
 cSm
@@ -138400,7 +138324,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -138409,8 +138333,8 @@ cRv
 rNK
 rNK
 rNK
-vva
-vva
+abE
+abE
 aKp
 uts
 ieC
@@ -138657,7 +138581,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -138667,7 +138591,7 @@ cRv
 rNK
 rNK
 rNK
-vva
+abE
 aKp
 aKp
 qBa
@@ -138914,17 +138838,17 @@ aaf
 abW
 abW
 cRv
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 jSL
@@ -139174,14 +139098,14 @@ cRv
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 cRv
 wZL
@@ -139431,7 +139355,7 @@ abW
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -139439,7 +139363,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 rNK
 rNK
 nHE
@@ -139688,7 +139612,7 @@ cRv
 cRv
 abW
 cRv
-vva
+abE
 cRv
 cRv
 rNK
@@ -139945,7 +139869,7 @@ rNK
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 cRv
 rNK
