@@ -1435,8 +1435,8 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
-/obj/item/clothing/suit/hoodie/plaidhoodie_green
-	name = "Green plaid hoodie"
+/obj/item/clothing/suit/hoodie/plaid_green
+	name = "green plaid hoodie"
 	desc = "Fashionable and stylish green plaid hoodie with hood."
 	icon_state = "plaidhoodie_green"
 	item_state = "plaidhoodie_green"
