@@ -48,7 +48,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
-		balloon_alert(user, "Недостаточно кредитов для игры! Для начала заплатите!")
+		balloon_alert(user, "недостаточно кредитов!")
 		return
 	if(!in_use && (tokens || freeplay))
 		in_use = 1
