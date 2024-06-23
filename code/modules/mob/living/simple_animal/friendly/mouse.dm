@@ -261,28 +261,24 @@
 	key_third_person = "mshakes"
 	message = "дрож%(ит,ат)%!"
 	anim_type = SHAKE
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/scratch
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "чеш%(ет,ут)%ся!"
 	anim_type = SCRATCH
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/washup
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
 	anim_type = WASHUP
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/ass_shake
 	key = "massshake"
 	key_third_person = "massshakes"
 	message = "крут%(ит,ят)% задницей!"
 	anim_type = ASSSHAKE
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /*
  * Mouse types
