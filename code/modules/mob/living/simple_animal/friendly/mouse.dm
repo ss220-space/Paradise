@@ -247,6 +247,7 @@
 	audio_cooldown = 10 SECONDS
 	var/anim_type = SNIFF
 	volume = 1
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
@@ -260,24 +261,28 @@
 	key_third_person = "mshakes"
 	message = "дрож%(ит,ат)%!"
 	anim_type = SHAKE
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/scratch
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "чеш%(ет,ут)%ся!"
 	anim_type = SCRATCH
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/washup
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
 	anim_type = WASHUP
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/ass_shake
 	key = "massshake"
 	key_third_person = "massshakes"
 	message = "крут%(ит,ят)% задницей!"
 	anim_type = ASSSHAKE
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /*
  * Mouse types
