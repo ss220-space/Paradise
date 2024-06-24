@@ -953,21 +953,22 @@
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
-	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+	var/base_icon_state = replacetext("[icon_state]", "_on", "")
+	var/base_item_state = replacetext("[item_state]", "_on", "")
 
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_on"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_on"
+	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
+	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
 		return
 
+	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
-	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
-	suit_adjusted = !suit_adjusted
+	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
+
 
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
