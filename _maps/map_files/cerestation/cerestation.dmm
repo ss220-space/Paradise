@@ -5384,7 +5384,7 @@
 	},
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/item/clothing/under/maid,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin4)

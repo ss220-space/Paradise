@@ -8,7 +8,7 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
+		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Deathsquad Officer", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
@@ -121,10 +121,10 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		//if("Clockwork Cultist")
-		//	name = "[random_name(pick(MALE,FEMALE))]"
-		//	desc = "A cardboard cutout of a servant of Ratvar."
-		//	icon_state = "cutout_servant"
+		if("Clockwork Cultist")
+			name = "Unknown"
+			desc = "A cardboard cutout of a servant of Ratvar."
+			icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."
