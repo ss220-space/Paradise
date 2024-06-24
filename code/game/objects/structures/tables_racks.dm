@@ -700,7 +700,7 @@
 		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
-/obj/structure/table/tray/Move(NewLoc, direct)
+/obj/structure/table/tray/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/atom/OldLoc = loc
 
 	. = ..()
@@ -721,7 +721,7 @@
 		if(OldLoc != held.loc)
 			held_items -= held_uid
 			continue
-		held.forceMove(NewLoc)
+		held.forceMove(newloc)
 
 
 /obj/structure/table/tray/can_be_pulled(user, force, show_message)

@@ -332,3 +332,15 @@
 	C.Weaken(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+
+
+/// Relay movement for when user controls object via [/proc/possess()]
+/obj/proc/possessed_relay_move(mob/user, direction)
+	var/turf/new_turf = get_step(src, direction)
+	if(!new_turf)
+		return null
+	if(density)
+		. = Move(new_turf, direction)
+	else
+		. = forceMove(new_turf)
+

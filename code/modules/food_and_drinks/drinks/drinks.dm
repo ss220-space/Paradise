@@ -380,18 +380,6 @@
 	icon_state = "britcup"
 	volume = 30
 
-/obj/item/reagent_containers/food/drinks/bag
-	name = "drink bag"
-	desc = "Normally put in wine boxes, or down pants at stadium events."
-	icon_state = "goonbag"
-	volume = 70
-
-/obj/item/reagent_containers/food/drinks/bag/goonbag
-	name = "goon from a Blue Toolbox special edition"
-	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
-	icon_state = "goonbag"
-	list_reagents = list("wine" = 70)
-
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"
 	desc = "Contains oil intended for use on cyborgs, robots, and other synthetics."

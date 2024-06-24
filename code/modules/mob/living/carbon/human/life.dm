@@ -163,9 +163,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
@@ -828,7 +826,7 @@
 
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return
 
 	var/new_hunger
@@ -851,7 +849,7 @@
 
 	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
 
 

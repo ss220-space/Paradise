@@ -448,6 +448,99 @@
 	item_path = /obj/item/storage/belt/wands/full
 	category = "Artefacts"
 
+//Spell books
+
+/datum/spellbook_entry/item/kit_spell_book
+	name = "Kit random spell book"
+	desc = " Kit random spell book! Gives you 4 books at once for the price of 4 books? Or more expensive!"
+	item_path = /obj/item/storage/box/wizard/kit_spell_book
+	category = "Spell books"
+	cost = 4
+
+/datum/spellbook_entry/item/fireball_spell_book
+	name = "Fireball spell book"
+	desc = "Teaches the fireball spell."
+	item_path = /obj/item/spellbook/oneuse/fireball
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/smoke_spell_book
+	name = "Smoke spell book"
+	desc = "Teaches the smoke spell."
+	item_path = /obj/item/spellbook/oneuse/smoke
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/blind_spell_book
+	name = "Blind spell book"
+	desc = "Teaches the blind spell."
+	item_path = /obj/item/spellbook/oneuse/blind
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/mindswap_spell_book
+	name = "Mindswap spell book"
+	desc = "Teaches the mindswap spell."
+	item_path = /obj/item/spellbook/oneuse/mindswap
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/forcewall_spell_book
+	name = "Forcewall spell book"
+	desc = "Teaches the forcewall spell."
+	item_path = /obj/item/spellbook/oneuse/forcewall
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/knock_spell_book
+	name = "Knock spell book"
+	desc = "Teaches the knock spell."
+	item_path = /obj/item/spellbook/oneuse/knock
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/horsemask_spell_book
+	name = "Horsemask spell book"
+	desc = "Teaches the horsemask spell."
+	item_path = /obj/item/spellbook/oneuse/horsemask
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/charge_spell_book
+	name = "Charge spell book"
+	desc = "Teaches the charge spell."
+	item_path = /obj/item/spellbook/oneuse/charge
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/summonitem_spell_book
+	name = "Summon item spell book"
+	desc = "Teaches the summon item spell."
+	item_path = /obj/item/spellbook/oneuse/summonitem
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/sacredflame_spell_book
+	name = "Sacred flame spell book"
+	desc = "Teaches the sacred flame spell."
+	item_path = /obj/item/spellbook/oneuse/sacredflame
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/goliath_dash_spell_book
+	name = "Goliath dash spell book"
+	desc = "Teaches the goliath dash spell."
+	item_path = /obj/item/spellbook/oneuse/goliath_dash
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/watchers_look_spell_book
+	name = "Watchers look spell book"
+	desc = "Teaches the watchers look spell."
+	item_path = /obj/item/spellbook/oneuse/watchers_look
+	category = "Spell books"
+	cost = 1
+
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
@@ -650,7 +743,7 @@
 	var/list/categories = list()
 	var/list/main_categories = list("Spells", "Magical Items", "Loadouts")
 	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
-	var/list/item_categories = list("Artefacts", "Weapons and Armors", "Staves", "Summons")
+	var/list/item_categories = list("Artefacts", "Spell books", "Weapons and Armors", "Staves", "Summons")
 	var/list/loadout_categories = list("Standard", "Unique")
 
 /obj/item/spellbook/proc/initialize()
@@ -754,6 +847,9 @@
 		if("Artefacts")
 			dat += "Various magical artefacts to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+		if("Spell books")
+			dat += "Spell books to train your companions.<BR><BR>"
+			dat += "Various sets of spell books that will help you and your partner in creating chaos.<BR>"
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
@@ -1043,7 +1139,7 @@
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!
-		magichead.flags_inv = NONE	//so you can still see their face
+		magichead.flags_inv &= ~HIDENAME	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
@@ -1103,7 +1199,7 @@
 
 /obj/item/spellbook/oneuse/random/Initialize()
 	. = ..()
-	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
+	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)

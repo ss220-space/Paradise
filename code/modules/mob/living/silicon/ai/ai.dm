@@ -204,9 +204,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	create_eye()
 
-	builtInCamera = new /obj/machinery/camera/portable(src)
-	builtInCamera.c_tag = name
-	builtInCamera.network = list("SS13")
+	builtInCamera = new(src, list("SS13"), name)
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
@@ -1368,7 +1366,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		create_chat_message(M, message_clean, TRUE, FALSE)
+		create_chat_message(M, message_clean, list("radio"))
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

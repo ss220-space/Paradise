@@ -178,25 +178,27 @@
 		return
 
 	default_deconstruction_crowbar(user, O)
-
 	var/obj/item/what = O
-
+	var/obj/item/grab/grab
 	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
-		what = G.affecting
+		grab = O
+		what = grab.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)
 
 	if(!P)
 		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
+		return TRUE
+
+	if(grab)
+		qdel(grab)
+		what.forceMove(src)
+	else if(!user.drop_transfer_item_to_loc(what, src))
+		return
 
 	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
 		"<span class='notice'>You put \the [what] into \the [src].")
 
-	user.drop_transfer_item_to_loc(what, src)
-
-	return
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken

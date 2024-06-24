@@ -116,12 +116,12 @@
 	if(!surpress_send) send_status()
 
 /obj/machinery/door/airlock/Bumped(atom/movable/moving_atom)
-	..(moving_atom)
+	. = ..()
 	if(ismecha(moving_atom))
 		var/obj/mecha/mecha = moving_atom
 		if(density && radio_connection && mecha.occupant && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)))
 			send_status(1)
-	return
+
 
 /obj/machinery/door/airlock/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -148,6 +148,7 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
+	layer = BUTTONS_LAYER
 
 	var/id_tag
 	var/master_tag
@@ -229,6 +230,7 @@
 	name = "access button"
 	anchored = TRUE
 	power_channel = ENVIRON
+	layer = BUTTONS_LAYER
 
 	var/master_tag
 	frequency = AIRLOCK_FREQ

@@ -40,10 +40,10 @@
 	handle_layer()
 
 /obj/structure/tribune/setDir(newdir)
-	..()
+	. = ..()
 	handle_layer()
 
-/obj/structure/tribune/Move(newloc, direct, movetime)
+/obj/structure/tribune/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	handle_layer()
 

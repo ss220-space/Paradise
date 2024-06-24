@@ -9,7 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|LONG_GLIDE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -217,10 +217,20 @@
 
 	return ..()
 
-//Hook for running code when a dir change occurs
+
+/**
+ * Hook for running code when a dir change occurs
+ *
+ * Not recommended to use, listen for the [COMSIG_ATOM_DIR_CHANGE] signal instead (sent by this proc)
+ */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_DIR_CHANGE, dir, newdir) & COMPONENT_ATOM_BLOCK_DIR_CHANGE)
+		newdir = dir
+		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 
 /atom/proc/set_angle(degrees)
@@ -305,9 +315,11 @@
 /atom/proc/on_reagent_change()
 	return
 
+
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return
+	return FALSE
+
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -580,14 +592,14 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	if(!all_persistent)
 		return
-	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
 	if(!islist(all_persistent))
 		all_persistent = list(all_persistent)
 	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
 		if(existing.dupe_id == id)
-			existing.remove_persistent_overlay()
+			qdel(existing)
 
 
 /atom/Topic(href, href_list)
@@ -1171,7 +1183,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				M.create_chat_message(src, message, FALSE, TRUE)
+				M.create_chat_message(src, message, list("italics"))
 
 			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
@@ -1304,8 +1316,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/AM, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
+/atom/Entered(atom/movable/arrived, atom/oldLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, oldLoc)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, oldLoc)
 
 /atom/Exit(atom/movable/AM, atom/newLoc)
 	. = ..()
@@ -1480,8 +1493,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_BE_PURE(TRUE)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
 		return TRUE
-	//if(mover.movement_type & PHASING)
-	//	return TRUE
+	if(mover.movement_type & PHASING)
+		return TRUE
 	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
@@ -1588,4 +1601,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	base_pixel_y = new_value
 
 	pixel_y = pixel_y + base_pixel_y - .
+
+
+/atom/proc/get_visible_name(add_id_name = TRUE)
+	return name
+
+
+/atom/proc/GetVoice()
+	return name
+
+
+/atom/proc/GetTTSVoice()
+	return tts_seed
 

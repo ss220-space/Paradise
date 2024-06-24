@@ -27,7 +27,7 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
+/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	handle_rotation()
 
@@ -118,7 +118,7 @@
 
 
 /obj/structure/chair/setDir(newdir)
-	..()
+	. = ..()
 	handle_rotation(newdir)
 
 
@@ -260,21 +260,20 @@
 	buildstackamount = 5
 	pull_push_speed_modifier = 1
 
-/obj/structure/chair/office/Bump(atom/A)
-	..()
-	if(!has_buckled_mobs())
-		return
 
-	if(propelled)
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			unbuckle_mob(buckled_mob)
-			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.Weaken(12 SECONDS)
-			buckled_mob.Stuttering(12 SECONDS)
-			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [A]!"))
+/obj/structure/chair/office/Bump(atom/bumped_atom, custom_bump)
+	. = ..()
+	if(isnull(.) || !has_buckled_mobs() || !propelled)
+		return .
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		unbuckle_mob(buckled_mob)
+		buckled_mob.throw_at(bumped_atom, 3, propelled)
+		buckled_mob.Weaken(12 SECONDS)
+		buckled_mob.Stuttering(12 SECONDS)
+		buckled_mob.take_organ_damage(10)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [bumped_atom]!"))
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"

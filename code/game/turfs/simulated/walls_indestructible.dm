@@ -158,6 +158,7 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
+	always_lit = TRUE
 
 
 /turf/simulated/wall/indestructible/splashscreen

@@ -44,7 +44,7 @@
 	else
 		toggle_checkers(FALSE)
 
-/datum/component/proximity_monitor/Destroy(force, silent)
+/datum/component/proximity_monitor/Destroy(force)
 	hasprox_receiver = null
 	nested_receiver_locs.Cut()
 	QDEL_LIST(proximity_checkers)

@@ -106,14 +106,14 @@
 			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
-/mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
+/mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(world.time < last_movement)
 		return
 	last_movement = world.time + 0.5 // cap to 20fps
 
-	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
+	var/obj/structure/blob/B = locate() in range("3x3", newloc)
 	if(B)
-		loc = NewLoc
+		loc = newloc
 	else
 		return 0
 

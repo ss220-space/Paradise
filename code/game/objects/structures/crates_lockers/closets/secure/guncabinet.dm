@@ -32,5 +32,7 @@
 				shottas--
 				choise = "projectile"
 			if(choise)
-				. += image(icon, icon_state = choise, pixel_x = i * 4)
+				var/mutable_appearance/gun_olay = mutable_appearance(icon, choise, CLOSET_OLAY_LAYER_CONTENTS)
+				gun_olay.pixel_w = i * 4
+				. += gun_olay
 

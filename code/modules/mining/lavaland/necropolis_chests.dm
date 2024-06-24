@@ -350,6 +350,9 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
+/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat() 
+	return
+
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
 	to_chat(user, span_warning("The mass goes up your arm and inside it!"))
@@ -434,7 +437,7 @@
 		/datum/component/combo_attacks, \
 		combos = combo_list, \
 		max_combo_length = 4, \
-		reset_message = span_notice("You return to neutral stance."), \
+		reset_message = span_notice("принята небоевая стойка"), \
 		can_attack_callback = CALLBACK(src, PROC_REF(can_combo_attack)) \
 	)
 

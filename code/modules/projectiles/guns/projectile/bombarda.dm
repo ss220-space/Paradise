@@ -20,7 +20,7 @@
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
+		balloon_alert(user, "заряжено")
 		A.update_icon()
 		update_icon()
 

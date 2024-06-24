@@ -48,14 +48,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
 
+
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H && H.w_uniform)
-		var/obj/item/clothing/under/U = H.w_uniform
-		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
-		U.accessories += M
-		M.on_attached(U)
-
+	if(H?.w_uniform)
+		var/obj/item/clothing/accessory/medal/gold/captain/medal = new(H.w_uniform)
+		medal.on_attached(H.w_uniform)
 
 
 /datum/job/hop

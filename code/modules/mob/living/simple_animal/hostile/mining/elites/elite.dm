@@ -321,7 +321,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/make_activator(mob/user)
 	activators += user
 	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_activator))
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
@@ -330,7 +330,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		mychild = null
 	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "activation")
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/structure/elite_tumor/process()
 	if(!isturf(loc))

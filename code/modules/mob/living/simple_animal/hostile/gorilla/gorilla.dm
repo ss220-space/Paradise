@@ -213,7 +213,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = get_target_bodyparts(target)
-	return ..() && !ismonkeybasic(the_target) && (!parts || length(parts) > 3)
+	return ..() && !is_monkeybasic(the_target) && (!parts || length(parts) > 3)
 
 
 /mob/living/simple_animal/hostile/gorilla/CanSmashTurfs(turf/T)

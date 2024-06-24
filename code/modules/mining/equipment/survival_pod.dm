@@ -132,6 +132,12 @@
 	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
 
+/turf/simulated/floor/pod/dark/outside //used in lavaland ruins
+	oxygen = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::oxygen //used :: to match outside atmos
+	nitrogen = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::nitrogen
+	temperature = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::temperature
+	planetary_atmos = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface::planetary_atmos
+
 //Door
 /obj/machinery/door/airlock/survival_pod
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'

@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	..()
 
 
-/datum/action/changeling/hivemind_pick/Destroy(force, ...)
+/datum/action/changeling/hivemind_pick/Destroy(force)
 	/*if(linglink)
 		if(owner)
 			linglink.Remove(owner)

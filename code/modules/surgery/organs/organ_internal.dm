@@ -23,7 +23,9 @@
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
-		return
+		return FALSE
+
+	. = TRUE
 
 	do_pickup_animation(src, target)
 
@@ -316,10 +318,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					walk_away(thingy,H,15,2)
+					SSmove_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							SSmove_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed
