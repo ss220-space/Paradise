@@ -467,6 +467,7 @@ GLOBAL_LIST_EMPTY(closets)
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
+	pass_flags = PASSDOOR|PASSTABLE|PASSGRILLE|PASSBLOB|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSVEHICLE|PASSITEM
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
@@ -513,15 +514,11 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
-	var/turf/T = get_turf(newloc)
-	if(T.density)
-		return
-	for(var/atom/A in T.contents)
-		if(A.density && istype(A, /obj/machinery/door))
-			return
-	UpdateTransparency(src, newloc)
-	forceMove(newloc)
+/obj/structure/closet/bluespace/Moved(atom/newloc, direct, glide_size_override = 0, update_dir = TRUE)
+	. = ..()
+	if(loc)
+		UpdateTransparency(src, loc)
+
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
