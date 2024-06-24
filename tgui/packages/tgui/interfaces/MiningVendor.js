@@ -178,9 +178,11 @@ const MiningVendorItemsCategory = (properties, context) => {
         <ImageButton
           key={item.name}
           bold
+          asset
           color="brown"
           imageSize="64px"
-          image={item.image}
+          image={item.imageId}
+          imageAsset={"mining_vendor64x64"}
           content={item.name}
         >
           <ImageButton.Item
