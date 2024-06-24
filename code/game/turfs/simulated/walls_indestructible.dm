@@ -139,6 +139,7 @@
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
 	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/hierophant)
 
 /turf/simulated/wall/indestructible/uranium
 	name = "uranium wall"
@@ -146,6 +147,7 @@
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
 	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
 
 /turf/simulated/wall/indestructible/metal
 	name = "wall"
@@ -153,6 +155,19 @@
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
 	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+	/turf/simulated/wall,
+	/turf/simulated/wall/r_wall,
+	/obj/structure/falsewall,
+	/obj/structure/falsewall/reinforced,
+	/obj/structure/falsewall/clockwork,
+	/turf/simulated/wall/rust,
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated,
+	/turf/simulated/wall/indestructible/metal,
+	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall/indestructible/reinforced/rusted,
+	)
 
 /turf/simulated/wall/indestructible/abductor
 	name = "alien wall"
