@@ -83,10 +83,10 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
-	new_patient.set_resting(TRUE, instant = TRUE)
-	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()
+	new_patient.forceMove(loc)
+	new_patient.set_resting(TRUE, instant = TRUE)
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
@@ -103,7 +103,7 @@
 
 /obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
-	if(grabber.grab_state < GRAB_AGGRESSIVE || !iscarbon(grabbed_thing))
+	if(!iscarbon(grabbed_thing))
 		return .
 	add_fingerprint(grabber)
 	take_patient(grabbed_thing, grabber)

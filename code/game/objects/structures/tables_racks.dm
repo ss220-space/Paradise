@@ -237,6 +237,10 @@
 
 /obj/structure/table/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
+	if(isitem(grabbed_thing))
+		if(step(grabbed_thing, get_dir(grabbed_thing.loc, loc)))
+			grabber.stop_pulling()
+		return .
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
 		return .
 	tablepush(grabbed_thing, grabber)
