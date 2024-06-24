@@ -83,6 +83,8 @@
 		return
 
 	var/move_result = move_animation(current_move_anim_mode)
+	for(var/mob/transfer_mob in contents)
+		transfer_mob.lastarea = get_area(loc)//Forcibly updating lastarea mobs
 	if(isnull(move_result))
 		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(reverse_direction(dir) in current_tube.directions())))
 			outside_tube()
@@ -101,8 +103,6 @@
 
 
 /obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
-	for(var/mob/transfer_mob in contents)
-		transfer_mob.lastarea = get_area(loc)
 	if(stage == MOVE_ANIMATION_STAGE_ONE)
 		next_dir = current_tube.get_exit(dir)
 
