@@ -50,8 +50,6 @@
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
 
-	set_pixel_offsets_from_dir(32, -32, 32, -32)
-
 	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)
 
 

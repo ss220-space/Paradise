@@ -4,7 +4,7 @@
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
-	baseturf = /turf/simulated/floor/plating/asteroid/airless
+	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
 	footstep = FOOTSTEP_SAND

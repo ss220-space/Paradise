@@ -9,14 +9,13 @@ Arrow direction - where to pod will move
 
 		Station				Fliped
 	1			2		1			2
-	--->	 <---		|			|
-	|			|		--->	 <---
-
+	|		<---		 --->		|
+	--->		|		|		 <---
 
 	4			8		4			8
-  ---			/\		---		   /\
+  	 ---		/\	  ---		   /\
 	|			|		|			|
-    \/		  ---	   \/			---
+   \/		  ---	 	\/			---
 
 */
 /obj/structure/transit_tube/station

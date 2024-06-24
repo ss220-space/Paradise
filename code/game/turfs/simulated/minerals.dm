@@ -7,7 +7,7 @@
 	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
-	baseturf = /turf/simulated/floor/plating/asteroid
+	baseturf = /turf/simulated/floor/plating/asteroid/airless
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
