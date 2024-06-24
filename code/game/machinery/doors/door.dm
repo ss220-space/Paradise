@@ -124,12 +124,12 @@
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(FALSE, mecha.occupant)
 					return
-				open()
+				INVOKE_ASYNC(src, PROC_REF(open))
 			else
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(TRUE, mecha.occupant)
 					return
-				do_animate("deny")
+				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
 
 /obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -171,7 +171,7 @@
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			cmag_switch(FALSE, user)
 			return
-		open()
+		INVOKE_ASYNC(src, PROC_REF(open))
 		if(isbot(user))
 			var/mob/living/simple_animal/bot/bot = user
 			bot.door_opened(src)
@@ -182,7 +182,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		cmag_switch(TRUE, user)
 		return
-	do_animate("deny")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
 
 /obj/machinery/door/proc/pry_open_check(mob/user)
@@ -250,7 +250,7 @@
 		cmag_switch(TRUE, user)
 		return
 	if(density)
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
@@ -340,7 +340,6 @@
 		return TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
-	set waitfor = FALSE
 	if(!density)
 		return
 	flick("door_spark", src)
@@ -352,7 +351,7 @@
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
 	if(!canopen || locked || !hasPower())
 		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
-			do_animate("deny")
+			INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		if(hasPower() && sound_ready)
 			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 			soundcooldown()
@@ -362,16 +361,16 @@
 		if(!H.get_assignment(0, 0)) //Humans can't game inverted access by taking their ID off or using spare IDs.
 			if(!density)
 				return
-			do_animate("deny")
+			INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 			to_chat(H, span_warning("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
 			if(sound_ready)
 				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 				soundcooldown() //Thanks, mechs
 			return
 	if(density)
-		open()
+		INVOKE_ASYNC(src, PROC_REF(open))
 	else
-		close()
+		INVOKE_ASYNC(src, PROC_REF(close))
 
 /obj/machinery/door/proc/soundcooldown()
 	if(!sound_ready)
@@ -401,14 +400,12 @@
 				flick("door_deny", src)
 
 /obj/machinery/door/proc/open()
-	set waitfor = FALSE
-
 	if(!density)
 		return TRUE
 	if(operating)
 		return FALSE
 	operating = DOOR_OPENING
-	do_animate("opening")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
 	set_density(FALSE)
@@ -424,23 +421,21 @@
 
 
 /obj/machinery/door/proc/close()
-	set waitfor = FALSE
-
 	if(density)
 		return TRUE
 	if(operating || welded)
-		return
+		return FALSE
 	if(safe)
 		for(var/turf/turf in locs)
 			for(var/atom/movable/M in turf)
 				if(M.density && M != src) //something is blocking the door
 					if(autoclose)
 						autoclose_in(6 SECONDS)
-					return
+					return FALSE
 
 	operating = DOOR_CLOSING
 
-	do_animate("closing")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "closing")
 	layer = closingLayer
 	sleep(0.5 SECONDS)
 	set_density(TRUE)

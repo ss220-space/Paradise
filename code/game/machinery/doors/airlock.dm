@@ -127,7 +127,7 @@ About the new airlock wires panel:
  */
 /obj/machinery/door/airlock/flicker()
 	if(density && !operating && arePowerSystemsOn())
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return TRUE
 	return FALSE
 
@@ -544,7 +544,6 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/do_animate(animation)
-	set waitfor = FALSE
 	switch(animation)
 		if("opening")
 			update_icon(AIRLOCK_OPENING)
