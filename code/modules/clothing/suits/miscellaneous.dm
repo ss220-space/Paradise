@@ -1448,7 +1448,7 @@
 	item_state = "plaidhoodie_white"
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_red
-	name = "yed plaid hoodie"
+	name = "red plaid hoodie"
 	desc = "Fashionable and stylish red plaid hoodie with hood."
 	icon_state = "plaidhoodie_red"
 	item_state = "plaidhoodie_red"
@@ -1460,7 +1460,7 @@
 	item_state = "plaidhoodie_yellow"
 
 /obj/item/clothing/suit/blackcoat
-	name = "Black coat"
+	name = "black coat"
 	desc = "A long leather raincoat. It makes you feel like a human being."
 	icon_state = "blackcoat"
 	item_state = "blackcoat"
