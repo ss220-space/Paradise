@@ -514,7 +514,7 @@ GLOBAL_LIST_EMPTY(closets)
 	UpdateTransparency(mover, loc)
 
 
-/obj/structure/closet/bluespace/Moved(atom/newloc, direct, glide_size_override = 0, update_dir = TRUE)
+/obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(loc)
 		UpdateTransparency(src, loc)
