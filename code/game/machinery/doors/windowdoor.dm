@@ -10,7 +10,7 @@
 	flags = ON_BORDER
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	pass_flags_self = PASSGLASS
-	opacity = 0
+	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0

@@ -69,7 +69,7 @@
 
 /obj/structure/spider/terrorweb/queen/builder
 	max_integrity = 35
-	opacity = 1
+	opacity = TRUE
 	name = "drone web"
 	desc = "Extremely thick web."
 

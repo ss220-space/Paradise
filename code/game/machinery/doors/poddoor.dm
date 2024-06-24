@@ -18,7 +18,7 @@
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
@@ -33,7 +33,7 @@
 /obj/machinery/door/poddoor/impassable/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity)
@@ -91,15 +91,13 @@
 		apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/multi_tile/Destroy()
-	apply_opacity_to_my_turfs(0)
+	apply_opacity_to_my_turfs(FALSE)
 	return ..()
 
 //Multi-tile poddoors don't turn invisible automatically, so we change the opacity of the turfs below instead one by one.
-/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
-	for(var/turf/T in locs)
-		T.opacity = new_opacity
-		T.has_opaque_atom = new_opacity
-		T.reconsider_lights()
+/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
+	for(var/turf/turf as anything in locs)
+		turf.set_opacity(new_opacity)
 	update_freelook_sight()
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver

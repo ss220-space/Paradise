@@ -96,7 +96,7 @@
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "membrane0"
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 160
 	resintype = "membrane"
 	pass_flags_self = PASSGLASS
@@ -293,7 +293,7 @@
 
 /obj/structure/alien/resin/door/proc/update_freelook_sight()
 	if(GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, FALSE)
+		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 
 #undef RESIN_DOOR_CLOSED
