@@ -2580,8 +2580,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
