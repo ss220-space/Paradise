@@ -101,6 +101,8 @@
 
 
 /obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
+	for(var/mob/transfer_mob in contents)
+		transfer_mob.lastarea = get_area(loc)
 	if(stage == MOVE_ANIMATION_STAGE_ONE)
 		next_dir = current_tube.get_exit(dir)
 
@@ -269,8 +271,6 @@
 	A.Move(get_step(loc, direction), direction)
 	if(ismob(A))
 		var/mob/M = A
-		//since the transit tube pod and the mob will be in the same zone, forceMove will not update the mob’s zone and this must be done forcibly.
-		M.lastarea = get_area(loc)
 		M.reset_perspective(null)
 
 
