@@ -1442,19 +1442,19 @@
 	item_state = "plaidhoodie_green"
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_white
-	name = "White plaid hoodie"
+	name = "white plaid hoodie"
 	desc = "Fashionable and stylish white plaid hoodie with hood."
 	icon_state = "plaidhoodie_white"
 	item_state = "plaidhoodie_white"
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_red
-	name = "Red plaid hoodie"
+	name = "yed plaid hoodie"
 	desc = "Fashionable and stylish red plaid hoodie with hood."
 	icon_state = "plaidhoodie_red"
 	item_state = "plaidhoodie_red"
 
 /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
-	name = "Yellow plaid hoodie"
+	name = "yellow plaid hoodie"
 	desc = "Fashionable and stylish yellow plaid hoodie with hood."
 	icon_state = "plaidhoodie_yellow"
 	item_state = "plaidhoodie_yellow"
