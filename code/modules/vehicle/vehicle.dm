@@ -23,6 +23,8 @@
 	var/generic_pixel_x = 0
 	/// All dirs apply this pixel_y for the driver.
 	var/generic_pixel_y = 0
+	/// If we have a xenobio red potion applied to us.
+	var/potion_boosted = FALSE
 	/// Delay between movements in deciseconds, lower = faster, higher = slower
 	var/vehicle_move_delay = 0.35 SECONDS
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
@@ -111,6 +113,27 @@
 	return TRUE
 
 
+/// Checks to see if we've been hit with a red xenobio potion to make us faster.
+/obj/vehicle/proc/check_potion(obj/item/slimepotion/speed/speed_potion, mob/living/user)
+	if(potion_boosted)
+		to_chat(user, span_warning("[user] has already been coated with red, that's as fast as it'll go!"))
+		return FALSE
+	if(has_buckled_mobs()) // effect won't take place till the next time someone mounts it, so just prevent that situation
+		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's being ridden!"))
+		return FALSE
+	var/speed_limit = round(CONFIG_GET(number/movedelay/run_delay) + get_config_multiplicative_speed_by_path(/mob/living/carbon/human), 0.01)
+	if(vehicle_move_delay <= speed_limit) // I say speed but this is actually move delay, so you have to be ABOVE the speed limit to pass
+		to_chat(user, span_warning("[src] can't be made any faster!"))
+		return FALSE
+	vehicle_move_delay = speed_limit
+	potion_boosted = TRUE
+	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
+	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
+	qdel(speed_potion)
+	return TRUE
+
+
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
 	if(!has_buckled_mobs())
@@ -137,6 +160,12 @@
 		buckled_mob.setDir(dir)
 		buckled_mob.pixel_x = generic_pixel_x
 		buckled_mob.pixel_y = generic_pixel_y
+
+
+/// Used to update dir of buckled mobs on Move().
+/obj/vehicle/proc/handle_buckled_dir()
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
 
 
 /obj/item/key
@@ -193,17 +222,13 @@
 	set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay))
 	COOLDOWN_START(src, vehicle_move_cooldown, add_delay)
 
-	for(var/mob/living/buckled_mob as anything in buckled_mobs)
-		buckled_mob.setDir(direction)
 
-
-/obj/vehicle/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+/obj/vehicle/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
-	if(!.)
-		return .
 	handle_vehicle_layer()
 	handle_vehicle_offsets()
 	handle_vehicle_icons()
+	handle_buckled_dir()
 
 
 /obj/vehicle/Bump(atom/bumped_atom, custom_bump)

@@ -40,17 +40,17 @@
 /datum/action/item_action/agent_box/Trigger(left_click = TRUE)
 	. = ..()
 	if(!.)
-		return FALSE
+		return .
 	if(istype(owner.loc, /obj/structure/closet/cardboard/agent))
 		var/obj/structure/closet/cardboard/agent/box = owner.loc
 		if(box.open())
 			owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 			recall_box_animation()
-		return
+		return .
 	// Box closing from here on out.
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
 		to_chat(owner, span_warning("You need more space to activate this implant!"))
-		return
+		return .
 	owner.playsound_local(owner, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	spawn_box()
 
@@ -59,13 +59,15 @@
 	// Do the box's fade in spawn animation with an image so it follows the owner.
 	var/image/fake_box = image('icons/obj/cardboard_boxes.dmi', owner, "agentbox", ABOVE_MOB_LAYER)
 	owner.flick_overlay_view(fake_box, 0.4 SECONDS)
-	fake_box.alpha = 0
+	fake_box.alpha = 200
 	fake_box.pixel_z = 30
-	animate(fake_box, pixel_z = fake_box.pixel_z - 30, alpha = fake_box.alpha + 255, time = 3, loop = 1)
-	sleep(3)
-
+	animate(fake_box, pixel_z = 0, time = 0.3 SECONDS)
+	sleep(0.3 SECONDS)
+	if(!isturf(owner.loc))
+		to_chat(owner, span_warning("You need more space to activate this implant!"))
+		return
 	// Spawn the actual box
-	var/obj/structure/closet/cardboard/agent/box = new(get_turf(owner), owner)
+	var/obj/structure/closet/cardboard/agent/box = new(owner.loc)
 	box.implant_user_UID = owner.UID()
 	// Slightly shorter time since we needed 0.3s to to do the spawn animation.
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible), 1.7 SECONDS)
@@ -163,11 +165,13 @@
 /obj/structure/closet/cardboard/agent/proc/create_fake_box()
 	if(fake_box)
 		return
-	fake_box = new(get_turf(src))
+	fake_box = new(loc)
+	fake_box.pass_flags = PASSEVERYTHING
 	fake_box.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // This object should be completely invisible.
 	box_img = image(icon, fake_box, icon_state, ABOVE_MOB_LAYER)
 	box_img.alpha = 128
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(move_fake_box))
+	RegisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_glide_size_update))
 	var/mob/living/implant_user = locateUID(implant_user_UID)
 	add_image_to_client(box_img, implant_user?.client)
 
@@ -175,12 +179,21 @@
 /obj/structure/closet/cardboard/agent/proc/move_fake_box(datum/source, oldloc, move_dir)
 	SIGNAL_HANDLER
 
-	// For non-standard movement such as teleports.
-	if(!move_dir)
-		fake_box.loc = get_turf(src)
+	if(QDELETED(src))
 		return
-	// For basic 8-directional movement.
-	fake_box.loc = get_step(fake_box, move_dir)
+
+	fake_box.Move(loc)
+	if(fake_box.loc != loc)	// for non-standard movement such as teleports.
+		fake_box.forceMove(loc)
+
+
+/obj/structure/closet/cardboard/agent/proc/on_glide_size_update(datum/source, target)
+	SIGNAL_HANDLER
+
+	if(QDELETED(src))
+		return
+
+	fake_box.set_glide_size(target)
 
 
 /obj/structure/closet/cardboard/agent/proc/go_invisible(invis_time = 2 SECONDS)

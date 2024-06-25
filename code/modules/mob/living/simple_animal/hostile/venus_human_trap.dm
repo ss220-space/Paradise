@@ -5,8 +5,8 @@
 	desc = "A large pulsating plant..."
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "flower_bud"
-	layer = MOB_LAYER + 0.9
-	opacity = 0
+	layer = SPACEVINE_MOB_LAYER
+	opacity = FALSE
 	canSmoothWith = list()
 	smooth = SMOOTH_FALSE
 	var/growth_time = 1200

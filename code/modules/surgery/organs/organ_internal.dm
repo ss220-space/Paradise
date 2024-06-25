@@ -23,7 +23,9 @@
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
-		return
+		return FALSE
+
+	. = TRUE
 
 	do_pickup_animation(src, target)
 

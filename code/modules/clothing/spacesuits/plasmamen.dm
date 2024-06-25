@@ -15,6 +15,7 @@
 	light_power = 1
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	can_toggle = TRUE
 	var/on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
@@ -33,37 +34,32 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
-	visor_toggling()
-	update_icon()
+	weldingvisortoggle(silent = TRUE)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(!user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
-		toggle_welding_screen(user)
+	if(Adjacent(user))
+		weldingvisortoggle(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
-	up = !up
-	clothing_flags ^= visor_clothing_flags
-	flags_inv ^= visor_flags_inv
-	flags_inv_transparent ^= visor_flags_inv_transparent
-	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
-		flash_protect ^= initial(flash_protect)
-	if(visor_vars_to_toggle & VISOR_TINT)
-		tint = up ? tint_up : initial(tint)
+/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_helmet_light))
+		toggle_light(user)
+	else if(istype(action, /datum/action/item_action/toggle_welding_screen/plasmaman))
+		weldingvisortoggle(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
-	if(weldingvisortoggle(user))
-		if(on)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			on = FALSE
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
-			update_icon(UPDATE_OVERLAYS)
-			actions_types = list(/datum/action/item_action/toggle_helmet_light)
-		else
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
-			update_icon(UPDATE_OVERLAYS)
+/obj/item/clothing/head/helmet/space/plasmaman/weldingvisortoggle(mob/user, silent = FALSE)
+	. = ..()
+	if(!.)
+		return .
+	if(!silent)
+		playsound(loc, 'sound/mecha/mechmove03.ogg', 30, TRUE) //Visors don't just come from nothing
+	if(!on)
+		return .
+	toggle_light()
+	if(user)
+		to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
@@ -84,25 +80,17 @@
 			item_state = icon_state
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/living/carbon/human/user)
-	toggle_light(user)
-
-
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
+	if(!on && !up)
+		if(user)
+			to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
+		return FALSE
+
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
-
-	if(on)
-		if(!up)
-			if(user)
-				to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
-			set_light_on(FALSE)
-		else
-			set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
-
+	set_light_on(on)
 	update_equipped_item(update_speedmods = FALSE)
+	return TRUE
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)

@@ -3,6 +3,8 @@
 /// The maximum for glide_size to be clamped to.
 /// This shouldn't be higher than the icon size, and generally you shouldn't be changing this, but it's here just in case.
 #define MAX_GLIDE_SIZE 32
+/// Default glide size for movables.
+#define DEFAULT_GLIDE_SIZE 8
 
 /// Compensating for time dilation
 GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)

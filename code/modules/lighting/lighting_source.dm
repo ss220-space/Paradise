@@ -296,13 +296,13 @@
 				var/turf/above = GET_TURF_ABOVE(T)
 				while(above)
 					// If we find a non transparent turf, end
-					if(!above.transparent_floor || IS_OPAQUE_TURF(above) || T.has_opaque_atom)
+					if(!above.transparent_floor || IS_OPAQUE_TURF(above))
 						break
 					INSERT_CORNERS(corners, above)
 					above = GET_TURF_ABOVE(above)
 		else // Yes I know this could be acomplished with an if in the for loop, but it's fukin lighting code man
 			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
-				if(IS_OPAQUE_TURF(T) || T.has_opaque_atom)
+				if(IS_OPAQUE_TURF(T))
 					continue
 				INSERT_CORNERS(corners, T)
 

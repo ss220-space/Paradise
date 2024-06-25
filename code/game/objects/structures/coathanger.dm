@@ -11,7 +11,7 @@
 		/obj/item/clothing/suit/storage/det_suit,
 		/obj/item/clothing/suit/storage/blueshield,
 		/obj/item/clothing/suit/leathercoat,
-		/obj/item/clothing/suit/browntrenchcoat,
+		/obj/item/clothing/suit/storage/browntrenchcoat,
 	)
 
 
@@ -86,7 +86,7 @@
 		/obj/item/clothing/suit/storage/labcoat/mortician = "coat_mor",
 		/obj/item/clothing/suit/storage/labcoat = "coat_lab",
 		/obj/item/clothing/suit/storage/blueshield = "coat_det",
-		/obj/item/clothing/suit/browntrenchcoat = "coat_brtrench",
+		/obj/item/clothing/suit/storage/browntrenchcoat = "coat_brtrench",
 		/obj/item/clothing/suit/leathercoat = "coat_leather",
 	)
 

@@ -168,6 +168,12 @@
 	var/conseal_time = 4 SECONDS
 
 
+/obj/effect/proc_holder/spell/shadowling_guise/Destroy()
+	if(action?.owner)
+		reveal(action.owner)
+	return ..()
+
+
 /obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
 	return new /datum/spell_targeting/self
 
@@ -178,14 +184,12 @@
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
 	if(QDELETED(user))
 		return
 
 	user.alpha = initial(user.alpha)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
-
 
 
 /obj/effect/proc_holder/spell/shadowling_vision
@@ -195,6 +199,11 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
+
+
+/obj/effect/proc_holder/spell/shadowling_vision/Destroy()
+	action?.owner?.set_vision_override(null)
+	return ..()
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()

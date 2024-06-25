@@ -437,7 +437,7 @@
 		/datum/component/combo_attacks, \
 		combos = combo_list, \
 		max_combo_length = 4, \
-		reset_message = span_notice("You return to neutral stance."), \
+		reset_message = span_notice("принята небоевая стойка"), \
 		can_attack_callback = CALLBACK(src, PROC_REF(can_combo_attack)) \
 	)
 

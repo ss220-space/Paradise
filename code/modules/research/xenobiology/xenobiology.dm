@@ -500,19 +500,19 @@
 		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
 
-	if(istype(O, /obj/vehicle))
-		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = CONFIG_GET(number/movedelay/run_delay)
-		if(V.vehicle_move_delay <= vehicle_speed_mod)
-			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
-			return ..()
-		V.vehicle_move_delay = vehicle_speed_mod
+	else if(istype(O, /obj/vehicle))
+		var/obj/vehicle/vehicle = O
+		if(vehicle.check_potion(src, user))
+			return
+		return ..()
+
 	else if (!drop && istype(O, /obj/machinery/smartfridge))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
 		return ..()
 
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
 	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
-	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
 

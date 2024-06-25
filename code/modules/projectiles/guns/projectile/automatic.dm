@@ -38,12 +38,12 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(magazine)
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
+				balloon_alert(user, "заряжено")
 				magazine.loc = get_turf(loc)
 				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 				magazine = null
 			else
-				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
+				balloon_alert(user, "заряжено")
 			if(alarmed)
 				alarmed = 0
 			user.drop_transfer_item_to_loc(AM, src)
@@ -64,11 +64,11 @@
 	if(!select)
 		burst_size = 1
 		fire_delay = 0
-		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
+		balloon_alert(user, "полуавтомат")
 	else
 		burst_size = initial(burst_size)
 		fire_delay = initial(fire_delay)
-		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
@@ -262,10 +262,10 @@
 			select = 1
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
 		if(1)
 			select = 0
-			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
+			balloon_alert(user, "подствольный гранатомёт")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 

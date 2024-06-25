@@ -15,7 +15,7 @@
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/shutters/preopen/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
