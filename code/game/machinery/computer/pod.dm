@@ -388,9 +388,9 @@ GLOBAL_LIST_EMPTY(deathsquad_teles)
 
 
 /obj/structure/deathsquad_tele/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(!ztarget || !working)
-		return ..()
-
+		return .
 	INVOKE_ASYNC(src, PROC_REF(async_bump_effect), moving_atom)
 
 

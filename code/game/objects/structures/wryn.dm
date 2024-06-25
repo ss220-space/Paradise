@@ -54,7 +54,7 @@
 	desc = "Wax just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
 	icon_state = "window"
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 20
 	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
 

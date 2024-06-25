@@ -16,29 +16,15 @@
 	return considering
 
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE)
-	. = ..()
-	if(.)
-		return .
-
-	var/list/jetpacks = list()
-
-	if(istype(back, /obj/item/tank/jetpack))
-		jetpacks += back
-
-	var/obj/item/clothing/suit/space/space_suit = wear_suit
-	if(istype(space_suit) && space_suit.jetpack)
-		jetpacks += space_suit.jetpack
-
-	for(var/obj/item/tank/jetpack/jetpack as anything in jetpacks)
-		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
-			return TRUE
-
-	if(dna.species.spec_Process_Spacemove(src, movement_dir))
+/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	if(movement_type & FLYING)
 		return TRUE
+	if(dna.species.spec_Process_Spacemove(src, movement_dir, continuous_move = FALSE))
+		return TRUE
+	return ..()
 
 
-/mob/living/carbon/human/Move(NewLoc, direct)
+/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
@@ -61,7 +47,7 @@
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && body_position != LYING_DOWN && loc == NewLoc)
+	if(S && body_position != LYING_DOWN && loc == newloc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints
@@ -186,7 +172,7 @@
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || incorporeal_move || mob_negates_gravity())
+	if(buckled || incorporeal_move || body_position == LYING_DOWN || mob_negates_gravity())
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
@@ -206,7 +192,7 @@
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
 		return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & (SLIDE_ICE|SLIDE)))
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & SLIDE_ICE))
 		return FALSE
 
 	return ..()

@@ -182,26 +182,27 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
+
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
+	if(istype(target))
+		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You cannot modify [target]!"))
+
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -435,6 +436,7 @@
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)

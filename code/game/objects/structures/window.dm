@@ -132,11 +132,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 
-/obj/structure/window/setDir(direct)
-	if(!fulltile)
-		..()
-	else
-		..(FULLTILE_WINDOW_DIR)
+
+/obj/structure/window/setDir(newdir)
+	return ..(fulltile ? FULLTILE_WINDOW_DIR : newdir)
 
 
 /obj/structure/window/CanAllowThrough(atom/movable/mover, border_dir)
@@ -557,7 +555,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon_state = "twindow"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
@@ -578,10 +576,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		original_color = color
 	if(opacity)
 		animate(src, color="[original_color]", time=5)
-		set_opacity(0)
+		set_opacity(FALSE)
 	else
 		animate(src, color="#222222", time=5)
-		set_opacity(1)
+		set_opacity(TRUE)
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
@@ -767,7 +765,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
 	icon_state = "tinted_window"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
@@ -901,19 +899,19 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		debris += new/obj/item/stack/sheet/brass_fake(src, 1)
 
-/obj/structure/window/reinforced/clockwork/setDir(direct)
+/obj/structure/window/reinforced/clockwork/setDir(newdir)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
-		E.setDir(direct)
+		E.setDir(newdir)
 		made_glow = TRUE
-	..()
+	return ..()
 
-/obj/structure/window/reinforced/clockworkfake/setDir(direct)
+/obj/structure/window/reinforced/clockworkfake/setDir(newdir)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/window/single(get_turf(src))
-		E.setDir(direct)
+		E.setDir(newdir)
 		made_glow = TRUE
-	..()
+	return ..()
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
 	obj_integrity = max_integrity

@@ -99,7 +99,7 @@
 	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
-		if(LAZYLEN(target.butcher_results) || issmall(target))
+		if(LAZYLEN(target.butcher_results) || is_monkeybasic(target))
 			target.harvest(chassis) // Butcher the mob with our drill.
 		else
 			target.gib()

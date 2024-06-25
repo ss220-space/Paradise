@@ -71,7 +71,7 @@
 	return 1
 
 /obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(ismob(moving_atom))
 		ActivationReaction(moving_atom,"mob_bump")
 

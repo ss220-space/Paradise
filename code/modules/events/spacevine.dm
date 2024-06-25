@@ -459,7 +459,7 @@
 			qdel(master)
 	master = null
 	mutations.Cut()
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
@@ -641,7 +641,7 @@
 	if(!energy)
 		icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		set_opacity(1)
+		set_opacity(TRUE)
 	else
 		icon_state = pick("Hvy1", "Hvy2", "Hvy3")
 		energy = 2

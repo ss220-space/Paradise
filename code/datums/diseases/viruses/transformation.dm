@@ -103,7 +103,7 @@
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))
 		return
-	if(!issmall(H))
+	if(!is_monkeybasic(H))
 		if(istype(H.dna.species.primitive_form))
 			H.monkeyize()
 			transformed = TRUE

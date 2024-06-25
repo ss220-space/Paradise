@@ -338,7 +338,7 @@ SUBSYSTEM_DEF(garbage)
 			// indicates the objects Destroy() does not respect force
 			#ifdef TESTING
 			if(!trash.no_respect_force)
-				testing("WARNING: [D.type] has been force deleted, but is \
+				testing("WARNING: [to_delete.type] has been force deleted, but is \
 					returning an immortal QDEL_HINT, indicating it does \
 					not respect the force flag for qdel(). It has been \
 					placed in the queue, further instances of this type \
@@ -361,7 +361,7 @@ SUBSYSTEM_DEF(garbage)
 		else
 			#ifdef REFERENCE_TRACKING
 			if(!trash.no_hint)
-				log_gc("WARNING: [D.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
+				log_gc("WARNING: [to_delete.type] is not returning a qdel hint. It is being placed in the queue. Further instances of this type will also be queued.")
 			#endif
 			trash.no_hint++
 			SSgarbage.Queue(to_delete)

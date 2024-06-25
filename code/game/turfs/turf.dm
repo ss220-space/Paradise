@@ -51,12 +51,22 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
-	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	/// Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
 	var/dynamic_lumcount = 0
-	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	/// Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
 	var/directional_opacity = NONE
-	///Lazylist of movable atoms providing opacity sources.
+	/// Lazylist of movable atoms providing opacity sources.
 	var/list/atom/movable/opacity_sources
+	/// Bool, whether this turf will always be illuminated no matter what area it is in
+	var/always_lit = FALSE
+	var/tmp/lighting_corners_initialised = FALSE
+	/// Our lighting object.
+	var/tmp/atom/movable/lighting_object/lighting_object
+	// Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
 
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
@@ -106,7 +116,7 @@
 		update_light()
 
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	if(istype(loc, /area/space))
 		force_no_gravity = TRUE
@@ -191,7 +201,7 @@
 			if(obstacle == mover || obstacle == oldloc)
 				continue
 			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle, TRUE)
+				mover.Bump(obstacle, custom_bump = TRUE)
 				return FALSE
 
 	var/border_dir = get_dir(src, mover)
@@ -203,14 +213,14 @@
 			continue
 		if(border_obstacle.flags & ON_BORDER)
 			if(!border_obstacle.CanPass(mover, border_dir))
-				mover.Bump(border_obstacle, TRUE)
+				mover.Bump(border_obstacle, custom_bump = TRUE)
 				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
 	if(!CanPass(mover, border_dir))
-		mover.Bump(src, TRUE)
+		mover.Bump(src, custom_bump = TRUE)
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
@@ -228,7 +238,7 @@
 				tompost_bump = obstacle
 				top_layer = current_layer
 	if(tompost_bump)
-		mover.Bump(tompost_bump, TRUE)
+		mover.Bump(tompost_bump, custom_bump = TRUE)
 		return FALSE
 
 	return TRUE //Nothing found to block so return success!
@@ -241,10 +251,6 @@
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(M.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -326,8 +332,6 @@
 
 	W.blueprint_data = old_blueprint_data
 
-	recalc_atom_opacity()
-
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
 	lighting_corner_SW = old_lighting_corner_SW
@@ -353,7 +357,6 @@
 		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		recalc_atom_opacity()
 		lighting_object = old_lighting_object
 
 		directional_opacity = old_directional_opacity

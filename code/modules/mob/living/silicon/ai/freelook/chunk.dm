@@ -135,18 +135,25 @@
 
 	for(var/z_level in lower_z to upper_z)
 		var/list/local_cameras = list()
-		for(var/obj/machinery/camera/camera in urange(CHUNK_SIZE, locate(x + (CHUNK_SIZE / 2), y + (CHUNK_SIZE / 2), z_level)))
-			if(camera.can_use())
-				local_cameras += camera
+		for(var/maybe_camera in urange(CHUNK_SIZE, locate(x + (CHUNK_SIZE / 2), y + (CHUNK_SIZE / 2), z_level)))
+			if(istype(maybe_camera, /obj/machinery/camera))
+				var/obj/machinery/camera/definetly_camera = maybe_camera
+				if(definetly_camera.can_use())
+					local_cameras += definetly_camera
 
-		for(var/mob/living/silicon/robot/sillycone in urange(CHUNK_SIZE, locate(x + (CHUNK_SIZE / 2), y + (CHUNK_SIZE / 2), z_level)))
-			if(sillycone.camera?.can_use())
-				local_cameras += sillycone.camera
+			else if(isrobot(maybe_camera))
+				var/mob/living/silicon/robot/iron_cameraman = maybe_camera
+				if(iron_cameraman.camera?.can_use())
+					local_cameras += iron_cameraman.camera
 
+			else if(isAI(maybe_camera))
+				var/mob/living/silicon/ai/TV_camera = maybe_camera
+				if(TV_camera.builtInCamera?.can_use())
+					local_cameras += TV_camera.builtInCamera
 		cameras["[z_level]"] = local_cameras
 
 		var/image/mirror_from = GLOB.cameranet.obscured_images[GET_Z_PLANE_OFFSET(z_level) + 1]
-		for(var/turf/lad as anything in block(locate(max(x, 1), max(y, 1), z_level), locate(min(x + CHUNK_SIZE - 1, world.maxx), min(y + CHUNK_SIZE - 1, world.maxy), z_level)))
+		for(var/turf/lad as anything in block(max(x, 1), max(y, 1), z_level, min(x + CHUNK_SIZE - 1, world.maxx), min(y + CHUNK_SIZE - 1, world.maxy), z_level))
 			var/image/our_image = new /image(mirror_from)
 			our_image.loc = lad
 			turfs[lad] = our_image

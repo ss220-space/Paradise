@@ -80,6 +80,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Give us unsafe_unwrenching protection
 #define TRAIT_GUSTPROTECTION "gustprotection"
 
+/// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
+#define TRAIT_NO_GLIDE "no_glide"
+
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
 

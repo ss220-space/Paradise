@@ -23,7 +23,7 @@
 		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return
 
-	if(!istype(target) || !target.mind || ismonkeybasic(target) || has_no_DNA(target))
+	if(!istype(target) || !target.mind || is_monkeybasic(target) || has_no_DNA(target))
 		to_chat(user, span_warning("[target] is not compatible with this ability."))
 		return FALSE
 

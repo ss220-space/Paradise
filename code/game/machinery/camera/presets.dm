@@ -2,27 +2,27 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/emp_proof/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // X-RAY
 
 
-/obj/machinery/camera/xray/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/xray/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // MOTION
 
-/obj/machinery/camera/motion/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/motion/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
 	. = ..(input_assembly = new_assembly)
 // ALL UPGRADES
 
 
-/obj/machinery/camera/all/Initialize(mapload, list/networks, obj/item/camera_assembly/input_assembly)
+/obj/machinery/camera/all/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly), new /obj/item/assembly/prox_sensor(new_assembly), new /obj/item/analyzer(new_assembly))
 	. = ..(input_assembly = new_assembly)
@@ -32,7 +32,7 @@
 	var/number = 0 //camera number in area
 
 //This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/Initialize(mapload)
+/obj/machinery/camera/autoname/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	number = 1
 	var/area/A = get_area(src)

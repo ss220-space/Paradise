@@ -7,11 +7,11 @@
 
 
 /datum/dna/gene/monkey/can_activate(mob/living/mutant, flags)
-	return ishuman(mutant) && !ismonkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
+	return ishuman(mutant) && !is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
 
 
 /datum/dna/gene/monkey/can_deactivate(mob/living/mutant, flags)
-	return ishuman(mutant) && ismonkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
+	return ishuman(mutant) && is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
 
 
 /datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, flags)

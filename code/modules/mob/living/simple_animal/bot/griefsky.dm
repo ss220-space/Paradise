@@ -151,7 +151,7 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "[base_icon][on]"
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -160,7 +160,7 @@
 			icon_state = spin_icon
 			playsound(loc,'sound/effects/spinsabre.ogg',50,1,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -174,8 +174,7 @@
 						return
 					else	// not next to perp
 						var/turf/olddist = get_dist(src, target)
-						glide_for(BOT_STEP_DELAY)
-						walk_to(src, target,1,3) //he's a fast fucker
+						SSmove_manager.move_to(src, target, 1, 3)	//he's a fast fucker
 						if((get_dist(src, target)) >= (olddist))
 							frustration++
 						else
@@ -244,7 +243,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
@@ -63,7 +63,7 @@
 		layer = initial(layer)
 
 /obj/machinery/door/setDir(newdir)
-	..()
+	. = ..()
 	update_dir()
 
 
@@ -94,11 +94,11 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/door/Bumped(atom/movable/moving_atom)
-	..()
+/obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
+	. = ..()
 
-	if(operating || emagged)
-		return
+	if(skip_effects || operating || emagged)
+		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
 		if((isrobot(B)) && B.stat)
@@ -130,9 +130,9 @@
 					cmag_switch(TRUE, mecha.occupant)
 					return
 				do_animate("deny")
-		return
 
-/obj/machinery/door/Move(new_loc, new_dir)
+
+/obj/machinery/door/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -487,12 +487,12 @@
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, 0)
+		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 /obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

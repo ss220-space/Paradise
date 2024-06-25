@@ -78,13 +78,11 @@
 	affecting_areas.Cut()
 	return ..()
 
-/obj/machinery/door/firedoor/Bumped(atom/movable/moving_atom)
+
+/obj/machinery/door/firedoor/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	if(panel_open || operating)
-		SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-		return
-	if(!density)
-		return ..()
-	return 0
+		return ..(moving_atom, TRUE)
+	return ..(moving_atom, density)
 
 
 /obj/machinery/door/firedoor/proc/adjust_light()

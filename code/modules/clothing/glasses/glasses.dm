@@ -734,7 +734,7 @@
 	up = !up
 	tint = up ? tint_up : initial(tint)
 	if(user.glasses == src)
-		to_chat(user, span_notice("[up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see."]"))
+		to_chat(user, span_notice("[up ? "You activate [src], allowing you to see." : "You deactivate [src], obscuring your vision."]"))
 		user.wear_glasses_update(src)
 
 

@@ -423,7 +423,7 @@
 	else
 		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_FEET]'>[(shoes && !(shoes.item_flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(!issmall(src))
+	if(!is_monkeybasic(src))
 		if(obscured & ITEM_SLOT_GLOVES)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
@@ -437,12 +437,12 @@
 	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (obscured & ITEM_SLOT_CLOTH_INNER))
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 	else
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BELT]'>[(belt && !(belt.item_flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A></td></tr>"
 		// Pockets
 		dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
@@ -1045,30 +1045,29 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/check_obscured_slots()
+/mob/living/carbon/human/check_obscured_slots(check_transparent)
 	. = ..()
 
-	if(wear_suit)
-		if(wear_suit.flags_inv & HIDEGLOVES)
-			. |= ITEM_SLOT_GLOVES
-		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			. |= ITEM_SLOT_CLOTH_INNER
-		if(wear_suit.flags_inv & HIDESHOES)
-			. |= ITEM_SLOT_FEET
+	var/hidden_flags = NONE
 
-	if(head)
-		if(head.flags_inv & HIDEMASK)
-			. |= ITEM_SLOT_MASK
-		if(head.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(head.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	for(var/obj/item/equipped_item as anything in get_equipped_items())
+		var/item_flags = equipped_item.flags_inv
+		if(check_transparent && equipped_item.flags_inv_transparent)
+			item_flags ^= equipped_item.flags_inv_transparent
+		hidden_flags |= item_flags
 
-	if(wear_mask)
-		if(wear_mask.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(wear_mask.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	if(hidden_flags & HIDEGLOVES)
+		. |= ITEM_SLOT_GLOVES
+	if(hidden_flags & HIDEJUMPSUIT)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(hidden_flags & HIDESHOES)
+		. |= ITEM_SLOT_FEET
+	if(hidden_flags & HIDEMASK)
+		. |= ITEM_SLOT_MASK
+	if(hidden_flags & HIDEGLASSES)
+		. |= ITEM_SLOT_EYES
+	if(hidden_flags & HIDEHEADSETS)
+		. |= ITEM_SLOT_EARS
 
 
 /mob/living/carbon/human/proc/check_has_mouth()
@@ -1080,7 +1079,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if(skipface && (ITEM_SLOT_CLOTH_INNER & check_obscured_slots()))
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_CLOTH_INNER))
 		return PLURAL
 	return gender
 
@@ -2031,7 +2030,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()
@@ -2095,7 +2094,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(QDELETED(src))
 		return
 
-	if(issmall(src))
+	if(is_monkeybasic(src))
 		while(meatleft > 0)
 			new dna.species.meat_type(loc)
 			meatleft--

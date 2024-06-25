@@ -11660,7 +11660,7 @@
 /area/centcom/zone2)
 "iJd" = (
 /obj/structure/table/wood,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -13959,7 +13959,7 @@
 	icon_state = "nazi";
 	name = "Officer's Uniform"
 	},
-/obj/item/clothing/suit/blacktrenchcoat{
+/obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
 /obj/item/clothing/shoes/black,
@@ -30832,7 +30832,7 @@
 /area/centcom/supply)
 "wiz" = (
 /obj/structure/table/wood,
-/obj/item/clothing/suit/blacktrenchcoat,
+/obj/item/clothing/suit/storage/blacktrenchcoat,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
