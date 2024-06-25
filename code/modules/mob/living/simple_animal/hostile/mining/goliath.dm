@@ -42,6 +42,7 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit, /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf)
 	tame_chance = 0
 	bonus_tame_chance = 10
+	COOLDOWN_DECLARE(post_charge_delay)
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
@@ -78,7 +79,22 @@
 	pull_force = PULL_FORCE_DEFAULT
 	..(gibbed)
 
+
+/mob/living/simple_animal/hostile/asteroid/goliath/handle_automated_action()
+	if(charge_turf || !COOLDOWN_FINISHED(src, post_charge_delay))
+		return FALSE
+	return ..()
+
+
+/mob/living/simple_animal/hostile/asteroid/goliath/handle_automated_movement()
+	if(charge_turf || !COOLDOWN_FINISHED(src, post_charge_delay))
+		return FALSE
+	return ..()
+
+
 /mob/living/simple_animal/hostile/asteroid/goliath/AttackingTarget() //override to OpenFire close by
+	if(charge_turf)
+		return FALSE
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/L = target
@@ -168,8 +184,8 @@
 	UnregisterSignal(src, COMSIG_MOVABLE_BUMP)
 	charge_turf = null
 	SSmove_manager.stop_looping(src)
-	if(target && Adjacent(target))
-		INVOKE_ASYNC(src, PROC_REF(AttackingTarget))
+	INVOKE_ASYNC(src, PROC_REF(CheckAndAttack))
+	COOLDOWN_START(src, post_charge_delay, 2 SECONDS)
 
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)

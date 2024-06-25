@@ -242,7 +242,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = 8)
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE)
 	setDir(direct)
 	ghostimage.setDir(dir)
 

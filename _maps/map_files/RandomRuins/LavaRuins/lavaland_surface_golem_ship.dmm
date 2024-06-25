@@ -216,7 +216,7 @@
 /obj/structure/shuttle/engine/huge{
 	dir = 8
 	},
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
 "ls" = (
 /obj/machinery/light{
@@ -336,7 +336,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
 "oY" = (
 /obj/structure/computerframe,
@@ -554,7 +554,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
 "CQ" = (
 /obj/machinery/vending/wallmed{
@@ -668,7 +668,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
 	},
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
 "LV" = (
 /obj/machinery/vending/hydronutrients,
@@ -812,6 +812,9 @@
 /obj/item/resonator,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
+"Tq" = (
+/turf/simulated/floor/pod/dark/outside,
+/area/shuttle/freegolem)
 "TQ" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -821,7 +824,7 @@
 /area/shuttle/freegolem)
 "Uh" = (
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/pod/dark,
+/turf/simulated/floor/pod/dark/outside,
 /area/shuttle/freegolem)
 "UC" = (
 /obj/structure/computerframe,
@@ -914,9 +917,9 @@ yB
 "}
 (2,1,1) = {"
 yB
-yf
+Tq
 lh
-yf
+Tq
 yB
 yB
 yB
@@ -928,9 +931,9 @@ yB
 yB
 yB
 yB
-yf
+Tq
 lh
-yf
+Tq
 yB
 "}
 (3,1,1) = {"
@@ -963,9 +966,9 @@ wG
 yB
 yB
 cI
-yf
+Tq
 lh
-yf
+Tq
 cI
 yB
 yB

@@ -46,11 +46,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// How many people we've hit with clients
 	var/num_sentient_people_hit = 0
 	/// The rod levels up with each kill, increasing in size and auto-renaming itself.
-	var/dnd_style_level_up = TRUE
+	var/dnd_style_level_up = FALSE
 	/// Whether the rod can loop across other z-levels. The rod will still loop when the z-level is self-looping even if this is FALSE.
 	var/loopy_rod = FALSE
 	/// Basically our speed, lower = faster
 	var/move_delay = 1
+	/// Whether this rod was spawned by admins.
+	var/admin_spawned = FALSE
 
 
 /obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/special_target, move_delay = 1, force_looping = FALSE)
@@ -61,6 +63,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	src.special_target = special_target
 	src.move_delay = move_delay
 	src.loopy_rod ||= force_looping
+
+	if(!destination_turf && !special_target)
+		admin_spawned = TRUE
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering_atom))
 
@@ -87,6 +92,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/update_name(updates = ALL)
 	. = ..()
 	if(!dnd_style_level_up)
+		name = initial(name)
 		return .
 	switch(num_sentient_mobs_hit)
 		if(0)
@@ -185,6 +191,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return ..()
 
 
+/obj/effect/immovablerod/possessed_relay_move(mob/user, direction)
+	. = ..()
+	if(. && !admin_spawned)
+		walk_in_direction(direction)
+
+
 /obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc)
 	SIGNAL_HANDLER
 
@@ -196,7 +208,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	// We hit what we wanted to hit, time to go.
 	special_target = null
 	if(random_shift)
-		walk_in_direction(turn(dir, pick(5; 90, 5; -90, 45, -45)))
+		walk_in_direction(turn(dir, pick(5; 90, 5; -90, 45; 45, 45; -45)))
 	else
 		walk_in_direction(dir)
 
@@ -227,7 +239,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(special_target && clong == special_target)
 		complete_trajectory()
-	else if(!special_target && prob(5))
+	else if(!special_target && !admin_spawned && prob(2))
 		complete_trajectory(random_shift = TRUE)
 
 	if(isturf(clong))	// If we Bump into a turf, turf go boom.

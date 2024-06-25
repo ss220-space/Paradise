@@ -10,7 +10,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5
@@ -25,7 +25,7 @@
 	for(var/i = 0, i < frames, i++)
 		alpha -= step
 		if(alpha < 160)
-			set_opacity(0)
+			set_opacity(FALSE)
 		stoplag()
 
 /obj/effect/particle_effect/smoke/New()
@@ -148,7 +148,7 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opacity = 0
+	opacity = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing

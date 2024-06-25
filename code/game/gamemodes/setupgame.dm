@@ -22,7 +22,7 @@
 
 	// SE blocks to assign.
 	var/list/numsToAssign= list()
-	for(var/i in 1 to DNA_SE_LENGTH)
+	for(var/i in 1 to DNA_SE_LENGTH - 1) //Because it's inclusive
 		numsToAssign += i
 
 	// Standard muts

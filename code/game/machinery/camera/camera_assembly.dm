@@ -90,10 +90,9 @@
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
 	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork), src)
+	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork), input, src)
 	loc = C
 	C.auto_turn()
-	C.c_tag = input
 
 	for(var/i = 5; i >= 0; i -= 1)
 		var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )

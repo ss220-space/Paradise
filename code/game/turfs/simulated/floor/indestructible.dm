@@ -90,6 +90,11 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
+/turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
+	oxygen = /turf/simulated/floor/plating/lava/smooth::oxygen //lava near tendril
+	nitrogen = /turf/simulated/floor/plating/lava/smooth::nitrogen
+	temperature = /turf/simulated/floor/plating/lava/smooth::temperature
+
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
@@ -154,6 +159,7 @@
 /turf/simulated/floor/indestructible/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
+	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/abductor/Initialize(mapload)
 	. = ..()

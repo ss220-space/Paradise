@@ -1,7 +1,7 @@
 /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
+	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
@@ -126,6 +126,9 @@
 			else
 				managed_overlays = em_block
 
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+
 	switch(light_system)
 		if(MOVABLE_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
@@ -136,6 +139,9 @@
 /atom/movable/Destroy(force)
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
 
 	. = ..()
 	if(loc)
@@ -328,8 +334,9 @@
 	loc = T
 
 
-/atom/movable/proc/set_glide_size(target = 8)
+/atom/movable/proc/set_glide_size(target = DEFAULT_GLIDE_SIZE)
 	if(HAS_TRAIT(src, TRAIT_NO_GLIDE))
+		glide_size = DEFAULT_GLIDE_SIZE
 		return
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
 	glide_size = target
@@ -433,8 +440,8 @@
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
-				if(client_mobs_in_contents)
-					update_parallax_contents()
+			if(client_mobs_in_contents) // We're done moving, update our parallax now
+				update_parallax_contents()
 			moving_diagonally = NONE
 			return .
 
@@ -469,7 +476,10 @@
 
 	if(!inertia_moving && momentum_change)
 		newtonian_move(Dir)
-	if(!moving_diagonally && client_mobs_in_contents)
+	// If we ain't moving diagonally right now, update our parallax
+	// We don't do this all the time because diag movements should trigger one call to this, not two
+	// Waste of cpu time, and it fucks the animate
+	if (!moving_diagonally && client_mobs_in_contents)
 		update_parallax_contents()
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
@@ -564,11 +574,9 @@
 			if(is_multi_tile && isturf(destination))
 				var/list/new_locs = block(
 					destination,
-					locate(
-						min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
-						min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
-						destination.z
-					)
+					min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
+					min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
+					destination.z
 				)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
@@ -1077,10 +1085,19 @@
 	if(anchored && pulledby)
 		pulledby.stop_pulling()
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_ANCHORED, anchorvalue)
+  
+
+/atom/movable/set_opacity(new_opacity)
+	. = ..()
+	if(isnull(.) || !isturf(loc))
+		return .
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+	else
+		RemoveElement(/datum/element/light_blocking
 
 
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
-
-
+  

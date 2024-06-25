@@ -145,7 +145,7 @@
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	base_cooldown = 40 SECONDS
 	cooldown_min = 20 SECONDS //50 deciseconds reduction per rank
-	clothes_req = TRUE
+	clothes_req = FALSE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 
@@ -394,9 +394,10 @@
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
-	FB.preparePixelProjectile(target, get_turf(target), user, targeting.click_params)
+	var/turf/target_turf = get_turf(target)
+	FB.preparePixelProjectile(target, target_turf, user, targeting.click_params)
 	FB.fire()
-	user.newtonian_move(get_dir(U, T))
+	user.newtonian_move(get_dir(target_turf, T))
 
 	return TRUE
 
