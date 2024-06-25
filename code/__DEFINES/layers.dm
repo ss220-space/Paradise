@@ -75,7 +75,7 @@
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 30
 /// Plane for balloon text (text that fades up)
-//#define BALLOON_CHAT_PLANE 31
+#define BALLOON_CHAT_PLANE 31
 
 //-------------------- HUD ---------------------
 //HUD layer defines
@@ -216,6 +216,7 @@
 #define POINT_LAYER 12
 #define CHAT_LAYER 12.0001 // Do not insert layers between these two values
 #define CHAT_LAYER_MAX 12.9999
+
 #define LIGHTING_LAYER 15
 #define ABOVE_LIGHTING_LAYER 17
 #define BYOND_LIGHTING_LAYER 19

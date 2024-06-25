@@ -534,7 +534,7 @@
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	item = /obj/item/seeds/ambrosia/cruciatus
-	cost = 1
+	cost = 4
 	job = list(JOB_TITLE_BOTANIST)
 
 //Atmos Tech
