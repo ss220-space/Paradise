@@ -53149,6 +53149,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/machinery/conveyor{
+	id = "CargoTransfer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71545,6 +71548,10 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "CargoTransfer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
