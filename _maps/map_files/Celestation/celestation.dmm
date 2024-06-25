@@ -10942,6 +10942,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/trainee_engineer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -34140,6 +34141,7 @@
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "fDd" = (
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -42920,6 +42922,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start/atmospheric,
 /turf/simulated/floor/plasteel,
 /area/atmos/break_room)
 "hrf" = (
@@ -50532,6 +50535,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/start/atmospheric,
 /turf/simulated/floor/plasteel,
 /area/atmos/break_room)
 "iWP" = (
@@ -52227,6 +52231,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "joE" = (
@@ -61411,6 +61416,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/somsec)
+"llp" = (
+/obj/effect/landmark/start/trainee_engineer,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull"
+	},
+/area/engine/hardsuitstorage)
 "lls" = (
 /obj/structure/cable/orange,
 /obj/machinery/power/apc{
@@ -64454,6 +64465,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/fpmaint)
+"lVA" = (
+/obj/effect/landmark/start/trainee_engineer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/break_room)
 "lVC" = (
 /obj/structure/table,
 /obj/machinery/vending/wallmed{
@@ -66336,6 +66353,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
+/obj/effect/landmark/start/trainee_engineer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -67038,6 +67056,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "mxZ" = (
@@ -103072,6 +103091,7 @@
 	},
 /area/medical/psych)
 "tUy" = (
+/obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -121283,6 +121303,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/radio/intercom{
 	pixel_x = -28
+	},
+/obj/machinery/camera/autoname{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -227218,7 +227241,7 @@ eRj
 bWk
 bWk
 bWk
-lgP
+llp
 srD
 ygK
 xSR
@@ -227982,7 +228005,7 @@ dIq
 vMj
 bCa
 kmv
-lDx
+lVA
 fwu
 xSR
 emW
@@ -240971,7 +240994,7 @@ cNL
 uld
 hvU
 hvU
-hvU
+asP
 hvU
 iZE
 hvU
@@ -245350,7 +245373,7 @@ tqz
 tyo
 hMU
 lZl
-hMU
+moU
 apZ
 jhv
 wiW
@@ -245864,7 +245887,7 @@ jTL
 vNw
 hMU
 lZl
-hMU
+moU
 lRg
 jhv
 olL
