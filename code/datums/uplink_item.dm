@@ -1795,7 +1795,7 @@
 
 /datum/uplink_item/device_tools/ion_caller
 	name = "Low Orbit Ion Cannon Remote"
-	desc = "The Syndicate has recently installed a remote satellite nearby capable of generating a localized ion storm every 20 minutes. \
+	desc = "The Syndicate has recently installed a remote satellite nearby capable of generating a localized ion storm every 15 minutes. \
 			However, your local authorities will be informed of your general location when it is activated."
 	item = /obj/item/ion_caller
 	limited_stock = 1	// Might be too annoying if someone had mulitple.
