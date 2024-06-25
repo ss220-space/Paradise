@@ -489,8 +489,9 @@
 	var/ghost_hours_noghosttime
 	var/i = 0
 	for(i = 1, i<=candidate_ghosts.len, i++)
-		ghost_ckey = (candidate_ghosts[i]).ckey
-		ghost_hours_noghosttime = ((candidate_ghosts[i]).client).get_exp_type(EXP_TYPE_CREW)
+		var/mob/dead/observer/volunteer =  (candidate_ghosts[i])
+		ghost_ckey = volunteer.ckey
+		ghost_hours_noghosttime = ((volunteer.client).get_exp_type(EXP_TYPE_CREW))
 		filter[i] = "[ghost_ckey]|[ghost_hours_noghosttime]" //byond dont allow to get account with | symbol,so no problem with it
 	var/ghost_after_list[max_slots]
 

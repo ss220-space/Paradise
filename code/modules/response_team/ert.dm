@@ -101,8 +101,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		var/ghost_hours_noghosttime
 		var/i = 0
 		for(i = 1, i<=ert_candidates.len, i++)
-			ghost_ckey = (ert_candidates[i]).ckey
-			ghost_hours_noghosttime = ((ert_candidates[i]).client).get_exp_type(EXP_TYPE_CREW)
+			var/mob/dead/observer/volunteer = ert_candidates[i]
+			ghost_ckey = volunteer.ckey
+			ghost_hours_noghosttime = (volunteer.client).get_exp_type(EXP_TYPE_CREW)
 			filter[i] = "[ghost_ckey]|[ghost_hours_noghosttime]" //byond dont allow to get account with | symbol,so no problem with it
 		var/ghost_after_list[ert_candidates.len]
 		for(var/i2 = total_slots, (i2 > 0 && filter.len), i2--)
