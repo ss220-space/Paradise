@@ -100,7 +100,7 @@
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.setDir(direction)
+			buckled_mob.setDir(dir)
 
 
 /obj/structure/chair/proc/handle_layer()
@@ -120,7 +120,7 @@
 
 /obj/structure/chair/setDir(newdir)
 	. = ..()
-	handle_rotation(newdir)
+	handle_rotation()
 
 
 /obj/structure/chair/examine(mob/user)

@@ -344,8 +344,8 @@
 			push_anchored = TRUE
 
 	var/pushing_mob = isliving(AM)
+	var/mob/living/mob_to_push = AM
 	if(pushing_mob)
-		var/mob/living/mob_to_push = AM
 		// we cannot push mobs into dense objects behind them
 		var/turf/turf_to_check = get_step(mob_to_push, dir)
 		if(!turf_to_check || turf_to_check.density)
@@ -380,11 +380,18 @@
 	var/current_dir
 	if(pushing_mob)
 		current_dir = AM.dir
-	if(AM.Move(get_step(AM.loc, dir_to_target), dir_to_target, glide_size))
+	if(AM.Move(get_step(AM.loc, dir_to_target), dir_to_target))
 		AM.add_fingerprint(src)
 		Move(get_step(loc, dir_to_target), dir_to_target)
+		if(pushing_mob && mob_to_push.buckled)
+			mob_to_push.buckled.set_glide_size(glide_size)
+		else
+			AM.set_glide_size(glide_size)
 	if(current_dir)
-		AM.setDir(current_dir)
+		if(pushing_mob && mob_to_push.buckled)
+			mob_to_push.buckled.setDir(current_dir)
+		else
+			AM.setDir(current_dir)
 	now_pushing = null
 
 
@@ -847,8 +854,9 @@
 
 	if(moving_diagonally != FIRST_DIAG_STEP)
 		update_push_movespeed()
-		if(isliving(pulling))
-			set_pull_offsets(pulling, grab_state)
+
+	if(isliving(pulling))
+		set_pull_offsets(pulling, grab_state)
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)

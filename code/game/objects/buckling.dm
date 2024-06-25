@@ -68,12 +68,6 @@
 	if(!is_buckle_possible(target, force, check_loc))
 		return FALSE
 
-	if(target.pulledby)
-		if(buckle_prevents_pull)
-			target.pulledby.stop_pulling()
-		else if(isliving(target.pulledby))
-			target.pulledby.reset_pull_offsets(target, override = TRUE)
-
 	// check if we are failed to move from adjacent turf
 	if(!check_loc && target.loc != loc)
 		var/old_flags = target.pass_flags
@@ -82,6 +76,12 @@
 			target.pass_flags = old_flags
 			return FALSE
 		target.pass_flags = old_flags
+
+	if(target.pulledby)
+		if(buckle_prevents_pull)
+			target.pulledby.stop_pulling()
+		else if(isliving(target.pulledby))
+			target.pulledby.reset_pull_offsets(target, override = TRUE)
 
 	if(anchored)
 		ADD_TRAIT(target, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)

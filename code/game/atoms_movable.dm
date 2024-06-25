@@ -69,6 +69,9 @@
 	/// Attempt to resume grab after moving instead of before.
 	var/atom/movable/moving_from_pull
 
+	/// Just another var to avoid infinite recursion with double pulling. Move along.
+	var/pulling_glidesize_update = FALSE
+
 	/// Whether this atom should have its dir automatically changed when it moves.
 	/// Setting this to FALSE allows for things such as directional windows to retain dir on moving
 	/// without snowflake code all of the place.
@@ -337,6 +340,9 @@
 	var/turf/pull_turf = get_step(pulling.loc, move_dir)
 	if(!pull_turf || pull_turf.density)
 		return FALSE
+	if(ismob(src))
+		var/mob/mob = src
+		mob.changeNext_move(CLICK_CD_GRABBING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
@@ -428,12 +434,19 @@
 	for(var/mob/buckled_mob as anything in buckled_mobs)
 		buckled_mob.set_glide_size(target)
 
-	// temporal soulution until I figure out how to eliminate gliding stutter on failed diagonal pulling of buckled mobs
-	if(pulling && !LAZYIN(pulling.buckled_mobs, src))
+	// we update glide size for pulled things like this to make it extra smooth
+	if(pulling && !pulling.pulling_glidesize_update && !LAZYIN(buckled_mobs, pulling))
+		pulling.pulling_glidesize_update = TRUE
 		pulling.set_glide_size(target)
-		var/mob/pulling_mob = pulling
-		if(ismob(pulling_mob) && pulling_mob.buckled)
-			pulling_mob.buckled.set_glide_size(target)
+		pulling.pulling_glidesize_update = FALSE
+
+	// corrects glide size for the movable our pullee is buckled onto
+	if(ismob(pulling))
+		var/mob/mob_pulling = pulling
+		if(mob_pulling.buckled && mob_pulling.buckled != src && !mob_pulling.buckled.pulling_glidesize_update)
+			mob_pulling.buckled.pulling_glidesize_update = TRUE
+			mob_pulling.buckled.set_glide_size(target)
+			mob_pulling.buckled.pulling_glidesize_update = FALSE
 
 
 /**
