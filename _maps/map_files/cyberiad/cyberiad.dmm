@@ -22325,7 +22325,7 @@
 /area/maintenance/auxsolarport)
 "bsy" = (
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
+	control_area = "AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_access = list(75)
@@ -54243,7 +54243,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Hallway";
+	control_area = "AI Satellite Hallway";
 	name = "AI Chamber Hallway Turret Control";
 	pixel_x = 24;
 	pixel_y = -24;
@@ -55897,7 +55897,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Atmospherics";
+	control_area = "AI Satellite Atmospherics";
 	name = "AI Satellite Atmospherics Turret Control";
 	pixel_x = -28;
 	req_access = list(75)
@@ -55915,7 +55915,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Service";
+	control_area = "AI Satellite Service";
 	name = "AI Satellite Service Bay Turret Control";
 	pixel_x = 24;
 	req_access = list(75)
@@ -71972,7 +71972,7 @@
 "nMn" = (
 /obj/machinery/light/small,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
+	control_area = "AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_y = -24;
 	req_access = list(75)
