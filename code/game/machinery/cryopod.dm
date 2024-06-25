@@ -254,6 +254,7 @@
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain
+		/obj/item/gun/energy/gun/blueshield
 	)
 
 //////
