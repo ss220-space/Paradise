@@ -442,7 +442,7 @@ effective or pretty fucking useless.
 
 
 #define ION_CALLER_AI_TARGETING		"AI targeting"
-#define ION_CALLER_COMMS_TARGETING	"Comms targeting"
+#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
 
 /obj/item/ion_caller
 	name = "low-orbit ion cannon remote"
@@ -483,9 +483,9 @@ effective or pretty fucking useless.
 	else
 		. += "<b>[span_darkmblue("\"AI Buster\"")]</b> satellite will be ready to fire in [DisplayTimeText(COOLDOWN_TIMELEFT(src, ioncaller_ai_cooldown))]."
 	if(next_comms_strike <= world.time)
-		. += "<b>[span_green("\"TeleComm Suppresser\"")]</b> satellite is ready to fire."
+		. += "<b>[span_green("\"Telecomm Suppresser\"")]</b> satellite is ready to fire."
 	else
-		. += "<b>[span_green("\"TeleComm Suppresser\"")]</b> satellite will be ready to fire in [DisplayTimeText(next_comms_strike - world.time)]."
+		. += "<b>[span_green("\"Telecomm Suppresser\"")]</b> satellite will be ready to fire in [DisplayTimeText(next_comms_strike - world.time)]."
 
 
 /obj/item/ion_caller/proc/options_visual_update()
