@@ -534,13 +534,13 @@ effective or pretty fucking useless.
 		return
 
 	var/choice = show_radial_menu(user, src, choices, src, require_near = TRUE)
-	if(choise == "Cancel")
+	if(choice == "Cancel")
 		return
 
-	if(!usability_check(user, area_check = TRUE, satellite_check = choise))
+	if(!usability_check(user, area_check = TRUE, satellite_check = choice))
 		return
 
-	switch(choise)
+	switch(choice)
 		if(ION_CALLER_AI_TARGETING)
 			COOLDOWN_START(src, ioncaller_ai_cooldown, recharge_time)
 			to_chat(user, span_notice("[src]'s screen flashes <b>[span_darkmblue("blue")]</b> for a moment."))
