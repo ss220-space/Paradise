@@ -261,13 +261,10 @@
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
+	var/obj/item/organ/internal/lungs/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 
-	if(!lungs || (lungs && lungs.is_dead()))
-		if(health >= HEALTH_THRESHOLD_CRIT)
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+	if(!istype(lungs) || lungs?.is_dead())
+		adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
 
 		if(dna.species)
 			var/datum/species/species = dna.species
@@ -281,10 +278,8 @@
 			else if(species.breathid == "n2")
 				throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 
-		return FALSE
-	else if(istype(lungs, /obj/item/organ/internal/lungs))
-		var/obj/item/organ/internal/lungs/really_lungs = lungs
-		really_lungs.check_breath(breath, src)
+	else
+		lungs.check_breath(breath, src)
 
 
 // USED IN DEATHWHISPERS
@@ -696,7 +691,7 @@
 
 /mob/living/carbon/human/handle_critical_condition()
 	if(status_flags & GODMODE)
-		return 0
+		return
 
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
@@ -728,9 +723,7 @@
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
 					if(prob(health * -0.1))
-						if(ishuman(src))
-							var/mob/living/carbon/human/H = src
-							H.set_heartattack(TRUE)
+						set_heartattack(TRUE)
 					if(prob(health * -0.2))
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)
@@ -738,7 +731,7 @@
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
-						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						to_chat(src, span_userdanger("Your chest hurts..."))
 						Paralyse(4 SECONDS)
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)

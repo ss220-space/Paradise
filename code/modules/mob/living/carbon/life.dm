@@ -45,35 +45,27 @@
 		return
 	if(times_fired % 2 == 1)
 		breathe() //Breathe every other tick, unless suffocating
-	else
-		if(istype(loc, /obj/))
-			var/obj/location_as_object = loc
-			location_as_object.handle_internal_lifeform(src, 0)
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
-	if(reagents.has_reagent("lexorin"))
-		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
 
+	// creating empty gas mixture
+	var/datum/gas_mixture/breath
 	var/datum/gas_mixture/environment
 	if(loc)
 		environment = loc.return_air()
-
-	var/datum/gas_mixture/breath = new
-
-	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
-		AdjustLoseBreath(2 SECONDS)
 
 	//Suffocate
 	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
-		if(istype(loc, /obj/))
-			var/obj/loc_as_obj = loc
-			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
+		breath = get_breath()
+
+	if(!breath)
+		breath = new
 		var/percentage_from_internal = 0
 		var/percentage_from_loc = 1
 		//Breathe from internal
@@ -105,17 +97,28 @@
 		if(ishuman(src) && !internal && environment.temperature < 278 && environment.return_pressure() > 20)
 			new /obj/effect/frosty_breath(loc, src)
 
-//Third link in a breath chain, calls handle_breath_temperature()
+/mob/living/carbon/proc/get_breath()
+	if(internal)	//Breath from internal
+		if(internal.loc != src || !has_airtight_items())
+			internal = null
+			update_action_buttons_icon()
+			return null
+		return internal.remove_air_volume(BREATH_VOLUME)
+
+	if(isobj(loc))	//Breathe from loc as object
+		var/obj/loc_as_obj = loc
+		return loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+
+	if(isturf(loc))	//Breathe from loc as turf
+		var/datum/gas_mixture/environment = loc.return_air()
+		if(environment)
+			return loc.remove_air(environment.total_moles()*BREATH_PERCENTAGE)
+
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
-	if(!lungs)
-		adjustOxyLoss(2)
-
-	//CRIT
-	if(!breath || (breath.total_moles() == 0) || !lungs)
+	if(!breath || (breath.total_moles() == 0))
 		adjustOxyLoss(1)
 		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
@@ -192,20 +195,9 @@
 
 	return TRUE
 
-//Fourth and final link in a breath chain
+
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
-
-
-/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal.loc != src || !has_airtight_items())
-		internal = null
-
-	if(!internal)
-		update_action_buttons_icon()
-		return
-
-	return internal.remove_air_volume(volume_needed)
 
 
 /mob/living/carbon/proc/handle_organs()
