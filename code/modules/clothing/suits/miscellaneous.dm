@@ -1422,5 +1422,96 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+
+
+/obj/item/clothing/suit/towel
+	name = "towel"
+	desc = "A soft cotton towel."
+	icon_state = "towel"
+	item_state = "towel"
+	var/drop_ammount = 2
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
+	body_parts_covered = LOWER_TORSO
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+
+/obj/item/clothing/suit/towel/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
+
+/obj/item/clothing/suit/towel/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	update_icon()
+
+
+/obj/item/clothing/suit/towel/update_icon_state()
+	if(!ismob(loc))
+		return
+
+	var/mob/user = loc
+	var/slot = user.get_slot_by_item(src)
+
+	if(slot == ITEM_SLOT_HEAD)
+		item_state = "[initial(item_state)]_head"
+	else
+		item_state = initial(item_state)
+
+
+/obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		var/obj/item/stack/sheet/cloth/cloth = new (get_turf(src), drop_ammount)
+		transfer_fingerprints_to(cloth)
+		cloth.add_fingerprint(user)
+		to_chat(user, span_notice("You tear [src] up."))
+		qdel(src)
+	else
+		return ..()
+
+
+/obj/item/clothing/suit/towel/alt
+	icon_state = "towel_alt"
+	item_state = "towel_alt"
+
+
+/obj/item/clothing/suit/towel/long
+	icon_state = "towel_long"
+	drop_ammount = 3
+	slot_flags = ITEM_SLOT_CLOTH_OUTER
+	body_parts_covered = LOWER_TORSO | UPPER_TORSO
+
+
+/obj/item/clothing/suit/towel/long/alt
+	icon_state = "towel_long_alt"
+	item_state = "towel_alt"
+	var/special_user = FALSE
+
+
+/obj/item/clothing/suit/towel/long/alt/equipped(mob/user, slot, initial = FALSE)
+	special_user = (ishumanbasic(user) && user.gender == FEMALE)
+	. = ..()
+
+
+/obj/item/clothing/suit/towel/long/alt/update_icon_state()
+	icon_state = special_user ? "[initial(icon_state)]_human-female" : initial(icon_state)
+	..()

@@ -284,6 +284,12 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	)),
 	null,
 	new /datum/stack_recipe("Bedsheet", /obj/item/bedsheet, 3),
+	new /datum/stack_recipe_list("Towels", list(
+		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel, 2),
+		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/alt, 2),
+		new /datum/stack_recipe("Long towel", /obj/item/clothing/suit/towel/long, 3),
+		new /datum/stack_recipe("Long towel alt", /obj/item/clothing/suit/towel/long/alt, 3),
+	)),
 	new /datum/stack_recipe("Blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3),
 	new /datum/stack_recipe("Fingerless gloves", /obj/item/clothing/gloves/fingerless),
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),

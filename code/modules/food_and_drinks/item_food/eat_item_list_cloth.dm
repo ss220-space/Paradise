@@ -149,6 +149,15 @@
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 8
 
+/obj/item/clothing/suit/towel
+	material_type = MATERIAL_CLASS_CLOTH
+	max_bites = 8
+
+/obj/item/clothing/suit/towel/long
+	material_type = MATERIAL_CLASS_CLOTH
+	max_bites = 12
+
+
 /obj/item/clothing/suit/chameleon
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/suit/space
