@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 	invisibility = INVISIBILITY_ABSTRACT	// nope, can't see this
 	anchored = TRUE
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 
 /obj/effect/bump_teleporter/New()
 	..()
