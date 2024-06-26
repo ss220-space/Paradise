@@ -262,7 +262,8 @@
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, span_warning("Access denied."))
+			balloon_alert(user, "нет доступа")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 	else
 		return ..()
@@ -492,7 +493,8 @@
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
 		else
-			to_chat(user, span_warning("Access denied."))
+			balloon_alert(user, "нет доступа")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 	else
 		..()

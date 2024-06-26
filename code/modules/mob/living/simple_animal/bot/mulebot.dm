@@ -287,7 +287,7 @@
 		update_controls()
 		return TRUE
 	else
-		to_chat(user, span_danger("Access denied."))
+		balloon_alert(user, "нет доступа")
 		return FALSE
 
 

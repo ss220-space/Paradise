@@ -105,7 +105,7 @@
 			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 			toggle_lock(user)
 		else
-			to_chat(user,  "<span class='warning'>Access denied.</span>")
+			balloon_alert(user, "нет доступа")
 	else if(open && !showpiece && !(I.item_flags & ABSTRACT))
 		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)

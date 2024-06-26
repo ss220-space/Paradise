@@ -98,7 +98,7 @@
 				locked = !locked
 				to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
 			else
-				to_chat(user, span_danger("Access denied."))
+				balloon_alert(user, "нет доступа")
 			updateDialog()
 		else
 			to_chat(user, span_warning("You must open the cover first!"))

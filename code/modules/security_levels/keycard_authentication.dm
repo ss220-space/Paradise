@@ -49,7 +49,7 @@
 				SStgui.update_uis(src)
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			balloon_alert(user, "нет доступа")
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	return ..()
@@ -109,7 +109,7 @@
 		to_chat(usr, "<span class='warning'>This device is busy.</span>")
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		balloon_alert(usr, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE

@@ -400,7 +400,7 @@
 			if(open)
 				to_chat(user, span_warning("Please close the access panel before locking it."))
 			else
-				to_chat(user, span_warning("Access denied."))
+				balloon_alert(user, "нет доступа")
 
 	else if(istype(W, /obj/item/paicard))
 		var/obj/item/paicard/card = W

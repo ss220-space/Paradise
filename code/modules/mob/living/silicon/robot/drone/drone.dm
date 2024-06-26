@@ -180,7 +180,7 @@
 				return
 
 			if(!allowed(W))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				balloon_alert(user, "нет доступа")
 				return
 
 			var/delta = (world.time / 10) - last_reboot
@@ -210,7 +210,7 @@
 				if(allowed(W))
 					shut_down()
 				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+					balloon_alert(user, "нет доступа")
 
 		return
 

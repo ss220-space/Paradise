@@ -848,7 +848,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
 				update_icons()
 			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				balloon_alert(user, "нет доступа")
 
 	else if(istype(W, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = W

@@ -512,7 +512,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		return TRUE
 
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
 	add_fingerprint(user)

@@ -146,7 +146,7 @@
 	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, span_alert("Access denied."))
+		balloon_alert(user, "нет доступа")
 		return
 	..()
 

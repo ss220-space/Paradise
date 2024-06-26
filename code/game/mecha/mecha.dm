@@ -1249,7 +1249,7 @@
 	else if(operation_allowed(user))
 		passed = TRUE
 	if(!passed)
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "нет доступа")
 		log_append_to_last("Permission denied.")
 		return TRUE
 	if(user.buckled)

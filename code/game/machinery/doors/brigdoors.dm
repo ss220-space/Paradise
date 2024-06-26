@@ -380,7 +380,8 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, span_warning("Access denied."))
+		balloon_alert(usr, "нет доступа")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
 	switch(action)

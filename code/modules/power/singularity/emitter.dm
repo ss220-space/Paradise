@@ -230,7 +230,7 @@
 				src.locked = 0 //just in case it somehow gets locked
 				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is online</span>")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			balloon_alert(user, "нет доступа")
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))

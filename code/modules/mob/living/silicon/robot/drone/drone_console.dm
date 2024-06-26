@@ -22,7 +22,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		balloon_alert(user, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
@@ -65,7 +65,7 @@
 		return
 
 	if(!allowed(usr) && !usr.can_admin_interact())
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		balloon_alert(usr, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 

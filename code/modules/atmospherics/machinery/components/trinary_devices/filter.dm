@@ -191,7 +191,7 @@
 		return
 
 	if(!allowed(user))
-		to_chat(user, span_alert("Access denied."))
+		balloon_alert(user, "нет доступа")
 		return
 
 	add_fingerprint(user)

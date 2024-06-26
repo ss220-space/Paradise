@@ -784,7 +784,8 @@
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		to_chat(user, span_warning("Access denied."))//Unless emagged of course
+		balloon_alert(user, "нет доступа")//Unless emagged of course
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return

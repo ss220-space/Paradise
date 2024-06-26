@@ -887,7 +887,8 @@
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			balloon_alert(user, "нет доступа")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)

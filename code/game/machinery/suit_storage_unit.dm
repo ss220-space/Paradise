@@ -653,7 +653,8 @@
 
 /obj/machinery/suit_storage_unit/proc/toggle_lock(mob/user)
 	if(!allowed(user))
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "нет доступа")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	if(occupant && safeties)
 		to_chat(user, span_warning("The unit's safety protocols disallow locking when a biological form is detected inside its compartments."))

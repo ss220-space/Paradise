@@ -368,7 +368,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
 			updateUsrDialog()
 		else
-			to_chat(user, span_notice("Access denied."))
+			balloon_alert(user, "нет доступа")
 
 	else
 		//if the turret was attacked with the intention of harming it:

@@ -557,7 +557,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		cremate(user)
 		return
 
-	to_chat(user, span_warning("Access denied."))
+	balloon_alert(user, "нет доступа")
 	playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 

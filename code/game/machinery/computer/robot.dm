@@ -177,7 +177,7 @@
 		return
 	. = FALSE
 	if(!is_authenticated(usr) || (GLOB.disable_robotics_consoles && iscarbon(usr)))
-		to_chat(usr, span_warning("Access denied."))
+		balloon_alert(usr, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	switch(action)
@@ -231,7 +231,7 @@
 			. = TRUE
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
-				to_chat(usr, span_danger("Access Denied."))
+				balloon_alert(usr, "нет доступа")
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])

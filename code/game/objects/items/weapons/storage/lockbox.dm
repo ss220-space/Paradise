@@ -40,7 +40,7 @@
 				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 				return
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			balloon_alert(user, "нет доступа")
 			return
 	else if((istype(I, /obj/item/card/emag) || (istype(I, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)

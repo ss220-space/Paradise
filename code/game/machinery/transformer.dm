@@ -327,7 +327,7 @@
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/disk/data))
 		if(locked)
-			to_chat(user, span_warning("Access Denied."))
+			balloon_alert(user, "нет доступа")
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		var/obj/item/disk/data/D = I

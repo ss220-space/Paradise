@@ -406,7 +406,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(I.GetID())
 		if(!check_access(I))
-			to_chat(user, span_danger("Access Denied."))
+			balloon_alert(user, "нет доступа")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 		if(!(occupant || mess))
 			to_chat(user, span_danger("Error: Pod has no occupant."))

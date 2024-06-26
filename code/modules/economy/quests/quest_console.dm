@@ -103,7 +103,7 @@
 		return
 	var/mob/user = usr
 	if(!allowed(user) && !user.can_admin_interact())
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "нет доступа")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
@@ -118,7 +118,8 @@
 		if("activate")
 			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
 			if(!istype(quest) || !accept_orders)
-				to_chat(user, span_warning("Access denied."))
+				balloon_alert(user, "нет доступа")
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 			quest.active = TRUE
 			quest.after_activated()

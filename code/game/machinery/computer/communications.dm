@@ -53,7 +53,7 @@
 		return COMM_AUTHENTICATION_MIN
 	else
 		if(message)
-			to_chat(user, span_warning("Access denied."))
+			balloon_alert(user, "нет доступа")
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return COMM_AUTHENTICATION_NONE
 
@@ -81,7 +81,7 @@
 
 	if(action == "auth")
 		if(!ishuman(usr))
-			to_chat(usr, span_warning("Access denied."))
+			balloon_alert(usr, "нет доступа")
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		// Logout function.

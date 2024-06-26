@@ -977,7 +977,8 @@
 					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 					SStgui.update_uis(src)
 				else
-					to_chat(user, span_warning("Access denied."))
+					balloon_alert(user, "нет доступа")
+					playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return
 
 		if(AIR_ALARM_BUILDING)

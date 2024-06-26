@@ -234,7 +234,7 @@
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, span_warning("Access Denied."))
+		balloon_alert(user, "нет доступа")
 		flick("[base_icon_state]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return

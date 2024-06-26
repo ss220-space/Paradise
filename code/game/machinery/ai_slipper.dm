@@ -34,7 +34,8 @@
 	if(issilicon(user))
 		return attack_hand(user)
 	if(!allowed(user)) // trying to unlock the interface
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "нет доступа")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return ..()
 
 	locked = !locked

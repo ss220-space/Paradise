@@ -307,7 +307,8 @@
 	switch(action)
 		if("vend")
 			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				balloon_alert(usr, "нет доступа")
+				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 
 			var/index = text2num(params["index"])

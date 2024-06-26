@@ -69,4 +69,4 @@
 			registered_name = I.registered_name
 			desc = "Owned by [I.registered_name]."
 	else
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		balloon_alert(user, "нет доступа")
