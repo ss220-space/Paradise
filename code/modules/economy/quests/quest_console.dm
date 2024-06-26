@@ -98,6 +98,9 @@
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
 	return data
 
+/obj/machinery/computer/supplyquest/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
+
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())
 		return

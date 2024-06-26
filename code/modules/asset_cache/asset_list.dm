@@ -8,6 +8,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /proc/get_asset_datum(type)
 	return GLOB.asset_datums[type] || new type()
 
+/proc/path2assetID(path)
+	var/parse_path
+	if(!path)
+		return
+	if(isdatum(path))
+		var/datum/A = path
+		parse_path = A.type
+	else
+		parse_path = path
+	if(!ispath(parse_path))
+		return
+	return replacetext(replacetext("[parse_path]", "/obj/item/", ""), "/", "-")
+
 /datum/asset
 	var/_abstract = /datum/asset
 	var/cached_serialized_url_mappings
