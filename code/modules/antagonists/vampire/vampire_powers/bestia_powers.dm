@@ -1626,7 +1626,7 @@
 				continue
 
 			if(prob(chance_regrow_limb))
-				new limb_path(human_vampire)
+				new limb_path(human_vampire, ORGAN_MANIPULATION_DEFAULT)
 				break
 
 	// here goes rejuvenate little brother
