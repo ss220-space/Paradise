@@ -118,10 +118,10 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi')
 		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -138,7 +138,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/suit/space/cult
@@ -155,7 +155,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 	)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
@@ -171,7 +171,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 	)
 
 /obj/item/clothing/head/hooded/cult_hoodie
@@ -213,14 +213,14 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi'
-	)
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/drask/suit.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/grey/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
 
@@ -251,15 +251,15 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-	)
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/head.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/head.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		)
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"

@@ -147,14 +147,28 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/ears.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/ears.dmi'
-		) //We read you loud and skree-er.
+		SPECIES_VOX = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/vox/ears.dmi', \
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/vox/ears.dmi'), //We read you loud and skree-er.
+		SPECIES_VOX_ARMALIS = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi',
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi'),
+		SPECIES_MONKEY = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
+		SPECIES_FARWA = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
+		SPECIES_WOLPIN = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
+		SPECIES_NEARA = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
+		SPECIES_STOK = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi')
+		)
 
 
 /obj/item/proc/make_offear(slot, mob/living/carbon/human/user)
@@ -230,11 +244,11 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
+		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi')
 		)
 /*
 SEE_SELF  // can see self, no matter what
@@ -293,8 +307,8 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING ='icons/mob/clothing/species/vox/gloves.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_GLOVES_STRING ='icons/mob/clothing/species/drask/gloves.dmi')
 		)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -416,11 +430,11 @@ BLIND     // can't see anything
 	var/lighting_alpha
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 
 
@@ -482,11 +496,11 @@ BLIND     // can't see anything
 	var/adjusted_flags_inv_transparent = NONE
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
 		)
 
 
@@ -594,17 +608,17 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/vox/shoes.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/drask/shoes.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi')
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -677,12 +691,12 @@ BLIND     // can't see anything
 	integrity_failure = 160
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/suit/Initialize(mapload)
@@ -898,18 +912,18 @@ BLIND     // can't see anything
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/drask/uniform.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
+		SPECIES_MONKEY =  list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
@@ -1091,7 +1105,9 @@ BLIND     // can't see anything
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
 	if(sprite_sheets?[owner.dna.species.name])
-		our_icon = sprite_sheets[owner.dna.species.name]
+		var/icon_list = sprite_sheets[owner.dna.species.name]
+		if(icon_list[ITEM_SLOT_CLOTH_INNER_STRING])
+			our_icon = icon_list[ITEM_SLOT_CLOTH_INNER_STRING]
 
 	var/initial_state = replacetext(item_color, "_d", "")
 
@@ -1127,12 +1143,12 @@ BLIND     // can't see anything
 	slot_flags = ITEM_SLOT_NECK
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
+		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/plasmaman/neck.dmi')
 		)
 
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

@@ -256,11 +256,13 @@
 #define SPECIES_HUMAN "Human"
 #define SPECIES_KIDAN "Kidan"
 #define SPECIES_MACNINEPERSON "Machine"
+
 #define SPECIES_MONKEY "Monkey"
 #define SPECIES_FARWA "Farwa"
 #define SPECIES_WOLPIN "Wolpin"
 #define SPECIES_NEARA "Neara"
 #define SPECIES_STOK "Stok"
+
 #define SPECIES_MOTH "Nian"
 #define SPECIES_NUCLEATION "Nucleation"
 #define SPECIES_PLASMAMAN "Plasmaman"
@@ -281,6 +283,7 @@
 
 #define SPECIES_VOX "Vox"
 #define SPECIES_VOX_ARMALIS "Vox Armalis"
+
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 

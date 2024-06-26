@@ -84,12 +84,12 @@
 	icon_state = "webbing"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/storage/black_vest

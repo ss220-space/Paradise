@@ -9,7 +9,9 @@
 	var/extinguishes_left = 5
 	icon = 'icons/obj/clothing/species/plasmaman/uniform.dmi'
 	species_restricted = list(SPECIES_PLASMAMAN)
-	sprite_sheets = list(SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/uniform.dmi')
+	sprite_sheets = list(
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/plasmaman/uniform.dmi')
+		)
 	icon_state = "plasmaman"
 	item_state = "plasmaman"
 	item_color = "plasmaman"

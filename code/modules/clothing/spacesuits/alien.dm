@@ -34,10 +34,10 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -51,10 +51,10 @@
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi')
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -88,8 +88,8 @@
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_VOX_ARMALIS = NONE,
 		)
 
 /obj/item/clothing/head/helmet/space/vox
@@ -99,8 +99,8 @@
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/head.dmi',
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
+		SPECIES_VOX_ARMALIS = NONE,
 		)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
@@ -121,12 +121,20 @@
 	item_state = "vox-carapace"
 	desc = "A glowing visor, perhaps stolen from a depressed Cylon."
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	sprite_sheets = list(
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/armalis/head.dmi')
+	)
 
 /obj/item/clothing/suit/space/vox/carapace
 	name = "alien carapace armour"
 	icon_state = "vox-carapace"
 	item_state = "vox-carapace"
 	desc = "An armoured, segmented carapace with glowing purple lights. It looks pretty run-down."
+	sprite_sheets = list(
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/armalis/suit.dmi')
+		)
 
 /obj/item/clothing/head/helmet/space/vox/stealth
 	name = "alien stealth helmet"
@@ -157,7 +165,7 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -176,8 +184,8 @@
 	item_state = "vox-casual-2"
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
+		SPECIES_VOX_ARMALIS = NONE
 		)
 
 /obj/item/clothing/gloves/color/yellow/vox
@@ -191,8 +199,8 @@
 	icon = 'icons/obj/clothing/species/vox/gloves.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/gloves.dmi',
+		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/vox/gloves.dmi'),
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/armalis/gloves.dmi'),
 		)
 
 /obj/item/clothing/shoes/magboots/vox
@@ -203,8 +211,8 @@
 	icon = 'icons/obj/clothing/species/vox/shoes.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/feet.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/vox/feet.dmi'),
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/armalis/feet.dmi')
 		)
 
 /obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)

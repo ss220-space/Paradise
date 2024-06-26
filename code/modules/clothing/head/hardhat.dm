@@ -15,12 +15,12 @@
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/head.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi')
 	)
 
 /obj/item/clothing/head/hardhat/attack_self()
@@ -109,11 +109,11 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-	)
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi')
+		)

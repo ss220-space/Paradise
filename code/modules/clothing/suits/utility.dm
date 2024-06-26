@@ -31,11 +31,11 @@
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi')
 		)
 
 /obj/item/clothing/suit/fire/firefighter
@@ -43,14 +43,14 @@
 	item_state = "firefighter"
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 		)
 
 /obj/item/clothing/suit/fire/heavy
@@ -69,14 +69,14 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 		)
 
 /*
@@ -100,14 +100,14 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/head.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/suit/bomb_suit
@@ -132,22 +132,24 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi'),
+		SPECIES_VOX = list(
+			ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi',\
+			ITEM_SLOT_COLLAR_STRING = 'icons/mob/clothing/species/vox/collar.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/suit/bomb_suit/security
@@ -156,9 +158,11 @@
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VOX = list(
+			ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi',\
+			ITEM_SLOT_COLLAR_STRING = 'icons/mob/clothing/species/vox/collar.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 		)
 
 
@@ -178,14 +182,14 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/head.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/suit/radiation
@@ -207,12 +211,12 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 		)

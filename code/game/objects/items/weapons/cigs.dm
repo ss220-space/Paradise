@@ -38,20 +38,20 @@ LIGHTERS ARE IN LIGHTERS.DM
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 	equip_sound = 'sound/items/handling/generic_equip5.ogg'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/mask.dmi',
-		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/mask.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
-	)
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		)
 
 
 /obj/item/clothing/mask/cigarette/Initialize(mapload)

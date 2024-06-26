@@ -17,15 +17,15 @@
 	pickup_sound = 'sound/items/handling/helmet_pickup.ogg'
 	drop_sound = 'sound/items/handling/helmet_drop.ogg'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 	)
 
 
@@ -44,16 +44,16 @@
 	flags_inv = HIDEHEADSETS
 	flags_cover = null
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-	)
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
+		)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -97,20 +97,20 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flash_protect = 1
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/riot
@@ -124,8 +124,8 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/riot/knight
@@ -137,7 +137,7 @@
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR|HIDENAME
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/justice
@@ -174,13 +174,13 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
@@ -272,33 +272,33 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 	)
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/templar
@@ -308,7 +308,7 @@
 	item_state = "knight_templar"
 	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/skull
@@ -321,16 +321,16 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+    	SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi')
     	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+    	SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi')
     	)
 
 /obj/item/clothing/head/helmet/durathread
@@ -354,7 +354,7 @@
 	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 	)
 
 //Security
@@ -363,7 +363,7 @@
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 	)
 
 /obj/item/clothing/head/helmet/ert/security/paranormal
@@ -372,7 +372,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
 
 //Engineer
@@ -381,7 +381,7 @@
 	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 	)
 
 //Medical
@@ -390,7 +390,7 @@
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 	)
 
 //Janitorial
@@ -399,7 +399,7 @@
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 	)
 
 /obj/item/clothing/head/helmet/buckhelm
@@ -412,24 +412,24 @@
 	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	strip_delay = 7 SECONDS
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
-		SPECIES_MOTH = 'icons/mob/clothing/species/nian/helmet.dmi',
-		SPECIES_MACNINEPERSON = 'icons/mob/clothing/species/machine/helmet.dmi',
-		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+		SPECIES_KIDAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/kidan/head.dmi'),
+		SPECIES_MOTH = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/nian/helmet.dmi'),
+		SPECIES_MACNINEPERSON = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/machine/helmet.dmi'),
+		SPECIES_SKRELL = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/skrell/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 	)
 
 //Dredd
@@ -440,14 +440,14 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 	)
 
 /obj/item/clothing/head/helmet/lightweighthelmet
@@ -461,12 +461,12 @@
 	flags_cover = NONE
 	dog_fashion = null
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-	)
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		)

@@ -8,22 +8,22 @@
 	dyeable = TRUE
 	item_color = "classic"
 	sprite_sheets = list(
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
-		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/neck.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/neck.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/neck.dmi',
-		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/neck.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
-	)
+		SPECIES_DRASK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/drask/neck.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/grey/neck.dmi'),
+		SPECIES_KIDAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/kidan/neck.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/plasmaman/neck.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/vox/neck.dmi'),
+		SPECIES_WRYN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/wryn/neck.dmi')
+		)
 
 /obj/item/clothing/neck/poncho/update_icon_state()
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"

@@ -28,7 +28,9 @@
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list(SPECIES_PLASMAMAN)
-	sprite_sheets = list(SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+	sprite_sheets = list(
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
+		)
 	var/upgradable = FALSE
 
 

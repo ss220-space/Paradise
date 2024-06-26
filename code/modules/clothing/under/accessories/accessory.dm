@@ -184,12 +184,12 @@
 	item_state = "waistcoat"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/stethoscope
@@ -696,19 +696,18 @@
 	icon_state = "jacket_ntrf"
 	item_state = "jacket_ntrf"
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/drask/suit.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/grey/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 //Cowboy Shirts
@@ -719,12 +718,12 @@
 	item_state = "cowboyshirt"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
@@ -734,12 +733,12 @@
 	item_state = "cowboyshirt_s"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
@@ -749,12 +748,12 @@
 	item_state = "cowboyshirt_white"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
@@ -764,12 +763,12 @@
 	item_state = "cowboyshirt_whites"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
@@ -779,12 +778,12 @@
 	item_state = "cowboyshirt_pink"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
@@ -794,12 +793,12 @@
 	item_state = "cowboyshirt_pinks"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
@@ -809,12 +808,12 @@
 	item_state = "cowboyshirt_navy"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
@@ -824,12 +823,12 @@
 	item_state = "cowboyshirt_navys"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red
@@ -839,12 +838,12 @@
 	item_state = "cowboyshirt_red"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
@@ -854,14 +853,14 @@
 	item_state = "cowboyshirt_reds"
 
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/drask/suit.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/grey/suit.dmi'),
+		SPECIES_MONKEY = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 /obj/item/clothing/accessory/corset

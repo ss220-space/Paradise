@@ -7,14 +7,15 @@
 	item_state = "void"
 	flags_inv = HIDEMASK|HIDEHEADSETS
 	sprite_sheets = list(
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
+		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi')
+		)
 
 /obj/item/clothing/suit/space/nasavoid
 	name = "NASA Void Suit"
@@ -23,13 +24,14 @@
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/multitool)
 	sprite_sheets = list(
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
+		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/tajaran/suit.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi')
+		)
 
 //Colors!!!
 /obj/item/clothing/head/helmet/space/nasavoid/green

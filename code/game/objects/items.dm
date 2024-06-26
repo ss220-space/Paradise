@@ -133,9 +133,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
-		SPECIES_TAJARAN = 'icons/cat/are/bad'
+		SPECIES_TAJARAN = list( ITEM_SLOT_EYES_STRING = 'icons/cat/are/bad')
 		)
-	If index term exists and icon_override is not set, this sprite sheet will be used.
+	If index term exist, this sprite sheet will be used.
+	Put here all species that have sprites, even if their are "not in use"
 	*/
 	///Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi
 	var/list/sprite_sheets = null
