@@ -27,12 +27,12 @@
 	D.Weaken(50 SECONDS)
 	return TRUE
 
-/datum/martial_art/adminfu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/old_grab_state = A.grab_state
-	D.grabbedby(A, supress_message = TRUE)
-	if(old_grab_state == GRAB_PASSIVE)
-		D.grippedby(A, grab_state_override = GRAB_NECK)
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker, grab_state_override = GRAB_NECK)
 	return TRUE
 
 /datum/martial_art/adminfu/explaination_header(user)

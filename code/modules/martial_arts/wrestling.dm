@@ -9,16 +9,16 @@
 //	Suplex "GD"
 //	Advanced grab "G"
 
-/datum/martial_art/wrestling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	var/old_grab_state = A.grab_state
-	var/grabbed = D.grabbedby(A, supress_message = TRUE)
-	if(grabbed && old_grab_state == GRAB_PASSIVE && prob(50))
-		D.grippedby(A)
-		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] has [D] in a clinch!</span>")
+/datum/martial_art/wrestling/harm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE && prob(50))
+		defender.grippedby(attacker)
+		defender.visible_message("<span class='danger'>[attacker] has [defender] in a clinch!</span>", \
+								"<span class='userdanger'>[attacker] has [defender] in a clinch!</span>")
 	else
-		D.visible_message("<span class='danger'>[A] fails to get [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] fails to get [D] in a clinch!</span>")
+		defender.visible_message("<span class='danger'>[attacker] fails to get [defender] in a clinch!</span>", \
+								"<span class='userdanger'>[attacker] fails to get [defender] in a clinch!</span>")
 	return TRUE
 
 

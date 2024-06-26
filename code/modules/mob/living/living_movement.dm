@@ -81,7 +81,7 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 		return
 
-	COOLDOWN_START(src, pushing_delay, cached_multiplicative_slowdown)
+	COOLDOWN_START(src, pushing_delay, 0.1 SECONDS)	// we need this timestamp to add move delay on the next client move
 
 	if(isliving(now_pushing))
 		var/mob/living/pushing_mob = now_pushing

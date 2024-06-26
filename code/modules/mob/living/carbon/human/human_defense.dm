@@ -410,7 +410,7 @@ emp_act
 	return 1
 
 
-/mob/living/carbon/human/grippedby(mob/living/grabber, instant = FALSE, grab_state_override)
+/mob/living/carbon/human/grippedby(mob/living/grabber, grab_state_override)
 	. = ..()
 	if(.)
 		w_uniform?.add_fingerprint(grabber)

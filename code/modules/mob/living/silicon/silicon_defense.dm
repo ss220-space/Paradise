@@ -1,4 +1,4 @@
-/mob/living/silicon/grippedby(mob/living/grabber, instant = FALSE, grab_state_override)
+/mob/living/silicon/grippedby(mob/living/grabber, grab_state_override)
 	return FALSE //can't upgrade a simple pull into a more aggressive grab.
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)

@@ -240,8 +240,8 @@
 
 /datum/antagonist/vampire/proc/grab_act(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/old_grab_state = user.grab_state
-	target.grabbedby(user, supress_message = TRUE)
-	if(old_grab_state == GRAB_PASSIVE)
+	var/grab_success = target.grabbedby(user, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
 		target.grippedby(user) // instant aggressive grab
 		add_attack_logs(user, target, "Melee attacked with vampire upgraded grab: aggressively grabbed", ATKLOG_ALL)
 	return TRUE

@@ -848,12 +848,11 @@
 	if(pulling)
 		update_pull_movespeed()
 
+	update_push_movespeed()
+
 	var/turf/old_loc = loc
 
 	. = ..()
-
-	if(moving_diagonally != FIRST_DIAG_STEP)
-		update_push_movespeed()
 
 	if(isliving(pulling))
 		set_pull_offsets(pulling, grab_state)

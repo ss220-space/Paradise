@@ -20,13 +20,13 @@
 		return FALSE
 	return ..()
 
-/datum/martial_art/the_sleeping_carp/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/old_grab_state = A.grab_state
-	D.grabbedby(A, supress_message = TRUE)
-	if(old_grab_state == GRAB_PASSIVE)
-		D.grippedby(A) //Instant aggressive grab
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker) //Instant aggressive grab
+		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)

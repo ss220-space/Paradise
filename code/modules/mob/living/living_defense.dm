@@ -297,7 +297,7 @@
 	if(!grabber.pulling || grabber.pulling != src)
 		return grabber.start_pulling(src, supress_message = supress_message)
 
-	if(grabber.pulling == src && !isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS && grabber.pull_hand != grabber.hand)
+	if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS && grabber.pull_hand != grabber.hand)
 		var/previous_grab_state = grabber.grab_state
 		. = grabber.start_pulling(src, supress_message = previous_grab_state)
 		if(. && previous_grab_state)	// swapping hand with grab results in the same grab state for another hand
@@ -318,8 +318,10 @@
 
 
 /// Proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/grabber, instant = FALSE, grab_state_override)
-	if(!(grabber.mobility_flags & MOBILITY_PULL) || (isnull(grab_state_override) && grabber.grab_state >= grabber.max_grab))
+/mob/living/proc/grippedby(mob/living/grabber, grab_state_override)
+	if(isnull(grab_state_override) && grabber.grab_state >= grabber.max_grab)
+		return FALSE
+	if(!isnull(grab_state_override) && grab_state_override > grabber.max_grab)
 		return FALSE
 	grabber.changeNext_move(CLICK_CD_GRABBING)
 	var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
@@ -329,7 +331,7 @@
 	//		sound_to_play = grabber.dna.species.grab_sound
 	playsound(loc, sound_to_play, 50, TRUE, -1)
 
-	if(isnull(grab_state_override) && grabber.grab_state && !instant) //only the first upgrade is instantaneous
+	if(isnull(grab_state_override) && grabber.grab_state) //only the first upgrade is instantaneous
 		var/old_grab_state = grabber.grab_state
 		visible_message(
 			span_danger("[grabber.name] начина[pluralize_ru(grabber.gender,"ет","ют")] усиливать хватку над [name]!"),

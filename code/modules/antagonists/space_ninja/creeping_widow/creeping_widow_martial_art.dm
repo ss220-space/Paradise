@@ -81,8 +81,8 @@
 /datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	var/old_grab_state = attacker.grab_state
-	defender.grabbedby(attacker, supress_message = TRUE)
-	if(old_grab_state == GRAB_PASSIVE)
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
 		defender.grippedby(attacker) //Instant aggressive grab
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed")
 	if(!defender.stat && defender.body_position != LYING_DOWN)
