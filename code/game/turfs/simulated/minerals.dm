@@ -8,7 +8,7 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
 	init_air = FALSE
@@ -249,6 +249,7 @@
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ROCK
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 	var/static/list/allowed_picks_typecache
 
 /turf/simulated/mineral/ancient/outer/Initialize(mapload)

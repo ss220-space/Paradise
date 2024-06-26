@@ -342,6 +342,16 @@
 	build_path = /obj/item/circuitboard/teleporter
 	category = list("Computer Boards")
 
+/datum/design/teleconsole_robotics
+	name = "Console Board (Robotics Teleporter Console)"
+	desc = "Allows for the construction of circuit boards used to build a robotics teleporter control console."
+	id = "teleconsole"
+	req_tech = list("programming" = 2, "bluespace" = 3, "plasmatech" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/teleporter/robotics
+	category = list("Computer Boards")
+
 /datum/design/GAC
 	name = "Console Board (General Air Control)"
 	desc = "Allows for the construction of circuit boards used to build a General Air Control Computer."

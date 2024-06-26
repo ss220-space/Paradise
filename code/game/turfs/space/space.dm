@@ -55,8 +55,8 @@
 	if (light_power && light_range)
 		update_light()
 
-	if (opacity)
-		has_opaque_atom = TRUE
+	if(opacity)
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 

@@ -202,9 +202,51 @@
   pilygun:
   - tweak: Removal jetpack upgrade in vend (#5246)
 '2024-06-22':
+  FanTik-Ratge:
+  - imageadd: New lavaland eee-rock (#5250)
+  Honker9999999:
+  - add: cowboy hat for QMs in locker (#5271)
+  MrVivor:
+  - imageadd: Cult cutouts update (#5269)
   NightDawnFox:
   - tweak: porting balloon-alerts from tg (kinda completed) (#4980)
   Vladisvell:
   - bugfix: Fixed compilation issues with testing flag enabled (#5267)
   Zwei:
   - bugfix: Few Projectile Runtimes (#5257)
+  pilygun:
+  - unknown: Disable Tech requires a magician's robe from a librarian (#5241)
+'2024-06-24':
+  MrVivor:
+  - unknown: Drinks resprite (#5268)
+  PiotrTheTchaikowsky:
+  - tweak: Add new poster (#5255)
+  - tweak: Add pockets to Trenchcoats (#5242)
+  ROdenFL:
+  - tweak: arcade game ballons (#5275)
+  Rafnik02:
+  - qol: add skirt for CMO (#5276)
+  Vladisvell:
+  - tweak: Mouse idle animations no longer spam into runechat (#5277)
+  - bugfix: Fixed lighting on alien ship (#5264)
+  Zwei:
+  - refactor: Opacity Standartisation (#5258)
+  pilygun:
+  - bugfix: Fedora spr. Fix (#5278)
+'2024-06-25':
+  BeebBeebBoob:
+  - bugfix: Parallax move delay (#5262)
+  Dimach:
+  - del: '#5048 (#5283)'
+  Vladisvell:
+  - bugfix: Matter eater no longer works from far distances (#5259)
+  Zwei:
+  - bugfix: Runtimes/Bugs Fixes (#5274)
+  - bugfix: Runechat Languages Colorization (#5279)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5213)
+'2024-06-26':
+  PiotrTheTchaikowsky:
+  - imageadd: New bags sprites (#5248)
+  SAAD:
+  - add: New map "Celestation" (#5175)
