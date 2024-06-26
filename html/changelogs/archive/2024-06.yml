@@ -243,3 +243,10 @@
   Zwei:
   - bugfix: Runtimes/Bugs Fixes (#5274)
   - bugfix: Runechat Languages Colorization (#5279)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5213)
+'2024-06-26':
+  PiotrTheTchaikowsky:
+  - imageadd: New bags sprites (#5248)
+  SAAD:
+  - add: New map "Celestation" (#5175)
