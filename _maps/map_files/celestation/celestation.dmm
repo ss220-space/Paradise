@@ -8048,7 +8048,7 @@
 	dwidth = 7;
 	height = 5;
 	id = "sit_arrivals";
-	name = "North Disposals";
+	name = "Near Comands";
 	width = 11
 	},
 /turf/space/openspace{
@@ -12091,7 +12091,7 @@
 	dwidth = 7;
 	height = 18;
 	id = "trade_dock";
-	name = "port bay 5 at Farragus";
+	name = "port bay 5 at Selestia";
 	width = 15
 	},
 /turf/space/openspace{
@@ -67643,6 +67643,7 @@
 "mlM" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"
@@ -101872,7 +101873,7 @@
 	dwidth = 3;
 	height = 5;
 	id = "sst_home";
-	name = "Near Kerberos Arrivals";
+	name = "Near Selestia Arrivals";
 	width = 11
 	},
 /turf/space/openspace{
