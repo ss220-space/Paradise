@@ -279,6 +279,7 @@
 		message.loc = message_loc
 		// we listen for Moved() on the target and every nested loc if the target is outside of the turf contents
 		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
+		RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
 		for(var/listening_target in signal_targets)
 			RegisterSignal(listening_target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
 			RegisterSignal(listening_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
