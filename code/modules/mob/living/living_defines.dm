@@ -30,6 +30,8 @@
 	var/atom/movable/now_pushing
 	COOLDOWN_DECLARE(pushing_delay)
 
+	COOLDOWN_DECLARE(grab_resist_delay)
+
 	var/atom/movable/cameraFollow = null
 
 	var/on_fire = 0 //The "Are we on fire?" var

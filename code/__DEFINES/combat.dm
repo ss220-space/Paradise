@@ -71,7 +71,7 @@
 #define MARTIAL_GRAB_KILL "martial_grab_kill"
 
 //Grab breakout odds
-#define GRAB_RESIST_CHANCE_AGGRESSIVE 60
+#define GRAB_RESIST_CHANCE_AGGRESSIVE 50
 #define GRAB_RESIST_CHANCE_NECK 20
 #define GRAB_RESIST_CHANCE_KILL 5
 ///Time to upgrade aggressive/neck grab to the next level.

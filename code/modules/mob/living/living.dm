@@ -1051,6 +1051,9 @@
 		pulledby.stop_pulling()
 		return FALSE
 
+	if(!COOLDOWN_FINISHED(src, grab_resist_delay))
+		return TRUE
+
 	var/resist_chance = get_resist_chance(pulledby)
 	if(resist_chance > 0 && prob(resist_chance))
 		add_attack_logs(pulledby, src, "broke grab", ATKLOG_ALL)
@@ -1063,12 +1066,12 @@
 		pulledby.stop_pulling()
 		return FALSE
 
-	var/resist_stamina_cost = rand(10, 15)
+	var/resist_stamina_cost = 20
 	switch(pulledby.grab_state)
 		if(GRAB_NECK)
-			resist_stamina_cost += rand(0, 5)
-		if(GRAB_KILL)
 			resist_stamina_cost += rand(5, 10)
+		if(GRAB_KILL)
+			resist_stamina_cost += rand(10, 15)
 	adjustStaminaLoss(resist_stamina_cost)//failure to escape still imparts a pretty serious penalty
 	visible_message(
 		span_danger("[name] не удаётся вырваться из захвата [pulledby.name]!"),
@@ -1076,6 +1079,7 @@
 		ignored_mobs = pulledby,
 	)
 	to_chat(pulledby, span_danger("[name] пыта[pluralize_ru(gender,"ется","ются")] вырваться из Вашего захвата!"))
+	COOLDOWN_START(src, grab_resist_delay, 2 SECONDS)
 	if(moving_resist && client) //we resisted by trying to move
 		client.move_delay = world.time + 2 SECONDS
 	return TRUE
