@@ -666,9 +666,13 @@ BLIND     // can't see anything
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	var/blood_overlay_type = "suit"
+	/// Whether suit is currently adjusted, example: shirt is buttoned.
+	/// If this variable is set to `TRUE` initial icon_state/item_state should be without "_open" postfix.
 	var/suit_adjusted = FALSE
+	/// Whether we can even adjust this suit.
 	var/ignore_suitadjust = TRUE
-	var/adjust_flavour = null
+	/// Flavour text used when adjusting this suit.
+	var/adjust_flavour
 	var/list/hide_tail_by_species = null
 	max_integrity = 400
 	integrity_failure = 160
@@ -718,8 +722,9 @@ BLIND     // can't see anything
 			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
 		return
 
+	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 	if(suit_adjusted)
 		var/flavour = "close"
@@ -732,14 +737,12 @@ BLIND     // can't see anything
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] [src].")
 
-	suit_adjusted = !suit_adjusted
-
 
 /obj/item/clothing/suit/update_icon_state()
 	// Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
 	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open
-	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_open"))
-	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_open"))
+	var/base_icon_state = replacetext("[icon_state]", "_open", "")
+	var/base_item_state = replacetext("[item_state]", "_open", "")
 
 	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_open"
 	item_state = suit_adjusted ? base_item_state : "[base_item_state]_open"

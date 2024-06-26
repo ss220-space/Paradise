@@ -19,13 +19,13 @@
 	desc = "A space pod meant for space travel."
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 0
+	opacity = FALSE
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = ACID_PROOF
 
-	layer = 3.9
+	layer = BEHIND_MOB_LAYER
 	infra_luminosity = 15
 
 	var/mob/living/pilot	//There is only ever one pilot and he gets all the privledge

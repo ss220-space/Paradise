@@ -139,7 +139,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/item/projectile/herald/teleshot/H = new(startloc)
-		H.preparePixelProjectile(marker, marker, startloc)
+		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
 		if(target)

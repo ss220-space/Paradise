@@ -466,9 +466,6 @@
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
 	SSping.currentrun -= src
-	QDEL_NULL(parallax_rock)
-	QDEL_LIST(parallax_layers_cached)
-	parallax_layers = null
 	Master.UpdateTickRate()
 	seen_messages = null
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening

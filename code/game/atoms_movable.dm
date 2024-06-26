@@ -126,6 +126,9 @@
 			else
 				managed_overlays = em_block
 
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+
 	switch(light_system)
 		if(MOVABLE_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
@@ -136,6 +139,9 @@
 /atom/movable/Destroy(force)
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
 
 	. = ..()
 	if(loc)
@@ -1079,4 +1085,14 @@
 	if(anchored && pulledby)
 		pulledby.stop_pulling()
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_ANCHORED, anchorvalue)
+
+
+/atom/movable/set_opacity(new_opacity)
+	. = ..()
+	if(isnull(.) || !isturf(loc))
+		return .
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+	else
+		RemoveElement(/datum/element/light_blocking)
 

@@ -50,11 +50,8 @@
 
 /atom/movable/screen/swarmer/ToggleLight/Click()
 	if(isswarmer(usr))
-		if(is_ventcrawling(usr))
-			to_chat(usr, "You can't toggle light in vent!")
-			return
-		var/mob/living/simple_animal/hostile/swarmer/S = usr
-		S.ToggleLight()
+		var/mob/living/simple_animal/hostile/swarmer/swarmer = usr
+		swarmer.ToggleLight()
 
 /atom/movable/screen/swarmer/ContactSwarmers
 	icon_state = "ui_contact_swarmers"
