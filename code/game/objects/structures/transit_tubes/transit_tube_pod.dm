@@ -84,7 +84,7 @@
 
 	var/move_result = move_animation(current_move_anim_mode)
 	for(var/mob/transfer_mob in contents)
-		transfer_mob.lastarea = get_area(loc)//Forcibly updating lastarea mobs
+		transfer_mob.lastarea = get_area(src)//Forcibly updating lastarea mobs
 	if(isnull(move_result))
 		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(reverse_direction(dir) in current_tube.directions())))
 			outside_tube()

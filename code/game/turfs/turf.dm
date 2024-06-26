@@ -243,11 +243,6 @@
 
 	return TRUE //Nothing found to block so return success!
 
-
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
-	..()
-
-
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
