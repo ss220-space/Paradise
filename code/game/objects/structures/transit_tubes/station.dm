@@ -1,8 +1,23 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
 #define LAUNCH_COOLDOWN 30
-// A place where tube pods stop, and people can get in or out.
-// Mappers: use "Generate Instances from Directions" for this one.
+/*A place where tube pods stop, and people can get in or out.
+Mappers: use "Generate Instances from Directions" for this one.
+Guide "HOW DOES DIRS WORKS"
+Arrow start - direction of mob is aible to get into pod
+Arrow direction - where to pod will move
+
+		Station				Fliped
+	1			2		1			2
+	|		<---		 --->		|
+	--->		|		|		 <---
+
+	4			8		4			8
+  	 ---		/\	  ---		   /\
+	|			|		|			|
+   \/		  ---	 	\/			---
+
+*/
 /obj/structure/transit_tube/station
 	name = "station tube station"
 	desc = "The lynchpin of the transit system."
