@@ -218,11 +218,22 @@
 		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma" || R.id == "plasma_dust")
+	if(R.id == "plasma")
 		H.adjustBruteLoss(-0.25)
 		H.adjustFireLoss(-0.25)
 		H.adjust_alien_plasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
-
+	if(R.id == "plasma_dust")
+		H.adjustBruteLoss(-0.25)
+		H.adjustFireLoss(-0.25)
+		H.adjust_alien_plasma(20)
+		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		if(prob(5))
+			var/list/our_organs = H.bodyparts.Copy()
+			shuffle(our_organs)
+			for(var/obj/item/organ/external/bodypart as anything in our_organs)
+				if(bodypart.mend_fracture())
+					break
+		return FALSE
 	return ..()
