@@ -714,7 +714,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			user.balloon_alert(user, "внутри ничего нет!")
+			to_chat(user, span_warning("There is nothing left inside [src]!"))
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -849,7 +849,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	return TRUE
 
-
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
@@ -859,6 +858,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(has_fracture() || cannot_break)
 		return FALSE
+	if(owner.dna.species.type == /datum/species/plasmaman)
+		owner.reagents.add_reagent("plasma_dust", 15)
 
 	if(owner && !silent)
 		owner.visible_message(
