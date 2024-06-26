@@ -714,7 +714,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, span_warning("There is nothing left inside [src]!"))
+			user.balloon_alert(user, "внутри ничего нет!")
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
