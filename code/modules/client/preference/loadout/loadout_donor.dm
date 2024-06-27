@@ -19,9 +19,9 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
-/datum/gear/donor/leather_syndicate_coat
+/datum/gear/donor/leather_trenchcoat
 	display_name = "Leather Trenchcoat"
-	path = /obj/item/clothing/suit/space/deathsquad/officer/syndie/runner
+	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 	donator_tier = 2
 	cost = 1
 
