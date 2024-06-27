@@ -24,7 +24,7 @@
 			adjustOxyLoss(damage * blocked)
 		if(CLONE)
 			adjustCloneLoss(damage * blocked)
-		if(STAMINA)
+/*		if(STAMINA)
 			adjustStaminaLoss(damage * blocked)
 		if(BRUTESUICIDE)
 			adjustBruteLoss(damage * blocked)
@@ -38,6 +38,7 @@
 			adjustCloneLoss(damage * blocked)
 			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(def_zone))
 				organ.receive_damage(damage/3)
+*/
 	updatehealth("apply damage")
 	return TRUE
 

@@ -623,13 +623,14 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
-		switch(chambered.BB.damage_type)
+/*		switch(chambered.BB.damage_type)
 			if(BRUTE)
 				chambered.BB.damage_type = BRUTESUICIDE
 			if(BURN)
 				chambered.BB.damage_type = BURNSUICIDE
 			if(BRUTE)
 				chambered.BB.damage_type = CLONESUICIDE
+*/
 		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
