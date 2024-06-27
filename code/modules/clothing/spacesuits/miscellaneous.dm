@@ -169,8 +169,8 @@
 	item_state = "jacket_syndie"
 
 /obj/item/clothing/suit/space/deathsquad/officer/syndie/runner
-	name = "Leather Syndicate Coat"
-	desc = "A long leather coat with real fur for elite syndicate operatives, agents and officers. You feel lonely while wear it..."
+	name = "Leather Trenchcoat"
+	desc = "A long leather trenchcoat with real fur. You feel lonely while wear it..."
 	icon_state = "bladerunner_coat"
 	item_state = "bladerunner_coat"
 
