@@ -88,7 +88,7 @@
 	if(!QDELETED(shooter))
 		RegisterSignal(shooter, COMSIG_MOB_LOGOUT, PROC_REF(autofire_off))
 		UnregisterSignal(shooter, COMSIG_MOB_LOGIN)
-	RegisterSignal(parent, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(autofire_off))
+	RegisterSignal(parent, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(autofire_off))
 	parent.RegisterSignal(src, COMSIG_AUTOFIRE_ONMOUSEDOWN, TYPE_PROC_REF(/obj/item/gun, autofire_bypass_check))
 	parent.RegisterSignal(parent, COMSIG_AUTOFIRE_SHOT, TYPE_PROC_REF(/obj/item/gun, do_autofire))
 
@@ -110,7 +110,7 @@
 	if(!QDELETED(shooter))
 		RegisterSignal(shooter, COMSIG_MOB_LOGIN, PROC_REF(on_client_login))
 		UnregisterSignal(shooter, COMSIG_MOB_LOGOUT)
-	UnregisterSignal(parent, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(parent, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED))
 	shooter = null
 	parent.UnregisterSignal(parent, COMSIG_AUTOFIRE_SHOT)
 	parent.UnregisterSignal(src, COMSIG_AUTOFIRE_ONMOUSEDOWN)
@@ -309,7 +309,7 @@
 
 	var/other_hand = shooter.get_organ(shooter.hand ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !other_hand))
-		to_chat(shooter, span_warning("You need to use both hands!"))
+		balloon_alert(shooter, "нужны обе руки!")
 		return FALSE
 
 	return TRUE

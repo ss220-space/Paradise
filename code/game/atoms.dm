@@ -9,7 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|LONG_GLIDE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -148,10 +148,6 @@
 	if(light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -217,10 +213,20 @@
 
 	return ..()
 
-//Hook for running code when a dir change occurs
+
+/**
+ * Hook for running code when a dir change occurs
+ *
+ * Not recommended to use, listen for the [COMSIG_ATOM_DIR_CHANGE] signal instead (sent by this proc)
+ */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_DIR_CHANGE, dir, newdir) & COMPONENT_ATOM_BLOCK_DIR_CHANGE)
+		newdir = dir
+		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 
 /atom/proc/set_angle(degrees)
@@ -305,9 +311,11 @@
 /atom/proc/on_reagent_change()
 	return
 
+
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return
+	return FALSE
+
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -580,14 +588,14 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	if(!datum_components || !datum_components[/datum/component/persistent_overlay])
+	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	if(!all_persistent)
 		return
-	var/list/all_persistent = datum_components[/datum/component/persistent_overlay]
 	if(!islist(all_persistent))
 		all_persistent = list(all_persistent)
 	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
 		if(existing.dupe_id == id)
-			existing.remove_persistent_overlay()
+			qdel(existing)
 
 
 /atom/Topic(href, href_list)
@@ -1304,8 +1312,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/AM, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
+/atom/Entered(atom/movable/arrived, atom/oldLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, oldLoc)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, oldLoc)
 
 /atom/Exit(atom/movable/AM, atom/newLoc)
 	. = ..()
@@ -1480,8 +1489,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_BE_PURE(TRUE)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
 		return TRUE
-	//if(mover.movement_type & PHASING)
-	//	return TRUE
+	if(mover.movement_type & PHASING)
+		return TRUE
 	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
@@ -1561,13 +1570,27 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 ///Setter for the `density` variable to append behavior related to its changing.
-/atom/proc/set_density(new_value)
+/atom/proc/set_density(new_density)
 	SHOULD_CALL_PARENT(TRUE)
-	if(density == new_value)
+	if(density == new_density)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_density)
 	. = density
-	density = new_value
-	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
+	density = new_density
+
+
+/**
+ * Updates the atom's opacity value.
+ *
+ * This exists to act as a hook for associated behavior.
+ * It notifies (potentially) affected light sources so they can update (if needed).
+ */
+/atom/proc/set_opacity(new_opacity)
+	if(new_opacity == opacity)
+		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
+	. = opacity
+	opacity = new_opacity
 
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.

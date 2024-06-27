@@ -55,7 +55,7 @@
 
 
 /datum/station_state/proc/count()
-	for(var/turf/T in block(locate(1,1,1), locate(world.maxx,world.maxy,1)))
+	for(var/turf/T in block(1,1,1, world.maxx,world.maxy,1))
 
 		if(isfloorturf(T))
 			if(!(T:burnt))

@@ -557,7 +557,7 @@
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		if(prob(75) && can_be_inserted(mover, TRUE))
+		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
 			visible_message("[mover] lands in [src].")
 			update()
@@ -623,24 +623,26 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
-	..()
-	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
-
-	if(isprojectile(moving_atom) || iseffect(moving_atom))
-		return
+	. = ..()
+	if(ismecha(moving_atom) || isspacepod(moving_atom) || isprojectile(moving_atom) || iseffect(moving_atom))
+		return .
 
 	switch(dir)
 		if(NORTH)
-			if(moving_atom.loc.y != src.loc.y+1) return
+			if(moving_atom.loc.y != src.loc.y+1)
+				return
 		if(EAST)
-			if(moving_atom.loc.x != src.loc.x+1) return
+			if(moving_atom.loc.x != src.loc.x+1)
+				return
 		if(SOUTH)
-			if(moving_atom.loc.y != src.loc.y-1) return
+			if(moving_atom.loc.y != src.loc.y-1)
+				return
 		if(WEST)
-			if(moving_atom.loc.x != src.loc.x-1) return
+			if(moving_atom.loc.x != src.loc.x-1)
+				return
 
 	if(isobj(moving_atom) || isliving(moving_atom))
-		moving_atom.loc = src
+		moving_atom.forceMove(src)
 
 	if(mode != OFF)
 		flush()

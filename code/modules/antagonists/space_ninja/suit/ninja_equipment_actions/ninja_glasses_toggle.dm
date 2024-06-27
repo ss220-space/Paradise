@@ -9,7 +9,7 @@
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
-/obj/item/clothing/glasses/ninja/proc/toggle_modes(mob/user, var/mode = null)
+/obj/item/clothing/glasses/ninja/proc/toggle_modes(mob/user, mode)
 	current_mode = mode ? mode : next_mode()
 	switch(current_mode)
 		if(NINJA_NIGHTVISION)

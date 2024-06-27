@@ -504,7 +504,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return ..()
 
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

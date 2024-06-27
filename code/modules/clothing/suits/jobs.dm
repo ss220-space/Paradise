@@ -30,8 +30,7 @@
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 10, fire = 50, acid = 50)
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -101,14 +100,15 @@
 	desc = "Made of real fur."
 	item_state = "cap_coat"
 	icon_state = "cap_coat"
+	flags_inv_transparent = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/captunic/parade
 	name = "captain's parade jacket"
 	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_black_open"
 	item_state = "cap_jacket_black_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -121,8 +121,8 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_open"
 	item_state = "cap_jacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -131,8 +131,8 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "bomber_captain_open"
 	item_state = "bomber_captain_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	flags_inv_transparent = HIDEJUMPSUIT
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -393,8 +393,7 @@
 	item_state = "suitjacket_black_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -405,8 +404,7 @@
 	item_state = "suitjacket_blue_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -425,9 +423,9 @@
 	item_state = "qm_jacket_open"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/storage/fancy/cigarettes, /obj/item/clothing/mask/cigarette, /obj/item/lighter, /obj/item/rcs, /obj/item/stack/packageWrap, /obj/item/stack/wrapping_paper, /obj/item/destTagger, /obj/item/pen, /obj/item/paper, /obj/item/stamp, /obj/item/qm_quest_tablet)
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -449,8 +447,7 @@
 	item_state = "ia_jacket_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -471,7 +468,6 @@
 	item_state = "ntrep"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -494,8 +490,7 @@
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -579,8 +574,7 @@
 	item_state = "suitjacket_hop_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 

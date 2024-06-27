@@ -4,10 +4,11 @@
  * Applies temporal or permanent immunities for certain status effects, with additional info tied to it,
  * such as showing a message on trigger / examine, or only blocking a limited amount.
  *
- * Currently works with incapacitating effects only: stun, weaken, knockdown, immobile, paralyze, sleep.
+ * Currently works with incapacitating effects: stun, weaken, knockdown, immobile, paralyze, sleep.
+ * Also generic effects are accepted, like stamina crit (look at [/mob/living/carbon/proc/enter_stamcrit()])
  *
- * Apply this via [/mob/living/proc/add_status_effect_absorption]. If you do not supply a duration,
- * remove this via [/mob/living/proc/remove_status_effect_absorption].
+ * Apply this via [/mob/living/proc/add_status_effect_absorption].
+ * If you do not supply a duration, remove this via [/mob/living/proc/remove_status_effect_absorption].
  */
 /datum/status_effect/effect_absorption
 	id = "absorb_effect"
@@ -39,13 +40,18 @@
 	var/recharge_time
 	/// Static associative list of all status effects we can work with.
 	/// In a form: key = effect_type, value = signal sent from the corresponding proc.
-	var/static/list/effect_signals = list(
+	var/static/list/status_effect_signals = list(
 		STUN = COMSIG_LIVING_STATUS_STUN,
 		WEAKEN = COMSIG_LIVING_STATUS_WEAKEN,
 		KNOCKDOWN = COMSIG_LIVING_STATUS_KNOCKDOWN,
 		IMMOBILIZE = COMSIG_LIVING_STATUS_IMMOBILIZE,
 		PARALYZE = COMSIG_LIVING_STATUS_PARALYZE,
 		SLEEP = COMSIG_LIVING_STATUS_SLEEP,
+	)
+	/// Static associative list of all generic disabling effects we can work with.
+	/// In a form: key = effect_type, value = bitflag check from [/proc/check_incapacitating_immunity()].
+	var/static/list/effect2flag = list(
+		STAMCRIT = CANSTAMCRIT,
 	)
 
 
@@ -82,12 +88,15 @@
 /datum/status_effect/effect_absorption/on_apply()
 	if(!effect_type)
 		CRASH("No effect_type passed for status effect absorption.")
-	if(!effect_signals[effect_type])
-		CRASH("No signals are registered for the '[effect_type]' effect_type.")
 	if(owner.mind || owner.client)
 		owner.create_log(ATTACK_LOG, "gained effect absorption (from: [source || "Unknown"])")
 
-	RegisterSignal(owner, effect_signals[effect_type], PROC_REF(try_absorb_effect))
+	if(effect_type in status_effect_signals)
+		RegisterSignal(owner, status_effect_signals[effect_type], PROC_REF(try_absorb_status_effect))
+	else
+		if(!(effect_type in effect2flag))
+			CRASH("Incompatible effect type for effect absorption: [effect_type].")
+		RegisterSignal(owner, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, PROC_REF(try_absorb_generic_effect))
 	return TRUE
 
 
@@ -95,7 +104,10 @@
 	if(owner.mind || owner.client)
 		owner.create_log(ATTACK_LOG, "lost effect absorption (from: [source || "Unknown"])")
 
-	UnregisterSignal(owner, effect_signals[effect_type])
+	if(effect_type in status_effect_signals)
+		UnregisterSignal(owner, status_effect_signals[effect_type])
+	else
+		UnregisterSignal(owner, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK)
 
 
 /datum/status_effect/effect_absorption/get_examine_text()
@@ -104,11 +116,11 @@
 
 
 /**
- * Signal proc for all the signals in var/static/list/effect_signals.
+ * Signal proc for all the signals in var/static/list/status_effect_signals.
  *
  * When effect we are protecting from is applied, we will try to absorb a number of seconds from it, and return [COMPONENT_NO_EFFECT] if we succeed.
  */
-/datum/status_effect/effect_absorption/proc/try_absorb_effect(mob/living/source, amount = 0, ignore_effect = FALSE)
+/datum/status_effect/effect_absorption/proc/try_absorb_status_effect(mob/living/source, amount = 0, ignore_effect = FALSE)
 	SIGNAL_HANDLER
 
 	// we blocked an effect this tick that resulting in us qdeling, so stop
@@ -120,6 +132,28 @@
 		return NONE
 
 	if(!absorb_effect(amount))
+		return NONE
+
+	return COMPONENT_NO_EFFECT
+
+
+/**
+ * Signal proc for [COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK].
+ *
+ * Whenever a special incapacitating non-status effect is applied (like stamina crit) this proc will try to absorb it.
+ * Pretty similar to the proc above
+ */
+/datum/status_effect/effect_absorption/proc/try_absorb_generic_effect(mob/living/source, check_flags, force_apply)
+	SIGNAL_HANDLER
+
+	if(QDELING(src))
+		return NONE
+
+	if(!(effect2flag[effect_type] & check_flags))
+		return NONE
+
+	// "0 amount" / "0 seconds of effect" is used so no feedback is sent on success
+	if(!absorb_effect(0))
 		return NONE
 
 	return COMPONENT_NO_EFFECT

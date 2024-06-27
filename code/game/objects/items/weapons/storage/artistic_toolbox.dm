@@ -165,7 +165,7 @@
 		progenitor.servantlinks.Remove(src)
 	progenitor = null
 	if(absorption_applied && affected_mob)
-		affected_mob.remove_status_effect_absorption(name, list(STUN, WEAKEN, KNOCKDOWN, PARALYZE))
+		affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 	return ..()
 
 /datum/disease/memetic_madness/stage_act()
@@ -188,7 +188,7 @@
 			absorption_applied = TRUE
 			affected_mob.add_status_effect_absorption(
 				source = name,
-				effect_type = list(STUN, WEAKEN, KNOCKDOWN, PARALYZE),
+				effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE),
 				priority = 3,
 				self_message = span_boldwarning("His Grace protects you!"),
 			)
@@ -220,7 +220,7 @@
 	else
 		if(absorption_applied)
 			absorption_applied = FALSE
-			affected_mob.remove_status_effect_absorption(name, list(STUN, WEAKEN, KNOCKDOWN, PARALYZE))
+			affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 
 	if(stage == 4)
 		if(get_dist(get_turf(progenitor), get_turf(affected_mob)) <= 7)

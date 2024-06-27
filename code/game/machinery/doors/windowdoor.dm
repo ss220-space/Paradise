@@ -10,7 +10,7 @@
 	flags = ON_BORDER
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	pass_flags_self = PASSGLASS
-	opacity = 0
+	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
@@ -69,10 +69,10 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/moving_atom)
-	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
+/obj/machinery/door/window/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
+	. = ..()
 	if(operating || !density)
-		return
+		return .
 	if(!ismob(moving_atom))
 		if(ismecha(moving_atom))
 			var/obj/mecha/mecha = moving_atom
@@ -409,12 +409,13 @@
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
 
-/obj/machinery/door/window/clockwork/setDir(direct)
+/obj/machinery/door/window/clockwork/setDir(newdir)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
-		E.setDir(direct)
+		E.setDir(newdir)
 		made_glow = TRUE
-	..()
+	return ..()
+
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))

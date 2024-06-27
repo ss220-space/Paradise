@@ -423,7 +423,7 @@
 	else
 		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_FEET]'>[(shoes && !(shoes.item_flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(!issmall(src))
+	if(!is_monkeybasic(src))
 		if(obscured & ITEM_SLOT_GLOVES)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
@@ -437,12 +437,12 @@
 	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (obscured & ITEM_SLOT_CLOTH_INNER))
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 	else
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BELT]'>[(belt && !(belt.item_flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A></td></tr>"
 		// Pockets
 		dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
@@ -460,10 +460,10 @@
 		dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_PDA]'>[(wear_pda && !(wear_pda.item_flags&ABSTRACT)) ? "Full" : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(istype(w_uniform, /obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[U.has_sensor >= 2 ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
+			var/obj/item/clothing/under/uniform = w_uniform
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[uniform.has_sensor >= SENSOR_VITALS ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
 
-			if(U.accessories.len)
+			if(LAZYLEN(uniform.accessories))
 				dat += "<tr><td>&nbsp;&#8627;<A href='?src=[UID()];strip_accessory=1'>Remove Accessory</a></td></tr>"
 
 
@@ -710,20 +710,39 @@
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = w_uniform
-				if(U.accessories.len)
-					var/obj/item/clothing/accessory/A = U.accessories[1]
-					if(!thief_mode)
-						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
-											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
+				var/obj/item/clothing/under/uniform = w_uniform
+				var/accessories_len = LAZYLEN(uniform.accessories)
+				if(!accessories_len)
+					return
 
-					if(do_after(usr, 4 SECONDS, src, NONE) && A && U.accessories.len)
-						if(!thief_mode)
-							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
-												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-						A.on_removed(usr, thief_mode)
-						U.accessories -= A
-						update_inv_w_uniform()
+				var/obj/item/clothing/accessory/accessory
+				if(accessories_len > 1)
+					accessory = tgui_input_list(usr, "Select an accessory to remove from [src]", "Accessory Removal", uniform.accessories)
+					if(!accessory || !LAZYIN(uniform.accessories, accessory) || !Adjacent(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+						return
+				else
+					accessory = uniform.accessories[1]
+
+				if(!thief_mode)
+					usr.visible_message(
+						"<span class='danger'>\The [usr] starts to take off \the [accessory] from \the [src]'s [uniform]!</span>",
+						"<span class='danger'>You start to take off \the [accessory] from \the [src]'s [uniform]!</span>",
+					)
+
+				if(!do_after(usr, 4 SECONDS, src, NONE) || QDELETED(accessory) || !LAZYIN(uniform.accessories, accessory) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+					return
+
+				accessory.on_removed(usr)
+				if(!thief_mode)
+					if(!usr.put_in_hands(accessory, ignore_anim = FALSE))
+						accessory.forceMove_turf()
+					usr.visible_message(
+						"<span class='danger'>\The [usr] takes \the [accessory] off of \the [src]'s [uniform]!</span>",
+						"<span class='danger'>You take \the [accessory] off of \the [src]'s [uniform]!</span>"
+					)
+				else
+					if(!usr.put_in_hands(accessory, silent = TRUE))
+						accessory.forceMove_turf()
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -1026,30 +1045,29 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/check_obscured_slots()
+/mob/living/carbon/human/check_obscured_slots(check_transparent)
 	. = ..()
 
-	if(wear_suit)
-		if(wear_suit.flags_inv & HIDEGLOVES)
-			. |= ITEM_SLOT_GLOVES
-		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			. |= ITEM_SLOT_CLOTH_INNER
-		if(wear_suit.flags_inv & HIDESHOES)
-			. |= ITEM_SLOT_FEET
+	var/hidden_flags = NONE
 
-	if(head)
-		if(head.flags_inv & HIDEMASK)
-			. |= ITEM_SLOT_MASK
-		if(head.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(head.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	for(var/obj/item/equipped_item as anything in get_equipped_items())
+		var/item_flags = equipped_item.flags_inv
+		if(check_transparent && equipped_item.flags_inv_transparent)
+			item_flags ^= equipped_item.flags_inv_transparent
+		hidden_flags |= item_flags
 
-	if(wear_mask)
-		if(wear_mask.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(wear_mask.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	if(hidden_flags & HIDEGLOVES)
+		. |= ITEM_SLOT_GLOVES
+	if(hidden_flags & HIDEJUMPSUIT)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(hidden_flags & HIDESHOES)
+		. |= ITEM_SLOT_FEET
+	if(hidden_flags & HIDEMASK)
+		. |= ITEM_SLOT_MASK
+	if(hidden_flags & HIDEGLASSES)
+		. |= ITEM_SLOT_EYES
+	if(hidden_flags & HIDEHEADSETS)
+		. |= ITEM_SLOT_EARS
 
 
 /mob/living/carbon/human/proc/check_has_mouth()
@@ -1061,7 +1079,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if(skipface && (ITEM_SLOT_CLOTH_INNER & check_obscured_slots()))
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_CLOTH_INNER))
 		return PLURAL
 	return gender
 
@@ -2012,7 +2030,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()
@@ -2076,7 +2094,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(QDELETED(src))
 		return
 
-	if(issmall(src))
+	if(is_monkeybasic(src))
 		while(meatleft > 0)
 			new dna.species.meat_type(loc)
 			meatleft--

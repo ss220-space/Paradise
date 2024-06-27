@@ -33,7 +33,7 @@
 	return ..()
 
 
-/datum/antagonist/traitor/Destroy(force, ...)
+/datum/antagonist/traitor/Destroy(force)
 	// Remove contractor if present
 	var/datum/antagonist/contractor/contractor_datum = owner?.has_antag_datum(/datum/antagonist/contractor)
 	if(contractor_datum)

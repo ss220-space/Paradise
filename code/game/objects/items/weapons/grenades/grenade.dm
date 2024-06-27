@@ -17,12 +17,6 @@
 	var/display_timer = TRUE
 
 
-/obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
-	return ..()
-
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
@@ -104,7 +98,7 @@
 	return TRUE
 
 
-/obj/item/grenade/attack_hand()
-	walk(src, null, null)
-	..()
+/obj/item/grenade/attack_hand(mob/user)
+	SSmove_manager.stop_looping(src)
+	. = ..()
 

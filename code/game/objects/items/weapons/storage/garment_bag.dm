@@ -200,6 +200,7 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/medical/cmo(src)
+	new /obj/item/clothing/under/rank/chief_medical_officer/skirt(src)
 
 /obj/item/storage/garmentbag/engineering_chief/populate_contents()
 	new /obj/item/clothing/head/beret/ce(src)
@@ -245,3 +246,4 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/cargo/qm(src)
 	new /obj/item/clothing/under/rank/cargo/alt(src)
+	new /obj/item/clothing/head/cowboyhat/tan(src)

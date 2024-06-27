@@ -30,13 +30,18 @@
 
 /obj/item/voice_changer/attack_self(mob/user)
 	active = !active
-	icon_state = "voice_changer_[active ? "on" : "off"]"
+	update_icon(UPDATE_ICON_STATE)
 	if(inform_about_toggle)
-		to_chat(user, span_notice("You toggle [src] [active ? "on" : "off"]."))
+		user.balloon_alert(user, "[active ? "включено" : "выключено"]")
 
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+
+/obj/item/voice_changer/update_icon_state()
+	icon_state = "voice_changer_[active ? "on" : "off"]"
+
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
 	var/mimic_voice

@@ -100,7 +100,6 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -147,7 +146,6 @@
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
@@ -155,6 +153,7 @@
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
+	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -179,7 +178,6 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',

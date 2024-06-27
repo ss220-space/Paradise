@@ -135,7 +135,7 @@
 	else
 		return 1
 
-/obj/item/reagent_containers/spray/mister/Move()
+/obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	. = ..()
 	if(loc != tank.loc)
 		loc = tank.loc

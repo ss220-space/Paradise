@@ -43,19 +43,19 @@
 	var/turf/T3 = get_step(src,dir)
 	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
 	if(L && L.stat != DEAD)
-		Bump(L) //Magic Bullet #teachthecontroversy
+		Bump(L, custom_bump = TRUE) //Magic Bullet #teachthecontroversy
 		return
 	L = locate(/mob/living) in T2
 	if(L && L.stat != DEAD)
-		Bump(L)
+		Bump(L, custom_bump = TRUE)
 		return
 	L = locate(/mob/living) in T3
 	if(L && L.stat != DEAD)
-		Bump(L)
+		Bump(L, custom_bump = TRUE)
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(var/target)
+/obj/item/projectile/magic/fireball/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)

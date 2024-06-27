@@ -341,7 +341,7 @@
 	START_PROCESSING(SSobj, src)
 
 
-/datum/vampire_passive/eternal_darkness/Destroy(force, ...)
+/datum/vampire_passive/eternal_darkness/Destroy(force)
 	owner.remove_light()
 	STOP_PROCESSING(SSobj, src)
 	return ..()

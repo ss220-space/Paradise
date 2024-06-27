@@ -1,3 +1,6 @@
+#define AUTOTRAITOR_LOW_BOUND (5 MINUTES)
+#define AUTOTRAITOR_HIGH_BOUND (15 MINUTES)
+
 /**
  * This is a game mode which has a chance to spawn any minor antagonist.
  */
@@ -16,9 +19,6 @@
 	var/list/datum/mind/pre_antags = list()
 	var/list/datum/mind/pre_double_antags = list()
 
-	var/antag_making_cooldown = 5 MINUTES
-	var/next_antag_making_time = 0
-
 	var/list/antag_required_players = list(
 		ROLE_TRAITOR = 10,
 		ROLE_THIEF = 10,
@@ -32,25 +32,29 @@
 	var/list/antags_weights
 	/// Chosen speciaal antag type.
 	var/special_antag_type = ROLE_NONE
+	/// Timestamp for autotraitor
+	COOLDOWN_DECLARE(antag_making_cooldown)
 
 
 /datum/game_mode/antag_paradise/announce()
 	to_chat(world, "<b>The current game mode is - Antag Paradise</b>")
 	to_chat(world, "<b>Traitors, thieves, vampires and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
+
 /datum/game_mode/antag_paradise/process()
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return PROCESS_KILL
 
-	if(world.time < next_antag_making_time)
-		return FALSE
+	if(!COOLDOWN_STARTED(src, antag_making_cooldown) || !COOLDOWN_FINISHED(src, antag_making_cooldown))
+		return
 
-	next_antag_making_time = world.time + antag_making_cooldown
+	COOLDOWN_START(src, antag_making_cooldown, rand(AUTOTRAITOR_LOW_BOUND, AUTOTRAITOR_HIGH_BOUND))
 	var/list/antag_possibilities = list()
 	antag_possibilities[ROLE_VAMPIRE] = get_alive_players_for_role(ROLE_VAMPIRE)
 	antag_possibilities[ROLE_CHANGELING] = get_alive_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_alive_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
+	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -65,15 +69,17 @@
 	var/special_antag_amount
 
 	antags_amount = 1 + round(players / scale)
-	//Special antag spawning not on roundstart is currently disabled for testing purposes.
-	special_antag_amount = roundstart ? 1 + round(players / 50) : 0
+	special_antag_amount = roundstart ? 1 + round(players / 50) : round(players / 50)
 
 	antags_amount = antags_amount - length(GLOB.antagonists)
 	if(antags_amount <= 0)
 		return
 
-	if(special_antag_type == ROLE_NINJA && !roundstart)
-		special_antag_type = pick(ROLE_HIJACKER, ROLE_THIEF, ROLE_MALF_AI)
+	if(!roundstart)
+		if(length(antag_possibilities[ROLE_MALF_AI]))
+			special_antag_type = pick(ROLE_HIJACKER, ROLE_THIEF, ROLE_MALF_AI)
+		else
+			special_antag_type = pick(ROLE_HIJACKER, ROLE_THIEF)
 
 	switch(special_antag_type)
 		if(ROLE_HIJACKER)
@@ -97,7 +103,7 @@
 
 		if(ROLE_MALF_AI)
 			if(special_antag_amount)
-				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)) : safepick(get_alive_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI))
+				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)) : safepick(antag_possibilities[ROLE_MALF_AI])
 				if(special_antag)
 					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 					special_antag.restricted_roles -= JOB_TITLE_AI
@@ -199,6 +205,7 @@
 				pre_double_antags[antag] = ROLE_CHANGELING
 				break
 
+
 /datum/game_mode/antag_paradise/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
@@ -211,7 +218,8 @@
 
 	calculate_antags()
 
-	return roll_antagonists(antag_possibilities, TRUE)
+	return roll_antagonists(antag_possibilities, roundstart = TRUE)
+
 
 /datum/game_mode/antag_paradise/proc/calculate_antags()
 	var/players = num_players()
@@ -288,7 +296,7 @@
 			antag.add_antag_datum(ninja_datum)
 
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags)), rand(1 SECONDS, 10 SECONDS))
-	next_antag_making_time = world.time + antag_making_cooldown
+	COOLDOWN_START(src, antag_making_cooldown, AUTOTRAITOR_LOW_BOUND)	// first auto-traitor tick checks all players in 5 minutes
 	..()
 
 
@@ -346,4 +354,8 @@
 				new_list += index
 				new_list[index] = check_list[index]
 	return new_list
+
+
+#undef AUTOTRAITOR_LOW_BOUND
+#undef AUTOTRAITOR_HIGH_BOUND
 

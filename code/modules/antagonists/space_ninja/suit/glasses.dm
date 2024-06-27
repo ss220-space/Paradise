@@ -27,7 +27,7 @@
 	return ..()
 
 /obj/item/clothing/glasses/ninja/ui_action_click(mob/user, action)
-	if(action == /datum/action/item_action/ninja_glasses_toggle)
+	if(istype(action, /datum/action/item_action/ninja_glasses_toggle))
 		toggle_modes(user)
 		return TRUE
 	return FALSE
