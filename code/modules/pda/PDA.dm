@@ -65,6 +65,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
 
+	/// Used for chameleon PDA interactions.
+	var/obj/item/pda/chameleon_skin
+	/// Custom job name used in chameleon PDA.
+	var/fakejob
 	/// Our icon saved in the text format for TGUI usage
 	var/base64icon
 	/// Custom PDA name used in update_name()
@@ -287,8 +291,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/update_name(updates = ALL)
 	. = ..()
-	if(ownjob && custom_name)
-		name = "[custom_name] ([ownjob])"
+	if((ownjob || fakejob) && custom_name)
+		name = "[custom_name] ([fakejob ? fakejob : ownjob])"
+	else if(chameleon_skin)
+		name = initial(chameleon_skin.name)
 	else if(ownjob && owner)
 		name = "PDA-[owner] ([ownjob])"
 	else
@@ -297,7 +303,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/update_desc(updates = ALL)
 	. = ..()
-	if(current_case?.new_desc)
+	if(chameleon_skin)
+		desc = initial(chameleon_skin.desc)
+	else if(current_case?.new_desc)
 		desc = current_case.new_desc
 	else if(current_painting)
 		desc = current_painting["desc"]
@@ -311,7 +319,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 
 /obj/item/pda/update_icon_state()
-	if(current_case?.new_icon_state)
+	if(chameleon_skin)
+		icon_state = initial(chameleon_skin.icon_state)
+		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+	else if(current_case?.new_icon_state)
 		icon_state = current_case.new_icon_state
 		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 	else if(current_painting)
@@ -321,7 +332,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		icon_state = initial(icon_state)
 		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 
-	if(current_case?.new_item_state)
+	if(chameleon_skin)
+		item_state = initial(chameleon_skin.item_state)
+	else if(current_case?.new_item_state)
 		item_state = current_case.new_item_state
 	else if(current_painting)
 		item_state = current_painting["icon"]
