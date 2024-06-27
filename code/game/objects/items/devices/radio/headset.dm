@@ -6,12 +6,6 @@
 	item_state = "headset"
 	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	sprite_sheets = list(
-		SPECIES_VOX = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/vox/ears.dmi',
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/vox/ears.dmi'), //We read you loud and skree-er.
-		SPECIES_VOX_ARMALIS = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi',
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi'),
 		SPECIES_MONKEY = list(
 			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
 			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
@@ -26,7 +20,13 @@
 			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
 		SPECIES_STOK =  list(
 			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',\
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi')
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
+		SPECIES_VOX = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/vox/ears.dmi',
+			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/vox/ears.dmi'), //We read you loud and skree-er.
+		SPECIES_VOX_ARMALIS = list(
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi',
+			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/armalis/ears.dmi')
 		)
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away

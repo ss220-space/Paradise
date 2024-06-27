@@ -345,12 +345,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
 			SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 			SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 			SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 			SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-			SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+			SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+			SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 			)
 		user.update_icons()
 		qdel(src)
@@ -942,12 +942,12 @@
 	icon_state = "k3_webbing"
 	ignore_suitadjust = FALSE
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi')
 		)
 	actions_types = list(/datum/action/item_action/toggle)
 

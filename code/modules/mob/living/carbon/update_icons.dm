@@ -94,14 +94,24 @@
 /mob/living/carbon/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
+		var/mutable_appearance/standing = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
+		if(handcuffed.sprite_sheets?[dna.species.name])
+			var/icon_list = handcuffed.sprite_sheets[dna.species.name]
+			if(icon_list[ITEM_SLOT_HANDCUFFED_STRING])
+				standing.icon = icon_list[ITEM_SLOT_HANDCUFFED_STRING]
+		overlays_standing[HANDCUFF_LAYER] = standing
 	apply_overlay(HANDCUFF_LAYER)
 
 
 /mob/living/carbon/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
+		var/mutable_appearance/standing = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
+		if(legcuffed.sprite_sheets?[dna.species.name])
+			var/icon_list = legcuffed.sprite_sheets[dna.species.name]
+			if(icon_list[ITEM_SLOT_HANDCUFFED_STRING])
+				standing.icon = icon_list[ITEM_SLOT_HANDCUFFED_STRING]
+		overlays_standing[LEGCUFF_LAYER] = standing
 	apply_overlay(LEGCUFF_LAYER)
 
 

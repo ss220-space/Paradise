@@ -25,13 +25,13 @@
 	item_state = "r_suit"
 	item_color = "wardenf"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/security
@@ -76,13 +76,13 @@
 	item_state = "r_suit"
 	item_color = "secredf"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 
@@ -125,16 +125,16 @@
 	strip_delay = 50
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/det/skirt
@@ -142,13 +142,13 @@
 	icon_state = "detective_skirt"
 	item_color = "detective_skirt"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 
@@ -166,8 +166,8 @@
 	item_state = "noir_skirt"
 	item_color = "noirdet_skirt"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/det/alt_a
@@ -179,18 +179,18 @@
 	icon_state = "detectives_skirt_grey"
 	item_color = "detectives_skirt_grey"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vulpkanin/uniform.dmi')
+		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vulpkanin/uniform.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vulpkanin/uniform.dmi')
 		)
 
 /obj/item/clothing/under/det/alt_b
@@ -216,13 +216,13 @@
 	item_state = "r_suit"
 	item_color = "hosredf"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/head_of_security/corp
@@ -240,8 +240,8 @@
 	item_state = "hosalt_skirt"
 	item_color = "hosalt_skirt"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/head_of_security/paradef
@@ -251,8 +251,8 @@
 	item_state = "hos_parade_fem"
 	item_color = "hos_parade_fem"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 //Jensen cosplay gear
@@ -328,14 +328,14 @@
 	item_color = "brig_physf"
 	permeability_coefficient = 0.50
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/drask/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/security/brigmedical
@@ -353,8 +353,8 @@
 	item_state = "brigmed_skirt"
 	item_color = "brigmed_skirt"
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
+		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 //Pod Pilot

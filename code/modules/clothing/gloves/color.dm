@@ -136,13 +136,13 @@
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	can_be_cut = FALSE
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/vox/gloves.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/drask/gloves.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/vox/gloves.dmi')
 		)
 
 /obj/item/clothing/gloves/color/orange

@@ -30,14 +30,14 @@
 	item_color = "atmosf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/drask/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/engineer
@@ -82,14 +82,14 @@
 	item_color = "enginef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/drask/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
 /obj/item/clothing/under/rank/roboticist

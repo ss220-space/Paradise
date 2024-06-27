@@ -18,10 +18,10 @@
 	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
+		SPECIES_GREY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/grey/back.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/vox/back.dmi'),
-		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/armalis/back.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/grey/back.dmi')
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/armalis/back.dmi') //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		)
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
@@ -770,14 +770,14 @@
 	max_combined_w_class = 4
 	storage_slots = 1
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/vox/back.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/drask/back.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/grey/back.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/vox/back.dmi')
 		)
 	can_hold = list(/obj/item/instrument, /obj/item/gun)
 	cant_hold = list(/obj/item/instrument/accordion, /obj/item/instrument/harmonica)

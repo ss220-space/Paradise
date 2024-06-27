@@ -554,10 +554,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
 			var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
 			var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
+
 			if(accessory.sprite_sheets?[dna.species.name])
 				var/icon_list = accessory.sprite_sheets[dna.species.name]
 				if(icon_list[ITEM_SLOT_ACCESSORY_STRING])
 					acc_olay.icon = icon_list[ITEM_SLOT_ACCESSORY_STRING]
+
 			standing.overlays += acc_olay
 
 		// Select which layer to use based on the properties of the hair style.
@@ -611,7 +613,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_item_on_hud(wear_id, ui_id)
 
 		if(w_uniform?.displays_id)
-			overlays_standing[ID_LAYER]	= mutable_appearance(wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], "id", layer = -ID_LAYER, alpha = wear_id.alpha, color = wear_id.color)
+			var/mutable_appearance/standing = mutable_appearance(wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], "id", layer = -ID_LAYER, alpha = wear_id.alpha, color = wear_id.color)
+
+			if(wear_id.sprite_sheets?[dna.species.name])
+				var/icon_list = wear_id.sprite_sheets[dna.species.name]
+				if(icon_list[ITEM_SLOT_CLOTH_INNER_STRING])
+					standing.icon = icon_list[ITEM_SLOT_CLOTH_INNER_STRING]
+
+			overlays_standing[ID_LAYER]	= standing
 
 	apply_overlay(ID_LAYER)
 
@@ -796,7 +805,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/t_state = s_store.item_state ? s_store.item_state : s_store.icon_state
 
-		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING], "[t_state]", layer = -SUIT_STORE_LAYER, alpha = s_store.alpha, color = s_store.color)
+		var/mutable_appearance/standing = mutable_appearance(s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING], "[t_state]", layer = -SUIT_STORE_LAYER, alpha = s_store.alpha, color = s_store.color)
+
+		if(s_store.sprite_sheets?[dna.species.name])
+			var/icon_list = s_store.sprite_sheets[dna.species.name]
+			if(icon_list[ITEM_SLOT_HEAD_STRING])
+				standing.icon = icon_list[ITEM_SLOT_HEAD_STRING]
+
+		overlays_standing[SUIT_STORE_LAYER] = standing
 
 	apply_overlay(SUIT_STORE_LAYER)
 
@@ -1245,17 +1261,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //  For suits with sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/clothing/species/[species_name_here]/collar.dmi.
 /mob/living/carbon/human/proc/update_collar()
 	remove_overlay(COLLAR_LAYER)
-	var/icon/used_icon = null
-	var/mutable_appearance/standing = null
 
 	if(wear_suit)
-		used_icon = wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING]
+		var/mutable_appearance/standing = mutable_appearance(wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING], "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
+
 		if(wear_suit.sprite_sheets?[dna.species.name])
 			var/icon_list = wear_suit.sprite_sheets[dna.species.name]
 			if(icon_list[ITEM_SLOT_COLLAR_STRING])
-				used_icon = icon_list[ITEM_SLOT_COLLAR_STRING]
-
-		standing = mutable_appearance(used_icon, "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
+				standing.icon = icon_list[ITEM_SLOT_COLLAR_STRING]
 
 		overlays_standing[COLLAR_LAYER]	= standing
 	apply_overlay(COLLAR_LAYER)

@@ -14,12 +14,12 @@
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/mask.dmi')
 		)
 
 // Clumsy folks can't take the mask off themselves.
@@ -98,19 +98,19 @@
 	var/trashtype = /obj/item/trash/tapetrash
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 
 
@@ -149,20 +149,20 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 
 /obj/item/clothing/mask/muzzle/safety/shock
@@ -254,20 +254,20 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 
 
@@ -283,20 +283,20 @@
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
@@ -361,8 +361,8 @@
 	var/originalname = ""
 
 	sprite_sheets = list(
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
@@ -502,21 +502,21 @@
 	icon_state = "rocksomask"
 	item_state = "rocksomask"
 	sprite_sheets = list(
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
+		SPECIES_KIDAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/kidan/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
-		SPECIES_KIDAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/kidan/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
 		SPECIES_WRYN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/wryn/mask.dmi')
 		)
 
@@ -533,20 +533,20 @@
 	dyeable = TRUE
 	can_toggle = TRUE
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
-		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
+		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
@@ -690,20 +690,20 @@
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/drask/mask.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/grey/mask.dmi'),
-		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
-		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
+		SPECIES_TAJARAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/tajaran/mask.dmi'),
+		SPECIES_UNATHI = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/unathi/mask.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vox/mask.dmi'),
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/mask.dmi')
 		)
 
 /obj/item/clothing/mask/secscarf/attack_self(mob/user)

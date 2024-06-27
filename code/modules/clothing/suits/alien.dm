@@ -1,13 +1,13 @@
 //Unathi clothing.
 /obj/item/clothing/suit/unathi
 	sprite_sheets = list(
-		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi')
 		)
 
 /obj/item/clothing/suit/unathi/robe
@@ -24,10 +24,10 @@
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/vox/neck.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
 		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
 		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi')
+		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_VOX = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/vox/neck.dmi')
 		)
