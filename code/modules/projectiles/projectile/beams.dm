@@ -19,6 +19,9 @@
 
 /obj/item/projectile/beam/laser
 
+/obj/item/projectile/beam/laser/light
+	damage = 15
+
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"

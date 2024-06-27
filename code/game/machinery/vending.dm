@@ -3036,6 +3036,7 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4

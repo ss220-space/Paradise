@@ -109,3 +109,62 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
+
+/obj/item/gun/energy/gun/minigun
+	name = "Laser gatling gun"
+	desc = "Self-rechargable monster made of advanced techonology's and crazy machine thinking."
+	icon_state = "gatling"
+	item_state = "gatling"
+	fire_sound = "lasergatling"
+	origin_tech = "combat=7;magnets=6;powerstorage=6"
+	slot_flags = FALSE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	weapon_weight = WEAPON_MEDIUM
+	w_class = WEIGHT_CLASS_GIGANTIC
+	throw_range = 0
+	burst_size = 6
+	spread = 45
+	can_charge = FALSE
+	cell_type = /obj/item/stock_parts/cell/laser/gatling
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
+	selfcharge = TRUE
+	charge_delay = 5
+	recharge_rate = 600
+	slowdown = 0.2
+	var/force_unwielded = 10
+	var/force_wielded = 20
+
+/obj/item/gun/energy/gun/minigun/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = src.force_unwielded, \
+		force_wielded = src.force_wielded, \
+		require_twohands = TRUE \
+	)
+
+/obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = TRUE)
+	..()
+	to_chat(user, span_warning("[name] слишком тяжелый!"))
+
+/obj/item/gun/energy/gun/minigun/update_icon_state()
+	if(!cell)
+		item_state = initial(item_state)
+		icon_state = initial(icon_state)
+		return
+	if(cell.charge > 600)
+		item_state = "gatling1"
+		icon_state = "gatling1"
+	else
+		item_state = "gatling"
+		icon_state = "gatling"
+
+/obj/item/gun/energy/gun/minigun/examine(mob/user)
+	. = ..()
+	if(!cell)
+		return .
+	var/charge_amount = round(cell.charge/600)
+	. += span_notice("Вы видите заряд батареи на [charge_amount] [declension_ru(charge_amount, "залп", "залпа", "залпов")]")
+
+/obj/item/stock_parts/cell/laser/gatling
+	maxcharge = 9000
+	charge = 9000
