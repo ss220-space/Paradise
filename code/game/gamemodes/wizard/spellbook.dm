@@ -318,7 +318,7 @@
 
 /datum/spellbook_entry/healtouch
 	name = "Healing Touch"
-	spell_type = /obj/effect/proc_holder/spell/touch/healtouch
+	spell_type = /obj/effect/proc_holder/spell/touch/healtouch/advanced
 	category = "Assistance"
 	cost = 1
 
