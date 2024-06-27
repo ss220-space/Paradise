@@ -20,7 +20,7 @@
 	path = /obj/item/clothing/head/kitty
 
 /datum/gear/donor/leather_syndicate_coat
-	display_name = "Leather Syndicate Coat"
+	display_name = "Leather Trenchcoat"
 	path = /obj/item/clothing/suit/space/deathsquad/officer/syndie/runner
 	donator_tier = 2
 	cost = 1
