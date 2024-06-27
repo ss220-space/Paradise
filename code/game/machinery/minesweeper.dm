@@ -141,7 +141,7 @@
 		ui.open()
 
 /obj/machinery/arcade/minesweeper/ui_data(mob/user)
-	var/list/data = list("matrix" = minesweeper_matrix, "showMessage" = show_message, "tokens" = tokens)
+	var/list/data = list("matrix" = minesweeper_matrix, "showMessage" = show_message, "tokens" = tokens, "firstTouch" = first_touch)
 	return data
 
 /obj/machinery/arcade/minesweeper/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
