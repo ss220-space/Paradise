@@ -136,7 +136,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		SPECIES_TAJARAN = list( ITEM_SLOT_EYES_STRING = 'icons/cat/are/bad')
 		)
 	If index term exist, this sprite sheet will be used.
-	Put here all species that have sprites, even if their are "not in use"
+	Put here all species that have sprites, even if they're are "not in use"
 	*/
 	///Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi
 	var/list/sprite_sheets = null
