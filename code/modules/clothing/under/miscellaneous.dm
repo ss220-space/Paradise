@@ -795,7 +795,7 @@
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_KIDAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/kidan/uniform.dmi'),
 		SPECIES_WRYN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/wryn/uniform.dmi')
-	)
+		)
 
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"

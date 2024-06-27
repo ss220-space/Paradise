@@ -498,7 +498,7 @@
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
-	)
+		)
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
@@ -517,7 +517,7 @@
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
-	)
+		)
 
 /obj/item/clothing/suit/armor/tdome/green
 	name = "Green Thunderdome Armor"
@@ -527,7 +527,7 @@
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
-	)
+		)
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert

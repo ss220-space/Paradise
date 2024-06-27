@@ -310,7 +310,7 @@
 	strip_delay = 130
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
-	)
+		)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/update_icon_state()

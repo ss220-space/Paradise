@@ -26,7 +26,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
-	)
+		)
 
 // **** Welding gas mask ****
 
@@ -79,7 +79,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
-	)
+		)
 
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
@@ -187,7 +187,7 @@
 	item_state = "rainbow"
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
-	)
+		)
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"

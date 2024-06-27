@@ -156,7 +156,7 @@
 	species_restricted = null
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
-	)
+		)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
@@ -172,7 +172,7 @@
 	species_restricted = null
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
-	)
+		)
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"

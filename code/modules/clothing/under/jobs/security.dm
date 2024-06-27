@@ -32,7 +32,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
-	)
+		)
 
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
@@ -83,7 +83,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
-	)
+		)
 
 
 /obj/item/clothing/under/rank/dispatch
@@ -149,7 +149,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
-	)
+		)
 
 
 /obj/item/clothing/under/det/noir
@@ -168,7 +168,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
-	)
+		)
 
 /obj/item/clothing/under/det/alt_a
 	icon_state = "detective_suit"
@@ -223,7 +223,7 @@
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi')
-	)
+		)
 
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"
@@ -242,7 +242,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
-	)
+		)
 
 /obj/item/clothing/under/rank/head_of_security/paradef
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer. Made for parades."
@@ -253,7 +253,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
-	)
+		)
 
 //Jensen cosplay gear
 
@@ -355,7 +355,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi')
-	)
+		)
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot

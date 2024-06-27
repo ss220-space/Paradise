@@ -60,7 +60,7 @@
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/marisa
 	name = "Witch Hat"
@@ -92,7 +92,7 @@
 		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/head.dmi'),
 		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/head.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/necromage
 	name = "Necronat Mask"
@@ -110,7 +110,7 @@
 		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/head.dmi'),
 		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/head.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/artmage
 	name = "Wizard Sculptor's Beret"
@@ -121,7 +121,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/visionmage
 	name = "Golden tiara"
@@ -132,7 +132,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
 		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/healmage
 	name = "Healer's Hat"
@@ -142,7 +142,7 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/head.dmi')
-	)
+		)
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"

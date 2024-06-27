@@ -63,7 +63,7 @@ do { \
 		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-	)
+		)
 
 
 /obj/item/clothing/suit/chameleon/broken
@@ -92,7 +92,7 @@ do { \
 		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi')
-	)
+		)
 
 
 /obj/item/clothing/glasses/chameleon/broken
@@ -220,7 +220,7 @@ do { \
 		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
 		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
-	)
+		)
 	var/obj/item/voice_changer/voice_changer
 
 

@@ -88,8 +88,7 @@
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
-		SPECIES_VOX_ARMALIS = NONE,
+		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi')
 		)
 
 /obj/item/clothing/head/helmet/space/vox
@@ -99,8 +98,7 @@
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
-		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
-		SPECIES_VOX_ARMALIS = NONE,
+		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi')
 		)
 
 /obj/item/clothing/head/helmet/space/vox/pressure
@@ -124,7 +122,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/head.dmi'),
 		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/armalis/head.dmi')
-	)
+		)
 
 /obj/item/clothing/suit/space/vox/carapace
 	name = "alien carapace armour"
