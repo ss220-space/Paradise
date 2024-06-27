@@ -1424,3 +1424,62 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/hoodie
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
+
+/obj/item/clothing/suit/hoodie/plaidhoodie_green
+	name = "green plaid hoodie"
+	desc = "Fashionable and stylish green plaid hoodie with hood."
+	icon_state = "plaidhoodie_green"
+	item_state = "plaidhoodie_green"
+
+/obj/item/clothing/suit/hoodie/plaidhoodie_white
+	name = "white plaid hoodie"
+	desc = "Fashionable and stylish white plaid hoodie with hood."
+	icon_state = "plaidhoodie_white"
+	item_state = "plaidhoodie_white"
+
+/obj/item/clothing/suit/hoodie/plaidhoodie_red
+	name = "red plaid hoodie"
+	desc = "Fashionable and stylish red plaid hoodie with hood."
+	icon_state = "plaidhoodie_red"
+	item_state = "plaidhoodie_red"
+
+/obj/item/clothing/suit/hoodie/plaidhoodie_yellow
+	name = "yellow plaid hoodie"
+	desc = "Fashionable and stylish yellow plaid hoodie with hood."
+	icon_state = "plaidhoodie_yellow"
+	item_state = "plaidhoodie_yellow"
+
+/obj/item/clothing/suit/blackcoat
+	name = "black coat"
+	desc = "A long leather raincoat. It makes you feel like a human being."
+	icon_state = "blackcoat"
+	item_state = "blackcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+	)
+
