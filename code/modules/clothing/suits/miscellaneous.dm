@@ -778,7 +778,7 @@
 		)
 
 /obj/item/clothing/suit/storage/leather_trenchcoat/runner
-	name = "Leather Trenchcoat"
+	name = "leather trenchcoat"
 	desc = "Длинное кожаное пальто-тренч с натуральным мехом. Вы чувствуете себя одиноко, когда носите его..."
 	icon_state = "bladerunner_coat"
 	item_state = "bladerunner_coat"
