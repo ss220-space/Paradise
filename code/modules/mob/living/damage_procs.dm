@@ -28,7 +28,7 @@
 			adjustStaminaLoss(damage * blocked)
 		if(BRUTESUICIDE)
 			adjustBruteLoss(damage * blocked)
-			for(var/obj/item/organ/internal/organ as anything in BODY_ZONE_HEAD)
+			for(var/obj/item/organ/internal/organ as anything in get_organs_zone(BODY_ZONE_HEAD, TRUE))
 				organ.receive_damage(damage/3)
 		if(BURNSUICIDE)
 			adjustFireLoss(damage * blocked)
