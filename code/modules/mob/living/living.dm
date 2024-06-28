@@ -1021,21 +1021,26 @@
 	switch(grabber.grab_state)
 		if(GRAB_AGGRESSIVE)
 			if(vampire_grab)
-				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
-			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_AGGRESSIVE)
-			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_AGGRESSIVE : martial_override
+				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+			else
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_AGGRESSIVE)
+				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_AGGRESSIVE : martial_override
 		if(GRAB_NECK)
 			if(vampire_grab)
-				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_NECK]
-			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_NECK)
-			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_NECK : martial_override
+				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_NECK]
+			else
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_NECK)
+				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_NECK : martial_override
 		if(GRAB_KILL)
 			if(vampire_grab)
-				return vampire_grab.grab_resist_chances[MARTIAL_GRAB_KILL]
-			var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
-			. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
-	if((. > 0) && dna?.species.strength_modifier)
-		. *= dna.species.strength_modifier
+				. = vampire_grab.grab_resist_chances[MARTIAL_GRAB_KILL]
+			else
+				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
+				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
+	if(. > 0)
+		if(dna?.species.strength_modifier)
+			. *= dna.species.strength_modifier
+		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
 	else if(. < 0)
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")

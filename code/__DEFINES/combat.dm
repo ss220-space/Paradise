@@ -60,6 +60,9 @@
 #define HEALTH_THRESHOLD_CRIT 0
 #define HEALTH_THRESHOLD_DEAD -100
 
+/// Maximum amount of staminaloss, living mob can have.
+#define MAX_STAMINA_LOSS 120
+
 //Grab levels
 #define GRAB_PASSIVE 0
 #define GRAB_AGGRESSIVE 1
@@ -71,7 +74,7 @@
 #define MARTIAL_GRAB_KILL "martial_grab_kill"
 
 //Grab breakout odds
-#define GRAB_RESIST_CHANCE_AGGRESSIVE 50
+#define GRAB_RESIST_CHANCE_AGGRESSIVE 60
 #define GRAB_RESIST_CHANCE_NECK 20
 #define GRAB_RESIST_CHANCE_KILL 5
 ///Time to upgrade aggressive/neck grab to the next level.

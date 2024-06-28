@@ -232,7 +232,7 @@
 	var/grab_speed = 2 SECONDS
 	/// Resist chance overrides for the victim.
 	var/list/grab_resist_chances = list(
-		MARTIAL_GRAB_AGGRESSIVE = 30,
+		MARTIAL_GRAB_AGGRESSIVE = 40,
 		MARTIAL_GRAB_NECK = 10,
 		MARTIAL_GRAB_KILL = 5,
 	)

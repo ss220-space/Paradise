@@ -9,7 +9,7 @@
 	has_explaination_verb = TRUE
 	grab_speed = 2 SECONDS
 	grab_resist_chances = list(
-		MARTIAL_GRAB_AGGRESSIVE = 30,
+		MARTIAL_GRAB_AGGRESSIVE = 40,
 		MARTIAL_GRAB_NECK = 10,
 		MARTIAL_GRAB_KILL = 5,
 	)

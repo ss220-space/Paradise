@@ -372,7 +372,7 @@
 					ignored_mobs = grabber,
 				)
 				to_chat(grabber, span_danger("Вы агрессивно хватаете [name]!"))
-			add_attack_logs(grabber, src, "grabbed aggresively[add_log]", ATKLOG_ALL)
+			add_attack_logs(grabber, src, "grabbed aggressively[add_log]", ATKLOG_ALL)
 		if(GRAB_NECK)
 			add_attack_logs(grabber, src, "grabbed (neck grab)", ATKLOG_ALL)
 			visible_message(
