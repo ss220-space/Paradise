@@ -401,7 +401,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
 	name = "advanced janitorial toolset implant"
 	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/ert, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=5;engineering=6;biotech=5"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
