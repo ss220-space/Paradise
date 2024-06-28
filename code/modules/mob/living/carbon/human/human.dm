@@ -1970,7 +1970,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/set_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
