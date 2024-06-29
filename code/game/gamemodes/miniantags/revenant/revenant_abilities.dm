@@ -463,6 +463,37 @@
 		M.AdjustHallucinate(60 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
+/**
+ * Infects targets with a Cadaveric fever
+ */
+/obj/effect/proc_holder/spell/aoe/revenant/blight
+	name = "Blight"
+	desc = "Infects people nearby with a disease that slowly debilitates them."
+	action_icon_state = "blight"
+	base_cooldown = 60 SECONDS
+	unlock_amount = 200
+	cast_amount = 40
+	stun = 3 SECONDS
+	reveal = 7 SECONDS
+	aoe_range = 4
+
+
+/obj/effect/proc_holder/spell/aoe/revenant/blight/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new()
+	T.range = aoe_range
+	T.allowed_type = /mob/living/carbon
+	return T
+
+
+/obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!attempt_cast(user))
+		return
+	for(var/mob/living/carbon/M as anything in targets)
+		if(VIRUSIMMUNE in M.dna.species.species_traits)
+			continue
+		var/datum/disease/extoplasmic/D = new
+		D.Contract(M)
+		new /obj/effect/temp_visual/revenant(get_turf(M))
 
 /**
  * Defiling atoms.
