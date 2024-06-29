@@ -130,7 +130,7 @@
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = span_ifo("You missed the lens of [C] with [src].")
+			outmsg = span_info("You missed the lens of [C] with [src].")
 
 	//laser pointer image
 	is_pointing = TRUE
