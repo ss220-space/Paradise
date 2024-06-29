@@ -16,13 +16,13 @@
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
-	adjustcolors(color) //so it atleast appears
-	if(offspring)
-		is_offspring = 1
-	if(overmind)
-		adjustcolors(overmind.blob_reagent_datum.color)
 	if(!overmind)
 		create_overmind(new_overmind)
+	adjustcolors(color) //so it atleast appears
+	if(offspring)
+		is_offspring = TRUE
+	if(overmind)
+		adjustcolors(overmind.blob_reagent_datum.color)
 	point_rate = new_rate
 	..(loc, h)
 
@@ -45,6 +45,7 @@
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
+	SSticker.mode.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	return ..()
@@ -123,10 +124,12 @@
 		B.key = C.key
 		B.blob_core = src
 		overmind = B
+		B.select_reagent()
 		color = overmind.blob_reagent_datum.color
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
 		B.is_offspring = is_offspring
+		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
 
 /obj/structure/blob/core/proc/lateblobtimer()
@@ -145,3 +148,10 @@
 /obj/structure/blob/core/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
 	overmind?.forceMove(get_turf(src))
 	return ..()
+
+/obj/structure/blob/core/proc/add_datum_if_not_exist()
+	if(!overmind.mind.has_antag_datum(/datum/antagonist/blob_overmind))
+		var/datum/antagonist/blob_overmind/overmind_datum = new
+		overmind_datum.add_to_mode = TRUE
+		overmind_datum.is_offspring = is_offspring
+		overmind.mind.add_antag_datum(overmind_datum)

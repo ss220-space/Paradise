@@ -2,15 +2,12 @@
 	announceWhen	= 180
 	endWhen			= 240
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-	var/for_players = 30 		//Количество людей для спавна доп. мыши
 
 /datum/event/blob/announce(false_alarm)
-	if(successSpawn || false_alarm)
+	if(false_alarm)
 		GLOB.event_announcement.Announce("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
 		if(!false_alarm)
 			SSshuttle.emergency.cancel()
-	else
-		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
 	processing = FALSE //so it won't fire again in next tick
@@ -21,22 +18,27 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
 	if(!length(candidates))
+		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 		return kill()
 
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	if(!length(vents))
 		return
 
-	var/num_blobs = round((num_station_players() / for_players)) + 1
+	var/num_blobs = round((num_station_players() / SSticker.mode.blob_players_per_core)) + 1
 	for(var/i in 1 to num_blobs)
 		if (length(candidates))
 			var/obj/vent = pick(vents)
-			var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
+			var/mob/living/simple_animal/mouse/B = new(vent.loc)
 			var/mob/M = pick(candidates)
 			candidates.Remove(M)
 			B.key = M.key
-			SSticker.mode.update_blob_icons_added(B.mind)
 
+
+			var/datum/antagonist/blob_infected/blob_datum = new
+			blob_datum.time_to_burst_h = TIME_TO_BURST_MOUSE_H
+			blob_datum.time_to_burst_l = TIME_TO_BURST_MOUSE_H
+			B.mind.add_antag_datum(blob_datum)
 			to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
 			log_game("[B.key] has become blob infested mouse.")
 			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)

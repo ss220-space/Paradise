@@ -56,7 +56,8 @@
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/machinery/shield/cult
 	name = "cult barrier"

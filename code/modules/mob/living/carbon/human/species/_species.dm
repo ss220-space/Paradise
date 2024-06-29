@@ -297,6 +297,8 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	H.can_be_blob = can_be_blob
+
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -354,6 +356,8 @@
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
+
+	H.can_be_blob = initial(H.can_be_blob)
 
 	if(speed_mod)
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)

@@ -134,7 +134,7 @@
 
 
 /obj/machinery/light_construct/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		qdel(src)
 
 

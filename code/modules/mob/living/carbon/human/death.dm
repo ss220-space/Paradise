@@ -47,14 +47,8 @@
 	return TRUE
 
 /mob/living/carbon/human/dust()
-	if(!death(TRUE) && stat != DEAD)
-		return FALSE
-	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	icon = null
-	invisibility = INVISIBILITY_ABSTRACT
-	dust_animation()
-	QDEL_IN(src, 0)
-	return TRUE
+	return ..()
+
 
 /mob/living/carbon/human/dust_animation()
 	var/atom/movable/overlay/animation = null

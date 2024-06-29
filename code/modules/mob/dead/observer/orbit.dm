@@ -105,6 +105,8 @@
 					// Traitors - the only antags in `.antag_datums` at the time of writing.
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
+						if(!A.show_in_orbit)
+							continue
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
@@ -129,6 +131,7 @@
 							"Wizards — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
 							"Wizard’s Apprentices — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
 							"Xenomorphs — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
+							"Blobs — ([length(SSticker.mode.get_blobs_minds())])" = (mind in SSticker.mode.get_blobs_minds())
 						)
 
 				for(var/antag_name in other_antags)

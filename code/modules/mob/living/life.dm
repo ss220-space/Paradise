@@ -20,6 +20,8 @@
 	if(!loc)
 		return FALSE
 
+	burst_blob_in_mob()
+
 	if(stat != DEAD)
 		//Chemicals in the body
 		if(reagents)
