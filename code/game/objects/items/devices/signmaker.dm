@@ -73,14 +73,14 @@
 		recharge_locked = FALSE
 		return PROCESS_KILL
 
-/obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
-	if( !(target in view(user)))
+/obj/item/signmaker/proc/laser_act(atom/target, mob/living/user, params)
+	if(!(target in view(user)))
 		return
 	if(pointer_busy)
-		to_chat(user, "<span class='notice'>You already pointing at something.</span>")
+		to_chat(user, span_notice("You already pointing at something."))
 		return
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))
 		return
 	add_fingerprint(user)
 	var/target_type = 0
@@ -94,49 +94,48 @@
 
 	switch(target_type)
 		if(CARBON)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/mob/living/carbon/C = target
 			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
-					visible_message("<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>")
+					visible_message(span_notice("You blind [C] by shining [src] in [C.p_their()] eyes."))
 					if(C.weakeyes)
 						C.Stun(2 SECONDS)
 				else
-					visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
+					visible_message(span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!"))
 			else
-				visible_message("<span class='info'>You missed the [C] with [src].</span>")
+				visible_message(span_info("You missed the [C] with [src]."))
 		if(SILICON)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/mob/living/silicon/S = target
 			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
-				if(prob(20))
-					S.flash_eyes(affect_silicon = 1)
-					S.Weaken(rand(10 SECONDS,20 SECONDS))
-					to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-					visible_message("<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+				if(prob(20) && S.flash_eyes(affect_silicon = TRUE))
+					S.Weaken(rand(10 SECONDS, 20 SECONDS))
+					to_chat(S, span_warning("Your sensors were overloaded by a laser!"))
+					visible_message(span_notice("You overload [S] by shining [src] at [S.p_their()] sensors."))
 
 					add_attack_logs(user, S, "shone [src] in their eyes")
 				else
-					visible_message("<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+					visible_message(span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors."))
 			else
-				visible_message("<span class='info'>You missed the [S] with [src].</span>")
+				visible_message(span_info("You missed the [S] with [src]."))
 		if(CAMERA)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/obj/machinery/camera/C = target
 			if(prob(20))
 				C.emp_act(1)
-				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
+				visible_message(span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!"))
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
-				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")
+				visible_message(span_info("You missed the lens of [C] with [src]."))
 		else
 			create_holosign(target, user)
 	//to make sure energy doesn't go below 0
@@ -147,7 +146,7 @@
 			recharging = TRUE
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = TRUE
 			clear_holosign()
 

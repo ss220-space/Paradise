@@ -41,7 +41,7 @@
 		message_admins(message)
 		add_game_logs("[reaction_name] chemical mob spawn reaction occuring at [AREACOORD(T)] carried by [key_name_log(M)] with last fingerprint [A.fingerprintslast? A.fingerprintslast : "N/A"]", M)
 
-		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, TRUE)
 
 		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
 			C.flash_eyes()
@@ -57,7 +57,7 @@
 			S.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(S, pick(NORTH,SOUTH,EAST,WEST))
+					step(S, pick(NORTH, SOUTH, EAST, WEST))
 
 /proc/goonchem_vortex(turf/T, setting_type, volume)
 	if(setting_type)

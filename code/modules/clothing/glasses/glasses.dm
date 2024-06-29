@@ -558,7 +558,7 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot(INTERNAL_ORGAN_EYES)
 		if(eyes && H.glasses == src)
 			to_chat(H, span_warning("[src] overloads and blinds you!"))
-			H.flash_eyes(visual = TRUE)
+			H.flash_eyes(3, visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
 			eyes.receive_damage(5)

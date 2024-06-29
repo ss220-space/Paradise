@@ -1250,7 +1250,7 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))

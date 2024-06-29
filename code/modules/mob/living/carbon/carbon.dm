@@ -329,19 +329,20 @@
 		H.play_xylophone()
 
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
 	if(.)
 		if(visual)
 			return
-		if(weakeyes)
-			Stun(4 SECONDS)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
 			return
+
+		if(weakeyes)
+			Stun(4 SECONDS)
 
 		var/extra_darkview = 0
 		if(E.see_in_dark)
@@ -349,8 +350,8 @@
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
-		if(isturf(src.loc))
-			var/turf/T = src.loc
+		if(isturf(loc))
+			var/turf/T = loc
 			light_amount = round(T.get_lumcount() * 10)
 
 		// a dark view of 8, in full darkness, will result in maximum 1st tier damage
@@ -358,16 +359,16 @@
 
 		switch(damage)
 			if(1)
-				to_chat(src, "<span class='warning'>Ваши глаза немного щиплет.</span>")
+				to_chat(src, span_warning("Ваши глаза немного щиплет."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
 			if(2)
-				to_chat(src, "<span class='warning'>Ваши глаза пылают.</span>")
+				to_chat(src, span_warning("Ваши глаза пылают."))
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
-				to_chat(src, "Глаза сильно чешутся и пылают!</span>")
+				to_chat(src, span_warning("Глаза сильно чешутся и пылают!"))
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
@@ -376,22 +377,22 @@
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
-					to_chat(src, "<span class='warning'>Ваши глаза начинают сильно пылать!</span>")
+					to_chat(src, span_warning("Ваши глаза начинают сильно пылать!"))
 				else //snowflake conditions piss me off for the record
-					to_chat(src, "<span class='warning'>Вас ослепила вспышка!</span>")
+					to_chat(src, span_warning("Вас ослепила вспышка!"))
 
 			else if(E.damage >= E.min_broken_damage)
-				to_chat(src, "<span class='warning'>Вы ничего не видите!</span>")
+				to_chat(src, span_warning("Вы ничего не видите!"))
 
 			else
-				to_chat(src, "<span class='warning'>Ваши глаза начинают изрядно болеть. Это определенно не очень хорошо!</span>")
+				to_chat(src, span_warning("Ваши глаза начинают изрядно болеть. Это определенно не очень хорошо!"))
 		if(mind && has_bane(BANE_LIGHT))
 			mind.disrupt_spells(-500)
-		return 1
+		return TRUE
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
-			to_chat(src, "<span class='notice'>Что-то яркое вспыхнуло на периферии вашего зрения!</span>")
+			to_chat(src, span_notice("Что-то яркое вспыхнуло на периферии вашего зрения!"))
 			if(mind && has_bane(BANE_LIGHT))
 				mind.disrupt_spells(0)
 
