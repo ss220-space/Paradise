@@ -100,7 +100,7 @@
 			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity = rand(0, 2)))
+			if(prob(effectchance * diode.rating) && C.flash_eyes(intensity = rand(0, 2)))
 				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
 				if(C.weakeyes)
 					C.Stun(2 SECONDS)
