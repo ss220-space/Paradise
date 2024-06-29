@@ -73,6 +73,7 @@
 		var/old_flags = target.pass_flags
 		target.pass_flags = PASSEVERYTHING
 		if(!target.Move(loc) || target.loc != loc)	// no move or still the same loc, even after move
+			target.pass_flags = old_flags
 			return FALSE
 		target.pass_flags = old_flags
 

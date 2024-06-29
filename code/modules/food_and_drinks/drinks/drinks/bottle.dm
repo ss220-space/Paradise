@@ -206,7 +206,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/rum
 	name = "Captain Pete's Cuban Spiced Rum"
-	desc = "This isn't just rum, oh no. It's practically GRIFF in a bottle."
+	desc = "As once skipper said, 'Should pale death with treble dread make the space frontier our bed, God who hears the darkness roll, deign to save our suppliant soul'."
 	icon_state = "rumbottle"
 	list_reagents = list("rum" = 100)
 
@@ -321,6 +321,12 @@
 	desc = "I haven't drunk sambuca since I was twenty."
 	icon_state = "sambukabottle"
 	list_reagents = list("sambuka" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat
+	name = "Arrogant Green Rat"
+	desc = "Finest wine from the Paradise City, where the grass is green and the girls are pretty."
+	icon_state = "arrogant_green_rat"
+	list_reagents = list("wine" = 100)
 
 //////////////////////////JUICES AND STUFF ///////////////////////
 

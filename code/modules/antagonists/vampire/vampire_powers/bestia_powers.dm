@@ -1679,11 +1679,7 @@
 								span_userdanger("An invisible force throws you out of the coffin with a violent rage!"), \
 								span_italics("You hear the sound of a heavy blow!"))
 
-		var/obj/item/organ/internal/body_egg/egg = human_vampire.get_int_organ(/obj/item/organ/internal/body_egg)
-		if(egg)
-			egg.remove(human_vampire)
-			egg.forceMove(get_turf(human_vampire))
-
+		human_vampire.remove_all_parasites(vomit_organs = TRUE)
 
 /**
  * Code is kindly stolen from the mecha. Spaceproof coffin ladies and gentlemen!

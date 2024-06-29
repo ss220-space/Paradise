@@ -219,12 +219,16 @@
 	damage = 0
 
 
-/obj/item/projectile/clown/bullet_act(obj/item/projectile/projectile, def_zone)
-	do_sparks(3, 1, src)
-	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
-	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
+/obj/item/projectile/clown/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
+	if(blocked >= 100)
+		return .
+	do_sparks(3, 1, target)
+	target.visible_message(span_warning("The [name] explodes!"))
+	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
+	if(isturf(target.loc) && !target.loc.density)
+		new /obj/effect/decal/cleanable/ash(target.loc)
+
 
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"

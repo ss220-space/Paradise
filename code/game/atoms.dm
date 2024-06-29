@@ -148,10 +148,6 @@
 	if(light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -1574,13 +1570,27 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 ///Setter for the `density` variable to append behavior related to its changing.
-/atom/proc/set_density(new_value)
+/atom/proc/set_density(new_density)
 	SHOULD_CALL_PARENT(TRUE)
-	if(density == new_value)
+	if(density == new_density)
 		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_density)
 	. = density
-	density = new_value
-	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_value)
+	density = new_density
+
+
+/**
+ * Updates the atom's opacity value.
+ *
+ * This exists to act as a hook for associated behavior.
+ * It notifies (potentially) affected light sources so they can update (if needed).
+ */
+/atom/proc/set_opacity(new_opacity)
+	if(new_opacity == opacity)
+		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
+	. = opacity
+	opacity = new_opacity
 
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.

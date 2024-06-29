@@ -186,24 +186,24 @@
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("[parent] слишком тяжел и громоздок для Вас!"))
+				user.balloon_alert(user, "слишком тяжело!")
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("Ваши руки для этого не приспособлены."))
+				user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("[parent] слишком громоздок, чтобы носить в одной руке!"))
+				user.balloon_alert(user, "нужны обе руки!")
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("Вторая рука должна быть свободна!"))
+				user.balloon_alert(user, "освободите вторую руку!")
 		return
 
 	if(user.l_arm_broken() || user.r_arm_broken())
@@ -211,7 +211,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_warning("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
+			user.balloon_alert(user, "руки травмированы!")
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())
@@ -219,7 +219,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_warning("У Вас отсутствует вторая рука!"))
+			user.balloon_alert(user, "одна из конечностей отсутствует!")
 		return
 
 	// wield update status

@@ -940,7 +940,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(back.onmob_sheets[ITEM_SLOT_BACK_STRING], "[back.icon_state]", layer = -BACK_LAYER, alpha = back.alpha, color = back.color)
 		if(back.sprite_sheets?[dna.species.name])
-			standing = back.sprite_sheets[dna.species.name]
+			standing.icon = back.sprite_sheets[dna.species.name]
 
 		overlays_standing[BACK_LAYER] = standing
 

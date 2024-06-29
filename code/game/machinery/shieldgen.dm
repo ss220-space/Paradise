@@ -18,7 +18,7 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
+	set_opacity(FALSE)
 	set_density(FALSE)
 	air_update_turf(1)
 	return ..()

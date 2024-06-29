@@ -1,5 +1,5 @@
 /*
-Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza, Bolmorr & Dikers for SS220.
+Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidza, Bolmorr, Dikers & SAAD for SS1984.
 */
 
 /datum/map/delta

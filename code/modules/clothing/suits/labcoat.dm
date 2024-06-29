@@ -3,8 +3,7 @@
 	desc = "A suit that protects against minor chemical spills."
 	icon_state = "labcoat_open"
 	item_state = "labcoat_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	permeability_coefficient = 0.5
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS

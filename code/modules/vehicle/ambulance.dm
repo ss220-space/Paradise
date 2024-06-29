@@ -134,7 +134,7 @@
 	var/obj/vehicle/ambulance/amb = over_object
 	if(amb.bed)
 		amb.bed = null
-		to_chat(usr, "You unhook the bed to the ambulance.")
+		balloon_alert(usr, "прицеплено к машине")
 	else
 		amb.bed = src
-		to_chat(usr, "You hook the bed to the ambulance.")
+		balloon_alert(usr, "отцеплено от машины")

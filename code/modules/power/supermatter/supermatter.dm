@@ -452,6 +452,8 @@
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
 	. = ..()
+	if(isprojectile(moving_atom))	// we update this in bullet_act()
+		return .
 	if(isnucleation(moving_atom))
 		nuclear_touch(moving_atom)
 		return .
