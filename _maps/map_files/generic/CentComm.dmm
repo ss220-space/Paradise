@@ -47434,7 +47434,7 @@
 	name = "Записка'";
 	pixel_x = 3
 	},
-/obj/item/paicard{
+/obj/item/toy/AI{
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood{
