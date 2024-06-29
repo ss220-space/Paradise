@@ -1,6 +1,6 @@
-/datum/disease/extoplasmic
-	name = "Extoplasmic fever"
-	agent = "Corrupted extoplasm"
+/datum/disease/ectoplasmic
+	name = "Ectoplasmic fever"
+	agent = "Corrupted ectoplasm"
 	desc = "Caused by a revenant, it slowly depletes organic life forms."
 	cures = list("holywater")
 	cure_prob = 50
@@ -9,7 +9,7 @@
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC
 
-/datum/disease/extoplasmic/stage_act()
+/datum/disease/ectoplasmic/stage_act()
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = affected_mob
