@@ -76,6 +76,7 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_push_slowdown = 0
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
@@ -106,12 +107,14 @@
 	set_density(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	target.pixel_y = target.base_pixel_y + 3
+	pull_push_slowdown = PULL_LYING_MOB_SLOWDOWN
 
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
 	set_density(FALSE)
 	update_icon(UPDATE_ICON_STATE)
 	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	pull_push_slowdown = initial(pull_push_slowdown)
 
 
 /obj/structure/bed/roller/holo

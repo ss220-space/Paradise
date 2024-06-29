@@ -63,10 +63,25 @@
 
 	if(isliving(pulling))
 		var/mob/living/pulling_mob = pulling
-		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || pulling_mob.buckled || grab_state > GRAB_PASSIVE)
+		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE)
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN)
+		if(!pulling_mob.buckled)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN)
+			return
+		var/slowdown_value = 0
+		if(isobj(pulling_mob.buckled))
+			var/obj/pulling_buckled_obj = pulling_mob.buckled
+			if(pulling_buckled_obj.pull_push_slowdown)
+				slowdown_value = pulling_buckled_obj.pull_push_slowdown
+		else if(isliving(pulling_mob.buckled))
+			var/mob/living/pulling_buckled_mob = pulling_mob.buckled
+			if(pulling_buckled_mob.body_position == LYING_DOWN)
+				slowdown_value = PULL_LYING_MOB_SLOWDOWN
+		if(slowdown_value)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value)
+		else
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
 	else if(isobj(pulling))
 		var/obj/pulling_obj = pulling
