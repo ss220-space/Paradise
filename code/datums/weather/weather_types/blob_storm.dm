@@ -67,7 +67,7 @@
 	if(GLOB.security_level == SEC_LEVEL_DELTA)
 		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 			if(bomb && bomb.timing && is_station_level(bomb.z))
-				INVOKE_ASYNC(bomb, /obj/machinery/nuclearbomb/proc/explode)
+				INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/machinery/nuclearbomb/,explode))
 	update_areas()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
