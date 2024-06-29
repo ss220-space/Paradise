@@ -49,6 +49,7 @@
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
+	var/static/mopping_effect = image('icons/effects/effects.dmi', "bubbles")
 	if(!proximity) return
 
 	if(reagents.total_volume < 1)
@@ -61,11 +62,13 @@
 		return
 
 	if(istype(T))
+		T.add_overlay(mopping_effect)
 		user.visible_message("[user] begins to clean [T] with [src].", "<span class='notice'>You begin to clean [T] with [src]...</span>")
 
 		if(do_after(user, mopspeed, T))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
+		T.cut_overlay(mopping_effect)
 
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
