@@ -3802,8 +3802,8 @@
 	},
 /obj/machinery/light,
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
+	input_level = 95000;
+	output_level = 90000
 	},
 /turf/simulated/floor/greengrid,
 /area/engine/engineering/monitor)
@@ -11217,12 +11217,19 @@
 /turf/simulated/floor/glass,
 /area/assembly/chargebay)
 "bFK" = (
-/obj/machinery/camera{
-	c_tag = "Genetics";
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/beach/sand,
-/area/medical/genetics)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "bFL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -15093,18 +15100,12 @@
 	},
 /area/medical/patients_rooms)
 "ccv" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "researchlockdown";
-	layer = 2.6;
-	name = "Research Emergency Lockdown"
+/obj/machinery/camera{
+	c_tag = "Genetics";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Research Division Access";
-	req_access = list(47)
-	},
-/turf/simulated/floor/plasteel/white,
-/area/toxins/hallway)
+/turf/simulated/floor/beach/sand,
+/area/medical/genetics)
 "ccw" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23138,19 +23139,15 @@
 	},
 /area/toxins/hallway)
 "dkb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/camera/autoname{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "red"
 	},
-/area/bridge)
+/area/security/permahallway)
 "dkg" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/grass,
@@ -26038,6 +26035,13 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
+"dLx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/aisat/atmospherics)
 "dLz" = (
 /obj/machinery/power/apc{
 	pixel_x = 28;
@@ -37914,8 +37918,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
+	input_level = 95000;
+	output_level = 90000
 	},
 /turf/simulated/floor/greengrid,
 /area/engine/engineering/monitor)
@@ -40333,14 +40337,13 @@
 	},
 /area/turret_protected/ai)
 "gHs" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access = list(47)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
+/turf/simulated/floor/plasteel/white,
+/area/toxins/hallway)
 "gHz" = (
 /obj/machinery/computer/card/minor/ce,
 /obj/machinery/computer/guestpass{
@@ -47629,14 +47632,13 @@
 	},
 /area/crew_quarters/bar)
 "ikH" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass{
-	name = "Research Quantum Pad"
+/obj/machinery/camera/autoname{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "red"
 	},
-/area/teleporter/quantum/science)
+/area/security/processing)
 "ikI" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating{
@@ -52712,12 +52714,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "jiT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/glass{
+	name = "Research Quantum Pad"
 	},
-/turf/simulated/floor/plating,
-/area/aisat/atmospherics)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/teleporter/quantum/science)
 "jiV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -56227,20 +56231,18 @@
 	},
 /area/teleporter/quantum/comand)
 "jWj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "researchlockdown";
+	layer = 2.6;
+	name = "Research Emergency Lockdown"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access = list(47)
 	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/bridge)
+/turf/simulated/floor/plasteel/white,
+/area/toxins/hallway)
 "jWt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel{
@@ -60573,8 +60575,8 @@
 	dir = 8
 	},
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
+	input_level = 95000;
+	output_level = 90000
 	},
 /turf/simulated/floor/greengrid,
 /area/engine/engineering/monitor)
@@ -85585,13 +85587,14 @@
 	},
 /area/medical/patients_rooms)
 "pVH" = (
-/obj/machinery/camera/autoname{
-	dir = 1
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "dark"
 	},
-/area/security/processing)
+/area/atmos)
 "pVK" = (
 /obj/machinery/power/solar{
 	name = "Port Solar Array"
@@ -94770,8 +94773,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
+	input_level = 95000;
+	output_level = 90000
 	},
 /turf/simulated/floor/greengrid,
 /area/engine/engineering/monitor)
@@ -100923,14 +100926,6 @@
 	icon_state = "navybluealt"
 	},
 /area/teleporter/quantum/science)
-"tfF" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	name = "Research Division Access";
-	req_access = list(47)
-	},
-/turf/simulated/floor/plasteel/white,
-/area/toxins/hallway)
 "tfH" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -121351,15 +121346,20 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/dorms)
 "xmq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/camera/autoname{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/area/security/permahallway)
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/bridge)
 "xmu" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -154101,7 +154101,7 @@ aGu
 jat
 dEj
 jWC
-jiT
+dLx
 dep
 nYk
 hYH
@@ -203645,7 +203645,7 @@ aeM
 cKE
 prA
 rib
-xmq
+dkb
 lzR
 hzX
 kAT
@@ -204937,7 +204937,7 @@ sOR
 mtu
 wIa
 kBt
-pVH
+ikH
 rMr
 pwl
 utc
@@ -207669,11 +207669,11 @@ aEN
 mRY
 rTK
 mag
-ccv
+jWj
 gLC
 lUn
 lUn
-tfF
+gHs
 lUn
 iRW
 lUn
@@ -208693,7 +208693,7 @@ tFG
 cVS
 uUf
 jqj
-ikH
+jiT
 jdN
 mwN
 piE
@@ -229872,7 +229872,7 @@ kxT
 azS
 bRS
 fxL
-jWj
+xmq
 xte
 xte
 cpk
@@ -230386,7 +230386,7 @@ iEd
 bNj
 qee
 cVq
-dkb
+bFK
 oNA
 aop
 eQF
@@ -247704,7 +247704,7 @@ oOj
 jNy
 wkU
 bzY
-bFK
+ccv
 iVk
 gBw
 wSI
@@ -287302,7 +287302,7 @@ wPH
 lCC
 lCC
 qxO
-gHs
+pVH
 xZs
 wPH
 uLj
@@ -288587,7 +288587,7 @@ wPH
 wOn
 fYd
 pqT
-gHs
+pVH
 xZs
 wPH
 wUN
