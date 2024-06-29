@@ -147,8 +147,8 @@
 		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_pieces, message, verb)]</span>")
 
 		// Create map text message
-		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker, message_clean, italics ? list("italics") : null)
+		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
+			create_chat_message(speaker, message_clean, italics ? list("italics") : null, get_runechat_language(message_pieces))
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
@@ -293,3 +293,14 @@
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)
+
+
+/// Gets language for runechat message.
+/// Will return first found language if more than one is present, cause I have no time to remake this for now.
+/proc/get_runechat_language(list/message_pieces)
+	for(var/datum/multilingual_say_piece/piece as anything in message_pieces)
+		if(!piece.message)
+			continue
+		if(piece.speaking?.runechat_span)
+			return piece.speaking
+

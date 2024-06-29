@@ -90,7 +90,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		to_chat(user, span_warning("You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card."))
+		user.balloon_alert(user, "протоколы безопасности [safety ? "де" : ""]активированы!")
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
@@ -138,7 +138,7 @@
 		return
 
 	if(on_cooldown)
-		to_chat(user, span_notice("[defib_ref] is recharging."))
+		user.balloon_alert(user, "всё ещё заряжается!")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
@@ -146,9 +146,9 @@
 
 	if(!istype(target))
 		if(robotic)
-			to_chat(user, span_notice("This unit is only designed to work on humanoid lifeforms."))
+			user.balloon_alert(user, "на роботах не сработает")
 		else
-			to_chat(user, span_notice("The instructions on [defib_ref] don't mention how to defibrillate that..."))
+			user.balloon_alert(user, "\"это\" нельзя дефибриллировать")
 		return
 
 	if(should_cause_harm)

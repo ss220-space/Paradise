@@ -32,7 +32,7 @@
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(inform_about_toggle)
-		to_chat(user, span_notice("You toggle [src] [active ? "on" : "off"]."))
+		user.balloon_alert(user, "[active ? "включено" : "выключено"]")
 
 	for(var/X in actions)
 		var/datum/action/A = X

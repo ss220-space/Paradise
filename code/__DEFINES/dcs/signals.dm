@@ -61,6 +61,8 @@
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///called when the atom sucessfully has it's density var changed, from base atom/set_density(): (value)
 #define COMSIG_ATOM_SET_DENSITY "atom_set_density"
+///from base of atom/set_opacity(): (new_opacity)
+#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
 ///from base of atom/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
 #define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
 	///prevents pressure movement
@@ -655,7 +657,10 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 ///from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
 #define COMSIG_OBJ_HIDE	"obj_hide"
-
+///from base of /proc/possess(): (mob/user)
+#define COMSIG_OBJ_POSSESSED "obj_possessed"
+///from base of /proc/release(): (mob/user)
+#define COMSIG_OBJ_RELEASED "obj_released"
 
 // /obj/machinery signals
 

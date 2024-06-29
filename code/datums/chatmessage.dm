@@ -58,10 +58,11 @@
  * * text - The text content of the overlay
  * * target - The target atom to display the overlay at
  * * owner - The mob that owns this overlay, only this mob will be able to view it
+ * * language - The language this message was spoken in
  * * extra_classes - Extra classes to apply to the span that holds the text
  * * lifespan - The lifespan of the message in deciseconds
  */
-/datum/chatmessage/New(text, atom/target, mob/owner, list/extra_classes, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, mob/owner, datum/language/language, list/extra_classes, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if(!isatom(target) || isarea(target))
 		CRASH("Invalid target given for chatmessage")
@@ -69,7 +70,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, extra_classes, lifespan)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, language, extra_classes, lifespan)
 
 
 /datum/chatmessage/Destroy()
@@ -109,10 +110,11 @@
  * * text - The text content of the overlay
  * * target - The target atom to display the overlay at
  * * owner - The mob that owns this overlay, only this mob will be able to view it
+ * * language - The language this message was spoken in
  * * extra_classes - Extra classes to apply to the span that holds the text
  * * lifespan - The lifespan of the message in deciseconds
  */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, list/extra_classes, lifespan)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, datum/language/language, list/extra_classes, lifespan)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_QDELETING, PROC_REF(on_parent_qdel))
@@ -170,6 +172,9 @@
 		target.chat_color = colorize_string(chat_color_name_to_use)
 		target.chat_color_darkened = colorize_string(chat_color_name_to_use, 0.85, 0.85)
 		target.chat_color_name = chat_color_name_to_use
+
+	if(language?.runechat_span)	// we can use this for custom language icon prefixes later, like on emotes
+		LAZYADD(extra_classes, language.runechat_span)
 
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
@@ -274,6 +279,7 @@
 		message.loc = message_loc
 		// we listen for Moved() on the target and every nested loc if the target is outside of the turf contents
 		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
+		RegisterSignal(target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
 		for(var/listening_target in signal_targets)
 			RegisterSignal(listening_target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
 			RegisterSignal(listening_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(adjust_message_z))
@@ -366,8 +372,9 @@
  * * speaker - The atom who is saying this message
  * * raw_message - The text content of the message
  * * spans - Additional classes to be added to the message
+ * * language - The language that the message is said in
  */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, list/spans)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, list/spans, datum/language/language)
 	if(!SStimer.can_fire || !SSrunechat.can_fire)
 		return
 
@@ -375,7 +382,7 @@
 	spans = spans ? spans.Copy() : null
 
 	// Display visual above source
-	new /datum/chatmessage(raw_message, speaker, src, spans)
+	new /datum/chatmessage(raw_message, speaker, src, language, spans)
 
 
 /**

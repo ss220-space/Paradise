@@ -1,7 +1,7 @@
 /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
+	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = FALSE
 	var/move_resist = MOVE_RESIST_DEFAULT
@@ -126,6 +126,9 @@
 			else
 				managed_overlays = em_block
 
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+
 	switch(light_system)
 		if(MOVABLE_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
@@ -136,6 +139,9 @@
 /atom/movable/Destroy(force)
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
 
 	. = ..()
 	if(loc)
@@ -328,8 +334,9 @@
 	loc = T
 
 
-/atom/movable/proc/set_glide_size(target = 8)
+/atom/movable/proc/set_glide_size(target = DEFAULT_GLIDE_SIZE)
 	if(HAS_TRAIT(src, TRAIT_NO_GLIDE))
+		glide_size = DEFAULT_GLIDE_SIZE
 		return
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
 	glide_size = target
@@ -1078,4 +1085,14 @@
 	if(anchored && pulledby)
 		pulledby.stop_pulling()
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_ANCHORED, anchorvalue)
+
+
+/atom/movable/set_opacity(new_opacity)
+	. = ..()
+	if(isnull(.) || !isturf(loc))
+		return .
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+	else
+		RemoveElement(/datum/element/light_blocking)
 
