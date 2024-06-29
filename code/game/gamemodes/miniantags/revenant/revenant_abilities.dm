@@ -491,7 +491,7 @@
 	for(var/mob/living/carbon/M as anything in targets)
 		if(VIRUSIMMUNE in M.dna.species.species_traits)
 			continue
-		var/datum/disease/extoplasmic/D = new
+		var/datum/disease/ectoplasmic/D = new
 		D.Contract(M)
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
