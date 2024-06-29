@@ -12,8 +12,6 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\common.dm"
-#include "_maps\map_files\generic\CentComm.dmm"
-#include "_maps\map_files\generic\syndicatebase.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
