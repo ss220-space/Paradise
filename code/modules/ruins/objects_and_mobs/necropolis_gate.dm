@@ -23,6 +23,7 @@
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
+
 /obj/structure/necropolis_gate/Initialize()
 	. = ..()
 	setDir(SOUTH)
@@ -46,6 +47,12 @@
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/structure/necropolis_gate/Destroy(force)
 	if(force)
 		qdel(sight_blocker, TRUE)
@@ -63,10 +70,21 @@
 		return TRUE
 
 
-/obj/structure/necropolis_gate/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover)
+/obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/opacity_blocker
