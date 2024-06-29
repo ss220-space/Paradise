@@ -353,6 +353,7 @@
 	var/obj/structure/barricade/dropwall/core_shield = null
 	/// The type of dropwall
 	var/barricade_type = /obj/structure/barricade/dropwall
+	var/cycle
 
 /obj/structure/dropwall_generator/Initialize(mapload, direction, uptime)
 	. = ..()
@@ -417,12 +418,14 @@
 	qdel(src)
 
 /obj/structure/dropwall_generator/proc/timer_overlay_proc(uptime) // This proc will make the timer on the generator tick down like a clock, over 12 equally sized portions (12 times over 12 seconds, every second by default)
-	var/cycle = DROPWALL_UPTIME + 1 - uptime
-	add_overlay("[cycle]")
-	if(cycle != 1)
-		cut_overlay("[(cycle - 1)]")
+	cycle = DROPWALL_UPTIME + 1 - uptime
+	update_icon(UPDATE_OVERLAYS)
 	if(cycle < 12)
 		addtimer(CALLBACK(src, PROC_REF(timer_overlay_proc), uptime - 1), DROPWALL_UPTIME / 12 SECONDS)
+
+/obj/structure/dropwall_generator/update_overlays()
+	. = ..()
+	. += "[cycle]"
 
 
 /obj/item/used_dropwall
