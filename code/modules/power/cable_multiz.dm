@@ -13,7 +13,10 @@
 
 /obj/structure/cable/multiz/Initialize(mapload)
 	. = ..()
-	mergeConnectedNetworksOnTurf(get_turf(src))
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/cable/multiz/LateInitialize()
+	mergeConnectedNetworksOnTurf()
 
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
@@ -55,7 +58,7 @@
 		var/datum/powernet/newPN = new()
 		newPN.add_cable(src)
 
-	//connect to cables that points to center (d1 or d2 to 0)
+	//connect to cables that points to center (d1 to 0)
 	for(var/obj/structure/cable/C in loc)
 		if(C.d1 == 0)
 			if(C.powernet == powernet)
