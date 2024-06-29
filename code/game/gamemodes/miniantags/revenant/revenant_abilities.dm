@@ -464,7 +464,7 @@
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
 /**
- * Infects targets with a extoplasmic disease
+ * Infects targets with a ectoplasmic disease
  */
 /obj/effect/proc_holder/spell/aoe/revenant/blight
 	name = "Blight"
