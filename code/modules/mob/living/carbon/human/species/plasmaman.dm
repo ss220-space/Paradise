@@ -229,10 +229,10 @@
 		H.adjustFireLoss(-0.25)
 		H.adjust_alien_plasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		if(prob(5))
-			var/list/our_organs = H.bodyparts.Copy()
-			shuffle(our_organs)
-			for(var/obj/item/organ/external/bodypart as anything in our_organs)
+		if(prob(1))
+			var/list/fractured_organs = H.check_fractures()
+			shuffle(fractured_organs)
+			for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
 				if(bodypart.mend_fracture())
 					break
 		return FALSE
