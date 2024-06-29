@@ -13,10 +13,9 @@
 
 /obj/structure/cable/multiz/Initialize(mapload)
 	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/cable/multiz/LateInitialize()
-	mergeConnectedNetworksOnTurf()
+	if(mapload)
+		return
+	mergeConnectedNetworksOnTurf(get_turf(src))
 
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
