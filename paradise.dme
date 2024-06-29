@@ -469,7 +469,7 @@
 #include "code\datums\diseases\food_poisoning.dm"
 #include "code\datums\diseases\kuru.dm"
 #include "code\datums\diseases\vampire.dm"
-#include "code\datums\diseases\extoplasmic.dm"
+#include "code\datums\diseases\ectoplasmic.dm"
 #include "code\datums\diseases\viruses\_virus.dm"
 #include "code\datums\diseases\viruses\anxiety.dm"
 #include "code\datums\diseases\viruses\beesease.dm"
