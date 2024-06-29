@@ -158,14 +158,14 @@
 	if(!try_use_flash(user))
 		return FALSE
 	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-	for(var/mob/living/carbon/M in oviewers(3, null))
+	for(var/mob/living/carbon/M in oviewers(3, get_turf(src)))
 		flash_carbon(M, user, 6 SECONDS, FALSE)
 
 
 /obj/item/flash/emp_act(severity)
 	if(!try_use_flash())
 		return FALSE
-	for(var/mob/living/carbon/M in viewers(3, null))
+	for(var/mob/living/carbon/M in viewers(3, get_turf(src)))
 		flash_carbon(M, null, 20 SECONDS, FALSE)
 	burn_out()
 	..()
