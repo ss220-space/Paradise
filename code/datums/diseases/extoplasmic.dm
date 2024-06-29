@@ -35,3 +35,4 @@
 				H.AdjustWeakened(1)
 				to_chat(H, "<span class='warning'>You suddenly feel [pick("sick and tired", "nauseated", "dizzy", "stabbing pain in your head")].</span>")
 				new /obj/effect/temp_visual/revenant(get_turf(H))
+
