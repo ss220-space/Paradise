@@ -46,7 +46,7 @@
 		if(prob(10 * severity))
 			return
 	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_eyes(visual = TRUE)
+	owner.flash_eyes(3, visual = TRUE)
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
