@@ -248,7 +248,7 @@ SECURITY
 	over_hat = TRUE
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
-	visor_flags_cover = GLASSESCOVERSEYES
+	toggleable_flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(

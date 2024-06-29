@@ -197,7 +197,8 @@
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()
-	if(prob(50 / severity))
+	if(prob(50 / severity) && !broken)
 		locked = FALSE
-		icon_state = icon_broken
+		broken = TRUE
+		update_icon(UPDATE_ICON_STATE)
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.

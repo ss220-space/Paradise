@@ -7,7 +7,6 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
-	icon_state = "standard-control"
 	icon_state = "mod_control"
 	item_state = "mod_control"
 	base_icon_state = "control"
@@ -59,8 +58,6 @@
 	var/slowdown_active = 0.75
 	/// How long this MOD takes each part to seal.
 	var/activation_step_time = MOD_ACTIVATION_STEP_TIME
-	/// Extended description of the theme.
-	var/extended_desc
 	/// MOD helmet.
 	var/obj/item/clothing/head/mod/helmet
 	/// MOD chestplate.
@@ -119,7 +116,7 @@
 		theme = new_theme
 	theme = GLOB.mod_themes[theme]
 	slot_flags = theme.slot_flags
-	extended_desc = theme.extended_desc
+	description_info = theme.extended_desc
 	slowdown_inactive = theme.slowdown_inactive
 	slowdown_active = theme.slowdown_active
 	complexity_max = theme.complexity_max
@@ -130,13 +127,17 @@
 		locked = TRUE
 	new_core?.install(src)
 	helmet = new /obj/item/clothing/head/mod(src)
+	helmet.control = src
 	mod_parts += helmet
 	chestplate = new /obj/item/clothing/suit/mod(src)
+	chestplate.control = src
 	LAZYADD(chestplate.allowed, theme.allowed_suit_storage)
 	mod_parts += chestplate
 	gauntlets = new /obj/item/clothing/gloves/mod(src)
+	gauntlets.control = src
 	mod_parts += gauntlets
 	boots = new /obj/item/clothing/shoes/mod(src)
+	boots.control = src
 	mod_parts += boots
 	var/list/all_parts = mod_parts + src
 	for(var/obj/item/part as anything in all_parts)
@@ -209,10 +210,6 @@
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
 
-/obj/item/mod/control/examine_more(mob/user)
-	. = ..()
-	. += "<i>[extended_desc]</i>"
-
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
@@ -240,13 +237,6 @@
 /obj/item/mod/control/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
-
-/obj/item/mod/control/on_mob_move(direction, mob/user)
-	if(!jetpack_active)
-		return
-	var/turf/T = get_step(src, GetOppositeDir(direction))
-	if(!has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
@@ -309,14 +299,14 @@
 	if(..())
 		return TRUE
 	if(active || activating || locate(/mob/living/silicon/ai) in src)
-		to_chat(user, span_warning("Deactivate the suit first!"))
+		balloon_alert(user, "сначала выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	to_chat(user, span_notice("[open ? "Closing" : "Opening"] cover..."))
 	screwdriver.play_tool_sound(src, 100)
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
-			to_chat(user, span_warning("Deactivate the suit first!"))
+			balloon_alert(user, "сначала выключите костюм!")
 		screwdriver.play_tool_sound(src, 100)
 		to_chat(user, span_notice("Cover [open ? "closed" : "opened"]."))
 		open = !open
@@ -676,7 +666,7 @@
 	for(var/obj/item/part as anything in all_parts)
 		part.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		part.add_atom_colour(new_color, FIXED_COLOUR_PRIORITY)
-	wearer?.regenerate_icons()
+		part.update_equipped_item()
 
 /obj/item/mod/control/proc/set_mod_skin(new_skin)
 	if(active)
@@ -686,7 +676,7 @@
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-		part.icon_state = "[skin]-[part.base_icon_state]"
+		part.update_icon(UPDATE_ICON_STATE)
 	for(var/obj/item/clothing/part as anything in mod_parts)
 		var/used_category
 		if(part == helmet)
@@ -698,12 +688,12 @@
 		if(part == boots)
 			used_category = BOOTS_FLAGS
 		var/list/category = used_skin[used_category]
-		part.flags = category[UNSEALED_CLOTHING] || NONE
-		part.clothing_flags = category[SEALED_CLOTHING] || NONE
+		part.clothing_flags = category[UNSEALED_CLOTHING] || NONE
+		part.toggleable_clothing_flags = category[SEALED_CLOTHING] || NONE
 		part.flags_inv = category[UNSEALED_INVISIBILITY] || NONE
-		part.visor_flags_inv = category[SEALED_INVISIBILITY] || NONE
+		part.toggleable_flags_inv = category[SEALED_INVISIBILITY] || NONE
 		part.flags_cover = category[UNSEALED_COVER] || NONE
-		part.visor_flags_cover = category[SEALED_COVER] || NONE
+		part.toggleable_flags_cover = category[SEALED_COVER] || NONE
 		if(!category[CAN_OVERSLOT])
 			if(overslotting_parts[part])
 				var/obj/item/overslot = overslotting_parts[part]
@@ -711,7 +701,8 @@
 			overslotting_parts -= part
 			continue
 		overslotting_parts |= part
-	wearer?.regenerate_icons()
+		part.update_equipped_item()
+
 
 /obj/item/mod/control/proc/on_exit(datum/source, atom/movable/part, direction)
 	SIGNAL_HANDLER

@@ -17,6 +17,11 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	var/obj/item/mod/control/control
+
+/obj/item/clothing/head/mod/update_icon_state()
+	var/not_sealed = control.activating ? control.active : !control.active
+	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
@@ -45,7 +50,11 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	var/obj/item/mod/control/control
 
+/obj/item/clothing/suit/mod/update_icon_state()
+	var/not_sealed = control.activating ? control.active : !control.active
+	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
@@ -67,6 +76,11 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	var/obj/item/mod/control/control
+
+/obj/item/clothing/gloves/mod/update_icon_state()
+	var/not_sealed = control.activating ? control.active : !control.active
+	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 
 /obj/item/clothing/shoes/mod
@@ -89,3 +103,8 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+	var/obj/item/mod/control/control
+
+/obj/item/clothing/shoes/mod/update_icon_state()
+	var/not_sealed = control.activating ? control.active : !control.active
+	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"

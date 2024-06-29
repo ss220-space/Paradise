@@ -6,9 +6,9 @@
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
 	if(back)
-		var/obj/I = back
-		drop_item_ground(I)
-		qdel(I)
+		var/obj/item = back
+		temporarily_remove_item_from_inventory(item)
+		qdel(item)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		temporarily_remove_item_from_inventory(item)
@@ -478,16 +478,16 @@
 	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
 
 
-/mob/living/carbon/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/carbon/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
 		if(D.wielded && D.force)
-			visible_message(span_danger("[src] impales [C] with [D], before dropping them on the ground!"))
-			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			C.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, C) //attack animation / jedi spin
-			C.emote("scream")
+			visible_message(span_danger("[src] impales [throwned_mob] with [D], before dropping them on the ground!"))
+			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
+			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			throwned_mob.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
+			throwned_mob.emote("scream")
 			return
 	*/
 	. = ..()

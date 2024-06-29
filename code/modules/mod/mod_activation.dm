@@ -20,7 +20,7 @@
 	if(!istype(part) || user.incapacitated())
 		return
 	if(active || activating)
-		to_chat(user, span_warning("Deactivate the suit first!"))
+		balloon_alert(user, "сначала выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	var/parts_to_check = mod_parts - part
@@ -44,7 +44,7 @@
 /// Quickly deploys all parts (or retracts if all are on the wearer)
 /obj/item/mod/control/proc/quick_deploy(mob/user)
 	if(active || activating)
-		to_chat(user, span_warning("Deactivate the suit first!"))
+		balloon_alert(user, "сначала выключите костюм!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	var/deploy = TRUE
@@ -123,7 +123,7 @@
 /obj/item/mod/control/proc/toggle_activate(mob/user, force_deactivate = FALSE)
 	if(!wearer)
 		if(!force_deactivate)
-			to_chat(user, span_warning("Equip your suit first!"))
+			balloon_alert(user, "сначала наденьте свой костюм!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!force_deactivate && (SEND_SIGNAL(src, COMSIG_MOD_ACTIVATE, user) & MOD_CANCEL_ACTIVATE))
@@ -131,24 +131,24 @@
 		return FALSE
 	for(var/obj/item/part as anything in mod_parts)
 		if(!force_deactivate && part.loc == src)
-			to_chat(user, span_warning("Deploy all parts first!"))
+			balloon_alert(user, "сначала разверните все детали!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 	if(locked && !active && !allowed(user) && !force_deactivate)
-		to_chat(user, span_warning("Insufficient access!"))
+		balloon_alert(user, "недостаточный доступ!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!get_charge() && !force_deactivate)
-		to_chat(user, span_warning("Suit is not powered!"))
+		balloon_alert(user, "костюм не заряжен!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(open && !force_deactivate)
-		to_chat(user, span_warning("Close the suit panel!"))
+		balloon_alert(user, "закройте панель костюма!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(activating)
 		if(!force_deactivate)
-			to_chat(user, span_warning("Suit is already [active ? "shutting down" : "starting up"]!"))
+			balloon_alert(user, "костюм уже [active ? "отключается" : "запускается"]")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	for(var/obj/item/mod/module/module as anything in modules)
@@ -156,7 +156,7 @@
 			continue
 		module.on_deactivation(display_message = FALSE)
 	activating = TRUE
-	to_chat(wearer, span_notice("MODsuit [active ? "shutting down" : "starting up"]."))
+	balloon_alert(user, "МОДкостюм [active ? "отключается" : "запускается"]")
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
 		to_chat(wearer, span_notice("[boots] [active ? "relax their grip on your legs" : "seal around your feet"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -188,23 +188,20 @@
 
 ///Seals or unseals the given part
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, seal)
+	part.update_icon(UPDATE_ICON_STATE)
 	if(seal)
-		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
-		part.flags |= part.clothing_flags
-		part.flags_inv |= part.visor_flags_inv
-		part.flags_cover |= part.visor_flags_cover
+		part.clothing_flags |= part.toggleable_clothing_flags
+		part.flags_inv |= part.toggleable_flags_inv
+		part.flags_cover |= part.toggleable_flags_cover
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
 	else
-		part.icon_state = "[skin]-[part.base_icon_state]"
-		part.flags_cover &= ~part.visor_flags_cover
-		part.flags_inv &= ~part.visor_flags_inv
-		part.flags &= ~part.clothing_flags
+		part.flags_cover &= ~part.toggleable_flags_cover
+		part.flags_inv &= ~part.toggleable_flags_inv
+		part.clothing_flags &= ~part.toggleable_clothing_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
-	if(ishuman(wearer))
-		var/mob/living/carbon/human/H = wearer
-		H.regenerate_icons()
+	part.update_equipped_item()
 
 /// Finishes the suit's activation, starts processing
 /obj/item/mod/control/proc/finish_activation(on)
@@ -218,8 +215,8 @@
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
-	update_icon_state()
-	wearer.regenerate_icons()
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item()
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.
 /obj/item/mod/control/proc/quick_activation()

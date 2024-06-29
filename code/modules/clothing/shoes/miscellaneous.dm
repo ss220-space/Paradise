@@ -62,7 +62,7 @@
 /obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
 	name = "lightweight absorbent galoshes"
 	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
-	slowdown = NONE
+	slowdown = 0
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()

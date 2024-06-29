@@ -291,9 +291,8 @@
 		if(occupant)
 			to_chat(H, span_warning("The cell is already occupied!"))
 			return
-		if(!ismodcontrol(H.back))
-			if(!H.get_int_organ(/obj/item/organ/internal/cell))
-				return
+		if(!(ismodcontrol(H.back) || H.get_int_organ(/obj/item/organ/internal/cell)))
+			return
 		can_accept_user = 1
 
 	if(!can_accept_user)

@@ -1778,17 +1778,17 @@
 	return ..()
 
 
-/mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
+/mob/living/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(throwned_mob == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	if(mob_hurt)
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
+	throwned_mob.take_organ_damage(damage)
+	throwned_mob.Weaken(3 SECONDS)
+	throwned_mob.visible_message(span_danger("[throwned_mob.name] вреза[pluralize_ru(src.gender,"ет","ют")]ся в [name], сбивая друг друга с ног!"),
 					span_userdanger("Вы жестко врезаетесь в [name]!"))
 
 

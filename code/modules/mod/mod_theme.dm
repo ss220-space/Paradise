@@ -11,7 +11,7 @@
 	var/name = "BASE"
 	/// Description added to the MOD.
 	var/desc = "A civilian class suit by Cybersun Industries, doesn't offer much other than slightly quicker movement."
-	/// Extended description on examine_more
+	/// Extended description on description_info
 	var/extended_desc = "A third-generation, modular civilian class suit by Cybersun Industries, \
 		this suit is a staple across the galaxy for civilian applications. These suits are oxygenated, \
 		spaceworthy, resistant to fire and chemical threats, and are immunized against everything between \

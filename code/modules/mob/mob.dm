@@ -352,26 +352,7 @@
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
-	face_atom(A)
-	if(!client)
-		var/list/result = A.examine(src)
-		to_chat(src, chat_box_examine(result.Join("\n")))
-		return
-
-	var/list/result
-	LAZYINITLIST(client.recent_examines)
-	for(var/key in client.recent_examines)
-		if(client.recent_examines[key] < world.time)
-			client.recent_examines -= key
-	var/ref_to_atom = A.UID()
-	if(LAZYACCESS(client.recent_examines, ref_to_atom))
-		result = A.examine_more(src)
-		if(!length(result))
-			result += span_notice("<i>You examine [A] closer, but find nothing of interest...</i>")
-	else
-		result = A.examine(src)
-		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
-
+	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
 
 

@@ -127,6 +127,9 @@
 
 /obj/item/stamp/mod/attack_self(mob/user, modifiers)
 	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/stamp/mod/update_icon_state()
 	if(icon_state == "stamp-ok")
 		icon_state = "stamp-deny"
 	else

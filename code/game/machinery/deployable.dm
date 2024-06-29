@@ -70,11 +70,12 @@
 		if(prob(proj_pass_rate))
 			return TRUE
 		return FALSE
-	if(isitem(mover)) //thrown items with the dropwall
-		if(directional_blockage)
-			if(one_eighty_check(mover))
-				return FALSE
-	return !density
+	if(!isitem(mover)) //thrown items with the dropwall
+		return .
+	if(!directional_blockage)
+		return .
+	if(one_eighty_check(mover))
+		return FALSE
 
 /obj/structure/barricade/proc/one_eighty_check(atom/movable/mover)
 	return turn(mover.dir, 180) in directional_list
@@ -459,13 +460,17 @@
 		0, 0, 0, 1
 	)
 	color = target_matrix
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/barricade/dropwall/firewall/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!isprojectile(AM))
+/obj/structure/barricade/dropwall/firewall/proc/on_entered(datum/source, atom/movable/entered_atom)
+	SIGNAL_HANDLER
+	if(!isprojectile(entered_atom))
 		return
-	var/obj/item/projectile/P = AM
-	P.immolate ++
+	var/obj/item/projectile/projectile = entered_atom
+	projectile.immolate++
 
 #undef SINGLE
 #undef VERTICAL

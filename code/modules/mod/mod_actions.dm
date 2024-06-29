@@ -102,9 +102,8 @@
 	..()
 	module = linked_module
 	button_icon_state = module.icon_state
-	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
-		// clears check hands
-		check_flags = AB_CHECK_CONSCIOUS
+	if(!(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED))
+		check_flags |= AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 	Grant(user)
 
 /datum/action/item_action/mod/pinned_module/Destroy()

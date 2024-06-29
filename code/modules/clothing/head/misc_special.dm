@@ -17,7 +17,7 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	visor_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	toggleable_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = 2
@@ -26,7 +26,7 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	actions_types = list(/datum/action/item_action/toggle)
-	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	toggleable_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
 	var/paint = null
 

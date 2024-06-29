@@ -1003,12 +1003,13 @@
 				var/obj/item/storage/backpack/backpack = user.back
 				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
 					return TRUE
-			if(user.back && ismodcontrol(user.back))
-				var/obj/item/mod/control/C = user.back
-				if(C.bag)
-					var/obj/item/storage/backpack/B = C.bag
-					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
-						return TRUE
+			else if(user.back && ismodcontrol(user.back))
+				var/obj/item/mod/control/control = user.back
+				if(!control.bag)
+					return FALSE
+				var/obj/item/storage/backpack/backpack = control.bag
+				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
+					return TRUE
 			return FALSE
 
 		// UNIFORM ACCESORIES
@@ -1034,7 +1035,7 @@
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
 	user.visible_message(span_notice("[user] начинает надевать [I.name]..."), span_notice("Вы начинаете надевать [I.name]..."))
-	return do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE))
+	return do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE))
 
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
