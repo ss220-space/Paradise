@@ -1114,7 +1114,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/port/south
 	name = "West-South Hallway"
 
-/area/hallway/primary/central
+/area/hallway/primary/central //pay attention to THIS SHIT
 	name = "Central Primary Hallway"
 	icon_state = "hallC"
 
