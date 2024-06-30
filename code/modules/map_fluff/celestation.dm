@@ -17,5 +17,4 @@
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
-	admin_only = TRUE //TESTS!
 	//webmap_url = not added
