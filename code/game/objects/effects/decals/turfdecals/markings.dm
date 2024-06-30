@@ -186,7 +186,6 @@
 
 /obj/effect/turf_decal/mech
 	icon_state = "mech_floor"
-	icon_state = "mech_floor"
 
 /obj/effect/turf_decal/siding
 	icon_state = "siding_line"

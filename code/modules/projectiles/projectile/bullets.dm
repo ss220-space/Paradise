@@ -238,7 +238,7 @@
 	name = "incendiary slug"
 	damage = 20
 
-/obj/item/projectile/bullet/incendiary/shell/Move()
+/obj/item/projectile/bullet/incendiary/shell/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)

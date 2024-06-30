@@ -537,10 +537,8 @@
 		newarea = get_area(arrived_mob)
 		oldarea = arrived_mob.lastarea
 
-		if(newarea == oldarea)
-			return
-
-		arrived_mob.lastarea = src
+		if(newarea != oldarea)
+			arrived_mob.lastarea = src
 
 	if(!isliving(arrived))
 		return

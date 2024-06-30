@@ -26,6 +26,11 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
+/obj/machinery/computer/teleporter/robotics //to do: limit targets to station only
+	desc = "Used to control a linked teleportation Hub and Station. Only Research Director can change destination target."
+	circuit = /obj/item/circuitboard/teleporter/robotics
+	req_access = list(ACCESS_RD)
+
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
 	link_power_station()

@@ -328,6 +328,21 @@
 	if(istype(ML))
 		ML.pulled(src)
 
+
+/mob/living/CtrlClick(mob/living/user)
+	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated())
+		return ..()
+
+	if(world.time < user.next_move)
+		return FALSE
+
+	if(user.grab(src))
+		user.changeNext_move(CLICK_CD_MELEE)
+		return TRUE
+
+	return ..()
+
+
 /*
 	Alt click
 	Unused except for AI
@@ -414,22 +429,28 @@
 	LE.fire()
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(var/atom/A)
-	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
+/mob/proc/face_atom(atom/A)
+	if(stat || buckled || !A || !x || !y || !A.x || !A.y )
+		return FALSE
 	var/dx = A.x - x
 	var/dy = A.y - y
-	if(!dx && !dy) return
+	if(!dx && !dy)
+		return FALSE
 
 	var/direction
 	if(abs(dx) < abs(dy))
-		if(dy > 0)	direction = NORTH
-		else		direction = SOUTH
+		if(dy > 0)
+			direction = NORTH
+		else
+			direction = SOUTH
 	else
-		if(dx > 0)	direction = EAST
-		else		direction = WEST
+		if(dx > 0)
+			direction = EAST
+		else
+			direction = WEST
 
-	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, direction)
-	dir = direction
+	setDir(direction)
+	return TRUE
 
 
 /atom/movable/screen/click_catcher

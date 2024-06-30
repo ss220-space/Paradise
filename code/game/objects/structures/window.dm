@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	flags = ON_BORDER
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
+	set_dir_on_move = FALSE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -202,39 +203,45 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	..()
 
+
+/obj/structure/window/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || !can_be_reached(grabber) || !Adjacent(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	add_fingerprint(grabber)
+	playsound(loc, 'sound/effects/glasshit.ogg', 150, TRUE)
+	switch(grabber.grab_state)
+		if(GRAB_AGGRESSIVE)
+			victim.visible_message(
+				span_warning("[grabber] slams [victim] against [src]!"),
+				span_warning("[grabber] slams you against [src]!"),
+			)
+			if(prob(25))
+				victim.Knockdown(2 SECONDS)
+			victim.apply_damage(7)
+			take_damage(10)
+		if(GRAB_NECK)
+			victim.visible_message(
+				span_warning("[grabber] bashes [victim] against [src]!"),
+				span_warning("[grabber] bashes you against [src]!"),
+			)
+			victim.Knockdown(4 SECONDS)
+			victim.apply_damage(10)
+			take_damage(25)
+		if(GRAB_KILL)
+			victim.visible_message(
+				span_warning("[grabber] crushes [victim] against [src]!"),
+				span_warning("[grabber] crushes you against [src]!"),
+			)
+			victim.Knockdown(6 SECONDS)
+			victim.apply_damage(20)
+			take_damage(50)
+
+
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
-
-	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
-		var/obj/item/grab/G = I
-		if(isliving(G.affecting))
-			var/mob/living/M = G.affecting
-			var/state = G.state
-			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
-			add_fingerprint(user)
-			switch(state)
-				if(1)
-					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
-					M.apply_damage(7)
-					take_damage(10)
-				if(2)
-					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
-					if(prob(50))
-						M.Weaken(2 SECONDS)
-					M.apply_damage(10)
-					take_damage(25)
-				if(3)
-					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
-					M.Weaken(10 SECONDS)
-					M.apply_damage(20)
-					take_damage(50)
-				if(4)
-					M.visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
-					M.Weaken(10 SECONDS)
-					M.apply_damage(30)
-					take_damage(75)
-			return
 	return ..()
 
 
@@ -326,12 +333,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/proc/check_state(checked_state)
-	if(state == checked_state)
-		return TRUE
+	return state == checked_state
 
 /obj/structure/window/proc/check_anchored(checked_anchored)
-	if(anchored == checked_anchored)
-		return TRUE
+	return anchored == checked_anchored
 
 /obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
@@ -468,10 +473,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	update_nearby_icons()
 	return ..()
 
-/obj/structure/window/Move()
+/obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
-	setDir(ini_dir)
 	move_update_air(T)
 
 /obj/structure/window/CanAtmosPass(turf/T, vertical)

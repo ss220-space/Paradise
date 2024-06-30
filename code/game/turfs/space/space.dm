@@ -144,20 +144,21 @@
 				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
-	..()
-	if((!(A) || !(src in A.locs)))
-		return
+
+/turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || !(src in arrived.locs))
+		return .
 
 	if(destination_z && destination_x && destination_y)
-		destination_z = check_taipan_availability(A, destination_z)
-		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
+		destination_z = check_taipan_availability(arrived, destination_z)
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
+		var/atom/movable/current_pull = arrived.pulling
+		while(current_pull)
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			current_pull = current_pull.pulling
 
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)

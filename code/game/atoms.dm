@@ -314,7 +314,6 @@
 
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return FALSE
 
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -711,6 +710,20 @@
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+
+
+/**
+ * Called when living mob clicks on this atom with pulled movable.
+ * Adjacency and correct pull hand is already checked.
+ *
+ * Arguments:
+ * * grabber - Mob performing grab attack.
+ * * grabbed_thing - Movable pulled by grabber, equals to grabber.pulling.
+ *
+ * Return `TRUE` to skip further actions in unarmed attack chain.
+ */
+/atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	return TRUE
 
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
@@ -1312,17 +1325,40 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/arrived, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, oldLoc)
-	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom has entered this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_ENTERED]
+ */
+/atom/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, old_loc, old_locs)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, old_loc, old_locs)
+
+
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, atom/newLoc)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+
+/**
+ * An atom has exited this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXITED]
+ */
+/atom/Exited(atom/movable/departed, atom/newLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list

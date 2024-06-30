@@ -101,7 +101,7 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
+	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
@@ -120,13 +120,13 @@
 	if(lower_turf)
 		sensor = new(lower_turf, src)
 
-/turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
-	if(isliving(AM) || isobj(AM))
-		if(isliving(AM))
-			var/mob/living/M = AM
-			M.emote("scream")
-			M.SpinAnimation(5, 1)
-		AM.forceMove(lower_turf)
+/turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(ismovable(arrived))
+		if(isliving(arrived))
+			var/mob/living/mob = arrived
+			mob.emote("scream")
+			mob.SpinAnimation(5, 1)
+		arrived.forceMove(lower_turf)
 
 /turf/simulated/floor/indestructible/upperlevel/attack_ghost(mob/user)
 	user.forceMove(lower_turf)
@@ -153,7 +153,7 @@
 	opacity = TRUE
 	density = TRUE
 	anchored = TRUE
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER | LONG_GLIDE
+	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
 	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 

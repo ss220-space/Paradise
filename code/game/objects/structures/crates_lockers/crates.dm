@@ -320,7 +320,6 @@
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
 	icon_state = "trashcart"
-	pull_push_speed_modifier = 1
 
 /obj/structure/closet/crate/trashcart/gibs
 	desc = "A heavy, metal trashcart with wheels. You better don't ask."

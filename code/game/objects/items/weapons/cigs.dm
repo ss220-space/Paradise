@@ -3,6 +3,7 @@ CONTAINS:
 CIGARETTES
 CIGARS
 SMOKING PIPES
+HOLO-CIGAR
 
 CIGARETTE PACKETS ARE IN FANCY.DM
 LIGHTERS ARE IN LIGHTERS.DM
@@ -500,3 +501,70 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 	else
 		..()
+
+//////////////
+//HOLO CIGAR//
+//////////////
+
+/obj/item/clothing/mask/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
+	icon_state = "holocigaroff"
+	var/enabled = FALSE
+	/// Tracks if this is the first cycle smoking the cigar.
+	var/has_smoked = FALSE
+
+/obj/item/clothing/mask/holo_cigar/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/mask/holo_cigar/update_icon_state()
+	icon_state = "holocigar[enabled ? "on" : "off"]"
+
+/obj/item/clothing/mask/holo_cigar/examine(mob/user)
+	. = ..()
+	if(enabled)
+		. += "[src] hums softly as it synthesizes nicotine."
+	else
+		. += "[src] seems to be inactive."
+
+/obj/item/clothing/mask/holo_cigar/process()
+	if(!iscarbon(loc))
+		return
+
+	var/mob/living/carbon/C = loc
+	if(C.wear_mask != src)
+		return
+
+	if(!has_smoked)
+		C.reagents.add_reagent("nicotine", 2)
+		has_smoked = TRUE
+	else
+		C.reagents.add_reagent("nicotine", REAGENTS_METABOLISM)
+
+/obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
+	. = ..()
+	if(enabled && slot == ITEM_SLOT_MASK)
+		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
+			to_chat(user, span_notice("You feel more badass while smoking [src]."))
+
+/obj/item/clothing/mask/holo_cigar/dropped(mob/user, slot, silent)
+	. = ..()
+	has_smoked = FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
+		to_chat(user, span_notice("You feel less badass."))
+
+/obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
+	. = ..()
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, span_notice("You disable the holo-cigar."))
+		STOP_PROCESSING(SSobj, src)
+	else
+		enabled = TRUE
+		to_chat(user, span_notice("You enable the holo-cigar."))
+		START_PROCESSING(SSobj, src)
+
+	update_appearance(UPDATE_ICON_STATE)

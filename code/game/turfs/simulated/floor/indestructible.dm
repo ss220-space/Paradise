@@ -234,22 +234,20 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+/turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/creature = AM
-			creature.ExtinguishMob()
-		linkedcontroller.mobinpool += AM
+	if(!linkedcontroller || !ismob(arrived))
+		return .
+	if(isliving(arrived))
+		var/mob/living/creature = arrived
+		creature.ExtinguishMob()
+	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		linkedcontroller.mobinpool -= AM
+	if(!linkedcontroller || !ismob(departed))
+		return .
+	linkedcontroller.mobinpool -= departed
 
 /turf/simulated/floor/indestructible/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)

@@ -12,6 +12,7 @@
 	pass_flags_self = PASSGLASS
 	opacity = FALSE
 	dir = EAST
+	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
@@ -59,9 +60,10 @@
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
 	if(prob(20 / severity))
-		open()
+		INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/window/proc/open_and_close()
+	set waitfor = FALSE
 	open()
 	if(check_access(null))
 		sleep(50)
@@ -85,13 +87,14 @@
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(TRUE)
 					return
-				do_animate("deny")
+				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return
 	if(!SSticker)
 		return
 	var/mob/living/M = moving_atom
 	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
+
 
 /obj/machinery/door/window/bumpopen(mob/user)
 	if(operating || !density)
@@ -106,7 +109,7 @@
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			cmag_switch(TRUE, user)
 			return
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
 
 /obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
@@ -157,6 +160,7 @@
 
 
 /obj/machinery/door/window/open(forced=0)
+
 	if(operating) //doors can still open when emag-disabled
 		return FALSE
 	if(!forced && !hasPower())
@@ -165,7 +169,7 @@
 		return FALSE
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
-	do_animate("opening")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	update_icon()
@@ -189,7 +193,7 @@
 	if(forced < 2 && emagged)
 		return FALSE
 	operating = DOOR_CLOSING
-	do_animate("closing")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
 	set_density(TRUE)

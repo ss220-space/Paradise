@@ -495,7 +495,7 @@
 	return ..()
 
 
-/obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!.)
 		return
@@ -581,8 +581,9 @@
 	STOP_PROCESSING(SSprocessing, src)
 	qdel(src)
 
-/obj/effect/bfl_laser/Entered(atom/movable/AM)
-	burn_stuff(AM)
+/obj/effect/bfl_laser/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	burn_stuff(arrived)
 
 /obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	burn_stuff(AM)

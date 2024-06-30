@@ -289,9 +289,9 @@ Difficulty: Very Hard
 	return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
+	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -563,9 +563,9 @@ Difficulty: Very Hard
 		return ..()
 	return
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	if(Dir)
-		leg_walking_controler(Dir)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if(movement_dir)
+		leg_walking_controler(movement_dir)
 		if(charging)
 			if(mode == PYRO)
 				var/turf/C = get_turf(src)
@@ -697,9 +697,9 @@ Difficulty: Very Hard
 	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
+	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -737,7 +737,7 @@ Difficulty: Very Hard
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	SHOULD_CALL_PARENT(FALSE)	// I'm sorry
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
 

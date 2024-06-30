@@ -61,11 +61,8 @@
 	if(vamp)
 		vamp.handle_vampire()
 
-	if(pulling)
-		update_pulling()
-
-	for(var/obj/item/grab/G in src)
-		G.process()
+	if(pulledby && pulledby.grab_state > GRAB_PASSIVE)
+		pull_on_life()
 
 	if(stat != DEAD)
 		handle_critical_condition()
@@ -121,10 +118,6 @@
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return
-
-/mob/living/proc/update_pulling()
-	if(incapacitated())
-		stop_pulling()
 
 //this updates all special effects: mainly stamina
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
@@ -267,4 +260,25 @@
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
 	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+
+
+/// Updates grabbed victim status effects.
+/mob/living/proc/pull_on_life()
+	var/mob/grabber = pulledby
+	if(HAS_TRAIT(grabber, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		grabber.stop_pulling()
+		return
+
+	if(grabber.grab_state >= GRAB_AGGRESSIVE && grabber.zone_selected == BODY_ZONE_PRECISE_EYES && ishuman(src))
+		AdjustEyeBlind(3 SECONDS, bound_upper = 6 SECONDS)
+
+	var/breathing_tube = get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)
+
+	if(grabber.grab_state >= GRAB_NECK && !breathing_tube)
+		adjustOxyLoss(1)
+
+	if(grabber.grab_state >= GRAB_KILL)
+		AdjustStuttering(5 SECONDS, bound_upper = 10 SECONDS)	//It will hamper your voice, being choked and all.
+		if(!breathing_tube)
+			AdjustLoseBreath(3 SECONDS, bound_upper = 6 SECONDS)
 

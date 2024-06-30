@@ -8,6 +8,7 @@
 	anchored = FALSE
 	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
+	pull_push_slowdown = 1
 	buckle_lying = 0
 	max_integrity = 300
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
@@ -15,7 +16,7 @@
 	var/obj/item/key_type
 	/// Whehter our key should be in mob hands, rather than in the vehicle ignintion.
 	var/key_in_hands = FALSE
-	/// Currently inerted key.
+	/// Currently inserted key.
 	var/obj/item/key/inserted_key
 	/// To allow non-space vehicles to move in no gravity or not, mostly for adminbus.
 	var/needs_gravity = FALSE
@@ -223,7 +224,7 @@
 	COOLDOWN_START(src, vehicle_move_cooldown, add_delay)
 
 
-/obj/vehicle/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/vehicle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_vehicle_layer()
 	handle_vehicle_offsets()
@@ -231,9 +232,9 @@
 	handle_buckled_dir()
 
 
-/obj/vehicle/Bump(atom/bumped_atom, custom_bump)
+/obj/vehicle/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || !has_buckled_mobs() || !istype(bumped_atom, /obj/machinery/door))
+	if(. || !has_buckled_mobs() || !istype(bumped_atom, /obj/machinery/door))
 		return .
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
 		bumped_atom.Bumped(buckled_mob)

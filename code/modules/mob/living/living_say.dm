@@ -282,12 +282,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		muffledspeech_all(message_pieces)
 		verb = "gurgles"
 
-	if(!wear_mask)
-		for(var/obj/item/grab/grab in grabbed_by)
-			if(grab.assailant.zone_selected == BODY_ZONE_PRECISE_MOUTH && grab.state == GRAB_AGGRESSIVE)
-				muffledspeech_all(message_pieces)
-				verb = "mumbles"
-				break
+	if(!wear_mask && pulledby && pulledby.grab_state > GRAB_PASSIVE && pulledby.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		muffledspeech_all(message_pieces)
+		verb = "mumbles"
 
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)

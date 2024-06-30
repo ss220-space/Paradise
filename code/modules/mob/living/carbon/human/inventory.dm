@@ -335,7 +335,6 @@
 
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
-			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
 			set_legcuffed(I)

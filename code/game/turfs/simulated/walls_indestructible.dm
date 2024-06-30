@@ -259,7 +259,7 @@
 
 /turf/simulated/wall/indestructible/mineral_rock/Initialize(mapload)
 	var/matrix/M = new
-	M.Translate(-4, -4)
+	//M.Translate(-4, -4)
 	transform = M
 	icon = smooth_icon
 	. = ..()
