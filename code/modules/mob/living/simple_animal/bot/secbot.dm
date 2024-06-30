@@ -101,6 +101,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	weaponscheck = TRUE
+	auto_patrol = TRUE
 
 
 /mob/living/simple_animal/bot/secbot/podsky
@@ -140,7 +141,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -361,7 +362,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -370,7 +371,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -386,8 +387,7 @@
 
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target,1,4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -493,7 +493,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)

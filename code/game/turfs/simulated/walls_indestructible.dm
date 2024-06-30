@@ -158,6 +158,7 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
+	always_lit = TRUE
 
 
 /turf/simulated/wall/indestructible/splashscreen
@@ -258,7 +259,7 @@
 
 /turf/simulated/wall/indestructible/mineral_rock/Initialize(mapload)
 	var/matrix/M = new
-	M.Translate(-4, -4)
+	//M.Translate(-4, -4)
 	transform = M
 	icon = smooth_icon
 	. = ..()

@@ -30,10 +30,16 @@
 	return possible_map.min_players <= current_players && current_players <= possible_map.max_players
 
 /datum/vote/map/generate_choices()
-	for(var/datum/map/possible_map as anything in (subtypesof(/datum/map) - SSmapping.map_datum.type))
+	var/list/map_pool = subtypesof(/datum/map)
+
+	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
+		map_pool -= SSmapping.map_datum.type
+
+	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only) || !is_map_aviable(possible_map))
 			continue
-		var/map_ref = "[initial(possible_map.station_name)] ([initial(possible_map.name)])"
+
+    var/map_ref = "[initial(possible_map.station_name)] ([initial(possible_map.name)])"
 
 		if(!map_reference_list[map_ref])
 			map_reference_list[map_ref] = possible_map
@@ -42,8 +48,11 @@
 
 /datum/vote/map/announce()
 	..()
-	for(var/mob/M in GLOB.player_list)
-		M.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
+	for(var/mob/voter in GLOB.player_list)
+		voter.throw_alert("Map Vote", /atom/movable/screen/alert/notify_mapvote, timeout_override = CONFIG_GET(number/vote_period))
+		if(!voter.client?.prefs || voter.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS)
+			continue
+		voter.immediate_vote()
 
 /datum/vote/map/result_corrections(list/results)
 	var/list/deleted_maps

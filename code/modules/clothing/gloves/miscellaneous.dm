@@ -238,9 +238,15 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
-	razor_damage_low += increase
-	razor_damage_high += increase
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	if(razor_damage_low > initial(razor_damage_low))
+		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
+		return FALSE
+	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
+	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
+	return TRUE
+
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -355,3 +361,19 @@
 		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
 		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
+
+/obj/item/clothing/gloves/brown_short_gloves
+	name = "short leather gloves"
+	desc = "Короткие облегающие перчатки из кожи."
+	icon_state = "brown_short_gloves"
+	item_state = "brown_short_gloves"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)

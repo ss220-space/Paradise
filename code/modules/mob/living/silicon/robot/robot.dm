@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
 	var/obj/item/stock_parts/cell/cell = null
-	var/obj/machinery/camera/camera = null
+	var/obj/machinery/camera/portable/camera = null
 
 	// Components are basically robot organs.
 	var/list/components = list()
@@ -112,8 +112,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/ionpulse = 0 // Jetpack-like effect.
-	var/ionpulse_on = 0 // Jetpack-like effect.
+	///Jetpack-like effect.
+	var/ionpulse = FALSE
+	///Jetpack-like effect.
+	var/ionpulse_on = FALSE
+	///Ionpulse effect.
+	var/datum/effect_system/trail_follow/ion/ion_trail
 
 	var/datum/action/innate/research_scanner/scanner = null
 	var/list/module_actions = list()
@@ -152,9 +156,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		faction += "syndicate"
 
 	if(has_camera && !camera && !syndie)
-		camera = new /obj/machinery/camera(src)
-		camera.c_tag = real_name
-		camera.network = list("SS13","Robots")
+		camera = new(src, list("SS13", "Robots"), real_name)
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 
@@ -189,16 +191,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	diag_hud_set_borgcell()
 	scanner = new()
 	scanner.Grant(src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
 	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
 		transform_animation(icon_state, TRUE)
 
-/mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
-	if(ionpulse_on)
-		var/turf/T = get_turf(oldloc)
-		if(!T.has_gravity(T))
-			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -330,6 +326,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
@@ -658,15 +655,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	alerts.set_content(dat_text)
 	alerts.open()
 
+
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return FALSE
-
-	if(!cell || cell.charge <= 50)
+	if(!cell || !cell.use(25)) // 500 steps on a default cell.
 		toggle_ionpulse(silent = TRUE)
 		return FALSE
-
-	cell.charge -= 25 // 500 steps on a default cell.
 	return TRUE
 
 
@@ -676,18 +671,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, span_notice("No thrusters are installed!"))
 		return
 
-	ionpulse_on = !ionpulse_on
+	if(!ion_trail)
+		ion_trail = new
+		ion_trail.set_up(src)
 
-	if(ionpulse_on)
-		add_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
+	ionpulse_on = !ionpulse_on
 
 	if(!silent)
 		to_chat(src, span_notice("You [ionpulse_on ? "" : "de"]activate your ion thrusters."))
 
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
+
+	if(ionpulse_on)
+		ion_trail.start()
+		add_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
+	else
+		ion_trail.stop()
+		remove_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
 
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
@@ -1234,7 +1235,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade)
 	if(!upgrade.instant_use)
-		RegisterSignal(upgrade, COMSIG_PARENT_QDELETING, PROC_REF(on_upgrade_deleted))
+		RegisterSignal(upgrade, COMSIG_QDELETING, PROC_REF(on_upgrade_deleted))
 		upgrades += upgrade
 		upgrade.forceMove(src)
 	else
@@ -1246,7 +1247,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!QDELETED(src))
 		old_upgrade.deactivate(src)
 	upgrades -= old_upgrade
-	UnregisterSignal(old_upgrade, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(old_upgrade, COMSIG_QDELETING)
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	. = ..()
@@ -1380,7 +1381,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	drop_hat()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(a, b, flag)
+/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)

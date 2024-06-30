@@ -16,11 +16,11 @@
 	my_suit = ninja_suit
 
 /datum/component/ninja_chameleon_helper/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_HUMAN_APPLY_OVERLAY, PROC_REF(restart_chameleon))
+	RegisterSignal(parent, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(restart_chameleon))
 
 
 /datum/component/ninja_chameleon_helper/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_HUMAN_APPLY_OVERLAY)
+	UnregisterSignal(parent, COMSIG_CARBON_APPLY_OVERLAY)
 
 /datum/component/ninja_chameleon_helper/proc/restart_chameleon()
 	if(my_suit.disguise_active)

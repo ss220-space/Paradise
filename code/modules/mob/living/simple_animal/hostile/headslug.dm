@@ -53,7 +53,7 @@
 
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
-	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target) || issmall(carbon_target))
+	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target) || is_monkeybasic(carbon_target))
 		return ..()
 
 	changeNext_move(CLICK_CD_MELEE)
@@ -74,6 +74,9 @@
 
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
 		to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another body?"))
+		return
+	if(HAS_TRAIT(carbon_target, TRAIT_LEGION_TUMOUR))
+		to_chat(src, span_userdanger("A disgusting tendrills repels us from this body. Perhaps we should try to infest another body?"))
 		return
 
 	face_atom(carbon_target)

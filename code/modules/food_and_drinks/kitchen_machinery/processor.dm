@@ -160,15 +160,15 @@
 		return P
 	return 0
 
+
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
 	add_fingerprint(user)
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		to_chat(user, span_warning("[src] is already processing something!"))
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))
@@ -177,26 +177,41 @@
 	if(default_unfasten_wrench(user, O))
 		return
 
-	default_deconstruction_crowbar(user, O)
+	if(default_deconstruction_crowbar(user, O))
+		return
 
-	var/obj/item/what = O
+	var/datum/food_processor_process/recipe = select_recipe(O)
+	if(!recipe)
+		to_chat(user, span_warning("That probably won't blend."))
+		return TRUE
 
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
-		what = G.affecting
+	if(!user.drop_transfer_item_to_loc(O, src))
+		return
 
-	var/datum/food_processor_process/P = select_recipe(what)
+	user.visible_message(
+		span_notice("[user] puts [O.name] into [src]."),
+		span_notice("You put [O.name] into [src]."),
+	)
 
-	if(!P)
-		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
 
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
-		"<span class='notice'>You put \the [what] into \the [src].")
+/obj/machinery/processor/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	if(processing)
+		to_chat(grabber, span_warning("[src] is already processing something!"))
+		return .
+	var/datum/food_processor_process/recipe = select_recipe(grabbed_thing)
+	if(!recipe)
+		to_chat(grabber, span_warning("That probably won't blend."))
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	grabber.visible_message(
+		span_notice("[grabber] puts [grabbed_thing.name] into [src]."),
+		span_notice("You put [grabbed_thing.name] into [src]."),
+	)
 
-	user.drop_transfer_item_to_loc(what, src)
-
-	return
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken

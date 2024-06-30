@@ -3,7 +3,7 @@
 	name = "metal door"
 	density = TRUE
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -20,6 +20,7 @@
 	var/openSound = 'sound/effects/stonedoor_openclose.ogg'
 	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
+	var/is_opaque = TRUE
 
 /obj/structure/mineral_door/Initialize()
 	. = ..()
@@ -31,13 +32,13 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/mineral_door/Move()
+/obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(!state)
 		return TryToSwitchState(moving_atom)
 
@@ -97,7 +98,8 @@
 	flick("[initial_state]opening",src)
 	sleep(10)
 	set_density(FALSE)
-	set_opacity(FALSE)
+	if(is_opaque)
+		set_opacity(FALSE)
 	state = 1
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
@@ -109,16 +111,18 @@
 
 /obj/structure/mineral_door/proc/Close()
 	if(isSwitchingStates || state != 1)
-		return
+		return FALSE
 	var/turf/T = get_turf(src)
 	for(var/mob/living/L in T)
-		return
+		return FALSE
+	. = TRUE
 	isSwitchingStates = 1
 	playsound(loc, closeSound, 100, 1)
 	flick("[initial_state]closing",src)
 	sleep(10)
 	set_density(TRUE)
-	set_opacity(TRUE)
+	if(is_opaque)
+		set_opacity(TRUE)
 	state = 0
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
@@ -181,11 +185,8 @@
 	max_integrity = 100
 
 /obj/structure/mineral_door/transparent
-	opacity = 0
-
-/obj/structure/mineral_door/transparent/Close()
-	..()
-	set_opacity(0)
+	opacity = FALSE
+	is_opaque = FALSE
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"

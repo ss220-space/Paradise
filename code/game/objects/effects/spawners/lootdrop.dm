@@ -209,7 +209,8 @@
 				/obj/item/stack/nanopaste = 50,
 				/obj/item/clothing/under/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
-				/obj/item/grenade/clusterbuster/smoke = 50
+				/obj/item/grenade/clusterbuster/smoke = 50,
+				/obj/item/clothing/mask/holo_cigar = 50,
 				)
 
 
@@ -286,7 +287,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy = 150,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 100,
 		/obj/item/gun/projectile/automatic/toy/pistol = 200,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 100,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 100,
 		/obj/item/gun/projectile/shotgun/toy = 100,
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 100,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 100,

@@ -1,8 +1,23 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
 #define LAUNCH_COOLDOWN 30
-// A place where tube pods stop, and people can get in or out.
-// Mappers: use "Generate Instances from Directions" for this one.
+/*A place where tube pods stop, and people can get in or out.
+Mappers: use "Generate Instances from Directions" for this one.
+Guide "HOW DOES DIRS WORKS"
+Arrow start - direction of mob is aible to get into pod
+Arrow direction - where to pod will move
+
+		Station				Fliped
+	1			2		1			2
+	|		<---		 --->		|
+	--->		|		|		 <---
+
+	4			8		4			8
+  	 ---		/\	  ---		   /\
+	|			|		|			|
+   \/		  ---	 	\/			---
+
+*/
 /obj/structure/transit_tube/station
 	name = "station tube station"
 	desc = "The lynchpin of the transit system."
@@ -45,15 +60,19 @@
 /obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
 	return TRUE
 
-/obj/structure/transit_tube/station/Bumped(mob/living/L)
-	if(!pod_moving && L.dir == boarding_dir && hatch_state == TRANSIT_TUBE_OPEN && isliving(L) && !is_type_in_list(L, disallowed_mobs))
-		for(var/obj/structure/transit_tube_pod/pod in loc)
-			if(length(pod.contents))
-				to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
-				return
-			if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
-				pod.move_into(L)
-				return
+
+/obj/structure/transit_tube/station/Bumped(mob/living/moving_living, skip_effect = FALSE)
+	. = ..()
+	if(skip_effect || pod_moving || moving_living.dir != boarding_dir || hatch_state != TRANSIT_TUBE_OPEN || !isliving(moving_living) || is_type_in_list(moving_living, disallowed_mobs))
+		return .
+	for(var/obj/structure/transit_tube_pod/pod in loc)
+		if(length(pod.contents))
+			to_chat(moving_living, "<span class='warning'>The pod is already occupied.</span>")
+			break
+		if(!pod.moving && ((pod.dir in directions()) || (reverse_launch && (turn(pod.dir, 180) in directions()))))
+			pod.move_into(moving_living)
+			break
+
 
 /obj/structure/transit_tube/station/attack_hand(mob/user)
 	if(pod_moving)
@@ -80,20 +99,18 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
-		var/obj/item/grab/G = W
-		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
-			var/mob/living/GM = G.affecting
-			for(var/obj/structure/transit_tube_pod/pod in loc)
-				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
-				if(do_after(user, 3 SECONDS, GM) && GM && G && G.affecting == GM)
-					GM.add_fingerprint(user)
-					GM.Weaken(10 SECONDS)
-					Bumped(GM)
-					qdel(G)
-				break
+/obj/structure/transit_tube/station/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || hatch_state != TRANSIT_TUBE_OPEN || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	for(var/obj/structure/transit_tube_pod/pod in loc)
+		pod.visible_message(span_warning("[grabber] starts putting [target] into [pod]!"))
+		if(do_after(grabber, 3 SECONDS, target) && grabber && target && grabber.pulling == target)
+			target.Weaken(10 SECONDS)
+			Bumped(target)
+		break
+
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
@@ -221,16 +238,18 @@
 			return TRUE
 	return FALSE
 
-/obj/structure/transit_tube/station/dispenser/Bumped(mob/living/L)
-	if(!(istype(L) && L.dir == boarding_dir) || L.anchored)
-		return
-	if(isliving(L) && !is_type_in_list(L, disallowed_mobs))
-		var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
-		L.visible_message("<span class='notice'>[pod] forms around [L].</span>", "<span class='notice'>[pod] materializes around you.</span>")
-		playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
-		pod.dir = turn(dir, -90)
-		pod.move_into(L)
-		launch_pod()
+
+/obj/structure/transit_tube/station/dispenser/Bumped(mob/living/moving_living, skip_effect = TRUE)
+	. = ..()
+	if(!isliving(moving_living) || moving_living.dir != boarding_dir || moving_living.anchored || is_type_in_list(moving_living, disallowed_mobs))
+		return .
+	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
+	moving_living.visible_message("<span class='notice'>[pod] forms around [moving_living].</span>", "<span class='notice'>[pod] materializes around you.</span>")
+	playsound(src, 'sound/weapons/emitter2.ogg', 50, TRUE)
+	pod.dir = turn(dir, -90)
+	pod.move_into(moving_living)
+	launch_pod()
+
 
 /obj/structure/transit_tube/station/dispenser/pod_stopped(obj/structure/transit_tube_pod/pod)
 	playsound(src, 'sound/machines/ding.ogg', 50, TRUE)

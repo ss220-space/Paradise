@@ -255,6 +255,16 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle TGUI Input Lists") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/client/verb/toggle_vote_popup()
+	set name = "Toggle Vote Popup"
+	set category = "Preferences"
+	set desc = "Toggles the popup of the voting window on the screen when voting starts (Now working only with map votes)"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "no longer" : "now"] receive popups when vote starts.")
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Vote Popup") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
 	set name = "Hear/Silence Dance Machine"

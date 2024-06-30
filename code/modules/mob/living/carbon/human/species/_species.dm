@@ -118,7 +118,8 @@
 	var/race_key = 0
 	var/icon/icon_template
 
-	var/is_small
+	/// Indicates that this species belongs to lesser human forms.
+	var/is_monkeybasic = FALSE
 	var/show_ssd = 1
 	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
 	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
@@ -332,7 +333,7 @@
 
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
 
-			if(wearable && ("lesser form" in rectricted) && is_small)
+			if(wearable && ("lesser form" in rectricted) && is_monkeybasic)
 				wearable = FALSE
 
 			if(!wearable)
@@ -612,7 +613,7 @@
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
 		if(randn <= 10 + extra_knock_chance)
-			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, "melee"))
+			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
@@ -622,31 +623,14 @@
 				target.LAssailant = user
 			return
 
-		var/talked = 0	// BubbleWrap
+		var/talked = FALSE	// BubbleWrap
 
 		if(randn <= 60)
 			//BubbleWrap: Disarming breaks a pull
 			if(target.pulling)
 				target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [target.pulling.declent_ru(PREPOSITIONAL)]!</span>")
-				talked = 1
+				talked = TRUE
 				target.stop_pulling()
-
-			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-			if(istype(target.l_hand, /obj/item/grab))
-				var/obj/item/grab/lgrab = target.l_hand
-				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [lgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(lgrab)
-			if(istype(target.r_hand, /obj/item/grab))
-				var/obj/item/grab/rgrab = target.r_hand
-				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [rgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(rgrab)
-			//End BubbleWrap
 
 			if(!talked)	//BubbleWrap
 				if(target.drop_from_active_hand())
@@ -728,7 +712,6 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
-	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("грызет", "кусает", "вгрызается", "трепает")
@@ -774,7 +757,7 @@
 		if(rectricted)
 			var/wearable = ("exclude" in rectricted) ? !(name in rectricted) : (name in rectricted)
 
-			if(wearable && is_small && ("lesser form" in rectricted))
+			if(wearable && is_monkeybasic && ("lesser form" in rectricted))
 				wearable = FALSE
 
 			if(!wearable)
@@ -908,8 +891,6 @@
 
 		// POCKETS
 		if(ITEM_SLOT_POCKET_LEFT)
-			if(HAS_TRAIT(I, TRAIT_NODROP)) //Pockets aren't visible, so you can't move NODROP items into them.
-				return FALSE
 			if(user.l_store)
 				return FALSE
 
@@ -922,8 +903,6 @@
 			return TRUE
 
 		if(ITEM_SLOT_POCKET_RIGHT)
-			if(HAS_TRAIT(I, TRAIT_NODROP))
-				return FALSE
 			if(user.r_store)
 				return FALSE
 
@@ -983,7 +962,7 @@
 				return FALSE
 
 			var/obj/item/clothing/under/uniform = user.w_uniform
-			if(length(uniform.accessories) && !uniform.can_attach_accessory(user))
+			if(!uniform.can_attach_accessory(I))
 				if(!disable_warning)
 					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform.name]."))
 				return FALSE
@@ -1150,7 +1129,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return user.get_organ_slot(INTERNAL_ORGAN_EYES)
 
 
-/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+/datum/species/proc/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	return FALSE
 
 

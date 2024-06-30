@@ -52,7 +52,8 @@
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white)
+			/mob/living/simple_animal/mouse/white,
+			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -140,11 +141,11 @@
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents mouse from pulling things
+	if(istype(pulled_atom, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
-	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
@@ -237,6 +238,7 @@
 	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
@@ -463,7 +465,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 		GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
@@ -490,9 +492,10 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(show_message)
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+	return FALSE
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)

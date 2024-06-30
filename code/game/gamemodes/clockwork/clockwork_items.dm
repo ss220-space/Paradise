@@ -655,6 +655,7 @@
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -674,6 +675,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
@@ -691,8 +693,8 @@
 	if(enchant_type)
 		. += "clockwork_robe_overlay_[enchant_type]"
 
-/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/activate/enchant)
+/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/activate/enchant))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/carbon = user
@@ -782,6 +784,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
@@ -806,6 +809,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	sprite_sheets = list(
@@ -1223,16 +1227,29 @@
 	desc = "An unique brass board, used by cyborg warriors."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
+	var/free_VTEC = FALSE
 
-/obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
-	if(..())
-		if(R.module?.type == /obj/item/robot_module/clockwork)
-			R.pdahide = TRUE
+
+/obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+	. = TRUE
+	if(robot.module?.type == /obj/item/robot_module/clockwork)
+		robot.pdahide = TRUE
+	else
+		robot.ratvar_act()
+		robot.opened = FALSE
+		robot.locked = TRUE
+	if(!free_VTEC)
+		return .
+	var/obj/item/borg/upgrade/vtec/vtec_upgrade = locate() in robot.upgrades
+	if(!vtec_upgrade)
+		vtec_upgrade = new
+		if(vtec_upgrade.action(robot))
+			robot.install_upgrade(vtec_upgrade)
 		else
-			R.ratvar_act()
-		R.opened = FALSE
-		R.locked = TRUE
-		return TRUE
+			qdel(vtec_upgrade)
+
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab

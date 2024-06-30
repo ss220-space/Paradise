@@ -127,7 +127,7 @@ About the new airlock wires panel:
  */
 /obj/machinery/door/airlock/flicker()
 	if(density && !operating && arePowerSystemsOn())
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return TRUE
 	return FALSE
 
@@ -187,21 +187,19 @@ About the new airlock wires panel:
 		note = null
 		update_icon()
 
+
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
-	if(!issilicon(usr))
+	if(!issilicon(user))
 		if(isElectrified())
-			if(!justzap)
-				if(shock(user, 100))
-					justzap = TRUE
-					spawn (10)
-						justzap = FALSE
-					return
-			else
+			if(justzap)
 				return
-		else if(user.AmountHallucinate() > 50 SECONDS && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(shock(user, 100))
+				justzap = TRUE
+				addtimer(VARSET_CALLBACK(src, justzap, FALSE), 1 SECONDS)
 				return
-	..(user)
+		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, src, 1, illusion = TRUE))
+			return
+	return ..()
 
 
 /obj/machinery/door/airlock/proc/isElectrified()
@@ -554,7 +552,7 @@ About the new airlock wires panel:
 		if("deny")
 			if(arePowerSystemsOn())
 				update_icon(AIRLOCK_DENY)
-				playsound(src,doorDeni,50,0,3)
+				playsound(src, doorDeni, 50, FALSE, 3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
@@ -1269,6 +1267,8 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/open(forced = 0)
+	set waitfor = FALSE
+
 	if(operating || welded || locked || emagged)
 		return FALSE
 	if(!forced && (!arePowerSystemsOn() || wires.is_cut(WIRE_OPEN_DOOR)))
@@ -1303,6 +1303,8 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/close(forced = 0, override = FALSE)
+	set waitfor = FALSE
+
 	if((operating && !override) || welded || locked || emagged)
 		return FALSE
 	if(density)
@@ -1400,6 +1402,7 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
+	set waitfor = FALSE
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || emagged)
 		return
 	operating = DOOR_MALF

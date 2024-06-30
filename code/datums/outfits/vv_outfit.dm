@@ -162,9 +162,8 @@
 	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 	if(uniform_slot)
 		O.accessories = list()
-		for(var/obj/item/clothing/accessory/A in uniform_slot.accessories)
-			if(istype(A))
-				O.accessories |= A
+		for(var/obj/item/clothing/accessory/accessory as anything in uniform_slot.accessories)
+			O.accessories |= accessory
 
 	//Copy to outfit cache
 	var/outfit_name = stripped_input(usr, "Enter the outfit name")

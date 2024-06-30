@@ -537,10 +537,8 @@
 		newarea = get_area(arrived_mob)
 		oldarea = arrived_mob.lastarea
 
-		if(newarea == oldarea)
-			return
-
-		arrived_mob.lastarea = src
+		if(newarea != oldarea)
+			arrived_mob.lastarea = src
 
 	if(!isliving(arrived))
 		return
@@ -564,14 +562,12 @@
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
 
-
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
 		var/prev_gravity = user.gravity_state
 		user.refresh_gravity()
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
-
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)

@@ -6,6 +6,7 @@
 	density = FALSE
 	anchored = TRUE
 	pass_flags_self = PASSFLAPS
+	opacity = TRUE
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
@@ -27,12 +28,14 @@
 		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
 			return
 		state = PLASTIC_FLAPS_DETACHED
+		opacity = FALSE
 		set_anchored(FALSE)
 		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else if(state == PLASTIC_FLAPS_DETACHED)
 		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
 			return
+		opacity = TRUE
 		state = PLASTIC_FLAPS_NORMAL
 		set_anchored(TRUE)
 		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")

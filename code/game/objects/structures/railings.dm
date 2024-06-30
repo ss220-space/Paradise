@@ -105,7 +105,7 @@
 		if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
 			currently_climbed = FALSE
 			return
-		user.Move(get_step(user, dir), TRUE)
+		user.Move(get_step(user, dir))
 		currently_climbed = FALSE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
@@ -120,8 +120,7 @@
 	return TRUE
 
 /obj/structure/railing/proc/check_anchored(checked_anchored)
-	if(anchored == checked_anchored)
-		return TRUE
+	return anchored == checked_anchored
 
 /obj/structure/railing/proc/after_rotation(mob/user)
 	add_fingerprint(user)
@@ -140,10 +139,10 @@
 	handle_layer()
 
 /obj/structure/railing/setDir(newdir)
-	..()
+	. = ..()
 	handle_layer()
 
-/obj/structure/railing/Move(newloc, direct, movetime)
+/obj/structure/railing/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_layer()
 

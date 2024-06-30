@@ -102,6 +102,7 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
+	pull_push_slowdown = 1.3
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -535,7 +536,7 @@ Class Procs:
 			threatcount += 4
 
 	if(check_records || check_arrest)
-		var/perpname = perp.get_visible_name(TRUE)
+		var/perpname = perp.get_visible_name(add_id_name = FALSE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)

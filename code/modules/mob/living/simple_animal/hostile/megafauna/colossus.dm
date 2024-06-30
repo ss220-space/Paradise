@@ -45,6 +45,7 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
@@ -166,13 +167,13 @@ Difficulty: Very Hard
 	if(telegraphing)
 		ranged_cooldown = world.time + 4 SECONDS
 		telegraph(DIR_SHOTS)
-		SLEEP_CHECK_DEATH(2.5 SECONDS)
+		SLEEP_CHECK_DEATH(src, 2.5 SECONDS)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(rage)
+	SLEEP_CHECK_DEATH(src, rage)
 	dir_shots(GLOB.cardinal)
-	SLEEP_CHECK_DEATH(rage)
+	SLEEP_CHECK_DEATH(src, rage)
 	dir_shots(GLOB.diagonals)
-	SLEEP_CHECK_DEATH(rage)
+	SLEEP_CHECK_DEATH(src, rage)
 	dir_shots(GLOB.cardinal)
 	if(telegraphing && enraged)
 		alternating_dir_shots(FALSE)
@@ -183,13 +184,13 @@ Difficulty: Very Hard
 		return double_spiral()
 	say("Judgement.")
 	telegraph()
-	SLEEP_CHECK_DEATH(3.5 SECONDS)
+	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	say("Die.")
 	telegraph()
-	SLEEP_CHECK_DEATH(3.5 SECONDS)
+	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), TRUE)
 
@@ -208,25 +209,26 @@ Difficulty: Very Hard
 			counter = 16
 		shoot_projectile(start_turf, counter * 22.5)
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
-		SLEEP_CHECK_DEATH(1)
+		SLEEP_CHECK_DEATH(src, 1)
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
-	if(!isnum(set_angle) && (!marker || marker == loc))
+	// a lot of sleeps around colossus shooting, so its better to check if our marker is still exist by this point
+	if(QDELETED(marker) || marker == loc)
 		return
 	var/turf/startloc = get_turf(src)
 	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
-	P.preparePixelProjectile(marker, marker, startloc)
+	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
 	if(target)
 		P.original = target
-	P.fire(set_angle)
+	P.fire(isnum(set_angle) ? set_angle : null)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots(do_sleep = TRUE)
 	ranged_cooldown = world.time + 30
 	if(do_sleep)
 		telegraph(RANDOM_SHOTS)
-		SLEEP_CHECK_DEATH(2.5 SECONDS)
+		SLEEP_CHECK_DEATH(src, 2.5 SECONDS)
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
@@ -237,9 +239,9 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(enraged ? 1 SECONDS : 2.5 SECONDS)
+		SLEEP_CHECK_DEATH(src, enraged ? 1 SECONDS : 2.5 SECONDS)
 	else
-		SLEEP_CHECK_DEATH(1 SECONDS)
+		SLEEP_CHECK_DEATH(src, 1 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
@@ -273,7 +275,7 @@ Difficulty: Very Hard
 	say("PERISH MORTAL!")
 	telegraph()
 	ranged_cooldown = world.time + 20 SECONDS // Yeah let us NOT have people get triple attacked
-	SLEEP_CHECK_DEATH(3.5 SECONDS) //run
+	SLEEP_CHECK_DEATH(src, 3.5 SECONDS) //run
 
 	var/finale_counter = 10
 	for(var/i in 1 to 20)
@@ -288,18 +290,18 @@ Difficulty: Very Hard
 	for(var/turf/target_turf in RANGE_TURFS(12, start_turf))
 		if(prob(min(finale_counter, 2)) && target_turf != get_turf(src))
 			shoot_projectile(target_turf)
-	SLEEP_CHECK_DEATH(finale_counter + 0.2 SECONDS) //Doubled from TG, this was insane
+	SLEEP_CHECK_DEATH(src, finale_counter + 0.2 SECONDS) //Doubled from TG, this was insane
 
 	for(var/i in 1 to 3)
 		telegraph()
 		random_shots(do_sleep = FALSE)
 		finale_counter += 6
-		SLEEP_CHECK_DEATH(finale_counter)
+		SLEEP_CHECK_DEATH(src, finale_counter)
 
 	for(var/i in 1 to 3)
 		telegraph()
 		dir_shots()
-		SLEEP_CHECK_DEATH(1 SECONDS)
+		SLEEP_CHECK_DEATH(src, 1 SECONDS)
 	icon_state = initial(icon_state)
 	ranged_cooldown = world.time + 4 SECONDS
 

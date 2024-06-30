@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER|LONG_GLIDE
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -217,7 +217,10 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			handle_suicide(user, target, params)
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
+				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+			else
+				handle_suicide(user, target, params)
 			return
 
 
@@ -244,7 +247,8 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += dual_wield_spread * G.weapon_weight
+				if(!HAS_TRAIT(user, TRAIT_BADASS))
+					bonus_spread += dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -535,7 +539,7 @@
 			bayonet.forceMove(src)
 
 		var/overlay_type = "bayonet"	//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))	//Snowflake state?
+		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
 			overlay_type = bayonet.icon_state
 		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
 		bayonet_overlay.pixel_x = bayonet_x_offset
@@ -619,7 +623,7 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
-		chambered.BB.damage *= 5
+		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
 

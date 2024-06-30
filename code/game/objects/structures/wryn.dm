@@ -35,7 +35,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/wryn/wax/Move()
+/obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -54,7 +54,7 @@
 	desc = "Wax just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
 	icon_state = "window"
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 20
 	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
 

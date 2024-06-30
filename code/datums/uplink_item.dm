@@ -82,7 +82,7 @@
 	var/refund_amount
 
 
-/datum/uplink_item/Destroy(force, ...)
+/datum/uplink_item/Destroy(force)
 	if(force)
 		return ..()
 	else
@@ -512,6 +512,14 @@
 	surplus = 0
 	hijack_only = TRUE
 
+/datum/uplink_item/jobspecific/random_spell_book
+	name = "Random spell book"
+	desc = "A random spell book stolen from the wizards federation."
+	item = /obj/item/spellbook/oneuse/random
+	cost = 25
+	job = list(JOB_TITLE_LIBRARIAN)
+	can_discount = FALSE
+
 /datum/uplink_item/jobspecific/dice_of_fate
 	name = "Dice of fate"
 	desc = "Everything or nothing; that is my motto."
@@ -526,7 +534,7 @@
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	item = /obj/item/seeds/ambrosia/cruciatus
-	cost = 1
+	cost = 4
 	job = list(JOB_TITLE_BOTANIST)
 
 //Atmos Tech
@@ -626,6 +634,16 @@
 	item = /obj/item/implanter/second_chance
 	cost = 40
 	race = list(SPECIES_NUCLEATION)
+
+//Human
+
+/datum/uplink_item/racial/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	item = /obj/item/clothing/mask/holo_cigar
+	cost = 10
+	race = list(SPECIES_HUMAN)
+
 
 // DANGEROUS WEAPONS
 

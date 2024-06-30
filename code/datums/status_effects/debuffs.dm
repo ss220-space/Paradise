@@ -917,8 +917,10 @@
 /datum/status_effect/transient/blindness
 	id = "blindness"
 
-/datum/status_effect/transient/blindness/on_apply()
+/datum/status_effect/transient/blindness/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_blind_effects()
 
 /datum/status_effect/transient/blindness/on_remove()
@@ -943,8 +945,10 @@
 /datum/status_effect/transient/drugged
 	id = "drugged"
 
-/datum/status_effect/transient/drugged/on_apply()
+/datum/status_effect/transient/drugged/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_druggy_effects()
 
 /datum/status_effect/transient/drugged/on_remove()
@@ -983,8 +987,10 @@
 			carbon.AdjustEyeBlurry(9 SECONDS)
 	carbon.update_disgust_alert()
 
-/datum/status_effect/transient/disgust/on_apply()
+/datum/status_effect/transient/disgust/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_disgust_alert()
 
 /datum/status_effect/transient/disgust/on_remove()

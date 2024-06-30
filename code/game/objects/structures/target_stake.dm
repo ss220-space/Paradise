@@ -12,7 +12,7 @@
 	QDEL_NULL(pinned_target)
 	return ..()
 
-/obj/structure/target_stake/Move()
+/obj/structure/target_stake/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	// Move the pinned target along with the stake
 	if(pinned_target in view(3, src))

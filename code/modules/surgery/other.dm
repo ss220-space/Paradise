@@ -410,6 +410,7 @@
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)
+		user.SetKnockdown(0)
 		user.SetParalysis(0)
 		user.set_resting(FALSE, instant = TRUE)
 		user.get_up(instant = TRUE)

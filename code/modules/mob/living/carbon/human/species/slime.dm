@@ -72,6 +72,8 @@
 
 	disliked_food = SUGAR | FRIED
 	liked_food = MEAT | TOXIC | RAW
+	/// Special flag used for slimeperson evolved from the slime.
+	var/evolved_slime = FALSE
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()

@@ -458,7 +458,7 @@
 	START_PROCESSING(SSobj, src)
 
 
-/datum/vampire_passive/blood_spill/Destroy(force, ...)
+/datum/vampire_passive/blood_spill/Destroy(force)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

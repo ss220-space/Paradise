@@ -332,7 +332,7 @@
 		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(staminaloss + amount, 0), 120)
+	staminaloss = min(max(staminaloss + amount, 0), MAX_STAMINA_LOSS)
 	if(old_stamloss == staminaloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -350,7 +350,7 @@
 		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(amount, 0), 120)
+	staminaloss = min(max(amount, 0), MAX_STAMINA_LOSS)
 	if(old_stamloss == staminaloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE

@@ -650,7 +650,13 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ##  none - select same map
 ##  random - select random map
 ##  rotate - select next map in list
+##  vote - players will decide what next map will be
 MAP_ROTATE none
+
+## Server map voting mode:
+## all - all maps can be selected
+## nodoubles - current map can't be selected as next
+MAP_VOTE_MODE all
 
 ## Default server map
 DEFAULT_MAP /datum/map/cyberiad
