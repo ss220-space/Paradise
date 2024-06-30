@@ -130,10 +130,8 @@
 		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/bumped_atom, custom_bump)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/bumped_atom)
 	. = ..()
-	if(isnull(.))
-		return .
 	attemptToEat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
@@ -231,7 +229,7 @@
 
 
 //Move all segments if one piece moves.
-/mob/living/simple_animal/hostile/spaceWorm/Move()
+/mob/living/simple_animal/hostile/spaceWorm/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/segmentNextPos = loc
 	. = ..()
 	if(.)

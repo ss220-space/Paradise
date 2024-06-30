@@ -335,6 +335,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"Multiz_nanomap_z1.png"			= 'icons/_nanomaps/Multiz_nanomap_z1.png',
 		"Multiz_nanomap_z2.png"			= 'icons/_nanomaps/Multiz_nanomap_z2.png',
 		"Multiz_nanomap_z3.png"			= 'icons/_nanomaps/Multiz_nanomap_z3.png',
+		"Celestation_nanomap_z1.png"	= 'icons/_nanomaps/Celestation_nanomap_z1.png',
+		"Celestation_nanomap_z2.png"	= 'icons/_nanomaps/Celestation_nanomap_z2.png',
+		"Celestation_nanomap_z3.png"	= 'icons/_nanomaps/Celestation_nanomap_z3.png',
 	)
 
 /datum/asset/simple/safe

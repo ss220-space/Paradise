@@ -24,8 +24,9 @@
 /turf/simulated/floor/plating/lava/airless
 	temperature = TCMB
 
-/turf/simulated/floor/plating/lava/Entered(atom/movable/AM)
-	if(burn_stuff(AM))
+/turf/simulated/floor/plating/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(burn_stuff(arrived))
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

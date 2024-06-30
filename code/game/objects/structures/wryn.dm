@@ -35,7 +35,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/wryn/wax/Move()
+/obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)

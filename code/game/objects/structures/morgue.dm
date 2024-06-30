@@ -278,15 +278,16 @@
 	morgue?.tray_toggle(user)
 
 
+/obj/structure/m_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.set_resting(TRUE, instant = TRUE)
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
@@ -694,15 +695,16 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	crematorium?.tray_toggle(user)
 
 
+/obj/structure/c_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.set_resting(TRUE, instant = TRUE)
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 

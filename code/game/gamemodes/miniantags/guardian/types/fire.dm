@@ -42,7 +42,7 @@
 	collision_ignite(AM)
 
 
-/mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/bumped_mob)
+/mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)
 	. = ..()
 	collision_ignite(bumped_mob)
 

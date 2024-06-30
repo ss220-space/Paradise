@@ -60,36 +60,30 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(exchange_parts(user, I))
-		return
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
-		if(panel_open)
-			to_chat(user, span_notice("Close the maintenance panel first."))
-			return
-		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
-			return
-		if(occupant)
-			to_chat(user, span_notice("The scanner is already occupied!"))
-			return
-		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head."))
-			return
-		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
-		if(M.abiotic())
-			to_chat(user, span_notice("Subject cannot have abiotic items on."))
-			return
-		M.forceMove(src)
-		occupant = M
-		update_icon(UPDATE_ICON_STATE)
-		add_fingerprint(user)
-		qdel(TYPECAST_YOUR_SHIT)
-		SStgui.update_uis(src)
-		return
+/obj/machinery/bodyscanner/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ishuman(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		return .
+	var/mob/living/carbon/human/target = grabbed_thing
+	if(occupant)
+		to_chat(grabber, span_warning("[src] is already occupied!"))
+		return .
+	if(target.abiotic())
+		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[grabbed_thing] will not fit into the [src] because [grabbed_thing.p_they()] [grabbed_thing.p_have()] a slime latched onto [grabbed_thing.p_their()] head."))
+		return .
+	grabbed_thing.forceMove(src)
+	occupant = grabbed_thing
+	update_icon(UPDATE_ICON_STATE)
+	add_fingerprint(grabber)
+	SStgui.update_uis(src)
 
-	return ..()
 
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

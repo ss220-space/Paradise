@@ -135,10 +135,9 @@
 		a_right.holder_movement(user)
 
 
-/obj/item/assembly_holder/Move()
+/obj/item/assembly_holder/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	process_movement()
-	return
 
 
 /obj/item/assembly_holder/pickup(mob/user)
@@ -146,9 +145,9 @@
 	process_movement(user)
 
 
-/obj/item/assembly_holder/Bump(atom/bumped_atom, custom_bump)
+/obj/item/assembly_holder/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || !ismob(bumped_atom))
+	if(. || !ismob(bumped_atom))
 		return .
 	process_movement(bumped_atom)
 

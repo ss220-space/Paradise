@@ -52,6 +52,7 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
@@ -573,17 +574,17 @@ Difficulty: Hard
 		return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	update_approach()
-	if(Dir)
+	if(movement_dir)
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom, custom_bump)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom)
 	. = ..()
-	if(isnull(.) || !charging)
+	if(!charging)
 		return .
 	if(isturf(bumped_atom) || (isobj(bumped_atom) && bumped_atom.density))
 		bumped_atom.ex_act(EXPLODE_HEAVY)

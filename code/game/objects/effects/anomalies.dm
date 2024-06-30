@@ -123,9 +123,9 @@
 	gravShock(AM)
 
 
-/obj/effect/anomaly/grav/Bump(atom/bumped_atom, custom_bump)
+/obj/effect/anomaly/grav/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.))
+	if(.)
 		return .
 	gravShock(bumped_atom)
 
@@ -168,9 +168,9 @@
 	. = ..()
 	mobShock(AM)
 
-/obj/effect/anomaly/flux/Bump(atom/bumped_atom, custom_bump)
+/obj/effect/anomaly/flux/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.))
+	if(.)
 		return .
 	mobShock(bumped_atom)
 
