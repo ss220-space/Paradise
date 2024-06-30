@@ -409,10 +409,11 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
-/mob/living/carbon/human/grabbedby(mob/living/user)
-	if(w_uniform)
-		w_uniform.add_fingerprint(user)
-	return ..()
+
+/mob/living/carbon/human/grippedby(mob/living/grabber, grab_state_override)
+	. = ..()
+	if(.)
+		w_uniform?.add_fingerprint(grabber)
 
 
 //Returns TRUE if the attack hit, FALSE if it missed.

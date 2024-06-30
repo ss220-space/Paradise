@@ -16,15 +16,15 @@
 	if(iscarbon(imp_in))
 		var/mob/living/carbon/C_imp_in = imp_in
 		C_imp_in.uncuff()
-		for(var/obj/item/grab/grab in C_imp_in.grabbed_by)
-			var/mob/living/carbon/grabber = grab.assailant
+		if(C_imp_in.pulledby)
+			var/mob/living/grabber = C_imp_in.pulledby
 			C_imp_in.visible_message(span_warning("[C_imp_in] suddenly shocks [grabber] from their wrists and slips out of their grab!"))
-			grabber.Stun(2 SECONDS) //Drops the grab
 			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_R_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_R_HAND, ENERGY))
 			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_L_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_L_HAND, ENERGY))
-			C_imp_in.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time.
-			C_imp_in.SetWeakened(0)
 			playsound(C_imp_in.loc, 'sound/weapons/egloves.ogg', 75, TRUE)
+			grabber.stop_pulling()
+			C_imp_in.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab
+
 	if(!uses)
 		qdel(src)
 

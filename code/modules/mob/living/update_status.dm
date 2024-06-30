@@ -83,10 +83,8 @@
 
 	if(!(ignore_flags & INC_IGNORE_RESTRAINED) && HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return TRUE
-	if(!(ignore_flags & INC_IGNORE_GRABBED) && LAZYLEN(grabbed_by))
-		for(var/obj/item/grab/grab as anything in grabbed_by)
-			if(grab.state > GRAB_PASSIVE)
-				return TRUE
+	if(!(ignore_flags & INC_IGNORE_GRABBED) && pulledby && pulledby.grab_state > GRAB_PASSIVE)
+		return TRUE
 	return FALSE
 
 

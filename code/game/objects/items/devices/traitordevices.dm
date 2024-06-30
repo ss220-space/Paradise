@@ -268,8 +268,7 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/proc/attempt_teleport(mob/living/user, EMP_D = FALSE)
-	for(var/obj/item/grab/G in user)
-		qdel(G)
+	pulledby?.stop_pulling()
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, span_warning("[src] is still recharging."))

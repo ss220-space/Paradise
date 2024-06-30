@@ -31,16 +31,12 @@
 /datum/element/light_blocking/proc/on_target_move(atom/movable/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
 	if(isturf(old_loc))
-		var/turf/old_turf = old_loc
-		old_turf.remove_opacity_source(source)
-		/*
 		if(old_locs)
-			for(var/turf/old_turf as anything in old_locs)			// after movement refactor
+			for(var/turf/old_turf as anything in old_locs)
 				old_turf.remove_opacity_source(source)
 		else
 			var/turf/old_turf = old_loc
 			old_turf.remove_opacity_source(source)
-		*/
 	if(isturf(source.loc))
 		for(var/turf/new_turf as anything in source.locs)
 			new_turf.add_opacity_source(source)

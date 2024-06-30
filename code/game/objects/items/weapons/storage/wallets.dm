@@ -78,7 +78,7 @@
 	var/front_id_icon_state_holder = front_id.icon_state
 	if(copytext(front_id_icon_state_holder,1,4) == "ERT")
 		front_id_icon_state_holder = "ERT"
-	else if(!(front_id_icon_state_holder in icon_states(src.icon)))
+	else if(!icon_exists(icon, front_id_icon_state_holder))
 		front_id_icon_state_holder = "id"
 	. += mutable_appearance('icons/obj/wallets.dmi', front_id_icon_state_holder)
 

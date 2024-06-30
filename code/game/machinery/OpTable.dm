@@ -83,10 +83,10 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
-	new_patient.set_resting(TRUE, instant = TRUE)
-	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()
+	new_patient.forceMove(loc)
+	new_patient.set_resting(TRUE, instant = TRUE)
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
@@ -100,15 +100,14 @@
 		return
 	take_patient(usr, usr)
 
-/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(iscarbon(G.affecting))
-			add_fingerprint(user)
-			take_patient(G.affecting, user)
-			qdel(G)
-	else
-		return ..()
+
+/obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(!iscarbon(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	take_patient(grabbed_thing, grabber)
+
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE

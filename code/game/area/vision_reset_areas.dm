@@ -17,14 +17,14 @@
 		C.sync_lighting_plane_alpha()
 		C.AddComponent(/datum/component/vision_reset)
 
-/area/vision_change_area/Exited(atom/movable/gone)
+/area/vision_change_area/Exited(atom/movable/departed)
 	. = ..()
-	if(iscarbon(gone))
-		var/mob/living/carbon/C = gone
-		var/datum/component/component = C.GetComponent(/datum/component/vision_reset)
+	if(iscarbon(departed))
+		var/mob/living/carbon/carbon = departed
+		var/datum/component/component = carbon.GetComponent(/datum/component/vision_reset)
 		if(component)
 			qdel(component)
-		C.update_sight()
+		carbon.update_sight()
 
 /datum/component/vision_reset
 	var/mob/living/carbon/my_mob

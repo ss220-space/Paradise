@@ -55,6 +55,7 @@
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
+			H.SetKnockdown(0)
 		else
 			if(H.health <= HEALTH_THRESHOLD_CRIT) // to finish shadowlings in rare occations
 				H.adjustBruteLoss(1)

@@ -26,7 +26,7 @@
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)

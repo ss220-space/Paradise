@@ -520,10 +520,7 @@
 		playsound(src, stepsound, 40, 1)
 
 
-/obj/mecha/Bump(atom/bumped_atom, custom_bump)
-	if(!custom_bump)
-		return null
-
+/obj/mecha/Bump(atom/bumped_atom)
 	if(!throwing)
 		. = ..()
 		if(.)
@@ -1284,7 +1281,6 @@
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H && H.client && (H in range(1)))
 		occupant = H
-		H.stop_pulling()
 		H.forceMove(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
@@ -1372,13 +1368,13 @@
 		return TRUE
 	return FALSE
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
-	..()
-	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
-		go_out(1, newloc)
+/obj/mecha/Exited(atom/movable/departed, atom/newLoc)
+	. = ..()
+	if(occupant && occupant == departed) // The occupant exited the mech without calling go_out()
+		go_out(TRUE, newLoc)
 
-/obj/mecha/Exit(atom/movable/O)
-	if(O in cargo)
+/obj/mecha/Exit(atom/movable/leaving, atom/newLoc)
+	if(leaving in cargo)
 		return FALSE
 	return ..()
 

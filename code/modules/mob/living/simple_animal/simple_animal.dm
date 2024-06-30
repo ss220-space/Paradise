@@ -731,11 +731,12 @@
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
 
-/mob/living/simple_animal/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(pull_constraint(AM, show_message))
+/mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(pull_constraint(pulled_atom, state, supress_message))
 		return ..()
+	return FALSE
 
-/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 

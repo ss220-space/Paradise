@@ -242,10 +242,8 @@
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
 
-/obj/item/projectile/Bump(atom/bumped_atom, custom_bump)
+/obj/item/projectile/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.))
-		return .
 
 	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
@@ -351,7 +349,7 @@
 			step_towards(src, T)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
 			if(loc == get_turf(original) && !(original in permutated))
-				Bump(original, custom_bump = TRUE)
+				Bump(original)
 	if(QDELETED(src)) //deleted on last move
 		return
 	if(!forcemoved)
@@ -420,7 +418,7 @@
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !(pass_flags & PASSMOB))
-		Bump(AM, custom_bump = TRUE)
+		Bump(AM)
 
 
 /obj/item/projectile/Destroy()

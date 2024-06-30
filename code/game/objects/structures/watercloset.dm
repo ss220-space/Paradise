@@ -68,6 +68,40 @@
 			pixel_y = -8
 			layer = FLY_LAYER
 
+
+/obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	if(victim.loc != get_turf(src))
+		to_chat(grabber, span_warning("[victim] needs to be on [src]!"))
+		return .
+	add_fingerprint(grabber)
+	if(open && !swirlie)
+		victim.visible_message(
+			span_danger("[grabber] starts to give [victim] a swirlie!"),
+			span_userdanger("[grabber] starts to give you a swirlie..."),
+		)
+		swirlie = victim
+		if(do_after(grabber, 3 SECONDS, src, NONE) && grabber.pulling == victim)
+			victim.visible_message(
+				span_danger("[grabber] gives [victim] a swirlie!"),
+				span_userdanger("[grabber] gives [victim] a swirlie!"),
+				span_italics("You hear a toilet flushing."),
+			)
+			if(!victim.internal)
+				victim.adjustOxyLoss(5)
+		swirlie = null
+	else
+		playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
+		victim.visible_message(
+			span_danger("[grabber] slams [victim.name] into [src]!"),
+			span_userdanger("[grabber] slams you into [src]!"),
+		)
+		victim.adjustBruteLoss(5)
+
+
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		if(!open)
@@ -80,44 +114,13 @@
 				add_fingerprint(user)
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
-			return
 
-	if(istype(I, /obj/item/grab))
-		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/grab/G = I
-		if(!G.confirm())
-			return
-		if(isliving(G.affecting))
-			var/mob/living/GM = G.affecting
-			if(G.state >= GRAB_AGGRESSIVE)
-				if(GM.loc != get_turf(src))
-					to_chat(user, "<span class='warning'>[GM] needs to be on [src]!</span>")
-					return
-				if(!swirlie)
-					add_fingerprint(user)
-					if(open)
-						GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give [GM] a swirlie...</span>")
-						swirlie = GM
-						if(do_after(user, 3 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-							GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives [GM] a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
-							if(iscarbon(GM))
-								var/mob/living/carbon/C = GM
-								if(!C.internal)
-									C.adjustOxyLoss(5)
-							else
-								GM.adjustOxyLoss(5)
-						swirlie = null
-					else
-						playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-						GM.visible_message("<span class='danger'>[user] slams [GM.name] into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name] into [src]!</span>")
-						GM.adjustBruteLoss(5)
-			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
-
-	if(cistern)
+	else if(cistern)
 		add_fingerprint(user)
 		stash_goods(I, user)
-		return
+
+	else
+		return ..()
 
 
 /obj/structure/toilet/crowbar_act(mob/user, obj/item/I)
@@ -240,24 +243,22 @@
 	anchored = TRUE
 
 
-/obj/structure/urinal/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(!G.confirm())
-			return
-		if(isliving(G.affecting))
-			var/mob/living/GM = G.affecting
-			if(G.state >= GRAB_AGGRESSIVE)
-				if(GM.loc != get_turf(src))
-					to_chat(user, "<span class='notice'>[GM.name] needs to be on [src].</span>")
-					return
-				add_fingerprint(user)
-				user.changeNext_move(CLICK_CD_MELEE)
-				playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-				user.visible_message("<span class='danger'>[user] slams [GM] into [src]!</span>", "<span class='notice'>You slam [GM] into [src]!</span>")
-				GM.adjustBruteLoss(8)
-			else
-				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
+/obj/structure/urinal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	if(victim.loc != get_turf(src))
+		to_chat(grabber, span_warning("[victim] needs to be on [src]!"))
+		return .
+	add_fingerprint(grabber)
+	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
+	victim.visible_message(
+		span_danger("[grabber] slams [victim.name] into [src]!"),
+		span_userdanger("[grabber] slams you into [src]!"),
+	)
+	victim.adjustBruteLoss(8)
+
 
 /obj/structure/urinal/wrench_act(mob/user, obj/item/I)
 	. = TRUE
