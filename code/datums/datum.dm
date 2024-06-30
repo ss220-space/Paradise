@@ -8,21 +8,29 @@
 	var/gc_destroyed //Time when this object was destroyed.
 	/// Active timers with this datum as the target
 	var/list/active_timers  //for SStimer
+	/// Status traits attached to this datum
+	var/list/_status_traits
 	/**
 	  * Components attached to this datum
 	  *
 	  * Lazy associated list in the structure of `type -> component/list of components`
 	  */
-	var/list/datum_components //for /datum/components
-	/// Status traits attached to this datum
-	var/list/_status_traits
+	var/list/datum_components
+	/**
+	  * Any datum registered to receive signals from this datum is in this list
+	  *
+	  * Lazy associated list in the structure of `signal -> registree/list of registrees`
+	  */
 	var/list/comp_lookup
-	var/list/list/datum/callback/signal_procs
-	var/signal_enabled = FALSE
-	var/var_edited = FALSE //Warranty void if seal is broken
+	/// Lazy associated list in the structure of `target -> list(signal -> proctype)` that are run when the datum receives that signal
+	var/list/list/signal_procs
+
 	var/tmp/unique_datum_id = null
 	/// Datum level flags
 	var/datum_flags = NONE
+
+	/// A weak reference to another datum
+	var/datum/weakref/weak_reference
 
 #ifdef TESTING
 	var/running_find_references
@@ -32,9 +40,11 @@
 // Default implementation of clean-up code.
 // This should be overridden to remove all references pointing to the object being destroyed.
 // Return the appropriate QDEL_HINT; in most cases this is QDEL_HINT_QUEUE.
-/datum/proc/Destroy(force = FALSE, ...)
+/datum/proc/Destroy(force = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	//SHOULD_NOT_SLEEP(TRUE)
 	tag = null
+	weak_reference = null //ensure prompt GCing of weakref.
 
 	var/list/timers = active_timers
 	active_timers = null
@@ -45,27 +55,24 @@
 		qdel(timer)
 
 	//BEGIN: ECS SHIT
-	signal_enabled = FALSE
-
-	var/list/dc = datum_components
-	if(dc)
-		var/all_components = dc[/datum/component]
-		if(length(all_components))
-			for(var/I in all_components)
-				var/datum/component/C = I
-				qdel(C, FALSE, TRUE)
-		else
-			var/datum/component/C = all_components
-			qdel(C, FALSE, TRUE)
-		dc.Cut()
+	var/list/components = datum_components
+	if(components)
+		for(var/component_key in components)
+			var/component_or_list = components[component_key]
+			if(islist(component_or_list))
+				for(var/datum/component/component as anything in component_or_list)
+					qdel(component, FALSE)
+			else
+				var/datum/component/single_comp = component_or_list
+				qdel(single_comp, FALSE)
+		components.Cut()
 
 	var/list/lookup = comp_lookup
 	if(lookup)
 		for(var/sig in lookup)
 			var/list/comps = lookup[sig]
 			if(length(comps))
-				for(var/i in comps)
-					var/datum/component/comp = i
+				for(var/datum/component/comp as anything in comps)
 					comp.UnregisterSignal(src, sig)
 			else
 				var/datum/component/comp = comps

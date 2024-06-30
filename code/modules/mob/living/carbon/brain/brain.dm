@@ -20,20 +20,6 @@
 	return ..()
 
 
-/mob/living/carbon/brain/update_canmove(delay_action_updates = FALSE)
-	if(in_contents_of(/obj/mecha))
-		canmove = TRUE
-		use_me = TRUE //If it can move, let it emote
-	else if(istype(loc, /obj/item/mmi))
-		canmove = TRUE //mmi won't move anyways so whatever
-	else
-		canmove = FALSE
-
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
-
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
 
@@ -42,7 +28,7 @@
 	return
 
 
-/mob/living/carbon/brain/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
 
 

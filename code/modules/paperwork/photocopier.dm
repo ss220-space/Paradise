@@ -31,7 +31,7 @@
 	var/syndicate = FALSE
 	var/info_box = "Если у вас есть пожелания или \
 					идеи для улучшения стандартных \
-					форм, обратитесь в Департамент \
+					форм, обратитесь в Отдел \
 					Стандартизации Nanotrasen."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
@@ -264,19 +264,23 @@
 			qdel(O)
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/grab)) //For ass-copying.
-		var/obj/item/grab/G = O
-		if(ismob(G.affecting) && G.affecting != ass)
-			var/mob/GM = G.affecting
-			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
-			GM.forceMove(get_turf(src))
-			ass = GM
-			add_fingerprint(user)
-			if(copyitem)
-				copyitem.forceMove(get_turf(src))
-				copyitem = null
 	else
 		return ..()
+
+
+/obj/machinery/photocopier/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || grabbed_thing == ass)
+		return .
+	add_fingerprint(grabber)
+	visible_message(span_warning("[grabber] drags [grabbed_thing.name] onto [src]!"))
+	var/turf/source_turf = get_turf(src)
+	grabbed_thing.forceMove(source_turf)
+	ass = grabbed_thing
+	if(copyitem)
+		copyitem.forceMove(source_turf)
+		copyitem = null
+
 
 /obj/machinery/photocopier/wrench_act(mob/user, obj/item/I)
 	. = TRUE

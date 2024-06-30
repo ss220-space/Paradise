@@ -40,10 +40,10 @@
 	clawfootstep = null
 	heavyfootstep = null
 
-/turf/simulated/floor/chasm/Entered(atom/movable/AM)
-	..()
+/turf/simulated/floor/chasm/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
 	START_PROCESSING(SSprocessing, src)
-	drop_stuff(AM)
+	drop_stuff(arrived)
 
 /turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	return ((caller.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || ismegafauna(caller))
@@ -161,7 +161,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(iseffect(AM))
+	if(iseffect(AM) && !(istype(AM, /obj/effect/mob_spawn)))
 		return FALSE
 	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
 		return FALSE
@@ -238,7 +238,6 @@
 		var/mob/living/L = AM
 		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, CHASM_TRAIT)
 		L.Stun(400 SECONDS)
-		L.resting = TRUE
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
@@ -306,15 +305,17 @@
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
-	if(isliving(gone))
-		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
+	if(isliving(departed))
+		UnregisterSignal(departed, COMSIG_LIVING_REVIVE)
 
 
 /**

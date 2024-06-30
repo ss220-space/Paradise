@@ -91,7 +91,7 @@
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
 
-	if(entity.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) //Let's not do typechecks and stuff on invisible things
 		return
 
 	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
@@ -588,14 +588,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
-		if(L.lying_angle)
+		if(L.body_position == LYING_DOWN)
 			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 		return TURRET_PRIORITY_TARGET
 
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
+	if(isanimal(L) || is_monkeybasic(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	if(isalien(L)) // Xenos are dangerous
@@ -605,7 +605,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
-	if(L.lying_angle)		//if the perp is lying down, it's still a target but a less-important target
+	if(L.body_position == LYING_DOWN)		//if the perp is lying down, it's still a target but a less-important target
 		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee

@@ -8,7 +8,7 @@
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !isspaceturf(M.loc))
-		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
+		if((M.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
@@ -45,7 +45,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
 	if(isturf(M.loc) && !isspaceturf(M.loc))
-		if(M.canmove && !HAS_TRAIT(M, TRAIT_RESTRAINED))
+		if((M.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(M, TRAIT_RESTRAINED))
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))
@@ -148,6 +148,13 @@
 			update_flags |= M.adjustToxLoss(6, FALSE)
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
+
+/datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
+	return ..()
+
 /datum/reagent/moonlin
 	name = "Moonlin"
 	id = "moonlin"
@@ -451,14 +458,28 @@
 	overdose_threshold = 20
 	addiction_chance = 15
 	addiction_threshold = 5
+	shock_reduction = 60
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "WAAAAGH"
+
+/datum/reagent/bath_salts/on_mob_add(mob/living/M)
+	. = ..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.dna.species.punchdamagelow += 5
+		H.dna.species.punchdamagehigh += 5
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
 	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-8, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.receive_damage(0.2, FALSE)
+		M.SetParalysis(0)
+		M.SetStunned(0)
+		M.SetWeakened(0)
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
@@ -466,27 +487,23 @@
 			H.update_hair()
 			H.update_fhair()
 			H.visible_message("<span class='warning'>[H] has a wild look in [H.p_their()] eyes!</span>")
-	if(check < 60)
-		M.SetParalysis(0)
-		M.SetStunned(0)
-		M.SetWeakened(0)
 	if(check < 30)
 		M.emote(pick("twitch", "twitch_s", "scream", "drool", "grumble", "mumble"))
-	M.Druggy(30 SECONDS)
-	if(check < 20)
-		M.AdjustConfused(20 SECONDS)
-	if(check < 8)
-		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
-		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
-		update_flags |= M.adjustBruteLoss(5, FALSE)
-	else if(check < 16)
-		M.AdjustHallucinate(30 SECONDS)
-		M.last_hallucinator_log = name
+		M.Druggy(30 SECONDS)
+	if(check < 5)
+		M.emote(pick("howl", "growl"))
 	else if(check < 24)
 		to_chat(M, "<span class='userdanger'>They're coming for you!</span>")
 	else if(check < 28)
 		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	return ..() | update_flags
+
+/datum/reagent/bath_salts/on_mob_delete(mob/living/M)
+	. = ..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.dna.species.punchdamagelow -= 5
+		H.dna.species.punchdamagehigh -= 5
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -500,50 +517,13 @@
 		to_chat(M, "<span class='notice'>You feel a bit more salty than usual.</span>")
 
 /datum/reagent/bath_salts/overdose_process(mob/living/M, severity)
-	var/list/overdose_info = ..()
-	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
-	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	if(severity == 1)
-		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M] flails around like a lunatic!</span>")
-			M.AdjustConfused(50 SECONDS)
-			M.Jitter(20 SECONDS)
-			M.emote("scream")
-			M.reagents.add_reagent("jagged_crystals", 5)
-		else if(effect <= 4)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
-			M.emote("twitch_s")
-			update_flags |= M.adjustToxLoss(2, FALSE)
-			update_flags |= M.adjustBrainLoss(1, FALSE)
-			M.Stun(6 SECONDS)
-			M.EyeBlurry(14 SECONDS)
-			M.reagents.add_reagent("jagged_crystals", 5)
-		else if(effect <= 7)
-			M.emote("faint")
-			M.reagents.add_reagent("jagged_crystals", 5)
-	else if(severity == 2)
-		if(effect <= 2)
-			M.visible_message("<span class='danger'>[M]'s eyes dilate!</span>")
-			update_flags |= M.adjustToxLoss(2, FALSE)
-			update_flags |= M.adjustBrainLoss(1, FALSE)
-			M.Stun(6 SECONDS)
-			M.EyeBlurry(14 SECONDS)
-			M.reagents.add_reagent("jagged_crystals", 5)
-		else if(effect <= 4)
-			M.visible_message("<span class='danger'>[M] convulses violently and falls to the floor!</span>")
-			M.Jitter(100 SECONDS)
-			update_flags |= M.adjustToxLoss(2, FALSE)
-			update_flags |= M.adjustBrainLoss(1, FALSE)
-			M.Weaken(16 SECONDS)
-			M.emote("gasp")
-			M.reagents.add_reagent("jagged_crystals", 5)
-		else if(effect <= 7)
-			M.emote("scream")
-			M.visible_message("<span class='danger'>[M] tears at [M.p_their()] own skin!</span>")
-			update_flags |= M.adjustBruteLoss(5, FALSE)
-			M.reagents.add_reagent("jagged_crystals", 5)
-			M.emote("twitch")
-	return list(effect, update_flags)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(-16, FALSE)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			organ.receive_damage(1.8, FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/jenkem
 	name = "Jenkem"

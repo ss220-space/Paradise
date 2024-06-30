@@ -165,11 +165,11 @@
 		if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)		// not obscured if we reach the edge
 			break
 
-		if(T.density)			// if we hit a solid turf, panel is obscured
-			obscured = 1
+		if(IS_OPAQUE_TURF(T))			// if we hit an opaque turf, panel is obscured
+			obscured = TRUE
 			return
 
-	obscured = 0		// if hit the edge or stepped 20 times, not obscured
+	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
 

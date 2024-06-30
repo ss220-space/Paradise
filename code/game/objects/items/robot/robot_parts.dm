@@ -18,7 +18,7 @@
 		if(R)
 			name = "[R.company] [initial(name)]"
 			desc = "[R.desc]"
-			if(icon_state in icon_states(R.icon))
+			if(icon_exists(R.icon, icon_state))
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"
@@ -340,8 +340,7 @@
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
-				O.lockcharge = 1
-				O.update_canmove()
+				O.set_lockcharge(TRUE)
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else

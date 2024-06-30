@@ -2,6 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 	pass_flags = PASSTABLE
+	max_grab = GRAB_KILL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
@@ -9,10 +10,8 @@
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0
 	var/pounce_cooldown = 0
-	var/pounce_cooldown_time = 30
-	var/leap_on_click = 0
-	var/custom_pixel_x_offset = 0 //for admin fuckery.
-	var/custom_pixel_y_offset = 0
+	var/pounce_cooldown_time = 3 SECONDS
+	var/leap_on_click = FALSE
 
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -68,8 +67,6 @@
 	take_overall_damage(b_loss, f_loss)
 
 
-/mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
-
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)
 
@@ -113,28 +110,17 @@
 
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
+	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, TRUE)  //Alien roars when starting to break free
 	return ..(I, cuff_break = TRUE)
 
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_y_offset)
-		return custom_pixel_y_offset
-	else
-		return initial(pixel_y)
+/mob/living/carbon/alien/humanoid/lying_angle_on_lying_down(new_lying_angle)
+	set_lying_angle(90)	// it had to be 90, looks silly otherwise
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_x_offset)
-		return custom_pixel_x_offset
-	else
-		return initial(pixel_x)
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
+
 
 /mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
 	..()
@@ -168,4 +154,54 @@
 	if(l_store)
 		items += l_store
 	return items
+
+
+/mob/living/carbon/alien/humanoid/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(!include_pockets)
+		return .
+	if(r_store)
+		. |= ITEM_SLOT_POCKET_RIGHT
+	if(l_store)
+		. |= ITEM_SLOT_POCKET_LEFT
+
+
+/mob/living/carbon/alien/humanoid/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
+	grab_state = newstate
+	update_hands_HUD()
+	switch(grab_state) // Current state.
+		if(GRAB_PASSIVE)
+			pulling.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+			if(. >= GRAB_KILL) // Previous state was a kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_AGGRESSIVE)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+			else if(. <= GRAB_PASSIVE) // Grab got upgraded from a passive one.
+				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+		if(GRAB_NECK)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_KILL)
+			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+
+
+/mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
+	return grabbed_thing.devoured(src)
+
+
+/// Returns FALSE if we're not allowed to eat it, true otherwise
+/mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)
+	if(!isliving(target) || !pulling || (pulling && pulling != target))
+		return FALSE
+	if(incapacitated() || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	if(get_dir(src, target) != dir) // Gotta face em 4head
+		return FALSE
+	return TRUE
 

@@ -13,18 +13,27 @@
 		tape_overlay.pixel_y = y_offset - 2
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
-	var/obj/item/I = parent
-	I.set_anchored(TRUE)
-	I.update_icon() //Do this first so the action button properly shows the icon
+	var/obj/item/parent_item = parent
+	parent_item.set_anchored(TRUE)
+	parent_item.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
-		var/datum/action/item_action/remove_tape/remove_action = new(I)
-		if(ismob(I.loc))
-			remove_action.Grant(I.loc)
-	I.add_tape()
+		var/datum/action/item_action/remove_tape/remove_action = new(parent_item)
+		if(ismob(parent_item.loc))
+			remove_action.Grant(parent_item.loc)
+	parent_item.add_tape()
 
 
 /datum/component/ducttape/Destroy()
 	tape_overlay = null
+	var/obj/item/parent_item = parent
+	var/atom/drop_loc = parent_item.drop_location()
+	playsound(drop_loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	new /obj/item/trash/tapetrash(drop_loc)
+	parent_item.set_anchored(initial(parent_item.anchored))
+	parent_item.update_icon()
+	for(var/datum/action/item_action/remove_tape/remove_action in parent_item.actions)
+		qdel(remove_action)
+	parent_item.remove_tape()
 	return ..()
 
 
@@ -35,34 +44,18 @@
 
 /datum/component/ducttape/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_ITEM_PICKUP))
+	if(!hide_tape)
+		UnregisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_EXAMINE))
 
 
 /datum/component/ducttape/proc/add_tape_text(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-
 	examine_list += span_notice("There's some sticky tape attached to [source].")
 
 
 /datum/component/ducttape/proc/add_tape_overlay(datum/source, list/overlays)
 	SIGNAL_HANDLER
-
 	overlays += tape_overlay
-
-
-/datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
-	to_chat(user, span_notice("You tear the tape off [I]!"))
-	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
-	new /obj/item/trash/tapetrash(user.loc)
-	I.set_anchored(initial(I.anchored))
-	if(!hide_tape)
-		UnregisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_EXAMINE))
-	I.update_icon()
-	for(var/datum/action/item_action/remove_tape/RT in I.actions)
-		RT.Remove(user)
-		qdel(RT)
-	user.transfer_fingerprints_to(I)
-	I.remove_tape()
-	qdel(src)
 
 
 /datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)

@@ -8,26 +8,34 @@
 	anchored = FALSE
 	pass_flags_self = PASSVEHICLE
 	can_buckle = TRUE
+	pull_push_slowdown = 1
 	buckle_lying = 0
 	max_integrity = 300
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
-	var/key_type
-	var/held_key_type //Similar to above, but the vehicle needs the key in hands as opposed to inserted into the ignition
+	/// Item required for the vehicle to be inserted into the ignition.
+	var/obj/item/key_type
+	/// Whehter our key should be in mob hands, rather than in the vehicle ignintion.
+	var/key_in_hands = FALSE
+	/// Currently inserted key.
 	var/obj/item/key/inserted_key
-	var/key_type_exact = TRUE		//can subtypes work
-	var/last_vehicle_move = 0 //used for move delays
-	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
-	var/auto_door_open = TRUE
-	var/needs_gravity = 0 //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
-	//Pixels
-	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
-	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
-	var/spaceworthy = FALSE
+	/// To allow non-space vehicles to move in no gravity or not, mostly for adminbus.
+	var/needs_gravity = FALSE
+	/// All dirs apply this pixel_x for the driver.
+	var/generic_pixel_x = 0
+	/// All dirs apply this pixel_y for the driver.
+	var/generic_pixel_y = 0
+	/// If we have a xenobio red potion applied to us.
+	var/potion_boosted = FALSE
+	/// Delay between movements in deciseconds, lower = faster, higher = slower
+	var/vehicle_move_delay = 0.35 SECONDS
+	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
 
 /obj/vehicle/Initialize(mapload)
 	. = ..()
 	handle_vehicle_layer()
+	handle_vehicle_icons()
+
 
 /obj/vehicle/Destroy()
 	QDEL_NULL(inserted_key)
@@ -37,77 +45,128 @@
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(key_type)
-		if(!inserted_key)
-			. += "<span class='notice'>Put a key inside it by clicking it with the key.</span>"
+		if(key_in_hands)
+			. += span_info("[src] requires the [initial(key_type.name)] to be held in hands to start driving.")
 		else
-			. += "<span class='notice'>Alt-click [src] to remove the key.</span>"
+			if(inserted_key)
+				. += span_info("<b>Alt-click</b> [src] to remove the key.")
+			else
+				. += span_info("[src] requires the [initial(key_type.name)] to be inserted into ignintion to start driving.")
+
 	if(resistance_flags & ON_FIRE)
-		. += "<span class='warning'>It's on fire!</span>"
+		. += span_warning("It's on fire!")
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
-			. += "<span class='notice'>It looks slightly damaged.</span>"
+			. += span_notice("It looks slightly damaged.")
 		if(25 to 50)
-			. += "<span class='notice'>It appears heavily damaged.</span>"
+			. += span_notice("It appears heavily damaged.")
 		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
+			. += span_warning("It's falling apart!")
+
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
-	if(key_type && !is_key(inserted_key) && is_key(I))
-		if(user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-			if(inserted_key)	//just in case there's an invalid key
-				inserted_key.forceMove(drop_location())
-			inserted_key = I
-		else
-			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+	if(!key_type || I.type != key_type)
+		return ..()
+
+	if(inserted_key)
+		to_chat(user, span_warning("[src] already has [inserted_key.name] in the ignition!"))
 		return
-	return ..()
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return
+
+	to_chat(user, span_notice("You insert [I] into [src]'s ignintion."))
+	inserted_key = I
+
 
 /obj/vehicle/AltClick(mob/living/user)
-	if(!istype(user))
+	if(!istype(user) || !Adjacent(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	if(inserted_key && user.Adjacent(user))
-		if(!(user in buckled_mobs))
-			to_chat(user, "<span class='warning'>You must be riding [src] to remove [src]'s key!</span>")
-			return
-		to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
-		inserted_key.forceMove_turf()
-		user.put_in_hands(inserted_key, ignore_anim = FALSE)
-		inserted_key = null
+	if(!inserted_key)
+		to_chat(user, span_warning("[src] has no inserted keys!"))
+		return
+	if(!(user in buckled_mobs))
+		to_chat(user, span_warning("You must be riding [src] to remove [src]'s key!"))
+		return
+	to_chat(user, span_notice("You remove [inserted_key] from [src]."))
+	inserted_key.forceMove_turf()
+	user.put_in_hands(inserted_key, ignore_anim = FALSE)
+	inserted_key = null
 
-/obj/vehicle/proc/is_key(obj/item/I)
-	return I ? (key_type_exact ? (I.type == key_type) : istype(I, key_type)) : FALSE
 
-/obj/vehicle/proc/held_keycheck(mob/user)
-	if(held_key_type)
-		if(istype(user.l_hand, held_key_type) || istype(user.r_hand, held_key_type))
-			return TRUE
-	else
+/obj/vehicle/proc/keycheck(mob/user, provide_feedback = TRUE)
+	if(!key_type)
 		return TRUE
-	return FALSE
+	if(key_in_hands)
+		if(!(user.l_hand && user.l_hand.type == key_type) && !(user.r_hand && user.r_hand.type == key_type))
+			if(provide_feedback)
+				to_chat(user, span_warning("You'll need the [initial(key_type.name)] in one of your hands to drive [src]!"))
+			return FALSE
+		return TRUE
+	if(!(inserted_key && inserted_key.type == key_type))
+		if(provide_feedback)
+			to_chat(user, span_warning("[src] has no inserted keys!"))
+		return FALSE
+	return TRUE
+
+
+/// Checks to see if we've been hit with a red xenobio potion to make us faster.
+/obj/vehicle/proc/check_potion(obj/item/slimepotion/speed/speed_potion, mob/living/user)
+	if(potion_boosted)
+		to_chat(user, span_warning("[user] has already been coated with red, that's as fast as it'll go!"))
+		return FALSE
+	if(has_buckled_mobs()) // effect won't take place till the next time someone mounts it, so just prevent that situation
+		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [src] while it's being ridden!"))
+		return FALSE
+	var/speed_limit = round(CONFIG_GET(number/movedelay/run_delay) + get_config_multiplicative_speed_by_path(/mob/living/carbon/human), 0.01)
+	if(vehicle_move_delay <= speed_limit) // I say speed but this is actually move delay, so you have to be ABOVE the speed limit to pass
+		to_chat(user, span_warning("[src] can't be made any faster!"))
+		return FALSE
+	vehicle_move_delay = speed_limit
+	potion_boosted = TRUE
+	to_chat(user, span_notice("You slather the red gunk over [src], making it faster."))
+	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	add_atom_colour(COLOR_RED, FIXED_COLOUR_PRIORITY)
+	qdel(speed_potion)
+	return TRUE
+
 
 //APPEARANCE
 /obj/vehicle/proc/handle_vehicle_layer()
-	if(dir != NORTH)
+	if(!has_buckled_mobs())
+		layer = OBJ_LAYER
+		return
+	if(dir == SOUTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
+
+
+/// Used to update vehicle icons if needed
+/obj/vehicle/proc/handle_vehicle_icons()
+	return
 
 
 //Override this to set your vehicle's various pixel offsets
 //if they differ between directions, otherwise use the
 //generic variables
 /obj/vehicle/proc/handle_vehicle_offsets()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.setDir(dir)
-			buckled_mob.pixel_x = generic_pixel_x
-			buckled_mob.pixel_y = generic_pixel_y
+	if(!has_buckled_mobs())
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
+		buckled_mob.pixel_x = generic_pixel_x
+		buckled_mob.pixel_y = generic_pixel_y
+
+
+/// Used to update dir of buckled mobs on Move().
+/obj/vehicle/proc/handle_buckled_dir()
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
 
 
 /obj/item/key
@@ -120,82 +179,68 @@
 
 //BUCKLE HOOKS
 /obj/vehicle/post_buckle_mob(mob/living/target)
+	handle_vehicle_layer()
 	handle_vehicle_offsets()
+	handle_vehicle_icons()
 
 
 /obj/vehicle/post_unbuckle_mob(mob/living/target)
-	target.pixel_x = 0
-	target.pixel_y = 0
+	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	handle_vehicle_offsets()
+	handle_vehicle_layer()
+	handle_vehicle_icons()
 
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.bullet_act(Proj)
+	if(!has_buckled_mobs())
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.bullet_act(Proj)
+
 
 //MOVEMENT
-/obj/vehicle/relaymove(mob/user, direction)
-	if(world.time < last_vehicle_move)
-		return
 
-	if(key_type && !is_key(inserted_key))
-		last_vehicle_move = world.time + 5
-		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
-		return
+/obj/vehicle/relaymove(mob/user, direction)
+	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown) || !has_buckled_mobs() || user != buckled_mobs[1])
+		return FALSE
+
+	var/turf/next_step = get_step(src, direction)
+	if(!next_step || !isturf(loc) || !Process_Spacemove(direction) || !keycheck(user))
+		COOLDOWN_START(src, vehicle_move_cooldown, 0.5 SECONDS)
+		return FALSE
 
 	if(user.incapacitated())
 		unbuckle_mob(user)
-		return
+		return FALSE
 
-	if(held_keycheck(user))
-		if(!Process_Spacemove(direction) || !isturf(loc))
-			return
+	var/add_delay = vehicle_move_delay
 
-		last_vehicle_move = get_config_multiplicative_speed_by_path(/mob/living/carbon/human) + vehicle_move_delay
-		Move(get_step(src, direction), direction, last_vehicle_move)
+	. = Move(next_step, direction)
+	if(ISDIAGONALDIR(direction) && loc == next_step)
+		add_delay *= sqrt(2)
 
-		if(direction & (direction - 1))		//moved diagonally
-			last_vehicle_move *= 1.41
-		last_vehicle_move += world.time
-
-		if(has_buckled_mobs())
-			if(issimulatedturf(loc))
-				var/turf/simulated/T = loc
-				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
-					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
-					for(var/m in buckled_mobs)
-						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(10 SECONDS)
-					unbuckle_all_mobs()
-					step(src, dir)
-
-		handle_vehicle_layer()
-		handle_vehicle_offsets()
-	else
-		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to drive [src].</span>")
+	set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay))
+	COOLDOWN_START(src, vehicle_move_cooldown, add_delay)
 
 
-/obj/vehicle/Move(NewLoc, Dir = 0, movetime)
+/obj/vehicle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_vehicle_layer()
 	handle_vehicle_offsets()
+	handle_vehicle_icons()
+	handle_buckled_dir()
 
 
-/obj/vehicle/Bump(atom/movable/M)
-	if(!spaceworthy && isspaceturf(get_turf(src)))
-		return FALSE
+/obj/vehicle/Bump(atom/bumped_atom)
 	. = ..()
-	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
-			for(var/m in buckled_mobs)
-				M.Bumped(m)
-
-/obj/vehicle/proc/RunOver(var/mob/living/carbon/human/H)
-	return		//write specifics for different vehicles
+	if(. || !has_buckled_mobs() || !istype(bumped_atom, /obj/machinery/door))
+		return .
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		bumped_atom.Bumped(buckled_mob)
 
 
-/obj/vehicle/Process_Spacemove(movement_dir = NONE)
+/obj/vehicle/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(has_gravity())
 		return TRUE
 
@@ -207,9 +252,11 @@
 
 	return FALSE
 
+
 /obj/vehicle/space
 	pressure_resistance = INFINITY
-	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(movement_dir = NONE)
+
+/obj/vehicle/space/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
+

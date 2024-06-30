@@ -61,11 +61,8 @@
 	if(vamp)
 		vamp.handle_vampire()
 
-	if(pulling)
-		update_pulling()
-
-	for(var/obj/item/grab/G in src)
-		G.process()
+	if(pulledby && pulledby.grab_state > GRAB_PASSIVE)
+		pull_on_life()
 
 	if(stat != DEAD)
 		handle_critical_condition()
@@ -122,10 +119,6 @@
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return
 
-/mob/living/proc/update_pulling()
-	if(incapacitated())
-		stop_pulling()
-
 //this updates all special effects: mainly stamina
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
 	return
@@ -140,11 +133,9 @@
 
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	see_invisible = SEE_INVISIBLE_OBSERVER
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
 	sync_lighting_plane_alpha()
 
 /mob/living/proc/handle_critical_condition()
@@ -178,35 +169,39 @@
 				healths.icon_state = "health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 
-/mob/living/update_stamina_hud(shown_stamina_amount)
-	if(!client)
+
+/mob/living/update_stamina_hud(shown_stamina_loss)
+	if(!client || !stamina_bar)
 		return
 
-	if(stamina_bar)
-		if(stat != DEAD)
-			. = TRUE
-			if(shown_stamina_amount == null)
-				shown_stamina_amount = staminaloss
-			if(shown_stamina_amount >= maxHealth)
-				stamina_bar.icon_state = "stamina6"
-			else if(shown_stamina_amount > maxHealth * 0.8)
-				stamina_bar.icon_state = "stamina5"
-			else if(shown_stamina_amount > maxHealth * 0.6)
-				stamina_bar.icon_state = "stamina4"
-			else if(shown_stamina_amount > maxHealth * 0.4)
-				stamina_bar.icon_state = "stamina3"
-			else if(shown_stamina_amount > maxHealth * 0.2)
-				stamina_bar.icon_state = "stamina2"
-			else if(shown_stamina_amount > 0)
-				stamina_bar.icon_state = "stamina1"
-			else
-				stamina_bar.icon_state = "stamina0"
-		else
-			stamina_bar.icon_state = "stamina6"
+	var/stam_crit_threshold = maxHealth - HEALTH_THRESHOLD_CRIT
+
+	if(stat == DEAD)
+		stamina_bar.icon_state = "stamina_dead"
+		return
+
+	if(shown_stamina_loss == null)
+		shown_stamina_loss = getStaminaLoss()
+
+	if(shown_stamina_loss >= stam_crit_threshold)
+		stamina_bar.icon_state = "stamina_crit"
+	else if(shown_stamina_loss > maxHealth * 0.8)
+		stamina_bar.icon_state = "stamina_5"
+	else if(shown_stamina_loss > maxHealth * 0.6)
+		stamina_bar.icon_state = "stamina_4"
+	else if(shown_stamina_loss > maxHealth * 0.4)
+		stamina_bar.icon_state = "stamina_3"
+	else if(shown_stamina_loss > maxHealth * 0.2)
+		stamina_bar.icon_state = "stamina_2"
+	else if(shown_stamina_loss > 0)
+		stamina_bar.icon_state = "stamina_1"
+	else
+		stamina_bar.icon_state = "stamina_full"
+
 
 /mob/living/simple_animal/update_health_hud()
 	if(!client)
@@ -216,7 +211,7 @@
 	if(healths)
 		..()
 	if(healthdoll)
-		var/obj/screen/healthdoll/living/livingdoll = healthdoll
+		var/atom/movable/screen/healthdoll/living/livingdoll = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -242,7 +237,7 @@
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
 			livingdoll.add_filter("inset_drop_shadow", 2, drop_shadow_filter(size = -1))
 	if(severity > 0)
-		overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
 
@@ -265,4 +260,25 @@
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
 	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+
+
+/// Updates grabbed victim status effects.
+/mob/living/proc/pull_on_life()
+	var/mob/grabber = pulledby
+	if(HAS_TRAIT(grabber, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		grabber.stop_pulling()
+		return
+
+	if(grabber.grab_state >= GRAB_AGGRESSIVE && grabber.zone_selected == BODY_ZONE_PRECISE_EYES && ishuman(src))
+		AdjustEyeBlind(3 SECONDS, bound_upper = 6 SECONDS)
+
+	var/breathing_tube = get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)
+
+	if(grabber.grab_state >= GRAB_NECK && !breathing_tube)
+		adjustOxyLoss(1)
+
+	if(grabber.grab_state >= GRAB_KILL)
+		AdjustStuttering(5 SECONDS, bound_upper = 10 SECONDS)	//It will hamper your voice, being choked and all.
+		if(!breathing_tube)
+			AdjustLoseBreath(3 SECONDS, bound_upper = 6 SECONDS)
 

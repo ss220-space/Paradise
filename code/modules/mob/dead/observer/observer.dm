@@ -11,11 +11,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
-	plane = GAME_PLANE
+	plane = GHOST_PLANE
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE
-	canmove = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
@@ -41,8 +40,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
-	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	verbs += list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -239,35 +238,37 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 // Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir = NONE)
+/mob/dead/observer/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-/mob/dead/observer/Move(NewLoc, direct)
-	if(world.time < last_movement)
-		return
-	last_movement = world.time + 0.5 // cap to 20fps
-	glide_size = 8
 
-	update_parallax_contents()
-	setDir(direct)
-	ghostimage.setDir(dir)
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE, update_dir = TRUE)
+	// only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
+	if(update_dir)
+		setDir(direct)
+		ghostimage.setDir(dir)
 
-	var/oldloc = loc
+	if(glide_size_override && glide_size_override != glide_size)
+		set_glide_size(glide_size_override)
 
-	if(NewLoc)
-		forceMove(NewLoc)
+	if(newloc)
+		abstract_move(newloc)
 	else
-		forceMove(get_turf(src))  //Get out of closets and such as a ghost
-		if((direct & NORTH) && y < world.maxy)
-			y++
-		else if((direct & SOUTH) && y > 1)
-			y--
-		if((direct & EAST) && x < world.maxx)
-			x++
-		else if((direct & WEST) && x > 1)
-			x--
+		var/turf/destination = get_turf(src)
 
-	Moved(oldloc, direct)
+		if((direct & NORTH) && y < world.maxy)
+			destination = get_step(destination, NORTH)
+
+		else if((direct & SOUTH) && y > 1)
+			destination = get_step(destination, SOUTH)
+
+		if((direct & EAST) && x < world.maxx)
+			destination = get_step(destination, EAST)
+
+		else if((direct & WEST) && x > 1)
+			destination = get_step(destination, WEST)
+
+		abstract_move(destination)//Get out of closets and such as a ghost
 
 
 /mob/dead/observer/Stat()
@@ -303,7 +304,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, "<span class='ghostalert'>[message]</span>")
 		if(source)
-			var/obj/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /obj/screen/alert/notify_cloning)
+			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
 				if(client && client.prefs && client.prefs.UI_style)
 					A.icon = ui_style2icon(client.prefs.UI_style)
@@ -455,9 +456,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
-/mob/dead/observer/orbit()
+/mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
@@ -617,20 +618,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/update_sight()
 	if (!ghostvision)
-		see_invisible = SEE_INVISIBLE_LIVING
+		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 
 	updateghostimages()
 	. = ..()
 
 /mob/dead/observer/proc/updateghostsight()
 	if(!seedarkness)
-		see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
+		set_invis_see(SEE_INVISIBLE_OBSERVER_NOLIGHTING)
 	else
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		set_invis_see(SEE_INVISIBLE_OBSERVER)
 		if(!ghostvision)
-			see_invisible = SEE_INVISIBLE_LIVING
+			set_invis_see(SEE_INVISIBLE_LIVING)
 
 	updateghostimages()
 
@@ -667,7 +668,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return FALSE
 
-/mob/dead/observer/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/dead/observer/incapacitated(ignore_flags)
 	return TRUE
 
 
@@ -712,10 +713,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		set_light_on(FALSE)
 
+
 /mob/dead/observer/vv_edit_var(var_name, var_value)
-	. = ..()
-	if(var_name == "invisibility")
-		set_invisibility(invisibility) // updates light
+	switch(var_name)
+		if(NAMEOF(src, invisibility))
+			set_invisibility(var_value)	// updates light
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	return ..()
+
 
 /proc/set_observer_default_invisibility(amount, message=null)
 	for(var/mob/dead/observer/G in GLOB.player_list)

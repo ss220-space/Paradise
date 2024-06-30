@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	py = new_py
 	Show()
 
-/obj/effect/hallucination/simple/Move()
+/obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
 
@@ -113,7 +113,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(!U.welded)
 			src.loc = U.loc
 			break
-	flood_images += image(image_icon,src,image_state,MOB_LAYER)
+	var/image/plasma_image = image(image_icon,src,image_state,MOB_LAYER)
+	SET_PLANE_EXPLICIT(plasma_image, ABOVE_GAME_PLANE, src)
+	flood_images += plasma_image
 	flood_turfs += get_turf(src.loc)
 	if(target.client)
 		target.client.images |= flood_images
@@ -233,8 +235,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			borer.glide_for(3)
-			walk_to(borer, get_step(borer, get_cardinal_dir(borer, T)))
+			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
 				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 				T.Stun(8 SECONDS)
@@ -272,9 +273,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		return
 
 	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakebroken, FLOOR_PLANE, wall)
 	var/turf/landing = get_turf(target)
 	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
 	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
+	SET_PLANE_EXPLICIT(fakerune, FLOOR_PLANE, wall)
 	fakebroken.override = TRUE
 	if(target.client)
 		target.client.images |= fakebroken
@@ -557,7 +560,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
-		if(H.stat || H.lying_angle)
+		if(H.stat || H.body_position == LYING_DOWN)
 			continue
 		clone = H
 		break
@@ -594,7 +597,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	desc = ""
 	density = FALSE
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null
@@ -763,6 +766,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		people += H
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
+		SET_PLANE_EXPLICIT(speech_overlay, ABOVE_GAME_PLANE, src)
 		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
 		if(target.client)
 			target.client.images |= speech_overlay
@@ -929,45 +933,45 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				alert_type = specific
 			switch(alert_type)
 				if("not_enough_oxy")
-					throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy, override = TRUE)
+					throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy, override = TRUE)
 				if("not_enough_tox")
-					throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox, override = TRUE)
+					throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox, override = TRUE)
 				if("not_enough_co2")
-					throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2, override = TRUE)
+					throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2, override = TRUE)
 				if("too_much_oxy")
-					throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy, override = TRUE)
+					throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy, override = TRUE)
 				if("too_much_co2")
-					throw_alert("too_much_co2", /obj/screen/alert/too_much_co2, override = TRUE)
+					throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2, override = TRUE)
 				if("too_much_tox")
-					throw_alert("too_much_tox", /obj/screen/alert/too_much_tox, override = TRUE)
+					throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox, override = TRUE)
 				if("nutrition")
 					if(prob(50))
-						throw_alert("nutrition", /obj/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
 					else
-						throw_alert("nutrition", /obj/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
 				if("weightless")
-					throw_alert("weightless", /obj/screen/alert/weightless, override = TRUE)
+					throw_alert("weightless", /atom/movable/screen/alert/weightless, override = TRUE)
 				if("fire")
-					throw_alert("fire", /obj/screen/alert/fire, override = TRUE)
+					throw_alert("fire", /atom/movable/screen/alert/fire, override = TRUE)
 				if("temp")
 					if(prob(50))
-						throw_alert("temp", /obj/screen/alert/hot, 3, override = TRUE)
+						throw_alert("temp", /atom/movable/screen/alert/hot, 3, override = TRUE)
 					else
-						throw_alert("temp", /obj/screen/alert/cold, 3, override = TRUE)
+						throw_alert("temp", /atom/movable/screen/alert/cold, 3, override = TRUE)
 				if("pressure")
 					if(prob(50))
-						throw_alert("pressure", /obj/screen/alert/highpressure, 2, override = TRUE)
+						throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2, override = TRUE)
 					else
-						throw_alert("pressure", /obj/screen/alert/lowpressure, 2, override = TRUE)
+						throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2, override = TRUE)
 				//BEEP BOOP I AM A ROBOT
 				if("newlaw")
-					throw_alert("newlaw", /obj/screen/alert/newlaw, override = TRUE)
+					throw_alert("newlaw", /atom/movable/screen/alert/newlaw, override = TRUE)
 				if("locked")
-					throw_alert("locked", /obj/screen/alert/locked, override = TRUE)
+					throw_alert("locked", /atom/movable/screen/alert/locked, override = TRUE)
 				if("hacked")
-					throw_alert("hacked", /obj/screen/alert/hacked, override = TRUE)
+					throw_alert("hacked", /atom/movable/screen/alert/hacked, override = TRUE)
 				if("charge")
-					throw_alert("charge",/obj/screen/alert/emptycell, override = TRUE)
+					throw_alert("charge",/atom/movable/screen/alert/emptycell, override = TRUE)
 			sleep(rand(100,200))
 			clear_alert(alert_type, clear_override = TRUE)
 		if("items")

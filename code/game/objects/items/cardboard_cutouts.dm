@@ -8,7 +8,7 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
+		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Deathsquad Officer", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
@@ -89,7 +89,7 @@
 		return
 	if(!new_appearance || !crayon)
 		return
-	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	alpha = 255
@@ -121,10 +121,10 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		//if("Clockwork Cultist")
-		//	name = "[random_name(pick(MALE,FEMALE))]"
-		//	desc = "A cardboard cutout of a servant of Ratvar."
-		//	icon_state = "cutout_servant"
+		if("Clockwork Cultist")
+			name = "Unknown"
+			desc = "A cardboard cutout of a servant of Ratvar."
+			icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."
@@ -188,8 +188,10 @@
 
 	return 1
 
-/obj/item/cardboard_cutout/setDir()
-	dir = SOUTH
+
+/obj/item/cardboard_cutout/setDir(newdir)
+	return ..(SOUTH)
+
 
 /obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

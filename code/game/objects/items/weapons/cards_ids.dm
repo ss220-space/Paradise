@@ -81,7 +81,7 @@
 
 
 /obj/item/card/cmag/ComponentInitialize()
-	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = SLIDE)
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
 /obj/item/card/cmag/attack()
 	return
@@ -89,7 +89,8 @@
 /obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	target.cmag_act(user)
+	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
+
 
 /obj/item/card/id
 	name = "identification card"

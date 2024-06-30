@@ -9,6 +9,14 @@
 
 #define STATUS_EFFECT_REFRESH 3 // if it only allows one, and new instances just instead refresh the timer
 
+
+///Processing flags - used to define the speed at which the status will work
+///This is fast - 0.2s between ticks (I believe!)
+#define STATUS_EFFECT_FAST_PROCESS 0
+///This is slower and better for more intensive status effects - 1s between ticks
+#define STATUS_EFFECT_NORMAL_PROCESS 1
+
+
 ///////////
 // BUFFS //
 ///////////
@@ -69,8 +77,6 @@
 // DEBUFFS //
 /////////////
 
-//#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown //the affected is knocked down
-
 //#define STATUS_EFFECT_BELLIGERENT /datum/status_effect/belligerent //forces the affected to walk, doing damage if they try to run
 
 //#define STATUS_EFFECT_GEISTRACKER /datum/status_effect/geis_tracker //if you're using geis, this tracks that and keeps you from using scripture
@@ -120,9 +126,6 @@
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
 
-/// If a moth is in a cocoon
-#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
-
 //human status effects
 // incapacitating
 #define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun
@@ -131,6 +134,7 @@
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
+#define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
@@ -162,6 +166,8 @@
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
+
+#define STATUS_EFFECT_DROPNROLL /datum/status_effect/stop_drop_roll
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 

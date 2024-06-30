@@ -423,7 +423,7 @@
 	else
 		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_FEET]'>[(shoes && !(shoes.item_flags&ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(!issmall(src))
+	if(!is_monkeybasic(src))
 		if(obscured & ITEM_SLOT_GLOVES)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
@@ -437,12 +437,12 @@
 	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (obscured & ITEM_SLOT_CLOTH_INNER))
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 	else
-		if(!issmall(src))
+		if(!is_monkeybasic(src))
 			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BELT]'>[(belt && !(belt.item_flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A></td></tr>"
 		// Pockets
 		dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
@@ -460,10 +460,10 @@
 		dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_PDA]'>[(wear_pda && !(wear_pda.item_flags&ABSTRACT)) ? "Full" : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(istype(w_uniform, /obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[U.has_sensor >= 2 ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
+			var/obj/item/clothing/under/uniform = w_uniform
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[UID()];set_sensor=1'>[uniform.has_sensor >= SENSOR_VITALS ? "</a><font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
 
-			if(U.accessories.len)
+			if(LAZYLEN(uniform.accessories))
 				dat += "<tr><td>&nbsp;&#8627;<A href='?src=[UID()];strip_accessory=1'>Remove Accessory</a></td></tr>"
 
 
@@ -514,7 +514,7 @@
 	return name
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
+/mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
@@ -523,7 +523,7 @@
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
-	if(id_name && (id_name != face_name) && !id_override)
+	if(add_id_name && id_name && (id_name != face_name))
 		return "[face_name] (as [id_name])"
 	return face_name
 
@@ -710,27 +710,46 @@
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
-				var/obj/item/clothing/under/U = w_uniform
-				if(U.accessories.len)
-					var/obj/item/clothing/accessory/A = U.accessories[1]
-					if(!thief_mode)
-						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
-											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
+				var/obj/item/clothing/under/uniform = w_uniform
+				var/accessories_len = LAZYLEN(uniform.accessories)
+				if(!accessories_len)
+					return
 
-					if(do_after(usr, 4 SECONDS, src, NONE) && A && U.accessories.len)
-						if(!thief_mode)
-							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
-												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
-						A.on_removed(usr, thief_mode)
-						U.accessories -= A
-						update_inv_w_uniform()
+				var/obj/item/clothing/accessory/accessory
+				if(accessories_len > 1)
+					accessory = tgui_input_list(usr, "Select an accessory to remove from [src]", "Accessory Removal", uniform.accessories)
+					if(!accessory || !LAZYIN(uniform.accessories, accessory) || !Adjacent(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+						return
+				else
+					accessory = uniform.accessories[1]
+
+				if(!thief_mode)
+					usr.visible_message(
+						"<span class='danger'>\The [usr] starts to take off \the [accessory] from \the [src]'s [uniform]!</span>",
+						"<span class='danger'>You start to take off \the [accessory] from \the [src]'s [uniform]!</span>",
+					)
+
+				if(!do_after(usr, 4 SECONDS, src, NONE) || QDELETED(accessory) || !LAZYIN(uniform.accessories, accessory) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+					return
+
+				accessory.on_removed(usr)
+				if(!thief_mode)
+					if(!usr.put_in_hands(accessory, ignore_anim = FALSE))
+						accessory.forceMove_turf()
+					usr.visible_message(
+						"<span class='danger'>\The [usr] takes \the [accessory] off of \the [src]'s [uniform]!</span>",
+						"<span class='danger'>You take \the [accessory] off of \the [src]'s [uniform]!</span>"
+					)
+				else
+					if(!usr.put_in_hands(accessory, silent = TRUE))
+						accessory.forceMove_turf()
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			if(perpname != "Unknown")
 				for(var/datum/data/record/E in GLOB.data_core.general)
@@ -771,7 +790,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -795,7 +814,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -829,7 +848,7 @@
 			if(usr.incapacitated())
 				return
 			var/modified = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -855,7 +874,7 @@
 			if(usr.incapacitated())
 				return
 			var/read = 0
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
@@ -879,7 +898,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = FALSE
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -913,7 +932,7 @@
 				return
 
 			var/skills
-			var/perpname = get_visible_name(TRUE)
+			var/perpname = get_visible_name(add_id_name = FALSE)
 			if(perpname)
 				for(var/datum/data/record/E in GLOB.data_core.general)
 					if(E.fields["name"] == perpname)
@@ -1026,30 +1045,29 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 
-/mob/living/carbon/human/proc/check_obscured_slots()
-	. = NONE
+/mob/living/carbon/human/check_obscured_slots(check_transparent)
+	. = ..()
 
-	if(wear_suit)
-		if(wear_suit.flags_inv & HIDEGLOVES)
-			. |= ITEM_SLOT_GLOVES
-		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			. |= ITEM_SLOT_CLOTH_INNER
-		if(wear_suit.flags_inv & HIDESHOES)
-			. |= ITEM_SLOT_FEET
+	var/hidden_flags = NONE
 
-	if(head)
-		if(head.flags_inv & HIDEMASK)
-			. |= ITEM_SLOT_MASK
-		if(head.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(head.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	for(var/obj/item/equipped_item as anything in get_equipped_items())
+		var/item_flags = equipped_item.flags_inv
+		if(check_transparent && equipped_item.flags_inv_transparent)
+			item_flags ^= equipped_item.flags_inv_transparent
+		hidden_flags |= item_flags
 
-	if(wear_mask)
-		if(wear_mask.flags_inv & HIDEGLASSES)
-			. |= ITEM_SLOT_EYES
-		if(wear_mask.flags_inv & HIDEHEADSETS)
-			. |= ITEM_SLOT_EARS
+	if(hidden_flags & HIDEGLOVES)
+		. |= ITEM_SLOT_GLOVES
+	if(hidden_flags & HIDEJUMPSUIT)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(hidden_flags & HIDESHOES)
+		. |= ITEM_SLOT_FEET
+	if(hidden_flags & HIDEMASK)
+		. |= ITEM_SLOT_MASK
+	if(hidden_flags & HIDEGLASSES)
+		. |= ITEM_SLOT_EYES
+	if(hidden_flags & HIDEHEADSETS)
+		. |= ITEM_SLOT_EARS
 
 
 /mob/living/carbon/human/proc/check_has_mouth()
@@ -1061,7 +1079,7 @@
 
 /mob/living/carbon/human/get_visible_gender()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
-	if((ITEM_SLOT_CLOTH_INNER & check_obscured_slots()) && skipface)
+	if(skipface && (check_obscured_slots() & ITEM_SLOT_CLOTH_INNER))
 		return PLURAL
 	return gender
 
@@ -1100,6 +1118,7 @@
 			var/organ_path = species.has_organ[organ_slot]
 			new organ_path(src)
 
+	recalculate_limbs_status()
 	return TRUE
 
 
@@ -1197,8 +1216,9 @@
   *
   * Arguments:
   * * new_species - The new species to assign.
+  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
   */
-/mob/living/carbon/human/proc/setup_dna(datum/species/new_species)
+/mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
 	real_name = dna.species.get_random_name(gender)
@@ -1206,7 +1226,7 @@
 	mind?.name = real_name
 
 	// DNA ready
-	dna.ready_dna(src)
+	dna.ready_dna(src, TRUE, monkeybasic)
 	dna.real_name = real_name
 	dna.tts_seed_dna = tts_seed
 	sync_organ_dna()
@@ -1243,7 +1263,7 @@
  * * transfer_special_internals - If `TRUE`, all special internal organs (implants, spider eggs, xeno embryos, etc.), will be present on the mob post-change. Does not affect racial internal organs (heart, liver, etc.).
  * * save_appearance - If `TRUE`, all bodyparts appearances (head hair style, body tattoos, tail type, etc.) will be transfered to new species.
  */
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, transfer_special_internals = TRUE, save_appearance = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE, transfer_special_internals = TRUE, save_appearance = FALSE)
 	if(!skip_same_check && dna.species.name == initial(new_species.name))
 		return
 
@@ -1544,10 +1564,9 @@
 	var/mutable_appearance/MA
 	if(hair_style)
 		var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
+		MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	else
-		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER)
-	MA.plane = ABOVE_LIGHTING_PLANE
+		MA = mutable_appearance(get_eyecon(), layer = ABOVE_LIGHTING_LAYER, offset_spokesman = src, plane = ABOVE_LIGHTING_PLANE)
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
@@ -1607,7 +1626,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
@@ -1944,14 +1963,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
 
 
 /mob/living/carbon/human/set_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
@@ -2011,7 +2030,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()
@@ -2041,10 +2060,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
 	return min(health, maxHealth) + shock_reduction
 
-/mob/living/carbon/human/WakeUp(updating = TRUE)
-	if(dna.species.spec_WakeUp(src))
-		return
-	..()
 
 /**
   * Helper to get the mobs runechat colour span
@@ -2079,7 +2094,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(QDELETED(src))
 		return
 
-	if(issmall(src))
+	if(is_monkeybasic(src))
 		while(meatleft > 0)
 			new dna.species.meat_type(loc)
 			meatleft--
@@ -2106,4 +2121,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fractures, multiplicative_slowdown = modifier)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
+
+
+/mob/living/carbon/human/can_pull(supress_message = FALSE)
+	if(pull_hand == PULL_WITHOUT_HANDS)
+		return TRUE
+	var/obj/item/organ/external/limb = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	if(!limb)
+		if(!supress_message)
+			to_chat(src, span_warning("Вы смотрите на то, что осталось от Вашей [hand ? "левой руки" : "правой руки"] и тяжко вздыхаете..."))
+		return FALSE
+	if(!limb.is_usable())
+		if(!supress_message)
+			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] слишком травмирована."))
+		return FALSE
+	return ..()
 

@@ -140,12 +140,22 @@
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
-	else if(istype(O,/obj/item/grab))
-		return special_attack(O, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
 	updateUsrDialog()
+
+
+/obj/machinery/kitchen_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	special_grab_attack(grabbed_thing, grabber)
+
+
+/obj/machinery/kitchen_machine/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	to_chat(grabber, span_warning("This is ridiculous. You can not fit [grabbed_thing] in [src]."))
+
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -163,9 +173,6 @@
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
-	return 0
 
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()

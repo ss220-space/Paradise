@@ -37,7 +37,6 @@
 		EQUIPMENT("Mining Weather Radio",			/obj/item/radio/weather_monitor,									700),
 		EQUIPMENT("Fulton Beacon",					/obj/item/fulton_core, 												500),
 		EQUIPMENT("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript, 				2000),
-		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2500),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										3000),
 		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								7000),
 		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												300),
@@ -175,7 +174,7 @@
 
 /obj/machinery/mineral/equipment_vendor/vv_edit_var(var_name, var_value)
 	// Gotta update the static data in case an admin VV's the items for some reason..!
-	if(var_name == "prize_list")
+	if(var_name == NAMEOF(src, prize_list))
 		dirty_items = TRUE
 	return ..()
 

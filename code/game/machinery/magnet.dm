@@ -248,7 +248,7 @@
 	for(var/obj/machinery/magnetic_module/module in GLOB.machines)
 		if(module.freq == frequency && module.code == code)
 			magnets += module
-			RegisterSignal(module, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del), TRUE)
+			RegisterSignal(module, COMSIG_QDELETING, PROC_REF(on_magnet_del), TRUE)
 
 
 /obj/machinery/magnetic_controller/proc/on_magnet_del(magnet)

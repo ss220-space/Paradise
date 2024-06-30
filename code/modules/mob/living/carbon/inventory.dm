@@ -8,18 +8,10 @@
 	hand = !hand
 	update_hands_HUD()
 	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
+	return TRUE
 
 
-/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
-
-	if(istext(selhand))
-		selhand = lowertext(selhand)
-
-		if(selhand == "right" || selhand == "r")
-			selhand = 0
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-
+/mob/living/carbon/activate_hand(selhand)
 	if(selhand != hand)
 		swap_hand()
 
@@ -68,31 +60,14 @@
 	handcuffed = new_value
 	if(.)
 		if(!handcuffed)
+			clear_alert(ALERT_HANDCUFFED)
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 	else if(handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 
-
-/// Called when we get cuffed/uncuffed
-/mob/living/carbon/proc/update_handcuffed_status()
-	if(handcuffed)
-		drop_from_hands()
-		stop_pulling()
-		throw_alert(ALERT_HANDCUFFED, /obj/screen/alert/restrained/handcuffed, new_master = handcuffed)
-	else
-		clear_alert(ALERT_HANDCUFFED)
-
-	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
-	update_inv_handcuffed()
 	update_hands_HUD()
-
-
-/// Updates hands HUD element.
-/mob/living/carbon/proc/update_hands_HUD()
-	if(!hud_used)
-		return
-	for(var/obj/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
-		hand_box.update_appearance()
+	update_inv_handcuffed()
 
 
 /// Modifies the legcuffed value if a different value is passed, returning FALSE otherwise.
@@ -107,7 +82,7 @@
 /// Updates move intent, popup alert and human legcuffed overlay.
 /mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
-		throw_alert(ALERT_LEGCUFFED, /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent == MOVE_INTENT_RUN)
 			toggle_move_intent()
 
@@ -129,7 +104,7 @@
 			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся сломать [I.name]!"),
 			span_notice("Вы пытаетесь сломать [I.name]... (Процесс займёт 5 секунд и Вам нельзя двигаться.)"),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось сломать [I.name]!"))
@@ -138,7 +113,7 @@
 			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся снять [I.name]!"),
 			span_notice("Вы пытаетесь снять [I.name]... (Процесс займёт [breakouttime / 10] секунд и Вам нельзя двигаться.)"),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, span_warning("Вам не удалось снять [I.name]!"))
@@ -181,7 +156,7 @@
 		span_notice("Вы пытаетесь избавиться от [I.name]... (Это займет [time / 10] секунд и вам нельзя двигаться.)"),
 	)
 
-	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
+	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
 		return
 
 	visible_message(
@@ -329,8 +304,6 @@
 		set_handcuffed(null)
 		if(buckled?.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
-		if(!QDELETED(src))
-			update_handcuffed_status()
 
 	else if(I == legcuffed)
 		set_legcuffed(null)
@@ -345,22 +318,25 @@
 	if(!istype(I))
 		return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, I, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+		return FALSE
+
 	if(I.item_flags & NOPICKUP)
 		return FALSE
 
-	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.flags & ABSTRACT))
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.item_flags & ABSTRACT))
 		return FALSE
 
-	if(lying_angle && !(I.item_flags & ABSTRACT))
+	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
 		return FALSE
 
-	if(hand_id == "HAND_LEFT" && !has_left_hand())
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
 		return FALSE
 
-	if(hand_id == "HAND_RIGHT" && !has_right_hand())
+	if(!isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && ((hand_id == ITEM_SLOT_HAND_LEFT && pull_hand == PULL_HAND_LEFT) || (hand_id == ITEM_SLOT_HAND_RIGHT && pull_hand == PULL_HAND_RIGHT)))
 		return FALSE
 
-	return hand_id == "HAND_LEFT" ? !l_hand : !r_hand
+	return hand_id == ITEM_SLOT_HAND_LEFT ? !l_hand : !r_hand
 
 
 /**
@@ -381,16 +357,17 @@
 	if(!I)
 		return TRUE
 
-	if(QDELETED(I))
+	if(QDELING(I))
 		return FALSE
 
 	if(!real_human_being())	// Not a real hero :'(
-		I.forceMove(drop_location())
-		I.pixel_x = initial(I.pixel_x)
-		I.pixel_y = initial(I.pixel_y)
+		var/atom/drop_loc = drop_location()
+		I.forceMove(drop_loc)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
 		I.layer = initial(I.layer)
-		I.plane = initial(I.plane)
-		I.dropped(src, null, silent)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+		I.dropped(src, NONE, silent)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -426,9 +403,10 @@
 		qdel(I)
 		return FALSE
 
-	I.forceMove(drop_location())
+	var/atom/drop_loc = drop_location()
+	I.forceMove(drop_loc)
 	I.layer = initial(I.layer)
-	I.plane = initial(I.plane)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
 	I.dropped(src, NONE, silent)
 
 	return FALSE
@@ -468,7 +446,7 @@
 		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
-	return null
+	return NONE
 
 
 /mob/living/carbon/get_all_slots()
@@ -492,6 +470,14 @@
 	if(head)
 		items += head
 	return items
+
+
+/mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(wear_suit)
+		. |= ITEM_SLOT_CLOTH_OUTER
+	if(head)
+		. |= ITEM_SLOT_HEAD
 
 
 /mob/living/carbon/update_equipment_speed_mods()

@@ -443,7 +443,7 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -544,7 +544,7 @@
 	taste_description = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -922,7 +922,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
@@ -1098,10 +1097,10 @@
 /datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
 	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+	RegisterSignal(living_holder, COMSIG_QDELETING, PROC_REF(on_living_holder_deletion))
 
 /datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(living_holder, COMSIG_QDELETING)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
 	LAZYREMOVE(mobs_affected, living_holder)
 	if(mob_light_obj)

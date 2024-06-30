@@ -8,6 +8,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 
+//atom/movable traits
+/// Buckling yourself to objects with this trait won't immobilize you
+#define TRAIT_NO_IMMOBILIZE "no_immobilize"
+
 //turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
@@ -29,12 +33,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
 #define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
+#define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_SHOCKIMMUNE "shockimmune"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
+#define TRAIT_STRONG_GRABBER "strong_grabber"
+#define TRAIT_PUSHIMMUNE "push_immunity"
+
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
@@ -76,8 +84,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Give us unsafe_unwrenching protection
 #define TRAIT_GUSTPROTECTION "gustprotection"
 
+/// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
+#define TRAIT_NO_GLIDE "no_glide"
+
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Holocigar trait to make a mob BADASS
+#define TRAIT_BADASS "trait_badass"
 
 /* Traits for ventcrawling.
  * Both give access to ventcrawling, but *_NUDE requires the user to be
@@ -111,6 +124,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
 /// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define TRAIT_NODROP "nodrop"
+
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

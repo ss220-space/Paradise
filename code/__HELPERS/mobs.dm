@@ -295,11 +295,12 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_message - Message shown to the user if they exceeds max interaction count.
+ * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
+ * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE
 
@@ -311,8 +312,8 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_message)
-				to_chat(user, "[cancel_message]")
+			if(cancel_on_max)	// we are adding extra one, to catch this on while loop
+				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 
@@ -320,24 +321,25 @@
 	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(NONE) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/holding = user.get_active_hand()
 	var/obj/item/gripper/gripper = holding
 	var/gripper_check = FALSE
-	if(!(timed_action_flags & IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
+	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
 		gripper_check = TRUE
 
 	var/datum/progressbar/progbar
+	var/endtime = world.time + delay
+	var/starttime = world.time
 
-	if(progress && user.client)
+	// progress bar will not show up if there is no delay at all
+	if(progress && user.client && starttime < endtime)
 		progbar = new(user, delay, target || user)
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
-	var/endtime = world.time + delay
-	var/starttime = world.time
 	. = TRUE
 
 	while(world.time < endtime)
@@ -350,25 +352,33 @@
 			. = FALSE
 			break
 
-		if(drifting && (!(timed_action_flags & IGNORE_SPACE_DRIFT) || !user.inertia_dir))
+		if(cancel_on_max && interaction_key)
+			var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+			if(current_interaction_count > max_interact_count)
+				// we need to reduce count by one, since its just a marker
+				LAZYSET(user.do_afters, interaction_key, current_interaction_count - 1)
+				if(cancel_message)
+					to_chat(user, "[cancel_message]")
+				. = FALSE
+				break
+
+		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !SSmove_manager.processing_on(user, SSspacedrift)))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
-			|| (!(timed_action_flags & IGNORE_CONSCIOUSNESS) && user.stat) \
-			|| (!(timed_action_flags & IGNORE_STUNNED) && user.IsStunned()) \
-			|| (!(timed_action_flags & IGNORE_WEAKENED) && user.IsWeakened()) \
-			|| (!(timed_action_flags & IGNORE_PARALYZED) && user.IsParalyzed()) \
-			|| (!(timed_action_flags & IGNORE_LYING) && user.IsLying()) \
-			|| (!(timed_action_flags & IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
+		if((!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+			|| (!(timed_action_flags & DA_IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
+			|| (!(timed_action_flags & DA_IGNORE_CONSCIOUSNESS) && user.stat) \
+			|| (!(timed_action_flags & DA_IGNORE_LYING) && user.IsLying()) \
+			|| (!(timed_action_flags & DA_IGNORE_INCAPACITATED) && HAS_TRAIT_NOT_FROM(user, TRAIT_INCAPACITATED, STAT_TRAIT)) \
+			|| (!(timed_action_flags & DA_IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
 			|| (gripper_check && gripper?.isEmpty()) \
-			|| extra_checks?.Invoke())
+			|| (extra_checks && !extra_checks.Invoke()))
 			. = FALSE
 			break
 
 		if(target && (user != target) && \
-			(QDELETED(target) || (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
+			(QDELETED(target) || (!(timed_action_flags & DA_IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
 			. = FALSE
 			break
 
@@ -386,20 +396,24 @@
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 
-/// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
-/proc/check_for_true_callbacks(list/extra_checks)
-	for(var/datum/callback/CB in extra_checks)
-		if(CB.Invoke())
-			return TRUE
-	return FALSE
-
-
 /proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
+
+
+/proc/is_monkeybasic(mob/living/carbon/human/target)
+	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
+
+
+/proc/is_evolvedslime(mob/living/carbon/human/target)
+	if(!ishuman(target) || !istype(target.dna.species, /datum/species/slime))
+		return FALSE
+	var/datum/species/slime/species = target.dna.species
+	return species.evolved_slime
+
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
 	var/turf/T = get_turf(target)
@@ -412,7 +426,8 @@
 
 	for(var/j in 1 to amount)
 		var/atom/X = new spawn_type(arglist(new_args))
-		X.admin_spawned = admin_spawn
+		if(admin_spawn)
+			X.flags |= ADMIN_SPAWNED
 
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))

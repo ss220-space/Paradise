@@ -733,23 +733,20 @@
 	AI.update_sight()
 	var/upgraded_cameras = 0
 
-	for(var/V in GLOB.cameranet.cameras)
-		var/obj/machinery/camera/C = V
-		if(C.assembly)
-			var/upgraded = FALSE
+	for(var/obj/machinery/camera/camera_target as anything in GLOB.cameranet.cameras)
+		var/list/obj/item/upgrade_check
 
-			if(!C.isXRay())
-				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
-				upgraded = TRUE
+		if(!camera_target.isXRay())
+			LAZYADD(upgrade_check, new /obj/item/analyzer(camera_target.assembly))
 
-			if(!C.isEmpProof())
-				C.upgradeEmpProof()
-				upgraded = TRUE
+		if(!camera_target.isEmpProof())
+			LAZYADD(upgrade_check, new /obj/item/stack/sheet/mineral/plasma(camera_target.assembly))
 
-			if(upgraded)
-				upgraded_cameras++
+		if(LAZYLEN(upgrade_check))
+			for(var/obj/item/upgrade as anything in upgrade_check)
+				camera_target.assembly.upgrades.Add(upgrade)
+				upgrade.camera_upgrade(camera_target)
+			upgraded_cameras++
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 

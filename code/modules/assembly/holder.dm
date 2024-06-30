@@ -135,10 +135,9 @@
 		a_right.holder_movement(user)
 
 
-/obj/item/assembly_holder/Move()
+/obj/item/assembly_holder/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	process_movement()
-	return
 
 
 /obj/item/assembly_holder/pickup(mob/user)
@@ -146,16 +145,11 @@
 	process_movement(user)
 
 
-/obj/item/assembly_holder/Bump(atom/A)
-	..()
-	var/triggered
-	if(ismob(A) || isobj(A))
-		var/atom/movable/AM = A
-		if(AM.throwing?.thrower)
-			triggered = AM.throwing.thrower
-		else if(ismob(AM))
-			triggered = AM
-	process_movement(triggered)
+/obj/item/assembly_holder/Bump(atom/bumped_atom)
+	. = ..()
+	if(. || !ismob(bumped_atom))
+		return .
+	process_movement(bumped_atom)
 
 
 /obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops

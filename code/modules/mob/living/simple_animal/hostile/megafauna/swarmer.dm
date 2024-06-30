@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 				return
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc)
+/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!newloc)
 		return FALSE
 

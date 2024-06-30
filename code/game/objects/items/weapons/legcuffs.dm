@@ -139,7 +139,7 @@
 
 	if(ishuman(moving_thing))
 		var/mob/living/carbon/human/moving_human = moving_thing
-		if(moving_human.lying_angle)
+		if(moving_human.body_position == LYING_DOWN)
 			moving_human.apply_damage(trap_damage, BRUTE, BODY_ZONE_CHEST)
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
@@ -215,7 +215,7 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/spin_loop(mob/living/user)
-	if(QDELETED(src) || !spinning || can_spin_check(user))
+	if(QDELETED(src) || !spinning || !can_spin_check(user))
 		reset_values(user)
 		return
 
@@ -237,16 +237,16 @@
 
 
 /**
- * If it returns `TRUE`, it breaks the loop, returning `FALSE`, continues the loop.
+ * If it returns `FALSE`, it breaks the loop, returning `TRUE`, continues the loop.
  */
 /obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
 	if(QDELETED(user))
-		return TRUE
+		return FALSE
 	if(user.get_active_hand() != src)
-		return TRUE
+		return FALSE
 	if(!user.in_throw_mode)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 
 /obj/item/restraints/legcuffs/bola/carbon_skip_catch_check(mob/living/carbon/user)

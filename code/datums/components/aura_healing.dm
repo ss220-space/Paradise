@@ -110,7 +110,7 @@
 	src.robot_heal = robot_heal
 
 
-/datum/component/aura_healing/Destroy(force, silent)
+/datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura_healing, src)
 	var/alert_category = "aura_healing_[\ref(src)]"
 
@@ -140,7 +140,7 @@
 		remove_alerts_from -= candidate
 
 		if(!(candidate in current_alerts))
-			var/obj/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /obj/screen/alert/aura_healing, new_master = parent)
+			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "You are being healed by [parent]."
 			current_alerts += candidate
 
@@ -239,7 +239,7 @@
 		current_alerts -= remove_alert_from
 
 
-/obj/screen/alert/aura_healing
+/atom/movable/screen/alert/aura_healing
 	name = "Aura Healing"
 	icon_state = "template"
 

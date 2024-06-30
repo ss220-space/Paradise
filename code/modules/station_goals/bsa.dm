@@ -118,7 +118,7 @@
 			x_min = x + BSA_SIZE_BACK
 			x_max = x - BSA_SIZE_FRONT
 
-	for(var/turf/T in block(locate(x_min,y-1,z),locate(x_max,y+1,z)))
+	for(var/turf/T in block(x_min,y-1,z, x_max,y+1,z))
 		if(T.density || isspaceturf(T))
 			return FALSE
 	return TRUE

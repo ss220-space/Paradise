@@ -407,11 +407,13 @@
 		to_chat(target, span_shadowling("<b><i>NOT LIKE THIS!</i></b>"))
 		user.visible_message(span_warning("[target] suddenly slams upward and knocks down [user]!"), \
 							 span_userdanger("[target] suddenly bolts up and slams you with tremendous force!"))
-		user.StopResting() //Remove all stuns
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)
+		user.SetKnockdown(0)
 		user.SetParalysis(0)
+		user.set_resting(FALSE, instant = TRUE)
+		user.get_up(instant = TRUE)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			C.Weaken(12 SECONDS)
@@ -427,7 +429,7 @@
 	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"))
 	if(target.vision_type) //Turns off their darksight if it's still active.
 		to_chat(target, span_boldannounce("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
-		target.set_sight(null)
+		target.set_vision_override(null)
 	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message(span_warning("A strange black mass falls from [target]'s [E]!"))
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))

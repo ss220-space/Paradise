@@ -79,7 +79,7 @@
 			ghostize()
 			qdel(src)
 	snapback()
-	if(summoned && !summoner && !admin_spawned)
+	if(summoned && !summoner && !(flags & ADMIN_SPAWNED))
 		to_chat(src, span_danger("Каким-то образом у вас нет призывателя! Вы исчезаете!"))
 		ghostize()
 		qdel(src)
@@ -111,7 +111,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
+/mob/living/simple_animal/hostile/guardian/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) //Returns to summoner if they move out of range
 	. = ..()
 	snapback()
 

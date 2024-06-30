@@ -242,8 +242,8 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
-					return 0
+				if(IS_OPAQUE_TURF(T))
+					return FALSE
 				Y1+=s
 	else
 		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
@@ -258,16 +258,16 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
-				return 0
-	return 1
+			if(IS_OPAQUE_TURF(T))
+				return FALSE
+	return TRUE
 
-/proc/isInSight(var/atom/A, var/atom/B)
+/proc/isInSight(atom/A, atom/B)
 	var/turf/Aturf = get_turf(A)
 	var/turf/Bturf = get_turf(B)
 
 	if(!Aturf || !Bturf)
-		return 0
+		return FALSE
 
 	return inLineOfSight(Aturf.x, Aturf.y, Bturf.x, Bturf.y, Aturf.z)
 
@@ -329,7 +329,7 @@
 	return candidates
 
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
-	if(!isobj(O))	O = new /obj/screen/text()
+	if(!isobj(O))	O = new /atom/movable/screen/text()
 	O.maptext = maptext
 	O.maptext_height = maptext_height
 	O.maptext_width = maptext_width

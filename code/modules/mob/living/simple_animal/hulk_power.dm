@@ -144,10 +144,9 @@
 							W.take_damage(25)
 							H.Weaken(4 SECONDS)
 			if(i > 20)
-				user.canmove = FALSE
-				ADD_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
+				user.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 				for(var/mob/living/M in T.contents)
-					if(!M.lying_angle)
+					if(M.body_position != LYING_DOWN)
 						var/turf/target = get_turf(get_step(user,cur_dir))
 						hit = 1
 						playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
@@ -169,7 +168,7 @@
 				for(var/mob/living/M in T.contents)
 					playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
 					M.Weaken(4 SECONDS)
-			if(user.lying_angle)
+			if(user.body_position == LYING_DOWN)
 				break
 			if(hit)
 				break
@@ -191,8 +190,7 @@
 			else if(i < 30)
 				step(user, cur_dir)
 			sleep(1)
-		REMOVE_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-		user.canmove = TRUE
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 		user.layer = prevLayer
 	else
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
@@ -265,9 +263,8 @@
 		if(tile)
 			tile.break_tile()
 		var/o=3
-		ADD_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
+		user.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 		for(var/i=0, i<14, i++)
-			user.canmove = FALSE
 			o++
 			if(o == 4)
 				o = 0
@@ -306,8 +303,7 @@
 						spawn(i)
 							if(i < 3) M.pixel_y += 8
 							else M.pixel_y -= 8
-		REMOVE_TRAIT(user, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-		user.canmove = TRUE
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_UNDENSE), UNIQUE_TRAIT_SOURCE(src))
 		user.layer = prevLayer
 	else
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")

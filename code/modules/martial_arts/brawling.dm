@@ -43,7 +43,7 @@
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.Weaken(6 SECONDS)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying_angle)
+		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)
 	return 1
 
@@ -55,12 +55,12 @@
 	if(prob(70))
 		A.visible_message("<span class='warning'>[A] tries to grab ahold of [D], but fails!</span>", \
 							"<span class='warning'>You fail to grab ahold of [D]!</span>")
-		return 1
-	var/obj/item/grab/G = D.grabbedby(A,1)
-	if(G)
+		return TRUE
+
+	if(D.grabbedby(A, supress_message = TRUE))
 		D.visible_message("<span class='danger'>[A] grabs ahold of [D] drunkenly!</span>", \
 								"<span class='userdanger'>[A] grabs ahold of [D] drunkenly!</span>")
-	return 1
+	return TRUE
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	add_attack_logs(A, D, "Melee attacked with [src]")
@@ -105,6 +105,6 @@
 			D.Paralyse(10 SECONDS)
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.forcesay(GLOB.hit_appends)
-		else if(D.lying_angle)
+		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)
 	return 1

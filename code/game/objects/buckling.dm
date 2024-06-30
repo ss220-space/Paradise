@@ -68,14 +68,20 @@
 	if(!is_buckle_possible(target, force, check_loc))
 		return FALSE
 
+	// check if we are failed to move from adjacent turf
+	if(!check_loc && target.loc != loc)
+		var/old_flags = target.pass_flags
+		target.pass_flags = PASSEVERYTHING
+		if(!target.Move(loc) || target.loc != loc)	// no move or still the same loc, even after move
+			target.pass_flags = old_flags
+			return FALSE
+		target.pass_flags = old_flags
+
 	if(target.pulledby)
 		if(buckle_prevents_pull)
 			target.pulledby.stop_pulling()
-		//else if(isliving(target.pulledby))
-		//	var/mob/living/L = target.pulledby
-		//	L.reset_pull_offsets(target, TRUE)
-
-	QDEL_LIST(target.grabbed_by)
+		else if(isliving(target.pulledby))
+			target.pulledby.reset_pull_offsets(target, override = TRUE)
 
 	if(anchored)
 		ADD_TRAIT(target, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
@@ -83,15 +89,9 @@
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	target.set_buckled(src)
 	buckled_mobs |= target
-	target.throw_alert(ALERT_BUCKLED, /obj/screen/alert/restrained/buckled)
-	//target.set_glide_size(glide_size)
-
-	target.Move(loc)
+	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	target.set_glide_size(glide_size)
 	target.setDir(dir)
-
-	//Something has unbuckled us in reaction to the above movement
-	if(!target.buckled)
-		return FALSE
 
 	post_buckle_mob(target)
 
@@ -136,7 +136,7 @@
 	buckled_mob.set_buckled(null)
 	buckled_mob.set_anchored(initial(buckled_mob.anchored))
 	buckled_mob.clear_alert(ALERT_BUCKLED)
-	//buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.cached_multiplicative_slowdown))
+	buckled_mob.set_glide_size(DELAY_TO_GLIDE_SIZE(buckled_mob.cached_multiplicative_slowdown))
 	buckled_mobs -= buckled_mob
 	if(anchored)
 		REMOVE_TRAIT(buckled_mob, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
@@ -190,7 +190,7 @@
  * Arguments:
  * * target - Target mob to check against buckling to src.
  * * force - Whether or not the buckle should be forced. If TRUE, ignores src's can_buckle var and target's can_buckle_to
- * * check_loc - Wheter we should check for target and src adjacency
+ * * check_loc - TRUE if target and src have to be on the same tile, FALSE if buckling is allowed from adjacent tiles
  */
 /atom/movable/proc/is_buckle_possible(mob/living/target, force = FALSE, check_loc = TRUE)
 	// Make sure target is mob/living
@@ -207,7 +207,7 @@
 
 	// Check for another dense objects in loc
 	var/turf/ground = loc
-	if(ground.is_blocked_turf(exclude_mobs = TRUE, source_atom = src))
+	if(ground.is_blocked_turf(ignore_atoms = list(src, target)))
 		return FALSE
 
 	// Check if this atom can have things buckled to it.
@@ -215,7 +215,11 @@
 		return FALSE
 
 	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
-	if(check_loc && !target.Adjacent(src))
+	if(check_loc && target.loc != loc)
+		return FALSE
+
+	// Otherwise it should be at least adjacent to src.
+	else if(!check_loc && !target.Adjacent(src))
 		return FALSE
 
 	// Make sure the target isn't already buckled to something.
@@ -253,7 +257,7 @@
  */
 /atom/movable/proc/is_user_buckle_possible(mob/living/target, mob/living/carbon/user, check_loc = TRUE)
 	// Standard adjacency and other checks.
-	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || target.anchored)
+	if(!Adjacent(user) || !Adjacent(target) || !isturf(user.loc) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || target.anchored)
 		return FALSE
 
 	if(iscarbon(user) && user.usable_hands <= 0)
@@ -343,9 +347,8 @@
 				span_italics("You hear metal clanking."),
 			)
 		add_fingerprint(user)
-		//if(isliving(buckled_mob.pulledby))
-		//	var/mob/living/L = buckled_mob.pulledby
-		//	L.set_pull_offsets(buckled_mob, L.grab_state)
+		if(isliving(buckled_mob.pulledby))
+			buckled_mob.pulledby.set_pull_offsets(buckled_mob, buckled_mob.pulledby.grab_state)
 	return buckled_mob
 
 

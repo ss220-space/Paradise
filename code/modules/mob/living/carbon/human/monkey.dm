@@ -1,37 +1,44 @@
 /mob/living/carbon/human/lesser
-	var/master_commander = null //переменная хранящая владельца "животного"
+	icon = 'icons/mob/monkey.dmi'	// for mappers
+	var/master_commander = null
 	var/sentience_type = SENTIENCE_ORGANIC
-	//holder_type = /obj/item/holder/monkey	//Задыхается сидя на голове или в сумке, временно отключен
 
-/mob/living/carbon/human/lesser/Initialize(mapload, species)
-	icon = null
-	. = ..(mapload, species)
-
-/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species)
+/mob/living/carbon/human/lesser/setup_dna(datum/species/new_species, monkeybasic = TRUE)
 	. = ..()
-	dna.SetSEState(GLOB.monkeyblock, TRUE)
+	// since we are created as monkas we need to manually set our GLOB.monkeyblock as activated
 	LAZYOR(active_genes, /datum/dna/gene/monkey)
+
+/mob/living/carbon/human/lesser/monkey
+	icon_state = "monkey1"
 
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	tts_seed = "Sniper"
 
+/mob/living/carbon/human/lesser/farwa
+	icon_state = "tajkey1"
+
 /mob/living/carbon/human/lesser/farwa/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/tajaran)
 	tts_seed = "Gyro"
-	//holder_type = /obj/item/holder/farwa
+
+/mob/living/carbon/human/lesser/wolpin
+	icon_state = "wolfling"
 
 /mob/living/carbon/human/lesser/wolpin/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/vulpkanin)
 	tts_seed = "Bloodseeker"
-	//holder_type = /obj/item/holder/farwa
+
+/mob/living/carbon/human/lesser/neara
+	icon_state = "skrellkey1"
 
 /mob/living/carbon/human/lesser/neara/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/skrell)
 	tts_seed = "Bounty"
-	//holder_type = /obj/item/holder/neara
+
+/mob/living/carbon/human/lesser/stok
+	icon_state = "stokkey1"
 
 /mob/living/carbon/human/lesser/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
 	tts_seed = "Witchdoctor"
-	//holder_type = /obj/item/holder/stok

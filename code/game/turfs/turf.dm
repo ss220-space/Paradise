@@ -3,7 +3,7 @@
 	level = 1
 	luminosity = 1
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE	// Important for interaction with and visualization of openspace.
+	vis_flags = VIS_INHERIT_ID	// Important for interaction with and visualization of openspace.
 
 	var/intact = TRUE
 	var/turf/baseturf = /turf/baseturf_bottom
@@ -42,8 +42,6 @@
 
 	flags = 0
 
-	var/image/obscured	//camerachunks
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -53,12 +51,22 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
-	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	/// Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
 	var/dynamic_lumcount = 0
-	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	/// Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
 	var/directional_opacity = NONE
-	///Lazylist of movable atoms providing opacity sources.
+	/// Lazylist of movable atoms providing opacity sources.
 	var/list/atom/movable/opacity_sources
+	/// Bool, whether this turf will always be illuminated no matter what area it is in
+	var/always_lit = FALSE
+	var/tmp/lighting_corners_initialised = FALSE
+	/// Our lighting object.
+	var/tmp/atom/movable/lighting_object/lighting_object
+	// Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
 
 	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
@@ -77,37 +85,38 @@
 	if(layer == MAP_EDITOR_TURF_LAYER)
 		layer = real_layer
 
+	/// We do NOT use the shortcut here, because this is faster
+	if(SSmapping.max_plane_offset)
+		if(!SSmapping.plane_offset_blacklist["[plane]"])
+			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+			var/turf/T = GET_TURF_ABOVE(src)
+			if(T)
+				T.multiz_turf_new(src, DOWN)
+			T = GET_TURF_BELOW(src)
+			if(T)
+				T.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
-	vis_contents.Cut()
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	if(length(vis_contents))
+		vis_contents.Cut()
 
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)
-	visibilityChanged()
 
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		add_overlay(overlay)
 
 	if(light_power && light_range)
 		update_light()
 
-	var/turf/T = GET_TURF_ABOVE(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = GET_TURF_BELOW(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
-
-
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	if(istype(loc, /area/space))
 		force_no_gravity = TRUE
@@ -136,18 +145,16 @@
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()
 
-/turf/attack_hand(mob/user as mob)
+/turf/attack_hand(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
-	if(Adjacent(user))
-		user.Move_Pulled(src)
+	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
 	return FALSE
@@ -181,72 +188,68 @@
 	return FALSE
 
 
-/turf/Enter(atom/movable/mover, atom/oldloc)
-	if(!mover)
-		return TRUE
+/turf/Enter(atom/movable/mover)
+	// Do not call ..()
+	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
+	// By default byond will call Bump() on the first dense object in contents
+	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
+
+	// There's a lot of QDELETED() calls here if someone can figure out how to optimize this
+	// but not runtime when something gets deleted by a Bump/CanPass/Cross call
+
+	var/atom/mover_loc = mover.loc
 
 	// First, make sure it can leave its square
-	if(isturf(mover.loc))
+	if(isturf(mover_loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
 		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover.loc)
-			if(obstacle == mover || obstacle == oldloc)
+		for(var/obj/obstacle in mover_loc)
+			if(obstacle == mover)
 				continue
 			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle, TRUE)
+				mover.Bump(obstacle)
 				return FALSE
 
 	var/border_dir = get_dir(src, mover)
-
-	var/list/large_dense = list()
-	//Next, check objects to block entry that are on the border
-	for(var/atom/movable/border_obstacle in src)
-		if(border_obstacle == oldloc)
-			continue
-		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, border_dir))
-				mover.Bump(border_obstacle, TRUE)
-				return FALSE
-		else
-			large_dense += border_obstacle
-
-	//Then, check the turf itself
-	if(!CanPass(mover, border_dir))
-		mover.Bump(src, TRUE)
-		return FALSE
-
-	//Finally, check objects/mobs to block entry that are not on the border
+	var/can_pass_self = CanPass(mover, border_dir)
 	var/atom/movable/tompost_bump
-	var/top_layer = 0
-	var/current_layer = 0
-	for(var/atom/movable/obstacle as anything in large_dense)
-		if(!obstacle.CanPass(mover, border_dir))
-			current_layer = obstacle.layer
-			if(isliving(obstacle))
-				var/mob/living/living_obstacle = obstacle
-				if(living_obstacle.bump_priority < BUMP_PRIORITY_NORMAL && border_dir == obstacle.dir)
-					current_layer += living_obstacle.bump_priority
-			if(current_layer > top_layer)
-				tompost_bump = obstacle
-				top_layer = current_layer
-	if(tompost_bump)
-		mover.Bump(tompost_bump, TRUE)
+	if(can_pass_self)
+		var/mover_is_phasing = (mover.movement_type & PHASING)
+		for(var/atom/movable/obstacle as anything in contents)
+			// Multi tile objects and moving out of other objects.
+			if(obstacle == mover || obstacle == mover_loc)
+				continue
+			if(!obstacle.Cross(mover, border_dir))
+				// Deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen).
+				if(QDELETED(mover))
+					return FALSE
+				if(mover_is_phasing)
+					mover.Bump(obstacle)
+					// Deleted from Bump().
+					if(QDELETED(mover))
+						return FALSE
+					continue
+				else
+					var/override = obstacle.tompost_bump_override(mover, border_dir)
+					if(isatom(override))
+						tompost_bump = override
+						break
+					// We are using layers to pick what we are bumping, always choosing obstacle with the highest one
+					// its sufficient but not ideal method, separate variable is probably a better solution.
+					if(!tompost_bump || ((obstacle.layer > tompost_bump.layer || obstacle.flags & ON_BORDER) && !(tompost_bump.flags & ON_BORDER)))
+						tompost_bump = obstacle
+
+	// Mover deleted from Cross/CanPass/Bump, do not proceed.
+	if(QDELETED(mover))
 		return FALSE
+	// Even if mover is unstoppable they need to bump us.
+	if(!can_pass_self)
+		tompost_bump = src
+	if(tompost_bump)
+		mover.Bump(tompost_bump)
+		return (mover.movement_type & PHASING)
+	return TRUE
 
-	return TRUE //Nothing found to block so return success!
-
-
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
-	..()
-	if(ismob(M))
-		var/mob/O = M
-		if(!O.lastarea)
-			O.lastarea = get_area(O.loc)
-
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(M.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -288,21 +291,16 @@
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
+	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
 	var/old_dynamic_lumcount = dynamic_lumcount
-	var/old_obscured = obscured
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_type = type
-	var/old_air
-	if(issimulatedturf(src))
-		var/turf/simulated/old_turf = src
-		old_air = old_turf.air
 
 	BeforeChange()
 
@@ -330,13 +328,8 @@
 
 	if(!defer_change)
 		W.AfterChange(ignore_air, oldType = old_type)
-		if(issimulatedturf(W))
-			var/turf/simulated/new_turf = W
-			new_turf.assimilate_air(old_air)
 
 	W.blueprint_data = old_blueprint_data
-
-	recalc_atom_opacity()
 
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
@@ -344,6 +337,14 @@
 	lighting_corner_NW = old_lighting_corner_NW
 
 	dynamic_lumcount = old_dynamic_lumcount
+
+	if(W.always_lit)
+		// We are guarenteed to have these overlays because of how generation works
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.add_overlay(overlay)
+	else if (old_always_lit)
+		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		W.cut_overlay(overlay)
 
 	// we need to refresh gravity for all living mobs to cover possible gravity change
 	for(var/mob/living/mob in contents)
@@ -355,16 +356,7 @@
 		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
-
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -375,7 +367,14 @@
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
-	obscured = old_obscured
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
+
+	// We will only run this logic if the tile is not on the prime z layer, since we use area overlays to cover that
+	if(SSmapping.z_level_to_plane_offset[z])
+		var/area/our_area = W.loc
+		if(our_area.lighting_effects)
+			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
 	return W
 
@@ -553,12 +552,12 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall(mob/living/faller, forced)
-	faller.lying_angle = pick(90, 270)
-	if(!forced)
-		return
-	if(faller.has_gravity())
+
+/turf/handle_fall(mob/living/carbon/faller)
+	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
+	faller.drop_from_hands()
+
 
 /turf/singularity_act()
 	if(intact)
@@ -569,10 +568,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
-/turf/proc/visibilityChanged()
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
 
 /turf/attackby(obj/item/I, mob/user, params)
 	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
@@ -828,3 +823,9 @@
 			return TRUE
 
 	return FALSE
+
+
+/turf/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	grabber.Move_Pulled(src)
+

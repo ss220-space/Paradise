@@ -172,7 +172,6 @@
 
 /area/syndicate/unpowered/syndicate_space_base/turrets
 	name = "Syndicate Space Turrets"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	sound_environment = SOUND_AREA_SPACE
 	icon_state = "taipan_turrets"
 

@@ -231,7 +231,6 @@
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner
 	icon = 'icons/obj/spacebattle.dmi'
 	icon_state = "spawner_mine"
-	canmove = FALSE
 	var/id = null
 	var/triggered = FALSE
 	var/faction = null

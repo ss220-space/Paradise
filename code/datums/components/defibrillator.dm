@@ -5,8 +5,8 @@
 	/// If this is being used by a borg or not, with necessary safeties applied if so.
 	var/robotic
 	/// If it should penetrate space suits
-	var/combat
-	/// If combat is true, this determines whether or not it should always cause a heart attack.
+	var/ignore_hardsuits
+	/// If ignore_hardsuits is true, this determines whether or not it should always cause a heart attack.
 	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
@@ -32,21 +32,21 @@
  * * robotic - whether this should be treated like a borg module.
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
- * * combat - If true, the defib can zap through hardsuits.
- * * heart_attack_chance - If combat and safeties are off, the % chance for this to cause a heart attack on harm intent.
+ * * ignore_hardsuits - If true, the defib can zap through hardsuits.
+ * * heart_attack_chance - If safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, combat = FALSE, heart_attack_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, heart_attack_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.robotic = robotic
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
-	src.combat = combat
+	src.ignore_hardsuits = ignore_hardsuits
 	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
@@ -90,7 +90,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		to_chat(user, span_warning("You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card."))
+		user.balloon_alert(user, "протоколы безопасности [safety ? "де" : ""]активированы!")
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
@@ -138,7 +138,7 @@
 		return
 
 	if(on_cooldown)
-		to_chat(user, span_notice("[defib_ref] is recharging."))
+		user.balloon_alert(user, "всё ещё заряжается!")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
@@ -146,20 +146,15 @@
 
 	if(!istype(target))
 		if(robotic)
-			to_chat(user, span_notice("This unit is only designed to work on humanoid lifeforms."))
+			user.balloon_alert(user, "на роботах не сработает")
 		else
-			to_chat(user, span_notice("The instructions on [defib_ref] don't mention how to defibrillate that..."))
-		return
-
-	if(should_cause_harm && combat && heart_attack_chance == 100)
-		combat_fibrillate(user, target)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
-		busy = FALSE
+			user.balloon_alert(user, "\"это\" нельзя дефибриллировать")
 		return
 
 	if(should_cause_harm)
-		fibrillate(user, target)
+		combat_fibrillate(user, target)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
+		busy = FALSE
 		return
 
 	user.visible_message(
@@ -192,7 +187,7 @@
 		busy = FALSE
 		return
 
-	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !combat)
+	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !ignore_hardsuits)
 		user.visible_message(span_notice("[defib_ref] buzzes: Patient's chest is obscured. Operation aborted."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
@@ -276,7 +271,6 @@
 			target.setBrainLoss(defib_time_brain_damage)
 
 		target.update_revive(TRUE, TRUE)
-		target.KnockOut()
 		target.Paralyse(12 SECONDS)
 		target.emote("gasp")
 
@@ -290,9 +284,6 @@
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
 			excess_shock(user, target, target.pulledby, defib_ref)
-		for(var/obj/item/grab/G in target.grabbed_by)
-			if(ishuman(G.assailant))
-				excess_shock(user, target, G.assailant, defib_ref)
 
 		target.med_hud_set_health()
 		target.med_hud_set_status()
@@ -311,7 +302,7 @@
  * * user - wielder of the defib
  * * target - person getting shocked
  */
-/datum/component/defib/proc/fibrillate(mob/user, mob/living/carbon/human/target)
+/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return
 	busy = TRUE
@@ -321,9 +312,10 @@
 	)
 	target.adjustStaminaLoss(50)
 	target.Weaken(4 SECONDS)
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
-	if(combat && prob(heart_attack_chance))
+	if(prob(heart_attack_chance))
+		add_attack_logs(user, target, "Gave a heart attack with [parent]")
 		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
@@ -360,26 +352,3 @@
 							span_userdanger("You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)] and back down your [affecting.hand ? affecting.get_organ(BODY_ZONE_R_ARM) : affecting.get_organ(BODY_ZONE_L_ARM)]!"))
 			affecting.set_heartattack(TRUE)
 
-
-/datum/component/defib/proc/combat_fibrillate(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return
-	busy = TRUE
-	target.adjustStaminaLoss(60)
-	target.emote("gasp")
-	add_attack_logs(user, target, "Stunned with [parent]")
-	if(target.incapacitated())
-		add_attack_logs(user, target, "Gave a heart attack with [parent]")
-		target.set_heartattack(TRUE)
-		target.visible_message(
-			span_danger("[user] has touched [target.name] with [parent]!"),
-			span_userdanger("[user] has touched [target.name] with [parent]!"),
-		)
-		playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
-		set_cooldown(cooldown)
-		target.Weaken(4 SECONDS)
-		return
-	target.Weaken(4 SECONDS)
-	target.shock_internal_organs(100)
-	target.visible_message(span_danger("[user] touches [target] lightly with [parent]!"))
-	set_cooldown(2.5 SECONDS)

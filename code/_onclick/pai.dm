@@ -38,7 +38,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE, ignore_lying = TRUE))
+	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		return
 
 	if(next_move >= world.time)
@@ -173,4 +173,4 @@
 
 /mob/living/silicon/pai/proc/reset_cooldown()
 	capa_is_cooldown = FALSE
-	to_chat(src, "<span class = 'notice'>Your ability to interact with airlocks has been restored.</span>")
+	src.balloon_alert(src, "можно снова взаимодействовать с машинерией!")

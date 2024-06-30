@@ -23,7 +23,9 @@
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
-		return
+		return FALSE
+
+	. = TRUE
 
 	do_pickup_animation(src, target)
 
@@ -110,7 +112,7 @@
 			receive_damage(7, 1)
 
 
-/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
@@ -144,10 +146,10 @@
 	return S
 
 
-/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	insert(target)
+	insert(target, special)
 	return TRUE
 
 
@@ -316,10 +318,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					walk_away(thingy,H,15,2)
+					SSmove_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							SSmove_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed

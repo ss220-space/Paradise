@@ -1192,7 +1192,7 @@
 	icon_state = "nazi";
 	name = "Officer's Uniform"
 	},
-/obj/item/clothing/suit/blacktrenchcoat{
+/obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
 /obj/item/clothing/shoes/black,
@@ -3852,6 +3852,7 @@
 "UO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "UR" = (

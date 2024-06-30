@@ -22,7 +22,7 @@
 		return
 
 	render_source = source.render_target
-	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(on_source_deleting))
+	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(on_source_deleting))
 
 
 /atom/movable/emissive_blocker/proc/on_source_deleting(atom/source)
@@ -48,10 +48,6 @@
 	return
 
 
-/atom/movable/emissive_blocker/onTransitZ()
-	return
-
-
 //Prevents people from moving these after creation, because they shouldn't be.
 /atom/movable/emissive_blocker/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
 	if(harderforce)
@@ -63,7 +59,7 @@
 /atom/movable/emissive_blocker/Uncrossed(atom/movable/AM)
 	return
 
-/atom/movable/emissive_blocker/Bump(atom/A, yes)
+/atom/movable/emissive_blocker/Bump(atom/bumped_atom)
 	return
 
 /atom/movable/emissive_blocker/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)

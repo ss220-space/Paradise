@@ -49,13 +49,13 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
+/obj/machinery/disposal/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!loc)
 		return
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
-	var/turf/T = OldLoc
+	var/turf/T = old_loc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
@@ -150,28 +150,6 @@
 			update()
 			return
 
-	var/obj/item/grab/grab = I
-	if(istype(grab))	// handle grabbed mob
-		if(grab.affecting && !isliving(grab.affecting))
-			return
-
-		var/mob/living/target = grab.affecting
-
-		for(var/mob/viewer in (viewers(user) - user))
-			viewer.show_message("[user] starts putting [target.name] into the disposal.", 3)
-
-		if(!do_after(user, 2 SECONDS, target, NONE))
-			return
-
-		add_fingerprint(user)
-		target.forceMove(src)
-		for(var/mob/viewer in viewers(src))
-			viewer.show_message("<span class='warning'>[target.name] has been placed in the [src] by [user].</span>", 3)
-
-		qdel(grab)
-		add_attack_logs(user, target, "Disposal'ed")
-		return
-
 	if(!I || !can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
 		return
 
@@ -180,6 +158,22 @@
 	for(var/mob/viewer in (viewers(src) - user))
 		viewer.show_message("[user.name] places \the [I] into the [src].", 3)
 
+	update()
+
+
+/obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+
+	grabber.visible_message(span_notice("[grabber] starts putting [grabbed_thing.name] into the disposal."), ignored_mobs = grabber)
+	if(!do_after(grabber, 2 SECONDS, src, NONE) || !grabbed_thing || grabber.pulling != grabbed_thing)
+		return .
+
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	grabber.visible_message(span_warning("[grabbed_thing.name] has been placed in [src] by [grabber]."))
+	add_attack_logs(grabber, grabbed_thing, "Disposal'ed")
 	update()
 
 
@@ -424,17 +418,17 @@
 	// 	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
-		underlays += emissive_appearance(icon, "dispover-full")
+		underlays += emissive_appearance(icon, "dispover-full", src)
 		return
 
 	// charging and ready light
 	switch(mode)
 		if(CHARGING)
 			. += "dispover-charge"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 		if(CHARGED)
 			. += "dispover-ready"
-			underlays += emissive_appearance(icon, "dispover-lightmask")
+			underlays += emissive_appearance(icon, "dispover-lightmask", src)
 
 
 // timed process
@@ -557,7 +551,7 @@
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		if(prob(75) && can_be_inserted(mover, TRUE))
+		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
 			visible_message("[mover] lands in [src].")
 			update()
@@ -572,7 +566,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
@@ -623,24 +617,26 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/moving_atom) //Go straight into the chute
-	..()
-	if(ismecha(moving_atom) || isspacepod(moving_atom)) return
-
-	if(isprojectile(moving_atom) || iseffect(moving_atom))
-		return
+	. = ..()
+	if(ismecha(moving_atom) || isspacepod(moving_atom) || isprojectile(moving_atom) || iseffect(moving_atom))
+		return .
 
 	switch(dir)
 		if(NORTH)
-			if(moving_atom.loc.y != src.loc.y+1) return
+			if(moving_atom.loc.y != src.loc.y+1)
+				return
 		if(EAST)
-			if(moving_atom.loc.x != src.loc.x+1) return
+			if(moving_atom.loc.x != src.loc.x+1)
+				return
 		if(SOUTH)
-			if(moving_atom.loc.y != src.loc.y-1) return
+			if(moving_atom.loc.y != src.loc.y-1)
+				return
 		if(WEST)
-			if(moving_atom.loc.x != src.loc.x-1) return
+			if(moving_atom.loc.x != src.loc.x-1)
+				return
 
 	if(isobj(moving_atom) || isliving(moving_atom))
-		moving_atom.loc = src
+		moving_atom.forceMove(src)
 
 	if(mode != OFF)
 		flush()

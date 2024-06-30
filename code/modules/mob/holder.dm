@@ -37,7 +37,10 @@
 	if(ishuman(user))	//eating holder
 		if(target == user)
 			for(var/mob/M in src.contents)
-				return devoured(M, user)
+				. = M.devoured(user)
+				if(.)
+					qdel(src)
+				return .
 	. = ..()
 
 /obj/item/holder/proc/show_message(var/message, var/m_type)
@@ -62,7 +65,6 @@
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
-	L.resting = FALSE
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -70,7 +72,6 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-	return
 
 //Mob procs and vars for scooping up
 /mob/living

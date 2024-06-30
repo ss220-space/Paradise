@@ -140,12 +140,12 @@
 	user.visible_message("<span class='warning'>[user] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 	user.SetStunned(0)
 	user.SetWeakened(0)
+	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
 	user.alpha = 0
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
-	if(user.pulledby)
-		user.pulledby.stop_pulling()
+	user.pulledby?.stop_pulling()
 	user.stop_pulling()
 
 	sleep(4 SECONDS)
@@ -168,6 +168,12 @@
 	var/conseal_time = 4 SECONDS
 
 
+/obj/effect/proc_holder/spell/shadowling_guise/Destroy()
+	if(action?.owner)
+		reveal(action.owner)
+	return ..()
+
+
 /obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
 	return new /datum/spell_targeting/self
 
@@ -178,14 +184,12 @@
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
 	if(QDELETED(user))
 		return
 
 	user.alpha = initial(user.alpha)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
-
 
 
 /obj/effect/proc_holder/spell/shadowling_vision
@@ -195,6 +199,11 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
+
+
+/obj/effect/proc_holder/spell/shadowling_vision/Destroy()
+	action?.owner?.set_vision_override(null)
+	return ..()
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()
@@ -207,10 +216,10 @@
 
 	if(!user.vision_type)
 		to_chat(user, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-		user.set_sight(/datum/vision_override/nightvision)
+		user.set_vision_override(/datum/vision_override/nightvision)
 	else
 		to_chat(user, "<span class='notice'>You return your vision to normal.</span>")
-		user.set_sight(null)
+		user.set_vision_override(null)
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/thrall
@@ -897,6 +906,7 @@
 	desc = "Empower your faithful thrall or revives"
 	base_cooldown = 0
 	ignore_prer = TRUE
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"

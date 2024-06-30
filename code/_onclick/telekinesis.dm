@@ -91,7 +91,7 @@
 /obj/item/tk_grab/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	if(slot & ITEM_SLOT_HANDS)
-		return
+		return TRUE
 	qdel(src)
 
 
@@ -121,7 +121,7 @@
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
 	if((d > TK_MAXRANGE)||(user.z != focus.z)) // both in range and on same z-level
-		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
+		balloon_alert(user, "не схватить, слишком далеко!")
 		return
 
 	if(!focus)
@@ -191,6 +191,10 @@
 
 /obj/item/tk_grab/update_overlays()
 	. = ..()
-	if(focus && focus.icon && focus.icon_state)
-		. += icon(focus.icon, focus.icon_state)
+	if(!focus)
+		return
 
+	var/mutable_appearance/focus_overlay = new(focus)
+	focus_overlay.layer = layer + 0.01
+	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
+	. += focus_overlay

@@ -151,6 +151,7 @@
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -164,6 +165,7 @@
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
+	flags_inv_transparent = HIDEGLOVES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -207,7 +209,6 @@
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
-	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
@@ -267,16 +268,26 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 4
+	claws_increment = 4
+
 
 /obj/item/whetstone/cult/update_icon_state()
-	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
+
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
-	..()
-	if(used)
-		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
+
+
+/obj/item/whetstone/cult/attack_self(mob/user)
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
+		qdel(src)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -405,7 +416,11 @@
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
-			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			if(C.pull_hand == PULL_WITHOUT_HANDS)
+				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			else if(!C.get_inactive_hand() && C.swap_hand())
+				C.start_pulling(pulled)
+				C.swap_hand()
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -439,7 +454,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
-	flags_inv = HIDEJUMPSUIT
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
@@ -606,7 +620,6 @@
 	desc = "A sickening spear composed entirely of crystallized blood."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
-	slot_flags = 0
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24

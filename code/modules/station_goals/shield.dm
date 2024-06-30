@@ -150,8 +150,7 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	COOLDOWN_START(src, toggle_sat_cooldown, 1 SECONDS)
 	if(active)
 		set_anchored(TRUE)
-		if(pulledby)
-			pulledby.stop_pulling()
+		pulledby?.stop_pulling()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 	else
 		animate(src, pixel_y = 0, time = 10)
@@ -204,9 +203,10 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 			continue
 		if(!emagged && space_los(meteor_to_destroy))
 			Beam(get_turf(meteor_to_destroy), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
-			qdel(meteor_to_destroy)
+			if(meteor_to_destroy.shield_defense(src))
+				qdel(meteor_to_destroy)
 
-/obj/machinery/satellite/meteor_shield/Process_Spacemove(movement_dir = NONE)
+/obj/machinery/satellite/meteor_shield/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return active
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

@@ -21,6 +21,7 @@
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 20
+#define CLICK_CD_GRABBING 10
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_LOOK_UP_DOWN 5
@@ -113,22 +114,22 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
-	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          CENTER.z, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
+	(CENTER.y + RADIUS < world.maxy ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
 
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
-	GLOB.dview_mob.see_invisible = invis_flags; \
+	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
@@ -162,7 +163,7 @@
 #define MFOAM_ALUMINUM 	1
 #define MFOAM_IRON 		2
 
-//Human Overlays Indexes/////////
+//Carbon Overlays Indexes/////////
 #define MUTANTRACE_LAYER		43
 #define WING_UNDERLIMBS_LAYER	42
 #define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.

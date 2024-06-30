@@ -22,9 +22,15 @@
 	action.button_icon_state = "alien_neurotoxin_[active]"
 	action.UpdateButtonIcon()
 
+
 //sets charge_check = FALSE so that you can cancel spell while it's charging
-/obj/effect/proc_holder/spell/alien_spell/neurotoxin/can_cast(mob/user, charge_check = FALSE, show_message)
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/can_cast(mob/living/user, charge_check = FALSE, show_message)
 	. = ..()
+	if(user.body_position == LYING_DOWN)
+		if(show_message)
+			to_chat(user, span_warning("You cannot use <b>[initial(name)]</b> while lying!"))
+		return FALSE
+
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]
@@ -37,9 +43,10 @@
 	neurotoxin.current = get_turf(user)
 	neurotoxin.original = target
 	neurotoxin.firer = user
-	neurotoxin.preparePixelProjectile(target, get_turf(target), user, targeting.click_params)
+	var/turf/target_turf = get_turf(target)
+	neurotoxin.preparePixelProjectile(target, target_turf, user, targeting.click_params)
 	neurotoxin.fire()
-	user.newtonian_move(get_dir(U, T))
+	user.newtonian_move(get_dir(target_turf, T))
 
 	return TRUE
 
@@ -63,7 +70,7 @@
 		remove_ranged_ability(user)
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/should_remove_click_intercept(mob/living/carbon/user)
-	if(user.get_plasma() < plasma_cost)
+	if(user.get_plasma() < plasma_cost || user.body_position == LYING_DOWN)
 		return TRUE
 	return FALSE
 

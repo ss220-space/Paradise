@@ -12,7 +12,7 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = 1
+	animate_movement = FORWARD_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -20,6 +20,7 @@
 	buckle_lying = 0
 	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
@@ -436,7 +437,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
-	target.pixel_y = initial(target.pixel_y) + 9
+	target.pixel_y = target.base_pixel_y + 9
 	if(target.layer < layer)
 		target.layer = layer + 0.01
 
@@ -444,7 +445,7 @@
 /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
 	target.layer = initial(target.layer)
-	target.pixel_y = initial(target.pixel_y)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 // called to unload the bot
@@ -462,7 +463,7 @@
 		load.forceMove(loc)
 		load.pixel_y = initial(load.pixel_y)
 		load.layer = initial(load.layer)
-		load.plane = initial(load.plane)
+		SET_PLANE_EXPLICIT(load, initial(load.plane), src)
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)
@@ -692,7 +693,7 @@
 			bot_reset()	// otherwise go idle
 
 
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 
 	if(. && istype(next))
@@ -720,19 +721,22 @@
 /**
  * Called when bot bumps into anything.
  */
-/mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
-	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/living/L = obs
-		if(ismob(L))
-			if(isrobot(L))
-				visible_message(span_danger("[src] bumps into [L]!"))
-			else
-				if(!paicard)
-					add_attack_logs(src, L, "Knocked down")
-					visible_message(span_danger("[src] knocks over [L]!"))
-					L.stop_pulling()
-					L.Weaken(16 SECONDS)
-	return ..()
+/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living)
+	. = ..()
+	if(!wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
+		return .
+
+	// usually just bumps, but if avoidance disabled knock over mobs
+	if(isrobot(bumped_living))
+		visible_message(span_danger("[src] bumps into [bumped_living]!"))
+		return .
+
+	if(paicard)
+		return .
+
+	add_attack_logs(src, bumped_living, "Knocked down")
+	visible_message(span_danger("[src] knocks over [bumped_living]!"))
+	bumped_living.Weaken(16 SECONDS)
 
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)

@@ -49,10 +49,8 @@
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
 		//Ties
 		var/tie_msg
-		if(istype(w_uniform,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			if(U.accessories.len)
-				tie_msg += " with [english_accessory_list(U)]"
+		if(istype(w_uniform, /obj/item/clothing/under) && LAZYLEN(w_uniform.accessories))
+			tie_msg += " with [english_accessory_list(w_uniform)]"
 
 		if(w_uniform.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(w_uniform)] [w_uniform.gender==PLURAL?"some":"a"] [w_uniform.blood_color != "#030303" ? "blood-stained":"oil-stained"] [w_uniform.name][tie_msg]!</span>\n"
@@ -179,15 +177,10 @@
 	if(wear_id)
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
-	//Jitters
-	switch(AmountJitter())
-		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
-
+	//Status effects
+	var/status_examines = get_status_effect_examinations()
+	if(status_examines)
+		msg += status_examines
 
 	var/appears_dead = FALSE
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -374,7 +367,7 @@
 		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/criminal = "None"
 		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
 
@@ -396,7 +389,7 @@
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/skills
 
 		if(perpname)
@@ -412,7 +405,7 @@
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
-		var/perpname = get_visible_name(TRUE)
+		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/medical = "None"
 
 		for(var/datum/data/record/E in GLOB.data_core.general)
@@ -439,6 +432,25 @@
 
 /mob/living/carbon/human/get_examine_time()
 	return 1 SECONDS
+
+
+/**
+ * Shows any and all examine text related to any status effects the user has.
+ */
+/mob/living/proc/get_status_effect_examinations()
+	var/list/examine_list = list()
+
+	for(var/datum/status_effect/effect as anything in status_effects)
+		var/effect_text = effect.get_examine_text()
+		if(!effect_text)
+			continue
+
+		examine_list += effect_text
+
+	if(!length(examine_list))
+		return
+
+	return examine_list.Join("\n") + "\n" 
 
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.

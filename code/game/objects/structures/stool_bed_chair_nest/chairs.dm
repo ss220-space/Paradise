@@ -9,7 +9,7 @@
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
-	buckle_offset = 0
+	pull_push_slowdown = 0.5
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -28,7 +28,7 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
+/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_rotation()
 
@@ -100,7 +100,7 @@
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.setDir(direction)
+			buckled_mob.setDir(dir)
 
 
 /obj/structure/chair/proc/handle_layer()
@@ -119,8 +119,8 @@
 
 
 /obj/structure/chair/setDir(newdir)
-	..()
-	handle_rotation(newdir)
+	. = ..()
+	handle_rotation()
 
 
 /obj/structure/chair/examine(mob/user)
@@ -259,23 +259,21 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
-	pull_push_speed_modifier = 1
 
-/obj/structure/chair/office/Bump(atom/A)
-	..()
-	if(!has_buckled_mobs())
-		return
 
-	if(propelled)
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			unbuckle_mob(buckled_mob)
-			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.Weaken(12 SECONDS)
-			buckled_mob.Stuttering(12 SECONDS)
-			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [A]!"))
+/obj/structure/chair/office/Bump(atom/bumped_atom)
+	. = ..()
+	if(!propelled || !has_buckled_mobs())
+		return .
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		unbuckle_mob(buckled_mob)
+		buckled_mob.throw_at(bumped_atom, 3, propelled)
+		buckled_mob.Weaken(12 SECONDS)
+		buckled_mob.Stuttering(12 SECONDS)
+		buckled_mob.take_organ_damage(10)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [bumped_atom]!"))
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"

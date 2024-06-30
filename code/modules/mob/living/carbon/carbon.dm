@@ -1,10 +1,3 @@
-/mob/living/carbon
-	/// Used for wishgranter see wildwest.dm
-	var/revival_in_progress = FALSE
-	/// Just a timer stamp for [/mob/living/carbon/relaymove]
-	var/last_stomach_attack
-
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
@@ -39,7 +32,7 @@
 		adjustBruteLoss(10)
 
 
-/mob/living/carbon/Move(NewLoc, direct)
+/mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD && !isvampire(src))
@@ -209,19 +202,23 @@
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] встряхива[pluralize_ru(M.gender,"ет","ют")] [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.", \
 				"<span class='notice'>Вы трясете [src.name], но он[genderize_ru(src.gender,"","а","о","и")] не отвечает. Вероятно у [genderize_ru(src.gender,"него","неё","этого","них")] SSD.</span>")
-			if(lying_angle) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			if(body_position == LYING_DOWN) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				if(buckled)
+					to_chat(M, span_warning("You need to unbuckle [src] first to do that!"))
+					return
 				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
 						H.w_uniform.add_fingerprint(M)
+				set_resting(FALSE, instant = TRUE)
 				AdjustSleeping(-10 SECONDS)
-				if(!AmountSleeping())
-					StopResting()
 				AdjustParalysis(-6 SECONDS)
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
 				adjustStaminaLoss(-10)
+				if(body_position != STANDING_UP && !resting && !buckled)
+					get_up(instant = TRUE)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
@@ -522,53 +519,96 @@
 
 
 /mob/proc/throw_item(atom/target)
-	return
+	return TRUE
 
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
-		throw_mode_off()
-		return
-
-	var/obj/item/I = get_active_hand()
-
-	if(!I || I.override_throw(src, target) || HAS_TRAIT(I, TRAIT_NODROP))
-		throw_mode_off()
-		return
+	. = ..()
 
 	throw_mode_off()
+
+	if(!target || !isturf(loc) || is_screen_atom(target))
+		return FALSE
+
 	var/atom/movable/thrown_thing
+	var/obj/item/held_item = get_active_hand()
+	// we can't check for if it's a neckgrab throw when totaling up power_throw
+	// since we've already stopped pulling them by then, so get it early
+	var/neckgrab_throw = FALSE
+	if(!held_item)
+		if(isliving(pulling) && grab_state >= GRAB_AGGRESSIVE && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand))
+			var/mob/living/throwable_mob = pulling
+			if(!throwable_mob.buckled)
+				thrown_thing = throwable_mob
+				if(grab_state >= GRAB_NECK)
+					neckgrab_throw = TRUE
+				stop_pulling()
+				if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+					to_chat(src, span_notice("Вы осторожно отпускаете [throwable_mob.declent_ru(ACCUSATIVE)]."))
+					return FALSE
+	else
+		if(held_item.override_throw(src, target) || (held_item.item_flags & ABSTRACT))	//can't throw abstract items
+			return FALSE
+		if(!drop_item_ground(held_item, silent = TRUE))
+			return FALSE
+		if(held_item.throwforce && (GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM)))
+			to_chat(src, span_notice("Вы осторожно опускаете [held_item.declent_ru(ACCUSATIVE)] на землю."))
+			return FALSE
+		thrown_thing = held_item
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
-		qdel(G)	//We delete the grab.
-		if(throwable_mob)
-			thrown_thing = throwable_mob
-			if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)]."))
-				return
-			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-			var/turf/end_T = get_turf(target)
-			throwable_mob.forceMove(start_T)
-			if(start_T && end_T)
-				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+	if(!thrown_thing)
+		return FALSE
 
-				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
+	var/mob/living/throwing_mob
+	if(isliving(thrown_thing))
+		throwing_mob = thrown_thing
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+			add_attack_logs(src, throwing_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.item_flags & ABSTRACT)) //can't throw abstract items
-		thrown_thing = I
-		drop_item_ground(I, silent = TRUE)
+	//We assign a default frequency number for the sound of the throw.
+	var/frequency_number = 1
+	if(!throwing_mob)
+		var/obj/item/thrown_item = thrown_thing	// always item otherwise
+		//At normal weight, the frequency is at 1. For tiny, it is 1.25. For huge, it is 0.75.
+		frequency_number = 1 - (thrown_item.w_class - 3) / 8
 
-		if(GLOB.pacifism_after_gt || (HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce))
-			to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю."))
-			return
+	var/power_throw = 0
+	if(HULK in mutations)
+		power_throw++
+	if(DWARF in mutations)
+		power_throw--
+	if(throwing_mob && (DWARF in throwing_mob.mutations))
+		power_throw++
+	if(neckgrab_throw)
+		power_throw++
 
-	if(thrown_thing)
-		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] броса[pluralize_ru(src.gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."))
-		newtonian_move(get_dir(target, src))
-		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	do_attack_animation(target, no_effect = TRUE)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	var/power_throw_text = ""
+	if(power_throw > 0) //If we have anything that boosts our throw power like hulk, we use the rougher heavier variant.
+		throwsound = 'sound/weapons/throwhard.ogg'
+		power_throw_text = " мощно"
+	if(power_throw < 0) //if we have anything that weakens our throw power like dward, we use a slower variant.
+		throwsound = 'sound/weapons/throwsoft.ogg'
+		power_throw_text = " немощно"
+
+	// Adds a bit of randomness in the frequency to not sound exactly the same.
+	// The volume of the sound takes the minimum between the distance thrown or the max range an item,
+	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
+	frequency_number = frequency_number + (rand(-5, 5) / 100)
+
+	playsound(src, throwsound, min(8 * min(get_dist(loc, target), thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+
+	visible_message(
+		span_danger("[declent_ru(NOMINATIVE)][power_throw_text] броса[pluralize_ru(gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."),
+		span_danger("Вы[power_throw_text] бросаете [thrown_thing.declent_ru(ACCUSATIVE)]."),
+	)
+	newtonian_move(get_dir(target, src))
+	thrown_thing.throw_at(target, thrown_thing.throw_range, max(1, thrown_thing.throw_speed + power_throw), src, null, null, null, move_force)
 
 
 //generates realistic-ish pulse output based on preset levels
@@ -594,8 +634,9 @@
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 
-/mob/living/carbon/fall(forced)
-    loc?.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+/mob/living/carbon/on_fall()
+	. = ..()
+	loc?.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 
 /mob/living/carbon/resist_buckle()
@@ -611,7 +652,7 @@
 			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся себя отстегнуть!"),
 			span_notice("Вы пытаетесь себя отстегнуть... (Это займет [breakouttime / 10] секунд и Вам нельзя двигаться."),
 		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src, src)
@@ -623,27 +664,8 @@
 
 
 /mob/living/carbon/resist_fire()
-	fire_stacks -= 5
-	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
-	update_canmove()
-	spin(32,2)
-	visible_message("<span class='danger'>[src.name] ката[pluralize_ru(src.gender,"ет","ют")]ся по полу, пытаясь потушиться!</span>", \
-		"<span class='notice'>Вы остановились, упали и катаетесь!</span>")
-	sleep(30)
-	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src.name] успешно потушился!</span>", \
-			"<span class='notice'>Вы потушились.</span>")
-		ExtinguishMob()
+	return !!apply_status_effect(STATUS_EFFECT_DROPNROLL)
 
-
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
-		if(buckled)
-			return buckled.buckle_offset //tg just has this whole block removed, always returning -6. Paradise is special.
-		else
-			return -6
-	else
-		return initial(pixel_y)
 
 /mob/living/carbon/emp_act(severity)
 	..()
@@ -777,9 +799,9 @@ so that different stomachs can handle things in different ways VB*/
 		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 
@@ -818,17 +840,17 @@ so that different stomachs can handle things in different ways VB*/
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = initial(sight)
+	set_invis_see(initial(see_invisible))
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 	nightvision = initial(nightvision)
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
-		sight |= cyber_eyes.vision_flags
+		add_sight(cyber_eyes.vision_flags)
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
-			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
@@ -838,11 +860,10 @@ so that different stomachs can handle things in different ways VB*/
 			return
 
 	if(XRAY in mutations)
-		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	..()
 
 
 /mob/living/carbon/ExtinguishMob()
@@ -869,13 +890,6 @@ so that different stomachs can handle things in different ways VB*/
 	..(clean_hands, clean_mask, clean_feet)
 
 
-/mob/living/carbon/get_pull_push_speed_modifier(current_delay)
-	if(!canmove)
-		return pull_push_speed_modifier * 1.2
-	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
-	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
-
-
 /mob/living/carbon/proc/shock_reduction()
 	var/shock_reduction = 0
 	if(reagents)
@@ -894,3 +908,42 @@ so that different stomachs can handle things in different ways VB*/
 		return
 	return ..()
 
+
+/mob/living/carbon/lying_angle_on_lying_down(new_lying_angle)
+	if(!new_lying_angle)
+		set_lying_angle(pick(90, 270))
+	else
+		set_lying_angle(new_lying_angle)
+
+
+/mob/living/carbon/set_body_position(new_value)
+	. = ..()
+	if(isnull(.))
+		return .
+	if(new_value == LYING_DOWN)
+		add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
+	else
+		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
+
+/mob/living/carbon/proc/remove_all_parasites(vomit_organs = FALSE)
+	var/static/list/parasite_organs = typecacheof(list(
+		/obj/item/organ/internal/body_egg,
+		/obj/item/organ/internal/legion_tumour,
+	))
+
+	var/should_vomit = FALSE
+	var/turf/current_turf = get_turf(src)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(!is_type_in_typecache(organ, parasite_organs))
+			continue
+		organ.remove(src)
+		if(QDELETED(organ))
+			continue
+		if(vomit_organs)
+			should_vomit = TRUE
+			organ.forceMove(current_turf)
+		else
+			qdel(organ)
+
+	if(should_vomit)
+		fakevomit()

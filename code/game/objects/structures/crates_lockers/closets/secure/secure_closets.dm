@@ -116,9 +116,9 @@
 	. = ..()
 	if(!opened && !broken)
 		if(locked)
-			. += overlay_locked
+			. += mutable_appearance(icon, overlay_locked, CLOSET_OLAY_LAYER_LOCK)
 		else
-			. += overlay_unlocked
+			. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK)
 
 
 /obj/structure/closet/secure_closet/update_desc(updates = ALL)
@@ -138,7 +138,7 @@
 	if(!locked && !welded)
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
-	if(user.incapacitated(ignore_restraints = TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED))
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
@@ -154,7 +154,7 @@
 		return
 
 	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-	if(!src || !user || user.incapacitated(ignore_restraints = TRUE) || user.loc != src || opened)
+	if(!src || !user || user.incapacitated(INC_IGNORE_RESTRAINED) || user.loc != src || opened)
 		return
 
 	//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

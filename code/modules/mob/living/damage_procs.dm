@@ -110,11 +110,13 @@
 			Drowsy(effect * blocked)
 		if(JITTER)
 			Jitter(effect * blocked)
+		if(KNOCKDOWN)
+			Knockdown(effect * blocked)
 	updatehealth("apply effect")
 	return TRUE
 
 
-/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0,stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
@@ -137,6 +139,8 @@
 		apply_damage(stamina, STAMINA, null, blocked)
 	if(jitter)
 		apply_effect(jitter, JITTER, blocked)
+	if(knockdown)
+		apply_effect(knockdown, KNOCKDOWN, blocked)
 	return TRUE
 
 
@@ -325,11 +329,10 @@
 /mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(staminaloss + amount, 0), 120)
+	staminaloss = min(max(staminaloss + amount, 0), MAX_STAMINA_LOSS)
 	if(old_stamloss == staminaloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -338,28 +341,25 @@
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 
 
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		staminaloss = 0
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(amount, 0), 120)
+	staminaloss = min(max(amount, 0), MAX_STAMINA_LOSS)
 	if(old_stamloss == staminaloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
-		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
-		update_stamina_hud()
-		update_stamina()
+		updatehealth()
 
 
 /mob/living/proc/getMaxHealth()

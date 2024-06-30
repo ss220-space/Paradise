@@ -36,12 +36,12 @@
 // /datum signals
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
-/// before a component is removed from a datum because of RemoveComponent: (/datum/component)
+/// before a component is removed from a datum because of ClearFromParent(): (/datum/component)
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
-#define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
+#define COMSIG_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
-#define COMSIG_PARENT_QDELETING "parent_qdeleting"
+#define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
 
@@ -61,6 +61,19 @@
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///called when the atom sucessfully has it's density var changed, from base atom/set_density(): (value)
 #define COMSIG_ATOM_SET_DENSITY "atom_set_density"
+///from base of atom/set_opacity(): (new_opacity)
+#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
+///from base of atom/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
+#define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
+	///prevents pressure movement
+	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
+///signal sent out by an atom when it checks if it can be pulled, for additional checks
+#define COMSIG_ATOM_CAN_BE_PULLED "movable_can_be_pulled"
+	#define COMSIG_ATOM_CANT_PULL (1 << 0)
+///signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
+///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
+#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
@@ -103,12 +116,14 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
-///from base of atom/Entered(): (atom/movable/entering, /atom)
+///from base of atom/Entered(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 #define COMSIG_ATOM_ENTERED "atom_entered"
+/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/old_loc, list/atom/old_locs)
+#define COMSIG_ATOM_ENTERING "atom_entering"
 ///from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 #define COMSIG_ATOM_EXIT "atom_exit"
 	#define COMPONENT_ATOM_BLOCK_EXIT (1<<0)
-///from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
+///from base of atom/Exited(): (atom/movable/departed, atom/newloc)
 #define COMSIG_ATOM_EXITED "atom_exited"
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
@@ -137,8 +152,13 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
-///from base of atom/setDir(): (old_dir, new_dir)
+/// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
+#define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_dir_change"
+	#define COMPONENT_ATOM_BLOCK_DIR_CHANGE (1<<0)
+///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
+///from base of atom/setDir(): (old_dir, new_dir). Called after the direction changes.
+#define COMSIG_ATOM_POST_DIR_CHANGE "atom_dir_change"
 ///from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
 ///from base of atom/has_gravity(): (turf/location, list/forced_gravities)
@@ -203,8 +223,6 @@
 
 ///called on a movable (NOT living) when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
-///called on /living when someone starts pulling it (atom/movable/puller, state, force)
-#define COMSIG_LIVING_START_PULL "living_start_pull"
 /// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
 #define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
 	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
@@ -220,10 +238,7 @@
 	#define ZIMPACT_NO_MESSAGE (1<<1)
 	/// Do not do the spin animation when landing
 	#define ZIMPACT_NO_SPIN (1<<2)
-///from base of atom/movable/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
-#define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
-	///prevents pressure movement
-	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
+
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -272,13 +287,15 @@
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
 // /atom/movable signals
 
-///from base of atom/movable/Moved(): (/atom)
+///from base of atom/movable/Move(): (/atom/new_loc)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
-///from base of atom/movable/Moved(): (/atom, dir)
+///from base of atom/movable/Moved(): (atom/old_loc, dir, forced, list/old_locs, momentum_change)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
+///from base of atom/movable/Cross(): (/atom/movable)
+#define COMSIG_MOVABLE_CROSS_OVER "movable_cross_am"
 ///from base of atom/movable/Crossed(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSSED "movable_crossed"
 ///when we cross over something (calling Crossed() on that atom)
@@ -288,7 +305,7 @@
 	#define COMPONENT_MOVABLE_BLOCK_UNCROSS (1<<0)
 ///from base of atom/movable/Uncrossed(): (/atom/movable)
 #define COMSIG_MOVABLE_UNCROSSED "movable_uncrossed"
-///from base of atom/movable/Bump(): (/atom)
+///from base of atom/movable/Bump(): (/atom/bumped_atom)
 #define COMSIG_MOVABLE_BUMP "movable_bump"
 ///from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT "movable_impact"
@@ -307,7 +324,7 @@
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
 ///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
-///from base of atom/movable/onTransitZ(): (old_z, new_z)
+///from base of atom/movable/on_changed_z_level(): (turf/old_turf, turf/new_turf, same_z_layer)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 ///called when the movable is placed in an unaccessible area, used for stationloving: ()
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded"
@@ -322,11 +339,33 @@
 	#define HEARING_MESSAGE_MODE 7 */
 ///called when the movable sucessfully has it's anchored var changed, from base atom/movable/set_anchored(): (value)
 #define COMSIG_MOVABLE_SET_ANCHORED "movable_set_anchored"
+///from base of atom/movable/setGrabState(): (newstate)
+#define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"
+/// Called when something is pushed by a living mob bumping it: (mob/living/pusher, push force)
+#define COMSIG_MOVABLE_BUMP_PUSHED "movable_bump_pushed"
+	/// Stop it from moving
+	#define COMPONENT_NO_PUSH (1<<0)
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 ///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
 #define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
+///From base of /datum/move_loop/process() after attempting to move a movable: (datum/move_loop/loop, old_dir)
+#define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"
+///called when the movable's glide size is updated: (new_glide_size)
+#define COMSIG_MOVABLE_UPDATE_GLIDE_SIZE "movable_glide_size"
+/// from base of atom/movable/Process_Spacemove(): (movement_dir, continuous_move)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
+///from base of atom/movable/newtonian_move(): (inertia_direction, start_delay)
+#define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
+	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
+///from datum/component/drift/apply_initial_visuals(): ()
+#define COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT "movable_drift_visual_attempt"
+	#define DRIFT_VISUAL_FAILED (1<<0)
+///from datum/component/drift/allow_final_movement(): ()
+#define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
+	#define DRIFT_ALLOW_INPUT (1<<0)
 
 // /datum/mind signals
 
@@ -363,8 +402,19 @@
 ///from base of mob/anti_magic_check(): (mob/user, magic, holy, tinfoil, chargecost, self, protection_sources)
 #define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"
 	#define COMPONENT_BLOCK_MAGIC (1<<0)
+
 ///from base of mob/create_mob_hud(): ()
 #define COMSIG_MOB_HUD_CREATED "mob_hud_created"
+///from base of hud/show_to(): (datum/hud/hud_source)
+#define COMSIG_MOB_HUD_REFRESHED "mob_hud_refreshed"
+
+///from base of mob/set_sight(): (new_sight, old_sight)
+#define COMSIG_MOB_SIGHT_CHANGE "mob_sight_changed"
+///from base of mob/set_invis_see(): (new_invis, old_invis)
+#define COMSIG_MOB_SEE_INVIS_CHANGE "mob_see_invis_change"
+///from base of mob/set_see_in_dark(): (new_range, old_range)
+#define COMSIG_MOB_SEE_IN_DARK_CHANGE "mob_see_in_dark_change"
+
 ///from base of atom/attack_hand(): (mob/user)
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /obj/item/attack(): (mob/M, mob/user)
@@ -448,6 +498,13 @@
 /// from /mob/proc/slip(): (weaken, obj/slipped_on, lube_flags [mobs.dm], tilesSlipped)
 #define COMSIG_MOB_SLIPPED "mob_slipped"
 
+/// From base of /mob/proc/reset_perspective() : ()
+#define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
+/// from base of /client/proc/set_eye() : (atom/old_eye, atom/new_eye)
+#define COMSIG_CLIENT_SET_EYE "client_set_eye"
+// from /client/proc/change_view() : (new_size)
+#define COMSIG_VIEW_SET "view_set"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -498,24 +555,47 @@
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
+///from base of mob/living/set_body_position()
+#define COMSIG_LIVING_SET_BODY_POSITION  "living_set_body_position"
+///From living/set_resting(): (new_resting, silent, instant)
+#define COMSIG_LIVING_RESTING "living_resting"
+///from base of mob/update_transform()
+#define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
 
-//ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-// none of these are called as of right now, as there is nothing listening for them.
+///called on /living when someone starts pulling (atom/movable/pulled, state, force)
+#define COMSIG_LIVING_START_PULL "living_start_pull"
+///called on /living when someone is pulled (mob/living/puller)
+#define COMSIG_LIVING_GET_PULLED "living_start_pulled"
+///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/start_pulling]: (atom/movable/thing, force)
+#define COMSIG_LIVING_TRY_PULL "living_try_pull"
+	#define COMSIG_LIVING_CANCEL_PULL (1<<0)
+#define COMSIG_LIVING_TRYING_TO_PULL "living_tried_pulling"
+/// Called from /mob/living/update_pull_movespeed
+#define COMSIG_LIVING_UPDATING_PULL_MOVESPEED "living_updating_pull_movespeed"
+/// Called from /mob/living/PushAM -- Called when this mob is about to push a movable, but before it moves
+/// (aotm/movable/being_pushed)
+#define COMSIG_LIVING_PUSHING_MOVABLE "living_pushing_movable"
+
 ///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Stun() (amount, ignore_canstun)
+///from base of mob/living/Weaken() (amount, ignore_canweaken)
 #define COMSIG_LIVING_STATUS_WEAKEN "living_weaken"
-///from base of mob/living/Knockdown() (amount, ignore_canstun)
-///#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown" // one day
-///from base of mob/living/Paralyse() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_PARALYSE "living_paralyse"
+///from base of mob/living/Knockdown() (amount, ignore_canknockdown)
+#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
 ///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
+///from base of mob/living/Paralyze() (amount, ignore_canparalyse)
+#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)									//For all of them
+/// from mob/living/check_incapacitating_immunity(): (check_flags, force_apply)
+#define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
+	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
+
+/// Sent to a mob grabbing another mob: (mob/living/grabbing)
+#define COMSIG_LIVING_GRAB "living_grab"
+	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
+
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
@@ -528,11 +608,16 @@
 	#define MOVE_ARG_NEW_LOC 1
 	/// The arugment of move_args which dictates our movement direction
 	#define MOVE_ARG_DIRECTION 2
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 
 /// From base of /client/Move(): (list/move_args)
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/// from base of /client/proc/handle_popup_close() : (window_id)
+#define COMSIG_POPUP_CLEARED "popup_cleared"
 
 // /mob/living/carbon signals
 
@@ -558,6 +643,16 @@
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
 ///When a carbon slips. Called on /turf/simulated/handle_slip()
 #define COMSIG_ON_CARBON_SLIP "carbon_slip"
+///called on /carbon when attempting to pick up an item, from base of /mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
+#define COMSIG_CARBON_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
+	/// Can't pick up
+	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
+/// from /mob/living/carbon/enter_stamcrit()
+#define COMSIG_CARBON_ENTER_STAMCRIT "carbon_enter_stamcrit"
+///Called from apply_overlay(cache_index, overlay)
+#define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
+///Called from remove_overlay(cache_index, overlay)
+#define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
@@ -586,7 +681,10 @@
 #define COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH "obj_default_unfasten_wrench"
 ///from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
 #define COMSIG_OBJ_HIDE	"obj_hide"
-
+///from base of /proc/possess(): (mob/user)
+#define COMSIG_OBJ_POSSESSED "obj_possessed"
+///from base of /proc/release(): (mob/user)
+#define COMSIG_OBJ_RELEASED "obj_released"
 
 // /obj/machinery signals
 
@@ -780,8 +878,6 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
-//from /mob/living/carbon/human/proc/apply_overlay
-#define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/regenerate_icons()
@@ -1025,3 +1121,22 @@
 #define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
+
+
+// HUD:
+/// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
+#define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
+
+
+///from [/datum/move_loop/start_loop] ():
+#define COMSIG_MOVELOOP_START "moveloop_start"
+///from [/datum/move_loop/stop_loop] ():
+#define COMSIG_MOVELOOP_STOP "moveloop_stop"
+///from [/datum/move_loop/process] ():
+#define COMSIG_MOVELOOP_PREPROCESS_CHECK "moveloop_preprocess_check"
+	#define MOVELOOP_SKIP_STEP (1<<0)
+///from [/datum/move_loop/process] (succeeded, visual_delay):
+#define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
+//from [/datum/move_loop/has_target/jps/recalculate_path] ():
+#define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+

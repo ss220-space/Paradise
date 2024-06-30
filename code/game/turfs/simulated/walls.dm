@@ -7,6 +7,7 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
+	plane = WALL_PLANE
 	var/rotting = 0
 
 	var/damage = 0
@@ -149,13 +150,6 @@
 		var/newgirder = break_wall()
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
-
-	for(var/obj/O in src.contents) //Eject contents!
-		if(istype(O,/obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
 	return TRUE

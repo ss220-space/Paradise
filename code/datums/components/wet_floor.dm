@@ -95,13 +95,13 @@
 			lube_flags |= NO_SLIP_WHEN_WALKING
 		if(TURF_WET_LUBE)
 			intensity = 4 SECONDS
-			lube_flags |= SLIDE | SLIP_IGNORE_NO_SLIP_WATER
+			lube_flags |= (SLIDE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
 		if(TURF_WET_ICE)
 			intensity = 4 SECONDS
-			lube_flags |= SLIDE | SLIP_IGNORE_NO_SLIP_WATER
+			lube_flags |= (SLIDE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
 		if(TURF_WET_PERMAFROST)
 			intensity = 10 SECONDS
-			lube_flags |= SLIDE_ICE | SLIP_IGNORE_NO_SLIP_WATER
+			lube_flags |= (SLIDE_ICE|SLIP_IGNORE_NO_SLIP_WATER)
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
@@ -126,18 +126,19 @@
 	var/turf/simulated/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.air.temperature
+	var/t = T.air ? T.air.temperature : T.temperature
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left()) //Water freezes into ice!
 		if(T0C to T0C + 100)
-			decrease = ((T.air.temperature - T0C) / SSwet_floors.temperature_coeff) * (diff / SSwet_floors.time_ratio)
+			decrease = ((t - T0C) / SSwet_floors.temperature_coeff) * (diff / SSwet_floors.time_ratio)
 		if(T0C + 100 to INFINITY)
 			decrease = INFINITY
 	decrease = max(0, decrease)
 	if((is_wet() & TURF_WET_ICE) && t > T0C) //Ice melts into water!
-		add_wet(TURF_WET_WATER, max_time_left())
+		var/timeleft = max_time_left()
 		dry(null, TURF_WET_ICE)
+		add_wet(TURF_WET_WATER, timeleft)
 	dry(null, ALL, FALSE, decrease)
 	check()
 	last_process = world.time

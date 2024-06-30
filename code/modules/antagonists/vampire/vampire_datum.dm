@@ -43,7 +43,7 @@
 	)
 
 
-/datum/antagonist/vampire/Destroy(force, ...)
+/datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
@@ -218,10 +218,8 @@
 		target.LAssailant = owner.current
 
 	var/is_target_grabbed = FALSE
-	for(var/obj/item/grab/grab in target.grabbed_by)
-		var/mob/living/carbon/grabber = grab.assailant
-		if(owner.current == grabber)
-			is_target_grabbed = TRUE
+	if(target.pulledby == owner.current && owner.current.grab_state > GRAB_PASSIVE)
+		is_target_grabbed = TRUE
 
 	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
 		vampire_dir ==  SOUTHEAST || vampire_dir ==  SOUTHWEST)
@@ -344,8 +342,8 @@
 	if(draining)
 		to_chat(owner.current, span_notice("You stop draining [draining.name] of blood."))
 		draining = null
-		owner.current.pixel_x = 0
-		owner.current.pixel_y = 0
+		owner.current.pixel_x = owner.current.base_pixel_x + owner.current.body_position_pixel_x_offset
+		owner.current.pixel_y = owner.current.base_pixel_y + owner.current.body_position_pixel_y_offset
 		owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER
@@ -533,7 +531,7 @@
 		return
 
 	if(!hud.vampire_blood_display)
-		hud.vampire_blood_display = new /obj/screen()
+		hud.vampire_blood_display = new /atom/movable/screen()
 		hud.vampire_blood_display.name = "Usable Blood"
 		hud.vampire_blood_display.icon_state = "blood_display"
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"

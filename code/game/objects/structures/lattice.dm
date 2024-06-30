@@ -8,7 +8,7 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
-	plane = FLOOR_PLANE
+	plane = FLOOR_PLANE // I'd set to GAME_PLANE, but may fuck with pipes, srubbers and pumps. Also you see better lower floor under catwalk.
 	var/number_of_rods = 1
 	canSmoothWith = list(/obj/structure/lattice,
 						/turf/simulated/floor,
@@ -119,11 +119,11 @@
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
 
-/obj/structure/lattice/catwalk/Move()
+/obj/structure/lattice/catwalk/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
-	..()
+	. = ..()
 
 /obj/structure/lattice/catwalk/ratvar_act()
 	new /obj/structure/lattice/catwalk/clockwork(loc)

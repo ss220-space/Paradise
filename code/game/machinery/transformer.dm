@@ -70,16 +70,16 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	// They have to be human to be transformed.
 	if(is_on_cooldown || !ishuman(moving_atom))
-		return
+		return .
 
 	var/mob/living/carbon/human/H = moving_atom
 	var/move_dir = get_dir(loc, H.loc)
 
-	if((transform_standing || H.lying_angle) && move_dir == acceptdir)
+	if((transform_standing || H.body_position == LYING_DOWN) && move_dir == acceptdir)
 		H.forceMove(drop_location())
 		do_transform(H)
 
@@ -126,10 +126,10 @@
 	desc = "Turns anything placed inside black and white."
 
 /obj/machinery/transformer/mime/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(is_on_cooldown)
-		return
+		return .
 
 	// Crossed didn't like people lying down.
 	if(istype(moving_atom))
@@ -137,7 +137,7 @@
 		do_transform_mime(moving_atom)
 	else
 		to_chat(moving_atom, "Only items can be greyscaled.")
-		return
+
 
 /obj/machinery/transformer/proc/do_transform_mime(obj/item/I)
 	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
@@ -188,10 +188,10 @@
 		icon_state = initial(icon_state)
 
 /obj/machinery/transformer/xray/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(is_on_cooldown)
-		return
+		return .
 
 	// Crossed didn't like people lying down.
 	if(ishuman(moving_atom))
@@ -199,7 +199,7 @@
 		var/mob/living/carbon/human/H = moving_atom
 		var/move_dir = get_dir(loc, H.loc)
 
-		if(H.lying_angle && move_dir == acceptdir)
+		if(H.body_position == LYING_DOWN && move_dir == acceptdir)
 			H.forceMove(drop_location())
 			irradiate(H)
 

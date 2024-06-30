@@ -196,21 +196,30 @@
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
-/mob/living/simple_animal/StartResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_resting
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
 
-/mob/living/simple_animal/StopResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_living
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
+/mob/living/simple_animal/post_lying_on_rest()
+	if(stat == DEAD)
+		return
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting)
+		return
+	icon_state = icon_resting
+	if(collar_type)
+		collar_type = "[initial(collar_type)]_rest"
+		regenerate_icons()
+
+
+/mob/living/simple_animal/post_get_up()
+	if(stat == DEAD)
+		return
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	if(!icon_resting)
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = initial(collar_type)
+		regenerate_icons()
+
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
@@ -219,25 +228,35 @@
 		if(health <= 0)
 			death()
 		else
-			WakeUp()
+			set_stat(CONSCIOUS)
 	..()
+
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
 	return
 
+
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
-	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
-			turns_since_move++
-			if(turns_since_move >= turns_per_move)
-				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(GLOB.cardinal)
-					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir, cached_multiplicative_slowdown)
-						turns_since_move = 0
-			return 1
+	if(stop_automated_movement || !wander)
+		return
+	if(!isturf(loc) && !allow_movement_on_non_turfs)
+		return
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return TRUE
+
+	turns_since_move++
+	if(turns_since_move < turns_per_move)
+		return TRUE
+	if(stop_automated_movement_when_pulled && pulledby) //Some animals don't move when pulled
+		return TRUE
+	var/anydir = pick(GLOB.cardinal)
+	if(Process_Spacemove(anydir))
+		step_with_glide(direction = anydir)
+		turns_since_move = 0
+	return TRUE
+
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
@@ -292,20 +311,20 @@
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
 		atmos_suitable = FALSE
-		throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 	else
 		clear_alert("not_enough_oxy")
 		clear_alert("too_much_oxy")
 
 	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
 		atmos_suitable = FALSE
-		throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
 		atmos_suitable = FALSE
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 		clear_alert("not_enough_tox")
@@ -467,12 +486,10 @@
 
 /mob/living/simple_animal/revive()
 	..()
-	density = initial(density)
 	health = maxHealth
 	icon = initial(icon)
 	icon_state = icon_living
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-	update_canmove()
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
@@ -557,7 +574,7 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 	I.forceMove(src)
 
 	switch(slot)
@@ -581,50 +598,16 @@
 	if(pcollar)
 		. |= pcollar.GetAccess()
 
-/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(IsParalyzed() || IsStunned() || IsWeakened() || stat || resting)
-		drop_r_hand()
-		drop_l_hand()
-		canmove = FALSE
-	else if(buckled)
-		canmove = FALSE
-	else
-		canmove = TRUE
-	if(!canmove)
-		walk(src, 0) //stop mid walk
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
-/mob/living/simple_animal/update_transform()
-	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/changed = FALSE
-
-	if(resize != RESIZE_DEFAULT_SIZE)
-		changed = TRUE
-		ntransform.Scale(resize)
-		resize = RESIZE_DEFAULT_SIZE
-
-	if(!changed)
-		return
-
-	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
-	animate(src, transform = ntransform, time = UPDATE_TRANSFORM_ANIMATION_TIME, easing = EASE_IN|EASE_OUT)
-
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
 	can_have_ai = FALSE
 
 /mob/living/simple_animal/grant_death_vision()
-	sight |= SEE_TURFS
-	sight |= SEE_MOBS
-	sight |= SEE_OBJS
+	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 	nightvision = 8
-	see_invisible = SEE_INVISIBLE_OBSERVER
-	sync_lighting_plane_alpha()
+	set_invis_see(SEE_INVISIBLE_OBSERVER)
+	..()
 
 /mob/living/simple_animal/update_sight()
 	if(!client)
@@ -634,17 +617,17 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
+	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	sync_lighting_plane_alpha()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
@@ -669,10 +652,11 @@
 		toggle_ai(AI_ON)
 
 
-/mob/living/simple_animal/onTransitZ(old_z, new_z)
+/mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	if(AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+	if(AIStatus == AI_Z_OFF && old_turf?.z)
+		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
+	if(!QDELETED(src))
 		toggle_ai(initial(AIStatus))
 
 
@@ -703,7 +687,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 
 /mob/living/simple_animal/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -747,9 +731,40 @@
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
 
-/mob/living/simple_animal/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(pull_constraint(AM, show_message))
+/mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(pull_constraint(pulled_atom, state, supress_message))
 		return ..()
+	return FALSE
 
-/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
+
+
+/mob/living/simple_animal/update_movespeed()
+	. = ..()
+	if(cached_multiplicative_slowdown > END_GLIDE_SPEED)
+		ADD_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+
+
+/mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction, speed_override)
+	if(client)
+		return FALSE
+	if(!direction && !newloc)
+		return FALSE
+	if(!direction)
+		direction = get_dir(src, newloc)
+	else if(!newloc)
+		newloc = get_step(src, direction)
+		if(!newloc)
+			return FALSE
+	var/adjusted_delay = isnull(speed_override) ? cached_multiplicative_slowdown : speed_override
+	if(ISDIAGONALDIR(direction))
+		adjusted_delay *= sqrt(2)
+	. = Move(newloc, direction)
+	if(adjusted_delay <= END_GLIDE_SPEED)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+	else if(glide_size != DEFAULT_GLIDE_SIZE)
+		set_glide_size(DEFAULT_GLIDE_SIZE)
+

@@ -9,7 +9,7 @@
 
 	density = FALSE
 	stat = DEAD
-	canmove = FALSE
+
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -687,8 +687,9 @@
 /mob/new_player/proc/ViewManifest()
 	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
 
-/mob/new_player/Move()
-	return 0
+
+/mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 
 /mob/new_player/proc/close_spawn_windows()

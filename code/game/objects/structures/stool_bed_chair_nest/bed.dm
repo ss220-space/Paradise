@@ -22,18 +22,7 @@
 	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
-	buckle_offset = -6
 	var/comfort = 2 // default comfort
-
-
-/obj/structure/bed/post_buckle_mob(mob/living/target)
-	if(!target.resting)
-		target.StartResting()
-
-
-/obj/structure/bed/post_unbuckle_mob(mob/living/target)
-	if(target.resting)
-		target.StopResting()
 
 
 /obj/structure/bed/psych
@@ -56,7 +45,6 @@
 	max_integrity = 200
 	buildstacktype = /obj/item/stack/sheet/mineral/sandstone
 	buildstackamount = 15
-	buckle_offset = -7
 
 /obj/structure/bed/proc/handle_rotation()
 	return
@@ -88,10 +76,11 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_push_slowdown = 0	// used for transporting lying mobs
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
-	pull_push_speed_modifier = 1
+
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
@@ -109,19 +98,21 @@
 	else
 		return ..()
 
+
+/obj/structure/bed/roller/update_icon_state()
+	icon_state = has_buckled_mobs() ? icon_up : icon_down
+
+
 /obj/structure/bed/roller/post_buckle_mob(mob/living/target)
-	. = ..()
 	set_density(TRUE)
-	icon_state = icon_up
-	target.pixel_y = initial(target.pixel_y)
+	update_icon(UPDATE_ICON_STATE)
+	target.pixel_y = target.base_pixel_y + 3
 
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
-	. = ..()
 	set_density(FALSE)
-	icon_state = icon_down
-	target.pixel_x = target.get_standard_pixel_x_offset(target.lying_angle)
-	target.pixel_y = target.get_standard_pixel_y_offset(target.lying_angle)
+	update_icon(UPDATE_ICON_STATE)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 /obj/structure/bed/roller/holo
@@ -208,7 +199,6 @@
 	anchored = FALSE
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
-	buckle_offset = 0
 	comfort = 0.5
 
 /obj/structure/bed/dogbed/ian

@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
 
 	var/discord_id = null
 	var/discord_name = null
@@ -549,6 +550,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Input Lists:</b> <a href='?_src_=prefs;preference=input_lists'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "Default" : "TGUI"]</a><br>"
+			dat += "<b>Vote Popups:</b> <a href='?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "No" : "Yes"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
@@ -572,7 +574,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax in darkness:</b> <a href='?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Multi-Z Detail:</b> <a href='?_src_=prefs;preference=multiz_detail'>"
+			switch (multiz_detail)
+				if(MULTIZ_DETAIL_DEFAULT)
+					dat += "Default"
+				if(MULTIZ_DETAIL_LOW)
+					dat += "Low"
+				if(MULTIZ_DETAIL_MEDIUM)
+					dat += "Medium"
+				if(MULTIZ_DETAIL_HIGH)
+					dat += "High"
+				else
+					dat += "ERROR"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
@@ -643,10 +658,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/datum/gear/ticked = choosen_gears[G.display_name]
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr align='center' style='vertical-align:top;'><td width=20% align='center' style='vertical-align:middle'><B>[G.display_name]</B><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
-				else
-					dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+				dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				if(ticked)
 					for(var/datum/gear_tweak/tweak in ticked.gear_tweaks)
 						dat += "<br/><a href='?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
@@ -1419,7 +1431,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				choosen_gears -= TG.display_name
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
+					to_chat(user, span_warning("That gear is only available at [TG.donator_tier] and higher donation tier."))
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
@@ -2363,6 +2375,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("input_lists")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
 
+				if("vote_popup")
+					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
@@ -2381,14 +2396,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					var/actual_new_range = viewrange_options[new_range]
 
+					if(actual_new_range == parent.view)
+						return
 					viewrange = actual_new_range
-
-					if(actual_new_range != parent.view)
-						parent.view = actual_new_range
-						parent.fit_viewport()
-						// Update the size of the click catcher
-						var/list/actualview = getviewsize(parent.view)
-						parent.void.UpdateGreed(actualview[1],actualview[2])
+					parent.change_view(actual_new_range)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -2496,8 +2507,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(RENDER_PLANE_GAME_WORLD))
+							plane_master.show_to(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2511,13 +2522,51 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
 					if(!new_parallax)
 						return
+					/*
+					if(multiz_detail != MULTIZ_DETAIL_DEFAULT && parallax_styles[new_parallax] == PARALLAX_DISABLE)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with non-default Multi-Z settings. Please turn on \"Parallax\" in order to limit Multi-Z."))
+						return
+					*/
+
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
-				if("parallax_darkness")
-					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-					parent.mob?.hud_used?.update_parallax_pref()
+				if("multiz_detail")
+					var/multiz_det_styles = list(
+						"Default" = MULTIZ_DETAIL_DEFAULT,
+						"Low" = MULTIZ_DETAIL_LOW,
+						"Medium" = MULTIZ_DETAIL_MEDIUM,
+						"High" = MULTIZ_DETAIL_HIGH,
+					)
+
+					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
+					if(!new_value)
+						return
+					/*
+					if(parallax == PARALLAX_DISABLE && multiz_det_styles[new_value] != MULTIZ_DETAIL_DEFAULT)
+						to_chat(user, span_warning("Due to technical difficulties you can't set with disabled parallax. Please set \"Multi-Z Detail\" to default in order to disable Parallax."))
+						return
+					*/
+
+					multiz_detail = multiz_det_styles[new_value]
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+
+				if("parallax_multiz")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
+					var/datum/hud/my_hud = parent.mob?.hud_used
+					if(!my_hud)
+						return
+
+					for(var/group_key as anything in my_hud.master_groups)
+						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
+						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
 
 				if("keybindings")
 					if(!keybindings_overrides)
@@ -2838,7 +2887,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
 
-	character.dna.ready_dna(character, flatten_SE = 0)
+	character.dna.ready_dna(character, flatten_SE = FALSE)
 	character.sync_organ_dna(assimilate=1)
 	character.UpdateAppearance()
 

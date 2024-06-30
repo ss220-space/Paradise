@@ -34,6 +34,26 @@
 	if(.)
 		clothing_flags ^= visor_clothing_flags
 		flags_inv ^= visor_flags_inv
+		flags_inv_transparent ^= visor_flags_inv_transparent
+
+/obj/item/clothing/head/helmet/detective
+	name = "olive helmet"
+	desc = "Standard Security gear in olive color."
+	icon_state = "dechelmet"
+	item_state = "dechelmet"
+	flags_inv = HIDEHEADSETS
+	flags_cover = null
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+	)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"

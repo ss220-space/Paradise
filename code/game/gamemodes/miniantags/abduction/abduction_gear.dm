@@ -124,6 +124,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -529,7 +530,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(L.IsStunned() || L.IsSleeping() || L.IsWeakened())
+	if(HAS_TRAIT(L, TRAIT_INCAPACITATED))
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)

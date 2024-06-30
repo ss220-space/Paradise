@@ -19,10 +19,11 @@
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
 	return
 
-/turf/space/transit/Entered(atom/movable/AM, atom/OldLoc, ignoreRest = 0)
-	if(!AM)
+
+/turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(!arrived)
 		return
-	if(!AM.simulated || istype(AM, /obj/docking_port))
+	if(!arrived.simulated || istype(arrived, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
@@ -46,8 +47,8 @@
 
 	var/list/levels_available = get_all_linked_levels_zpos()
 	var/turf/T = locate(_x, _y, pick(levels_available))
-	AM.forceMove(T)
-	AM.newtonian_move(dir)
+	arrived.forceMove(T)
+	arrived.newtonian_move(dir)
 
 
 /turf/space/transit/rpd_act()
@@ -91,5 +92,5 @@
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE

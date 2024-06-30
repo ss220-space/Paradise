@@ -320,39 +320,37 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(panel_open)
-			to_chat(user, span_boldnotice("Close the maintenance panel first."))
-			return
-		if(!ismob(G.affecting))
-			return
-		if(occupant)
-			to_chat(user, span_boldnotice("The sleeper is already occupied!"))
-			return
-		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
-			return
-
-		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
-
-		if(do_after(user, 2 SECONDS, G.affecting))
-			if(occupant)
-				to_chat(user, span_boldnotice("The sleeper is already occupied!"))
-				return
-			if(!G || !G.affecting)
-				return
-			var/mob/M = G.affecting
-			M.forceMove(src)
-			occupant = M
-			update_icon(UPDATE_ICON_STATE)
-			to_chat(M, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
-			add_fingerprint(user)
-			qdel(G)
-			SStgui.update_uis(src)
-			return
-
 	return ..()
+
+
+/obj/machinery/sleeper/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
+		return .
+	var/mob/target = grabbed_thing
+	if(panel_open)
+		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		return .
+	if(occupant)
+		to_chat(grabber, span_warning("[src] is already occupied!"))
+		return .
+	if(target.abiotic())
+		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[target] will not fit into the [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
+		return .
+
+	visible_message("[grabber] starts putting [target] into [src].")
+	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+		return .
+
+	target.forceMove(src)
+	occupant = target
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(target, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
+	add_fingerprint(grabber)
+	SStgui.update_uis(src)
 
 
 /obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
@@ -546,9 +544,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(L, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
 	add_fingerprint(user)
-	if(user.pulling == L)
-		user.stop_pulling()
-	QDEL_LIST(L.grabbed_by)
 	SStgui.update_uis(src)
 
 

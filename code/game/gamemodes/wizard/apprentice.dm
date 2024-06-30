@@ -272,10 +272,10 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
-	owner.equip_or_collect(new /obj/item/clothing/suit/blacktrenchcoat/suit/saboteur, ITEM_SLOT_CLOTH_OUTER)
+	owner.equip_or_collect(new /obj/item/clothing/suit/storage/blacktrenchcoat/suit/saboteur, ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, ITEM_SLOT_HEAD)
 
-/obj/item/clothing/suit/blacktrenchcoat/suit/saboteur
+/obj/item/clothing/suit/storage/blacktrenchcoat/suit/saboteur
 	magical = TRUE
 	name = "Роба саботёра"
 	desc = "Магическая роба-саботёра. Стильная и приталенная!"
@@ -426,7 +426,7 @@
 	//Выдаем трейты ОРБа
 	if(!(XRAY in owner.mutations))
 		owner.mutations.Add(XRAY)
-		owner.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
+		owner.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
 		owner.nightvision = 8
 		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")

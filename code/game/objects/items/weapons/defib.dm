@@ -26,8 +26,8 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	/// If false, using harm intent will let you zap people. Note that any updates to this after init will only impact icons.
 	var/safety = TRUE
-	/// If true, this can be used through hardsuits, and can cause heart attacks in harm intent.
-	var/combat = FALSE
+	/// If true, this can be used through hardsuits
+	var/ignore_hardsuits = FALSE
 	// If safety is false and combat is true, the chance that this will cause a heart attack.
 	var/heart_attack_probability = 30
 	/// If this is vulnerable to EMPs.
@@ -65,7 +65,7 @@
 
 /obj/item/defibrillator/update_icon(updates = ALL)
 	update_power()
-	..()
+	. = ..()
 
 
 /obj/item/defibrillator/examine(mob/user)
@@ -264,6 +264,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "biotech=5"
+	heart_attack_probability = 10
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BELT)
@@ -280,7 +281,7 @@
 	icon_state = "defibcombat"
 	item_state = "defibcombat"
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
-	combat = TRUE
+	ignore_hardsuits = TRUE
 	safety = FALSE
 	heart_attack_probability = 100
 
@@ -295,10 +296,10 @@
 	icon_state = "defibnt"
 	item_state = "defibnt"
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
-	combat = TRUE
+	ignore_hardsuits = TRUE
 	safety = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
-	heart_attack_probability = 10
+	heart_attack_probability = 100
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
@@ -360,7 +361,7 @@
 /obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
 	if(check_defib_exists(mainunit))
 		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, combat = defib.combat, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
 	else
 		AddComponent(/datum/component/defib)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
@@ -459,7 +460,7 @@
 /obj/item/twohanded/shockpaddles/borg/add_defib_component(mainunit)
 	var/is_combat_borg = istype(loc, /obj/item/robot_module/syndicate_medical) || istype(loc, /obj/item/robot_module/ninja)
 
-	AddComponent(/datum/component/defib, robotic = TRUE, combat = is_combat_borg, safe_by_default = safety, emp_proof = TRUE, heart_attack_chance = heart_attack_probability)
+	AddComponent(/datum/component/defib, robotic = TRUE, ignore_hardsuits = is_combat_borg, safe_by_default = safety, emp_proof = TRUE, heart_attack_chance = heart_attack_probability)
 
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))

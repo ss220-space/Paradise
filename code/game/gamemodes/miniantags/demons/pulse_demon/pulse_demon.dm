@@ -29,7 +29,7 @@
 	response_harm = "punches their fist through"
 	deathmessage = "fizzles out into faint sparks, leaving only a slight trail of smoke..."
 	level = 1
-	plane = FLOOR_PLANE
+	plane = FLOOR_PLANE // I hate this
 	layer = ABOVE_PLATING_LAYER
 
 	maxHealth = 50
@@ -138,7 +138,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
-	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
+	RegisterSignal(src, COMSIG_PREQDELETED, PROC_REF(deleted_handler))
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
 
@@ -179,7 +179,7 @@
 
 	for(var/obj/structure/cable/C in T)
 		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
-		cable_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 		cable_images[T] += cable_image
 		client?.images += cable_image
 
@@ -213,15 +213,22 @@
 	mind.special_role = SPECIAL_ROLE_DEMON
 	give_objectives()
 
+
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("glow_color")
-			update_glow()
-		if("charge")
-			// automatically adjusts maxcharge to allow the new value
-			adjust_charge(var_value - charge, TRUE)
-			return TRUE
-	return ..()
+	if(var_name == NAMEOF(src, charge))
+		// automatically adjusts maxcharge to allow the new value
+		adjust_charge(var_value - charge, TRUE)
+		. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	. = ..()
+
+	if(var_name == NAMEOF(src, glow_color))
+		update_glow()
+
 
 /mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
 	var/old_location = loc
@@ -338,7 +345,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
 	return istype(A) && !(A.stat & BROKEN) && !A.shorted
 
-/mob/living/simple_animal/demon/pulse_demon/Move(newloc)
+/mob/living/simple_animal/demon/pulse_demon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
 
@@ -541,7 +548,7 @@
 			// 2 * initial_rate - upgrade_level
 			rate += initial(health_loss_rate)
 		adjustHealth(rate)
-		throw_alert(ALERT_CATEGORY_NOPOWER, /obj/screen/alert/pulse_nopower)
+		throw_alert(ALERT_CATEGORY_NOPOWER, /atom/movable/screen/alert/pulse_nopower)
 
 	if(regen_lock > 0)
 		if(--regen_lock == 0)
@@ -620,7 +627,7 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
@@ -657,12 +664,12 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-	apc_image.plane = ABOVE_LIGHTING_PLANE
+	SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
 
 	hijacked_apcs += A
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(apc_deleted_handler))
+	RegisterSignal(A, COMSIG_QDELETING, PROC_REF(apc_deleted_handler))
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
@@ -712,7 +719,7 @@
 
 			var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
 			// good visibility here
-			cable_image.plane = ABOVE_LIGHTING_PLANE
+			SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 			LAZYADD(cable_images[cable_turf], cable_image)
 			client.images += cable_image
 
@@ -724,7 +731,7 @@
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
 		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-		apc_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
@@ -735,7 +742,7 @@
 	. = ..()
 	visible_message(span_danger(">[src] [pick("fizzles", "wails", "flails")] in anguish!"))
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
-	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
+	throw_alert(ALERT_CATEGORY_NOREGEN, /atom/movable/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
 			adjustHealth(round(max(initial(health) / 4, round(maxHealth / 8))))
@@ -820,7 +827,7 @@
 /mob/living/simple_animal/demon/pulse_demon/IsAdvancedToolUser()
 	return TRUE // interacting with machines
 
-/mob/living/simple_animal/demon/pulse_demon/can_be_pulled()
+/mob/living/simple_animal/demon/pulse_demon/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -872,12 +879,12 @@
 				cell_location.update_icon() //update power meters and such
 			cell_to_charge.update_icon()
 
-/obj/screen/alert/pulse_nopower
+/atom/movable/screen/alert/pulse_nopower
 	name = "No Power"
 	desc = "You are not connected to a cable or machine and are losing health!"
 	icon_state = "pd_nopower"
 
-/obj/screen/alert/pulse_noregen
+/atom/movable/screen/alert/pulse_noregen
 	name = "Regeneration Stalled"
 	desc = "You've been EMP'd and cannot regenerate health!"
 	icon_state = "pd_noregen"

@@ -48,21 +48,21 @@
 	return ..()
 
 
-/obj/structure/kitchenspike/attackby(obj/item/grab/grab, mob/user)
-	if(!istype(grab, /obj/item/grab) || !isliving(grab.affecting))
-		return ..()
+/obj/structure/kitchenspike/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
 	if(has_buckled_mobs())
-		to_chat(user, span_danger("The spike already has something on it, finish collecting its meat first!"))
-		return
-	if(!do_after(user, 12 SECONDS, src, NONE) || QDELETED(grab))
-		return
-	var/mob/living/affected = grab.affecting
-	if(!spike(affected))
-		return
-	add_fingerprint(user)
-	affected.visible_message(
-		span_danger("[user] slams [affected] onto the meat spike!"),
-		span_userdanger("[user] slams you onto the meat spike!"),
+		to_chat(grabber, span_danger("The spike already has something on it, finish collecting its meat first!"))
+		return .
+	if(!do_after(grabber, 12 SECONDS, src, NONE) || !grabber || !grabbed_thing || grabber.pulling != grabbed_thing)
+		return .
+	if(!spike(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.visible_message(
+		span_danger("[grabber] slams [grabbed_thing] onto the meat spike!"),
+		span_userdanger("[grabber] slams you onto the meat spike!"),
 		span_italics("You hear a squishy wet noise."),
 	)
 
@@ -85,7 +85,6 @@
 		return FALSE
 	if(victim.buckled)
 		return FALSE
-	QDEL_LIST(victim.grabbed_by)
 	victim.forceMove(loc)
 	return buckle_mob(victim, force = TRUE, check_loc = FALSE)
 
@@ -132,16 +131,18 @@
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
-	target.pixel_y = target.get_standard_pixel_y_offset(180)
+	target.pixel_x = target.base_pixel_x
+	target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
 
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/target)
 	target.adjustBruteLoss(30)
 	target.emote("scream")
-	target.pixel_y = target.get_standard_pixel_y_offset(0)
 	var/matrix/m180 = matrix(target.transform)
 	m180.Turn(180)
 	animate(target, transform = m180, time = 0.3 SECONDS)
+	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 	target.AdjustWeakened(20 SECONDS)
 
 

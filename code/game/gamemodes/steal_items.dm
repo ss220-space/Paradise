@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	. = list()
 
 	var/list/stations_z = levels_by_trait(STATION_LEVEL)
-	var/list/station_turfs = block(locate(1, 1, stations_z[1]), locate(world.maxx, world.maxy, stations_z[length(stations_z)]))
+	var/list/station_turfs = block(1, 1, stations_z[1], world.maxx, world.maxy, stations_z[length(stations_z)])
 
 	for(var/turf/turf_check in station_turfs)
 		if(ispath(typepath, /mob/living))
@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/animal/floppa
 	id = "animal_floppa"
 	typepath = /mob/living/simple_animal/pet/cat/floppa
-	name = "рысь по кличке Big Floppa"
+	name = "каракала по кличке Big Floppa"
 
 /datum/theft_objective/animal/runtime
 	id = "animal_runtime"

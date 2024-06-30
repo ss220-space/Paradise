@@ -228,22 +228,13 @@
 	new /obj/item/storage/backpack/detective(src)
 	new /obj/item/storage/backpack/duffel/detective(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/clipboard(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/detective_scanner(src)
-	new /obj/item/ammo_box/speedloader/c38(src)
-	new /obj/item/ammo_box/speedloader/c38(src)
-	new /obj/item/gun/projectile/revolver/detective(src)
-	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/belt/security/detective(src)
 	new /obj/item/clothing/accessory/holobadge/detective(src)
 	new /obj/item/storage/garmentbag/detective(src)
+	new /obj/item/storage/box/revolver_kit(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

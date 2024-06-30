@@ -13,15 +13,12 @@
 	. = ..()
 	if(!GET_TURF_BELOW(src))
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
-	plane = OPENSPACE_PLANE
-	layer = OPENSPACE_LAYER
-	vis_contents += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/space/openspace/LateInitialize()
 	. = ..()
-	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
+	AddElement(/datum/element/turf_z_transparency)
 
 /turf/space/openspace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return TRUE // stops ruining parallax space
@@ -42,13 +39,13 @@
 		movable.set_currently_z_moving(CURRENTLY_Z_FALLING_FROM_MOVE)
 
 ///Makes movables fall when forceMove()'d to this turf.
-/turf/space/openspace/Entered(atom/movable/movable)
+/turf/space/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	var/mob/AM = movable
-	if(ismob(AM) && AM.buckled && AM.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
+	var/mob/mob = arrived
+	if(ismob(mob) && mob.buckled && mob.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
 		return
-	if(movable.set_currently_z_moving(CURRENTLY_Z_FALLING))
-		zFall(movable, falling_from_move = TRUE)
+	if(arrived.set_currently_z_moving(CURRENTLY_Z_FALLING))
+		zFall(arrived, falling_from_move = TRUE)
 /**
  * Drops movables spawned on this turf only after they are successfully initialized.
  * so flying mobs, qdeleted movables and things that were moved somewhere else during

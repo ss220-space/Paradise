@@ -14,7 +14,7 @@
 	max_integrity = 200
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	damage_deflection = 10
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	/// The last time a sound was played from this
 	var/last_sound
@@ -85,7 +85,7 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	hide(T.intact && !isspaceturf(T) && !T.transparent_floor)	// space never hides pipes
+	hide(T.intact)	// space never hides pipes
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -93,7 +93,7 @@
 // change visibility status and force update of icon
 /obj/structure/disposalpipe/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 // update actual icon_state depending on visibility
 // if invisible, append "f" to icon_state to show faded version
@@ -104,6 +104,11 @@
 		icon_state = "[base_icon_state]f"
 	else
 		icon_state = base_icon_state
+	var/turf/T = get_turf(src)
+	if(T.transparent_floor)
+		SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
+	else
+		SET_PLANE_IMPLICIT(src, GAME_PLANE)
 
 
 // expel the held objects into a turf

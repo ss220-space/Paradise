@@ -90,6 +90,11 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
+/turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
+	oxygen = /turf/simulated/floor/plating/lava/smooth::oxygen //lava near tendril
+	nitrogen = /turf/simulated/floor/plating/lava/smooth::nitrogen
+	temperature = /turf/simulated/floor/plating/lava/smooth::temperature
+
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
@@ -154,6 +159,7 @@
 /turf/simulated/floor/indestructible/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
+	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/abductor/Initialize(mapload)
 	. = ..()
@@ -228,22 +234,20 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+/turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/creature = AM
-			creature.ExtinguishMob()
-		linkedcontroller.mobinpool += AM
+	if(!linkedcontroller || !ismob(arrived))
+		return .
+	if(isliving(arrived))
+		var/mob/living/creature = arrived
+		creature.ExtinguishMob()
+	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		linkedcontroller.mobinpool -= AM
+	if(!linkedcontroller || !ismob(departed))
+		return .
+	linkedcontroller.mobinpool -= departed
 
 /turf/simulated/floor/indestructible/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)
@@ -327,4 +331,4 @@
 	icon = null
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE

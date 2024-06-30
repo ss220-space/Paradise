@@ -31,6 +31,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		return
 	. = ..()
 
+	var/mutable_appearance/light_appearance = new(GLOB.default_lighting_underlays_by_z[source.z])
+	appearance = light_appearance
+
 	affected_turf = source
 	if (affected_turf.lighting_object)
 		qdel(affected_turf.lighting_object, force = TRUE)
@@ -122,8 +125,8 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/blob_act(obj/structure/blob/B)
 	return
 
-/atom/movable/lighting_object/onTransitZ()
-	return
+/atom/movable/lighting_object/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
+	return ..()
 
 // Override here to prevent things accidentally moving around overlays.
 /atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
@@ -136,7 +139,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/Uncrossed(atom/movable/AM)
 	return
 
-/atom/movable/lighting_object/Bump(atom/A, yes)
+/atom/movable/lighting_object/Bump(atom/bumped_atom)
 	return
 
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)

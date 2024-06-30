@@ -147,9 +147,9 @@
 		stat("Resources:",resources)
 
 
-/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(obj/machinery/atmospherics/ventcrawl_target)
+/mob/living/simple_animal/hostile/swarmer/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-	if(. == VENTCRAWL_IN_SUCCESS && light_on)
+	if(. && light_on)
 		ToggleLight()
 
 
@@ -730,10 +730,10 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
+	if(!light_on && is_ventcrawling(src))
+		to_chat(src, span_warning("You cannot toggle light in vent!"))
+		return
+	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")

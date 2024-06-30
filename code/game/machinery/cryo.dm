@@ -328,22 +328,25 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
-		if(panel_open)
-			to_chat(user, span_boldnotice("Сначала закройте панель техобслуживания."))
-			return
-		if(!ismob(GG.affecting))
-			return
-		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм."))
-			return
-		var/mob/M = GG.affecting
-		if(put_mob(M))
-			add_fingerprint(user)
-			qdel(GG)
-		return
 	return ..()
+
+
+/obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Сначала закройте панель техобслуживания."))
+		return .
+	if(occupant)
+		to_chat(grabber, span_warning("Криокапсула уже занята!"))
+		return .
+	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[grabbed_thing] не влеза[pluralize_ru(grabbed_thing.gender,"ет","ют")] в [src] потому что к [genderize_ru(grabbed_thing.gender,"его","её","его","их")] голове прилеплен слайм."))
+		return .
+	if(put_mob(grabbed_thing))
+		add_fingerprint(grabber)
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -474,7 +477,6 @@
 	if(!node)
 		to_chat(usr, span_warning("Криокапсула не подключена к трубам!"))
 		return
-	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
@@ -556,7 +558,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
-	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.

@@ -1,9 +1,3 @@
-/area/awaymission/upperlevel
-	name = "Open Space"
-	color = "#888"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	requires_power = FALSE
-
 // Used by /turf/simulated/floor/indestructible/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
 	name = "level reference"
@@ -107,7 +101,7 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
@@ -126,13 +120,13 @@
 	if(lower_turf)
 		sensor = new(lower_turf, src)
 
-/turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
-	if(isliving(AM) || isobj(AM))
-		if(isliving(AM))
-			var/mob/living/M = AM
-			M.emote("scream")
-			M.SpinAnimation(5, 1)
-		AM.forceMove(lower_turf)
+/turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(ismovable(arrived))
+		if(isliving(arrived))
+			var/mob/living/mob = arrived
+			mob.emote("scream")
+			mob.SpinAnimation(5, 1)
+		arrived.forceMove(lower_turf)
 
 /turf/simulated/floor/indestructible/upperlevel/attack_ghost(mob/user)
 	user.forceMove(lower_turf)
@@ -198,10 +192,10 @@
 
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "loadingarea"
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	invisibility = 0
-	appearance_flags = TILE_BOUND | KEEP_TOGETHER
+	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
 	var/dist = 6				// dist that we render out
 	var/radius = 3				// dist we render on other axis, in each direction
 	var/frustrum = 0			// if 1, get wider and wider at each step outward
@@ -238,7 +232,7 @@
 	if(Tloc)
 		Tloc.icon = null
 		Tloc.icon_state = null
-		Tloc.dynamic_lighting = 0
+		Tloc.always_lit = TRUE
 		layer = AREA_LAYER + 0.5
 
 	// setup references
@@ -276,7 +270,7 @@
 		nvs = SIGN(nvs)
 	// need a mob for view() to work correctly
 	var/mob/M = new(near_viewpoint)
-	M.see_invisible = SEE_INVISIBLE_LIVING
+	M.set_invis_see(SEE_INVISIBLE_LIVING)
 	near_render_block = view(M, world.view)
 	qdel(M)
 	for(var/A in near_render_block)
@@ -293,35 +287,38 @@
 			near_render_block -= T
 
 /obj/effect/view_portal/visual/Bumped(atom/movable/thing)
-	if((isobj(thing) || isliving(thing)) && other && teleport)
-		if(!near_render_block)
-			setup_near()
+	. = ..()
+	if(!ismovable(thing) || !other || !teleport)
+		return .
 
-		var/mob/living/M = thing
-		// make the person glide onto the dest, giving a smooth transition
-		var/ox = thing.x - x
-		var/oy = thing.y - y
+	if(!near_render_block)
+		setup_near()
+
+	var/mob/living/M = thing
+	// make the person glide onto the dest, giving a smooth transition
+	var/ox = thing.x - x
+	var/oy = thing.y - y
+	if(istype(M) && M.client)
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		// cover up client-side map loading
+		M.screen_loc = "CENTER"
+		M.client.screen += M
+		for(var/T in tiles)
+			M.client.screen += tiles[T]
+
+	// wait a tick for the screen to replicate across network
+	// or this whole exercise of covering the transition is pointless
+	spawn(1)
+		thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
+		sleep(1)
 		if(istype(M) && M.client)
-			ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-			// cover up client-side map loading
-			M.screen_loc = "CENTER"
-			M.client.screen += M
 			for(var/T in tiles)
-				M.client.screen += tiles[T]
-
-		// wait a tick for the screen to replicate across network
-		// or this whole exercise of covering the transition is pointless
-		spawn(1)
-			thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
-			sleep(1)
-			if(istype(M) && M.client)
-				for(var/T in tiles)
-					M.client.screen -= tiles[T]
-				M.client.screen -= M
-				M.screen_loc = initial(M.screen_loc)
-			thing.forceMove(get_turf(other.loc))
-			if(istype(M) && M.client)
-				REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+				M.client.screen -= tiles[T]
+			M.client.screen -= M
+			M.screen_loc = initial(M.screen_loc)
+		thing.forceMove(get_turf(other.loc))
+		if(istype(M) && M.client)
+			REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/effect/view_portal/visual/attack_ghost(mob/user)
