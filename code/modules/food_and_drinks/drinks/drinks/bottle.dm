@@ -164,7 +164,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/whiskey
 	name = "Uncle Git's Special Reserve"
-	desc = "A premium single-malt whiskey, gently matured in the corner of a desert saloon. There is a turkey beak on the bottom of the bottle."
+	desc = "A premium single-malt whiskey, gently matured inside the tunnels of a nuclear shelter. TUNNEL WHISKEY RULES."
 	icon_state = "whiskeybottle"
 	list_reagents = list("whiskey" = 100)
 

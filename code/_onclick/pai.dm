@@ -173,4 +173,4 @@
 
 /mob/living/silicon/pai/proc/reset_cooldown()
 	capa_is_cooldown = FALSE
-	to_chat(src, "<span class = 'notice'>Your ability to interact with airlocks has been restored.</span>")
+	src.balloon_alert(src, "можно снова взаимодействовать с машинерией!")

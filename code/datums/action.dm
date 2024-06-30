@@ -221,7 +221,7 @@
 		return FALSE
 	if(target && attack_self)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type, left_click)
+		I.ui_action_click(owner, src, left_click)
 	return TRUE
 
 
@@ -305,11 +305,6 @@
 
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
-
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE)
-	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
-	if(istype(H))
-		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
@@ -472,6 +467,8 @@
 
 /datum/action/item_action/toggle_jetpack/ninja
 	name = "Toggle Jetpack"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
 	return
@@ -486,11 +483,13 @@
 
 /datum/action/item_action/jetpack_stabilization/ninja
 	name = "Toggle Jetpack Stabilization"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
 	. = ..()
 	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.stabilizers)
+	if(!istype(J) || !J.stabilize)
 		button.icon_state = "[background_icon_state]"
 	else
 		button.icon_state = "[background_icon_state]_active"

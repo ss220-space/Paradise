@@ -87,7 +87,7 @@
 		H.dna.species.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
-	owner.remove_status_effect_absorption(id, list(STUN, WEAKEN, KNOCKDOWN))
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN))
 
 
 /datum/status_effect/exercised

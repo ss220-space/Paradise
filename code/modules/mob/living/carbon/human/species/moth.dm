@@ -126,7 +126,7 @@
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	. = FALSE
 	var/turf/user_turf = get_turf(user)
 	if(!user_turf)

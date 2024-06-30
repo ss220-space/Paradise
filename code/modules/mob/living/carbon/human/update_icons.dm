@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
-		if(husk && ("overlay_husk" in icon_states(chest.icobase)))
+		if(husk && icon_exists(chest.icobase, "overlay_husk"))
 			var/icon/mask = new(base_icon)
 			var/icon/husk_over = new(chest.icobase,"overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/standing = mutable_appearance(issmall(src) ? 'icons/mob/clothing/species/monkey/genetics.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(is_monkeybasic(src) ? 'icons/mob/clothing/species/monkey/genetics.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = FALSE
 	var/g = "m"
 	if(gender == FEMALE)
@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FIRE_LAYER)
 	if(on_fire)
 		if(!overlays_standing[FIRE_LAYER])
-			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI, icon_state = "Standing", layer = -FIRE_LAYER)
+			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI(src), icon_state = "Standing", layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
 
 
@@ -533,7 +533,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_INNER) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_CLOTH_INNER & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_CLOTH_INNER)
 		return
 
 	if(istype(w_uniform, /obj/item/clothing/under))
@@ -618,7 +618,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_GLOVES & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_GLOVES)
 		return
 
 	if(gloves)
@@ -662,7 +662,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_EYES & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_EYES)
 		return
 
 	if(glasses)
@@ -708,7 +708,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_EARS & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_EARS)
 		return
 
 	if(l_ear || r_ear)
@@ -746,7 +746,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
 		inv?.update_icon()
 
-	if(ITEM_SLOT_FEET & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_FEET)
 		return
 
 	if(shoes)
@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ)
 		return
 
-	if(ITEM_SLOT_MASK & check_obscured_slots())
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
 		return
 
 	if((istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
@@ -940,7 +940,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(back.onmob_sheets[ITEM_SLOT_BACK_STRING], "[back.icon_state]", layer = -BACK_LAYER, alpha = back.alpha, color = back.color)
 		if(back.sprite_sheets?[dna.species.name])
-			standing = back.sprite_sheets[dna.species.name]
+			standing.icon = back.sprite_sheets[dna.species.name]
 
 		overlays_standing[BACK_LAYER] = standing
 

@@ -309,7 +309,7 @@
 
 	var/other_hand = shooter.get_organ(shooter.hand ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !other_hand))
-		to_chat(shooter, span_warning("You need to use both hands!"))
+		balloon_alert(shooter, "нужны обе руки!")
 		return FALSE
 
 	return TRUE

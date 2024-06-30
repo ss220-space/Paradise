@@ -6,20 +6,12 @@
 		return FALSE
 
 	hand = !hand
-	update_hud_hands()
+	update_hands_HUD()
 	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
+	return TRUE
 
 
-/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
-
-	if(istext(selhand))
-		selhand = lowertext(selhand)
-
-		if(selhand == "right" || selhand == "r")
-			selhand = 0
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-
+/mob/living/carbon/activate_hand(selhand)
 	if(selhand != hand)
 		swap_hand()
 
@@ -68,21 +60,13 @@
 	handcuffed = new_value
 	if(.)
 		if(!handcuffed)
+			clear_alert(ALERT_HANDCUFFED)
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 	else if(handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 
-
-/// Called when we get cuffed/uncuffed
-/mob/living/carbon/proc/update_handcuffed_status()
-	if(handcuffed)
-		drop_from_hands()
-		stop_pulling()
-		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
-	else
-		clear_alert(ALERT_HANDCUFFED)
-
-	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
+	update_hands_HUD()
 	update_inv_handcuffed()
 
 
@@ -320,8 +304,6 @@
 		set_handcuffed(null)
 		if(buckled?.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
-		if(!QDELETED(src))
-			update_handcuffed_status()
 
 	else if(I == legcuffed)
 		set_legcuffed(null)
@@ -349,6 +331,9 @@
 		return FALSE
 
 	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
+		return FALSE
+
+	if(!isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && ((hand_id == ITEM_SLOT_HAND_LEFT && pull_hand == PULL_HAND_LEFT) || (hand_id == ITEM_SLOT_HAND_RIGHT && pull_hand == PULL_HAND_RIGHT)))
 		return FALSE
 
 	return hand_id == ITEM_SLOT_HAND_LEFT ? !l_hand : !r_hand

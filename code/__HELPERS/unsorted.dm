@@ -121,7 +121,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
 
 			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
+			for(var/turf/T in block(center.x+b1xerror,center.y+b1yerror,location.z, center.x+b2xerror,center.y+b2yerror,location.z) )
 				if(density&&T.density)	continue//If density was specified.
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
@@ -506,27 +506,28 @@ Returns 1 if the chain up to the area contains the given typepath
 		weight += I.w_class
 	return weight
 
-//Step-towards method of determining whether one atom can see another. Similar to viewers()
-/proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current = get_turf(source)
+
+///Step-towards method of determining whether one atom can see another. Similar to viewers()
+///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
+/proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(source)
 	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
 	var/steps = 1
-
-	if(current != target_turf)
-		current = get_step_towards(current, target_turf)
-		while(current != target_turf)
-			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
-			current = get_step_towards(current, target_turf)
-			steps++
-
-	return 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
 
 
 //Returns: all the areas in the world
@@ -690,7 +691,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 						if(!isobj(O)) continue
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X, TRUE)
 						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
@@ -2004,9 +2005,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
-
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
 	if(!location)
@@ -2161,3 +2159,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
+
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+

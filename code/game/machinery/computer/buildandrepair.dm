@@ -175,6 +175,11 @@
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
 
+/obj/item/circuitboard/teleporter/robotics
+	board_name = "Robotics Teleporter Console"
+	build_path = /obj/machinery/computer/teleporter/robotics
+	origin_tech = "programming=2;bluespace=3;plasmatech=2"
+
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	build_path = /obj/machinery/computer/secure_data

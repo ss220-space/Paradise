@@ -64,13 +64,17 @@
 		mezzer()
 
 
-/obj/singularity/ratvar/Bump(atom/A)//you dare stand before a god?!
-	godsmack(A)
-	return
+/obj/singularity/ratvar/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
+	. = ..()
+	if(.)
+		return .
+	godsmack(bumped_atom)
 
-/obj/singularity/ratvar/Bumped(atom/movable/moving_atom)
+
+/obj/singularity/ratvar/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+	. = ..()
 	godsmack(moving_atom)
-	return
+
 
 /obj/singularity/ratvar/proc/godsmack(atom/A)
 	if(istype(A,/obj/))

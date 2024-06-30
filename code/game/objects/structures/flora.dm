@@ -399,14 +399,16 @@
 	icon_state = "bush1"
 	density = TRUE
 	anchored = TRUE
-	layer = 3.2
+	layer = ABOVE_OBJ_LAYER
 	var/indestructable = 0
 	var/stump = 0
+
 
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
-		opacity = 1
+		set_opacity(TRUE)
+
 
 /obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	//hatchets can clear away undergrowth

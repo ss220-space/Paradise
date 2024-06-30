@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	py = new_py
 	Show()
 
-/obj/effect/hallucination/simple/Move()
+/obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
 
@@ -235,8 +235,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			borer.glide_for(3)
-			walk_to(borer, get_step(borer, get_cardinal_dir(borer, T)))
+			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
 				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 				T.Stun(8 SECONDS)
@@ -598,7 +597,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	desc = ""
 	density = FALSE
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null

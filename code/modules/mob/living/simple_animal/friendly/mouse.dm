@@ -1,8 +1,7 @@
-#define SNIFF	 1
-#define SHAKE	 2
-#define SCRATCH	 3
-#define WASHUP	 4
-#define ASSSHAKE 5
+#define SNIFF 1
+#define SHAKE 2
+#define SCRATCH 3
+#define WASHUP 4
 
 /mob/living/simple_animal/mouse
 	name = "mouse"
@@ -54,7 +53,8 @@
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white)
+			/mob/living/simple_animal/mouse/white,
+			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -87,7 +87,7 @@
 		if(prob(1))
 			set_resting(FALSE, instant = TRUE)
 			if(is_available_for_anim())
-				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP, ASSSHAKE))
+				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
@@ -117,7 +117,6 @@
 		verbs += /mob/living/simple_animal/mouse/proc/shake
 		verbs += /mob/living/simple_animal/mouse/proc/scratch
 		verbs += /mob/living/simple_animal/mouse/proc/washup
-		verbs += /mob/living/simple_animal/mouse/proc/ass_shake
 
 
 /mob/living/simple_animal/mouse/proc/color_pick()
@@ -306,10 +305,10 @@
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents mouse from pulling things
+	if(istype(pulled_atom, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
-	if(show_message)
+	if(!supress_message)
 		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
@@ -391,23 +390,17 @@
 
 	emote("mwashup", intentional = TRUE)
 
-/mob/living/simple_animal/mouse/proc/ass_shake()
-	set name = "Крутить задницей"
-	set desc = "Крутит задницей"
-	set category = "Мышь"
-
-	emote("massshake", intentional = TRUE)
-
 /datum/emote/living/simple_animal/mouse/idle
 	key = "msniff"
 	key_third_person = "msniffs"
 	message = "нюха%(ет,ют)%!"
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("гортанные", "громкие")
-	cooldown = 10 SECONDS
-	audio_cooldown = 10 SECONDS
+	cooldown = 1 MINUTES
+	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)
@@ -437,12 +430,6 @@
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"
 	anim_type = WASHUP
-
-/datum/emote/living/simple_animal/mouse/idle/ass_shake
-	key = "massshake"
-	key_third_person = "massshakes"
-	message = "крут%(ит,ят)% задницей!"
-	anim_type = ASSSHAKE
 
 /*
  * Mouse types
@@ -659,7 +646,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 		GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
@@ -685,9 +672,10 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(show_message)
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы, чтобы что-то тащить."))
+	return FALSE
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -717,4 +705,3 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 #undef SHAKE
 #undef SCRATCH
 #undef WASHUP
-#undef ASSSHAKE

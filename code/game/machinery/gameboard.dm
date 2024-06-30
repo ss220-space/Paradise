@@ -45,11 +45,11 @@
 	. = ..()
 	if(.)
 		return
-	if(src.in_use)
-		to_chat(user, "This gameboard is already in use!")
+	if(in_use)
+		balloon_alert(user, "уже используется!")
 		return
 	if(!anchored)
-		to_chat(user, "The gameboard is not secured!")
+		balloon_alert(user, "не закреплено!")
 		return
 	interact(user)
 

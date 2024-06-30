@@ -101,7 +101,7 @@
 	holder?.update_icon()
 
 
-/obj/item/assembly/prox_sensor/Move(atom/newloc, direct = NONE, movetime)
+/obj/item/assembly/prox_sensor/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	sense()
 

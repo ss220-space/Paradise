@@ -8,7 +8,7 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
 	init_air = FALSE
@@ -35,7 +35,7 @@
 	if(!canSmoothWith)
 		canSmoothWith = list(/turf/simulated/mineral)
 	var/matrix/M = new
-	M.Translate(-4, -4)
+	//M.Translate(-4, -4)
 	transform = M
 	icon = smooth_icon
 	. = ..()
@@ -126,7 +126,7 @@
 		var/amount = hardness
 		var/mutable_appearance/cracks = mutable_appearance('icons/turf/mining.dmi',"rock_cracks_[amount]",ON_EDGED_TURF_LAYER)
 		var/matrix/M = new
-		M.Translate(4,4)
+		//M.Translate(4,4)
 		cracks.transform = M
 		. += cracks
 
@@ -145,7 +145,7 @@
 
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(ishuman(moving_atom))
 		var/mob/living/carbon/human/H = moving_atom
 		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
@@ -249,6 +249,7 @@
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ROCK
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 	var/static/list/allowed_picks_typecache
 
 /turf/simulated/mineral/ancient/outer/Initialize(mapload)

@@ -220,6 +220,17 @@
 /obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[state][panel]"
 
+
+/obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || state != 1 || !hacked || !iscorgi(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	state = 3
+	update_icon()
+
+
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
 	/*if(istype(W,/obj/item/screwdriver))
 		panel = !panel
@@ -237,17 +248,6 @@
 				update_icon()
 			else
 				return ..()
-		else
-			return ..()
-	else if(istype(W,/obj/item/grab))
-		if( (state == 1) && hacked)
-			var/obj/item/grab/G = W
-			if(ishuman(G.assailant) && iscorgi(G.affecting))
-				add_fingerprint(user)
-				G.affecting.forceMove(src)
-				qdel(G)
-				state = 3
-			update_icon()
 		else
 			return ..()
 	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \

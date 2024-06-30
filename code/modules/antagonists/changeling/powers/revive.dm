@@ -12,12 +12,12 @@
 
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 
-	for(var/obj/item/grab/grab in user.grabbed_by)
-		var/mob/living/carbon/grab_owner = grab.assailant
+	if(user.pulledby)
+		var/mob/living/carbon/grab_owner = user.pulledby
 		user.visible_message(span_warning("[user] suddenly hits [grab_owner] in the face and slips out of their grab!"))
-		grab_owner.Stun(2 SECONDS) //Drops the grab
 		grab_owner.apply_damage(5, BRUTE, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
-		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
+		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+		grab_owner.stop_pulling()
 
 	user.revive()
 	user.updatehealth("revive sting")

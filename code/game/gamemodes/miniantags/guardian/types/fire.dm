@@ -36,28 +36,23 @@
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 				summoner.AdjustHallucinate(10 SECONDS)
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
-	..()
+
+/mob/living/simple_animal/hostile/guardian/fire/Crossed(atom/movable/AM, oldloc)
+	. = ..()
 	collision_ignite(AM)
 
-/mob/living/simple_animal/hostile/guardian/fire/Bumped(atom/movable/moving_atom)
-	..()
-	collision_ignite(moving_atom)
 
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
+/mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)
+	. = ..()
+	collision_ignite(bumped_mob)
 
-/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(AM as mob|obj)
+
+/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(AM != summoner && M.fire_stacks < 7)
 			M.fire_stacks = 7
 			M.IgniteMob()
-
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
 
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination

@@ -9,72 +9,127 @@
 	integrity_failure = 70
 	generic_pixel_x = 0
 	generic_pixel_y = 4
-	vehicle_move_delay = 1
-	pull_push_speed_modifier = 1
-	var/static/mutable_appearance/atvcover
+	vehicle_move_delay = 0.25 SECONDS
+	var/mutable_appearance/atvcover
+
 
 /obj/vehicle/atv/Initialize(mapload)
 	. = ..()
-	atvcover = mutable_appearance(icon, atvcover, ABOVE_MOB_LAYER)
+	atvcover = mutable_appearance(icon, "atvcover", ABOVE_MOB_LAYER + 0.1)
 
 
-/obj/vehicle/atv/post_buckle_mob(mob/living/target)
+/obj/vehicle/atv/Destroy()
+	atvcover = null
+	return ..()
+
+
+/obj/vehicle/atv/update_overlays()
 	. = ..()
-	add_overlay(atvcover)
+	if(!has_buckled_mobs())
+		return .
+	. += atvcover
 
 
-/obj/vehicle/atv/post_unbuckle_mob(mob/living/target)
-	. = ..()
-	cut_overlay(atvcover)
+/obj/vehicle/atv/handle_vehicle_icons()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/vehicle/atv/handle_vehicle_layer()
-	if(dir == SOUTH)
-		layer = ABOVE_MOB_LAYER
-	else
-		layer = OBJ_LAYER
+	return
+
 
 //TURRETS!
 /obj/vehicle/atv/turret
-	var/obj/machinery/porta_turret/syndicate/vehicle_turret/turret = null
+	var/obj/machinery/porta_turret/syndicate/vehicle_turret/turret = /obj/machinery/porta_turret/syndicate/vehicle_turret
 
-/obj/machinery/porta_turret/syndicate/vehicle_turret
-	name = "mounted turret"
-	scan_range = 7
-	emp_vulnerable = 1
-	density = FALSE
 
 /obj/vehicle/atv/turret/Initialize(mapload)
 	. = ..()
-	turret = new(loc)
-	//turret.base = src
+	turret = new turret(loc)
+	handle_vehicle_offsets()
+	handle_vehicle_icons()
+	RegisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_glide_size_update))
+	RegisterSignal(turret, COMSIG_QDELETING, PROC_REF(on_turret_deleting))
+
+
+/obj/vehicle/atv/turret/Destroy()
+	QDEL_NULL(turret)
+	return ..()
+
+
+/obj/vehicle/atv/turret/proc/on_glide_size_update(datum/source, new_glide_size)
+	SIGNAL_HANDLER
+	turret?.set_glide_size(new_glide_size)
+
+
+/obj/vehicle/atv/turret/proc/on_turret_deleting(datum/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE)
+	turret = null
+
+
+/obj/vehicle/atv/turret/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(. && turret)
+		turret.forceMove(loc)
+
 
 /obj/vehicle/atv/turret/handle_vehicle_layer()
+	if(!turret)
+		return
+	if(!has_buckled_mobs())
+		turret.layer = OBJ_LAYER + 0.01
+		return
 	if(dir == SOUTH)
-		layer = ABOVE_MOB_LAYER
+		turret.layer = OBJ_LAYER + 0.01
 	else
-		layer = OBJ_LAYER
+		turret.layer = ABOVE_MOB_LAYER + 0.01
 
-	if(turret)
-		if(dir == NORTH)
-			turret.layer = ABOVE_MOB_LAYER
-		else
-			turret.layer = OBJ_LAYER
+
+/obj/vehicle/atv/turret/update_overlays()
+	. = list(atvcover)
+
 
 /obj/vehicle/atv/turret/handle_vehicle_offsets()
-	..()
-	if(turret)
-		turret.loc = loc
-		switch(dir)
-			if(NORTH)
-				turret.pixel_x = 0
-				turret.pixel_y = 4
-			if(EAST)
-				turret.pixel_x = -12
-				turret.pixel_y = 4
-			if(SOUTH)
-				turret.pixel_x = 0
-				turret.pixel_y = 4
-			if(WEST)
-				turret.pixel_x = 12
-				turret.pixel_y = 4
+	. = ..()
+	if(!turret)
+		return
+
+	switch(dir)
+		if(NORTH)
+			turret.pixel_x = 0
+			turret.pixel_y = 4
+		if(EAST)
+			turret.pixel_x = -12
+			turret.pixel_y = 4
+		if(SOUTH)
+			turret.pixel_x = 0
+			turret.pixel_y = 4
+		if(WEST)
+			turret.pixel_x = 12
+			turret.pixel_y = 4
+
+
+/obj/vehicle/atv/turret/fast
+	turret = /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
+
+
+/obj/machinery/porta_turret/syndicate/vehicle_turret
+	name = "mounted turret"
+	animate_movement = SLIDE_STEPS
+	scan_range = 7
+	emp_vulnerable = TRUE
+	density = FALSE
+	layer = OBJ_LAYER + 0.01
+
+
+/obj/machinery/porta_turret/syndicate/vehicle_turret/fast
+	projectile = /obj/item/projectile/bullet/weakbullet4/c9mmte
+	eprojectile = /obj/item/projectile/bullet/weakbullet4/c9mmte
+	shot_delay = 0.2 SECONDS
+
+
+/obj/machinery/porta_turret/syndicate/vehicle_turret/fast/Initialize(mapload)
+	. = ..()
+	makeSpeedProcess()
+

@@ -2507,7 +2507,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(length(parent?.screen))
-						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(GAME_PLANE))
+						for(var/atom/movable/screen/plane_master/plane_master as anything in parent.mob?.hud_used?.get_true_plane_masters(RENDER_PLANE_GAME_WORLD))
 							plane_master.show_to(parent.mob)
 
 				if("parallax")

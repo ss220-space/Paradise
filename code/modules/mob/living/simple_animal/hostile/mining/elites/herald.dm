@@ -139,7 +139,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/item/projectile/herald/teleshot/H = new(startloc)
-		H.preparePixelProjectile(marker, marker, startloc)
+		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
 		if(target)
@@ -152,7 +152,7 @@
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	say("Молись")
-	SLEEP_CHECK_DEATH(0.5 SECONDS)// no point blank instant shotgun.
+	SLEEP_CHECK_DEATH(src, 0.5 SECONDS)// no point blank instant shotgun.
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)

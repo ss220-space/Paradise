@@ -184,7 +184,6 @@
 	movetypes = (FLYING|FLOATING)
 
 
-/*
 /datum/movespeed_modifier/grab_slowdown
 	id = MOVESPEED_ID_MOB_GRAB_STATE
 	blacklisted_movetypes = FLOATING
@@ -207,6 +206,12 @@
 	blacklisted_movetypes = FLOATING
 
 
+/datum/movespeed_modifier/bulky_push
+	variable = TRUE
+	blacklisted_movetypes = FLOATING
+
+
+/*
 /datum/movespeed_modifier/carbon_softcrit
 	multiplicative_slowdown = SOFTCRIT_ADD_SLOWDOWN
 	flags = IGNORE_NOSLOW

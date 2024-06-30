@@ -20,7 +20,7 @@
 	anchored = TRUE
 	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
-	opacity = 0
+	opacity = FALSE
 	layer = BELOW_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
 

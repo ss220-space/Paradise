@@ -7,6 +7,12 @@
 	no_guns = TRUE
 	no_guns_message = "Будь как карп. Карпы не стреляют из пушек. CARP!"
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 40,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keelhaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
 
 /datum/martial_art/the_sleeping_carp/can_use(mob/living/carbon/human/H)
@@ -14,12 +20,13 @@
 		return FALSE
 	return ..()
 
-/datum/martial_art/the_sleeping_carp/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A,1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker) //Instant aggressive grab
+		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)

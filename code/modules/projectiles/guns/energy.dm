@@ -235,7 +235,49 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(!isnull(user) && shot.select_name)
-		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
+		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+			"practice" = "режим практики",
+			"kill" = "летальный режим",
+			"shuriken" = "метатель сюрикенов",
+			"energy" = "стандартный режим",
+			"anti-vehicle" = "тяжелый лазер",
+			"DESTROY" = "режим УНИЧТОЖЕНИЯ",
+			"ANNIHILATE" = "режим ИСТРЕБЛЕНИЯ",
+			"bluetag" = "синий режим",
+			"redtag" = "красный режим",
+			"precise" = "точный выстрел", //both used in multi-lens scattershot
+			"scatter" = "рассеянный выстрел",
+			"stun" = "тазер",
+			"ion" = "ионный выстрел",
+			"declone" = "деклонер",
+			"MINDFUCK" = "мозгодавка",
+			"yield" = "режим урожайности",
+			"mutation" = "режим мутации",
+			"goddamn meteor" = "стрельба чертовым метеоритом",
+			"disable" = "нейтрализатор",
+			"plasma burst" = "пучок плазмы",
+			"blue" = "синий портал",
+			"orange" = "оранжевый портал",
+			"bolt" = "дротик", //used in e-crossbows
+			"heavy bolt" = "тяжелый дротик",
+			"toxic dart" = "токсичный дротик",
+			"lightning beam" = "луч молнии",
+			"plasma dart" = "плазменный дротик",
+			"clown" = "клоунский режим",
+			"snipe" = "снайперский режим",
+			"teleport beam" = "режим телепортации",
+			"gun mimic" = "режим мимикрии",
+			"non-lethal paralyzer" = "нелетальный парализатор",
+			"lethal-eliminator" = "летальный устранитель",
+			"execution-slaughter" = "режим казни",
+			"emitter" = "режим эмиттера",
+			"spraydown" = "режим распыления",
+			"spike" = "стрельба шипами",
+			"kinetic" = "кинетический выстрел",
+			"accelerator" = "ускоренный выстрел",
+		)
+
+		balloon_alert(user, "[gun_modes_ru[shot.select_name]]")
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)

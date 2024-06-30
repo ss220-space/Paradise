@@ -45,7 +45,7 @@
 
 	var/atom/movable/target = tgui_input_list(user, "Choose the target of your hunger", "Targeting", possible_targets)
 
-	if(QDELETED(target))
+	if(QDELETED(target) || !target.Adjacent(user))
 		return
 
 	return list(target)
