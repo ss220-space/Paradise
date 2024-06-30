@@ -39,7 +39,7 @@
 		if(initial(possible_map.admin_only) || !is_map_aviable(possible_map))
 			continue
 
-    var/map_ref = "[initial(possible_map.station_name)] ([initial(possible_map.name)])"
+		var/map_ref = "[initial(possible_map.station_name)] ([initial(possible_map.name)])"
 
 		if(!map_reference_list[map_ref])
 			map_reference_list[map_ref] = possible_map
