@@ -116,14 +116,14 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
-///from base of atom/Entered(): (atom/movable/arrived, atom/oldloc)
+///from base of atom/Entered(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 #define COMSIG_ATOM_ENTERED "atom_entered"
-/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/oldloc)
+/// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/old_loc, list/atom/old_locs)
 #define COMSIG_ATOM_ENTERING "atom_entering"
 ///from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
 #define COMSIG_ATOM_EXIT "atom_exit"
 	#define COMPONENT_ATOM_BLOCK_EXIT (1<<0)
-///from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
+///from base of atom/Exited(): (atom/movable/departed, atom/newloc)
 #define COMSIG_ATOM_EXITED "atom_exited"
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
@@ -153,7 +153,7 @@
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
 /// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
-#define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_face_atom"
+#define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_dir_change"
 	#define COMPONENT_ATOM_BLOCK_DIR_CHANGE (1<<0)
 ///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
@@ -223,8 +223,6 @@
 
 ///called on a movable (NOT living) when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
-///called on /living when someone starts pulling it (atom/movable/puller, state, force)
-#define COMSIG_LIVING_START_PULL "living_start_pull"
 /// called on /atom when something attempts to pass through it (atom/movable/source, atom/movable/passing, dir)
 #define COMSIG_ATOM_TRIED_PASS "atom_tried_pass"
 	#define COMSIG_COMPONENT_PERMIT_PASSAGE (1 << 0)
@@ -289,13 +287,15 @@
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
 // /atom/movable signals
 
-///from base of atom/movable/Moved(): (/atom)
+///from base of atom/movable/Move(): (/atom/new_loc)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
-///from base of atom/movable/Moved(): (/atom, dir)
+///from base of atom/movable/Moved(): (atom/old_loc, dir, forced, list/old_locs, momentum_change)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSS "movable_cross"
+///from base of atom/movable/Cross(): (/atom/movable)
+#define COMSIG_MOVABLE_CROSS_OVER "movable_cross_am"
 ///from base of atom/movable/Crossed(): (/atom/movable)
 #define COMSIG_MOVABLE_CROSSED "movable_crossed"
 ///when we cross over something (calling Crossed() on that atom)
@@ -339,6 +339,12 @@
 	#define HEARING_MESSAGE_MODE 7 */
 ///called when the movable sucessfully has it's anchored var changed, from base atom/movable/set_anchored(): (value)
 #define COMSIG_MOVABLE_SET_ANCHORED "movable_set_anchored"
+///from base of atom/movable/setGrabState(): (newstate)
+#define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"
+/// Called when something is pushed by a living mob bumping it: (mob/living/pusher, push force)
+#define COMSIG_MOVABLE_BUMP_PUSHED "movable_bump_pushed"
+	/// Stop it from moving
+	#define COMPONENT_NO_PUSH (1<<0)
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
@@ -556,6 +562,20 @@
 ///from base of mob/update_transform()
 #define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
 
+///called on /living when someone starts pulling (atom/movable/pulled, state, force)
+#define COMSIG_LIVING_START_PULL "living_start_pull"
+///called on /living when someone is pulled (mob/living/puller)
+#define COMSIG_LIVING_GET_PULLED "living_start_pulled"
+///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/start_pulling]: (atom/movable/thing, force)
+#define COMSIG_LIVING_TRY_PULL "living_try_pull"
+	#define COMSIG_LIVING_CANCEL_PULL (1<<0)
+#define COMSIG_LIVING_TRYING_TO_PULL "living_tried_pulling"
+/// Called from /mob/living/update_pull_movespeed
+#define COMSIG_LIVING_UPDATING_PULL_MOVESPEED "living_updating_pull_movespeed"
+/// Called from /mob/living/PushAM -- Called when this mob is about to push a movable, but before it moves
+/// (aotm/movable/being_pushed)
+#define COMSIG_LIVING_PUSHING_MOVABLE "living_pushing_movable"
+
 ///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
 ///from base of mob/living/Weaken() (amount, ignore_canweaken)
@@ -571,6 +591,10 @@
 /// from mob/living/check_incapacitating_immunity(): (check_flags, force_apply)
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
+
+/// Sent to a mob grabbing another mob: (mob/living/grabbing)
+#define COMSIG_LIVING_GRAB "living_grab"
+	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
 
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"

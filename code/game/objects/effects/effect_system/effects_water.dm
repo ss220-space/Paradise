@@ -11,7 +11,7 @@
 	QDEL_IN(src, 7 SECONDS)
 
 
-/obj/effect/particle_effect/water/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/effect/particle_effect/water/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(--life < 1)
 		qdel(src)
 		return FALSE
@@ -20,9 +20,9 @@
 		reagents_effect(loc)
 
 
-/obj/effect/particle_effect/water/Bump(atom/bumped_atom, custom_bump)
+/obj/effect/particle_effect/water/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.))
+	if(.)
 		return .
 	var/bumped_turf = isturf(bumped_atom)
 	if(!bumped_turf && !isturf(bumped_atom.loc))

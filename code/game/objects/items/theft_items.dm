@@ -178,7 +178,7 @@
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK gibbing memes
 	return
 
-/obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/user, force, show_message = FALSE) // no drag memes
+/obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/puller, grab_state, force, supress_message) // no drag memes
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)

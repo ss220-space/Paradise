@@ -213,40 +213,41 @@
 		return TRUE
 
 
-/obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
+/obj/structure/table/proc/tablepush(mob/living/victim, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
-		return
-	if(get_dist(src, user) < 2)
-		if(G.affecting.buckled)
-			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
-			return FALSE
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return FALSE
-		if(!G.confirm())
-			return FALSE
-		var/blocking_object = density_check(user)
-		if(blocking_object)
-			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
-			return FALSE
-		G.affecting.forceMove(get_turf(src))
-		G.affecting.Weaken(4 SECONDS)
-		item_placed(G.affecting)
-		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
-									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
-		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
-		qdel(G)
-		return TRUE
-	qdel(G)
+		to_chat(user, span_danger("Throwing [victim] onto the table might hurt them!"))
+		return FALSE
+	if(victim.buckled)
+		to_chat(user, span_warning("[victim] is buckled to [victim.buckled]!"))
+		return FALSE
+	var/obj/blocking_object = density_check(user)
+	if(blocking_object)
+		to_chat(user, span_warning("You cannot do this there is [blocking_object.name] in the way!"))
+		return FALSE
+	victim.forceMove(get_turf(src))
+	victim.Weaken(4 SECONDS)
+	item_placed(victim)
+	victim.visible_message(
+		span_danger("[user] pushes [victim] onto [src]."),
+		span_userdanger("[user] pushes you onto [src]."),
+	)
+	add_attack_logs(user, victim, "Pushed onto a table")
+	return TRUE
+
+
+/obj/structure/table/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(isitem(grabbed_thing))
+		if(step(grabbed_thing, get_dir(grabbed_thing.loc, loc)))
+			grabber.stop_pulling()
+		return .
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	tablepush(grabbed_thing, grabber)
+	add_fingerprint(grabber)
 
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		add_fingerprint(user)
-		tablepush(I, user)
-		return
-
 	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(user.transfer_item_to_loc(I, src.loc))
 			add_fingerprint(user)
@@ -700,7 +701,7 @@
 		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
 			held_items += held.UID()
 
-/obj/structure/table/tray/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/structure/table/tray/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/atom/OldLoc = loc
 
 	. = ..()
@@ -724,14 +725,11 @@
 		held.forceMove(newloc)
 
 
-/obj/structure/table/tray/can_be_pulled(user, force, show_message)
-	var/atom/movable/puller = user
+/obj/structure/table/tray/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(loc != puller.loc)
 		held_items -= puller.UID()
-	if(isliving(user))
-		var/mob/living/M = user
-		if(M.UID() in held_items)
-			return FALSE
+	if(isliving(puller) && (puller.UID() in held_items))
+		return FALSE
 	return ..()
 
 

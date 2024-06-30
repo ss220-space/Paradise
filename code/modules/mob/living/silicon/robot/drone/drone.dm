@@ -359,26 +359,27 @@
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
 
-/mob/living/silicon/robot/drone/Bump(atom/bumped_atom, custom_bump)
-	if(custom_bump && is_type_in_list(bumped_atom, allowed_bumpable_objects))
+/mob/living/silicon/robot/drone/Bump(atom/bumped_atom)
+	if(is_type_in_list(bumped_atom, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
-	if(is_type_in_list(AM, pullable_drone_items))
-		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(is_type_in_list(pulled_atom, pullable_drone_items))
+		force = INFINITY	// Drone power! Makes them able to drag pipes and such
+		return ..()
 
-	else if(isitem(AM))
-		var/obj/item/O = AM
-		if(O.w_class > WEIGHT_CLASS_SMALL)
-			if(show_message)
+	if(isitem(pulled_atom))
+		var/obj/item/pulled_item = pulled_atom
+		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
+			if(!supress_message)
 				to_chat(src, span_warning("You are too small to pull that."))
-			return
-		else
-			..()
-	else
-		if(show_message)
-			to_chat(src, span_warning("You are too small to pull that."))
+			return FALSE
+		return ..()
+
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull that."))
+	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems

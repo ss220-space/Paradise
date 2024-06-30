@@ -1381,7 +1381,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	drop_hat()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)

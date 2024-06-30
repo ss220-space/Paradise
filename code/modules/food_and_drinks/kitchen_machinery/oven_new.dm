@@ -44,25 +44,27 @@
 		E += M.rating
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
 
-/obj/machinery/kitchen_machine/oven/special_attack(obj/item/grab/G, mob/user)
-	if(ishuman(G.affecting))
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
-		if(!head)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-			return 0
-		add_fingerprint(user)
-		C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
-						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
-		C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(5, BURN, BODY_ZONE_HEAD) //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
-		C.apply_damage(15, BRUTE, BODY_ZONE_HEAD)
-		C.Weaken(4 SECONDS)
-		add_attack_logs(user, G.affecting, "Smashed with [src]")
-		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
-		return 0
-	return 0
+
+/obj/machinery/kitchen_machine/oven/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	if(!ishuman(grabbed_thing) || !Adjacent(grabbed_thing))
+		return
+	var/mob/living/carbon/human/victim = grabbed_thing
+	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
+	if(!head)
+		to_chat(grabber, span_warning("This person doesn't have a head!"))
+		return
+	add_fingerprint(grabber)
+	victim.visible_message(
+		span_danger("[grabber] bashes [victim]'s head in [src]'s door!"),
+		span_userdanger("[grabber] bashes your head in [src]'s door! It feels rather hot in the oven!"),
+	)
+	if(victim.has_pain())
+		victim.emote("scream")
+	//5 fire damage, 15 brute damage, and knockdown because your head was just in a hot oven with the door bashing into your neck!
+	victim.apply_damage(5, BURN, BODY_ZONE_HEAD)
+	victim.apply_damage(15, BRUTE, BODY_ZONE_HEAD)
+	victim.Knockdown(2 SECONDS)
+	add_attack_logs(grabber, victim, "Smashed with [src]")
+	//Removes the grip to prevent rapid bashes. With the knockdown, you PROBABLY can't run unless they are slow to grab you again...
+	grabber.stop_pulling()
+

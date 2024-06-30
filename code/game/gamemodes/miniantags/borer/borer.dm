@@ -547,10 +547,10 @@
 	to_chat(src, "Вы выкручиваетесь из уха носителя и падаете на пол.")
 	leave_host()
 
-/mob/living/simple_animal/borer/proc/borer_leaving() //Returning "TRUE" breaks the loop, "FALSE" - continue
+/mob/living/simple_animal/borer/proc/borer_leaving()
 	if(!leaving || docile || bonding)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/leave_host()
 
@@ -616,10 +616,10 @@
 	assume_control()
 	bonding = FALSE
 
-/mob/living/simple_animal/borer/proc/borer_assuming() //Returning "TRUE" breaks the loop, "FALSE" - continue
+/mob/living/simple_animal/borer/proc/borer_assuming()
 	if(!bonding || docile || leaving)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/assume_control()
 

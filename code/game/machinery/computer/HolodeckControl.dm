@@ -512,21 +512,25 @@
 	density = TRUE
 	pass_flags = LETPASSTHROW
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
-		var/obj/item/grab/G = W
-		if(G.state<2)
-			to_chat(user, span_warning("You need a better grip to do that!"))
-			return
-		G.affecting.forceMove(loc)
-		G.affecting.Weaken(10 SECONDS)
-		visible_message(span_warning("[G.assailant] dunks [G.affecting] into [src]!"))
-		qdel(W)
-		return
-	else if(isitem(W) && get_dist(src,user)<2)
+
+/obj/structure/holohoop/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(!isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	if(grabber.grab_state < GRAB_NECK)
+		to_chat(grabber, span_warning("You need a better grip to do that!"))
+		return .
+	visible_message(span_warning("[grabber] dunks [target] into [src]!"))
+	target.forceMove(loc)
+	target.Weaken(10 SECONDS)
+
+
+/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
+	if(isitem(W) && get_dist(src,user)<2)
 		user.drop_from_active_hand(src)
 		visible_message(span_notice("[user] dunks [W] into the [src]!"))
-		return
+
 
 /obj/structure/holohoop/has_prints()
 	return FALSE
