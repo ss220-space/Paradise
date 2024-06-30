@@ -36,8 +36,7 @@
 	var/deconstruction_ready = TRUE
 	var/flip_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/flipped = FALSE
-	/// Is this table have a flipped spite?
-	var/flipped_sprite = TRUE
+	var/can_be_flipped = TRUE
 
 
 /obj/structure/table/Initialize(mapload)
@@ -321,7 +320,7 @@
 
 /// Used to determine whether the table can be flipped over.
 /obj/structure/table/proc/flip_check()
-	return flipped_sprite
+	return can_be_flipped
 
 
 /// Used for determine the proc of subsequent flipping/unflipping.
@@ -537,7 +536,7 @@
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 	icon_state = "fancy_table"
-	flipped_sprite = FALSE
+	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
@@ -650,7 +649,7 @@
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
 	icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flipped_sprite = FALSE
+	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
@@ -688,7 +687,7 @@
 	icon_state = "tray"
 	anchored = FALSE
 	smooth = SMOOTH_FALSE
-	flipped_sprite = FALSE
+	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
 	var/list/typecache_can_hold = list(/mob, /obj/item)

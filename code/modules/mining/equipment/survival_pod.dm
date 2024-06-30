@@ -166,7 +166,7 @@
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
-	flipped_sprite = FALSE
+	can_be_flipped = FALSE
 	smooth = SMOOTH_FALSE
 
 

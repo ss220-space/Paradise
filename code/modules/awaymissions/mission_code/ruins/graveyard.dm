@@ -166,7 +166,7 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
-	flipped_sprite = FALSE
+	can_be_flipped = FALSE
 	climbable = FALSE
 	max_integrity = 100
 	integrity_failure = 30
