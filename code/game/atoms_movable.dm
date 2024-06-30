@@ -495,7 +495,9 @@
 	var/list/new_locs
 	if(is_multi_tile && isturf(newloc))
 		new_locs = block(
-			newloc,
+			newloc.x,
+			newloc.y,
+			newloc.z,
 			min(world.maxx, newloc.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
 			min(world.maxy, newloc.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
 			newloc.z
@@ -616,8 +618,8 @@
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
-			if(client_mobs_in_contents) // We're done moving, update our parallax now
-				update_parallax_contents()
+				if(client_mobs_in_contents) // We're done moving, update our parallax now
+					update_parallax_contents()
 			moving_diagonally = NONE
 			return .
 
@@ -815,7 +817,9 @@
 		if(!same_loc)
 			if(is_multi_tile && isturf(destination))
 				var/list/new_locs = block(
-					destination,
+					destination.x,
+					destination.y,
+					destination.z,
 					min(world.maxx, destination.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
 					min(world.maxy, destination.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
 					destination.z
