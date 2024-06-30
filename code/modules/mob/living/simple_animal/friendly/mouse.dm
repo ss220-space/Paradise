@@ -261,7 +261,7 @@
 	update_move_type(removed_item)
 
 
-/mob/living/simple_animal/mouse/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/mouse/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return jetpack ? TRUE : ..()
 
 
