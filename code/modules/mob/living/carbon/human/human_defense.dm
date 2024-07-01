@@ -527,7 +527,6 @@ emp_act
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
-	return TRUE //In the end, attack has passed successfully.
 
 /**
  * This proc handles being hit by a thrown atom.
