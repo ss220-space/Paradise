@@ -116,7 +116,7 @@
 /atom/movable/screen/blob/RelocateCore
 	icon_state = "ui_swap"
 	name = "Relocate Core (80)"
-	desc = "Обменивает местами узел и ваше ядро за 80 ресурсов."
+	desc = "Меняет местами узел и ваше ядро за 80 ресурсов."
 
 /atom/movable/screen/blob/RelocateCore/Click()
 	if(isovermind(usr))
