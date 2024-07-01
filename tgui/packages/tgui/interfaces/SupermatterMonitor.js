@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Section,
@@ -53,7 +52,7 @@ const pressureToColor = (pressure) => {
 const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={325}>
       <Window.Content scrollable>
         <Section
           title="Detected Supermatter Shards"
@@ -104,7 +103,7 @@ const SupermatterMonitorListView = (props, context) => {
 const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={325}>
       <Window.Content>
         <Section
           title="Crystal Status"

@@ -17,7 +17,7 @@ import { createSearch } from 'common/string';
 
 export const CargoConsole = (props, context) => {
   return (
-    <Window width={900} heigth={800}>
+    <Window width={900} height={800}>
       <Window.Content>
         <Stack fill vertical>
           <ContentsModal />

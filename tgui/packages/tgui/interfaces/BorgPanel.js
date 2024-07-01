@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
@@ -146,7 +145,7 @@ export const BorgPanel = (props, context) => {
         <Section
           title="Laws"
           buttons={
-            <Fragment>
+            <>
               <Button
                 content="Law Manager"
                 selected={borg.lawmanager}
@@ -158,7 +157,7 @@ export const BorgPanel = (props, context) => {
                 selected={borg.lawupdate}
                 onClick={() => act('toggle_lawupdate')}
               />
-            </Fragment>
+            </>
           }
         >
           {laws.map((law) => (

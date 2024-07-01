@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -15,7 +14,7 @@ const removeAmounts = [1, 5, 10];
 
 export const HandheldChemDispenser = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={390} height={500}>
       <Window.Content className="Layout__content--flexColumn">
         <HandheldChemDispenserSettings />
         <HandheldChemDispenserChemicals />

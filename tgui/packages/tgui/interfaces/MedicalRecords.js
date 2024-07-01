@@ -65,7 +65,7 @@ export const MedicalRecords = (_properties, context) => {
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={380}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -92,7 +92,7 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={380}>
       <ComplexModal />
       <Window.Content className="Layout__content--flexColumn">
         <LoginInfo />
@@ -110,7 +110,7 @@ const MedicalRecordsList = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { records } = data;
   return (
-    <Fragment>
+    <>
       <Input
         fluid
         placeholder="Search by Name, DNA, or ID"
@@ -129,14 +129,14 @@ const MedicalRecordsList = (_properties, context) => {
           </Fragment>
         ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
+    <>
       <Button icon="download" content="Backup to Disk" disabled />
       <br />
       <Button
@@ -151,7 +151,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
         content="Delete All Medical Records"
         onClick={() => act('del_all')}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -159,7 +159,7 @@ const MedicalRecordsView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical, printing } = data;
   return (
-    <Fragment>
+    <>
       <Section title="General Data" level={2} mt="-6px">
         <MedicalRecordsViewGeneral />
       </Section>
@@ -190,7 +190,7 @@ const MedicalRecordsView = (_properties, context) => {
           onClick={() => act('screen', { screen: 2 })}
         />
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -201,7 +201,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Box width="50%" float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
@@ -242,7 +242,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
             </Box>
           ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -263,7 +263,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <>
       <LabeledList>
         {medical.fields.map((field, i) => (
           <LabeledList.Item key={i} label={field.field} prewrap>
@@ -307,7 +307,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           onClick={() => modalOpen(context, 'add_c')}
         />
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -343,7 +343,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Status">
             {medbot.on ? (
-              <Fragment>
+              <>
                 <Box color="good">Online</Box>
                 <Box mt="0.5rem">
                   {medbot.use_beaker
@@ -353,7 +353,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
                       medbot.maximum_volume
                     : 'Using internal synthesizer.'}
                 </Box>
-              </Fragment>
+              </>
             ) : (
               <Box color="average">Offline</Box>
             )}

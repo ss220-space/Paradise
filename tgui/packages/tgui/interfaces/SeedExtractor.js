@@ -57,7 +57,7 @@ export const SeedExtractor = (props, context) => {
   const { total, capacity, contents } = data;
 
   return (
-    <Window>
+    <Window width={900} height={600}>
       <Window.Content className="Layout__content--flexColumn">
         <Section
           title={localeStrings['title']}

@@ -9,7 +9,7 @@ export const ImplantPad = (props, context) => {
   const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
 
   return (
-    <Window resizable>
+    <Window width={410} height={400}>
       <Window.Content>
         <Section title="Bio-chip Information">
           {implant && contains_case ? (
