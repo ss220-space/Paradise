@@ -218,22 +218,23 @@
 		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma")
-		H.adjustBruteLoss(-0.25)
-		H.adjustFireLoss(-0.25)
-		H.adjust_alien_plasma(20)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
-	if(R.id == "plasma_dust")
-		H.adjustBruteLoss(-0.25)
-		H.adjustFireLoss(-0.25)
-		H.adjust_alien_plasma(20)
-		if(prob(1))
-			var/list/fractured_organs = H.check_fractures()
-			shuffle(fractured_organs)
-			for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
-				if(bodypart.mend_fracture())
-					break
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE
+	switch(R.id)
+		if(R.id == "plasma")
+			H.adjustBruteLoss(-0.25)
+			H.adjustFireLoss(-0.25)
+			H.adjust_alien_plasma(20)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
+		if(R.id == "plasma_dust")
+			H.adjustBruteLoss(-0.25)
+			H.adjustFireLoss(-0.25)
+			H.adjust_alien_plasma(20)
+			if(prob(1))
+				var/list/fractured_organs = H.check_fractures()
+				shuffle(fractured_organs)
+				for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
+					if(bodypart.mend_fracture())
+						break
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			return FALSE
 	return ..()
