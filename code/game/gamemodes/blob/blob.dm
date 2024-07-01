@@ -12,7 +12,6 @@
 	var/is_blob_process = FALSE
 	var/storm_started = FALSE
 	var/blob_players_per_core = BLOB_PLAYERS_PER_CORE
-	var/blob_restricted_jobs = BLOB_RESTRICTED_JOBS
 	var/datum/objective/blob_critical_mass/blob_objective
 
 
@@ -85,6 +84,7 @@
 				continue
 			if(player.can_be_blob)
 				continue
+			var/blob_restricted_jobs = /datum/game_mode/blob::restricted_jobs
 			if(length(blob_restricted_jobs) && (player.mind.assigned_role in blob_restricted_jobs))
 				continue
 			var/turf/location = get_turf(player)
