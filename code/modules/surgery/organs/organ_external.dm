@@ -858,9 +858,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(has_fracture() || cannot_break)
 		return FALSE
-	if(owner.dna.species.type == /datum/species/plasmaman)
-		owner.reagents.add_reagent("plasma_dust", 15)
 
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
+	
 	if(owner && !silent)
 		owner.visible_message(
 			span_warning("You hear a loud cracking sound coming from \the [owner]."),
