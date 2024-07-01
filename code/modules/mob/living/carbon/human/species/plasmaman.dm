@@ -219,13 +219,13 @@
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
-		if(R.id == "plasma")
+		if("plasma")
 			H.adjustBruteLoss(-0.25)
 			H.adjustFireLoss(-0.25)
 			H.adjust_alien_plasma(20)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
-		if(R.id == "plasma_dust")
+		if("plasma_dust")
 			H.adjustBruteLoss(-0.25)
 			H.adjustFireLoss(-0.25)
 			H.adjust_alien_plasma(20)
