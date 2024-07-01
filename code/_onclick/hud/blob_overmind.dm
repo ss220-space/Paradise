@@ -80,7 +80,7 @@
 /atom/movable/screen/blob/NodeBlob
 	icon_state = "ui_node"
 	name = "Produce Node Blob (60)"
-	desc = "Производит узел за 60 ресурсов.<br>Узлы будут расширяться и активировать ближайшие ресурсные и фабрики блобы."
+	desc = "Производит узел за 60 ресурсов.<br>Узлы будут расширяться и активировать ближайшие ресурсные плитки и фабрики."
 
 /atom/movable/screen/blob/NodeBlob/Click()
 	if(isovermind(usr))
