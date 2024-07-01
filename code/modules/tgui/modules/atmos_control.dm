@@ -21,10 +21,6 @@
 	if(!ui)
 		ui = new(user, src, "AtmosControl", name)
 
-		// Send nanomaps
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.send(user)
-
 		ui.open()
 
 /datum/ui_module/atmos_control/ui_assets(mob/user)
