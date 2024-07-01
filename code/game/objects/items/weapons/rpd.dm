@@ -186,7 +186,7 @@
 
 /obj/item/rpd/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/simple/rpd/)
+		get_asset_datum(/datum/asset/spritesheet/rpd)
 	)
 
 /obj/item/rpd/AltClick(mob/living/user)
@@ -218,15 +218,20 @@
 
 	switch(action)
 		if("iconrotation")
-			iconrotation = text2num(sanitize(params["iconrotation"]))
+			if(isnum(params["iconrotation"]))
+				iconrotation = params["iconrotation"]
 		if("whatpipe")
-			whatpipe = text2num(sanitize(params["whatpipe"]))
+			if(isnum(params["whatpipe"]))
+				whatpipe = params["whatpipe"]
 		if("whatdpipe")
-			whatdpipe = text2num(sanitize(params["whatdpipe"]))
+			if(isnum(params["whatdpipe"]))
+				whatdpipe = params["whatdpipe"]
 		if("pipe_category")
-			pipe_category = text2num(sanitize(params["pipe_category"]))
+			if(isnum(params["pipe_category"]))
+				pipe_category = params["pipe_category"]
 		if("mode")
-			mode = text2num(sanitize(params["mode"]))
+			if(isnum(params["mode"]))
+				mode = params["mode"]
 		if("auto_wrench")
 			auto_wrench = !auto_wrench
 
