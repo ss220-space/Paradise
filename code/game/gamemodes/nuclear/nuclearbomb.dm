@@ -312,10 +312,10 @@ GLOBAL_VAR(bomb_set)
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
 
-/obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
@@ -335,7 +335,7 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/nuclearbomb/ui_interact/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NuclearBomb", name)
@@ -364,7 +364,7 @@ GLOBAL_VAR(bomb_set)
 		data["codemsg"] = "-----"
 	return data
 
-/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
+/obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
 		return TRUE
 	else if(user.can_admin_interact())
