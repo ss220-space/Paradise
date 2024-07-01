@@ -1504,7 +1504,6 @@
 /obj/item/clothing/suit/towel/alt
 	icon_state = "towel_long_alt"
 	item_state = "towel_alt"
-	var/woman_human_user = FALSE
 
 
 /obj/item/clothing/suit/towel/alt/equipped(mob/user, slot, initial)
@@ -1513,14 +1512,16 @@
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 
-	woman_human_user = user.gender == FEMALE && ishumanbasic(user)
-
 	update_icon(UPDATE_ICON_STATE)
-	user.update_inv_wear_suit(src)
+	user.wear_suit_update(src)
 
 
 /obj/item/clothing/suit/towel/alt/update_icon_state()
-	icon_state = "[initial(icon_state)][woman_human_user ? "_woman" : null]"
+	if(ishumanbasic(loc))
+		var/mob/living/carbon/human/user = loc
+		. = user.gender == FEMALE
+
+	icon_state = "[initial(icon_state)][. ? "_woman" : null]"
 
 
 /obj/item/clothing/suit/towel/short
@@ -1533,17 +1534,20 @@
 /obj/item/clothing/suit/towel/short/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(slot == ITEM_SLOT_HEAD)
-		icon = 'icons/obj/clothing/hats.dmi'
-	else
-		icon = initial(icon)
+	update_icon(UPDATE_ICON_STATE)
+
+	if(slot & (ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD))
+		update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/clothing/suit/towel/short/dropped(mob/user, slot, silent)
-	. = ..()
+/obj/item/clothing/suit/towel/short/update_icon_state()
+	if(!isliving(loc))
+		return
 
-	if(slot == ITEM_SLOT_HEAD)
-		icon = initial(icon)
+	var/mob/living/user = loc
+	var/slot = user.get_slot_by_item(src)
+
+	icon_state = "[initial(icon_state)][slot == ITEM_SLOT_HEAD ? "_head" : null"
 
 
 /obj/item/clothing/suit/towel/short/alt
