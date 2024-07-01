@@ -9,7 +9,7 @@ export const PDAPainter = (props, context) => {
     data;
 
   return (
-    <Window>
+    <Window width={545} height={350}>
       <Window.Content>
         <Flex spacing={1} direction="row" height="100%" flex="1">
           <Flex.Item width={24} shrink={0}>

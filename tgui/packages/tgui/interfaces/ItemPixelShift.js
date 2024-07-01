@@ -7,7 +7,7 @@ export const ItemPixelShift = (props, context) => {
   const { pixel_x, pixel_y, max_shift_x, max_shift_y, random_drop_on } = data;
 
   return (
-    <Window>
+    <Window width={250} height={160}>
       <Window.Content>
         <Section>
           <LabeledList>

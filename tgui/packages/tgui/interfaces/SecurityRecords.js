@@ -1,5 +1,5 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
+
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -43,7 +43,7 @@ export const SecurityRecords = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" resizable>
+      <Window width={800} height={800} theme="security">
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -276,13 +276,13 @@ const SecurityRecordsPageView = (properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Section
         title="General Data"
         level={2}
         mt="-6px"
         buttons={
-          <Fragment>
+          <>
             <Button
               disabled={isPrinting}
               icon={isPrinting ? 'spinner' : 'print'}
@@ -300,7 +300,7 @@ const SecurityRecordsPageView = (properties, context) => {
               content="Delete Record"
               onClick={() => act('delete_general')}
             />
-          </Fragment>
+          </>
         }
       >
         <SecurityRecordsViewGeneral />
@@ -320,7 +320,7 @@ const SecurityRecordsPageView = (properties, context) => {
       >
         <SecurityRecordsViewSecurity />
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -331,7 +331,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Box float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
@@ -371,7 +371,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
             </Box>
           ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -393,7 +393,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <>
       <LabeledList>
         {security.fields.map((field, i) => (
           <LabeledList.Item key={i} label={field.field} prewrap>
@@ -440,6 +440,6 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           ))
         )}
       </Section>
-    </Fragment>
+    </>
   );
 };

@@ -6,7 +6,7 @@ export const EFTPOS = (props, context) => {
   const { act, data } = useBackend(context);
   const { transaction_locked, machine_name } = data;
   return (
-    <Window>
+    <Window width={800} height={300}>
       <Window.Content>
         <Box italic>
           This terminal is {machine_name}. Report this code when contacting

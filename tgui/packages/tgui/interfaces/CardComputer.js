@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -95,10 +94,10 @@ export const CardComputer = (props, context) => {
         );
       } else {
         bodyBlock = (
-          <Fragment>
+          <>
             <Section title="Card Information">
               {!data.target_dept && (
-                <Fragment>
+                <>
                   <LabeledList.Item label="Registered Name">
                     <Button
                       icon={
@@ -125,7 +124,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act('account')}
                     />
                   </LabeledList.Item>
-                </Fragment>
+                </>
               )}
               <LabeledList.Item label="Latest Transfer">
                 {data.modify_lastlog || '---'}
@@ -150,7 +149,7 @@ export const CardComputer = (props, context) => {
                     ))}
                   </LabeledList.Item>
                 ) : (
-                  <Fragment>
+                  <>
                     <LabeledList.Item label="Special">
                       {data.jobs_top.map((v) => (
                         <Button
@@ -260,7 +259,7 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                  </Fragment>
+                  </>
                 )}
                 <LabeledList.Item label="Civilian">
                   {data.jobs_civilian.map((v) => (
@@ -345,7 +344,7 @@ export const CardComputer = (props, context) => {
                 )}
               </Section>
             )}
-          </Fragment>
+          </>
         );
       }
       break;
@@ -358,7 +357,7 @@ export const CardComputer = (props, context) => {
         );
       } else {
         bodyBlock = (
-          <Fragment>
+          <>
             <Section color={data.cooldown_time ? 'red' : ''}>
               Next Change Available:
               {data.cooldown_time ? data.cooldown_time : 'Now'}
@@ -452,7 +451,7 @@ export const CardComputer = (props, context) => {
                 ))}
               </Table>
             </Section>
-          </Fragment>
+          </>
         );
       }
       break;
@@ -607,7 +606,7 @@ export const CardComputer = (props, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={800}>
       <Window.Content scrollable>
         {authBlock}
         {menuBlock}

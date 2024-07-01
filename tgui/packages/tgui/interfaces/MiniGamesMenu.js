@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
@@ -9,7 +8,7 @@ export const MiniGamesMenu = (props, context) => {
   const thunderdome_eligible = data.thunderdome_eligible;
   const notifications_enabled = data.notifications_enabled;
   return (
-    <Window resizable>
+    <Window width={700} height={600}>
       <Window.Content scrollable>
         <Button
           fluid
@@ -55,7 +54,7 @@ export const MiniGamesMenu = (props, context) => {
               title={spawner.name}
               level={2}
               buttons={
-                <Fragment>
+                <>
                   <Button
                     icon="chevron-circle-right"
                     content="Jump"
@@ -74,7 +73,7 @@ export const MiniGamesMenu = (props, context) => {
                       })
                     }
                   />
-                </Fragment>
+                </>
               }
             >
               <Box

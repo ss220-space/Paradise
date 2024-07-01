@@ -198,7 +198,7 @@ export const GasAnalyzer = (props, context) => {
     width: '33%',
   };
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         {/* Left Column */}
         <div style={styleLeftDiv}>
