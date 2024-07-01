@@ -1,4 +1,4 @@
-//Radiation storms occur when the station passes through an irradiated area, and irradiate anyone not standing in protected areas (maintenance, emergency storage, etc.)
+//Spore storms of a blob occur when it reaches a critical mass. They infect everyone on the station with the blob.
 /datum/weather/blob_storm
 	name = "blob storm"
 	desc = "Плотное облако из мельчайших спор блоба, проникающих через любую одежду."
