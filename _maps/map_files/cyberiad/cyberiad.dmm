@@ -29319,12 +29319,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"bPf" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "bPi" = (
 /obj/effect/landmark/start/scientist,
 /obj/effect/decal/warning_stripes/south,
@@ -31395,11 +31389,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bVw" = (
-/obj/machinery/vending/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Corridor West";
 	dir = 4
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -37064,7 +37058,7 @@
 /turf/simulated/wall,
 /area/medical/virology)
 "clf" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"
@@ -67926,7 +67920,7 @@
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "lcE" = (
-/obj/machinery/vending/security/training,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -122562,7 +122556,7 @@ nAA
 pCP
 bJJ
 uou
-bPf
+xxY
 chh
 cQn
 rpg

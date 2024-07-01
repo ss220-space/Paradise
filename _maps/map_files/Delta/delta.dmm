@@ -9438,8 +9438,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "blZ" = (
-/obj/machinery/vending/security,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -27959,10 +27959,6 @@
 	pixel_y = 32
 	},
 /obj/item/storage/box/disks,
-/obj/item/storage/box/disks{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -29822,7 +29818,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -49779,8 +49774,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/sleeper)
 "fND" = (
@@ -62928,10 +62922,12 @@
 	},
 /area/medical/sleeper)
 "iTi" = (
-/obj/machinery/vending/medical,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "iTk" = (
@@ -74216,7 +74212,6 @@
 	},
 /area/library)
 "lIC" = (
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -79423,8 +79418,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/vending/medical,
 /obj/structure/cable,
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -80632,8 +80628,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+	icon_state = "white"
 	},
 /area/medical/sleeper)
 "nfb" = (
@@ -85166,16 +85161,12 @@
 	},
 /area/crew_quarters/locker)
 "ogY" = (
-/obj/machinery/vending/medical,
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "ogZ" = (
@@ -92182,17 +92173,6 @@
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
-"pIZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner"
-	},
-/area/medical/sleeper)
 "pJg" = (
 /obj/machinery/light{
 	dir = 8
@@ -98003,10 +97983,11 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "qXd" = (
-/obj/machinery/vending/security,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 32
 	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -100157,18 +100138,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"rwH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/sleeper)
 "rwM" = (
 /obj/structure/table,
 /obj/item/toy/figure/magistrate{
@@ -112999,7 +112968,6 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/box/syringes,
 /obj/machinery/light_switch{
 	pixel_x = 7;
 	pixel_y = 27
@@ -127578,8 +127546,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+	dir = 4;
+	icon_state = "whitebluecorner"
 	},
 /area/medical/sleeper)
 "xKE" = (
@@ -128599,7 +128567,12 @@
 	},
 /area/maintenance/kitchen)
 "xUv" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/disks{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -172197,8 +172170,8 @@ cXp
 cZI
 dgO
 mTO
-pIZ
-rwH
+mTO
+mTO
 nfa
 fNx
 rxv
@@ -172454,7 +172427,7 @@ cXs
 jsJ
 dix
 gra
-rcy
+tsB
 iTi
 ogY
 xKC
@@ -172712,7 +172685,7 @@ cJq
 dAl
 lTM
 kjk
-dAl
+pEi
 pEi
 uVw
 tik

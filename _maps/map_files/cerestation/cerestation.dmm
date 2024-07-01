@@ -53212,7 +53212,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "lqR" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/soap/nanotrasen,
+/obj/item/storage/box/gloves,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -63074,19 +63076,6 @@
 /turf/simulated/wall,
 /area/maintenance/apmaint2)
 "odx" = (
-/obj/structure/closet/crate/freezer,
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
@@ -67266,7 +67255,11 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "poz" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/disks{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -73606,13 +73599,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"rbn" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay)
 "rbx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -81195,7 +81181,6 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -81842,7 +81827,6 @@
 /area/library)
 "tul" = (
 /obj/machinery/light,
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -90726,7 +90710,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "wcp" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -95782,7 +95767,7 @@
 	},
 /area/engine/engineering)
 "xAz" = (
-/obj/machinery/vending/medical,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner";
@@ -150965,7 +150950,7 @@ dxX
 bCj
 gSQ
 cKk
-rbn
+fxY
 uMh
 fxY
 odx
