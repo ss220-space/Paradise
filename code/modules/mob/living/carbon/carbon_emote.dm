@@ -233,28 +233,28 @@
 	hands_use_check = TRUE
 
 
-/datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
+/datum/emote/living/carbon/twirl/run_emote(mob/living/user, params, type_override, intentional)
+	var/mob/living/grabbed_mob
+	var/obj/item/held_item = user.get_active_hand()
+	if(!held_item && isliving(user.pulling) && user.grab_state > GRAB_PASSIVE && !isnull(user.pull_hand) && (user.pull_hand == PULL_WITHOUT_HANDS || user.pull_hand == user.hand))
+		grabbed_mob = user.pulling
+	if(!held_item && !grabbed_mob)
+		held_item = user.get_inactive_hand()
+		if(!held_item && isliving(user.pulling) && user.grab_state > GRAB_PASSIVE && !isnull(user.pull_hand) && (user.pull_hand == PULL_WITHOUT_HANDS || user.pull_hand != user.hand))
+			grabbed_mob = user.pulling
 
-	var/obj/item/active_hand = user.get_active_hand()
-	var/obj/item/inactive_hand = user.get_inactive_hand()
-
-	if(!active_hand && !inactive_hand)
+	if(!held_item && !grabbed_mob)
 		to_chat(user, span_warning("You need something in your hand to use this emote!"))
 		return TRUE
 
-	var/obj/item/thing = active_hand ? active_hand : (inactive_hand ? inactive_hand : null)
-
-	if(istype(thing, /obj/item/grab))
-		var/obj/item/grab/grabbed = thing
-		message = "крут%(ит,ят)% <b>[grabbed.affecting.name]</b>, удерживая [genderize_ru(grabbed.affecting.gender, "его", "её", "его", "их")] в захвате!"
-		grabbed.affecting.emote("spin")
-
-	else if(!(thing.item_flags & ABSTRACT))
-		message = "верт%(ит,ят)% [thing.name] в руках!"
-
-	else
-		to_chat(user, span_warning("You cannot twirl [thing]!"))
-		return TRUE
+	if(held_item)
+		if(held_item.item_flags & ABSTRACT)
+			to_chat(user, span_warning("You cannot twirl [held_item.name]!"))
+			return TRUE
+		message = "верт%(ит,ят)% [held_item.name] в руках!"
+	else if(grabbed_mob)
+		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [genderize_ru(grabbed_mob.gender, "его", "её", "его", "их")] в захвате!"
+		grabbed_mob.spin(32, 1)
 
 	. = ..()
 	message = initial(message)

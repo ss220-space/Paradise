@@ -81,11 +81,11 @@
 
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
-/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
+/obj/structure/disposaloutlet/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!loc)
 		return
-	var/turf/T = OldLoc
+	var/turf/T = old_loc
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)

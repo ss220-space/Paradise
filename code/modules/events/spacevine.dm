@@ -546,7 +546,7 @@
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
-	spawn_spacevine_piece(loc, , muts)
+	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
 	if(potency != null && potency > 0)
@@ -672,15 +672,16 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)
 	while(dir_list.len)
-		var/direction = pick(dir_list)
-		dir_list -= direction
-		var/turf/stepturf = get_step(src,direction)
+		var/direction = pick_n_take(dir_list)
+		var/turf/stepturf = get_step(src, direction)
+		if(!stepturf)
+			continue
 		var/spread_success = FALSE
 		for(var/datum/spacevine_mutation/SM in mutations)
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!isspaceturf(stepturf) && stepturf.Enter(src) && !is_location_within_transition_boundaries(stepturf))
+			if(!isspaceturf(stepturf) && stepturf.Enter(src) && is_location_within_transition_boundaries(stepturf))
 				master?.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
 		if(spread_success || !spread_search)

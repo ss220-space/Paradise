@@ -39,13 +39,13 @@
 		movable.set_currently_z_moving(CURRENTLY_Z_FALLING_FROM_MOVE)
 
 ///Makes movables fall when forceMove()'d to this turf.
-/turf/space/openspace/Entered(atom/movable/movable)
+/turf/space/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	var/mob/AM = movable
-	if(ismob(AM) && AM.buckled && AM.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
+	var/mob/mob = arrived
+	if(ismob(mob) && mob.buckled && mob.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
 		return
-	if(movable.set_currently_z_moving(CURRENTLY_Z_FALLING))
-		zFall(movable, falling_from_move = TRUE)
+	if(arrived.set_currently_z_moving(CURRENTLY_Z_FALLING))
+		zFall(arrived, falling_from_move = TRUE)
 /**
  * Drops movables spawned on this turf only after they are successfully initialized.
  * so flying mobs, qdeleted movables and things that were moved somewhere else during

@@ -279,13 +279,11 @@
 	},
 /area/security/medbay)
 "acH" = (
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_sleva";
 	location = "Armory_North"
 	},
+/mob/living/simple_animal/bot/secbot/armsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5622,10 +5620,6 @@
 	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -6767,15 +6761,15 @@
 	},
 /area/security/prison/cell_block/A)
 "avY" = (
-/obj/machinery/door_timer/cell_4{
-	layer = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door_timer/cell_4{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -7054,10 +7048,6 @@
 	id = "Cell 4";
 	name = "Cell 4";
 	req_access = list(2)
-	},
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7352,11 +7342,6 @@
 /area/security/prison/cell_block/A)
 "axG" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
 /obj/machinery/door_timer/cell_5{
 	dir = 4;
 	layer = 4;
@@ -8886,10 +8871,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	name = "east light switch";
-	pixel_x = 24
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Cell Block A South";
 	dir = 8
@@ -8897,6 +8878,11 @@
 /obj/structure/disposalpipe/sortjunction{
 	name = "Detective";
 	sortType = 27
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east fire alarm";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17412,9 +17398,6 @@
 	},
 /area/mimeoffice)
 "bds" = (
-/obj/machinery/door_timer/cell_2{
-	layer = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -17423,6 +17406,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/light,
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -22339,7 +22325,7 @@
 /area/maintenance/auxsolarport)
 "bsy" = (
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
+	control_area = "AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_access = list(75)
@@ -47702,11 +47688,7 @@
 /obj/machinery/camera{
 	c_tag = "Atmospherics Waste Tank"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cRd" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -47720,11 +47702,7 @@
 	pressure_checks = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cRe" = (
 /obj/structure/cable{
@@ -48264,11 +48242,7 @@
 	id_tag = "waste_sensor";
 	output = 63
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cSs" = (
 /obj/machinery/light,
@@ -48629,11 +48603,7 @@
 	on = 1;
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cTw" = (
 /obj/structure/cable{
@@ -49230,11 +49200,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cUX" = (
 /obj/structure/table,
@@ -49617,11 +49583,7 @@
 	},
 /area/atmos)
 "cVR" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "cVS" = (
 /obj/item/radio/beacon,
@@ -54281,7 +54243,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Hallway";
+	control_area = "AI Satellite Hallway";
 	name = "AI Chamber Hallway Turret Control";
 	pixel_x = 24;
 	pixel_y = -24;
@@ -55935,7 +55897,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Atmospherics";
+	control_area = "AI Satellite Atmospherics";
 	name = "AI Satellite Atmospherics Turret Control";
 	pixel_x = -28;
 	req_access = list(75)
@@ -55953,7 +55915,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Service";
+	control_area = "AI Satellite Service";
 	name = "AI Satellite Service Bay Turret Control";
 	pixel_x = 24;
 	req_access = list(75)
@@ -72010,7 +71972,7 @@
 "nMn" = (
 /obj/machinery/light/small,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
+	control_area = "AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_y = -24;
 	req_access = list(75)

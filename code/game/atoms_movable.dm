@@ -13,10 +13,16 @@
 	var/throw_speed = 2 //How many tiles to move per ds when being thrown. Float values are fully supported
 	var/throw_range = 7
 	var/no_spin_thrown = FALSE
-	var/mob/pulledby = null
-	var/atom/movable/pulling
 	var/throwforce = 0
-	var/pull_push_speed_modifier = 1
+
+	/// Mob, who currently pulling/grabbing us
+	var/mob/living/pulledby
+	/// Movable thing we are currently pulling/grabbing
+	var/atom/movable/pulling
+	/// Our current grab state
+	var/grab_state = GRAB_PASSIVE
+	/// The strongest grab we can acomplish
+	var/max_grab = GRAB_PASSIVE
 
 	/// A list containing arguments for Moved().
 	VAR_PRIVATE/tmp/list/active_movement
@@ -60,6 +66,17 @@
 
 	/// NONE:0 not doing a diagonal move. FIRST_DIAG_STEP:1 and SECOND_DIAG_STEP:2 doing the first/second step of the diagonal move.
 	var/moving_diagonally = NONE
+	/// Attempt to resume grab after moving instead of before.
+	var/atom/movable/moving_from_pull
+
+	/// Just another var to avoid infinite recursion with double pulling. Move along.
+	var/pulling_glidesize_update = FALSE
+
+	/// Whether this atom should have its dir automatically changed when it moves.
+	/// Setting this to FALSE allows for things such as directional windows to retain dir on moving
+	/// without snowflake code all of the place.
+	var/set_dir_on_move = TRUE
+
 	///contains every client mob corresponding to every client eye in this container. lazily updated by SSparallax and is sparse:
 	///only the last container of a client eye has this list assuming no movement since SSparallax's last fire
 	var/list/client_mobs_in_contents
@@ -143,14 +160,10 @@
 	if(opacity)
 		RemoveElement(/datum/element/light_blocking)
 
-	. = ..()
-	if(loc)
-		loc.handle_atom_del(src)
-	for(var/atom/movable/AM in contents)
-		qdel(AM)
-	LAZYCLEARLIST(client_mobs_in_contents)
 	if(pulledby)
 		pulledby.stop_pulling()
+	if(pulling)
+		stop_pulling()
 	if(orbiting)
 		stop_orbit()
 	if(move_packet)
@@ -158,6 +171,14 @@
 			qdel(move_packet)
 		move_packet = null
 
+	LAZYNULL(client_mobs_in_contents)
+
+	. = ..()
+
+	if(loc)
+		loc.handle_atom_del(src)
+	for(var/atom/movable/AM in contents)
+		qdel(AM)
 	move_to_null_space()
 
 
@@ -241,58 +262,88 @@
 	return
 
 
-/atom/movable/proc/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	var/mob/mob_target = AM
-	if(ismob(mob_target) && mob_target.buckled)
-		AM = mob_target.buckled
-
-	if(QDELETED(AM) || QDELETED(src))
+/atom/movable/proc/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(QDELETED(pulled_atom))
 		return FALSE
-	if(!(AM.can_be_pulled(src, force, show_message)))
+	if(!(pulled_atom.can_be_pulled(src, state, force, supress_message)))
 		return FALSE
 
+	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	if(pulling)
-		if(AM == pulling && src == AM.pulledby)	// are we trying to pull something we are already pulling?
+		if(state == 0)
+			stop_pulling()
 			return FALSE
-		stop_pulling() // Clear yourself from targets `pulledby`.
+		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
+		if(pulled_atom == pulling)
+			setGrabState(state)
+			if(isliving(pulled_atom))
+				var/mob/living/pulled_mob = pulled_atom
+				pulled_mob.grabbedby(src)
+			return TRUE
+		stop_pulling()
 
-	var/atom/movable/previous_puller = null
-	if(AM.pulledby)
-		previous_puller = AM.pulledby
-		previous_puller.stop_pulling() // an object can't be pulled by two mobs at once.
-
-	pulling = AM
-	AM.pulledby = src
-
-	mob_target = ismob(AM) ? AM : (AM.buckled_mobs && length(AM.buckled_mobs)) ? AM.buckled_mobs[1] : null
-	if(mob_target)
-		if(previous_puller)
-			add_attack_logs(AM, previous_puller, "pulled from", ATKLOG_ALMOSTALL)
-			if(show_message)
-				mob_target.visible_message(
-					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] [mob_target] у [previous_puller]."),
-					span_danger("[src] перехватил[genderize_ru(gender,"","а","о","и")] Вас у [previous_puller]!"),
-				)
-		else
-			add_attack_logs(src, mob_target, "pulls", ATKLOG_ALMOSTALL)
-			if(show_message)
-				mob_target.visible_message(
-					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [mob_target]!"),
-					span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
-				)
-		mob_target.LAssailant = iscarbon(src) ? src : null
-
+	if(pulled_atom.pulledby)
+		add_attack_logs(pulled_atom, pulled_atom.pulledby, "pulled from", ATKLOG_ALMOSTALL)
+		pulled_atom.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+	pulling = pulled_atom
+	pulled_atom.set_pulledby(src)
+	SEND_SIGNAL(src, COMSIG_ATOM_START_PULL, pulled_atom, state, force)
+	setGrabState(state)
+	if(ismob(pulled_atom))
+		var/mob/pulled_mob = pulled_atom
+		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
+		if(!supress_message)
+			pulled_mob.visible_message(
+				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob]!"),
+				span_warning("[src] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+			)
+		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
 
 
 /atom/movable/proc/stop_pulling()
 	if(!pulling)
 		return
-	pulling.pulledby = null
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
 	var/atom/movable/old_pulling = pulling
 	pulling = null
 	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
 	SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
+
+
+///Reports the event of the change in value of the pulledby variable.
+/atom/movable/proc/set_pulledby(new_pulledby)
+	if(new_pulledby == pulledby)
+		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
+	. = pulledby
+	pulledby = new_pulledby
+
+
+/// Moves pulled thing to pull_loc with all the necessary checks.
+/atom/movable/proc/Move_Pulled(atom/pull_loc)
+	if(!pulling)
+		return FALSE
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
+		stop_pulling()
+		return FALSE
+	if(isliving(pulling))
+		var/mob/living/pulling_mob = pulling
+		if(pulling_mob.buckled && pulling_mob.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+			stop_pulling()
+			return FALSE
+	var/move_dir = get_dir(pulling.loc, pull_loc)
+	if(pulling.density && (pull_loc == loc || pull_loc == get_step(src, move_dir)))
+		return FALSE
+	if(!Process_Spacemove(move_dir))
+		return FALSE
+	var/turf/pull_turf = get_step(pulling.loc, move_dir)
+	if(!pull_turf || pull_turf.density)
+		return FALSE
+	if(ismob(src))
+		var/mob/mob = src
+		mob.changeNext_move(CLICK_CD_GRABBING)
+	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
 /**
@@ -301,7 +352,7 @@
  */
 /atom/movable/proc/check_pulling(only_pulling = FALSE, z_allowed = FALSE)
 	if(pulling)
-		if(get_dist(src, pulling) > 1 || (z != pulling.z && !z_allowed))
+		if(!in_range(src, pulling) || (z != pulling.z && !z_allowed))
 			stop_pulling()
 		else if(!isturf(loc))
 			stop_pulling()
@@ -310,28 +361,67 @@
 			stop_pulling()
 		else if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
-	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (get_dist(src, pulledby) > 1 || z != pulledby.z)) //separated from our puller and not in the middle of a diagonal move.
+	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (!in_range(src, pulledby)  || z != pulledby.z)) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(atom/movable/user, force, show_message = FALSE)
-	if(src == user || !isturf(loc))
+
+/atom/movable/proc/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
+	if(src == puller || !isturf(loc))
 		return FALSE
-	if(anchored || move_resist == INFINITY)
-		if(show_message)
-			to_chat(user, span_warning("Похоже, [src.name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+	if(SEND_SIGNAL(src, COMSIG_ATOM_CAN_BE_PULLED, puller) & COMSIG_ATOM_CANT_PULL)
 		return FALSE
-	if(throwing)
+	if(anchored)
+		if(!supress_message && ismob(puller))
+			to_chat(puller, span_warning("Похоже, [name] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+		return FALSE
+	if(throwing || move_resist == INFINITY)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
-		if(show_message)
-			to_chat(user, span_warning("[src.name] слишком тяжелый!"))
+		if(!supress_message && ismob(puller))
+			to_chat(puller, span_warning("[name] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
 		return FALSE
 	return TRUE
 
+
+/**
+ * Updates the grab state of the movable
+ *
+ * This exists to act as a hook for behaviour
+ */
+/atom/movable/proc/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
+	grab_state = newstate
+	switch(grab_state) // Current state.
+		if(GRAB_PASSIVE)
+			pulling.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+			if(. >= GRAB_KILL) // Previous state was a kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_AGGRESSIVE)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+			else if(. <= GRAB_PASSIVE) // Grab got upgraded from a passive one.
+				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+		if(GRAB_NECK)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_KILL)
+			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+
+
+/// Use this to override topmost bump thing in [/turf/proc/Enter()].
+/// Should return an atom to bump.
+/atom/movable/proc/tompost_bump_override(atom/movable/mover, border_dir)
+	return
+
+
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
-/atom/movable/proc/setLoc(var/T, var/teleported=0)
-	loc = T
+/atom/movable/proc/setLoc(turf/destination, force_update = FALSE)
+	loc = destination
 
 
 /atom/movable/proc/set_glide_size(target = DEFAULT_GLIDE_SIZE)
@@ -344,6 +434,20 @@
 	for(var/mob/buckled_mob as anything in buckled_mobs)
 		buckled_mob.set_glide_size(target)
 
+	// we update glide size for pulled things like this to make it extra smooth
+	if(pulling && !pulling.pulling_glidesize_update && !LAZYIN(buckled_mobs, pulling))
+		pulling.pulling_glidesize_update = TRUE
+		pulling.set_glide_size(target)
+		pulling.pulling_glidesize_update = FALSE
+
+	// corrects glide size for the movable our pullee is buckled onto
+	if(ismob(pulling))
+		var/mob/mob_pulling = pulling
+		if(mob_pulling.buckled && mob_pulling.buckled != src && !mob_pulling.buckled.pulling_glidesize_update)
+			mob_pulling.buckled.pulling_glidesize_update = TRUE
+			mob_pulling.buckled.set_glide_size(target)
+			mob_pulling.buckled.pulling_glidesize_update = FALSE
+
 
 /**
  * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
@@ -355,12 +459,16 @@
 	var/atom/old_loc = loc
 	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
-	Moved(old_loc, direction, TRUE, FALSE)
+	Moved(old_loc, direction, TRUE, momentum_change = FALSE)
 
 
-/atom/movable/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+////////////////////////////////////////
+// Here's where we rewrite how byond handles movement except slightly different
+// To be removed on step_ conversion
+// All this work to prevent a second bump
+/atom/movable/Move(atom/newloc, direct, glide_size_override = 0, update_dir = TRUE)
 	. = FALSE
-	if(!loc || !newloc)
+	if(!newloc || newloc == loc)
 		return .
 
 	// A mid-movement... movement... occured, resolve that first.
@@ -369,23 +477,93 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
+	if(set_dir_on_move && dir != direct && update_dir)
+		setDir(direct)
+
+	var/is_multi_tile = is_multi_tile_object(src)
+
+	var/list/old_locs
+	if(is_multi_tile && isturf(loc))
+		old_locs = locs // locs is a special list, this is effectively the same as .Copy() but with less steps
+		for(var/atom/exiting_loc as anything in old_locs)
+			if(!exiting_loc.Exit(src, newloc))
+				return .
+	else
+		if(!loc.Exit(src, newloc))
+			return .
+
+	var/list/new_locs
+	if(is_multi_tile && isturf(newloc))
+		new_locs = block(
+			newloc.x,
+			newloc.y,
+			newloc.z,
+			min(world.maxx, newloc.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
+			min(world.maxy, newloc.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
+			newloc.z
+		)	// If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
+		for(var/atom/entering_loc as anything in new_locs)
+			if(!entering_loc.Enter(src))
+				return .
+			if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, entering_loc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+				return .
+	else // Else just try to enter the single destination.
+		if(!newloc.Enter(src))
+			return .
+		if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+			return .
+
+	// Past this is the point of no return
 	var/atom/oldloc = loc
+	var/area/oldarea = get_area(oldloc)
+	var/area/newarea = get_area(newloc)
+
+	SET_ACTIVE_MOVEMENT(oldloc, direct, FALSE, old_locs)
+	loc = newloc
+
+	. = TRUE
+
+	if(old_locs) // This condition will only be true if it is a multi-tile object.
+		for(var/atom/exited_loc as anything in (old_locs - new_locs))
+			exited_loc.Exited(src, newloc)
+	else // Else there's just one loc to be exited.
+		oldloc.Exited(src, newloc)
+	for(var/atom/movable/movable in oldloc.contents)
+		movable.Uncrossed(src)
+	if(oldarea != newarea)
+		oldarea.Exited(src, newarea)
+
+	if(new_locs) // Same here, only if multi-tile.
+		for(var/atom/entered_loc as anything in (new_locs - old_locs))
+			entered_loc.Entered(src, oldloc, old_locs)
+	else
+		newloc.Entered(src, oldloc, old_locs)
+	for(var/atom/movable/movable in (newloc.contents - src))
+		movable.Crossed(src, oldloc)
+	if(oldarea != newarea)
+		newarea.Entered(src, oldarea)
+
+	RESOLVE_ACTIVE_MOVEMENT
+
+
+/atom/movable/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	var/atom/movable/pullee = pulling
+	var/turf/current_turf = loc
+	if(!moving_from_pull)
+		check_pulling(z_allowed = TRUE)
+
+	if(!loc || !newloc)
+		return FALSE
+
+	var/atom/oldloc = loc
+
 	//Early override for some cases like diagonal movement
 	if(glide_size_override && glide_size != glide_size_override)
 		set_glide_size(glide_size_override)
 
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
-		return .
-
 	if(loc != newloc)
 		if(!ISDIAGONALDIR(direct)) //Cardinal move
-			SET_ACTIVE_MOVEMENT(oldloc, direct, FALSE)
-			. = ..(newloc, direct)
-			setDir(direct)	// we should remake byond Move() already
-			if(.)
-				RESOLVE_ACTIVE_MOVEMENT
-			else
-				active_movement = null	// temporal solution
+			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -395,63 +573,86 @@
 			// at a first half if the cardinal Move() fails because we hit something.
 			if(direct & NORTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src, NORTH), NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
+						. = Move(get_step(src, EAST), EAST)
 					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
+						. = Move(get_step(src, NORTH), NORTH)
 
 				else if(direct & WEST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
+					if(Move(get_step(src, NORTH), NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
+						. = Move(get_step(src, WEST), WEST)
 					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
+						. = Move(get_step(src, NORTH), NORTH)
 
 			else if(direct & SOUTH)
 				if(direct & EAST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src, SOUTH), SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
+						. = Move(get_step(src, EAST), EAST)
 					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
+						. = Move(get_step(src, SOUTH), SOUTH)
 
 				else if(direct & WEST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
+					if(Move(get_step(src, SOUTH), SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
+						. = Move(get_step(src, WEST), WEST)
 					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
+						. = Move(get_step(src, SOUTH), SOUTH)
 
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!.)
+				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
-			if(client_mobs_in_contents) // We're done moving, update our parallax now
-				update_parallax_contents()
+				if(client_mobs_in_contents) // We're done moving, update our parallax now
+					update_parallax_contents()
 			moving_diagonally = NONE
 			return .
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+		last_move = NONE
 		set_currently_z_moving(FALSE, TRUE)
 		return .
 
-	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
-	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
+	//we were pulling a thing and didn't lose it during our move.
+	if(. && pulling && pulling == pullee && pulling != moving_from_pull)
+		if(pulling.anchored)
+			stop_pulling()
+		else
+			// Puller and pullee more than one tile away or in diagonal position and whatever the pullee is pulling
+			// isn't already moving from a pull as it'll most likely result in an infinite loop a la ouroborus.
+			if(!pulling.pulling?.moving_from_pull)
+				var/pull_dir = get_dir(pulling, src)
+				var/target_turf = grab_state < GRAB_NECK ? current_turf : loc
+
+				// Pulling things down/up stairs. zMove() has flags for check_pulling and stop_pulling calls.
+				// You may wonder why we're not just forcemoving the pulling movable and regrabbing it.
+				// The answer is simple. forcemoving and regrabbing is ugly and breaks conga lines.
+				if(pulling.z != z)
+					target_turf = get_step(pulling, get_dir(pulling, current_turf))
+
+				var/range_check = grab_state < GRAB_NECK ? !in_range(src, pulling) : pulling.loc != loc
+				if(range_check || target_turf != current_turf || (moving_diagonally != SECOND_DIAG_STEP && ISDIAGONALDIR(pull_dir)))
+					pulling.move_from_pull(src, target_turf, glide_size)
+			check_pulling()
+
+	// glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
+	// This means that if you don't override it late like this, it will just be set back
+	// by the movement update that's called when you move turfs.
 	if(glide_size_override)
 		set_glide_size(glide_size_override)
 
@@ -459,7 +660,11 @@
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob(s)
+	if(set_dir_on_move && dir != direct && update_dir)
+		setDir(direct)
+
+	// movement failed due to buckled mob(s)
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override))
 		. = FALSE
 
 	if(currently_z_moving)
@@ -470,21 +675,36 @@
 			set_currently_z_moving(FALSE, TRUE)
 
 
-// Called after a successful Move(). By this point, we've already moved
-/atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+/// Called when src is being moved to a target turf because another movable (puller) is moving around.
+/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
+	moving_from_pull = puller
+	Move(target_turf, get_dir(src, target_turf))
+	moving_from_pull = null
+
+
+/**
+ * Called after a successful Move(). By this point, we've already moved.
+ * Arguments:
+ * * old_loc is the location prior to the move. Can be null to indicate nullspace.
+ * * movement_dir is the direction the movement took place. Can be NONE if it was some sort of teleport.
+ * * The forced flag indicates whether this was a forced move, which skips many checks of regular movement.
+ * * The old_locs is an optional argument, in case the moved movable was present in multiple locations before the movement.
+ * * momentum_change represents whether this movement is due to a "new" force if TRUE or an already "existing" force if FALSE
+ **/
+/atom/movable/proc/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!inertia_moving && momentum_change)
-		newtonian_move(Dir)
+		newtonian_move(movement_dir)
 	// If we ain't moving diagonally right now, update our parallax
 	// We don't do this all the time because diag movements should trigger one call to this, not two
 	// Waste of cpu time, and it fucks the animate
-	if (!moving_diagonally && client_mobs_in_contents)
+	if(!moving_diagonally && client_mobs_in_contents)
 		update_parallax_contents()
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
-	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 
 	if(old_turf?.z != new_turf?.z)
@@ -496,28 +716,53 @@
 	return TRUE
 
 
+// Make sure you know what you're doing if you call this
+// You probably want CanPass()
+/atom/movable/Cross(atom/movable/crossed_atom, border_dir)
+	. = TRUE
+	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, crossed_atom, border_dir)
+	SEND_SIGNAL(crossed_atom, COMSIG_MOVABLE_CROSS_OVER, src, border_dir)
+	return CanPass(crossed_atom, border_dir)
+
+
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
 /atom/movable/Crossed(atom/movable/AM, oldloc)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 	SEND_SIGNAL(AM, COMSIG_CROSSED_MOVABLE, src)
 
+
+/**
+ * `Uncross()` is a default BYOND proc that is called when something is *going*
+ * to exit this atom's turf. It is prefered over `Uncrossed` when you want to
+ * deny that movement, such as in the case of border objects, objects that allow
+ * you to walk through them in any direction except the one they block
+ * (think side windows).
+ *
+ * While being seemingly harmless, most everything doesn't actually want to
+ * use this, meaning that we are wasting proc calls for every single atom
+ * on a turf, every single time something exits it, when basically nothing
+ * cares.
+ *
+ * If you want to replicate the old `Uncross()` behavior, the most apt
+ * replacement is [`/datum/element/connect_loc`] while hooking onto
+ * [`COMSIG_ATOM_EXIT`].
+ */
+/atom/movable/Uncross()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("Uncross() should not be being called, please read the doc-comment for it if you wonder why.")
+
+
 /atom/movable/Uncrossed(atom/movable/AM)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
 
 
-/// The "custom_bump" arg is to differentiate our Bump proc in [/turf/Enter()] from byond's.
-/// Without it every Bump() call would become a double Bump().
-/// Return `TRUE` if you want to skip bump chain.
-/// Always check for null return in children, otherwise you will end with double bump.
-/atom/movable/Bump(atom/bumped_atom, custom_bump)
-	if(!custom_bump)
-		return null
+/atom/movable/Bump(atom/bumped_atom)
 	if(!bumped_atom)
 		CRASH("Bump was called with no argument.")
-	. = FALSE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, bumped_atom)
-	if(throwing)
+	. = ..()
+	if(!QDELETED(throwing))
 		throwing.finalize(bumped_atom)
 		. = TRUE
 		if(QDELETED(bumped_atom))
@@ -552,9 +797,9 @@
 	RESOLVE_ACTIVE_MOVEMENT
 
 	var/atom/oldloc = loc
-	var/is_multi_tile = bound_width > world.icon_size || bound_height > world.icon_size
+	var/is_multi_tile = is_multi_tile_object(src)
 
-	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE)
+	SET_ACTIVE_MOVEMENT(oldloc, NONE, TRUE, null)
 
 	if(destination)
 		///zMove already handles whether a pull from another movable should be broken.
@@ -564,7 +809,6 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
-		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
@@ -573,31 +817,40 @@
 		if(!same_loc)
 			if(is_multi_tile && isturf(destination))
 				var/list/new_locs = block(
-					destination,
-					min(world.maxx, destination.x + ROUND_UP(bound_width / 32)),
-					min(world.maxy, destination.y + ROUND_UP(bound_height / 32)),
+					destination.x,
+					destination.y,
+					destination.z,
+					min(world.maxx, destination.x + (CEILING(bound_width / world.icon_size, 1) - 1)),
+					min(world.maxy, destination.y + (CEILING(bound_height / world.icon_size, 1) - 1)),
 					destination.z
 				)
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, movement_dir)
-				for(var/atom/left_loc as anything in locs - new_locs)
-					left_loc.Exited(src, destination)
+					old_area.Exited(src, destarea)
 
-				for(var/atom/entering_loc as anything in new_locs - locs)
+				for(var/atom/left_loc as anything in (locs - new_locs))
+					left_loc.Exited(src, destination)
+				for(var/atom/movable/movable in oldloc.contents)
+					movable.Uncrossed(src)
+
+				for(var/atom/entering_loc as anything in (new_locs - locs))
 					entering_loc.Entered(src, oldloc)
+				for(var/atom/movable/movable in (destination.contents - src))
+					movable.Crossed(src, oldloc)
 
 				if(old_area && old_area != destarea)
-					destarea.Entered(src, movement_dir)
+					destarea.Entered(src, old_area)
 			else
 				if(oldloc)
 					oldloc.Exited(src, destination)
+					for(var/atom/movable/movable in oldloc)
+						movable.Uncrossed(src)
 					if(old_area && old_area != destarea)
-						old_area.Exited(src, movement_dir)
+						old_area.Exited(src, destarea)
 				destination.Entered(src, oldloc)
-				if(destarea && old_area != destarea)
-					destarea.Entered(src, old_area)
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
+				if(destarea && old_area != destarea)
+					destarea.Entered(src, old_area)
 
 		. = TRUE
 
@@ -610,12 +863,12 @@
 			var/area/old_area = get_area(oldloc)
 			if(is_multi_tile && isturf(oldloc))
 				for(var/atom/old_loc as anything in locs)
-					old_loc.Exited(src, NONE)
+					old_loc.Exited(src, null)
 			else
-				oldloc.Exited(src, NONE)
+				oldloc.Exited(src, null)
 
 			if(old_area)
-				old_area.Exited(src, NONE)
+				old_area.Exited(src, null)
 
 	RESOLVE_ACTIVE_MOVEMENT
 
@@ -780,7 +1033,7 @@
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
 
-	if(pulledby && pulledby.pulledby != src)
+	if(pulledby && (pulledby.pulledby != src || moving_from_pull))
 		return TRUE
 
 	if(throwing)
@@ -832,8 +1085,7 @@
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
 		return FALSE
 
-	if(pulledby)
-		pulledby.stop_pulling()
+	pulledby?.stop_pulling()
 
 	// They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if(istype(thrower) && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag * 2)
@@ -881,9 +1133,6 @@
 	thrown_thing.dy = dy
 	thrown_thing.diagonal_error = dist_x/2 - dist_y
 	thrown_thing.start_time = world.time
-
-	if(pulledby)
-		pulledby.stop_pulling()
 
 	throwing = thrown_thing
 	if(spin && !no_spin_thrown)
@@ -1061,11 +1310,9 @@
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
 
+
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
-
-/atom/movable/proc/get_pull_push_speed_modifier(current_delay)
-	return pull_push_speed_modifier
 
 
 /// Returns true or false to allow src to move through the blocker, mover has final say
@@ -1095,4 +1342,60 @@
 		AddElement(/datum/element/light_blocking)
 	else
 		RemoveElement(/datum/element/light_blocking)
+
+
+/// Source is devoured by living mob.
+/atom/movable/proc/devoured(mob/living/carbon/gourmet)
+	if(!can_devour(gourmet))
+		return FALSE
+
+	var/mob/living/victim = src	// its just living mobs now, subject to change later
+
+	var/target = isturf(loc) ? src : gourmet
+
+	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
+
+	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))
+		gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [name]!"))
+		return FALSE
+
+	gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [name]!"))
+
+	if(victim.mind)
+		add_attack_logs(gourmet, src, "Devoured")
+
+	if(!isvampire(gourmet))
+		gourmet.adjust_nutrition(2 * victim.health)
+
+	for(var/datum/disease/virus/virus in victim.diseases)
+		if(virus.spread_flags > NON_CONTAGIOUS)
+			virus.Contract(gourmet)
+
+	for(var/datum/disease/virus/virus in gourmet.diseases)
+		if(virus.spread_flags > NON_CONTAGIOUS)
+			virus.Contract(victim)
+
+	victim.forceMove(gourmet)
+	LAZYADD(gourmet.stomach_contents, victim)
+	return TRUE
+
+
+/// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
+/atom/movable/proc/can_devour(mob/living/carbon/gourmet)
+	if(isalienadult(gourmet))
+		var/mob/living/carbon/alien/humanoid/alien = gourmet
+		return alien.can_consume(src)
+	if(ishuman(gourmet)) //species eating of other mobs
+		return is_type_in_list(src, gourmet.dna.species.allowed_consumed_mobs)
+	return FALSE
+
+
+/// Returns the time devourer has to wait before they eat a prey.
+/atom/movable/proc/get_devour_time(mob/living/carbon/gourmet)
+	if(isalienadult(gourmet))
+		var/mob/living/carbon/alien/humanoid/alien = gourmet
+		return alien.devour_time
+	if(isanimal(src))
+		return DEVOUR_TIME_ANIMAL
+	return DEVOUR_TIME_DEFAULT
 

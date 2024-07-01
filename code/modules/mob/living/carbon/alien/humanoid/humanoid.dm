@@ -2,6 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 	pass_flags = PASSTABLE
+	max_grab = GRAB_KILL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
@@ -163,4 +164,44 @@
 		. |= ITEM_SLOT_POCKET_RIGHT
 	if(l_store)
 		. |= ITEM_SLOT_POCKET_LEFT
+
+
+/mob/living/carbon/alien/humanoid/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
+	grab_state = newstate
+	update_hands_HUD()
+	switch(grab_state) // Current state.
+		if(GRAB_PASSIVE)
+			pulling.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+			if(. >= GRAB_KILL) // Previous state was a kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_AGGRESSIVE)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+			else if(. <= GRAB_PASSIVE) // Grab got upgraded from a passive one.
+				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
+		if(GRAB_NECK)
+			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+		if(GRAB_KILL)
+			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+
+
+/mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
+	return grabbed_thing.devoured(src)
+
+
+/// Returns FALSE if we're not allowed to eat it, true otherwise
+/mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)
+	if(!isliving(target) || !pulling || (pulling && pulling != target))
+		return FALSE
+	if(incapacitated() || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	if(get_dir(src, target) != dir) // Gotta face em 4head
+		return FALSE
+	return TRUE
 

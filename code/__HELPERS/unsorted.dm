@@ -691,7 +691,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 						if(!isobj(O)) continue
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X, TRUE)
 						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)

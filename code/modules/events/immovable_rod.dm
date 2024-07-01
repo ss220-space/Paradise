@@ -85,7 +85,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	UnregisterSignal(src, COMSIG_ATOM_ENTERING)
 	destination_turf = null
 	special_target = null
-	GLOB.poi_list.Remove(src)
+	GLOB.poi_list -= src
 	return ..()
 
 
@@ -131,13 +131,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		\t\t<b>[num_sentient_people_hit]</b> из них [declension_ru(num_sentient_people_hit, "было гуманоидом", "были гуманоидами", "были гуманоидами")].</span>"
 
 
-/obj/effect/immovablerod/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+/obj/effect/immovablerod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(!loc)
 		return ..()
 
 	for(var/atom/movable/to_bump in loc)
 		if((to_bump != src) && !QDELETED(to_bump) && (to_bump.density || isliving(to_bump)))
-			Bump(to_bump, custom_bump = TRUE)
+			Bump(to_bump)
 
 	// If we have a special target, we should definitely make an effort to go find them.
 	if(special_target)
@@ -197,11 +197,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		walk_in_direction(direction)
 
 
-/obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc)
+/obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(destination.density && isturf(destination))
-		Bump(destination, custom_bump = TRUE)
+		Bump(destination)
 
 
 /obj/effect/immovablerod/proc/complete_trajectory(random_shift = FALSE)
@@ -229,10 +229,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return TRUE
 
 
-/obj/effect/immovablerod/Bump(atom/clong, custom_bump)
-	if(!custom_bump)
-		return null
-
+/obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message(span_danger("Вы слышите ЛЯЗГ!"))
@@ -244,15 +241,22 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(isturf(clong))	// If we Bump into a turf, turf go boom.
 		clong.ex_act(EXPLODE_HEAVY)
-	else if(isobj(clong))	// If we Bump into the object make it suffer
+		return ..()
+
+	if(isobj(clong))	// If we Bump into the object make it suffer
 		var/obj/clong_obj = clong
 		clong_obj.take_damage(INFINITY, BRUTE, NONE, TRUE, dir, INFINITY)
-	else if(isliving(clong))	// If we Bump into a living thing, living thing goes splat.
+		return ..()
+
+	if(isliving(clong))	// If we Bump into a living thing, living thing goes splat.
 		penetrate(clong)
-	else if(isatom(clong))	// If we Bump into anything else, anything goes boom.
+		return ..()
+
+	if(isatom(clong))	// If we Bump into anything else, anything goes boom.
 		clong.ex_act(EXPLODE_HEAVY)
-	else
-		CRASH("[src] Bump()ed into non-atom thing [clong] ([clong.type])")
+		return ..()
+
+	CRASH("[src] Bump()ed into non-atom thing [clong] ([clong.type])")
 
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/smeared_mob)

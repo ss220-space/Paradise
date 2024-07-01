@@ -345,7 +345,7 @@
 /obj/structure/decorative_structures/corpse/climb_on()
 	return
 
-/obj/structure/decorative_structures/corpse/Move()
+/obj/structure/decorative_structures/corpse/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	bloodtiles -= 1
 	if(bloodtiles >= 0 && prob(40))

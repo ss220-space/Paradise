@@ -6602,7 +6602,7 @@
 /mob/living/simple_animal/pet/dog/fox/alisa,
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "\improper Centcom Emergency Shuttle";
+	control_area = "Centcom Emergency Shuttle";
 	name = "ERT Turret Control";
 	pixel_y = 25;
 	req_access = list(109)
@@ -16429,7 +16429,7 @@
 "mcd" = (
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "\improper Centcom Emergency Shuttle";
+	control_area = "Centcom Emergency Shuttle";
 	name = "Emergency Shuttle Turret Control Panel";
 	pixel_x = -30;
 	req_access = list(110)

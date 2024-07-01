@@ -166,7 +166,7 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/legion/Move()
+/mob/living/simple_animal/hostile/megafauna/legion/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(firing_laser)
 		return FALSE
 	. = ..()
