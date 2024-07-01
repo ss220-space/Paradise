@@ -12,6 +12,7 @@
 	var/is_blob_process = FALSE
 	var/storm_started = FALSE
 	var/blob_players_per_core = BLOB_PLAYERS_PER_CORE
+	var/blob_restricted_jobs = BLOB_RESTRICTED_JOBS
 	var/datum/objective/blob_critical_mass/blob_objective
 
 
@@ -84,7 +85,7 @@
 				continue
 			if(player.can_be_blob)
 				continue
-			if(length(BLOB_RESTRICTED_JOBS) && (player.mind.assigned_role in BLOB_RESTRICTED_JOBS))
+			if(length(blob_restricted_jobs) && (player.mind.assigned_role in blob_restricted_jobs))
 				continue
 			var/turf/location = get_turf(player)
 			if(!location || !is_station_level(location.z) || isspaceturf(location))
