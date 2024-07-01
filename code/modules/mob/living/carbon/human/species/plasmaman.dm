@@ -56,12 +56,13 @@
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
-
+	UnregisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE)
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
@@ -214,11 +215,11 @@
 	..()
 	if(H.stat == DEAD)
 		return
-	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture), override = TRUE)
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
 		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
 	H.reagents.add_reagent("plasma_dust", 15)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
