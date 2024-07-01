@@ -151,11 +151,13 @@
 
 /obj/item/clothing/suit/towel
 	material_type = MATERIAL_CLASS_CLOTH
-	max_bites = 8
-
-/obj/item/clothing/suit/towel/long
-	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 12
+	is_only_grab_intent = TRUE
+
+/obj/item/clothing/suit/towel/short
+	material_type = MATERIAL_CLASS_CLOTH
+	max_bites = 8
+	is_only_grab_intent = TRUE
 
 
 /obj/item/clothing/suit/chameleon

@@ -1460,6 +1460,36 @@
 	AddComponent(/datum/component/spraycan_paintable)
 
 
+/obj/item/clothing/suit/towel/attack_self(mob/living/carbon/user)
+	if(!istype(user) || !user.wetlevel)
+		return ..()
+
+	INVOKE_ASYNC(src, PROC_REF(wipe_dry), user, user)
+
+
+/obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
+	if(try_item_eat(target, user))
+		return
+
+	if(!istype(target) || !target.wetlevel)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(wipe_dry), target, user)
+
+
+/obj/item/clothing/suit/towel/proc/wipe_dry(mob/living/carbon/target, mob/user)
+	user.visible_message(span_warning("[user] begins to wipe [target == user ? target.p_themselves() : target] with [src]."))
+
+	if(!do_after(user, 5 SECONDS, target))
+		return
+
+	if(!istype(target) || !target.wetlevel)
+		return
+
+	target.wetlevel = 0
+	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
+
+
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
 		var/obj/item/stack/sheet/cloth/cloth = new(get_turf(src), drop_ammount)
@@ -1474,6 +1504,7 @@
 /obj/item/clothing/suit/towel/alt
 	icon_state = "towel_long_alt"
 	item_state = "towel_alt"
+	var/woman_human_user = FALSE
 
 
 /obj/item/clothing/suit/towel/alt/equipped(mob/user, slot, initial)
@@ -1482,12 +1513,14 @@
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 
-	if(user.gender != FEMALE || !ishumanbasic(user))
-		sprite_sheets -= SPECIES_HUMAN
-	else
-		sprite_sheets[SPECIES_HUMAN] = 'icons/mob/clothing/species/human/suit.dmi'
+	woman_human_user = user.gender == FEMALE && ishumanbasic(user)
 
-	user.wear_suit_update(src)
+	update_icon(UPDATE_ICON_STATE)
+	user.update_inv_wear_suit(src)
+
+
+/obj/item/clothing/suit/towel/alt/update_icon_state()
+	icon_state = "[initial(icon_state)][woman_human_user ? "_woman" : null]"
 
 
 /obj/item/clothing/suit/towel/short
