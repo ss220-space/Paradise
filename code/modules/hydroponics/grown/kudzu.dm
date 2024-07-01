@@ -27,19 +27,19 @@
 	return BRUTELOSS
 
 /obj/item/seeds/kudzu/proc/plant(mob/user)
-	var/turf/user_turf = get_turf(user)
-	if(!user_turf || isspaceturf(user_turf) || is_location_within_transition_boundaries(user_turf))
-		return
-	var/turf/T = get_turf(src)
-	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(T)]")
-	investigate_log("was planted by [key_name_log(user)] at [COORD(T)]", INVESTIGATE_BOTANY)
-	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
+	var/turf/user_turf = user.loc
+	if(!isturf(user_turf) || isspaceturf(user_turf) || !is_location_within_transition_boundaries(user_turf))
+		return FALSE
+	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(user_turf)]")
+	investigate_log("was planted by [key_name_log(user)] at [COORD(user_turf)]", INVESTIGATE_BOTANY)
+	new /obj/structure/spacevine_controller(user_turf, mutations, potency, production)
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
+	return TRUE
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
-	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	if(plant(user))
+		to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
