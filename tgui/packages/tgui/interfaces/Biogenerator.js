@@ -147,7 +147,7 @@ const Products = (props, context) => {
               <Icon ml="5px" name="leaf" size={1.2} color="#3d8c40" />
             </Stack.Item>
             <Stack.Item textAlign="right" width="40%">
-              {(item.needs_container && !container) ? (
+              {item.needs_container && !container ? (
                 <Button
                   content="No container"
                   disabled

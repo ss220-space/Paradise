@@ -184,10 +184,12 @@ const ChemDispenserBeaker = (properties, context) => {
                 content="Floor"
                 tooltip={'Set to ' + Math.trunc(chemical.volume)}
                 icon="arrow-circle-down"
-                onClick={() => act('remove', {
-                  reagent: chemical.id,
-                  amount: -2,
-                })}
+                onClick={() =>
+                  act('remove', {
+                    reagent: chemical.id,
+                    amount: -2,
+                  })
+                }
               />
             </>
           )}

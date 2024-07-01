@@ -20,7 +20,8 @@ export const AtmosAlertConsole = (props, context) => {
                   icon="times"
                   content={alert}
                   color="bad"
-                  onClick={() => act('clear', { zone: alert })} />
+                  onClick={() => act('clear', { zone: alert })}
+                />
               </li>
             ))}
             {minorAlerts.length === 0 && (
@@ -32,7 +33,8 @@ export const AtmosAlertConsole = (props, context) => {
                   icon="times"
                   content={alert}
                   color="average"
-                  onClick={() => act('clear', { zone: alert })} />
+                  onClick={() => act('clear', { zone: alert })}
+                />
               </li>
             ))}
           </ul>

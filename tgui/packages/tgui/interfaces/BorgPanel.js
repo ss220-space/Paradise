@@ -24,7 +24,8 @@ export const BorgPanel = (props, context) => {
               content="Rename"
               onClick={() => act('rename')}
             />
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Status">
               <Button
@@ -77,7 +78,7 @@ export const BorgPanel = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Radio Channels">
-              {channels.map(channel => (
+              {channels.map((channel) => (
                 <Button
                   key={channel.name}
                   icon={channel.installed ? 'check-square-o' : 'square-o'}
@@ -86,12 +87,13 @@ export const BorgPanel = (props, context) => {
                   onClick={() =>
                     act('toggle_radio', {
                       channel: channel.name,
-                    })}
+                    })
+                  }
                 />
               ))}
             </LabeledList.Item>
             <LabeledList.Item label="Model">
-              {modules.map(module => (
+              {modules.map((module) => (
                 <Button
                   key={module.type}
                   icon={
@@ -99,17 +101,18 @@ export const BorgPanel = (props, context) => {
                       ? 'check-square-o'
                       : 'square-o'
                   }
-                  content={module.name+' module'}
+                  content={module.name + ' module'}
                   selected={borg.active_module === module.name}
                   onClick={() =>
                     act('setmodule', {
                       module: module.name,
-                    })}
+                    })
+                  }
                 />
               ))}
             </LabeledList.Item>
             <LabeledList.Item label="Upgrades">
-              {upgrades.map(upgrade => (
+              {upgrades.map((upgrade) => (
                 <Button
                   key={upgrade.type}
                   icon={upgrade.installed ? 'check-square-o' : 'square-o'}
@@ -118,12 +121,13 @@ export const BorgPanel = (props, context) => {
                   onClick={() =>
                     act('toggle_upgrade', {
                       upgrade: upgrade.type,
-                    })}
+                    })
+                  }
                 />
               ))}
             </LabeledList.Item>
             <LabeledList.Item label="Master AI">
-              {ais.map(ai => (
+              {ais.map((ai) => (
                 <Button
                   key={ai.ref}
                   icon={ai.connected ? 'check-square-o' : 'square-o'}
@@ -132,7 +136,8 @@ export const BorgPanel = (props, context) => {
                   onClick={() =>
                     act('slavetoai', {
                       slavetoai: ai.ref,
-                    })}
+                    })
+                  }
                 />
               ))}
             </LabeledList.Item>
@@ -140,7 +145,7 @@ export const BorgPanel = (props, context) => {
         </Section>
         <Section
           title="Laws"
-          buttons={(
+          buttons={
             <Fragment>
               <Button
                 content="Law Manager"
@@ -154,8 +159,9 @@ export const BorgPanel = (props, context) => {
                 onClick={() => act('toggle_lawupdate')}
               />
             </Fragment>
-          )}>
-          {laws.map(law => (
+          }
+        >
+          {laws.map((law) => (
             <Box key={law}>{law}</Box>
           ))}
         </Section>

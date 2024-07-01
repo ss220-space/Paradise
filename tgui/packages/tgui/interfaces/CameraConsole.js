@@ -3,7 +3,17 @@ import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Stack, Box, NanoMap, Tabs, Icon } from '../components';
+import {
+  Button,
+  ByondUi,
+  Input,
+  Section,
+  Stack,
+  Box,
+  NanoMap,
+  Tabs,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 
 /**
@@ -49,7 +59,7 @@ const selectCameras = (cameras, searchText = '') => {
 
 export const CameraConsole = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const decideTab = index => {
+  const decideTab = (index) => {
     switch (index) {
       case 0:
         return <CameraConsoleMapContent />;
@@ -68,13 +78,15 @@ export const CameraConsole = (props, context) => {
             <Tabs.Tab
               key="Map"
               selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}>
+              onClick={() => setTabIndex(0)}
+            >
               <Icon name="map-marked-alt" /> Map
             </Tabs.Tab>
             <Tabs.Tab
               key="List"
               selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}>
+              onClick={() => setTabIndex(1)}
+            >
               <Icon name="table" /> List
             </Tabs.Tab>
           </Tabs>
@@ -90,18 +102,28 @@ export const CameraConsoleMapContent = (props, context) => {
   const cameras = selectCameras(data.cameras);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const { mapRef, activeCamera, stationLevelNum, stationLevelName } = data;
-  const [z_current, setZCurrent] = useLocalState(context, 'z_current', stationLevelNum[0]);
-  const [
-    prevCameraName,
-    nextCameraName,
-  ] = prevNextCamera(cameras, activeCamera);
+  const [z_current, setZCurrent] = useLocalState(
+    context,
+    'z_current',
+    stationLevelNum[0]
+  );
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera
+  );
 
   return (
     <Box height="100%" display="flex">
       <div className="CameraConsole__left">
         <Box height="100%" display="flex">
-          <NanoMap onZoom={v => setZoom(v)} zLevels={stationLevelNum} zNames={stationLevelName} z_current={z_current} setZCurrent={setZCurrent}>
-            {cameras.map(cm => (
+          <NanoMap
+            onZoom={(v) => setZoom(v)}
+            zLevels={stationLevelNum}
+            zNames={stationLevelName}
+            z_current={z_current}
+            setZCurrent={setZCurrent}
+          >
+            {cameras.map((cm) => (
               <NanoMap.Marker
                 key={cm.ref}
                 x={cm.x}
@@ -109,9 +131,9 @@ export const CameraConsoleMapContent = (props, context) => {
                 z={cm.z}
                 z_current={z_current}
                 zoom={zoom}
-                icon={"box"}
+                icon={'box'}
                 tooltip={cm.name}
-                color={cm.status ? "blue" : "red"}
+                color={cm.status ? 'blue' : 'red'}
                 onClick={() =>
                   act('switch_camera', {
                     name: cm.name,
@@ -162,14 +184,12 @@ export const CameraConsoleMapContent = (props, context) => {
 export const CameraConsoleOldContent = (props, context) => {
   const { act, data, config } = useBackend(context);
   const { mapRef, activeCamera } = data;
-  const [
-    searchText,
-  ] = useLocalState(context, 'searchText', '');
+  const [searchText] = useLocalState(context, 'searchText', '');
   const cameras = selectCameras(data.cameras, searchText);
-  const [
-    prevCameraName,
-    nextCameraName,
-  ] = prevNextCamera(cameras, activeCamera);
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera
+  );
   return (
     <Box>
       <div className="CameraConsole__left">
