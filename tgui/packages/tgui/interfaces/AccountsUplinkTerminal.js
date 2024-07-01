@@ -175,13 +175,7 @@ const AccountsActions = (properties, context) => {
 
 const DetailedAccountInfo = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    account_number,
-    owner_name,
-    money,
-    suspended,
-    transactions,
-  } = data;
+  const { account_number, owner_name, money, suspended, transactions } = data;
   return (
     <Stack fill vertical>
       <Stack.Item>

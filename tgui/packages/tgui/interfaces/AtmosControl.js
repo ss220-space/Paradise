@@ -113,30 +113,39 @@ const AtmosControlMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { alarms, stationLevelNum, stationLevelName } = data;
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
-  const [z_current, setZCurrent] = useLocalState(context, 'z_current', stationLevelNum[0]);
+  const [z_current, setZCurrent] = useLocalState(
+    context,
+    'z_current',
+    stationLevelNum[0]
+  );
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
-      <NanoMap onZoom={(v) => setZoom(v)} zLevels={stationLevelNum} zNames={stationLevelName} z_current={z_current} setZCurrent={setZCurrent}>
-        {alarms
-          .map((aa) => (
-            // The AA means air alarm, and nothing else
-            <NanoMap.Marker
-              key={aa.ref}
-              x={aa.x}
-              y={aa.y}
-              z={aa.z}
-              z_current={z_current}
-              zoom={zoom}
-              icon="circle"
-              tooltip={aa.name}
-              color={getStatusColour(aa.danger)}
-              onClick={() =>
-                act('open_alarm', {
-                  aref: aa.ref,
-                })
-              }
-            />
-          ))}
+      <NanoMap
+        onZoom={(v) => setZoom(v)}
+        zLevels={stationLevelNum}
+        zNames={stationLevelName}
+        z_current={z_current}
+        setZCurrent={setZCurrent}
+      >
+        {alarms.map((aa) => (
+          // The AA means air alarm, and nothing else
+          <NanoMap.Marker
+            key={aa.ref}
+            x={aa.x}
+            y={aa.y}
+            z={aa.z}
+            z_current={z_current}
+            zoom={zoom}
+            icon="circle"
+            tooltip={aa.name}
+            color={getStatusColour(aa.danger)}
+            onClick={() =>
+              act('open_alarm', {
+                aref: aa.ref,
+              })
+            }
+          />
+        ))}
       </NanoMap>
     </Box>
   );

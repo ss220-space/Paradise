@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 export const ImplantPad = (props, context) => {
   const { act, data } = useBackend(context);
   const { implant, contains_case, tag } = data;
-  const [newTag, setNewTag] = useLocalState(context, "newTag", tag);
+  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
 
   return (
     <Window resizable>
@@ -29,7 +29,9 @@ export const ImplantPad = (props, context) => {
               <LabeledList>
                 <LabeledListItem label="Life">{implant.life}</LabeledListItem>
                 <LabeledListItem label="Notes">{implant.notes}</LabeledListItem>
-                <LabeledListItem label="Function">{implant.function}</LabeledListItem>
+                <LabeledListItem label="Function">
+                  {implant.function}
+                </LabeledListItem>
               </LabeledList>
             </>
           ) : contains_case ? (
@@ -53,7 +55,8 @@ export const ImplantPad = (props, context) => {
                 width="20px"
                 mb="0"
                 ml="0.25rem"
-                onClick={() => act('tag', { newtag: newTag })}>
+                onClick={() => act('tag', { newtag: newTag })}
+              >
                 <Icon name="pen" />
               </Button>
             </LabeledList>
@@ -72,5 +75,3 @@ export const ImplantPad = (props, context) => {
     </Window>
   );
 };
-
-

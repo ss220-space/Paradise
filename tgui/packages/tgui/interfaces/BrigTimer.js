@@ -117,12 +117,14 @@ export const BrigTimer = (props, context) => {
                 <Button
                   icon="gavel"
                   content="Start Sentence"
-                  disabled={!data.prisoner_name
-                    || !data.prisoner_charge
-                    || !data.prisoner_time
-                    || data.prisoner_time < 0
-                    || data.prisoner_time > 60
-                    || !data.isAllowed}
+                  disabled={
+                    !data.prisoner_name ||
+                    !data.prisoner_charge ||
+                    !data.prisoner_time ||
+                    data.prisoner_time < 0 ||
+                    data.prisoner_time > 60 ||
+                    !data.isAllowed
+                  }
                   onClick={() => act('start')}
                 />
               </LabeledList.Item>

@@ -1,20 +1,19 @@
-GLOBAL_DATUM(changelog_tgui, /datum/ui_module/changelog)
+GLOBAL_DATUM(changelog_tgui, /datum/changelog)
 GLOBAL_VAR_INIT(changelog_hash, "")
 
-/datum/ui_module/changelog
+/datum/changelog
 	var/static/list/changelog_items = list()
-	name = "Changelog"
 
-/datum/ui_module/changelog/ui_state(mob/user)
+/datum/changelog/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/ui_module/changelog/ui_interact(mob/user, datum/tgui/ui = null)
+/datum/changelog/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, "Changelog", name)
+		ui = new(user, src, "Changelog")
 		ui.open()
 
-/datum/ui_module/changelog/ui_act(action, list/params)
+/datum/changelog/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -25,7 +24,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 			changelog_items[params["date"]] = changelog_item
 		return changelog_item.send(usr)
 
-/datum/ui_module/changelog/ui_static_data(mob/user)
+/datum/changelog/ui_static_data(mob/user)
 	var/list/data = list( "dates" = list() )
 	var/regex/ymlRegex = regex(@"\.yml", "g")
 
@@ -40,7 +39,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	set name = "Changelog"
 	set category = "OOC"
 	if(!GLOB.changelog_tgui)
-		GLOB.changelog_tgui = new /datum/ui_module/changelog()
+		GLOB.changelog_tgui = new /datum/changelog()
 
 	GLOB.changelog_tgui.ui_interact(mob)
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash)

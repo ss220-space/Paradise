@@ -54,9 +54,9 @@ const IdDisk = (properties, context) => {
               icon="eject"
               content={id.name}
               tooltip="Ejects the ID card."
-              onClick={() => act("eject_id")}
+              onClick={() => act('eject_id')}
               style={{
-                "white-space": "pre-wrap",
+                'white-space': 'pre-wrap',
               }}
             />
           ) : (
@@ -64,22 +64,18 @@ const IdDisk = (properties, context) => {
               icon="sign-in-alt"
               content="Insert"
               tooltip="Hold the ID card in your hand to insert."
-              onClick={() => act("insert_id")}
+              onClick={() => act('insert_id')}
             />
           )}
         </LabeledList.Item>
         {id && (
           <LabeledList.Item label="Current Mining Points">
-            <Box bold>
-              {formatPoints(id.points)}
-            </Box>
+            <Box bold>{formatPoints(id.points)}</Box>
           </LabeledList.Item>
         )}
         {id && (
           <LabeledList.Item label="Total Mining Points">
-            <Box bold>
-              {formatPoints(id.total_points)}
-            </Box>
+            <Box bold>{formatPoints(id.total_points)}</Box>
           </LabeledList.Item>
         )}
         <LabeledList.Item
@@ -94,7 +90,7 @@ const IdDisk = (properties, context) => {
             disabled={!id}
             icon="hand-holding-usd"
             content="Claim"
-            onClick={() => act("claim")}
+            onClick={() => act('claim')}
           />
         </LabeledList.Item>
       </LabeledList>
@@ -112,8 +108,8 @@ const IdDisk = (properties, context) => {
             />
           </LabeledList.Item>
           <LabeledList.Item label="Stored design">
-            <Box color={disk.design && (disk.compatible ? "good" : "bad")}>
-              {disk.design || "N/A"}
+            <Box color={disk.design && (disk.compatible ? 'good' : 'bad')}>
+              {disk.design || 'N/A'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item>

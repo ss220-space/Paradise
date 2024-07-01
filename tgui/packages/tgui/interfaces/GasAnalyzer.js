@@ -20,54 +20,100 @@ export const GasAnalyzerContent = (props, context) => {
           textAlign="center"
           selected={autoUpdating}
         />
-      }>
+      }
+    >
       !gasmixes[0].total_moles ? (
-    <Box nowrap italic mb="10px">
-      {'No Gas Detected!'}
-    </Box>
-    ) : (
+      <Box nowrap italic mb="10px">
+        {'No Gas Detected!'}
+      </Box>
+      ) : (
       <LabeledList>
         <LabeledList.Item label={'Total Moles'}>
           {(gasmixes[0].total_moles ? gasmixes[0].total_moles : '-') + ' mol'}
         </LabeledList.Item>
         {gasmixes[0].oxygen ? (
           <LabeledList.Item label={'Oxygen'}>
-            {gasmixes[0].oxygen.toFixed(2) + ' mol (' + (gasmixes[0].oxygen / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].oxygen.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].oxygen / gasmixes[0].total_moles).toFixed(2) * 100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         {gasmixes[0].nitrogen ? (
           <LabeledList.Item label={'Nitrogen'}>
-            {gasmixes[0].nitrogen.toFixed(2) + ' mol (' + (gasmixes[0].nitrogen / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].nitrogen.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].nitrogen / gasmixes[0].total_moles).toFixed(2) *
+                100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         {gasmixes[0].carbon_dioxide ? (
           <LabeledList.Item label={'Carbon Dioxide'}>
-            {gasmixes[0].carbon_dioxide.toFixed(2) + ' mol (' + (gasmixes[0].carbon_dioxide / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].carbon_dioxide.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].carbon_dioxide / gasmixes[0].total_moles).toFixed(
+                2
+              ) *
+                100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         {gasmixes[0].toxins ? (
           <LabeledList.Item label={'Plasma'}>
-            {gasmixes[0].toxins.toFixed(2) + ' mol (' + (gasmixes[0].toxins / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].toxins.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].toxins / gasmixes[0].total_moles).toFixed(2) * 100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         {gasmixes[0].sleeping_agent ? (
           <LabeledList.Item label={'Nitrous Oxide'}>
-            {gasmixes[0].sleeping_agent.toFixed(2) + ' mol (' + (gasmixes[0].sleeping_agent / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].sleeping_agent.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].sleeping_agent / gasmixes[0].total_moles).toFixed(
+                2
+              ) *
+                100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         {gasmixes[0].agent_b ? (
           <LabeledList.Item label={'Agent B'}>
-            {gasmixes[0].agent_b.toFixed(2) + ' mol (' + (gasmixes[0].agent_b / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+            {gasmixes[0].agent_b.toFixed(2) +
+              ' mol (' +
+              (gasmixes[0].agent_b / gasmixes[0].total_moles).toFixed(2) * 100 +
+              ' %)'}
           </LabeledList.Item>
-        ) : ('')}
+        ) : (
+          ''
+        )}
         <LabeledList.Item label={'Temperature'}>
-          {(gasmixes[0].total_moles ? (gasmixes[0].temperature - 273.15).toFixed(2) : '-') + ' °C (' + (gasmixes[0].total_moles ? gasmixes[0].temperature.toFixed(2) : '-') + ' K)'}
+          {(gasmixes[0].total_moles
+            ? (gasmixes[0].temperature - 273.15).toFixed(2)
+            : '-') +
+            ' °C (' +
+            (gasmixes[0].total_moles
+              ? gasmixes[0].temperature.toFixed(2)
+              : '-') +
+            ' K)'}
         </LabeledList.Item>
         <LabeledList.Item label={'Volume'}>
           {(gasmixes[0].total_moles ? gasmixes[0].volume : '-') + ' L'}
         </LabeledList.Item>
         <LabeledList.Item label={'Pressure'}>
-          {(gasmixes[0].total_moles ? gasmixes[0].pressure.toFixed(2) : '-') + ' kPa'}
+          {(gasmixes[0].total_moles ? gasmixes[0].pressure.toFixed(2) : '-') +
+            ' kPa'}
         </LabeledList.Item>
         <LabeledList.Item label={'Heat Capacity'}>
           {gasmixes[0].heat_capacity + ' / K'}
@@ -76,7 +122,7 @@ export const GasAnalyzerContent = (props, context) => {
           {gasmixes[0].thermal_energy}
         </LabeledList.Item>
       </LabeledList>
-    )
+      )
     </Section>
   );
 };
@@ -96,7 +142,8 @@ export const GasAnalyzerHistory = (props, context) => {
           textAlign="center"
           disabled={historyGasmixes.length === 0}
         />
-      }>
+      }
+    >
       <LabeledList.Item label="Mode">
         <Flex inline width="50%">
           <Flex.Item>
@@ -122,9 +169,10 @@ export const GasAnalyzerHistory = (props, context) => {
           <Box key={historyGasmix[0]}>
             <Button
               content={
-                index + 1
-                + '. '
-                + (historyViewMode === 'mol'
+                index +
+                1 +
+                '. ' +
+                (historyViewMode === 'mol'
                   ? historyGasmix[0].total_moles.toFixed(2)
                   : historyGasmix[0].pressure.toFixed(2))
               }
