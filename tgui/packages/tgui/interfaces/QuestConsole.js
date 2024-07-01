@@ -5,7 +5,6 @@ import {
   Box,
   Stack,
   Section,
-  Stack,
   Tooltip,
   Icon,
   LabeledList,
