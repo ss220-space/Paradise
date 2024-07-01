@@ -1,5 +1,5 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
+
 import { useBackend } from '../backend';
 import {
   Box,
@@ -45,7 +45,7 @@ export const Sleeper = (props, context) => {
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
-    <Window resizable>
+    <Window width={550} height={775}>
       <Window.Content className="Layout__content--flexColumn">
         {body}
         <SleeperDialysis />
@@ -58,11 +58,11 @@ const SleeperMain = (props, context) => {
   const { act, data } = useBackend(context);
   const { occupant } = data;
   return (
-    <Fragment>
+    <>
       <SleeperOccupant />
       <SleeperDamage />
       <SleeperChemicals />
-    </Fragment>
+    </>
   );
 };
 
@@ -73,7 +73,7 @@ const SleeperOccupant = (props, context) => {
     <Section
       title="Occupant"
       buttons={
-        <Fragment>
+        <>
           <Box color="label" display="inline">
             Auto-eject if dead:&nbsp;
           </Box>
@@ -90,7 +90,7 @@ const SleeperOccupant = (props, context) => {
             content="Eject"
             onClick={() => act('ejectify')}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -124,7 +124,7 @@ const SleeperOccupant = (props, context) => {
           </ProgressBar>
         </LabeledList.Item>
         {!!occupant.hasBlood && (
-          <Fragment>
+          <>
             <LabeledList.Item label="Blood Level">
               <ProgressBar
                 min="0"
@@ -142,7 +142,7 @@ const SleeperOccupant = (props, context) => {
             <LabeledList.Item label="Pulse" verticalAlign="middle">
               {occupant.pulse} BPM
             </LabeledList.Item>
-          </Fragment>
+          </>
         )}
       </LabeledList>
     </Section>
@@ -187,7 +187,7 @@ const SleeperDialysis = (props, context) => {
     <Section
       title="Dialysis"
       buttons={
-        <Fragment>
+        <>
           <Button
             disabled={!isBeakerLoaded || beakerFreeSpace <= 0 || !hasOccupant}
             selected={canDialysis}
@@ -201,7 +201,7 @@ const SleeperDialysis = (props, context) => {
             content="Eject"
             onClick={() => act('removebeaker')}
           />
-        </Fragment>
+        </>
       }
     >
       {isBeakerLoaded ? (

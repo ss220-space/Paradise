@@ -1,6 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
-import { Fragment } from 'inferno';
+
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Countdown } from '../components/Countdown';
 import { useBackend, useLocalState } from '../backend';
@@ -526,10 +526,10 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
       m="-1rem"
       pb="1rem"
       title={
-        <Fragment>
+        <>
           <Icon name="suitcase" />
           &nbsp; Contracting Opportunity
-        </Fragment>
+        </>
       }
     >
       <Box mx="0.5rem" mb="0.5rem">

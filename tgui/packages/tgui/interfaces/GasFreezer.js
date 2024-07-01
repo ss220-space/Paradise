@@ -24,7 +24,7 @@ export const GasFreezer = (props, context) => {
   } = data;
   const ratio = (temperature - min) / (max - min);
   return (
-    <Window>
+    <Window width={560} height={200}>
       <Window.Content>
         <Section
           title="Статус"

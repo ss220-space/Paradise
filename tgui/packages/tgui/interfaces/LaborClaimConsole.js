@@ -12,7 +12,7 @@ import { Window } from '../layouts';
 
 export const LaborClaimConsole = (props, context) => {
   return (
-    <Window>
+    <Window width={315} height={470}>
       <Window.Content>
         <ShuttleControlSection />
         <MaterialValuesSection />

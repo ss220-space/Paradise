@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../../backend';
 import {
   BlockQuote,
@@ -239,7 +238,7 @@ const KitchenSinkTooltip = (props) => {
     'bottom-right',
   ];
   return (
-    <Fragment>
+    <>
       <Box>
         <Box inline position="relative" mr={1}>
           Box (hover me).
@@ -258,7 +257,7 @@ const KitchenSinkTooltip = (props) => {
           />
         ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 

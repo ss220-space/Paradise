@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { declensionRu } from 'common/l10n';
 import { useBackend } from '../backend';
 import {
@@ -40,7 +39,7 @@ const statNames = [
 
 export const Cryo = (props, context) => {
   return (
-    <Window>
+    <Window width={520} height={490}>
       <Window.Content className="Layout__content--flexColumn">
         <CryoContent />
       </Window.Content>
@@ -61,7 +60,7 @@ const CryoContent = (props, context) => {
     auto_eject_dead,
   } = data;
   return (
-    <Fragment>
+    <>
       <Section
         title="Пациент"
         flexGrow="1"
@@ -182,7 +181,7 @@ const CryoContent = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -191,7 +190,7 @@ const CryoBeaker = (props, context) => {
   const { isBeakerLoaded, beakerLabel, beakerVolume } = data;
   if (isBeakerLoaded) {
     return (
-      <Fragment>
+      <>
         {beakerLabel ? (
           `«${beakerLabel}»`
         ) : (
@@ -222,7 +221,7 @@ const CryoBeaker = (props, context) => {
             'Ёмкость пуста'
           )}
         </Box>
-      </Fragment>
+      </>
     );
   } else {
     return <Box color="average">Ёмкость не установлена</Box>;

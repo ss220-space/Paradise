@@ -1,11 +1,10 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 export const EvolutionMenu = (props, context) => {
   return (
-    <Window resizable theme="changeling">
+    <Window width={480} height={574} theme="changeling">
       <Window.Content className="Layout__content--flexColumn">
         <EvolutionPoints />
         <Abilities />
@@ -54,7 +53,7 @@ const Abilities = (props, context) => {
       title="Abilities"
       flexGrow="1"
       buttons={
-        <Fragment>
+        <>
           <Button
             icon={!view_mode ? 'check-square-o' : 'square-o'}
             selected={!view_mode}
@@ -75,7 +74,7 @@ const Abilities = (props, context) => {
               })
             }
           />
-        </Fragment>
+        </>
       }
     >
       {ability_list.map((ability, i) => (
