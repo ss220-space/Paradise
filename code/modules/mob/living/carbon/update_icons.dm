@@ -95,8 +95,9 @@
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
 		var/mutable_appearance/standing = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
-		if(handcuffed.sprite_sheets?[dna.species.name])
-			var/icon_list = handcuffed.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(handcuffed.sprite_sheets?[species_name])
+			var/icon_list = handcuffed.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_HANDCUFFED_STRING])
 				standing.icon = icon_list[ITEM_SLOT_HANDCUFFED_STRING]
 		overlays_standing[HANDCUFF_LAYER] = standing
@@ -107,8 +108,9 @@
 	remove_overlay(LEGCUFF_LAYER)
 	if(legcuffed)
 		var/mutable_appearance/standing = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
-		if(legcuffed.sprite_sheets?[dna.species.name])
-			var/icon_list = legcuffed.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(legcuffed.sprite_sheets?[species_name])
+			var/icon_list = legcuffed.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_HANDCUFFED_STRING])
 				standing.icon = icon_list[ITEM_SLOT_HANDCUFFED_STRING]
 		overlays_standing[LEGCUFF_LAYER] = standing

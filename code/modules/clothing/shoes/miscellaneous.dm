@@ -159,14 +159,7 @@
 	sprite_sheets = list(
 		SPECIES_DRASK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/drask/shoes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/vox/shoes.dmi')
 		)
 
@@ -601,13 +594,6 @@
 	sprite_sheets = list(
 		SPECIES_DRASK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/drask/shoes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/vox/shoes.dmi')
 		)

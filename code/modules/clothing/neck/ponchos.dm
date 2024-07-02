@@ -12,15 +12,8 @@
 		SPECIES_GREY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/grey/neck.dmi'),
 		SPECIES_KIDAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/kidan/neck.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/plasmaman/neck.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/unathi/neck.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/vox/neck.dmi'),
 		SPECIES_WRYN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/wryn/neck.dmi')
 		)

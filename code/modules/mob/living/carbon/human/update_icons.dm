@@ -543,8 +543,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(w_uniform.onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING], "[state_type]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, appearance_flags = KEEP_TOGETHER, color = w_uniform.color)
 
-		if(w_uniform.sprite_sheets?[dna.species.name])
-			var/icon_list = w_uniform.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(w_uniform.sprite_sheets?[species_name])
+			var/icon_list = w_uniform.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_CLOTH_INNER_STRING])
 				standing.icon = icon_list[ITEM_SLOT_CLOTH_INNER_STRING]
 
@@ -555,8 +556,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
 			var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
 
-			if(accessory.sprite_sheets?[dna.species.name])
-				var/icon_list = accessory.sprite_sheets[dna.species.name]
+			if(accessory.sprite_sheets?[species_name])
+				var/icon_list = accessory.sprite_sheets[species_name]
 				if(icon_list[ITEM_SLOT_ACCESSORY_STRING])
 					acc_olay.icon = icon_list[ITEM_SLOT_ACCESSORY_STRING]
 
@@ -615,8 +616,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(w_uniform?.displays_id)
 			var/mutable_appearance/standing = mutable_appearance(wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], "id", layer = -ID_LAYER, alpha = wear_id.alpha, color = wear_id.color)
 
-			if(wear_id.sprite_sheets?[dna.species.name])
-				var/icon_list = wear_id.sprite_sheets[dna.species.name]
+			var/species_name = species_clothing(dna.species.name)
+			if(wear_id.sprite_sheets?[species_name])
+				var/icon_list = wear_id.sprite_sheets[species_name]
 				if(icon_list[ITEM_SLOT_CLOTH_INNER_STRING])
 					standing.icon = icon_list[ITEM_SLOT_CLOTH_INNER_STRING]
 
@@ -641,8 +643,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(gloves.onmob_sheets[ITEM_SLOT_GLOVES_STRING], "[t_state]", layer = -GLOVES_LAYER, alpha = gloves.alpha, appearance_flags = KEEP_TOGETHER, color = gloves.color)
 
-		if(gloves.sprite_sheets?[dna.species.name])
-			var/icon_list = gloves.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(gloves.sprite_sheets?[species_name])
+			var/icon_list = gloves.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_CLOTH_INNER_STRING])
 				standing.icon = icon_list[ITEM_SLOT_CLOTH_INNER_STRING]
 
@@ -686,8 +689,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(glasses.onmob_sheets[ITEM_SLOT_EYES_STRING], "[glasses.icon_state]", layer = -GLASSES_LAYER, alpha = glasses.alpha, color = glasses.color)
 
-		if(glasses.sprite_sheets?[dna.species.name])
-			var/icon_list = glasses.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(glasses.sprite_sheets?[species_name])
+			var/icon_list = glasses.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_EYES_STRING])
 				standing.icon = icon_list[ITEM_SLOT_EYES_STRING]
 
@@ -739,8 +743,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			var/mutable_appearance/l_ear_olay = mutable_appearance(l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], "[t_type]", alpha = l_ear.alpha, color = l_ear.color)
 
-			if(l_ear.sprite_sheets?[dna.species.name])
-				var/icon_list = l_ear.sprite_sheets[dna.species.name]
+			var/species_name = species_clothing(dna.species.name)
+			if(l_ear.sprite_sheets?[species_name])
+				var/icon_list = l_ear.sprite_sheets[species_name]
 				if(icon_list[ITEM_SLOT_EAR_LEFT_STRING])
 					l_ear_olay.icon = icon_list[ITEM_SLOT_EAR_LEFT_STRING]
 
@@ -753,8 +758,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			var/mutable_appearance/r_ear_olay = mutable_appearance(r_ear.onmob_sheets[ITEM_SLOT_EAR_RIGHT_STRING], "[t_type]", alpha = r_ear.alpha, color = r_ear.color)
 
-			if(r_ear.sprite_sheets?[dna.species.name])
-				var/icon_list = r_ear.sprite_sheets[dna.species.name]
+			var/species_name = species_clothing(dna.species.name)
+			if(r_ear.sprite_sheets?[species_name])
+				var/icon_list = r_ear.sprite_sheets[species_name]
 				if(icon_list[ITEM_SLOT_EAR_RIGHT_STRING])
 					r_ear_olay.icon = icon_list[ITEM_SLOT_EAR_RIGHT_STRING]
 
@@ -778,8 +784,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(shoes.onmob_sheets[ITEM_SLOT_FEET_STRING], "[shoes.icon_state]", layer = -SHOES_LAYER, alpha = shoes.alpha, appearance_flags = KEEP_TOGETHER, color = shoes.color)
 
-		if(shoes.sprite_sheets?[dna.species.name])
-			var/icon_list = shoes.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(shoes.sprite_sheets?[species_name])
+			var/icon_list = shoes.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_FEET_STRING])
 				standing.icon = icon_list[ITEM_SLOT_FEET_STRING]
 
@@ -807,8 +814,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING], "[t_state]", layer = -SUIT_STORE_LAYER, alpha = s_store.alpha, color = s_store.color)
 
-		if(s_store.sprite_sheets?[dna.species.name])
-			var/icon_list = s_store.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(s_store.sprite_sheets?[species_name])
+			var/icon_list = s_store.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_HEAD_STRING])
 				standing.icon = icon_list[ITEM_SLOT_HEAD_STRING]
 
@@ -832,8 +840,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(head.onmob_sheets[ITEM_SLOT_HEAD_STRING], "[head.icon_state]", layer = -HEAD_LAYER, alpha = head.alpha, appearance_flags = KEEP_TOGETHER, color = head.color)
 
-		if(head.sprite_sheets?[dna.species.name])
-			var/icon_list = head.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(head.sprite_sheets?[species_name])
+			var/icon_list = head.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_HEAD_STRING])
 				standing.icon = icon_list[ITEM_SLOT_HEAD_STRING]
 
@@ -858,8 +867,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(belt.onmob_sheets[ITEM_SLOT_BELT_STRING], "[t_state]", layer = -BELT_LAYER, alpha = belt.alpha, color = belt.color)
 
-		if(belt.sprite_sheets?[dna.species.name])
-			var/icon_list = belt.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(belt.sprite_sheets?[species_name])
+			var/icon_list = belt.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_BELT_STRING])
 				standing.icon = icon_list[ITEM_SLOT_BELT_STRING]
 
@@ -879,8 +889,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(wear_suit.onmob_sheets[ITEM_SLOT_CLOTH_OUTER_STRING], "[wear_suit.icon_state]", layer = -SUIT_LAYER, alpha = wear_suit.alpha, appearance_flags = KEEP_TOGETHER, color = wear_suit.color)
 
-		if(wear_suit.sprite_sheets?[dna.species.name])
-			var/icon_list = wear_suit.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(wear_suit.sprite_sheets?[species_name])
+			var/icon_list = wear_suit.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_CLOTH_OUTER_STRING])
 				standing.icon = icon_list[ITEM_SLOT_CLOTH_OUTER_STRING]
 
@@ -940,8 +951,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/icon/icon_file = wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
 
-		if(wear_mask.sprite_sheets?[dna.species.name])
-			var/icon_list = wear_mask.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(wear_mask.sprite_sheets?[species_name])
+			var/icon_list = wear_mask.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_MASK_STRING])
 				icon_file = icon_list[ITEM_SLOT_MASK_STRING]
 
@@ -968,8 +980,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(neck.onmob_sheets[ITEM_SLOT_NECK_STRING], "[neck.icon_state]", layer = -NECK_LAYER, alpha = neck.alpha, color = neck.color)
 
-		if(neck.sprite_sheets?[dna.species.name])
-			var/icon_list = neck.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(neck.sprite_sheets?[species_name])
+			var/icon_list = neck.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_NECK_STRING])
 				standing.icon = icon_list[ITEM_SLOT_NECK_STRING]
 
@@ -989,8 +1002,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing = mutable_appearance(back.onmob_sheets[ITEM_SLOT_BACK_STRING], "[back.icon_state]", layer = -BACK_LAYER, alpha = back.alpha, color = back.color)
 
-		if(back.sprite_sheets?[dna.species.name])
-			var/icon_list = back.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(back.sprite_sheets?[species_name])
+			var/icon_list = back.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_BACK_STRING])
 				standing.icon = icon_list[ITEM_SLOT_BACK_STRING]
 
@@ -1265,8 +1279,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_suit)
 		var/mutable_appearance/standing = mutable_appearance(wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING], "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
 
-		if(wear_suit.sprite_sheets?[dna.species.name])
-			var/icon_list = wear_suit.sprite_sheets[dna.species.name]
+		var/species_name = species_clothing(dna.species.name)
+		if(wear_suit.sprite_sheets?[species_name])
+			var/icon_list = wear_suit.sprite_sheets[species_name]
 			if(icon_list[ITEM_SLOT_COLLAR_STRING])
 				standing.icon = icon_list[ITEM_SLOT_COLLAR_STRING]
 

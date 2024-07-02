@@ -150,18 +150,6 @@
 		SPECIES_MONKEY = list(
 			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
 			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
-		SPECIES_FARWA = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
-		SPECIES_WOLPIN = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
-		SPECIES_NEARA = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
-		SPECIES_STOK = list(
-			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi',
-			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/monkey/ears.dmi'),
 		SPECIES_VOX = list(
 			ITEM_SLOT_EAR_LEFT_STRING = 'icons/mob/clothing/species/vox/ears.dmi', \
 			ITEM_SLOT_EAR_RIGHT_STRING = 'icons/mob/clothing/species/vox/ears.dmi'), //We read you loud and skree-er.
@@ -244,11 +232,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi')
 		)
 /*
 SEE_SELF  // can see self, no matter what
@@ -430,11 +414,7 @@ BLIND     // can't see anything
 	var/lighting_alpha
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 
 
@@ -496,11 +476,7 @@ BLIND     // can't see anything
 	var/adjusted_flags_inv_transparent = NONE
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/monkey/mask.dmi')
 		)
 
 
@@ -610,14 +586,7 @@ BLIND     // can't see anything
 	sprite_sheets = list(
 		SPECIES_DRASK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/drask/shoes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/monkey/shoes.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/unathi/shoes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/species/vox/shoes.dmi')
 		)
 
@@ -692,10 +661,6 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/plasmaman/suit.dmi')
 		)
 
@@ -915,14 +880,7 @@ BLIND     // can't see anything
 		SPECIES_DRASK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/drask/uniform.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/grey/uniform.dmi'),
 		SPECIES_MONKEY =  list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/monkey/uniform.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
-		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/unathi/uniform.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_INNER_STRING = 'icons/mob/clothing/species/vox/uniform.dmi')
 		)
 
@@ -1144,10 +1102,6 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
-		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
 		SPECIES_PLASMAMAN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/plasmaman/neck.dmi')
 		)
 
