@@ -37,7 +37,7 @@
 #define SMOOTH_TRUE		1 //smooths with exact specified types or just itself
 #define SMOOTH_MORE		2 //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
 #define SMOOTH_DIAGONAL	4 //if atom should smooth diagonally, this should be present in 'smooth' var
-#define SMOOTH_BORDER	8 //atom will smooth with the borders of the map
+//#define SMOOTH_BORDER	8 //atom will smooth with the borders of the map
 
 #define NULLTURF_BORDER 123456789
 
@@ -45,13 +45,85 @@
 #define DEFAULT_UNDERLAY_ICON_STATE 	"plating"
 #define DEFAULT_UNDERLAY_IMAGE			image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
 
+GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
+
 /atom/var/smooth = SMOOTH_FALSE
 /atom/var/top_left_corner
 /atom/var/top_right_corner
 /atom/var/bottom_left_corner
 /atom/var/bottom_right_corner
 /atom/var/list/canSmoothWith = null // TYPE PATHS I CAN SMOOTH WITH~~~~~ If this is null and atom is smooth, it smooths only with itself
+/atom/var/list/smoothing_groups = null
+/atom/var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
 /turf/var/list/fixed_underlay = null
+
+/proc/generate_adjacent_directions()
+	// Have to hold all conventional dir pairs, so we size to the largest
+	// We don't HAVE diagonal border objects, so I'm gonna pretend they'll never exist
+
+	// You might be like, lemon, can't we use GLOB.cardinals/GLOB.alldirs here
+	// No, they aren't loaded yet. life is pain
+	var/list/cardinals = list(NORTH, SOUTH, EAST, WEST)
+	var/list/alldirs = cardinals + list(NORTH|EAST, SOUTH|EAST, NORTH|WEST, SOUTH|WEST)
+	var/largest_cardinal = max(cardinals)
+	var/largest_dir = max(alldirs)
+
+	var/list/direction_map = new /list(largest_cardinal)
+	for(var/dir in cardinals)
+		var/left = turn(dir, 90)
+		var/right = turn(dir, -90)
+		var/opposite = REVERSE_DIR(dir)
+		// Need to encode diagonals here because it's possible, even if it is always false
+		var/list/acceptable_adjacents = new /list(largest_dir)
+		// Alright, what directions are acceptable to us
+		for(var/connectable_dir in (cardinals + NONE))
+			// And what border objects INSIDE those directions are alright
+			var/list/smoothable_dirs = new /list(largest_cardinal + 1) // + 1 because we need to provide space for NONE to be a valid index
+			// None is fine, we want to smooth with things on our own turf
+			// We'll do the two dirs to our left and right
+			// They connect.. "below" us and on their side
+			if(connectable_dir == NONE)
+				smoothable_dirs[left] = dir_to_junction(opposite | left)
+				smoothable_dirs[right] = dir_to_junction(opposite | right)
+			// If it's to our right or left we'll include just the dir matching ours
+			// Left edge touches only our left side, and so on
+			else if (connectable_dir == left)
+				smoothable_dirs[dir] = left
+			else if (connectable_dir == right)
+				smoothable_dirs[dir] = right
+			// If it's straight on we'll include our direction as a link
+			// Then include the two edges on the other side as diagonals
+			else if(connectable_dir == dir)
+				smoothable_dirs[opposite] = dir
+				smoothable_dirs[left] = dir_to_junction(dir | left)
+				smoothable_dirs[right] = dir_to_junction(dir | right)
+			// otherwise, go HOME, I don't want to encode anything for you
+			else
+				continue
+			acceptable_adjacents[connectable_dir + 1] = smoothable_dirs
+		direction_map[dir] = acceptable_adjacents
+	return direction_map
+
+/proc/dir_to_junction(dir)
+	switch(dir)
+		if(NORTH)
+			return NORTH_JUNCTION
+		if(SOUTH)
+			return SOUTH_JUNCTION
+		if(WEST)
+			return WEST_JUNCTION
+		if(EAST)
+			return EAST_JUNCTION
+		if(NORTHWEST)
+			return NORTHWEST_JUNCTION
+		if(NORTHEAST)
+			return NORTHEAST_JUNCTION
+		if(SOUTHEAST)
+			return SOUTHEAST_JUNCTION
+		if(SOUTHWEST)
+			return SOUTHWEST_JUNCTION
+		else
+			return NONE
 
 /proc/calculate_adjacencies(atom/A)
 	if(!A.loc)
@@ -107,6 +179,14 @@
 
 	return adjacencies
 
+/// Are two atoms border adjacent, takes a border object, something to compare against, and the direction between A and B
+/// Returns the way in which the first thing is adjacent to the second
+#define CAN_DIAGONAL_SMOOTH(border_obj, target, direction) (\
+	(target.smooth & SMOOTH_BORDER_OBJECT) ? \
+		GLOB.adjacent_direction_lookup[border_obj.dir][direction + 1]?[target.dir] : \
+		(GLOB.adjacent_direction_lookup[border_obj.dir][direction + 1]) ? REVERSE_DIR(direction) : NONE \
+	)
+
 //do not use, use queue_smooth(atom)
 /proc/smooth_icon(atom/A)
 	if(!A || !A.smooth || !A.z)
@@ -120,6 +200,126 @@
 			A.diagonal_smooth(adjacencies)
 		else
 			cardinal_smooth(A, adjacencies)
+	else if(A.smooth & SMOOTH_BITMASK)
+		A.bitmask_smooth()
+
+/atom/proc/bitmask_smooth()
+	var/new_junction = NONE
+
+	// cache for sanic speed
+	var/canSmoothWith = src.canSmoothWith
+
+	var/smooth_border = (smooth & SMOOTH_BORDER)
+	var/smooth_obj = (smooth & SMOOTH_OBJ)
+	var/border_object_smoothing = (smooth & SMOOTH_BORDER_OBJECT)
+
+	// Did you know you can pass defines into other defines? very handy, lets take advantage of it here to allow 0 cost variation
+	#define SEARCH_ADJ_IN_DIR(direction, direction_flag, ADJ_FOUND, WORLD_BORDER, BORDER_CHECK) \
+		do { \
+			var/turf/neighbor = get_step(src, direction); \
+			if(neighbor && ##BORDER_CHECK(neighbor, direction)) { \
+				var/neighbor_smoothing_groups = neighbor.smoothing_groups; \
+				if(neighbor_smoothing_groups) { \
+					for(var/target in canSmoothWith) { \
+						if(canSmoothWith[target] & neighbor_smoothing_groups[target]) { \
+							##ADJ_FOUND(neighbor, direction, direction_flag); \
+						} \
+					} \
+				} \
+				if(smooth_obj) { \
+					for(var/atom/movable/thing as anything in neighbor) { \
+						var/thing_smoothing_groups = thing.smoothing_groups; \
+						if(!thing.anchored || isnull(thing_smoothing_groups) || !##BORDER_CHECK(thing, direction)) { \
+							continue; \
+						}; \
+						for(var/target in canSmoothWith) { \
+							if(canSmoothWith[target] & thing_smoothing_groups[target]) { \
+								##ADJ_FOUND(thing, direction, direction_flag); \
+							} \
+						} \
+					} \
+				} \
+			} else if (smooth_border) { \
+				##WORLD_BORDER(null, direction, direction_flag); \
+			} \
+		} while(FALSE) \
+
+	#define BITMASK_FOUND(target, direction, direction_flag) \
+		new_junction |= direction_flag; \
+		break set_adj_in_dir; \
+	/// Check that non border objects use to smooth against border objects
+	/// Returns true if the smooth is acceptable, FALSE otherwise
+	#define BITMASK_ON_BORDER_CHECK(target, direction) (!(target.smooth & SMOOTH_BORDER_OBJECT) || CAN_DIAGONAL_SMOOTH(target, src, REVERSE_DIR(direction)))
+
+	#define BORDER_FOUND(target, direction, direction_flag) new_junction |= CAN_DIAGONAL_SMOOTH(src, target, direction)
+	// Border objects require an object as context, so we need a dummy. I'm sorry
+	#define WORLD_BORDER_FOUND(target, direction, direction_flag) \
+		var/static/atom/dummy; \
+		if(!dummy) { \
+			dummy = new(); \
+			dummy.smooth &= ~SMOOTH_BORDER_OBJECT; \
+		} \
+		BORDER_FOUND(dummy, direction, direction_flag);
+	// Handle handle border on border checks. no-op, we handle this check inside CAN_DIAGONAL_SMOOTH
+	#define BORDER_ON_BORDER_CHECK(target, direction) (TRUE)
+
+	// We're building 2 different types of smoothing searches here
+	// One for standard bitmask smoothing (We provide a label so our macro can eary exit, as it wants to do)
+	#define SET_ADJ_IN_DIR(direction, direction_flag) do { set_adj_in_dir: { SEARCH_ADJ_IN_DIR(direction, direction_flag, BITMASK_FOUND, BITMASK_FOUND, BITMASK_ON_BORDER_CHECK) }} while(FALSE)
+	// and another for border object work (Doesn't early exit because we can hit more then one direction by checking the same turf)
+	#define SET_BORDER_ADJ_IN_DIR(direction) SEARCH_ADJ_IN_DIR(direction, direction, BORDER_FOUND, WORLD_BORDER_FOUND, BORDER_ON_BORDER_CHECK)
+
+	// Let's go over all our cardinals
+	if(border_object_smoothing)
+		SET_BORDER_ADJ_IN_DIR(NORTH)
+		SET_BORDER_ADJ_IN_DIR(SOUTH)
+		SET_BORDER_ADJ_IN_DIR(EAST)
+		SET_BORDER_ADJ_IN_DIR(WEST)
+		// We want to check against stuff in our own turf
+		SET_BORDER_ADJ_IN_DIR(NONE)
+		// Border objects don't do diagonals, so GO HOME
+		set_smoothed_icon_state(new_junction)
+		return
+
+	SET_ADJ_IN_DIR(NORTH, NORTH)
+	SET_ADJ_IN_DIR(SOUTH, SOUTH)
+	SET_ADJ_IN_DIR(EAST, EAST)
+	SET_ADJ_IN_DIR(WEST, WEST)
+
+	// If there's nothing going on already
+	if(!(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
+		set_smoothed_icon_state(new_junction)
+		return
+
+	if(new_junction & NORTH_JUNCTION)
+		if(new_junction & WEST_JUNCTION)
+			SET_ADJ_IN_DIR(NORTHWEST, NORTHWEST_JUNCTION)
+
+		if(new_junction & EAST_JUNCTION)
+			SET_ADJ_IN_DIR(NORTHEAST, NORTHEAST_JUNCTION)
+
+	if(new_junction & SOUTH_JUNCTION)
+		if(new_junction & WEST_JUNCTION)
+			SET_ADJ_IN_DIR(SOUTHWEST, SOUTHWEST_JUNCTION)
+
+		if(new_junction & EAST_JUNCTION)
+			SET_ADJ_IN_DIR(SOUTHEAST, SOUTHEAST_JUNCTION)
+
+	set_smoothed_icon_state(new_junction)
+
+	#undef SET_BORDER_ADJ_IN_DIR
+	#undef SET_ADJ_IN_DIR
+	#undef BORDER_ON_BORDER_CHECK
+	#undef WORLD_BORDER_FOUND
+	#undef BORDER_FOUND
+	#undef BITMASK_ON_BORDER_CHECK
+	#undef BITMASK_FOUND
+	#undef SEARCH_ADJ_IN_DIR
+
+/atom/proc/set_smoothed_icon_state(new_junction)
+	. = smoothing_junction
+	smoothing_junction = new_junction
+	icon_state = "[base_icon_state]-[smoothing_junction]"
 
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)

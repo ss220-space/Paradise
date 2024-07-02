@@ -101,6 +101,8 @@
 	if(length(vis_contents))
 		vis_contents.Cut()
 
+	SETUP_SMOOTHING()
+
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)

@@ -6,7 +6,8 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
+	base_icon_state = "wall"
 	plane = WALL_PLANE
 	var/rotting = 0
 
@@ -40,6 +41,7 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
+/*
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
@@ -53,7 +55,10 @@
 	/turf/simulated/wall/indestructible/reinforced,
 	/turf/simulated/wall/indestructible/reinforced/rusted,
 	)
-	smooth = SMOOTH_TRUE
+	*/
+	smoothing_groups = SMOOTH_GROUP_CLOSED_TURFS
+	canSmoothWith = SMOOTH_GROUP_CLOSED_TURFS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
