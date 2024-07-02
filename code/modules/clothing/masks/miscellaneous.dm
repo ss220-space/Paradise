@@ -410,7 +410,7 @@
 	icon_state = "rat"
 	item_state = "rat"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/fox
@@ -419,7 +419,7 @@
 	icon_state = "fox"
 	item_state = "fox"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/bee
@@ -428,7 +428,7 @@
 	icon_state = "bee"
 	item_state = "bee"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/bear
@@ -437,7 +437,7 @@
 	icon_state = "bear"
 	item_state = "bear"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/bat
@@ -446,7 +446,7 @@
 	icon_state = "bat"
 	item_state = "bat"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/raven
@@ -455,7 +455,7 @@
 	icon_state = "raven"
 	item_state = "raven"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/jackal
@@ -464,7 +464,7 @@
 	icon_state = "jackal"
 	item_state = "jackal"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/tribal
@@ -473,7 +473,7 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/face/fawkes
@@ -483,7 +483,7 @@
 	item_state = "fawkes"
 	w_class = WEIGHT_CLASS_SMALL
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
@@ -492,7 +492,7 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_MASK_STRING = 'icons/mob/clothing/species/vulpkanin/head.dmi')
 		)
 
 

@@ -159,5 +159,5 @@
 	desc = "A short and black poncho for some tactical operations in hot areas of space."
 	icon_state = "tacticalponcho"
 	item_color = "tactical"
-	sprite_sheets = list()
+	sprite_sheets = null
 	dyeable = FALSE

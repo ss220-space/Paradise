@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(
-		SPECIES_TAJARAN = list( ITEM_SLOT_EYES_STRING = 'icons/cat/are/bad')
+		SPECIES_TAJARAN = list(ITEM_SLOT_EYES_STRING = 'icons/cat/are/bad')
 		)
 	If index term exist, this sprite sheet will be used.
 	Put here all species that have sprites, even if they're are "not in use"
