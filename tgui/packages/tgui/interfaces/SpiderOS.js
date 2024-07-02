@@ -91,7 +91,7 @@ const StylesPreview = (properties, context) => {
         при этом не теряя оборонительных качеств. \
         Потому что удобство при ношении костюма, жизненно важно для настоящего убийцы.'
           }
-          tooltipPosition="bottom-left"
+          tooltipPosition="bottom-start"
         />
       }
     >
@@ -319,7 +319,7 @@ const Helpers = (properties, context) => {
         \nЭтот раздел призван помочь вам советами по определённым часто возникающим вопросам касательно возможных миссий которые вам выдадут\
         или рассказать о малоизвестной информации которую вы можете обернуть в свою пользу.'
           }
-          tooltipPosition="bottom-left"
+          tooltipPosition="bottom-start"
         />
       }
     >

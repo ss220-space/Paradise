@@ -296,7 +296,7 @@ const SecurityRecordsPageView = (properties, context) => {
                 'WARNING: This will also delete the Security ' +
                 'and Medical records associated to this crew member!'
               }
-              tooltipPosition="bottom-left"
+              tooltipPosition="bottom-start"
               content="Delete Record"
               onClick={() => act('delete_general')}
             />

@@ -67,7 +67,7 @@ export const Workshop = (_properties, context) => {
                   icon={'arrow-down'}
                   height="19px"
                   tooltip={'Dispense Brass'}
-                  tooltipPosition="bottom-left"
+                  tooltipPosition="bottom-start"
                   ml="0.5rem"
                   onClick={() => act('dispense')}
                 />
@@ -126,7 +126,7 @@ const WorkshopSearch = (_properties, context) => {
             icon={descending ? 'arrow-down' : 'arrow-up'}
             height="19px"
             tooltip={descending ? 'Descending order' : 'Ascending order'}
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
             ml="0.5rem"
             onClick={() => setDescending(!descending)}
           />

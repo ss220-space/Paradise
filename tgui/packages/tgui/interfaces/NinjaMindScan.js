@@ -38,7 +38,7 @@ const MindScanMenu = (props, context) => {
             tooltip={
               'Отображение внешнего вида и состояния пациента в устройстве.'
             }
-            tooltipPosition="bottom-left"
+            tooltipPosition="left"
           />
         }
       >
@@ -97,7 +97,7 @@ const MindScanMenu = (props, context) => {
                 tooltip={
                   'Сканирует пациента и пытается добыть из его разума необходимую клану информацию.'
                 }
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 onClick={() => act('scan_occupant')}
               />
 
@@ -108,7 +108,7 @@ const MindScanMenu = (props, context) => {
                 textAlign="center"
                 disabled={block_buttons}
                 tooltip={'Открывает устройство, выпуская пациента из капсулы'}
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 onClick={() => act('go_out')}
               />
 
@@ -121,7 +121,7 @@ const MindScanMenu = (props, context) => {
                 tooltip={
                   'Телепортирует пациента обратно на обьект с которого он был похищен. Рекомендуем как следует его запугать перед этим, чтобы он не разболтал о вас.'
                 }
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 onClick={() => act('teleport_out')}
               />
             </NoticeBox>
