@@ -120,7 +120,7 @@
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
-	verbs -= /mob/living/verb/pulled
+	//verbs -= /mob/living/verb/pulled NO MORE VERB SPAM SHIT UNTIL IT LAGS
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	updatename()

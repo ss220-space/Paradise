@@ -100,7 +100,7 @@
 		add_fingerprint(user)
 		toggle(user)
 
-
+/* NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/structure/closet/secure_closet/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = "Object"
@@ -110,7 +110,7 @@
 		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
+*/
 
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()

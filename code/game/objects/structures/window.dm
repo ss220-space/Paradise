@@ -396,6 +396,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		return RCD_ACT_FAILED
 
+/* NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
 	set category = "Object"
@@ -441,6 +442,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	ini_dir = dir
 	add_fingerprint(usr)
 	return TRUE
+*/
 
 /obj/structure/window/AltClick(mob/user)
 

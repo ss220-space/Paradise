@@ -477,11 +477,13 @@
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 
+//NO MORE VERB SPAM SHIT UNTIL IT LAGS (made it proc instead of verb)
+//prev definition /mob/living/verb/pulled(atom/movable/to_pull as mob|obj in oview(1))
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
-/mob/living/verb/pulled(atom/movable/to_pull as mob|obj in oview(1))
-	set name = "Pull"
-	set category = "Object"
+/mob/living/proc/pulled(atom/movable/to_pull)
+	//set name = "Pull"
+	//set category = "Object"
 
 	if(istype(to_pull) && Adjacent(to_pull))
 		start_pulling(to_pull)

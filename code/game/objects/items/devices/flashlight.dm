@@ -152,7 +152,7 @@
 	item_state = "lampgreen"
 
 
-
+/*NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/item/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"
 	set category = "Object"
@@ -162,6 +162,7 @@
 		return
 
 	attack_self(usr)
+*/
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

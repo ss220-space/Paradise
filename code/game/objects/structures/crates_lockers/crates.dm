@@ -239,7 +239,7 @@
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 	add_fingerprint(user)
 
-
+/* NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
 	set category = null
@@ -249,7 +249,7 @@
 		togglelock(usr)
 	else
 		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
+*/
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)

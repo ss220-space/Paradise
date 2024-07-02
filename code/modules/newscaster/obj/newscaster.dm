@@ -713,6 +713,8 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
+
+/* NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/machinery/newscaster/verb/eject_photo_verb()
 	set name = "Eject Photo"
 	set category = "Object"
@@ -722,6 +724,7 @@
 		return
 
 	eject_photo(usr)
+*/
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

@@ -92,6 +92,7 @@
 	add_fingerprint(user)
 	update_patient()
 
+/*NO MORE VERB SPAM SHIT UNTIL IT LAGS
 /obj/machinery/optable/verb/climb_on()
 	set name = "Climb On Table"
 	set category = "Object"
@@ -99,7 +100,7 @@
 	if(!iscarbon(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_table())
 		return
 	take_patient(usr, usr)
-
+*/
 
 /obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
