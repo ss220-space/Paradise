@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -242,7 +241,7 @@ const SeedVaultContentsRow = (props, context) => {
     pileStock,
   } = props;
   return (
-    <Fragment>
+    <>
       <Flex
         direction="row"
         textAlign="center"
@@ -294,7 +293,7 @@ const SeedVaultContentsRow = (props, context) => {
                 icon="arrow-down"
                 content="1"
                 tooltip="Dispense one"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 onClick={() => act('vend', { index: vendIdx, amount: 1 })}
               />
               <NumberInput
@@ -312,7 +311,7 @@ const SeedVaultContentsRow = (props, context) => {
                 icon="arrow-down"
                 content="All"
                 tooltip="Dispense all"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 onClick={() =>
                   act('vend', { index: vendIdx, amount: pileStock })
                 }
@@ -322,6 +321,6 @@ const SeedVaultContentsRow = (props, context) => {
         </Flex.Item>
       </Flex>
       <Divider />
-    </Fragment>
+    </>
   );
 };

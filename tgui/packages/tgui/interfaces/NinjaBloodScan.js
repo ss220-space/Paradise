@@ -54,7 +54,7 @@ const BloodScanMenu = (props, context) => {
           Машина настроена на работу с кровью существ и условиями которые поставил вам клан. \
           Реагенты им не соответствующие не примутся или сканирование не будет успешным'
             }
-            tooltipPosition="bottom-left"
+            tooltipPosition="bottom-start"
           />
         }
       >
