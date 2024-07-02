@@ -446,14 +446,20 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))	// default behavior for generic mobs
+/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+	// default behavior for generic mobs
+	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
-	if(stat == DEAD)	// DEAD mobs are fine to skip if they are not dense or lying
+	// DEAD mobs are fine to skip if they are not dense or lying
+	if(stat == DEAD)
 		return !density || body_position == LYING_DOWN
-	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
+	// always hitting dense/standing mobs
+	if(density || body_position == STANDING_UP)
 		return FALSE
-	return prob(67)	// 33% to hit lying mobs
+	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
+	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
+		return !prob(projectile.hit_crawling_mobs_chance)
+	return FALSE
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
