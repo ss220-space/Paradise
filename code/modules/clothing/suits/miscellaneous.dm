@@ -1606,7 +1606,7 @@
 	var/mob/living/user = loc
 	var/slot = user.get_slot_by_item(src)
 
-	icon_state = "[initial(icon_state)][slot == ITEM_SLOT_HEAD ? "_head" : null"
+	icon_state = "[initial(icon_state)][slot == ITEM_SLOT_HEAD ? "_head" : null]"
 
 
 /obj/item/clothing/suit/towel/short/alt
