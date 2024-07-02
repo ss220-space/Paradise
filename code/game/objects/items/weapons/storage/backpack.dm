@@ -773,6 +773,10 @@
 		SPECIES_DRASK = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/drask/back.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/grey/back.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/monkey/back.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/species/vox/back.dmi')
 		)
 	can_hold = list(/obj/item/instrument, /obj/item/gun)

@@ -310,7 +310,11 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
 	sprite_sheets = list(
 		SPECIES_GREY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/grey/gloves.dmi'),
-		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi')
 		)
 
 /obj/item/clothing/gloves/knuckles/Touch(atom/A, proximity)
@@ -372,5 +376,9 @@
 		SPECIES_DRASK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/drask/gloves.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/grey/gloves.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/monkey/gloves.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/vox/gloves.dmi')
 		)

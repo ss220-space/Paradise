@@ -67,6 +67,10 @@ MEDICAL
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -101,6 +105,10 @@ MEDICAL
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -134,6 +142,10 @@ DIAGNOSTIC
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -189,6 +201,10 @@ SECURITY
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -217,6 +233,10 @@ SECURITY
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -234,6 +254,10 @@ SECURITY
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -271,6 +295,10 @@ SECURITY
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -294,6 +322,10 @@ HYDROPONIC
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -346,6 +378,10 @@ SKILLS
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
@@ -361,6 +397,10 @@ SKILLS
 		SPECIES_DRASK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/drask/eyes.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/grey/eyes.dmi'),
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 

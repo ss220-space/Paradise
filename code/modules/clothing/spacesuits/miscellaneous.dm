@@ -13,6 +13,9 @@
 	sprite_sheets = list(
 		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
@@ -42,6 +45,9 @@
 
 	sprite_sheets = list(
 		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi')
 		)
@@ -75,7 +81,11 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	species_restricted = null
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 	//NEW SWAT suit
@@ -103,7 +113,11 @@
 	flags_inv = NONE
 	flags_cover = NONE
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
@@ -169,7 +183,11 @@
 	sprite_sheets = list(
 		SPECIES_DRASK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/drask/helmet.dmi'),
 		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/head.dmi'),
-		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
@@ -196,7 +214,11 @@
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 	species_restricted = null
@@ -215,7 +237,11 @@
 	species_restricted = null
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/monkey/head.dmi')
 		)
 
 /obj/item/clothing/suit/space/pirate
@@ -231,7 +257,11 @@
 	put_on_delay = 20
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/monkey/suit.dmi')
 		)
 
 	species_restricted = null
@@ -251,6 +281,9 @@
 		SPECIES_SKRELL = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/skrell/helmet.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
@@ -270,8 +303,11 @@
 		SPECIES_SKRELL = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/skrell/suit.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/tajaran/suit.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi'),
 		)
 
 
@@ -286,8 +322,11 @@
 	sprite_sheets = list(
 		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/tajaran/suit.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
-		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
+		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi'),
 		)
 
 
@@ -303,6 +342,9 @@
 		SPECIES_GREY = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/grey/helmet.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)
@@ -373,6 +415,9 @@
 		SPECIES_SKRELL = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/skrell/suit.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/tajaran/suit.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vox/suit.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/vulpkanin/suit.dmi')
 		)
@@ -389,6 +434,9 @@
 		SPECIES_SKRELL = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/skrell/helmet.dmi'),
 		SPECIES_TAJARAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/tajaran/helmet.dmi'),
 		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vox/helmet.dmi'),
 		SPECIES_VULPKANIN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/vulpkanin/helmet.dmi')
 		)

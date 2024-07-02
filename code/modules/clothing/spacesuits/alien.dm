@@ -34,7 +34,10 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi')
+		SPECIES_UNATHI = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/species/unathi/helmet.dmi')
 		)
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
@@ -48,7 +51,10 @@
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	species_restricted = list(SPECIES_UNATHI)
 	sprite_sheets = list(
-		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi')
+		SPECIES_UNATHI = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_BASIC = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_ASHWALKER_SHAMAN = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi'),
+		SPECIES_DRACONOID = list(ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/species/unathi/suit.dmi')
 		)
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
@@ -191,7 +197,7 @@
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
 		SPECIES_VOX = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/vox/gloves.dmi'),
-		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/armalis/gloves.dmi')
+		SPECIES_VOX_ARMALIS = list(ITEM_SLOT_GLOVES_STRING = 'icons/mob/clothing/species/armalis/gloves.dmi'),
 		)
 
 /obj/item/clothing/shoes/magboots/vox

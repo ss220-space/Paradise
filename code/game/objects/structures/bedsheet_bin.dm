@@ -28,7 +28,11 @@ LINEN BINS
 	var/comfort = 0.5
 
 	sprite_sheets = list(
-		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi')
+		SPECIES_MONKEY = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/species/monkey/neck.dmi')
 		)
 
 

@@ -10,6 +10,10 @@
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_FARWA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_WOLPIN = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_NEARA = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
+		SPECIES_STOK = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/monkey/eyes.dmi'),
 		SPECIES_VOX = list(ITEM_SLOT_EYES_STRING = 'icons/mob/clothing/species/vox/eyes.dmi')
 		)
 
