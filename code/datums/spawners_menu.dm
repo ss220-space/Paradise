@@ -43,10 +43,11 @@
 /datum/spawners_menu/ui_act(action, params)
 	if(..())
 		return
-	var/spawners = replacetext(params["ID"], ",", ";")
-	var/list/possible_spawners = params2list(spawners)
-	var/obj/MS = locate(pick(possible_spawners))
-	if(!MS || !MS.is_mob_spawnable())
+	var/list/possible_spawners = params["ID"]
+	if(!length(possible_spawners))
+		return
+	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
+	if(!MS || !istype(MS))
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
 		return
 	switch(action)

@@ -272,6 +272,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
         </LabeledList>
       </Section>
       <Section
+        scrollable
         title={`Голоса (${availableSeeds.length}/${seeds.length})`}
         flexGrow="1"
       >
