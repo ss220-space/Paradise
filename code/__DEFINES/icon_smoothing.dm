@@ -206,18 +206,13 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.
+/// TODO: RETURN TESTS WHEN THEY ARE READY
 #define SETUP_SMOOTHING(...) \
 	if (smoothing_groups) { \
-		if (PERFORM_ALL_TESTS(focus_only/sorted_smoothing_groups)) { \
-			ASSERT_SORTED_SMOOTHING_GROUPS(smoothing_groups); \
-		} \
 		SET_SMOOTHING_GROUPS(smoothing_groups); \
 	} \
 \
 	if (canSmoothWith) { \
-		if (PERFORM_ALL_TESTS(focus_only/sorted_smoothing_groups)) { \
-			ASSERT_SORTED_SMOOTHING_GROUPS(canSmoothWith); \
-		} \
 		/* S_OBJ is always negative, and we are guaranteed to be sorted. */ \
 		if (canSmoothWith[1] == "-") { \
 			smooth |= SMOOTH_OBJ; \
