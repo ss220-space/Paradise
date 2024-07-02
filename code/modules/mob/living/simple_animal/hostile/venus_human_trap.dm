@@ -20,7 +20,7 @@
 	anchors += locate(x+2,y-2,z)
 
 	for(var/turf/T in anchors)
-		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/reacting/vine)
 		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
 	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
@@ -28,21 +28,6 @@
 	visible_message("<span class='danger'>the plant has borne fruit!</span>")
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
-
-
-/obj/effect/ebeam/vine
-	name = "thick vine"
-	mouse_opacity = MOUSE_OPACITY_ICON
-	desc = "A thick vine, painful to the touch."
-
-
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!("vines" in L.faction))
-			L.adjustBruteLoss(5)
-			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
-
 
 
 /mob/living/simple_animal/hostile/venus_human_trap
@@ -97,7 +82,7 @@
 								continue grasping
 					if(prob(grasp_chance))
 						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
-						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/reacting/vine)
 
 						break //only take 1 new victim per cycle
 
@@ -110,7 +95,7 @@
 			if(O.density)
 				return
 	var/dist = get_dist(src,the_target)
-	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
+	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/reacting/vine)
 	the_target.attack_animal(src)
 
 

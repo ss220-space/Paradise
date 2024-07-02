@@ -58,6 +58,10 @@
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -148,12 +152,17 @@
 		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
+
+/mob/living/simple_animal/mouse/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	mouse_crossed(arrived)
+
+
+/mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -508,14 +517,13 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
-			death()
-			splat(user = AM)
-	..()
+
+/mob/living/simple_animal/mouse/hamster/baby/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		death()
+		splat(user = arrived)
+
 
 #undef SNIFF
 #undef SHAKE

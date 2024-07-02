@@ -140,7 +140,8 @@
 		pcollar = new(src)
 		regenerate_icons()
 	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
