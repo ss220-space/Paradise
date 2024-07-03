@@ -168,8 +168,6 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(key)
-		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			cut_overlay(image('icons/effects/effects.dmi', icon_state = "zzz_glow"))
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.

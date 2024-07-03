@@ -518,6 +518,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		add_overlay(get_emissive_block())
 	update_halo_layer()
 	update_fire()
+	update_ssd_overlay()
+	update_unconscious_overlay()
 	SEND_SIGNAL(src, COMSIG_HUMAN_REGENERATE_ICONS)
 
 
@@ -1318,4 +1320,22 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				. += "[part.s_tone]"
 
 	. = "[.][!!husk][!!hulk][!!skeleton]"
+
+
+/mob/living/carbon/human/update_ssd_overlay()
+	if(!isnull(player_logged))
+		overlays_standing[SSD_LAYER] = mutable_appearance('icons/effects/effects.dmi', "SSD", -SSD_LAYER, appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR)
+		apply_overlay(SSD_LAYER)
+	else
+		remove_overlay(SSD_LAYER)
+
+
+/mob/living/carbon/human/update_unconscious_overlay()
+	if(stat == UNCONSCIOUS)
+		var/mutable_appearance/sleep_effect = mutable_appearance('icons/effects/effects.dmi', "sleep", -SLEEP_LAYER, appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR)
+		sleep_effect.pixel_z = 8
+		overlays_standing[SLEEP_LAYER] = sleep_effect
+		apply_overlay(SLEEP_LAYER)
+	else
+		remove_overlay(SLEEP_LAYER)
 
