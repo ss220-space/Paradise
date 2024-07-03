@@ -182,7 +182,7 @@
 	dwidth = 2;
 	height = 18;
 	id = "skipjack_ne";
-	name = "northeast of SS13";
+	name = "northeast of station";
 	width = 19
 	},
 /turf/space{
@@ -1035,7 +1035,7 @@
 	dwidth = 2;
 	height = 18;
 	id = "skipjack_nw";
-	name = "northwest of SS13";
+	name = "northwest of station";
 	width = 19
 	},
 /turf/space{
@@ -79460,7 +79460,7 @@
 	dwidth = 2;
 	height = 18;
 	id = "skipjack_sw";
-	name = "southwest of SS13";
+	name = "southwest of station";
 	width = 19
 	},
 /turf/space{
@@ -157163,7 +157163,7 @@ yhg
 yhg
 yhg
 yhg
-yhg
+plO
 yhg
 yhg
 yhg
