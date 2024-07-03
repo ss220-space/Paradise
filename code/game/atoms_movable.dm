@@ -1344,6 +1344,7 @@
 		RemoveElement(/datum/element/light_blocking)
 
 
+
 /// Source is devoured by living mob.
 /atom/movable/proc/devoured(mob/living/carbon/gourmet)
 	if(!can_devour(gourmet))
@@ -1399,3 +1400,7 @@
 		return DEVOUR_TIME_ANIMAL
 	return DEVOUR_TIME_DEFAULT
 
+
+/// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
+/atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE

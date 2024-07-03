@@ -239,18 +239,6 @@
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 	add_fingerprint(user)
 
-
-/obj/structure/closet/crate/secure/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = null
-	set name = "Toggle Lock"
-
-	if(ishuman(usr) || isrobot(usr) || istype(usr, /mob/living/simple_animal/hostile/gorilla))
-		togglelock(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
-
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		add_fingerprint(user)
