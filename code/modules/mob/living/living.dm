@@ -477,12 +477,8 @@
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 
-//mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
-/mob/living/verb/pulled(atom/movable/to_pull as mob|obj in oview(1))
-	set name = "Pull"
-	set category = "Object"
-
+/mob/living/proc/pulled(atom/movable/to_pull)
 	if(istype(to_pull) && Adjacent(to_pull))
 		start_pulling(to_pull)
 	else
