@@ -5,6 +5,10 @@
 GLOBAL_LIST_EMPTY(asset_datums)
 
 //get an assetdatum or make a new one
+//does NOT ensure it's filled, if you want that use get_asset_datum()
+/proc/load_asset_datum(type)
+	return GLOB.asset_datums[type] || new type()
+
 /proc/get_asset_datum(type)
 	return GLOB.asset_datums[type] || new type()
 

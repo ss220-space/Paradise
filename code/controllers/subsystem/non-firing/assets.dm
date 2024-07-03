@@ -9,32 +9,31 @@ SUBSYSTEM_DEF(assets)
 	var/datum/asset_transport/transport = new()
 
 /datum/controller/subsystem/assets/Initialize(timeofday)
-	load_assets()
 	apply_configuration()
+	load_assets()
 
 /datum/controller/subsystem/assets/Recover()
 	cache = SSassets.cache
 	preload = SSassets.preload
 
-/datum/controller/subsystem/assets/proc/apply_configuration(initialize_transport = TRUE)
+/datum/controller/subsystem/assets/proc/apply_configuration()
 	var/newtransporttype = /datum/asset_transport
-	switch(CONFIG_GET(string/asset_transport))
-		if("webroot")
+	switch (CONFIG_GET(string/asset_transport))
+		if ("webroot")
 			newtransporttype = /datum/asset_transport/webroot
 
-	if(newtransporttype == transport.type)
+	if (newtransporttype == transport.type)
 		return
 
-	var/datum/asset_transport/newtransport = new newtransporttype
-	if(newtransport.validate_config())
+	var/datum/asset_transport/newtransport = new newtransporttype ()
+	if (newtransport.validate_config())
 		transport = newtransport
-
-	if(initialize_transport)
-		transport.Initialize(cache)
+	transport.Load()
 
 /datum/controller/subsystem/assets/proc/load_assets()
-	for(var/datum/asset/asset_to_load as anything in typesof(/datum/asset))
-		if(initial(asset_to_load._abstract))
-			continue
+	for(var/type in typesof(/datum/asset))
+		var/datum/asset/A = type
+		if (type != initial(A._abstract))
+			load_asset_datum(type)
 
-		get_asset_datum(type)
+	transport.Initialize(cache)
