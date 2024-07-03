@@ -408,11 +408,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 70
 	age_based = TRUE
-	// lock it so these emotes can only be used while unconscious
-	stat_allowed = UNCONSCIOUS
-	max_stat_allowed = UNCONSCIOUS
-	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
 
 
 /datum/emote/living/snore/get_sound(mob/living/carbon/human/user)
