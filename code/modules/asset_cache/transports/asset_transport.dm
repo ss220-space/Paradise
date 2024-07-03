@@ -38,21 +38,21 @@
  */
 /datum/asset_transport/proc/register_asset(asset_name, asset, file_hash, dmi_file_path)
 	var/datum/asset_cache_item/ACI = asset
-	if(!istype(ACI))
+	if (!istype(ACI))
 		ACI = new(asset_name, asset, file_hash, dmi_file_path)
-		if(!ACI || !ACI.hash)
+		if (!ACI || !ACI.hash)
 			CRASH("ERROR: Invalid asset: [asset_name]:[asset]:[ACI]")
-	if(SSassets.cache[asset_name])
+	if (SSassets.cache[asset_name])
 		var/datum/asset_cache_item/OACI = SSassets.cache[asset_name]
 		OACI.legacy = ACI.legacy = (ACI.legacy|OACI.legacy)
 		OACI.namespace_parent = ACI.namespace_parent = (ACI.namespace_parent | OACI.namespace_parent)
 		OACI.namespace = OACI.namespace || ACI.namespace
-		if(OACI.hash != ACI.hash)
+		if (OACI.hash != ACI.hash)
 			var/error_msg = "ERROR: new asset added to the asset cache with the same name as another asset: [asset_name] existing asset hash: [OACI.hash] new asset hash:[ACI.hash]"
 			stack_trace(error_msg)
-			log_debug(error_msg)
+			log_asset(error_msg)
 		else
-			if(length(ACI.namespace))
+			if (length(ACI.namespace))
 				return ACI
 			return OACI
 
@@ -64,7 +64,7 @@
 /// asset_name - Name of the asset.
 /// asset_cache_item - asset cache item datum for the asset, optional, overrides asset_name
 /datum/asset_transport/proc/get_asset_url(asset_name, datum/asset_cache_item/asset_cache_item)
-	if(!istype(asset_cache_item))
+	if (!istype(asset_cache_item))
 		asset_cache_item = SSassets.cache[asset_name]
 	// To ensure code that breaks on cdns breaks in local testing, we only
 	// use the normal filename on legacy assets and name space assets.
@@ -72,7 +72,7 @@
 		|| asset_cache_item.legacy \
 		|| asset_cache_item.keep_local_name \
 		|| (asset_cache_item.namespace && !asset_cache_item.namespace_parent)
-	if(keep_local_name)
+	if (keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
 
@@ -82,27 +82,31 @@
 /// asset_list - A list of asset filenames to be sent to the client. Can optionally be assoicated with the asset's asset_cache_item datum.
 /// Returns TRUE if any assets were sent.
 /datum/asset_transport/proc/send_assets(client/client, list/asset_list)
-	if(!istype(client))
-		if(ismob(client))
-			var/mob/M = client
-			if(M.client)
-				client = M.client
+#if defined(UNIT_TESTS)
+	return
+#endif
+
+	if (!istype(client))
+		if (ismob(client))
+			var/mob/our_mob = client
+			if (our_mob.client)
+				client = our_mob.client
 			else //no stacktrace because this will mainly happen because the client went away
 				return
 		else
 			CRASH("Invalid argument: client: `[client]`")
-	if(!islist(asset_list))
+	if (!islist(asset_list))
 		asset_list = list(asset_list)
 	var/list/unreceived = list()
 
-	for(var/asset_name in asset_list)
+	for (var/asset_name in asset_list)
 		var/datum/asset_cache_item/ACI = asset_list[asset_name]
-		if(!istype(ACI) && !(ACI = SSassets.cache[asset_name]))
-			log_debug("ERROR: can't send asset `[asset_name]`: unregistered or invalid state: `[ACI]`")
+		if (!istype(ACI) && !(ACI = SSassets.cache[asset_name]))
+			log_asset("ERROR: can't send asset `[asset_name]`: unregistered or invalid state: `[ACI]`")
 			continue
 		var/asset_file = ACI.resource
-		if(!asset_file)
-			log_debug("ERROR: can't send asset `[asset_name]`: invalid registered resource: `[ACI.resource]`")
+		if (!asset_file)
+			log_asset("ERROR: can't send asset `[asset_name]`: invalid registered resource: `[ACI.resource]`")
 			continue
 
 		var/asset_hash = ACI.hash
@@ -111,34 +115,34 @@
 			|| ACI.legacy \
 			|| ACI.keep_local_name \
 			|| (ACI.namespace && !ACI.namespace_parent)
-		if(!keep_local_name)
+		if (!keep_local_name)
 			new_asset_name = "asset.[ACI.hash][ACI.ext]"
-		if(client.sent_assets[new_asset_name] == asset_hash)
+		if (client.sent_assets[new_asset_name] == asset_hash)
 			// Un-comment below to debug asset sending (This will spam logs so do not enable normally)
-			// log_debug("Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
+			// log_asset("DEBUG: Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
 			continue
 		unreceived[asset_name] = ACI
 
-	if(length(unreceived))
-		if(length(unreceived) >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
+	if (unreceived.len)
+		if (unreceived.len >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
 			to_chat(client, "Sending Resources...")
 
-		for(var/asset_name in unreceived)
+		for (var/asset_name in unreceived)
 			var/new_asset_name = asset_name
 			var/datum/asset_cache_item/ACI = unreceived[asset_name]
 			var/keep_local_name = dont_mutate_filenames \
 				|| ACI.legacy \
 				|| ACI.keep_local_name \
 				|| (ACI.namespace && !ACI.namespace_parent)
-			if(!keep_local_name)
+			if (!keep_local_name)
 				new_asset_name = "asset.[ACI.hash][ACI.ext]"
 			// Un-comment below to debug asset sending (This will spam logs so do not enable normally)
-			// log_debug("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
+			// log_asset("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
 			client << browse_rsc(ACI.resource, new_asset_name)
 
 			client.sent_assets[new_asset_name] = ACI.hash
 
-		addtimer(CALLBACK(client, /client/proc/asset_cache_update_json), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE
 	return FALSE
 
@@ -146,11 +150,11 @@
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
 /datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)
 	var/startingfilerate = filerate
-	for(var/file in files)
-		if(!client)
+	for (var/file in files)
+		if (!client)
 			break
-		if(send_assets(client, file))
-			if(!(--filerate))
+		if (send_assets(client, file))
+			if (!(--filerate))
 				filerate = startingfilerate
 				client.browse_queue_flush()
 			stoplag(0) //queuing calls like this too quickly can cause issues in some client versions
