@@ -510,3 +510,13 @@
 				changeNext_move(CLICK_CD_MELEE)
 				return UnarmedAttack(target, TRUE)
 	return ..()
+
+/mob/living/shove_impact(mob/living/target, mob/living/attacker)
+	if(src.body_position)
+		return FALSE
+	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	target.Knockdown(1 SECONDS) // knock them both down
+	Knockdown(1 SECONDS)
+	return TRUE
+

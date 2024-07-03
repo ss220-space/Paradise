@@ -1,10 +1,6 @@
 
 // Defines are in code\__DEFINES\emotes.dm
 
-/// Sentinel for emote stats.
-/// If this is set for max stat, then its value will be ignored.
-#define DEFAULT_MAX_STAT_ALLOWED "defaultstat"
-
 /**
  * # Emote
  *
@@ -81,12 +77,12 @@
 	var/stat_allowed = CONSCIOUS
 	/// How unconscious/dead can you be while still being able to use this emote intentionally?
 	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
-	var/max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
+	var/max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
 	/// How conscious do you need to be to have this emote forced out of you?
 	var/unintentional_stat_allowed = CONSCIOUS
 	/// Same as above, how unconscious/dead do you need to be to have this emote forced out of you?
 	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
-	var/max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
+	var/max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
 	/// Sound to play when emote is called. Might be a list with different sounds. If you want to adjust this dynamically, see get_sound().
 	var/sound
 	/// Whether or not to vary the sound of the emote.
@@ -492,8 +488,8 @@
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
-		var/intentional_stat_check = (intentional && (user.stat <= stat_allowed && (max_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_stat_allowed)))
-		var/unintentional_stat_check = (!intentional && (user.stat <= unintentional_stat_allowed && (max_unintentional_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_unintentional_stat_allowed)))
+		var/intentional_stat_check = (intentional && (user.stat <= stat_allowed && (max_stat_allowed == DEFAULT_MAX_STAT_ALLOWED_EMOTE || user.stat >= max_stat_allowed)))
+		var/unintentional_stat_check = (!intentional && (user.stat <= unintentional_stat_allowed && (max_unintentional_stat_allowed == DEFAULT_MAX_STAT_ALLOWED_EMOTE || user.stat >= max_unintentional_stat_allowed)))
 		if(!intentional_stat_check && !unintentional_stat_check)
 			var/stat = stat_to_text(user.stat)
 			if(!intentional)
@@ -628,7 +624,4 @@
 				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
 
 	visible_message(text)
-
-
-#undef DEFAULT_MAX_STAT_ALLOWED
 
