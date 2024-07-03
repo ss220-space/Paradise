@@ -71,7 +71,7 @@
 	max_integrity = 10
 	var/current_dir
 	var/static/list/floorImageCache
-	obj_flags = BLOCK_Z_OUT_DOWN
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 
 /obj/structure/wryn/floor/update_overlays()
