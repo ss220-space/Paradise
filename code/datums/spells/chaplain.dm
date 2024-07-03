@@ -1,12 +1,12 @@
 /obj/effect/proc_holder/spell/chaplain_bless
 	name = "Bless"
-	desc = "Blesses a single person."
+	desc = "Благословляет единственного человека."
 
 	school = "transmutation"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
-	selection_activated_message = "<span class='notice'>You prepare a blessing. Click on a target to start blessing.</span>"
-	selection_deactivated_message = "<span class='notice'>The crew will be blessed another time.</span>"
+	selection_activated_message = "<span class='notice'>Вы готовите благословение. Нажмите на цель, чтобы благословить её.</span>"
+	selection_deactivated_message = "<span class='notice'>Вы решили благословить экипаж в другой раз.</span>"
 	cooldown_min = 2 SECONDS
 	action_icon_state = "shield"
 	need_active_overlay = TRUE
@@ -25,27 +25,27 @@
 
 /obj/effect/proc_holder/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
 	if(!istype(user))
-		to_chat(user, "Somehow, you are not a living mob. This should never happen. Report this bug.")
+		to_chat(user, "По какой-то причине, вы не являетесь живым существом. Такого не должно было случиться. Сообщите об этой ошибке.")
 		revert_cast()
 		return
 
 	if(!user.mind)
-		to_chat(user, "Somehow, you are mindless. This should never happen. Report this bug.")
+		to_chat(user, "По какой-то причине, вы неразумны. Этого не должно было случиться. Сообщите об этой ошибке.")
 		revert_cast()
 		return
 
 	if(!user.mind.isholy)
-		to_chat(user, "Somehow, you are not holy enough to use this ability. This should never happen. Report this bug.")
+		to_chat(user, "По какой-то причине вы недостаточно святы для использования этой способности. Этого не должно было случиться. Сообщите об этой ошибке.")
 		revert_cast()
 		return
 
 	var/mob/living/carbon/human/target = targets[1]
 
 	spawn(0) // allows cast to complete even if recipient ignores the prompt
-		if(alert(target, "[user] wants to bless you, in the name of [user.p_their()] religion. Accept?", "Accept Blessing?", "Yes", "No") == "Yes") // prevents forced conversions
-			user.visible_message("[user] starts blessing [target] in the name of [SSticker.Bible_deity_name].", "<span class='notice'>You start blessing [target] in the name of [SSticker.Bible_deity_name].</span>")
+		if(alert(target, "[user] хочет благословить вас во имя религии [user.p_their()]. Принять?", "Принять благословение?", "Да", "Нет") == "Да") // prevents forced conversions
+			user.visible_message("[user] начинает благословлять [target] во имя [SSticker.Bible_deity_name].", "<span class='notice'>Вы начинаете благословлять [target] во имя [SSticker.Bible_deity_name].</span>")
 			if(do_after(user, 15 SECONDS, target))
-				user.visible_message("[user] has blessed [target] in the name of [SSticker.Bible_deity_name].", "<span class='notice'>You have blessed [target] in the name of [SSticker.Bible_deity_name].</span>")
+				user.visible_message("[user] благословил [target] во имя [SSticker.Bible_deity_name].", "<span class='notice'>Вы благословили [target] во имя [SSticker.Bible_deity_name].</span>")
 				if(!target.mind.isblessed)
 					target.mind.isblessed = TRUE
 					user.mind.num_blessed++

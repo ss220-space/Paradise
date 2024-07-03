@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/area_teleport
 	name = "Area teleport"
-	desc = "This spell teleports you to a type of area of your selection."
+	desc = "Данное заклинание переносит вас в место по вашему выбору."
 	nonabstract_req = TRUE
 
 	/// If it lets the usr choose the teleport loc or picks it from the list.
@@ -32,7 +32,7 @@
 	var/area/thearea = GLOB.teleportlocs[A]
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		to_chat(user, "Неизвестная сила разрушает вашу магическую матрицу, и вы остаетесь там, где находитесь.")
 		return
 
 	selected_area = thearea
@@ -60,7 +60,7 @@
 					area_turfs += area_turf
 
 		if(!length(area_turfs))
-			to_chat(user, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
+			to_chat(user, "Матрица заклинаний не смогла найти подходящее место для телепортации по неизвестной причине. Извините.")
 			return
 
 		if(target?.buckled)

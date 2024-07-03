@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/goliath_dash
 	name = "Goliath Dash"
-	desc = "Make a dash followed by an attack with the tentacles of goliath"
+	desc = "Сделайте рывок, после чего атакуйте щупальцами голиафа."
 	school = "lavaland"
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
@@ -45,7 +45,7 @@
 
 	user.layer = initial(user.layer)
 	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
-	visible_message(span_warning("[user] unleashes tentacles from the ground around it!"))
+	visible_message(span_warning("[user] выпускает щупальца из земли вокруг себя!"))
 
 	for(var/d in GLOB.alldirs)
 		var/turf/E = get_step(user, d)

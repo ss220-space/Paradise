@@ -19,7 +19,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/floor
 	name = "Summon Cult Floor"
-	desc = "This spell constructs a cult floor"
+	desc = "Это заклинание создаст пол культа."
 	action_icon_state = "floorconstruct"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -41,7 +41,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/wall
 	name = "Summon Cult Wall"
-	desc = "This spell constructs a cult wall"
+	desc = "Это заклинание создаст пол культа."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -63,7 +63,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
-	desc = "This spell constructs a reinforced metal wall"
+	desc = "Это заклинание создаст укреплённую металлическую стену."
 	school = "conjuration"
 	base_cooldown = 30 SECONDS
 	delay = 5 SECONDS
@@ -76,7 +76,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
+	desc = "Это заклинание использует Редспейс для призыва одного из легендарных осколков сквозь пространство и время."
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -95,7 +95,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
-	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
+	desc = "Это заклинание призывает хрупкий кристал из Редспейса. Неплохой источник освещения."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -108,7 +108,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy
 	name = "Holy Pylon"
-	desc = "Это заклинание создаст уязвимый к повреждениям кристалл, что будет немного лечить иных коснтруктов"
+	desc = "Это заклинание создаст уязвимый к повреждениям кристалл, что будет немного лечить конструктов"
 	action_icon_state = "holy_pylon"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/obj/structure/cult/functional/pylon/holy)
@@ -116,7 +116,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall
 	name = "Shield"
-	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire"
+	desc = "Это заклинание создаёт временную силовую стену. Неплохое укрытие для вас и ваших союзников."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "transmutation"
@@ -135,7 +135,8 @@
 
 
 /obj/effect/forcefield/cult
-	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
+
+	desc = "Это зловещее препятствие, кажется, вытащили из другого измерения грубой силой."
 	name = "eldritch wall"
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "m_shield_cult"
@@ -152,7 +153,7 @@
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/shift
 	name = "Phase Shift"
-	desc = "This spell allows you to pass through walls"
+	desc = "Это заклинание позволяет ходить через стены."
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_cult"
 	base_cooldown = 20 SECONDS
@@ -188,7 +189,7 @@
 
 /obj/effect/proc_holder/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
-	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
+	desc = "Это заклинание выпускает несколько медленно движущихся магических снарядов по ближайшим целям."
 	action_background_icon_state = "bg_cult"
 	school = "evocation"
 	base_cooldown = 40 SECONDS
@@ -206,7 +207,7 @@
 
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
+	desc = "Это заклинание создаёт облако парализующего дыма."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -221,7 +222,7 @@
 
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
+	desc = "Это заклинание создаёт облако парализующего дыма."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"

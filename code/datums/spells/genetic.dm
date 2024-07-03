@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/genetic
-	desc = "This spell inflicts a set of mutations and disabilities upon the target."
+	desc = "Это заклинание вызывает у цели ряд мутаций и инвалидностей."
 
 	var/list/active_on = list()
 	/// Applied traits list.

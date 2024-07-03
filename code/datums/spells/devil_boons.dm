@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/summon_wealth
 	name = "Summon wealth"
-	desc = "The reward for selling your soul."
+	desc = "Награда за продажу вашей души."
 	school = "conjuration"
 	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
@@ -30,7 +30,7 @@
 
 /obj/effect/proc_holder/spell/view_range
 	name = "Distant vision"
-	desc = "The reward for selling your soul."
+	desc = "Награда за продажу вашей души."
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
 	cooldown_min = 1 SECONDS
@@ -46,12 +46,12 @@
 	for(var/mob/C in targets)
 		if(!C.client)
 			continue
-		C.client.view = input("Select view range:", "Range", 4) in ranges
+		C.client.view = input("Выберите радиус взгялда:", "Range", 4) in ranges
 
 
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Summon Friend"
-	desc = "The reward for selling your soul."
+	desc = "Награда за продажу вашей души."
 	action_icon_state = "sacredflame"
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
@@ -66,8 +66,8 @@
 
 /obj/effect/proc_holder/spell/summon_friend/cast(list/targets, mob/user = usr)
 	if(!QDELETED(friend))
-		to_chat(friend, "<span class='userdanger'>Your master has deemed you a poor friend. Your durance in hell will now resume.</span>")
-		to_chat(user, "<span class='notice'>You banish your friend back to whence [friend.p_they()] came.</span>")
+		to_chat(friend, "<span class='userdanger'>Твой хозяин счел тебя плохим другом. Твоё наказание в аду продолжается.</span>")
+		to_chat(user, "<span class='notice'>Ты изгоняешь своего друга прямиком в ад.</span>")
 		friend.dust()
 		QDEL_NULL(friendShell)
 		return

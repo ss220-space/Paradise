@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/conjure_item/pitchfork
 	name = "Summon Pitchfork"
-	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
+	desc = "Любимое оружие дьявола. Используйте, чтобы призывать и убирать свои вилы."
 	item_type = /obj/item/twohanded/pitchfork/demonic
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
@@ -16,7 +16,7 @@
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	item_type = /obj/item/instrument/violin/golden
-	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
+	desc = "Любимый музыкальный инструмент дьявола.  Используйте, чтобы призывать и убирать свою золотую скрипку."
 	invocation_type = "whisper"
 	invocation = "I ain't have this much fun since Georgia."
 	action_icon_state = "golden_violin"
@@ -26,11 +26,11 @@
 
 /obj/effect/proc_holder/spell/summon_contract
 	name = "Summon infernal contract"
-	desc = "Skip making a contract by hand, just do it by magic."
+	desc = "Не составляйте контракт вручную, сделайте это с помощью магии."
 	invocation_type = "whisper"
 	invocation = "Just sign on the dotted line."
-	selection_activated_message = "<span class='notice'>You prepare a detailed contract. Click on a target to summon the contract in his hands.</span>"
-	selection_deactivated_message = "<span class='notice'>You archive the contract for later use.</span>"
+	selection_activated_message = "<span class='notice'>Вы готовите подробный контракт. Нажмите на цель, чтобы она получила контракт.</span>"
+	selection_deactivated_message = "<span class='notice'>Вы убираете контракт до лучших времён.</span>"
 	clothes_req = FALSE
 	human_req = FALSE
 	school = "conjuration"
@@ -63,7 +63,7 @@
 					user.put_in_hands(contract)
 			else
 				var/obj/item/paper/contract/infernal/contract
-				var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  //TODO: Refactor this to be less boilerplate-y
+				var/contractTypeName = input(user, "Какого рода контракт?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  //TODO: Refactor this to be less boilerplate-y
 				switch(contractTypeName)
 					if(CONTRACT_POWER)
 						contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -79,12 +79,12 @@
 						contract = new /obj/item/paper/contract/infernal/friendship(C.loc, C.mind, user.mind)
 				C.put_in_hands(contract)
 		else
-			to_chat(user,"<span class='notice'>[C] seems to not be sentient. You are unable to summon a contract for them.</span>")
+			to_chat(user,"<span class='notice'>[C], кажется, не имеет разума. Вы не можете призвать контракт для этого существа.</span>")
 
 
 /obj/effect/proc_holder/spell/fireball/hellish
 	name = "Hellfire"
-	desc = "This spell launches hellfire at the target."
+	desc = "Это заклинание выпускает в цель адское пламя."
 	school = "evocation"
 	base_cooldown = 8 SECONDS
 	clothes_req = FALSE
@@ -97,7 +97,7 @@
 
 /obj/effect/proc_holder/spell/infernal_jaunt
 	name = "Infernal Jaunt"
-	desc = "Use hellfire to phase out of existence."
+	desc = "Используйте адское пламя, чтобы развоплотиться."
 	base_cooldown = 20 SECONDS
 	cooldown_min = 0
 	overlay = null
@@ -123,21 +123,21 @@
 						continuing = TRUE
 						break
 			if(continuing)
-				to_chat(user,"<span class='warning'>You are now phasing in.</span>")
+				to_chat(user,"<span class='warning'>Вы постепенно воплощаетесь.</span>")
 				if(do_after(user, 15 SECONDS, user, NONE))
 					user.infernalphasein(src)
 			else
-				to_chat(user,"<span class='warning'>You can only re-appear near a potential signer or on a shuttle.</span>")
+				to_chat(user,"<span class='warning'>Вы можете повторно воплотиться только рядом с потенциальным клиентом или на шаттле.</span>")
 				revert_cast()
 				return ..()
 		else
 			user.fakefire()
-			to_chat(user,"<span class='warning'>You begin to phase back into sinful flames.</span>")
+			to_chat(user,"<span class='warning'>Вы начинаете постепенно растворяетесь в пламени греха.</span>")
 			if(do_after(user, 15 SECONDS, user, NONE))
 				ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 				user.infernalphaseout(src)
 			else
-				to_chat(user,"<span class='warning'>You must remain still while exiting.</span>")
+				to_chat(user,"<span class='warning'>При выходе вы должны оставаться неподвижным.</span>")
 				user.ExtinguishMob()
 		cooldown_handler.start_recharge()
 		return
@@ -146,7 +146,7 @@
 
 /mob/living/proc/infernalphaseout(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	dust_animation()
-	visible_message("<span class='warning'>[src] disappears in a flashfire!</span>")
+	visible_message("<span class='warning'>[src] исчезает во вспышке огня!</span>")
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 	ExtinguishMob()
@@ -158,11 +158,11 @@
 
 /mob/living/proc/infernalphasein(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
-		to_chat(src,"<span class='warning'>You're too busy to jaunt in.</span>")
+		to_chat(src,"<span class='warning'>Вы слишком заняты, чтобы развоплотиться.</span>")
 		return FALSE
 	fakefire()
 	forceMove(get_turf(src))
-	visible_message("<span class='warning'><B>[src] appears in a firey blaze!</B></span>")
+	visible_message("<span class='warning'><B>[src] появляется во вспышке огня!</B></span>")
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 	spawn(1.5 SECONDS)
 		fakefireextinguish(TRUE)
@@ -170,7 +170,7 @@
 
 /obj/effect/proc_holder/spell/sintouch
 	name = "Sin Touch"
-	desc = "Subtly encourage someone to sin."
+	desc = "Незаметно подталкивайте кого-то к грехопадению."
 	base_cooldown = 180 SECONDS
 	cooldown_min = 0
 	clothes_req = FALSE
@@ -212,7 +212,7 @@
 
 /obj/effect/proc_holder/spell/summon_dancefloor
 	name = "Summon Dancefloor"
-	desc = "When what a Devil really needs is funk."
+	desc = "Когда то, что действительно нужно дьяволу - это фанк."
 	clothes_req = FALSE
 	human_req = FALSE
 	school = "conjuration"
@@ -251,7 +251,7 @@
 		var/list/funky_turfs = RANGE_TURFS(1, user)
 		for(var/turf/T in funky_turfs)
 			if(T.density)
-				to_chat(user, "<span class='warning'>You're too close to a wall.</span>")
+				to_chat(user, "<span class='warning'>Вы стоите слишком близко к стене.</span>")
 				return
 		dancefloor_exists = TRUE
 		var/i = 1

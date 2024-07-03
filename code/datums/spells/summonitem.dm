@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/summonitem
 	name = "Instant Summons"
-	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
+	desc = "Это заклинание можно использовать для того, чтобы вернуть ранее помеченный предмет в вашу руку из любой точки Вселенной."
 	school = "transmutation"
 	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
@@ -43,17 +43,17 @@
 
 			if(!marked_item)
 				if(hand_items)
-					message = span_caution("You aren't holding anything that can be marked for recall.")
+					message = span_caution("У вас нет ничего, что можно было бы пометить для отзыва.")
 				else
-					message = span_notice("You must hold the desired item in your hands to mark it for recall.")
+					message = span_notice("Вы должны держать нужный предмет в руках, чтобы пометить его для отзыва.")
 
 		else if(marked_item && (marked_item in hand_items)) //unlinking item to the spell
-			message = span_notice("You remove the mark on [marked_item] to use elsewhere.")
+			message = span_notice("Вы убираете метку на [marked_item].")
 			name = "Instant Summons"
 			marked_item = 		null
 
 		else if(marked_item && !marked_item.loc) //the item was destroyed at some point
-			message = span_warning("You sense your marked item has been destroyed!")
+			message = span_warning("Вы чувствуете, что помеченный предмет был уничтожен!")
 			name = "Instant Summons"
 			marked_item = 		null
 
@@ -70,16 +70,16 @@
 						if(!target_turf)
 							return
 
-						M.visible_message(span_warning("[M] suddenly disappears!"), span_danger("A force suddenly pulls you away!"))
+						M.visible_message(span_warning("[M] неожиданно исчезает!"), span_danger("Неизвестная сила неожиданно утаскивает тебя!"))
 						M.forceMove(target_turf)
-						M.loc.visible_message(span_caution("[M] suddenly appears!"))
+						M.loc.visible_message(span_caution("[M] неожиданно появляется!"))
 						item_to_retrieve = null
 						break
 
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/human = M
 						if(human.remove_embedded_object(item_to_retrieve))
-							to_chat(human, span_warning("The [item_to_retrieve] that was embedded into you has mysteriously vanished. How fortunate!"))
+							to_chat(human, span_warning("Вы замечаете, что предмет [item_to_retrieve] таинственным образом исчез. Какая удача!"))
 
 				else
 					if(istype(item_to_retrieve.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
@@ -99,14 +99,14 @@
 			if(!target_turf)
 				return
 
-			item_to_retrieve.loc.visible_message(span_warning("The [item_to_retrieve.name] suddenly disappears!"))
+			item_to_retrieve.loc.visible_message(span_warning("[item_to_retrieve.name] неожиданно исчезает!"))
 			playsound(target_turf, 'sound/magic/summonitems_generic.ogg', 50, TRUE)
 
 			if(!target.put_in_active_hand(item_to_retrieve) && !target.put_in_inactive_hand(item_to_retrieve))
 				item_to_retrieve.loc = target_turf
-				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears!"))
+				item_to_retrieve.loc.visible_message(span_caution("[item_to_retrieve.name] неожиданно появляется!"))
 			else
-				item_to_retrieve.loc.visible_message(span_caution("The [item_to_retrieve.name] suddenly appears in [target]'s hand!"))
+				item_to_retrieve.loc.visible_message(span_caution("[item_to_retrieve.name] неожиданно появляется в руке [target]!"))
 
 		if(message)
 			to_chat(target, message)

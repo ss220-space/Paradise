@@ -3,10 +3,10 @@
 //Standard loadouts, which are meant to be suggestions for beginners. Should always be worth exactly 10 spell points, and only contain standard wizard spells/items.
 /datum/spellbook_entry/loadout/mutant
 	name = "Offense Focus : Mutant"
-	desc = "A spellset focused around the Mutate spell as its main source of damage, which provides stun protection, laser eyes, and strong punches. <br> \
-		Ethereal Jaunt and Blink provide escape and mobility, while Magic Missile and Disintegrate can be used together for dangerous or key targets. <br> \
-		As this set lacks any form of healing or resurrection, healing items should be acquired from the station, and you should be careful to avoid being hurt in the first place. <br><br> \
-		</i>Provides Mutate, Ethereal Jaunt, Blink, Magic Missile, and Disintegrate.<i>"
+	desc = "Набор заклинаний, сфокусированный на заклинании Mutate как основном источнике урона, который обеспечивает защиту от оглушения, лазерные глаза и сильные удары. <br> \
+ 			Ethereal Jaunt и Blink обеспечивают  мобильность, в то время как Magic Missile и Disintegrate могут использоваться вместе для поражения опасных или ключевых целей. <br> \
+ 			Поскольку в этом наборе отсутствует какие-либо средства исцеления или воскрешения, вам следует быть осторожным, чтобы не пораниться. <br><br> \
+ 			</i> Даёт Mutate, Ethereal Jaunt, Blink, Magic Missile и Disintegrate.<i>"
 	spells_path = list(/obj/effect/proc_holder/spell/genetic/mutate,
 						/obj/effect/proc_holder/spell/ethereal_jaunt,
 						/obj/effect/proc_holder/spell/turf_teleport/blink,
@@ -16,10 +16,10 @@
 
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
-	desc = "This spellset uses the Bind Soul spell to safeguard your life as a lich and allow for more dangerous offensive spells to be used. <br> \
-		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Greater Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
-		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
-		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
+	desc = "Набор заклинаний, сфокусированный на заклинании Bind Soul, чтобы защитить вашу жизнь как лича и позволить использование более опасных атакующих заклинаний. <br> \
+ 			Ethereal Jaunt позволяет сбежать, Fireball и Rod Form - ваши атакующие заклинания, а Disable Tech и Greater Force Wall помогают выводить из строя оружие СБ или преграждать им путь. <br> \
+ 			Следует очень кропотливо относиться к предмету, который вы выбрали в качестве своей филактерии после использования Bind Soul, так как вы не сможете возродиться, если он будет уничтожен или вы отойдёте слишком далеко! <br><br> \
+ 			</i> Даёт Bind Soul, Ethereal Jaunt, Fireball, Rod Form, Disable Tech и Greater Force Wall.<i>"
 	spells_path = list(/obj/effect/proc_holder/spell/lichdom,
 						/obj/effect/proc_holder/spell/ethereal_jaunt,
 						/obj/effect/proc_holder/spell/fireball,
@@ -31,10 +31,10 @@
 
 /datum/spellbook_entry/loadout/wands
 	name = "Utility Focus : Wands"
-	desc = "This set contain a Belt of Wands, providing offensive, defensive, and utility wands. Wands have limited charges, but can be partially recharged with the Charge spell included. <br> \
-		Ethereal Jaunt and Blink provide escape and mobility, while Disintegrate and Repulse can be used to annihilate or push away anyone that gets too close to you. <br> \
-		Do not lose any of your wands to the station's crew, as they are extremely deadly even in their hands. Remember that the Revive wand can be used on yourself for a full heal! <br><br> \
-		</i>Provides a Belt of Wands, Charge, Ethereal Jaunt, Blink, Repulse, and Disintegrate.<i>"
+	desc = "В этот набор входит пояс с атакующими, защитными и прочими волшебными палочками. Количество зарядов палочек ограничено, но их можно частично перезарядить с помощью прилагаемого заклинания Charge. <br> \
+ 			Ethereal Jaunt и Blink обеспечивают мобильность, в то время как Disintegrate и Repulse могут быть использованы для уничтожения или отталкивания любого, кто приблизится к вам слишком близко. <br> \
+ 			Не отдавайте свои волшебные палочки экипажу станции, так как они чрезвычайно опасны. Помните, что палочку оживления можно использовать на себе для полного исцеления! <br><br> \
+			</i> Даёт пояс с волшебными палочками, Charge, Ethereal Jaunt, Blink, Repulse и Disintegrate.<i>"
 	items_path = list(/obj/item/storage/belt/wands/full)
 	spells_path = list(/obj/effect/proc_holder/spell/charge,
 						/obj/effect/proc_holder/spell/ethereal_jaunt,
@@ -47,7 +47,7 @@
 /datum/spellbook_entry/loadout/mimewiz
 	name = "Silencio"
 	desc = "...<br><br> \
-		</i>Provides Finger Gun and Invisible Greater Wall manuals, Mime Robes, a Cane and Duct Tape, Ethereal Jaunt, Blink, Teleport, Mime Malaise, Knock, and Stop Time.<i>"
+		</i>В комплект входят Finger Gun, Invisible Greater Wall, Ethereal Jaunt, Blink, Teleport, Mime Malaise, Knock и Stop Time, а также мантия мима и трость.<i>"
 	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun,
 					/obj/item/spellbook/oneuse/mime/greaterwall,
 					/obj/item/clothing/suit/wizrobe/mime,
@@ -64,7 +64,7 @@
 					/obj/effect/proc_holder/spell/aoe/knock,
 					/obj/effect/proc_holder/spell/aoe/conjure/timestop
 				)
-	category = "Unique"
+	category = "Уникальные"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -75,10 +75,10 @@
 
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
-	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest.<br> \
-		Bring them to the afterlife, one trigger pull at a time. <br> \
-		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
-		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
+	desc = "Клонируемые снова и снова души на борту этой станции жаждут заслуженного отдыха.<br> \
+ 			Отправляйте их на встречу со своим божеством, раз за разом вдавливая спусковой крючок. <br> \
+ 			Вам, скорее всего, придётся добирать патроны из запасов станции. <br><br>\
+ 			</i> Даёт револьвер 357-го калибра, 4 спидлоадера, Ethereal Jaunt, Blink, Summon Item, No Clothes и Bind Soul, а также уникальный наряд.</i>"
 	items_path = list(/obj/item/gun/projectile/revolver,
 					/obj/item/ammo_box/speedloader/a357,
 					/obj/item/ammo_box/speedloader/a357,
@@ -92,7 +92,7 @@
 					/obj/effect/proc_holder/spell/noclothes,
 					/obj/effect/proc_holder/spell/lichdom/gunslinger
 				)
-	category = "Unique"
+	category = "Уникальные"
 	destroy_spellbook = TRUE
 	is_ragin_restricted = TRUE
 

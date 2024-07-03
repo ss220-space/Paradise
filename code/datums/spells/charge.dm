@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/charge
 	name = "Charge"
-	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
+	desc = "Это заклинание можно использовать для подзарядки различных предметов, находящихся в ваших руках, от магических артефактов до электрических компонентов. Изобретательный волшебник может даже использовать его для наделения магической силой своего товарища по магии."
 	school = "transmutation"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
@@ -29,9 +29,9 @@
 				if(M.mind)
 					for(var/obj/effect/proc_holder/spell/spell as anything in M.mind.spell_list)
 						spell.cooldown_handler.revert_cast()
-				to_chat(M, "<span class='notice'>You feel raw magical energy flowing through you, it feels good!</span>")
+				to_chat(M, "<span class='notice'>Вы чувствуете, как через вас течет необузданная магическая энергия!</span>")
 			else
-				to_chat(M, "<span class='notice'>You feel very strange for a moment, but then it passes.</span>")
+				to_chat(M, "<span class='notice'>На мгновение вы чувствуете себя очень странно, но это ощущение быстро исчезает.</span>")
 				burnt_out = TRUE
 			charged_item = M
 			break
@@ -40,21 +40,21 @@
 				if(istype(item, /obj/item/spellbook/oneuse))
 					var/obj/item/spellbook/oneuse/I = item
 					if(prob(80))
-						L.visible_message("<span class='warning'>[I] catches fire!</span>")
+						L.visible_message("<span class='warning'>[I] загорается! span>")
 						qdel(I)
 					else
 						I.used = FALSE
 						charged_item = I
 						break
 				else
-					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
-					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
+					to_chat(L, "<span class='caution'>На лицевой стороне обложки появляются светящиеся красные буквы...</span>")
+					to_chat(L, "<span class='warning'>[pick("ХОРОШАЯ ПОПЫТКА, НО НЕТ!","УМНО, НО НЕДОСТАТОЧНО УМНО!","ТАКОЙ ВОПИЮЩИЙ ЧИЗИНГ И СТАЛ ПРИЧИНОЙ ОДОБРЕНИЯ ВАШЕЙ ЗАЯВКИ!", "МИЛО!", "ТЫ ЖЕ НЕ ДУМАЛ, ЧТО БУДЕТ ТАК ПРОСТО?")]</span>")
 					burnt_out = TRUE
 
 			else if(istype(item, /obj/item/book/granter))
 				var/obj/item/book/granter/I = item
 				if(prob(80))
-					L.visible_message("<span class='warning'>[I] catches fire!</span>")
+					L.visible_message("<span class='warning'>[I] загорается!</span>")
 					qdel(I)
 				else
 					I.uses += 1
@@ -103,9 +103,9 @@
 						charged_item = item
 						break
 		if(!charged_item)
-			to_chat(L, "<span class='notice'>You feel magical power surging to your hands, but the feeling rapidly fades...</span>")
+			to_chat(L, "<span class='notice'>Вы чувствуете, как к вашим рукам приливает магическая сила, но это ощущение быстро исчезает...</span>")
 		else if(burnt_out)
-			to_chat(L, "<span class='caution'>[charged_item] doesn't seem to be reacting to the spell...</span>")
+			to_chat(L, "<span class='caution'>[charged_item] не реагирует на заклинание...</span>")
 		else
-			to_chat(L, "<span class='notice'>[charged_item] suddenly feels very warm!</span>")
 
+			to_chat(L, "<span class='notice'>[charged_item] внезапно становится очень тёплым!</span>")
