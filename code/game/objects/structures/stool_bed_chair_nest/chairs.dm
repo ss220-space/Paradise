@@ -145,14 +145,6 @@
 	rotate(user)
 
 
-/obj/structure/chair/verb/rotate_chair()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
-
-	rotate(usr)
-
-
 // CHAIR TYPES
 
 /obj/structure/chair/wood
