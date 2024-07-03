@@ -16,7 +16,7 @@
 						/obj/structure/falsewall,
 						/obj/structure/lattice/fireproof)
 	smooth = SMOOTH_MORE
-	obj_flags = BLOCK_Z_OUT_DOWN
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
