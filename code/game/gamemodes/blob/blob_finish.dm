@@ -82,12 +82,12 @@
 			text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(blob_mode.blob_offsprings.len)
-			text += "<FONT size = 2><B>Потомк[(blob_mode.blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</B></FONT>"
+			text += "<br><FONT size = 2><B>Потомк[(blob_mode.blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</B></FONT>"
 			for(var/datum/mind/blob in blob_mode.blob_offsprings)
 				text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(blob_mode.blobernauts.len)
-			text += "<FONT size = 2><B>Блобернаут[(blob_mode.blobernauts.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+			text += "<br><FONT size = 2><B>Блобернаут[(blob_mode.blobernauts.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 			for(var/datum/mind/blob in blob_mode.blobernauts)
 				text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
 

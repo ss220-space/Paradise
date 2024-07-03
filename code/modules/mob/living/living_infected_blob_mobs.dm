@@ -16,7 +16,7 @@
 		return
 	if(!(mind && SSticker && SSticker.mode && can_be_blob))
 		return
-	if(mind.special_role == SPECIAL_ROLE_BLOB &&!was_bursted)
+	if(mind.special_role == SPECIAL_ROLE_BLOB && !was_bursted)
 		var/datum/antagonist/blob_infected/blob = mind.has_antag_datum(/datum/antagonist/blob_infected)
 		blob?.burst_blob(TRUE)
 

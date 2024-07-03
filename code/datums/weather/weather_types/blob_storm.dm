@@ -11,6 +11,8 @@
 	weather_duration_lower = 30 SECONDS
 	weather_duration_upper = 1 MINUTES
 	weather_color = COLOR_PALE_GREEN_GRAY
+	overlay_layer = MOB_LAYER
+	overlay_plane = GAME_PLANE
 	weather_sound = 'sound/magic/mutate.ogg'
 
 	end_duration = 10 SECONDS
@@ -81,4 +83,4 @@
 /datum/weather/blob_storm/can_weather_act(mob/living/L)
 	if(!L.weather_immunities)
 		return FALSE
-	return ..()
+	return ..() && L.can_be_blob

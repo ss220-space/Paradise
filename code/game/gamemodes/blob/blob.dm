@@ -82,7 +82,7 @@
 				continue
 			if(player.client.prefs?.skip_antag || !(ROLE_BLOB in player.client.prefs.be_special))
 				continue
-			if(player.can_be_blob)
+			if(!player.can_be_blob)
 				continue
 			var/blob_restricted_jobs = /datum/game_mode/blob::restricted_jobs
 			if(length(blob_restricted_jobs) && (player.mind.assigned_role in blob_restricted_jobs))
