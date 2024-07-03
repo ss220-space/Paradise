@@ -2,6 +2,7 @@
 	var/name = "Entry Name"
 	var/is_ragin_restricted = FALSE // FALSE if this is buyable on ragin mages, TRUE if it's not.
 	var/spell_type = null
+	var/rus_name = null
 	var/desc = ""
 	var/category = "Атакующие"
 	var/cost = 2
@@ -85,11 +86,11 @@
 	if(!S)
 		S = new spell_type()
 	var/dat =""
-	dat += "<b>[name]</b>"
-	dat += " Перезарядка:[S.base_cooldown/10]"
-	dat += " Цена:[cost]<br>"
+	dat += "<b>[name][rus_name ? " ([rus_name])" : ""]</b>"
+	dat += " Перезарядка: [S.base_cooldown/10];"
+	dat += " Цена: [cost];<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
-	dat += "[S.clothes_req?"Требуется роба":"Может быть произнесено без робы"]<br>"
+	dat += "[S.clothes_req?"Требуется роба волшебника.":"Может быть произнесено без робы"]<br>"
 	return dat
 
 //Main category - Spells
@@ -97,86 +98,102 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
+	rus_name = "Слепота"
 	spell_type = /obj/effect/proc_holder/spell/trigger/blind
 	category = "Атакующие"
 	cost = 1
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
+	rus_name = "Удар молнии"
 	spell_type = /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	category = "Атакующие"
 	cost = 1
 
 /datum/spellbook_entry/cluwne
 	name = "Curse of the Cluwne"
+	rus_name = "Проклятие КлУвНи"
 	spell_type = /obj/effect/proc_holder/spell/touch/cluwne
 	category = "Атакующие"
 
 /datum/spellbook_entry/banana_touch
 	name = "Banana Touch"
+	rus_name = "Банановое касание"
 	spell_type = /obj/effect/proc_holder/spell/touch/banana
 	cost = 1
 
 /datum/spellbook_entry/mime_malaise
 	name = "Mime Malaise"
+	rus_name = "Мимическое недомогание"
 	spell_type = /obj/effect/proc_holder/spell/touch/mime_malaise
 	cost = 1
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
+	rus_name = "Проклятие лошадиноголового"
 	spell_type = /obj/effect/proc_holder/spell/horsemask
 	category = "Атакующие"
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
+	rus_name = "Дезинтегрирование"
 	spell_type = /obj/effect/proc_holder/spell/touch/disintegrate
 	category = "Атакующие"
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
+	rus_name = "Огненный шар"
 	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Атакующие"
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
+	rus_name = "Плоть в камень"
 	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	category = "Атакующие"
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"
+	rus_name = "Мутация"
 	spell_type = /obj/effect/proc_holder/spell/genetic/mutate
 	category = "Атакующие"
 
 /datum/spellbook_entry/rod_form
 	name = "Rod Form"
+	rus_name = "Форма прута"
 	spell_type = /obj/effect/proc_holder/spell/rod_form
 	category = "Атакующие"
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
+	rus_name = "Малый призыв оружия" // Lesser на моей дндшной памяти переводилось как "малый/ое/ая"
 	spell_type = /obj/effect/proc_holder/spell/infinite_guns
 	category = "Атакующие"
 
 /datum/spellbook_entry/goliath_tentacles
 	name = "Summon Tentacles"
+	rus_name = "Призыв щупалец"
 	spell_type = /obj/effect/proc_holder/spell/goliath_tentacles
 	category = "Атакующие"
 	cost = 1
 
 /datum/spellbook_entry/legion_skulls
 	name = "Summon Skulls"
+	rus_name = "Призыв черепов"
 	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls
 	category = "Атакующие"
 	cost = 1
 
 /datum/spellbook_entry/goliath_dash
 	name = "Goliath Dash"
+	rus_name = "Рывок голиафа"
 	spell_type = /obj/effect/proc_holder/spell/goliath_dash
 	category = "Атакующие"
 	cost = 1
 
 /datum/spellbook_entry/watchers_look
 	name = "Watcher's Look"
+	rus_name = "Взгляд наблюдателя"
 	spell_type = /obj/effect/proc_holder/spell/watchers_look
 	category = "Атакующие"
 	cost = 1
@@ -184,58 +201,68 @@
 //Defensive
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
+	rus_name = "Отключение технологий"
 	spell_type = /obj/effect/proc_holder/spell/emplosion/disable_tech
 	category = "Защитные"
 	cost = 1
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
+	rus_name = "Силовой барьер"
 	spell_type = /obj/effect/proc_holder/spell/forcewall
 	category = "Защитные"
 	cost = 1
 
 /datum/spellbook_entry/greaterforcewall
 	name = "Greater Force Wall"
+	rus_name = "Великий силовой барьер"
 	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
 	category = "Защитные"
 	cost = 1
 
 /datum/spellbook_entry/rathens
 	name = "Rathen's Secret"
+	rus_name = "Тайна Ратена" // Нет на вики, взял с дерева
 	spell_type = /obj/effect/proc_holder/spell/rathens
 	category = "Защитные"
 	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
+	rus_name = "Отталкивание"
 	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
 	category = "Защитные"
 	cost = 1
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
+	rus_name = "Дым"
 	spell_type = /obj/effect/proc_holder/spell/smoke
 	category = "Защитные"
 	cost = 1
 
 /datum/spellbook_entry/lichdom
 	name = "Bind Soul"
+	rus_name = "Связь души"
 	spell_type = /obj/effect/proc_holder/spell/lichdom
 	category = "Защитные"
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
+	rus_name = "Магические снаряды"
 	spell_type = /obj/effect/proc_holder/spell/projectile/magic_missile
 	category = "Защитные"
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
+	rus_name = "Остановка времени"
 	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/timestop
 	category = "Защитные"
 
 /datum/spellbook_entry/sacred_flame
 	name = "Sacred Flame and Fire Immunity"
+	rus_name = "Священное пламя"
 	spell_type = /obj/effect/proc_holder/spell/sacred_flame
 	cost = 1
 	category = "Защитные"
@@ -255,39 +282,46 @@
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
+	rus_name = "Стук"
 	spell_type = /obj/effect/proc_holder/spell/aoe/knock
 	category = "Мобильные"
 	cost = 1
 
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
+	rus_name = "Великий стук"
 	spell_type = /obj/effect/proc_holder/spell/aoe/knock/greater
 	category = "Мобильные"
 	refundable = 0 //global effect on cast
 
 /datum/spellbook_entry/blink
 	name = "Blink"
+	rus_name = "Прыжок"
 	spell_type = /obj/effect/proc_holder/spell/turf_teleport/blink
 	category = "Мобильные"
 
 /datum/spellbook_entry/jaunt
 	name = "Ethereal Jaunt"
+	rus_name = "Эфирный прыжок"
 	spell_type = /obj/effect/proc_holder/spell/ethereal_jaunt
 	category = "Мобильные"
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
+	rus_name = "Искажение пространства-времени" // Нет на вики, взял с дерева
 	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
 	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
 	category = "Мобильные"
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
+	rus_name = "Подмена сознания"
 	spell_type = /obj/effect/proc_holder/spell/mind_transfer
 	category = "Мобильные"
 
 /datum/spellbook_entry/teleport
 	name = "Teleport"
+	rus_name = "Телепортация"
 	spell_type = /obj/effect/proc_holder/spell/area_teleport/teleport
 	category = "Мобильные"
 
@@ -295,29 +329,34 @@
 
 /datum/spellbook_entry/shapeshift
 	name = "Shapechange"
+	rus_name = "Изменение формы"
 	spell_type = /obj/effect/proc_holder/spell/shapeshift
 	category = "Вспомогательные"
 	cost = 2
 
 /datum/spellbook_entry/charge
 	name = "Charge"
+	rus_name = "Заряд"
 	spell_type = /obj/effect/proc_holder/spell/charge
 	category = "Вспомогательные"
 	cost = 1
 
 /datum/spellbook_entry/summonitem
 	name = "Summon Item"
+	rus_name = "Призыв предмета"
 	spell_type = /obj/effect/proc_holder/spell/summonitem
 	category = "Вспомогательные"
 	cost = 1
 
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
+	rus_name = "Без одежды"
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	category = "Вспомогательные"
 
 /datum/spellbook_entry/healtouch
 	name = "Healing Touch"
+	rus_name = "Лечащее прикосновение"
 	spell_type = /obj/effect/proc_holder/spell/touch/healtouch/advanced
 	category = "Вспомогательные"
 	cost = 1
@@ -335,11 +374,11 @@
 
 /datum/spellbook_entry/summon/GetInfo()
 	var/dat =""
-	dat += "<b>[name]</b>"
+	dat += "<b>[name][rus_name ? " ([rus_name])" : ""]</b>"
 	if(cost>0)
-		dat += " Цена:[cost]<br>"
+		dat += " Цена: [cost];<br>"
 	else
-		dat += " Бесценно<br>"
+		dat += " Бесценно;<br>"
 	dat += "<i>[desc]</i><br>"
 	if(active)
 		dat += "<b>Заклинание уже произнесено!</b><br>"
@@ -347,6 +386,7 @@
 
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"
+	rus_name = "Призыв призраков"
 	desc = "Испугайте экипаж, воззвав к призракам мёртвых людей. Имейте в виду, призраки капризны и иногда мстительны, и некоторые из них будут пользоваться своими незначительными способностями против вас."
 	cost = 0
 	is_ragin_restricted = TRUE
@@ -360,7 +400,8 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	desc = "Если вооружить кучку сумашедших идиотов, которые только и ждут повода, чтобы убить тебя, что может пойти не так? Есть приличный шанс того, что они прикончат друг друга быстрее."
+	rus_name = "Призыв оружия"
+	desc = "Если вооружить кучку сумасшедших идиотов, которые только и ждут повода, чтобы убить тебя, что может пойти не так? Есть приличный шанс того, что они прикончат друг друга быстрее."
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -373,6 +414,7 @@
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
+	rus_name = "Призыв заклинаний"
 	desc = "Поделитесь даром магии с экипажем и покажите почему ей же не следует доверять."
 	is_ragin_restricted = TRUE
 
@@ -402,20 +444,22 @@
 
 /datum/spellbook_entry/item/GetInfo()
 	var/dat =""
-	dat += "<b>[name]</b>"
-	dat += " Цена:[cost]<br>"
+	dat += "<b>[name][rus_name ? " ([rus_name])" : ""]</b>"
+	dat += " Цена: [cost];<br>"
 	dat += "<i>[desc]</i><br>"
 	return dat
 
 //Artefacts
 /datum/spellbook_entry/item/necrostone
 	name = "A Necromantic Stone"
+	rus_name = "Камень некромантии"
 	desc = "Камень Некромантии позволяет вам воскресить трёх индивидов в виде скелетов-рабов, подчиняющихся вашим приказам."
 	item_path = /obj/item/necromantic_stone
 	category = "Артефакты"
 
 /datum/spellbook_entry/item/scryingorb
 	name = "Scrying Orb"
+	rus_name = "Магический шар"
 	desc = "Светящийся шар, время от времени потрескивающий от энергии. Его использование позволит вам стать призраком, давая возможность с лёгкостью наблюдать за станцией. Вдобавок вы получаете X-ray зрение."
 	item_path = /obj/item/scrying
 	category = "Артефакты"
@@ -432,6 +476,7 @@
 
 /datum/spellbook_entry/item/soulstones
 	name = "Six Soul Stone Shards and the spell Artificer"
+	rus_name = "6 осколков камня души и волшебное изобретение"
 	desc = "Осколки камня души - древние инструменты, способные захватить и обуздать души упокоенных. Заклинание Artificier позволит вам создавать конструкты, для которых захваченные души станут пилотами."
 	item_path = /obj/item/storage/belt/soulstone/full
 	category = "Артефакты"
@@ -444,6 +489,7 @@
 
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
+	rus_name = "Коллекция палочек"
 	desc = "Коллекция палочек в широком ассортименте. Они не перезаряжаются, так что пользуйтесь мудро. Поставляются вместе с удобным поясом."
 
 	item_path = /obj/item/storage/belt/wands/full
@@ -453,6 +499,7 @@
 
 /datum/spellbook_entry/item/kit_spell_book
 	name = "Kit random spell book"
+	rus_name = "Набор из 4 книг заклинаний"
 	desc = "Случайные книги заклинаний! Даёт вам четыре книги по цене четырёх книг (или дороже!)"
 
 	item_path = /obj/item/storage/box/wizard/kit_spell_book
@@ -546,7 +593,8 @@
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
-	desc = "Околдованный комплект брони. Имеет магический щит, что может полностью поглотить шестнадцать атак прежде чем распадётся. Несмотря на внешний вид, комплект брони НЕ герметичен."
+	rus_name = "Броня боевого мага"
+	desc = "Околдованный комплект брони. Имеет магический щит, что может полностью поглотить шестнадцать атак, прежде чем распадётся. Несмотря на внешний вид, комплект брони НЕ герметичен."
 
 	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
@@ -554,6 +602,7 @@
 
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
+	rus_name = "Руна улучшения брони мага"
 	desc = "Мощная защитная руна, она даст боевой броне мага восемь дополнительных зарядов щита."
 	item_path = /obj/item/storage/box/wizard/recharge
 	category = "Броня и Оружие"
@@ -561,18 +610,21 @@
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
+	rus_name = "Мьёльнир"
 	desc = "Могучий молот, одолженный у Тора, бога грома. Он искрит едва сдерживаемой силой."
 	item_path = /obj/item/twohanded/mjollnir
 	category = "Броня и Оружие"
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
+	rus_name = "Молот сингулярности"
 	desc = "Молот, создающий интенсивное гравитационное поле в месте удара, позволяя притягивать предметы и людей."
 	item_path = /obj/item/twohanded/singularityhammer
 	category = "Броня и Оружие"
 
 /datum/spellbook_entry/item/spellblade
 	name = "Spellblade"
+	rus_name = "Волшебный меч"
 	desc = "Будучи смертельной комбинацией лени и жажды крови, данный клинок позволяет носителю расчленять своих врагов без необходимости взмахивать мечом."
 	item_path = /obj/item/gun/magic/staff/spellblade
 	category = "Броня и Оружие"
@@ -580,6 +632,7 @@
 //Staves
 /datum/spellbook_entry/item/staffdoor
 	name = "Staff of Door Creation"
+	rus_name = "Посох создания дверей"
 	desc = "Посох, позволяющий превращать литой металл в деревянные двери. Полезен для перемещения в отсутствие других инструментов мобиильности. Не работает на стекле."
 	item_path = /obj/item/gun/magic/staff/door
 	category = "Посохи"
@@ -587,6 +640,7 @@
 
 /datum/spellbook_entry/item/staffhealing
 	name = "Staff of Healing"
+	rus_name = "Посох лечения"
 	desc = "Альтруистичный посох, позволяющий лечить живых и поднимать усопших."
 	item_path = /obj/item/gun/magic/staff/healing
 	category = "Посохи"
@@ -601,12 +655,14 @@
 
 /datum/spellbook_entry/item/staffanimation
 	name = "Staff of Animation"
+	rus_name = "Банановый посох"
 	desc = 	"Магический посох, снаряды которого способны оживлять материальные предметы. Не работает на машин."
 	item_path = /obj/item/gun/magic/staff/animate
 	category = "Посохи"
 
 /datum/spellbook_entry/item/staffchange
 	name = "Staff of Change"
+	rus_name = "Изменяющий посох"
 	desc = 	"Артефакт, плюющийся снарядами сверкающей энергии, что изменяют физическую форму цели."
 
 	item_path = /obj/item/gun/magic/staff/change
@@ -615,6 +671,7 @@
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
+	rus_name = "Посох хаоса"
 	desc = "Капризный инструмент, результат использования которого не подчинён какому-либо порядку или логике. Использование этого посоха на дорогих вам людях не рекомендуется."
 	item_path = /obj/item/gun/magic/staff/chaos
 	category = "Посохи"
@@ -622,6 +679,7 @@
 //Summons
 /datum/spellbook_entry/item/oozebottle
 	name = "Bottle of Ooze"
+	rus_name = "Бутылка морфа"
 	desc = 	"Пузырёк с магически зачарованной грязью, что пробудит всепоглощающего Морфа, способного хитро маскировать себя под любые предметы, которых сможет прикоснуться, и даже сможет читать самые простые заклинания. Однако будьте аккуратны, так как диета Морфа не исключает Магов."
 	item_path = /obj/item/antag_spawner/morph
 	category = "Призыв"
@@ -630,6 +688,7 @@
 
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
+	rus_name = "Бутылка веселья"
 	desc = "Пузырёк магически зачарованного веселья, запах которого \
 		привлечет милых внепространственных существ при разбитии. \
 		Эти существа похожи на Демонов Резни, но немного слабее и не \
@@ -644,6 +703,7 @@
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
+	rus_name = "Бутылка с кровью"
 	desc = "Пузырёк магически зачарованной крови, запах которого привлечёт внепространственных существ при разбитии. Будьте аккуратны, так как существа, призванные магией крови не являются вашими союзниками, и вы можете стать их жертвой."
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	category = "Призыв"
@@ -651,6 +711,7 @@
 
 /datum/spellbook_entry/item/shadowbottle
 	name = "Bottle of Shadows"
+	rus_name = "Бутылка с тенями"
 	desc = "Пузырёк чернильно тёмной тьмы, запах которого привлечёт внепространственных существ при разбитии. Будьте аккуратны, так как существа, призванные из теней не являются вашими союзниками, и вы можете стать их жертвой."
 	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
 	category = "Призыв"
@@ -659,6 +720,7 @@
 
 /datum/spellbook_entry/item/pulsedemonbottle
 	name = "Living Lightbulb"
+	rus_name = "Живая лампочка"
 	desc = "Магически опечатанная лампа содержащая какого-то рода существо, состоящее из электричества. Будьте аккуратны, так как это существо не являются вашими союзником, и вы можете стать его жертвой."
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Призыв"
@@ -667,7 +729,7 @@
 
 /datum/spellbook_entry/item/mayhembottle
 	name = "Mayhem in a Bottle"
-
+	rus_name = "Хаос в бутылке"
 	desc = "Магически зачарованный пузырёк крови, запах которого сводит всех поблизости с ума, заставляя их впасть в убийственную ярость."
 	item_path = /obj/item/mayhem
 	category = "Артефакты"
@@ -676,13 +738,14 @@
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
-
+	rus_name = "Договор ученичества"
 	desc = 	"Магический контракт, призывающий ученика к вам на службу."
 	item_path = /obj/item/contract/apprentice
 	category = "Призыв"
 
 /datum/spellbook_entry/item/tarotdeck
 	name = "Guardian Deck"
+	rus_name = "Карты хранителя"
 	desc = "Колода таро карт хранителя, способных привязать к вам личного телохранителя. Существует несколько типов хранителей, но каждый из них будет разделять с вами какое-то количеством урона. \
 	Было бы разумно НЕ покупать колоду вместе с чем-либо, что могло бы заставить вас поменяться телами с другими людьми."
 	item_path = /obj/item/guardiancreator
@@ -702,11 +765,11 @@
 
 /datum/spellbook_entry/loadout/GetInfo()
 	var/dat = ""
-	dat += "<b>[name]</b>"
+	dat += "<b>[name][rus_name ? " ([rus_name])" : ""]</b>"
 	if(cost > 0)
-		dat += " Цена:[cost]<br>"
+		dat += " Цена: [cost];<br>"
 	else
-		dat += " Бесценно<br>"
+		dat += " Бесценно;<br>"
 	dat += "<i>[desc]</i><br>"
 	return dat
 
@@ -827,43 +890,39 @@
 	var/dat = ""
 	switch(category)
 		if("Атакующие")
-			dat += "Заклинания, направленные на ослабление и разрушение.<BR><BR>"
-			dat += "Для заклинаний: число после названия заклинания - это время отката.<BR>"
-			dat += "Это число можно уменьшить, инвестировав больше очков в заклинание.<BR>"
+			dat += "Заклинания, направленные на ослабление и разрушение.<BR>"
+			dat += "Время перезарядки можно уменьшить, инвестировав больше очков в заклинание.<BR>"
 		if("Защитные")
-			dat += "Заклинания, направленные на повышение вашей живучести или снижение способности противника атаковать.<BR><BR>"
-			dat += "Для заклинаний: число после названия заклинания - это время отката.<BR>"
-			dat += "Это число можно уменьшить, инвестировав больше очков в заклинание.<BR>"
+			dat += "Заклинания, направленные на повышение вашей живучести или снижение способности противника атаковать.<BR>"
+			dat += "Время перезарядки можно уменьшить, инвестировав больше очков в заклинание.<BR>"
 		if("Мобильные")
-			dat += "Заклинания, направленные на улучшение вашей способности перемещаться. Рекомендуется взять хотя бы одно из них.<BR><BR>"
-			dat += "Для заклинаний: число после названия заклинания - это время отката.<BR>"
-			dat += "Это число можно уменьшить, инвестировав больше очков в заклинание.<BR>"
+			dat += "Заклинания, направленные на улучшение вашей способности перемещаться. Рекомендуется взять хотя бы одно из них.<BR>"
+			dat += "Время перезарядки можно уменьшить, инвестировав больше очков в заклинание.<BR>"
 		if("Вспомогательные")
-			dat += "Заклинания, направленные на улучшение ваших предметов и способностей.<BR><BR>"
-			dat += "Для заклинаний: число после названия заклинания - это время отката.<BR>"
-			dat += "Это число можно уменьшить, инвестировав больше очков в заклинание.<BR>"
+			dat += "Заклинания, направленные на улучшение ваших предметов и способностей.<BR>"
+			dat += "Время перезарядки можно уменьшить, инвестировав больше очков в заклинание.<BR>"
 		if("Ритуалы")
 			dat += "Эти могущественные заклинания способны изменить саму структуру реальности. Не всегда в вашу пользу.<BR>"
 		if("Броня и Оружие")
-			dat += "Различное оружие и доспехи, которые сокрушат ваших врагов и защитят вас от вреда.<BR><BR>"
+			dat += "Различное оружие и доспехи, которые сокрушат ваших врагов и защитят вас от вреда.<BR>"
 			dat += "Товары не привязаны к вам и могут быть украдены. Кроме того, после покупки их, как правило, нельзя вернуть.<BR>"
 		if("Посохи")
-			dat += "Различные посохи, заряд которых восстанавливается со временем.<BR><BR>"
+			dat += "Различные посохи, заряд которых восстанавливается со временем.<BR>"
 			dat += "Товары не привязаны к вам и могут быть украдены. Кроме того, после покупки их, как правило, нельзя вернуть.<BR>"
 		if("Артефакты")
-			dat += "Различные магические артефакты.<BR><BR>"
+			dat += "Различные магические артефакты.<BR>"
 			dat += "Товары не привязаны к вам и могут быть украдены. Кроме того, после покупки их, как правило, нельзя вернуть.<BR>"
 		if("Книги заклинаний")
-			dat += "Книги заклинаний для обучения ваших спутников.<BR><BR>"
+			dat += "Книги заклинаний для обучения ваших спутников.<BR>"
 			dat += "Различные наборы книг заклинаний, которые помогут вам и вашему партнеру в создании хаоса.<BR>"
 		if("Призыв")
-			dat += "Магические предметы, предназначенные для призыва внешних сил вам на помощь.<BR><BR>"
+			dat += "Магические предметы, предназначенные для призыва внешних сил вам на помощь.<BR>"
 			dat += "Товары не привязаны к вам и могут быть украдены. Кроме того, после покупки их, как правило, нельзя вернуть.<BR>"
 		if("Стандартные")
-			dat += "Эти проверенные в боях наборы заклинаний просты в использовании и обеспечивают хороший баланс между нападением и защитой.<BR><BR>"
+			dat += "Эти проверенные в боях наборы заклинаний просты в использовании и обеспечивают хороший баланс между нападением и защитой.<BR>"
 			dat += "Все они стоят 10 очков. Вы можете вернуть их любое из включенных заклинаний, пока остаётесь в логове волшебника.<BR>"
 		if("Уникальные")
-			dat += "Эти эзотерические предметы обычно содержат заклинания или предметы, которые нельзя купить в другом разделе этой книге заклинаний.<BR><BR>"
+			dat += "Эти эзотерические предметы обычно содержат заклинания или предметы, которые нельзя купить в другом разделе этой книге заклинаний.<BR>"
 			dat += "Рекомендуется ТОЛЬКО опытным магам! Возврат очков не предусмотрен!<BR>"
 	return dat
 

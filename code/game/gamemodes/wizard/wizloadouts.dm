@@ -3,6 +3,7 @@
 //Standard loadouts, which are meant to be suggestions for beginners. Should always be worth exactly 10 spell points, and only contain standard wizard spells/items.
 /datum/spellbook_entry/loadout/mutant
 	name = "Offense Focus : Mutant"
+	rus_name = "Упор на нападение : Мутант"
 	desc = "Набор заклинаний, сфокусированный на заклинании Mutate как основном источнике урона, который обеспечивает защиту от оглушения, лазерные глаза и сильные удары. <br> \
  			Ethereal Jaunt и Blink обеспечивают  мобильность, в то время как Magic Missile и Disintegrate могут использоваться вместе для поражения опасных или ключевых целей. <br> \
  			Поскольку в этом наборе отсутствует какие-либо средства исцеления или воскрешения, вам следует быть осторожным, чтобы не пораниться. <br><br> \
@@ -16,6 +17,7 @@
 
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
+	rus_name = "Упор на защиту : Лич"
 	desc = "Набор заклинаний, сфокусированный на заклинании Bind Soul, чтобы защитить вашу жизнь как лича и позволить использование более опасных атакующих заклинаний. <br> \
  			Ethereal Jaunt позволяет сбежать, Fireball и Rod Form - ваши атакующие заклинания, а Disable Tech и Greater Force Wall помогают выводить из строя оружие СБ или преграждать им путь. <br> \
  			Следует очень кропотливо относиться к предмету, который вы выбрали в качестве своей филактерии после использования Bind Soul, так как вы не сможете возродиться, если он будет уничтожен или вы отойдёте слишком далеко! <br><br> \
@@ -31,6 +33,7 @@
 
 /datum/spellbook_entry/loadout/wands
 	name = "Utility Focus : Wands"
+	rus_name = "Упор на многогранность : палочки"
 	desc = "В этот набор входит пояс с атакующими, защитными и прочими волшебными палочками. Количество зарядов палочек ограничено, но их можно частично перезарядить с помощью прилагаемого заклинания Charge. <br> \
  			Ethereal Jaunt и Blink обеспечивают мобильность, в то время как Disintegrate и Repulse могут быть использованы для уничтожения или отталкивания любого, кто приблизится к вам слишком близко. <br> \
  			Не отдавайте свои волшебные палочки экипажу станции, так как они чрезвычайно опасны. Помните, что палочку оживления можно использовать на себе для полного исцеления! <br><br> \
@@ -46,6 +49,7 @@
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
 /datum/spellbook_entry/loadout/mimewiz
 	name = "Silencio"
+	rus_name = "Сайленсио"
 	desc = "...<br><br> \
 		</i>В комплект входят Finger Gun, Invisible Greater Wall, Ethereal Jaunt, Blink, Teleport, Mime Malaise, Knock и Stop Time, а также мантия мима и трость.<i>"
 	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun,
@@ -75,9 +79,10 @@
 
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
+	rus_name = "Жнец-стрелок"
 	desc = "Клонируемые снова и снова души на борту этой станции жаждут заслуженного отдыха.<br> \
  			Отправляйте их на встречу со своим божеством, раз за разом вдавливая спусковой крючок. <br> \
- 			Вам, скорее всего, придётся добирать патроны из запасов станции. <br><br>\
+ 			Вам, скорее всего, придётся добирать патроны на станции. <br><br>\
  			</i> Даёт револьвер 357-го калибра, 4 спидлоадера, Ethereal Jaunt, Blink, Summon Item, No Clothes и Bind Soul, а также уникальный наряд.</i>"
 	items_path = list(/obj/item/gun/projectile/revolver,
 					/obj/item/ammo_box/speedloader/a357,
