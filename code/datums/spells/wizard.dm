@@ -352,7 +352,7 @@
 
 /obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
-	desc = "Это заклинание запускает в цель огненный шар. Для него не требуется роба."
+	desc = "Это заклинание запускает в цель огненный шар."
 
 	school = "evocation"
 	base_cooldown = 6 SECONDS
