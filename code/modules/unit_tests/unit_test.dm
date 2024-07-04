@@ -28,6 +28,7 @@ GLOBAL_VAR_INIT(focused_tests, focused_tests())
 
 	//internal shit
 	var/succeeded = TRUE
+	var/focus = FALSE
 	var/list/fail_reasons
 
 /datum/unit_test/New()
