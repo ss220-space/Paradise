@@ -37,7 +37,7 @@
 
 			var/datum/antagonist/blob_infected/blob_datum = new
 			blob_datum.time_to_burst_h = TIME_TO_BURST_MOUSE_H
-			blob_datum.time_to_burst_l = TIME_TO_BURST_MOUSE_H
+			blob_datum.time_to_burst_l = TIME_TO_BURST_MOUSE_L
 			B.mind.add_antag_datum(blob_datum)
 			to_chat(B, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
 			log_game("[B.key] has become blob infested mouse.")
