@@ -165,7 +165,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "rU" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "sd" = (
@@ -242,7 +242,7 @@
 /turf/space,
 /area/ruin)
 "zt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/space)
 "zF" = (
@@ -490,7 +490,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "TM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/ruin)
 "TT" = (

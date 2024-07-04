@@ -410,7 +410,7 @@
 	},
 /area/ruin/unpowered)
 "kz" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall/r_wall,
 /area/lavaland/surface/outdoors)
 "kK" = (
@@ -862,7 +862,7 @@
 	},
 /area/ruin/unpowered)
 "xH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered)
 "xS" = (

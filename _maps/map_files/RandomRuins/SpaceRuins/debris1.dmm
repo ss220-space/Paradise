@@ -39,11 +39,11 @@
 /turf/space,
 /area/space)
 "m" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/space,
 /area/space)
 "n" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/space,
 /area/space)
 "o" = (

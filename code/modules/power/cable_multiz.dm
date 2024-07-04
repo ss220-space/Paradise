@@ -13,6 +13,7 @@
 
 /obj/structure/cable/multiz/Initialize(mapload)
 	. = ..()
+	d1 = 0
 	if(mapload)
 		return
 	mergeConnectedNetworksOnTurf(get_turf(src))
