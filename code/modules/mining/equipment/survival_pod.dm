@@ -166,7 +166,7 @@
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod

@@ -785,7 +785,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 3
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
 /obj/structure/window/full/shuttle/narsie_act()

@@ -2,7 +2,7 @@
 /// Smoothing system in where adjacencies are calculated and used to build an image by mounting each corner at runtime.
 #define SMOOTH_CORNERS (1<<0)
 /// Smoothing system in where adjacencies are calculated and used to select a pre-baked icon_state, encoded by bitmasking.
-#define SMOOTH_BITMASK (1<<9)
+#define SMOOTH_BITMASK (1<<1)
 /// Atom has diagonal corners, with underlays under them.
 #define SMOOTH_DIAGONAL_CORNERS (1<<2)
 /// Atom will smooth with the borders of the map.
@@ -20,6 +20,14 @@
 #define SMOOTH_BROKEN_TURF (1<<7)
 /// Has a smooth burnt sprite, used to decide whether to apply an offset to the burnt overlay or not. For /turf/open only.
 #define SMOOTH_BURNT_TURF (1<<8)
+
+#define SMOOTH_FALSE	(1 << 9) //not smooth
+
+#define SMOOTH_TRUE		(1 << 10) //smooths with exact specified types or just itself
+
+#define SMOOTH_MORE		(1 << 11) //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
+
+#define SMOOTH_DIAGONAL	(1 << 12) //if atom should smooth diagonally, this should be present in 'smooth' var
 
 DEFINE_BITFIELD(smoothing_flags, list(
 	"SMOOTH_CORNERS" = SMOOTH_CORNERS,
@@ -203,6 +211,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_SPIDER_WEB_ROOF S_OBJ(72) // /obj/structure/spider/passage
 #define SMOOTH_GROUP_SPIDER_WEB_WALL_TOUGH S_OBJ(73) // /obj/structure/spider/stickyweb/sealed/thick
 #define SMOOTH_GROUP_SPIDER_WEB_WALL_MIRROR S_OBJ(74) // /obj/structure/spider/stickyweb/sealed/reflector
+#define SMOOTH_GROUP_FILLER S_OBJ(75) // /obj/structure/filler
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.

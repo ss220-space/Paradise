@@ -33,12 +33,6 @@
 #define N_SOUTHEAST	64
 #define N_SOUTHWEST	1024
 
-#define SMOOTH_FALSE	0 //not smooth
-#define SMOOTH_TRUE		1 //smooths with exact specified types or just itself
-#define SMOOTH_MORE		2 //smooths with all subtypes of specified types or just itself (this value can replace SMOOTH_TRUE)
-#define SMOOTH_DIAGONAL	4 //if atom should smooth diagonally, this should be present in 'smooth' var
-//#define SMOOTH_BORDER	8 //atom will smooth with the borders of the map
-
 #define NULLTURF_BORDER 123456789
 
 #define DEFAULT_UNDERLAY_ICON 			'icons/turf/floors.dmi'
@@ -47,7 +41,7 @@
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
-/atom/var/smooth = SMOOTH_FALSE
+/atom/var/smooth = NONE
 /atom/var/top_left_corner
 /atom/var/top_right_corner
 /atom/var/bottom_left_corner
@@ -200,6 +194,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 			A.diagonal_smooth(adjacencies)
 		else
 			cardinal_smooth(A, adjacencies)
+
 	else if(A.smooth & SMOOTH_BITMASK)
 		A.bitmask_smooth()
 
@@ -321,6 +316,49 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	smoothing_junction = new_junction
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 
+/turf/simulated/wall/set_smoothed_icon_state(new_junction)
+	// Avoid calling ..() here to avoid setting icon_state twice, which is expensive given how hot this proc is
+	var/old_junction = smoothing_junction
+	smoothing_junction = new_junction
+
+	if (!(smooth & SMOOTH_DIAGONAL_CORNERS))
+		icon_state = "[base_icon_state]-[smoothing_junction]"
+		return
+
+	switch(new_junction)
+		if(
+			NORTH_JUNCTION|WEST_JUNCTION,
+			NORTH_JUNCTION|EAST_JUNCTION,
+			SOUTH_JUNCTION|WEST_JUNCTION,
+			SOUTH_JUNCTION|EAST_JUNCTION,
+			NORTH_JUNCTION|WEST_JUNCTION|NORTHWEST_JUNCTION,
+			NORTH_JUNCTION|EAST_JUNCTION|NORTHEAST_JUNCTION,
+			SOUTH_JUNCTION|WEST_JUNCTION|SOUTHWEST_JUNCTION,
+			SOUTH_JUNCTION|EAST_JUNCTION|SOUTHEAST_JUNCTION,
+		)
+			icon_state = "[base_icon_state]-[smoothing_junction]-d"
+			if(new_junction == old_junction || fixed_underlay) // Mutable underlays?
+				return
+
+			var/junction_dir = reverse_ndir(smoothing_junction)
+			var/turned_adjacency = REVERSE_DIR(junction_dir)
+			var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
+			var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
+			if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+				neighbor_turf = get_step(src, turned_adjacency & (EAST|WEST))
+
+				if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+					neighbor_turf = get_step(src, turned_adjacency)
+
+					if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+						if(!get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency)) //if all else fails, ask our own turf
+							underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
+							underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
+			underlays += underlay_appearance
+		else
+			icon_state = "[base_icon_state]-[smoothing_junction]"
+
+
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)
 		if(N_NORTH|N_WEST)
@@ -352,29 +390,6 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 /turf/simulated/wall/diagonal_smooth(adjacencies)
 	adjacencies = reverse_ndir(..())
 	if(adjacencies)
-		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
-		var/list/U = list(underlay_appearance)
-		if(fixed_underlay)
-			if(fixed_underlay["space"])
-				underlay_appearance.icon = 'icons/turf/space.dmi'
-				underlay_appearance.icon_state = SPACE_ICON_STATE
-				SET_PLANE(underlay_appearance, PLANE_SPACE, src)
-			else
-				underlay_appearance.icon = fixed_underlay["icon"]
-				underlay_appearance.icon_state = fixed_underlay["icon_state"]
-		else
-			var/turned_adjacency = turn(adjacencies, 180)
-			var/turf/T = get_step(src, turned_adjacency)
-			if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
-				T = get_step(src, turn(adjacencies, 135))
-				if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
-					T = get_step(src, turn(adjacencies, 225))
-			//if all else fails, ask our own turf
-			if(!T.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency) && !get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
-				underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
-				underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
-		underlays = U
-
 		// Drop posters which were previously placed on this wall.
 		for(var/obj/structure/sign/poster/P in src)
 			P.roll_and_drop(src)
@@ -532,40 +547,40 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 /proc/reverse_ndir(ndir)
 	switch(ndir)
-		if(N_NORTH)
+		if(NORTH_JUNCTION)
 			return NORTH
-		if(N_SOUTH)
+		if(SOUTH_JUNCTION)
 			return SOUTH
-		if(N_WEST)
+		if(WEST_JUNCTION)
 			return WEST
-		if(N_EAST)
+		if(EAST_JUNCTION)
 			return EAST
-		if(N_NORTHWEST)
+		if(NORTHWEST_JUNCTION)
 			return NORTHWEST
-		if(N_NORTHEAST)
+		if(NORTHEAST_JUNCTION)
 			return NORTHEAST
-		if(N_SOUTHEAST)
+		if(SOUTHEAST_JUNCTION)
 			return SOUTHEAST
-		if(N_SOUTHWEST)
+		if(SOUTHWEST_JUNCTION)
 			return SOUTHWEST
-		if(N_NORTH|N_WEST)
+		if(NORTH_JUNCTION | WEST_JUNCTION)
 			return NORTHWEST
-		if(N_NORTH|N_EAST)
+		if(NORTH_JUNCTION | EAST_JUNCTION)
 			return NORTHEAST
-		if(N_SOUTH|N_WEST)
+		if(SOUTH_JUNCTION | WEST_JUNCTION)
 			return SOUTHWEST
-		if(N_SOUTH|N_EAST)
+		if(SOUTH_JUNCTION | EAST_JUNCTION)
 			return SOUTHEAST
-		if(N_NORTH|N_WEST|N_NORTHWEST)
+		if(NORTH_JUNCTION | WEST_JUNCTION | NORTHWEST_JUNCTION)
 			return NORTHWEST
-		if(N_NORTH|N_EAST|N_NORTHEAST)
+		if(NORTH_JUNCTION | EAST_JUNCTION | NORTHEAST_JUNCTION)
 			return NORTHEAST
-		if(N_SOUTH|N_WEST|N_SOUTHWEST)
+		if(SOUTH_JUNCTION | WEST_JUNCTION | SOUTHWEST_JUNCTION)
 			return SOUTHWEST
-		if(N_SOUTH|N_EAST|N_SOUTHEAST)
+		if(SOUTH_JUNCTION | EAST_JUNCTION | SOUTHEAST_JUNCTION)
 			return SOUTHEAST
 		else
-			return 0
+			return NONE
 
 //SSicon_smooth
 /proc/queue_smooth_neighbors(atom/A)
@@ -576,11 +591,9 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 //SSicon_smooth
 /proc/queue_smooth(atom/A)
-	if(SSicon_smooth)
+	if(SSicon_smooth && A.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		SSicon_smooth.smooth_queue[A] = A
 		SSicon_smooth.can_fire = 1
-	else
-		smooth_icon(A)
 
 //Example smooth wall
 /turf/simulated/wall/smooth

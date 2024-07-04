@@ -129,7 +129,7 @@
 	max_integrity = 160
 	resintype = "door"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE

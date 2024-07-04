@@ -5,7 +5,7 @@
 	explosion_vertical_block = 50
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
@@ -77,40 +77,29 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/turf/simulated/wall/indestructible/reinforced,
-		/turf/simulated/wall/indestructible/reinforced/rusted,
-		/turf/simulated/wall,
-		/turf/simulated/wall/r_wall,
-		/obj/structure/falsewall,
-		/obj/structure/falsewall/reinforced,
-		/obj/structure/falsewall/clockwork,
-		/turf/simulated/wall/rust,
-		/turf/simulated/wall/r_wall/rust,
-		/turf/simulated/wall/r_wall/coated,
-	)
+	icon_state = "r_wall-0"
+	base_icon_state = "r_wall"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_CLOSED_TURFS
 
 
 /turf/simulated/wall/indestructible/reinforced/rusted
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	icon_state = "rrust"
+	icon_state = "rusty_reinforced_wall-0"
+	base_icon_state = "rusty_reinforced_wall"
 
 
 /turf/simulated/wall/indestructible/wood
 	name = "wooden wall"
 	desc = "A wall with wooden plating against any method of destruction. Very stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
-	icon_state = "wood"
-	canSmoothWith = list(
-	/turf/simulated/wall/indestructible/wood,
-	/turf/simulated/wall/mineral/wood,
-	/obj/structure/falsewall/wood,
-	/turf/simulated/wall/mineral/wood/nonmetal)
-	smooth = SMOOTH_TRUE
+	icon_state = "wood_wall-0"
+	base_icon_state = "wood_wall"
+	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
+	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
@@ -159,6 +148,7 @@
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 	always_lit = TRUE
+	smooth = NONE //Already smoothed by dear mappers
 
 
 /turf/simulated/wall/indestructible/splashscreen
@@ -196,7 +186,7 @@
 /turf/simulated/wall/indestructible/rock
 	name = "rock"
 	icon_state = "rock"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 
 /turf/simulated/wall/indestructible/rock/dark

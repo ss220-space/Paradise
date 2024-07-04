@@ -40,7 +40,8 @@
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
-	icon_state = "bananium"
+	icon_state = "bananium_wall-0"
+	base_icon_state = "bananium_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	canSmoothWith = list(
 		/obj/structure/falsewall/bananium,
@@ -130,7 +131,10 @@
 	name = "alien wall"
 	desc = "A strange-looking alien wall."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma"
+	icon_state = "plasma_wall-0"
+	base_icon_state = "plasma_wall"
+	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
+	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	canSmoothWith = list(/turf/simulated/wall/mineral/alien, /obj/structure/falsewall/alien)
 
@@ -138,7 +142,10 @@
 	name = "wooden wall"
 	desc = "A wall with wooden plating. Stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
-	icon_state = "wood"
+	icon_state = "wood_wall-0"
+	base_icon_state = "wood_wall"
+	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
+	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
@@ -177,8 +184,9 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
-	icon_state = "abductor"
-	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
+	icon_state = "abductor_wall-0"
+	base_icon_state = "abductor_wall"
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/abductor)
@@ -202,21 +210,22 @@
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
-	icon_state = "shuttle"
+	icon_state = "shuttle-0"
+	base_icon_state = "shuttle"
 	explosion_block = 3
 	flags = CHECK_RICOCHET
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/titanium/nosmooth
 	icon = 'icons/turf/shuttle/shuttle.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/mineral/titanium/overspace
 	icon_state = "overspace"
@@ -249,11 +258,11 @@
 	desc = "An easily-compressable wall used for temporary shelter."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock, /obj/structure/window/full, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine)
 
 /turf/simulated/wall/mineral/titanium/survival/nodiagonal
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/survival/pod
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
@@ -268,11 +277,11 @@
 	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
 
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	icon_state = "shuttle_ns"
 
 //properties for derelict sub-type to prevent said deconstruction/thermiting
@@ -297,20 +306,22 @@
 	name = "wall"
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "shuttle"
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	icon_state = "shuttle_nd"
 
 /turf/simulated/wall/mineral/plastitanium/nosmooth
 	icon = 'icons/turf/shuttle/shuttle.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/mineral/plastitanium/overspace
 	icon_state = "overspace"
@@ -320,7 +331,7 @@
 	name = "coated wall"
 	max_temperature = INFINITY
 	icon_state = "shuttle_nd"
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
 	. = ..()
@@ -329,7 +340,7 @@
 /turf/simulated/wall/mineral/plastitanium/explosive
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
 	icon_state = "shuttle_nd"
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
 	. = ..()

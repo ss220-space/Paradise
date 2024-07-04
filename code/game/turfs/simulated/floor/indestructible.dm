@@ -182,7 +182,7 @@
 	var/obj/effect/beach_water_overlay/water_overlay
 	var/water_overlay_icon = 'icons/misc/beach.dmi'
 	var/water_overlay_icon_state = null
-	var/water_overlay_smooth = SMOOTH_FALSE
+	var/water_overlay_smooth = NONE
 
 /turf/simulated/floor/indestructible/beach/Initialize(mapload)
 	. = ..()
@@ -308,7 +308,7 @@
 	name = "Water overlay that you shouldn't see"
 	icon = 'icons/misc/beach.dmi'
 	icon_state = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE

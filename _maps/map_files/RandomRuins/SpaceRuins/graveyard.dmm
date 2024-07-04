@@ -1082,7 +1082,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "yn" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/ruin/space/graveyard/church)

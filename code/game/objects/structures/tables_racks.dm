@@ -407,7 +407,7 @@
 	if(dir != NORTH)
 		layer = 5
 	flipped = TRUE
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	flags |= ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
 
@@ -740,7 +740,7 @@
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium

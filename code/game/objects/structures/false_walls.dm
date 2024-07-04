@@ -106,7 +106,7 @@
 
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
-		smooth = SMOOTH_FALSE
+		smooth = NONE
 		clear_smooth_overlays()
 		flick("fwall_opening", src)
 	else

@@ -5466,7 +5466,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Bb" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/BMPship/TraderShuttle)

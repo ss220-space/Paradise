@@ -240,7 +240,7 @@
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		smooth = NONE
 		clear_smooth_overlays()
 	else
 		smooth = SMOOTH_TRUE
