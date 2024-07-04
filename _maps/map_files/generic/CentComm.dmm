@@ -34129,9 +34129,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/syndicate)
-"qTA" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/shuttle/escape)
 "qTB" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -65777,19 +65774,19 @@ pwa
 pgZ
 vAA
 vAA
-wkN
+vAA
 yjN
-wkN
+vAA
 sJJ
-wkN
+vAA
 bud
 bud
 bud
 wkN
 uEW
-wkN
+vAA
 uEW
-wkN
+vAA
 vAA
 wkN
 bud
@@ -66545,7 +66542,7 @@ pwa
 pwa
 pwa
 qUw
-qTA
+vAA
 esN
 qGu
 sfc
@@ -67578,7 +67575,7 @@ wkN
 rRm
 rRm
 wkN
-qTA
+vAA
 sOe
 sWw
 tsj
@@ -68349,7 +68346,7 @@ wkN
 kph
 kph
 wkN
-qTA
+vAA
 sOe
 hsz
 tzJ
@@ -69372,7 +69369,7 @@ pwa
 pwa
 pwa
 qKq
-qTA
+vAA
 oDr
 til
 wrD
@@ -70159,7 +70156,7 @@ vAA
 vAA
 vAA
 vAA
-qTA
+vAA
 bud
 vtX
 vKS
