@@ -22,7 +22,7 @@ export const GasAnalyzerContent = (props, context) => {
         />
       }
     >
-      !gasmixes[0].total_moles ? (
+      {!gasmixes[0].total_moles ? (
       <Box nowrap italic mb="10px">
         {'No Gas Detected!'}
       </Box>
@@ -122,7 +122,7 @@ export const GasAnalyzerContent = (props, context) => {
           {gasmixes[0].thermal_energy}
         </LabeledList.Item>
       </LabeledList>
-      )
+      )}
     </Section>
   );
 };

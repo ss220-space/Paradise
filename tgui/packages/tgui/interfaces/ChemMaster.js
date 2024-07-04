@@ -23,7 +23,7 @@ const SpriteStyleButton = (props, context) => {
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
-      <Box className={classes(['chem_master32x32', icon])} />
+      <Box className={classes(['chem_master_large64x64', icon])} />
     </Button>
   );
 };
@@ -365,7 +365,7 @@ const ChemMasterProductionChemical = (props, context) => {
         />
         <Button onClick={() => modalOpen(context, 'change_pill_style')}>
           <Box
-            className={classes(['chem_master32x32', 'pill' + data.pillsprite])}
+            className={classes(['chem_master16x16', 'pill' + data.pillsprite])}
           />
           Style
         </Button>
@@ -385,7 +385,7 @@ const ChemMasterProductionChemical = (props, context) => {
         <Button onClick={() => modalOpen(context, 'change_patch_style')}>
           <Box
             className={classes([
-              'chem_master32x32',
+              'chem_master16x16',
               'bandaid' + data.patchsprite,
             ])}
           />
@@ -406,7 +406,7 @@ const ChemMasterProductionChemical = (props, context) => {
         >
           <Box
             className={classes([
-              'chem_master32x32',
+              'chem_master16x16',
               bottleStyles[data.bottlesprite - 1],
             ])}
           />
