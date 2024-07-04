@@ -194,6 +194,14 @@
 				user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 
+	if(user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)
+		if(require_twohands)
+			user.drop_item_ground(parent, force = TRUE)
+		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
+			antispam_timer = world.time
+			to_chat(user, span_warning("Обе руки должны быть свободны!"))
+		return
+
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))

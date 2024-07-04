@@ -95,7 +95,7 @@
 	damage = 7
 	armour_penetration = 0
 
-/obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)

@@ -106,7 +106,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 			if(M.id_tag != "TD_CloseCombat")
 				continue
-			M.do_animate("closing")
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door, do_animate), "closing")
 			M.set_density(TRUE)
 			M.set_opacity(TRUE)
 			M.layer = M.closingLayer
@@ -117,7 +117,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 			if(M.id_tag != "TD_CloseCombat")
 				continue
 			if(M.density)
-				M.do_animate("opening")
+				INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door, do_animate), "opening")
 				M.set_density(FALSE)
 				M.set_opacity(FALSE)
 				M.update_icon()

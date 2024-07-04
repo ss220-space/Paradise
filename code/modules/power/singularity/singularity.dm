@@ -53,7 +53,7 @@
 	target = null
 	return ..()
 
-/obj/singularity/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/singularity/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
 		last_failed_movement = 0//Reset this because we moved
 		return ..()
@@ -103,9 +103,9 @@
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
-/obj/singularity/Bump(atom/bumped_atom, custom_bump, effect_applied = FALSE)
+/obj/singularity/Bump(atom/bumped_atom, effect_applied = FALSE)
 	. = ..()
-	if(. || isnull(.) || effect_applied)
+	if(. || effect_applied)
 		return .
 	consume(bumped_atom)
 

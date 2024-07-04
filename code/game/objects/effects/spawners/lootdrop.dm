@@ -209,7 +209,8 @@
 				/obj/item/stack/nanopaste = 50,
 				/obj/item/clothing/under/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
-				/obj/item/grenade/clusterbuster/smoke = 50
+				/obj/item/grenade/clusterbuster/smoke = 50,
+				/obj/item/clothing/mask/holo_cigar = 50,
 				)
 
 

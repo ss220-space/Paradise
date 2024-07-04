@@ -127,13 +127,15 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define ACTIVE_MOVEMENT_OLDLOC 1
 #define ACTIVE_MOVEMENT_DIRECTION 2
 #define ACTIVE_MOVEMENT_FORCED 3
+#define ACTIVE_MOVEMENT_OLDLOCS 4
 
 /// The arguments of this macro correspond directly to the argument order of /atom/movable/proc/Moved
-#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced) \
+#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced, _oldlocs) \
 	active_movement = list( \
 		_old_loc, \
 		_direction, \
 		_forced, \
+		_oldlocs, \
 	)
 
 /// Finish any active movements

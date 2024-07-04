@@ -78,7 +78,7 @@
 	if(bag)
 		. += bag.examine(user)
 
-/obj/machinery/iv_drip/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/machinery/iv_drip/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
 		return .

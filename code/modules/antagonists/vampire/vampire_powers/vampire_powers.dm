@@ -98,6 +98,7 @@
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
 	user.SetWeakened(0)
 	user.SetStunned(0)
+	user.SetKnockdown(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.SetConfused(0)

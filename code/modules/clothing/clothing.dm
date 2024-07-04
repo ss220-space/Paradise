@@ -328,10 +328,9 @@ BLIND     // can't see anything
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	for(var/obj/item/grab/grabbed in user.grabbed_by)
-		if(grabbed.state >= GRAB_NECK)
-			to_chat(user, "You can't reach the controls.")
-			return
+	if(user.pulledby && user.pulledby.grab_state >= GRAB_NECK)
+		to_chat(user, "You can't reach the controls.")
+		return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
 		return

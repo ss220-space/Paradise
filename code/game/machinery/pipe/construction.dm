@@ -216,7 +216,7 @@
 	fixdir()
 
 
-/obj/item/pipe/Move()
+/obj/item/pipe/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(is_bent_pipe() \
 		&& (src.dir in GLOB.cardinal))

@@ -59,7 +59,7 @@
 	QDEL_NULL(internal_gps)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/Moved()
+/mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(target)
 		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)

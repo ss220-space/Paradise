@@ -34,7 +34,7 @@
 	saved_underlays = target.underlays
 
 /obj/item/chameleon_counterfeiter/proc/check_sprite(atom/target)
-	return (target.icon_state in icon_states(target.icon))
+	return icon_exists(target.icon, target.icon_state)
 
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_name)

@@ -59,7 +59,7 @@
 /atom/movable/emissive_blocker/Uncrossed(atom/movable/AM)
 	return
 
-/atom/movable/emissive_blocker/Bump(atom/bumped_atom, custom_bump)
+/atom/movable/emissive_blocker/Bump(atom/bumped_atom)
 	return
 
 /atom/movable/emissive_blocker/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
