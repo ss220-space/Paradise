@@ -51,10 +51,6 @@
 	chameleon_name = "Backpack"
 	chameleon_type = /obj/item/storage/backpack
 
-/datum/action/item_action/chameleon/change/modsuit
-	chameleon_name = "Backpack"
-	chameleon_type = /obj/item/storage/backpack
-
 
 // Shoes
 /datum/action/item_action/chameleon/change/shoes
@@ -156,6 +152,10 @@
 	), only_root_path = TRUE)
 
 // Modsuit
+/datum/action/item_action/chameleon/change/modsuit
+	chameleon_name = "Backpack"
+	chameleon_type = /obj/item/storage/backpack
+
 /datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
 	. = ..()
 	if(ismodcontrol(target))

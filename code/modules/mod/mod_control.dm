@@ -143,7 +143,7 @@
 	for(var/obj/item/part as anything in all_parts)
 		part.name = "[theme.name] [part.name]"
 		part.desc = "[part.desc] [theme.desc]"
-		part.armor = part.armor.attachArmor(theme.armor_type_2.armor)
+		part.armor = part.armor.attachArmor(theme.armor_type_1.armor)
 		part.resistance_flags = theme.resistance_flags
 		part.flags |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
 		part.heat_protection = NONE
@@ -467,7 +467,6 @@
 	if(!wearer)
 		return
 	clean_up()
-	update_mod_overlays(TRUE)
 	if(active && !toggle_activate(force_deactivate = TRUE))
 		return
 	for(var/obj/item/part as anything in mod_parts)
@@ -486,7 +485,7 @@
 		// This path is hit when equipping an outfit with visualsOnly, but only sometimes, and this eventually gets called twice.
 		// I'm not sure this proc should ever be being called by visualsOnly, but it is,
 		// and this was an emergency patch.
-		return
+		CRASH("set_wearer() was called with the new wearer being the current wearer: [wearer]")
 	else if(!isnull(wearer))
 		stack_trace("set_wearer() was called with a new wearer without unset_wearer() being called")
 
@@ -494,9 +493,6 @@
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	update_charge_alert()
-	//for(var/obj/item/clothing/C in mod_parts)
-	//	C.refit_for_species(wearer.dna.species.name)
-	update_mod_overlays()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
 
@@ -610,17 +606,6 @@
 		return
 	req_access = card.access.Copy()
 	to_chat(user, span_notice("Access updated!"))
-
-/obj/item/mod/control/proc/update_mod_overlays(full_removal = FALSE)
-	if(!wearer)
-		return
-	for(var/I in mod_overlays)
-		wearer.cut_overlay(I)
-		mod_overlays -= I
-	if(full_removal)
-		return
-	for(var/obj/item/mod/module/M in modules)
-		M.add_module_overlay(wearer)
 
 /obj/item/mod/control/proc/get_charge_source()
 	return core?.charge_source()

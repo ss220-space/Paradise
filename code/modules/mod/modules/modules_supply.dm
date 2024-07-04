@@ -297,9 +297,7 @@
 	/// How many tiles we traveled through.
 	var/traveled_tiles = 0
 	/// Armor values per tile.
-	var/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
-	/// the actual armor object
-	var/obj/item/mod/armor/armor_mod_2 = null
+	var/obj/item/mod/armor/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
 	/// Speed added when you're fully covered in ash.
 	var/speed_added = 0.5
 	/// Speed that we actually added.
@@ -311,10 +309,10 @@
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
-	armor_mod_2 = new armor_mod_1
+	armor_mod_1 = new armor_mod_1()
 
 /obj/item/mod/module/ash_accretion/Destroy()
-	QDEL_NULL(armor_mod_2)
+	QDEL_NULL(armor_mod_1)
 	return ..()
 
 /obj/item/mod/armor/mod_ash_accretion
@@ -381,7 +379,7 @@
 			if(!mod.is_speedslimepotioned)
 				speed_up = TRUE
 		for(var/obj/item/part as anything in parts)
-			part.armor = part.armor.attachArmor(armor_mod_2.armor)
+			part.armor = part.armor.attachArmor(armor_mod_1.armor)
 			if(speed_up)
 				part.slowdown -= speed_added / 5
 	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
@@ -397,7 +395,7 @@
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.armor = part.armor.detachArmor(armor_mod_2.armor)
+			part.armor = part.armor.detachArmor(armor_mod_1.armor)
 			if(speed_up)
 				part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)

@@ -123,7 +123,7 @@
 /obj/item/mod/control/proc/toggle_activate(mob/user, force_deactivate = FALSE)
 	if(!wearer)
 		if(!force_deactivate)
-			balloon_alert(user, "сначала наденьте свой костюм!")
+			balloon_alert(user, "костюм не надет!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!force_deactivate && (SEND_SIGNAL(src, COMSIG_MOD_ACTIVATE, user) & MOD_CANCEL_ACTIVATE))
@@ -131,11 +131,11 @@
 		return FALSE
 	for(var/obj/item/part as anything in mod_parts)
 		if(!force_deactivate && part.loc == src)
-			balloon_alert(user, "сначала разверните все детали!")
+			balloon_alert(user, "костюм не до конца развёрнут!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 	if(locked && !active && !allowed(user) && !force_deactivate)
-		balloon_alert(user, "недостаточный доступ!")
+		balloon_alert(user, "доступ запрещён!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	if(!get_charge() && !force_deactivate)
@@ -148,7 +148,7 @@
 		return FALSE
 	if(activating)
 		if(!force_deactivate)
-			balloon_alert(user, "костюм уже [active ? "отключается" : "запускается"]")
+			balloon_alert(user, "костюм уже [active ? "отключается" : "включается"]")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
 	for(var/obj/item/mod/module/module as anything in modules)
@@ -156,24 +156,24 @@
 			continue
 		module.on_deactivation(display_message = FALSE)
 	activating = TRUE
-	balloon_alert(user, "МОДкостюм [active ? "отключается" : "запускается"]")
-	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
+	balloon_alert(user, "костюм [active ? "отключается" : "включается"]")
+	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, span_notice("[boots] [active ? "relax their grip on your legs" : "seal around your feet"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(boots, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, span_notice("[gauntlets] [active ? "become loose around your fingers" : "tighten around your fingers and wrists"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(gauntlets, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, span_notice("[chestplate] [active ? "releases your chest" : "cinches tightly against your chest"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(chestplate, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, span_notice("[helmet] hisses [active ? "open" : "closed"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(helmet, seal = !active)
-	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(hasnt_wearer))))
+	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, span_notice("Systems [active ? "shut down. Parts unsealed. Goodbye" : "started up. Parts sealed. Welcome"], [wearer]."))
 		finish_activation(on = !active)
 		if(active)
@@ -230,8 +230,8 @@
 		seal_part(part, seal = TRUE)
 	finish_activation(on = TRUE)
 
-/obj/item/mod/control/proc/hasnt_wearer()
-	return !wearer
+/obj/item/mod/control/proc/has_wearer()
+	return wearer
 
 /obj/item/mod/control/proc/on_mod_deployed(mob/user)
 	SEND_SIGNAL(src, COMSIG_MOD_DEPLOYED, user)

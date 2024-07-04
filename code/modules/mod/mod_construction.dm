@@ -34,7 +34,9 @@
 
 /obj/item/mod/construction/broken_core/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
+	balloon_alert(user, "починка...")
 	if(!tool.use_tool(src, user, 5 SECONDS, volume = 30))
+		balloon_alert(user, "прервано!")
 		return
 	new /obj/item/mod/core/standard(drop_location())
 	qdel(src)
@@ -136,14 +138,14 @@
 				to_chat(user, span_warning("[part] is stuck to you and cannot be placed into [src]."))
 				return
 			playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-			balloon_alert(user, "ядро вставлено")
+			balloon_alert(user, "установлено")
 			core = part
 			core.forceMove(src)
 			construction_step = CORE_STEP
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "ядро ввинчено")
+					balloon_alert(user, "ядро прикручено")
 				construction_step = SCREWED_CORE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
@@ -187,7 +189,7 @@
 					to_chat(user, span_warning("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				balloon_alert(user, "части для рук добавлены")
+				balloon_alert(user, "запчасти для рук установлены")
 				gauntlets = part
 				gauntlets.forceMove(src)
 				construction_step = GAUNTLETS_STEP
@@ -203,35 +205,35 @@
 					to_chat(user, span_warning("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				balloon_alert(user, "части для ног добавлены")
+				balloon_alert(user, "запчасти для ног установлены")
 				boots = part
 				boots.forceMove(src)
 				construction_step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
-					balloon_alert(user, "части для рук удалены")
+					balloon_alert(user, "запчасти для рук удалены")
 					gauntlets = null
 					construction_step = CHESTPLATE_STEP
 		if(BOOTS_STEP)
 			if(part.tool_behaviour == TOOL_WRENCH) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "сборка прикручена")
+					balloon_alert(user, "запчасти для ног закреплены")
 					construction_step = WRENCHED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					boots.forceMove(drop_location())
-					balloon_alert(user, "части для ног удалены")
+					balloon_alert(user, "запчасти для ног удалены")
 					boots = null
 					construction_step = GAUNTLETS_STEP
 		if(WRENCHED_ASSEMBLY_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "сборка привинчена")
+					balloon_alert(user, "запчасти прикручены")
 					construction_step = SCREWED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_WRENCH) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "сборка откручена")
+					balloon_alert(user, "запчасти откреплены")
 					construction_step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
 			if(istype(part, /obj/item/mod/construction/plating)) //Construct
@@ -244,10 +246,10 @@
 				qdel(external_plating)
 				qdel(src)
 				user.put_in_hands(mod)
-				mod.balloon_alert(user, "Костюм готов!")
+				mod.balloon_alert(user, "сборка завершена")
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "сборка отвинчена")
+					balloon_alert(user, "запчасти откручены")
 					construction_step = SCREWED_ASSEMBLY_STEP
 	update_icon(UPDATE_ICON_STATE)
 

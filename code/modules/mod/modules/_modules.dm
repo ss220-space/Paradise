@@ -50,22 +50,22 @@
 	///The UID of the module. Don't ask.
 	var/module_UID = null
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
-		"Tajaran" = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
-		"Unathi" = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
-		"Vox" = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 		)
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
-	module_UID = UID(src)
+	module_UID = UID()
 	if(module_type != MODULE_ACTIVE)
 		return
 	if(ispath(device))
 		device = new device(src)
 		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		device.slot_flags = null
+		device.slot_flags = NONE
 		device.w_class = WEIGHT_CLASS_HUGE
 		device.materials = null
 		RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
@@ -131,7 +131,6 @@
 		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
 		to_chat(mod.wearer, span_notice("[src] activated."))
 	active = TRUE
-	mod.update_mod_overlays()
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	return TRUE
@@ -157,7 +156,6 @@
 		to_chat(mod.wearer, span_notice("[src] deactivated."))
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
-	mod.update_mod_overlays()
 	return TRUE
 
 /// Called when the module is used
@@ -212,26 +210,28 @@
 
 /// Called from MODsuit's uninstall() proc, so when the module is uninstalled.
 /obj/item/mod/module/proc/on_uninstall(deleting = FALSE)
-	mod.update_mod_overlays()
+	mod.wearer.update_inv_back()
 	return
 
 /// Called when the MODsuit is activated
 /obj/item/mod/module/proc/on_suit_activation()
-	mod.update_mod_overlays()
+	mod.wearer.update_inv_back()
 	return
 
 /// Called when the MODsuit is deactivated
 /obj/item/mod/module/proc/on_suit_deactivation(deleting = FALSE)
-	mod.update_mod_overlays()
+	mod.wearer.update_inv_back()
 	return
 
 /// Called when the MODsuit is equipped
 /obj/item/mod/module/proc/on_equip()
-	mod.update_mod_overlays()
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_UPDATE_BACK, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay))
+	mod.wearer.update_inv_back()
 	return
 
 /// Called when the MODsuit is unequipped
 /obj/item/mod/module/proc/on_unequip()
+	UnregisterSignal(mod.wearer, COMSIG_HUMAN_UPDATE_BACK)
 	return
 
 /// Drains power from the suit charge
@@ -284,14 +284,18 @@
 		qdel(src)
 
 /// Adds the worn overlays to the suit.
-/obj/item/mod/module/proc/add_module_overlay(mob/living/user)
-	user.add_overlay(generate_worn_overlay(user))
+/obj/item/mod/module/proc/add_module_overlay(datum/source, list/overlays)
+	SIGNAL_HANDLER
+	var/mutable_appearance/mod_overlay = generate_worn_overlay(mod.wearer)
+	if(!mod_overlay)
+		return
+	overlays += mod_overlay
+
 
 /// Generates an icon to be used for the suit's worn overlays
 /obj/item/mod/module/proc/generate_worn_overlay(mob/living/carbon/human/user)
-	. = list()
 	if(!mod.active)
-		return
+		return FALSE
 	var/used_overlay
 	if(overlay_state_use && !COOLDOWN_FINISHED(src, cooldown_timer))
 		used_overlay = overlay_state_use
@@ -300,16 +304,17 @@
 	else if(overlay_state_inactive)
 		used_overlay = overlay_state_inactive
 	else
-		return
-	var/image/final_overlay
+		return FALSE
+	var/mutable_appearance/module_icon
 	if(sprite_sheets && sprite_sheets[user.dna.species.name])
-		final_overlay = image(icon = sprite_sheets[user.dna.species.name], icon_state = used_overlay, layer = EFFECTS_LAYER)
+		module_icon = mutable_appearance(icon = sprite_sheets[user.dna.species.name], icon_state = used_overlay, layer = EFFECTS_LAYER)
 	else
-		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+		module_icon = mutable_appearance(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
 	if(mod_color_overide)
-		final_overlay.color = mod_color_overide
-	. += final_overlay
-	mod.mod_overlays += final_overlay
+		module_icon.color = mod_color_overide
+	if(!use_mod_colors)
+		module_icon.appearance_flags |= RESET_COLOR
+	return module_icon
 
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)

@@ -79,7 +79,7 @@
 	playsound(grabbed_atom, 'sound/weapons/contractorbatonhit.ogg', 75, TRUE)
 	beam = new /obj/effect/abstract/kinesis(get_turf(mod.wearer))
 	kinesis_icon.layer = grabbed_atom.layer - 0.1
-	grabbed_atom.add_overlay(kinesis_icon)
+	grabbed_atom.add_persistent_overlay(kinesis_icon, UID())
 	pre_pixel_x = grabbed_atom.pixel_x
 	pre_pixel_y = grabbed_atom.pixel_y
 	beam.chain = beam.Beam(grabbed_atom, icon_state = "kinesis", icon='icons/effects/beam.dmi', time = 100 SECONDS, maxdistance = 15, beam_type = /obj/effect/ebeam, beam_sleep_time = 3)
@@ -196,7 +196,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	kinesis_catcher = null
 	mod.wearer.clear_fullscreen("kinesis")
-	grabbed_atom.cut_overlay(kinesis_icon)
+	grabbed_atom.remove_persistent_overlay(UID())
 	QDEL_NULL(beam)
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x, pixel_y = pre_pixel_y)

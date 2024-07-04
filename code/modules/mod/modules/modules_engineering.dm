@@ -274,7 +274,7 @@
 			addtimer(CALLBACK(src, PROC_REF(decrease_metal_charge)), 5 SECONDS)
 
 /obj/item/extinguisher/mini/mod/proc/decrease_metal_charge()
-		metal_synthesis_charge++
+	metal_synthesis_charge++
 
 #undef EXTINGUISHER
 #undef NANOFROST

@@ -595,6 +595,8 @@
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
@@ -752,8 +754,6 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
-/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
-#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 /// Defib-specific signals
 
@@ -880,12 +880,12 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
-///From base of mob/living/MobBump() (mob/living)
-#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/regenerate_icons()
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
+///From mob/living/carbon/human/update_inv_back()
+#define	COMSIG_HUMAN_UPDATE_BACK "human_update_back"
 
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
