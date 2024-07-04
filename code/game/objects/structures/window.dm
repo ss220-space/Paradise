@@ -686,7 +686,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
 	cancolor = TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -781,7 +781,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	canSmoothWith = list(/obj/structure/window/full/abductor)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
 	..()

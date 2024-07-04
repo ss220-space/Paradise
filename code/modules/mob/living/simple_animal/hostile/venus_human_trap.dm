@@ -7,7 +7,7 @@
 	icon_state = "flower_bud"
 	layer = SPACEVINE_MOB_LAYER
 	opacity = FALSE
-	canSmoothWith = list()
+	canSmoothWith = null
 	smooth = NONE
 	var/growth_time = 1200
 

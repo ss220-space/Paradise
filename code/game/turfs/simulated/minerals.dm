@@ -33,8 +33,6 @@
 	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 
 /turf/simulated/mineral/Initialize(mapload)
-	if(!canSmoothWith)
-		canSmoothWith = list(/turf/simulated/mineral)
 	var/matrix/M = new
 	//M.Translate(-4, -4)
 	transform = M
@@ -188,7 +186,6 @@
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER

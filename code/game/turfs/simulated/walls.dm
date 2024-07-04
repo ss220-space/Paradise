@@ -41,23 +41,8 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
-/*
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced,
-	/obj/structure/falsewall/clockwork,
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated,
-	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced,
-	/turf/simulated/wall/indestructible/reinforced/rusted,
-	)
-	*/
-	smoothing_groups = SMOOTH_GROUP_CLOSED_TURFS
-	canSmoothWith = SMOOTH_GROUP_CLOSED_TURFS
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

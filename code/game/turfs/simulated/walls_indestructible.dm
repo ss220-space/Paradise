@@ -69,9 +69,11 @@
 	name = "window"
 	icon = 'icons/turf/walls/fake_glass.dmi'
 	icon_state = "fake_glass"
+	base_icon_state = "fake_glass"
 	opacity = FALSE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/fakeglass)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 
 /turf/simulated/wall/indestructible/reinforced
 	name = "reinforced wall"
@@ -80,7 +82,7 @@
 	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
 	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_CLOSED_TURFS
+	canSmoothWith = SMOOTH_GROUP_WALLS
 
 
 /turf/simulated/wall/indestructible/reinforced/rusted
@@ -114,7 +116,7 @@
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
-	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through)
+	canSmoothWith = SMOOTH_GROUP_BOSS_WALLS
 	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	smooth = SMOOTH_TRUE
@@ -169,18 +171,17 @@
 	icon = 'icons/turf/walls/snow_wall.dmi'
 	icon_state = "snow"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/snow)
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smoothing_groups = SMOOTH_GROUP_WALLS
 
 /turf/simulated/wall/indestructible/gingerbread
 	name = "gingerbread wall"
 	icon = 'icons/turf/walls/gingerbread_wall.dmi'
 	icon_state = "gingerbread"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/turf/simulated/wall/indestructible/gingerbread,
-		/obj/structure/falsewall/gingerbread,
-		/turf/simulated/wall/mineral/gingerbread,
-	)
+	base_icon_state = "gingerbread_wall"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WALL_GINGERBREAD
+	smoothing_groups = SMOOTH_GROUP_WALL_GINGERBREAD
 
 
 /turf/simulated/wall/indestructible/rock
@@ -198,12 +199,9 @@
 	desc = "A wall with sandstone plating."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/obj/structure/falsewall/sandstone,
-		/turf/simulated/wall/mineral/sandstone,
-		/turf/simulated/wall/indestructible/sandstone,
-	)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALLS
+	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALLS
 
 
 /turf/simulated/wall/indestructible/iron
@@ -211,12 +209,9 @@
 	desc = "A wall with rough metal plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/turf/simulated/wall/mineral/iron,
-		/obj/structure/falsewall/iron,
-		/turf/simulated/wall/indestructible/iron,
-	)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smoothing_groups = SMOOTH_GROUP_WALLS
 
 
 /turf/simulated/wall/indestructible/bananium
@@ -224,12 +219,9 @@
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/obj/structure/falsewall/bananium,
-		/turf/simulated/wall/mineral/bananium,
-		/turf/simulated/wall/indestructible/bananium,
-	)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_BANANIUM_WALLS
+	smoothing_groups = SMOOTH_GROUP_BANANIUM_WALLS
 
 
 /turf/simulated/wall/indestructible/cult
@@ -241,17 +233,16 @@
 
 /turf/simulated/wall/indestructible/mineral_rock
 	name = "rock"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rock"
-	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/mineral_rock)
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
+	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
 
 /turf/simulated/wall/indestructible/mineral_rock/Initialize(mapload)
 	var/matrix/M = new
 	//M.Translate(-4, -4)
 	transform = M
-	icon = smooth_icon
 	. = ..()
 
 

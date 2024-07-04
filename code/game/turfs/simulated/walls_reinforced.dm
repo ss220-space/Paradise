@@ -16,8 +16,8 @@
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
 	smooth = SMOOTH_BITMASK
-	smoothing_groups = SMOOTH_GROUP_CLOSED_TURFS
-	canSmoothWith = SMOOTH_GROUP_CLOSED_TURFS
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 

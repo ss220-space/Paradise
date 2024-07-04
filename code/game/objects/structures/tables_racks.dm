@@ -570,7 +570,7 @@
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
-	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
+	canSmoothWith = SMOOTH_GROUP_WOOD_TABLES
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
@@ -671,7 +671,7 @@
 	icon_state = "r_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
+	canSmoothWith = SMOOTH_GROUP_TABLES
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)

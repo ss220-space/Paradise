@@ -165,7 +165,8 @@
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
+	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300

@@ -192,7 +192,7 @@
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
 	base_icon_state = "titaniumglass"
-	canSmoothWith = list(/turf/simulated/floor/glass/titanium, /turf/simulated/floor/glass/titanium/plasma)
+	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
 	explosion_vertical_block = 2

@@ -270,10 +270,8 @@
 	water_overlay_icon = 'icons/turf/floors/seadrop-o.dmi'
 	water_overlay_smooth = SMOOTH_TRUE
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(
-		/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
-		/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,
-		/turf/simulated/floor/indestructible/beach/water/edge_drop)
+	canSmoothWith = SMOOTH_GROUP_BEACH
+	smoothing_groups = SMOOTH_GROUP_BEACH
 
 /turf/simulated/floor/indestructible/beach/water/drop/dense
 	density = TRUE
@@ -314,15 +312,12 @@
 	anchored = TRUE
 
 /obj/effect/beach_water_overlay/Initialize(mapload, new_icon, new_icon_state, new_smooth)
-	. = ..()
 	icon = new_icon
 	icon_state = new_icon_state
 	smooth = new_smooth
 	if(smooth)
-		canSmoothWith = list(
-			/turf/simulated/floor/indestructible/beach/water/drop, /turf/simulated/floor/indestructible/beach/water/drop/dense,
-			/turf/simulated/floor/indestructible/beach/water, /turf/simulated/floor/indestructible/beach/water/dense,
-			/turf/simulated/floor/indestructible/beach/water/edge_drop)
+		canSmoothWith = SMOOTH_GROUP_BEACH
+	. = ..()
 
 // used with /effect/view_portal in order to get rid of dynamic lighting.
 /turf/simulated/floor/indestructible/view_portal

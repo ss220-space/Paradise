@@ -11,7 +11,7 @@
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE // I'd set to GAME_PLANE, but may fuck with pipes, srubbers and pumps. Also you see better lower floor under catwalk.
 	var/number_of_rods = 1
-	canSmoothWith = SMOOTH_GROUP_LATTICE + SMOOTH_GROUP_CATWALK + SMOOTH_GROUP_CLOSED_TURFS + SMOOTH_GROUP_FLOOR
+	canSmoothWith = SMOOTH_GROUP_LATTICE + SMOOTH_GROUP_CATWALK + SMOOTH_GROUP_WALLS + SMOOTH_GROUP_FLOOR
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_LATTICE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
@@ -196,12 +196,6 @@
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
 	icon_state = "catwalk"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor,
-						/turf/simulated/wall,
-						/obj/structure/falsewall,
-						/obj/structure/lattice/fireproof,
-						/obj/structure/lattice/catwalk/fireproof)
 
 /obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
 	return

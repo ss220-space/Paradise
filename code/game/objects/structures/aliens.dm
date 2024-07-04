@@ -52,7 +52,7 @@
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_RESIN
 	max_integrity = 200
 	smooth = SMOOTH_TRUE
 	var/resintype = null
@@ -81,7 +81,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
 	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -100,7 +100,7 @@
 	max_integrity = 160
 	resintype = "membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
