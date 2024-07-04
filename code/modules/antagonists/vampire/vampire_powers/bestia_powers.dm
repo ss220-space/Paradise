@@ -228,12 +228,21 @@
 
 /datum/vampire_passive/upgraded_grab
 	gain_desc = "Power of the blood allows you to take your victims in a tighter grab."
+	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed = 2 SECONDS
+	/// Resist chance overrides for the victim.
+	var/list/grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 40,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 
 
 /datum/antagonist/vampire/proc/grab_act(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	var/obj/item/grab/grab = target.grabbedby(user)
-	if(grab)
-		grab.state = GRAB_AGGRESSIVE // instant aggressive grab
+	var/old_grab_state = user.grab_state
+	var/grab_success = target.grabbedby(user, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		target.grippedby(user) // instant aggressive grab
 		add_attack_logs(user, target, "Melee attacked with vampire upgraded grab: aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
@@ -283,23 +292,22 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/vampire/self/dissect/proc/special_check(mob/user, show_message, ignore_dissect = FALSE)
+/obj/effect/proc_holder/spell/vampire/self/dissect/proc/special_check(mob/living/user, show_message, ignore_dissect = FALSE)
 	if(is_dissecting && !ignore_dissect)
 		return FALSE
 
-	var/obj/item/grab/grab = user.get_active_hand()
-	if(!istype(grab))
+	if(!user.pulling || user.pull_hand != user.hand)
 		if(show_message)
 			to_chat(user, span_warning("You must be grabbing a victim in your active hand to dissect them!"))
 		return FALSE
 
-	if(grab.state <= GRAB_AGGRESSIVE)
+	if(user.grab_state < GRAB_NECK)
 		if(show_message)
 			to_chat(user, span_warning("You must have a tighter grip to dissect this victim!"))
 		return FALSE
 
-	var/mob/living/carbon/human/target = grab.affecting
-	if(!istype(target) || is_monkeybasic(target) || ismachineperson(target) || target.stat == DEAD || !target.mind || !target.ckey)
+	var/mob/living/carbon/human/target = user.pulling
+	if(!ishuman(target) || is_monkeybasic(target) || ismachineperson(target) || target.stat == DEAD || !target.mind || !target.ckey)
 		if(show_message)
 			to_chat(user, span_warning("[target] is not compatible!"))
 		return FALSE
@@ -318,8 +326,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/dissect/cast(list/targets, mob/user = usr)
-	var/obj/item/grab/grab = user.get_active_hand()
-	var/mob/living/carbon/human/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
 	var/t_lungs = vampire.get_trophies(INTERNAL_ORGAN_LUNGS)
@@ -1619,7 +1626,7 @@
 				continue
 
 			if(prob(chance_regrow_limb))
-				new limb_path(human_vampire)
+				new limb_path(human_vampire, ORGAN_MANIPULATION_DEFAULT)
 				break
 
 	// here goes rejuvenate little brother

@@ -105,6 +105,8 @@
 #define RESTING_TRAIT "resting"
 /// trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
+/// trait associated to being held in a chokehold
+#define CHOKEHOLD_TRAIT "chokehold"
 
 #define COCOONED_TRAIT "cocooned_stat"
 #define LOCKED_BORG_TRAIT "locked-borg"

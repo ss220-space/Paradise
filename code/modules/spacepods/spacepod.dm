@@ -71,7 +71,7 @@
 	var/datum/effect_system/trail_follow/spacepod/ion_trail
 
 
-/obj/spacepod/proc/apply_paint(mob/user as mob)
+/obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
 	if(!can_paint)
 		to_chat(user, "<span class='warning'>You can't repaint this type of pod!</span>")
@@ -714,7 +714,6 @@
 /obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
 	if(passengers.len < max_passengers)
-		H.stop_pulling()
 		H.forceMove(src)
 		passengers += H
 		H.forceMove(src)
@@ -806,14 +805,12 @@
 		visible_message("<span class='notice'>[user] starts to climb into [src].</span>")
 		if(do_after(user, 4 SECONDS, src))
 			if(!pilot || pilot == null)
-				user.stop_pulling()
 				pilot = user
 				user.forceMove(src)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 				return
 			if(passengers.len < max_passengers)
-				user.stop_pulling()
 				passengers += user
 				user.forceMove(src)
 				add_fingerprint(user)
@@ -1052,17 +1049,17 @@
 
 	. = TRUE
 
-	if(!battery)
+	if(health <= 0)
+		to_chat(user, span_warning("She's dead, Jim."))
+		. = FALSE
+	else if(!battery)
 		to_chat(user, span_warning("No energy cell detected."))
+		. = FALSE
+	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
+		to_chat(user, span_warning("The pod control interface isn't responding. The console indicates [COOLDOWN_TIMELEFT(src, cooldown_emp)] second\s before reboot."))
 		. = FALSE
 	else if(!battery.use(1))
 		to_chat(user, span_warning("Not enough charge left."))
-		. = FALSE
-	else if(health <= 0)
-		to_chat(user, span_warning("She's dead, Jim."))
-		. = FALSE
-	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
-		to_chat(user, span_warning("The pod control interface isn't responding. The console indicates [COOLDOWN_TIMELEFT(src, cooldown_emp)] seconds before reboot."))
 		. = FALSE
 	if(!.)
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
@@ -1098,8 +1095,8 @@
 /obj/spacepod/civilian/damaged
 	desc = "Heavy damaged spacepod"
 
-/obj/spacepod/civilian/damaged/Initialize()
-	..()
+/obj/spacepod/civilian/damaged/Initialize(mapload)
+	. = ..()
 	deal_damage(200)
 	update_icon()
 

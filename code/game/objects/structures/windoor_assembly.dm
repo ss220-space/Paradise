@@ -20,6 +20,7 @@
 	max_integrity = 300
 	pass_flags_self = PASSGLASS
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
+	set_dir_on_move = FALSE
 	var/ini_dir
 	var/obj/item/access_control/electronics
 	var/created_name
@@ -46,10 +47,9 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/windoor_assembly/Move()
+/obj/structure/windoor_assembly/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
-	setDir(ini_dir)
 	move_update_air(T)
 
 /obj/structure/windoor_assembly/update_icon_state()

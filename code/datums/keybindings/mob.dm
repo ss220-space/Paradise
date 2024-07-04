@@ -37,6 +37,12 @@
 			return
 		I.run_drop_held_item(C.mob)
 	else
+		if(C.mob.pulling && isliving(C.mob))
+			var/mob/living/grabber = C.mob
+			if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
+				if(C.mob.next_move <= world.time && grabber.hand == grabber.pull_hand)
+					grabber.stop_pulling()
+				return
 		to_chat(C, span_warning("Вы ничего не держите в руке!"))
 
 /datum/keybinding/mob/swap_hands

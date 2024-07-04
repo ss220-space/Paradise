@@ -112,7 +112,7 @@
 		if(THROW_BONE)
 			throw_bone()
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move()
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(charging)
 		return FALSE
 	. = ..()

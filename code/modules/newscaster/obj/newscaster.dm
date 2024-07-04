@@ -710,19 +710,6 @@
 	alert = FALSE
 	update_icon(UPDATE_OVERLAYS)
 
-/**
-  * Ejects the currently loaded photo if there is one.
-  */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	eject_photo(usr)
-
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH
 #undef STORY_NAME_MAX_LENGTH

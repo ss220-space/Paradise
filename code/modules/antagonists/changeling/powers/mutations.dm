@@ -441,9 +441,8 @@
 	if(!user.Adjacent(target))
 		return
 
-	var/obj/item/grab/grab = target.grabbedby(user, TRUE)
-	if(istype(grab))
-		grab.state = GRAB_PASSIVE
+	if(target.grabbedby(user, supress_message = TRUE))
+		target.grippedby(user) //instant aggro grab
 		target.Weaken(4 SECONDS)
 
 

@@ -95,7 +95,6 @@
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
 		overlays_standing[HANDCUFF_LAYER] = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
-		update_hud_hands()
 	apply_overlay(HANDCUFF_LAYER)
 
 
@@ -146,14 +145,6 @@
 		standing.alpha = l_hand.alpha
 		overlays_standing[L_HAND_LAYER] = standing
 	apply_overlay(L_HAND_LAYER)
-
-
-/// Updates hands HUD element icons.
-/mob/living/carbon/proc/update_hud_hands()
-	if(!client || !hud_used)
-		return
-	for(var/atom/movable/screen/inventory/hand/hand_box as anything in hud_used.hand_slots)
-		hand_box.update_icon()
 
 
 /// Changes item's screen_loc position and adds it on client screen.

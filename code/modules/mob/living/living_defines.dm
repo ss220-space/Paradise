@@ -6,7 +6,6 @@
 	move_resist = null
 	move_force = null
 	pull_force = null
-	pull_push_speed_modifier = 1
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
@@ -27,7 +26,11 @@
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = INCORPOREAL_NONE
 
-	var/now_pushing = null
+	/// Currently pushed movable
+	var/atom/movable/now_pushing
+	COOLDOWN_DECLARE(pushing_delay)
+
+	COOLDOWN_DECLARE(grab_resist_delay)
 
 	var/atom/movable/cameraFollow = null
 
@@ -83,7 +86,6 @@
 	var/health_doll_icon
 	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE
-	var/bump_priority = BUMP_PRIORITY_NORMAL
 
 	///what multiplicative slowdown we get from turfs currently.
 	var/current_turf_slowdown = 0
@@ -118,6 +120,12 @@
 	/// The height offset of a mob's maptext due to their current size.
 	var/body_maptext_height_offset = 0
 
-	///Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
+	/// Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
 	var/current_size = RESIZE_DEFAULT_SIZE
+
+	/// Whether the mob is slowed down when pulling/pushing other mobs and objects
+	var/slowed_by_pull_and_push = TRUE
+
+	/// Hand currently used for pulling/grabing
+	var/pull_hand = PULL_WITHOUT_HANDS
 

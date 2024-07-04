@@ -214,29 +214,33 @@
 			else
 				clear_fullscreen("brute")
 
-/mob/living/simple_animal/slime/ObjBump(obj/O)
-	if(!client && powerlevel > 0)
-		var/probab = 10
-		switch(powerlevel)
-			if(1 to 2)
-				probab = 20
-			if(3 to 4)
-				probab = 30
-			if(5 to 6)
-				probab = 40
-			if(7 to 8)
-				probab = 60
-			if(9)
-				probab = 70
-			if(10)
-				probab = 95
-		if(prob(probab))
-			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
-				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (age_state.age != SLIME_BABY || prob(5))
-						O.attack_slime(src)
-						Atkcool = TRUE
-						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
+
+/mob/living/simple_animal/slime/ObjBump(obj/object)
+	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
+		return
+
+	var/probab = 10
+	switch(powerlevel)
+		if(1 to 2)
+			probab = 20
+		if(3 to 4)
+			probab = 30
+		if(5 to 6)
+			probab = 40
+		if(7 to 8)
+			probab = 60
+		if(9)
+			probab = 70
+		if(10)
+			probab = 95
+
+	if(!prob(probab))
+		return
+
+	object.attack_slime(src)
+	Atkcool = TRUE
+	addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
+
 
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -287,7 +291,7 @@
 	return
 
 
-/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/simple_animal/slime/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 

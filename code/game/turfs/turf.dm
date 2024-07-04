@@ -149,13 +149,12 @@
 	initialized = FALSE
 	..()
 
-/turf/attack_hand(mob/user as mob)
+/turf/attack_hand(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	user.Move_Pulled(src)
 
 /turf/attack_robot(mob/user)
-	if(Adjacent(user))
-		user.Move_Pulled(src)
+	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
 	return FALSE
@@ -189,67 +188,67 @@
 	return FALSE
 
 
-/turf/Enter(atom/movable/mover, atom/oldloc)
-	if(!mover)
-		return TRUE
+/turf/Enter(atom/movable/mover)
+	// Do not call ..()
+	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
+	// By default byond will call Bump() on the first dense object in contents
+	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
+
+	// There's a lot of QDELETED() calls here if someone can figure out how to optimize this
+	// but not runtime when something gets deleted by a Bump/CanPass/Cross call
+
+	var/atom/mover_loc = mover.loc
 
 	// First, make sure it can leave its square
-	if(isturf(mover.loc))
+	if(isturf(mover_loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
 		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover.loc)
-			if(obstacle == mover || obstacle == oldloc)
+		for(var/obj/obstacle in mover_loc)
+			if(obstacle == mover)
 				continue
 			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle, custom_bump = TRUE)
+				mover.Bump(obstacle)
 				return FALSE
 
 	var/border_dir = get_dir(src, mover)
-
-	var/list/large_dense = list()
-	//Next, check objects to block entry that are on the border
-	for(var/atom/movable/border_obstacle in src)
-		if(border_obstacle == oldloc)
-			continue
-		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, border_dir))
-				mover.Bump(border_obstacle, custom_bump = TRUE)
-				return FALSE
-		else
-			large_dense += border_obstacle
-
-	//Then, check the turf itself
-	if(!CanPass(mover, border_dir))
-		mover.Bump(src, custom_bump = TRUE)
-		return FALSE
-
-	//Finally, check objects/mobs to block entry that are not on the border
+	var/can_pass_self = CanPass(mover, border_dir)
 	var/atom/movable/tompost_bump
-	var/top_layer = 0
-	var/current_layer = 0
-	for(var/atom/movable/obstacle as anything in large_dense)
-		if(!obstacle.CanPass(mover, border_dir))
-			current_layer = obstacle.layer
-			if(isliving(obstacle))
-				var/mob/living/living_obstacle = obstacle
-				if(living_obstacle.bump_priority < BUMP_PRIORITY_NORMAL && border_dir == obstacle.dir)
-					current_layer += living_obstacle.bump_priority
-			if(current_layer > top_layer)
-				tompost_bump = obstacle
-				top_layer = current_layer
-	if(tompost_bump)
-		mover.Bump(tompost_bump, custom_bump = TRUE)
+	if(can_pass_self)
+		var/mover_is_phasing = (mover.movement_type & PHASING)
+		for(var/atom/movable/obstacle as anything in contents)
+			// Multi tile objects and moving out of other objects.
+			if(obstacle == mover || obstacle == mover_loc)
+				continue
+			if(!obstacle.Cross(mover, border_dir))
+				// Deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen).
+				if(QDELETED(mover))
+					return FALSE
+				if(mover_is_phasing)
+					mover.Bump(obstacle)
+					// Deleted from Bump().
+					if(QDELETED(mover))
+						return FALSE
+					continue
+				else
+					var/override = obstacle.tompost_bump_override(mover, border_dir)
+					if(isatom(override))
+						tompost_bump = override
+						break
+					// We are using layers to pick what we are bumping, always choosing obstacle with the highest one
+					// its sufficient but not ideal method, separate variable is probably a better solution.
+					if(!tompost_bump || ((obstacle.layer > tompost_bump.layer || obstacle.flags & ON_BORDER) && !(tompost_bump.flags & ON_BORDER)))
+						tompost_bump = obstacle
+
+	// Mover deleted from Cross/CanPass/Bump, do not proceed.
+	if(QDELETED(mover))
 		return FALSE
-
-	return TRUE //Nothing found to block so return success!
-
-
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
-	..()
-	if(ismob(M))
-		var/mob/O = M
-		if(!O.lastarea)
-			O.lastarea = get_area(O.loc)
+	// Even if mover is unstoppable they need to bump us.
+	if(!can_pass_self)
+		tompost_bump = src
+	if(tompost_bump)
+		mover.Bump(tompost_bump)
+		return (mover.movement_type & PHASING)
+	return TRUE
 
 
 /turf/proc/levelupdate()
@@ -824,3 +823,9 @@
 			return TRUE
 
 	return FALSE
+
+
+/turf/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	grabber.Move_Pulled(src)
+

@@ -191,7 +191,7 @@
 	useGust(0)
 
 
-/mob/living/simple_animal/hostile/space_dragon/Move()
+/mob/living/simple_animal/hostile/space_dragon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!using_special)
 		. = ..()
 

@@ -51,6 +51,7 @@
 	. = TRUE
 	if(preset_target)
 		to_chat(user, span_notice("[src] cannot be deconstracted!")) //grief protection
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	default_deconstruction_crowbar(user, I)

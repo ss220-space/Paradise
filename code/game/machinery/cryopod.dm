@@ -253,7 +253,8 @@
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/mmi/robotic_brain
+		/obj/item/mmi/robotic_brain,
+		/obj/item/gun/energy/gun/blueshield
 	)
 
 //////
@@ -476,62 +477,49 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	if(occupant)
+		to_chat(grabber, span_notice("[src] is in use."))
+		return .
+	if(target.stat == DEAD)
+		to_chat(grabber, span_notice("Dead people can not be put into cryo."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[target] will not fit into the [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
+		return .
+	if(!check_occupant_allowed(target))
+		return .
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-
-		if(occupant)
-			to_chat(user, span_notice("[src] is in use."))
-			return
-
-		if(!ismob(G.affecting))
-			return
-
-		if(!check_occupant_allowed(G.affecting))
-			return
-
-		var/willing = null //We don't want to allow people to be forced into despawning.
-		var/mob/living/M = G.affecting
-		time_till_despawn = initial(time_till_despawn)
-
-		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, span_notice("Dead people can not be put into cryo."))
-			return
-
-		if(M.client)
-			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
-				if(!M || !G || !G.affecting) return
-				willing = willing_time_divisor
-		else
-			willing = 1
-
-		if(willing)
-
-			visible_message("[user] starts putting [G.affecting.name] into [src].")
-
-			if(do_after(user, 2 SECONDS, G.affecting))
-				if(!M || !G || !G.affecting)
-					return
-
-				if(occupant)
-					to_chat(user, span_boldnotice("[src] is in use."))
-					return
-
-				add_fingerprint(user)
-				take_occupant(M, willing)
-
-			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, span_notice("You stop putting [M] into the cryopod."))
-				return
-
-
-			to_chat(M, span_notice("[on_enter_occupant_message]"))
-			to_chat(M, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
-
-			take_occupant(M, willing)
+	var/willing = null //We don't want to allow people to be forced into despawning.
+	time_till_despawn = initial(time_till_despawn)
+	if(target.client)
+		if(alert(target, "Would you like to enter long-term storage?",,"Yes","No") == "Yes")
+			if(!target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+				return .
+			willing = willing_time_divisor
 	else
-		return ..()
+		willing = 1
+
+	if(!willing)
+		return .
+
+	visible_message("[grabber] starts putting [target.name] into [src].")
+	if(!do_after(grabber, 2 SECONDS, target))
+		to_chat(grabber, span_notice("You stop putting [target] into the cryopod."))
+		return .
+
+	if(!target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+		return .
+
+	if(occupant || target.stat == DEAD || target.has_buckled_mobs())
+		return .
+
+	add_fingerprint(grabber)
+	take_occupant(target, willing)
 
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O, mob/user, params)
@@ -686,7 +674,6 @@
 			to_chat(usr, span_boldnotice("\The [src] is in use."))
 			return
 
-		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
