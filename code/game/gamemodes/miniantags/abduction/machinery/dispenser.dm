@@ -55,7 +55,6 @@
 	var/datum/browser/popup = new(user, "glands", "Gland Dispenser", 200, 200)
 	popup.add_head_content(box_css)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	return
 
