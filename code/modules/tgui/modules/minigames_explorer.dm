@@ -53,8 +53,7 @@
 			owner.client?.prefs?.minigames_notifications = !owner.client?.prefs?.minigames_notifications
 			return
 
-	var/spawners = replacetext(params["ID"], ",", ";")
-	var/list/possible_spawners = params2list(spawners)
+	var/list/possible_spawners = params["ID"]
 	var/obj/MS = locate(pick(possible_spawners))
 	if(!MS || !MS.is_mob_spawnable())
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid mini_game, or the mini_game didn't exist."))
