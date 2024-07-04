@@ -470,9 +470,11 @@
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
 	icon = 'icons/turf/smoothrocks.dmi'
+	base_icon_state = "smoothrocks"
 	icon_state = "rock_ancient"
 	color = COLOR_ANCIENT_ROCK
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
+	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
 	mineral = /obj/item/stack/ore/glass/basalt/ancient
 	walltype = /turf/simulated/mineral/ancient

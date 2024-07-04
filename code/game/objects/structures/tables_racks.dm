@@ -25,7 +25,7 @@
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
+	canSmoothWith = SMOOTH_GROUP_TABLES
 	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
@@ -463,13 +463,17 @@
 	name = "glass table"
 	desc = "Looks fragile. You should totally flip it. It is begging for it."
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
-	icon_state = "glass_table"
+	icon_state = "glass_table-0"
 	buildstack = /obj/item/stack/sheet/glass
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
+	canSmoothWith = SMOOTH_GROUP_GLASS_TABLES
+	base_icon_state = "glass_table"
 
 /obj/structure/table/glass/Initialize(mapload)
 	. = ..()
@@ -595,16 +599,9 @@
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy,
-						/obj/structure/table/wood/fancy/black,
-						/obj/structure/table/wood/fancy/blue,
-						/obj/structure/table/wood/fancy/cyan,
-						/obj/structure/table/wood/fancy/green,
-						/obj/structure/table/wood/fancy/orange,
-						/obj/structure/table/wood/fancy/purple,
-						/obj/structure/table/wood/fancy/red,
-						/obj/structure/table/wood/fancy/royalblack,
-						/obj/structure/table/wood/fancy/royalblue)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FANCY_WOOD_TABLES
+	smoothing_groups = SMOOTH_GROUP_FANCY_WOOD_TABLES
 	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
 /obj/structure/table/wood/fancy/flip(direction)
@@ -618,55 +615,51 @@
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
+
 
 /obj/structure/table/wood/fancy/blue
 	icon_state = "fancy_table_blue"
 	buildstack = /obj/item/stack/tile/carpet/blue
 	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
+
 
 /obj/structure/table/wood/fancy/cyan
 	icon_state = "fancy_table_cyan"
 	buildstack = /obj/item/stack/tile/carpet/cyan
 	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
+
 
 /obj/structure/table/wood/fancy/green
 	icon_state = "fancy_table_green"
 	buildstack = /obj/item/stack/tile/carpet/green
 	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
+
 
 /obj/structure/table/wood/fancy/orange
 	icon_state = "fancy_table_orange"
 	buildstack = /obj/item/stack/tile/carpet/orange
 	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
+
 
 /obj/structure/table/wood/fancy/purple
 	icon_state = "fancy_table_purple"
 	buildstack = /obj/item/stack/tile/carpet/purple
 	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
 
 /obj/structure/table/wood/fancy/red
 	icon_state = "fancy_table_red"
 	buildstack = /obj/item/stack/tile/carpet/red
 	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
 
 /obj/structure/table/wood/fancy/royalblack
 	icon_state = "fancy_table_royalblack"
 	buildstack = /obj/item/stack/tile/carpet/royalblack
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
 
 /obj/structure/table/wood/fancy/royalblue
 	icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
-	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
 /*
  * Reinforced tables
@@ -707,21 +700,22 @@
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	icon_state = "brass_table"
+	icon_state = "brass_table-0"
+	base_icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 	buildstackamount = 1
-	canSmoothWith = list(/obj/structure/table/reinforced/brass)
+	canSmoothWith = SMOOTH_GROUP_BRONZE_TABLES
+	smoothing_groups = SMOOTH_GROUP_BRONZE_TABLES
 
 /obj/structure/table/reinforced/brass/fake
 	desc = "A solid, slightly beveled and totally not magic brass table."
 	frame = /obj/structure/table_frame/brass/fake
 	framestack = /obj/item/stack/sheet/brass_fake
 	buildstack = /obj/item/stack/sheet/brass_fake
-	canSmoothWith = list(/obj/structure/table/reinforced/brass/fake)
 
 /obj/structure/table/reinforced/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)

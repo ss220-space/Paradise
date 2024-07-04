@@ -71,7 +71,7 @@
 	smooth = NONE
 
 /turf/simulated/wall/shuttle/onlyselfsmooth
-	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS
 
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal
 	icon_state = "shuttle-15"

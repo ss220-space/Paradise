@@ -73,99 +73,100 @@ DEFINE_BITFIELD(smoothing_junction, list(
  * Groups of things to smooth with.
  * * Contained in the `list/smoothing_groups` variable.
  * * Matched with the `list/canSmoothWith` variable to check whether smoothing is possible or not.
+ * Note: May not represent real smoothing groups (Porting issue, refactor later)
  */
 
 #define S_TURF(num) (#num + ",")
 
 /* /turf only */
 
-#define SMOOTH_GROUP_TURF_OPEN S_TURF(0) ///turf/open
-#define SMOOTH_GROUP_TURF_CHASM S_TURF(1) ///turf/open/chasm, /turf/open/floor/fakepit
-#define SMOOTH_GROUP_FLOOR_LAVA S_TURF(2) ///turf/open/lava/smooth
-#define SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS S_TURF(3) ///turf/open/floor/glass
+#define SMOOTH_GROUP_FLOOR S_TURF(0) ///turf/simulated/floor
+#define SMOOTH_GROUP_TURF_CHASM S_TURF(1) ///turf/simulated/chasm, /turf/simulated/floor/fakepit
+#define SMOOTH_GROUP_FLOOR_LAVA S_TURF(2) ///turf/simulated/lava/smooth
+#define SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS S_TURF(3) ///turf/simulated/floor/glass
 
-#define SMOOTH_GROUP_OPEN_FLOOR S_TURF(4) ///turf/open/floor
+#define SMOOTH_GROUP_OPEN_FLOOR S_TURF(4) ///turf/simulated/floor
 
-#define SMOOTH_GROUP_FLOOR_GRASS S_TURF(5) ///turf/open/misc/grass
-#define SMOOTH_GROUP_FLOOR_ASH S_TURF(6) ///turf/open/misc/ashplanet/ash
-#define SMOOTH_GROUP_FLOOR_ASH_ROCKY S_TURF(7) ///turf/open/misc/ashplanet/rocky
-#define SMOOTH_GROUP_FLOOR_ICE S_TURF(8) ///turf/open/misc/ice
-#define SMOOTH_GROUP_FLOOR_SNOWED S_TURF(9) ///turf/open/floor/plating/snowed
+#define SMOOTH_GROUP_FLOOR_GRASS S_TURF(5) ///turf/simulated/misc/grass
+#define SMOOTH_GROUP_FLOOR_ASH S_TURF(6) ///turf/simulated/misc/ashplanet/ash
+#define SMOOTH_GROUP_FLOOR_ASH_ROCKY S_TURF(7) ///turf/simulated/misc/ashplanet/rocky
+#define SMOOTH_GROUP_FLOOR_ICE S_TURF(8) ///turf/simulated/misc/ice
+#define SMOOTH_GROUP_FLOOR_SNOWED S_TURF(9) ///turf/simulated/floor/plating/snowed
 
-#define SMOOTH_GROUP_CARPET S_TURF(10) ///turf/open/floor/carpet
-#define SMOOTH_GROUP_CARPET_BLACK S_TURF(11) ///turf/open/floor/carpet/black
-#define SMOOTH_GROUP_CARPET_BLUE S_TURF(12) ///turf/open/floor/carpet/blue
-#define SMOOTH_GROUP_CARPET_CYAN S_TURF(13) ///turf/open/floor/carpet/cyan
-#define SMOOTH_GROUP_CARPET_GREEN S_TURF(14) ///turf/open/floor/carpet/green
-#define SMOOTH_GROUP_CARPET_ORANGE S_TURF(15) ///turf/open/floor/carpet/orange
-#define SMOOTH_GROUP_CARPET_PURPLE S_TURF(16) ///turf/open/floor/carpet/purple
-#define SMOOTH_GROUP_CARPET_RED S_TURF(17) ///turf/open/floor/carpet/red
-#define SMOOTH_GROUP_CARPET_ROYAL_BLACK S_TURF(18) ///turf/open/floor/carpet/royalblack
-#define SMOOTH_GROUP_CARPET_ROYAL_BLUE S_TURF(19) ///turf/open/floor/carpet/royalblue
-#define SMOOTH_GROUP_CARPET_EXECUTIVE S_TURF(20) ///turf/open/floor/carpet/executive
-#define SMOOTH_GROUP_CARPET_STELLAR S_TURF(21) ///turf/open/floor/carpet/stellar
-#define SMOOTH_GROUP_CARPET_DONK S_TURF(22) ///turf/open/floor/carpet/donk
-#define SMOOTH_GROUP_CARPET_NEON S_TURF(23) //![turf/open/floor/carpet/neon]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON S_TURF(24) //![turf/open/floor/carpet/neon/simple]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_WHITE S_TURF(25) //![turf/open/floor/carpet/neon/simple/white]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLACK S_TURF(26) //![turf/open/floor/carpet/neon/simple/black]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_RED S_TURF(27) //![turf/open/floor/carpet/neon/simple/red]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE S_TURF(28) //![turf/open/floor/carpet/neon/simple/orange]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_YELLOW S_TURF(29) //![turf/open/floor/carpet/neon/simple/yellow]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_LIME S_TURF(30) //![turf/open/floor/carpet/neon/simple/lime]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_GREEN S_TURF(31) //![turf/open/floor/carpet/neon/simple/green]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_TEAL S_TURF(32) //![turf/open/floor/carpet/neon/simple/teal]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_CYAN S_TURF(33) //![turf/open/floor/carpet/neon/simple/cyan]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLUE S_TURF(34) //![turf/open/floor/carpet/neon/simple/blue]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PURPLE S_TURF(35) //![turf/open/floor/carpet/neon/simple/purple]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_VIOLET S_TURF(36) //![turf/open/floor/carpet/neon/simple/violet]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PINK S_TURF(37) //![turf/open/floor/carpet/neon/simple/pink]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_NODOTS S_TURF(38) //![turf/open/floor/carpet/neon/simple/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_WHITE_NODOTS S_TURF(39) //![turf/open/floor/carpet/neon/simple/white/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLACK_NODOTS S_TURF(40) //![turf/open/floor/carpet/neon/simple/black/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_RED_NODOTS S_TURF(41) //![turf/open/floor/carpet/neon/simple/red/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE_NODOTS S_TURF(42) //![turf/open/floor/carpet/neon/simple/orange/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_YELLOW_NODOTS S_TURF(43) //![turf/open/floor/carpet/neon/simple/yellow/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_LIME_NODOTS S_TURF(44) //![turf/open/floor/carpet/neon/simple/lime/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_GREEN_NODOTS S_TURF(45) //![turf/open/floor/carpet/neon/simple/green/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_TEAL_NODOTS S_TURF(46) //![turf/open/floor/carpet/neon/simple/teal/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_CYAN_NODOTS S_TURF(47) //![turf/open/floor/carpet/neon/simple/cyan/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLUE_NODOTS S_TURF(48) //![turf/open/floor/carpet/neon/simple/blue/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PURPLE_NODOTS S_TURF(49) //![turf/open/floor/carpet/neon/simple/purple/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_VIOLET_NODOTS S_TURF(50) //![turf/open/floor/carpet/neon/simple/violet/nodots]
-#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PINK_NODOTS S_TURF(51) //![turf/open/floor/carpet/neon/simple/pink/nodots]
-#define SMOOTH_GROUP_BAMBOO_FLOOR S_TURF(52) //![/turf/open/floor/bamboo]
+#define SMOOTH_GROUP_CARPET S_TURF(10) ///turf/simulated/floor/carpet
+#define SMOOTH_GROUP_CARPET_BLACK S_TURF(11) ///turf/simulated/floor/carpet/black
+#define SMOOTH_GROUP_CARPET_BLUE S_TURF(12) ///turf/simulated/floor/carpet/blue
+#define SMOOTH_GROUP_CARPET_CYAN S_TURF(13) ///turf/simulated/floor/carpet/cyan
+#define SMOOTH_GROUP_CARPET_GREEN S_TURF(14) ///turf/simulated/floor/carpet/green
+#define SMOOTH_GROUP_CARPET_ORANGE S_TURF(15) ///turf/simulated/floor/carpet/orange
+#define SMOOTH_GROUP_CARPET_PURPLE S_TURF(16) ///turf/simulated/floor/carpet/purple
+#define SMOOTH_GROUP_CARPET_RED S_TURF(17) ///turf/simulated/floor/carpet/red
+#define SMOOTH_GROUP_CARPET_ROYAL_BLACK S_TURF(18) ///turf/simulated/floor/carpet/royalblack
+#define SMOOTH_GROUP_CARPET_ROYAL_BLUE S_TURF(19) ///turf/simulated/floor/carpet/royalblue
+#define SMOOTH_GROUP_CARPET_EXECUTIVE S_TURF(20) ///turf/simulated/floor/carpet/executive
+#define SMOOTH_GROUP_CARPET_STELLAR S_TURF(21) ///turf/simulated/floor/carpet/stellar
+#define SMOOTH_GROUP_CARPET_DONK S_TURF(22) ///turf/simulated/floor/carpet/donk
+#define SMOOTH_GROUP_CARPET_NEON S_TURF(23) //![turf/simulated/floor/carpet/neon]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON S_TURF(24) //![turf/simulated/floor/carpet/neon/simple]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_WHITE S_TURF(25) //![turf/simulated/floor/carpet/neon/simple/white]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLACK S_TURF(26) //![turf/simulated/floor/carpet/neon/simple/black]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_RED S_TURF(27) //![turf/simulated/floor/carpet/neon/simple/red]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE S_TURF(28) //![turf/simulated/floor/carpet/neon/simple/orange]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_YELLOW S_TURF(29) //![turf/simulated/floor/carpet/neon/simple/yellow]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_LIME S_TURF(30) //![turf/simulated/floor/carpet/neon/simple/lime]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_GREEN S_TURF(31) //![turf/simulated/floor/carpet/neon/simple/green]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_TEAL S_TURF(32) //![turf/simulated/floor/carpet/neon/simple/teal]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_CYAN S_TURF(33) //![turf/simulated/floor/carpet/neon/simple/cyan]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLUE S_TURF(34) //![turf/simulated/floor/carpet/neon/simple/blue]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PURPLE S_TURF(35) //![turf/simulated/floor/carpet/neon/simple/purple]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_VIOLET S_TURF(36) //![turf/simulated/floor/carpet/neon/simple/violet]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PINK S_TURF(37) //![turf/simulated/floor/carpet/neon/simple/pink]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_NODOTS S_TURF(38) //![turf/simulated/floor/carpet/neon/simple/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_WHITE_NODOTS S_TURF(39) //![turf/simulated/floor/carpet/neon/simple/white/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLACK_NODOTS S_TURF(40) //![turf/simulated/floor/carpet/neon/simple/black/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_RED_NODOTS S_TURF(41) //![turf/simulated/floor/carpet/neon/simple/red/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_ORANGE_NODOTS S_TURF(42) //![turf/simulated/floor/carpet/neon/simple/orange/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_YELLOW_NODOTS S_TURF(43) //![turf/simulated/floor/carpet/neon/simple/yellow/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_LIME_NODOTS S_TURF(44) //![turf/simulated/floor/carpet/neon/simple/lime/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_GREEN_NODOTS S_TURF(45) //![turf/simulated/floor/carpet/neon/simple/green/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_TEAL_NODOTS S_TURF(46) //![turf/simulated/floor/carpet/neon/simple/teal/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_CYAN_NODOTS S_TURF(47) //![turf/simulated/floor/carpet/neon/simple/cyan/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_BLUE_NODOTS S_TURF(48) //![turf/simulated/floor/carpet/neon/simple/blue/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PURPLE_NODOTS S_TURF(49) //![turf/simulated/floor/carpet/neon/simple/purple/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_VIOLET_NODOTS S_TURF(50) //![turf/simulated/floor/carpet/neon/simple/violet/nodots]
+#define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PINK_NODOTS S_TURF(51) //![turf/simulated/floor/carpet/neon/simple/pink/nodots]
+#define SMOOTH_GROUP_BAMBOO_FLOOR S_TURF(52) //![/turf/simulated/floor/bamboo]
 
 #define SMOOTH_GROUP_CLOSED_TURFS S_TURF(53) ///turf/closed
-#define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(54) ///turf/closed/wall/material
-#define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(55) ///turf/closed/wall/r_wall/syndicate, /turf/closed/indestructible/syndicate
+#define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(54) ///turf/simulated/wall/material
+#define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(55) ///turf/simulated/wall/r_wall/syndicate, /turf/closed/indestructible/syndicate
 #define SMOOTH_GROUP_HOTEL_WALLS S_TURF(56) ///turf/closed/indestructible/hotelwall
 #define SMOOTH_GROUP_MINERAL_WALLS S_TURF(57) ///turf/closed/mineral, /turf/closed/indestructible
 #define SMOOTH_GROUP_BOSS_WALLS S_TURF(58) ///turf/closed/indestructible/riveted/boss
-#define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(59) ///turf/closed/wall/mineral/titanium/survival
-#define SMOOTH_GROUP_TURF_OPEN_CLIFF S_TURF(60) ///turf/open/cliff
+#define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(59) ///turf/simulated/wall/mineral/titanium/survival
+#define SMOOTH_GROUP_FLOOR_CLIFF S_TURF(60) ///turf/simulated/cliff
 
 #define MAX_S_TURF 60 //Always match this value with the one above it.
 
 #define S_OBJ(num) ("-" + #num + ",")
 /* /obj included */
 
-#define SMOOTH_GROUP_WALLS S_OBJ(1) ///turf/closed/wall, /obj/structure/falsewall
-#define SMOOTH_GROUP_URANIUM_WALLS S_OBJ(2) ///turf/closed/wall/mineral/uranium, /obj/structure/falsewall/uranium
-#define SMOOTH_GROUP_GOLD_WALLS S_OBJ(3) ///turf/closed/wall/mineral/gold, /obj/structure/falsewall/gold
-#define SMOOTH_GROUP_SILVER_WALLS S_OBJ(4) ///turf/closed/wall/mineral/silver, /obj/structure/falsewall/silver
-#define SMOOTH_GROUP_DIAMOND_WALLS S_OBJ(5) ///turf/closed/wall/mineral/diamond, /obj/structure/falsewall/diamond
-#define SMOOTH_GROUP_PLASMA_WALLS S_OBJ(6) ///turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma
-#define SMOOTH_GROUP_BANANIUM_WALLS S_OBJ(7) ///turf/closed/wall/mineral/bananium, /obj/structure/falsewall/bananium
-#define SMOOTH_GROUP_SANDSTONE_WALLS S_OBJ(8) ///turf/closed/wall/mineral/sandstone, /obj/structure/falsewall/sandstone
-#define SMOOTH_GROUP_WOOD_WALLS S_OBJ(9) ///turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood
-#define SMOOTH_GROUP_IRON_WALLS S_OBJ(10) ///turf/closed/wall/mineral/iron, /obj/structure/falsewall/iron
-#define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(11) ///turf/closed/wall/mineral/abductor, /obj/structure/falsewall/abductor
-#define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(12) ///turf/closed/wall/mineral/titanium, /obj/structure/falsewall/titanium
-#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(14) ///turf/closed/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
-#define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(15) ///turf/closed/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
+#define SMOOTH_GROUP_WALLS S_OBJ(1) ///turf/simulated/wall, /obj/structure/falsewall
+#define SMOOTH_GROUP_URANIUM_WALLS S_OBJ(2) ///turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium
+#define SMOOTH_GROUP_GOLD_WALLS S_OBJ(3) ///turf/simulated/wall/mineral/gold, /obj/structure/falsewall/gold
+#define SMOOTH_GROUP_SILVER_WALLS S_OBJ(4) ///turf/simulated/wall/mineral/silver, /obj/structure/falsewall/silver
+#define SMOOTH_GROUP_DIAMOND_WALLS S_OBJ(5) ///turf/simulated/wall/mineral/diamond, /obj/structure/falsewall/diamond
+#define SMOOTH_GROUP_PLASMA_WALLS S_OBJ(6) ///turf/simulated/wall/mineral/plasma, /obj/structure/falsewall/plasma
+#define SMOOTH_GROUP_BANANIUM_WALLS S_OBJ(7) ///turf/simulated/wall/mineral/bananium, /obj/structure/falsewall/bananium
+#define SMOOTH_GROUP_SANDSTONE_WALLS S_OBJ(8) ///turf/simulated/wall/mineral/sandstone, /obj/structure/falsewall/sandstone
+#define SMOOTH_GROUP_WOOD_WALLS S_OBJ(9) ///turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood
+#define SMOOTH_GROUP_IRON_WALLS S_OBJ(10) ///turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron
+#define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(11) ///turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor
+#define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(12) ///turf/simulated/wall/mineral/titanium, /obj/structure/falsewall/titanium
+#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(14) ///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
+#define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(15) ///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(16) ///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
-#define SMOOTH_GROUP_BAMBOO_WALLS S_TURF(17) //![/turf/closed/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]
+#define SMOOTH_GROUP_BAMBOO_WALLS S_TURF(17) //![/turf/simulated/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]
 #define SMOOTH_GROUP_PLASTINUM_WALLS S_TURF(18) //![turf/closed/indestructible/riveted/plastinum]
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(21) ///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe

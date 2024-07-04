@@ -3,8 +3,10 @@
 	desc = "Don't jump on it... Or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "unsmooth"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor/glass, /turf/simulated/floor/glass/reinforced, /turf/simulated/floor/glass/plasma, /turf/simulated/floor/glass/reinforced/plasma)
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "glass"
+	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
+	smoothing_groups = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	light_power = 0.25
 	light_range = 2
 	keep_dir = FALSE
@@ -173,6 +175,7 @@
 	name = "plasma glass floor"
 	desc = "Wait, was space always that color?"
 	icon = 'icons/turf/floors/plasmaglass.dmi'
+	base_icon_state = "plasmaglass"
 	thermal_conductivity = 0.030
 	heat_capacity = 32000
 
@@ -180,6 +183,7 @@
 	name = "reinforced plasma glass floor"
 	desc = "For when you REALLY don't want your floor choice to suffocate everyone."
 	icon = 'icons/turf/floors/reinf_plasmaglass.dmi'
+	base_icon_state = "reinf_plasmaglass"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
@@ -187,6 +191,7 @@
 	name = "titanium glass floor"
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
+	base_icon_state = "titaniumglass"
 	canSmoothWith = list(/turf/simulated/floor/glass/titanium, /turf/simulated/floor/glass/titanium/plasma)
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
@@ -195,6 +200,7 @@
 /turf/simulated/floor/glass/titanium/plasma
 	name = "plastitanium glass floor"
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
+	base_icon_state = "plastitaniumglass"
 
 /turf/simulated/floor/glass/airless
 	temperature = TCMB
