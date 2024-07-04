@@ -296,7 +296,8 @@
 
 	var/old_baseturf = baseturf
 
-	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path)
+	var/list/post_change_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, post_change_callbacks)
 
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
@@ -312,6 +313,9 @@
 		LAZYOR(W.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
 		LAZYOR(W.signal_procs, old_signal_procs)
+
+	for(var/datum/callback/callback as anything in post_change_callbacks)
+		callback.InvokeAsync(W)
 
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf

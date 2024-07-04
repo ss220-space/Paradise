@@ -55,7 +55,7 @@
 	return TRUE
 
 /turf/simulated/floor/plating/lava/is_safe()
-	if(find_safeties() && ..())
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
@@ -63,10 +63,10 @@
 	. = FALSE
 
 	if(locate(/obj/vehicle/lavaboat) in src.contents)
-		return FALSE
+		return .
 
-	if(find_safeties())
-		return FALSE
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)
@@ -206,8 +206,9 @@
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE
-	if(find_safeties())
-		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)
