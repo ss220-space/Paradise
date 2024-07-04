@@ -242,7 +242,6 @@
 	// Mover deleted from Cross/CanPass/Bump, do not proceed.
 	if(QDELETED(mover))
 		return FALSE
-
 	// Even if mover is unstoppable they need to bump us.
 	if(!can_pass_self)
 		tompost_bump = src
@@ -250,7 +249,8 @@
 		mover.Bump(tompost_bump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-  
+
+
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1 && O.initialized) // Only do this if the object has initialized

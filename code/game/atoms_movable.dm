@@ -531,7 +531,7 @@
 	for(var/atom/movable/movable in oldloc.contents)
 		movable.Uncrossed(src)
 	if(oldarea != newarea)
-		oldarea.Exited(src, newarea)
+		oldarea.Exited(src)
 
 	if(new_locs) // Same here, only if multi-tile.
 		for(var/atom/entered_loc as anything in (new_locs - old_locs))
@@ -541,7 +541,7 @@
 	for(var/atom/movable/movable in (newloc.contents - src))
 		movable.Crossed(src, oldloc)
 	if(oldarea != newarea)
-		newarea.Entered(src, oldarea)
+		newarea.Entered(src)
 
 	RESOLVE_ACTIVE_MOVEMENT
 
@@ -849,7 +849,7 @@
 				for(var/atom/movable/movable in (destination.contents - src))
 					movable.Crossed(src, oldloc)
 				if(destarea && old_area != destarea)
-					destarea.Entered(src, old_area)
+					destarea.Entered(src)
 
 		. = TRUE
 
