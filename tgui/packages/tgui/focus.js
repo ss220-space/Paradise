@@ -10,7 +10,7 @@
  * Moves focus to the BYOND map window.
  */
 export const focusMap = () => {
-  Byond.winset('paramapwindow.map', {
+  Byond.winset('mapwindow.map', {
     focus: true,
   });
 };
