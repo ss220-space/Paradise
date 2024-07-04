@@ -50,7 +50,7 @@
 		"--ignore-revs-file",
 		"${workspaceRoot}/.git-blame-ignore-revs"
 	],
-	"wokbench.editorAssociations": {
+	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
 	}
 }
