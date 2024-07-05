@@ -309,7 +309,7 @@
 
 /obj/effect/proc_holder/spell/trigger/blind
 	name = "Blind"
-	desc = "Это заклинание временно ослепляет окружающих вас людей. Для него не требуется роба."
+	desc = "Это заклинание временно ослепляет окружающих вас людей."
 	school = "transmutation"
 	action_icon_state = "blind"
 	clothes_req = FALSE
