@@ -574,6 +574,7 @@
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
 	canSmoothWith = SMOOTH_GROUP_WOOD_TABLES
+	smoothing_groups = SMOOTH_GROUP_WOOD_TABLES
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
