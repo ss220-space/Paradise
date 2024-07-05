@@ -119,7 +119,9 @@
 	canSmoothWith = SMOOTH_GROUP_BOSS_WALLS
 	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "boss_wall"
+	smoothing_groups = SMOOTH_GROUP_BOSS_WALLS
 
 /turf/simulated/wall/indestructible/boss/see_through
 	opacity = FALSE
@@ -129,21 +131,31 @@
 	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_TRUE
+	base_icon_state = "hierophant_wall"
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_HIERO_WALL
+	canSmoothWith = SMOOTH_GROUP_HIERO_WALL
 
 /turf/simulated/wall/indestructible/uranium
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
-	smooth = SMOOTH_TRUE
+	base_icon_state = "uranium_wall"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
+	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 
 /turf/simulated/wall/indestructible/metal
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_TRUE
+	base_icon_state = "wall"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smoothing_groups = SMOOTH_GROUP_WALLS
+
 
 /turf/simulated/wall/indestructible/abductor
 	name = "alien wall"
@@ -170,9 +182,10 @@
 	name = "snow wall"
 	icon = 'icons/turf/walls/snow_wall.dmi'
 	icon_state = "snow"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = SMOOTH_GROUP_WALLS
-	smoothing_groups = SMOOTH_GROUP_WALLS
+	base_icon_state = "snow_wall"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WALLS_SNOW
+	smoothing_groups = SMOOTH_GROUP_WALLS_SNOW
 
 /turf/simulated/wall/indestructible/gingerbread
 	name = "gingerbread wall"
@@ -199,6 +212,7 @@
 	desc = "A wall with sandstone plating."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
+	base_icon_state = "sandstone_wall"
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALLS
 	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALLS
@@ -209,6 +223,7 @@
 	desc = "A wall with rough metal plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron"
+	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smoothing_groups = SMOOTH_GROUP_WALLS
@@ -219,6 +234,7 @@
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium"
+	base_icon_state = "bananium_wall"
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_BANANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_BANANIUM_WALLS
@@ -229,12 +245,16 @@
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_CULT_WALLS
+	smoothing_groups = SMOOTH_GROUP_CULT_WALLS
 
 
 /turf/simulated/wall/indestructible/mineral_rock
 	name = "rock"
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
 	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS

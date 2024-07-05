@@ -17,12 +17,15 @@
 	desc = "Looks like some kind of thick wax."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
 	icon_state = "wall"
+	base_icon_state = "wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
 	canSmoothWith = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	max_integrity = 30
-	smooth = SMOOTH_TRUE
+	smoothing_groups = SMOOTH_GROUP_WRYN_WAX
+	smooth = SMOOTH_BITMASK
+
 
 /obj/structure/wryn/wax/Initialize()
 	if(usr)

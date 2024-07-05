@@ -163,6 +163,7 @@
 	name = "reinforced glass floor"
 	desc = "Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
+	base_icon_state = "reinf_glass"
 	thermal_conductivity = 0.035
 	heat_capacity = 1600
 	explosion_vertical_block = 1

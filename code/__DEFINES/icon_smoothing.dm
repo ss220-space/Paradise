@@ -166,8 +166,11 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(14) ///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(15) ///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(16) ///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
-#define SMOOTH_GROUP_BAMBOO_WALLS S_TURF(17) //![/turf/simulated/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]
-#define SMOOTH_GROUP_PLASTINUM_WALLS S_TURF(18) //![turf/closed/indestructible/riveted/plastinum]
+#define SMOOTH_GROUP_BAMBOO_WALLS S_OBJ(17) //![/turf/simulated/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]
+#define SMOOTH_GROUP_PLASTINUM_WALLS S_OBJ(18) //![turf/closed/indestructible/riveted/plastinum]
+#define SMOOTH_GROUP_HIERO_FLOOR S_OBJ(19)
+#define SMOOTH_GROUP_HIERO_VORTEX S_OBJ(20)
+
 
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(21) ///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 
@@ -217,7 +220,11 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_WRYN_WAX S_OBJ(77) // /obj/structure/wryn/wax/wall
 #define SMOOTH_GROUP_WRYN_WAX_WALL S_OBJ(78) // /obj/structure/wryn/wax/wall
 #define SMOOTH_GROUP_WRYN_WAX_WINDOW S_OBJ(79) // /obj/structure/wryn/wax/window
-#define SMOOTH_GROUP_BEACH S_OBJ(80) // /obj/structure/wryn/wax/window
+#define SMOOTH_GROUP_BEACH S_OBJ(80)
+#define SMOOTH_GROUP_WALLS_SNOW S_OBJ(81)
+#define SMOOTH_GROUP_CLOCKWORK_WALLS S_OBJ(82)
+#define SMOOTH_GROUP_RIPPLE S_OBJ(83)
+#define SMOOTH_GROUP_CULT_WALLS S_OBJ(84)
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.

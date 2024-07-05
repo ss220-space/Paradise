@@ -12,6 +12,7 @@
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
+	base_icon_state = "wall"
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -25,7 +26,7 @@
 	max_integrity = 100
 
 	canSmoothWith = SMOOTH_GROUP_WALLS
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
@@ -104,7 +105,7 @@
 /obj/structure/falsewall/update_icon_state()
 	if(density)
 		icon_state = initial(icon_state)
-		smooth = SMOOTH_TRUE
+		smooth = SMOOTH_BITMASK
 		queue_smooth(src)
 	else
 		icon_state = "fwall_open"
@@ -363,28 +364,32 @@
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle"
+	base_icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "shuttle"
+	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
-	smooth = SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	base_icon_state = "clockwork_wall"
 	icon_state = "clockwork_wall"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/sheet/brass
@@ -396,7 +401,7 @@
 	icon_state = "clockwork_wall"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	canSmoothWith = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/fake/displaced
 	walltype = /turf/simulated/wall/clockwork/fake
 	mineral = /obj/item/stack/sheet/brass_fake

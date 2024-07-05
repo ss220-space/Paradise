@@ -17,6 +17,7 @@
 	desc = "A square piece of metal standing on four metal legs. It can not move."
 	icon = 'icons/obj/smooth_structures/table.dmi'
 	icon_state = "table"
+	base_icon_state = "table"
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
@@ -24,7 +25,8 @@
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_TABLES
 	canSmoothWith = SMOOTH_GROUP_TABLES
 	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
@@ -565,6 +567,7 @@
 	name = "wooden table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
+	base_icon_state = "wood_table"
 	icon_state = "wood_table"
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
@@ -669,6 +672,7 @@
 	desc = "A reinforced version of the four legged table."
 	icon = 'icons/obj/smooth_structures/reinforced_table.dmi'
 	icon_state = "r_table"
+	base_icon_state = "reinforced_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
 	canSmoothWith = SMOOTH_GROUP_TABLES
@@ -735,6 +739,8 @@
 	desc = "A small metal tray with wheels."
 	anchored = FALSE
 	smooth = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium

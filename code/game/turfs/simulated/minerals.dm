@@ -185,7 +185,7 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	smooth = SMOOTH_BITMASK
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER

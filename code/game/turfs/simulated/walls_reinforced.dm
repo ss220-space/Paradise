@@ -243,8 +243,8 @@
 		smooth = NONE
 		clear_smooth_overlays()
 	else
-		smooth = SMOOTH_TRUE
-		icon_state = ""
+		smooth = SMOOTH_BITMASK
+		queue_smooth(src)
 
 
 /turf/simulated/wall/r_wall/devastate_wall()

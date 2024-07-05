@@ -49,12 +49,14 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
 	canSmoothWith = SMOOTH_GROUP_ALIEN_RESIN
+	smoothing_groups = SMOOTH_GROUP_ALIEN_RESIN
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()

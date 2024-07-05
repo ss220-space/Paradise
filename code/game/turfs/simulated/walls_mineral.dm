@@ -17,7 +17,11 @@
 	icon_state = "gold"
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	explosion_block = 0 //gold is a soft metal you dingus.
+	base_icon_state = "gold_wall"
 	canSmoothWith = SMOOTH_GROUP_GOLD_WALLS
+	smoothing_groups = SMOOTH_GROUP_GOLD_WALLS
+	smooth = SMOOTH_BITMASK
+
 
 /turf/simulated/wall/mineral/silver
 	name = "silver wall"
@@ -25,7 +29,10 @@
 	icon = 'icons/turf/walls/silver_wall.dmi'
 	icon_state = "silver"
 	sheet_type = /obj/item/stack/sheet/mineral/silver
+	base_icon_state = "silver_wall"
 	canSmoothWith = SMOOTH_GROUP_SILVER_WALLS
+	smoothing_groups = SMOOTH_GROUP_SILVER_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/diamond
 	name = "diamond wall"
@@ -34,7 +41,10 @@
 	icon_state = "diamond"
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	explosion_block = 3
+	base_icon_state = "diamond_wall"
 	canSmoothWith = SMOOTH_GROUP_DIAMOND_WALLS
+	smoothing_groups = SMOOTH_GROUP_DIAMOND_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
@@ -44,6 +54,8 @@
 	base_icon_state = "bananium_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	canSmoothWith = SMOOTH_GROUP_BANANIUM_WALLS
+	smoothing_groups = SMOOTH_GROUP_BANANIUM_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"
@@ -52,7 +64,10 @@
 	icon_state = "sandstone"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	explosion_block = 0
+	base_icon_state = "sandstone_wall"
 	canSmoothWith = SMOOTH_GROUP_SANDSTONE_WALLS
+	smoothing_groups = SMOOTH_GROUP_SANDSTONE_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/uranium
 	name = "uranium wall"
@@ -60,7 +75,10 @@
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
+	base_icon_state = "uranium_wall"
 	canSmoothWith = SMOOTH_GROUP_URANIUM_WALLS
+	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
+	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
@@ -77,7 +95,9 @@
 	icon_state = "plasma"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
+	base_icon_state = "plasma_wall"
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
+	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
@@ -137,6 +157,7 @@
 	base_icon_state = "wood_wall"
 	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
 	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
+	smooth = SMOOTH_BITMASK
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
@@ -188,7 +209,9 @@
 	icon_state = "gingerbread"
 	sheet_amount = 5
 	sheet_type = /obj/item/stack/sheet/gingerbread
+	base_icon_state = "gingerbread_wall"
 	canSmoothWith = SMOOTH_GROUP_WALL_GINGERBREAD
+	smoothing_groups = SMOOTH_GROUP_WALL_GINGERBREAD
 
 /////////////////////Titanium walls/////////////////////
 
@@ -244,6 +267,7 @@
 	desc = "An easily-compressable wall used for temporary shelter."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
+	base_icon_state = "survival_pod_walls"
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK
 	smoothing_groups = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS

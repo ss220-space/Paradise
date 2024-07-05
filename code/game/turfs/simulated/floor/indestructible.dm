@@ -84,6 +84,7 @@
 	name = "necropolis floor"
 	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "boss"
+	smooth = SMOOTH_FALSE
 	baseturf = /turf/simulated/floor/indestructible/boss
 	oxygen = 14
 	nitrogen = 23
@@ -104,11 +105,14 @@
 	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
+	base_icon_state = "hierophant_floor"
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_HIERO_FLOOR
+	smoothing_groups = SMOOTH_GROUP_HIERO_FLOOR
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
@@ -123,8 +127,10 @@
 	name = "Carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "carpet"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_CARPET
+	smoothing_groups = SMOOTH_GROUP_CARPET
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
@@ -183,11 +189,12 @@
 	var/water_overlay_icon = 'icons/misc/beach.dmi'
 	var/water_overlay_icon_state = null
 	var/water_overlay_smooth = NONE
+	var/water_overlay_base_icon_state = null
 
 /turf/simulated/floor/indestructible/beach/Initialize(mapload)
 	. = ..()
 	if(water_overlay_icon_state || water_overlay_icon != 'icons/misc/beach.dmi')
-		water_overlay = new(src, water_overlay_icon, water_overlay_icon_state, water_overlay_smooth)
+		water_overlay = new(src, water_overlay_icon, water_overlay_icon_state, water_overlay_smooth, water_overlay_base_icon_state)
 
 /turf/simulated/floor/indestructible/beach/Destroy()
 	QDEL_NULL(water_overlay)
@@ -268,8 +275,10 @@
 	icon = 'icons/turf/floors/seadrop.dmi'
 	icon_state = "seadrop"
 	water_overlay_icon = 'icons/turf/floors/seadrop-o.dmi'
-	water_overlay_smooth = SMOOTH_TRUE
-	smooth = SMOOTH_TRUE
+	water_overlay_smooth = SMOOTH_BITMASK
+	water_overlay_base_icon_state = "seadrop-o"
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "seadrop"
 	canSmoothWith = SMOOTH_GROUP_BEACH
 	smoothing_groups = SMOOTH_GROUP_BEACH
 
@@ -311,10 +320,11 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 
-/obj/effect/beach_water_overlay/Initialize(mapload, new_icon, new_icon_state, new_smooth)
+/obj/effect/beach_water_overlay/Initialize(mapload, new_icon, new_icon_state, new_smooth, new_base_icon_state)
 	icon = new_icon
 	icon_state = new_icon_state
 	smooth = new_smooth
+	base_icon_state = new_base_icon_state
 	if(smooth)
 		canSmoothWith = SMOOTH_GROUP_BEACH
 	. = ..()

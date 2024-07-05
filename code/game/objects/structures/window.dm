@@ -683,10 +683,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
+	base_icon_state = "window"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	cancolor = TRUE
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -926,8 +928,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
@@ -937,8 +941,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockworkfake/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
