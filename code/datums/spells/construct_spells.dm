@@ -116,7 +116,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall
 	name = "Shield"
-	desc = "Это заклинание создаёт временную силовую стену. Неплохое укрытие для вас и ваших союзников."
+	desc = "Это заклинание ненадолго создаёт силовую стену. Неплохое укрытие для вас и ваших союзников."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "transmutation"
