@@ -41,7 +41,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/wall
 	name = "Summon Cult Wall"
-	desc = "Это заклинание создаст пол культа."
+	desc = "Это заклинание создаст стену культа."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
