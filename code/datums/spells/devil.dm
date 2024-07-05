@@ -137,7 +137,7 @@
 				ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 				user.infernalphaseout(src)
 			else
-				to_chat(user,"<span class='warning'>При выходе вы должны оставаться неподвижным.</span>")
+				to_chat(user,"<span class='warning'>Вы должны оставаться неподвижным для воплощения.</span>")
 				user.ExtinguishMob()
 		cooldown_handler.start_recharge()
 		return
