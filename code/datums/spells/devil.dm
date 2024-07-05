@@ -132,7 +132,7 @@
 				return ..()
 		else
 			user.fakefire()
-			to_chat(user,"<span class='warning'>Вы начинаете постепенно растворяетесь в пламени греха.</span>")
+			to_chat(user,"<span class='warning'>Вы начинаете постепенно растворяться в пламени греха.</span>")
 			if(do_after(user, 15 SECONDS, user, NONE))
 				ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 				user.infernalphaseout(src)
