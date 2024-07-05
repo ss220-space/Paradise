@@ -49,7 +49,7 @@
 
 	if(phylactery_made) //Death is not my end!
 		if(iscarbon(user) && !user.stat)
-			to_chat(user, span_notice("Вы недостаточно мёртвы, чтобы воскреснуть!"))	//Usually a good problem to have
+			to_chat(user, span_notice("Вы недостаточно мертвы, чтобы воскреснуть!"))	//Usually a good problem to have
 			cooldown_handler.revert_cast()
 			return
 

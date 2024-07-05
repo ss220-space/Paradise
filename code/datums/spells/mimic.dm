@@ -170,7 +170,7 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] трясется, корчится и превращается в [new_name]!"), \
+	user.visible_message(span_warning("[old_name] трясётся, корчится и превращается в [new_name]!"), \
 						span_sinister("Вы возвращаетесь к своей обычной форме."), \
 						span_italics("Вы слышите громкий треск!"))
 
@@ -189,7 +189,7 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/show_death_message(mob/user)
-	user.visible_message(span_warning("[user] трясется и корчится, в то время как [user.p_they()] умирает, принимая истинную форму!"), \
+	user.visible_message(span_warning("[user] трясётся и корчится, в то время как [user.p_they()] умирает, принимая истинную форму!"), \
 						span_deadsay("Ваша маскировка спадает по мере угасания ваших жизненных сил."), \
 						span_italics("Вы слышите громкий треск, за которым следует глухой удар!"))
 
@@ -251,7 +251,7 @@
 
 /obj/effect/proc_holder/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
 	user.visible_message(span_warning("[old_name] внезапно сворачивается сам в себя, превращаясь в груду зеленой плоти!"), \
-						span_notice("Ты принимаешь форму своего обычного тела."))
+						span_notice("Ты принимаешь свою обычную форму."))
 
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)

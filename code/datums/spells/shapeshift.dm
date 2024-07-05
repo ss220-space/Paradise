@@ -98,7 +98,7 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
-	caster.visible_message("<span class='danger'>[caster] кричит в агонии из-за костей и когтей вырывающихся из их плоти!</span>",
+	caster.visible_message("<span class='danger'>[caster] кричит в агонии из-за костей и когтей, вырывающихся из плоти!</span>",
 		"<span class='danger'>Вы начинаете трансформацию.</span>")
 	if(!do_after(caster, 5 SECONDS, caster, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(caster, "<span class='warning'>Вы теряете концентрацию на заклинании!</span>")
@@ -127,7 +127,7 @@
 	invocation_type = "none"
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "glare"
-	gain_desc = "Вы получили возможность превращаться в меньшую Адскую гончую. Это боевая форма с различными способностями, выносливая, но не неуязвимая. Со временем она может восстанавливаться."
+	gain_desc = "Вы получили возможность превращаться в меньшую адскую гончую. Это боевая форма с различными способностями, выносливая, но не неуязвимая. Она имеет медленную регенерацию."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
-	desc = "Метает молнии в ваших врагов. Классика. При нажатии начнёт накапливаться энергия. Затем нажмите на цель, чтобы отправить заряд до того, как он перегрузится."
+	desc = "Классика. Метает молнии в ваших врагов. При нажатии начнёт накапливаться энергия. Нажмите на цель, чтобы отправить заряд до того, как он перегрузится."
 	base_cooldown = 30 SECONDS
 	cooldown_min = 3 SECONDS
 	clothes_req = TRUE
@@ -10,7 +10,7 @@
 	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS
 	stop_charging_text = "Вы перестаёте заряжать молнию."
-	stop_charging_fail_text = "Молния слишком сильна!"
+	stop_charging_fail_text = "Молния слишком сильна, заряд не удержать!"
 	start_charging_text = "Вы начинаете заряжать молнию."
 	bounce_hit_sound = 'sound/magic/lightningshock.ogg'
 	var/damaging = TRUE
