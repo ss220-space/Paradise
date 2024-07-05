@@ -998,22 +998,22 @@
 	return ..()
 
 /obj/machinery/alarm/AltClick(mob/user)
-	if(isliving(user))
-		unlocking(user)
+	if(isliving(user) && buildstage == AIR_ALARM_READY)
+		if(Adjacent(user, src))
+			unlocking(user)
 	else
 		. = ..()
 
 /obj/machinery/alarm/proc/unlocking(mob/user)
-	if(Adjacent(user, src))
-		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
-			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
-			update_icon()
-			SStgui.update_uis(src)
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+	if(HAS_TRAIT(user, TRAIT_INCAPACITATED) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
+		update_icon()
+		SStgui.update_uis(src)
 	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
 
