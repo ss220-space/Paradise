@@ -214,8 +214,9 @@
 	drop_z = z - 1
 	var/turf/T = locate(drop_x, drop_y, drop_z)
 	if(T)
-		T.visible_message(span_boldwarning("The ceiling gives way!"))
-		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
+		var/turf/C = locate(T.x, T.y, z)
+		C.visible_message(span_boldwarning("The ceiling gives way!"))
+		playsound(C, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = 14
