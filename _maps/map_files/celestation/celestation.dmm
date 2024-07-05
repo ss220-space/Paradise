@@ -570,7 +570,7 @@
 	},
 /area/security/permabrig)
 "agl" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/asmaint2)
 "agm" = (
@@ -755,7 +755,7 @@
 	},
 /area/maintenance/perma)
 "ahR" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -1048,7 +1048,8 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 5
 	},
 /area/security/interrogation)
 "akk" = (
@@ -1171,7 +1172,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 8
 	},
 /area/security/interrogation)
 "alc" = (
@@ -1239,7 +1241,8 @@
 	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "alt" = (
@@ -1428,7 +1431,7 @@
 /area/hallway/primary/fore)
 "amX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -1888,7 +1891,7 @@
 /area/hallway/primary/central)
 "aqS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -2706,7 +2709,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "axJ" = (
@@ -3086,6 +3089,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
 "aAD" = (
@@ -3604,7 +3608,6 @@
 "aFa" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
-/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -4216,7 +4219,7 @@
 /area/maintenance/fsmaint2)
 "aKx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/engmed)
 "aKC" = (
@@ -4240,7 +4243,7 @@
 	},
 /area/hallway/secondary/exit)
 "aKH" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/cargo)
 "aKJ" = (
@@ -4252,9 +4255,7 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "aKM" = (
 /obj/machinery/computer/rdconsole/core,
@@ -4374,7 +4375,7 @@
 	},
 /area/quartermaster/lobby)
 "aLC" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "aLJ" = (
@@ -5068,9 +5069,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/quartermaster/delivery)
 "aRE" = (
 /turf/simulated/floor/plating/airless,
@@ -5770,7 +5769,7 @@
 	},
 /area/security/medbay)
 "aWF" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -6293,7 +6292,7 @@
 	},
 /area/crew_quarters/fitness)
 "bae" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "bag" = (
@@ -6561,7 +6560,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/port2)
 "bbD" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bbG" = (
@@ -6973,7 +6972,7 @@
 /area/medical/chemistry)
 "beA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/starboard)
 "beE" = (
@@ -7715,7 +7714,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/kitchen)
 "bji" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/cargo)
 "bjm" = (
@@ -9971,7 +9970,7 @@
 	},
 /area/hallway/primary/starboard/north)
 "bxd" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -10251,7 +10250,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/security/processing)
+/area/security/permahallway)
 "byI" = (
 /obj/machinery/gateway{
 	dir = 5
@@ -12057,7 +12056,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "bJe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -13447,7 +13446,7 @@
 /area/chapel/office)
 "bQY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "bRf" = (
@@ -13544,7 +13543,7 @@
 	},
 /area/atmos)
 "bRK" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "bRN" = (
@@ -14071,7 +14070,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "bUf" = (
@@ -15115,15 +15114,8 @@
 	},
 /area/maintenance/fsmaint2)
 "bZv" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/turf/simulated/openspace,
+/area/engine/gravitygenerator)
 "bZD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -15274,7 +15266,7 @@
 /area/crew_quarters/bar)
 "cav" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -16814,7 +16806,7 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced,
-/turf/space/openspace,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "clr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -17098,7 +17090,7 @@
 /area/hallway/secondary/exit)
 "cmX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -18467,7 +18459,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "cwh" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -18765,7 +18757,7 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "cyo" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/engmed)
 "cyp" = (
@@ -18828,6 +18820,9 @@
 "cyM" = (
 /obj/machinery/status_display{
 	pixel_x = 32
+	},
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -19242,10 +19237,10 @@
 	c_tag = "Docking Security Holding Area";
 	dir = 6
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 28
-	},
 /obj/machinery/atmospherics/pipe/multiz,
+/obj/machinery/newscaster/security_unit{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -19761,7 +19756,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/command)
 "cGE" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "cGG" = (
@@ -21011,7 +21006,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "cPW" = (
@@ -21200,7 +21196,7 @@
 /area/engine/break_room)
 "cQS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cQT" = (
@@ -24085,7 +24081,8 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "dok" = (
@@ -24702,7 +24699,7 @@
 /area/hallway/secondary/entry/south)
 "duO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "duQ" = (
@@ -25380,7 +25377,7 @@
 /area/construction/hallway)
 "dAA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "dAB" = (
@@ -26388,7 +26385,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "dKg" = (
@@ -26938,7 +26935,7 @@
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
 "dOW" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -27247,7 +27244,7 @@
 /area/medical/research)
 "dSg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "dSh" = (
@@ -27670,7 +27667,7 @@
 	},
 /area/medical/medbay)
 "dXS" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/asmaint5)
 "dXU" = (
@@ -28816,9 +28813,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "elQ" = (
 /obj/structure/railing/corner{
@@ -30168,7 +30163,7 @@
 /turf/space/openspace,
 /area/space)
 "ezt" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "ezz" = (
@@ -30523,16 +30518,10 @@
 "eDQ" = (
 /obj/structure/rack,
 /obj/item/weldingtool/largetank,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /obj/item/radio{
 	pixel_y = 6
 	},
-/obj/item/storage/toolbox/electrical,
 /obj/item/storage/belt/utility,
-/obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -30931,7 +30920,7 @@
 /area/teleporter/quantum/cargo)
 "eII" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -31008,7 +30997,7 @@
 	},
 /area/teleporter/quantum/comand)
 "eJl" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/arrival)
 "eJm" = (
@@ -32752,7 +32741,7 @@
 /area/hallway/primary/fore)
 "fcI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -32921,7 +32910,7 @@
 /area/teleporter/quantum/service)
 "fee" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -33214,7 +33203,7 @@
 /area/teleporter/quantum/science)
 "fhu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -34074,7 +34063,7 @@
 	},
 /area/turret_protected/ai)
 "fpG" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "fpH" = (
@@ -35625,8 +35614,7 @@
 "fFe" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/newscaster/security_unit{
-	dir = 1;
-	pixel_y = -28
+	pixel_y = -32
 	},
 /turf/simulated/floor/carpet{
 	icon = 'icons/turf/floors.dmi';
@@ -36618,7 +36606,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "fOr" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -39138,8 +39126,8 @@
 	},
 /area/medical/cmostore)
 "glV" = (
-/obj/effect/spawner/random_spawners/rock_75,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/arrival)
 "gmb" = (
@@ -39497,7 +39485,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/captain/bedroom)
 "gqp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -39534,7 +39522,7 @@
 	},
 /area/hallway/primary/port)
 "gqD" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -40542,7 +40530,7 @@
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/theatre)
 "gAy" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "gAD" = (
@@ -41314,7 +41302,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -41933,7 +41921,7 @@
 	},
 /area/hallway/primary/fore)
 "gNU" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -42155,7 +42143,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "gQj" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -42231,7 +42219,7 @@
 /area/atmos/distribution)
 "gQC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "gQG" = (
@@ -43751,7 +43739,7 @@
 	},
 /area/toxins/test_chamber)
 "hiG" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/sersec)
 "hiI" = (
@@ -43807,9 +43795,11 @@
 	},
 /area/toxins/mixing)
 "hjl" = (
-/obj/structure/holosign/barrier/atmos,
-/turf/space/openspace,
-/area/hallway/spacebridge/medcargo)
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "hjp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -44188,7 +44178,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "hmp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/engineering)
 "hmw" = (
@@ -44929,7 +44919,7 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 28
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -44937,7 +44927,7 @@
 	},
 /area/security/checkpoint)
 "htI" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -45116,7 +45106,7 @@
 	dir = 9;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "hwm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -45517,7 +45507,7 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "hzJ" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "hzX" = (
@@ -47071,7 +47061,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/security/processing)
+/area/security/permabrig)
 "hRg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -47278,7 +47268,7 @@
 	},
 /area/medical/virology)
 "hTr" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/fsmaint3)
 "hTw" = (
@@ -47705,13 +47695,18 @@
 /area/library)
 "hXE" = (
 /obj/structure/table,
-/obj/item/storage/box/evidence,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/item/storage/ashtray/glass{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+/obj/item/lighter,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -48758,7 +48753,7 @@
 	},
 /area/medical/virology/lab)
 "ilp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -49333,12 +49328,11 @@
 	},
 /area/hallway/secondary/entry/north)
 "iqf" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange{
-	icon_state = "0-4"
+/obj/structure/railing{
+	dir = 8
 	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/turf/simulated/floor/glass,
+/area/engine/gravitygenerator)
 "iqh" = (
 /obj/structure/table,
 /obj/item/twohanded/rcl/pre_loaded,
@@ -49361,7 +49355,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "iqr" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -49749,7 +49743,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/security/processing)
+/area/security/permahallway)
 "itk" = (
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -50413,7 +50407,7 @@
 	dir = 10;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "iAx" = (
 /obj/machinery/door_control{
 	id = "secmaintdorm2";
@@ -50823,8 +50817,7 @@
 /area/teleporter/quantum/engi)
 "iEo" = (
 /obj/machinery/newscaster/security_unit{
-	dir = 8;
-	pixel_x = 28
+	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
@@ -53103,15 +53096,11 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "jbi" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
+/obj/structure/railing{
+	dir = 4
 	},
-/obj/structure/cable/orange{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/turf/simulated/floor/glass,
+/area/engine/gravitygenerator)
 "jbk" = (
 /turf/simulated/floor/grass,
 /area/hydroponics)
@@ -53535,7 +53524,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/engmed)
 "jfk" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/engineering)
 "jfm" = (
@@ -53583,7 +53572,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "jfM" = (
@@ -54025,7 +54014,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "jke" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -54060,7 +54049,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "jkl" = (
 /obj/effect/landmark/start/doctor,
@@ -54626,7 +54615,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/glass,
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "jrw" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -55279,9 +55268,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "jxF" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "jxK" = (
@@ -55313,7 +55302,7 @@
 	dir = 4;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "jyf" = (
 /obj/machinery/computer/sm_monitor,
 /obj/machinery/status_display{
@@ -56507,7 +56496,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/captain/bedroom)
 "jLp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/command)
 "jLz" = (
@@ -58106,7 +58095,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "kdD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -58127,7 +58116,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "kdV" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -59193,7 +59182,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "kmX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -59489,7 +59478,7 @@
 /area/toxins/lab)
 "kqm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "kqo" = (
@@ -59637,7 +59626,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "ksi" = (
 /obj/effect/spawner/window/reinforced,
@@ -59733,7 +59722,7 @@
 /area/hallway/primary/starboard/south)
 "ksW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -59786,7 +59775,7 @@
 /area/security/processing)
 "ktv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "ktB" = (
@@ -59925,8 +59914,7 @@
 /area/security/brig)
 "kus" = (
 /obj/machinery/newscaster/security_unit{
-	dir = 8;
-	pixel_x = 28
+	pixel_x = 32
 	},
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
@@ -61013,9 +61001,7 @@
 /obj/structure/sign/custodian{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/quartermaster/delivery)
 "kEh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62338,7 +62324,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 5
 	},
 /area/security/interrogation)
 "kST" = (
@@ -62973,7 +62960,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/arcade)
 "kZp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -63150,7 +63137,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/glass,
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "laV" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -63362,7 +63349,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -64446,6 +64433,9 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -65233,7 +65223,7 @@
 /area/crew_quarters/locker)
 "lyk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/fsmaint3)
 "lyq" = (
@@ -66427,7 +66417,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/medical/virology/lab)
 "lLU" = (
 /obj/structure/flora/ausbushes/pointybush,
@@ -66935,7 +66925,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/engmed)
 "lSj" = (
@@ -68030,7 +68020,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/security/processing)
+/area/security/permahallway)
 "mdy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -68650,7 +68640,7 @@
 	req_access = list(19,23)
 	},
 /turf/simulated/floor/glass,
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "mjS" = (
 /obj/machinery/light{
 	dir = 8
@@ -70081,7 +70071,7 @@
 /area/toxins/explab_chamber)
 "mzj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/asmaint2)
 "mzk" = (
@@ -70933,8 +70923,11 @@
 /area/toxins/xenobiology)
 "mGD" = (
 /obj/structure/table/reinforced,
+/obj/item/folder/blue,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 4
 	},
 /area/security/interrogation)
 "mGG" = (
@@ -71170,7 +71163,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 1
 	},
 /area/security/interrogation)
 "mJm" = (
@@ -71566,6 +71560,12 @@
 	},
 /turf/simulated/floor/glass,
 /area/toxins/hallway)
+"mMw" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "mMG" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Service Asteroid Maintenance"
@@ -72182,7 +72182,7 @@
 	},
 /area/engine/chiefs_office)
 "mTJ" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "mTN" = (
@@ -72695,6 +72695,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "naw" = (
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
@@ -72860,7 +72861,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "nca" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -74278,6 +74279,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitered"
 	},
@@ -74739,9 +74741,7 @@
 	dir = 1;
 	id = "CargoTransfer"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "nva" = (
 /obj/structure/cable/orange,
@@ -75409,7 +75409,7 @@
 	},
 /area/crew_quarters/locker)
 "nBD" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "nBJ" = (
@@ -75801,7 +75801,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "nGV" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "nHb" = (
@@ -76225,8 +76225,8 @@
 	},
 /area/quartermaster/office)
 "nLc" = (
-/obj/effect/spawner/random_spawners/rock_75,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/command)
 "nLe" = (
@@ -76264,7 +76264,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/cargo)
 "nLw" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -76461,8 +76461,7 @@
 	network = list("SS13","Security")
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 1;
-	pixel_y = -28
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -76488,7 +76487,7 @@
 /area/chapel/office)
 "nOk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/atmospherics)
 "nOm" = (
@@ -76796,7 +76795,7 @@
 /area/library/game_zone)
 "nSW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -77188,9 +77187,17 @@
 	icon_state = "darkredcorners"
 	},
 /area/bridge)
+"nWz" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredalt"
+	},
+/area/security/interrogation)
 "nWR" = (
-/obj/effect/spawner/random_spawners/rock_75,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "nWU" = (
@@ -77431,6 +77438,11 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/fore)
+"nZl" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteyellow"
+	},
+/area/engine/gravitygenerator)
 "nZx" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4;
@@ -78245,7 +78257,7 @@
 	dir = 1;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "oic" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
@@ -78389,8 +78401,8 @@
 	},
 /area/hydroponics)
 "ojG" = (
-/obj/effect/spawner/random_spawners/rock_75,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/engineering)
 "ojK" = (
@@ -80139,6 +80151,7 @@
 	name = "Security Reception";
 	req_access = list(1)
 	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80675,9 +80688,7 @@
 	dir = 2;
 	req_access = list(50)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "oIc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -81694,7 +81705,8 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 9
 	},
 /area/security/interrogation)
 "oRW" = (
@@ -84830,9 +84842,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/quartermaster/delivery)
 "psQ" = (
 /obj/structure/table/wood,
@@ -84977,7 +84987,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -85445,7 +85455,7 @@
 	dir = 6;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "pzi" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -86605,7 +86615,7 @@
 /area/hallway/spacebridge/engmed)
 "pLw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "pLx" = (
@@ -87207,7 +87217,7 @@
 	},
 /area/medical/reception)
 "pSd" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -87345,7 +87355,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "pTS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -89141,7 +89151,7 @@
 /area/toxins/hallway)
 "qme" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
 "qmj" = (
@@ -89979,6 +89989,8 @@
 	name = "Security Blast Door"
 	},
 /obj/structure/window/reinforced,
+/obj/item/book/manual/security_space_law,
+/obj/item/book/manual/sop_legal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90542,9 +90554,7 @@
 	dir = 2;
 	req_access = list(50)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "qBl" = (
 /obj/structure/stairs{
@@ -91185,7 +91195,7 @@
 /area/hallway/secondary/entry)
 "qIq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -91693,6 +91703,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/openspace,
 /area/crew_quarters/kitchen)
+"qOi" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "qOm" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -91709,7 +91725,7 @@
 	},
 /area/quartermaster/storage)
 "qOp" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -91996,9 +92012,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "qRS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -92999,8 +93013,7 @@
 	},
 /obj/item/taperecorder,
 /obj/machinery/newscaster/security_unit{
-	dir = 8;
-	pixel_x = 28
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/lawoffice)
@@ -93300,7 +93313,7 @@
 	},
 /area/hallway/primary/fore)
 "rgf" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "rgJ" = (
@@ -93366,7 +93379,7 @@
 /area/atmos/control)
 "rhp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/port)
 "rhy" = (
@@ -93468,7 +93481,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 6
 	},
 /area/security/interrogation)
 "riq" = (
@@ -94048,7 +94062,7 @@
 	},
 /area/medical/cmostore)
 "roy" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -96235,7 +96249,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/engine/chiefs_office)
 "rMg" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/starboard)
 "rMm" = (
@@ -96687,7 +96701,7 @@
 	},
 /area/atmos)
 "rQo" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "rQq" = (
@@ -96739,7 +96753,7 @@
 	},
 /area/hallway/primary/starboard/south)
 "rRf" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -99486,7 +99500,7 @@
 "stU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "stV" = (
@@ -100469,7 +100483,7 @@
 /area/maintenance/turbine)
 "sEq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -100760,8 +100774,7 @@
 /area/lawoffice)
 "sGm" = (
 /obj/machinery/newscaster/security_unit{
-	dir = 8;
-	pixel_x = 28
+	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
@@ -100823,9 +100836,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "sGY" = (
 /obj/structure/cable/orange{
@@ -100920,7 +100931,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -100967,12 +100978,12 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "sIZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -101403,7 +101414,7 @@
 /turf/simulated/floor/plating,
 /area/aisat/atmospherics)
 "sMF" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/arrival)
 "sMH" = (
@@ -101411,6 +101422,12 @@
 	icon_state = "dark"
 	},
 /area/gateway)
+"sMK" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "sMN" = (
 /obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/plasteel{
@@ -101783,7 +101800,7 @@
 	},
 /area/hallway/secondary/exit)
 "sQc" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "sQf" = (
@@ -103940,6 +103957,15 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
+"tlY" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredalt";
+	dir = 4
+	},
+/area/security/interrogation)
 "tme" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -104986,7 +105012,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space/openspace,
-/area/space)
+/area/mine/unexplored/cere/orbiting)
 "tuE" = (
 /obj/machinery/field/generator,
 /obj/effect/decal/cleanable/dirt,
@@ -105111,7 +105137,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "tvP" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -105736,7 +105762,7 @@
 	},
 /area/crew_quarters/kitchen)
 "tCI" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -106182,7 +106208,7 @@
 	},
 /area/crew_quarters/locker)
 "tHa" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/port)
 "tHe" = (
@@ -106432,7 +106458,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "tJn" = (
@@ -107260,7 +107286,7 @@
 	},
 /area/hallway/primary/central)
 "tQO" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/medbay)
 "tQS" = (
@@ -108982,7 +109008,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "uii" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -108990,7 +109016,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
 "uio" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/hallway/secondary/exit)
 "uip" = (
@@ -109428,7 +109454,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/space/openspace,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "umR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -110950,7 +110976,7 @@
 	},
 /area/medical/research)
 "uCM" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "uCO" = (
@@ -110982,6 +111008,7 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_y = -36
 	},
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111063,6 +111090,7 @@
 	dir = 1;
 	pixel_y = -32
 	},
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -111843,7 +111871,7 @@
 /area/toxins/storage)
 "uLL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -111991,7 +112019,7 @@
 	dir = 8;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "uNm" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -113440,7 +113468,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/mine/unexplored/cere/orbiting)
 "vdz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
@@ -113452,7 +113480,7 @@
 	},
 /area/medical/medbay2)
 "vdB" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -113748,7 +113776,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "vgu" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -115693,6 +115721,12 @@
 	name = "Mechanic's Workshop Requests Console";
 	pixel_y = -32
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"
@@ -116054,7 +116088,7 @@
 /area/library)
 "vFt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "vFy" = (
@@ -116108,11 +116142,8 @@
 	},
 /area/hallway/primary/central)
 "vFX" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
+/obj/machinery/camera/autoname,
+/turf/simulated/openspace,
 /area/engine/gravitygenerator)
 "vGb" = (
 /obj/structure/disposalpipe/segment{
@@ -117733,8 +117764,8 @@
 /area/hallway/secondary/entry/south)
 "vXq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "vXt" = (
@@ -118014,7 +118045,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "wab" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/command)
 "wac" = (
@@ -119121,7 +119152,7 @@
 /area/hallway/primary/central/north)
 "wkN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/apmaint2)
 "wkP" = (
@@ -119598,7 +119629,7 @@
 /area/security/checkpoint/south)
 "wpx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/serveng)
 "wpz" = (
@@ -119629,7 +119660,8 @@
 	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "wpM" = (
@@ -120242,7 +120274,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/interrogation)
 "wuV" = (
@@ -120296,7 +120329,7 @@
 	},
 /area/maintenance/fore)
 "wvA" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/serveng)
 "wvE" = (
@@ -121474,7 +121507,7 @@
 	req_access = list(19,23)
 	},
 /turf/simulated/floor/glass,
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "wIU" = (
 /obj/machinery/light{
 	dir = 4
@@ -121852,9 +121885,7 @@
 	dir = 5;
 	id = "CargoTransfer"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "wNA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -122011,7 +122042,7 @@
 	},
 /area/hallway/primary/fore)
 "wPn" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "wPq" = (
@@ -122630,7 +122661,7 @@
 /area/gateway)
 "wUW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wUX" = (
@@ -123581,7 +123612,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkredalt";
+	dir = 10
 	},
 /area/security/interrogation)
 "xek" = (
@@ -123835,6 +123867,11 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/chiefs_office)
+"xgF" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "xgR" = (
 /obj/machinery/atmospherics/pipe/multiz,
 /obj/effect/spawner/window/reinforced,
@@ -124459,6 +124496,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"xnr" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/interrogation)
 "xnt" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -125627,7 +125670,7 @@
 /area/maintenance/cele/cargo)
 "xze" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -125657,7 +125700,7 @@
 	},
 /area/crew_quarters/serviceyard)
 "xzn" = (
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -126005,7 +126048,7 @@
 /area/medical/surgery/south)
 "xCO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "xCP" = (
@@ -127998,7 +128041,7 @@
 	dir = 5;
 	icon_state = "whiteyellow"
 	},
-/area/hallway/primary/central)
+/area/engine/gravitygenerator)
 "xWB" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -128670,7 +128713,7 @@
 /area/medical/chemistry)
 "yel" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rock_75,
+/obj/effect/spawner/random_spawners/rock_40,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "yeo" = (
@@ -206279,11 +206322,11 @@ htK
 iHU
 ctO
 pPj
-dON
-dON
+hjl
+mMw
 alp
 akh
-rio
+tlY
 ykB
 aJT
 drH
@@ -206524,7 +206567,7 @@ cKE
 cKE
 cKE
 cKE
-mtu
+cKE
 iuI
 wGY
 xQj
@@ -206536,7 +206579,7 @@ iRs
 uEk
 ctO
 sjr
-dON
+xnr
 dON
 dON
 iza
@@ -206781,7 +206824,7 @@ yeD
 lzR
 hzX
 kAT
-mtu
+cKE
 wIa
 mBm
 oBg
@@ -207053,8 +207096,8 @@ cfP
 cPK
 mJj
 wmg
-rio
-dON
+nWz
+xgF
 ykB
 nau
 wPu
@@ -207311,7 +207354,7 @@ cPK
 kSK
 mGD
 rio
-dON
+xgF
 ykB
 lmK
 whg
@@ -207565,10 +207608,10 @@ pEV
 ctO
 ykB
 doi
-dON
+sMK
 wuN
 wpL
-dON
+qOi
 ykB
 oiz
 oiz
@@ -207803,13 +207846,13 @@ fkp
 fkp
 fkp
 fkp
-cKE
-cKE
-cKE
-cKE
-cKE
-cKE
-mtu
+fkp
+fkp
+fkp
+fkp
+fkp
+fkp
+fkp
 qvQ
 mBm
 ctO
@@ -208066,7 +208109,7 @@ oLN
 eIN
 sOR
 sOR
-mtu
+fkp
 wIa
 kBt
 njl
@@ -208323,7 +208366,7 @@ oLN
 dDo
 sOR
 sOR
-mtu
+fkp
 eTK
 weD
 dCF
@@ -208580,7 +208623,7 @@ oLN
 wpz
 gmA
 gmA
-mtu
+fkp
 wIa
 kBt
 jiE
@@ -209094,7 +209137,7 @@ oWx
 oLN
 oLN
 oLN
-mtu
+fkp
 sNe
 fih
 rUg
@@ -218224,7 +218267,7 @@ dFy
 lRU
 sho
 lRU
-orm
+dFy
 orm
 orm
 orm
@@ -218481,7 +218524,7 @@ dFy
 iFo
 cVh
 iFo
-orm
+dFy
 orm
 orm
 orm
@@ -219510,9 +219553,9 @@ xLn
 cAY
 iBF
 iFo
-orm
-orm
-orm
+dFy
+dFy
+dFy
 orm
 orm
 orm
@@ -219757,8 +219800,8 @@ orm
 orm
 orm
 dFy
-orm
-orm
+dFy
+dFy
 fiQ
 fiQ
 nuB
@@ -219769,7 +219812,7 @@ vSJ
 iFo
 orm
 orm
-orm
+dFy
 orm
 orm
 orm
@@ -220026,7 +220069,7 @@ cUH
 fiQ
 orm
 oqZ
-oqZ
+eKX
 oqZ
 oqZ
 oqZ
@@ -228228,10 +228271,10 @@ rBw
 rBw
 rBw
 rBw
-nQd
-nQd
-nQd
-nQd
+rBw
+rBw
+rBw
+rBw
 oLC
 fIO
 ntQ
@@ -228484,11 +228527,11 @@ ocv
 gGG
 gec
 ocv
-eBp
+rBw
 hwl
 uNa
 iAt
-iqf
+eBp
 kHe
 uMV
 fYG
@@ -228741,11 +228784,11 @@ dsY
 qAE
 jpU
 jrw
-kaI
+rBw
 oib
 gQi
-bEC
-jbi
+nZl
+kaI
 kHe
 kHe
 yjb
@@ -229255,11 +229298,11 @@ cSe
 fcb
 tvU
 ulw
-ngm
+rBw
 oib
 jjZ
-bEC
-bZv
+nZl
+ngm
 kHe
 kHe
 yjb
@@ -229512,7 +229555,7 @@ ocv
 pEi
 vgx
 ocv
-vFX
+rBw
 xWv
 jyc
 pzb
@@ -229770,10 +229813,10 @@ rBw
 rBw
 rBw
 rBw
-nQd
-nQd
-nQd
-nQd
+rBw
+rBw
+rBw
+rBw
 ixu
 fIO
 iDl
@@ -235187,12 +235230,12 @@ dwH
 dwH
 ucw
 fvQ
-vyi
-vyi
+nBD
+nBD
 nBD
 xIU
 fcI
-awg
+yel
 dwH
 aeM
 aeM
@@ -235448,7 +235491,7 @@ sbB
 awg
 dIB
 xIU
-vyi
+nBD
 dwH
 aeM
 aeM
@@ -238273,7 +238316,7 @@ orm
 orm
 oqZ
 aeM
-aeM
+uWe
 uWe
 uWe
 uWe
@@ -250281,9 +250324,9 @@ tid
 tid
 tid
 tid
-hjl
-hjl
-hjl
+shc
+shc
+shc
 tid
 tid
 tid
@@ -252600,8 +252643,8 @@ orm
 orm
 orm
 orm
-orm
 oqZ
+aeM
 aeM
 vMB
 nJh
@@ -252857,7 +252900,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 aeM
 aeM
 aLC
@@ -253114,7 +253157,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 aeM
 aeM
 cQS
@@ -253371,7 +253414,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 aeM
 aeM
 nJh
@@ -253628,7 +253671,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 aeM
 aeM
 bgb
@@ -293764,10 +293807,10 @@ rBw
 rBw
 rBw
 rBw
-nQd
-nQd
-nQd
-nQd
+rBw
+rBw
+rBw
+rBw
 pYS
 pYS
 pYS
@@ -294021,9 +294064,9 @@ ocm
 hfI
 hfI
 iCP
-odo
+jbi
 laP
-odo
+jbi
 mjQ
 csw
 csw
@@ -294278,10 +294321,10 @@ hfI
 hfI
 tCc
 rBw
-iCs
-pYS
-pYS
-nQd
+vFX
+bZv
+bZv
+rBw
 pYS
 pYS
 pYS
@@ -294535,10 +294578,10 @@ cyO
 hfI
 vlh
 rBw
-pYS
-pYS
-pYS
-nQd
+bZv
+bZv
+bZv
+rBw
 pYS
 pYS
 pYS
@@ -294792,10 +294835,10 @@ hfI
 hfI
 vmI
 rBw
-pYS
-pYS
-pYS
-nQd
+bZv
+bZv
+bZv
+rBw
 pYS
 pYS
 pYS
@@ -295049,9 +295092,9 @@ eHF
 lwe
 hfI
 iCP
-vrD
+iqf
 jrf
-vrD
+iqf
 wIP
 csw
 csw
@@ -295306,11 +295349,11 @@ rBw
 rBw
 rBw
 rBw
-nQd
-nQd
-nQd
-nQd
-pYS
+rBw
+rBw
+rBw
+rBw
+iCs
 pYS
 pYS
 pYS
@@ -319362,11 +319405,11 @@ orm
 orm
 orm
 orm
-wEV
-wEV
-wEV
-wEV
-wEV
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
