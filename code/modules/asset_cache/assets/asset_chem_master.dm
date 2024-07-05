@@ -21,4 +21,6 @@
 
 /datum/asset/spritesheet/chem_master/large/ModifyInserted(icon/pre_asset)
 	pre_asset.Scale(64, 64)
+	pre_asset.Crop(16,16,48,48)
+	pre_asset.Scale(32, 32)
 	return pre_asset
