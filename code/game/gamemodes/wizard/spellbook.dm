@@ -90,7 +90,7 @@
 	dat += " Перезарядка: [S.base_cooldown/10];"
 	dat += " Цена: [cost];<br>"
 	dat += "<i>[S.desc][desc]</i><br>"
-	dat += "[S.clothes_req?"Требуется роба волшебника.":"Может быть произнесено без робы"]<br>"
+	dat += "[S.clothes_req?"Требуется роба волшебника.":"Может быть произнесено без робы."]<br>"
 	return dat
 
 //Main category - Spells
