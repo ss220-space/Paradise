@@ -48,7 +48,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 		return
 
 	if(issilicon(target))
-		to_chat(user, "Вы чувствуете, что это порабощенное существо так же мертво, как и его холодный, твердый экзоскелет.")
+		to_chat(user, "Вы чувствуете, что это порабощённое существо так же мертво, как и его холодный, твердый экзоскелет.")
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.

@@ -394,7 +394,7 @@
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /datum/event/wizard/ghost()
 	active = TRUE
-	to_chat(user, "<span class='notice'>Вы произнесли Призыв Призраков!</span>")
+	to_chat(user, "<span class='notice'>Вы произнесли призыв призраков!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	return TRUE
 
@@ -409,7 +409,7 @@
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>Вы прочитали Призыв Оружия!</span>")
+	to_chat(user, "<span class='notice'>Вы прочитали призыв оружия!</span>")
 	return TRUE
 
 /datum/spellbook_entry/summon/magic
@@ -423,7 +423,7 @@
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>Вы прочитали Призыв Магии!</span>")
+	to_chat(user, "<span class='notice'>Вы прочитали призыв магии!</span>")
 	return TRUE
 
 //Main category - Magical Items

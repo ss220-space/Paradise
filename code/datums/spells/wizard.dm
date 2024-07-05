@@ -42,7 +42,7 @@
 
 /obj/effect/proc_holder/spell/projectile/honk_missile
 	name = "Honk Missile"
-	desc = "Это заклинание выстреливает несколькими медленно движущимися магическими велосипедными гудками по ближайшим целям."
+	desc = "Это заклинание выстреливает несколько медленно движущихся магических велосипедных гудков по ближайшим целям."
 
 	school = "evocation"
 	base_cooldown = 6 SECONDS
@@ -84,7 +84,7 @@
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
-	desc = "Это постоянно действующее заклинание позволяет вам колдовать без одежды."
+	desc = "Это постоянно действующее заклинание позволяет вам колдовать без одеяния волшебника."
 	action_icon_state = "no_clothes"
 
 
@@ -123,7 +123,7 @@
 
 /obj/effect/proc_holder/spell/smoke
 	name = "Smoke"
-	desc = "Это заклинание создает облако удушливого дыма на вашем месте. Для него не требуется роба"
+	desc = "Это заклинание создает облако удушливого дыма на вашем месте."
 
 	school = "conjuration"
 	base_cooldown = 12 SECONDS
@@ -142,7 +142,7 @@
 
 /obj/effect/proc_holder/spell/emplosion/disable_tech
 	name = "Disable Tech"
-	desc = "Это заклинание отключает все оружие, камеры и большую часть другой техники в радиусе действия."
+	desc = "Это заклинание отключает всё оружие, камеры и большую часть другой техники в радиусе действия."
 	base_cooldown = 40 SECONDS
 	cooldown_min = 20 SECONDS //50 deciseconds reduction per rank
 	clothes_req = FALSE
@@ -202,7 +202,7 @@
 
 /obj/effect/proc_holder/spell/forcewall
 	name = "Force Wall"
-	desc = "Это заклинание создает небольшую нерушимую стену, через которую можете пройти только вы, и для него не требуется роба. Длится 30 секунд."
+	desc = "Это заклинание создает небольшую нерушимую стену, через которую можете пройти только вы. Длится 30 секунд."
 
 	school = "transmutation"
 	base_cooldown = 10 SECONDS
@@ -234,7 +234,7 @@
 
 /obj/effect/proc_holder/spell/forcewall/greater
 	name = "Greater Force Wall"
-	desc = "Создайте магический барьер большего размера, который сможете преодолеть только вы, но для этого потребуется роба. Длится 30 секунд."
+	desc = "Создайте магический барьер большего размера, который сможете преодолеть только вы. Длится 30 секунд."
 	clothes_req = TRUE
 	invocation = "TARCOL GRANDI ZHERI"
 	invocation_type = "shout"

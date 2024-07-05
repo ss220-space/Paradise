@@ -112,7 +112,7 @@
 
 /obj/effect/proc_holder/spell/mime/fingergun
 	name = "Finger Gun"
-	desc = "Беззвучно стреляйте боевыми патронами прямо из пальцев! Для каждого прочтения доступно по три пули. Используйте пальцы, чтобы спрятать оружие."
+	desc = "Беззвучно стреляйте боевыми патронами прямо из пальцев! Для каждого прочтения доступно по три пули. Выроните пальцы из рук, чтобы спрятать их."
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
@@ -126,7 +126,7 @@
 
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
-	desc = "Представьте что из ваших пальцев вылетают пули! Для каждого прочтения доступно по шесть пуль. Используйте пальцы, чтобы спрятать оружие."
+	desc = "Представьте что из ваших пальцев вылетают пули! Для каждого прочтения доступно по шесть пуль. Выроните пальцы из рук, чтобы спрятать их."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 
@@ -178,14 +178,14 @@
 		recoil(user)
 	else
 		user.mind.AddSpell(new spell)
-		to_chat(user, "<span class='notice'>Вы листаете страницы. Ваше понимание границ реального увеличивается. Вы можете использовать [spellname]!</span>")
+		to_chat(user, "<span class='notice'>Вы пробегаетесь взглядом по страницам. Ваше понимание границ реального увеличивается. Вы можете использовать [spellname]!</span>")
 		user.create_log(MISC_LOG, "learned the spell [spellname]")
 		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
 		onlearned(user)
 
 
 /obj/item/spellbook/oneuse/mime/recoil(mob/user)
-	to_chat(user, "<span class='notice'>Вы листаете страницы. Ничто не зацепило ваше внимание.</span>")
+	to_chat(user, "<span class='notice'>Вы листаете страницы. Ничего не зацепило вашего внимания.</span>")
 
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
@@ -198,7 +198,7 @@
 /obj/item/spellbook/oneuse/mime/fingergun
 	spell = /obj/effect/proc_holder/spell/mime/fingergun
 	spellname = "Finger Gun"
-	desc = "Он содержит иллюстрации с изображением оружия и способы имитировать его использование."
+	desc = "Эта книга содержит изображение оружия и способы имитировать его использование."
 
 
 /obj/item/spellbook/oneuse/mime/fingergun/fake
