@@ -4,6 +4,7 @@ import {
   Button,
   Dimmer,
   Flex,
+  Stack,
   Icon,
   Knob,
   LabeledList,
@@ -42,12 +43,18 @@ export const DNAModifier = (props, context) => {
     radiatingModal = <DNAModifierIrradiating duration={irradiating} />;
   }
   return (
-    <Window width={660} height={700}>
+    <Window width={660} height={775}>
       <ComplexModal />
       {radiatingModal}
-      <Window.Content className="Layout__content--flexColumn">
-        <DNAModifierOccupant />
-        <DNAModifierMain />
+      <Window.Content>
+        <Stack fill vertical>
+          <Stack.Item>
+            <DNAModifierOccupant />
+          </Stack.Item>
+          <Stack.Item grow>
+            <DNAModifierMain />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -61,7 +68,7 @@ const DNAModifierOccupant = (props, context) => {
       title="Occupant"
       buttons={
         <>
-          <Box color="label" display="inline" mr="0.5rem">
+          <Box color="label" inline mr="0.5rem">
             Door Lock:
           </Box>
           <Button
@@ -144,26 +151,26 @@ const DNAModifierMain = (props, context) => {
   const { selectedMenuKey, hasOccupant, occupant } = data;
   if (!hasOccupant) {
     return (
-      <Section flexGrow="1">
-        <Flex height="100%">
-          <Flex.Item grow="1" align="center" textAlign="center" color="label">
+      <Section fill>
+        <Stack fill>
+          <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="user-slash" mb="0.5rem" size="5" />
             <br />
             No occupant in DNA modifier.
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
     );
   } else if (context.isDNAInvalid) {
     return (
-      <Section flexGrow="1">
-        <Flex height="100%">
-          <Flex.Item grow="1" align="center" textAlign="center" color="label">
+      <Section fill>
+        <Stack fill>
+          <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="user-slash" mb="0.5rem" size="5" />
             <br />
             No operation possible on this subject.
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
     );
   }
@@ -188,15 +195,15 @@ const DNAModifierMain = (props, context) => {
     body = <DNAModifierMainRejuvenators />;
   }
   return (
-    <Section flexGrow="1">
+    <Section fill>
       <Tabs>
         {operations.map((op, i) => (
           <Tabs.Tab
             key={i}
+            icon={op[2]}
             selected={selectedMenuKey === op[0]}
             onClick={() => act('selectMenuKey', { key: op[0] })}
           >
-            <Icon name={op[2]} />
             {op[1]}
           </Tabs.Tab>
         ))}
@@ -211,7 +218,7 @@ const DNAModifierMainUI = (props, context) => {
   const { selectedUIBlock, selectedUISubBlock, selectedUITarget, occupant } =
     data;
   return (
-    <Section title="Modify Unique Identifier" level="2">
+    <Section title="Modify Unique Identifier">
       <DNAModifierBlocks
         dnaString={occupant.uniqueIdentity}
         selectedBlock={selectedUIBlock}
@@ -222,8 +229,8 @@ const DNAModifierMainUI = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Target">
           <Knob
-            minValue="1"
-            maxValue="15"
+            minValue={1}
+            maxValue={15}
             stepPixelSize="20"
             value={selectedUITarget}
             format={(value) => value.toString(16).toUpperCase()}
@@ -246,7 +253,7 @@ const DNAModifierMainSE = (props, context) => {
   const { act, data } = useBackend(context);
   const { selectedSEBlock, selectedSESubBlock, occupant } = data;
   return (
-    <Section title="Modify Structural Enzymes" level="2">
+    <Section title="Modify Structural Enzymes">
       <DNAModifierBlocks
         dnaString={occupant.structuralEnzymes}
         selectedBlock={selectedSEBlock}
@@ -267,13 +274,13 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
   const { act, data } = useBackend(context);
   const { radiationIntensity, radiationDuration } = data;
   return (
-    <Section title="Radiation Emitter" level="2">
+    <Section title="Radiation Emitter">
       <LabeledList>
         <LabeledList.Item label="Intensity">
           <Knob
-            minValue="1"
-            maxValue="10"
-            stepPixelSize="20"
+            minValue={1}
+            maxValue={10}
+            stepPixelSize={20}
             value={radiationIntensity}
             popUpPosition="right"
             ml="0"
@@ -282,9 +289,9 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Duration">
           <Knob
-            minValue="1"
-            maxValue="20"
-            stepPixelSize="10"
+            minValue={1}
+            maxValue={20}
+            stepPixelSize={10}
             unit="s"
             value={radiationDuration}
             popUpPosition="right"
@@ -297,7 +304,7 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
         icon="radiation"
         content="Pulse Radiation"
         tooltip="Mutates a random block of either the occupant's UI or SE."
-        tooltipPosition="top-right"
+        tooltipPosition="top-start"
         mt="0.5rem"
         onClick={() => act('pulseRadiation')}
       />
@@ -317,12 +324,16 @@ const DNAModifierMainBuffers = (props, context) => {
     />
   ));
   return (
-    <>
-      <Section title="Buffers" level="2">
-        {bufferElements}
-      </Section>
-      <DNAModifierMainBuffersDisk />
-    </>
+    <Stack fill vertical>
+      <Stack.Item height="75%" mt={1}>
+        <Section fill scrollable title="Buffers">
+          {bufferElements}
+        </Section>
+      </Stack.Item>
+      <Stack.Item height="25%">
+        <DNAModifierMainBuffersDisk />
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -335,7 +346,6 @@ const DNAModifierMainBuffersElement = (props, context) => {
     <Box backgroundColor="rgba(0, 0, 0, 0.33)" mb="0.5rem">
       <Section
         title={realName}
-        level="3"
         mx="0"
         lineHeight="18px"
         buttons={
@@ -496,7 +506,6 @@ const DNAModifierMainBuffersDisk = (props, context) => {
   return (
     <Section
       title="Data Disk"
-      level="2"
       buttons={
         <>
           <Button.Confirm
@@ -547,8 +556,8 @@ const DNAModifierMainRejuvenators = (props, context) => {
   const { isBeakerLoaded, beakerVolume, beakerLabel } = data;
   return (
     <Section
+      fill
       title="Rejuvenators and Beaker"
-      level="2"
       buttons={
         <Button
           disabled={!isBeakerLoaded}
@@ -597,11 +606,16 @@ const DNAModifierMainRejuvenators = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       ) : (
-        <Box color="label" textAlign="center" my="25%">
-          <Icon name="exclamation-triangle" size="4" />
-          <br />
-          No beaker loaded.
-        </Box>
+        <Stack fill>
+          <Stack.Item bold grow textAlign="center" align="center" color="label">
+            <Icon.Stack>
+              <Icon name="flask" size={5} color="silver" />
+              <Icon name="slash" size={5} color="red" />
+            </Icon.Stack>
+            <br />
+            <h3>No beaker loaded.</h3>
+          </Stack.Item>
+        </Stack>
       )}
     </Section>
   );
@@ -658,21 +672,12 @@ const DNAModifierBlocks = (props, context) => {
       );
     }
     dnaBlocks.push(
-      <Flex.Item flex="0 0 16%" mb="1rem">
-        <Box
-          display="inline-block"
-          width="20px"
-          height="20px"
-          mr="0.5rem"
-          lineHeight="20px"
-          backgroundColor="rgba(0, 0, 0, 0.33)"
-          fontFamily="monospace"
-          textAlign="center"
-        >
+      <Stack.Item mb="1rem" mr="1rem" width={7.8} textAlign="right">
+        <Box inline mr="0.5rem" fontFamily="monospace">
           {realBlock}
         </Box>
         {subBlocks}
-      </Flex.Item>
+      </Stack.Item>
     );
   }
   return <Flex wrap="wrap">{dnaBlocks}</Flex>;
