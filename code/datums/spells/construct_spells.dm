@@ -108,7 +108,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy
 	name = "Holy Pylon"
-	desc = "Это заклинание создаст уязвимый к повреждениям кристалл, что будет немного лечить конструктов"
+	desc = "Это заклинание создаст кристалл, что будет немного лечить конструктов"
 	action_icon_state = "holy_pylon"
 	action_background_icon_state = "bg_spell"
 	summon_type = list(/obj/structure/cult/functional/pylon/holy)
