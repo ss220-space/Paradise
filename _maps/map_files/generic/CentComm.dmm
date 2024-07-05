@@ -1163,7 +1163,7 @@
 /area/shuttle/escape)
 "azv" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/jail)
@@ -13358,7 +13358,7 @@
 	opacity = 0
 	},
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -18238,7 +18238,7 @@
 /area/syndicate_mothership)
 "jET" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/infteam)
@@ -18752,7 +18752,7 @@
 "jWb" = (
 /obj/structure/curtain/black,
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
@@ -28141,7 +28141,7 @@
 /area/syndicate_mothership/control)
 "obJ" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/outside)
@@ -29284,7 +29284,7 @@
 /area/centcom/bridge)
 "oDx" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -34035,7 +34035,7 @@
 /area/centcom/evac)
 "qQE" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
@@ -35379,7 +35379,7 @@
 /area/shuttle/syndicate_elite)
 "rwv" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/centcom/specops)
@@ -40270,7 +40270,7 @@
 	id_tag = "syndFB_teleport"
 	},
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -46624,7 +46624,7 @@
 /area/syndicate_mothership)
 "wGu" = (
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership)
@@ -50006,7 +50006,7 @@
 "ykF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass"
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership)
