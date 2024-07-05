@@ -23,7 +23,7 @@ const SpriteStyleButton = (props, context) => {
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
-      <Box className={classes(['chem_master_large64x64', icon])} />
+      <Box className={classes(['chem_master_large32x32', icon])} />
     </Button>
   );
 };
