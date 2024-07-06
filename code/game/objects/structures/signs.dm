@@ -7,6 +7,7 @@
 	max_integrity = 100
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
+	var/random_number = FALSE
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 
@@ -19,12 +20,13 @@
 /obj/structure/sign/update_overlays()
 	. = ..()
 
+	overlays.Cut()
 	underlays.Cut()
-	if(!does_emissive)
-		return
-
-	underlays += emissive_appearance(icon,"[icon_state]_lightmask", src)
-
+	if(does_emissive)
+		underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+	if(random_number)
+		add_overlay(mutable_appearance(icon, "[pick("_num0","_num1","_num2","_num3","_num4","_num5","_num6","_num7","_num8","_num9","_num10","_numinf")]"))
+	return
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -107,6 +109,7 @@
 /obj/structure/sign/double/no_idiots
 	name = "Counting sign"
 	desc = "Indicates how many days the station operates without idiots at the control panel"
+	random_number = TRUE
 
 /obj/structure/sign/double/no_idiots/left
 	icon_state = "no_idiots_left"
