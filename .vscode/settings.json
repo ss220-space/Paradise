@@ -1,5 +1,4 @@
 {
-	// ESLint settings:
 	"eslint.workingDirectories": ["tgui/"],
 	"eslint.nodePath": "tgui/.yarn/sdks",
 	"prettier.configPath": "tgui/.prettierrc.yml",
@@ -12,10 +11,6 @@
 	},
 	"eslint.format.enable": true,
 	"eslint.rules.customizations": [
-		// We really want to fail the CI builds on styling errors,
-		// but it's better to show them as yellow squigglies in IDE
-		// and thus differentiate from the red typescript ones which
-		// are actually hard errors.
 		{ "rule": "*", "severity": "warn" }
 	],
 
@@ -52,5 +47,5 @@
 	],
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
-	}
+	},
 }
