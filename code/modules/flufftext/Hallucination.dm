@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	py = new_py
 	Show()
 
-/obj/effect/hallucination/simple/Move()
+/obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
 

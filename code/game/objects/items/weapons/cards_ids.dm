@@ -89,7 +89,8 @@
 /obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	target.cmag_act(user)
+	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
+
 
 /obj/item/card/id
 	name = "identification card"

@@ -77,7 +77,7 @@
 		return 0
 	..()
 
-/obj/machinery/field/containment/Move()
+/obj/machinery/field/containment/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	qdel(src)
 
 // Abstract Field Class

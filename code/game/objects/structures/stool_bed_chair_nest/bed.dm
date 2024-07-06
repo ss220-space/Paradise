@@ -76,10 +76,11 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_push_slowdown = 0	// used for transporting lying mobs
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
-	pull_push_speed_modifier = 1
+
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
@@ -105,7 +106,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/target)
 	set_density(TRUE)
 	update_icon(UPDATE_ICON_STATE)
-	target.pixel_y = target.base_pixel_y + 2
+	target.pixel_y = target.base_pixel_y + 3
 
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)

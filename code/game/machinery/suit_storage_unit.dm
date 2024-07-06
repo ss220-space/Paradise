@@ -718,7 +718,6 @@
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 1 SECONDS, usr))
-		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
 		state_open = FALSE //Close the thing after the guy gets inside

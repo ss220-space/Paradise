@@ -17,23 +17,24 @@
 	T.allowed_type = /mob/living/carbon/human
 	return T
 
-/obj/effect/proc_holder/spell/alien_spell/impregnate/valid_target(target, user)
-	if(ishuman(target))
-		var/mob/living/carbon/human/human = target
-		for(var/obj/item/grab/grab in human.grabbed_by)
-			if(grab.assailant == user)
-				if(human.is_mouth_covered())
-					to_chat(user, span_warning("Victim's mouth is obstructed!"))
-					return FALSE
-				if(!human.check_has_mouth())
-					to_chat(user, span_warning("It appears victim doesn't have mouth..."))
-					return FALSE
-				if(human.is_dead())
-					to_chat(user, span_warning("Victim is dead!"))
-					return FALSE
-				else
-					return TRUE
-	return FALSE
+
+/obj/effect/proc_holder/spell/alien_spell/impregnate/valid_target(target, mob/user)
+	if(user.pulling != target || !ishuman(target))
+		return FALSE
+	var/mob/living/carbon/human/human = target
+	if(user.grab_state < GRAB_AGGRESSIVE)
+		return FALSE
+	if(human.is_mouth_covered())
+		to_chat(user, span_warning("Victim's mouth is obstructed!"))
+		return FALSE
+	if(!human.check_has_mouth())
+		to_chat(user, span_warning("It appears victim doesn't have mouth..."))
+		return FALSE
+	if(human.is_dead())
+		to_chat(user, span_warning("Victim is dead!"))
+		return FALSE
+	return TRUE
+
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/cast(list/targets, mob/user)
 	var/mob/living/carbon/human = targets[1]

@@ -56,18 +56,26 @@
 	/obj/machinery/door/airlock = 3,
 	/obj/machinery/door/airlock/welded = 1)
 
-/obj/effect/spawner/random_spawners/grille_often
+/obj/effect/spawner/random_spawners/grille_50
 	name = "grille often"
 	icon_state = "grille"
 	result = list(
 	/obj/structure/grille = 8,
-	/obj/structure/grille/broken = 4,
+	/obj/structure/grille/broken = 5,
 	/turf/simulated/floor/plating = 2)
 
-/obj/effect/spawner/random_spawners/grille_maybe
+/obj/effect/spawner/random_spawners/grille_13
 	name = "grille maybe"
 	icon_state = "grille"
 	result = list(
 	/obj/structure/grille = 2,
-	/obj/structure/grille/broken = 2,
+	/obj/structure/grille/broken = 8,
+	/turf/simulated/floor/plating = 5)
+
+/obj/effect/spawner/random_spawners/rock_40
+	name = "rock maybe"
+	icon_state = "rock"
+	result = list(
+	/turf/simulated/mineral/ancient = 4,
+	/obj/structure/falsewall/mineral_ancient = 1,
 	/turf/simulated/floor/plating = 5)

@@ -174,7 +174,7 @@
 		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
 
 
-/obj/structure/reagent_dispensers/fueltank/Move()
+/obj/structure/reagent_dispensers/fueltank/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(rig)
 		rig.process_movement()
@@ -196,9 +196,9 @@
 		rig.hear_message(M, msg)
 
 
-/obj/structure/reagent_dispensers/fueltank/Bump(atom/bumped_atom, custom_bump)
+/obj/structure/reagent_dispensers/fueltank/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || !rig)
+	if(. || !rig)
 		return .
 	rig.process_movement()
 

@@ -285,7 +285,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
@@ -369,16 +368,17 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/closet/stasis/Entered(atom/A)
-	if(isliving(A) && holder_animal)
-		var/mob/living/L = A
-		ADD_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		L.mutations |= MUTE
-		L.status_flags |= GODMODE
-		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/exit_possession/P = new(null)
-		holder_animal.mind.AddSpell(P)
-		holder_animal.verbs -= /mob/living/verb/pulled
+
+/obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isliving(arrived) && holder_animal)
+		var/mob/living/mob = arrived
+		ADD_TRAIT(mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		mob.mutations |= MUTE
+		mob.status_flags |= GODMODE
+		mob.mind.transfer_to(holder_animal)
+		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
+
 
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
 	STOP_PROCESSING(SSobj, src)

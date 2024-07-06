@@ -36,6 +36,7 @@
 	M.SetEyeBlurry(0)
 	M.SetDisgust(0)
 	M.SetWeakened(0)
+	M.SetKnockdown(0)
 	M.SetStunned(0)
 	M.SetImmobilized(0)
 	M.SetParalysis(0)
