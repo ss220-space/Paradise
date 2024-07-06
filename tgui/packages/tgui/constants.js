@@ -16,6 +16,7 @@ export const COLORS = {
     supply: '#9F8545',
     service: '#80A000',
     centcom: '#78789B',
+    procedure: '#E3027A',
     other: '#C38312',
   },
   // Damage type colors
