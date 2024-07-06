@@ -815,7 +815,7 @@
 /// Accepts the appearance to make "spaceish", and the turf we're doing this for
 /proc/generate_space_underlay(mutable_appearance/underlay_appearance, turf/generate_for)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = "space"
+	underlay_appearance.icon_state = "0"
 	SET_PLANE(underlay_appearance, PLANE_SPACE, generate_for)
 	if(!generate_for.render_target)
 		generate_for.render_target = ref(generate_for)
