@@ -190,7 +190,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
               donator_level < seed.donator_level &&
               'Требуется более высокий уровень подписки'
             }
-            tooltipPosition="right "
+            tooltipPosition="right"
             textAlign="left"
             onClick={() => act('select', { seed: seed.name })}
           />
