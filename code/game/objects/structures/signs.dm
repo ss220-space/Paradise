@@ -104,6 +104,16 @@
 /obj/structure/sign/double/map/right
 	icon_state = "map-right"
 
+/obj/structure/sign/double/no_idiots
+	name = "Counting sign"
+	desc = "Indicates how many days the station operates without idiots at the control panel"
+
+/obj/structure/sign/double/no_idiots/left
+	icon_state = "no_idiots_left"
+
+/obj/structure/sign/double/no_idiots/right
+	icon_state = "no_idiots_right"
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"

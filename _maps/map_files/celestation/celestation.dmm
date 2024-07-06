@@ -13444,6 +13444,17 @@
 	icon_state = "dark"
 	},
 /area/chapel/office)
+"bQV" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "bQY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rock_40,
@@ -80292,6 +80303,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
+"oEu" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "oEv" = (
 /obj/item/soap/deluxe,
 /turf/simulated/floor/plasteel/freezer,
@@ -228239,7 +228261,7 @@ ePA
 apP
 ddw
 pXa
-dbS
+oEu
 drC
 wGh
 qnz
@@ -228496,7 +228518,7 @@ ntG
 meC
 gkw
 pXa
-dbS
+bQV
 nJL
 qXY
 qnz

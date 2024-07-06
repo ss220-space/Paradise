@@ -9118,6 +9118,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bqB" = (
@@ -40169,6 +40172,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter,
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "hIi" = (

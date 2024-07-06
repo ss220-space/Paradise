@@ -31650,6 +31650,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
+"usK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "utr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -33605,6 +33614,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -457920,7 +457932,7 @@ rgz
 rgz
 rgz
 dHQ
-dRc
+usK
 vNO
 uXp
 iyT
