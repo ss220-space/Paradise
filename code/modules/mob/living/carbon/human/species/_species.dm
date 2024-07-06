@@ -312,10 +312,9 @@
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 	if(VIRUSIMMUNE in species_traits)
-		if(H.diseases)
-			for(var/datum/disease/D in H.diseases)
-				if(!D.ignore_immunity)
-					D.cure()
+		for(var/datum/disease/D in H.diseases)
+			if(!D.ignore_immunity)
+				D.cure()
 
 	for(var/obj/item/item as anything in H.get_equipped_items())
 		if(QDELETED(item) || item.loc != H)	// wad deleted or dropped already
