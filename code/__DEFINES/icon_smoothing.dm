@@ -225,6 +225,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 #define SMOOTH_GROUP_CLOCKWORK_WALLS S_OBJ(82)
 #define SMOOTH_GROUP_RIPPLE S_OBJ(83)
 #define SMOOTH_GROUP_CULT_WALLS S_OBJ(84)
+#define SMOOTH_GROUP_TRANSPARENT_FLOOR S_OBJ(85)
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.

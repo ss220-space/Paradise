@@ -1817,13 +1817,6 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
-"aRf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/funeral)
 "aRW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7405,16 +7398,6 @@
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
-"dMz" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "dMC" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -11830,16 +11813,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
-"fZa" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "fZg" = (
 /obj/structure/spider/terrorweb/gray,
 /turf/simulated/floor/plating,
@@ -13521,13 +13494,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"gYB" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "gYQ" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -15665,13 +15631,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
-"ipY" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/funeral)
 "iqh" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -18001,16 +17960,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"jyx" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "jyy" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -24854,12 +24803,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/centcom/zone1)
-"mLy" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "mLJ" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -24916,12 +24859,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"mMx" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "mNh" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -27745,13 +27682,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/centcom/court)
-"nQN" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "nQT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -28418,12 +28348,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"oik" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "oiv" = (
 /obj/machinery/mineral/labor_claim_console{
 	pixel_x = 30;
@@ -28517,13 +28441,6 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
-"okv" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "okx" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -29070,12 +28987,6 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership)
-"owV" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "owX" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -29083,12 +28994,6 @@
 	},
 /turf/simulated/floor/indestructible/beach/sand,
 /area/syndicate_mothership/outside)
-"oxk" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "oxo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -30648,12 +30553,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
-"pml" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "pmF" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo3"
@@ -30813,12 +30712,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
-"pqM" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "pqR" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo6"
@@ -32358,13 +32251,6 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
-"qbW" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/funeral)
 "qck" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/asteroid;
@@ -33779,13 +33665,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/syndicate_mothership)
-"qKH" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/specops)
 "qKL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -36325,10 +36204,8 @@
 /obj/machinery/porta_turret/syndicate{
 	pixel_y = 2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/syndicate)
 "rRS" = (
@@ -36711,13 +36588,6 @@
 "sbw" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/supply)
-"scf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/specops)
 "scm" = (
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
 	name = "Фокс машина"
@@ -40188,13 +40058,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
-"tIG" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/funeral)
 "tIM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43779,13 +43642,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"voo" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "vow" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -46156,13 +46012,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"wvV" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "wvW" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -47081,13 +46930,6 @@
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating,
 /area/shuttle/pod_4)
-"wWR" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "wWV" = (
 /obj/item/toy/nuke,
 /obj/structure/table/wood/poker,
@@ -49370,12 +49212,6 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"xUP" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "xUV" = (
 /obj/effect/turf_decal/number/number_9{
 	dir = 4
@@ -50684,7 +50520,7 @@ ubE
 ymc
 pNM
 pwa
-mLy
+sbw
 sbw
 nnz
 nre
@@ -50694,7 +50530,7 @@ nBC
 nUe
 nnz
 sbw
-owV
+sbw
 pwa
 pwa
 pNM
@@ -51487,13 +51323,13 @@ pwa
 pwa
 pwa
 pwa
-nQN
+yiJ
 qYO
 wIQ
 rTA
 wIQ
 qYO
-gYB
+yiJ
 pwa
 pwa
 pwa
@@ -51740,18 +51576,18 @@ pwa
 pwa
 pwa
 pwa
-nQN
+yiJ
 wIQ
 rTA
 wIQ
-yiJ
+xqR
+xqR
+xqR
+xqR
+xqR
 xqR
 yiJ
-xqR
 yiJ
-yiJ
-yiJ
-gYB
 pwa
 pwa
 pwa
@@ -51994,13 +51830,13 @@ pwa
 pwa
 pwa
 pwa
-dMz
+rRI
 rZw
 rZw
-yiJ
 yiJ
 xqR
-yiJ
+xqR
+xqR
 yiJ
 xqR
 vDz
@@ -52226,7 +52062,7 @@ ubE
 ymc
 pNM
 pwa
-mMx
+sbw
 sbw
 sbw
 sbw
@@ -52236,7 +52072,7 @@ tEr
 sbw
 sbw
 sbw
-oxk
+sbw
 pwa
 pwa
 pNM
@@ -52251,7 +52087,7 @@ pwa
 pwa
 xqM
 xBA
-yiJ
+xqR
 bUu
 aJb
 xmH
@@ -52504,10 +52340,10 @@ pwa
 pwa
 pwa
 pwa
-wWR
+yiJ
 yiJ
 xqR
-yiJ
+xqR
 yiJ
 bUu
 aTJ
@@ -52760,7 +52596,7 @@ pwa
 pwa
 pwa
 pwa
-jyx
+rRI
 yiJ
 xil
 xrD
@@ -53038,7 +52874,7 @@ yiJ
 yiJ
 yiJ
 yiJ
-gYB
+yiJ
 pwa
 pwa
 pwa
@@ -54026,7 +53862,7 @@ ymc
 ymc
 ubE
 ubE
-ipY
+bRt
 bRt
 bRt
 vQc
@@ -54035,7 +53871,7 @@ vQc
 eIX
 iUN
 bRt
-aRf
+bRt
 ubE
 ubE
 ymc
@@ -54323,7 +54159,7 @@ yiJ
 yiJ
 yiJ
 yiJ
-okv
+yiJ
 pwa
 pwa
 pwa
@@ -54817,10 +54653,10 @@ pwa
 pwa
 pwa
 pwa
-voo
+yiJ
 yiJ
 xqR
-yiJ
+xqR
 yiJ
 bUu
 kAK
@@ -55335,13 +55171,13 @@ pwa
 pwa
 pwa
 pwa
-fZa
+rRI
 wEF
 wEF
-yiJ
 yiJ
 xqR
-yiJ
+xqR
+xqR
 yiJ
 xqR
 bgz
@@ -55568,7 +55404,7 @@ ymc
 ymc
 ubE
 ubE
-qbW
+bRt
 bRt
 bRt
 vQc
@@ -55577,7 +55413,7 @@ vQc
 eIX
 xYk
 bRt
-tIG
+bRt
 ubE
 ubE
 ymc
@@ -55595,18 +55431,18 @@ pwa
 pwa
 pwa
 pwa
-wvV
+yiJ
 wIQ
 xCi
 wIQ
-yiJ
+xqR
+xqR
+xqR
+xqR
+xqR
 xqR
 yiJ
-xqR
 yiJ
-yiJ
-yiJ
-okv
 pwa
 pwa
 pwa
@@ -55856,13 +55692,13 @@ pwa
 pwa
 pwa
 pwa
-wvV
+yiJ
 xsR
 wIQ
 xCi
 wIQ
 xsR
-okv
+yiJ
 pwa
 pwa
 pwa
@@ -65346,11 +65182,11 @@ psf
 psf
 psf
 psf
-xUP
+vvx
 omP
 sEW
 sWH
-pml
+vvx
 psf
 psf
 psf
@@ -68173,11 +68009,11 @@ psf
 psf
 psf
 psf
-oik
+vvx
 ohw
 urM
 ohw
-pqM
+vvx
 psf
 psf
 psf
@@ -73313,11 +73149,11 @@ psf
 psf
 psf
 psf
-qKH
+usR
 usR
 woV
 usR
-scf
+usR
 psf
 psf
 psf
@@ -73571,9 +73407,9 @@ psf
 psf
 psf
 psf
-qKH
+usR
 jmf
-scf
+usR
 psf
 psf
 psf
