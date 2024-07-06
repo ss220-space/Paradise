@@ -169,14 +169,7 @@
 	return ..()
 
 /obj/item/storage/toolbox/green/memetic/update_icon_state()
-	if(hunger_message_level == 1)
-		icon_state = "green"
-	if(hunger_message_level == 2)
-		icon_state = "green"
-	if(hunger_message_level == 3)
-		icon_state = "green2"
-	if(hunger_message_level == 4)
-		icon_state = "green3"
+	icon_state = "green[hunger_message_level <= 2 ? "" : hunger_message_level - 1]"
 
 /datum/disease/memetic_madness/stage_act()
 	..()
