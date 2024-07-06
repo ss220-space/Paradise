@@ -118,7 +118,7 @@
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
-	ChangeTurf(/turf/simulated/floor)
+	ChangeTurf(/turf/simulated/floor/plating)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 
 /turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
@@ -225,9 +225,10 @@
 	flags = CHECK_RICOCHET
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
-	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK
+	smoothing_groups = SMOOTH_GROUP_TITANIUM_WALLS
 
-/turf/simulated/wall/mineral/titanium/nodiagonal
+/turf/simulated/wall/mineral/titanium/nodiagonal //currently broken, do not use
 	smooth = SMOOTH_BITMASK
 	icon_state = "shuttle_nd"
 

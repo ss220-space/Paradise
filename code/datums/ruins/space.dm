@@ -267,6 +267,7 @@
 	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
 	allow_duplicates = FALSE // One of these has enough loot
 	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
+	always_place = TRUE
 
 /datum/map_template/ruin/space/dj // edited for shuttle to ussp station
 	id = "dj"

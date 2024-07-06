@@ -189,6 +189,7 @@
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall"
+	base_icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
 
