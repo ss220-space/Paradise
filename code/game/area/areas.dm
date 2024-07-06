@@ -528,7 +528,10 @@
 
 	var/area/newarea
 	var/area/oldarea
-
+	if(istype(arrived, /obj/structure/transit_tube_pod))
+		var/obj/structure/transit_tube_pod/pod = arrived
+		for(var/mob/transfer_mob in pod.contents)
+			src.Entered(transfer_mob)
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
 
@@ -561,6 +564,10 @@
 /area/Exited(atom/movable/departed)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
+	if(istype(departed, /obj/structure/transit_tube_pod))
+		var/obj/structure/transit_tube_pod/pod = departed
+		for(var/mob/transfer_mob in pod.contents)
+			src.Exited(transfer_mob)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
