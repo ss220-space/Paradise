@@ -297,8 +297,8 @@
 		return
 	//get amount from user
 	var/max = get_amount()
-	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
-	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
+	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max)
+	if(isnull(stackmaterial) || stackmaterial <= 0 || stackmaterial > get_amount())
 		return
 	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

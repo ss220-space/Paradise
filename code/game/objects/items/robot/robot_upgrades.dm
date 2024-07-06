@@ -67,14 +67,11 @@
 
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	var/new_heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	new_heldname = reject_bad_name(new_heldname, TRUE, MAX_NAME_LEN)
 	if(!new_heldname)
-		to_chat(user, span_warning("Prohibited sequence detected. Entered configuration has been cancelled."))
-	else
-		heldname = new_heldname
-	return
-
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())

@@ -156,11 +156,13 @@
 	data["linked_account"] = linked_account ? linked_account.owner_name : null
 	return data
 
-/obj/item/eftpos/ui_act(action, list/params)
+/obj/item/eftpos/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
 	. = TRUE
+
+	var/mob/user = ui.user
 
 	switch(action)
 		if("change_code")
@@ -170,22 +172,18 @@
 				return
 			last_change = world.timeofday
 			if(access_code)
-				var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
+				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
 				if(!Adjacent(usr))
 					return
 				if(attempt_code != access_code)
 					to_chat(usr, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
-			var/trycode = input("Enter a new access code for this device (1-4 digits, numbers only)", "Enter new EFTPOS code") as num
-			if(!Adjacent(usr))
+			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
+			if(!Adjacent(usr) || !isnull(trycode))
 				return
-			if(trycode >= 0 && trycode <= 9999)
-				access_code = trycode
-				print_reference(usr)
-			else
-				to_chat(usr, "[bicon(src)]<span class='notice'> That is not a valid code.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
+			access_code = trycode
+			print_reference(usr)
 		if("link_account")
 			if(duty_mode)
 				//запрещает редактировать это поле на служебном устройстве
@@ -195,9 +193,11 @@
 			if(!linked_db)
 				reconnect_database()
 			if(linked_db)
-				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
-				var/attempt_pin = input("Enter pin code", "Account pin") as num
-				if(!Adjacent(usr))
+				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 9999999, min_value = 1000000)
+				if(!attempt_account_num)
+					return
+				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 99999, min_value = 10000)
+				if(!Adjacent(usr) || !attempt_pin)
 					return
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 2)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
@@ -209,22 +209,16 @@
 				to_chat(usr, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
-			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
-			if(!Adjacent(usr))
+			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
+			if(!Adjacent(usr) || !purpose)
 				return
-			if(purpose)
-				transaction_purpose = purpose
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+			transaction_purpose = purpose
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 		if("trans_value")
-			var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount) as num
-			if(!Adjacent(usr))
+			var/try_num = tgui_input_number(user, "Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount)
+			if(!Adjacent(usr) || !isnull(try_num))
 				return
-			if(try_num < 0)
-				to_chat(usr, "[bicon(src)]<span class='notice'> That is not a valid amount.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
-			else
-				transaction_amount = try_num
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+			transaction_amount = try_num
 		if("toggle_lock")
 			//вообще, это три разные кнопки, по-хорошему, их надо разбить на три события
 			//но для этого нужно eftpos.js редактировать, заодно и все input перевести на tgui
@@ -237,7 +231,7 @@
 					playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 					return
 				//выход с проверкой кода доступа
-				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
+				var/attempt_code = tgui_input_number(user, "Enter EFTPOS access code", "Reset Transaction", max_value = 9999, min_value = 1000)
 				if(!Adjacent(usr))
 					return
 				if(attempt_code != access_code)
@@ -300,15 +294,16 @@
 			return
 
 		during_paid = TRUE
-		var/confirm = alert("Are you sure you want to pay [transaction_amount] credits to Account: [linked_account.owner_name] ", "Confirm transaction", "Yes", "No")
-		if(confirm == "No")
+		if(tgui_alert(user, "Are you sure you want to pay $[transaction_amount] to: [linked_account.owner_name]", "Confirm transaction", list("Yes", "No")) != "Yes")
 			return during_paid = FALSE
 
 		var/datum/money_account/card_account
 		if(isrobot(user))
 			card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
 		else
-			var/attempt_pin = input("Enter your pin code", "EFTPOS transaction") as num
+			var/attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 9999, min_value = 1000)
+			if(!attempt_pin || Adjacent(user))
+				return
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
