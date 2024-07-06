@@ -35189,10 +35189,7 @@
 	name = "Detective Privacy Shutters Control";
 	pixel_x = 26
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "fBU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -35616,10 +35613,7 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "fFf" = (
 /obj/effect/landmark/start/civilian,
@@ -55817,10 +55811,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/flask/detflask,
 /obj/item/toy/figure/detective,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "jEh" = (
 /obj/structure/stairs{
@@ -77886,10 +77877,7 @@
 	},
 /area/medical/sleeper)
 "odS" = (
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "odT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -100428,10 +100416,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "sDP" = (
 /obj/structure/cable/orange{
@@ -115382,10 +115367,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/photocopier,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet13-5"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "vyQ" = (
 /obj/structure/table,
@@ -118612,10 +118594,7 @@
 /area/toxins/xenobiology)
 "wfN" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/floor/carpet{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "carpet5-1"
-	},
+/turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "wfO" = (
 /obj/structure/disposalpipe/segment,
