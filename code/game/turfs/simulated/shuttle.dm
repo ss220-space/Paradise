@@ -80,13 +80,6 @@
 	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/simulated/wall/shuttle/Initialize()
-	..()
-	var/obj/O
-	O = new()
-	O.underlays.Add(src)
-	underlays = O.underlays
-	qdel(O)
 
 /turf/simulated/wall/shuttle/copyTurf(turf/T)
 	. = ..()
