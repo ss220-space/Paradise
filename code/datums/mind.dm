@@ -2338,8 +2338,8 @@
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				SSticker.mode.shadows += src
-				SSticker.mode.recount_required_thralls()
 				special_role = SPECIAL_ROLE_SHADOWLING
+				SSticker.mode.recount_required_thralls()
 				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
 				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
 				</b></span>")
