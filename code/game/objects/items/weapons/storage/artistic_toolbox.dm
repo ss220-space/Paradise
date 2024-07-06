@@ -168,6 +168,16 @@
 		affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 	return ..()
 
+/obj/item/storage/toolbox/green/memetic/update_icon_state()
+	if(hunger_message_level == 1)
+		icon_state = "green"
+	if(hunger_message_level == 2)
+		icon_state = "green"
+	if(hunger_message_level == 3)
+		icon_state = "green2"
+	if(hunger_message_level == 4)
+		icon_state = "green3"
+
 /datum/disease/memetic_madness/stage_act()
 	..()
 	if(!progenitor) //if someone admin spawns this, cure it right away; this should only ever be given directly from the toolbox itself.
@@ -195,22 +205,18 @@
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
-				progenitor.icon_state = "green"
 				if(progenitor.hunger_message_level < 1)
 					progenitor.hunger_message_level = 1
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Feed Me the unclean ones...They will be purified...</font></b></i>")
 			if(61 to 120)
-				progenitor.icon_state = "green"
 				if(progenitor.hunger_message_level < 2)
 					progenitor.hunger_message_level = 2
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>I hunger for the flesh of the impure...</font></b></i>")
 			if(121 to 210)
-				progenitor.icon_state = "green2"
 				if(prob(10) && progenitor.hunger_message_level < 3)
 					progenitor.hunger_message_level = 3
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>The hunger of your Master grows with every passing moment.  Feed Me at once.</font></b></i>")
 			if(211 to 399)
-				progenitor.icon_state = "green3"
 				if(progenitor.hunger_message_level < 4)
 					progenitor.hunger_message_level = 4
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>His Grace starves in your hands.  Feed Me the unclean or suffer.</font></b></i>")
@@ -218,6 +224,7 @@
 				affected_mob.visible_message("<span class='userdanger'>[progenitor] consumes [affected_mob] whole!</span>")
 				progenitor.consume(affected_mob)
 				return
+		progenitor.update_icon(UPDATE_ICON_STATE)
 
 		progenitor.hunger += min(max((progenitor.force / 10), 1), 10)
 
