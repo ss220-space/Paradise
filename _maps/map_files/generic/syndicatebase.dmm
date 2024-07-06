@@ -1746,7 +1746,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/cardboard_cutout/adaptive,
+/obj/item/twohanded/cardboard_cutout/adaptive,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -16677,7 +16677,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/cardboard_cutout/adaptive,
+/obj/item/twohanded/cardboard_cutout/adaptive,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

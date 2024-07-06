@@ -192,7 +192,7 @@
 
 /obj/item/storage/box/syndie_kit/cutouts/populate_contents()
 	for(var/i in 1 to 3)
-		new/obj/item/cardboard_cutout/adaptive(src)
+		new/obj/item/twohanded/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
 
 /obj/item/storage/box/syndie_kit/bonerepair

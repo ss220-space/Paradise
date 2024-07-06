@@ -382,7 +382,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	null,
-	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("cardboard cutout", /obj/item/twohanded/cardboard_cutout, 5),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("folder", /obj/item/folder),

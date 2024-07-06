@@ -6707,7 +6707,7 @@
 	},
 /area/centcom/specops)
 "ffr" = (
-/obj/item/cardboard_cutout{
+/obj/item/twohanded/cardboard_cutout{
 	anchored = 1;
 	desc = "Обычная статуя офицера, что она здесь делает? На табличке красуется надпись - Pizdyach Rodnenkiy";
 	icon_state = "cutout_ntsec";
