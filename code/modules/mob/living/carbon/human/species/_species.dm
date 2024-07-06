@@ -311,6 +311,11 @@
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
+	if(VIRUSIMMUNE in species_traits && H.diseases.len>0)
+		for(var/datum/disease/D in H.diseases)
+			if(!D.ignore_immunity)
+				D.cure()
+
 	for(var/obj/item/item as anything in H.get_equipped_items())
 		if(QDELETED(item) || item.loc != H)	// wad deleted or dropped already
 			continue
@@ -388,10 +393,7 @@
 	if((H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
 		H.adjustBruteLoss(-0.1, FALSE)
 		H.adjustFireLoss(-0.1)
-	if(VIRUSIMMUNE in species_traits && H.diseases.len>0)
-		for(var/datum/disease/D in H.diseases)
-			if(!D.ignore_immunity)
-				D.cure()
+
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
