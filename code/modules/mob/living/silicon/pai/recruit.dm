@@ -89,21 +89,25 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 		switch(option)
 			if("name")
-				t = input("Enter a name for your pAI", "pAI Name", candidate.name) as text
-				if(t)
-					candidate.name = sanitize(copytext_char(t,1,MAX_NAME_LEN))
+				t = tgui_input_text(usr, "Enter a name for your pAI", "pAI Name", candidate.name, MAX_NAME_LEN)
+				if(isnull(t))
+					return
+				candidate.name = t
 			if("desc")
-				t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
-				if(t)
-					candidate.description = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+				t = tgui_input_text(usr, "Enter a description for your pAI", "pAI Description", candidate.description, multiline = TRUE)
+				if(isnull(t))
+					return
+				candidate.description = t
 			if("role")
-				t = input("Enter a role for your pAI", "pAI Role", candidate.role) as text
-				if(t)
-					candidate.role = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+				t = tgui_input_text(usr, "Enter a role for your pAI", "pAI Role", candidate.role)
+				if(isnull(t))
+					return
+				candidate.role = t
 			if("ooc")
-				t = input("Enter any OOC comments", "pAI OOC Comments", candidate.comments) as message
-				if(t)
-					candidate.comments = sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))
+				t = tgui_input_text(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.comments, multiline = TRUE)
+				if(isnull(t))
+					return
+				candidate.comments = t
 			if("save")
 				candidate.savefile_save(usr)
 			if("load")
@@ -403,12 +407,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(!C)	return
 		asked.Add(C.key)
 		asked[C.key] = world.time
-		var/response = alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", "Yes", "No", "Never for this round")
+		var/response = tgui_alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", list("Yes", "No", "Never for this round"))
 		if(!C)	return		//handle logouts that happen whilst the alert is waiting for a response.
 		if(response == "Yes")
 			recruitWindow(C.mob)
 		else if(response == "Never for this round")
-			var/warning = alert(C, "Are you sure? This action will be undoable and you will need to wait until next round.", "You sure?", "Yes", "No")
+			var/warning = tgui_alert(C, "Someone is requesting a pAI personality. Would you like to play as a personal AI?", "pAI Request", list("Yes", "No", "Never for this round"))
 			if(warning == "Yes")
 				asked[C.key] = INFINITY
 			else

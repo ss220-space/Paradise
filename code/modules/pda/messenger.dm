@@ -109,11 +109,7 @@
 			active_conversation = null
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
-	var/t = input(U, "Please enter message", name, null) as text|null
-	if(!t)
-		return
-	t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
-	t = readd_quotes(t)
+	var/t = tgui_input_text(U, "Please enter your message", name)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)

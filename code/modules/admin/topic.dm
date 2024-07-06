@@ -3534,7 +3534,7 @@
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3543,7 +3543,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter [command_name()] message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description

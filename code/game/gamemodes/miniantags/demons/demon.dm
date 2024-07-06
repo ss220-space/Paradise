@@ -78,8 +78,8 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
+	if(!msg)
 		return
 
 	add_say_logs(usr, msg, choice, "SLAUGHTER")

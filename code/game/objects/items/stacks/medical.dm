@@ -318,7 +318,7 @@
 
 	if(bodypart.is_splinted())
 		to_chat(user, span_danger("[target]'s [bodypart_name] is already splinted!"))
-		if(alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal.", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal", list("Yes", "No")) == "Yes")
 			bodypart.remove_splint()
 			to_chat(user, span_notice("You remove the splint from [target]'s [bodypart_name]."))
 		return TRUE

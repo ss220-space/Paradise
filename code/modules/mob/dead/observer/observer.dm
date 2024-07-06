@@ -211,7 +211,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
+		response = tgui_alert(src, alertmsg, "Ghost", list("Stay in body", "Ghost"))
 		if(response != "Ghost")
 			return
 
@@ -375,7 +375,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
 		return
 
-	if(alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", "Да", "Нет") == "Да")
+	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) == "Да")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive статус включён.</span>")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing

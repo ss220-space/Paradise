@@ -315,7 +315,7 @@
 			temp_server.id_with_download += num
 
 	else if(href_list["reset_tech"])
-		var/choice = alert("Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_tech)
 				var/datum/tech/T = temp_server.files.known_tech[I]
@@ -325,7 +325,7 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["reset_design"])
-		var/choice = alert("Design Data Deletion", "Are you sure you want to delete this design? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]

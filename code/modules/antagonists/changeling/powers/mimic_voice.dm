@@ -28,8 +28,8 @@
 			mimic_voice_tts = human.dna.tts_seed_dna
 
 		if("Custom Voice")
-			mimic_voice = reject_bad_name(stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN), TRUE)
-			if(!mimic_voice)
+			mimic_voice = reject_bad_name(tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN), TRUE)
+			if(mimic_voice)
 				to_chat(user, span_warning("Invalid name, try again."))
 				return FALSE
 

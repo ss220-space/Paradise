@@ -25,9 +25,13 @@
 				if("alert")
 					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				if("setmsg1")
-					message1 = clean_input("Line 1", "Enter Message Text", message1)
+					message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1, encode = FALSE)
+					if(isnull(message1))
+						return
 				if("setmsg2")
-					message2 = clean_input("Line 2", "Enter Message Text", message2)
+					message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2, encode = FALSE)
+					if(isnull(message2))
+						return
 				else
 					post_status(params["statdisp"])
 

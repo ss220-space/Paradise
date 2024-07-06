@@ -549,7 +549,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Input Lists:</b> <a href='?_src_=prefs;preference=input_lists'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "Default" : "TGUI"]</a><br>"
+			dat += "<b> - TGUI Input:</b> <a href='?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
+			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Vote Popups:</b> <a href='?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "No" : "Yes"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
@@ -1334,7 +1336,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				SetChoices(user)
 			if("learnaboutselection")
 				if(CONFIG_GET(string/wikiurl))
-					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
+					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[CONFIG_GET(string/wikiurl)]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
@@ -1386,42 +1388,33 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		else
 			user << browse(null, "window=records")
 		if(href_list["task"] == "med_record")
-			var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(med_record)) as message
-
-			if(medmsg != null)
-				medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				medmsg = html_encode(medmsg)
-
-				med_record = medmsg
-				SetRecords(user)
+			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(medmsg))
+				return
+			med_record = medmsg
+			SetRecords(user)
 
 		if(href_list["task"] == "sec_record")
-			var/secmsg = input(usr,"Set your security notes here.","Security Records",html_decode(sec_record)) as message
+			var/secmsg = tgui_input_text(usr, "Set your security notes here.", "Security Records", sec_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(secmsg))
+				return
+			sec_record = secmsg
+			SetRecords(user)
 
-			if(secmsg != null)
-				secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				secmsg = html_encode(secmsg)
-
-				sec_record = secmsg
-				SetRecords(user)
 		if(href_list["task"] == "gen_record")
-			var/genmsg = input(usr,"Set your employment notes here.","Employment Records",html_decode(gen_record)) as message
+			var/genmsg = tgui_input_text(usr, "Set your employment notes here.", "Employment Records", gen_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(genmsg))
+				return
+			gen_record = genmsg
+			SetRecords(user)
 
-			if(genmsg != null)
-				genmsg = copytext(genmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				genmsg = html_encode(genmsg)
-
-				gen_record = genmsg
-				SetRecords(user)
 		if(href_list["task"] == "exploit_record")
-			var/expmsg = input(usr,"Set your exploitable notes here. This info is available to traitors only.","Exploitable Records",html_decode(exploit_record)) as message
+			var/expmsg = tgui_input_text(usr, "Set your exploitable notes here. This info is available to traitors only.", "Exploitable Records", exploit_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+			if(isnull(expmsg))
+				return
+			exploit_record = expmsg
+			SetRecords(user)
 
-			if(expmsg != null)
-				expmsg = copytext(expmsg, 1, MAX_PAPER_MESSAGE_LEN)
-				expmsg = html_encode(expmsg)
-
-				exploit_record = expmsg
-				SetRecords(user)
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
@@ -1557,9 +1550,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
 				if("age")
-					var/new_age = input(user, "Choose your character's age:\n([AGE_MIN]-[AGE_MAX])", "Character Preference") as num|null
-					if(new_age)
-						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
+					var/new_age = tgui_input_number(user, "Choose your character's age:\n([AGE_MIN]]-[AGE_MAX])", "Character Preference", age, AGE_MAX, AGE_MIN)
+					if(!new_age)
+						return
+					age = max(min(round(text2num(new_age)), AGE_MAX), AGE_MIN)
 				if("species")
 					var/list/new_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
 					var/prev_species = species
@@ -1694,9 +1688,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
-					if(new_metadata)
-						metadata = sanitize(copytext_char(new_metadata,1,MAX_MESSAGE_LEN))
+					var/new_metadata = tgui_input_text(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference", metadata, multiline = TRUE, encode = FALSE)
+					if(isnull(new_metadata))
+						return
+					metadata = new_metadata
 
 				if("b_type")
 					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type:", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
@@ -1755,11 +1750,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("h_grad_offset")
 					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
-					if(result)
-						var/list/expl = splittext(result, ",")
-						if(length(expl) == 2)
-							h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
-							h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+					if(!result)
+						return
+					var/list/expl = splittext(result, ",")
+					if(length(expl) == 2)
+						h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+						h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
 					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", h_grad_colour) as color|null
@@ -1767,9 +1763,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						h_grad_colour = result
 
 				if("h_grad_alpha")
-					var/result = input(user, "Choose your character's hair gradient alpha (0-200):", "Character Preference", h_grad_alpha) as num|null
-					if(!isnull(result))
-						h_grad_alpha = clamp(result, 0, 200)
+					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", h_grad_alpha, 255)
+					if(isnull(result))
+						return
+					h_grad_alpha = clamp(result, 0, 255)
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
@@ -2048,8 +2045,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-						if(new_s_tone)
-							s_tone = 35 - max(min(round(new_s_tone), 220), 1)
+						if(!new_s_tone)
+							return
+						s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
 						var/prompt = "Choose your character's skin tone: 1-[S.icon_skin_tones.len]\n("
@@ -2060,9 +2058,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(i != S.icon_skin_tones.len)
 								prompt += ", "
 						prompt += ")"
-						var/skin_c = input(user, prompt, "Character Preference") as num|null
-						if(isnum(skin_c))
-							s_tone = max(min(round(skin_c), S.icon_skin_tones.len), 1)
+						var/skin_c = tgui_input_number(user, prompt, "Character Preference", s_tone, length(S.icon_skin_tones), 1)
+						if(!skin_c)
+							return
+						s_tone = skin_c
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
@@ -2086,13 +2085,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						nanotrasen_relation = new_relation
 
 				if("flavor_text")
-					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(flavor_text)) as message
-
-					if(msg != null)
-						msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
-						msg = html_encode(msg)
-
-						flavor_text = msg
+					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					if(isnull(msg))
+						return
+					flavor_text = msg
 
 				if("ipcloadouts")
 					var/choice
@@ -2300,7 +2296,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
-					var/desiredfps = input(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = tgui_input_number(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Character Preference", clientfps, 120, world.fps)
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(clientfps)
@@ -2366,8 +2362,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
-				if("input_lists")
-					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+				if("tgui_input")
+					toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
+
+				if("tgui_input_large")
+					toggles2 ^= PREFTOGGLE_2_LARGE_INPUT_BUTTONS
+
+				if("tgui_input_swap")
+					toggles2 ^= PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 
 				if("vote_popup")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS
@@ -2413,8 +2415,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						H.remake_hud()
 
 				if("UIalpha")
-					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
-					if(!UI_style_alpha_new || !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
+					var/UI_style_alpha_new = tgui_input_number(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", "UI Alpha", UI_style_alpha, 255, 50)
+					if(!UI_style_alpha_new)
+						return
 					UI_style_alpha = UI_style_alpha_new
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -2670,7 +2673,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								keybindings_overrides -= KB.name
 
 					else if(href_list["all"])
-						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						var/yes = tgui_alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", list("Yes", "No")) == "Yes"
 						if(yes)
 							switch(href_list["all"])
 								if("reset")
@@ -2684,7 +2687,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
 						if(custom_emote_keybind)
 							var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name]
-							var/desired_emote = stripped_input(user, "Введите текст вашей эмоции, лимит: 128 символов.", "Custom Emote Setter", emote_text, max_length = 128)
+							var/desired_emote = tgui_input_text(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
 							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
 								user.client.prefs.custom_emotes[custom_emote_keybind.name] = desired_emote
 							save_character(user)

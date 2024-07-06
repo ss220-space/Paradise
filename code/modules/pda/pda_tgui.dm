@@ -104,7 +104,7 @@
 		if("Authenticate")//Checks for ID
 			id_check(usr, 1)
 		if("Ringtone")
-			return set_ringtone()
+			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

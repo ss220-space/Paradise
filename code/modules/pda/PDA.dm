@@ -361,16 +361,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
-/obj/item/pda/proc/set_ringtone()
-	var/t = input("Please enter new ringtone", name, ttone) as text
+/obj/item/pda/proc/set_ringtone(mob/user)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
 	if(in_range(src, usr) && loc == usr)
-		if(t)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(t)), lowertext(lock_code)))
+		if(new_tone)
+			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
 				to_chat(usr, "The PDA softly beeps.")
 				close(usr)
 			else
-				t = sanitize(copytext_char(t, 1, 20))
-				ttone = t
+				ttone = new_tone
 			return 1
 	else
 		close(usr)

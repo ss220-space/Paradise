@@ -112,7 +112,7 @@
 			if(flush) // Don't doublewipe.
 				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
 				return
-			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
+			var/confirm = tgui_alert(user, "Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", list("Yes", "No"))
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == UI_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
 				add_attack_logs(user, AI, "Wiped with [src].", ATKLOG_FEW)
 				INVOKE_ASYNC(src, PROC_REF(wipe_ai))

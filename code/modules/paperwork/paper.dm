@@ -431,7 +431,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
 
 		topic_href_write(id, input_element)
 

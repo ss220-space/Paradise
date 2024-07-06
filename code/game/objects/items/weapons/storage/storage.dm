@@ -117,7 +117,7 @@
 	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
-		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")
+		if(tgui_alert(user, "Empty [src] onto [over_object]?", "Confirm", list("Yes", "No")) != "Yes")
 			return FALSE
 
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))

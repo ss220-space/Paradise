@@ -469,7 +469,7 @@
 
 	return FALSE
 
-/obj/machinery/computer/supplycomp/ui_act(action, list/params)
+/obj/machinery/computer/supplycomp/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/ui)
 	if(..())
 		return
 
@@ -517,15 +517,13 @@
 
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
-				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
+				var/num_input = tgui_input_number(ui.user, "Amount", "How many crates?", max_value = 20, min_value = 1)
+				if(isnull(num_input) || (!is_public && !is_authorized(ui.user)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 20)
 
-
-			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
-			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
+			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
+			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = timeout)
+			if(!reason || (!is_public && !is_authorized(ui.user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
 			reason = sanitize(copytext_char(reason, 1, 100)) //Preventing tgui overflow

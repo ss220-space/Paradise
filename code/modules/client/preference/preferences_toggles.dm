@@ -249,13 +249,12 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/toggle_input()
-	set name = "Toggle TGUI Input Lists"
+	set name = "Toggle TGUI Input"
 	set category = "Preferences"
-	set desc = "Switches input lists between the TGUI and the standard one"
-	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	set desc = "Switches inputs between the TGUI and the standard one"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle TGUI Input Lists") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "no longer" : "now"] use TGUI Inputs.")
 
 /client/verb/toggle_vote_popup()
 	set name = "Toggle Vote Popup"
@@ -385,3 +384,26 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
+
+
+
+/// Delete after tgui panel
+/client/verb/refresh_tgui()
+	set name = "Refresh TGUI"
+	set category = "Special Verbs"
+
+	var/choice = alert(usr,
+		"Use it ONLY if you have trouble with TGUI window.\
+		That's UI's with EYE on top-left corner.\
+		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel")
+	if(choice != "Refresh")
+		return
+	var/refreshed_count = 0
+	for(var/window_id in tgui_windows)
+		var/datum/tgui_window/window = tgui_windows[window_id]
+		if(!window.locked)
+			window.acquire_lock()
+			continue
+		window.reinitialize()
+		refreshed_count++
+	to_chat(usr, "<span class='notice'>TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window.</span>")
