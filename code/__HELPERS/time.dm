@@ -11,6 +11,10 @@
 
 #define TICKS *world.tick_lag
 
+#define MS2DS(T) ((T) MILLISECONDS)
+
+#define DS2MS(T) ((T) * 100)
+
 #define SECONDS_TO_LIFE_CYCLES /2
 
 #define DS2TICKS(DS) ((DS)/world.tick_lag)

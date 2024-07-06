@@ -773,6 +773,15 @@
 	default = 80
 
 
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	default = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	default = 0
+	min_val = 0
+
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
 	default = 600
 	integer = FALSE
