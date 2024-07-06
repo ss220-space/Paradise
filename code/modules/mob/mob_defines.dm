@@ -200,8 +200,8 @@
 	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
 	var/usable_hands = 2
 
-	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
-	var/player_logged = 0
+	/// SSD var. When mob has SSD status it contains num value (in deciseconds), since last mob logout. Always null otherwise.
+	var/player_logged
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
