@@ -311,7 +311,7 @@
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	if(VIRUSIMMUNE in species_traits)
+	if((VIRUSIMMUNE in species_traits) && (LAZYLEN(H.diseases)))
 		for(var/datum/disease/D in H.diseases)
 			if(!D.ignore_immunity)
 				D.cure()
