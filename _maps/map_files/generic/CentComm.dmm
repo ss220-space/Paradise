@@ -13197,11 +13197,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
-"gNw" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/syndicate_mothership/cargo)
 "gNB" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -45161,11 +45156,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"vVA" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/syndicate)
 "vVB" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_LWAP";
@@ -51759,7 +51749,7 @@ xqR
 yiJ
 xqR
 yiJ
-xqR
+yiJ
 yiJ
 gYB
 pwa
@@ -51826,7 +51816,7 @@ ciV
 shZ
 shZ
 shZ
-gNw
+ciV
 ciV
 ciV
 ciV
@@ -52007,7 +51997,7 @@ pwa
 dMz
 rZw
 rZw
-vVA
+yiJ
 yiJ
 xqR
 yiJ
@@ -55348,7 +55338,7 @@ pwa
 fZa
 wEF
 wEF
-vVA
+yiJ
 yiJ
 xqR
 yiJ
@@ -55614,7 +55604,7 @@ xqR
 yiJ
 xqR
 yiJ
-xqR
+yiJ
 yiJ
 okv
 pwa
@@ -55938,7 +55928,7 @@ ciV
 spi
 spi
 spi
-gNw
+ciV
 ciV
 ciV
 ciV
@@ -58949,7 +58939,7 @@ xXv
 xXv
 xXv
 xXv
-kbL
+xXv
 xVm
 lPB
 xVm
@@ -62033,7 +62023,7 @@ xXv
 xXv
 xXv
 xXv
-kbL
+xXv
 xVm
 mET
 dGr
