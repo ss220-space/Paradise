@@ -162,11 +162,34 @@
 				to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 
 /obj/machinery/quantumpad/cere
-	name = "Station quantum pad"
+	name = "quantum pad"
+	var/destination
+	var/address
 
 /obj/machinery/quantumpad/cere/Initialize(mapload) //a lot of cele preseted pads
 	. = ..()
-	linked_pad = locate(preset_target)
+	if(preset_target)
+		linked_pad = locate(preset_target)
+		var/slice = findtext_char("[preset_target]", "_", findtext("[preset_target]", "cere/"))
+		destination = copytext("[preset_target]", findtext("[preset_target]", "cere/")+5, slice)
+		address = copytext("[preset_target]", slice+1)
+
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
+
+/obj/machinery/quantumpad/cere/update_name(updates)
+	. = ..()
+	if(address)
+		name = "[address] [initial(name)]"
+	else
+		name = initial(name)
+
+/obj/machinery/quantumpad/cere/update_desc(updates)
+	. = ..()
+	if(destination)
+		desc = "This leads to [destination]"
+	else
+		desc = "This leads to nowhere."
+
 
 //cere only
 /obj/machinery/quantumpad/cere/science_arrivals
