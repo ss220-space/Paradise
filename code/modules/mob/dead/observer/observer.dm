@@ -33,8 +33,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
-	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	///does the ghost have health scanner mode on? by default it should be off
+	var/health_scan = FALSE
+	///does the ghost have gas scanner mode on? by default it should be off
 	var/gas_scan = FALSE
+	///does the ghost have plant scanner mode on? by default it should be off
+	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -517,6 +521,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
+
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Toggle Plant Analyzer"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
+	set category = "Ghost"
+
+	if(plant_analyzer)
+		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		plant_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		plant_analyzer = TRUE
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
