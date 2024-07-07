@@ -93,7 +93,7 @@
 	static_inventory += using
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
-	inv_box.name = "storage1"
+	inv_box.name = "left_pocket"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_l
@@ -101,7 +101,7 @@
 	static_inventory += inv_box
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
-	inv_box.name = "storage2"
+	inv_box.name = "right_pocket"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_r
@@ -164,18 +164,18 @@
 		if(H.l_hand)
 			H.l_hand.screen_loc = ui_lhand
 			H.client.screen += H.l_hand
-		if(H.r_store)
-			H.r_store.screen_loc = ui_alien_storage_r
-			H.client.screen += H.r_store
-		if(H.l_store)
-			H.l_store.screen_loc = ui_alien_storage_l
-			H.client.screen += H.l_store
+		// if(H.r_store)
+		// 	H.r_store.screen_loc = ui_alien_storage_r
+		// 	H.client.screen += H.r_store
+		// if(H.l_store)
+		// 	H.l_store.screen_loc = ui_alien_storage_l
+		// 	H.client.screen += H.l_store
 	else
 		if(H.r_hand)
 			H.r_hand.screen_loc = null
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
-		if(H.r_store)
-			H.r_store.screen_loc = null
-		if(H.l_store)
-			H.l_store.screen_loc = null
+		// if(H.r_store)
+		// 	H.r_store.screen_loc = null
+		// if(H.l_store)
+		// 	H.l_store.screen_loc = null

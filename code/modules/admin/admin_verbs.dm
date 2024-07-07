@@ -641,9 +641,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				theghost = pick(candidates)
 				P.key = theghost.key
 				P.master_commander = H
-				P.universal_speak = 1
-				P.universal_understand = 1
-				P.can_collar = 1
+				P.universal_speak = TRUE
+				P.universal_understand = TRUE
+				P.set_can_collar(TRUE)
 				P.faction = list("neutral")
 				var/obj/item/clothing/accessory/petcollar/C = new
 				P.add_collar(C)

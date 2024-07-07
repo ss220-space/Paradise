@@ -1,19 +1,3 @@
-/mob/living/carbon/alien/humanoid/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
-	. = ..()
-	if(!. || !I)
-		return
-
-	if(I == r_store)
-		r_store = null
-		if(!QDELETED(src))
-			update_inv_pockets()
-
-	else if(I == l_store)
-		l_store = null
-		if(!QDELETED(src))
-			update_inv_pockets()
-
-
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
 		return
