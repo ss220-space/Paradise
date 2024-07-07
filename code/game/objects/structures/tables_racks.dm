@@ -49,12 +49,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-
 /obj/structure/table/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
