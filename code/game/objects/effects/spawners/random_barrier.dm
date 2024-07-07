@@ -72,10 +72,10 @@
 	/obj/structure/grille/broken = 8,
 	/turf/simulated/floor/plating = 5)
 
-/obj/effect/spawner/random_spawners/rock_40
+/obj/effect/spawner/random_spawners/rock_50
 	name = "rock maybe"
 	icon_state = "rock"
 	result = list(
-	/turf/simulated/mineral/ancient = 4,
+	/turf/simulated/mineral/ancient = 10,
 	/obj/structure/falsewall/mineral_ancient = 1,
-	/turf/simulated/floor/plating = 5)
+	/turf/simulated/floor/plating = 9)

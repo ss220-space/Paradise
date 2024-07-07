@@ -162,7 +162,7 @@
 				to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 
 /obj/machinery/quantumpad/cere
-	name = "quantum pad"
+	name = "Station quantum pad"
 
 /obj/machinery/quantumpad/cere/Initialize(mapload) //a lot of cele preseted pads
 	. = ..()
