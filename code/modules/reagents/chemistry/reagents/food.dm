@@ -117,12 +117,12 @@
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
-	M.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+	M.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
 	M.emote("faint")
 	M.hunger_drain *= 2
 	..()
 
-/datum/reagent/consumable/sugar/overdose_process(mob/living/carbon/M)
+/datum/reagent/consumable/sugar/overdose_process(mob/living/carbon/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(5 SECONDS)
 	if(prob(10))
@@ -139,7 +139,7 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_end(mob/living/M)
-	M.clear_fullscreen("remote_view")
+	M.clear_fullscreen("hyperglycemia")
 	M.hunger_drain /= 2
 	..()
 
