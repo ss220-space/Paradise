@@ -13,7 +13,6 @@ import { Window } from '../layouts';
 export const DnaVault = (props, context) => {
   const { act, data } = useBackend(context);
   const { completed } = data;
-  const { completed } = data;
   return (
     <Window width={350} height={270}>
       <Window.Content>
@@ -28,7 +27,6 @@ export const DnaVault = (props, context) => {
 
 const DnaVaultDataBase = (props, context) => {
   const { act, data } = useBackend(context);
-  const { dna, dna_max, plants, plants_max, animals, animals_max } = data;
   const { dna, dna_max, plants, plants_max, animals, animals_max } = data;
   const average_progress = 0.66;
   const bad_progress = 0.33;
@@ -80,7 +78,6 @@ const DnaVaultDataBase = (props, context) => {
 
 const GeneTherapySelection = (props, context) => {
   const { act, data } = useBackend(context);
-  const { choiceA, choiceB, used } = data;
   const { choiceA, choiceB, used } = data;
   return (
     <Stack.Item>

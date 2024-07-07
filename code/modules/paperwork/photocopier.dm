@@ -432,6 +432,7 @@
 	data["category"] = category
 	data["form_id"] = form_id
 	data["forms"] = forms
+	data["ui_theme"] = ui_theme
 	return data
 
 /obj/machinery/photocopier/ui_act(action, list/params, datum/tgui/ui)

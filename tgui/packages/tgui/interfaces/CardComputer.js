@@ -162,10 +162,8 @@ export const CardComputer = (props, context) => {
       } else {
         bodyBlock = (
           <>
-          <>
             <Section title="Card Information">
               {!data.target_dept && (
-                <>
                 <>
                   <LabeledList.Item label="Registered Name">
                     <Button
@@ -186,15 +184,7 @@ export const CardComputer = (props, context) => {
                           ? 'pencil-alt'
                           : 'exclamation-triangle'
                       }
-                      icon={
-                        data.account_number
-                          ? 'pencil-alt'
-                          : 'exclamation-triangle'
-                      }
                       selected={data.account_number}
-                      content={
-                        data.account_number ? data.account_number : 'None'
-                      }
                       content={
                         data.account_number ? data.account_number : 'None'
                       }
@@ -202,18 +192,11 @@ export const CardComputer = (props, context) => {
                     />
                   </LabeledList.Item>
                 </>
-                </>
               )}
               <LabeledList.Item label="Latest Transfer">
                 {data.modify_lastlog || '---'}
-                {data.modify_lastlog || '---'}
               </LabeledList.Item>
             </Section>
-            <Section
-              title={
-                data.target_dept ? 'Department Job Transfer' : 'Job Transfer'
-              }
-            >
             <Section
               title={
                 data.target_dept ? 'Department Job Transfer' : 'Job Transfer'
@@ -234,7 +217,6 @@ export const CardComputer = (props, context) => {
                   </LabeledList.Item>
                 ) : (
                   <>
-                  <>
                     <LabeledList.Item label="Special">
                       {data.jobs_top.map((v) => (
                         <Button
@@ -246,10 +228,6 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Engineering"
-                      labelColor={deptCols.engineering}
-                    >
                     <LabeledList.Item
                       label="Engineering"
                       labelColor={deptCols.engineering}
@@ -268,10 +246,6 @@ export const CardComputer = (props, context) => {
                       label="Medical"
                       labelColor={deptCols.medical}
                     >
-                    <LabeledList.Item
-                      label="Medical"
-                      labelColor={deptCols.medical}
-                    >
                       {data.jobs_medical.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -282,10 +256,6 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Science"
-                      labelColor={deptCols.science}
-                    >
                     <LabeledList.Item
                       label="Science"
                       labelColor={deptCols.science}
@@ -304,10 +274,6 @@ export const CardComputer = (props, context) => {
                       label="Security"
                       labelColor={deptCols.security}
                     >
-                    <LabeledList.Item
-                      label="Security"
-                      labelColor={deptCols.security}
-                    >
                       {data.jobs_security.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -318,10 +284,6 @@ export const CardComputer = (props, context) => {
                         />
                       ))}
                     </LabeledList.Item>
-                    <LabeledList.Item
-                      label="Service"
-                      labelColor={deptCols.service}
-                    >
                     <LabeledList.Item
                       label="Service"
                       labelColor={deptCols.service}
@@ -340,10 +302,6 @@ export const CardComputer = (props, context) => {
                       label="Supply"
                       labelColor={deptCols.supply}
                     >
-                    <LabeledList.Item
-                      label="Supply"
-                      labelColor={deptCols.supply}
-                    >
                       {data.jobs_supply.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -358,10 +316,6 @@ export const CardComputer = (props, context) => {
                       label="Restricted"
                       labelColor={deptCols.procedure}
                     >
-                    <LabeledList.Item
-                      label="Restricted"
-                      labelColor={deptCols.procedure}
-                    >
                       {data.jobs_karma.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -369,11 +323,9 @@ export const CardComputer = (props, context) => {
                           key={v}
                           content={v}
                           onClick={() => act('assign', { assign_target: v })}
-                          onClick={() => act('assign', { assign_target: v })}
                         />
                       ))}
                     </LabeledList.Item>
-                  </>
                   </>
                 )}
                 <LabeledList.Item label="Civilian">
@@ -392,18 +344,11 @@ export const CardComputer = (props, context) => {
                     label="CentCom"
                     labelColor={deptCols.centcom}
                   >
-                  <LabeledList.Item
-                    label="CentCom"
-                    labelColor={deptCols.centcom}
-                  >
                     {data.jobs_centcom.map((v) => (
                       <Button
                         selected={data.modify_rank === v}
                         key={v}
                         content={v}
-                        color={
-                          data.jobFormats[v] ? data.jobFormats[v] : 'purple'
-                        }
                         color={
                           data.jobFormats[v] ? data.jobFormats[v] : 'purple'
                         }
@@ -415,8 +360,6 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Demotion">
                   <Button
                     disabled={
-                      data.modify_assignment === 'Demoted' ||
-                      data.modify_assignment === 'Terminated'
                       data.modify_assignment === 'Demoted' ||
                       data.modify_assignment === 'Terminated'
                     }
@@ -468,7 +411,6 @@ export const CardComputer = (props, context) => {
                 )}
               </Section>
             )}
-          </>
           </>
         );
       }
@@ -717,7 +659,6 @@ export const CardComputer = (props, context) => {
   }
 
   return (
-    <Window width={800} height={800}>
     <Window width={800} height={800}>
       <Window.Content scrollable>
         <Stack fill vertical>

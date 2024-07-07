@@ -46,10 +46,8 @@ export const Photocopier = (props, context) => {
 
   let category;
   if (data.category === '') {
-  if (data.category === '') {
     category = forms;
   } else {
-    category = forms.filter((form) => form.category === data.category);
     category = forms.filter((form) => form.category === data.category);
   }
 
@@ -120,7 +118,6 @@ export const Photocopier = (props, context) => {
                       icon="print"
                       disabled={data.toner === 0 || data.form === null}
                       content="Печать"
-                      onClick={() => act('print_form')}
                       onClick={() => act('print_form')}
                     />
                   </Stack.Item>
