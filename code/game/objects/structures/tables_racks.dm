@@ -608,14 +608,9 @@
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_FANCY_WOOD_TABLES
 	smoothing_groups = SMOOTH_GROUP_FANCY_WOOD_TABLES
-	var/smooth_icon = 'icons/obj/smooth_structures/fancy_table.dmi'
 
 /obj/structure/table/wood/fancy/flip(direction)
 	return FALSE
-
-/obj/structure/table/wood/fancy/Initialize()
-	. = ..()
-	icon = smooth_icon
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
