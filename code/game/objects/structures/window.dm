@@ -53,24 +53,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/glasshit.ogg'
 
-/obj/structure/window/examine(mob/user)
-	. = ..()
-	if(reinf)
-		if(anchored && state == WINDOW_SCREWED_TO_FRAME)
-			. += "<span class='notice'>The window is <b>screwed</b> to the frame.</span>"
-		else if(anchored && state == WINDOW_IN_FRAME)
-			. += "<span class='notice'>The window is <i>unscrewed</i> but <b>pried</b> into the frame.</span>"
-		else if(anchored && state == WINDOW_OUT_OF_FRAME)
-			. += "<span class='notice'>The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.</span>"
-		else if(!anchored)
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
-	else
-		if(anchored)
-			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
-		else
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
-	if(!anchored && !fulltile)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
@@ -112,6 +94,39 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = EXPLOSION_BLOCK_PROC
 
 	air_update_turf(TRUE)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/window/Destroy()
+	set_density(FALSE)
+	air_update_turf(1)
+	update_nearby_icons()
+	return ..()
+
+
+/obj/structure/window/examine(mob/user)
+	. = ..()
+	if(reinf)
+		if(anchored && state == WINDOW_SCREWED_TO_FRAME)
+			. += "<span class='notice'>The window is <b>screwed</b> to the frame.</span>"
+		else if(anchored && state == WINDOW_IN_FRAME)
+			. += "<span class='notice'>The window is <i>unscrewed</i> but <b>pried</b> into the frame.</span>"
+		else if(anchored && state == WINDOW_OUT_OF_FRAME)
+			. += "<span class='notice'>The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.</span>"
+		else if(!anchored)
+			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+	else
+		if(anchored)
+			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
+		else
+			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+	if(!anchored && !fulltile)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -157,10 +172,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return TRUE
 
 
-/obj/structure/window/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(fulltile || dir == FULLTILE_WINDOW_DIR)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
@@ -422,11 +451,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	return TRUE
 
-/obj/structure/window/Destroy()
-	set_density(FALSE)
-	air_update_turf(1)
-	update_nearby_icons()
-	return ..()
 
 /obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc

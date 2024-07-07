@@ -45,6 +45,11 @@
 	if(flipped)
 		update_icon(UPDATE_ICON_STATE)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/table/examine(mob/user)
 	. = ..()
@@ -162,6 +167,26 @@
 		. = TRUE
 
 
+/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(!flipped)
+		return
+
+	if(checkpass(leaving, PASSTABLE) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
+
+
 /**
  * Determines whether a projectile crossing our turf should be stopped.
  * Return FALSE to stop the projectile.
@@ -190,12 +215,11 @@
 		return FALSE // Blocked
 
 
-/obj/structure/table/CanExit(atom/movable/mover, moving_direction)
+/obj/structure/table/can_touch(mob/living/user)
 	. = ..()
-	if(checkpass(mover, PASSTABLE))
-		return TRUE
-	if(flipped)
-		return dir != moving_direction
+	if(. && flipped)
+		to_chat(user, span_notice("You cannot climb on the flipped table."))
+		return FALSE
 
 
 /obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)

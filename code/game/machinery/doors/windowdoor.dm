@@ -25,11 +25,12 @@
 	var/cable = 1
 	var/list/debris = list()
 
-/obj/machinery/door/window/New(loc, set_dir)
-	..()
+
+/obj/machinery/door/window/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	if(req_access && req_access.len)
+	if(length(req_access))
 		icon_state = "[icon_state]"
 		base_state = icon_state
 	if(!color && cancolor)
@@ -40,6 +41,12 @@
 		debris += new /obj/item/stack/rods(src, rods)
 	if(cable)
 		debris += new /obj/item/stack/cable_coil(src, cable)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
@@ -142,11 +149,21 @@
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 
-/obj/machinery/door/window/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
 
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/machinery/door/window/update_icon_state()
@@ -395,6 +412,7 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
+
 /obj/machinery/door/window/clockwork_fake
 	name = "brass windoor"
 	desc = "A completely not magical thin door with translucent brass paneling."
@@ -405,13 +423,16 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
+
+/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
+	. = ..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
 
-/obj/machinery/door/window/clockwork_fake/New(loc, set_dir)
+
+/obj/machinery/door/window/clockwork_fake/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
+
 
 /obj/machinery/door/window/clockwork/setDir(newdir)
 	if(!made_glow)
