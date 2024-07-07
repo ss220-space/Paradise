@@ -436,7 +436,7 @@
 	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/update_name()
+/obj/item/disk/plantgene/update_name(updates = ALL)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		name = "nuclear authentication disk"
@@ -446,7 +446,7 @@
 	else
 		name = initial(name)
 
-/obj/item/disk/plantgene/update_desc()
+/obj/item/disk/plantgene/update_desc(updates = ALL)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		desc = "Better keep this safe."
