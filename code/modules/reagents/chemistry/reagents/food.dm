@@ -122,7 +122,7 @@
 	M.hunger_drain *= 2
 	..()
 
-/datum/reagent/consumable/sugar/overdose_process(mob/living/carbon/M, severity)
+/datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(5 SECONDS)
 	if(prob(10))
@@ -135,7 +135,9 @@
 		if(prob(3))
 			M.emote("collapse")
 		if(prob(3))
-			M.vomit()
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.vomit()
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_end(mob/living/M)
