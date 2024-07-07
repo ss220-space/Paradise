@@ -1370,11 +1370,9 @@
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "amo" = (
-/obj/effect/landmark/event/carpspawn,
-/turf/space/openspace{
-	icon_state = "black"
-	},
-/area/space)
+/obj/effect/spawner/window,
+/turf/simulated/floor/glass,
+/area/hydroponics)
 "amx" = (
 /obj/structure/cable/orange{
 	icon_state = "2-8"
@@ -1961,7 +1959,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 1;
+	dir = 2;
 	id = "Cell 3";
 	name = "Cell 3";
 	req_access = list(2)
@@ -8373,6 +8371,9 @@
 /obj/item/flag/sec,
 /obj/structure/cable/orange{
 	icon_state = "1-8"
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -16657,7 +16658,7 @@
 	name = "Security Blast Door"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
+	dir = 1;
 	id = "Cell 6";
 	name = "Cell 6";
 	req_access = list(2)
@@ -20549,7 +20550,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 1;
+	dir = 2;
 	id = "Cell 1";
 	name = "Cell 1";
 	req_access = list(2)
@@ -26163,6 +26164,12 @@
 	icon_state = "dark"
 	},
 /area/library)
+"dFB" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/security/prison/cell_block/A)
 "dFE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -27778,6 +27785,7 @@
 /obj/structure/railing/wooden{
 	dir = 4
 	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing/wooden/cornerl,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
@@ -44080,6 +44088,9 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -44509,7 +44520,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "hkN" = (
@@ -53993,6 +54005,11 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/machinery/camera{
+	c_tag = "Toxins Storage";
+	dir = 9;
+	network = list("SS13","RD")
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "jdp" = (
@@ -54490,9 +54507,11 @@
 	},
 /area/teleporter/quantum/medbay)
 "jix" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood/fancy/oak,
-/area/crew_quarters/theatre)
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
+/turf/simulated/floor/glass,
+/area/security/brig)
 "jiD" = (
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel{
@@ -56050,7 +56069,7 @@
 	name = "Security Blast Door"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
+	dir = 1;
 	id = "Cell 5";
 	name = "Cell 5";
 	req_access = list(2)
@@ -56152,6 +56171,9 @@
 /area/maintenance/cele/servise)
 "jzo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63101,7 +63123,8 @@
 /area/crew_quarters/dorms)
 "kTo" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "kTp" = (
@@ -65344,6 +65367,7 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
 "lrx" = (
@@ -67351,6 +67375,9 @@
 "lNA" = (
 /obj/machinery/camera/autoname{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /turf/simulated/floor/glass,
 /area/security/brig)
@@ -70883,7 +70910,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 1;
+	dir = 2;
 	id = "Cell 2";
 	name = "Cell 2";
 	req_access = list(2)
@@ -72678,7 +72705,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "mOK" = (
@@ -78743,6 +78771,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82375,7 +82406,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "oOh" = (
@@ -82632,7 +82663,8 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "oQP" = (
@@ -84113,6 +84145,12 @@
 	icon_state = "dark"
 	},
 /area/assembly/robotics)
+"pck" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/security/prison/cell_block/A)
 "pcm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85411,7 +85449,7 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
-	dir = 2;
+	dir = 1;
 	icon_state = "rightsecure";
 	id = "Cell 4";
 	name = "Cell 4";
@@ -98493,11 +98531,6 @@
 	},
 /area/toxins/hallway)
 "rVB" = (
-/obj/machinery/camera{
-	c_tag = "Toxins Storage";
-	dir = 9;
-	network = list("SS13","RD")
-	},
 /obj/machinery/computer/area_atmos,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
@@ -100835,9 +100868,6 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
-/obj/machinery/door/window/southright{
-	dir = 4
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -100847,6 +100877,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	name = "Security";
+	req_access = list(1)
 	},
 /turf/simulated/floor/plating,
 /area/security/main)
@@ -106615,6 +106650,7 @@
 "txr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
+/obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -107116,6 +107152,7 @@
 /obj/structure/railing/wooden{
 	dir = 8
 	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing/wooden/cornerr,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
@@ -112442,7 +112479,8 @@
 	},
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
 "uDi" = (
@@ -121188,6 +121226,9 @@
 "wpP" = (
 /obj/machinery/status_display{
 	pixel_x = -32
+	},
+/obj/machinery/camera/autoname{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -211595,7 +211636,7 @@ kta
 hVH
 bss
 hVH
-jix
+hVH
 soV
 nZB
 vxd
@@ -213651,7 +213692,7 @@ kta
 rif
 iVh
 eyL
-jix
+hVH
 soV
 jSl
 vxd
@@ -241873,9 +241914,9 @@ orm
 orm
 orm
 orm
-ukL
+pdU
 soY
-ukL
+sBw
 orm
 orm
 orm
@@ -242129,11 +242170,11 @@ orm
 orm
 orm
 orm
-orm
-pdU
+swz
+dFy
 soY
-sBw
-orm
+dFy
+qsn
 orm
 orm
 jqn
@@ -242386,11 +242427,11 @@ orm
 orm
 orm
 orm
-swz
-dFy
+oWC
+orm
 soY
-dFy
-qsn
+orm
+txh
 orm
 orm
 jqn
@@ -242642,13 +242683,13 @@ dFy
 orm
 orm
 orm
-orm
-oWC
-orm
+swz
+dFy
+qsn
 soY
-orm
-txh
-orm
+swz
+dFy
+qsn
 orm
 orm
 orm
@@ -242899,13 +242940,13 @@ dFy
 orm
 orm
 orm
-swz
-dFy
-qsn
+ukL
+orm
+ukL
 soY
-swz
-dFy
-qsn
+ukL
+orm
+ukL
 orm
 orm
 orm
@@ -243413,13 +243454,13 @@ orm
 orm
 orm
 orm
-sBw
-dFy
-pdU
+ukL
+orm
+ukL
 soY
-sBw
-dFy
-pdU
+ukL
+orm
+ukL
 orm
 orm
 orm
@@ -243670,13 +243711,13 @@ orm
 orm
 orm
 orm
-orm
-nqf
-orm
+sBw
+dFy
+pdU
 soY
-orm
-nGF
-orm
+sBw
+dFy
+pdU
 orm
 orm
 orm
@@ -243928,11 +243969,11 @@ orm
 orm
 pid
 orm
-qMK
-dFy
+nqf
+orm
 soY
-dFy
-ezj
+orm
+nGF
 orm
 orm
 orm
@@ -244185,11 +244226,11 @@ orm
 orm
 orm
 orm
-orm
-qsn
+qMK
+dFy
 soY
-swz
-orm
+dFy
+ezj
 orm
 orm
 orm
@@ -244443,9 +244484,9 @@ orm
 orm
 orm
 orm
-ukL
+qsn
 soY
-ukL
+swz
 orm
 orm
 orm
@@ -265987,7 +266028,7 @@ jqn
 jqn
 jqn
 jqn
-amo
+jqn
 jqn
 jqn
 jqn
@@ -267295,7 +267336,7 @@ orm
 orm
 orm
 orm
-orm
+pid
 orm
 orm
 orm
@@ -277328,7 +277369,7 @@ epc
 buj
 wQG
 wQG
-wQG
+jix
 mjJ
 pwG
 thd
@@ -279486,13 +279527,13 @@ aeM
 pvL
 pvL
 pvL
-ylk
-ylk
-ylk
-ylk
-ylk
-ylk
-ylk
+amo
+amo
+amo
+amo
+amo
+amo
+amo
 pvL
 pvL
 pvL
@@ -281698,12 +281739,12 @@ pNG
 aeM
 aeM
 gUQ
-kTo
+pck
 kTo
 oQE
 mOE
 kTo
-kTo
+dFB
 gUQ
 aeM
 aeM
@@ -294530,7 +294571,7 @@ orm
 orm
 orm
 orm
-orm
+pid
 orm
 orm
 orm
@@ -316901,7 +316942,7 @@ orm
 orm
 orm
 orm
-oqZ
+aeM
 aeM
 aeM
 aeM
@@ -317158,7 +317199,7 @@ orm
 orm
 orm
 orm
-oqZ
+aeM
 aeM
 aeM
 aeM
@@ -318430,21 +318471,21 @@ orm
 orm
 orm
 rOC
-orm
-orm
-orm
-orm
-orm
-orm
-orm
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+rOC
+lfc
+lfc
 aeM
 aeM
 aeM
@@ -318686,7 +318727,6 @@ orm
 orm
 orm
 orm
-rOC
 orm
 orm
 orm
@@ -318694,12 +318734,13 @@ orm
 orm
 orm
 orm
-oqZ
-oqZ
-aeM
-aeM
-oqZ
-oqZ
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 oqZ
 oqZ
 aeM
@@ -318943,7 +318984,12 @@ orm
 orm
 orm
 orm
-rOC
+orm
+orm
+orm
+orm
+orm
+orm
 orm
 orm
 orm
@@ -318952,11 +318998,6 @@ orm
 orm
 orm
 oqZ
-oqZ
-aeM
-aeM
-aeM
-aeM
 oqZ
 aeM
 aeM
@@ -319200,20 +319241,20 @@ jqn
 jqn
 orm
 orm
-rOC
-rOC
-rOC
-rOC
-rOC
-rOC
-rOC
-lfc
-lfc
-aeM
-aeM
-aeM
-aeM
-aeM
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+oqZ
 aeM
 aeM
 aeM
@@ -319464,12 +319505,12 @@ orm
 orm
 orm
 orm
-oqZ
-oqZ
-aeM
-aeM
-aeM
-aeM
+orm
+orm
+orm
+orm
+orm
+orm
 oqZ
 aeM
 aeM
@@ -319721,19 +319762,19 @@ orm
 orm
 orm
 orm
-oqZ
+orm
+orm
+orm
+orm
+orm
+orm
 oqZ
 oqZ
 aeM
 aeM
 aeM
-oqZ
-oqZ
 aeM
 aeM
-aeM
-oqZ
-oqZ
 jhv
 rlK
 sUd
@@ -319978,18 +320019,18 @@ orm
 orm
 orm
 orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 oqZ
 oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
+aeM
+aeM
+aeM
 oqZ
 jhv
 sSo
@@ -320237,12 +320278,12 @@ orm
 orm
 orm
 orm
-oqZ
 orm
-oqZ
-oqZ
-oqZ
-oqZ
+orm
+orm
+orm
+orm
+orm
 oqZ
 oqZ
 oqZ
