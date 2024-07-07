@@ -14052,7 +14052,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/quantumpad/cere/cargo_engi2,
+/obj/machinery/quantumpad/cere/cargo_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -19069,7 +19069,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/quantumpad/cere/engi_cargo,
+/obj/machinery/quantumpad/cere/engineering_cargo2,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -20414,7 +20414,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/quantumpad/cere/servise_engi2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -21110,7 +21109,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/quantumpad/cere/engi_medbay,
+/obj/machinery/quantumpad/cere/engineering_medbay2,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -22282,7 +22281,7 @@
 /obj/structure/sign/restroom{
 	pixel_x = -32
 	},
-/obj/machinery/quantumpad/cere/engi_servise2,
+/obj/machinery/quantumpad/cere/engineering_servise2,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -30441,7 +30440,7 @@
 /obj/structure/sign/comand{
 	pixel_y = 32
 	},
-/obj/machinery/quantumpad/cere/engi_comand2,
+/obj/machinery/quantumpad/cere/engineering_comand2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkbluefull"
@@ -37938,7 +37937,7 @@
 /obj/structure/sign/engineering{
 	pixel_y = -32
 	},
-/obj/machinery/quantumpad/cere/medbay_engi,
+/obj/machinery/quantumpad/cere/medbay_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -40322,7 +40321,7 @@
 /obj/structure/sign/science{
 	pixel_y = -32
 	},
-/obj/machinery/quantumpad/cere/engi_science2,
+/obj/machinery/quantumpad/cere/engineering_science2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -40422,7 +40421,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/quantumpad/cere/arrivals_engi2,
+/obj/machinery/quantumpad/cere/arrivals_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -41735,7 +41734,7 @@
 /obj/structure/sign/med{
 	pixel_x = 32
 	},
-/obj/machinery/quantumpad/cere/engi_medbay2,
+/obj/machinery/quantumpad/cere/engineering_medbay,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -58970,7 +58969,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/quantumpad/cere/engi_arrivals2,
+/obj/machinery/quantumpad/cere/engineering_arrivals2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -62938,7 +62937,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/comand_engi2,
+/obj/machinery/quantumpad/cere/comand_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -63226,7 +63225,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/quantumpad/cere/engi_comand,
+/obj/machinery/quantumpad/cere/engineering_comand,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkbluefull"
@@ -66957,7 +66956,7 @@
 /obj/structure/sign/engineering{
 	pixel_x = -32
 	},
-/obj/machinery/quantumpad/cere/science_engi,
+/obj/machinery/quantumpad/cere/science_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -67734,7 +67733,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/quantumpad/cere/security_engi2,
+/obj/machinery/quantumpad/cere/security_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -76965,7 +76964,7 @@
 /obj/structure/sign/security{
 	pixel_x = -32
 	},
-/obj/machinery/quantumpad/cere/engi_security2,
+/obj/machinery/quantumpad/cere/engineering_security2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -81671,7 +81670,7 @@
 /obj/structure/sign/engineering{
 	pixel_x = 32
 	},
-/obj/machinery/quantumpad/cere/comand_engi,
+/obj/machinery/quantumpad/cere/comand_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -82649,7 +82648,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/quantumpad/cere/medbay_engi2,
+/obj/machinery/quantumpad/cere/medbay_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -86856,7 +86855,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 10
 	},
-/obj/machinery/quantumpad/cere/engi_security,
+/obj/machinery/quantumpad/cere/engineering_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -88293,7 +88292,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/quantumpad/cere/arrivals_engi,
+/obj/machinery/quantumpad/cere/arrivals_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -90113,7 +90112,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/quantumpad/cere/security_engi,
+/obj/machinery/quantumpad/cere/security_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -110747,7 +110746,7 @@
 /obj/structure/sign/evac{
 	pixel_y = -32
 	},
-/obj/machinery/quantumpad/cere/engi_arrivals,
+/obj/machinery/quantumpad/cere/engineering_arrivals,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -112223,7 +112222,6 @@
 /obj/structure/sign/engineering{
 	pixel_y = -32
 	},
-/obj/machinery/quantumpad/cere/servise_engi,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -118059,7 +118057,7 @@
 /obj/structure/sign/cargo{
 	pixel_x = 32
 	},
-/obj/machinery/quantumpad/cere/engi_cargo2,
+/obj/machinery/quantumpad/cere/engineering_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "brownfull"
 	},
@@ -118869,7 +118867,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/quantumpad/cere/engi_science,
+/obj/machinery/quantumpad/cere/engineering_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -122278,7 +122276,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/science_engi2,
+/obj/machinery/quantumpad/cere/science_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -127764,7 +127762,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/quantumpad/cere/engi_servise,
+/obj/machinery/quantumpad/cere/engineering_servise,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -130105,7 +130103,7 @@
 /obj/structure/sign/engineering{
 	pixel_y = 32
 	},
-/obj/machinery/quantumpad/cere/cargo_engi,
+/obj/machinery/quantumpad/cere/cargo_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},

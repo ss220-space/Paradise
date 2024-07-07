@@ -547,7 +547,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/storage)
 "bO" = (
-/obj/machinery/conveyor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -559,6 +558,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1098,7 +1100,12 @@
 /area/mine/storage)
 "em" = (
 /obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
+/obj/item/gpsupgrade{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/clothing/gloves/fingerless,
+/obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -1796,8 +1803,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "hZ" = (
-/obj/machinery/conveyor,
 /obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "mining_internal"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "ia" = (
@@ -3061,6 +3070,7 @@
 /area/mine/storage)
 "og" = (
 /obj/structure/table,
+/obj/item/mining_scanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -3126,9 +3136,11 @@
 	},
 /area/mine/living_quarters)
 "pg" = (
-/obj/machinery/conveyor,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -3508,6 +3520,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "sb" = (
@@ -3985,6 +3998,9 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
+"vR" = (
+/turf/simulated/wall/r_wall,
+/area/lavaland/surface/outdoors/explored)
 "vS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5113,6 +5129,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/conveyor_switch/oneway{
+	id = "mining_internal";
+	name = "mining conveyor"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -5898,6 +5918,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/junction,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Ll" = (
@@ -59425,8 +59446,8 @@ bH
 ZL
 bH
 fX
-fX
-jc
+vR
+vR
 fX
 fX
 aj
