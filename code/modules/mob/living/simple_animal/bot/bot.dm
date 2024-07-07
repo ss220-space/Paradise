@@ -14,7 +14,6 @@
 	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
-	can_strip = FALSE
 	pass_flags = PASSFLAPS
 
 	speak_emote = list("states")
@@ -222,6 +221,8 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
+
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 
 /mob/living/simple_animal/bot/proc/add_bot_filter()
@@ -996,10 +997,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
-
-
-/mob/living/simple_animal/bot/show_inv()
-	return
 
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/user)

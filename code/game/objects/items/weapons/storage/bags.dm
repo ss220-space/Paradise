@@ -103,7 +103,7 @@
 
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
-	if(slot==ITEM_SLOT_HEAD && length(contents))
+	if(slot == ITEM_SLOT_HEAD && length(contents))
 		if(!disable_warning)
 			to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE

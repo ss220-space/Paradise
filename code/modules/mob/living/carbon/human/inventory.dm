@@ -564,30 +564,6 @@
 		)
 
 
-/**
- * Humans have their pickpocket gloves, so they get no message when stealing things
- */
-/mob/living/carbon/human/stripPanelUnequip(obj/item/what, mob/who, where)
-	var/is_silent = FALSE
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-
-/**
- * Humans have their pickpocket gloves, so they get no message when stealing things
- */
-/mob/living/carbon/human/stripPanelEquip(obj/item/what, mob/who, where)
-	var/is_silent = FALSE
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
 	var/datum/outfit/O = null
 

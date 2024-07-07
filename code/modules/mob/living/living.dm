@@ -1279,43 +1279,6 @@
 	return HEARING_PROTECTION_NONE
 
 
-// The src mob is trying to strip an item from someone
-// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
-	if(HAS_TRAIT(what, TRAIT_NODROP))
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
-		return
-	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
-	what.add_fingerprint(src)
-	if(do_after(src, what.strip_delay, who, NONE))
-		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			if(!who.drop_item_ground(what, silent = silent))
-				return
-			if(silent && !QDELETED(what) && isturf(what.loc))
-				put_in_hands(what, silent = TRUE)
-			add_attack_logs(src, who, "Stripped of [what]")
-
-// The src mob is trying to place an item on someone
-// Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
-	what = get_active_hand()
-	if(what && HAS_TRAIT(what, TRAIT_NODROP))
-		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
-		return
-	if(what)
-		if(!what.mob_can_equip(who, where, TRUE, TRUE))
-			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
-			return
-		if(!silent)
-			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_after(src, what.put_on_delay, who, NONE))
-			if(what && Adjacent(who) && !HAS_TRAIT(what, TRAIT_NODROP))
-				drop_item_ground(what, silent = silent)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
-				add_attack_logs(src, who, "Equipped [what]")
-
 /mob/living/singularity_act()
 	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
 	gib()

@@ -46,7 +46,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
-	can_strip = 0
 	can_buckle_to = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -112,6 +111,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
 	var/list/all_eyes = list()
+
+/mob/living/silicon/ai/Initialize(mapload)
+	. = ..()
+	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
