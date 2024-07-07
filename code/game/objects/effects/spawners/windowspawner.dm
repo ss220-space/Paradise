@@ -2,7 +2,7 @@
 	name = "window spawner"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "window_spawner"
-	var/useFull = 0
+	var/useFull = 1
 	var/useGrille = 1
 	var/window_to_spawn_regular = /obj/structure/window/basic
 	var/window_to_spawn_full = /obj/structure/window/full/basic
