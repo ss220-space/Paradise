@@ -257,7 +257,7 @@
 
 /obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
 
-	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), creation_object = src)
+	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
 
 	if(projectile.is_orange)
 		if(!QDELETED(orange))

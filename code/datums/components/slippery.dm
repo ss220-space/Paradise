@@ -27,6 +27,10 @@
 	var/datum/callback/can_slip_callback
 	/// Optional call back that is called when a mob slips on this component
 	var/datum/callback/on_slip_callback
+	/// What we give to connect_loc by default, makes slippable mobs moving over us slip
+	var/static/list/default_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(Slip),
+	)
 
 
 /**
@@ -53,16 +57,24 @@
 	src.can_slip_callback = can_slip_callback
 	src.on_slip_callback = on_slip_callback
 
-/datum/component/slippery/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
+	if(ismovable(parent))
+		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
+	else
+		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Slip))
+
 
 /datum/component/slippery/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))
+	if(ismovable(parent))
+		qdel(GetComponent(/datum/component/connect_loc_behalf))
+	else
+		UnregisterSignal(parent, COMSIG_ATOM_ENTERED)
+
 
 /datum/component/slippery/Destroy(force)
 	can_slip_callback = null
 	on_slip_callback = null
 	return ..()
+
 
 /datum/component/slippery/InheritComponent(
 	datum/component/slippery/component,
@@ -86,6 +98,7 @@
 	src.on_slip_callback = on_slip_callback
 	src.can_slip_callback = can_slip_callback
 
+
 /**
  * The proc that does the sliping. Invokes the slip callback we have set.
  *
@@ -108,3 +121,4 @@
 		return
 	if(victim.slip(weaken_time, parent, lube_flags, slip_tiles))
 		on_slip_callback?.Invoke(victim)
+

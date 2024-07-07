@@ -494,13 +494,13 @@
 	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
 	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
 
-/obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
+
+/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/item/projectile/projectile)
 	. = ..()
-	if(!isprojectile(AM))
-		return
-	var/obj/item/projectile/P = AM
+	if(!isprojectile(projectile))
+		return .
 	var/distance = distance_to_singulo
-	var/projectile_angle = P.Angle
+	var/projectile_angle = projectile.Angle
 	var/angle_to_projectile = angle_to_singulo
 	if(angle_to_projectile == 180)
 		angle_to_projectile = -180
@@ -511,8 +511,10 @@
 		angle_to_projectile += 360
 
 	if(distance == 0)
-		qdel(P)
-		return
+		qdel(projectile)
+		return .
+
 	projectile_angle += angle_to_projectile / (distance ** 2)
-	P.damage += 10 / distance
-	P.set_angle(projectile_angle)
+	projectile.damage += 10 / distance
+	projectile.set_angle(projectile_angle)
+

@@ -467,15 +467,25 @@ GLOBAL_LIST_EMPTY(closets)
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
+	ignore_density_closed = TRUE
 	pass_flags = PASSDOOR|PASSTABLE|PASSGRILLE|PASSBLOB|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSVEHICLE|PASSITEM
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
 
-/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+/obj/structure/closet/bluespace/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/closet/bluespace/proc/UpdateTransparency()
 	var/transparency = FALSE
-	for(var/atom/A in location)
-		if(A.density && A != src && A != AM)
+	for(var/atom/check as anything in loc)
+		if(check.density && check != src)
 			transparency = TRUE
 			break
 	transparent = transparency
@@ -502,25 +512,22 @@ GLOBAL_LIST_EMPTY(closets)
 			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
 
 
-/obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(AM.density)
+/obj/structure/closet/bluespace/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!transparent && arrived.density && arrived != src)
 		transparent = TRUE
 		update_icon()
 
 
-/obj/structure/closet/bluespace/Uncrossed(atom/movable/mover)
-	. = ..()
-	UpdateTransparency(mover, loc)
+/obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	UpdateTransparency()
 
 
 /obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(loc)
-		UpdateTransparency(src, loc)
+		UpdateTransparency()
 
-
-/obj/structure/closet/bluespace/close()
-	. = ..()
-	if(.)
-		set_density(FALSE)

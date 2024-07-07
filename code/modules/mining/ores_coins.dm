@@ -65,32 +65,34 @@
 	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
 	qdel(src)
 
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
+
+/obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
+	var/human_arrived = ishuman(arrived)
+	var/robot_arrived = isrobot(arrived)
+	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!human_arrived && !robot_arrived))
 		return ..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
+
+	var/obj/item/storage/bag/ore/storage_bag
+	if(human_arrived)
+		var/mob/living/carbon/human/h_arrived = arrived
+		for(var/obj/item/storage/bag/ore/bag in h_arrived.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			if(bag)
+				storage_bag = bag
 				break
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
+
+	else if(robot_arrived)
+		var/mob/living/silicon/robot/r_arrived = arrived
+		for(var/obj/item/storage/bag/ore/bag in r_arrived.get_equipped_items())
+			if(bag)
+				storage_bag = bag
 				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		F.attackby(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
-	return ..()
+
+	if(storage_bag)
+		loc.attackby(storage_bag, arrived)
+		// Then, if the user is dragging an ore box, empty the satchel into the box.
+		if(istype(arrived.pulling, /obj/structure/ore_box))
+			arrived.pulling.attackby(storage_bag, arrived)
+
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()

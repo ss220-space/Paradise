@@ -51,6 +51,11 @@
 /mob/living/simple_animal/hostile/retaliate/syndirat/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mouse_squeak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -87,10 +92,10 @@
 	else if(prob(0.5))
 		set_resting(TRUE, instant = TRUE)
 
-/mob/living/simple_animal/hostile/retaliate/syndirat/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
+
+/mob/living/simple_animal/hostile/retaliate/syndirat/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
 

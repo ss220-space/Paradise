@@ -41,6 +41,12 @@
 	ini_dir = dir
 	air_update_turf(1)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
 	QDEL_NULL(electronics)
@@ -76,14 +82,24 @@
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
-	else
-		return 1
+	return TRUE
 
 
-/obj/structure/windoor_assembly/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/windoor_assembly/attack_hand(mob/user)
@@ -183,28 +199,21 @@
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
 				return
-		set_density(TRUE) //Shouldn't matter but just incase
 		to_chat(user, "<span class='notice'>You finish the [(src.secure) ? "secure" : ""] windoor.</span>")
 		var/obj/machinery/door/window/windoor
 		if(secure)
-			windoor = new /obj/machinery/door/window/brigdoor(src.loc)
+			windoor = new /obj/machinery/door/window/brigdoor(loc, dir)
 			if(facing == "l")
-				windoor.icon_state = "leftsecureopen"
 				windoor.base_state = "leftsecure"
 			else
-				windoor.icon_state = "rightsecureopen"
 				windoor.base_state = "rightsecure"
 		else
-			windoor = new /obj/machinery/door/window(loc)
+			windoor = new /obj/machinery/door/window(loc, dir)
 			if(facing == "l")
-				windoor.icon_state = "leftopen"
 				windoor.base_state = "left"
 			else
-				windoor.icon_state = "rightopen"
 				windoor.base_state = "right"
-		windoor.setDir(dir)
-		windoor.set_density(FALSE)
-
+		windoor.update_icon(UPDATE_ICON_STATE)
 		windoor.unres_sides = electronics.unres_access_from
 		windoor.req_access = electronics.selected_accesses
 		windoor.check_one_access = electronics.one_access
