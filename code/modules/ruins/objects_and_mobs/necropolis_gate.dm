@@ -283,9 +283,15 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/fallen = FALSE //If the tile is unusable
 	var/falling = FALSE //If the tile is falling
 
+
 /obj/structure/stone_tile/Initialize(mapload)
 	. = ..()
 	icon_state = "[tile_key][rand(1, tile_random_sprite_max)]"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/stone_tile/Destroy(force)
 	if(force || fallen)
@@ -296,24 +302,31 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/stone_tile/singularity_pull()
 	return
 
-/obj/structure/stone_tile/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(falling || fallen)
 		return
-	var/turf/T = get_turf(src)
-	if(!islava(T) && !ischasm(T)) //nothing to sink or fall into
+
+	var/turf/our_turf = get_turf(src)
+	if(!islava(our_turf) && !ischasm(our_turf)) //nothing to sink or fall into
 		return
-	var/obj/item/I
-	if(isitem(AM))
-		I = AM
-	var/mob/living/L
-	if(isliving(AM))
-		L = AM
+
+	var/obj/item/item
+	var/mob/living/mob
+	if(isitem(arrived))
+		item = arrived
+	else if(isliving(arrived))
+		mob = arrived
+
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
-				collapse()
+			if((item && item.w_class >= WEIGHT_CLASS_BULKY) || (mob && !(mob.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && mob.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
+				INVOKE_ASYNC(src, PROC_REF(collapse))
 		if(UNIQUE_EFFECT)
-			crossed_effect(AM)
+			INVOKE_ASYNC(src, PROC_REF(crossed_effect), arrived)
+
 
 /obj/structure/stone_tile/proc/collapse()
 	falling = TRUE

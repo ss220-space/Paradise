@@ -223,9 +223,15 @@
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
 	update_icon(UPDATE_ICON_STATE)
-	for(var/i = alpha, i > 0, i -= 10)
-		sleep(0.1)
-		alpha = i
+	delayed_death()
+
+
+/mob/living/simple_animal/revenant/proc/delayed_death()
+	set waitfor = FALSE
+	animate(src, alpha = 0, time = 2.5 SECONDS)
+	sleep(2.5 SECONDS)
+	if(QDELETED(src))
+		return
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
 	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
@@ -234,6 +240,7 @@
 	R.reforming = TRUE
 	ghostize()
 	qdel(src)
+
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))

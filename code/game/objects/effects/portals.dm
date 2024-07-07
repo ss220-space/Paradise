@@ -31,8 +31,8 @@
 	var/create_sparks = TRUE
 
 
-/obj/effect/portal/New(loc, turf/target = null, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE)
-	..()
+/obj/effect/portal/Initialize(mapload, turf/target = null, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE)
+	. = ..()
 
 	GLOB.portals += src
 	src.target = target
@@ -54,6 +54,11 @@
 
 	if(lifespan > 0)
 		QDEL_IN(src, lifespan)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/effect/portal/Destroy()
@@ -92,21 +97,22 @@
 	return
 
 
-/obj/effect/portal/Crossed(atom/movable/AM, oldloc)
-	if(isobserver(AM))
-		return ..()
+/obj/effect/portal/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
-	if(target && (get_turf(oldloc) == get_turf(target)))
-		return ..()
-
-	if(istype(AM, /obj/effect/portal))
-		qdel(AM)
-		qdel(src)
-		log_debug("Portal [src] crossed by another portal [AM]")
+	if(isobserver(arrived))
 		return
 
-	if(!teleport(AM))
-		return ..()
+	if(target && (get_turf(old_loc) == get_turf(target)))
+		return
+
+	if(istype(arrived, /obj/effect/portal))
+		qdel(arrived)
+		qdel(src)
+		log_debug("Portal [src] crossed by another portal [arrived]")
+		return
+
+	teleport(arrived)
 
 
 /obj/effect/portal/attack_tk(mob/user)

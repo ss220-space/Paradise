@@ -180,9 +180,15 @@
 
 	var/obj/item/signmaker/projector = null
 
+
 /obj/structure/holosoap/Initialize(mapload, new_projector)
 	. = ..()
 	projector = new_projector
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/holosoap/Destroy()
 	projector?.sign = null
@@ -192,6 +198,7 @@
 /obj/structure/holosoap/has_prints()
 	return FALSE
 
+
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -199,9 +206,12 @@
 		if(BURN)
 			playsound(loc, 'sound/items/squeaktoy.ogg', 80, TRUE)
 
-/obj/structure/holosoap/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/holosoap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	playsound(loc, 'sound/misc/slip.ogg', 80, TRUE)
-	. = ..()
+
 
 /obj/structure/holosoap/attack_hand(mob/living/user)
 	. = ..()

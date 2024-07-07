@@ -59,6 +59,11 @@
 	update_weight()
 	update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -270,12 +275,6 @@
 		. += span_notice("<b>Alt-click</b> with an empty hand to take a custom amount.")
 
 
-/obj/item/stack/Crossed(obj/item/crossing, oldloc)
-	if(can_merge(crossing, inhand = FALSE))
-		merge(crossing)
-	. = ..()
-
-
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting, inhand = TRUE))
 		merge(hitting)
@@ -351,6 +350,22 @@
 	fingerprints		= from.fingerprints
 	fingerprintshidden	= from.fingerprintshidden
 	fingerprintslast	= from.fingerprintslast
+
+
+/// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
+/obj/item/stack/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
+	if(arrived == src)
+		return
+
+	on_movable_entered_occupied_turf(arrived)
+
+
+/obj/item/stack/proc/on_movable_entered_occupied_turf(atom/movable/arrived)
+	if(can_merge(arrived, inhand = FALSE))
+		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 
 /**

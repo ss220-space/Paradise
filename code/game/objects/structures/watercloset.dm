@@ -300,24 +300,27 @@
 	var/on = FALSE
 	///What temperature the shower reagents are set to.
 	var/current_temperature = SHOWER_NORMAL
-	var/mobpresent = 0		//true if there is a mob on the shower's loc, this is to ease process()
 	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
 
 
-/obj/machinery/shower/New(turf/T, newdir = SOUTH, building = FALSE)
+/obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	..()
 	soundloop = new(list(src), FALSE)
 	if(building)
-		dir = newdir
+		setDir(newdir)
 		pixel_x = 0
 		pixel_y = 0
-		switch(newdir)
+		switch(dir)
 			if(SOUTH)
 				pixel_y = 16
 			if(NORTH)
 				pixel_y = -5
 				layer = FLY_LAYER
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/machinery/shower/Destroy()
@@ -431,10 +434,11 @@
 		qdel(mist)
 
 
-/obj/machinery/shower/Crossed(atom/movable/AM, oldloc)
-	..()
+/obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(on)
-		wash(AM)
+		wash(arrived)
 
 
 /obj/machinery/shower/proc/convertHeat()
@@ -724,7 +728,7 @@
 	return 1
 
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/shower/S = new /obj/machinery/shower(get_turf(user), get_dir(on_wall, user), 1)
+	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
 	transfer_fingerprints_to(S)
 	qdel(src)
 

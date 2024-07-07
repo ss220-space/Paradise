@@ -39,17 +39,31 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-/mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M as mob)
+
+/mob/living/simple_animal/frog/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/frog/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] квакнул!</span>")
-	..()
+
+/mob/living/simple_animal/frog/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	frog_crossed(arrived)
+
+
+/mob/living/simple_animal/frog/proc/frog_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] квака[pluralize_ru(gender, "ет", "ют")]!"))
+
 
 /mob/living/simple_animal/frog/toxic
 	name = "яркая лягушка"
@@ -79,15 +93,15 @@
 		return ..()
 
 
-/mob/living/simple_animal/frog/toxic/Crossed(mob/living/carbon/human/user, oldloc)
-	if(!ishuman(user) || user.gloves)
+/mob/living/simple_animal/frog/toxic/frog_crossed(mob/living/carbon/human/arrived)
+	if(!ishuman(arrived) || arrived.shoes)
 		return ..()
 
-	var/obj/item/organ/external/left_foot = get_organ(BODY_ZONE_PRECISE_L_FOOT)
-	var/obj/item/organ/external/right_foot = get_organ(BODY_ZONE_PRECISE_R_FOOT)
+	var/obj/item/organ/external/left_foot = arrived.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/right_foot = arrived.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 	if((left_foot && !left_foot.is_robotic()) || (right_foot && !right_foot.is_robotic()))
-		to_chat(user, span_warning("Ваши ступни начинают чесаться!"))
-		toxin_affect(user)
+		to_chat(arrived, span_warning("Ваши ступни начинают чесаться!"))
+		toxin_affect(arrived)
 
 	return ..()
 
