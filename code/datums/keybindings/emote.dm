@@ -179,6 +179,10 @@
 	linked_emote = /datum/emote/living/swear
 	name = "Ругаться"
 
+/datum/keybinding/emote/snore
+	linked_emote = /datum/emote/living/snore
+	name = "Храпеть"
+
 /**
  * Carbon
  */

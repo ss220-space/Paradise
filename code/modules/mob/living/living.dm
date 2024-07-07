@@ -477,12 +477,8 @@
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 
-//mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
-/mob/living/verb/pulled(atom/movable/to_pull as mob|obj in oview(1))
-	set name = "Pull"
-	set category = "Object"
-
+/mob/living/proc/pulled(atom/movable/to_pull)
 	if(istype(to_pull) && Adjacent(to_pull))
 		start_pulling(to_pull)
 	else
@@ -2181,14 +2177,17 @@
 			update_sight()
 			update_blind_effects()
 			update_blurry_effects()
+			update_unconscious_overlay()
 		if(UNCONSCIOUS)
 			update_sight()
 			update_blind_effects()
 			update_blurry_effects()
+			update_unconscious_overlay()
 		if(DEAD)
 			update_sight()
 			update_blind_effects()
 			update_blurry_effects()
+			update_unconscious_overlay()
 			GLOB.alive_mob_list += src
 			GLOB.dead_mob_list -= src
 
@@ -2243,4 +2242,36 @@
 		layer = (pulledby.dir & NORTH) ? pulledby.layer - 0.001 : pulledby.layer + 0.001
 		return
 	layer = (body_position == LYING_DOWN) ? LYING_MOB_LAYER : initial(layer)
+
+
+/**
+ * Updates mob's SSD status with all the necessaey checks.
+ *
+ * Arguments:
+ * * enable (boolean) - `TRUE` to set SSD status, `FALSE` to remove.
+ *
+ * Returns `TRUE` on success, `FALSE` otherwise.
+ */
+/mob/living/proc/set_SSD(enable)
+	if(!mind || !last_known_ckey)	// mindless / non player mobs are skipped
+		return FALSE
+
+	if(enable)
+		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
+			return FALSE
+		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+			return FALSE
+		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
+			return TRUE
+		// this causes instant sleep and tags a player as SSD. See [/proc/handle_SSD()] for furthering SSD
+		player_logged = 0
+		Sleeping(4 SECONDS)
+		. = TRUE
+	else
+		if(isnull(player_logged))	// SSD status is removed already, return TRUE and we are done
+			return TRUE
+		player_logged = null
+		. = TRUE
+
+	update_ssd_overlay()	// special SSD overlay handling
 

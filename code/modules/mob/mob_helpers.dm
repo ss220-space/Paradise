@@ -31,7 +31,7 @@
 
 
 /proc/isLivingSSD(mob/M)
-	return istype(M) && M.player_logged && M.stat != DEAD
+	return istype(M) && !isnull(M.player_logged) && M.stat != DEAD
 
 /proc/isAntag(A)
 	if(isliving(A))
