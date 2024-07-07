@@ -648,7 +648,7 @@
 	else
 		return TRUE
 
-/obj/machinery/photocopier/emag_act(user as mob)
+/obj/machinery/photocopier/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
