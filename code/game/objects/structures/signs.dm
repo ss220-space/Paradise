@@ -328,6 +328,9 @@
 	desc = "A direction sign, pointing out which floor you are."
 	icon_state = "level"
 
+/obj/structure/sign/directions/floor/alt
+	icon_state = "level_alt"
+
 /obj/structure/sign/directions/science
 	name = "\improper Research Division"
 	desc = "A direction sign, pointing out which way the Research Division is."
