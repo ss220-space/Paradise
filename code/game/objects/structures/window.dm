@@ -590,6 +590,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(window.id == id || !window.id)
 			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/reinforced/polarized, toggle))
 
+	for(var/obj/structure/window/full/reinforced/polarized/window in range(src,range))
+		if(window.id == id || !window.id)
+			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/full/reinforced/polarized, toggle))
+
 	for(var/obj/machinery/door/airlock/airlock in range(src,range))
 		if(airlock.id == id)
 			INVOKE_ASYNC(src, PROC_REF(async_update), airlock)
@@ -686,7 +690,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
 	cancolor = TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -698,7 +702,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	heat_resistance = 32000
 	max_integrity = 300
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -734,7 +738,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -749,6 +753,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
 	icon_state = "tinted_window"
 	opacity = TRUE
+
+/obj/structure/window/full/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+	var/original_color
+	var/ispolzovano
+
+/obj/structure/window/full/reinforced/polarized/proc/toggle()
+	if(!ispolzovano)
+		ispolzovano++
+		original_color = color
+	if(opacity)
+		animate(src, color="[original_color]", time=5)
+		set_opacity(FALSE)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(TRUE)
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
