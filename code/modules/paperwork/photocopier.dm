@@ -1,4 +1,4 @@
-#define PHOTOCOPIER_DELAY 5 SECONDS
+#define PHOTOCOPIER_DELAY 15
 ///Global limit on copied papers and photos, bundles are counted as a sum of their parts
 #define MAX_COPIES_PRINTABLE 300
 
@@ -122,23 +122,24 @@
 	c.stamps = copy.stamps
 	c.stamped = copy.stamped
 	c.ico = copy.ico
+	c.language = copy.language
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
-	var/image/img                                //and puts a matching
-	for(var/j = 1, j <= length(temp_overlays), j++) //gray overlay onto the copy
-		if(length(copy.ico))
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(copy.ico[j], "deny"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-			else if(findtext(copy.ico[j], "ok"))
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
-			else
-				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-			img.pixel_x = copy.offset_x[j]
-			img.pixel_y = copy.offset_y[j]
-			c.stamp_overlays += img
+	if(LAZYLEN(copy.stamp_overlays))
+		for(var/j = 1, j <= LAZYLEN(copy.stamp_overlays), j++) //gray overlay onto the copy
+			if(length(copy.ico))
+				var/image/img
+				if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+				else if(findtext(copy.ico[j], "deny"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+				else if(findtext(copy.ico[j], "ok"))
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+				else
+					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+				img.pixel_x = copy.offset_x[j]
+				img.pixel_y = copy.offset_y[j]
+				LAZYADD(c.stamp_overlays, img)
 	c.updateinfolinks()
 	return c
 
@@ -334,7 +335,7 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	playsound(loc, print_sound, 50, TRUE)
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
@@ -499,7 +500,7 @@
 		return
 	if(toner < 1 || !user)
 		return
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	playsound(loc, print_sound, 50, TRUE)
 	var/obj/item/paper/p = new /obj/item/paper(loc)
 	text = p.parsepencode(text, null, user)
 	p.info = text
@@ -524,7 +525,7 @@
 	if(!selection)
 		return
 
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	playsound(loc, print_sound, 50, TRUE)
 	var/obj/item/photo/p = new /obj/item/photo(loc)
 	p.construct(selection)
 	if(p.desc == "")
@@ -555,11 +556,19 @@
 		forms[++forms.len] = form
 
 /obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
-	var/obj/item/paper/form/paper = new form (loc)
+	if(copying)
+		visible_message(span_notice("Ксерокс работает, проявите терпение."))
+		return FALSE
+
 	toner--
-	if(toner == 0)
-		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
-	return paper
+	copying = TRUE
+	playsound(loc, print_sound, 50)
+	use_power(active_power_usage)
+	sleep(PHOTOCOPIER_DELAY)
+	var/obj/item/paper/paper = new form(loc)
+	paper.pixel_x = rand(-10, 10)
+	paper.pixel_y = rand(-10, 10)
+	copying = FALSE
 
 /obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
@@ -609,16 +618,16 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user) || target.move_resist > user.pull_force)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user) || target == copymob)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
-	src.add_fingerprint(user)
-	if(target == user && !user.incapacitated())
+	add_fingerprint(user)
+	if(target == user)
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.buckled && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-		if(target.anchored) return
-		if(!ishuman(user)) return
+	else if(target != user)
+		if(target.anchored || !ishuman(user))
+			return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	copymob = target
@@ -651,9 +660,9 @@
 /obj/machinery/photocopier/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
-		return TRUE
-	else
+		if(user)
+			to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
+	else if(user)
 		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
 /obj/item/toner

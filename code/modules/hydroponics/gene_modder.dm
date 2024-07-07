@@ -356,6 +356,7 @@
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
 		return
+	S.do_pickup_animation(src)
 	S.forceMove(src)
 	seed = S
 	update_genes()
@@ -413,8 +414,26 @@
 	return ..()
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		var/cleaning = FALSE
+		if(istype(W, /obj/item/reagent_containers/spray/cleaner))
+			var/obj/item/reagent_containers/spray/cleaner/C = W
+			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+				cleaning = TRUE
+			else
+				return
+		if(istype(W, /obj/item/soap))
+			cleaning = TRUE
+
+		if(!cleaning)
+			return
+		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
+		if(do_after(user, 5 SECONDS, src))
+			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	..()
-	if(is_pen(W))
+	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
 		rename_interactive(user, W)
 
 /obj/item/disk/plantgene/update_name()
@@ -425,7 +444,7 @@
 	if(gene)
 		name = "[gene.get_name()] (Plant Data Disk)"
 	else
-		name = "plant data disk"
+		name = initial(name)
 
 /obj/item/disk/plantgene/update_desc()
 	. = ..()
@@ -433,7 +452,7 @@
 		desc = "Better keep this safe."
 		return
 
-	desc = "A disk for storing plant genetic data."
+	desc = initial(desc)
 
 /obj/item/disk/plantgene/update_icon_state()
 	. = ..()
@@ -441,7 +460,7 @@
 		icon_state = "nucleardisk"
 		return
 
-	icon_state = "datadisk_hydro"
+	icon_state = initial(icon_state)
 
 /obj/item/disk/plantgene/update_overlays()
 	. = ..()
