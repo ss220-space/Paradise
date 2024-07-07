@@ -324,7 +324,7 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/proc/tile_check(turf/check_turf)
-	return isfloorturf(check_turf) || isspaceturf(check_turf)
+	return isfloorturf(check_turf) || isspaceturf(check_turf) || isopenspaceturf(check_turf)
 
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

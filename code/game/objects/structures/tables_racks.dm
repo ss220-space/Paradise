@@ -44,6 +44,15 @@
 	. = ..()
 	if(flipped)
 		update_icon(UPDATE_ICON_STATE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/structure/table/examine(mob/user)
@@ -131,11 +140,16 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(AM.throwing && isliving(AM))
-		var/mob/living/user = AM
-		clumse_stuff(user)
+
+/obj/structure/table/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(table_crossed), arrived, old_loc)
+
+
+/obj/structure/table/proc/table_crossed(atom/movable/arrived, atom/old_loc)
+	if(arrived.throwing && isliving(arrived))
+		clumse_stuff(arrived)
 
 
 /obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
@@ -160,6 +174,26 @@
 	. = !density
 	if(checkpass(caller, PASSTABLE))
 		. = TRUE
+
+
+/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(!flipped)
+		return
+
+	if(checkpass(leaving, PASSTABLE) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /**
@@ -190,12 +224,11 @@
 		return FALSE // Blocked
 
 
-/obj/structure/table/CanExit(atom/movable/mover, moving_direction)
+/obj/structure/table/can_touch(mob/living/user)
 	. = ..()
-	if(checkpass(mover, PASSTABLE))
-		return TRUE
-	if(flipped)
-		return dir != moving_direction
+	if(. && flipped)
+		to_chat(user, span_notice("You cannot climb on the flipped table."))
+		return FALSE
 
 
 /obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
@@ -453,18 +486,20 @@
 	. = ..()
 
 
-/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
+/obj/structure/table/glass/table_crossed(atom/movable/arrived, atom/old_loc)
 	. = ..()
+
 	if(obj_flags & NODECONSTRUCT)
 		return
-	if(!isliving(AM))
+
+	if(!isliving(arrived))
 		return
 
 	// Don't break if they're just flying past
-	if(AM.throwing)
-		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
+	if(arrived.throwing)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), arrived), 0.5 SECONDS)
 	else
-		check_break(AM)
+		check_break(arrived)
 
 
 /obj/structure/table/glass/proc/throw_check(mob/living/M)

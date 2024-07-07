@@ -112,8 +112,8 @@
 	weaponscheck = TRUE
 
 
-/mob/living/simple_animal/bot/secbot/New()
-	..()
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
@@ -124,6 +124,11 @@
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /mob/living/simple_animal/bot/secbot/turn_on()
@@ -516,21 +521,25 @@
 		mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
-		if(!istype(C) || !C || in_range(src, target))
-			return
-		C.visible_message("<span class='warning'>[pick( \
-						  "[C] dives out of [src]'s way!", \
-						  "[C] stumbles over [src]!", \
-						  "[C] jumps out of [src]'s path!", \
-						  "[C] trips over [src] and falls!", \
-						  "[C] topples over [src]!", \
-						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(4 SECONDS)
+/mob/living/simple_animal/bot/secbot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	secbot_crossed(arrived)
+
+
+/mob/living/simple_animal/bot/secbot/proc/secbot_crossed(mob/living/carbon/arrived)
+	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
 		return
-	..()
+
+	arrived.visible_message(span_warning("[pick( \
+						  "[arrived] dives out of [src]'s way!", \
+						  "[arrived] stumbles over [src]!", \
+						  "[arrived] jumps out of [src]'s path!", \
+						  "[arrived] trips over [src] and falls!", \
+						  "[arrived] topples over [src]!", \
+						  "[arrived] leaps out of [src]'s way!")]"))
+	arrived.Weaken(4 SECONDS)
+
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)

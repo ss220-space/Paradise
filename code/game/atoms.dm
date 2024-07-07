@@ -1545,13 +1545,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return !density
 
 
-/// Returns true or false to allow the mover to exit turf with src
-/atom/proc/CanExit(atom/movable/mover, moving_direction)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_BE_PURE(TRUE)
-	return TRUE
-
-
 /**
  * Returns `TRUE` if this atom has gravity for the passed in turf
  *

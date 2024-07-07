@@ -542,7 +542,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, slot)
 	if(!silent && !(item_flags & ABSTRACT) && drop_sound)
 		var/chosen_sound = drop_sound
 		if(islist(drop_sound) && length(drop_sound))

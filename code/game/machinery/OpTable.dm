@@ -61,11 +61,6 @@
 	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
 
 
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
-
 /obj/machinery/optable/process()
 	update_patient()
 	if(LAZYLEN(injected_reagents))
