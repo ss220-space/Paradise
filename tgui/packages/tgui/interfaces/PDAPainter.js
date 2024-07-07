@@ -74,7 +74,7 @@ export const PDAPainter = (props, context) => {
           </Flex.Item>
           <Flex.Item width={27}>
             <Flex direction="column" height="100%" flex="1">
-              <Section title="Цвет PDA" flexGrow="1">
+              <Section title="Цвет PDA" flexGrow="1" scrollable fill>
                 <Table>
                   {Object.keys(pdaTypes).map((key) => (
                     <PDAColorRow
