@@ -97,6 +97,7 @@
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
+		add_fingerprint(user)
 		update_icon(UPDATE_OVERLAYS)
 		return
 	if(exchange_parts(user, I))
