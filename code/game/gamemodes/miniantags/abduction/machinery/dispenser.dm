@@ -84,7 +84,7 @@
 
 /obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/organ/internal/heart/gland))
-		if(!user.drop_item_ground())
+		if(!user.drop_item_ground(W))
 			return
 		W.forceMove(src)
 		for(var/i in 1 to length(gland_colors))
