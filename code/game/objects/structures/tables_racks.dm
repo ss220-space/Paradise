@@ -50,6 +50,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+
 /obj/structure/table/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
