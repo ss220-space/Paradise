@@ -81,6 +81,7 @@
 	forms = new
 
 /obj/machinery/photocopier/attack_ai(mob/user)
+	src.add_hiddenprint(user)
 	parse_forms(user)
 	ui_interact(user)
 
