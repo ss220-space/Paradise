@@ -177,6 +177,7 @@
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
 	canSmoothWith = SMOOTH_GROUP_WOOD_WALLS
+	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -186,6 +187,7 @@
 	sheet_type = /obj/item/stack/rods
 	sheet_amount = 5
 	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
+	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
 /turf/simulated/wall/mineral/abductor
 	name = "alien wall"
@@ -197,6 +199,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
 	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_WALLS
+	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_WALLS
 
 /turf/simulated/wall/mineral/abductor/Initialize(mapload)
 	..()
