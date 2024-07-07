@@ -690,7 +690,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
 	cancolor = TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -702,7 +702,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	heat_resistance = 32000
 	max_integrity = 300
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -738,7 +738,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced/polarized)
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
