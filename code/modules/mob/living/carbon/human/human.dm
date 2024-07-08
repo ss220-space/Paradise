@@ -1734,7 +1734,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(dna.species.has_fine_manipulation || B.controlling || mind.special_role == SPECIAL_ROLE_CHANGELING)
+	if(dna.species.has_fine_manipulation || B.controlling || ischangeling(src))
 		return TRUE
 	return FALSE
 
