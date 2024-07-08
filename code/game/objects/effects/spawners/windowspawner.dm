@@ -58,7 +58,8 @@
 	name = "polarized reinforced window spawner"
 	icon_state = "ewindow_spawner"
 	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
-	window_to_spawn_full = /obj/structure/window/full/reinforced/tinted // Not polarized one
+	//window_to_spawn_full = /obj/structure/window/full/reinforced/tinted // Not polarized one // Why?
+	window_to_spawn_full = /obj/structure/window/full/reinforced/polarized
 	/// Used to link electrochromic windows to buttons
 	var/id
 

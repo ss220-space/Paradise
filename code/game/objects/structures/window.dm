@@ -590,6 +590,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(window.id == id || !window.id)
 			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/reinforced/polarized, toggle))
 
+	for(var/obj/structure/window/full/reinforced/polarized/window in range(src,range))
+		if(window.id == id || !window.id)
+			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/full/reinforced/polarized, toggle))
+
 	for(var/obj/machinery/door/airlock/airlock in range(src,range))
 		if(airlock.id == id)
 			INVOKE_ASYNC(src, PROC_REF(async_update), airlock)
@@ -760,6 +764,24 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
 	base_icon_state = "tinted_window"
 	opacity = TRUE
+
+/obj/structure/window/full/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+	var/original_color
+	var/ispolzovano
+
+/obj/structure/window/full/reinforced/polarized/proc/toggle()
+	if(!ispolzovano)
+		ispolzovano++
+		original_color = color
+	if(opacity)
+		animate(src, color="[original_color]", time=5)
+		set_opacity(FALSE)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(TRUE)
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
