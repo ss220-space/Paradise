@@ -164,18 +164,18 @@
 		if(H.l_hand)
 			H.l_hand.screen_loc = ui_lhand
 			H.client.screen += H.l_hand
-		// if(H.r_store)
-		// 	H.r_store.screen_loc = ui_alien_storage_r
-		// 	H.client.screen += H.r_store
-		// if(H.l_store)
-		// 	H.l_store.screen_loc = ui_alien_storage_l
-		// 	H.client.screen += H.l_store
+		if(H.r_store)
+			H.r_store.screen_loc = ui_alien_storage_r
+			H.client.screen += H.r_store
+		if(H.l_store)
+			H.l_store.screen_loc = ui_alien_storage_l
+			H.client.screen += H.l_store
 	else
 		if(H.r_hand)
 			H.r_hand.screen_loc = null
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
-		// if(H.r_store)
-		// 	H.r_store.screen_loc = null
-		// if(H.l_store)
-		// 	H.l_store.screen_loc = null
+		if(H.r_store)
+			H.r_store.screen_loc = null
+		if(H.l_store)
+			H.l_store.screen_loc = null

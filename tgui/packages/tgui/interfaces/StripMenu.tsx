@@ -88,6 +88,12 @@ const SLOTS: Record<
     additionalComponent?: JSX.Element;
   }
 > = {
+  neck: {
+    displayName: 'neck',
+    gridSpot: getGridSpotKey([0, 0]),
+    image: 'inventory-neck.png',
+  },
+
   eyes: {
     displayName: 'eyewear',
     gridSpot: getGridSpotKey([1, 0]),

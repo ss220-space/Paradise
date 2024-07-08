@@ -130,7 +130,7 @@
 		return FALSE
 
 	var/mob/mob_source = source
-	if(!equipping.mob_can_equip(mob_source, which_hand, TRUE))
+	if(!mob_source.put_in_hand_check(equipping, which_hand))
 		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 

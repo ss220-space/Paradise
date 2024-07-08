@@ -63,7 +63,7 @@
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
 
-	if(equipping.flags & ABSTRACT)
+	if(equipping.item_flags & ABSTRACT)
 		return FALSE //I don't know a sane-sounding feedback message for trying to put a slap into someone's hand
 
 	return TRUE
@@ -227,7 +227,7 @@
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/human_source = source
-		if(item_slot in human_source.check_obscured_slots())
+		if(item_slot & human_source.check_obscured_slots())
 			return STRIPPABLE_OBSCURING_COMPLETELY
 		return STRIPPABLE_OBSCURING_NONE
 
@@ -310,7 +310,7 @@
 		var/list/result
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(item && (item.flags & ABSTRACT))
+		if(item && (item.item_flags & ABSTRACT))
 			items[strippable_key] = result
 			continue
 
@@ -419,6 +419,7 @@
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)
+
 			else if(strippable_item.try_unequip(owner, user))
 				LAZYORASSOCLIST(interactions, user, key)
 

@@ -196,5 +196,5 @@
 	icon_resting = "blackdog_rest"
 	tts_seed = "Thrall"
 
-/mob/living/simple_animal/pet/dog/security/detectiveadd_strippable_element()
+/mob/living/simple_animal/pet/dog/security/detective/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))
