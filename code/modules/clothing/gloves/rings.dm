@@ -10,7 +10,6 @@
 	icon = 'icons/obj/clothing/rings.dmi'
 	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
 	drop_sound = 'sound/items/handling/ring_drop.ogg'
-	body_parts_covered = HANDS
 	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
 	var/stud = 0
