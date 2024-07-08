@@ -669,7 +669,7 @@ const MedicalRecordsNavigation = (_properties, context) => {
         <Tabs.Tab
           icon="plus-square"
           selected={screen === 6}
-          onClick={() => act('screen', { screen: 7 })}
+          onClick={() => act('screen', { screen: 6 })}
         >
           Medibot Tracking
         </Tabs.Tab>
