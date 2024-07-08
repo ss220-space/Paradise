@@ -1,18 +1,31 @@
 import { Fragment } from 'inferno';
-import { useBackend } from "../backend";
-import { Box, Button, Collapsible, Icon, Input, LabeledList, Section, Tabs } from "../components";
-import { ComplexModal, modalOpen, modalRegisterBodyOverride } from "../interfaces/common/ComplexModal";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Tabs,
+} from '../components';
+import {
+  ComplexModal,
+  modalOpen,
+  modalRegisterBodyOverride,
+} from '../interfaces/common/ComplexModal';
+import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
 
 const severities = {
-  "Minor": "good",
-  "Medium": "average",
-  "Dangerous!": "bad",
-  "Harmful": "bad",
-  "BIOHAZARD THREAT!": "bad",
+  'Minor': 'good',
+  'Medium': 'average',
+  'Dangerous!': 'bad',
+  'Harmful': 'bad',
+  'BIOHAZARD THREAT!': 'bad',
 };
 
 const doEdit = (context, field) => {
@@ -25,11 +38,7 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section
-      level={2}
-      m="-1rem"
-      pb="1rem"
-      title={virus.name || "Virus"}>
+    <Section level={2} m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Number of stages">
@@ -41,11 +50,8 @@ const virusModalBodyOverride = (modal, context) => {
           <LabeledList.Item label="Possible cure">
             {virus.cure}
           </LabeledList.Item>
-          <LabeledList.Item label="Notes">
-            {virus.desc}
-          </LabeledList.Item>
-          <LabeledList.Item label="Severity"
-            color={severities[virus.severity]}>
+          <LabeledList.Item label="Notes">{virus.desc}</LabeledList.Item>
+          <LabeledList.Item label="Severity" color={severities[virus.severity]}>
             {virus.severity}
           </LabeledList.Item>
         </LabeledList>
@@ -56,13 +62,10 @@ const virusModalBodyOverride = (modal, context) => {
 
 export const MedicalRecords = (_properties, context) => {
   const { data } = useBackend(context);
-  const {
-    loginState,
-    screen,
-  } = data;
+  const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={380}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -71,20 +74,25 @@ export const MedicalRecords = (_properties, context) => {
   }
 
   let body;
-  if (screen === 2) { // List Records
+  if (screen === 2) {
+    // List Records
     body = <MedicalRecordsList />;
-  } else if (screen === 3) { // Record Maintenance
+  } else if (screen === 3) {
+    // Record Maintenance
     body = <MedicalRecordsMaintenance />;
-  } else if (screen === 4) { // View Records
+  } else if (screen === 4) {
+    // View Records
     body = <MedicalRecordsView />;
-  } else if (screen === 5) { // Virus Database
+  } else if (screen === 5) {
+    // Virus Database
     body = <MedicalRecordsViruses />;
-  } else if (screen === 6) { // Medbot Tracking
+  } else if (screen === 6) {
+    // Medbot Tracking
     body = <MedicalRecordsMedbots />;
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={380}>
       <ComplexModal />
       <Window.Content className="Layout__content--flexColumn">
         <LoginInfo />
@@ -100,11 +108,9 @@ export const MedicalRecords = (_properties, context) => {
 
 const MedicalRecordsList = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records,
-  } = data;
+  const { records } = data;
   return (
-    <Fragment>
+    <>
       <Input
         fluid
         placeholder="Search by Name, DNA, or ID"
@@ -116,49 +122,44 @@ const MedicalRecordsList = (_properties, context) => {
             <Button
               icon="user"
               mb="0.5rem"
-              content={record.id + ": " + record.name}
+              content={record.id + ': ' + record.name}
               onClick={() => act('d_rec', { d_rec: record.ref })}
             />
             <br />
           </Fragment>
         ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
-      <Button
-        icon="download"
-        content="Backup to Disk"
-        disabled
-      /><br />
+    <>
+      <Button icon="download" content="Backup to Disk" disabled />
+      <br />
       <Button
         icon="upload"
         content="Upload from Disk"
         my="0.5rem"
         disabled
-      /> <br />
+      />{' '}
+      <br />
       <Button.Confirm
         icon="trash"
         content="Delete All Medical Records"
         onClick={() => act('del_all')}
       />
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsView = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    medical,
-    printing,
-  } = data;
+  const { medical, printing } = data;
   return (
-    <Fragment>
+    <>
       <Section title="General Data" level={2} mt="-6px">
         <MedicalRecordsViewGeneral />
       </Section>
@@ -180,7 +181,8 @@ const MedicalRecordsView = (_properties, context) => {
           content="Print Entry"
           ml="0.5rem"
           onClick={() => act('print_p')}
-        /><br />
+        />
+        <br />
         <Button
           icon="arrow-left"
           content="Back"
@@ -188,24 +190,18 @@ const MedicalRecordsView = (_properties, context) => {
           onClick={() => act('screen', { screen: 2 })}
         />
       </Section>
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
-  const {
-    general,
-  } = data;
+  const { general } = data;
   if (!general || !general.fields) {
-    return (
-      <Box color="bad">
-        General records lost!
-      </Box>
-    );
+    return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Box width="50%" float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
@@ -225,13 +221,14 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
         </LabeledList>
       </Box>
       <Box width="50%" float="right" textAlign="right">
-        {!!general.has_photos && (
+        {!!general.has_photos &&
           general.photos.map((p, i) => (
             <Box
               key={i}
               display="inline-block"
               textAlign="center"
-              color="label">
+              color="label"
+            >
               <img
                 src={p}
                 style={{
@@ -239,21 +236,19 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
                   'margin-bottom': '0.5rem',
                   '-ms-interpolation-mode': 'nearest-neighbor',
                 }}
-              /><br />
+              />
+              <br />
               Photo #{i + 1}
             </Box>
-          ))
-        )}
+          ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsViewMedical = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    medical,
-  } = data;
+  const { medical } = data;
   if (!medical || !medical.fields) {
     return (
       <Box color="bad">
@@ -268,13 +263,10 @@ const MedicalRecordsViewMedical = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <>
       <LabeledList>
         {medical.fields.map((field, i) => (
-          <LabeledList.Item
-            key={i}
-            label={field.field}
-            prewrap>
+          <LabeledList.Item key={i} label={field.field} prewrap>
             {field.value}
             <Button
               icon="pen"
@@ -287,15 +279,14 @@ const MedicalRecordsViewMedical = (_properties, context) => {
       </LabeledList>
       <Section title="Comments/Log" level={2}>
         {medical.comments.length === 0 ? (
-          <Box color="label">
-            No comments found.
-          </Box>
-        )
-          : medical.comments.map((comment, i) => (
+          <Box color="label">No comments found.</Box>
+        ) : (
+          medical.comments.map((comment, i) => (
             <Box key={i} prewrap>
               <Box color="label" display="inline">
                 {comment.header}
-              </Box><br />
+              </Box>
+              <br />
               {comment.text}
               <Button
                 icon="comment-slash"
@@ -304,7 +295,8 @@ const MedicalRecordsViewMedical = (_properties, context) => {
                 onClick={() => act('del_c', { del_c: i + 1 })}
               />
             </Box>
-          ))}
+          ))
+        )}
 
         <Button
           icon="comment-medical"
@@ -315,16 +307,14 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           onClick={() => modalOpen(context, 'add_c')}
         />
       </Section>
-    </Fragment>
+    </>
   );
 };
 
 const MedicalRecordsViruses = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    virus,
-  } = data;
-  virus.sort((a, b) => a.name > b.name ? 1 : -1);
+  const { virus } = data;
+  virus.sort((a, b) => (a.name > b.name ? 1 : -1));
   return virus.map((vir, i) => (
     <Fragment key={i}>
       <Button
@@ -340,21 +330,12 @@ const MedicalRecordsViruses = (_properties, context) => {
 
 const MedicalRecordsMedbots = (_properties, context) => {
   const { data } = useBackend(context);
-  const {
-    medbots,
-  } = data;
+  const { medbots } = data;
   if (medbots.length === 0) {
-    return (
-      <Box color="label">
-        There are no Medbots.
-      </Box>
-    );
+    return <Box color="label">There are no Medbots.</Box>;
   }
   return medbots.map((medbot, i) => (
-    <Collapsible
-      key={i}
-      open
-      title={medbot.name}>
+    <Collapsible key={i} open title={medbot.name}>
       <Box px="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Location">
@@ -362,21 +343,19 @@ const MedicalRecordsMedbots = (_properties, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Status">
             {medbot.on ? (
-              <Fragment>
-                <Box color="good">
-                  Online
-                </Box>
+              <>
+                <Box color="good">Online</Box>
                 <Box mt="0.5rem">
                   {medbot.use_beaker
-                    ? ("Reservoir: "
-                    + medbot.total_volume + "/" + medbot.maximum_volume)
-                    : "Using internal synthesizer."}
+                    ? 'Reservoir: ' +
+                      medbot.total_volume +
+                      '/' +
+                      medbot.maximum_volume
+                    : 'Using internal synthesizer.'}
                 </Box>
-              </Fragment>
+              </>
             ) : (
-              <Box color="average">
-                Offline
-              </Box>
+              <Box color="average">Offline</Box>
             )}
           </LabeledList.Item>
         </LabeledList>
@@ -387,32 +366,34 @@ const MedicalRecordsMedbots = (_properties, context) => {
 
 const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    screen,
-  } = data;
+  const { screen } = data;
   return (
     <Tabs>
       <Tabs.Tab
         selected={screen === 2}
-        onClick={() => act('screen', { screen: 2 })}>
+        onClick={() => act('screen', { screen: 2 })}
+      >
         <Icon name="list" />
         List Records
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 5}
-        onClick={() => act('screen', { screen: 5 })}>
+        onClick={() => act('screen', { screen: 5 })}
+      >
         <Icon name="database" />
         Virus Database
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 6}
-        onClick={() => act('screen', { screen: 6 })}>
+        onClick={() => act('screen', { screen: 6 })}
+      >
         <Icon name="plus-square" />
         Medbot Tracking
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 3}
-        onClick={() => act('screen', { screen: 3 })}>
+        onClick={() => act('screen', { screen: 3 })}
+      >
         <Icon name="wrench" />
         Record Maintenance
       </Tabs.Tab>

@@ -158,7 +158,6 @@
 
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
@@ -350,7 +349,6 @@
 	var/mob/living/carbon/human/registered_user = null
 	untrackable = 1
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	var/list/card_images
 	var/list/save_slots = list()
 	var/num_of_save_slots = 3
 	var/list/appearances = list(
@@ -710,6 +708,12 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
+/obj/item/card/id/syndicate/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/id_card)
+	)
+
+
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -731,21 +735,13 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
-	if(!length(card_images))
-		var/list/new_images = list()
-		for(var/appearance_name in appearances)
-			new_images.Add(list(list(
-				"name" = appearance_name,
-				"image" = "[icon2base64(icon(initial(icon), appearance_name, SOUTH, 1))]"
-			)))
-		card_images = new_images
-	data["appearances"] = card_images
+	data["appearances"] = appearances
 	return data
 
-/obj/item/card/id/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AgentCard", name, 425, 500, master_ui, state)
+		ui = new(user, src, "AgentCard", name)
 		ui.open()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)

@@ -273,10 +273,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/brs_server/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceRiftServer", name, 570, 400)
+		ui = new(user, src, "BluespaceRiftServer", name)
 		ui.open()
 
 /obj/machinery/brs_server/ui_data(mob/user)

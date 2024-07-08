@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
 import { Window } from '../layouts';
@@ -22,7 +21,7 @@ export const BotSecurity = (props, context) => {
     arrest_declare,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
@@ -35,7 +34,8 @@ export const BotSecurity = (props, context) => {
                 content={on ? 'On' : 'Off'}
                 selected={on}
                 disabled={noaccess}
-                onClick={() => act('power')} />
+                onClick={() => act('power')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Patrol">
               <Button.Checkbox
@@ -43,28 +43,28 @@ export const BotSecurity = (props, context) => {
                 checked={autopatrol}
                 content="Auto Patrol"
                 disabled={noaccess}
-                onClick={() => act('autopatrol')} />
+                onClick={() => act('autopatrol')}
+              />
             </LabeledList.Item>
             {!!maintpanel && (
               <LabeledList.Item label="Maintenance Panel">
-                <Box color="bad">
-                  Panel Open!
-                </Box>
+                <Box color="bad">Panel Open!</Box>
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Safety System">
               <Box color={emagged ? 'bad' : 'good'}>
-                {emagged ? "DISABLED!" : "Enabled"}
+                {emagged ? 'DISABLED!' : 'Enabled'}
               </Box>
             </LabeledList.Item>
             {!!canhack && (
               <LabeledList.Item label="Hacking">
                 <Button
                   icon="terminal"
-                  content={emagged ? "Restore Safties" : "Hack"}
+                  content={emagged ? 'Restore Safties' : 'Hack'}
                   disabled={noaccess}
                   color="bad"
-                  onClick={() => act('hack')} />
+                  onClick={() => act('hack')}
+                />
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Remote Access">
@@ -73,7 +73,8 @@ export const BotSecurity = (props, context) => {
                 checked={!remote_disabled}
                 content="AI Remote Control"
                 disabled={noaccess}
-                onClick={() => act('disableremote')} />
+                onClick={() => act('disableremote')}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -83,19 +84,22 @@ export const BotSecurity = (props, context) => {
             checked={check_id}
             content="Unidentifiable Persons"
             disabled={noaccess}
-            onClick={() => act('authid')} />
+            onClick={() => act('authid')}
+          />
           <Button.Checkbox
             fluid
             checked={check_weapons}
             content="Unauthorized Weapons"
             disabled={noaccess}
-            onClick={() => act('authweapon')} />
+            onClick={() => act('authweapon')}
+          />
           <Button.Checkbox
             fluid
             checked={check_warrant}
             content="Wanted Criminals"
             disabled={noaccess}
-            onClick={() => act('authwarrant')} />
+            onClick={() => act('authwarrant')}
+          />
         </Section>
         <Section title="Arrest Procedure">
           <Button.Checkbox
@@ -103,13 +107,15 @@ export const BotSecurity = (props, context) => {
             checked={arrest_mode}
             content="Detain Targets Indefinitely"
             disabled={noaccess}
-            onClick={() => act('arrtype')} />
+            onClick={() => act('arrtype')}
+          />
           <Button.Checkbox
             fluid
             checked={arrest_declare}
             content="Announce Arrests On Radio"
             disabled={noaccess}
-            onClick={() => act('arrdeclare')} />
+            onClick={() => act('arrdeclare')}
+          />
         </Section>
         {painame && (
           <Section title="pAI">
@@ -118,7 +124,8 @@ export const BotSecurity = (props, context) => {
               icon="eject"
               content={painame}
               disabled={noaccess}
-              onClick={() => act('ejectpai')} />
+              onClick={() => act('ejectpai')}
+            />
           </Section>
         )}
       </Window.Content>
