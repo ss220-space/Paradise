@@ -53,7 +53,7 @@
 		return TRUE
 	var/mob/living/carbon/human/H = user
 	var/obj/item/clothing/gloves/G = H.gloves
-	if(G && G.body_parts_covered & FINGERS)
+	if(G && G.fingers_covered)
 		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
