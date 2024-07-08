@@ -163,10 +163,33 @@
 
 /obj/machinery/quantumpad/cere
 	name = "quantum pad"
+	var/destination
+	var/address
 
 /obj/machinery/quantumpad/cere/Initialize(mapload) //a lot of cele preseted pads
 	. = ..()
-	linked_pad = locate(preset_target)
+	if(preset_target)
+		linked_pad = locate(preset_target)
+		var/slice = findtext_char("[preset_target]", "_", findtext("[preset_target]", "cere/"))
+		destination = copytext("[preset_target]", findtext("[preset_target]", "cere/")+5, slice)
+		address = copytext("[preset_target]", slice+1)
+
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
+
+/obj/machinery/quantumpad/cere/update_name(updates)
+	. = ..()
+	if(address)
+		name = "[address] [initial(name)]"
+	else
+		name = initial(name)
+
+/obj/machinery/quantumpad/cere/update_desc(updates)
+	. = ..()
+	if(destination)
+		desc = "This leads to [destination]"
+	else
+		desc = "This leads to nowhere."
+
 
 //cere only
 /obj/machinery/quantumpad/cere/science_arrivals
@@ -212,14 +235,14 @@
 /obj/machinery/quantumpad/cere/servise_cargo2
 	preset_target = /obj/machinery/quantumpad/cere/cargo_servise2
 
-/obj/machinery/quantumpad/cere/cargo_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_cargo
-/obj/machinery/quantumpad/cere/cargo_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_cargo2
-/obj/machinery/quantumpad/cere/engi_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_engi
-/obj/machinery/quantumpad/cere/engi_cargo2
-	preset_target = /obj/machinery/quantumpad/cere/cargo_engi2
+/obj/machinery/quantumpad/cere/cargo_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_cargo
+/obj/machinery/quantumpad/cere/cargo_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_cargo2
+/obj/machinery/quantumpad/cere/engineering_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_engineering
+/obj/machinery/quantumpad/cere/engineering_cargo2
+	preset_target = /obj/machinery/quantumpad/cere/cargo_engineering2
 
 //all comand
 /obj/machinery/quantumpad/cere/comand_arrivals
@@ -258,14 +281,14 @@
 /obj/machinery/quantumpad/cere/servise_comand2
 	preset_target = /obj/machinery/quantumpad/cere/comand_servise2
 
-/obj/machinery/quantumpad/cere/comand_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_comand
-/obj/machinery/quantumpad/cere/comand_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_comand2
-/obj/machinery/quantumpad/cere/engi_comand
-	preset_target = /obj/machinery/quantumpad/cere/comand_engi
-/obj/machinery/quantumpad/cere/engi_comand2
-	preset_target = /obj/machinery/quantumpad/cere/comand_engi2
+/obj/machinery/quantumpad/cere/comand_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_comand
+/obj/machinery/quantumpad/cere/comand_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_comand2
+/obj/machinery/quantumpad/cere/engineering_comand
+	preset_target = /obj/machinery/quantumpad/cere/comand_engineering
+/obj/machinery/quantumpad/cere/engineering_comand2
+	preset_target = /obj/machinery/quantumpad/cere/comand_engineering2
 
 //all sec, witout cargo
 /obj/machinery/quantumpad/cere/security_science
@@ -295,14 +318,14 @@
 /obj/machinery/quantumpad/cere/medbay_security2
 	preset_target = /obj/machinery/quantumpad/cere/security_medbay2
 
-/obj/machinery/quantumpad/cere/security_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_security
-/obj/machinery/quantumpad/cere/security_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_security2
-/obj/machinery/quantumpad/cere/engi_security
-	preset_target = /obj/machinery/quantumpad/cere/security_engi
-/obj/machinery/quantumpad/cere/engi_security2
-	preset_target = /obj/machinery/quantumpad/cere/security_engi2
+/obj/machinery/quantumpad/cere/security_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_security
+/obj/machinery/quantumpad/cere/security_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_security2
+/obj/machinery/quantumpad/cere/engineering_security
+	preset_target = /obj/machinery/quantumpad/cere/security_engineering
+/obj/machinery/quantumpad/cere/engineering_security2
+	preset_target = /obj/machinery/quantumpad/cere/security_engineering2
 
 //all servise, without cargo and comand
 /obj/machinery/quantumpad/cere/servise_medbay
@@ -323,14 +346,14 @@
 /obj/machinery/quantumpad/cere/arrivals_servise2
 	preset_target = /obj/machinery/quantumpad/cere/servise_arrivals2
 
-/obj/machinery/quantumpad/cere/servise_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_servise
-/obj/machinery/quantumpad/cere/servise_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_servise2
-/obj/machinery/quantumpad/cere/engi_servise
-	preset_target = /obj/machinery/quantumpad/cere/servise_engi
-/obj/machinery/quantumpad/cere/engi_servise2
-	preset_target = /obj/machinery/quantumpad/cere/servise_engi2
+/obj/machinery/quantumpad/cere/servise_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_servise
+/obj/machinery/quantumpad/cere/servise_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_servise2
+/obj/machinery/quantumpad/cere/engineering_servise
+	preset_target = /obj/machinery/quantumpad/cere/servise_engineering
+/obj/machinery/quantumpad/cere/engineering_servise2
+	preset_target = /obj/machinery/quantumpad/cere/servise_engineering2
 
 //all medbay, witout sec, comand, servise
 /obj/machinery/quantumpad/cere/medbay_science
@@ -343,29 +366,29 @@
 	preset_target = /obj/machinery/quantumpad/cere/medbay_science2
 
 //rest of them has only engy direction
-/obj/machinery/quantumpad/cere/medbay_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_medbay
-/obj/machinery/quantumpad/cere/medbay_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_medbay2
-/obj/machinery/quantumpad/cere/engi_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_engi
-/obj/machinery/quantumpad/cere/engi_medbay2
-	preset_target = /obj/machinery/quantumpad/cere/medbay_engi2
+/obj/machinery/quantumpad/cere/medbay_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_medbay
+/obj/machinery/quantumpad/cere/medbay_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_medbay2
+/obj/machinery/quantumpad/cere/engineering_medbay
+	preset_target = /obj/machinery/quantumpad/cere/medbay_engineering
+/obj/machinery/quantumpad/cere/engineering_medbay2
+	preset_target = /obj/machinery/quantumpad/cere/medbay_engineering2
 
-/obj/machinery/quantumpad/cere/science_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_science
-/obj/machinery/quantumpad/cere/science_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_science2
-/obj/machinery/quantumpad/cere/engi_science
-	preset_target = /obj/machinery/quantumpad/cere/science_engi
-/obj/machinery/quantumpad/cere/engi_science2
-	preset_target = /obj/machinery/quantumpad/cere/science_engi2
+/obj/machinery/quantumpad/cere/science_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_science
+/obj/machinery/quantumpad/cere/science_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_science2
+/obj/machinery/quantumpad/cere/engineering_science
+	preset_target = /obj/machinery/quantumpad/cere/science_engineering
+/obj/machinery/quantumpad/cere/engineering_science2
+	preset_target = /obj/machinery/quantumpad/cere/science_engineering2
 
-/obj/machinery/quantumpad/cere/arrivals_engi
-	preset_target = /obj/machinery/quantumpad/cere/engi_arrivals
-/obj/machinery/quantumpad/cere/arrivals_engi2
-	preset_target = /obj/machinery/quantumpad/cere/engi_arrivals2
-/obj/machinery/quantumpad/cere/engi_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_engi
-/obj/machinery/quantumpad/cere/engi_arrivals2
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_engi2
+/obj/machinery/quantumpad/cere/arrivals_engineering
+	preset_target = /obj/machinery/quantumpad/cere/engineering_arrivals
+/obj/machinery/quantumpad/cere/arrivals_engineering2
+	preset_target = /obj/machinery/quantumpad/cere/engineering_arrivals2
+/obj/machinery/quantumpad/cere/engineering_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_engineering
+/obj/machinery/quantumpad/cere/engineering_arrivals2
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_engineering2
