@@ -179,8 +179,8 @@
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
 #define CLOSED_DOOR_LAYER 3.1
 #define CLOSED_FIREDOOR_LAYER 3.11
-#define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
+#define SHUTTER_LAYER 3.21 // HERE BE DRAGONS
 #define ABOVE_WINDOW_LAYER 3.3
 #define BUTTONS_LAYER 3.31
 #define CLOSED_BLASTDOOR_LAYER 3.35
