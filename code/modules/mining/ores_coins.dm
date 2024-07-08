@@ -67,31 +67,16 @@
 
 
 /obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
-	var/human_arrived = ishuman(arrived)
-	var/robot_arrived = isrobot(arrived)
-	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!human_arrived && !robot_arrived))
+	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
 		return ..()
 
-	var/obj/item/storage/bag/ore/storage_bag
-	if(human_arrived)
-		var/mob/living/carbon/human/h_arrived = arrived
-		for(var/obj/item/storage/bag/ore/bag in h_arrived.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
-			if(bag)
-				storage_bag = bag
-				break
-
-	else if(robot_arrived)
-		var/mob/living/silicon/robot/r_arrived = arrived
-		for(var/obj/item/storage/bag/ore/bag in r_arrived.get_equipped_items())
-			if(bag)
-				storage_bag = bag
-				break
-
-	if(storage_bag)
-		loc.attackby(storage_bag, arrived)
+	var/mob/arrived_mob = arrived
+	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		loc.attackby(bag, arrived)
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
-		if(istype(arrived.pulling, /obj/structure/ore_box))
-			arrived.pulling.attackby(storage_bag, arrived)
+		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
+			arrived_mob.pulling.attackby(bag, arrived)
+		break
 
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
