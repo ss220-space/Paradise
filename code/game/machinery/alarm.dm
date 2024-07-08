@@ -954,6 +954,21 @@
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
+
+/obj/machinery/alarm/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.lacks_power() || AI.apc_override)
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			if(!AC.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
+
+
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
@@ -962,8 +977,8 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 
+/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface

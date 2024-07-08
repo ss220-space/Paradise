@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
   return (
-    <Window width={1500} heigth={820} theme="nologo">
+    <Window width={1500} height={820} theme="nologo">
       <Window.Content>
         <Stack fill>
           <HemoMenu />
