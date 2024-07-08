@@ -234,8 +234,8 @@ const KitchenSinkTooltip = (props) => {
     'left',
     'right',
     'bottom',
-    'bottom-left',
-    'bottom-right',
+    'bottom-start',
+    'bottom-end',
   ];
   return (
     <>

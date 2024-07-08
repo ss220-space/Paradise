@@ -193,7 +193,7 @@ const SuitTuning = (properties, context) => {
               tooltip={
                 'Включение или отключение интерфейса показывающего сконцентрированы ли вы для применения боевого исскуства.'
               }
-              tooltipPosition="top-left"
+              tooltipPosition="top-start"
             />
           </Box>
         }
@@ -251,7 +251,7 @@ const SuitTuning = (properties, context) => {
                             Уточнение: нановолокна так же будут прикрывать вашу голову и от других головных уборов \
                             с целью уменьшения помех в их работе.'
                 }
-                tooltipPosition="top-left"
+                tooltipPosition="top-start"
               />
             </LabeledList.Item>
             {if_scarf}
@@ -269,7 +269,7 @@ const SuitTuning = (properties, context) => {
                 tooltip={
                   'Включение или отключение интерфейса показывающего заряд вашего костюма.'
                 }
-                tooltipPosition="top-left"
+                tooltipPosition="top-start"
               />
             </LabeledList.Item>
             {if_concentration}
@@ -295,7 +295,7 @@ const SuitTuning = (properties, context) => {
               \nАктивированный костюм нельзя снять обычным способом, пока он не будет деактивирован.\
               \nВключение ровно как и выключение костюма занимает много времени. Подумайте дважды прежде, чем выключать его на территории врага!'
             }
-            tooltipPosition="top-left"
+            tooltipPosition="top-start"
             onClick={() => act('initialise_suit')}
           />
         </NoticeBox>
@@ -345,7 +345,7 @@ const Helpers = (properties, context) => {
               \nТак же в случае если вы решите полететь на шаттле, напоминаем вам, что во избежание вашего обнаружения или кражи шаттла и попадания на вашу базу посторонних лиц, \
               отличной практикой будет отозвать его.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -368,7 +368,7 @@ const Helpers = (properties, context) => {
               \nТак же ваш наушник автомати- чески улавливает и переводит бинарные сигналы генерируемые синтетиками при общении друг с другом. \
               К тому же позволяя вам самим общаться с ними.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -390,7 +390,7 @@ const Helpers = (properties, context) => {
               \nДля того, чтобы успешно похи- тить людей. У вас на шаттле есть скафандры, а на базе запас на- ручников, кислорода и балло- нов. \
               \nТак же напоминаем, что ваши перчатки способны направлять в людей электрический импульс, эффективно станя их на короткое время. '
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -411,7 +411,7 @@ const Helpers = (properties, context) => {
               В результате такого метода мы можем легко перегрузить ИИ абсурдными законами, но это ограничивает нас в том плане, что для взлома в итоге подходят только консоли в самой загрузочной.\
               Так же взлом задача нелёгкая - системы защиты есть везде. А процесс занимает время. Не удивляйтесь если ИИ будет противодейст- вовать вашим попыткам его сломать.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -434,7 +434,7 @@ const Helpers = (properties, context) => {
               \nТак же робот будет оснащён личной катаной, устройством маскировки, пинпоинтером указывающим ему на вас и генератором электрических сюрикенов. \
               Помните, что катана робота не способна обеспечить его блюспейс транслокацию!'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -457,7 +457,7 @@ const Helpers = (properties, context) => {
               \nНо загрузка вируса требует времени, и системы защиты многих обьектов не дремлют. \
               Скорее всего о вашей попытке взлома будет оповещён местный ИИ. Будьте готовы к этому.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -481,7 +481,7 @@ const Helpers = (properties, context) => {
               \nТак же мы напоминаем, что клан не одобряет варварские методы "Защиты" цели. Нет вы не можете посадить защищаемого в клетку и следить за ним там! \
               Не портите нашу репутацию в глазах наших клиентов!'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -503,7 +503,7 @@ const Helpers = (properties, context) => {
               Вы можете это использовать для кражи чужих карт и обналичи- вания их счетов. Либо можете метить выше и ограбить хранилища или счета самого обьекта вашей миссии.\
               Самое главное. Достаньте эти деньги!'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -526,7 +526,7 @@ const Helpers = (properties, context) => {
               \n У вас достаточно инструментов, чтобы совершить преступление под личиной цели. \
               Главное постарайтесь обойтись без слиш- ком больших последствий. Лишняя дыра в обшивке станции или трупы - увеличивают шансы провала вашего плана.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -549,7 +549,7 @@ const Helpers = (properties, context) => {
               \n Наши бомбы специально изготовлены с ограничителями. Никто кроме вас не сможет их подорвать \
               и даже вы сможете активировать их лишь в зоне заказанной клиентом. Советуем сразу бежать подальше после установки. Хотя это и так должно быть для вас очевидно.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -572,7 +572,7 @@ const Helpers = (properties, context) => {
               \nДля эффективного анализа крови необходимо обязательно собрать 3 уникальных образца. И поме- стить их в пробирки, которые потом надо поместить в устройство. \
               \nПримеси приняты не будут!'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -596,7 +596,7 @@ const Helpers = (properties, context) => {
               И внимательно слушайте радио на обьекте. Возможно местная охрана уже охотится за одним из них. \
               \nНикто не будет против если вы незаметно поможете им с этим...'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -619,7 +619,7 @@ const Helpers = (properties, context) => {
               \nВампиры очень опасны в прямом столкновении, они способны оглушать взглядом и порабощать разум своих жертв. \
               Не доверяйте им, но так же помните - они лишь жертвы стечения обстоятельств. И это можно использовать в свою пользу...'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
@@ -640,7 +640,7 @@ const Helpers = (properties, context) => {
               \nВ случае столкновения с агентами Синдиката политика наших действий проста. \
               \nЕсли они не мешают выполнению задания. Мы не мешаем им.'
               }
-              position="bottom-left"
+              position="bottom-start"
             />
           </Button>
         </Flex.Item>
@@ -733,7 +733,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nСтоимость автоматической активации: 250 ед. энергии.\
                 \nПерезарядка: 3 секунды.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
 
@@ -769,7 +769,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nАктивная невидимость слабо увеличивает пассивный расход энергии.\
                 \nПерезарядка: 15 секунд.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
             <Button
@@ -929,7 +929,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nСтоимость выстрела: 500 ед. энергии.\
                 \nПерезарядка: 5 секунд.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
             <Button
@@ -963,7 +963,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nПри передозировке они становятся слишком опасны для пользователя. Не вводите больше 30 ед. препарата в ваш организм! \
                 \nВместо траты энергии имеет 3 заряда. Их можно восстановить вручную с помощью цельных кусков блюспейс кристаллов помещённых в костюм.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
             <Button
@@ -1124,7 +1124,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nТак же они пролетают через стекло, как и обычные лазерные снаряды.\
                 \nСтоимость выстрела: 300 ед. энергии.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
             <Button
@@ -1154,7 +1154,7 @@ const ActionBuyPanel = (properties, context) => {
                 \nКостюм производит сыворотку с использованием урана. Что к сожалению даёт неприятный негативный эффект, в виде накопления радия в организме пользователя.\
                 \nВместо траты энергии может быть использовано лишь один раз, пока не будет перезаряжено вручную с помощью цельных кусков урана помещённых в костюм.'
                 }
-                position="bottom-right"
+                position="bottom-end"
               />
             </Button>
             <Button
