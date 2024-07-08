@@ -109,6 +109,7 @@
 #define FULL_BODY		(HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS)
 #define TAIL			(1<<12)
 #define WING			(1<<13)
+#define FINGERS			(1<<14)
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
