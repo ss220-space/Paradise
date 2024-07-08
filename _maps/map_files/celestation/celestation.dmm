@@ -325,6 +325,13 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/engineering)
+"ado" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "adr" = (
 /obj/machinery/camera{
 	c_tag = "Gravity Generation";
@@ -8259,7 +8266,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "blX" = (
@@ -8480,7 +8488,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "bnv" = (
@@ -8852,7 +8861,7 @@
 /obj/effect/landmark/event/revenantspawn,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "bpC" = (
@@ -11214,7 +11223,8 @@
 /area/crew_quarters/sleep)
 "bDo" = (
 /obj/structure/ladder,
-/obj/structure/reagent_dispensers/fueltank/chem{
+/obj/structure/sign/directions/floor/alt{
+	dir = 8;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -25479,7 +25489,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "dzF" = (
@@ -25643,7 +25654,7 @@
 /obj/effect/landmark/event/revenantspawn,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "dBi" = (
@@ -25866,6 +25877,9 @@
 "dCu" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -31646,12 +31660,12 @@
 	},
 /area/crew_quarters/kitchen)
 "eNi" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable/orange{
-	icon_state = "0-4"
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
 	},
-/turf/simulated/floor/plating,
-/area/medical/chemistry)
+/area/medical/morgue)
 "eNk" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -34033,7 +34047,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "fme" = (
@@ -38460,6 +38475,15 @@
 	icon_state = "black"
 	},
 /area/space)
+"gcd" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/event/revenantspawn,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "gch" = (
 /obj/machinery/light{
 	dir = 1
@@ -42868,6 +42892,10 @@
 /area/engine/engineering)
 "gTi" = (
 /obj/structure/ladder,
+/obj/structure/sign/directions/floor/alt{
+	dir = 6;
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteyellow"
@@ -43006,6 +43034,9 @@
 	dir = 8
 	},
 /obj/machinery/chem_dispenser,
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/medical/chemistry)
 "gVx" = (
@@ -48158,6 +48189,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "hWc" = (
@@ -50029,6 +50063,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/fore)
+"iqT" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "irc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -50655,6 +50695,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/arcade)
+"iwd" = (
+/obj/structure/morgue{
+	dir = 8
+	},
+/obj/effect/landmark/event/revenantspawn,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "iwn" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -53553,6 +53603,9 @@
 "iZd" = (
 /obj/structure/railing{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -58212,6 +58265,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/aisat/atmospherics)
+"jWF" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "jWJ" = (
 /obj/machinery/light{
 	dir = 1
@@ -66364,11 +66425,11 @@
 	pixel_x = -2;
 	pixel_y = -2
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	pixel_y = 28
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68677,6 +68738,15 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/break_room)
+"maX" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "mbh" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -69342,7 +69412,8 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "mhs" = (
@@ -70450,6 +70521,15 @@
 	icon_state = "white"
 	},
 /area/toxins/explab_chamber)
+"muv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "muG" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -70715,9 +70795,6 @@
 	},
 /area/medical/research)
 "mwP" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/power/apc{
 	pixel_x = -28;
 	dir = 8
@@ -77597,7 +77674,8 @@
 	dir = 1
 	},
 /obj/structure/ladder,
-/obj/machinery/status_display{
+/obj/structure/sign/directions/floor/alt{
+	dir = 8;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -86925,6 +87003,12 @@
 	icon_state = "dark"
 	},
 /area/security/warden)
+"pDW" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "pEi" = (
 /obj/machinery/light{
 	dir = 4
@@ -90899,6 +90983,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -91184,7 +91269,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "qvI" = (
@@ -92572,7 +92658,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "qJR" = (
@@ -93437,6 +93524,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/fore)
+"qUn" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "qUo" = (
 /obj/structure/closet/l3closet/general,
 /turf/simulated/floor/carpet/black,
@@ -93873,6 +93966,13 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/qm)
+"rae" = (
+/obj/structure/morgue,
+/obj/effect/landmark/event/revenantspawn,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "rak" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -96344,6 +96444,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -26
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -99399,6 +99500,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permahallway)
+"sez" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "sfg" = (
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -103074,6 +103184,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/railing/corner,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "sPH" = (
@@ -114993,6 +115104,14 @@
 "vdI" = (
 /turf/simulated/wall/r_wall,
 /area/engine/engine_smes)
+"vdK" = (
+/obj/structure/morgue,
+/obj/effect/landmark/event/revenantspawn,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "vdS" = (
 /obj/effect/spawner/random_spawners/oil_5,
 /obj/effect/decal/cleanable/molten_object/large,
@@ -116059,11 +116178,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 1
-	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/structure/railing{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -119487,7 +119606,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "vZK" = (
@@ -121943,9 +122063,6 @@
 	},
 /area/medical/surgery/theatre)
 "wwl" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/table,
 /obj/machinery/requests_console{
 	department = "Morgue";
@@ -122714,6 +122831,10 @@
 /area/security/podbay)
 "wFy" = (
 /obj/structure/ladder,
+/obj/structure/sign/directions/floor/alt{
+	dir = 6;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -125519,6 +125640,12 @@
 /obj/structure/weightmachine/stacklifter,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"xhM" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "xhP" = (
 /obj/effect/decal/remains/mouse{
 	name = "Джерри"
@@ -126490,6 +126617,9 @@
 /obj/structure/closet/wardrobe/coroner,
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /obj/item/reagent_containers/dropper,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -127886,6 +128016,12 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
+"xFe" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "xFf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -128353,6 +128489,15 @@
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
+"xJr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "xJs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -129062,7 +129207,8 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "xQL" = (
@@ -129079,7 +129225,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/medical/morgue)
 "xQY" = (
@@ -190320,10 +190467,10 @@ aeM
 rmc
 blS
 lON
-lON
+gcd
 qlP
 cGG
-lON
+iwd
 lON
 dBe
 rmc
@@ -190577,10 +190724,10 @@ aeM
 rmc
 vZF
 lzj
-lzj
+rae
 qlP
 cGG
-lzj
+vdK
 lzj
 bpB
 rmc
@@ -190832,14 +190979,14 @@ oqZ
 oqZ
 aeM
 rmc
-qlP
-oXn
-oXn
+sez
+pBw
+iqT
 qlP
 cGG
-oXn
-oXn
-cGG
+qUn
+pBw
+eNi
 rmc
 aeM
 pSD
@@ -191089,14 +191236,14 @@ oqZ
 oqZ
 aeM
 rmc
-qlP
-oXn
-oXn
+maX
+oHe
+xFe
 qlP
 cGG
-oXn
-oXn
-cGG
+pDW
+oHe
+ado
 rmc
 aeM
 aeM
@@ -191348,10 +191495,10 @@ aeM
 rmc
 blS
 lON
-lON
+gcd
 qlP
 cGG
-lON
+iwd
 lON
 dBe
 rmc
@@ -191605,10 +191752,10 @@ aeM
 rmc
 vZF
 lzj
-lzj
+rae
 qlP
 cGG
-lzj
+vdK
 lzj
 bpB
 rmc
@@ -191861,12 +192008,12 @@ aeM
 aeM
 rmc
 bnk
-qvE
-qvE
+muv
+xJr
 lNM
 ovq
 qvE
-qvE
+muv
 mhe
 rmc
 aeM
@@ -247635,7 +247782,7 @@ cSi
 lXy
 fkO
 huL
-eNi
+xEX
 gVm
 bFE
 pIu
@@ -255086,8 +255233,8 @@ rmc
 iZd
 sUQ
 dxw
-oXn
-oXn
+jWF
+xhM
 sSJ
 sUQ
 qsg
