@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'

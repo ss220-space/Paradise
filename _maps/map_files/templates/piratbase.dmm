@@ -407,7 +407,7 @@
 /area/shuttle/pirate_corvette)
 "bi" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)
@@ -16790,7 +16790,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
 "XR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)
@@ -17431,7 +17431,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)

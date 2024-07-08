@@ -151,6 +151,8 @@
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
+	SETUP_SMOOTHING()
+
 	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()

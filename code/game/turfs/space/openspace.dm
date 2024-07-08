@@ -21,6 +21,7 @@
 	AddElement(/datum/element/turf_z_transparency)
 
 /turf/space/openspace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE // stops ruining parallax space
 
 /turf/space/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)

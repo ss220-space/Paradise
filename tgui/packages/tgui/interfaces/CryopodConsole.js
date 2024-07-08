@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
+import {
+  Button,
+  Section,
+  NoticeBox,
+  LabeledList,
+  Collapsible,
+} from '../components';
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 
@@ -48,7 +54,7 @@ const ItemList = (props, context) => {
   const { act, data } = useBackend(context);
   const { frozen_items } = data;
 
-  const replaceItemName = item => {
+  const replaceItemName = (item) => {
     let itemName = item.toString();
     if (itemName.startsWith('the ')) {
       itemName = itemName.slice(4, itemName.length);
@@ -66,13 +72,14 @@ const ItemList = (props, context) => {
           color="red"
           onClick={() => act('all_items')}
         />
-      }>
+      }
+    >
       {!frozen_items.length ? (
         <NoticeBox>No stored items!</NoticeBox>
       ) : (
         <Section fill scrollable>
           <LabeledList>
-            {frozen_items.map(item => (
+            {frozen_items.map((item) => (
               <LabeledList.Item
                 key={item}
                 label={replaceItemName(item.name)}

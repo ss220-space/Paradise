@@ -5,35 +5,28 @@ import { Button, LabeledList, Flex, Box, Section, Table } from '../components';
 export const PDAPainter = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    statusLabel,
-    pdaTypes,
-    hasPDA,
-    pdaIcon,
-    pdaOwnerName,
-    pdaJobName,
-  } = data;
+  const { statusLabel, pdaTypes, hasPDA, pdaIcon, pdaOwnerName, pdaJobName } =
+    data;
 
   return (
-    <Window>
+    <Window width={545} height={350}>
       <Window.Content>
-        <Flex
-          spacing={1}
-          direction="row"
-          height="100%" flex="1">
-          <Flex.Item
-            width={24}
-            shrink={0}>
-            <Section title="Общее"
+        <Flex spacing={1} direction="row" height="100%" flex="1">
+          <Flex.Item width={24} shrink={0}>
+            <Section
+              title="Общее"
               buttons={
-                <Button fluid
+                <Button
+                  fluid
                   icon={hasPDA ? 'eject' : 'exclamation-triangle'}
                   selected={hasPDA}
                   content={hasPDA ? 'Извлечь' : '-----'}
-                  tooltip={hasPDA ? "Извлечь PDA" : "Вставить PDA"}
+                  tooltip={hasPDA ? 'Извлечь PDA' : 'Вставить PDA'}
                   tooltipPosition="left"
-                  onClick={() => act(hasPDA ? 'eject_pda' : 'insert_pda')} />
-              }>
+                  onClick={() => act(hasPDA ? 'eject_pda' : 'insert_pda')}
+                />
+              }
+            >
               <LabeledList>
                 <LabeledList.Item label="Имя">
                   {pdaOwnerName ? pdaOwnerName : 'Н/Д'}
@@ -44,18 +37,18 @@ export const PDAPainter = (props, context) => {
               </LabeledList>
             </Section>
             <Section>
-              <Flex height="100%"
-                direction="column" flex="1">
+              <Flex height="100%" direction="column" flex="1">
                 <Flex.Item>
-                  <Box
-                    textAlign="center">
-                    <Box as="img"
+                  <Box textAlign="center">
+                    <Box
+                      as="img"
                       height="160px" // Set image size here.
-                      src={hasPDA ? `data:image/png;base64,${pdaIcon}`: ""}
+                      src={hasPDA ? `data:image/png;base64,${pdaIcon}` : ''}
                       style={{
                         '-ms-interpolation-mode': 'nearest-neighbor',
                       }}
-                      align="middle" />
+                      align="middle"
+                    />
                   </Box>
                   <LabeledList m="5px">
                     <LabeledList.Item label="Статус">
@@ -63,31 +56,32 @@ export const PDAPainter = (props, context) => {
                     </LabeledList.Item>
                   </LabeledList>
 
-                  <Button.Confirm m="5px"
+                  <Button.Confirm
+                    m="5px"
                     fluid
                     disabled={!hasPDA}
                     content="Стереть PDA"
                     confirmContent="Подтвердить?"
                     textAlign="left"
                     color="red"
-                    tooltip={"Cбросить телефон на заводские настройки"}
+                    tooltip={'Cбросить телефон на заводские настройки'}
                     tooltipPosition="top"
-                    onClick={() => act("erase_pda")}
+                    onClick={() => act('erase_pda')}
                   />
                 </Flex.Item>
               </Flex>
             </Section>
           </Flex.Item>
-          <Flex.Item
-            width={27}>
+          <Flex.Item width={27}>
             <Flex direction="column" height="100%" flex="1">
-              <Section title="Цвет PDA" flexGrow="1">
+              <Section title="Цвет PDA" flexGrow="1" scrollable fill>
                 <Table>
-                  {Object.keys(pdaTypes).map(key => (
+                  {Object.keys(pdaTypes).map((key) => (
                     <PDAColorRow
                       key={key}
                       selectedPda={key}
-                      selectedPdaImage={pdaTypes[key][0]} />
+                      selectedPdaImage={pdaTypes[key][0]}
+                    />
                   ))}
 
                   {/* Logic explanation for dummies.
@@ -128,14 +122,9 @@ export const PDAPainter = (props, context) => {
 export const PDAColorRow = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    hasPDA,
-  } = data;
+  const { hasPDA } = data;
 
-  const {
-    selectedPda,
-    selectedPdaImage,
-  } = props;
+  const { selectedPda, selectedPdaImage } = props;
 
   return (
     <Table.Row>
@@ -147,7 +136,8 @@ export const PDAColorRow = (props, context) => {
             width: '32px',
             margin: '0px',
             'margin-left': '0px',
-          }} />
+          }}
+        />
       </Table.Cell>
       <Table.Cell bold>
         <Button.Confirm
@@ -157,12 +147,14 @@ export const PDAColorRow = (props, context) => {
           content={selectedPda}
           confirmContent="Покрасить?"
           textAlign="left"
-          onClick={() => act("choose_pda", {
-            selectedPda: selectedPda,
-            selectedPdaImage: selectedPdaImage,
-          })} />
+          onClick={() =>
+            act('choose_pda', {
+              selectedPda: selectedPda,
+              selectedPdaImage: selectedPdaImage,
+            })
+          }
+        />
       </Table.Cell>
     </Table.Row>
   );
 };
-

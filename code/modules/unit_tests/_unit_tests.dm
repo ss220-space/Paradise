@@ -12,4 +12,5 @@
 #include "test_runner.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
+#include "focus_only_tests.dm"
 #endif
