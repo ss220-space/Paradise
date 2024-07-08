@@ -4,5 +4,5 @@ Pillow==10.3.0
 json5==0.9.14
 
 # changelogs
-PyYaml==5.4
+PyYaml==6.0.1
 beautifulsoup4==4.12.2
