@@ -192,6 +192,15 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	desc = "A positioning system helpful for monitoring prisoners that are implanted with a tracking implant."
 	local = TRUE
 
+/obj/item/gps/mod
+	icon_state = "gps-m"
+	gpstag = "MOD0"
+	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
+
+/obj/item/gps/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
+
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"

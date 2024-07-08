@@ -252,6 +252,7 @@
 	if(!signal_procs[target].len)
 		signal_procs -= target
 
+
 /**
   * Called on a component when a component of the same type was added to the same parent
   *

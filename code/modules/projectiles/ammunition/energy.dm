@@ -296,6 +296,9 @@
 				M.Weaken(8 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+			if(immolate)
+				M.adjust_fire_stacks(immolate)
+				M.IgniteMob()
 		else
 			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
 			add_attack_logs(src, M, "Hit lightly by [src]")

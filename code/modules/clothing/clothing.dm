@@ -26,11 +26,13 @@
 	/// Special flags applied to clothing items only
 	var/clothing_flags = NONE
 	/// Clothing flags that are added/removed when an item is adjusted up/down
-	var/visor_clothing_flags = NONE
-	/// Same as visor_clothing_flags, but for flags_inv
-	var/visor_flags_inv = NONE
-	/// Same as visor_flags_inv, but for flags_inv_transparent
-	var/visor_flags_inv_transparent = NONE
+	var/toggleable_clothing_flags = NONE
+	/// Same as toggleable_clothing_flags, but for flags_inv
+	var/toggleable_flags_inv = NONE
+	/// Same as toggleable_flags_inv, but for flags_inv_transparent
+	var/toggleable_flags_inv_transparent = NONE
+	/// Same as toggleable_flags_inv_transparent, but for flags_cover
+	var/toggleable_flags_cover = NONE
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
@@ -79,10 +81,10 @@
 
 	. = TRUE
 	up = !up
-	clothing_flags ^= visor_clothing_flags
-	flags_inv ^= visor_flags_inv
-	flags_inv_transparent ^= visor_flags_inv_transparent
-	flags_cover ^= initial(flags_cover)
+	clothing_flags ^= toggleable_clothing_flags
+	flags_inv ^= toggleable_flags_inv
+	flags_inv_transparent ^= toggleable_flags_inv_transparent
+	flags_cover ^= toggleable_flags_cover
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
@@ -607,6 +609,7 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
 
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
@@ -652,7 +655,6 @@ BLIND     // can't see anything
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
 	update_equipped_item(update_speedmods = FALSE)
-
 
 //Suit
 /obj/item/clothing/suit
@@ -756,6 +758,8 @@ BLIND     // can't see anything
 	. = ..()
 
 	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_CLOTH_OUTER)
+		if("modsuit" in hide_tail_by_species)
+			return
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
@@ -818,6 +822,7 @@ BLIND     // can't see anything
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
+	equip_delay_self = 4 SECONDS
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")

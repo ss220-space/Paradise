@@ -64,20 +64,14 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	if(!istype(A))
 		return
 	else
-		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, "<span class='warning'>[src] is not safe for use with living creatures, they wouldn't survive the trip back!</span>")
+		if(!check_use_pack(A, user))
 			return
-		if(!isturf(A.loc)) // no extracting stuff inside other stuff
-			return
-		if(A.anchored || (A.move_resist > max_force_fulton))
-			return
-		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
+		to_chat(user, span_notice("You start attaching the pack to [A]..."))
 		if(do_after(user, 5 SECONDS, A))
-			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
-			if(loc == user && istype(user.back, /obj/item/storage/backpack))
-				var/obj/item/storage/backpack/B = user.back
-				if(B.can_be_inserted(src, stop_messages = TRUE))
-					B.handle_item_insertion(src)
+			if(!check_use_pack(A, user))
+				return
+			to_chat(user, span_notice("You attach the pack to [A] and activate it."))
+			user.equip_to_slot_if_possible(src, ITEM_SLOT_BACKPACK, FALSE, TRUE)
 			uses_left--
 			if(uses_left <= 0)
 				user.drop_from_active_hand(src)
@@ -190,6 +184,16 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	name = "extraction holder"
 	desc = "you shouldnt see this"
 	var/atom/movable/stored_obj
+
+/obj/item/extraction_pack/proc/check_use_pack(atom/movable/target, mob/living/carbon/human/user)
+	if(!safe_for_living_creatures && check_for_living_mobs(target))
+		to_chat(user, span_warning("[src] is not safe for use with living creatures, they wouldn't survive the trip back!"))
+		return FALSE
+	if(!isturf(target.loc)) // no extracting stuff inside other stuff
+		return FALSE
+	if(target.anchored || (target.move_resist > max_force_fulton))
+		return FALSE
+	return TRUE
 
 /obj/item/extraction_pack/proc/check_for_living_mobs(atom/A)
 	if(isliving(A))

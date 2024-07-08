@@ -150,12 +150,6 @@
 /obj/item/storage/lockbox/research/deconstruct(disassembled = TRUE) // Get wrecked, Science nerds
 	qdel(src)
 
-/obj/item/storage/lockbox/research/large
-	name = "Large lockbox"
-	desc = "A large lockbox"
-	max_w_class = WEIGHT_CLASS_BULKY
-	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
-	storage_slots = 1
 
 /obj/item/storage/lockbox/research/mantis
 	name = "lockbox(hidden blade implant)"
@@ -196,3 +190,15 @@
 		user.put_in_hands(pride)
 		return
 	return ..()
+
+/obj/item/storage/lockbox/research/modsuit
+	name = "Plating lockbox"
+	desc = "A larger lockbox. Looks a bit less secure than other lockboxes."
+
+/obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
+	. = ..()
+	if(prob(50 / severity) && !broken)
+		locked = FALSE
+		broken = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.

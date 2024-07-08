@@ -37,7 +37,7 @@
 
 		/// This list defines the keys in legacy mode that get passed on to the rebindable input system
 		/// It cannot be bigger since, while typing, the keys would be passed to whatever they are set in the rebind input system
-		var/list/static/legacy_keys = list(
+		var/static/list/legacy_keys = list(
 			"North", "East", "South", "West",
 			"Northeast", "Southeast", "Northwest", "Southwest",
 			"Insert", "Delete",

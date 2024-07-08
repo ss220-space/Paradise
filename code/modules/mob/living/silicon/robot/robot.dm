@@ -395,8 +395,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
 
-			ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 

@@ -168,17 +168,25 @@
 	if(!..())
 		return FALSE
 
-	if(HAS_TRAIT_FROM(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT))
+
+	if(locate(/datum/action/innate/robot_magpulse) in robot.module_actions)
 		return FALSE
 
-	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	var/datum/action/innate/robot_magpulse/act = new
+	act.Grant(robot)
+	robot.module_actions += act
+
 	return TRUE
 
 /obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
-	REMOVE_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	var/datum/action/innate/robot_magpulse/act = locate() in robot.module_actions
+	if(!act)
+		return FALSE
+	act.Deactivate()
+	act.Remove(robot)
+	qdel(act)
 	return TRUE
 
 /obj/item/borg/upgrade/disablercooler

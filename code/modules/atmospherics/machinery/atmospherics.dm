@@ -213,8 +213,9 @@ Pipelines + Other Objects -> Pipe network
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
 
-		playsound(src.loc, W.usesound, 50, 1)
+		playsound(loc, W.usesound, 50, TRUE)
 		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
+
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
 			unsafe_wrenching = TRUE //Oh dear oh dear

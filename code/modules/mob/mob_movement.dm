@@ -55,6 +55,9 @@
 	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
 		return FALSE //This is sota the goto stop mobs from moving var
 
+	if(mob.throwing && mob.throwing.block_movement)
+		return FALSE
+
 	if(mob.control_object)
 		return mob.control_object.possessed_relay_move(mob, direct)
 

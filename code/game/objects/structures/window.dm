@@ -490,14 +490,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 
-/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/window/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	var/shattered = FALSE
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
-		var/obj/item/S = new shardtype(loc)
-		S.embedded_ignore_throwspeed_threshold = TRUE
-		S.throw_impact(C)
-		S.embedded_ignore_throwspeed_threshold = FALSE
+		var/obj/item/shard = new shardtype(loc)
+		shard.embedded_ignore_throwspeed_threshold = TRUE
+		shard.throw_impact(throwned_mob)
+		shard.embedded_ignore_throwspeed_threshold = FALSE
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/grille/G in T.contents)
@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		throwned_mob.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 
 /obj/structure/window/GetExplosionBlock()

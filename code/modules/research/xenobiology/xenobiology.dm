@@ -497,6 +497,13 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
+
+		if(ismodcontrol(O))
+			var/obj/item/mod/control/C = O
+			if(C.active)
+				to_chat(user, "<span class='warning'>It is too dangerous to smear [src] on [C] while it is active!</span>")
+				return
+			C.is_speedslimepotioned = TRUE
 		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
 

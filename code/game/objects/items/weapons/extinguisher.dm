@@ -22,7 +22,7 @@
 	/// Does the welder extinguisher start with water.
 	var/starting_water = TRUE
 	/// Cooldown between uses.
-	var/last_use = 1
+	COOLDOWN_DECLARE(last_use)
 	/// Can we refill this at a water tank?
 	var/refilling = FALSE
 	/// Can we actually fire currently?
@@ -45,7 +45,7 @@
 	flags = null //doesn't CONDUCT
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
-	force = 3.0
+	force = 3
 	materials = list()
 	max_water = 30
 	dog_fashion = null
@@ -53,7 +53,7 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
-	if(!reagents)
+	if(!reagents && starting_water)
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
@@ -87,25 +87,25 @@
 
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user))
-		var/safety_save = safety
-		safety = TRUE
-		if(reagents.total_volume == reagents.maximum_volume)
-			to_chat(user, span_notice("[src] is already full!"))
-			safety = safety_save
-			return TRUE
-		var/obj/structure/reagent_dispensers/watertank/watertank = target
-		var/transferred = watertank.reagents.trans_to(src, max_water)
-		if(transferred > 0)
-			to_chat(user, span_notice("[src] has been refilled by [transferred] units."))
-			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			for(var/datum/reagent/water/reagent as anything in reagents.reagent_list)
-				reagent.cooling_temperature = cooling_power
-		else
-			to_chat(user, span_notice("[watertank] is empty!"))
+	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
+		return FALSE
+	var/safety_save = safety
+	safety = TRUE
+	if(reagents.total_volume == reagents.maximum_volume)
+		to_chat(user, span_notice("[src] is already full!"))
 		safety = safety_save
 		return TRUE
-	return FALSE
+	var/obj/structure/reagent_dispensers/watertank/watertank = target
+	var/transferred = watertank.reagents.trans_to(src, max_water)
+	if(transferred > 0)
+		to_chat(user, span_notice("[src] has been refilled by [transferred] units."))
+		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		for(var/datum/reagent/water/reagent as anything in reagents.reagent_list)
+			reagent.cooling_temperature = cooling_power
+	else
+		to_chat(user, span_notice("[watertank] is empty!"))
+	safety = safety_save
+	return TRUE
 
 
 /obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
@@ -125,9 +125,10 @@
 		to_chat(user, span_danger("[src] is empty."))
 		return
 
-	if(world.time < last_use + 2 SECONDS)
+	if(!COOLDOWN_FINISHED(src, last_use))
 		return
-	last_use = world.time
+
+	COOLDOWN_START(src, last_use, 2 SECONDS)
 
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")

@@ -298,9 +298,7 @@
 	name = "Engineering"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson, /datum/action/innate/robot_magpulse)
 	channels = list("Engineering" = 1)
 	default_skin = "Robot-ENG"
 	borg_skins = list(
@@ -520,9 +518,7 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	module_type = "Miner"
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	channels = list("Supply" = 1)
 	default_skin = "Robot-MNR"
@@ -585,9 +581,7 @@
 	name = "Deathsquad"
 	name_disguise = "NT advanced combat"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	default_skin = "nano_bloodhound"
 	borg_skins = list("Deathsquad" = "nano_bloodhound")
 	has_transform_animation = TRUE
@@ -712,9 +706,7 @@
 /obj/item/robot_module/destroyer
 	name = "Destroyer"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	channels = list("Security" = 1)
 	default_skin = "droidcombat"
 	borg_skins = list("Destroyer" = "droidcombat")
@@ -738,7 +730,7 @@
 /obj/item/robot_module/combat
 	name = "Combat"
 	module_type = "Malf"
-	module_actions = list()
+	module_actions = list(/datum/action/innate/robot_magpulse)
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
 	has_transform_animation = TRUE
@@ -765,9 +757,7 @@
 /obj/item/robot_module/hunter
 	name = "Hunter"
 	module_type = "Standard"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal/alien,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	default_skin = "xenoborg"
 	borg_skins = list("Xenoborg" = "xenoborg")
 

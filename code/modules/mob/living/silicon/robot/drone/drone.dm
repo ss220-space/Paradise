@@ -87,7 +87,8 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-
+	var/datum/action/innate/robot_magpulse/pulse = new()
+	pulse.Grant(src)
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
 	radio.recalculateChannels()

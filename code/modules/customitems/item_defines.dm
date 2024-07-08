@@ -434,9 +434,9 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
-		sallet.visor_clothing_flags = helm.visor_clothing_flags
-		sallet.visor_flags_inv = helm.visor_flags_inv
-		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
+		sallet.toggleable_clothing_flags = helm.toggleable_clothing_flags
+		sallet.toggleable_flags_inv = helm.toggleable_flags_inv
+		sallet.toggleable_flags_inv_transparent = helm.toggleable_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
@@ -473,13 +473,13 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
+// These two fluff items are commented out due to the transfer to MODsuits breaking these. Sprites are still in custom_items.dmi , but they need a resprite to work with MODsuits.
 /obj/item/fluff/pyro_wintersec_kit //DarkLordpyro: Valthorne Haliber
 	name = "winter sec conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -525,14 +525,14 @@
 			H.update_inv_wear_suit()
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
+*/
 
 /obj/item/fluff/sylus_conversion_kit //Decemviri: Sylus Cain
 	name = "cerberus pattern conversion kit"
 	desc = "A securirty hardsuit conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-
+/*
 /obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
@@ -585,11 +585,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-
-#undef USED_MOD_HELM
-#undef USED_MOD_SUIT
-
-
+*/
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////

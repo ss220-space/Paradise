@@ -322,7 +322,8 @@
 /obj/item/paper/contract/infernal/knowledge/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mutations.Add(XRAY)
+	ADD_TRAIT(user, TRAIT_XRAY_VISION, "wishgranter")
+	user.update_sight()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/view_range(null))
 	return ..()
 

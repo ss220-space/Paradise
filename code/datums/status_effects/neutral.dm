@@ -191,6 +191,10 @@
 	id = "charging"
 	alert_type = null
 
+/datum/status_effect/impact_immune
+	id = "impact_immune"
+	alert_type = null
+
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
 	status_type = STATUS_EFFECT_MULTIPLE

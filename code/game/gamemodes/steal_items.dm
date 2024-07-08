@@ -126,10 +126,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/gun/energy/laser/captain
 	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
-/datum/theft_objective/highrisk/captains_jetpack
-	id = "cap_jetpack"
-	name = "the captain's deluxe jetpack"
-	typepath = /obj/item/tank/jetpack/oxygen/captain
+/datum/theft_objective/captains_modsuit
+	id = "cap_modsuit"
+	name = "the captain's Magnate MODsuit"
+	typepath = /obj/item/mod/control/pre_equipped/magnate
 	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/captains_rapier
@@ -356,8 +356,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/medium/space_ce
 	id = "space_ce"
-	typepath = /obj/item/clothing/suit/space/hardsuit/engine/elite
-	name = "продвинутый хардсьют Главного Инженера"
+	typepath = /obj/item/mod/control/pre_equipped/advanced
+	name = "продвинутый модсьют Главного Инженера"
 	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/medium/space_mime
@@ -374,26 +374,26 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/medium/space_rd
 	id = "space_rd"
-	typepath = /obj/item/clothing/suit/space/hardsuit/rd
-	name = "хардсьют директора исследований"
+	typepath = /obj/item/mod/control/pre_equipped/research
+	name = "модсьют директора исследований"
 	protected_jobs = list(JOB_TITLE_RD)
 
 /datum/theft_objective/medium/space_bs
 	id = "space_bs"
-	typepath = /obj/item/clothing/suit/space/hardsuit/blueshield
-	name = "хардсьют офицера \"Синего Щита\""
+	typepath = /obj/item/mod/control/pre_equipped/praetorian
+	name = "модсьют офицера \"Синего Щита\""
 	protected_jobs = list(JOB_TITLE_BLUESHIELD)
 
 /datum/theft_objective/medium/space_warden
 	id = "space_warden"
-	typepath = /obj/item/clothing/suit/space/hardsuit/security/warden
-	name = "хардсьют смотрителя"
+	typepath = /obj/item/mod/control/pre_equipped/safeguard_mk_one
+	name = "модсьют смотрителя"
 	protected_jobs = list(JOB_TITLE_WARDEN)
 
 /datum/theft_objective/medium/space_hos
 	id = "space_hos"
-	typepath = /obj/item/clothing/suit/space/hardsuit/security/hos
-	name = "хардсьют главы службы безопасности"
+	typepath = /obj/item/mod/control/pre_equipped/safeguard_mk_two
+	name = "модсьют главы службы безопасности"
 	protected_jobs = list(JOB_TITLE_HOS)
 
 /datum/theft_objective/medium/rnd_logs_key

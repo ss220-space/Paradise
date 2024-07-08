@@ -86,7 +86,8 @@
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.mutations.Add(LASEREYES)
 				user.mutations.Add(COLDRES)
-				user.mutations.Add(XRAY)
+				ADD_TRAIT(user, TRAIT_XRAY_VISION, WISHGRANTER_TRAIT)
+				user.update_sight()
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))

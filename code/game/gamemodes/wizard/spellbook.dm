@@ -422,12 +422,10 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
-			user.see_in_dark = 8
-			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
+		ADD_TRAIT(user, TRAIT_XRAY_VISION, MAGIC_TRAIT)
+		ADD_TRAIT(user, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+		user.update_sight()
+		to_chat(user, span_notice("The walls suddenly disappear."))
 	return TRUE
 
 /datum/spellbook_entry/item/soulstones

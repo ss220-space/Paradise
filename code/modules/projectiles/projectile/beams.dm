@@ -148,6 +148,7 @@
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	immolate = 1
 
 /obj/item/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
@@ -162,13 +163,6 @@
 /obj/item/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
 	damage = 15
-
-/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
 
 /obj/item/projectile/beam/instakill
 	name = "instagib laser"

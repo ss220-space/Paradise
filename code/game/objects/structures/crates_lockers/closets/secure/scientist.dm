@@ -31,6 +31,7 @@
 	icon_state = "res"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
+	new /obj/item/mod/core/standard(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack/satchel_norm(src)

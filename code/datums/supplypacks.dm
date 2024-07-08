@@ -337,16 +337,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_SECURITY
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 
-/datum/supply_packs/security/hardsuit
-	name = "Security Hardsuit Crate"
-	contains = list(/obj/item/clothing/suit/space/hardsuit/security,
-					/obj/item/clothing/suit/space/hardsuit/security,
+/datum/supply_packs/security/modsuit
+	name = "Security Modsuits Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/security,
+					/obj/item/mod/control/pre_equipped/security,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
 	cost = 180
 	containertype = /obj/structure/closet/crate/secure/gear
 	required_tech = list("toxins" = 6, "combat" = 6)
-	containername = "Security Hardsuit Crate"
+	containername = "Security Modsuits Crate"
 	access = ACCESS_ARMORY
 
 /datum/supply_packs/security/supplies
@@ -819,28 +819,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 	containertype = /obj/structure/closet/crate/engineering
 
-/datum/supply_packs/engineering/hardsuit
-	name = "Engineering Hardsuit Crate"
-	contains = list(/obj/item/clothing/suit/space/hardsuit/engine,
-					/obj/item/clothing/suit/space/hardsuit/engine,
+/datum/supply_packs/engineering/modsuit_eng
+	name = "Engineering Modsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/engineering,
+					/obj/item/mod/control/pre_equipped/engineering,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
 	required_tech = list("toxins" = 5, "engineering" = 4)
-	containername = "Engineering Hardsuit Crate"
+	containername = "Engineering Modsuit Crate"
 	access = ACCESS_ENGINE_EQUIP
 
-/datum/supply_packs/engineering/hardsuit/atmospherics
-	name = "Atmospherics Hardsuit Crate"
-	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos,
-					/obj/item/clothing/suit/space/hardsuit/engine/atmos,
+/datum/supply_packs/engineering/modsuit_atm
+	name = "Atmospherics Modsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/atmospheric,
+					/obj/item/mod/control/pre_equipped/atmospheric,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
 	required_tech = list("toxins" = 6, "plasma" = 4)
-	containername = "Engineering Hardsuit Crate"
+	containername = "Engineering Modsuit Crate"
 	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/engineering/fueltank
@@ -1248,16 +1248,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_MEDICAL
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
 
-/datum/supply_packs/medical/hardsuit
-	name = "Medical Hardsuit Crate"
-	contains = list(/obj/item/clothing/suit/space/hardsuit/medical,
-					/obj/item/clothing/suit/space/hardsuit/medical,
+/datum/supply_packs/medical/modsuit
+	name = "Medical Modsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/medical,
+					/obj/item/mod/control/pre_equipped/medical,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/secure
 	required_tech = list("toxins" = 4, "biotech" = 5)
-	containername = "Medical Hardsuit Crate"
+	containername = "Medical Modsuit Crate"
 	access = ACCESS_MEDICAL
 
 
@@ -1519,6 +1519,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
 	cost = 25
 	containername = "\improper APLU \"Ripley\" circuit crate"
+
+/datum/supply_packs/science/mod_core
+	name = "MOD core Crate"
+	contains = list(/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard)
+	cost = 70
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "\improper MOD core crate"
+	access = ACCESS_ROBOTICS
+	announce_beacons = list("Research Division" = list("Robotics"))
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
@@ -2330,6 +2341,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 12
 	containertype = /obj/structure/largecrate
 	containername = "high-capacity water tank crate"
+
+
+/datum/supply_packs/misc/loader
+	name = "Loader MODsuit Crate"
+	contains = list(/obj/item/mod/control/pre_equipped/loader)
+	cost = 75
+	containertype = /obj/structure/largecrate
+	containername = "Loader MODsuit crate"
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"

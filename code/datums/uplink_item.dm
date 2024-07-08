@@ -777,6 +777,13 @@
 	cost = 33
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/dangerous/combat_defib
+	name = "Combat Defibrillator Module"
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a modsuit."
+	item = /obj/item/mod/module/defibrillator/combat
+	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
@@ -1621,9 +1628,9 @@
 	cost = 7
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Nanite Autoinjector Kit"
-	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
-	item = /obj/item/storage/box/syndie_kit/bonerepair
+	name = "Prototype Nanite Autoinjector"
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs."
+	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 6
 
 /datum/uplink_item/device_tools/syndicate_teleporter
@@ -1702,8 +1709,8 @@
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
-	category = "Space Suits and Hardsuits"
-	surplus = 40
+	category = "Space Suits and MODsuits"
+	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -1713,16 +1720,81 @@
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 18
 
-/datum/uplink_item/suits/hardsuit
-	name = "Syndicate Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
+/datum/uplink_item/suits/thermal
+	name = "MODsuit Thermal Visor Module"
+	desc = "A visor for a MODsuit. Lets you see living beings through walls. Also provides night vision."
+	item = /obj/item/mod/module/visor/thermal
+	cost = 15 // Don't forget, you need to get a modsuit to go with this
+	surplus = 10 //You don't need more than
+
+/datum/uplink_item/suits/night
+	name = "MODsuit Night Visor Module"
+	desc = "A visor for a MODsuit. Lets you see clearer in the dark."
+	item = /obj/item/mod/module/visor/night
+	cost = 5 // It's night vision, rnd pumps out those goggles for anyone man.
+	surplus = 10 //You don't need more than one
+
+/datum/uplink_item/suits/plate_compression
+	name = "MODsuit Plate Compression Module"
+	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules, \
+	you will have to take that module out first."
+	item = /obj/item/mod/module/plate_compression
+	cost = 10
+
+/datum/uplink_item/suits/chameleon_module
+	name = "MODsuit Chameleon Module"
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	item = /obj/item/mod/module/chameleon
+	cost = 10
+
+/datum/uplink_item/suits/noslip
+	name = "MODsuit Anti-Slip Module"
+	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
+	item = /obj/item/mod/module/noslip
+	cost = 5
+
+/datum/uplink_item/suits/springlock_module
+	name = "Heavily Modified Springlock MODsuit Module"
+	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
+		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
+		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
+		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you? \
+		This version of the module has been modified to allow for near instant activation of the MODsuit. \
+		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
+		It is hidden as a DNA lock module. It will block retraction for 10 seconds by default to allow you to follow \
+		up with smoke, but you can multitool the module to disable that."
+	item = /obj/item/mod/module/springlock/bite_of_87
+	cost = 5
+	surplus = 10
+
+/datum/uplink_item/suits/hidden_holster
+	name = "Hidden Holster Module"
+	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
+	item = /obj/item/mod/module/holster/hidden
+	cost = 5
+	surplus = 10
+
+/datum/uplink_item/suits/modsuit
+	name = "Syndicate MODsuit"
+	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Additionally the suit is collapsible, making it small enough to fit within a backpack. Comes packaged with internals. \
+			Comes containing internals. \
 			Nanotrasen crew who spot these suits are known to panic."
-	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 33
+	item = /obj/item/mod/control/pre_equipped/traitor
+	cost = 30
+	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/suits/modsuit_elite
+	name = "Syndicate Elite MODsuit"
+	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
+	Nanotrasen crew who spot these suits are known to *really* panic."
+	item = /obj/item/mod/control/pre_equipped/traitor_elite
+	cost = 45 //45 to start, no holopara / ebow.
+	surplus = 60
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 
 /datum/uplink_item/suits/chameleon_hardsuit
 	name = "Chameleon Hardsuit"
@@ -1732,19 +1804,22 @@
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 
-/datum/uplink_item/suits/hardsuit/elite
-	name = "Elite Syndicate Hardsuit"
-	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	cost = 50
+/datum/uplink_item/suits/elite_mod
+	name = "Elite Syndicate MODsuit"
+	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
+	item = /obj/item/mod/control/pre_equipped/elite
+	cost = 40
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/suits/hardsuit/shielded
-	name = "Shielded Hardsuit"
-	desc = "An advanced hardsuit with built-in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/shielded
-	cost = 150
+/datum/uplink_item/suits/shielded
+	name = "Energy Shield Module"
+	desc = "A personal, protective forcefield typically seen in military applications. \
+		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
+		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
+		though with its' low amount of separate charges, the user remains mortal."
+	item = /obj/item/mod/module/energy_shield
+	cost = 200
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -2082,7 +2157,7 @@
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, additional mender and hypospray, \
-			a medical beam gun implant, a surgery implant, a handheld defibrillator, autoimplanter, health analyzers, and a medical hardsuit."
+			a medical beam gun implant, a surgery implant, a handheld defibrillator, autoimplanter, health analyzers, and a elite modsuit."
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	cost = 175 // normally 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

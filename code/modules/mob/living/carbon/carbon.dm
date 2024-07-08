@@ -4,6 +4,11 @@
 
 
 /mob/living/carbon/Destroy()
+	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
+	if(back)
+		var/obj/item = back
+		temporarily_remove_item_from_inventory(item)
+		qdel(item)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		temporarily_remove_item_from_inventory(item)
@@ -466,21 +471,23 @@
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 		return
+	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
 
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
-	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
 
 
-/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/carbon/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
 		if(D.wielded && D.force)
-			visible_message(span_danger("[src] impales [C] with [D], before dropping them on the ground!"))
-			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			C.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, C) //attack animation / jedi spin
-			C.emote("scream")
+			visible_message(span_danger("[src] impales [throwned_mob] with [D], before dropping them on the ground!"))
+			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
+			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			throwned_mob.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
+			throwned_mob.emote("scream")
 			return
 	*/
 	. = ..()
@@ -859,8 +866,20 @@ so that different stomachs can handle things in different ways VB*/
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(XRAY in mutations)
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		add_sight(SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		nightvision = max(nightvision, 8)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		add_sight(SEE_TURFS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		nightvision = max(nightvision, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	..()

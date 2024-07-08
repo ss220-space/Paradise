@@ -134,3 +134,6 @@
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
 
+#define MODSUIT_TRAIT "modsuit_trait"
+
+#define WISHGRANTER_TRAIT "wishgranter_trait"

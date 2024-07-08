@@ -117,6 +117,12 @@
 	movetypes = (FLYING|FLOATING)
 
 
+/datum/movespeed_modifier/robot_magboots_on
+	multiplicative_slowdown = 2
+	movetypes = GROUND
+	blacklisted_movetypes = (FLOATING|FLYING)
+
+
 /datum/movespeed_modifier/slime_health_mod
 	variable = TRUE
 	movetypes = GROUND

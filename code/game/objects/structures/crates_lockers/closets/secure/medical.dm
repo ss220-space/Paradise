@@ -192,13 +192,12 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Paramedic EVA suit."
+	desc = "A locker with a Rescue MODsuit."
 	icon_state = "medical"
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
-	new /obj/item/clothing/suit/space/eva/paramedic(src)
-	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
+	new /obj/item/mod/control/pre_equipped/rescue(src)
 	new /obj/item/sensor_device(src)
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)

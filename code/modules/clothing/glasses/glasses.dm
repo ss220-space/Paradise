@@ -493,6 +493,7 @@
 	tint = 2
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
+	toggleable_flags_cover = GLASSESCOVERSEYES
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',

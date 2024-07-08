@@ -32,9 +32,9 @@
 /obj/item/clothing/head/helmet/adjust_headgear(mob/user)
 	. = ..()
 	if(.)
-		clothing_flags ^= visor_clothing_flags
-		flags_inv ^= visor_flags_inv
-		flags_inv_transparent ^= visor_flags_inv_transparent
+		clothing_flags ^= toggleable_clothing_flags
+		flags_inv ^= toggleable_flags_inv
+		flags_inv_transparent ^= toggleable_flags_inv_transparent
 
 /obj/item/clothing/head/helmet/detective
 	name = "olive helmet"

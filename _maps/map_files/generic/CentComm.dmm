@@ -47681,7 +47681,7 @@
 /obj/item/gun/syringe/syndicate,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
-/obj/item/storage/box/syndie_kit/bonerepair,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"
