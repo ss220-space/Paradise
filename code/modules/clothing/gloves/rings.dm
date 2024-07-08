@@ -4,7 +4,7 @@
 	gender = "neuter" // not plural anymore
 	material_type = MATERIAL_CLASS_NONE
 	transfer_prints = TRUE
-	fingers_covered = FALSE
+	clothing_flags = NONE
 	icon_state = "ironring"
 	item_state = ""
 	icon = 'icons/obj/clothing/rings.dmi'

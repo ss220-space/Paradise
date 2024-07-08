@@ -67,3 +67,5 @@
 /// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
 #define FIXED_SLOWDOWN (1<<5)
 
+#define FINGERS_COVERED (1<<6)
+
