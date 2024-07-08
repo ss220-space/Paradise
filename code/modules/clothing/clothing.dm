@@ -282,9 +282,10 @@ BLIND     // can't see anything
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
-	body_parts_covered = HANDS|FINGERS
+	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
+	var/fingers_covered = TRUE
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
