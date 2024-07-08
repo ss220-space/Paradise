@@ -5,9 +5,9 @@
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
+	fingers_covered = FALSE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	body_parts_covered = HANDS
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
